@@ -1,0 +1,4607 @@
+# Thai translation for openshot
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
+# This file is distributed under the same license as the openshot package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: openshot\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2012-09-26 09:57+0000\n"
+"PO-Revision-Date: 2012-01-10 04:42+0000\n"
+"Last-Translator: noppornchai <Unknown>\n"
+"Language-Team: Thai <th@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-09-27 04:41+0000\n"
+"X-Generator: Launchpad (build 16033)\n"
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:354
+#: /home/jonathan/openshot/openshot/windows/ImportImageSeq.py:79
+#: /home/jonathan/openshot/openshot/windows/ImportImageSeq.py:83
+#: /home/jonathan/openshot/openshot/windows/ImportImageSeq.py:129
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:654
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:658
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:662
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:666
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:670
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:674
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:678
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:682
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:686
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:690
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:694
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:698
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:702
+#: /home/jonathan/openshot/openshot/windows/NewProject.py:186
+#: /home/jonathan/openshot/openshot/windows/NewProject.py:190
+#: /home/jonathan/openshot/openshot/uploads/manager.py:91
+#: /home/jonathan/openshot/openshot/uploads/manager.py:96
+#: /home/jonathan/openshot/openshot/uploads/manager.py:101
+#: /home/jonathan/openshot/openshot/uploads/manager.py:106
+#: /home/jonathan/openshot/openshot/uploads/manager.py:114
+#: /home/jonathan/openshot/openshot/uploads/manager.py:186
+#: /home/jonathan/openshot/openshot/uploads/manager.py:261
+#: /home/jonathan/openshot/openshot/uploads/manager.py:315
+#: /home/jonathan/openshot/openshot/uploads/manager.py:320
+#: /home/jonathan/openshot/openshot/uploads/manager.py:326
+#: /home/jonathan/openshot/openshot/uploads/manager.py:331
+#: /home/jonathan/openshot/openshot/uploads/manager.py:370
+#: /home/jonathan/openshot/openshot/uploads/manager.py:393
+msgid "Validation Error!"
+msgstr "การตรวจสอบผิดพลาด!"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1732
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1745
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1758
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1770
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1781
+#: /home/jonathan/openshot/openshot/windows/ImportTransitions.py:96
+#: /home/jonathan/openshot/openshot/windows/UploadVideo.py:116
+#: /home/jonathan/openshot/openshot/windows/ExportXML.py:74
+#: /home/jonathan/openshot/openshot/windows/OpenProject.py:74
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:426
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:482
+#: /home/jonathan/openshot/openshot/classes/theme.py:58
+#: /home/jonathan/openshot/openshot/classes/open_project.py:144
+msgid "Error!"
+msgstr "ผิดพลาด!"
+
+#: /home/jonathan/openshot/openshot/uploads/manager.py:186
+msgid ""
+"There was an error uploading this video to YouTube.  Please check your "
+"username, password, and be sure a valid video file is selected and try again."
+msgstr ""
+"มีข้อผิดพลาดการอัปโหลดวิดีโอไปยัง YouTube. "
+"กรุณาตรวจสอบชื่อผู้ใช้รหัสผ่านของคุณและให้แน่ใจว่าไฟล์วิดีโอที่ถูกต้องจะถูกเล"
+"ือก และลองอีกครั้ง"
+
+#: /home/jonathan/openshot/openshot/uploads/manager.py:261
+msgid "Vimeo authentication has expired."
+msgstr "การยืนยัน Vimeo ได้หมดอายุแล้ว"
+
+#: /home/jonathan/openshot/openshot/uploads/manager.py:331
+msgid ""
+"Please enter a valid verification code.  Click the 'Authorize' button and "
+"login to the website.  Confirm the authorization, and copy the verification "
+"code."
+msgstr ""
+"กรุณาป้อนรหัสยืนยันที่ถูกต้อง คลิกที่ปุ่ม 'Authorize' "
+"และเข้าสู่ระบบไปยังเว็บไซต์ เพื่อยืนยันและคัดลอกรหัสยืนยัน"
+
+#: /home/jonathan/openshot/openshot/uploads/manager.py:370
+msgid ""
+"There was an error authorizing OpenShot.  Please be sure to enter the "
+"correct verification code from vimeo.com."
+msgstr ""
+"การอนุญาต OpenShot เกิดข้อผิดพลาด "
+"กรุณาตรวจสอบว่าได้ป้อนรหัสยืนยันที่ถูกต้องจาก vimeo.com"
+
+#: /home/jonathan/openshot/openshot/windows/TreeEffects.py:48
+#: /home/jonathan/openshot/openshot/windows/TreeFiles.py:47
+#: /home/jonathan/openshot/openshot/windows/TreeBlender.py:44
+msgid "Thumb"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/TreeEffects.py:49
+#: /home/jonathan/openshot/openshot/windows/TreeBlender.py:45
+msgid "Name"
+msgstr "ชื่อ"
+
+#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:36
+#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:85
+#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:158
+msgid "Transition"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:36
+#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:79
+#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:134
+#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:152
+#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:211
+#: /home/jonathan/openshot/openshot/effects/mask0mate.xml
+msgid "Mask"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:43
+#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:117
+#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:215
+msgid "Up"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:43
+#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:122
+msgid "Down"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:223
+msgid "Modified transition properties"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/BlenderGenerator.py:651
+#, python-format
+msgid ""
+"\n"
+"\n"
+"Version Detected:\n"
+"%s"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/BlenderGenerator.py:654
+#, python-format
+msgid ""
+"\n"
+"\n"
+"Error Output:\n"
+"%s"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/BlenderGenerator.py:658
+msgid "Blender Error"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/BlenderGenerator.py:658
+#, python-format
+msgid ""
+"Blender, the free open source 3D content creation suite is required for this "
+"action (http://www.blender.org).\n"
+"\n"
+"Please check the preferences in OpenShot and be sure the Blender executable "
+"is correct.  This setting should be the path of the 'blender' executable on "
+"your computer.  Also, please be sure that it is pointing to Blender version "
+"%s or greater.\n"
+"\n"
+"Blender Path:\n"
+"%s%s"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/BlenderGenerator.py:704
+#: /home/jonathan/openshot/openshot/windows/ImportImageSeq.py:144
+#: /home/jonathan/openshot/openshot/classes/files.py:270
+#: /home/jonathan/openshot/openshot/classes/files.py:372
+msgid "Added file"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/BlenderGenerator.py:708
+#: /home/jonathan/openshot/openshot/windows/ImportImageSeq.py:148
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:85
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:575
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:672
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:676
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:680
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:684
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:688
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:692
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:696
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:700
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:713
+#: /home/jonathan/openshot/openshot/classes/video.py:138
+msgid "Image Sequence"
+msgstr "ลำดับภาพ"
+
+#: /home/jonathan/openshot/openshot/windows/BlenderGenerator.py:874
+msgid "No frame was found in the output from Blender"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:85
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:110
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:334
+msgid "No Transition"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:86
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:337
+msgid "Random Transition"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:87
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:88
+#: /home/jonathan/openshot/openshot/windows/IcvTransitions.py:85
+msgid "Dissolve"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:121
+msgid "New Track 1"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:122
+msgid "New Track 2"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:126
+msgid "New Track"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:156
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:161
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3243
+#: /home/jonathan/openshot/openshot/windows/ui/Main_fade_menu.ui:10
+msgid "No Fade"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:156
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:372
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1140
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1509
+msgid "Fade In"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:156
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:377
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1154
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1520
+msgid "Fade Out"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:156
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:382
+msgid "Fade In & Out"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:173
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:178
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3460
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:10
+msgid "No Animation"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:173
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3467
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:46
+msgid "Zoom In (100% to 150%)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:173
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3471
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:26
+msgid "Zoom In (50% to 100%)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:173
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3483
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:66
+msgid "Zoom Out (100% to 50%)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:173
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3487
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:76
+msgid "Zoom Out (150% to 100%)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:354
+msgid "The top track must be higher than the bottom track."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:348
+msgid "Session started"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:402
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:117
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:167
+msgid "Error"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:402
+msgid ""
+"Not all effects can be loaded. OpenShot can not find the frei0r effect "
+"library installed. Please install the frei0r-plugins package from your "
+"package manager.\n"
+"\n"
+"OpenShot will still continue to work, but will have less effects to choose "
+"from."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1070
+#: /home/jonathan/openshot/openshot/windows/TreeFiles.py:59
+msgid "Choose a Video or Audio File to Begin"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1470
+msgid "Added clip"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1526
+msgid "Save changes to project \"{0}\" before closing?"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1526
+msgid "If you close without saving, your changes will be discarded."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1526
+msgid "Close _without saving"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1732
+msgid ""
+"Unable to open the Help Contents. Please ensure the openshot-doc package is "
+"installed."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1745
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1758
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1770
+msgid "Unable to open the Launchpad web page."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1781
+msgid "Unable to open the web page."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1874
+msgid "Openshot Error!"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1874
+msgid "The timeline is empty, there is nothing to export."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2013
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2052
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2131
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2153
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2183
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1312
+msgid "Video Preview"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2015
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2054
+#, python-format
+msgid "Video Preview (%sX)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2161
+msgid "Video Preview (Paused)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2388
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2871
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2884
+#: /home/jonathan/openshot/openshot/classes/sequences.py:50
+#: /home/jonathan/openshot/openshot/classes/sequences.py:51
+#, python-format
+msgid "Track %s"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2505
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2524
+#, python-format
+msgid "%s seconds"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2616
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:91
+msgid "Empty Folder "
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2616
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:91
+msgid "The selected folder was empty."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2618
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:93
+msgid "Empty Folders"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2618
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:93
+msgid "The selected folders were empty."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2622
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:97
+msgid "Unsupported File Type"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2622
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:97
+msgid "OpenShot does not support this file type."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2624
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:99
+msgid "Unsupported File Types"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2624
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:99
+msgid "OpenShot supports none of the file types of the selected files."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2628
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:103
+msgid "Already Imported File"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2628
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:103
+msgid "The selected file has already been imported to the project."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2630
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:105
+msgid "Already Imported Files"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2630
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:105
+msgid "All of the selected files have already been imported to the project."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2633
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:108
+msgid "File Import Error"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2633
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:108
+msgid ""
+"The selected files either have an unsupported file type or have already been "
+"imported to the project."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2900
+msgid "Please enter a track name."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2922
+msgid "Cleared track"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2933
+msgid "Removed track"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2941
+msgid "Moved track up"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2961
+msgid "Moved track down"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3005
+msgid "Removed marker"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3030
+#: /home/jonathan/openshot/openshot/windows/ui/Main_transition_properties.ui:36
+msgid "Convert to Mask"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3031
+#: /home/jonathan/openshot/openshot/windows/ui/Main_transition_properties.ui:62
+msgid "Remove Transition"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3034
+msgid "Convert to Transition"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3035
+msgid "Remove Mask"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3087
+msgid "Changed transition type"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3124
+#: /home/jonathan/openshot/openshot/classes/transition.py:255
+msgid "Removed transition"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3144
+msgid "Please enter the # of seconds to shift the transitions:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3178
+msgid "Shifted transitions"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3254
+#: /home/jonathan/openshot/openshot/windows/ui/Main_fade_menu.ui:26
+msgid "Fade In (Fast)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3263
+#: /home/jonathan/openshot/openshot/windows/ui/Main_fade_menu.ui:36
+msgid "Fade Out (Fast)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3272
+#: /home/jonathan/openshot/openshot/windows/ui/Main_fade_menu.ui:46
+msgid "Fade In and Out (Fast)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3283
+#: /home/jonathan/openshot/openshot/windows/ui/Main_fade_menu.ui:61
+msgid "Fade In (Slow)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3292
+#: /home/jonathan/openshot/openshot/windows/ui/Main_fade_menu.ui:71
+msgid "Fade Out (Slow)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3301
+#: /home/jonathan/openshot/openshot/windows/ui/Main_fade_menu.ui:81
+msgid "Fade In and Out (Slow)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3352
+#: /home/jonathan/openshot/openshot/windows/ui/Main_rotate_menu.ui:10
+msgid "No Rotation"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3356
+#: /home/jonathan/openshot/openshot/windows/ui/Main_rotate_menu.ui:26
+msgid "Rotate 90 (Right)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3360
+#: /home/jonathan/openshot/openshot/windows/ui/Main_rotate_menu.ui:36
+msgid "Rotate 90 (Left)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3364
+#: /home/jonathan/openshot/openshot/windows/ui/Main_rotate_menu.ui:46
+msgid "Rotate 180 (Flip)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3475
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:36
+msgid "Zoom In (75% to 100%)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3479
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:56
+msgid "Zoom Out (100% to 75%)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3493
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:91
+msgid "Center to Top"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3497
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:101
+msgid "Center to Left"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3501
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:111
+msgid "Center To Right"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3505
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:121
+msgid "Center to Bottom"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3510
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:146
+msgid "Left to Center"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3514
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:156
+msgid "Right to Center"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3518
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:136
+msgid "Top to Center"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3522
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:166
+msgid "Bottom to Center"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3527
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:191
+msgid "Left to Right"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3531
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:201
+msgid "Right to Left"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3535
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:181
+msgid "Top to Bottom"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3539
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:211
+msgid "Bottom to Top"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3596
+#: /home/jonathan/openshot/openshot/windows/ui/Main_layout_menu.ui:10
+msgid "Reset Layout"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3602
+#: /home/jonathan/openshot/openshot/windows/ui/Main_layout_menu.ui:36
+msgid "1/4 Size - Top Left"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3606
+#: /home/jonathan/openshot/openshot/windows/ui/Main_layout_menu.ui:46
+msgid "1/4 Size - Top Right"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3610
+#: /home/jonathan/openshot/openshot/windows/ui/Main_layout_menu.ui:56
+msgid "1/4 Size - Bottom Left"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3614
+#: /home/jonathan/openshot/openshot/windows/ui/Main_layout_menu.ui:66
+msgid "1/4 Size - Bottom Right"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3618
+#: /home/jonathan/openshot/openshot/windows/ui/Main_layout_menu.ui:26
+msgid "1/4 Size - Center"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3622
+#: /home/jonathan/openshot/openshot/windows/ui/Main_layout_menu.ui:91
+msgid "Show All (Distort)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3626
+#: /home/jonathan/openshot/openshot/windows/ui/Main_layout_menu.ui:81
+msgid "Show All (Maintain Ratio)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3774
+#: /home/jonathan/openshot/openshot/classes/clip.py:2222
+msgid "Changed visibility of clip"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3784
+#: /home/jonathan/openshot/openshot/classes/clip.py:2262
+msgid "Changed audio of clip"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3841
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3930
+msgid "Shifted clips"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3876
+#: /home/jonathan/openshot/openshot/classes/clip.py:1799
+msgid "Removed clip"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3896
+msgid "Please enter the # of seconds to shift the clips:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4038
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4469
+msgid "Video converted to Image Sequence"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4070
+msgid "Replaced Clip"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4109
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:113
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:626
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:628
+msgid "Import Files..."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4114
+msgid "Create Folder"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4119
+msgid "Add to Timeline..."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4124
+msgid "Preview File"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4129
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:167
+msgid "Convert To Image Sequence"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4134
+msgid "Thumbnail View"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4139
+msgid "Detail View"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4144
+msgid "Move File(s) to Folder"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4161
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4162
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4330
+msgid "Remove from Folder"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4173
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:185
+msgid "Edit Title (Simple)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4178
+msgid "Edit Title (Inkscape)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4183
+msgid "Remove from Project"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4188
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:95
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:269
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:617
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:819
+msgid "Upload to Web"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4193
+#: /home/jonathan/openshot/openshot/windows/ui/FileProperties.ui:10
+msgid "File Properties"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4358
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4409
+#: /home/jonathan/openshot/openshot/classes/open_project.py:82
+#: /home/jonathan/openshot/openshot/classes/restore_state.py:80
+msgid "The following file(s) no longer exist."
+msgstr "ไฟล์ตามรายการนี้ไม่มีแล้ว"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4520
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4523
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4539
+#: /home/jonathan/openshot/openshot/windows/Titles.py:173
+#: /home/jonathan/openshot/openshot/windows/Titles.py:346
+#: /home/jonathan/openshot/openshot/windows/Titles.py:349
+#: /home/jonathan/openshot/openshot/windows/Titles.py:536
+#: /home/jonathan/openshot/openshot/windows/preferences.py:522
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:752
+#: /home/jonathan/openshot/openshot/classes/files.py:164
+msgid "OpenShot Error"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4520
+#: /home/jonathan/openshot/openshot/windows/Titles.py:346
+#, python-format
+msgid "Please install %s to use this function."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4523
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4539
+#: /home/jonathan/openshot/openshot/windows/Titles.py:349
+#, python-format
+msgid "There was an error opening '%s', is it installed?"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/Profiles.py:172
+msgid "A profile with this name already exists. Please use another name."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/Profiles.py:182
+msgid "Please enter a profile name."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/Profiles.py:187
+msgid "Please enter a valid size."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/Profiles.py:256
+msgid "Do you want to save this profile?."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/Profiles.py:270
+#, python-format
+msgid "Are you sure you want to delete the profile %s?"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/Profiles.py:304
+#, python-format
+msgid "The profile %s cannot be deleted."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/Profiles.py:339
+#: /home/jonathan/openshot/openshot/windows/Profiles.py:351
+msgid "The profile has been successfully imported."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/Profiles.py:341
+#, python-format
+msgid "There was an error extracting the file %s"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/Profiles.py:353
+#, python-format
+msgid "There was an error copying the file %s"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:60
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:620
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:699
+msgid "Normal Speed"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:67
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:768
+msgid "Forward"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:67
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:762
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:909
+#: /home/jonathan/openshot/openshot/effects/mirror.xml
+msgid "Reverse"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:74
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:595
+msgid "Start of Clip"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:74
+msgid "End of Clip"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:90
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:650
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:671
+msgid "{0} seconds"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:1020
+msgid "Modified clip properties"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ImportImageSeq.py:79
+#, python-format
+msgid ""
+"Please enter a valid file name.  The file name must have a %d (or %04d) "
+"where the number section of the file name is supposed to be.  For example:  "
+"MyFile_%d.png."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ImportImageSeq.py:83
+msgid "Please enter an integer in the Frames per Image textbox."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ImportImageSeq.py:129
+msgid ""
+"At least 2 images must match the file name pattern in the selected folder."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/Titles.py:173
+msgid "The Title name cannot be blank, the title file has not been created."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/Titles.py:230
+msgid "Please enter a name for the new Title file."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/Titles.py:231
+msgid "Enter Name"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/Titles.py:234
+msgid "New Title"
+msgstr "ใส่ชื่อใหม่"
+
+#: /home/jonathan/openshot/openshot/windows/Titles.py:238
+#: /home/jonathan/openshot/openshot/windows/ui/TransitionProperties.ui:50
+msgid "Name:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/Titles.py:262
+#, python-format
+msgid ""
+"An image with the name '%s' already exists in the project.\n"
+"Do you want to overwrite it?"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/Titles.py:263
+msgid "Overwrite Image?"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/Titles.py:362
+msgid "Edited title"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/Titles.py:536
+#: /home/jonathan/openshot/openshot/windows/preferences.py:522
+#, python-format
+msgid "Unexpected Error '%s' while writing to '%s'."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ImportTransitions.py:92
+msgid "Transition Imported successfully!"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ImportTransitions.py:96
+msgid "There was an error importing the Transition!"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/TreeFiles.py:48
+msgid "File"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/TreeFiles.py:49
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:530
+msgid "Length"
+msgstr "ความยาว"
+
+#: /home/jonathan/openshot/openshot/windows/TreeFiles.py:50
+#: /home/jonathan/openshot/openshot/windows/TreeFiles.py:138
+msgid "Label"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/preferences.py:59
+#: /home/jonathan/openshot/openshot/windows/preferences.py:74
+#: /home/jonathan/openshot/openshot/windows/preferences.py:105
+#: /home/jonathan/openshot/openshot/windows/preferences.py:112
+#: /home/jonathan/openshot/openshot/windows/preferences.py:239
+#: /home/jonathan/openshot/openshot/windows/preferences.py:252
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:536
+#: /home/jonathan/openshot/openshot/windows/TreeHistory.py:69
+msgid "Yes"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/preferences.py:59
+#: /home/jonathan/openshot/openshot/windows/preferences.py:74
+#: /home/jonathan/openshot/openshot/windows/preferences.py:107
+#: /home/jonathan/openshot/openshot/windows/preferences.py:114
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:538
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:298
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:547
+msgid "No"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/preferences.py:63
+#: /home/jonathan/openshot/openshot/windows/preferences.py:119
+#: /home/jonathan/openshot/openshot/windows/preferences.py:262
+msgid "Small"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/preferences.py:63
+#: /home/jonathan/openshot/openshot/windows/preferences.py:121
+msgid "Medium"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/preferences.py:81
+msgid "Video Codecs"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/preferences.py:85
+msgid "Audio Codecs"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/preferences.py:89
+msgid "Formats"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/preferences.py:460
+msgid "OpenShot Warning"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/preferences.py:460
+msgid "Invalid or empty preferences file found, loaded default values"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/IcvTransitions.py:189
+msgid "There was an error loading user created transitions."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/UploadVideo.py:116
+msgid "Unable to open the verification web page."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/UploadVideo.py:169
+#: /home/jonathan/openshot/openshot/windows/UploadVideo.py:173
+#: /home/jonathan/openshot/openshot/windows/UploadVideo.py:176
+msgid "Upload Successful!"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/UploadVideo.py:169
+#: /home/jonathan/openshot/openshot/windows/UploadVideo.py:173
+#: /home/jonathan/openshot/openshot/windows/UploadVideo.py:176
+msgid "Your video has been successfully uploaded!"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ExportXML.py:42
+msgid "MLT XML (*.mlt)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ExportXML.py:74
+msgid "There was an error saving this project as XML."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/About.py:65
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Derrick https://launchpad.net/~angyii\n"
+"  Fzo https://launchpad.net/~somboon\n"
+"  noppornchai https://launchpad.net/~nopporn-chai"
+
+#: /home/jonathan/openshot/openshot/windows/OpenProject.py:42
+msgid "OpenShot Project (*.osp)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/OpenProject.py:74
+msgid ""
+"There was an error opening this project file.  Please be sure you open the "
+"correct *.osp file."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:117
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:167
+msgid "There was an error importing the selected file(s)."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:85
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:584
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:717
+msgid "Video & Audio"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:95
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:100
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:245
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:745
+msgid "Export to Folder"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:114
+#: /home/jonathan/openshot/openshot/export_presets/youtube.xml
+msgid "YouTube"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:306
+#: /home/jonathan/openshot/openshot/export_presets/format_avi_mpeg2.xml
+msgid "All Formats"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:308
+#: /home/jonathan/openshot/openshot/export_presets/format_ogg_libvorbis.xml
+msgid "OGG (theora/vorbis)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:364
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:372
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:393
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:409
+msgid "Low"
+msgstr "ต่ำ"
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:364
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:372
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:395
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:410
+msgid "Med"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:364
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:372
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:397
+msgid "High"
+msgstr "สูง"
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:426
+#, python-format
+msgid ""
+"%s is not a valid OpenShot profile. Profile settings will not be applied."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:477
+msgid ""
+"The following codec(s) are missing from your system:\n"
+"\n"
+"{missing_codecs}\n"
+"\n"
+"You may need to install packages such as libavformat-extra to enable the "
+"missing codecs.\n"
+"<a href='https://answers.launchpad.net/openshot/+faq/1040'>Learn More</a>"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:482
+msgid ""
+"The following codec(s) are missing from your system:\n"
+"\n"
+"{missing_codecs}\n"
+"\n"
+"You may need to install packages such as libavformat-extra to enable the "
+"missing codecs."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:654
+msgid "Please enter a valid File Name."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:658
+msgid "Please select a valid Project Type."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:662
+msgid "Please select a valid Target."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:666
+msgid "Please select a valid Profile."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:670
+msgid "Please select a valid Quality."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:674
+msgid "Please enter a valid Image Format."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:678
+msgid "Please enter a valid Video Format."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:682
+msgid "Please enter a valid Video Codec."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:686
+msgid "Please enter a valid Bit Rate."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:690
+msgid "Please enter a valid Audio Codec."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:694
+msgid "Please enter a valid Sample Rate."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:698
+msgid "Please enter a valid Audio Channels."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:702
+msgid "Please enter a valid Audio Bit Rate."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:746
+#: /home/jonathan/openshot/openshot/windows/NewProject.py:198
+msgid "Confirm Overwrite"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:746
+#, python-format
+msgid ""
+"There is already a video file named %s.%s in the selected export folder. "
+"Would you like to overwrite it?"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:752
+msgid ""
+"You do not have write permissions to the selected folder, please select "
+"another location."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:796
+msgid "Export Complete"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:797
+#, python-format
+msgid ""
+"The video has been successfully exported to\n"
+"%s"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/TreeHistory.py:44
+msgid "Current"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/TreeHistory.py:45
+#: /home/jonathan/openshot/openshot/effects/coloradj_RGB.xml
+msgid "Action"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/NewProject.py:75
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:170
+msgid "Save Project As..."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/NewProject.py:86
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:8
+msgid "Create a Project"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/NewProject.py:89
+#: /home/jonathan/openshot/openshot/classes/project.py:71
+msgid "Default Project"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/NewProject.py:186
+msgid "Please enter a valid project name."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/NewProject.py:190
+msgid "Please enter a valid project type."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/NewProject.py:198
+#, python-format
+msgid ""
+"There is already a project named %s%s in the selected folder. Would you like "
+"to overwrite it?"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/NewProject.py:219
+msgid "New project"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/video.py:349
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1246
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1248
+msgid "Play"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/video.py:377
+msgid "Pause"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/thumbnail.py:100
+msgid "Warning!"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/thumbnail.py:100
+#, python-format
+msgid ""
+"The file %s has properties that may prevent it working properly in "
+"OpenShot.\n"
+"You may need to transcode it to another format."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/sequences.py:80
+msgid "Added marker"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/sequences.py:138
+msgid "Added Track"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/sequences.py:145
+msgid "Renamed track"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:63
+msgid "usage: %prog [options] inputfile.osp"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:68
+msgid "destination file-name"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:75
+msgid "export folder"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:83
+msgid "export as image sequence"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:91
+msgid "export as video or audio file"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:98
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:105
+msgid "set video codec"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:112
+msgid "set video bitrate in format 'number kb/s' or 'number Mb/s'"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:119
+msgid "set audio codec"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:126
+msgid "set audio sample rate"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:133
+msgid "set number of audio channels"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:140
+msgid "set video bitrate in format 'number kb/s'"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:146
+msgid "Error: "
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:152
+msgid "Warning: "
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:160
+msgid "Please specify an input project-file!"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:164
+msgid "Too many arguments!"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:216
+msgid "rendering options:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:217
+msgid "container type:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:218
+msgid "video codec:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:219
+msgid "video bitrate:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:220
+msgid "audio codec:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:221
+msgid "audio sample rate:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:222
+msgid "channels:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:223
+msgid "audio bitrate:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:240
+msgid "generating XML file for rendering"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:279
+msgid "Starting rendering to "
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:330
+msgid "program interrupted by user"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:337
+msgid "project file correctly rendered"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/theme.py:58
+#, python-format
+msgid ""
+"Unable to load theme XML file: %s.  OpenShot will use the blue_glass XML "
+"theme file instead."
+msgstr ""
+"ไม่สามารถโหลด ธีม XML file: %s. OpenShot จะใช้ธีมในไฟล์ blue_glass XML theme "
+"แทน"
+
+#: /home/jonathan/openshot/openshot/classes/transition.py:537
+msgid "Resized transition"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/transition.py:539
+msgid "Moved transition"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/open_project.py:96
+msgid "The following transition(s) no longer exist."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/open_project.py:144
+msgid ""
+"There was an error opening this project file.  Please be sure you are "
+"selecting a valid .OSP project file."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/track.py:217
+#: /home/jonathan/openshot/openshot/classes/track.py:271
+msgid "Video Visible"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/track.py:220
+#: /home/jonathan/openshot/openshot/classes/track.py:262
+msgid "Video not Visible"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/track.py:223
+#: /home/jonathan/openshot/openshot/classes/track.py:305
+msgid "Sound Activated"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/track.py:226
+#: /home/jonathan/openshot/openshot/classes/track.py:296
+msgid "Sound Deactivated"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/track.py:278
+msgid "Changed visibility of track"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/track.py:312
+msgid "Changed audio of track"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/clip.py:191
+msgid "Added effect"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/clip.py:1977
+msgid "Sliced clip"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/clip.py:2110
+msgid "Moved clip"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/clip.py:2148
+msgid "Resized clip"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/files.py:164
+#, python-format
+msgid "The folder %s already exists in this project."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/files.py:172
+msgid "Added folder"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/files.py:324
+#, python-format
+msgid "Would you like to import %s as an image sequence?"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/files.py:519
+msgid "Updated Label"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/files.py:546
+msgid "Removed file"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/files.py:555
+msgid "Removed folder"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/files.py:632
+msgid "Moved to folder"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/files.py:645
+msgid "Removed from folder"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/project.py:89
+msgid "Default Sequence 1"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/classes/project.py:348
+msgid "Opened project"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/uploads/manager.py:66
+#: /home/jonathan/openshot/openshot/uploads/manager.py:293
+#: /home/jonathan/openshot/openshot/export_presets/youtube.xml
+msgid "Web"
+msgstr "เว็บ"
+
+#: /home/jonathan/openshot/openshot/uploads/manager.py:66
+#: /home/jonathan/openshot/openshot/export_presets/youtube_HD.xml
+msgid "YouTube-HD"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/uploads/manager.py:91
+#: /home/jonathan/openshot/openshot/uploads/manager.py:315
+msgid "Please choose a valid video file."
+msgstr "กรุณาเลือกไฟล์วิดีโอที่ถูกต้อง"
+
+#: /home/jonathan/openshot/openshot/uploads/manager.py:96
+#: /home/jonathan/openshot/openshot/uploads/manager.py:320
+msgid "Please enter a valid title."
+msgstr "กรุณาใส่ชื่อที่ถูกต้อง"
+
+#: /home/jonathan/openshot/openshot/uploads/manager.py:101
+#: /home/jonathan/openshot/openshot/uploads/manager.py:326
+msgid "Please enter a valid description."
+msgstr "กรุณาใส่คำอธิบายที่ถูกต้อง"
+
+#: /home/jonathan/openshot/openshot/uploads/manager.py:106
+msgid "Please enter a valid username."
+msgstr "กรุณาใส่ชื่อผู้ใช้ที่ถูกต้อง"
+
+#: /home/jonathan/openshot/openshot/uploads/manager.py:114
+msgid "Please enter a valid password."
+msgstr "โปรดใส่รหัสผ่านที่ถูกต้อง"
+
+#: /home/jonathan/openshot/openshot/uploads/manager.py:293
+#: /home/jonathan/openshot/openshot/export_presets/vimeo_HD.xml
+msgid "Vimeo-HD"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/uploads/manager.py:393
+msgid "There was an error uploading to Vimeo."
+msgstr "การอัปโหลดไปยัง Vimeo ผิดพลาด"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:60
+msgid "_File"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:69
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:527
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:529
+msgid "New Project..."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:82
+msgid "Open Project..."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:95
+msgid "Recent Projects"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:126
+msgid "Import Image Sequence..."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:139
+msgid "Import New Transition..."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:158
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:560
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:341
+msgid "Save Project"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:183
+msgid "Export XML..."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:202
+msgid "Export Video..."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:215
+msgid "Upload Video..."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:253
+msgid "_Edit"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:314
+msgid "_Title"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:323
+msgid "New Title..."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:336
+msgid "New Animated Title..."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:356
+msgid "_View"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:368
+msgid "Toolbar"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:379
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1143
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1144
+msgid "History"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:388
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:390
+msgid "Fullscreen"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:405
+msgid "_Help"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:414
+msgid "Contents"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:434
+msgid "_Report a Bug..."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:447
+msgid "_Ask a Question..."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:460
+msgid "_Translate this Application..."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:473
+msgid "_Donate"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:543
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:545
+#: /home/jonathan/openshot/openshot/windows/ui/OpenProject.ui:10
+#: /home/jonathan/openshot/openshot/windows/ui/OpenProject.ui:45
+msgid "Open Project"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:562
+msgid "Save"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:585
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:587
+msgid "Undo"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:601
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:603
+msgid "Redo"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:648
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:650
+msgid "Take Snapshot"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:663
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:665
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:7
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:957
+msgid "Export Video"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:707
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:881
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:995
+msgid "Show All"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:711
+msgid "Show all files"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:726
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1014
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1635
+msgid "Video"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:730
+msgid "Show only video & image files"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:745
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1033
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1294
+msgid "Audio"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:749
+msgid "Show only audio files"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:764
+msgid "Image"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:768
+msgid "Show only image files"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:864
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:865
+msgid "Project Files"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:885
+msgid "Show all transitions"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:900
+msgid "Common"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:904
+msgid "Show only common transitions"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:977
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:978
+msgid "Transitions"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:999
+msgid "Show all effects"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1018
+msgid "Show only video effects"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1037
+msgid "Show only audio effects"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1110
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1111
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:2047
+msgid "Effects"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1215
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1217
+msgid "Seek to Beginning"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1231
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1233
+msgid "Seek Backward"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1261
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1263
+msgid "Seek Forward"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1276
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1278
+msgid "Seek to Ending"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1346
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1348
+msgid "Add Track"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1370
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1372
+msgid "Arrow Tool"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1385
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1387
+msgid "Razor Tool"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1401
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1403
+msgid "Resize Tool"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1416
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1418
+msgid "Snapping Tool"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1440
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1442
+msgid "Add Marker"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1454
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1456
+msgid "Previous Marker"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1469
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1471
+msgid "Next Marker"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1495
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1497
+msgid "Zoom In"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1516
+msgid "Slide to Zoom"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1539
+msgid "Number of seconds between each line on the timeline"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1540
+msgid "15 seconds"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1552
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1554
+msgid "Zoom Out"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/UploadVideo.ui:9
+#: /home/jonathan/openshot/openshot/windows/ui/UploadVideo.ui:341
+msgid "Upload Video"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/UploadVideo.ui:32
+msgid "Video File:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/UploadVideo.ui:56
+msgid "Upload To:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/UploadVideo.ui:87
+msgid "Title:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/UploadVideo.ui:122
+msgid "Description:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/UploadVideo.ui:143
+msgid "Click to Authorize OpenShot"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/UploadVideo.ui:160
+msgid "Code:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/UploadVideo.ui:185
+msgid "Username:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/UploadVideo.ui:210
+msgid "Password:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/UploadVideo.ui:244
+msgid "Forgot password?"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/UploadVideo.ui:327
+#: /home/jonathan/openshot/openshot/windows/ui/TransitionProperties.ui:285
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:327
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:167
+#: /home/jonathan/openshot/openshot/windows/ui/OpenProject.ui:31
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:118
+#: /home/jonathan/openshot/openshot/windows/ui/BlenderGenerator.ui:243
+#: /home/jonathan/openshot/openshot/windows/ui/ExportXML.ui:27
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:943
+msgid "Cancel"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/About.ui:8
+msgid "About OpenShot"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/About.ui:32
+msgid "Project Website (LaunchPad)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/TransitionProperties.ui:30
+msgid "Transition / Mask Properties"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/TransitionProperties.ui:61
+msgid "None"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/TransitionProperties.ui:73
+msgid "Mask Threshold:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/TransitionProperties.ui:86
+msgid "Softness:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/TransitionProperties.ui:99
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:589
+msgid "Direction:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/TransitionProperties.ui:112
+msgid "Type:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/TransitionProperties.ui:194
+#: /home/jonathan/openshot/openshot/windows/ui/TransitionProperties.ui:207
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:331
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:399
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:490
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1212
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1225
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1577
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1589
+msgid "seconds"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/TransitionProperties.ui:256
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:319
+msgid "Position on Timeline:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/TransitionProperties.ui:267
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:456
+msgid "Length:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/TransitionProperties.ui:299
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:133
+msgid "Apply"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/titles_edit.ui:10
+msgid "Enter title text"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/profiles.ui:6
+msgid "Profiles Manager"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/profiles.ui:23
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:145
+msgid "Profile:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/profiles.ui:51
+msgid "Create a new profile (using the settings from the selected profile)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/profiles.ui:70
+msgid "Delete the selected profile"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/profiles.ui:110
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:234
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:435
+msgid "Frame Rate:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/profiles.ui:164
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:260
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:423
+msgid "Pixel Ratio:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/profiles.ui:220
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:208
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:447
+msgid "Aspect Ratio:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/profiles.ui:274
+msgid "Size:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/profiles.ui:299
+msgid "x"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/profiles.ui:328
+msgid "Profile Name:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/profiles.ui:348
+msgid "Use this profile as default profile"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/profiles.ui:363
+msgid "Progressive"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/profiles.ui:381
+msgid "Import an existing profile"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/profiles.ui:420
+msgid "<b>Profile Properties</b>"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_marker_menu.ui:11
+#: /home/jonathan/openshot/openshot/windows/ui/Main_marker_menu.ui:12
+msgid "Remove Marker"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/titles.ui:10
+msgid "Title Editor"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/titles.ui:65
+msgid "<b>Start here:</b>"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/titles.ui:94
+msgid "Create new Title"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/titles.ui:100
+msgid "Create a new title using the selected template."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/titles.ui:124
+msgid "<b>Editing Tools:</b>"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/titles.ui:134
+msgid "Edit text"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/titles.ui:140
+msgid "Set the title text."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/titles.ui:151
+#: /home/jonathan/openshot/openshot/windows/ui/fontselector.ui:9
+msgid "Font Properties"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/titles.ui:156
+msgid "Change the Font properties."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/titles.ui:172
+msgid "Choose Font Color."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/titles.ui:190
+msgid "Choose Background Color."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/titles.ui:203
+msgid "Use Advanced editor"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/titles.ui:209
+msgid "Edit the title in an external editor."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:67
+#: /home/jonathan/openshot/openshot/windows/ui/Main_transition_properties.ui:10
+msgid "Duplicate"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:70
+msgid "Make a copy of this clip"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:86
+msgid "Fade"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:89
+msgid "Fade this clip"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:98
+msgid "Animate"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:101
+msgid "Animate this clip"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:110
+#: /home/jonathan/openshot/openshot/effects/rotate.xml
+msgid "Rotate"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:113
+msgid "Rotate this clip"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:122
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1098
+msgid "Layout"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:125
+msgid "Position and resize this clip"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:143
+msgid "Hide Video"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:153
+msgid "Mute Audio"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:195
+msgid "Shift Clips"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:207
+msgid "Replace Clip"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:218
+msgid "Remove Clip"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddFiles.ui:10
+msgid "Import Files"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_folder_menu.ui:7
+msgid "Folder Name"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_folder_menu.ui:27
+msgid "Folder Name:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:33
+msgid "Project Name:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:58
+msgid "Project Folder:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:73
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:106
+msgid "Select A Folder"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:87
+msgid "Project Profile:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:133
+msgid ""
+"Use this screen to name your new video project, select the folder location "
+"of your new project, and select the type of project.  "
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:160
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:781
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:471
+msgid "Width:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:170
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:194
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:482
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:495
+msgid "0"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:182
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:767
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:459
+msgid "Height:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:220
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:272
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:508
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:534
+msgid "0:0"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:246
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:521
+msgid "0.00"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:286
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:411
+msgid "Progressive:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:39
+msgid "Add to Timeline"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:92
+msgid "The time (in seconds) of where to place the first clip"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:94
+msgid "Start Time (seconds):"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:125
+msgid "This track is where the first clip will be placed"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:127
+msgid "Top Track:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:161
+msgid ""
+"This track is where the even numbered clips will be placed (if transitions "
+"are used)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:163
+msgid "Bottom Track:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:195
+msgid "<b>Timeline Location</b>"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:221
+msgid "Fade:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:256
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:348
+msgid "Length (in seconds):"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:285
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1243
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1607
+msgid "<b>Fade</b>"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:310
+msgid "This transition will be placed between each clip"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:312
+msgid "Transition:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:346
+msgid "The length of each transition"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:377
+msgid "<b>Transition</b>"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:404
+msgid "Move selected files up"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:405
+msgid "Move Up"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:418
+msgid "Move the selected files down"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:419
+msgid "Move Down"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:432
+msgid "Shuffle all files in this list"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:433
+msgid "Shuffle"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:455
+msgid "Remove the selected files"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:456
+msgid "Remove"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportTransitions.ui:6
+msgid "Import Transitions"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportTransitions.ui:16
+msgid ""
+"Please select a grayscale PNG image, which\n"
+"will be added to your list of available transitions."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportTransitions.ui:35
+msgid "Select Transition:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddEffect.ui:8
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1679
+msgid "Add Effect"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddEffect.ui:28
+msgid "Effect:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_playhead_menu.ui:10
+msgid "Slice All Clips"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_playhead_menu.ui:15
+msgid "Slice all clips at the current play-head position"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:7
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:181
+msgid "Import Image Sequence"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:25
+msgid ""
+"Use this screen to import a sequence of numbered images as a video clip.\n"
+"Be sure all pictures are in the same folder, and are sequencially numbered.\n"
+"<b>TIP: </b>If you drag and drop a single image from the sequence into the \n"
+"project files tree, it will automatically determine the file pattern.\n"
+"\n"
+"Use a %d for filenames starting with a number. If the filename is \n"
+"padded (i.e. 00001.png, 00002.png), you must indicate the number of\n"
+"digits (i.e. %05d.png)\n"
+"\n"
+"<b>Example patterns:</b>\n"
+"image1.png = image%d.png\n"
+"image01.png = image%02d.png\n"
+"image00001.png = image%05.png"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:44
+msgid "<b>Import Image Sequence</b> (Click for Instructions)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:62
+msgid ""
+"The number of frames that each image represents.  The larger the number, the "
+"slower the image sequence will appear."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:64
+msgid "Frames per Image:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:74
+msgid "The folder that contains the sequence of image files."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:76
+msgid "Image Folder:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:86
+msgid ""
+"A file pattern tells OpenShot how your images are named:  image001.png would "
+"use the following pattern: image%03d.png."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:88
+msgid "File Name Pattern:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:95
+msgid "myfile_%d.png"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:118
+msgid ""
+"The number of times to repeat the sequence of images.  For example, a 5 "
+"would repeat the entire sequence of images 5 times.  A 0 would not repeat "
+"the sequence at all."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:120
+msgid "Repeat Sequence:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:97
+msgid "Clip Properties"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:168
+msgid "Preview"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:266
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:36
+msgid "File Name:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:277
+msgid "N/A"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:286
+msgid "Enable Audio"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:301
+msgid "Enable Video"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:375
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:385
+msgid "General"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:412
+msgid "In:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:442
+msgid "Out:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:560
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:646
+msgid "Speed:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:622
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:320
+msgid "Simple"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:693
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:910
+msgid "Advanced"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:713
+#: /home/jonathan/openshot/openshot/effects/phaser.xml
+msgid "Speed"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:738
+msgid "Key Frame:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:795
+msgid "X:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:809
+msgid "Y:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:823
+msgid "Alpha:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:851
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:901
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:916
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:931
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1051
+msgid "%"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1272
+msgid "Volume:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1316
+msgid "Stretch Full Screen"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1329
+msgid "Maintain Aspect Ratio"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1367
+msgid "Horizontal:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1395
+msgid "Vertical:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1427
+msgid "Rotate:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1458
+msgid "degrees"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1476
+msgid "<b>Align</b>"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1681
+msgid "toolbutton1"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1695
+msgid "Remove Effect"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1697
+msgid "toolbutton2"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1711
+msgid "Move Effect Up"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1713
+msgid "toolbutton3"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1727
+msgid "Move Effect Down"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1729
+msgid "toolbutton4"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1748
+msgid "Apply effects to all clips on this track"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1777
+msgid "<b>Effect Settings</b>"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:25
+msgid "Openshot Preferences"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:55
+msgid "Blender Executable:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:67
+msgid "The command to launch Blender 2.5+."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:89
+msgid "Default Theme:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:123
+msgid "Imported Image Length:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:135
+msgid "The default length of an image when dropped on the timeline."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:162
+msgid "Max History Steps:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:174
+msgid "Max number of steps to keep in history."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:200
+msgid "Output Mode:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:212
+msgid ""
+"Sets the mode of the preview window. Use sdl_preview for less CPU use."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:237
+msgid "Use Stock Icons:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:249
+msgid "Set to Yes to use the stock Gnome theme icons."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:274
+msgid "Use Smooth Scaling:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:286
+msgid "Requires a newer version of libmlt (0.6.0) or greater."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:311
+msgid "Icon Size:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:323
+msgid "The icon size of the Effects and Transitions"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:348
+msgid "Melt Executable:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:360
+msgid "The command to launch 'melt', the MLT command line program."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:482
+msgid "Reload Codecs"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:505
+msgid "<b>Installed Codecs/Formats</b>"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:518
+msgid "AV Formats"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:543
+msgid "Default Profile:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:573
+msgid "Manage Profiles"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:624
+msgid "Profiles"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:645
+msgid "Autosave Interval (in minutes):"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:658
+msgid "Enable Autosave"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:675
+msgid "Save Before Playback"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:779
+msgid "Autosave"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/BlenderGenerator.ui:9
+msgid "Animated Title Editor"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/BlenderGenerator.ui:38
+msgid "<b>Choose a Template</b>"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/BlenderGenerator.ui:103
+msgid "Frame:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/BlenderGenerator.ui:115
+msgid "Choose a frame to preview"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/BlenderGenerator.ui:130
+msgid "10/250"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/BlenderGenerator.ui:140
+msgid "Refresh"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/BlenderGenerator.ui:171
+msgid "<b>Modify the 3D Settings</b>"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/BlenderGenerator.ui:257
+msgid "Render"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_track_menu.ui:10
+#: /home/jonathan/openshot/openshot/windows/ui/Main_track_menu.ui:13
+msgid "Add Track Above"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_track_menu.ui:22
+#: /home/jonathan/openshot/openshot/windows/ui/Main_track_menu.ui:25
+msgid "Add Track Below"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_track_menu.ui:39
+#: /home/jonathan/openshot/openshot/windows/ui/Main_track_menu.ui:42
+msgid "Move Track Up"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_track_menu.ui:51
+#: /home/jonathan/openshot/openshot/windows/ui/Main_track_menu.ui:54
+msgid "Move Track Down"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_track_menu.ui:68
+#: /home/jonathan/openshot/openshot/windows/ui/Main_track_menu.ui:71
+msgid "Rename Track"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_track_menu.ui:85
+#: /home/jonathan/openshot/openshot/windows/ui/Main_track_menu.ui:88
+msgid "Clear Track"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_track_menu.ui:97
+#: /home/jonathan/openshot/openshot/windows/ui/Main_track_menu.ui:100
+msgid "Remove Track"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportXML.ui:8
+#: /home/jonathan/openshot/openshot/windows/ui/ExportXML.ui:41
+msgid "Export XML"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/fontselector.ui:79
+msgid "Style:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/fontselector.ui:161
+msgid "<b>Preview</b>"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/FileProperties.ui:34
+msgid "<b>File Name:</b>"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/FileProperties.ui:108
+msgid "<b>File Length:</b>"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/FileProperties.ui:134
+msgid "<b>Video Size:</b>"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/FileProperties.ui:148
+msgid "<b>File Type:</b>"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/FileProperties.ui:204
+msgid "<b>Label:</b>"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_transition_properties.ui:12
+msgid "Make a copy of this transition"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_transition_properties.ui:26
+msgid "Switch Direction"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_transition_properties.ui:46
+msgid "Shift Transitions"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:48
+msgid "MyMovie"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:175
+msgid "<b>Select a Profile to start:</b>"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:203
+msgid "Video Profile:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:215
+msgid "Quality:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:282
+msgid "Target:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:295
+msgid "<b>Select from the following options:</b>"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:351
+msgid "Export To:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:381
+msgid "<b>Advanced Options</b>"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:580
+msgid "<b>Profile</b>  (height, width, fps, aspect ratio)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:608
+msgid "Image Format:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:633
+msgid "<b>Image Sequence Settings</b>"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:664
+msgid "Video Format:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:674
+msgid "Video Codec:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:686
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:861
+msgid "Bit Rate / Quality:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:751
+msgid "<b>Video Settings</b>"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:782
+msgid "Audio Codec:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:809
+msgid "Sample Rate:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:835
+msgid "# of Channels:"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:890
+msgid "<b>Audio Settings</b>"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/old_dust.xml
+msgid "Old Dust"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/phaser.xml
+msgid "Phaser"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/cartoon.xml
+msgid "Cartoonify the image, using a form of edge detection"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/trees.xml
+msgid "Title"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/trees.xml
+msgid "Animation Length"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/alphagrad.xml
+msgid "Alphagrad"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Depart Latitude (minutes)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/three_point_balance.xml
+msgid "Adjust color balance with 3 color points"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/nosync.xml
+msgid ""
+"Adjust the image up and down, with the off-screen portion appearing on the "
+"other side"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/phaser.xml
+msgid ""
+"Add a series of peaks and troughs to the audio, creating a sweeping effect"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/neon_curves.xml
+msgid "Neon Curves"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/trees.xml
+msgid "Trees"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/baltan.xml
+msgid "Baltan"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/white_balance.xml
+msgid "Neutral Color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/balance.xml
+msgid "Adjust the left/right balance"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/chroma_key.xml
+msgid ""
+"Make a single color transparent.  Also referred to as green screen and blue "
+"screen."
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/levels.xml
+msgid "Output level black point"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/defish0r.xml
+msgid "Amount"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/lens_flare.xml
+msgid "Sun: Angle Offset"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/colors.xml
+msgid "Tile 4: Diffuse Color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/old_film.xml
+msgid "Brightness Delta Down"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/three_point_balance.xml
+msgid "Source image on left side"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/coloradj_RGB.xml
+msgid "Keep luma"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/edgeglow.xml
+msgid "Edgeglow"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/spacemovie_intro.xml
+msgid "First Title"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/defish0r.xml
+msgid "Defish"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/greyscale.xml
+msgid "Greyscale"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/three_point_balance.xml
+msgid "White color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/coloradj_RGB.xml
+msgid "Color adjustment"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/trees.xml
+msgid "Font Name"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/flippo.xml
+msgid "Y axis"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/coloradj_RGB.xml
+msgid "Red"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/charcoal.xml
+msgid "Charcoal"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/picture_frames_4.xml
+msgid "Picture 3 Path"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/vignette.xml
+msgid "Lens vignetting"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/hue.xml
+msgid "Shift the hue of all colors in the image"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/coloradj_RGB.xml
+msgid "Green"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/bass.xml
+msgid "Bass"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/sobel.xml
+msgid "Sobel"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/lenscorrection.xml
+msgid "Y Center"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/sharpness.xml
+msgid "Sharpness"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/freeze.xml
+msgid "Freeze"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/coloradj_RGB.xml
+msgid "Simple color adjustment"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/vignette.xml
+msgid "Center size"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/phaser.xml
+msgid "Decay"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/mask0mate.xml
+msgid "Top"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/old_grain.xml
+msgid "Old Grain"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/bass.xml
+msgid "Adjust the low-pitched sound or tone"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/charcoal.xml
+msgid "X Scatter"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/rotate.xml
+msgid "X Offset"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/freeze.xml
+msgid "Freeze Before"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/old_film.xml
+msgid "Brightness Delta Every"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/levels.xml
+msgid "Levels"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/old_lines.xml
+msgid "Lighter"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/flippo.xml
+msgid "Invert horizontally or vertically"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/lenscorrection.xml
+msgid "Correction near edges"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Arrival Latitude (minutes)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/tintor.xml
+msgid "Tint a source image with specified color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/glow.xml
+msgid "Add a glow effect to the image"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/old_film.xml
+msgid ""
+"Adjusts the gamma and brightness randomly to create the illusion of old film"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/pixelate.xml
+msgid "Increase the size of pixels to obscure the image"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/sepia.xml
+msgid "v"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/glass_slider.xml
+msgid "Background: Fresnel"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/neon_curves.xml
+msgid "Line 3 Color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/edgeglow.xml
+msgid "Up Scale"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/alphagrad.xml
+msgid "Min"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/defocus.xml
+msgid "Defocus"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/charcoal.xml
+msgid "Mix"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/rotate.xml
+msgid "Rotate Y"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/rotate.xml
+msgid "Rotate X"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/rotate.xml
+msgid "Rotate Z"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Halo: Line Count"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/mask0mate.xml
+msgid "Creates a square alpha-channel mask"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/spacemovie_intro.xml
+msgid "Main Text"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth.xml
+msgid "World Map"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/bass.xml
+msgid "Gain"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/delaygrab.xml
+msgid "Delay grab"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/phaser.xml
+msgid "Gain Out"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Arrival Longitude (degrees)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/coloradj_RGB.xml
+msgid "Alpha controlled"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/distort.xml
+msgid "Distort the source similar to plasma"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/delaygrab.xml
+msgid "Delayed frame blitting mapped on a time bitmap"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/trees.xml
+msgid "File Name"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/tcolor.xml
+msgid "Blue/Yellow"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/trees.xml
+msgid "Text Width"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/trees.xml
+msgid "Extrude"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/colordistance.xml
+msgid ""
+"Calculates the distance between the selected color and the current pixel and "
+"uses that value as new pixel value"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Halo: Star Count"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/defish0r.xml
+msgid "Fisheye"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Depart Latitude (seconds)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/coloradj_RGB.xml
+msgid "Blue"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/mask0mate.xml
+msgid "Bottom"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/phaser.xml
+msgid "Param"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/blur.xml
+msgid "Blur"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/colors.xml
+msgid "Color Tiles"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Arrival Latitude (degrees)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/old_lines.xml
+msgid "Old Lines"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/charcoal.xml
+msgid "Filter the image to look like it is drawn with charcoal"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/threshold.xml
+msgid "Reduces and mixes the colors of the image based on a threshold"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Depart Title"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/rotate.xml
+msgid "Fixed Rotate X"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/rotate.xml
+msgid "Fixed Rotate Z"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/mirror.xml
+msgid "Split and mirror the image"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/fly_by_two_titles.xml
+msgid "Fly Towards Camera (Two Titles)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/echo.xml
+msgid "Add an echo"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/two_layer.xml
+msgid "Black and White"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Velocity: Z"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Particles: Gravity"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Velocity: X"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Velocity: Y"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/lens_flare.xml
+msgid "Halo: Ending Size"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/old_film.xml
+msgid "Brightness Delta Up"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/blur.xml
+msgid "End"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/picture_frames_4.xml
+msgid "Picture 4 Path"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/lens_flare.xml
+msgid "Sun: Number of Streaks"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Arrival Latitude (seconds)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/primaries.xml
+msgid "Factor"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/two_layer.xml
+msgid "Adjust the color of the image to black and white based on a threshold"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/letterbox.xml
+msgid "Letterbox"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/old_film.xml
+msgid "Old Film"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/defish0r.xml
+msgid "Type"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/old_grain.xml
+msgid "Noise"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/colordistance.xml
+msgid "Color Distance"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/freeze.xml
+msgid "Freeze After"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/old_dust.xml
+msgid "Add small dust shapes randomly on the image"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/rotate_360.xml
+msgid "Rotate 360 Degrees"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/lens_flare.xml
+msgid "Lens Flare"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/contrast.xml
+msgid "Contrast"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/chroma_hold.xml
+msgid "Key"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/cartoon.xml
+msgid "Cartoon"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Particles: Lifetime"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/lenscorrection.xml
+msgid "Brightness"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/three_point_balance.xml
+msgid "Three point balance"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Magic Wand"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/levels.xml
+msgid "Show histogram"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/sharpness.xml
+msgid "Make image sharper"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/scanlines.xml
+msgid "Interlaced black lines"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/mirror.xml
+msgid "Mirror"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/nosync.xml
+msgid "Nosync"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/alphagrad.xml
+msgid "Tilt"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/letterbox.xml
+msgid "Border Width"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/trees.xml
+msgid "Start Frame"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/blur.xml
+msgid "Start"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/lenscorrection.xml
+msgid "X Center"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/vignette.xml
+msgid "Softness"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/levels.xml
+msgid "Adjust luminance or color channel intensity"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/neon_curves.xml
+msgid "Line 4 Color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/scanlines.xml
+msgid "Scan Lines"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/defish0r.xml
+msgid "Scaling"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/old_film.xml
+msgid "Delta"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/chroma_hold.xml
+msgid ""
+"Display a single color, while using greyscale for the rest of the image"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/colors.xml
+msgid "Title 1"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/colors.xml
+msgid "Title 3"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/colors.xml
+msgid "Title 2"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/tehroxx0r.xml
+msgid "Interval"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/rotate.xml
+msgid "Y Offset"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/neon_curves.xml
+msgid "Title Diffuse Color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/treble.xml
+msgid "Treble"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/balance.xml
+msgid "Left | Right"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/flippo.xml
+msgid "Flippo"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/distort.xml
+msgid "Frequency"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/lens_flare.xml
+msgid "Halo: Starting Size"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/three_point_balance.xml
+msgid "Black color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/lens_flare.xml
+msgid "Sun: Color Threshold"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/phaser.xml
+msgid "Gain In"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/defish0r.xml
+msgid "Interpolation"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/saturation.xml
+msgid "Saturation"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Alpha"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/spacemovie_intro.xml
+msgid "Episode"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/tehroxx0r.xml
+msgid "TehRoxx0r"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/white_balance.xml
+msgid "White Balance"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/glass_slider.xml
+msgid "Background: Diffuse Color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/letterbox.xml
+msgid "Transparency"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/cartoon.xml
+msgid "Trip Level"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Custom Texture (Equirectangular)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/lenscorrection.xml
+msgid "Allows compensation of lens distortion"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/spacemovie_intro.xml
+msgid "Space Movie Intro"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/alphagrad.xml
+msgid "Transition width"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/slide_left_to_right.xml
+msgid "Slide Left to Right"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/glass_slider.xml
+msgid "X Coordinate"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/spacemovie_intro.xml
+msgid "Flying Title"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/trees.xml
+msgid "Specular Color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/lens_flare.xml
+msgid "Spots: Color Threshold"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/old_lines.xml
+msgid "Width"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Depart Latitude (Equator)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Arrival Latitude (Equator)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/sobel.xml
+msgid "Detect and highlight the edges of objects"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/brightness.xml
+msgid "Adjusts the brightness of the image"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/alphagrad.xml
+msgid "Fills alpha channel with a gradient"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/levels.xml
+msgid "Input level white point"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/primaries.xml
+msgid "Reduce image to primary colors"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/letterbox.xml
+msgid "Adds black borders at the top and bottom"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/pixelate.xml
+msgid "Pixelate"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/colors.xml
+msgid "Background: Shadeless"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/glass_slider.xml
+msgid "Z Coordinate"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/chroma_hold.xml
+msgid "Variance"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/freeze.xml
+msgid "Frame Number"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/mask0mate.xml
+msgid "Right"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/gamma.xml
+msgid "Adjusts the gamma or luminance value of the image"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Arrival Longitude (Prime Meridian)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/picture_frames_4.xml
+msgid "Picture Frames (4 pictures)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/colors.xml
+msgid "Background: Specular Intensity"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/defish0r.xml
+msgid "Aspect type"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Halo: Size"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/equaliz0r.xml
+msgid "Equalizor"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/two_layer.xml
+msgid "Invert"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Halo: Use Stars"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/neon_curves.xml
+msgid "Line 2 Color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/trees.xml
+msgid "Specular Intensity"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/tcolor.xml
+msgid "Red/Green Axis"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/spacemovie_intro.xml
+msgid "Episode Title"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/tintor.xml
+msgid "Map black to"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/old_grain.xml
+msgid "Adds static and grain to the image"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/pixelate.xml
+msgid "Block Size X"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/pixelate.xml
+msgid "Block Size Y"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/trees.xml
+msgid "End Frame"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Halo: Ring Count"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/snow.xml
+msgid "Snow"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Arrival Longitude (seconds)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/old_dust.xml
+msgid "Max Count"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/brightness.xml
+msgid "Start Value"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/threelay0r.xml
+msgid "Dynamic 3 level thresholding"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Halo: Use Rings"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/distort.xml
+msgid "Distort"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/trees.xml
+msgid "Text Alignment"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Depart Longitude (degrees)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/zoom_clapboard.xml
+msgid "Use Alpha"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Display Clouds"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Halo: Use Lines"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Halo: Hardness"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/colors.xml
+msgid "Tile 1: Diffuse Color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/sepia.xml
+msgid "Sepia"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/old_lines.xml
+msgid "Number"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/glass_slider.xml
+msgid "Background: Alpha"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/blinds.xml
+msgid "Blinds (Two Titles)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/cartoon.xml
+msgid "Diff Space"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/sharpness.xml
+msgid "Size"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/rotate.xml
+msgid "Fixed Rotate Y"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/three_point_balance.xml
+msgid "Gray color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/phaser.xml
+msgid "Delay"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/equaliz0r.xml
+msgid "Equalizes the intensity histograms"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "End: Y"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "End: X"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/saturation.xml
+msgid "Adjusts the saturation or intensity of the image"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "End: Z"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/snow.xml
+msgid "Number of Snow Flakes"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/trees.xml
+msgid "Text Size"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/levels.xml
+msgid "Input level black point"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/edgeglow.xml
+msgid "Red Scale"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/chroma_hold.xml
+msgid "Chroma Hold"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/explode.xml
+msgid "Display Ground"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/wireframe_text.xml
+msgid "Wireframe Text"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/neon_curves.xml
+msgid "Line 1 Color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/glass_slider.xml
+msgid "Glass Slider"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Halo: Use Flare"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/gamma.xml
+msgid "Gamma"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/old_lines.xml
+msgid "Darker"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/lens_flare.xml
+msgid "Sun: Type of Glare"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/defish0r.xml
+msgid "Manual Scale"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/contrast.xml
+msgid "Adjusts the contrast of a source image"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/brightness.xml
+msgid "End Value"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/threshold.xml
+msgid "Threshold"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Particles: Amount"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/baltan.xml
+msgid "delayed alpha smoothed blit of time"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/chroma_key.xml
+msgid "Chroma Key"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/picture_frames_4.xml
+msgid "Picture 1 Path"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/two_layer.xml
+msgid "Midpoint"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/explode.xml
+msgid "Exploding Text"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Depart Longitude (seconds)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/fly_by_two_titles.xml
+msgid "Sub Title"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/rotate.xml
+msgid "Rotate an image statically or animated"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/glow.xml
+msgid "Glow"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/threelay0r.xml
+msgid "Three Layer"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/colors.xml
+msgid "Background: Specular Color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/trees.xml
+msgid "Diffuse Color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/distort.xml
+msgid "Amplitude"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/alphagrad.xml
+msgid "Position"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/old_lines.xml
+msgid "Adds random vertical lines to the image"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/glare.xml
+msgid "Glare"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/echo.xml
+msgid "Echo"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/alphagrad.xml
+msgid "Operation"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/blur.xml
+msgid "Blur the image similar to an out-of-focus camera"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/tintor.xml
+msgid "Tint"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/tcolor.xml
+msgid "Oversaturate Color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Arrival Longitude (minutes)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/white_balance.xml
+msgid "Adjust the white balance and color temperature"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/trees.xml
+msgid "Bevel Depth"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/levels.xml
+msgid "Channel"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/flippo.xml
+msgid "X axis"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/lenscorrection.xml
+msgid "Lens Correction"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/tehroxx0r.xml
+msgid "something videowall-ish"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/snow.xml
+msgid "Gravity: Z"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/snow.xml
+msgid "Gravity: X"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/snow.xml
+msgid "Gravity: Y"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Mirror Color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/treble.xml
+msgid "Adjust the high-pitched sound or tone"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/hue.xml
+msgid "Hue"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/freeze.xml
+msgid "Freeze the frame of a video"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Depart Longitude (Prime Meridian)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/levels.xml
+msgid "Output level white point"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/charcoal.xml
+msgid "Y Scatter"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/white_balance.xml
+msgid "Green Tint"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/primaries.xml
+msgid "Primary Colors"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/zoom_clapboard.xml
+msgid "Zoom to Clapboard"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/nosync.xml
+msgid "Horizontal Sync"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/charcoal.xml
+msgid "Scale"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/vignette.xml
+msgid "Vignette"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Arrival Title"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/old_film.xml
+msgid "Every"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/explode.xml
+msgid "Particle Number"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/old_dust.xml
+msgid "Max Diameter"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Depart Latitude (degrees)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/balance.xml
+msgid "Balance"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "World Map (Realistic)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/mask0mate.xml
+msgid "Left"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/three_point_balance.xml
+msgid "Split preview"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/defish0r.xml
+msgid "Manual Pixel Aspect ratio"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/levels.xml
+msgid "Histogram position"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/edgeglow.xml
+msgid "Find and glow the edges of objects"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/lenscorrection.xml
+msgid "Correction near center"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/vignette.xml
+msgid "Aspect ratio"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/colors.xml
+msgid "Tile 3: Diffuse Color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/sepia.xml
+msgid ""
+"Adjust the color of the image to emulate black-and-white film that has had "
+"sepia pigment added"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/neon_curves.xml
+msgid "Title Specular Color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/greyscale.xml
+msgid "Convert an image to shades of grey"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/glass_slider.xml
+msgid "Background: Blend"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/halo_zoom_out.xml
+msgid "Halo Zoom Out"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/invert.xml
+msgid "Convert colors in the image to the opposite or complementary colors"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/alphagrad.xml
+msgid "Max"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/fly_by_1.xml
+msgid "Fly Towards Camera"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Depart Longitude (minutes)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Start: Z"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Start: X"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Start: Y"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/picture_frames_4.xml
+msgid "Picture 2 Path"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/tintor.xml
+msgid "Tint amount"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/dissolve.xml
+msgid "Dissolving Text"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/tcolor.xml
+msgid "Oversaturate the color in the image, like in old Technicolor movies"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/colordistance.xml
+msgid "Color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/tintor.xml
+msgid "Map white to"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/colors.xml
+msgid "Tile 2: Diffuse Color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/sepia.xml
+msgid "u"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/coloradj_RGB.xml
+msgid "Luma formula"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/dvd_pal.xml
+msgid "DVD-PAL"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/format_ogg_flac.xml
+msgid "OGG (theora/flac)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/dvd_pal.xml
+msgid "DVD"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/xbox360.xml
+msgid "Xbox 360"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/wikipedia.xml
+msgid "Wikipedia"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/format_mp4_x264.xml
+msgid "MP4 (h.264)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/format_mov_x264.xml
+msgid "MOV (h.264)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/metacafe.xml
+msgid "Metacafe"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/vimeo.xml
+msgid "Vimeo-SD"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/avchd.xml
+msgid "AVCHD Disks"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/vimeo_WS.xml
+msgid "Vimeo-SD Widescreen"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/format_flv_x264.xml
+msgid "FLV (h.264)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/format_avi_mp4.xml
+msgid "AVI (mpeg4)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/format_mp4_mpeg4.xml
+msgid "MP4 (mpeg4)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/apple_tv.xml
+msgid "Apple TV"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/format_mpeg_mpeg2.xml
+msgid "MPEG (mpeg2)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/nokia_nHD.xml
+msgid "Nokia nHD"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/format_avi_x264.xml
+msgid "AVI (h.264)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/format_avi_mpeg2.xml
+msgid "AVI (mpeg2)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/apple_tv.xml
+msgid "Device"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/avchd.xml
+msgid "Blu-Ray/AVCHD"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/picasa.xml
+msgid "Picasa"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/format_mp4_xvid.xml
+msgid "MP4 (Xvid)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/dvd_ntsc.xml
+msgid "DVD-NTSC"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/format_webm_libvpx.xml
+msgid "WEBM (vpx)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/format_mov_mpeg4.xml
+msgid "MOV (mpeg4)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/flickr_HD.xml
+msgid "Flickr-HD"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/fractal_8.png
+msgid "Fractal 8"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/vertical_blinds_in_to_out_big.pgm
+msgid "Vertical blinds in to out big"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/icons
+msgid "Icons"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/fractal_2.png
+msgid "Fractal 2"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/fractal_3.png
+msgid "Fractal 3"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/fractal_1.png
+msgid "Fractal 1"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/fractal_6.png
+msgid "Fractal 6"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/fractal_7.png
+msgid "Fractal 7"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/spots.png
+msgid "Spots"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/fractal_5.png
+msgid "Fractal 5"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/wipe_diagonal_4.png
+msgid "Wipe diagonal 4"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/wipe_diagonal_1.png
+msgid "Wipe diagonal 1"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/board.png
+msgid "Board"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/wipe_diagonal_3.png
+msgid "Wipe diagonal 3"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/wipe_diagonal_2.png
+msgid "Wipe diagonal 2"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/circle_in_to_out.svg
+msgid "Circle in to out"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/hatched_1.png
+msgid "Hatched 1"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/hatched_2.png
+msgid "Hatched 2"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/hatched_3.png
+msgid "Hatched 3"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/puzzle_7_by_7.png
+msgid "Puzzle 7 by 7"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/mountains.png
+msgid "Mountains"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/blinds_in_to_out.pgm
+msgid "Blinds in to out"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/clock_right_to_left.pgm
+msgid "Clock right to left"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/spiral_medium.pgm
+msgid "Spiral medium"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/clouds_2.png
+msgid "Clouds 2"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/wipe_left_to_right.svg
+msgid "Wipe left to right"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/boxes_1.png
+msgid "Boxes 1"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/bubbles.png
+msgid "Bubbles"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/wipe_bottom_to_top.svg
+msgid "Wipe bottom to top"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/rectangle_out_to_in.pgm
+msgid "Rectangle out to in"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/clouds.png
+msgid "Clouds"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/wipe_right_to_left.svg
+msgid "Wipe right to left"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/circle_out_to_in.svg
+msgid "Circle out to in"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/spiral_abstract_1.png
+msgid "Spiral abstract 1"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/rectangle_in_to_out.pgm
+msgid "Rectangle in to out"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/spiral_abstract_2.png
+msgid "Spiral abstract 2"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/sand.svg
+msgid "Sand"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/fractal_4.png
+msgid "Fractal 4"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/vertical_bars.png
+msgid "Vertical bars"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/openshot_logo.pgm
+msgid "Openshot logo"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/clock_left_to_right.pgm
+msgid "Clock left to right"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/boxes_2.png
+msgid "Boxes 2"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/spiral_small.pgm
+msgid "Spiral small"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/blinds_sliding.png
+msgid "Blinds sliding"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/sphere.png
+msgid "Sphere"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/blinds_in_to_out_big.pgm
+msgid "Blinds in to out big"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/spiral_big.pgm
+msgid "Spiral big"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/star_2.png
+msgid "Star 2"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/hourglass_3.png
+msgid "Hourglass 3"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/star_1.png
+msgid "Star 1"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/hourglass_4.png
+msgid "Hourglass 4"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/vertical_blinds_in_to_out.pgm
+msgid "Vertical blinds in to out"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/hourglass_1.png
+msgid "Hourglass 1"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/wipe_top_to_bottom.svg
+msgid "Wipe top to bottom"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/hourglass_2.png
+msgid "Hourglass 2"
+msgstr ""

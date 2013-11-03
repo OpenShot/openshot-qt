@@ -1,0 +1,4669 @@
+# Macedonian translation for openshot
+# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# This file is distributed under the same license as the openshot package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: openshot\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2012-09-26 09:57+0000\n"
+"PO-Revision-Date: 2012-11-15 21:28+0000\n"
+"Last-Translator: Aleksandar <Unknown>\n"
+"Language-Team: Macedonian <mk@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-11-16 04:36+0000\n"
+"X-Generator: Launchpad (build 16272)\n"
+
+#: /home/jonathan/openshot/openshot/windows/TreeEffects.py:48
+#: /home/jonathan/openshot/openshot/windows/TreeFiles.py:47
+#: /home/jonathan/openshot/openshot/windows/TreeBlender.py:44
+msgid "Thumb"
+msgstr ""
+
+#: openshot.xml:4223(para)
+msgid "Name"
+msgstr "Име"
+
+#: openshot.xml:1452(para)
+msgid "Transition"
+msgstr "Транзициа"
+
+#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:36
+#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:79
+#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:134
+#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:152
+#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:211
+#: /home/jonathan/openshot/openshot/effects/mask0mate.xml
+msgid "Mask"
+msgstr "Маска"
+
+#: openshot.xml:767(para) openshot.xml:2083(para)
+msgid "Up"
+msgstr "Горе"
+
+#: openshot.xml:775(para) openshot.xml:2091(para)
+msgid "Down"
+msgstr "Долу"
+
+#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:223
+msgid "Modified transition properties"
+msgstr "Изменети својства на транзиција"
+
+#: /home/jonathan/openshot/openshot/windows/BlenderGenerator.py:651
+#, python-format
+msgid ""
+"\n"
+"\n"
+"Version Detected:\n"
+"%s"
+msgstr ""
+"\n"
+"\n"
+"Пронајдена Верзија:\n"
+"%s"
+
+#: /home/jonathan/openshot/openshot/windows/BlenderGenerator.py:654
+#, python-format
+msgid ""
+"\n"
+"\n"
+"Error Output:\n"
+"%s"
+msgstr ""
+"\n"
+"\n"
+"Излезна Грешка:\n"
+"%s"
+
+#: /home/jonathan/openshot/openshot/windows/BlenderGenerator.py:658
+msgid "Blender Error"
+msgstr "Грешка од Blender"
+
+#: /home/jonathan/openshot/openshot/windows/BlenderGenerator.py:658
+#, python-format
+msgid ""
+"Blender, the free open source 3D content creation suite is required for this "
+"action (http://www.blender.org).\n"
+"\n"
+"Please check the preferences in OpenShot and be sure the Blender executable "
+"is correct.  This setting should be the path of the 'blender' executable on "
+"your computer.  Also, please be sure that it is pointing to Blender version "
+"%s or greater.\n"
+"\n"
+"Blender Path:\n"
+"%s%s"
+msgstr ""
+"Блендер, е слободен софтвер со отворен код, за создавање на 3D содржина. "
+"Пакетот е потребен за оваа акција (http://www.blender.org).\n"
+"\n"
+"Проверете ѓи параметрите на OpenShot и бидете сигурни дека повикувањето на "
+"Blender Апликацијата е точна. Оваа секција го приказува локацијата на "
+"'blender' која е извршна за вашиот компјутер. Исто така, бидете сигурни дека "
+"е Blender верзија %s или поголем.\n"
+"\n"
+"Локација на Blender:\n"
+"%s%s"
+
+#: /home/jonathan/openshot/openshot/windows/BlenderGenerator.py:704
+#: /home/jonathan/openshot/openshot/windows/ImportImageSeq.py:144
+#: /home/jonathan/openshot/openshot/classes/files.py:270
+#: /home/jonathan/openshot/openshot/classes/files.py:372
+msgid "Added file"
+msgstr "Додадени Датотеки"
+
+#: /home/jonathan/openshot/openshot/windows/BlenderGenerator.py:708
+#: /home/jonathan/openshot/openshot/windows/ImportImageSeq.py:148
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:85
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:575
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:672
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:676
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:680
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:684
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:688
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:692
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:696
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:700
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:713
+#: /home/jonathan/openshot/openshot/classes/video.py:138
+msgid "Image Sequence"
+msgstr "Секвенца од Слика"
+
+#: /home/jonathan/openshot/openshot/windows/BlenderGenerator.py:874
+msgid "No frame was found in the output from Blender"
+msgstr "Не е пронајден фрем(рамка) на излезот од Blender"
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:85
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:110
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:334
+msgid "No Transition"
+msgstr "Без Транзиција"
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:86
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:337
+msgid "Random Transition"
+msgstr "Случаен преод"
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:87
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:88
+#: /home/jonathan/openshot/openshot/windows/IcvTransitions.py:85
+msgid "Dissolve"
+msgstr "Растворање"
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:121
+msgid "New Track 1"
+msgstr "Нова Трака 1"
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:122
+msgid "New Track 2"
+msgstr "Нова Трака 2"
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:126
+msgid "New Track"
+msgstr "Нова Трака"
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:156
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:161
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3243
+#: /home/jonathan/openshot/openshot/windows/ui/Main_fade_menu.ui:10
+msgid "No Fade"
+msgstr "Без Затемнување"
+
+#: openshot.xml:1930(para) openshot.xml:2015(para)
+msgid "Fade In"
+msgstr "Затемни(FadeIn)"
+
+#: openshot.xml:1938(para) openshot.xml:2023(para)
+msgid "Fade Out"
+msgstr "Осфетли(FadeOut)"
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:156
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:382
+msgid "Fade In & Out"
+msgstr "Затемни и Осфетли"
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:173
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:178
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3460
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:10
+msgid "No Animation"
+msgstr "Без анимации"
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:173
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3467
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:46
+msgid "Zoom In (100% to 150%)"
+msgstr "Зголеми(100% до 150%)"
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:173
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3471
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:26
+msgid "Zoom In (50% to 100%)"
+msgstr "Зголеми(50% до 100%)"
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:173
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3483
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:66
+msgid "Zoom Out (100% to 50%)"
+msgstr "Намали(100% до 50%)"
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:173
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3487
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:76
+msgid "Zoom Out (150% to 100%)"
+msgstr "Намали(150% до 100%)"
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:354
+#: /home/jonathan/openshot/openshot/windows/ImportImageSeq.py:79
+#: /home/jonathan/openshot/openshot/windows/ImportImageSeq.py:83
+#: /home/jonathan/openshot/openshot/windows/ImportImageSeq.py:129
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:654
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:658
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:662
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:666
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:670
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:674
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:678
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:682
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:686
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:690
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:694
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:698
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:702
+#: /home/jonathan/openshot/openshot/windows/NewProject.py:186
+#: /home/jonathan/openshot/openshot/windows/NewProject.py:190
+#: /home/jonathan/openshot/openshot/uploads/manager.py:91
+#: /home/jonathan/openshot/openshot/uploads/manager.py:96
+#: /home/jonathan/openshot/openshot/uploads/manager.py:101
+#: /home/jonathan/openshot/openshot/uploads/manager.py:106
+#: /home/jonathan/openshot/openshot/uploads/manager.py:114
+#: /home/jonathan/openshot/openshot/uploads/manager.py:186
+#: /home/jonathan/openshot/openshot/uploads/manager.py:261
+#: /home/jonathan/openshot/openshot/uploads/manager.py:315
+#: /home/jonathan/openshot/openshot/uploads/manager.py:320
+#: /home/jonathan/openshot/openshot/uploads/manager.py:326
+#: /home/jonathan/openshot/openshot/uploads/manager.py:331
+#: /home/jonathan/openshot/openshot/uploads/manager.py:370
+#: /home/jonathan/openshot/openshot/uploads/manager.py:393
+msgid "Validation Error!"
+msgstr "Грешка во Валидноста"
+
+#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:354
+msgid "The top track must be higher than the bottom track."
+msgstr "Најгорната трака мора да е повисоко од најдолната трака"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:348
+msgid "Session started"
+msgstr "Започната сесиа"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:402
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:117
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:167
+msgid "Error"
+msgstr "Грешка"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:402
+msgid ""
+"Not all effects can be loaded. OpenShot can not find the frei0r effect "
+"library installed. Please install the frei0r-plugins package from your "
+"package manager.\n"
+"\n"
+"OpenShot will still continue to work, but will have less effects to choose "
+"from."
+msgstr ""
+"Сите ефекти не се вчитани. OpenShot не e инсталирана frei0r датотеката за "
+"ефекти. Инсталирајте го frei0r-plugin пакетот од вашиот менаџер за пакети.\n"
+"\n"
+"OpenShot ќе продолжи да работи, но не ќе можете да одберите ефекти одовде."
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1070
+#: /home/jonathan/openshot/openshot/windows/TreeFiles.py:59
+msgid "Choose a Video or Audio File to Begin"
+msgstr "Одбери Видео или Аудио датотека за почеток"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1470
+msgid "Added clip"
+msgstr "Додаден клип"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1526
+msgid "Save changes to project \"{0}\" before closing?"
+msgstr "Дали да ги зачувм промените на проектот \"{0}\" пред да затвориш?"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1526
+msgid "If you close without saving, your changes will be discarded."
+msgstr "Ако затвориш без да ги зачуваш, твоите промени ке бидат загубени?"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1526
+msgid "Close _without saving"
+msgstr "Затвори без да зачуваш"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1732
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1745
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1758
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1770
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1781
+#: /home/jonathan/openshot/openshot/windows/ImportTransitions.py:96
+#: /home/jonathan/openshot/openshot/windows/UploadVideo.py:116
+#: /home/jonathan/openshot/openshot/windows/ExportXML.py:74
+#: /home/jonathan/openshot/openshot/windows/OpenProject.py:74
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:426
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:482
+#: /home/jonathan/openshot/openshot/classes/theme.py:58
+#: /home/jonathan/openshot/openshot/classes/open_project.py:144
+msgid "Error!"
+msgstr "Грешка!"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1732
+msgid ""
+"Unable to open the Help Contents. Please ensure the openshot-doc package is "
+"installed."
+msgstr ""
+"Неможам да ја отворам содржината за помош. Бидете сигурни дека openshot-doc "
+"пакетот е инсталиран."
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1745
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1758
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1770
+msgid "Unable to open the Launchpad web page."
+msgstr "Неможам да ја отворам Launchpad веб страната."
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1781
+msgid "Unable to open the web page."
+msgstr "Неможам да ја отворам веб страната."
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1874
+msgid "Openshot Error!"
+msgstr "OpenShot Грешка!"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:1874
+msgid "The timeline is empty, there is nothing to export."
+msgstr "Временската линиа е празна, тука нема ништо за извоз."
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2013
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2052
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2131
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2153
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2183
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1312
+msgid "Video Preview"
+msgstr "Преглед на видео"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2015
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2054
+#, python-format
+msgid "Video Preview (%sX)"
+msgstr "Преглед на видео(%sX)"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2161
+msgid "Video Preview (Paused)"
+msgstr "Преглед на видео(Пауза)"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2388
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2871
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2884
+#: /home/jonathan/openshot/openshot/classes/sequences.py:50
+#: /home/jonathan/openshot/openshot/classes/sequences.py:51
+#, python-format
+msgid "Track %s"
+msgstr "Трака %s"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2505
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2524
+#, python-format
+msgid "%s seconds"
+msgstr "%s секунди"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2616
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:91
+msgid "Empty Folder "
+msgstr "Празна Папка "
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2616
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:91
+msgid "The selected folder was empty."
+msgstr "Одбраната папка е празна"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2618
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:93
+msgid "Empty Folders"
+msgstr "Празни Папки"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2618
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:93
+msgid "The selected folders were empty."
+msgstr "Одбраните папки се празни"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2622
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:97
+msgid "Unsupported File Type"
+msgstr "Неподдржан тип на датотека"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2622
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:97
+msgid "OpenShot does not support this file type."
+msgstr "OpenShot не го поддржува овој тип на датотека"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2624
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:99
+msgid "Unsupported File Types"
+msgstr "Не поддржани типови на датотека"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2624
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:99
+msgid "OpenShot supports none of the file types of the selected files."
+msgstr "OpenShot не поддржува ни еден тип на датотека од одбраните фајлови."
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2628
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:103
+msgid "Already Imported File"
+msgstr "Веќе е увезена таа датотека"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2628
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:103
+msgid "The selected file has already been imported to the project."
+msgstr "Одбраната датотека веќе е увезена во проектот."
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2630
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:105
+msgid "Already Imported Files"
+msgstr "Датотеките веќе се увезени"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2630
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:105
+msgid "All of the selected files have already been imported to the project."
+msgstr "Сите одбрани датотеки веќе се увезени во проектот"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2633
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:108
+msgid "File Import Error"
+msgstr "Грешка при увозот на датотеката"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2633
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:108
+msgid ""
+"The selected files either have an unsupported file type or have already been "
+"imported to the project."
+msgstr ""
+"The selected files either have an unsupported file type or have already been "
+"imported to the project."
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2900
+msgid "Please enter a track name."
+msgstr "Внесете име на траката"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2922
+msgid "Cleared track"
+msgstr "Исчисти трака"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2933
+msgid "Removed track"
+msgstr "Отстрани Трака"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2941
+msgid "Moved track up"
+msgstr "Премести трака нагоре"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:2961
+msgid "Moved track down"
+msgstr "Премести трака надолу"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3005
+msgid "Removed marker"
+msgstr "Отстрани обележувач"
+
+#: openshot.xml:2644(title)
+msgid "Convert to Mask"
+msgstr "Промени во Маска"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3031
+#: /home/jonathan/openshot/openshot/windows/ui/Main_transition_properties.ui:62
+msgid "Remove Transition"
+msgstr "Отстрани Премин"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3034
+msgid "Convert to Transition"
+msgstr "Промени во Премин"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3035
+msgid "Remove Mask"
+msgstr "Отстрани Маска"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3087
+msgid "Changed transition type"
+msgstr "Промени тип на Премин"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3124
+#: /home/jonathan/openshot/openshot/classes/transition.py:255
+msgid "Removed transition"
+msgstr "Одстранет Премин"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3144
+msgid "Please enter the # of seconds to shift the transitions:"
+msgstr "внеси # од секунди за промена на преминот:"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3178
+msgid "Shifted transitions"
+msgstr "Shifted transitions"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3254
+#: /home/jonathan/openshot/openshot/windows/ui/Main_fade_menu.ui:26
+msgid "Fade In (Fast)"
+msgstr "Затемни (брзо)"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3263
+#: /home/jonathan/openshot/openshot/windows/ui/Main_fade_menu.ui:36
+msgid "Fade Out (Fast)"
+msgstr "Осветли (брзо)"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3272
+#: /home/jonathan/openshot/openshot/windows/ui/Main_fade_menu.ui:46
+msgid "Fade In and Out (Fast)"
+msgstr "Затемни и Осветли(брзо)"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3283
+#: /home/jonathan/openshot/openshot/windows/ui/Main_fade_menu.ui:61
+msgid "Fade In (Slow)"
+msgstr "Затемни (бавно)"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3292
+#: /home/jonathan/openshot/openshot/windows/ui/Main_fade_menu.ui:71
+msgid "Fade Out (Slow)"
+msgstr "Осветли (бавно)"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3301
+#: /home/jonathan/openshot/openshot/windows/ui/Main_fade_menu.ui:81
+msgid "Fade In and Out (Slow)"
+msgstr "Затемни и Осветли (бавно)"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3352
+#: /home/jonathan/openshot/openshot/windows/ui/Main_rotate_menu.ui:10
+msgid "No Rotation"
+msgstr "Нема ротација"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3356
+#: /home/jonathan/openshot/openshot/windows/ui/Main_rotate_menu.ui:26
+msgid "Rotate 90 (Right)"
+msgstr "Ротација за 90 (десно)"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3360
+#: /home/jonathan/openshot/openshot/windows/ui/Main_rotate_menu.ui:36
+msgid "Rotate 90 (Left)"
+msgstr "Ротација за 90(лево)"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3364
+#: /home/jonathan/openshot/openshot/windows/ui/Main_rotate_menu.ui:46
+msgid "Rotate 180 (Flip)"
+msgstr "Ротација за 180(Преврти)"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3475
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:36
+msgid "Zoom In (75% to 100%)"
+msgstr "Зголеми (75% до 100%)"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3479
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:56
+msgid "Zoom Out (100% to 75%)"
+msgstr "Намали (100% до 75%)"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3493
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:91
+msgid "Center to Top"
+msgstr "од Средина до Горе"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3497
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:101
+msgid "Center to Left"
+msgstr "од Средина до Лево"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3501
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:111
+msgid "Center To Right"
+msgstr "од Средина до Десно"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3505
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:121
+msgid "Center to Bottom"
+msgstr "од Средина до Долу"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3510
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:146
+msgid "Left to Center"
+msgstr "од Лево до средина"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3514
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:156
+msgid "Right to Center"
+msgstr "од Десно до средина"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3518
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:136
+msgid "Top to Center"
+msgstr "од Горе до средина"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3522
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:166
+msgid "Bottom to Center"
+msgstr "од Долу до средина"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3527
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:191
+msgid "Left to Right"
+msgstr "Од лево на десно"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3531
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:201
+msgid "Right to Left"
+msgstr "Од десно на лево"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3535
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:181
+msgid "Top to Bottom"
+msgstr "Одгоре надолу"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3539
+#: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:211
+msgid "Bottom to Top"
+msgstr "Од долу нагоре"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3596
+#: /home/jonathan/openshot/openshot/windows/ui/Main_layout_menu.ui:10
+msgid "Reset Layout"
+msgstr "Ресетирај Layout"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3602
+#: /home/jonathan/openshot/openshot/windows/ui/Main_layout_menu.ui:36
+msgid "1/4 Size - Top Left"
+msgstr "1/4 Големина - Горе Лево"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3606
+#: /home/jonathan/openshot/openshot/windows/ui/Main_layout_menu.ui:46
+msgid "1/4 Size - Top Right"
+msgstr "1/4 Големина - Горе Десно"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3610
+#: /home/jonathan/openshot/openshot/windows/ui/Main_layout_menu.ui:56
+msgid "1/4 Size - Bottom Left"
+msgstr "1/4 Големина - Долу Лево"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3614
+#: /home/jonathan/openshot/openshot/windows/ui/Main_layout_menu.ui:66
+msgid "1/4 Size - Bottom Right"
+msgstr "1/4 Големина - Долу Десно"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3618
+#: /home/jonathan/openshot/openshot/windows/ui/Main_layout_menu.ui:26
+msgid "1/4 Size - Center"
+msgstr "1/4 Големина - Средина"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3622
+#: /home/jonathan/openshot/openshot/windows/ui/Main_layout_menu.ui:91
+msgid "Show All (Distort)"
+msgstr "Прокажи ги сите(Distort)"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3626
+#: /home/jonathan/openshot/openshot/windows/ui/Main_layout_menu.ui:81
+msgid "Show All (Maintain Ratio)"
+msgstr "Прокажи ги сите(Maintain Ratio)"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3774
+#: /home/jonathan/openshot/openshot/classes/clip.py:2222
+msgid "Changed visibility of clip"
+msgstr "Промени ја видливоста на клипот"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3784
+#: /home/jonathan/openshot/openshot/classes/clip.py:2262
+msgid "Changed audio of clip"
+msgstr "Промени звук од клипот"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3841
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3930
+msgid "Shifted clips"
+msgstr "намали клип"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3876
+#: /home/jonathan/openshot/openshot/classes/clip.py:1799
+msgid "Removed clip"
+msgstr "Отстрани клип"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3896
+msgid "Please enter the # of seconds to shift the clips:"
+msgstr "внеси # од секунди за намалување на клипот"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4038
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4469
+msgid "Video converted to Image Sequence"
+msgstr "конвертирај видео ви секвенци за слики"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4070
+msgid "Replaced Clip"
+msgstr "Замени клип"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4109
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:113
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:626
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:628
+msgid "Import Files..."
+msgstr "Увези датотека"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4114
+msgid "Create Folder"
+msgstr "Креирај папка"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4119
+msgid "Add to Timeline..."
+msgstr "Додади во временската линија..."
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4124
+msgid "Preview File"
+msgstr "Прегледај датотека"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4129
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:167
+msgid "Convert To Image Sequence"
+msgstr "Промени  во Секвенца од слика"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4134
+msgid "Thumbnail View"
+msgstr "Поглед со сликички"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4139
+msgid "Detail View"
+msgstr "Поглед во Детали"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4144
+msgid "Move File(s) to Folder"
+msgstr "Премести Датотека/и до папка"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4161
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4162
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4330
+msgid "Remove from Folder"
+msgstr "Отстрани од папка"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4173
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:185
+msgid "Edit Title (Simple)"
+msgstr "Уреди Наслов"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4178
+msgid "Edit Title (Inkscape)"
+msgstr "Уреди наслов (Inkscape)"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4183
+msgid "Remove from Project"
+msgstr "Отстрани од Проект"
+
+#: openshot.xml:3987(title)
+msgid "Upload to Web"
+msgstr "аплоад на веб"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4193
+#: /home/jonathan/openshot/openshot/windows/ui/FileProperties.ui:10
+msgid "File Properties"
+msgstr "Својства на датотеката"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4358
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4409
+#: /home/jonathan/openshot/openshot/classes/open_project.py:82
+#: /home/jonathan/openshot/openshot/classes/restore_state.py:80
+msgid "The following file(s) no longer exist."
+msgstr "Датотеката веќе не постои"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4520
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4523
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4539
+#: /home/jonathan/openshot/openshot/windows/Titles.py:173
+#: /home/jonathan/openshot/openshot/windows/Titles.py:346
+#: /home/jonathan/openshot/openshot/windows/Titles.py:349
+#: /home/jonathan/openshot/openshot/windows/Titles.py:536
+#: /home/jonathan/openshot/openshot/windows/preferences.py:522
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:752
+#: /home/jonathan/openshot/openshot/classes/files.py:164
+msgid "OpenShot Error"
+msgstr "OpenShot Грешка"
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4520
+#: /home/jonathan/openshot/openshot/windows/Titles.py:346
+#, python-format
+msgid "Please install %s to use this function."
+msgstr "Инсталирај %s за користење на оваа функција."
+
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4523
+#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4539
+#: /home/jonathan/openshot/openshot/windows/Titles.py:349
+#, python-format
+msgid "There was an error opening '%s', is it installed?"
+msgstr "Има грешка при отворањето '%s', дали е инсталиран"
+
+#: /home/jonathan/openshot/openshot/windows/Profiles.py:172
+msgid "A profile with this name already exists. Please use another name."
+msgstr "Профилот со ова име веќе постои. Молам користете друго име."
+
+#: /home/jonathan/openshot/openshot/windows/Profiles.py:182
+msgid "Please enter a profile name."
+msgstr "Внесете име на профилот."
+
+#: /home/jonathan/openshot/openshot/windows/Profiles.py:187
+msgid "Please enter a valid size."
+msgstr "Внесете валидна големина."
+
+#: /home/jonathan/openshot/openshot/windows/Profiles.py:256
+msgid "Do you want to save this profile?."
+msgstr "Дали сакате да го зачуваре овој профил?."
+
+#: /home/jonathan/openshot/openshot/windows/Profiles.py:270
+#, python-format
+msgid "Are you sure you want to delete the profile %s?"
+msgstr "Дали сте сигирни дека сакате да го избришете профилот %s?"
+
+#: /home/jonathan/openshot/openshot/windows/Profiles.py:304
+#, python-format
+msgid "The profile %s cannot be deleted."
+msgstr "Профилот %s не може да се избрише."
+
+#: /home/jonathan/openshot/openshot/windows/Profiles.py:339
+#: /home/jonathan/openshot/openshot/windows/Profiles.py:351
+msgid "The profile has been successfully imported."
+msgstr "Профилот е успешно увезен."
+
+#: /home/jonathan/openshot/openshot/windows/Profiles.py:341
+#, python-format
+msgid "There was an error extracting the file %s"
+msgstr "има грешка во екстрактирањето на датотеката %s"
+
+#: /home/jonathan/openshot/openshot/windows/Profiles.py:353
+#, python-format
+msgid "There was an error copying the file %s"
+msgstr "Има грешка при копирањето на датотеката %s"
+
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:60
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:620
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:699
+msgid "Normal Speed"
+msgstr "Нормална брзина"
+
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:67
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:768
+msgid "Forward"
+msgstr "Напред"
+
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:67
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:762
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:909
+#: /home/jonathan/openshot/openshot/effects/mirror.xml
+msgid "Reverse"
+msgstr "Инверзно"
+
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:74
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:595
+msgid "Start of Clip"
+msgstr "Почеток на клипот"
+
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:74
+msgid "End of Clip"
+msgstr "Крој на клипот"
+
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:90
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:650
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:671
+msgid "{0} seconds"
+msgstr "{0} секунди"
+
+#: /home/jonathan/openshot/openshot/windows/ClipProperties.py:1020
+msgid "Modified clip properties"
+msgstr "Својства на модифициран клип"
+
+#: /home/jonathan/openshot/openshot/windows/ImportImageSeq.py:79
+#, python-format
+msgid ""
+"Please enter a valid file name.  The file name must have a %d (or %04d) "
+"where the number section of the file name is supposed to be.  For example:  "
+"MyFile_%d.png."
+msgstr ""
+"Внесете исправно име на датотека. Името треба да содржи %d (или %04d) каде "
+"што мора да содржи и број во името на датотеката. Како на пример: "
+"MyFile_%d.png"
+
+#: /home/jonathan/openshot/openshot/windows/ImportImageSeq.py:83
+msgid "Please enter an integer in the Frames per Image textbox."
+msgstr "Внесете број во рамките на текстбокс од сликата."
+
+#: /home/jonathan/openshot/openshot/windows/ImportImageSeq.py:129
+msgid ""
+"At least 2 images must match the file name pattern in the selected folder."
+msgstr ""
+"Најмалку 2 слики мора да одговараат на шемата на името на датотеката во "
+"избраниот фолдер."
+
+#: /home/jonathan/openshot/openshot/windows/Titles.py:173
+msgid "The Title name cannot be blank, the title file has not been created."
+msgstr "Мора да се внеси името за наслов, насловната датотека не е креирана"
+
+#: /home/jonathan/openshot/openshot/windows/Titles.py:230
+msgid "Please enter a name for the new Title file."
+msgstr "Внесете име за новата Насловна датотека"
+
+#: /home/jonathan/openshot/openshot/windows/Titles.py:231
+msgid "Enter Name"
+msgstr "Внеси Име"
+
+#: /home/jonathan/openshot/openshot/windows/Titles.py:234
+msgid "New Title"
+msgstr "Нов наслов"
+
+#: /home/jonathan/openshot/openshot/windows/Titles.py:238
+#: /home/jonathan/openshot/openshot/windows/ui/TransitionProperties.ui:50
+msgid "Name:"
+msgstr "Име:"
+
+#: /home/jonathan/openshot/openshot/windows/Titles.py:262
+#, python-format
+msgid ""
+"An image with the name '%s' already exists in the project.\n"
+"Do you want to overwrite it?"
+msgstr ""
+"Слика со '%s' името веќе постои во проектот.\n"
+"Дали сакате да запишете врз неа?"
+
+#: /home/jonathan/openshot/openshot/windows/Titles.py:263
+msgid "Overwrite Image?"
+msgstr "Зачувај ја сликата наново?"
+
+#: /home/jonathan/openshot/openshot/windows/Titles.py:362
+msgid "Edited title"
+msgstr "Уреден наслов"
+
+#: /home/jonathan/openshot/openshot/windows/Titles.py:536
+#: /home/jonathan/openshot/openshot/windows/preferences.py:522
+#, python-format
+msgid "Unexpected Error '%s' while writing to '%s'."
+msgstr "Неочекувана грешка '%s' додека запишува за \"%s\"."
+
+#: /home/jonathan/openshot/openshot/windows/ImportTransitions.py:92
+msgid "Transition Imported successfully!"
+msgstr "Транзицијата е успешно увезена!"
+
+#: /home/jonathan/openshot/openshot/windows/ImportTransitions.py:96
+msgid "There was an error importing the Transition!"
+msgstr "Се појави грешка при увоз на транзицијата!"
+
+#: /home/jonathan/openshot/openshot/windows/TreeFiles.py:48
+msgid "File"
+msgstr "Датотека"
+
+#: /home/jonathan/openshot/openshot/windows/TreeFiles.py:49
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:530
+msgid "Length"
+msgstr "Големина"
+
+#: /home/jonathan/openshot/openshot/windows/TreeFiles.py:50
+#: /home/jonathan/openshot/openshot/windows/TreeFiles.py:138
+msgid "Label"
+msgstr "Ознака"
+
+#: /home/jonathan/openshot/openshot/windows/preferences.py:59
+#: /home/jonathan/openshot/openshot/windows/preferences.py:74
+#: /home/jonathan/openshot/openshot/windows/preferences.py:105
+#: /home/jonathan/openshot/openshot/windows/preferences.py:112
+#: /home/jonathan/openshot/openshot/windows/preferences.py:239
+#: /home/jonathan/openshot/openshot/windows/preferences.py:252
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:536
+#: /home/jonathan/openshot/openshot/windows/TreeHistory.py:69
+msgid "Yes"
+msgstr "Да"
+
+#: /home/jonathan/openshot/openshot/windows/preferences.py:59
+#: /home/jonathan/openshot/openshot/windows/preferences.py:74
+#: /home/jonathan/openshot/openshot/windows/preferences.py:107
+#: /home/jonathan/openshot/openshot/windows/preferences.py:114
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:538
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:298
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:547
+msgid "No"
+msgstr "Не"
+
+#: /home/jonathan/openshot/openshot/windows/preferences.py:63
+#: /home/jonathan/openshot/openshot/windows/preferences.py:119
+#: /home/jonathan/openshot/openshot/windows/preferences.py:262
+msgid "Small"
+msgstr "Мал"
+
+#: /home/jonathan/openshot/openshot/windows/preferences.py:63
+#: /home/jonathan/openshot/openshot/windows/preferences.py:121
+msgid "Medium"
+msgstr "Среден"
+
+#: /home/jonathan/openshot/openshot/windows/preferences.py:81
+msgid "Video Codecs"
+msgstr "Видео кодеци"
+
+#: /home/jonathan/openshot/openshot/windows/preferences.py:85
+msgid "Audio Codecs"
+msgstr "Звучни кодеци"
+
+#: /home/jonathan/openshot/openshot/windows/preferences.py:89
+msgid "Formats"
+msgstr "Формати"
+
+#: /home/jonathan/openshot/openshot/windows/preferences.py:460
+msgid "OpenShot Warning"
+msgstr "OpenShot предупредување"
+
+#: /home/jonathan/openshot/openshot/windows/preferences.py:460
+msgid "Invalid or empty preferences file found, loaded default values"
+msgstr ""
+"Невалидни или празни параметри пронајдени за датотеката, вчитани се "
+"основните параметри"
+
+#: /home/jonathan/openshot/openshot/windows/IcvTransitions.py:189
+msgid "There was an error loading user created transitions."
+msgstr ""
+"Се појави грешка при внесување на направената транзиција од корисникот."
+
+#: /home/jonathan/openshot/openshot/windows/UploadVideo.py:116
+msgid "Unable to open the verification web page."
+msgstr "Неможам да ја отворам веб страната за верификација."
+
+#: /home/jonathan/openshot/openshot/windows/UploadVideo.py:169
+#: /home/jonathan/openshot/openshot/windows/UploadVideo.py:173
+#: /home/jonathan/openshot/openshot/windows/UploadVideo.py:176
+msgid "Upload Successful!"
+msgstr "Испраќањето и успешно!"
+
+#: /home/jonathan/openshot/openshot/windows/UploadVideo.py:169
+#: /home/jonathan/openshot/openshot/windows/UploadVideo.py:173
+#: /home/jonathan/openshot/openshot/windows/UploadVideo.py:176
+msgid "Your video has been successfully uploaded!"
+msgstr "Твоето видео е успешно испратено!"
+
+#: /home/jonathan/openshot/openshot/windows/ExportXML.py:42
+msgid "MLT XML (*.mlt)"
+msgstr "MLT XML (*.mlt)"
+
+#: /home/jonathan/openshot/openshot/windows/ExportXML.py:74
+msgid "There was an error saving this project as XML."
+msgstr "Се појави грешка при зачувувањето на проектот како XML."
+
+#. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
+#: openshot.xml:0(None)
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Aleksandar https://launchpad.net/~ace2709"
+
+#: /home/jonathan/openshot/openshot/windows/OpenProject.py:42
+msgid "OpenShot Project (*.osp)"
+msgstr "OpenShot Проект (*.osp)"
+
+#: /home/jonathan/openshot/openshot/windows/OpenProject.py:74
+msgid ""
+"There was an error opening this project file.  Please be sure you open the "
+"correct *.osp file."
+msgstr ""
+"Се појави грешка при отворањето на овој проект. Бидете сигурни дека отварате "
+"исправна *.osp датотека."
+
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:117
+#: /home/jonathan/openshot/openshot/windows/AddFiles.py:167
+msgid "There was an error importing the selected file(s)."
+msgstr "Се појави грешка при увозот на одбраните датотеки."
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:85
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:584
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:717
+msgid "Video & Audio"
+msgstr "Видео и Звук"
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:95
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:100
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:245
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:745
+msgid "Export to Folder"
+msgstr "Извози до Папка"
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:114
+#: /home/jonathan/openshot/openshot/export_presets/youtube.xml
+msgid "YouTube"
+msgstr "YouTube"
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:306
+#: /home/jonathan/openshot/openshot/export_presets/format_avi_mpeg2.xml
+msgid "All Formats"
+msgstr "Сите формати"
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:308
+#: /home/jonathan/openshot/openshot/export_presets/format_ogg_libvorbis.xml
+msgid "OGG (theora/vorbis)"
+msgstr "OGG (theora/vorbis)"
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:364
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:372
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:393
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:409
+msgid "Low"
+msgstr "Ниско"
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:364
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:372
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:395
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:410
+msgid "Med"
+msgstr "Средно"
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:364
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:372
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:397
+msgid "High"
+msgstr "Високо"
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:426
+#, python-format
+msgid ""
+"%s is not a valid OpenShot profile. Profile settings will not be applied."
+msgstr ""
+"%s е невалиден OpenShot профил. Поставувањето на профилот нема да се примени"
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:477
+msgid ""
+"The following codec(s) are missing from your system:\n"
+"\n"
+"{missing_codecs}\n"
+"\n"
+"You may need to install packages such as libavformat-extra to enable the "
+"missing codecs.\n"
+"<a href='https://answers.launchpad.net/openshot/+faq/1040'>Learn More</a>"
+msgstr ""
+"Следниот кодек недостасува во твојот систем:\n"
+"\n"
+"{missing_codecs}\n"
+"\n"
+"Можеби треба да го инсталирате пакетот како libavformat-extra за да се "
+"овозможи кодекот.\n"
+"<a href='https://answers.launchpad.net/openshot/+faq/1040'>Научи повеќе</a>"
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:482
+msgid ""
+"The following codec(s) are missing from your system:\n"
+"\n"
+"{missing_codecs}\n"
+"\n"
+"You may need to install packages such as libavformat-extra to enable the "
+"missing codecs."
+msgstr ""
+"Следниот кодек недостасува во твојот систем:\n"
+"\n"
+"{missing_codecs}\n"
+"\n"
+"Можеби треба да го инсталирате пакетот како libavformat-extra за да се "
+"овозможи кодекот."
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:654
+msgid "Please enter a valid File Name."
+msgstr "Внесете валидно име на датотеката"
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:658
+msgid "Please select a valid Project Type."
+msgstr "Одберете валiден тип на Проект"
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:662
+msgid "Please select a valid Target."
+msgstr "Одберете валидна Мета"
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:666
+msgid "Please select a valid Profile."
+msgstr "Одберете валиден Профил"
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:670
+msgid "Please select a valid Quality."
+msgstr "Оберете валиден Квалитет"
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:674
+msgid "Please enter a valid Image Format."
+msgstr "Внесете валиден Формат на слика."
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:678
+msgid "Please enter a valid Video Format."
+msgstr "Внесете валиден формат на Видео."
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:682
+msgid "Please enter a valid Video Codec."
+msgstr "Внесете еден валиден Видео кодек."
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:686
+msgid "Please enter a valid Bit Rate."
+msgstr "Внесете валиден Bit Rate"
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:690
+msgid "Please enter a valid Audio Codec."
+msgstr "Внесете еден валиден Звучен кодек"
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:694
+msgid "Please enter a valid Sample Rate."
+msgstr "Внесете валиден Sample Rate"
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:698
+msgid "Please enter a valid Audio Channels."
+msgstr "Внесете валидни Звучни канали"
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:702
+msgid "Please enter a valid Audio Bit Rate."
+msgstr "Внесете валиден Звучен Bit Rate"
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:746
+#: /home/jonathan/openshot/openshot/windows/NewProject.py:198
+msgid "Confirm Overwrite"
+msgstr "Потврдете го повторното запишување"
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:746
+#, python-format
+msgid ""
+"There is already a video file named %s.%s in the selected export folder. "
+"Would you like to overwrite it?"
+msgstr ""
+"Веќе постои видео датотека со име%s.%s во одбраната извозна папка. Дали "
+"сакате да запишете врз неа?"
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:752
+msgid ""
+"You do not have write permissions to the selected folder, please select "
+"another location."
+msgstr ""
+"Немате одобрување за запишување во избраната папка, ве молиме изберете друга "
+"локација."
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:796
+msgid "Export Complete"
+msgstr "Извозот е завршен"
+
+#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:797
+#, python-format
+msgid ""
+"The video has been successfully exported to\n"
+"%s"
+msgstr ""
+"Видеото е успешно извозено во\n"
+"%s"
+
+#: /home/jonathan/openshot/openshot/windows/TreeHistory.py:44
+msgid "Current"
+msgstr "Тековен"
+
+#: /home/jonathan/openshot/openshot/windows/TreeHistory.py:45
+#: /home/jonathan/openshot/openshot/effects/coloradj_RGB.xml
+msgid "Action"
+msgstr "Акција"
+
+#: /home/jonathan/openshot/openshot/windows/NewProject.py:75
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:170
+msgid "Save Project As..."
+msgstr "Зачувај Проект како..."
+
+#: openshot.xml:1069(title)
+msgid "Create a Project"
+msgstr "Направи Проект"
+
+#: /home/jonathan/openshot/openshot/windows/NewProject.py:89
+#: /home/jonathan/openshot/openshot/classes/project.py:71
+msgid "Default Project"
+msgstr "Основен Проект"
+
+#: /home/jonathan/openshot/openshot/windows/NewProject.py:186
+msgid "Please enter a valid project name."
+msgstr "Внеси валидно име за проектот."
+
+#: /home/jonathan/openshot/openshot/windows/NewProject.py:190
+msgid "Please enter a valid project type."
+msgstr "Внеси правилен тип на проект."
+
+#: /home/jonathan/openshot/openshot/windows/NewProject.py:198
+#, python-format
+msgid ""
+"There is already a project named %s%s in the selected folder. Would you like "
+"to overwrite it?"
+msgstr ""
+"Веќе постои проект со име% s% s во избраната папка. Дали сакате да запишете "
+"врз неа?"
+
+#: /home/jonathan/openshot/openshot/windows/NewProject.py:219
+msgid "New project"
+msgstr "Нов проект"
+
+#: /home/jonathan/openshot/openshot/classes/video.py:349
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1246
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1248
+msgid "Play"
+msgstr "Пушти"
+
+#: /home/jonathan/openshot/openshot/classes/video.py:377
+msgid "Pause"
+msgstr "Пауза"
+
+#: /home/jonathan/openshot/openshot/classes/thumbnail.py:100
+msgid "Warning!"
+msgstr "Предупредување!"
+
+#: /home/jonathan/openshot/openshot/classes/thumbnail.py:100
+#, python-format
+msgid ""
+"The file %s has properties that may prevent it working properly in "
+"OpenShot.\n"
+"You may need to transcode it to another format."
+msgstr ""
+"Датотеката %s има својства што може да спречи да работи правилно во "
+"OpenShot.\n"
+"Можеби ќе треба да го траскодирате во друг формат."
+
+#: /home/jonathan/openshot/openshot/classes/sequences.py:80
+msgid "Added marker"
+msgstr "Додаден обележувач"
+
+#: /home/jonathan/openshot/openshot/classes/sequences.py:138
+msgid "Added Track"
+msgstr "Додадена Трака"
+
+#: /home/jonathan/openshot/openshot/classes/sequences.py:145
+msgid "Renamed track"
+msgstr "Преименована трака"
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:63
+msgid "usage: %prog [options] inputfile.osp"
+msgstr "употреба: %prog [options] inputfile.osp"
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:68
+msgid "destination file-name"
+msgstr "одреденото има на датотека"
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:75
+msgid "export folder"
+msgstr "извозна папка"
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:83
+msgid "export as image sequence"
+msgstr "извози како секвенца на слика"
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:91
+msgid "export as video or audio file"
+msgstr "извоз на видео или звучна датотека"
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:98
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:105
+msgid "set video codec"
+msgstr "постави видео кодек"
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:112
+msgid "set video bitrate in format 'number kb/s' or 'number Mb/s'"
+msgstr "постави видео bitrate во формат 'број kb/s' или 'број Mb/s'"
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:119
+msgid "set audio codec"
+msgstr "постави звучен кодек"
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:126
+msgid "set audio sample rate"
+msgstr "постави звучен simple rate"
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:133
+msgid "set number of audio channels"
+msgstr "постави број на звучни канали"
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:140
+msgid "set video bitrate in format 'number kb/s'"
+msgstr "постави видео bitrate во формат 'број kb/s'"
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:146
+msgid "Error: "
+msgstr "Грешка: "
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:152
+msgid "Warning: "
+msgstr "Предупредување: "
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:160
+msgid "Please specify an input project-file!"
+msgstr "Наведете увозна датотека на проект!"
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:164
+msgid "Too many arguments!"
+msgstr "Премногу аргументи!"
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:216
+msgid "rendering options:"
+msgstr "Опции за исцртување:"
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:217
+msgid "container type:"
+msgstr "Tтип на контеинер"
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:218
+msgid "video codec:"
+msgstr "видео кодек:"
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:219
+msgid "video bitrate:"
+msgstr "видео bitrate:"
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:220
+msgid "audio codec:"
+msgstr "звучен кодек:"
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:221
+msgid "audio sample rate:"
+msgstr "звучен sample rate:"
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:222
+msgid "channels:"
+msgstr "канали:"
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:223
+msgid "audio bitrate:"
+msgstr "звучен bitrate:"
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:240
+msgid "generating XML file for rendering"
+msgstr "генерирање на XML датотека за исцртување"
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:279
+msgid "Starting rendering to "
+msgstr "Започнува исцртување "
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:330
+msgid "program interrupted by user"
+msgstr "Програмата прекината од страна на корисникот"
+
+#: /home/jonathan/openshot/openshot/classes/cli_render.py:337
+msgid "project file correctly rendered"
+msgstr "проектот успечно исцртан"
+
+#: /home/jonathan/openshot/openshot/classes/theme.py:58
+#, python-format
+msgid ""
+"Unable to load theme XML file: %s.  OpenShot will use the blue_glass XML "
+"theme file instead."
+msgstr ""
+"Не можам да ја вчитам темата од XML датотека:% s. Наместо тоа OpenShot ќе ја "
+"користи blue_glass XML датотека за тема."
+
+#: /home/jonathan/openshot/openshot/classes/transition.py:537
+msgid "Resized transition"
+msgstr "Измени транзиција"
+
+#: /home/jonathan/openshot/openshot/classes/transition.py:539
+msgid "Moved transition"
+msgstr "Премести транзиција"
+
+#: /home/jonathan/openshot/openshot/classes/open_project.py:96
+msgid "The following transition(s) no longer exist."
+msgstr "Оваа транзиција не постои повеќе."
+
+#: /home/jonathan/openshot/openshot/classes/open_project.py:144
+msgid ""
+"There was an error opening this project file.  Please be sure you are "
+"selecting a valid .OSP project file."
+msgstr ""
+"Се појави грешка при отворањето на проектот. Бидете сигурни дека одбравте "
+"валидна .OPS датотека."
+
+#: /home/jonathan/openshot/openshot/classes/track.py:217
+#: /home/jonathan/openshot/openshot/classes/track.py:271
+msgid "Video Visible"
+msgstr "Видливо видео"
+
+#: /home/jonathan/openshot/openshot/classes/track.py:220
+#: /home/jonathan/openshot/openshot/classes/track.py:262
+msgid "Video not Visible"
+msgstr "Видеото не е видливо"
+
+#: /home/jonathan/openshot/openshot/classes/track.py:223
+#: /home/jonathan/openshot/openshot/classes/track.py:305
+msgid "Sound Activated"
+msgstr "Звукот активиран"
+
+#: /home/jonathan/openshot/openshot/classes/track.py:226
+#: /home/jonathan/openshot/openshot/classes/track.py:296
+msgid "Sound Deactivated"
+msgstr "Звукот не е активен"
+
+#: /home/jonathan/openshot/openshot/classes/track.py:278
+msgid "Changed visibility of track"
+msgstr "Промени видливост на траката"
+
+#: /home/jonathan/openshot/openshot/classes/track.py:312
+msgid "Changed audio of track"
+msgstr "Променет звукот од траката"
+
+#: /home/jonathan/openshot/openshot/classes/clip.py:191
+msgid "Added effect"
+msgstr "Додаден ефект"
+
+#: /home/jonathan/openshot/openshot/classes/clip.py:1977
+msgid "Sliced clip"
+msgstr "Дел од клип"
+
+#: /home/jonathan/openshot/openshot/classes/clip.py:2110
+msgid "Moved clip"
+msgstr "Отфрлен клип"
+
+#: /home/jonathan/openshot/openshot/classes/clip.py:2148
+msgid "Resized clip"
+msgstr "Изменет клип"
+
+#: /home/jonathan/openshot/openshot/classes/files.py:164
+#, python-format
+msgid "The folder %s already exists in this project."
+msgstr "Папката %s веќе постои во овој проект."
+
+#: /home/jonathan/openshot/openshot/classes/files.py:172
+msgid "Added folder"
+msgstr "Додадена папка"
+
+#: /home/jonathan/openshot/openshot/classes/files.py:324
+#, python-format
+msgid "Would you like to import %s as an image sequence?"
+msgstr "Дали сакате %s да се извезе како секвенци на слики?"
+
+#: /home/jonathan/openshot/openshot/classes/files.py:519
+msgid "Updated Label"
+msgstr "ажурирана етикета"
+
+#: /home/jonathan/openshot/openshot/classes/files.py:546
+msgid "Removed file"
+msgstr "Отстранета датотека"
+
+#: /home/jonathan/openshot/openshot/classes/files.py:555
+msgid "Removed folder"
+msgstr "Отстранета Папка"
+
+#: /home/jonathan/openshot/openshot/classes/files.py:632
+msgid "Moved to folder"
+msgstr "Преместен во Папка"
+
+#: /home/jonathan/openshot/openshot/classes/files.py:645
+msgid "Removed from folder"
+msgstr "Преместен од Папка"
+
+#: /home/jonathan/openshot/openshot/classes/project.py:89
+msgid "Default Sequence 1"
+msgstr "Основна секвенца 1"
+
+#: /home/jonathan/openshot/openshot/classes/project.py:348
+msgid "Opened project"
+msgstr "Отворен проект"
+
+#: /home/jonathan/openshot/openshot/uploads/manager.py:66
+#: /home/jonathan/openshot/openshot/uploads/manager.py:293
+#: /home/jonathan/openshot/openshot/export_presets/youtube.xml
+msgid "Web"
+msgstr "Веб"
+
+#: /home/jonathan/openshot/openshot/uploads/manager.py:66
+#: /home/jonathan/openshot/openshot/export_presets/youtube_HD.xml
+msgid "YouTube-HD"
+msgstr "YouTube-HD"
+
+#: /home/jonathan/openshot/openshot/uploads/manager.py:91
+#: /home/jonathan/openshot/openshot/uploads/manager.py:315
+msgid "Please choose a valid video file."
+msgstr "Одберете валидна видео датотека"
+
+#: /home/jonathan/openshot/openshot/uploads/manager.py:96
+#: /home/jonathan/openshot/openshot/uploads/manager.py:320
+msgid "Please enter a valid title."
+msgstr "Внеси валиден наслов"
+
+#: /home/jonathan/openshot/openshot/uploads/manager.py:101
+#: /home/jonathan/openshot/openshot/uploads/manager.py:326
+msgid "Please enter a valid description."
+msgstr "Внесете валиден опис"
+
+#: /home/jonathan/openshot/openshot/uploads/manager.py:106
+msgid "Please enter a valid username."
+msgstr "внесете валидно корисничко име."
+
+#: /home/jonathan/openshot/openshot/uploads/manager.py:114
+msgid "Please enter a valid password."
+msgstr "Внесете валидна лозинка."
+
+#: /home/jonathan/openshot/openshot/uploads/manager.py:186
+msgid ""
+"There was an error uploading this video to YouTube.  Please check your "
+"username, password, and be sure a valid video file is selected and try again."
+msgstr ""
+"Имаше грешка при испраќањето на ова видео на YouTube. Ве молиме проверете го "
+"вашето корисничко име, лозинка и бидете сигурни дека е избрана валидна видео "
+"датотека и обидете се повторно."
+
+#: /home/jonathan/openshot/openshot/uploads/manager.py:261
+msgid "Vimeo authentication has expired."
+msgstr "Vimeo проверка е истечена."
+
+#: /home/jonathan/openshot/openshot/uploads/manager.py:293
+#: /home/jonathan/openshot/openshot/export_presets/vimeo_HD.xml
+msgid "Vimeo-HD"
+msgstr "Vimeo-HD"
+
+#: /home/jonathan/openshot/openshot/uploads/manager.py:331
+msgid ""
+"Please enter a valid verification code.  Click the 'Authorize' button and "
+"login to the website.  Confirm the authorization, and copy the verification "
+"code."
+msgstr ""
+"Внеси валиден код за верификација. Кликнете на \"Авторизирај\" копчето за да "
+"се најавите на веб страната. Потврди овластување, и копирајго "
+"верификацискиот код."
+
+#: /home/jonathan/openshot/openshot/uploads/manager.py:370
+msgid ""
+"There was an error authorizing OpenShot.  Please be sure to enter the "
+"correct verification code from vimeo.com."
+msgstr ""
+"Со појави грешка при овластување на OpenShot. Ве молиме бидете сигурни дека "
+"го внесовте точниот код за потврда од vimeo.com."
+
+#: /home/jonathan/openshot/openshot/uploads/manager.py:393
+msgid "There was an error uploading to Vimeo."
+msgstr "Се појави грешка при испраќањето кон Vimeo."
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:60
+msgid "_File"
+msgstr "Датотека"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:69
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:527
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:529
+msgid "New Project..."
+msgstr "Нов проект..."
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:82
+msgid "Open Project..."
+msgstr "Отвори проект"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:95
+msgid "Recent Projects"
+msgstr "Скорешни Проекти"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:126
+msgid "Import Image Sequence..."
+msgstr "Увези Секвенца на слика"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:139
+msgid "Import New Transition..."
+msgstr "Увези нова Транзиција"
+
+#: openshot.xml:303(para)
+msgid "Save Project"
+msgstr "Зачувај проект"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:183
+msgid "Export XML..."
+msgstr "Извоз на XML..."
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:202
+msgid "Export Video..."
+msgstr "Извози видео..."
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:215
+msgid "Upload Video..."
+msgstr "Испрати видео..."
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:253
+msgid "_Edit"
+msgstr "Уреди"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:314
+msgid "_Title"
+msgstr "Наслов"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:323
+msgid "New Title..."
+msgstr "Нов Наслов..."
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:336
+msgid "New Animated Title..."
+msgstr "Нов Анимиран Наслов..."
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:356
+msgid "_View"
+msgstr "Поглед"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:368
+msgid "Toolbar"
+msgstr "Алатник"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:379
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1143
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1144
+msgid "History"
+msgstr "Историја"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:388
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:390
+msgid "Fullscreen"
+msgstr "На цел екран"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:405
+msgid "_Help"
+msgstr "Помош"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:414
+msgid "Contents"
+msgstr "Содржина"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:434
+msgid "_Report a Bug..."
+msgstr "Пријави грешка..."
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:447
+msgid "_Ask a Question..."
+msgstr "Постави Прашање"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:460
+msgid "_Translate this Application..."
+msgstr "Преведи ја оваа Апликација"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:473
+msgid "_Donate"
+msgstr "Донирајте"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:543
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:545
+#: /home/jonathan/openshot/openshot/windows/ui/OpenProject.ui:10
+#: /home/jonathan/openshot/openshot/windows/ui/OpenProject.ui:45
+msgid "Open Project"
+msgstr "Отвори проект"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:562
+msgid "Save"
+msgstr "Зачувај"
+
+#: openshot.xml:314(para)
+msgid "Undo"
+msgstr "Отповикај"
+
+#: openshot.xml:325(para)
+msgid "Redo"
+msgstr "Повтори"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:648
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:650
+msgid "Take Snapshot"
+msgstr "Направи слика"
+
+#: openshot.xml:347(para) openshot.xml:3976(title)
+msgid "Export Video"
+msgstr "Извези видео"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:707
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:881
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:995
+msgid "Show All"
+msgstr "Прикажи сè"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:711
+msgid "Show all files"
+msgstr "Прикажи ги сите датотеки"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:726
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1014
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1635
+msgid "Video"
+msgstr "Видео"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:730
+msgid "Show only video & image files"
+msgstr "Прикажи само видео и слики"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:745
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1033
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1294
+msgid "Audio"
+msgstr "Звук"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:749
+msgid "Show only audio files"
+msgstr "Прикажи само звучни датотеки"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:764
+msgid "Image"
+msgstr "Слика"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:768
+msgid "Show only image files"
+msgstr "Прикажи само слики"
+
+#: openshot.xml:192(para) openshot.xml:361(title)
+msgid "Project Files"
+msgstr "Датотеки на Проект"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:885
+msgid "Show all transitions"
+msgstr "Прикажи ги сите Транзиции"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:900
+msgid "Common"
+msgstr "Често"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:904
+msgid "Show only common transitions"
+msgstr "прикажи ги општите транзиции"
+
+#: openshot.xml:2509(title)
+msgid "Transitions"
+msgstr "Транзиции"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:999
+msgid "Show all effects"
+msgstr "Прикажи ги сите ефекти"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1018
+msgid "Show only video effects"
+msgstr "Само видео ефектите"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1037
+msgid "Show only audio effects"
+msgstr "Само звучните ефекти"
+
+#: openshot.xml:3271(title)
+msgid "Effects"
+msgstr "Ефекти"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1215
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1217
+msgid "Seek to Beginning"
+msgstr "Оди на почеток"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1231
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1233
+msgid "Seek Backward"
+msgstr "Барај наназад"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1261
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1263
+msgid "Seek Forward"
+msgstr "Барај нанапред"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1276
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1278
+msgid "Seek to Ending"
+msgstr "Оди на крај"
+
+#: openshot.xml:475(para) openshot.xml:1591(para)
+msgid "Add Track"
+msgstr "Додај Трака"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1370
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1372
+msgid "Arrow Tool"
+msgstr "Алетник стрелка"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1385
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1387
+msgid "Razor Tool"
+msgstr "алатка жилет"
+
+#: openshot.xml:2557(para)
+msgid "Resize Tool"
+msgstr "алатка за големина"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1416
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1418
+msgid "Snapping Tool"
+msgstr "алатка за припојување"
+
+#: openshot.xml:530(para) openshot.xml:1646(para)
+msgid "Add Marker"
+msgstr "Додај обележувач"
+
+#: openshot.xml:541(para) openshot.xml:1657(para)
+msgid "Previous Marker"
+msgstr "Претходен обележувач"
+
+#: openshot.xml:552(para) openshot.xml:1668(para)
+msgid "Next Marker"
+msgstr "Нареден обележувач"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1495
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1497
+msgid "Zoom In"
+msgstr "Зголеми"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1516
+msgid "Slide to Zoom"
+msgstr "Зголеми со лизгање"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1539
+msgid "Number of seconds between each line on the timeline"
+msgstr "Број на секунди помеѓу секоја линија на временската линија"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1540
+msgid "15 seconds"
+msgstr "15 секунди"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1552
+#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1554
+msgid "Zoom Out"
+msgstr "Намали"
+
+#: openshot.xml:3997(title)
+msgid "Upload Video"
+msgstr "Испрати видео"
+
+#: /home/jonathan/openshot/openshot/windows/ui/UploadVideo.ui:32
+msgid "Video File:"
+msgstr "Видео датотека:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/UploadVideo.ui:56
+msgid "Upload To:"
+msgstr "Испрати до:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/UploadVideo.ui:87
+msgid "Title:"
+msgstr "Наслов:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/UploadVideo.ui:122
+msgid "Description:"
+msgstr "Опис:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/UploadVideo.ui:143
+msgid "Click to Authorize OpenShot"
+msgstr "Кликни за Авторизација на OpenShot"
+
+#: /home/jonathan/openshot/openshot/windows/ui/UploadVideo.ui:160
+msgid "Code:"
+msgstr "Код:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/UploadVideo.ui:185
+msgid "Username:"
+msgstr "Корисник:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/UploadVideo.ui:210
+msgid "Password:"
+msgstr "Лозинка:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/UploadVideo.ui:244
+msgid "Forgot password?"
+msgstr "Ја заборави Лозинката?"
+
+#: /home/jonathan/openshot/openshot/windows/ui/UploadVideo.ui:327
+#: /home/jonathan/openshot/openshot/windows/ui/TransitionProperties.ui:285
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:327
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:167
+#: /home/jonathan/openshot/openshot/windows/ui/OpenProject.ui:31
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:118
+#: /home/jonathan/openshot/openshot/windows/ui/BlenderGenerator.ui:243
+#: /home/jonathan/openshot/openshot/windows/ui/ExportXML.ui:27
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:943
+msgid "Cancel"
+msgstr "Откажи"
+
+#: openshot.xml:4514(title)
+msgid "About OpenShot"
+msgstr "За OpenShot"
+
+#: /home/jonathan/openshot/openshot/windows/ui/About.ui:32
+msgid "Project Website (LaunchPad)"
+msgstr "Веб на проектот (LaunchPad)"
+
+#: /home/jonathan/openshot/openshot/windows/ui/TransitionProperties.ui:30
+msgid "Transition / Mask Properties"
+msgstr "Транзиција/Маска својства"
+
+#: /home/jonathan/openshot/openshot/windows/ui/TransitionProperties.ui:61
+msgid "None"
+msgstr "Нема"
+
+#: /home/jonathan/openshot/openshot/windows/ui/TransitionProperties.ui:73
+msgid "Mask Threshold:"
+msgstr "Маска праг:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/TransitionProperties.ui:86
+msgid "Softness:"
+msgstr "Мекост (softness):"
+
+#: /home/jonathan/openshot/openshot/windows/ui/TransitionProperties.ui:99
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:589
+msgid "Direction:"
+msgstr "Насока:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/TransitionProperties.ui:112
+msgid "Type:"
+msgstr "Тип:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/TransitionProperties.ui:194
+#: /home/jonathan/openshot/openshot/windows/ui/TransitionProperties.ui:207
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:331
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:399
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:490
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1212
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1225
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1577
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1589
+msgid "seconds"
+msgstr "секунди"
+
+#: /home/jonathan/openshot/openshot/windows/ui/TransitionProperties.ui:256
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:319
+msgid "Position on Timeline:"
+msgstr "Позиција на временската линија:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/TransitionProperties.ui:267
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:456
+msgid "Length:"
+msgstr "Должина:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/TransitionProperties.ui:299
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:133
+msgid "Apply"
+msgstr "Примени"
+
+#: /home/jonathan/openshot/openshot/windows/ui/titles_edit.ui:10
+msgid "Enter title text"
+msgstr "Внеси текст за Наслов:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/profiles.ui:6
+msgid "Profiles Manager"
+msgstr "Менаџер за Профили"
+
+#: /home/jonathan/openshot/openshot/windows/ui/profiles.ui:23
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:145
+msgid "Profile:"
+msgstr "Профил:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/profiles.ui:51
+msgid "Create a new profile (using the settings from the selected profile)"
+msgstr "Направи нов профил(користи ги особините од одбраниот профил)"
+
+#: /home/jonathan/openshot/openshot/windows/ui/profiles.ui:70
+msgid "Delete the selected profile"
+msgstr "Избриши го одбраниот профил"
+
+#: /home/jonathan/openshot/openshot/windows/ui/profiles.ui:110
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:234
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:435
+msgid "Frame Rate:"
+msgstr "Frame Rate:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/profiles.ui:164
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:260
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:423
+msgid "Pixel Ratio:"
+msgstr "Сооднос на точки:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/profiles.ui:220
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:208
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:447
+msgid "Aspect Ratio:"
+msgstr "Сооднос:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/profiles.ui:274
+msgid "Size:"
+msgstr "Големина:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/profiles.ui:299
+msgid "x"
+msgstr "x"
+
+#: /home/jonathan/openshot/openshot/windows/ui/profiles.ui:328
+msgid "Profile Name:"
+msgstr "Име на Профил:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/profiles.ui:348
+msgid "Use this profile as default profile"
+msgstr "Користи го овој профил како основен:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/profiles.ui:363
+msgid "Progressive"
+msgstr "Прогресивно"
+
+#: /home/jonathan/openshot/openshot/windows/ui/profiles.ui:381
+msgid "Import an existing profile"
+msgstr "Увези постоечки профил:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/profiles.ui:420
+msgid "<b>Profile Properties</b>"
+msgstr "<b>Својства на профил</b>"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_marker_menu.ui:11
+#: /home/jonathan/openshot/openshot/windows/ui/Main_marker_menu.ui:12
+msgid "Remove Marker"
+msgstr "Отстрани обележувач"
+
+#: openshot.xml:2219(title)
+msgid "Title Editor"
+msgstr "Уредник за Наслов"
+
+#: /home/jonathan/openshot/openshot/windows/ui/titles.ui:65
+msgid "<b>Start here:</b>"
+msgstr "<b>Започни овде:</b>"
+
+#: /home/jonathan/openshot/openshot/windows/ui/titles.ui:94
+msgid "Create new Title"
+msgstr "Направи нов Наслов"
+
+#: /home/jonathan/openshot/openshot/windows/ui/titles.ui:100
+msgid "Create a new title using the selected template."
+msgstr "Направи нов наслов користејки одбран образец."
+
+#: /home/jonathan/openshot/openshot/windows/ui/titles.ui:124
+msgid "<b>Editing Tools:</b>"
+msgstr "<b>Алатки за Уредување:</b>"
+
+#: /home/jonathan/openshot/openshot/windows/ui/titles.ui:134
+msgid "Edit text"
+msgstr "Уреди текст"
+
+#: /home/jonathan/openshot/openshot/windows/ui/titles.ui:140
+msgid "Set the title text."
+msgstr "Постави текст за Насловот"
+
+#: /home/jonathan/openshot/openshot/windows/ui/titles.ui:151
+#: /home/jonathan/openshot/openshot/windows/ui/fontselector.ui:9
+msgid "Font Properties"
+msgstr "Својства на букви"
+
+#: /home/jonathan/openshot/openshot/windows/ui/titles.ui:156
+msgid "Change the Font properties."
+msgstr "Промени ги својствата на буквите"
+
+#: /home/jonathan/openshot/openshot/windows/ui/titles.ui:172
+msgid "Choose Font Color."
+msgstr "Одбери боја на буквите"
+
+#: /home/jonathan/openshot/openshot/windows/ui/titles.ui:190
+msgid "Choose Background Color."
+msgstr "Одбери боја за позадина."
+
+#: /home/jonathan/openshot/openshot/windows/ui/titles.ui:203
+msgid "Use Advanced editor"
+msgstr "Користи друг уредувач"
+
+#: /home/jonathan/openshot/openshot/windows/ui/titles.ui:209
+msgid "Edit the title in an external editor."
+msgstr "Уреди наслов во надворшен уредувач."
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:67
+#: /home/jonathan/openshot/openshot/windows/ui/Main_transition_properties.ui:10
+msgid "Duplicate"
+msgstr "Дуплирај"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:70
+msgid "Make a copy of this clip"
+msgstr "Направи копија од овој клип"
+
+#: openshot.xml:1430(para)
+msgid "Fade"
+msgstr "Избледи"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:89
+msgid "Fade this clip"
+msgstr "Избледи(Fade) клип"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:98
+msgid "Animate"
+msgstr "Анимирај"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:101
+msgid "Animate this clip"
+msgstr "Анимирај клип"
+
+#: openshot.xml:2007(para)
+msgid "Rotate"
+msgstr "Ротирај"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:113
+msgid "Rotate this clip"
+msgstr "Ротирај клип"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:122
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1098
+msgid "Layout"
+msgstr "Распоред"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:125
+msgid "Position and resize this clip"
+msgstr "Позиционирање и одредување на големината на клипот"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:143
+msgid "Hide Video"
+msgstr "Скриј видео"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:153
+msgid "Mute Audio"
+msgstr "Исклучи Звук"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:195
+msgid "Shift Clips"
+msgstr "промени(Shift) клип"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:207
+msgid "Replace Clip"
+msgstr "Постави клип повторно"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:218
+msgid "Remove Clip"
+msgstr "Отстрани клип"
+
+#: openshot.xml:336(para)
+msgid "Import Files"
+msgstr "Увези клип"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_folder_menu.ui:7
+msgid "Folder Name"
+msgstr "Име на папка"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_folder_menu.ui:27
+msgid "Folder Name:"
+msgstr "Име на папка:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:33
+msgid "Project Name:"
+msgstr "Проект Име:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:58
+msgid "Project Folder:"
+msgstr "Папка на проект"
+
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:73
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:106
+msgid "Select A Folder"
+msgstr "Изберете папка"
+
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:87
+msgid "Project Profile:"
+msgstr "Профил на проект:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:133
+msgid ""
+"Use this screen to name your new video project, select the folder location "
+"of your new project, and select the type of project.  "
+msgstr ""
+"Користете го ова име на екран за вашиот нов видео проект, одберете ја "
+"локацијата на папката за вашиот нов проект, и изберете го типот на проект.  "
+
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:160
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:781
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:471
+msgid "Width:"
+msgstr "Ширина:"
+
+#: openshot.xml:4149(para)
+msgid "0"
+msgstr "0"
+
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:182
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:767
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:459
+msgid "Height:"
+msgstr "Висина:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:220
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:272
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:508
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:534
+msgid "0:0"
+msgstr "0:0"
+
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:246
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:521
+msgid "0.00"
+msgstr "0.00"
+
+#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:286
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:411
+msgid "Progressive:"
+msgstr "Прогресивно:"
+
+#: openshot.xml:1251(title)
+msgid "Add to Timeline"
+msgstr "Додај во временската линија:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:92
+msgid "The time (in seconds) of where to place the first clip"
+msgstr "Време (во секунди) каде што е поставен првиот клип"
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:94
+msgid "Start Time (seconds):"
+msgstr "Пошеток (секунди):"
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:125
+msgid "This track is where the first clip will be placed"
+msgstr "Оваа трака е местото каде што првиот клип ќе биде поставен"
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:127
+msgid "Top Track:"
+msgstr "Нејгорна трака:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:161
+msgid ""
+"This track is where the even numbered clips will be placed (if transitions "
+"are used)"
+msgstr ""
+"Оваа трака е местото каде што други нумерирани клипови ќе бидат поставени "
+"(ако се користат транзиции)"
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:163
+msgid "Bottom Track:"
+msgstr "Долна трака"
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:195
+msgid "<b>Timeline Location</b>"
+msgstr "<b>Локација во временската линија</b>"
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:221
+msgid "Fade:"
+msgstr "Избледи"
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:256
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:348
+msgid "Length (in seconds):"
+msgstr "Должина (во секунди):"
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:285
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1243
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1607
+msgid "<b>Fade</b>"
+msgstr "<b>Избледи(Fade)</b>"
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:310
+msgid "This transition will be placed between each clip"
+msgstr "Оваа транзиција ке биде поставена помеѓу секој клип"
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:312
+msgid "Transition:"
+msgstr "Транзиција:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:346
+msgid "The length of each transition"
+msgstr "Должина на секоја транзиција."
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:377
+msgid "<b>Transition</b>"
+msgstr "<b>Транзиција</b>"
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:404
+msgid "Move selected files up"
+msgstr "Премести ги одбраните датотеки погоре"
+
+#: openshot.xml:1474(para)
+msgid "Move Up"
+msgstr "Помести нагоре"
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:418
+msgid "Move the selected files down"
+msgstr "Помести ги одбраните датотеки подолу"
+
+#: openshot.xml:1485(para)
+msgid "Move Down"
+msgstr "Помести надолу"
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:432
+msgid "Shuffle all files in this list"
+msgstr "Измешај ги сите датотеки во оваа листа"
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:433
+msgid "Shuffle"
+msgstr "Измешај"
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:455
+msgid "Remove the selected files"
+msgstr "Отстрани ги одбраните датотеки"
+
+#: openshot.xml:2075(para)
+msgid "Remove"
+msgstr "Отстрани"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportTransitions.ui:6
+msgid "Import Transitions"
+msgstr "Увези Транзиција"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportTransitions.ui:16
+msgid ""
+"Please select a grayscale PNG image, which\n"
+"will be added to your list of available transitions."
+msgstr ""
+"Одбери гри(grayscale) PNG слика,  која ке биде\n"
+"додадена и достапна од листата за Транзиции"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportTransitions.ui:35
+msgid "Select Transition:"
+msgstr "Одбери Транзиција"
+
+#: openshot.xml:3389(para)
+msgid "Add Effect"
+msgstr "Додај ефект"
+
+#: /home/jonathan/openshot/openshot/windows/ui/AddEffect.ui:28
+msgid "Effect:"
+msgstr "Ефект:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_playhead_menu.ui:10
+msgid "Slice All Clips"
+msgstr "Подели ги сите клипови"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_playhead_menu.ui:15
+msgid "Slice all clips at the current play-head position"
+msgstr "Подели ги сите клипови во оваа главна позиција"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:7
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:181
+msgid "Import Image Sequence"
+msgstr "Увези Секвенца на слика"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:25
+msgid ""
+"Use this screen to import a sequence of numbered images as a video clip.\n"
+"Be sure all pictures are in the same folder, and are sequencially numbered.\n"
+"<b>TIP: </b>If you drag and drop a single image from the sequence into the \n"
+"project files tree, it will automatically determine the file pattern.\n"
+"\n"
+"Use a %d for filenames starting with a number. If the filename is \n"
+"padded (i.e. 00001.png, 00002.png), you must indicate the number of\n"
+"digits (i.e. %05d.png)\n"
+"\n"
+"<b>Example patterns:</b>\n"
+"image1.png = image%d.png\n"
+"image01.png = image%02d.png\n"
+"image00001.png = image%05.png"
+msgstr ""
+"Користете го овој екран за увоз на секвенца на слики со броеви како видео "
+"клип.\n"
+"Бидете сигурни дека сите слики се во иста папка, и се правилно по број.\n"
+"<b> СОВЕТ: </ b> Ако спуштите една слика од дрвото на низата во\n"
+"датотеки на проект, таа датотеката автоматски ќе се утврди во шема.\n"
+"\n"
+"Користете %d датотеки почнувајќи со број. Ако името на датотеката е\n"
+"како (00001.png, 00002.png), мора да го покажат бројот на\n"
+"цифри (односно %05d.png)\n"
+"\n"
+"<b> Примери на модели: </ b>\n"
+"image1.png = Сликата %d.png\n"
+"image01.png = Сликата %02d.png\n"
+"image00001.png = Сликата %05.png"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:44
+msgid "<b>Import Image Sequence</b> (Click for Instructions)"
+msgstr "<b>Увези секвенца на слика</b> (кликни за инструкции)"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:62
+msgid ""
+"The number of frames that each image represents.  The larger the number, the "
+"slower the image sequence will appear."
+msgstr ""
+"Претставува број на рамките(frames) во секоја слика. Колку е поголем бројот "
+"на секвенцата на слики ќе биде побавен."
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:64
+msgid "Frames per Image:"
+msgstr "Рамки во слика"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:74
+msgid "The folder that contains the sequence of image files."
+msgstr "Папката која содржи секвенци од датотеки на слики"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:76
+msgid "Image Folder:"
+msgstr "Папка за слики"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:86
+msgid ""
+"A file pattern tells OpenShot how your images are named:  image001.png would "
+"use the following pattern: image%03d.png."
+msgstr ""
+"Шемата на датотеката му кажува на OpenShot како вашите слики се именувани: "
+"image001.png ќе го користи следнава шема: Сликата %03d.png."
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:88
+msgid "File Name Pattern:"
+msgstr "Модел на името на датотеката:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:95
+msgid "myfile_%d.png"
+msgstr "datoteka_%d.png"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:118
+msgid ""
+"The number of times to repeat the sequence of images.  For example, a 5 "
+"would repeat the entire sequence of images 5 times.  A 0 would not repeat "
+"the sequence at all."
+msgstr ""
+"Број на пати за повторување на редоследот од слики. На пример, 5 нема да се "
+"повтори целата низа на слики 5 пати. А 0 не го повтори редоследот за сите."
+
+#: /home/jonathan/openshot/openshot/windows/ui/ImportImageSeq.ui:120
+msgid "Repeat Sequence:"
+msgstr "Повторете редослед:"
+
+#: openshot.xml:1694(title)
+msgid "Clip Properties"
+msgstr "Својства на клип"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:168
+msgid "Preview"
+msgstr "Преглед"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:266
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:36
+msgid "File Name:"
+msgstr "Име на датотека:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:277
+msgid "N/A"
+msgstr "Неопределено"
+
+#: openshot.xml:1733(para)
+msgid "Enable Audio"
+msgstr "Вклучи Звук"
+
+#: openshot.xml:1725(para)
+msgid "Enable Video"
+msgstr "Вклучи видео"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:375
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:385
+msgid "General"
+msgstr "Општо"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:412
+msgid "In:"
+msgstr "Во:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:442
+msgid "Out:"
+msgstr "Надвор:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:560
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:646
+msgid "Speed:"
+msgstr "Брзина:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:622
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:320
+msgid "Simple"
+msgstr "Едноставно"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:693
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:910
+msgid "Advanced"
+msgstr "Напредно"
+
+#: openshot.xml:1810(para)
+msgid "Speed"
+msgstr "Брзина"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:738
+msgid "Key Frame:"
+msgstr "Key Frame:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:795
+msgid "X:"
+msgstr "X:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:809
+msgid "Y:"
+msgstr "Y:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:823
+msgid "Alpha:"
+msgstr "Алфа:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:851
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:901
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:916
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:931
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1051
+msgid "%"
+msgstr "%"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1272
+msgid "Volume:"
+msgstr "Тон (звук)"
+
+#: openshot.xml:1975(para)
+msgid "Stretch Full Screen"
+msgstr "Рашири на цел екран"
+
+#: openshot.xml:1983(para)
+msgid "Maintain Aspect Ratio"
+msgstr "Одржувај сооднос"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1367
+msgid "Horizontal:"
+msgstr "Хоризонтално:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1395
+msgid "Vertical:"
+msgstr "Вертикално:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1427
+msgid "Rotate:"
+msgstr "Ротирај:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1458
+msgid "degrees"
+msgstr "степени"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1476
+msgid "<b>Align</b>"
+msgstr "<b>Порамни</b>"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1681
+msgid "toolbutton1"
+msgstr "Алатник 1"
+
+#: openshot.xml:3400(para)
+msgid "Remove Effect"
+msgstr "Отстрани ефект"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1697
+msgid "toolbutton2"
+msgstr "Алетник 2"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1711
+msgid "Move Effect Up"
+msgstr "Премести ефект погоре"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1713
+msgid "toolbutton3"
+msgstr "Алатник 3"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1727
+msgid "Move Effect Down"
+msgstr "Помести ефект надолу"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1729
+msgid "toolbutton4"
+msgstr "Алатник 4"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1748
+msgid "Apply effects to all clips on this track"
+msgstr "Додади го ефектот кај сите клипови во оваа трака"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1777
+msgid "<b>Effect Settings</b>"
+msgstr "<b>Подесувања за Ефект</b>"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:25
+msgid "Openshot Preferences"
+msgstr "OpenShot Опции"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:55
+msgid "Blender Executable:"
+msgstr "Blender извршна датотека"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:67
+msgid "The command to launch Blender 2.5+."
+msgstr "Команда за стартовање на Blender 2.5+."
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:89
+msgid "Default Theme:"
+msgstr "Стандардна Тема:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:123
+msgid "Imported Image Length:"
+msgstr "Увезена големина на слика:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:135
+msgid "The default length of an image when dropped on the timeline."
+msgstr "Стандардна големина на слика кога префрлена во временската линија"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:162
+msgid "Max History Steps:"
+msgstr "Max случувања во историја:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:174
+msgid "Max number of steps to keep in history."
+msgstr "Max број на случувања за чување во историја."
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:200
+msgid "Output Mode:"
+msgstr "Режим за излез:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:212
+msgid ""
+"Sets the mode of the preview window. Use sdl_preview for less CPU use."
+msgstr ""
+"Гo поставува режимот за преглед на прозорец. Користете sdl_preview за помало "
+"користење на процесорот ."
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:237
+msgid "Use Stock Icons:"
+msgstr "Користи склаирани икони:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:249
+msgid "Set to Yes to use the stock Gnome theme icons."
+msgstr "Одбери Да за да користиш складирани Gnome икони."
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:274
+msgid "Use Smooth Scaling:"
+msgstr "Користи нежно скалирање:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:286
+msgid "Requires a newer version of libmlt (0.6.0) or greater."
+msgstr "Бара понова верзија на libmlt (0.6.0) или поголем."
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:311
+msgid "Icon Size:"
+msgstr "Големина за икони:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:323
+msgid "The icon size of the Effects and Transitions"
+msgstr "Големина на икони од Ефекти и Транзиции"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:348
+msgid "Melt Executable:"
+msgstr "Истопи извршна датотека"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:360
+msgid "The command to launch 'melt', the MLT command line program."
+msgstr ""
+"Команда за извршување \"истопи(Melt)\", MLT командна линија на програма."
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:482
+msgid "Reload Codecs"
+msgstr "Превчитај Кодеци"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:505
+msgid "<b>Installed Codecs/Formats</b>"
+msgstr "<b>Инсталирани Кодеци/Формати</b>"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:518
+msgid "AV Formats"
+msgstr "AV Формати"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:543
+msgid "Default Profile:"
+msgstr "Основен профил:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:573
+msgid "Manage Profiles"
+msgstr "Менаџирање профили"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:624
+msgid "Profiles"
+msgstr "Профили"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:645
+msgid "Autosave Interval (in minutes):"
+msgstr "Интервал за автозачувување (во минути):"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:658
+msgid "Enable Autosave"
+msgstr "Дозволи Автозачување"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:675
+msgid "Save Before Playback"
+msgstr "Зачувај пред репродукција"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:779
+msgid "Autosave"
+msgstr "Автозачувување"
+
+#: openshot.xml:2388(title)
+msgid "Animated Title Editor"
+msgstr "уредувач за Анимиран Наслов"
+
+#: /home/jonathan/openshot/openshot/windows/ui/BlenderGenerator.ui:38
+msgid "<b>Choose a Template</b>"
+msgstr "<b>Одбери Образец</b>"
+
+#: /home/jonathan/openshot/openshot/windows/ui/BlenderGenerator.ui:103
+msgid "Frame:"
+msgstr "Рамка(Frame):"
+
+#: /home/jonathan/openshot/openshot/windows/ui/BlenderGenerator.ui:115
+msgid "Choose a frame to preview"
+msgstr "Одбери рамка за преглед"
+
+#: /home/jonathan/openshot/openshot/windows/ui/BlenderGenerator.ui:130
+msgid "10/250"
+msgstr "10/250"
+
+#: openshot.xml:2480(para)
+msgid "Refresh"
+msgstr "Освежи"
+
+#: /home/jonathan/openshot/openshot/windows/ui/BlenderGenerator.ui:171
+msgid "<b>Modify the 3D Settings</b>"
+msgstr "<b>Промени 3Д Поставувања</b>"
+
+#: openshot.xml:2502(para)
+msgid "Render"
+msgstr "Исцртај"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_track_menu.ui:10
+#: /home/jonathan/openshot/openshot/windows/ui/Main_track_menu.ui:13
+msgid "Add Track Above"
+msgstr "Додај трака над"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_track_menu.ui:22
+#: /home/jonathan/openshot/openshot/windows/ui/Main_track_menu.ui:25
+msgid "Add Track Below"
+msgstr "Додај трака пред"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_track_menu.ui:39
+#: /home/jonathan/openshot/openshot/windows/ui/Main_track_menu.ui:42
+msgid "Move Track Up"
+msgstr "Премести трака погоре"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_track_menu.ui:51
+#: /home/jonathan/openshot/openshot/windows/ui/Main_track_menu.ui:54
+msgid "Move Track Down"
+msgstr "Премести трака подолу"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_track_menu.ui:68
+#: /home/jonathan/openshot/openshot/windows/ui/Main_track_menu.ui:71
+msgid "Rename Track"
+msgstr "Преименувај Трака"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_track_menu.ui:85
+#: /home/jonathan/openshot/openshot/windows/ui/Main_track_menu.ui:88
+msgid "Clear Track"
+msgstr "Исчисти трака"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_track_menu.ui:97
+#: /home/jonathan/openshot/openshot/windows/ui/Main_track_menu.ui:100
+msgid "Remove Track"
+msgstr "Отстрани трака"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportXML.ui:8
+#: /home/jonathan/openshot/openshot/windows/ui/ExportXML.ui:41
+msgid "Export XML"
+msgstr "Извези XML"
+
+#: /home/jonathan/openshot/openshot/windows/ui/fontselector.ui:79
+msgid "Style:"
+msgstr "Стил:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/fontselector.ui:161
+msgid "<b>Preview</b>"
+msgstr "<b>Преглед</b>"
+
+#: /home/jonathan/openshot/openshot/windows/ui/FileProperties.ui:34
+msgid "<b>File Name:</b>"
+msgstr "<b>Име за датотека:</b>"
+
+#: /home/jonathan/openshot/openshot/windows/ui/FileProperties.ui:108
+msgid "<b>File Length:</b>"
+msgstr "<b>Големина на датотека:</b>"
+
+#: /home/jonathan/openshot/openshot/windows/ui/FileProperties.ui:134
+msgid "<b>Video Size:</b>"
+msgstr "<b>Големина на Видео:</b>"
+
+#: /home/jonathan/openshot/openshot/windows/ui/FileProperties.ui:148
+msgid "<b>File Type:</b>"
+msgstr "<b>Тип на датотека:</b>"
+
+#: /home/jonathan/openshot/openshot/windows/ui/FileProperties.ui:204
+msgid "<b>Label:</b>"
+msgstr "<b>Натпис:</b>"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_transition_properties.ui:12
+msgid "Make a copy of this transition"
+msgstr "Направи копија од оваа Транзиција"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_transition_properties.ui:26
+msgid "Switch Direction"
+msgstr "Промени Дирекција"
+
+#: /home/jonathan/openshot/openshot/windows/ui/Main_transition_properties.ui:46
+msgid "Shift Transitions"
+msgstr "промени(Shift) Транзиции"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:48
+msgid "MyMovie"
+msgstr "МојФилм"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:175
+msgid "<b>Select a Profile to start:</b>"
+msgstr "<b>Одбери профил за почеток:</b>"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:203
+msgid "Video Profile:"
+msgstr "Видео профил:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:215
+msgid "Quality:"
+msgstr "Квалитет:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:282
+msgid "Target:"
+msgstr "Цел:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:295
+msgid "<b>Select from the following options:</b>"
+msgstr "<b>Одбери од следните опции:</b>"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:351
+msgid "Export To:"
+msgstr "Извoзи во:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:381
+msgid "<b>Advanced Options</b>"
+msgstr "<b>Напредни опции</b>"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:580
+msgid "<b>Profile</b>  (height, width, fps, aspect ratio)"
+msgstr "<b>Профил</b> (висина, ширина, рамки/сек.(fps), сооднос)"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:608
+msgid "Image Format:"
+msgstr "Формат на слика"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:633
+msgid "<b>Image Sequence Settings</b>"
+msgstr "<b>Поставувања на редоследот на слики</b>"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:664
+msgid "Video Format:"
+msgstr "Видео формат:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:674
+msgid "Video Codec:"
+msgstr "Видео кодек:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:686
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:861
+msgid "Bit Rate / Quality:"
+msgstr "Bit Rate/Квалитет:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:751
+msgid "<b>Video Settings</b>"
+msgstr "<b>Видео поставувања</b>"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:782
+msgid "Audio Codec:"
+msgstr "Звучен Кодек:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:809
+msgid "Sample Rate:"
+msgstr "Sample Rate:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:835
+msgid "# of Channels:"
+msgstr "# Канали:"
+
+#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:890
+msgid "<b>Audio Settings</b>"
+msgstr "<b>Поставувања за Звук</b>"
+
+#: /home/jonathan/openshot/openshot/effects/old_dust.xml
+msgid "Old Dust"
+msgstr "Old Dust"
+
+#: /home/jonathan/openshot/openshot/effects/phaser.xml
+msgid "Phaser"
+msgstr "Phaser"
+
+#: /home/jonathan/openshot/openshot/effects/cartoon.xml
+msgid "Cartoonify the image, using a form of edge detection"
+msgstr "Cartoonify ја сликата, користи од ивиците на детекција"
+
+#: openshot.xml:4048(para)
+msgid "Title"
+msgstr "Наслов"
+
+#: /home/jonathan/openshot/openshot/blender/trees.xml
+msgid "Animation Length"
+msgstr "Големина на Анимацијата"
+
+#: /home/jonathan/openshot/openshot/effects/alphagrad.xml
+msgid "Alphagrad"
+msgstr "Alphagrad"
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Depart Latitude (minutes)"
+msgstr "Depart Latitude (минути)"
+
+#: /home/jonathan/openshot/openshot/effects/three_point_balance.xml
+msgid "Adjust color balance with 3 color points"
+msgstr "Прилагодување на балансот на бои со 3 точки"
+
+#: /home/jonathan/openshot/openshot/effects/nosync.xml
+msgid ""
+"Adjust the image up and down, with the off-screen portion appearing on the "
+"other side"
+msgstr ""
+"Прилагодете ја сликата горе и долу, со исклучок на екранот делот се појавува "
+"на другата страна"
+
+#: /home/jonathan/openshot/openshot/effects/phaser.xml
+msgid ""
+"Add a series of peaks and troughs to the audio, creating a sweeping effect"
+msgstr ""
+"Додај серија на врвови и падови на звук, создавајќи убедливо добар ефект"
+
+#: /home/jonathan/openshot/openshot/blender/neon_curves.xml
+msgid "Neon Curves"
+msgstr "Neon Curves"
+
+#: /home/jonathan/openshot/openshot/blender/trees.xml
+msgid "Trees"
+msgstr "Дрва"
+
+#: /home/jonathan/openshot/openshot/effects/baltan.xml
+msgid "Baltan"
+msgstr "Baltan"
+
+#: /home/jonathan/openshot/openshot/effects/white_balance.xml
+msgid "Neutral Color"
+msgstr "неутрална боја"
+
+#: /home/jonathan/openshot/openshot/effects/balance.xml
+msgid "Adjust the left/right balance"
+msgstr "Подесување со биланс лево/десно"
+
+#: /home/jonathan/openshot/openshot/effects/chroma_key.xml
+msgid ""
+"Make a single color transparent.  Also referred to as green screen and blue "
+"screen."
+msgstr "Направи транспарентна една боја. познато како зелен или син екран."
+
+#: /home/jonathan/openshot/openshot/effects/levels.xml
+msgid "Output level black point"
+msgstr "Излезно ниво црна точка"
+
+#: /home/jonathan/openshot/openshot/effects/defish0r.xml
+msgid "Amount"
+msgstr "Износ"
+
+#: /home/jonathan/openshot/openshot/blender/lens_flare.xml
+msgid "Sun: Angle Offset"
+msgstr "Sun: Angle Offset"
+
+#: /home/jonathan/openshot/openshot/blender/colors.xml
+msgid "Tile 4: Diffuse Color"
+msgstr "Tile 4: Diffuse Color"
+
+#: /home/jonathan/openshot/openshot/effects/old_film.xml
+msgid "Brightness Delta Down"
+msgstr "Осветлување Delta Down"
+
+#: /home/jonathan/openshot/openshot/effects/three_point_balance.xml
+msgid "Source image on left side"
+msgstr "Изворна сликата на левата страна"
+
+#: /home/jonathan/openshot/openshot/effects/coloradj_RGB.xml
+msgid "Keep luma"
+msgstr "Зачувај luma"
+
+#: /home/jonathan/openshot/openshot/effects/edgeglow.xml
+msgid "Edgeglow"
+msgstr "Сјај на работ"
+
+#: /home/jonathan/openshot/openshot/blender/spacemovie_intro.xml
+msgid "First Title"
+msgstr "Прв наслов"
+
+#: /home/jonathan/openshot/openshot/effects/defish0r.xml
+msgid "Defish"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/greyscale.xml
+msgid "Greyscale"
+msgstr "Сиви тонови"
+
+#: /home/jonathan/openshot/openshot/effects/three_point_balance.xml
+msgid "White color"
+msgstr "Бела боја"
+
+#: /home/jonathan/openshot/openshot/effects/coloradj_RGB.xml
+msgid "Color adjustment"
+msgstr "Прилагодување на боја"
+
+#: /home/jonathan/openshot/openshot/blender/trees.xml
+msgid "Font Name"
+msgstr "Име на букви"
+
+#: /home/jonathan/openshot/openshot/effects/flippo.xml
+msgid "Y axis"
+msgstr "Y кордната"
+
+#: /home/jonathan/openshot/openshot/effects/coloradj_RGB.xml
+msgid "Red"
+msgstr "Црвена"
+
+#: /home/jonathan/openshot/openshot/effects/charcoal.xml
+msgid "Charcoal"
+msgstr "Јаглен"
+
+#: /home/jonathan/openshot/openshot/blender/picture_frames_4.xml
+msgid "Picture 3 Path"
+msgstr "Три патеки слика"
+
+#: /home/jonathan/openshot/openshot/effects/vignette.xml
+msgid "Lens vignetting"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/hue.xml
+msgid "Shift the hue of all colors in the image"
+msgstr "Shift the hue на сите бои во сликата"
+
+#: /home/jonathan/openshot/openshot/effects/coloradj_RGB.xml
+msgid "Green"
+msgstr "Зелено"
+
+#: /home/jonathan/openshot/openshot/effects/bass.xml
+msgid "Bass"
+msgstr "Бас"
+
+#: /home/jonathan/openshot/openshot/effects/sobel.xml
+msgid "Sobel"
+msgstr "Собел"
+
+#: /home/jonathan/openshot/openshot/effects/lenscorrection.xml
+msgid "Y Center"
+msgstr "Y Центар"
+
+#: /home/jonathan/openshot/openshot/effects/sharpness.xml
+msgid "Sharpness"
+msgstr "Острина"
+
+#: /home/jonathan/openshot/openshot/effects/freeze.xml
+msgid "Freeze"
+msgstr "Замрзни"
+
+#: /home/jonathan/openshot/openshot/effects/coloradj_RGB.xml
+msgid "Simple color adjustment"
+msgstr "Едноставно приспособување на боја"
+
+#: /home/jonathan/openshot/openshot/effects/vignette.xml
+msgid "Center size"
+msgstr "големина на центар"
+
+#: /home/jonathan/openshot/openshot/effects/phaser.xml
+msgid "Decay"
+msgstr "Распаѓање"
+
+#: /home/jonathan/openshot/openshot/effects/mask0mate.xml
+msgid "Top"
+msgstr "Горе"
+
+#: /home/jonathan/openshot/openshot/effects/old_grain.xml
+msgid "Old Grain"
+msgstr "старо жито"
+
+#: /home/jonathan/openshot/openshot/effects/bass.xml
+msgid "Adjust the low-pitched sound or tone"
+msgstr "Подесување на настанат низок звук или тон"
+
+#: /home/jonathan/openshot/openshot/effects/charcoal.xml
+msgid "X Scatter"
+msgstr "X Растер"
+
+#: /home/jonathan/openshot/openshot/effects/rotate.xml
+msgid "X Offset"
+msgstr "X офсет"
+
+#: /home/jonathan/openshot/openshot/effects/freeze.xml
+msgid "Freeze Before"
+msgstr "Замрзни пред"
+
+#: /home/jonathan/openshot/openshot/effects/old_film.xml
+msgid "Brightness Delta Every"
+msgstr "Осветленост Delta Every"
+
+#: /home/jonathan/openshot/openshot/effects/levels.xml
+msgid "Levels"
+msgstr "Нивоа"
+
+#: /home/jonathan/openshot/openshot/effects/old_lines.xml
+msgid "Lighter"
+msgstr "Посветло"
+
+#: /home/jonathan/openshot/openshot/effects/flippo.xml
+msgid "Invert horizontally or vertically"
+msgstr "замени хоризонтално или вертикално"
+
+#: /home/jonathan/openshot/openshot/effects/lenscorrection.xml
+msgid "Correction near edges"
+msgstr "Корекција во близина на рабовите"
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Arrival Latitude (minutes)"
+msgstr "Постигната Latitude (минути)"
+
+#: /home/jonathan/openshot/openshot/effects/tintor.xml
+msgid "Tint a source image with specified color"
+msgstr "Нијанса на изворната сликата со специфицирана боја"
+
+#: /home/jonathan/openshot/openshot/effects/glow.xml
+msgid "Add a glow effect to the image"
+msgstr "Додај glow ефект на сликата"
+
+#: /home/jonathan/openshot/openshot/effects/old_film.xml
+msgid ""
+"Adjusts the gamma and brightness randomly to create the illusion of old film"
+msgstr ""
+"Прилагодување на гама и осветленост со случаен избор да создаде илузија на "
+"стар филм"
+
+#: /home/jonathan/openshot/openshot/effects/pixelate.xml
+msgid "Increase the size of pixels to obscure the image"
+msgstr "Зголемување на големината на пиксели за да се сокрие сликата"
+
+#: /home/jonathan/openshot/openshot/effects/sepia.xml
+msgid "v"
+msgstr "v"
+
+#: /home/jonathan/openshot/openshot/blender/glass_slider.xml
+msgid "Background: Fresnel"
+msgstr "Позадина: Fresnel"
+
+#: /home/jonathan/openshot/openshot/blender/neon_curves.xml
+msgid "Line 3 Color"
+msgstr "Линија 3 бои"
+
+#: /home/jonathan/openshot/openshot/effects/edgeglow.xml
+msgid "Up Scale"
+msgstr "Зголемување"
+
+#: /home/jonathan/openshot/openshot/effects/alphagrad.xml
+msgid "Min"
+msgstr "Минимум"
+
+#: /home/jonathan/openshot/openshot/blender/defocus.xml
+msgid "Defocus"
+msgstr "Дефокусирај"
+
+#: /home/jonathan/openshot/openshot/effects/charcoal.xml
+msgid "Mix"
+msgstr "Измешај"
+
+#: /home/jonathan/openshot/openshot/effects/rotate.xml
+msgid "Rotate Y"
+msgstr "Y Ротација"
+
+#: /home/jonathan/openshot/openshot/effects/rotate.xml
+msgid "Rotate X"
+msgstr "X Ротација"
+
+#: /home/jonathan/openshot/openshot/effects/rotate.xml
+msgid "Rotate Z"
+msgstr "Z Ротација"
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Halo: Line Count"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/mask0mate.xml
+msgid "Creates a square alpha-channel mask"
+msgstr "Создава квадратна алфа-канална маска"
+
+#: /home/jonathan/openshot/openshot/blender/spacemovie_intro.xml
+msgid "Main Text"
+msgstr "Мој текст"
+
+#: /home/jonathan/openshot/openshot/blender/earth.xml
+msgid "World Map"
+msgstr "Мапа на светот"
+
+#: /home/jonathan/openshot/openshot/effects/bass.xml
+msgid "Gain"
+msgstr "Засилување"
+
+#: /home/jonathan/openshot/openshot/effects/delaygrab.xml
+msgid "Delay grab"
+msgstr "Delay grab"
+
+#: /home/jonathan/openshot/openshot/effects/phaser.xml
+msgid "Gain Out"
+msgstr "Намали"
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Arrival Longitude (degrees)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/coloradj_RGB.xml
+msgid "Alpha controlled"
+msgstr "Алфа контролер"
+
+#: /home/jonathan/openshot/openshot/effects/distort.xml
+msgid "Distort the source similar to plasma"
+msgstr "Искривување на извор слични на плазма"
+
+#: /home/jonathan/openshot/openshot/effects/delaygrab.xml
+msgid "Delayed frame blitting mapped on a time bitmap"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/trees.xml
+msgid "File Name"
+msgstr "Име на датотеката"
+
+#: /home/jonathan/openshot/openshot/effects/tcolor.xml
+msgid "Blue/Yellow"
+msgstr "Сино/Жолта"
+
+#: /home/jonathan/openshot/openshot/blender/trees.xml
+msgid "Text Width"
+msgstr "Ширина на текст"
+
+#: /home/jonathan/openshot/openshot/blender/trees.xml
+msgid "Extrude"
+msgstr "Екструдирај"
+
+#: /home/jonathan/openshot/openshot/effects/colordistance.xml
+msgid ""
+"Calculates the distance between the selected color and the current pixel and "
+"uses that value as new pixel value"
+msgstr ""
+"Пресметува растојание помеѓу избраната боја и тековните пиксели и ја користи "
+"таа вредност како нова вредност\r\n"
+"на пиксел"
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Halo: Star Count"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/defish0r.xml
+msgid "Fisheye"
+msgstr "Рибино око"
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Depart Latitude (seconds)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/coloradj_RGB.xml
+msgid "Blue"
+msgstr "Сино"
+
+#: /home/jonathan/openshot/openshot/effects/mask0mate.xml
+msgid "Bottom"
+msgstr "Долу"
+
+#: /home/jonathan/openshot/openshot/effects/phaser.xml
+msgid "Param"
+msgstr "Параметар"
+
+#: /home/jonathan/openshot/openshot/blender/blur.xml
+msgid "Blur"
+msgstr "Замати"
+
+#: /home/jonathan/openshot/openshot/blender/colors.xml
+msgid "Color Tiles"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Arrival Latitude (degrees)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/old_lines.xml
+msgid "Old Lines"
+msgstr "Стари линии"
+
+#: /home/jonathan/openshot/openshot/effects/charcoal.xml
+msgid "Filter the image to look like it is drawn with charcoal"
+msgstr "Филтрирање на сликата за да изгледа како да се цртани со јаглен"
+
+#: /home/jonathan/openshot/openshot/effects/threshold.xml
+msgid "Reduces and mixes the colors of the image based on a threshold"
+msgstr "Редуцира и меша бои на сликата врз основа на прагот"
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Depart Title"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/rotate.xml
+msgid "Fixed Rotate X"
+msgstr "Фиксна ротација X"
+
+#: /home/jonathan/openshot/openshot/effects/rotate.xml
+msgid "Fixed Rotate Z"
+msgstr "Фиксна ротација Z"
+
+#: /home/jonathan/openshot/openshot/effects/mirror.xml
+msgid "Split and mirror the image"
+msgstr "Поделија со огледало сликата"
+
+#: /home/jonathan/openshot/openshot/blender/fly_by_two_titles.xml
+msgid "Fly Towards Camera (Two Titles)"
+msgstr "Летаат кон камера (два Наслови)"
+
+#: /home/jonathan/openshot/openshot/effects/echo.xml
+msgid "Add an echo"
+msgstr "Додај ехо"
+
+#: /home/jonathan/openshot/openshot/effects/two_layer.xml
+msgid "Black and White"
+msgstr "Црно-бело"
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Velocity: Z"
+msgstr "Брзина: Z"
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Particles: Gravity"
+msgstr "Честички: Гравитација"
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Velocity: X"
+msgstr "Брзина: X"
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Velocity: Y"
+msgstr "Брзина: Y"
+
+#: /home/jonathan/openshot/openshot/blender/lens_flare.xml
+msgid "Halo: Ending Size"
+msgstr "Halo: Ending Size"
+
+#: /home/jonathan/openshot/openshot/effects/old_film.xml
+msgid "Brightness Delta Up"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/blur.xml
+msgid "End"
+msgstr "Крај"
+
+#: /home/jonathan/openshot/openshot/blender/picture_frames_4.xml
+msgid "Picture 4 Path"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/lens_flare.xml
+msgid "Sun: Number of Streaks"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Arrival Latitude (seconds)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/primaries.xml
+msgid "Factor"
+msgstr "Фактор"
+
+#: /home/jonathan/openshot/openshot/effects/two_layer.xml
+msgid "Adjust the color of the image to black and white based on a threshold"
+msgstr "Подесување на бојата на слика на црни и бели врз основа на прагот"
+
+#: /home/jonathan/openshot/openshot/effects/letterbox.xml
+msgid "Letterbox"
+msgstr "сандаче"
+
+#: /home/jonathan/openshot/openshot/effects/old_film.xml
+msgid "Old Film"
+msgstr "Стар Филм"
+
+#: openshot.xml:2605(para)
+msgid "Type"
+msgstr "Вид"
+
+#: /home/jonathan/openshot/openshot/effects/old_grain.xml
+msgid "Noise"
+msgstr "Шум"
+
+#: /home/jonathan/openshot/openshot/effects/colordistance.xml
+msgid "Color Distance"
+msgstr "Одалеченост на боја"
+
+#: /home/jonathan/openshot/openshot/effects/freeze.xml
+msgid "Freeze After"
+msgstr "Замрзни По"
+
+#: /home/jonathan/openshot/openshot/effects/old_dust.xml
+msgid "Add small dust shapes randomly on the image"
+msgstr "Додадете мали форми на прашина по случаен избор на сликата"
+
+#: /home/jonathan/openshot/openshot/blender/rotate_360.xml
+msgid "Rotate 360 Degrees"
+msgstr "Ротација за 360 Степени"
+
+#: /home/jonathan/openshot/openshot/blender/lens_flare.xml
+msgid "Lens Flare"
+msgstr "Одсјај на леќи"
+
+#: /home/jonathan/openshot/openshot/effects/contrast.xml
+msgid "Contrast"
+msgstr "Контраст"
+
+#: /home/jonathan/openshot/openshot/effects/chroma_hold.xml
+msgid "Key"
+msgstr "Клуч"
+
+#: /home/jonathan/openshot/openshot/effects/cartoon.xml
+msgid "Cartoon"
+msgstr "Цртани"
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Particles: Lifetime"
+msgstr "Честички: животен век"
+
+#: /home/jonathan/openshot/openshot/effects/lenscorrection.xml
+msgid "Brightness"
+msgstr "Осветленост"
+
+#: /home/jonathan/openshot/openshot/effects/three_point_balance.xml
+msgid "Three point balance"
+msgstr "Баланс со три точки"
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Magic Wand"
+msgstr "магично стапче"
+
+#: /home/jonathan/openshot/openshot/effects/levels.xml
+msgid "Show histogram"
+msgstr "покажи хистограм"
+
+#: /home/jonathan/openshot/openshot/effects/sharpness.xml
+msgid "Make image sharper"
+msgstr "Додадете острина на сликата"
+
+#: /home/jonathan/openshot/openshot/effects/scanlines.xml
+msgid "Interlaced black lines"
+msgstr "Испреплетени црни линии"
+
+#: /home/jonathan/openshot/openshot/effects/mirror.xml
+msgid "Mirror"
+msgstr "Огледало"
+
+#: /home/jonathan/openshot/openshot/effects/nosync.xml
+msgid "Nosync"
+msgstr "Без синхронизација"
+
+#: /home/jonathan/openshot/openshot/effects/alphagrad.xml
+msgid "Tilt"
+msgstr "Навали(истумбано)"
+
+#: /home/jonathan/openshot/openshot/effects/letterbox.xml
+msgid "Border Width"
+msgstr "Ширина на работ"
+
+#: /home/jonathan/openshot/openshot/blender/trees.xml
+msgid "Start Frame"
+msgstr "Прва Рамка"
+
+#: /home/jonathan/openshot/openshot/effects/blur.xml
+msgid "Start"
+msgstr "Почеток"
+
+#: /home/jonathan/openshot/openshot/effects/lenscorrection.xml
+msgid "X Center"
+msgstr "X Центар"
+
+#: openshot.xml:2627(para)
+msgid "Softness"
+msgstr "Мекост"
+
+#: /home/jonathan/openshot/openshot/effects/levels.xml
+msgid "Adjust luminance or color channel intensity"
+msgstr "Прилагодување на  осветлување или интензитет на бојата на каналот"
+
+#: /home/jonathan/openshot/openshot/blender/neon_curves.xml
+msgid "Line 4 Color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/scanlines.xml
+msgid "Scan Lines"
+msgstr "Скенирање линии"
+
+#: /home/jonathan/openshot/openshot/effects/defish0r.xml
+msgid "Scaling"
+msgstr "Промена на размер"
+
+#: /home/jonathan/openshot/openshot/effects/old_film.xml
+msgid "Delta"
+msgstr "Делта"
+
+#: /home/jonathan/openshot/openshot/effects/chroma_hold.xml
+msgid ""
+"Display a single color, while using greyscale for the rest of the image"
+msgstr ""
+"Прикажи една боја, додека користиш сива скала за остатокот на сликата"
+
+#: /home/jonathan/openshot/openshot/blender/colors.xml
+msgid "Title 1"
+msgstr "Наслов 1"
+
+#: /home/jonathan/openshot/openshot/blender/colors.xml
+msgid "Title 3"
+msgstr "Наслов 3"
+
+#: /home/jonathan/openshot/openshot/blender/colors.xml
+msgid "Title 2"
+msgstr "Наслов 2"
+
+#: /home/jonathan/openshot/openshot/effects/tehroxx0r.xml
+msgid "Interval"
+msgstr "Интервал"
+
+#: /home/jonathan/openshot/openshot/effects/rotate.xml
+msgid "Y Offset"
+msgstr "Y офсет"
+
+#: /home/jonathan/openshot/openshot/blender/neon_curves.xml
+msgid "Title Diffuse Color"
+msgstr "Наслов со Дифузна боја"
+
+#: /home/jonathan/openshot/openshot/effects/treble.xml
+msgid "Treble"
+msgstr "Високо"
+
+#: /home/jonathan/openshot/openshot/effects/balance.xml
+msgid "Left | Right"
+msgstr "Лево | Десно"
+
+#: /home/jonathan/openshot/openshot/effects/flippo.xml
+msgid "Flippo"
+msgstr "Flippo"
+
+#: /home/jonathan/openshot/openshot/effects/distort.xml
+msgid "Frequency"
+msgstr "Фрекфенција"
+
+#: /home/jonathan/openshot/openshot/blender/lens_flare.xml
+msgid "Halo: Starting Size"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/three_point_balance.xml
+msgid "Black color"
+msgstr "Црна боја"
+
+#: /home/jonathan/openshot/openshot/blender/lens_flare.xml
+msgid "Sun: Color Threshold"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/phaser.xml
+msgid "Gain In"
+msgstr "Засили"
+
+#: /home/jonathan/openshot/openshot/effects/defish0r.xml
+msgid "Interpolation"
+msgstr "Интерполација"
+
+#: /home/jonathan/openshot/openshot/effects/saturation.xml
+msgid "Saturation"
+msgstr "Заситување"
+
+#: openshot.xml:1894(para)
+msgid "Alpha"
+msgstr "Алфа"
+
+#: /home/jonathan/openshot/openshot/blender/spacemovie_intro.xml
+msgid "Episode"
+msgstr "Епизода"
+
+#: /home/jonathan/openshot/openshot/effects/tehroxx0r.xml
+msgid "TehRoxx0r"
+msgstr "TehRoxx0r"
+
+#: /home/jonathan/openshot/openshot/effects/white_balance.xml
+msgid "White Balance"
+msgstr "Баланс на белата боја"
+
+#: /home/jonathan/openshot/openshot/blender/glass_slider.xml
+msgid "Background: Diffuse Color"
+msgstr "Позадина: Diffuse Color"
+
+#: /home/jonathan/openshot/openshot/effects/letterbox.xml
+msgid "Transparency"
+msgstr "Проѕирност"
+
+#: /home/jonathan/openshot/openshot/effects/cartoon.xml
+msgid "Trip Level"
+msgstr "Trip Level"
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Custom Texture (Equirectangular)"
+msgstr "Одбрана текстура (Equirectangular)"
+
+#: /home/jonathan/openshot/openshot/effects/lenscorrection.xml
+msgid "Allows compensation of lens distortion"
+msgstr "Овозможува компензирање на дисторзија од леќа"
+
+#: /home/jonathan/openshot/openshot/blender/spacemovie_intro.xml
+msgid "Space Movie Intro"
+msgstr "Простор за Интро на филмот"
+
+#: /home/jonathan/openshot/openshot/effects/alphagrad.xml
+msgid "Transition width"
+msgstr "Ширина на транзиција"
+
+#: /home/jonathan/openshot/openshot/blender/slide_left_to_right.xml
+msgid "Slide Left to Right"
+msgstr "Лизгај од лево кон десно"
+
+#: /home/jonathan/openshot/openshot/blender/glass_slider.xml
+msgid "X Coordinate"
+msgstr "X координата"
+
+#: /home/jonathan/openshot/openshot/blender/spacemovie_intro.xml
+msgid "Flying Title"
+msgstr "Летачки наслов"
+
+#: /home/jonathan/openshot/openshot/blender/trees.xml
+msgid "Specular Color"
+msgstr "Спекуларна Боја"
+
+#: /home/jonathan/openshot/openshot/blender/lens_flare.xml
+msgid "Spots: Color Threshold"
+msgstr "Спорт: Color Threshold"
+
+#: openshot.xml:1870(para)
+msgid "Width"
+msgstr "Ширина"
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Depart Latitude (Equator)"
+msgstr "Depart Latitude (Equator)"
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Arrival Latitude (Equator)"
+msgstr "Arrival Latitude (Equator)"
+
+#: /home/jonathan/openshot/openshot/effects/sobel.xml
+msgid "Detect and highlight the edges of objects"
+msgstr "Пронајди ги и нагласи ги рабовите на објектот"
+
+#: /home/jonathan/openshot/openshot/effects/brightness.xml
+msgid "Adjusts the brightness of the image"
+msgstr "Прилагоди осветленост на сликата"
+
+#: /home/jonathan/openshot/openshot/effects/alphagrad.xml
+msgid "Fills alpha channel with a gradient"
+msgstr "Исполнува алфа канал со градиент"
+
+#: /home/jonathan/openshot/openshot/effects/levels.xml
+msgid "Input level white point"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/primaries.xml
+msgid "Reduce image to primary colors"
+msgstr "Намалување на сликата со примарни бои"
+
+#: /home/jonathan/openshot/openshot/effects/letterbox.xml
+msgid "Adds black borders at the top and bottom"
+msgstr "Додај црни граници во горниот и долниот дел"
+
+#: /home/jonathan/openshot/openshot/effects/pixelate.xml
+msgid "Pixelate"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/colors.xml
+msgid "Background: Shadeless"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/glass_slider.xml
+msgid "Z Coordinate"
+msgstr "Z кордината"
+
+#: /home/jonathan/openshot/openshot/effects/chroma_hold.xml
+msgid "Variance"
+msgstr "Варијанса"
+
+#: /home/jonathan/openshot/openshot/effects/freeze.xml
+msgid "Frame Number"
+msgstr "Број на рамка"
+
+#: openshot.xml:799(para)
+msgid "Right"
+msgstr "Десно"
+
+#: /home/jonathan/openshot/openshot/effects/gamma.xml
+msgid "Adjusts the gamma or luminance value of the image"
+msgstr "Прилагодување на гама или светлост вредностите од сликата"
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Arrival Longitude (Prime Meridian)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/picture_frames_4.xml
+msgid "Picture Frames (4 pictures)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/colors.xml
+msgid "Background: Specular Intensity"
+msgstr "Позадина: Спекуларен Интензитет"
+
+#: /home/jonathan/openshot/openshot/effects/defish0r.xml
+msgid "Aspect type"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Halo: Size"
+msgstr "Halo: Големина"
+
+#: /home/jonathan/openshot/openshot/effects/equaliz0r.xml
+msgid "Equalizor"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/two_layer.xml
+msgid "Invert"
+msgstr "Обратно"
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Halo: Use Stars"
+msgstr "Halo: Користи звезди"
+
+#: /home/jonathan/openshot/openshot/blender/neon_curves.xml
+msgid "Line 2 Color"
+msgstr "Линија 2 бои"
+
+#: /home/jonathan/openshot/openshot/blender/trees.xml
+msgid "Specular Intensity"
+msgstr "Спекуларен Интензитет"
+
+#: /home/jonathan/openshot/openshot/effects/tcolor.xml
+msgid "Red/Green Axis"
+msgstr "Црвени/Зелени кординати"
+
+#: /home/jonathan/openshot/openshot/blender/spacemovie_intro.xml
+msgid "Episode Title"
+msgstr "Наслов на Епизода"
+
+#: /home/jonathan/openshot/openshot/effects/tintor.xml
+msgid "Map black to"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/old_grain.xml
+msgid "Adds static and grain to the image"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/pixelate.xml
+msgid "Block Size X"
+msgstr "X големина за Блок"
+
+#: /home/jonathan/openshot/openshot/effects/pixelate.xml
+msgid "Block Size Y"
+msgstr "Y големина за блок"
+
+#: /home/jonathan/openshot/openshot/blender/trees.xml
+msgid "End Frame"
+msgstr "Последна рамка"
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Halo: Ring Count"
+msgstr "Halo: Број на прстени"
+
+#: /home/jonathan/openshot/openshot/blender/snow.xml
+msgid "Snow"
+msgstr "Снег"
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Arrival Longitude (seconds)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/old_dust.xml
+msgid "Max Count"
+msgstr "Макс бројач"
+
+#: /home/jonathan/openshot/openshot/effects/brightness.xml
+msgid "Start Value"
+msgstr "Почетна вредност"
+
+#: /home/jonathan/openshot/openshot/effects/threelay0r.xml
+msgid "Dynamic 3 level thresholding"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Halo: Use Rings"
+msgstr "Halo: Користи перстени"
+
+#: /home/jonathan/openshot/openshot/effects/distort.xml
+msgid "Distort"
+msgstr "Изобличување"
+
+#: /home/jonathan/openshot/openshot/blender/trees.xml
+msgid "Text Alignment"
+msgstr "Текст позиционирање"
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Depart Longitude (degrees)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/zoom_clapboard.xml
+msgid "Use Alpha"
+msgstr "Користи алфа"
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Display Clouds"
+msgstr "Прикажи Облаци"
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Halo: Use Lines"
+msgstr "Halo: Употреби Линии"
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Halo: Hardness"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/colors.xml
+msgid "Tile 1: Diffuse Color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/sepia.xml
+msgid "Sepia"
+msgstr "Црвеносмеѓа"
+
+#: /home/jonathan/openshot/openshot/effects/old_lines.xml
+msgid "Number"
+msgstr "Број"
+
+#: /home/jonathan/openshot/openshot/blender/glass_slider.xml
+msgid "Background: Alpha"
+msgstr "Позадина: Алфа"
+
+#: /home/jonathan/openshot/openshot/blender/blinds.xml
+msgid "Blinds (Two Titles)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/cartoon.xml
+msgid "Diff Space"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/sharpness.xml
+msgid "Size"
+msgstr "Големина"
+
+#: /home/jonathan/openshot/openshot/effects/rotate.xml
+msgid "Fixed Rotate Y"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/three_point_balance.xml
+msgid "Gray color"
+msgstr "Гри боја"
+
+#: /home/jonathan/openshot/openshot/effects/phaser.xml
+msgid "Delay"
+msgstr "Доцнење"
+
+#: /home/jonathan/openshot/openshot/effects/equaliz0r.xml
+msgid "Equalizes the intensity histograms"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "End: Y"
+msgstr "Крај: Y"
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "End: X"
+msgstr "Крај: X"
+
+#: /home/jonathan/openshot/openshot/effects/saturation.xml
+msgid "Adjusts the saturation or intensity of the image"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "End: Z"
+msgstr "Крај: Z"
+
+#: /home/jonathan/openshot/openshot/blender/snow.xml
+msgid "Number of Snow Flakes"
+msgstr "Бро на снегулки"
+
+#: /home/jonathan/openshot/openshot/blender/trees.xml
+msgid "Text Size"
+msgstr "Големина на текст"
+
+#: /home/jonathan/openshot/openshot/effects/levels.xml
+msgid "Input level black point"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/edgeglow.xml
+msgid "Red Scale"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/chroma_hold.xml
+msgid "Chroma Hold"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/explode.xml
+msgid "Display Ground"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/wireframe_text.xml
+msgid "Wireframe Text"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/neon_curves.xml
+msgid "Line 1 Color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/glass_slider.xml
+msgid "Glass Slider"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Halo: Use Flare"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/gamma.xml
+msgid "Gamma"
+msgstr "Гама"
+
+#: /home/jonathan/openshot/openshot/effects/old_lines.xml
+msgid "Darker"
+msgstr "Потемно"
+
+#: /home/jonathan/openshot/openshot/blender/lens_flare.xml
+msgid "Sun: Type of Glare"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/defish0r.xml
+msgid "Manual Scale"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/contrast.xml
+msgid "Adjusts the contrast of a source image"
+msgstr "Дотерување на контрастот на изворната слика"
+
+#: /home/jonathan/openshot/openshot/effects/brightness.xml
+msgid "End Value"
+msgstr "Крајна вредност"
+
+#: /home/jonathan/openshot/openshot/effects/threshold.xml
+msgid "Threshold"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Particles: Amount"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/baltan.xml
+msgid "delayed alpha smoothed blit of time"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/chroma_key.xml
+msgid "Chroma Key"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/picture_frames_4.xml
+msgid "Picture 1 Path"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/two_layer.xml
+msgid "Midpoint"
+msgstr "Средна точка"
+
+#: /home/jonathan/openshot/openshot/blender/explode.xml
+msgid "Exploding Text"
+msgstr "Експлозија на Текст"
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Depart Longitude (seconds)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/fly_by_two_titles.xml
+msgid "Sub Title"
+msgstr "Превод"
+
+#: /home/jonathan/openshot/openshot/effects/rotate.xml
+msgid "Rotate an image statically or animated"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/glow.xml
+msgid "Glow"
+msgstr "Отсјај"
+
+#: /home/jonathan/openshot/openshot/effects/threelay0r.xml
+msgid "Three Layer"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/colors.xml
+msgid "Background: Specular Color"
+msgstr "Позадина: Спекулативни бои"
+
+#: /home/jonathan/openshot/openshot/blender/trees.xml
+msgid "Diffuse Color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/distort.xml
+msgid "Amplitude"
+msgstr "Амплитуда"
+
+#: /home/jonathan/openshot/openshot/effects/alphagrad.xml
+msgid "Position"
+msgstr "Позиција"
+
+#: /home/jonathan/openshot/openshot/effects/old_lines.xml
+msgid "Adds random vertical lines to the image"
+msgstr "Додај линии по случаен избор на сликата"
+
+#: /home/jonathan/openshot/openshot/blender/glare.xml
+msgid "Glare"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/echo.xml
+msgid "Echo"
+msgstr "Ехо"
+
+#: /home/jonathan/openshot/openshot/effects/alphagrad.xml
+msgid "Operation"
+msgstr "Операција"
+
+#: /home/jonathan/openshot/openshot/effects/blur.xml
+msgid "Blur the image similar to an out-of-focus camera"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/tintor.xml
+msgid "Tint"
+msgstr "Нијанса"
+
+#: /home/jonathan/openshot/openshot/effects/tcolor.xml
+msgid "Oversaturate Color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Arrival Longitude (minutes)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/white_balance.xml
+msgid "Adjust the white balance and color temperature"
+msgstr "Прилагодете го балансот на белата боја и температурата на боите"
+
+#: /home/jonathan/openshot/openshot/blender/trees.xml
+msgid "Bevel Depth"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/levels.xml
+msgid "Channel"
+msgstr "Канал"
+
+#: /home/jonathan/openshot/openshot/effects/flippo.xml
+msgid "X axis"
+msgstr "X кординати"
+
+#: /home/jonathan/openshot/openshot/effects/lenscorrection.xml
+msgid "Lens Correction"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/tehroxx0r.xml
+msgid "something videowall-ish"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/snow.xml
+msgid "Gravity: Z"
+msgstr "Гравитација: Z"
+
+#: /home/jonathan/openshot/openshot/blender/snow.xml
+msgid "Gravity: X"
+msgstr "Гравитација: X"
+
+#: /home/jonathan/openshot/openshot/blender/snow.xml
+msgid "Gravity: Y"
+msgstr "Гравитација: Y"
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Mirror Color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/treble.xml
+msgid "Adjust the high-pitched sound or tone"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/hue.xml
+msgid "Hue"
+msgstr "Нијанса"
+
+#: /home/jonathan/openshot/openshot/effects/freeze.xml
+msgid "Freeze the frame of a video"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Depart Longitude (Prime Meridian)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/levels.xml
+msgid "Output level white point"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/charcoal.xml
+msgid "Y Scatter"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/white_balance.xml
+msgid "Green Tint"
+msgstr "Зелена нијанса"
+
+#: /home/jonathan/openshot/openshot/effects/primaries.xml
+msgid "Primary Colors"
+msgstr "Примарни бои"
+
+#: /home/jonathan/openshot/openshot/blender/zoom_clapboard.xml
+msgid "Zoom to Clapboard"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/nosync.xml
+msgid "Horizontal Sync"
+msgstr "Хоризонтална синхронизација"
+
+#: /home/jonathan/openshot/openshot/effects/charcoal.xml
+msgid "Scale"
+msgstr "Размер"
+
+#: /home/jonathan/openshot/openshot/effects/vignette.xml
+msgid "Vignette"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Arrival Title"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/old_film.xml
+msgid "Every"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/explode.xml
+msgid "Particle Number"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/old_dust.xml
+msgid "Max Diameter"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Depart Latitude (degrees)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/balance.xml
+msgid "Balance"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "World Map (Realistic)"
+msgstr ""
+
+#: openshot.xml:783(para)
+msgid "Left"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/three_point_balance.xml
+msgid "Split preview"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/defish0r.xml
+msgid "Manual Pixel Aspect ratio"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/levels.xml
+msgid "Histogram position"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/edgeglow.xml
+msgid "Find and glow the edges of objects"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/lenscorrection.xml
+msgid "Correction near center"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/vignette.xml
+msgid "Aspect ratio"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/colors.xml
+msgid "Tile 3: Diffuse Color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/sepia.xml
+msgid ""
+"Adjust the color of the image to emulate black-and-white film that has had "
+"sepia pigment added"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/neon_curves.xml
+msgid "Title Specular Color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/greyscale.xml
+msgid "Convert an image to shades of grey"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/glass_slider.xml
+msgid "Background: Blend"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/halo_zoom_out.xml
+msgid "Halo Zoom Out"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/invert.xml
+msgid "Convert colors in the image to the opposite or complementary colors"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/alphagrad.xml
+msgid "Max"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/fly_by_1.xml
+msgid "Fly Towards Camera"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/earth_real.xml
+msgid "Depart Longitude (minutes)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Start: Z"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Start: X"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+msgid "Start: Y"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/picture_frames_4.xml
+msgid "Picture 2 Path"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/tintor.xml
+msgid "Tint amount"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/dissolve.xml
+msgid "Dissolving Text"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/tcolor.xml
+msgid "Oversaturate the color in the image, like in old Technicolor movies"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/colordistance.xml
+msgid "Color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/tintor.xml
+msgid "Map white to"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/blender/colors.xml
+msgid "Tile 2: Diffuse Color"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/sepia.xml
+msgid "u"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/effects/coloradj_RGB.xml
+msgid "Luma formula"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/dvd_pal.xml
+msgid "DVD-PAL"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/format_ogg_flac.xml
+msgid "OGG (theora/flac)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/dvd_pal.xml
+msgid "DVD"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/xbox360.xml
+msgid "Xbox 360"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/wikipedia.xml
+msgid "Wikipedia"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/format_mp4_x264.xml
+msgid "MP4 (h.264)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/format_mov_x264.xml
+msgid "MOV (h.264)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/metacafe.xml
+msgid "Metacafe"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/vimeo.xml
+msgid "Vimeo-SD"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/avchd.xml
+msgid "AVCHD Disks"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/vimeo_WS.xml
+msgid "Vimeo-SD Widescreen"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/format_flv_x264.xml
+msgid "FLV (h.264)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/format_avi_mp4.xml
+msgid "AVI (mpeg4)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/format_mp4_mpeg4.xml
+msgid "MP4 (mpeg4)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/apple_tv.xml
+msgid "Apple TV"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/format_mpeg_mpeg2.xml
+msgid "MPEG (mpeg2)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/nokia_nHD.xml
+msgid "Nokia nHD"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/format_avi_x264.xml
+msgid "AVI (h.264)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/format_avi_mpeg2.xml
+msgid "AVI (mpeg2)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/apple_tv.xml
+msgid "Device"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/avchd.xml
+msgid "Blu-Ray/AVCHD"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/picasa.xml
+msgid "Picasa"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/format_mp4_xvid.xml
+msgid "MP4 (Xvid)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/dvd_ntsc.xml
+msgid "DVD-NTSC"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/format_webm_libvpx.xml
+msgid "WEBM (vpx)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/format_mov_mpeg4.xml
+msgid "MOV (mpeg4)"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/export_presets/flickr_HD.xml
+msgid "Flickr-HD"
+msgstr ""
+
+#: openshot.xml:2851(para)
+msgid "Fractal 8"
+msgstr ""
+
+#: openshot.xml:3163(para)
+msgid "Vertical blinds in to out big"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/icons
+msgid "Icons"
+msgstr ""
+
+#: openshot.xml:2773(para)
+msgid "Fractal 2"
+msgstr ""
+
+#: openshot.xml:2786(para)
+msgid "Fractal 3"
+msgstr ""
+
+#: openshot.xml:2760(para)
+msgid "Fractal 1"
+msgstr ""
+
+#: openshot.xml:2825(para)
+msgid "Fractal 6"
+msgstr ""
+
+#: openshot.xml:2838(para)
+msgid "Fractal 7"
+msgstr ""
+
+#: openshot.xml:3111(para)
+msgid "Spots"
+msgstr ""
+
+#: openshot.xml:2812(para)
+msgid "Fractal 5"
+msgstr ""
+
+#: openshot.xml:3228(para)
+msgid "Wipe diagonal 4"
+msgstr ""
+
+#: openshot.xml:3189(para)
+msgid "Wipe diagonal 1"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/board.png
+msgid "Board"
+msgstr ""
+
+#: openshot.xml:3215(para)
+msgid "Wipe diagonal 3"
+msgstr ""
+
+#: openshot.xml:3202(para)
+msgid "Wipe diagonal 2"
+msgstr ""
+
+#: openshot.xml:2708(para)
+msgid "Circle in to out"
+msgstr ""
+
+#: openshot.xml:2864(para)
+msgid "Hatched 1"
+msgstr ""
+
+#: openshot.xml:2877(para)
+msgid "Hatched 2"
+msgstr ""
+
+#: openshot.xml:2890(para)
+msgid "Hatched 3"
+msgstr ""
+
+#: openshot.xml:2981(para)
+msgid "Puzzle 7 by 7"
+msgstr ""
+
+#: openshot.xml:2955(para)
+msgid "Mountains"
+msgstr ""
+
+#: openshot.xml:2669(para)
+msgid "Blinds in to out"
+msgstr ""
+
+#: openshot.xml:2747(para)
+msgid "Clock right to left"
+msgstr ""
+
+#: openshot.xml:3085(para)
+msgid "Spiral medium"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/clouds_2.png
+msgid "Clouds 2"
+msgstr ""
+
+#: openshot.xml:3241(para)
+msgid "Wipe left to right"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/boxes_1.png
+msgid "Boxes 1"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/bubbles.png
+msgid "Bubbles"
+msgstr ""
+
+#: openshot.xml:3176(para)
+msgid "Wipe bottom to top"
+msgstr ""
+
+#: openshot.xml:3007(para)
+msgid "Rectangle out to in"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/clouds.png
+msgid "Clouds"
+msgstr ""
+
+#: openshot.xml:3254(para)
+msgid "Wipe right to left"
+msgstr ""
+
+#: openshot.xml:2721(para)
+msgid "Circle out to in"
+msgstr ""
+
+#: openshot.xml:3046(para)
+msgid "Spiral abstract 1"
+msgstr ""
+
+#: openshot.xml:2994(para)
+msgid "Rectangle in to out"
+msgstr ""
+
+#: openshot.xml:3059(para)
+msgid "Spiral abstract 2"
+msgstr ""
+
+#: openshot.xml:3020(para)
+msgid "Sand"
+msgstr ""
+
+#: openshot.xml:2799(para)
+msgid "Fractal 4"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/vertical_bars.png
+msgid "Vertical bars"
+msgstr ""
+
+#: openshot.xml:2968(para)
+msgid "Openshot logo"
+msgstr ""
+
+#: openshot.xml:2734(para)
+msgid "Clock left to right"
+msgstr ""
+
+#: /home/jonathan/openshot/openshot/transitions/boxes_2.png
+msgid "Boxes 2"
+msgstr ""
+
+#: openshot.xml:3098(para)
+msgid "Spiral small"
+msgstr ""
+
+#: openshot.xml:2695(para)
+msgid "Blinds sliding"
+msgstr ""
+
+#: openshot.xml:3033(para)
+msgid "Sphere"
+msgstr ""
+
+#: openshot.xml:2682(para)
+msgid "Blinds in to out big"
+msgstr ""
+
+#: openshot.xml:3072(para)
+msgid "Spiral big"
+msgstr ""
+
+#: openshot.xml:3137(para)
+msgid "Star 2"
+msgstr ""
+
+#: openshot.xml:2929(para)
+msgid "Hourglass 3"
+msgstr ""
+
+#: openshot.xml:3124(para)
+msgid "Star 1"
+msgstr ""
+
+#: openshot.xml:2942(para)
+msgid "Hourglass 4"
+msgstr ""
+
+#: openshot.xml:3150(para)
+msgid "Vertical blinds in to out"
+msgstr ""
+
+#: openshot.xml:2903(para)
+msgid "Hourglass 1"
+msgstr ""
+
+#: openshot.xml:3267(para)
+msgid "Wipe top to bottom"
+msgstr ""
+
+#: openshot.xml:2916(para)
+msgid "Hourglass 2"
+msgstr "Hourglass 2"

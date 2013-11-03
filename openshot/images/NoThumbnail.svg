@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.47 r22583"
+   width="86.1175"
+   height="74.059319"
+   sodipodi:docname="New document 1">
+  <metadata
+     id="metadata8">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs6">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient3700">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop3702" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0;"
+         offset="1"
+         id="stop3704" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient3606">
+      <stop
+         style="stop-color:#c8c8c0;stop-opacity:1"
+         offset="0"
+         id="stop3608" />
+      <stop
+         style="stop-color:#2a2829;stop-opacity:1"
+         offset="1"
+         id="stop3610" />
+    </linearGradient>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       id="perspective10" />
+    <inkscape:perspective
+       id="perspective3600"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3606"
+       id="radialGradient3612"
+       cx="39.194912"
+       cy="37.156776"
+       fx="39.194912"
+       fy="37.156776"
+       r="39.067795"
+       gradientTransform="matrix(1.5919567,0,0,1.459313,-19.337857,-17.193711)"
+       gradientUnits="userSpaceOnUse" />
+    <inkscape:perspective
+       id="perspective3628"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3656"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3700"
+       id="radialGradient3706"
+       cx="38.369286"
+       cy="23.902782"
+       fx="38.369286"
+       fy="23.902782"
+       r="8.2832031"
+       gradientTransform="matrix(1.8487897,0,0,3.4246857,-35.194935,-45.073522)"
+       gradientUnits="userSpaceOnUse" />
+    <inkscape:perspective
+       id="perspective3719"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+  </defs>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1680"
+     inkscape:window-height="936"
+     id="namedview4"
+     showgrid="false"
+     inkscape:zoom="4.5101946"
+     inkscape:cx="21.27402"
+     inkscape:cy="28.939898"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2" />
+  <rect
+     style="fill:url(#radialGradient3612);fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+     id="rect2818"
+     width="85.1175"
+     height="73.059319"
+     x="0.5"
+     y="0.5"
+     ry="6.8983049"
+     rx="7.2118692"
+     inkscape:export-filename="/home/jonathan/openshot/openshot/images/NoThumbnail.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90" />
+  <text
+     xml:space="preserve"
+     style="font-size:73.95158386px;font-style:normal;font-weight:normal;fill:#c8c8c0;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Bitstream Vera Sans"
+     x="19.882343"
+     y="65.217033"
+     id="text3696"
+     transform="scale(1.0067097,0.99333503)"
+     inkscape:export-filename="/home/jonathan/openshot/openshot/images/NoThumbnail.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90"><tspan
+       sodipodi:role="line"
+       id="tspan3698"
+       x="19.882343"
+       y="65.217033"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#c8c8c0;fill-opacity:1;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;font-family:Arial Black;-inkscape-font-specification:'Arial Black,'">?</tspan></text>
+  <path
+     style="opacity:0.39330546;fill:#ffffff;fill-opacity:1;stroke:none"
+     d="m 29.080389,21.761783 c 1.026609,-6.574896 4.937665,-7.775255 9.950105,-6.923427 0,0 -2.893395,0.548105 -5.456347,2.179786 -2.369906,1.508779 -4.493758,4.743641 -4.493758,4.743641 z"
+     id="path3646"
+     sodipodi:nodetypes="ccsc"
+     inkscape:export-filename="/home/jonathan/openshot/openshot/images/NoThumbnail.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90" />
+</svg>

@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=OpenShot Video Editor
+GenericName=Video Editor
+X-GNOME-FullName=OpenShot Video Editor
+Comment=Create and edit videos and movies
+Exec=openshot %F
+Terminal=false
+Type=Application
+Icon=openshot
+Categories=GNOME;GTK;AudioVideo;Video;AudioVideoEditing;
+MimeType=application/vnd.openshot-project;
+X-AppInstall-Package=openshot
+X-Ubuntu-Gettext-Domain=OpenShot
