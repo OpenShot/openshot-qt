@@ -28,8 +28,8 @@ class MainWindow(QMainWindow):
 	
 	@pyqtSlot()
 	def fun(self):
-		new_setting = not self.webView.isVisible()
-		self.webView.setVisible(new_setting)
+		new_setting = not self.timeline.isVisible()
+		self.timeline.setVisible(new_setting)
 		self.findChild(QAction, 'actionShow_Browser').setVisible(not new_setting)
 	
 	def exec_(self):
@@ -45,13 +45,13 @@ class MainWindow(QMainWindow):
 		uic.loadUi(os.path.join(*self.ui_path), self)
 		
 		#setup timeline
-		self.webView = TimelineWebView(self)
+		self.timeline = TimelineWebView(self)
 		
 		#connect button to timeline slot
-		self.btnGo.clicked.connect(self.webView.navigate)
+		self.btnGo.clicked.connect(self.timeline.navigate)
 		self.findChild(QAction, 'actionShow_Browser').triggered.connect(self.fun)
 		
-		#add webview to web frame layout
-		self.frameWeb.layout().addWidget(self.webView)
+		#add timeline to web frame layout
+		self.frameWeb.layout().addWidget(self.timeline)
 		
 		
