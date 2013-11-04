@@ -12,6 +12,7 @@ $(document).ready(function() {
 		scrolling_ruler.scrollLeft($(this).scrollLeft());
 	});
 
+	
 	// Make all clips draggable
 	// var previous_drag_position = null;
 	// var dragging = false;

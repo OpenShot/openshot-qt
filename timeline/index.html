@@ -31,7 +31,7 @@
 		<div id="scrolling_tracks">
 			<div id="click_trap">
 				<div ng-repeat="track in tracks" id="track_{{track.number}}" class="track" tl-droppable tl-index="{{track.number}}">
-					<div ng-repeat="clip in clips | filter:filterByTrack(track)" tl-index="{{clip.number}}" id="clip_{{clip.number}}" class="clip" tl-draggable>
+					<div ng-repeat="clip in clips | filter:filterByTrack(track)" tl-index="{{clip.number}}" id="clip_{{clip.number}}" class="clip" tl-draggable tl-resizable>
 						<div class="clip_label">Clip {{clip.number}}</div>
 						<div class="thumb" style="background-image: url(/media/images/test.png); "></div>
 					</div>
@@ -47,6 +47,12 @@
 			<div class="debug-window ui-corner-all" style="display:none;">
 				<div class="debug-text ui-corner-all">TRACK DATA: <pre>{{tracks | json}}</pre></div>
 				<div class="debug-text ui-corner-all">CLIPS DATA: <pre>{{clips | json}}</pre></div>
+				<div class="debug-text ui-corner-all">ACTIONS:<br>
+					<div>
+						<input type="text" name="numClips" ng-model="numClips" size="5" style="width:100px;" placeholder="# of clips"/>
+    					<button ng-click="addClips(numClips)">add clips</button> <br/>
+    				<div>
+				</div>
 				<div class="cleared"></div>
 			</div>
 		</div>

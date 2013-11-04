@@ -43,4 +43,25 @@ App.controller('TimelineCtrl', function($scope) {
       };
   };
 
+
+  //DEBUG STUFFS
+
+  $scope.addClips = function(numClips) {
+      console.log("Adding clips!");
+        startNum = $scope.clips.length + 1;
+        for (x=1; x<=numClips; x++){
+            $scope.clips.push({
+              number: startNum.toString(),
+              track : '4', 
+              image : 'track1.png',
+              locked : false,
+          });
+            startNum++;
+        }
+        
+        $scope.numClips = "";
+
+    };
+
+
 });

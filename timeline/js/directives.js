@@ -93,3 +93,22 @@ App.directive('tlIndex', function () {
              link:function (scope, elm, attrs) {}
      };
 }); 
+
+
+//allows a div to be resizable (by jqueryUI)
+App.directive('tlResizable', function(){
+	
+	return {
+		link: function(scope, element, attrs) {
+
+        	element.resizable({ handles: "e, w",
+				start: function(e, ui) {
+					dragging = true;
+				},
+				stop: function(e, ui) {
+					dragging = false;
+				}
+			});
+    	}    
+	}
+});
