@@ -1,0 +1,47 @@
+html {
+    height: 100%;
+}
+body { 
+	height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(14,14,14,1)), color-stop(100%,rgba(125,126,125,1)));
+}
+
+/* General */
+#cleared {height:0px; clear:both;}
+
+.ui-selectable-helper{
+  position:absolute;
+  z-index:99999;
+  border:2px dotted white;
+} 
+
+
+#track_controls { width: 140px; position: relative; float: left; height: 316px; overflow: hidden;}
+#scrolling_ruler { overflow: hidden; position: relative; margin-bottom: 4px; }
+#scrolling_tracks { height: 316px; overflow: scroll; position: relative; }
+
+#ruler_label { height: 39px; width: 140px; float: left; background-image: url(../images/ruler.png); margin-bottom: 4px; }
+#ruler_ticks { height: 39px; width: 30000px; background-image: url(../images/ruler_ticks.png); }
+#ruler_time { font-family: Sans; font-size: 12pt; color: #c8c8c8; padding-top: 10px; padding-left: 20px;}
+
+
+.clip_label { padding-top: 2px; padding-left: 2px; }
+.track_label { padding-top: 2px; padding-left: 2px; }
+.track_name { width: 100%; height: 70px; font-family: Sans; color: #fff; font-size: 9pt; margin-left: 5px; margin-bottom: 8px; background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(76,76,76,1)), color-stop(12%,rgba(89,89,89,1)), color-stop(25%,rgba(102,102,102,1)), color-stop(39%,rgba(71,71,71,1)), color-stop(50%,rgba(44,44,44,1)), color-stop(51%,rgba(0,0,0,1)), color-stop(60%,rgba(17,17,17,1)), color-stop(76%,rgba(43,43,43,1)), color-stop(91%,rgba(28,28,28,1)), color-stop(100%,rgba(19,19,19,1))); border-top: 1px solid #4b92ad; border-bottom: 1px solid #4b92ad; border-left: 1px solid #4b92ad; border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
+.track { width: 30000px; height: 70px; background-color: silver; margin-bottom: 8px; background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(69,72,77,1)), color-stop(100%,rgba(0,0,0,1))); border-top: 1px solid #000; border-bottom: 1px solid #000; }
+.clip { width: 200px; height: 68px; position: absolute; left: 100px; font-family: Sans; font-size: 9pt; background-color: #ef7f00; background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,234,187,.7)), color-stop(50%,rgba(252,205,77,.7)), color-stop(51%,rgba(248,181,0,.7)), color-stop(100%,rgba(251,223,147,.7))); border-radius: 8px; border: 1px solid #e8b13b; border-left: 2px solid #e8b13b; border-right: 2px solid #e8b13b; }
+.thumb { width: 100%; height: 50px; }
+
+/* Effects */
+.left_edge_stop { border-left: 2px solid #4b92ad; }
+.right_edge_stop { border-right: 2px solid #4b92ad; }
+.highlight_clip { background-color: #fff; }
+.ui-selecting { border-left: 2px solid yellow; border-right: 2px solid yellow; }
+.ui-selected { border-left: 2px solid red; border-right: 2px solid red; }
+
+/* Scrollbar style */
+::-webkit-scrollbar {width: 6px; height: 6px; background: #000000; }
+::-webkit-scrollbar-thumb { background-color: #4b92ad; -webkit-border-radius: 1ex; }
