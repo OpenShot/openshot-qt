@@ -21,7 +21,8 @@ import os
 from PyQt5.Qt import QWebView, QFileInfo, pyqtSlot, QUrl
 
 class TimelineWebView(QWebView):
-	html_path = ('windows','html','test.html')
+	html_path = ('windows','html','openshot_timeline_demo','timeline.html')
+	#html_path = ('windows','html','test.html')
 
 	#Demo slot callable from javascript
 	@pyqtSlot()

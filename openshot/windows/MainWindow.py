@@ -18,7 +18,7 @@
 #	along with OpenShot Video Editor.  If not, see <http://www.gnu.org/licenses/>.
 
 import sys, os
-from PyQt5.Qt import QMainWindow, QApplication, pyqtSlot, QAction
+from PyQt5.Qt import QMainWindow, QApplication, pyqtSlot, QAction, QTranslator, QMessageBox
 from PyQt5 import uic
 from windows.TimelineWebView import TimelineWebView
 
@@ -38,6 +38,13 @@ class MainWindow(QMainWindow):
 	def __init__(self):
 		#Create application and save reference before creating main window
 		self.app = QApplication(sys.argv)
+		
+		#translate = QTranslator()
+		#print ('Loading translation: ', translate.load('OpenShot',
+		#	os.path.join('locale','es','LC_Messages'),
+		#	) )
+		#self.app.installTranslator(translate)
+		
 		#Create main window base class
 		QMainWindow.__init__(self)
 		
@@ -47,11 +54,8 @@ class MainWindow(QMainWindow):
 		#setup timeline
 		self.timeline = TimelineWebView(self)
 		
-		#connect button to timeline slot
-		self.btnGo.clicked.connect(self.timeline.navigate)
-		self.findChild(QAction, 'actionShow_Browser').triggered.connect(self.fun)
-		
 		#add timeline to web frame layout
 		self.frameWeb.layout().addWidget(self.timeline)
 		
-		
+		#Do some drawing on the graphics view
+		#self.graphicsView.
