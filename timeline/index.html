@@ -29,9 +29,9 @@
 			<div ng-repeat="track in tracks" id="track_static_{{track.number}}" class="track_name"><div class="track_label">Track {{track.number}}</div></div>
 		</div>
 		<div id="scrolling_tracks">
-			<div id="click_trap">
-				<div ng-repeat="track in tracks" id="track_{{track.number}}" class="track" tl-droppable tl-index="{{track.number}}">
-					<div ng-repeat="clip in clips | filter:filterByTrack(track)" tl-index="{{clip.number}}" id="clip_{{clip.number}}" class="clip" tl-draggable tl-resizable>
+			<div tl-multi-selectable>
+				<div ng-repeat="track in tracks" id="track_{{track.number}}" class="track" tl-track tl-index="{{track.number}}">
+					<div ng-repeat="clip in clips | filter:filterByTrack(track)" tl-index="{{clip.number}}" id="clip_{{clip.number}}" class="clip" tl-clip>
 						<div class="clip_label">Clip {{clip.number}}</div>
 						<div class="thumb" style="background-image: url(/media/images/test.png); "></div>
 					</div>

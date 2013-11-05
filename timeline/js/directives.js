@@ -12,13 +12,77 @@ function findElement(arr, propName, propValue) {
 }
 
 
-//allows an element to be draggable
-App.directive('tlDraggable', function() {
-	return {
+
+//allows an element to accept drops
+App.directive('tlTrack', function() {
+    return {
         // A = attribute, E = Element, C = Class and M = HTML Comment
         restrict:'A',
         link: function(scope, element, attrs) {
-        	element.draggable({
+
+        	//make it accept drops
+        	element.droppable({
+		        accept: ".clip",
+		       	drop:function(event,ui) {
+		        	dragged = angular.element(ui.draggable);
+		        	dropped = angular.element(this);
+		        	// Move clip to new track parent
+					clip_id = dragged.attr("id");
+					clip_num = clip_id.substr(clip_id.indexOf("_") + 1);
+					elm = findElement(scope.clips, "number", clip_num);
+					scope.$apply(function(){
+			           elm.track = attrs.tlIndex;
+			      	});
+	
+		        }	
+		    });
+    	}    
+    }
+});
+
+
+
+//holds the data index of an element
+App.directive('tlIndex', function () {
+        return {
+             link:function (scope, elm, attrs) {}
+     };
+}); 
+
+
+
+App.directive('tlClip', function(){
+	return {
+		link: function(scope, element, attrs){
+			
+			//handle hover over on the clip
+			element.hover(
+	  			function () {
+				  	if (!dragging)
+				  	{
+					  	$(this).addClass( "highlight_clip", 400, "easeInOutCubic" );
+				  	}
+			  	},
+			  	function () {
+				  	if (!dragging)
+				  	{
+					  	$(this).removeClass( "highlight_clip", 400, "easeInOutCubic" );
+					}
+			  	}
+			);
+			
+			//handle resizability of clip
+			element.resizable({ handles: "e, w",
+				start: function(e, ui) {
+					dragging = true;
+				},
+				stop: function(e, ui) {
+					dragging = false;
+				}
+			});
+
+			//handle draggability of clip
+			element.draggable({
 		        revert: true, //reverts back to original place if not dropped
 		        snap: ".track", // snaps to a track
 		        snapMode: "inner", 
@@ -57,58 +121,22 @@ App.directive('tlDraggable', function() {
 				    });
 		        },
 		      });
-        }
+
+
+		}
 	}
 });
 
-//allows an element to accept drops
-App.directive('tlDroppable', function() {
-    return {
-        // A = attribute, E = Element, C = Class and M = HTML Comment
-        restrict:'A',
-        link: function(scope, element, attrs) {
-        	element.droppable({
-		        accept: ".clip",
-		       	drop:function(event,ui) {
-		        	dragged = angular.element(ui.draggable);
-		        	dropped = angular.element(this);
-		        	// Move clip to new track parent
-					clip_id = dragged.attr("id");
-					clip_num = clip_id.substr(clip_id.indexOf("_") + 1);
-					elm = findElement(scope.clips, "number", clip_num);
-					scope.$apply(function(){
-			           elm.track = attrs.tlIndex;
-			      	});
-
-        			
-		        }	
-		    });
-    	}    
-    }
-});
-
-//holds the data index of an element
-App.directive('tlIndex', function () {
-        return {
-             link:function (scope, elm, attrs) {}
-     };
-}); 
 
 
-//allows a div to be resizable (by jqueryUI)
-App.directive('tlResizable', function(){
-	
+App.directive('tlMultiSelectable', function(){
 	return {
-		link: function(scope, element, attrs) {
-
-        	element.resizable({ handles: "e, w",
-				start: function(e, ui) {
-					dragging = true;
-				},
-				stop: function(e, ui) {
-					dragging = false;
-				}
+		link: function(scope, element, attrs){
+			element.selectable({
+				filter: '.clip',
 			});
-    	}    
+		}
 	}
 });
+
+
