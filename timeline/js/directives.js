@@ -11,35 +11,21 @@ function findElement(arr, propName, propValue) {
 
 }
 
-
-
-//allows an element to accept drops
-App.directive('tlTrack', function() {
-    return {
-        // A = attribute, E = Element, C = Class and M = HTML Comment
-        restrict:'A',
-        link: function(scope, element, attrs) {
-
-        	//make it accept drops
-        	element.droppable({
-		        accept: ".clip",
-		       	drop:function(event,ui) {
-		        	dragged = angular.element(ui.draggable);
-		        	dropped = angular.element(this);
-		        	// Move clip to new track parent
-					clip_id = dragged.attr("id");
-					clip_num = clip_id.substr(clip_id.indexOf("_") + 1);
-					elm = findElement(scope.clips, "number", clip_num);
-					scope.$apply(function(){
-			           elm.track = attrs.tlIndex;
-			      	});
-	
-		        }	
-		    });
-    	}    
+function findTrackAtLocation(top, left){
+	//get all tracks
+	tracks = $(".track");
+	for (x=0;x<=tracks.length-1;x++){
+    	track = tracks[x];
+    	track_rect = track.getBoundingClientRect();
+    	console.log("looking for top: " + top);
+    	console.log("tracktop: " + track_rect.top);
+    	console.log("trackbottom: " + track_rect.bottom);
+    	if (top <= track_rect.top && top >= track_rect.bottom){
+    		return track;
+    	}
     }
-});
-
+    return null;
+}
 
 
 //holds the data index of an element
@@ -50,7 +36,51 @@ App.directive('tlIndex', function () {
 }); 
 
 
+//treats element as a track
+//1: allows clips to be dropped
+App.directive('tlTrack', function() {
+    return {
+        // A = attribute, E = Element, C = Class and M = HTML Comment
+        restrict:'A',
+        link: function(scope, element, attrs) {
 
+        	//make it accept drops
+        	element.droppable({
+		        accept: ".clip",
+		       	drop:function(event,ui) {
+		       		//handle all dragged clips
+		       		all_dragged =  $(".ui-selected");
+		       		for (x=0;x<=all_dragged.length-1;x++){
+		            	clip = angular.element(all_dragged[x]);
+		            	clip_top = clip.css("top");
+		            	clip_left = clip.css("left");
+		            	drop_track = findTrackAtLocation(parseInt(clip_top));
+		            	console.log(drop_track);
+		            }
+
+		        	//dragged = angular.element(ui.draggable);
+		        	//console.log(dragged);
+		        	//dropped = angular.element(this);
+		        	// Move clip to new track parent
+					//clip_id = dragged.attr("id");
+					//clip_num = clip_id.substr(clip_id.indexOf("_") + 1);
+					//elm = findElement(scope.clips, "number", clip_num);
+					//scope.$apply(function(){
+			        //   elm.track = attrs.tlIndex;
+			      	//});
+	
+		        }	
+		    });
+    	}    
+    }
+});
+
+
+
+//treats element as a clip
+//1: can be dragged
+//2: can be resized
+//3: class change when hovered over
 App.directive('tlClip', function(){
 	return {
 		link: function(scope, element, attrs){
@@ -140,3 +170,24 @@ App.directive('tlMultiSelectable', function(){
 });
 
 
+App.directive('tlScrollableTracks', [function () {
+	return {
+		restrict: 'A',
+		
+		link: function (scope, element, attrs) {
+			element.on('scroll', function () {
+				$('#track_controls').scrollTop(element.scrollTop());
+				$('#scrolling_ruler').scrollLeft(element.scrollLeft());
+			});
+		}
+	};
+}])
+
+
+App.directive('tlTrackControls', [function () {
+	return {
+		link: function (scope, element, attrs) {
+			
+		}
+	};
+}])

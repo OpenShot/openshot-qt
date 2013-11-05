@@ -25,10 +25,11 @@
 			<div id="ruler_ticks"></div>
 		</div>
 		<div class="cleared"></div>
-		<div id="track_controls">
+		<div id="track_controls" track-controls>
 			<div ng-repeat="track in tracks" id="track_static_{{track.number}}" class="track_name"><div class="track_label">Track {{track.number}}</div></div>
+			<br>
 		</div>
-		<div id="scrolling_tracks">
+		<div id="scrolling_tracks" tl-scrollable-tracks>
 			<div tl-multi-selectable>
 				<div ng-repeat="track in tracks" id="track_{{track.number}}" class="track" tl-track tl-index="{{track.number}}">
 					<div ng-repeat="clip in clips | filter:filterByTrack(track)" tl-index="{{clip.number}}" id="clip_{{clip.number}}" class="clip" tl-clip>
