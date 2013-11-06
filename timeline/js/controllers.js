@@ -47,7 +47,6 @@ App.controller('TimelineCtrl', function($scope) {
   //DEBUG STUFFS
 
   $scope.addClips = function(numClips) {
-      console.log("Adding clips!");
         startNum = $scope.clips.length + 1;
         for (x=1; x<=numClips; x++){
             $scope.clips.push({
@@ -62,6 +61,7 @@ App.controller('TimelineCtrl', function($scope) {
         $scope.numClips = "";
 
     };
+
 
 
 });

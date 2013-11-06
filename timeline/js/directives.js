@@ -11,20 +11,21 @@ function findElement(arr, propName, propValue) {
 
 }
 
-function findTrackAtLocation(top, left){
-	//get all tracks
-	tracks = $(".track");
-	for (x=0;x<=tracks.length-1;x++){
-    	track = tracks[x];
-    	track_rect = track.getBoundingClientRect();
-    	console.log("looking for top: " + top);
-    	console.log("tracktop: " + track_rect.top);
-    	console.log("trackbottom: " + track_rect.bottom);
-    	if (top <= track_rect.top && top >= track_rect.bottom){
-    		return track;
+function findTrackAtLocation(top){
+	//default return value
+	var retVal = -1;
+
+	//loop all tracks
+	$(".track").each(function() {
+		var track = $(this);
+	    track_top = track.position().top;
+	    track_bottom = track_top + track.outerHeight(true);
+    	if (top >= track_top && top <= track_bottom){
+    		//found the track at this location
+    		retVal = track.attr("id");
     	}
-    }
-    return null;
+    });
+    return retVal;
 }
 
 
@@ -48,27 +49,40 @@ App.directive('tlTrack', function() {
         	element.droppable({
 		        accept: ".clip",
 		       	drop:function(event,ui) {
-		       		//handle all dragged clips
-		       		all_dragged =  $(".ui-selected");
-		       		for (x=0;x<=all_dragged.length-1;x++){
-		            	clip = angular.element(all_dragged[x]);
+		       		//with each dragged clip, find out which track they landed on
+		       		$(".ui-selected").each(function() {
+		       			var clip = $(this);
+						
+						//remove selected class
+						if (element.hasClass('ui-selected')){
+			        		element.removeClass('ui-selected');
+			        	}
+			        	
+		       			//get the clip properties we need
+		       			clip_id = clip.attr("id");
+						clip_num = clip_id.substr(clip_id.indexOf("_") + 1);
 		            	clip_top = clip.css("top");
 		            	clip_left = clip.css("left");
-		            	drop_track = findTrackAtLocation(parseInt(clip_top));
-		            	console.log(drop_track);
-		            }
+		            	
+		            	//get track the clip was dropped on 
+		            	drop_track_id = findTrackAtLocation(parseInt(clip_top));
+		            	
+		            	//if the droptrack was found, update the json
+		            	if (drop_track_id != -1){ 
+		            		//get track number from track.id
+		            		drop_track_num = drop_track_id.substr(drop_track_id.indexOf("_") + 1);
+		            		
+		            		//find the clip in the json data
+		            		elm = findElement(scope.clips, "number", clip_num);
+		            		
+		            		//change the clip's track in the json data
+		            		scope.$apply(function(){
+		            			elm.track = drop_track_num;
+		            		});
+		            	}
+		            	
+		            });
 
-		        	//dragged = angular.element(ui.draggable);
-		        	//console.log(dragged);
-		        	//dropped = angular.element(this);
-		        	// Move clip to new track parent
-					//clip_id = dragged.attr("id");
-					//clip_num = clip_id.substr(clip_id.indexOf("_") + 1);
-					//elm = findElement(scope.clips, "number", clip_num);
-					//scope.$apply(function(){
-			        //   elm.track = attrs.tlIndex;
-			      	//});
-	
 		        }	
 		    });
     	}    
@@ -120,13 +134,19 @@ App.directive('tlClip', function(){
 		        stack: ".clip", 
 		        start: function(event, ui) {
 		        	dragging = true;
+		        	if (!element.hasClass('ui-selected')){
+		        		element.addClass('ui-selected');
+		        	}
+		        	
 		        },
                 stop: function(event, ui) {
                 	// Clear previous drag position
 					previous_drag_position = null;
 					dragging = false;
+
 				},
                 drag: function(e, ui) {
+
 					// Determine the amount moved since the previous event
 					var previous_x = ui.originalPosition.left;
 					var previous_y = ui.originalPosition.top;
