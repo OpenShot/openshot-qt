@@ -1,5 +1,17 @@
 
-App.controller('TimelineCtrl', function($scope) {
+App.controller('TimelineCtrl', function($scope,$timeout) {
+
+
+  $scope.project =
+    {
+      length : 600, //length of project in seconds
+      scale : 16.0, //seconds per tick
+      tick_pixels : 100, //pixels between tick mark
+      play_head_position : 0.0 //position of play head
+    };
+  
+
+  $scope.pixelsPerSecond =  parseFloat($scope.project.tick_pixels) / parseFloat($scope.project.scale);
   
   //clips json
   $scope.clips = [
@@ -8,18 +20,24 @@ App.controller('TimelineCtrl', function($scope) {
       track : '1', 
       image : 'track1.png',
       locked : false,
+      length : 32, //length in seconds
+      position : 0.0,
     },
     {
       number : '2', 
       track : '2', 
       image : 'track2.png',
       locked : false,
+      length : 45,
+      position : 0.0,
     },
     {
       number : '3', 
       track : '3', 
       image : 'track3.png',
       locked : false,
+      length : 120,
+      position : 32.0,
     },
   ];
 
@@ -31,6 +49,11 @@ App.controller('TimelineCtrl', function($scope) {
     {number:'4'},
     {number:'5'},
   ];
+
+
+
+  
+
 
   //filters clips by track
   $scope.filterByTrack = function (track) {
