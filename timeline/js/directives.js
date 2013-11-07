@@ -6,39 +6,6 @@ var is_scrolling = false;
 var starting_scrollbar = { x: 0, y: 0 };
 var starting_mouse_position = { x: 0, y: 0 };
 
-//finds an element with a particular value in the json data
-function findElement(arr, propName, propValue) {
-
-  for (var i=0; i < arr.length; i++)
-    if (arr[i][propName] == propValue)
-      return arr[i];
-
-}
-
-function findTrackAtLocation(top){
-	//default return value
-	var retVal = -1;
-
-	//loop all tracks
-	$(".track").each(function() {
-		var track = $(this);
-	    track_top = track.position().top;
-	    track_bottom = track_top + track.outerHeight(true);
-    	if (top >= track_top && top <= track_bottom){
-    		//found the track at this location
-    		retVal = track.attr("id");
-    	}
-    });
-    return retVal;
-}
-
-
-//holds the data index of an element
-App.directive('tlIndex', function () {
-        return {
-             link:function (scope, elm, attrs) {}
-     };
-}); 
 
 
 //treats element as a track
@@ -99,35 +66,41 @@ App.directive('tlTrack', function() {
 //1: can be dragged
 //2: can be resized
 //3: class change when hovered over
+
 App.directive('tlClip', function(){
 	return {
+		scope: "@",
 		link: function(scope, element, attrs){
 			
-			//handle hover over on the clip
-			element.hover(
-	  			function () {
-				  	if (!dragging)
-				  	{
-					  	$(this).addClass( "highlight_clip", 400, "easeInOutCubic" );
-				  	}
-			  	},
-			  	function () {
-				  	if (!dragging)
-				  	{
-					  	$(this).removeClass( "highlight_clip", 400, "easeInOutCubic" );
-					}
-			  	}
-			);
-			
 			//handle resizability of clip
-			element.resizable({ handles: "e, w",
+			element.resizable({ 
+				handles: "e, w",
+				maxWidth: scope.clip.duration * scope.pixelsPerSecond,
 				start: function(e, ui) {
 					dragging = true;
 				},
 				stop: function(e, ui) {
 					dragging = false;
-				}
+				},
+				
 			});
+	
+			//handle hover over on the clip
+			element.hover(
+	  			function () {
+				  	if (!dragging)
+				  	{
+					  	element.addClass( "highlight_clip", 400, "easeInOutCubic" );
+				  	}
+			  	},
+			  	function () {
+				  	if (!dragging)
+				  	{
+					  	element.removeClass( "highlight_clip", 400, "easeInOutCubic" );
+					}
+			  	}
+			);
+			
 
 			//handle draggability of clip
 			element.draggable({
@@ -209,10 +182,8 @@ App.directive('tlScrollableTracks', function () {
 			element.on('mousedown', function(e) {
 				if (e.which == 2) { // middle button
 					is_scrolling = true;
-					starting_scrollbar = { x: $(this).scrollLeft(), y: $(this).scrollTop() }
+					starting_scrollbar = { x: element.scrollLeft(), y: element.scrollTop() }
 					starting_mouse_position = { x: e.pageX, y: e.pageY }
-					//console.log("starting scroll x: " + starting_scrollbar.x + ", y: " + starting_scrollbar.y);
-					//console.log("starting mouse x: " + starting_mouse_position.x + ", y: " + starting_mouse_position.y);
 				}
 				return true;
 			});
@@ -223,12 +194,9 @@ App.directive('tlScrollableTracks', function () {
 					// Calculate difference from last position
 					difference = { x: starting_mouse_position.x-e.pageX, y: starting_mouse_position.y-e.pageY}
 
-					// Print difference
-					//console.log("x: " + difference.x + ", y: " + difference.y);
-
 					// Scroll the tracks div
-					$(this).scrollLeft(starting_scrollbar.x + difference.x);
-					$(this).scrollTop(starting_scrollbar.y + difference.y);
+					element.scrollLeft(starting_scrollbar.x + difference.x);
+					element.scrollTop(starting_scrollbar.y + difference.y);
 				}
 				return true;
 			});
@@ -244,7 +212,6 @@ App.directive('tlBody', function () {
 		link: function (scope, element, attrs){
 
 			element.on('mouseup', function(e){
-				console.log('mouse up');
 				if (e.which == 2) // middle button
 					is_scrolling = false;
 				return true;
@@ -256,72 +223,88 @@ App.directive('tlBody', function () {
 });
 
 
-App.directive('tlTrackControls', function () {
-	return {
-		link: function (scope, element, attrs) {
-			
-		}
-	};
-})
 
 
-function secondsToTime(secs)
-{
-    var t = new Date(1970,0,1);
-    t.setSeconds(secs);
-    var s = t.toTimeString().substr(0,8);
-    if(secs > 86399)
-    	s = Math.floor((t - Date.parse("1/1/70")) / 3600000) + s.substr(2);
-    return s;
-}
 
 App.directive('tlRuler', function ($timeout) {
 	return {
 		restrict: 'A',
 		link: function (scope, element, attrs) {
 			//use timeout to ensure that drawing on the canvas happens after the DOM is loaded
-			$timeout(function(){
-				//get all scope variables we need for the ruler
-				var scale = scope.project.scale;
-				var tick_pixels = scope.project.tick_pixels;
-				var each_tick = tick_pixels / 2;
-				var pixel_length = scope.project.length * scope.pixelsPerSecond;
+			scope.$watch('project.scale', function (val) {
+                if (val){
+                	 $timeout(function(){
+						//get all scope variables we need for the ruler
+						var scale = scope.project.scale;
+						var tick_pixels = scope.project.tick_pixels;
+						var each_tick = tick_pixels / 2;
+						var pixel_length = scope.project.length * scope.pixelsPerSecond;
 
 
-		    	//draw the ruler
-		    	ctx = element[0].getContext('2d');
-		    	num_ticks = pixel_length / 50;
-				for (x=0;x<num_ticks+1;x++){
-					ctx.lineWidth = 2;
-					ctx.beginPath();
-					if (x%2 == 0){
-						line_top = 18;
-						
-						if (x != 0){
-							//get time for this tick
-							time = (scale * x) /2;
-
-							time_text = secondsToTime(time)
-							//write time
-							ctx.fillStyle = "#fff";
-							ctx.font = "bold 10px Arial";
-							ctx.fillText(time_text, x*each_tick, 10);	
+				    	//draw the ruler
+				    	ctx = element[0].getContext('2d');
+				    	num_ticks = pixel_length / 50;
+						for (x=0;x<num_ticks+1;x++){
+							ctx.lineWidth = 2;
+							ctx.beginPath();
+							if (x%2 == 0){
+								line_top = 18;
 								
+								if (x != 0){
+									//get time for this tick
+									time = (scale * x) /2;
+
+									time_text = secondsToTime(time)
+									//write time
+									ctx.fillStyle = "#fff";
+									ctx.font = "bold 10px Arial";
+									ctx.fillText(time_text, x*each_tick, 10);	
+										
+								}
+								
+							} else {
+								line_top = 28;
+							}
+							
+							ctx.moveTo(x*each_tick, 39);
+							ctx.lineTo(x*each_tick, line_top);
+							ctx.strokeStyle = "#fff";
+							ctx.stroke();
+							
 						}
 						
-					} else {
-						line_top = 28;
-					}
-					
-					ctx.moveTo(x*each_tick, 39);
-					ctx.lineTo(x*each_tick, line_top);
-					ctx.strokeStyle = "#fff";
-					ctx.stroke();
-					
-				}
-				
-		    }, 0);   
-			
+				    }, 0);   
+
+                }
+            });
+
+		}
+	};
+})
+
+
+
+
+// DEBUG STUFFS
+
+App.directive('dbSlider', function () {
+	return {
+		restrict: 'A',
+		link: function (scope, element, attrs) {
+			element.slider({
+			    value: 30,
+			    step: 2,
+			    min: 8,
+			    max: 210,
+			    slide: function(event, ui) {
+			        $("#scaleVal").val(ui.value);
+			        scope.$apply(function(){
+			        	scope.project.scale = ui.value;
+	            		scope.pixelsPerSecond =  parseFloat(scope.project.tick_pixels) / parseFloat(scope.project.scale);
+	            	});
+
+			    }
+			});	
 		}
 	};
 })

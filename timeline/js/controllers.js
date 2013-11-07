@@ -21,6 +21,7 @@ App.controller('TimelineCtrl', function($scope,$timeout) {
       image : 'track1.png',
       locked : false,
       length : 32, //length in seconds
+      duration : 32, //max length in seconds
       position : 0.0,
     },
     {
@@ -29,6 +30,7 @@ App.controller('TimelineCtrl', function($scope,$timeout) {
       image : 'track2.png',
       locked : false,
       length : 45,
+      duration : 45,
       position : 0.0,
     },
     {
@@ -37,6 +39,7 @@ App.controller('TimelineCtrl', function($scope,$timeout) {
       image : 'track3.png',
       locked : false,
       length : 120,
+      duration : 120,
       position : 32.0,
     },
   ];
@@ -67,7 +70,22 @@ App.controller('TimelineCtrl', function($scope,$timeout) {
   };
 
 
-  //DEBUG STUFFS
+
+
+// ############# QT FUNCTIONS #################### //
+
+//changes the scale resets the view
+$scope.setScale = function(scaleVal){
+      $scope.$apply(function(){
+         $scope.project.scale = scaleVal;
+         $scope.pixelsPerSecond =  parseFloat($scope.project.tick_pixels) / parseFloat($scope.project.scale);
+     });
+  };
+// ############# END QT FUNCTIONS #################### //   
+
+
+
+// ############ DEBUG STUFFS ################## //
 
   $scope.addClips = function(numClips) {
         startNum = $scope.clips.length + 1;
@@ -77,19 +95,19 @@ App.controller('TimelineCtrl', function($scope,$timeout) {
               track : '4', 
               image : 'track1.png',
               locked : false,
+              length : 10, //length in seconds
+              duration : 10, //max length in seconds
+              position : x*11,
           });
             startNum++;
         }
         
+
         $scope.numClips = "";
 
     };
 
-$scope.scaleVal = $scope.project.scale;
-  $scope.scaleChange = function() {
-    console.log($scope.scaleVal);
-    $scope.project.scale = parseFloat($scope.scaleVal);
-  };
+
 
 
 });
