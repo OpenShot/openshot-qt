@@ -27,9 +27,21 @@ class MainWindow(QMainWindow):
 	ui_path = ('windows','ui','main.ui')
 	translation_path = ('qt_locale',)
 	
-	def wheelEvent(self, event):
-		if (event.angleDelta().y() != 0):
-			print (event.angleDelta().y())
+	def timelineWheelEvent(self, event):
+		#For each 120 (standard tick) adjust the zoom slider
+		y = event.angleDelta().y()
+		up = y > 0
+		while (y != 0):
+			if up and y > 120:
+				y -= 120
+			elif not up and y < -120:
+				y += 120
+			else:
+				y = 0
+			if (up):
+				self.sliderZoom.triggerAction(QAbstractSlider.SliderSingleStepAdd)
+			else:
+				self.sliderZoom.triggerAction(QAbstractSlider.SliderSingleStepSub)
 		
 	def keyPressEvent(self, event):
 		if int(event.modifiers() & Qt.ControlModifier) > 0:

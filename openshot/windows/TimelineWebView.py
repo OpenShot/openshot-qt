@@ -25,7 +25,7 @@ class TimelineWebView(QWebView):
 	#html_path = ('windows','html','test.html')
 
 	def wheelEvent(self, event):
-		self.window.wheelEvent(event)
+		self.window.timelineWheelEvent(event)
 	
 	#Demo slot callable from javascript
 	@pyqtSlot()
