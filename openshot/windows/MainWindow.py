@@ -74,11 +74,8 @@ class MainWindow(QMainWindow):
 		#setup timeline
 		self.timeline = TimelineWebView(self)
 		
-		#connect button to timeline slot
-		self.btnGo.clicked.connect(self.timeline.navigate)
-		self.findChild(QAction, 'actionShow_Browser').triggered.connect(self.fun)
-		
 		#add timeline to web frame layout
 		self.frameWeb.layout().addWidget(self.timeline)
 		
-		
+		#Do some drawing on the graphics view
+		#self.graphicsView.
