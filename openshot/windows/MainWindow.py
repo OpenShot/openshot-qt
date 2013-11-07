@@ -57,11 +57,18 @@ class MainWindow(QMainWindow):
 		self.app = QApplication(sys.argv)
 		
 		#Get system locale
-		locale = QLocale()
+		print( QLocale.languageToString(QLocale.system().language()))
+		print (QLibraryInfo.location(QLibraryInfo.TranslationsPath))
 		#print (QLocale.languageToString(locale.language()))
 		#print (QLocale.countryToString(locale.country()))
 		#locale.name()
 		#locale.language()
+		
+		#Create translator and load current locale's file
+		trans = QTranslator()
+		if not trans.load('qt_' + QLocale().system().name(),QLibraryInfo.location(QLibraryInfo.TranslationsPath)):
+			print ("QT Translations failed to load")
+		self.app.installTranslator(trans)
 		
 		#Create translator and load current locale's file
 		trans = QTranslator()
