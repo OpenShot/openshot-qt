@@ -23,6 +23,9 @@ from PyQt5.Qt import QWebView, QFileInfo, pyqtSlot, QUrl
 class TimelineWebView(QWebView):
 	html_path = ('windows','html','test.html')
 
+	def wheelEvent(self, event):
+		self.window.wheelEvent(event)
+	
 	#Demo slot callable from javascript
 	@pyqtSlot()
 	def navigate(self):
@@ -37,6 +40,7 @@ class TimelineWebView(QWebView):
 	def __init__(self, window):
 		QWebView.__init__(self)
 		self.window = window
+		#self.installEventFilter(window)
 		
 		#set url from configuration (QUrl takes absolute paths for file system paths, create from QFileInfo)
 		self.setUrl(QUrl.fromLocalFile(QFileInfo(os.path.join(*self.html_path)).absoluteFilePath()))
