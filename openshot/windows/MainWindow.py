@@ -39,14 +39,10 @@ class MainWindow(QMainWindow):
 			else:
 				y = 0
 			if (up):
-				self.sliderZoom.triggerAction(QAbstractSlider.SliderSingleStepAdd)
+				self.sliderZoom.triggerAction(QAbstractSlider.SliderPageStepAdd)
 			else:
-				self.sliderZoom.triggerAction(QAbstractSlider.SliderSingleStepSub)
+				self.sliderZoom.triggerAction(QAbstractSlider.SliderPageStepSub)
 		
-	def keyPressEvent(self, event):
-		if int(event.modifiers() & Qt.ControlModifier) > 0:
-			print ('Control pressed!')
-	
 	@pyqtSlot()
 	def fun(self):
 		new_setting = not self.timeline.isVisible()
@@ -69,7 +65,7 @@ class MainWindow(QMainWindow):
 		
 		#Create translator and load current locale's file
 		trans = QTranslator()
-		if not trans.load(QLocale.system(), os.path.join(*self.translation_path)): #QLocale(),
+		if not trans.load('openshot.en_US.qm', os.path.join(*self.translation_path)): #QLocale(),
 			print ("Translation failed to load (" + os.path.join(*self.translation_path) + ")")
 		self.app.installTranslator(trans)
 		

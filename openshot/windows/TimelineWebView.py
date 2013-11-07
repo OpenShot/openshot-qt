@@ -18,14 +18,17 @@
 #	along with OpenShot Video Editor.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-from PyQt5.Qt import QWebView, QFileInfo, pyqtSlot, QUrl
+from PyQt5.Qt import QWebView, QFileInfo, pyqtSlot, QUrl, Qt
 
 class TimelineWebView(QWebView):
 	html_path = ('windows','html','openshot_timeline_demo','timeline.html')
 	#html_path = ('windows','html','test.html')
 
 	def wheelEvent(self, event):
-		self.window.timelineWheelEvent(event)
+		if int(self.window.app.keyboardModifiers() & Qt.ControlModifier) > 0:
+			self.window.timelineWheelEvent(event)
+		else:
+			super(type(self), self).wheelEvent(event)
 	
 	#Demo slot callable from javascript
 	@pyqtSlot()
