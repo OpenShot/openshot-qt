@@ -1,6 +1,10 @@
 var dragging = false;
 var previous_drag_position = null;
 
+//variables for panning by middle click
+var is_scrolling = false;
+var starting_scrollbar = { x: 0, y: 0 };
+var starting_mouse_position = { x: 0, y: 0 };
 
 //finds an element with a particular value in the json data
 function findElement(arr, propName, propValue) {
@@ -195,13 +199,61 @@ App.directive('tlScrollableTracks', function () {
 		restrict: 'A',
 		
 		link: function (scope, element, attrs) {
+			
+
 			element.on('scroll', function () {
 				$('#track_controls').scrollTop(element.scrollTop());
 				$('#scrolling_ruler').scrollLeft(element.scrollLeft());
 			});
+
+			element.on('mousedown', function(e) {
+				if (e.which == 2) { // middle button
+					is_scrolling = true;
+					starting_scrollbar = { x: $(this).scrollLeft(), y: $(this).scrollTop() }
+					starting_mouse_position = { x: e.pageX, y: e.pageY }
+					//console.log("starting scroll x: " + starting_scrollbar.x + ", y: " + starting_scrollbar.y);
+					//console.log("starting mouse x: " + starting_mouse_position.x + ", y: " + starting_mouse_position.y);
+				}
+				return true;
+			});
+
+			element.on('mousemove', function(e){
+				if (is_scrolling) {
+
+					// Calculate difference from last position
+					difference = { x: starting_mouse_position.x-e.pageX, y: starting_mouse_position.y-e.pageY}
+
+					// Print difference
+					//console.log("x: " + difference.x + ", y: " + difference.y);
+
+					// Scroll the tracks div
+					$(this).scrollLeft(starting_scrollbar.x + difference.x);
+					$(this).scrollTop(starting_scrollbar.y + difference.y);
+				}
+				return true;
+			});
+			
+
 		}
 	};
 })
+
+
+App.directive('tlBody', function () {
+	return {
+		link: function (scope, element, attrs){
+
+			element.on('mouseup', function(e){
+				console.log('mouse up');
+				if (e.which == 2) // middle button
+					is_scrolling = false;
+				return true;
+			});
+
+
+		}
+	};
+});
 
 
 App.directive('tlTrackControls', function () {

@@ -85,6 +85,11 @@ App.controller('TimelineCtrl', function($scope,$timeout) {
 
     };
 
+$scope.scaleVal = $scope.project.scale;
+  $scope.scaleChange = function() {
+    console.log($scope.scaleVal);
+    $scope.project.scale = parseFloat($scope.scaleVal);
+  };
 
 
 });

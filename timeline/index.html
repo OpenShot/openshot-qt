@@ -15,7 +15,7 @@
 		<link type="text/css" href="media/css/main.css" rel="stylesheet" />
 		<link type="text/css" href="media/css/debug.css" rel="stylesheet" />
 	</head>
-	<body ng-controller="TimelineCtrl">
+	<body ng-controller="TimelineCtrl" tl-body>
 
 		<div id="ruler_label">
 			<div id="ruler_time">00:00:00:000</div>
@@ -41,7 +41,19 @@
 		</div>
 
 		<!-- DEBUG SECTION -->
-
+		<script language="javascript">
+			$( document ).ready(function() {
+				$("#slider").slider({
+				    value: 30,
+				    step: 2,
+				    min: 8,
+				    max: 210,
+				    slide: function(event, ui) {
+				        $("#scaleVal").text(ui.value);
+				    }
+				});
+			});
+		</script>
 		<div>
 			<a id="toggle_debug" href="#" style="color:#fff;">DATA +</a>
 			<br>
@@ -55,7 +67,11 @@
 						<input type="text" name="numClips" ng-model="numClips" size="5" style="width:100px;" placeholder="# of clips"/>
     					<button ng-click="addClips(numClips)">add clips</button> <br/>
     				<div>
-    				
+    				<hr>
+    				<div>
+    					<input id="scaleVal" ng-change="scaleChange()" ng-model="scaleVal" style="width:100px;">
+    					<div id='slider'></div>
+    				<div>
 				</div>
 				<div class="cleared"></div>
 			</div>
