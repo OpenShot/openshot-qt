@@ -18,7 +18,8 @@
 #	along with OpenShot Video Editor.  If not, see <http://www.gnu.org/licenses/>.
 
 import sys, os
-from PyQt5.Qt import *
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
 from PyQt5 import uic
 from windows.TimelineWebView import TimelineWebView
 
@@ -82,6 +83,17 @@ class MainWindow(QMainWindow):
 		#Load ui from configured path
 		uic.loadUi(os.path.join(*self.ui_path), self)
 		self.setWindowTitle(self.tr('Open Shot'))
+		
+		self.actionNew.setIcon(self.style().standardIcon(QStyle.SP_ArrowDown))
+		self.actionOpen.setIcon(self.style().standardIcon(QStyle.SP_DialogOpenButton))
+		self.actionRecent.setIcon(self.style().standardIcon(QStyle.SP_DialogOpenButton))
+		self.actionSave.setIcon(self.style().standardIcon(QStyle.SP_DialogSaveButton))
+		self.actionSaveAs.setIcon(self.style().standardIcon(QStyle.SP_DialogSaveButton))
+		self.actionUndo.setIcon(self.style().standardIcon(QStyle.SP_ArrowBack))
+		self.actionRedo.setIcon(self.style().standardIcon(QStyle.SP_ArrowForward))
+		self.actionImportFiles.setIcon(self.style().standardIcon(QStyle.SP_ArrowDown))
+		self.actionImportImageSequence.setIcon(self.style().standardIcon(QStyle.SP_ArrowDown))
+		self.actionImportTransition.setIcon(self.style().standardIcon(QStyle.SP_ArrowDown))
 		
 		#May give window more aggressive focus, such as when nothing else is focused. Not sure. -nfigg
 		self.setFocusPolicy(Qt.StrongFocus)

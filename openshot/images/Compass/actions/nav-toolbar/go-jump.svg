@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="48px"
+   height="48px"
+   id="svg4359"
+   version="1.1"
+   inkscape:version="0.48+devel r12392"
+   sodipodi:docname="go-jump.svg">
+  <defs
+     id="defs4361" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="7.1838407"
+     inkscape:cx="8.2623984"
+     inkscape:cy="35.916007"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:grid-bbox="true"
+     inkscape:document-units="px"
+     inkscape:window-width="1366"
+     inkscape:window-height="715"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata4364">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer">
+    <g
+       id="g839"
+       transform="matrix(1,0,0,-1,-258.46623,353.01307)">
+      <g
+         id="text872"
+         style="font-size:7.5px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Impact;-inkscape-font-specification:Impact Bold" />
+    </g>
+    <g
+       transform="translate(6,-1004.3622)"
+       id="layer1-5"
+       inkscape:label="Capa 1">
+      <path
+         d="m 13.732815,1020.225 1.314976,-1.3151 9.452209,9.4524 -9.452209,9.4522 -1.314976,-1.3151 7.207262,-7.2072 -19.440077,0 0,-1.8599 19.440077,0 -7.207262,-7.2073"
+         style="fill:#38a2ec;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         id="path66"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cccccccccc" />
+    </g>
+    <g
+       id="g839-4"
+       transform="matrix(1.5,0,0,1.5,-538.91438,-467.11949)">
+      <g
+         id="text872-3"
+         style="font-size:7.5px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Impact;-inkscape-font-specification:Impact Bold" />
+    </g>
+    <path
+       inkscape:connector-curvature="0"
+       id="path70"
+       style="fill:#38a2ec;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
+       d="m 36.75,26.499685 c -1.37875,0 -2.5,-1.12187 -2.5,-2.5 0,-1.37812 1.12125,-2.49937 2.5,-2.49937 1.37875,0 2.5,1.12125 2.5,2.49937 C 39.25,25.377815 38.12875,26.499685 36.75,26.499685 z m 0,-6.24937 c -2.07063,0 -3.75,1.67813 -3.75,3.74937 0,2.07063 1.67937,3.75 3.75,3.75 2.07063,0 3.75,-1.67937 3.75,-3.75 0,-2.07125 -1.67937,-3.74937 -3.75,-3.74937" />
+  </g>
+</svg>

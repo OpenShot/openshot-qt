@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="48"
+   height="48"
+   id="svg4183"
+   version="1.1"
+   inkscape:version="0.48+devel r12392"
+   sodipodi:docname="kdenlive-hide-video.svg">
+  <defs
+     id="defs4185" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="18.573697"
+     inkscape:cx="22.674855"
+     inkscape:cy="20.207531"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1366"
+     inkscape:window-height="718"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata4188">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-1004.3622)">
+    <path
+       inkscape:connector-curvature="0"
+       id="path260"
+       style="fill:#ff2c54;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       d="m 34.733407,1039.0958 c -5.917896,5.9179 -15.548595,5.9184 -21.467016,0 -5.9183478,-5.9184 -5.9178958,-15.5491 0,-21.467 5.918365,-5.9183 15.548669,-5.9183 21.467018,0 C 40.651832,1023.5472 40.651772,1033.1774 34.733407,1039.0958 z m -22.400364,-22.4004 c -6.4438381,6.4439 -6.4442761,16.8895 0,23.3338 6.444348,6.4442 16.889875,6.4437 23.333713,0 6.444305,-6.4444 6.444345,-16.8894 2e-6,-23.3338 -6.444277,-6.4443 -16.889409,-6.4443 -23.333715,0" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path262"
+       style="fill:#ff2c54;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       d="m 17.466559,1020.9108 -0.933348,0.9333 6.53344,6.5335 -6.502173,6.5022 0.933348,0.9333 6.502172,-6.5022 6.502682,6.5027 0.933349,-0.9333 -6.502682,-6.5027 6.533441,-6.5335 -0.933349,-0.9333 -6.533441,6.5334 -6.533439,-6.5334" />
+  </g>
+</svg>
