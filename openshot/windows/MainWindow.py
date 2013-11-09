@@ -22,11 +22,12 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 from windows.TimelineWebView import TimelineWebView
+from classes import language
 
 #This class combines the main window widget with initializing the application and providing a pass-thru exec_ function
 class MainWindow(QMainWindow):
 	ui_path = ('windows','ui','main.ui')
-	translation_path = ('qt_locale',)
+	#translation_path = ('qt_locale',)
 	
 	def timelineWheelEvent(self, event):
 		#For each 120 (standard tick) adjust the zoom slider
@@ -44,38 +45,21 @@ class MainWindow(QMainWindow):
 			else:
 				self.sliderZoom.triggerAction(QAbstractSlider.SliderPageStepSub)
 		
-	@pyqtSlot()
-	def fun(self):
-		new_setting = not self.timeline.isVisible()
-		self.timeline.setVisible(new_setting)
-		self.findChild(QAction, 'actionShow_Browser').setVisible(not new_setting)
 	
 	def exec_(self):
 		self.app.exec_()
 	
 	def __init__(self):
 		#Create application and save reference before creating main window
-		self.app = QApplication(sys.argv)
+		app = QApplication(sys.argv)
+		self.app = app
 		
-		#Get system locale
-		print( QLocale.languageToString(QLocale.system().language()))
-		print (QLibraryInfo.location(QLibraryInfo.TranslationsPath))
-		#print (QLocale.languageToString(locale.language()))
-		#print (QLocale.countryToString(locale.country()))
-		#locale.name()
-		#locale.language()
+		#Init translation system
+		language.init_language(self)
 		
-		#Create translator and load current locale's file
-		trans = QTranslator()
-		if not trans.load('qt_' + QLocale().system().name(),QLibraryInfo.location(QLibraryInfo.TranslationsPath)):
-			print ("QT Translations failed to load")
-		self.app.installTranslator(trans)
-		
-		#Create translator and load current locale's file
-		trans = QTranslator()
-		if not trans.load('openshot.en_US.qm', os.path.join(*self.translation_path)): #QLocale(),
-			print ("Translation failed to load (" + os.path.join(*self.translation_path) + ")")
-		self.app.installTranslator(trans)
+		#t = QTranslator()
+		#t.load(os.path.join('locale','es','LC_MESSAGES','OpenShot.qm'))
+		#self.app.installTranslator(t)
 		
 		#Create main window base class
 		QMainWindow.__init__(self)
