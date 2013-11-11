@@ -18,7 +18,9 @@
 #	along with OpenShot Video Editor.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-from PyQt5.Qt import QWebView, QFileInfo, pyqtSlot, QUrl, Qt
+from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt
+from PyQt5.QtWidgets import QAbstractSlider
+from PyQt5.QtWebKitWidgets import QWebView
 
 class TimelineWebView(QWebView):
 	html_path = ('windows','html','openshot_timeline_demo','timeline.html')

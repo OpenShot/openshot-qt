@@ -29,6 +29,7 @@ class MainWindow(QMainWindow):
 	ui_path = ('windows','ui','main.ui')
 	
 	def exec_(self):
+		#start application event loop (blocks until close)
 		self.app.exec_()
 	
 	def __init__(self):
@@ -36,26 +37,22 @@ class MainWindow(QMainWindow):
 		app = QApplication(sys.argv)
 		self.app = app
 		
-		#Init translation system
-		language.init_language(app)
-		
-		#t = QTranslator()
-		#t.load(os.path.join('locale','es','LC_MESSAGES','OpenShot.qm'))
-		#self.app.installTranslator(t)
-		
 		#Create main window base class
 		QMainWindow.__init__(self)
 		
 		#Load ui from configured path
 		uic.loadUi(os.path.join(*self.ui_path), self)
-		#self.setWindowTitle(self.tr('Open Shot'))
-		#c = self.findChildren(QPushButton)
-		#for ch in c:
-		#	print (ch.objectName(), ch.text(), ch.tr(ch.text()))
-			#ch.setText(ch.tr(ch.text()))
-		#print (self.tr('OpenShot Error'))
+		
+		#Add code here to save default translations in a dict, to use on retranslate events (prevent need for pyuic5 generated retranslateUi() function
+		
+		#Init translation system
+		language.init_language(app)
+		
+		#Translate ui to current language
+		# TODO: improve to generically translate text and tooltips of standard components, see if this is feasible
 		self.retranslateUi()
 		
+		#Set icons on actions
 		self.actionNew.setIcon(self.style().standardIcon(QStyle.SP_ArrowDown))
 		self.actionOpen.setIcon(self.style().standardIcon(QStyle.SP_DialogOpenButton))
 		self.actionRecent.setIcon(self.style().standardIcon(QStyle.SP_DialogOpenButton))
@@ -67,18 +64,13 @@ class MainWindow(QMainWindow):
 		self.actionImportImageSequence.setIcon(self.style().standardIcon(QStyle.SP_ArrowDown))
 		self.actionImportTransition.setIcon(self.style().standardIcon(QStyle.SP_ArrowDown))
 		
-		#May give window more aggressive focus, such as when nothing else is focused. Not sure. -nfigg
-		self.setFocusPolicy(Qt.StrongFocus)
-		
 		#setup timeline
 		self.timeline = TimelineWebView(self)
 		
 		#add timeline to web frame layout
 		self.frameWeb.layout().addWidget(self.timeline)
 		
-		#Do some drawing on the graphics view
-		#self.graphicsView.
-		
+	
 	#imported from pyuic5 output, but with the context "" instead of "MainWindow"
 	def retranslateUi(self):
 		_translate = self.app.translate
