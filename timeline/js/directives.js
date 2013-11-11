@@ -356,7 +356,7 @@ App.directive('tlPlayhead', function(){
 	             	//update the playhead position in the json data
 	             	scope.$apply(function(){
 
-	             		project.playhead_position = 
+	             		//project.playhead_position = 
 	             	});
 
 
