@@ -22,7 +22,8 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 from windows.TimelineWebView import TimelineWebView
-from classes import language
+from classes import language, info
+from classes.logger import logger
 
 #This class combines the main window widget with initializing the application and providing a pass-thru exec_ function
 class MainWindow(QMainWindow):
@@ -37,13 +38,15 @@ class MainWindow(QMainWindow):
 		app = QApplication(sys.argv)
 		self.app = app
 		
+		logger.debug('OpenShot version ' + info.VERSION)
+		
 		#Create main window base class
 		QMainWindow.__init__(self)
 		
 		#Load ui from configured path
 		uic.loadUi(os.path.join(*self.ui_path), self)
 		
-		#Add code here to save default translations in a dict, to use on retranslate events (prevent need for pyuic5 generated retranslateUi() function
+		#Add code here to save default translations in a dict, to use on retranslate events (prevent need for pyuic5 generated retranslateUi() function)
 		
 		#Init translation system
 		language.init_language(app)
@@ -73,6 +76,7 @@ class MainWindow(QMainWindow):
 	
 	#imported from pyuic5 output, but with the context "" instead of "MainWindow"
 	def retranslateUi(self):
+		logger.info('Retranslating UI')
 		_translate = self.app.translate
 		self.setWindowTitle(_translate("", "OpenShot"))
 		self.pushButton_2.setText(_translate("", "Show All"))

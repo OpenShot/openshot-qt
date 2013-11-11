@@ -17,8 +17,9 @@
 #	You should have received a copy of the GNU General Public License
 #	along with OpenShot Video Editor.  If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt5.QtCore import QLocale, QLibraryInfo, QTranslator
 import os
+from PyQt5.QtCore import QLocale, QLibraryInfo, QTranslator
+from classes.logger import logger
 
 def init_language(app):
 	#Setup of our list of translators and paths
@@ -27,8 +28,8 @@ def init_language(app):
 		 "pattern":'qt_%s',
 		 "path":QLibraryInfo.location(QLibraryInfo.TranslationsPath)},
 		{"type":'OpenShot',
-		 "pattern":os.path.join('locale','%s','LC_MESSAGES','openshot.qm'),
-		 "path":''},
+		 "pattern":os.path.join('%s','LC_MESSAGES','openshot'),
+		 "path":'locale'},
 		 )
 	
 	#Determine the environment locale, or default to system locale name
@@ -42,7 +43,7 @@ def init_language(app):
 	for type in translator_types:
 		trans = QTranslator(app)
 		if not find_language_match(type["pattern"], type["path"], trans, locale_name):
-			print (type["type"] + " translations failed to load")
+			logger.warn(type["type"] + " translations failed to load")
 		else:
 			app.installTranslator(trans)
 
@@ -58,7 +59,7 @@ def find_language_match(pattern, path, translator, locale_name):
 	i = len(locale_parts)
 	while not success and i > 0:
 		formatted_name = pattern % "_".join(locale_parts[:i])
-		print ('Attempting to load', formatted_name, path)
+		logger.info('Attempting to load %s in \'%s\'' % (formatted_name, path))
 		success = translator.load(formatted_name, path)
 		i -= 1
 		

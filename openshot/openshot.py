@@ -17,15 +17,12 @@
 #	You should have received a copy of the GNU General Public License
 #	along with OpenShot Video Editor.  If not, see <http://www.gnu.org/licenses/>.
 
-import os, sys
-import locale
+import os, sys #, logging
 from classes import info
 
 # This method starts OpenShot
 def main():
 	""""Initialise settings (not implemented) and create main window/application."""
-	
-	print ("OpenShot version " + info.VERSION)
 	
 	# Create form object & refresh the data
 	from windows.MainWindow import MainWindow
