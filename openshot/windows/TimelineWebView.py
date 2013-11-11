@@ -24,9 +24,24 @@ class TimelineWebView(QWebView):
 	html_path = ('windows','html','openshot_timeline_demo','timeline.html')
 	#html_path = ('windows','html','test.html')
 
+	#Capture wheel event to alter zoom slider control
 	def wheelEvent(self, event):
 		if int(self.window.app.keyboardModifiers() & Qt.ControlModifier) > 0:
-			self.window.timelineWheelEvent(event)
+			#For each 120 (standard scroll unit) adjust the zoom slider
+			tick_scale = 120
+			y = event.angleDelta().y()
+			up = y > 0
+			while (y != 0):
+				if up and y > tick_scale:
+					y -= tick_scale
+				elif not up and y < -tick_scale:
+					y += tick_scale
+				else:
+					y = 0
+				if up:
+					self.window.sliderZoom.triggerAction(QAbstractSlider.SliderPageStepAdd)
+				else:
+					self.window.sliderZoom.triggerAction(QAbstractSlider.SliderPageStepSub)		
 		else:
 			super(type(self), self).wheelEvent(event)
 	

@@ -27,24 +27,6 @@ from classes import language
 #This class combines the main window widget with initializing the application and providing a pass-thru exec_ function
 class MainWindow(QMainWindow):
 	ui_path = ('windows','ui','main.ui')
-	#translation_path = ('qt_locale',)
-	
-	def timelineWheelEvent(self, event):
-		#For each 120 (standard tick) adjust the zoom slider
-		y = event.angleDelta().y()
-		up = y > 0
-		while (y != 0):
-			if up and y > 120:
-				y -= 120
-			elif not up and y < -120:
-				y += 120
-			else:
-				y = 0
-			if (up):
-				self.sliderZoom.triggerAction(QAbstractSlider.SliderPageStepAdd)
-			else:
-				self.sliderZoom.triggerAction(QAbstractSlider.SliderPageStepSub)
-		
 	
 	def exec_(self):
 		self.app.exec_()
@@ -55,7 +37,7 @@ class MainWindow(QMainWindow):
 		self.app = app
 		
 		#Init translation system
-		language.init_language(self)
+		language.init_language(app)
 		
 		#t = QTranslator()
 		#t.load(os.path.join('locale','es','LC_MESSAGES','OpenShot.qm'))
@@ -66,7 +48,13 @@ class MainWindow(QMainWindow):
 		
 		#Load ui from configured path
 		uic.loadUi(os.path.join(*self.ui_path), self)
-		self.setWindowTitle(self.tr('Open Shot'))
+		#self.setWindowTitle(self.tr('Open Shot'))
+		#c = self.findChildren(QPushButton)
+		#for ch in c:
+		#	print (ch.objectName(), ch.text(), ch.tr(ch.text()))
+			#ch.setText(ch.tr(ch.text()))
+		#print (self.tr('OpenShot Error'))
+		self.retranslateUi()
 		
 		self.actionNew.setIcon(self.style().standardIcon(QStyle.SP_ArrowDown))
 		self.actionOpen.setIcon(self.style().standardIcon(QStyle.SP_DialogOpenButton))
@@ -90,3 +78,43 @@ class MainWindow(QMainWindow):
 		
 		#Do some drawing on the graphics view
 		#self.graphicsView.
+		
+	#imported from pyuic5 output, but with the context "" instead of "MainWindow"
+	def retranslateUi(self):
+		_translate = self.app.translate
+		self.setWindowTitle(_translate("", "OpenShot"))
+		self.pushButton_2.setText(_translate("", "Show All"))
+		self.pushButton_3.setText(_translate("", "Video"))
+		self.pushButton_4.setText(_translate("", "Audio"))
+		self.pushButton_5.setText(_translate("", "Image"))
+		self.tabMain.setTabText(self.tabMain.indexOf(self.tab), _translate("", "Project Files"))
+		self.tabMain.setTabText(self.tabMain.indexOf(self.tab_2), _translate("", "Transitions"))
+		self.tabMain.setTabText(self.tabMain.indexOf(self.tab_3), _translate("", "Effects"))
+		self.tabMain.setTabText(self.tabMain.indexOf(self.tab_4), _translate("", "History"))
+		self.label_2.setText(_translate("", "OpenShot Error"))
+		self.pushButton.setText(_translate("", "OpenShot"))
+		self.label.setText(_translate("", "Zoom"))
+		self.menuFile.setTitle(_translate("", "File"))
+		self.toolBar.setWindowTitle(_translate("", "toolBar"))
+		self.actionNew.setText(_translate("", "New Project..."))
+		self.actionNew.setToolTip(_translate("", "New Project..."))
+		self.actionShow_Browser.setText(_translate("", "Show Browser"))
+		self.actionOpen.setText(_translate("", "Open Project..."))
+		self.actionOpen.setToolTip(_translate("", "Open Project..."))
+		self.actionSave.setText(_translate("", "Save Project"))
+		self.actionSave.setToolTip(_translate("", "Save Project"))
+		self.actionUndo.setText(_translate("", "Undo"))
+		self.actionSaveAs.setText(_translate("", "Save Project As..."))
+		self.actionSaveAs.setToolTip(_translate("", "Save Project As..."))
+		self.actionRecent.setText(_translate("", "Recent Projects"))
+		self.actionRecent.setToolTip(_translate("", "Recent Projects"))
+		self.actionImportFiles.setText(_translate("", "Import Files..."))
+		self.actionImportFiles.setToolTip(_translate("", "Import Files..."))
+		self.actionImportImageSequence.setText(_translate("", "Import Image Sequence..."))
+		self.actionImportImageSequence.setToolTip(_translate("", "Import Image Sequence..."))
+		self.actionImportTransition.setText(_translate("", "Import New Transition..."))
+		self.actionImportTransition.setToolTip(_translate("", "Import New Transition..."))
+		self.actionRedo.setText(_translate("", "Redo"))
+		self.actionRedo.setToolTip(_translate("", "Redo"))
+		self.actionPlay.setText(_translate("", "Play"))
+		self.actionPlay.setToolTip(_translate("", "Play"))
