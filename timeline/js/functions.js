@@ -22,13 +22,13 @@ function secondsToTime(secs)
 function findTrackAtLocation(top){
 	//default return value
 	var retVal = -1;
-
+    
 	//loop all tracks
 	$(".track").each(function() {
 		var track = $(this);
 	    track_top = track.position().top;
 	    track_bottom = track_top + track.outerHeight(true);
-    	if (top >= track_top && top <= track_bottom){
+        if (top >= track_top && top <= track_bottom){
     		//found the track at this location
     		retVal = track.attr("id");
     	}

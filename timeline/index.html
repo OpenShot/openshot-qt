@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 		<title>OpenShot Timeline</title>
 		<link type="text/css" href="media/css/ui-darkness/jquery-ui-1.10.2.custom.css" rel="stylesheet" />
-		<script type="text/javascript" src="media/js/jquery-1.9.1.js"></script>
+		<script type="text/javascript" src="media/js/jquery-1.10.2.js"></script>
 		<script type="text/javascript" src="media/js/jquery-ui-1.10.2.custom.js"></script>
 		<script type="text/javascript" src="media/js/angular.js"></script>
 		<script type="text/javascript" src="app.js"></script>
@@ -24,6 +24,7 @@
 		<div id="scrolling_ruler">
 			<!--<div id="ruler_ticks"></div>-->
 			<canvas id="ruler" width="{{project.length * pixelsPerSecond}}px" height="39px" tl-ruler></canvas>
+			
  		</div>
 		<div class="cleared"></div>
 		<div id="track_controls" track-controls>
@@ -39,6 +40,13 @@
 					</div>
 				</div>
 			</div>
+			
+		</div>
+		<div class="playhead_box" style="width:{{project.length * pixelsPerSecond}}px;">
+			<div tl-playhead style="left:{{(project.playhead_position * pixelsPerSecond) + playheadOffset}}px;position:absolute;">
+				<div class="playhead-top"></div>				
+				<div class="playhead-line"></div>
+			</div>
 		</div>
 
 		<!-- DEBUG SECTION -->
@@ -51,7 +59,7 @@
 			<div class="debug-window ui-corner-all" style="display:none;">
 				<div class="debug-text ui-corner-all">TRACK DATA: <pre>{{tracks | json}}</pre></div>
 				<div class="debug-text ui-corner-all">CLIPS DATA: <pre>{{clips | json}}</pre></div>
-				<div class="debug-text ui-corner-all">PROJECT DATA: <pre>pixels per second: {{pixelsPerSecond}} <br> {{project | json}}</pre></div>
+				<div class="debug-text ui-corner-all">PROJECT DATA: <pre>pixels per second: {{pixelsPerSecond}} <br> playhead offset: {{playheadOffset}} <br> {{project | json}}</pre></div>
 				<div class="debug-text ui-corner-all">ACTIONS:<br>
 					<div>
 						<p>Add Clips:</p>	
