@@ -46,14 +46,11 @@ class MainWindow(QMainWindow):
 		#Load ui from configured path
 		uic.loadUi(os.path.join(*self.ui_path), self)
 		
-		#Add code here to save default translations in a dict, to use on retranslate events (prevent need for pyuic5 generated retranslateUi() function)
-		
 		#Init translation system
 		language.init_language(app)
 		
 		#Translate ui to current language
-		# TODO: improve to generically translate text and tooltips of standard components, see if this is feasible
-		self.retranslateUi()
+		self.translate_self()
 		
 		#Set icons on actions
 		self.actionNew.setIcon(self.style().standardIcon(QStyle.SP_ArrowDown))
@@ -72,45 +69,31 @@ class MainWindow(QMainWindow):
 		
 		#add timeline to web frame layout
 		self.frameWeb.layout().addWidget(self.timeline)
-		
-	
-	#imported from pyuic5 output, but with the context "" instead of "MainWindow"
-	def retranslateUi(self):
-		logger.info('Retranslating UI')
+
+	#Translate all text portions of the given element
+	def translate_element(self, elem):
 		_translate = self.app.translate
-		self.setWindowTitle(_translate("", "OpenShot"))
-		self.pushButton_2.setText(_translate("", "Show All"))
-		self.pushButton_3.setText(_translate("", "Video"))
-		self.pushButton_4.setText(_translate("", "Audio"))
-		self.pushButton_5.setText(_translate("", "Image"))
-		self.tabMain.setTabText(self.tabMain.indexOf(self.tab), _translate("", "Project Files"))
-		self.tabMain.setTabText(self.tabMain.indexOf(self.tab_2), _translate("", "Transitions"))
-		self.tabMain.setTabText(self.tabMain.indexOf(self.tab_3), _translate("", "Effects"))
-		self.tabMain.setTabText(self.tabMain.indexOf(self.tab_4), _translate("", "History"))
-		self.label_2.setText(_translate("", "OpenShot Error"))
-		self.pushButton.setText(_translate("", "OpenShot"))
-		self.label.setText(_translate("", "Zoom"))
-		self.menuFile.setTitle(_translate("", "File"))
-		self.toolBar.setWindowTitle(_translate("", "toolBar"))
-		self.actionNew.setText(_translate("", "New Project..."))
-		self.actionNew.setToolTip(_translate("", "New Project..."))
-		self.actionShow_Browser.setText(_translate("", "Show Browser"))
-		self.actionOpen.setText(_translate("", "Open Project..."))
-		self.actionOpen.setToolTip(_translate("", "Open Project..."))
-		self.actionSave.setText(_translate("", "Save Project"))
-		self.actionSave.setToolTip(_translate("", "Save Project"))
-		self.actionUndo.setText(_translate("", "Undo"))
-		self.actionSaveAs.setText(_translate("", "Save Project As..."))
-		self.actionSaveAs.setToolTip(_translate("", "Save Project As..."))
-		self.actionRecent.setText(_translate("", "Recent Projects"))
-		self.actionRecent.setToolTip(_translate("", "Recent Projects"))
-		self.actionImportFiles.setText(_translate("", "Import Files..."))
-		self.actionImportFiles.setToolTip(_translate("", "Import Files..."))
-		self.actionImportImageSequence.setText(_translate("", "Import Image Sequence..."))
-		self.actionImportImageSequence.setToolTip(_translate("", "Import Image Sequence..."))
-		self.actionImportTransition.setText(_translate("", "Import New Transition..."))
-		self.actionImportTransition.setToolTip(_translate("", "Import New Transition..."))
-		self.actionRedo.setText(_translate("", "Redo"))
-		self.actionRedo.setToolTip(_translate("", "Redo"))
-		self.actionPlay.setText(_translate("", "Play"))
-		self.actionPlay.setToolTip(_translate("", "Play"))
+		
+		#Handle generic translatable properties
+		if hasattr(elem, 'setText') and elem.text() != "":
+			elem.setText( _translate("", elem.text()) )
+		if hasattr(elem, 'setTooltip') and elem.tooltip() != "":
+			elem.setTooltip( _translate("", elem.tooltip()) )
+		if hasattr(elem, 'setWindowTitle') and elem.windowTitle() != "":
+			elem.setWindowTitle( _translate("", elem.windowTitle()) )
+		if hasattr(elem, 'setTitle') and elem.title() != "":
+			elem.setTitle( _translate("", elem.title()) )
+		#Handle tabs differently
+		if isinstance(elem, QTabWidget):
+			for i in range(elem.count()):
+				elem.setTabText(i, _translate("", elem.tabText(i)) )
+	
+	def translate_self(self):
+		logger.info('Translating UI')
+		
+		# Loop through all widgets
+		for widget in self.findChildren(QWidget):
+			self.translate_element(widget)
+		# Loop through all actions
+		for action in self.findChildren(QAction):
+			self.translate_element(action)
