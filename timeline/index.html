@@ -19,12 +19,12 @@
 	<body ng-controller="TimelineCtrl" tl-body>
 
 		<div id="ruler_label">
-			<div id="ruler_time">00:00:00:000</div>
+			<div id="ruler_time">{{playheadTime}}</div>
 		</div>
 		<div id="scrolling_ruler">
 			<!--<div id="ruler_ticks"></div>-->
 			<canvas id="ruler" width="{{project.length * pixelsPerSecond}}px" height="39px" tl-ruler></canvas>
-			
+			<canvas id="progress" width="{{project.length * pixelsPerSecond}}px" height="5px" tl-progress></canvas>
  		</div>
 		<div class="cleared"></div>
 		<div id="track_controls" track-controls>
@@ -40,15 +40,15 @@
 					</div>
 				</div>
 			</div>
-			
 		</div>
+		
 		<div class="playhead_box" style="width:{{project.length * pixelsPerSecond}}px;">
 			<div tl-playhead style="left:{{(project.playhead_position * pixelsPerSecond) + playheadOffset}}px;position:absolute;">
 				<div class="playhead-top"></div>				
 				<div class="playhead-line"></div>
 			</div>
 		</div>
-
+		
 		<!-- DEBUG SECTION -->
 		<script language="javascript">
 			
@@ -71,6 +71,7 @@
     					<input id="scaleVal" ng-model="project.scale" style="width:100px;">
     					<div db-slider></div>
     				<div>
+    				
 				</div>
 				<div class="cleared"></div>
 			</div>

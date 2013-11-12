@@ -7,8 +7,6 @@ function findElement(arr, propName, propValue) {
 
 }
 
-
-
 function secondsToTime(secs)
 {
     var t = new Date(1970,0,1);

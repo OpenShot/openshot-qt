@@ -7,9 +7,17 @@ App.controller('TimelineCtrl', function($scope,$timeout) {
       length : 600, //length of project in seconds
       scale : 16.0, //seconds per tick
       tick_pixels : 100, //pixels between tick mark
-      playhead_position : 0.0 //position of play head
+      playhead_position : 123 //position of play head
     };
   
+
+  $scope.progress = [
+  
+    [0, 30, 'rendering'],
+    [40, 50, 'complete'],
+    [100, 150, 'complete'],
+
+  ];
 
    //clips json
   $scope.clips = [
@@ -55,7 +63,7 @@ App.controller('TimelineCtrl', function($scope,$timeout) {
 
    $scope.pixelsPerSecond =  parseFloat($scope.project.tick_pixels) / parseFloat($scope.project.scale);
    $scope.playheadOffset = 0;
-
+   $scope.playheadTime =  secondsToTime($scope.project.playhead_position);
 
 
   //filters clips by track
@@ -68,7 +76,6 @@ App.controller('TimelineCtrl', function($scope,$timeout) {
           }
       };
   };
-
 
 
 

@@ -323,6 +323,50 @@ App.directive('tlRuler', function ($timeout) {
 })
 
 
+// Handles the HTML5 canvas progress bar
+App.directive('tlProgress', function($timeout){
+	return {
+		link: function(scope, element, attrs){
+			scope.$watch('progress', function (val) {
+                if (val) {
+                	$timeout(function(){
+                		var progress = scope.progress;
+                		for(p=0;p<progress.length;p++){
+                			
+                			//get the progress item details
+                			var start_second = progress[p][0];
+                			var stop_second = progress[p][1];
+                			var status = progress[p][2];
+                			
+                			//figure out the actual pixel position
+                			var start_pixel = start_second * scope.pixelsPerSecond;
+                			var stop_pixel = stop_second * scope.pixelsPerSecond;
+                			var rect_length = stop_pixel - start_pixel;
+                			
+                			//get the element and draw the rects
+                			var ctx = element[0].getContext('2d');
+                			ctx.beginPath();
+						    ctx.rect(start_pixel, 0, rect_length, 5);
+						   	//change style based on status
+						   	if (status == 'complete'){
+                				ctx.fillStyle = 'green';
+                			}else{
+                				ctx.fillStyle = 'yellow'
+                			}
+						   	ctx.fill();
+						   
+                		}
+                		
+                	});
+                		
+                }
+            });
+		}
+	}
+});
+
+
+// Handles the playhead dragging 
 var playhead_y_max = null;
 var playhead_x_min = null;
 
@@ -336,27 +380,25 @@ App.directive('tlPlayhead', function(){
 			playhead_x_min = playhead_0_offset;
 			scope.playheadOffset = playhead_0_offset;
 			
-
 			element.draggable({
 		        
 		        start: function(event, ui) {
-		        	console.log("start timeline drag");
 		        	
 		        },
 	            stop: function(event, ui) {
-	            	console.log("stop timeline drag");
-
+	            	
 				},
 	            drag: function(e, ui) {
 	            	//force playhead to stay where it's supposed to
 	             	ui.position.top = playhead_y_max;
 	             	if (ui.position.left < playhead_x_min) ui.position.left = playhead_x_min;
-
 	             	
 	             	//update the playhead position in the json data
 	             	scope.$apply(function(){
-
-	             		//project.playhead_position = 
+	             		//set position of playhead
+	             		playhead_seconds = (ui.position.left - scope.playheadOffset) / scope.pixelsPerSecond;
+	             		scope.project.playhead_position = playhead_seconds;
+	             		scope.playheadTime = secondsToTime(playhead_seconds);
 	             	});
 
 
@@ -365,6 +407,8 @@ App.directive('tlPlayhead', function(){
 		}
 	};
 });
+
+
 
 
 // DEBUG STUFFS

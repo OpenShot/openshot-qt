@@ -25,7 +25,7 @@ body {
 
 #ruler_label { height: 39px; width: 140px; float: left; background-image: url(../images/ruler.png); margin-bottom: 4px; }
 #ruler_ticks { background-color:#000; }
-#ruler_time { font-family: Sans; font-size: 12pt; color: #c8c8c8; padding-top: 10px; padding-left: 20px;}
+#ruler_time { font-family: Sans; font-size: 13pt; color: #c8c8c8; padding-top: 14px; padding-left: 40px;}
 
 
 .clip_label { padding-top: 2px; padding-left: 2px; }
