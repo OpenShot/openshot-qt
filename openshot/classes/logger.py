@@ -19,18 +19,10 @@
 
 import logging
 
-#Get logger and set log level
-logger = logging.getLogger('OpenShot')
-logger.setLevel(logging.DEBUG)
+#Initialize logging module, give basic formats and level we want to report
+logging.basicConfig(format="%(asctime)s %(module)s:%(levelname)s %(message)s", datefmt='%H:%M:%S', level=logging.DEBUG)
 
-#define pass thru functions to log through this logger
-def debug(*args):
-	logger.debug(*args)
-def info(*args):
-	logger.info(*args)
-def warn(*args):
-	logger.warn(*args)
-def error(*args):
-	logger.error(*args)
-def critical(*args):
-	logger.critical(*args)
+#Get OpenShot logger and set log level
+#Alternative spaced out format: "%(asctime)s %(levelname)-7s %(module)-12s %(message)s"
+log = logging.getLogger('OpenShot')
+log.setLevel(logging.DEBUG)

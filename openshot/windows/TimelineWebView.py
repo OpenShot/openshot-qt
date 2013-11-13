@@ -21,6 +21,7 @@ import os
 from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt
 from PyQt5.QtWidgets import QAbstractSlider
 from PyQt5.QtWebKitWidgets import QWebView
+from classes.logger import log
 
 class TimelineWebView(QWebView):
 	html_path = ('windows','html','openshot_timeline_demo','timeline.html')
@@ -44,6 +45,8 @@ class TimelineWebView(QWebView):
 					self.window.sliderZoom.triggerAction(QAbstractSlider.SliderPageStepAdd)
 				else:
 					self.window.sliderZoom.triggerAction(QAbstractSlider.SliderPageStepSub)		
+			log.info('Ctrl+MouseWheel used on timeline. New zoom: ' + str(self.window.sliderZoom.value()))
+		#Otherwise pass on to implement default functionality (scroll in QWebView)
 		else:
 			super(type(self), self).wheelEvent(event)
 	

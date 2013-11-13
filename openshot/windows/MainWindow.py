@@ -23,22 +23,15 @@ from PyQt5.QtWidgets import *
 from PyQt5 import uic
 from windows.TimelineWebView import TimelineWebView
 from classes import language, info
-from classes.logger import logger
+from classes.logger import log
 
 #This class combines the main window widget with initializing the application and providing a pass-thru exec_ function
 class MainWindow(QMainWindow):
 	ui_path = ('windows','ui','main.ui')
 	
-	def exec_(self):
-		#start application event loop (blocks until close)
-		self.app.exec_()
-	
-	def __init__(self):
-		#Create application and save reference before creating main window
-		app = QApplication(sys.argv)
+	def __init__(self, app):
+		#save reference to application
 		self.app = app
-		
-		logger.debug('OpenShot version ' + info.VERSION)
 		
 		#Create main window base class
 		QMainWindow.__init__(self)
@@ -89,7 +82,7 @@ class MainWindow(QMainWindow):
 				elem.setTabText(i, _translate("", elem.tabText(i)) )
 	
 	def translate_self(self):
-		logger.info('Translating UI')
+		log.info('Translating UI')
 		
 		# Loop through all widgets
 		for widget in self.findChildren(QWidget):

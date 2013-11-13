@@ -19,7 +19,7 @@
 
 import os
 from PyQt5.QtCore import QLocale, QLibraryInfo, QTranslator
-from classes.logger import logger
+from classes.logger import log
 
 def init_language(app):
 	#Setup of our list of translators and paths
@@ -43,7 +43,7 @@ def init_language(app):
 	for type in translator_types:
 		trans = QTranslator(app)
 		if not find_language_match(type["pattern"], type["path"], trans, locale_name):
-			logger.warn(type["type"] + " translations failed to load")
+			log.warn(type["type"] + " translations failed to load")
 		else:
 			app.installTranslator(trans)
 
@@ -59,7 +59,7 @@ def find_language_match(pattern, path, translator, locale_name):
 	i = len(locale_parts)
 	while not success and i > 0:
 		formatted_name = pattern % "_".join(locale_parts[:i])
-		logger.info('Attempting to load %s in \'%s\'' % (formatted_name, path))
+		log.info('Attempting to load %s in \'%s\'' % (formatted_name, path))
 		success = translator.load(formatted_name, path)
 		i -= 1
 		

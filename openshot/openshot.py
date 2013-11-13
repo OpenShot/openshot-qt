@@ -17,18 +17,25 @@
 #	You should have received a copy of the GNU General Public License
 #	along with OpenShot Video Editor.  If not, see <http://www.gnu.org/licenses/>.
 
-import os, sys #, logging
+import sys
 from classes import info
+from classes.logger import log
+from PyQt5.QtWidgets import QApplication
+from windows.MainWindow import MainWindow
 
 # This method starts OpenShot
 def main():
 	""""Initialise settings (not implemented) and create main window/application."""
 	
-	# Create form object & refresh the data
-	from windows.MainWindow import MainWindow
-	win = MainWindow()
+	log.info('OpenShot version ' + info.VERSION)
+
+	# Create application
+	app = QApplication(sys.argv)
+	
+	# Create main window and start event loop
+	win = MainWindow(app)
 	win.show()
-	win.exec_()
+	sys.exit(app.exec_())
 
 if __name__ == '__main__':
 	main()

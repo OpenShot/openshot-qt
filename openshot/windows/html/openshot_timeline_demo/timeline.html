@@ -43,6 +43,7 @@
 							previous_x = previous_drag_position.left;
 							previous_y = previous_drag_position.top;
 						}
+
 						// set previous position (for next time round)
 						previous_drag_position = ui.position;
 
@@ -50,10 +51,12 @@
 		            	var x_offset = ui.position.left - previous_x;
 		            	var y_offset = ui.position.top - previous_y;
 
+		            	
 						// Move all other selected clips with this one
 		                $(".ui-selected").not($(this)).each(function(){
+		                	
 		                	var pos = $(this).position();
-					        $(this).css('left', pos.left + x_offset);
+							 $(this).css('left', pos.left + x_offset);
 					        $(this).css('top', pos.top + y_offset);
 					    });
 		            },
