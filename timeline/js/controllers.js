@@ -64,7 +64,7 @@ App.controller('TimelineCtrl', function($scope,$timeout) {
    $scope.pixelsPerSecond =  parseFloat($scope.project.tick_pixels) / parseFloat($scope.project.scale);
    $scope.playheadOffset = 0;
    $scope.playheadTime =  secondsToTime($scope.project.playhead_position);
-
+   $scope.playlineLocation = 0;
 
   //filters clips by track
   $scope.filterByTrack = function (track) {
