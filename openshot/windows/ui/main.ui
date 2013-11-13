@@ -23,9 +23,6 @@
    <iconset>
     <normaloff>../../../xdg/openshot.svg</normaloff>../../../xdg/openshot.svg</iconset>
   </property>
-  <property name="windowOpacity">
-   <double>0.500000000000000</double>
-  </property>
   <property name="documentMode">
    <bool>false</bool>
   </property>
@@ -53,6 +50,12 @@
         <enum>Qt::Horizontal</enum>
        </property>
        <widget class="QTabWidget" name="tabMain">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="acceptDrops">
          <bool>false</bool>
         </property>
@@ -64,13 +67,6 @@
           <string>Project Files</string>
          </attribute>
          <layout class="QGridLayout" name="gridLayout_2">
-          <item row="1" column="0">
-           <widget class="QTreeView" name="treeView">
-            <property name="acceptDrops">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
           <item row="0" column="0">
            <widget class="QWidget" name="widget" native="true">
             <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -132,6 +128,13 @@
             </layout>
            </widget>
           </item>
+          <item row="1" column="0">
+           <widget class="QTreeView" name="treeView">
+            <property name="acceptDrops">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
         <widget class="QWidget" name="tab_2">
@@ -154,12 +157,6 @@
         <property name="enabled">
          <bool>true</bool>
         </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <property name="leftMargin">
           <number>9</number>
@@ -172,7 +169,11 @@
           </widget>
          </item>
          <item>
-          <widget class="QGraphicsView" name="graphicsView"/>
+          <widget class="QGraphicsView" name="graphicsView">
+           <property name="autoFillBackground">
+            <bool>false</bool>
+           </property>
+          </widget>
          </item>
          <item>
           <widget class="QFrame" name="frame_3">
@@ -255,22 +256,35 @@
               </size>
              </property>
              <property name="minimum">
-              <number>25</number>
+              <number>8</number>
              </property>
              <property name="maximum">
-              <number>300</number>
+              <number>210</number>
              </property>
              <property name="singleStep">
-              <number>25</number>
+              <number>2</number>
              </property>
              <property name="pageStep">
-              <number>50</number>
+              <number>20</number>
              </property>
              <property name="value">
-              <number>100</number>
+              <number>16</number>
              </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="invertedControls">
+              <bool>true</bool>
+             </property>
+             <property name="tickPosition">
+              <enum>QSlider::NoTicks</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lblZoomAmt">
+             <property name="text">
+              <string/>
              </property>
             </widget>
            </item>
@@ -344,6 +358,10 @@
    <addaction name="actionImportFiles"/>
   </widget>
   <action name="actionNew">
+   <property name="icon">
+    <iconset resource="../../images/openshot.qrc">
+     <normaloff>:/Compass/actions/nav-toolbar/go-jump.svg</normaloff>:/Compass/actions/nav-toolbar/go-jump.svg</iconset>
+   </property>
    <property name="text">
     <string>New Project...</string>
    </property>

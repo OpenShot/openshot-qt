@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html ng-app="openshot-timeline">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<title>OpenShot Timeline</title>
+		<link type="text/css" href="media/css/ui-darkness/jquery-ui-1.10.2.custom.css" rel="stylesheet" />
+		<script type="text/javascript" src="media/js/jquery-1.10.2.js"></script>
+		<script type="text/javascript" src="media/js/jquery-ui-1.10.2.custom.js"></script>
+		<script type="text/javascript" src="media/js/angular.js"></script>
+		<script type="text/javascript" src="app.js"></script>
+		<script type="text/javascript" src="js/functions.js"></script>
+    	<script type="text/javascript" src="js/controllers.js"></script>
+    	<script type="text/javascript" src="js/directives.js"></script>
+		<script type="text/javascript" src="media/js/debug.js"></script>
+		<link rel="stylesheet" type="text/css" href="media/css/bootstrap.min.css">
+		<link type="text/css" href="media/css/main.css" rel="stylesheet" />
+		<link type="text/css" href="media/css/debug.css" rel="stylesheet" />
+	</head>
+	<body ng-controller="TimelineCtrl" tl-body>
+
+		<div id="ruler_label">
+			<div id="ruler_time">{{playheadTime}}</div>
+		</div>
+		<div id="scrolling_ruler">
+			<!--<div id="ruler_ticks"></div>-->
+			<canvas id="ruler" width="{{project.length * pixelsPerSecond}}px" height="39px" tl-ruler></canvas>
+			<canvas id="progress" width="{{project.length * pixelsPerSecond}}px" height="5px" tl-progress></canvas>
+ 		</div>
+		<div class="cleared"></div>
+		<div id="track_controls" track-controls>
+			<div ng-repeat="track in tracks" id="track_static_{{track.number}}" class="track_name"><div class="track_label">Track {{track.number}}</div></div>
+			<br>
+		</div>
+		<div id="scrolling_tracks" tl-scrollable-tracks>
+			<div tl-multi-selectable>
+				<div ng-repeat="track in tracks" id="track_{{track.number}}" class="track" style="width:{{project.length * pixelsPerSecond}}px;" tl-track  >
+					<div ng-repeat="clip in clips | filter:filterByTrack(track)" id="clip_{{clip.number}}" class="clip" style="width:{{clip.length * pixelsPerSecond}}px;left:{{clip.position * pixelsPerSecond}}px;" tl-clip>
+						<div class="clip_label">Clip {{clip.number}}</div>
+						<div class="thumb" style="background-image: url(/media/images/test.png); "></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="playhead_box" style="width:{{project.length * pixelsPerSecond}}px;">
+			<div tl-playhead style="left:{{(project.playhead_position * pixelsPerSecond) + playheadOffset}}px;position:absolute;">
+				<div class="playhead-top"></div>				
+				<div class="playhead-line"></div>
+			</div>
+		</div>
+		
+		<!-- DEBUG SECTION -->
+		<script language="javascript">
+			
+		</script>
+		<div>
+			<a id="toggle_debug" href="#" style="color:#fff;">DATA +</a>
+			<br>
+			<div class="debug-window ui-corner-all" style="display:none;">
+				<div class="debug-text ui-corner-all">TRACK DATA: <pre>{{tracks | json}}</pre></div>
+				<div class="debug-text ui-corner-all">CLIPS DATA: <pre>{{clips | json}}</pre></div>
+				<div class="debug-text ui-corner-all">PROJECT DATA: <pre>pixels per second: {{pixelsPerSecond}} <br> playhead offset: {{playheadOffset}} <br> {{project | json}}</pre></div>
+				<div class="debug-text ui-corner-all">ACTIONS:<br>
+					<div>
+						<p>Add Clips:</p>	
+						<input type="text" name="numClips" ng-model="numClips" size="5" style="width:100px;" placeholder="# of clips"/>
+    					<button ng-click="addClips(numClips)">add clips</button> <br/>
+    				<div>
+    				<hr>
+    				<div>
+    					<input id="scaleVal" ng-model="project.scale" style="width:100px;">
+    					<div db-slider></div>
+    				<div>
+    				
+				</div>
+				<div class="cleared"></div>
+			</div>
+		</div>
+		<!-- END DEBUG SECTION -->
+	</body>
+</html>
+
+

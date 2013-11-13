@@ -20,10 +20,12 @@
 import sys, os
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
+from PyQt5.QtGui import QPixmap, QImageReader
 from PyQt5 import uic
 from windows.TimelineWebView import TimelineWebView
 from classes import language, info
 from classes.logger import log
+from images import openshot_rc
 
 #This class combines the main window widget with initializing the application and providing a pass-thru exec_ function
 class MainWindow(QMainWindow):
@@ -46,17 +48,22 @@ class MainWindow(QMainWindow):
 		self.translate_self()
 		
 		#Set icons on actions
-		self.actionNew.setIcon(self.style().standardIcon(QStyle.SP_ArrowDown))
-		self.actionOpen.setIcon(self.style().standardIcon(QStyle.SP_DialogOpenButton))
-		self.actionRecent.setIcon(self.style().standardIcon(QStyle.SP_DialogOpenButton))
-		self.actionSave.setIcon(self.style().standardIcon(QStyle.SP_DialogSaveButton))
-		self.actionSaveAs.setIcon(self.style().standardIcon(QStyle.SP_DialogSaveButton))
-		self.actionUndo.setIcon(self.style().standardIcon(QStyle.SP_ArrowBack))
-		self.actionRedo.setIcon(self.style().standardIcon(QStyle.SP_ArrowForward))
-		self.actionImportFiles.setIcon(self.style().standardIcon(QStyle.SP_ArrowDown))
-		self.actionImportImageSequence.setIcon(self.style().standardIcon(QStyle.SP_ArrowDown))
-		self.actionImportTransition.setIcon(self.style().standardIcon(QStyle.SP_ArrowDown))
-		
+		if False:
+			self.actionNew.setIcon(self.style().standardIcon(QStyle.SP_ArrowDown))
+			self.actionOpen.setIcon(self.style().standardIcon(QStyle.SP_DialogOpenButton))
+			self.actionRecent.setIcon(self.style().standardIcon(QStyle.SP_DialogOpenButton))
+			self.actionSave.setIcon(self.style().standardIcon(QStyle.SP_DialogSaveButton))
+			self.actionSaveAs.setIcon(self.style().standardIcon(QStyle.SP_DialogSaveButton))
+			self.actionUndo.setIcon(self.style().standardIcon(QStyle.SP_ArrowBack))
+			self.actionRedo.setIcon(self.style().standardIcon(QStyle.SP_ArrowForward))
+			self.actionImportFiles.setIcon(self.style().standardIcon(QStyle.SP_ArrowDown))
+			self.actionImportImageSequence.setIcon(self.style().standardIcon(QStyle.SP_ArrowDown))
+			self.actionImportTransition.setIcon(self.style().standardIcon(QStyle.SP_ArrowDown))
+
+		#Test loading icon
+		#img = QPixmap(":/Compass/actions/navtoolbar/go-jump.svg").scaledToHeight(200)
+		#.lblImage.setPixmap(img)
+			
 		#setup timeline
 		self.timeline = TimelineWebView(self)
 		

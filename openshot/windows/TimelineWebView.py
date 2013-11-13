@@ -24,9 +24,14 @@ from PyQt5.QtWebKitWidgets import QWebView
 from classes.logger import log
 
 class TimelineWebView(QWebView):
-	html_path = ('windows','html','openshot_timeline_demo','timeline.html')
+	html_path = ('windows','html','timeline','index.html')
 	#html_path = ('windows','html','test.html')
 
+	def updateZoom(self, newValue):
+		#Get access to timeline scope and set scale to zoom slider value (passed in)
+		cmd = "$('body').scope().setScale(" + str(newValue) + ");"
+		self.page().mainFrame().evaluateJavaScript(cmd)
+	
 	#Capture wheel event to alter zoom slider control
 	def wheelEvent(self, event):
 		if int(self.window.app.keyboardModifiers() & Qt.ControlModifier) > 0:
@@ -42,10 +47,9 @@ class TimelineWebView(QWebView):
 				else:
 					y = 0
 				if up:
-					self.window.sliderZoom.triggerAction(QAbstractSlider.SliderPageStepAdd)
+					self.window.sliderZoom.triggerAction(QAbstractSlider.SliderPageStepSub)
 				else:
-					self.window.sliderZoom.triggerAction(QAbstractSlider.SliderPageStepSub)		
-			log.info('Ctrl+MouseWheel used on timeline. New zoom: ' + str(self.window.sliderZoom.value()))
+					self.window.sliderZoom.triggerAction(QAbstractSlider.SliderPageStepAdd)		
 		#Otherwise pass on to implement default functionality (scroll in QWebView)
 		else:
 			super(type(self), self).wheelEvent(event)
@@ -71,4 +75,8 @@ class TimelineWebView(QWebView):
 		
 		#Connect signal of javascript initialization to our javascript reference init function
 		self.page().mainFrame().javaScriptWindowObjectCleared.connect(self.addJavaScriptObject)
+		
+		#Connect zoom functionality
+		window.sliderZoom.valueChanged.connect(self.updateZoom)
+
 		

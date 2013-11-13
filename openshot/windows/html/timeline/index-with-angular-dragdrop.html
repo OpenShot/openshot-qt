@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html ng-app="openshot-timeline">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<title>OpenShot Timeline</title>
+		<link type="text/css" href="media/css/ui-darkness/jquery-ui-1.10.2.custom.css" rel="stylesheet" />
+		<script type="text/javascript" src="media/js/jquery-1.9.1.js"></script>
+		<script type="text/javascript" src="media/js/jquery-ui-1.10.2.custom.js"></script>
+		<script type="text/javascript" src="media/js/angular.js"></script>
+		<script type="text/javascript" src="media/js/angular-dragdrop.js"></script>
+    	<script type="text/javascript" src="controllers/main.js"></script>
+		<script type="text/javascript" src="media/js/timeline.js"></script>
+		<script type="text/javascript" src="media/js/debug.js"></script>
+		<link rel="stylesheet" type="text/css" href="media/css/bootstrap.min.css">
+		<link type="text/css" href="media/css/main.css" rel="stylesheet" />
+		<link type="text/css" href="media/css/debug.css" rel="stylesheet" />
+	</head>
+	<body ng-controller="TimelineCtrl">
+
+		<div id="ruler_label">
+			<div id="ruler_time">00:00:00:000</div>
+		</div>
+		<div id="scrolling_ruler">
+			<div id="ruler_ticks"></div>
+		</div>
+		<div class="cleared"></div>
+		<div id="track_controls">
+			<div ng-repeat="track in tracks" id="track_static_{{track.number}}" class="track_name"><div class="label">Track {{track.number}}</div></div>
+		</div>
+		<div id="scrolling_tracks">
+			<div id="click_trap">
+				<div ng-repeat="track in tracks" id="track_{{track.number}}" class="track" data-drop="true" ng-model="tracks"  jqyoui-droppable="{index: {{$index}}, onDrop:'droppedClip'}">
+					<div ng-repeat="clip in clips | filter:filterByTrack(track)" id="clip_{{clip.number}}" ng-model="clips" class="clip" data-drag="true" jqyoui-draggable="{animate:true}">
+						<div class="label">Clip {{clip.number}}</div>
+						<div class="thumb" style="background-image: url(/media/images/test.png); "></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- DEBUG SECTION -->
+
+		<div>
+			<a id="toggle_debug" href="#" style="color:#fff;">DATA +</a>
+			<br>
+			<div class="debug-window ui-corner-all" style="display:none;">
+				<div class="debug-text ui-corner-all">TRACK DATA: <pre>{{tracks | json}}</pre></div>
+				<div class="debug-text ui-corner-all">CLIPS DATA: <pre>{{clips | json}}</pre></div>
+				<div class="cleared"></div>
+			</div>
+		</div>
+		<!-- END DEBUG SECTION -->
+	</body>
+</html>
+
+

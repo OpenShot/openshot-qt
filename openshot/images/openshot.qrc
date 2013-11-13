@@ -1,5 +1,8 @@
 <RCC>
   <qresource>
-    <file>Compass/actions/nav-toolbar/up.svg</file>
+    <file>FadedPlayButton.png</file>
+    <file>Compass/actions/nav-toolbar/go-jump.svg</file>
+    <file>logo.svg</file>
+    <file>AboutLogo.png</file>
   </qresource>
 </RCC>
