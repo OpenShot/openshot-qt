@@ -21,6 +21,7 @@ App.directive('tlTrack', function($timeout) {
         	element.droppable({
 		        accept: ".clip",
 		       	drop:function(event,ui) {
+
 		       		//with each dragged clip, find out which track they landed on
 		       		$(".ui-selected").each(function() {
 		       			var clip = $(this);
@@ -40,8 +41,6 @@ App.directive('tlTrack', function($timeout) {
 		            	
 		            	//if the droptrack was found, update the json
 		            	if (drop_track_id != -1){ 
-		            		
-
 		            		//get track number from track.id
 		            		drop_track_num = drop_track_id.substr(drop_track_id.indexOf("_") + 1);
 		            		
@@ -59,7 +58,6 @@ App.directive('tlTrack', function($timeout) {
 							});
 
 		            	}
-		            	
 		            });
 
 		        }	
@@ -125,6 +123,7 @@ App.directive('tlClip', function($timeout){
 		        snapTolerance: 40, 
 		        stack: ".clip", 
 		        containment:'#scrolling_tracks',
+		        scroll: false,
 		        start: function(event, ui) {
 		        	dragging = true;
 		        	if (!element.hasClass('ui-selected')){
@@ -266,12 +265,16 @@ App.directive('tlRuler', function ($timeout) {
 		restrict: 'A',
 		link: function (scope, element, attrs) {
 			//on click of the ruler canvas, jump playhead to the clicked spot
-			element.on('mousedown', function(e){
+			element.on('mouseup', function(e){
 				var playhead_seconds = (e.pageX - element.offset().left) / scope.pixelsPerSecond;
 				scope.$apply(function(){
 					scope.project.playhead_position = playhead_seconds;
 					scope.playheadTime = secondsToTime(playhead_seconds);
-					scope.playlineLocation = $(".playhead-top").offset().left + scope.playheadOffset;
+					//use timeout to ensure that the playhead has moved before setting the line location off of it
+					$timeout(function(){
+						scope.playlineLocation = $(".playhead-top").offset().left + scope.playheadOffset;
+					},0);
+					
 				});
 	            
 			});
