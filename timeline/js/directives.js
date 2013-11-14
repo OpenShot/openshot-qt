@@ -124,6 +124,7 @@ App.directive('tlClip', function($timeout){
 		        stack: ".clip", 
 		        containment:'#scrolling_tracks',
 		        scroll: false,
+		        revert: 'invalid',
 		        start: function(event, ui) {
 		        	dragging = true;
 		        	if (!element.hasClass('ui-selected')){
@@ -209,6 +210,13 @@ App.directive('tlScrollableTracks', function () {
 			element.on('scroll', function () {
 				$('#track_controls').scrollTop(element.scrollTop());
 				$('#scrolling_ruler').scrollLeft(element.scrollLeft());
+				$('#progress_container').scrollLeft(element.scrollLeft());
+				
+				//make sure the playhead line stays with the playhead top
+				scope.$apply(function(){
+					scope.playlineLocation = $(".playhead-top").offset().left + scope.playheadOffset;
+						
+				});
 			});
 
 			//handle panning when middle mouse is clicked
@@ -224,7 +232,6 @@ App.directive('tlScrollableTracks', function () {
 			//pans the timeline on move
 			element.on('mousemove', function(e){
 				if (is_scrolling) {
-
 					// Calculate difference from last position
 					difference = { x: starting_mouse_position.x-e.pageX, y: starting_mouse_position.y-e.pageY}
 
@@ -265,7 +272,7 @@ App.directive('tlRuler', function ($timeout) {
 		restrict: 'A',
 		link: function (scope, element, attrs) {
 			//on click of the ruler canvas, jump playhead to the clicked spot
-			element.on('mouseup', function(e){
+			element.on('mousedown', function(e){
 				var playhead_seconds = (e.pageX - element.offset().left) / scope.pixelsPerSecond;
 				scope.$apply(function(){
 					scope.project.playhead_position = playhead_seconds;
@@ -325,7 +332,6 @@ App.directive('tlRuler', function ($timeout) {
 							ctx.lineTo(x*each_tick, line_top);
 							ctx.strokeStyle = "#fff";
 							ctx.stroke();
-							
 						}
 						
 				    }, 0);   
@@ -345,40 +351,40 @@ App.directive('tlRuler', function ($timeout) {
 App.directive('tlProgress', function($timeout){
 	return {
 		link: function(scope, element, attrs){
-			scope.$watch('progress', function (val) {
+			scope.$watchCollection('[progress, project.scale]', function (val) {
                 if (val) {
                 	$timeout(function(){
-                		var progress = scope.progress;
-                		for(p=0;p<progress.length;p++){
-                			
-                			//get the progress item details
-                			var start_second = progress[p][0];
-                			var stop_second = progress[p][1];
-                			var status = progress[p][2];
-                			
-                			//figure out the actual pixel position
-                			var start_pixel = start_second * scope.pixelsPerSecond;
-                			var stop_pixel = stop_second * scope.pixelsPerSecond;
-                			var rect_length = stop_pixel - start_pixel;
-                			
-                			//get the element and draw the rects
-                			var ctx = element[0].getContext('2d');
-                			ctx.beginPath();
+				        var progress = scope.progress;
+						for(p=0;p<progress.length;p++){
+							
+							//get the progress item details
+							var start_second = progress[p][0];
+							var stop_second = progress[p][1];
+							var status = progress[p][2];
+							
+							//figure out the actual pixel position
+							var start_pixel = start_second * scope.pixelsPerSecond;
+							var stop_pixel = stop_second * scope.pixelsPerSecond;
+							var rect_length = stop_pixel - start_pixel;
+							
+							//get the element and draw the rects
+							var ctx = element[0].getContext('2d');
+							ctx.beginPath();
 						    ctx.rect(start_pixel, 0, rect_length, 5);
 						   	//change style based on status
 						   	if (status == 'complete'){
-                				ctx.fillStyle = 'green';
-                			}else{
-                				ctx.fillStyle = 'yellow'
-                			}
+								ctx.fillStyle = 'green';
+							}else{
+								ctx.fillStyle = 'yellow'
+							}
 						   	ctx.fill();
-						   
-                		}
-                		
-                	});
+						}
+                	}, 0);
                 		
                 }
             });
+
+			
 		}
 	}
 });
@@ -405,9 +411,10 @@ App.directive('tlPlayhead', function(){
 			//set it in the scope for future reference
 			scope.playheadOffset = playhead_0_offset;
 
-			
-			
+			//set as draggable
 			element.draggable({
+				containment:'#scrolling_ruler',
+		        scroll: false,
 		        
 		        start: function(event, ui) {
 		        	
@@ -423,7 +430,6 @@ App.directive('tlPlayhead', function(){
 	             	//update the playhead position in the json data
 	             	scope.$apply(function(){
 	             		//set position of playhead
-	             		
 	             		playhead_seconds = (ui.position.left - scope.playheadOffset) / scope.pixelsPerSecond;
 	             		scope.project.playhead_position = playhead_seconds;
 	             		scope.playheadTime = secondsToTime(playhead_seconds);
@@ -447,11 +453,12 @@ App.directive('tlPlayline', function($timeout){
 			var bottom_of_playhead = $(".playhead-top").offset().top + playhead_top_h;
 			element.css('top', bottom_of_playhead);
 
+			
 			$timeout(function(){
 				scope.playlineLocation = $(".playhead-top").offset().left - scope.playheadOffset;
 			}, 0);
 
-			scope.$watch('playlineLocation', function (val) {
+			scope.$watchCollection('[playlineLocation, project.scale]', function (val) {
                 if (val) {
                 	$timeout(function(){
 	                	//now set it in the correct "left" position, under the playhead top
