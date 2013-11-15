@@ -20,7 +20,7 @@
 import sys, os
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QPixmap, QImageReader
+from PyQt5.QtGui import QPixmap, QImageReader, QIcon
 from PyQt5 import uic
 from windows.TimelineWebView import TimelineWebView
 from classes import language, info
@@ -30,6 +30,7 @@ from images import openshot_rc
 #This class combines the main window widget with initializing the application and providing a pass-thru exec_ function
 class MainWindow(QMainWindow):
 	ui_path = ('windows','ui','main.ui')
+	theme_path = ('images','Compass')
 	
 	def __init__(self, app):
 		#save reference to application
@@ -37,6 +38,15 @@ class MainWindow(QMainWindow):
 		
 		#Create main window base class
 		QMainWindow.__init__(self)
+		
+		themePath = os.path.join(*self.theme_path)
+		themeSearchPaths = QIcon.themeSearchPaths()
+		if not themePath in themeSearchPaths:
+			themeSearchPaths.append(":/images")
+			QIcon.setThemeSearchPaths(themeSearchPaths)
+			
+		QIcon.setThemeName("Compass")
+		print (QIcon.themeName())
 		
 		#Load ui from configured path
 		uic.loadUi(os.path.join(*self.ui_path), self)

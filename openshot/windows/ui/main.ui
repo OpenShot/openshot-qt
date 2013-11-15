@@ -359,8 +359,7 @@
   </widget>
   <action name="actionNew">
    <property name="icon">
-    <iconset resource="../../images/openshot.qrc">
-     <normaloff>:/Compass/actions/nav-toolbar/go-jump.svg</normaloff>:/Compass/actions/nav-toolbar/go-jump.svg</iconset>
+    <iconset theme="document-new"/>
    </property>
    <property name="text">
     <string>New Project...</string>
