@@ -1,8 +1,33 @@
 <RCC>
   <qresource>
     <file>FadedPlayButton.png</file>
-    <file>Compass/actions/nav-toolbar/go-jump.svg</file>
     <file>logo.svg</file>
     <file>AboutLogo.png</file>
+  </qresource>
+  <qresource prefix="icons">
+    <file>Compass/index.theme</file>
+    <file>Compass/actions/edit-toolbar/document-page-setup.svg</file>
+    <file>Compass/actions/edit-toolbar/document-print.svg</file>
+    <file>Compass/actions/edit-toolbar/edit-paste.svg</file>
+    <file>Compass/actions/edit-toolbar/edit-select-all.svg</file>
+    <file>Compass/actions/edit-toolbar/archive-insert-directory.svg</file>
+    <file>Compass/actions/edit-toolbar/document-import.svg</file>
+    <file>Compass/actions/edit-toolbar/edit.svg</file>
+    <file>Compass/actions/edit-toolbar/document-save-all.svg</file>
+    <file>Compass/actions/edit-toolbar/document-save-as.svg</file>
+    <file>Compass/actions/edit-toolbar/editcopy.svg</file>
+    <file>Compass/actions/edit-toolbar/document-preview-archive.svg</file>
+    <file>Compass/actions/edit-toolbar/document-open.svg</file>
+    <file>Compass/actions/edit-toolbar/document-export.svg</file>
+    <file>Compass/actions/edit-toolbar/extract-archive.svg</file>
+    <file>Compass/actions/edit-toolbar/archive-insert.svg</file>
+    <file>Compass/actions/edit-toolbar/document-print-preview.svg</file>
+    <file>Compass/actions/edit-toolbar/archive-remove.svg</file>
+    <file>Compass/actions/edit-toolbar/document-save.svg</file>
+    <file>Compass/actions/edit-toolbar/edit-cut.svg</file>
+    <file>Compass/actions/edit-toolbar/document-revert.svg</file>
+    <file>Compass/actions/edit-toolbar/document-new.svg</file>
+    <file>Compass/actions/edit-toolbar/redo.svg</file>
+    <file>Compass/actions/edit-toolbar/undo.svg</file>
   </qresource>
 </RCC>

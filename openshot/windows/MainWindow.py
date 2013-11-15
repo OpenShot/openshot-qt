@@ -30,7 +30,7 @@ from images import openshot_rc
 #This class combines the main window widget with initializing the application and providing a pass-thru exec_ function
 class MainWindow(QMainWindow):
 	ui_path = ('windows','ui','main.ui')
-	theme_path = ('images','Compass')
+	theme_path = ('icons','Compass')
 	
 	def __init__(self, app):
 		#save reference to application
@@ -41,11 +41,14 @@ class MainWindow(QMainWindow):
 		
 		themePath = os.path.join(*self.theme_path)
 		themeSearchPaths = QIcon.themeSearchPaths()
-		if not themePath in themeSearchPaths:
-			themeSearchPaths.append(":/images")
-			QIcon.setThemeSearchPaths(themeSearchPaths)
-			
+		print (themeSearchPaths)
+		#if not themePath in themeSearchPaths:
+		#themeSearchPaths.append(":/images")
+		#QIcon.setThemeSearchPaths(themeSearchPaths)
+		print(QDir(':/icons/Compass').entryList())
 		QIcon.setThemeName("Compass")
+		
+		print ('Has theme icon document-open:', QIcon.hasThemeIcon('document-open'))
 		print (QIcon.themeName())
 		
 		#Load ui from configured path
