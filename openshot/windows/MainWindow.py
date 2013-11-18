@@ -100,6 +100,9 @@ class MainWindow(QMainWindow):
 		if isinstance(elem, QTabWidget):
 			for i in range(elem.count()):
 				elem.setTabText(i, _translate("", elem.tabText(i)) )
+				
+		if isinstance(elem, QAction):
+			print (elem.icon().isNull())
 	
 	def translate_self(self):
 		log.info('Translating UI')
