@@ -33,7 +33,7 @@ def main():
 	app = QApplication(sys.argv)
 	
 	# Create main window and start event loop
-	win = MainWindow(app)
+	win = MainWindow()
 	win.show()
 	sys.exit(app.exec_())
 

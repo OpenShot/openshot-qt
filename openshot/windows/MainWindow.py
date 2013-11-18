@@ -32,9 +32,7 @@ import xml.etree.ElementTree as ElementTree
 class MainWindow(QMainWindow):
 	ui_path = ('windows','ui','main.ui')
 	
-	def __init__(self, app):
-		#save reference to application
-		self.app = app
+	def __init__(self):
 		
 		#Create main window base class
 		QMainWindow.__init__(self)
@@ -42,14 +40,16 @@ class MainWindow(QMainWindow):
 		if QIcon.themeName() == '':
 			QIcon.setThemeName("Compass")
 		
+		ui_util.load(self, self.ui_path)
+		
 		#Load ui from configured path
-		uic.loadUi(os.path.join(*self.ui_path), self)
+		#uic.loadUi(os.path.join(*self.ui_path), self)
 
 		#Get xml tree for ui
-		self.uiTree = ElementTree.parse(os.path.join(*self.ui_path))
+		#self.uiTree = ElementTree.parse(os.path.join(*self.ui_path))
 		
 		#Init translation system
-		language.init_language(app)
+		language.init_language()
 		
 		#Init ui
 		ui_util.init_ui(self)

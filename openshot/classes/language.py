@@ -18,10 +18,13 @@
 #	along with OpenShot Video Editor.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-from PyQt5.QtCore import QLocale, QLibraryInfo, QTranslator
+from PyQt5.QtCore import QLocale, QLibraryInfo, QTranslator, QCoreApplication
 from classes.logger import log
 
-def init_language(app):
+def init_language():
+	#Get app instance
+	app = QCoreApplication.instance()
+
 	#Setup of our list of translators and paths
 	translator_types = (
 		{"type":'QT',

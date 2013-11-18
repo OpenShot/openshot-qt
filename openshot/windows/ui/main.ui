@@ -212,9 +212,6 @@
               <property name="toolTip">
                <string>Seek Forward</string>
               </property>
-              <property name="text">
-               <string/>
-              </property>
               <property name="icon">
                <iconset theme="media-seek-forward"/>
               </property>
