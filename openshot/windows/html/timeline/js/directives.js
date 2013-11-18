@@ -21,6 +21,7 @@ App.directive('tlTrack', function($timeout) {
         	element.droppable({
 		        accept: ".clip",
 		       	drop:function(event,ui) {
+
 		       		//with each dragged clip, find out which track they landed on
 		       		$(".ui-selected").each(function() {
 		       			var clip = $(this);
@@ -40,8 +41,6 @@ App.directive('tlTrack', function($timeout) {
 		            	
 		            	//if the droptrack was found, update the json
 		            	if (drop_track_id != -1){ 
-		            		
-
 		            		//get track number from track.id
 		            		drop_track_num = drop_track_id.substr(drop_track_id.indexOf("_") + 1);
 		            		
@@ -59,7 +58,6 @@ App.directive('tlTrack', function($timeout) {
 							});
 
 		            	}
-		            	
 		            });
 
 		        }	
@@ -125,6 +123,8 @@ App.directive('tlClip', function($timeout){
 		        snapTolerance: 40, 
 		        stack: ".clip", 
 		        containment:'#scrolling_tracks',
+		        scroll: false,
+		        revert: 'invalid',
 		        start: function(event, ui) {
 		        	dragging = true;
 		        	if (!element.hasClass('ui-selected')){
@@ -210,6 +210,13 @@ App.directive('tlScrollableTracks', function () {
 			element.on('scroll', function () {
 				$('#track_controls').scrollTop(element.scrollTop());
 				$('#scrolling_ruler').scrollLeft(element.scrollLeft());
+				$('#progress_container').scrollLeft(element.scrollLeft());
+				
+				//make sure the playhead line stays with the playhead top
+				scope.$apply(function(){
+					scope.playlineLocation = $(".playhead-top").offset().left + scope.playheadOffset;
+						
+				});
 			});
 
 			//handle panning when middle mouse is clicked
@@ -225,7 +232,6 @@ App.directive('tlScrollableTracks', function () {
 			//pans the timeline on move
 			element.on('mousemove', function(e){
 				if (is_scrolling) {
-
 					// Calculate difference from last position
 					difference = { x: starting_mouse_position.x-e.pageX, y: starting_mouse_position.y-e.pageY}
 
@@ -265,6 +271,22 @@ App.directive('tlRuler', function ($timeout) {
 	return {
 		restrict: 'A',
 		link: function (scope, element, attrs) {
+			//on click of the ruler canvas, jump playhead to the clicked spot
+			element.on('mousedown', function(e){
+				var playhead_seconds = (e.pageX - element.offset().left) / scope.pixelsPerSecond;
+				scope.$apply(function(){
+					scope.project.playhead_position = playhead_seconds;
+					scope.playheadTime = secondsToTime(playhead_seconds);
+					//use timeout to ensure that the playhead has moved before setting the line location off of it
+					$timeout(function(){
+						scope.playlineLocation = $(".playhead-top").offset().left + scope.playheadOffset;
+					},0);
+					
+				});
+	            
+			});
+
+
 			//use timeout to ensure that drawing on the canvas happens after the DOM is loaded
 			//watch the scale value so it will be able to draw the ruler after changes,
 			//otherwise the canvas is just reset to blank
@@ -310,7 +332,6 @@ App.directive('tlRuler', function ($timeout) {
 							ctx.lineTo(x*each_tick, line_top);
 							ctx.strokeStyle = "#fff";
 							ctx.stroke();
-							
 						}
 						
 				    }, 0);   
@@ -319,6 +340,9 @@ App.directive('tlRuler', function ($timeout) {
             });
 
 		}
+
+		
+
 	};
 })
 
@@ -327,40 +351,40 @@ App.directive('tlRuler', function ($timeout) {
 App.directive('tlProgress', function($timeout){
 	return {
 		link: function(scope, element, attrs){
-			scope.$watch('progress', function (val) {
+			scope.$watchCollection('[progress, project.scale]', function (val) {
                 if (val) {
                 	$timeout(function(){
-                		var progress = scope.progress;
-                		for(p=0;p<progress.length;p++){
-                			
-                			//get the progress item details
-                			var start_second = progress[p][0];
-                			var stop_second = progress[p][1];
-                			var status = progress[p][2];
-                			
-                			//figure out the actual pixel position
-                			var start_pixel = start_second * scope.pixelsPerSecond;
-                			var stop_pixel = stop_second * scope.pixelsPerSecond;
-                			var rect_length = stop_pixel - start_pixel;
-                			
-                			//get the element and draw the rects
-                			var ctx = element[0].getContext('2d');
-                			ctx.beginPath();
+				        var progress = scope.progress;
+						for(p=0;p<progress.length;p++){
+							
+							//get the progress item details
+							var start_second = progress[p][0];
+							var stop_second = progress[p][1];
+							var status = progress[p][2];
+							
+							//figure out the actual pixel position
+							var start_pixel = start_second * scope.pixelsPerSecond;
+							var stop_pixel = stop_second * scope.pixelsPerSecond;
+							var rect_length = stop_pixel - start_pixel;
+							
+							//get the element and draw the rects
+							var ctx = element[0].getContext('2d');
+							ctx.beginPath();
 						    ctx.rect(start_pixel, 0, rect_length, 5);
 						   	//change style based on status
 						   	if (status == 'complete'){
-                				ctx.fillStyle = 'green';
-                			}else{
-                				ctx.fillStyle = 'yellow'
-                			}
+								ctx.fillStyle = 'green';
+							}else{
+								ctx.fillStyle = 'yellow'
+							}
 						   	ctx.fill();
-						   
-                		}
-                		
-                	});
+						}
+                	}, 0);
                 		
                 }
             });
+
+			
 		}
 	}
 });
@@ -373,14 +397,24 @@ var playhead_x_min = null;
 App.directive('tlPlayhead', function(){
 	return {
 		link: function(scope, element, attrs) {
+			//get the default top position so we can lock it in place vertically
 			playhead_y_max = element.position().top;
+
+			//get the size of the playhead and line so we can determine the offset 
+			//value which will put the line on the zero
 			var playhead_top_w = parseInt($(".playhead-top").css("width"));
 			var playhead_line_w = parseInt($(".playhead-line").css("width"));
 			var playhead_0_offset = 0 - ((playhead_top_w/2) - (playhead_line_w/2));
-			playhead_x_min = playhead_0_offset;
-			scope.playheadOffset = playhead_0_offset;
 			
+			//with the offset, get the mininum left (x) the playhead can slide
+			playhead_x_min = playhead_0_offset;
+			//set it in the scope for future reference
+			scope.playheadOffset = playhead_0_offset;
+
+			//set as draggable
 			element.draggable({
+				containment:'#scrolling_ruler',
+		        scroll: false,
 		        
 		        start: function(event, ui) {
 		        	
@@ -399,11 +433,43 @@ App.directive('tlPlayhead', function(){
 	             		playhead_seconds = (ui.position.left - scope.playheadOffset) / scope.pixelsPerSecond;
 	             		scope.project.playhead_position = playhead_seconds;
 	             		scope.playheadTime = secondsToTime(playhead_seconds);
+	             		scope.playlineLocation = ui.offset.left + scope.playheadOffset;
 	             	});
 
 
 		        },
 		    });
+		}
+	};
+});
+
+
+App.directive('tlPlayline', function($timeout){
+	return {
+
+		link: function(scope, element, attrs) {
+			//set the playhead line to the top
+			var playhead_top_h = parseInt($(".playhead-top").css("height"));
+			var bottom_of_playhead = $(".playhead-top").offset().top + playhead_top_h;
+			element.css('top', bottom_of_playhead);
+
+			
+			$timeout(function(){
+				scope.playlineLocation = $(".playhead-top").offset().left - scope.playheadOffset;
+			}, 0);
+
+			scope.$watchCollection('[playlineLocation, project.scale]', function (val) {
+                if (val) {
+                	$timeout(function(){
+	                	//now set it in the correct "left" position, under the playhead top
+						var playline_left = $(".playhead-top").offset().left - scope.playheadOffset;
+						element.css('left', playline_left);
+                		
+                	}, 0);
+                		
+                }
+            });
+
 		}
 	};
 });

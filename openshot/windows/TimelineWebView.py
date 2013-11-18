@@ -18,7 +18,7 @@
 #	along with OpenShot Video Editor.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt
+from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication
 from PyQt5.QtWidgets import QAbstractSlider
 from PyQt5.QtWebKitWidgets import QWebView
 from classes.logger import log
@@ -34,7 +34,7 @@ class TimelineWebView(QWebView):
 	
 	#Capture wheel event to alter zoom slider control
 	def wheelEvent(self, event):
-		if int(self.window.app.keyboardModifiers() & Qt.ControlModifier) > 0:
+		if int(QCoreApplication.instance().keyboardModifiers() & Qt.ControlModifier) > 0:
 			#For each 120 (standard scroll unit) adjust the zoom slider
 			tick_scale = 120
 			y = event.angleDelta().y()

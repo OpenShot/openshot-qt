@@ -21,15 +21,38 @@ function findTrackAtLocation(top){
 	//default return value
 	var retVal = -1;
     
+    //if the clip was dropped above the top track, return -1
+   
+
+    var track_count = $('.track').length;
+
+    
 	//loop all tracks
-	$(".track").each(function() {
-		var track = $(this);
-	    track_top = track.position().top;
-	    track_bottom = track_top + track.outerHeight(true);
-        if (top >= track_top && top <= track_bottom){
-    		//found the track at this location
-    		retVal = track.attr("id");
-    	}
+	$(".track").each(function(index, element) {
+        var track = $(this);
+	    
+        //if clip top is less than 0, then set it to the first track
+        if (index == 0 && top < 0) {
+            retVal = track.attr("id");
+        }else{
+            //otherwise, find the correct track
+            track_top = track.position().top;
+    	    track_bottom = track_top + track.outerHeight(true);
+            if (top >= track_top && top <= track_bottom){
+        		//found the track at this location
+        		retVal = track.attr("id");
+        	}
+        }
+
+        //if this is the last and no track was found, return the last track
+        if (index == track_count - 1 && retVal == -1) {
+            retVal = track.attr("id");
+        }
     });
+
     return retVal;
 }
+
+
+
+

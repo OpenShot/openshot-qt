@@ -6,7 +6,7 @@
 		<link type="text/css" href="media/css/ui-darkness/jquery-ui-1.10.2.custom.css" rel="stylesheet" />
 		<script type="text/javascript" src="media/js/jquery-1.10.2.js"></script>
 		<script type="text/javascript" src="media/js/jquery-ui-1.10.2.custom.js"></script>
-		<script type="text/javascript" src="media/js/angular.js"></script>
+		<script type="text/javascript" src="media/js/angular.min.js"></script>
 		<script type="text/javascript" src="app.js"></script>
 		<script type="text/javascript" src="js/functions.js"></script>
     	<script type="text/javascript" src="js/controllers.js"></script>
@@ -17,16 +17,28 @@
 		<link type="text/css" href="media/css/debug.css" rel="stylesheet" />
 	</head>
 	<body ng-controller="TimelineCtrl" tl-body>
-
+		
+		<!-- RULER -->
 		<div id="ruler_label">
 			<div id="ruler_time">{{playheadTime}}</div>
 		</div>
 		<div id="scrolling_ruler">
 			<!--<div id="ruler_ticks"></div>-->
 			<canvas id="ruler" width="{{project.length * pixelsPerSecond}}px" height="39px" tl-ruler></canvas>
-			<canvas id="progress" width="{{project.length * pixelsPerSecond}}px" height="5px" tl-progress></canvas>
+			<div class="playhead_box" style="width:{{project.length * pixelsPerSecond}}px;">
+				<div tl-playhead style="left:{{(project.playhead_position * pixelsPerSecond) + playheadOffset}}px;position:absolute;">
+					<div class="playhead-top"></div>				
+				</div>
+			</div>
  		</div>
-		<div class="cleared"></div>
+ 		<div class="cleared"></div>
+ 		
+ 		<!-- PROGRESS BAR -->
+		<div id="progress_container">
+			<canvas  id="progress" width="{{project.length * pixelsPerSecond}}px" height="5px" tl-progress></canvas>
+		</div>
+
+		<!-- TRACKS -->
 		<div id="track_controls" track-controls>
 			<div ng-repeat="track in tracks" id="track_static_{{track.number}}" class="track_name"><div class="track_label">Track {{track.number}}</div></div>
 			<br>
@@ -41,13 +53,8 @@
 				</div>
 			</div>
 		</div>
+		<div class="playhead-line" tl-playline></div>
 		
-		<div class="playhead_box" style="width:{{project.length * pixelsPerSecond}}px;">
-			<div tl-playhead style="left:{{(project.playhead_position * pixelsPerSecond) + playheadOffset}}px;position:absolute;">
-				<div class="playhead-top"></div>				
-				<div class="playhead-line"></div>
-			</div>
-		</div>
 		
 		<!-- DEBUG SECTION -->
 		<script language="javascript">
