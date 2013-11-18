@@ -19,18 +19,18 @@
 
 import sys, os
 from PyQt5.QtCore import *
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QPixmap, QImageReader, QIcon
 from PyQt5 import uic
 from windows.TimelineWebView import TimelineWebView
-from classes import language, info
+from classes import language, info, ui_util
 from classes.logger import log
 from images import openshot_rc
+import xml.etree.ElementTree as ElementTree
 
 #This class combines the main window widget with initializing the application and providing a pass-thru exec_ function
 class MainWindow(QMainWindow):
 	ui_path = ('windows','ui','main.ui')
-	theme_path = ('icons','Compass')
 	
 	def __init__(self, app):
 		#save reference to application
@@ -39,77 +39,24 @@ class MainWindow(QMainWindow):
 		#Create main window base class
 		QMainWindow.__init__(self)
 		
-		themePath = os.path.join(*self.theme_path)
-		themeSearchPaths = QIcon.themeSearchPaths()
-		print (themeSearchPaths)
-		#if not themePath in themeSearchPaths:
-		#themeSearchPaths.append(":/images")
-		#QIcon.setThemeSearchPaths(themeSearchPaths)
-		print(QDir(':/icons/Compass').entryList())
-		QIcon.setThemeName("Compass")
-		
-		print ('Has theme icon document-open:', QIcon.hasThemeIcon('document-open'))
-		print (QIcon.themeName())
+		if QIcon.themeName() == '':
+			QIcon.setThemeName("Compass")
 		
 		#Load ui from configured path
 		uic.loadUi(os.path.join(*self.ui_path), self)
+
+		#Get xml tree for ui
+		self.uiTree = ElementTree.parse(os.path.join(*self.ui_path))
 		
 		#Init translation system
 		language.init_language(app)
 		
-		#Translate ui to current language
-		self.translate_self()
-		
-		#Set icons on actions
-		if False:
-			self.actionNew.setIcon(self.style().standardIcon(QStyle.SP_ArrowDown))
-			self.actionOpen.setIcon(self.style().standardIcon(QStyle.SP_DialogOpenButton))
-			self.actionRecent.setIcon(self.style().standardIcon(QStyle.SP_DialogOpenButton))
-			self.actionSave.setIcon(self.style().standardIcon(QStyle.SP_DialogSaveButton))
-			self.actionSaveAs.setIcon(self.style().standardIcon(QStyle.SP_DialogSaveButton))
-			self.actionUndo.setIcon(self.style().standardIcon(QStyle.SP_ArrowBack))
-			self.actionRedo.setIcon(self.style().standardIcon(QStyle.SP_ArrowForward))
-			self.actionImportFiles.setIcon(self.style().standardIcon(QStyle.SP_ArrowDown))
-			self.actionImportImageSequence.setIcon(self.style().standardIcon(QStyle.SP_ArrowDown))
-			self.actionImportTransition.setIcon(self.style().standardIcon(QStyle.SP_ArrowDown))
+		#Init ui
+		ui_util.init_ui(self)
 
-		#Test loading icon
-		#img = QPixmap(":/Compass/actions/navtoolbar/go-jump.svg").scaledToHeight(200)
-		#.lblImage.setPixmap(img)
-			
 		#setup timeline
 		self.timeline = TimelineWebView(self)
 		
 		#add timeline to web frame layout
 		self.frameWeb.layout().addWidget(self.timeline)
 
-	#Translate all text portions of the given element
-	def translate_element(self, elem):
-		_translate = self.app.translate
-		
-		#Handle generic translatable properties
-		if hasattr(elem, 'setText') and elem.text() != "":
-			elem.setText( _translate("", elem.text()) )
-		if hasattr(elem, 'setTooltip') and elem.tooltip() != "":
-			elem.setTooltip( _translate("", elem.tooltip()) )
-		if hasattr(elem, 'setWindowTitle') and elem.windowTitle() != "":
-			elem.setWindowTitle( _translate("", elem.windowTitle()) )
-		if hasattr(elem, 'setTitle') and elem.title() != "":
-			elem.setTitle( _translate("", elem.title()) )
-		#Handle tabs differently
-		if isinstance(elem, QTabWidget):
-			for i in range(elem.count()):
-				elem.setTabText(i, _translate("", elem.tabText(i)) )
-				
-		if isinstance(elem, QAction):
-			print (elem.icon().isNull())
-	
-	def translate_self(self):
-		log.info('Translating UI')
-		
-		# Loop through all widgets
-		for widget in self.findChildren(QWidget):
-			self.translate_element(widget)
-		# Loop through all actions
-		for action in self.findChildren(QAction):
-			self.translate_element(action)

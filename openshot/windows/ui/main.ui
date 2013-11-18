@@ -198,9 +198,25 @@
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton">
+             <widget class="QPushButton" name="btnPlay">
+              <property name="toolTip">
+               <string>Play</string>
+              </property>
+              <property name="icon">
+               <iconset theme="media-playback-start"/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnFastForward">
+              <property name="toolTip">
+               <string>Seek Forward</string>
+              </property>
               <property name="text">
-               <string>OpenShot</string>
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset theme="media-seek-forward"/>
               </property>
              </widget>
             </item>
@@ -324,7 +340,6 @@
      <string>File</string>
     </property>
     <addaction name="actionNew"/>
-    <addaction name="actionShow_Browser"/>
     <addaction name="actionOpen"/>
     <addaction name="actionRecent"/>
     <addaction name="separator"/>
@@ -364,40 +379,35 @@
    <property name="text">
     <string>New Project...</string>
    </property>
-   <property name="toolTip">
-    <string>New Project...</string>
-   </property>
-  </action>
-  <action name="actionShow_Browser">
-   <property name="text">
-    <string>Show Browser</string>
-   </property>
-   <property name="visible">
-    <bool>false</bool>
-   </property>
   </action>
   <action name="actionOpen">
-   <property name="text">
-    <string>Open Project...</string>
+   <property name="icon">
+    <iconset theme="document-open"/>
    </property>
-   <property name="toolTip">
+   <property name="text">
     <string>Open Project...</string>
    </property>
   </action>
   <action name="actionSave">
-   <property name="text">
-    <string>Save Project</string>
+   <property name="icon">
+    <iconset theme="document-save"/>
    </property>
-   <property name="toolTip">
+   <property name="text">
     <string>Save Project</string>
    </property>
   </action>
   <action name="actionUndo">
+   <property name="icon">
+    <iconset theme="undo"/>
+   </property>
    <property name="text">
     <string>Undo</string>
    </property>
   </action>
   <action name="actionSaveAs">
+   <property name="icon">
+    <iconset theme="document-save-as"/>
+   </property>
    <property name="text">
     <string>Save Project As...</string>
    </property>
@@ -406,6 +416,9 @@
    </property>
   </action>
   <action name="actionRecent">
+   <property name="icon">
+    <iconset theme="document-open-recent"/>
+   </property>
    <property name="text">
     <string>Recent Projects</string>
    </property>
@@ -414,14 +427,17 @@
    </property>
   </action>
   <action name="actionImportFiles">
-   <property name="text">
-    <string>Import Files...</string>
+   <property name="icon">
+    <iconset theme="add"/>
    </property>
-   <property name="toolTip">
+   <property name="text">
     <string>Import Files...</string>
    </property>
   </action>
   <action name="actionImportImageSequence">
+   <property name="icon">
+    <iconset theme="add"/>
+   </property>
    <property name="text">
     <string>Import Image Sequence...</string>
    </property>
@@ -438,19 +454,11 @@
    </property>
   </action>
   <action name="actionRedo">
+   <property name="icon">
+    <iconset theme="redo"/>
+   </property>
    <property name="text">
     <string>Redo</string>
-   </property>
-   <property name="toolTip">
-    <string>Redo</string>
-   </property>
-  </action>
-  <action name="actionPlay">
-   <property name="text">
-    <string>Play</string>
-   </property>
-   <property name="toolTip">
-    <string>Play</string>
    </property>
   </action>
  </widget>
