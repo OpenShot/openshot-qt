@@ -83,6 +83,31 @@ App.directive('tlClip', function($timeout){
 				clip_lefts["clip_"+scope.clip.number] = element.position().left;
 				
 			},0);
+
+			//set track's effects if there are some
+			var effects_elm = element.find($(".clip_effects"));
+			if (scope.clip.effects){
+				//this clip has effects, so loop and show them
+				//in the clip's effect container
+				$.each(scope.clip.effects, function(index){
+					var img = $('<img />').attr({ 'id': element.attr('id')+"_" + index , 'class': 'effect_icon', 'src': 'media/images/effects/'+this.icon, }).appendTo(effects_elm);	
+				});
+				
+			}else{
+				effects_elm.hide();
+			}
+			// scope.$watch('clips', function(val) {
+			//  	if (val){
+   //              	$timeout(function(){
+   //              		$.each(val, function() {
+   //              			console.log(this.number);
+   //              			if (this.effects){
+   //              				console.log(this.effects);
+   //              			}
+   //              		});
+   //              	},0);
+   //              }
+			// }); 
 			
 			//handle resizability of clip
 			element.resizable({ 
@@ -186,6 +211,8 @@ App.directive('tlClip', function($timeout){
 
 
 
+
+
 App.directive('tlMultiSelectable', function(){
 	return {
 		link: function(scope, element, attrs){
@@ -212,10 +239,13 @@ App.directive('tlScrollableTracks', function () {
 				$('#scrolling_ruler').scrollLeft(element.scrollLeft());
 				$('#progress_container').scrollLeft(element.scrollLeft());
 				
+				//set new playline location
+				var line_loc = $(".playhead-top").offset().left + scope.playheadOffset;
+
 				//make sure the playhead line stays with the playhead top
 				scope.$apply(function(){
-					scope.playlineLocation = $(".playhead-top").offset().left + scope.playheadOffset;
-						
+					scope.playlineLocation = line_loc;
+
 				});
 			});
 
@@ -286,13 +316,16 @@ App.directive('tlRuler', function ($timeout) {
 	            
 			});
 
+			
+
 
 			//use timeout to ensure that drawing on the canvas happens after the DOM is loaded
 			//watch the scale value so it will be able to draw the ruler after changes,
 			//otherwise the canvas is just reset to blank
-			scope.$watch('project.scale', function (val) {
+			scope.$watchCollection('[project.scale, markers]', function (val) {
                 if (val){
-                	 $timeout(function(){
+                	
+	            	 $timeout(function(){
 						//get all scope variables we need for the ruler
 						var scale = scope.project.scale;
 						var tick_pixels = scope.project.tick_pixels;
@@ -300,7 +333,7 @@ App.directive('tlRuler', function ($timeout) {
 						var pixel_length = scope.project.length * scope.pixelsPerSecond;
 
 				    	//draw the ruler
-				    	ctx = element[0].getContext('2d');
+				    	var ctx = element[0].getContext('2d');
 				    	//set number of ticks based 2 for each pixel_length
 				    	num_ticks = pixel_length / 50;
 
@@ -333,6 +366,18 @@ App.directive('tlRuler', function ($timeout) {
 							ctx.strokeStyle = "#fff";
 							ctx.stroke();
 						}
+
+						//marker images
+						$.each(scope.markers, function() {
+							
+							var img = new Image();
+							img.src = "media/images/markers/"+this.icon;
+							var img_loc = this.location * scope.pixelsPerSecond;
+							img.onload = function() {
+								ctx.drawImage(img, img_loc-img.width/2, 25);
+							};
+							
+						});
 						
 				    }, 0);   
 
@@ -453,11 +498,12 @@ App.directive('tlPlayline', function($timeout){
 			var bottom_of_playhead = $(".playhead-top").offset().top + playhead_top_h;
 			element.css('top', bottom_of_playhead);
 
-			
+			//set playline initial spot
 			$timeout(function(){
 				scope.playlineLocation = $(".playhead-top").offset().left - scope.playheadOffset;
 			}, 0);
 
+			//watch playlineLocation and the project scale to move the line as needed
 			scope.$watchCollection('[playlineLocation, project.scale]', function (val) {
                 if (val) {
                 	$timeout(function(){
@@ -465,6 +511,14 @@ App.directive('tlPlayline', function($timeout){
 						var playline_left = $(".playhead-top").offset().left - scope.playheadOffset;
 						element.css('left', playline_left);
                 		
+                		if (playline_left < $('#scrolling_ruler').position().left){
+							//hide the line
+							element.hide();
+						}else{
+							//show the line
+							element.show();
+						}
+
                 	}, 0);
                 		
                 }
@@ -473,6 +527,7 @@ App.directive('tlPlayline', function($timeout){
 		}
 	};
 });
+
 
 
 
