@@ -375,7 +375,8 @@
   </widget>
   <action name="actionNew">
    <property name="icon">
-    <iconset theme="document-new"/>
+    <iconset theme="document-new" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/edit-toolbar/document-new.svg</normaloff>:/icons/Compass/actions/edit-toolbar/document-new.svg</iconset>
    </property>
    <property name="text">
     <string>New Project...</string>
@@ -383,7 +384,8 @@
   </action>
   <action name="actionOpen">
    <property name="icon">
-    <iconset theme="document-open"/>
+    <iconset theme="document-open" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/edit-toolbar/document-open.svg</normaloff>:/icons/Compass/actions/edit-toolbar/document-open.svg</iconset>
    </property>
    <property name="text">
     <string>Open Project...</string>
@@ -391,7 +393,8 @@
   </action>
   <action name="actionSave">
    <property name="icon">
-    <iconset theme="document-save"/>
+    <iconset theme="document-save" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/edit-toolbar/document-save.svg</normaloff>:/icons/Compass/actions/edit-toolbar/document-save.svg</iconset>
    </property>
    <property name="text">
     <string>Save Project</string>
@@ -399,7 +402,8 @@
   </action>
   <action name="actionUndo">
    <property name="icon">
-    <iconset theme="undo"/>
+    <iconset theme="undo" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/edit-toolbar/undo.svg</normaloff>:/icons/Compass/actions/edit-toolbar/undo.svg</iconset>
    </property>
    <property name="text">
     <string>Undo</string>
@@ -407,7 +411,8 @@
   </action>
   <action name="actionSaveAs">
    <property name="icon">
-    <iconset theme="document-save-as"/>
+    <iconset theme="document-save-as" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/edit-toolbar/document-save-as.svg</normaloff>:/icons/Compass/actions/edit-toolbar/document-save-as.svg</iconset>
    </property>
    <property name="text">
     <string>Save Project As...</string>
@@ -418,7 +423,8 @@
   </action>
   <action name="actionRecent">
    <property name="icon">
-    <iconset theme="document-open-recent"/>
+    <iconset theme="document-open-recent" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/misc/document-open-recent.svg</normaloff>:/icons/Compass/actions/misc/document-open-recent.svg</iconset>
    </property>
    <property name="text">
     <string>Recent Projects</string>
@@ -429,7 +435,8 @@
   </action>
   <action name="actionImportFiles">
    <property name="icon">
-    <iconset theme="add"/>
+    <iconset theme="add" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/misc/add.svg</normaloff>:/icons/Compass/actions/misc/add.svg</iconset>
    </property>
    <property name="text">
     <string>Import Files...</string>
@@ -437,7 +444,8 @@
   </action>
   <action name="actionImportImageSequence">
    <property name="icon">
-    <iconset theme="add"/>
+    <iconset theme="add" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/misc/add.svg</normaloff>:/icons/Compass/actions/misc/add.svg</iconset>
    </property>
    <property name="text">
     <string>Import Image Sequence...</string>
@@ -447,6 +455,10 @@
    </property>
   </action>
   <action name="actionImportTransition">
+   <property name="icon">
+    <iconset theme="add" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/misc/add.svg</normaloff>:/icons/Compass/actions/misc/add.svg</iconset>
+   </property>
    <property name="text">
     <string>Import New Transition...</string>
    </property>
@@ -456,10 +468,35 @@
   </action>
   <action name="actionRedo">
    <property name="icon">
-    <iconset theme="redo"/>
+    <iconset theme="redo" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/edit-toolbar/redo.svg</normaloff>:/icons/Compass/actions/edit-toolbar/redo.svg</iconset>
    </property>
    <property name="text">
     <string>Redo</string>
+   </property>
+  </action>
+  <action name="actionRemoveClip">
+   <property name="icon">
+    <iconset theme="edit-delete" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/misc/edit-delete.svg</normaloff>:/icons/Compass/actions/misc/edit-delete.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Remove Clip</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove Clip</string>
+   </property>
+  </action>
+  <action name="actionRemoveTransition">
+   <property name="icon">
+    <iconset theme="edit-delete" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/misc/edit-delete.svg</normaloff>:/icons/Compass/actions/misc/edit-delete.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Remove Transition</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove Transition</string>
    </property>
   </action>
  </widget>

@@ -19,17 +19,35 @@
 
 import os
 from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication
-from PyQt5.QtWidgets import QAbstractSlider
+from PyQt5.QtGui import QCursor
+from PyQt5.QtWidgets import QAbstractSlider, QMenu
 from PyQt5.QtWebKitWidgets import QWebView
 from classes.logger import log
 
+JS_SCOPE_SELECTOR = "$('body').scope()"
+
 class TimelineWebView(QWebView):
 	html_path = ('windows','html','timeline','index.html')
-	#html_path = ('windows','html','test.html')
 
-	def updateZoom(self, newValue):
+	#Prevent default context menu, and ignore, so that javascript can intercept
+	def contextMenuEvent(self, event):
+		event.ignore()
+		
+	#Javascript callable function to show clip or transition content menus, passing in type to show
+	@pyqtSlot()
+	def show_context_menu(self, type):
+		menu = QMenu(self)
+		menu.addAction(self.window.actionNew)
+		if type == "clip":
+			menu.addAction(self.window.actionRemoveClip)
+		elif type == "transition":
+			menu.addAction(self.window.actionRemoveTransition)
+		menu.exec_(QCursor.pos())
+	
+	#Handle changes to zoom level, update js
+	def update_zoom(self, newValue):
 		#Get access to timeline scope and set scale to zoom slider value (passed in)
-		cmd = "$('body').scope().setScale(" + str(newValue) + ");"
+		cmd = JS_SCOPE_SELECTOR + ".setScale(" + str(newValue) + ");"
 		self.page().mainFrame().evaluateJavaScript(cmd)
 	
 	#Capture wheel event to alter zoom slider control
@@ -52,15 +70,10 @@ class TimelineWebView(QWebView):
 					self.window.sliderZoom.triggerAction(QAbstractSlider.SliderPageStepAdd)		
 		#Otherwise pass on to implement default functionality (scroll in QWebView)
 		else:
-			super(type(self), self).wheelEvent(event)
+			self.show_context_menu('clip') #Test of spontaneous context menu creation
+			#super(type(self), self).wheelEvent(event)
 	
-	#Demo slot callable from javascript
-	@pyqtSlot()
-	def navigate(self):
-		#load url from address bar
-		self.setUrl(QUrl(self.window.txtAddress.text()))
-		
-	def addJavaScriptObject(self):
+	def setup_js_data(self):
 		#Export self as a javascript object in webview
 		self.page().mainFrame().addToJavaScriptWindowObject('timeline', self)
 		self.page().mainFrame().addToJavaScriptWindowObject('mainWindow', self.window)
@@ -74,9 +87,9 @@ class TimelineWebView(QWebView):
 		self.setUrl(QUrl.fromLocalFile(QFileInfo(os.path.join(*self.html_path)).absoluteFilePath()))
 		
 		#Connect signal of javascript initialization to our javascript reference init function
-		self.page().mainFrame().javaScriptWindowObjectCleared.connect(self.addJavaScriptObject)
+		self.page().mainFrame().javaScriptWindowObjectCleared.connect(self.setup_js_data)
 		
 		#Connect zoom functionality
-		window.sliderZoom.valueChanged.connect(self.updateZoom)
+		window.sliderZoom.valueChanged.connect(self.update_zoom)
 
 		

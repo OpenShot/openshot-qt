@@ -88,11 +88,13 @@ def init_element(window, elem):
 		if iconset != None: #For some reason "if iconset:" doesn't work the same as "!= None"
 			theme_name = iconset.get('theme', '')
 			if theme_name:
-				if not QIcon.hasThemeIcon(theme_name):
+				has_icon = QIcon.hasThemeIcon(theme_name)
+				if not has_icon:
 					log.warn('Icon theme %s not found. Will use backup icon.', theme_name)
 				fallback_icon, fallback_path = get_default_icon(theme_name)
 				#log.info('Fallback icon path for %s is %s', theme_name, fallback_path)
-				elem.setIcon(QIcon.fromTheme(theme_name, fallback_icon))
+				if has_icon or fallback_icon:
+					elem.setIcon(QIcon.fromTheme(theme_name, fallback_icon))
 
 def init_ui(window):
 	log.info('Initializing UI for %s', window.objectName())

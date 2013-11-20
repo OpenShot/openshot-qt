@@ -19,7 +19,7 @@
 
 import sys, os
 from PyQt5.QtCore import *
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 from windows.TimelineWebView import TimelineWebView
@@ -53,4 +53,20 @@ class MainWindow(QMainWindow):
 		self.timeline = TimelineWebView(self)
 		#add timeline to web frame layout
 		self.frameWeb.layout().addWidget(self.timeline)
+		
+		#setup tree
+		mod = QStandardItemModel(0, 2)
+		parent_node = mod.invisibleRootItem()
+		mod.setHeaderData(0, Qt.Horizontal, "Name")
+		mod.setHeaderData(1, Qt.Horizontal, "Type")
+		for i in range(10):
+			item = QStandardItem("Clip" + str(i))
+			parent_node.appendRow(item)
+			index = mod.index(i,1)
+			if i % 2 == 0:
+				mod.setData(index, "Video")
+			else:
+				mod.setData(index, "Audio")
+			
+		self.treeView.setModel(mod)
 
