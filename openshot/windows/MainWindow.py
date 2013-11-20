@@ -36,27 +36,21 @@ class MainWindow(QMainWindow):
 		
 		#Create main window base class
 		QMainWindow.__init__(self)
-		
-		if QIcon.themeName() == '':
-			QIcon.setThemeName("Compass")
-		
-		ui_util.load(self, self.ui_path)
-		
-		#Load ui from configured path
-		#uic.loadUi(os.path.join(*self.ui_path), self)
 
-		#Get xml tree for ui
-		#self.uiTree = ElementTree.parse(os.path.join(*self.ui_path))
-		
 		#Init translation system
 		language.init_language()
 		
-		#Init ui
+		#Load theme if not set by OS
+		ui_util.load_theme()
+		
+		#Load UI from designer
+		ui_util.load_ui(self, self.ui_path)
+
+		#Init UI
 		ui_util.init_ui(self)
 
 		#setup timeline
 		self.timeline = TimelineWebView(self)
-		
 		#add timeline to web frame layout
 		self.frameWeb.layout().addWidget(self.timeline)
 
