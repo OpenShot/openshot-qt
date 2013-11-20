@@ -203,7 +203,9 @@
                <string>Play</string>
               </property>
               <property name="icon">
-               <iconset theme="media-playback-start"/>
+               <iconset theme="media-playback-start">
+                <normaloff/>
+               </iconset>
               </property>
              </widget>
             </item>
@@ -213,7 +215,9 @@
                <string>Seek Forward</string>
               </property>
               <property name="icon">
-               <iconset theme="media-seek-forward"/>
+               <iconset theme="media-seek-forward">
+                <normaloff/>
+               </iconset>
               </property>
              </widget>
             </item>
