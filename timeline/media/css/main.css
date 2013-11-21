@@ -31,7 +31,8 @@ body {
 .track_label { padding-top: 2px; padding-left: 2px; }
 .track_name { width: 100%; height: 70px; font-family: Sans; color: #fff; font-size: 9pt; margin-left: 5px; margin-bottom: 8px; background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(76,76,76,1)), color-stop(12%,rgba(89,89,89,1)), color-stop(25%,rgba(102,102,102,1)), color-stop(39%,rgba(71,71,71,1)), color-stop(50%,rgba(44,44,44,1)), color-stop(51%,rgba(0,0,0,1)), color-stop(60%,rgba(17,17,17,1)), color-stop(76%,rgba(43,43,43,1)), color-stop(91%,rgba(28,28,28,1)), color-stop(100%,rgba(19,19,19,1))); border-top: 1px solid #4b92ad; border-bottom: 1px solid #4b92ad; border-left: 1px solid #4b92ad; border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
 .track {height: 70px; background-color: silver; margin-bottom: 8px; background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(69,72,77,1)), color-stop(100%,rgba(0,0,0,1))); border-top: 1px solid #000; border-bottom: 1px solid #000; }
-.thumb { width: 100%; height: 50px; }
+.thumb-start {margin-top:-14px;margin-left:10px; float:left; width: 66px; height: 46px; }
+.thumb-end {margin-top:-14px; margin-right:10px; float:right;width: 66px; height: 46px; }
 
 /* Playhead */
 .playhead-line { position: absolute; height:335px; width:2px; background-color:#fff; opacity:0.7; left:5.5px;}

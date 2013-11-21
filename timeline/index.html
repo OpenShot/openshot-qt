@@ -50,10 +50,14 @@
 						<div class="clip_menu"></div>
 						<div class="clip_top">
 							<div class="clip_label">Clip {{clip.number}}</div>
-							<div class="clip_effects"></div>
+							<div class="clip_effects" id="effects_{{clip.number}}" ng-show="clip.effects.length">
+								<img ng-repeat="effect in clip.effects" id="effect_{{clip.number}}_{{$index}}" class="effect_icon" ng-src="media/images/effects/{{effect.icon}}"/>
+							</div>
 							<br class="cleared">
 						</div>
-						<div class="thumb" style="background-image: url(/media/images/test.png); "></div>
+						<br class="cleared">
+						<img class="thumb-start" ng-src="media/images/clip_images/{{clip.images.start}}.png"/>
+						<img class="thumb-end" ng-src="media/images/clip_images/{{clip.images.end}}.png"/>
 					</div>
 				</div>
 			</div>
@@ -76,29 +80,36 @@
 				</div>
 				<div class="debug-text ui-corner-all">CLIPS DATA: <pre>{{clips | json}}</pre></div>
 				<div class="debug-text ui-corner-all">PROJECT DATA: <pre>pixels per second: {{pixelsPerSecond}} <br> playhead offset: {{playheadOffset}} <br> {{project | json}}</pre></div>
-				<div class="debug-text ui-corner-all">ACTIONS:<br>
+				<div class="debug-text ui-corner-all">ACTIONS:<br><br>
 					<div>
 						<p>Add Clips:</p>	
 						<input type="text" name="numClips" ng-model="numClips" size="5" style="width:100px;" placeholder="# of clips"/>
     					<button ng-click="addClips(numClips)">add clips</button> <br/>
+    				
+    				<div style="height:1px;background-color:#cfcfcf;margin:15px;"></div>
     				<div>
-    				<hr>
-    				<div>
+    					<p>Scale:</p>	
     					<input id="scaleVal" ng-model="project.scale" style="width:100px;">
     					<div db-slider></div>
-    				<div>
-    				<hr>
+    				</div>
+    				<div style="height:1px;background-color:#cfcfcf;margin:15px;"></div>
     				<div>
 						<p>Add Marker:</p>	
 						<input type="text" name="markLoc" ng-model="markLoc" size="5" style="width:100px;" placeholder="loc of marker"/>
     					<button ng-click="addMarker(markLoc)">add marker</button> <br/>
-    				<div>
-    				<hr>
-    				<div>
+    				</div>
+    				<div style="height:1px;background-color:#cfcfcf;margin:15px;"></div>
+					<div>
 						<p>Add Effect:</p>	
 						<input type="text" name="clipNum" ng-model="clipNum" size="5" style="width:100px;" placeholder="clip #"/>
     					<button ng-click="addEffect(clipNum)">add effect</button> <br/>
-    				<div>
+    				</div>
+    				<div style="height:1px;background-color:#cfcfcf;margin:15px;"></div>
+					<div>
+						<p>Change clip image:</p>	
+						<input type="text" name="startImage" ng-model="startImage" size="5" style="width:100px;" placeholder="start clip for #3"/>
+    					<button ng-click="changeImage(startImage)">change img</button> <br/>
+    				</div>
 				</div>
 				<div class="cleared"></div>
 			</div>

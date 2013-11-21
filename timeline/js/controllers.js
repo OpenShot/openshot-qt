@@ -173,5 +173,10 @@ $scope.addEffect = function(clipNum){
   };
 
 
+  $scope.changeImage = function(startImage){
+      console.log(startImage);
+        $scope.clips[2].images.start=startImage;
+        $scope.startImage = "";
+  };
 
 });

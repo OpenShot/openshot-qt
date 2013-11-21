@@ -84,32 +84,6 @@ App.directive('tlClip', function($timeout){
 				
 			},0);
 
-			//set track's effects if there are some
-			var effects_elm = element.find($(".clip_effects"));
-			if (scope.clip.effects){
-				//this clip has effects, so loop and show them
-				//in the clip's effect container
-				$.each(scope.clip.effects, function(index){
-					var img = $('<img />').attr({ 'id': element.attr('id')+"_" + index , 'class': 'effect_icon', 'src': 'media/images/effects/'+this.icon, }).appendTo(effects_elm);	
-				});
-				
-			}else{
-				effects_elm.hide();
-			}
-			
-			scope.$watch('clips.effects', function(val) {
-				if (val){
-                	$timeout(function(){
-                		$.each(val, function() {
-                			console.log(this.number);
-                			if (this.effects){
-                				console.log(this.effects);
-                			}
-                		});
-                	},0);
-	            }
-			}, true); 
-			
 			//handle resizability of clip
 			element.resizable({ 
 				handles: "e, w",
@@ -209,7 +183,6 @@ App.directive('tlClip', function($timeout){
 		}
 	}
 });
-
 
 
 
@@ -528,6 +501,17 @@ App.directive('tlPlayline', function($timeout){
 });
 
 
+App.directive('tlBackImg', function(){
+    return {
+    	link: function(scope, element, attrs){
+	        var url = attrs.tlBackImg;
+	        element.css({
+	            'background-image': 'url(' + url +')',
+	            'background-size' : 'cover'
+	        });
+    	}
+    };
+})
 
 
 
@@ -553,4 +537,4 @@ App.directive('dbSlider', function () {
 			});	
 		}
 	};
-})
+});
