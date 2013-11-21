@@ -21,10 +21,10 @@ def load_theme():
 			
 def load_ui(window, path):
 	#Load ui from configured path
-	uic.loadUi(os.path.join(*path), window)
+	uic.loadUi(path, window)
 
 	#Save xml tree for ui
-	window.uiTree = xml.etree.ElementTree.parse(os.path.join(*path))
+	window.uiTree = xml.etree.ElementTree.parse(path)
 
 def get_default_icon(theme_name):
 	#Default path to backup icons

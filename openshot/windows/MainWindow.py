@@ -26,15 +26,15 @@ from windows.TimelineWebView import TimelineWebView
 from classes import language, info, ui_util
 from classes.logger import log
 from images import openshot_rc
-from windows.MediaTreeView import MediaTreeView
+#from windows.MediaTreeView import MediaTreeView
 import xml.etree.ElementTree as ElementTree
 
 #This class combines the main window widget with initializing the application and providing a pass-thru exec_ function
 class MainWindow(QMainWindow):
-	ui_path = ('windows','ui','main.ui')
+	ui_path = os.path.join(info.PATH, 'windows','ui','main.ui')
 	
 	def __init__(self):
-		
+
 		#Create main window base class
 		QMainWindow.__init__(self)
 
@@ -57,9 +57,9 @@ class MainWindow(QMainWindow):
 		
 		#setup tree
 		self.gridLayout_2.removeWidget(self.treeView)
-		self.treeView.close()
-		self.treeView = MediaTreeView(self.tabFiles)
-		self.gridLayout_2.addWidget(self.treeView, 0, 0)
+		#self.treeView.close()
+		#self.treeView = MediaTreeView(self.tabFiles)
+		#self.gridLayout_2.addWidget(self.treeView, 0, 0)
 		
 		mod = QStandardItemModel(0, 2)
 		parent_node = mod.invisibleRootItem()

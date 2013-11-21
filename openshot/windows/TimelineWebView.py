@@ -23,11 +23,12 @@ from PyQt5.QtGui import QCursor
 from PyQt5.QtWidgets import QAbstractSlider, QMenu
 from PyQt5.QtWebKitWidgets import QWebView
 from classes.logger import log
+from classes import info
 
 JS_SCOPE_SELECTOR = "$('body').scope()"
 
 class TimelineWebView(QWebView):
-	html_path = ('windows','html','timeline','index.html')
+	html_path = os.path.join(info.PATH, 'windows','html','timeline','index.html')
 
 	#Prevent default context menu, and ignore, so that javascript can intercept
 	def contextMenuEvent(self, event):
@@ -84,7 +85,7 @@ class TimelineWebView(QWebView):
 		#self.installEventFilter(window)
 		
 		#set url from configuration (QUrl takes absolute paths for file system paths, create from QFileInfo)
-		self.setUrl(QUrl.fromLocalFile(QFileInfo(os.path.join(*self.html_path)).absoluteFilePath()))
+		self.setUrl(QUrl.fromLocalFile(QFileInfo(self.html_path).absoluteFilePath()))
 		
 		#Connect signal of javascript initialization to our javascript reference init function
 		self.page().mainFrame().javaScriptWindowObjectCleared.connect(self.setup_js_data)
