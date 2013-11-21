@@ -47,12 +47,13 @@
 			<div tl-multi-selectable>
 				<div ng-repeat="track in tracks" id="track_{{track.number}}" class="track" style="width:{{project.length * pixelsPerSecond}}px;" tl-track  >
 					<div ng-repeat="clip in clips | filter:filterByTrack(track)" id="clip_{{clip.number}}" class="clip" style="width:{{clip.length * pixelsPerSecond}}px;left:{{clip.position * pixelsPerSecond}}px;" tl-clip>
-						<div class="clip_menu"></div>
 						<div class="clip_top">
-							<div class="clip_label">Clip {{clip.number}}</div>
+							<div class="clip_menu" tl-clip-menu></div>
+							
 							<div class="clip_effects" id="effects_{{clip.number}}" ng-show="clip.effects.length">
 								<img ng-repeat="effect in clip.effects" id="effect_{{clip.number}}_{{$index}}" class="effect_icon" ng-src="media/images/effects/{{effect.icon}}"/>
 							</div>
+							<div class="clip_label">Clip {{clip.number}}</div>
 							<br class="cleared">
 						</div>
 						<br class="cleared">

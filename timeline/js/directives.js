@@ -94,8 +94,23 @@ App.directive('tlClip', function($timeout){
 				},
 				stop: function(e, ui) {
 					dragging = false;
+					//determine resize deltas
+					var delta_x = ui.size.width - ui.originalSize.width;
+					console.log(delta_x);
+					var dir = '';
+					if (delta_x > 0) { 
+				        dir += 'e';
+				    } else if (delta_x < 0) { 
+				        dir += 'w';
+				    }
+				    console.log(dir); 
+				    console.log($(this).axis);
+					scope.$apply(function(){
+						//scope.playlineLocation = line_loc;
+					});
+
 				},
-				
+
 			});
 	
 			//handle hover over on the clip

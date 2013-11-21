@@ -29,6 +29,8 @@ App.controller('TimelineCtrl', function($scope,$timeout) {
       locked : false,
       length : 32, //length in seconds
       duration : 32, //max length in seconds
+      start : 0,
+      end : 32,
       position : 0.0,
       effects : [
                 { effect : 'Black and White', icon : 'bw.png'},
@@ -46,6 +48,8 @@ App.controller('TimelineCtrl', function($scope,$timeout) {
       locked : false,
       length : 45,
       duration : 45,
+      start : 0,
+      end : 45,
       position : 0.0,
       effects : [],
       images : {start: 3, end: 7},
@@ -57,6 +61,8 @@ App.controller('TimelineCtrl', function($scope,$timeout) {
       locked : false,
       length : 120,
       duration : 120,
+      start : 0,
+      end : 120,
       position : 32.0,
       effects : [
                 { effect : 'Old Movie',icon : 'om.png'},
