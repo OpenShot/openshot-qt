@@ -37,6 +37,7 @@ App.controller('TimelineCtrl', function($scope,$timeout) {
                 { effect : 'Blur', icon: 'blur.png'},
                 { effect : 'Cartoon', icon: 'cartoon.png'}
                 ],
+      images :  {start: 1, end: 4},
     },
     {
       number : '2', 
@@ -46,6 +47,8 @@ App.controller('TimelineCtrl', function($scope,$timeout) {
       length : 45,
       duration : 45,
       position : 0.0,
+      effects : [],
+      images : {start: 3, end: 7},
     },
     {
       number : '3', 
@@ -55,11 +58,12 @@ App.controller('TimelineCtrl', function($scope,$timeout) {
       length : 120,
       duration : 120,
       position : 32.0,
-       effects : [
+      effects : [
                 { effect : 'Old Movie',icon : 'om.png'},
                 { effect : 'Blur', icon: 'blur.png'},
                 { effect : 'Cartoon', icon: 'cartoon.png'}
                 ],
+      images : { start: 5, end: 10 },
     },
   ];
 
@@ -149,6 +153,16 @@ $scope.setScale = function(scaleVal){
     };
 
 
+$scope.addEffect = function(clipNum){
+    //find the clip in the json data
+    elm = findElement($scope.clips, "number", clipNum);
+    elm.effects.push({
+       effect : 'Old Movie',
+       icon : 'om.png'
+    });
+    $scope.clipNum = "";
+                    
+}
 
   $scope.addMarker = function(markLoc){
         $scope.markers.push({

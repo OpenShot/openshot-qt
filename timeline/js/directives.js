@@ -96,18 +96,19 @@ App.directive('tlClip', function($timeout){
 			}else{
 				effects_elm.hide();
 			}
-			// scope.$watch('clips', function(val) {
-			//  	if (val){
-   //              	$timeout(function(){
-   //              		$.each(val, function() {
-   //              			console.log(this.number);
-   //              			if (this.effects){
-   //              				console.log(this.effects);
-   //              			}
-   //              		});
-   //              	},0);
-   //              }
-			// }); 
+			
+			scope.$watch('clips.effects', function(val) {
+				if (val){
+                	$timeout(function(){
+                		$.each(val, function() {
+                			console.log(this.number);
+                			if (this.effects){
+                				console.log(this.effects);
+                			}
+                		});
+                	},0);
+	            }
+			}, true); 
 			
 			//handle resizability of clip
 			element.resizable({ 
@@ -316,13 +317,9 @@ App.directive('tlRuler', function ($timeout) {
 	            
 			});
 
-			
-
-
-			//use timeout to ensure that drawing on the canvas happens after the DOM is loaded
 			//watch the scale value so it will be able to draw the ruler after changes,
 			//otherwise the canvas is just reset to blank
-			scope.$watchCollection('[project.scale, markers]', function (val) {
+			scope.$watch('project.scale + markers', function (val) {
                 if (val){
                 	
 	            	 $timeout(function(){
@@ -334,6 +331,8 @@ App.directive('tlRuler', function ($timeout) {
 
 				    	//draw the ruler
 				    	var ctx = element[0].getContext('2d');
+				    	//clear the canvas first
+				    	ctx.clearRect(0, 0, element.width, element.height);
 				    	//set number of ticks based 2 for each pixel_length
 				    	num_ticks = pixel_length / 50;
 
@@ -396,7 +395,7 @@ App.directive('tlRuler', function ($timeout) {
 App.directive('tlProgress', function($timeout){
 	return {
 		link: function(scope, element, attrs){
-			scope.$watchCollection('[progress, project.scale]', function (val) {
+			scope.$watch('progress + project.scale', function (val) {
                 if (val) {
                 	$timeout(function(){
 				        var progress = scope.progress;
@@ -504,7 +503,7 @@ App.directive('tlPlayline', function($timeout){
 			}, 0);
 
 			//watch playlineLocation and the project scale to move the line as needed
-			scope.$watchCollection('[playlineLocation, project.scale]', function (val) {
+			scope.$watch('playlineLocation + project.scale', function (val) {
                 if (val) {
                 	$timeout(function(){
 	                	//now set it in the correct "left" position, under the playhead top
