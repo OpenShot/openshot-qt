@@ -59,6 +59,7 @@
 						<br class="cleared">
 						<img class="thumb-start" ng-src="media/images/clip_images/{{clip.images.start}}.png"/>
 						<img class="thumb-end" ng-src="media/images/clip_images/{{clip.images.end}}.png"/>
+						<canvas height="46px" class="audio" style="width:{{clip.length * pixelsPerSecond}}px;left:{{clip.position * pixelsPerSecond}}px;" tl-audio></canvas>
 					</div>
 				</div>
 			</div>

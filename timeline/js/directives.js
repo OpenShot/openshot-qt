@@ -74,13 +74,39 @@ App.directive('tlTrack', function($timeout) {
 //2: can be resized
 //3: class change when hovered over
 
+var dragLog = null;
+
 App.directive('tlClip', function($timeout){
 	return {
 		scope: "@",
 		link: function(scope, element, attrs){
+
+
 			$timeout(function(){
 				clip_tops["clip_"+scope.clip.number] = element.position().top;
 				clip_lefts["clip_"+scope.clip.number] = element.position().left;
+			
+				//if clip has audio data, show it instead of images
+				if (scope.clip.audio_data){
+					//hide images
+					element.find(".thumb-start").hide()
+					element.find(".thumb-end").hide()
+					//draw audio
+					var ctx = element.find(".audio")[0].getContext('2d');
+					var mid_point = parseInt(element.css("height")) / 2;
+					var line_spot = 5;
+					for (var i = 0; i < scope.clip.audio_data.length; i++) {
+						//line_spot += 1;
+						//ctx.lineWidth = 1;
+						//ctx.beginPath();
+						//ctx.moveTo(line_spot, mid_point);
+						//ctx.lineTo(line_spot, mid_point);
+						//ctx.strokeStyle = "#fff";
+						//ctx.stroke();
+					}
+		
+					
+				}
 				
 			},0);
 
@@ -90,24 +116,70 @@ App.directive('tlClip', function($timeout){
 				maxWidth: scope.clip.duration * scope.pixelsPerSecond,
 				start: function(e, ui) {
 					dragging = true;
+					//determine which side is being changed
+					var parentOffset = element.offset(); 
+					var mouseLoc = e.pageX - parentOffset.left;
+					if (mouseLoc < 5) {
+						dragLoc = 'left';
+					} else {
+						dragLoc = 'right';
+					}
+					console.log("DRAGGING SIDE: " + dragLoc);
 
 				},
 				stop: function(e, ui) {
 					dragging = false;
-					//determine resize deltas
+					//get amount changed in width
 					var delta_x = ui.size.width - ui.originalSize.width;
-					console.log(delta_x);
-					var dir = '';
-					if (delta_x > 0) { 
-				        dir += 'e';
-				    } else if (delta_x < 0) { 
-				        dir += 'w';
-				    }
-				    console.log(dir); 
-				    console.log($(this).axis);
+					//change the clip end/start based on which side was dragged
+					new_left = scope.clip.start;
+					new_right = scope.clip.end;
+
+					if (dragLoc == 'left'){
+						//changing the start of the clip
+						//if clip was made larger, the start spot decreased
+						if (delta_x > 0){
+							//larger, so decrease clip start based on pixels per second
+							var new_start = scope.clip.start -  Math.round(delta_x/scope.pixelsPerSecond);
+							
+						}else{
+							//smaller, so increase the clipse start based on pixels per second
+							var new_start = scope.clip.start -  Math.round(delta_x/scope.pixelsPerSecond);
+							//can't be less than 0
+							if (new_start < 0) new_start = 0;
+						}
+						console.log("NEW START: " + new_start);
+
+					} else {
+						//changing the end of the clips
+						//if clip was made larger, the end spot increased
+						if (delta_x > 0){
+							//larger, so increase clip end based on pixels per second
+							var new_end = scope.clip.end + Math.round(delta_x/scope.pixelsPerSecond);
+							//can't be longer than the duration
+							if (new_end > scope.duration) new_end = scope.clip.end;
+							
+						}else{
+							//smaller, so decrease the clip end based on pixels per second
+							var new_end = scope.clip.end +  Math.round(delta_x/scope.pixelsPerSecond);
+						}
+						console.log("NEW END: " + new_end);
+					}
+
 					scope.$apply(function(){
-						//scope.playlineLocation = line_loc;
+						if (scope.clip.end != new_end){
+							scope.clip.end = new_end;
+						}
+						if (scope.clip.start != new_start){
+							scope.clip.start = new_start;
+						}
 					});
+					
+
+
+					dragLoc = null;
+					
+					
 
 				},
 
