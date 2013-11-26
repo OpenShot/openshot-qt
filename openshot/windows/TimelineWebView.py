@@ -70,18 +70,31 @@ class TimelineWebView(QWebView):
 					self.window.sliderZoom.triggerAction(QAbstractSlider.SliderPageStepAdd)		
 		#Otherwise pass on to implement default functionality (scroll in QWebView)
 		else:
-			self.show_context_menu('clip') #Test of spontaneous context menu creation
-			#super(type(self), self).wheelEvent(event)
+			#self.show_context_menu('clip') #Test of spontaneous context menu creation
+			super(type(self), self).wheelEvent(event)
 	
 	def setup_js_data(self):
 		#Export self as a javascript object in webview
 		self.page().mainFrame().addToJavaScriptWindowObject('timeline', self)
 		self.page().mainFrame().addToJavaScriptWindowObject('mainWindow', self.window)
+		
+	def dragEnterEvent(self, event):
+		#If a plain text drag accept
+		if not event.mimeData().hasUrls() and event.mimeData().hasText():
+			event.accept()
+
+	#Without defining this method, the 'copy' action doesn't show with cursor
+	def dragMoveEvent(self, event):
+		pass
+	
+	def dropEvent(self, event):
+		log.info('Dropping %s in timeline.', event.mimeData().text())
+		event.accept()
 	
 	def __init__(self, window):
 		QWebView.__init__(self)
 		self.window = window
-		#self.installEventFilter(window)
+		self.setAcceptDrops(True)
 		
 		#set url from configuration (QUrl takes absolute paths for file system paths, create from QFileInfo)
 		self.setUrl(QUrl.fromLocalFile(QFileInfo(os.path.join(*self.html_path)).absoluteFilePath()))

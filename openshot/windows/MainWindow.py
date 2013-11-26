@@ -33,11 +33,17 @@ import xml.etree.ElementTree as ElementTree
 class MainWindow(QMainWindow):
 	ui_path = ('windows','ui','main.ui')
 	
+	#def mouseMoveEvent(self, event):
+		#print ('mouseMoveEvent', event.buttons() & Qt.LeftButton == Qt.LeftButton, event.buttons() & Qt.RightButton == Qt.RightButton, event.buttons() & Qt.NoButton == Qt.NoButton)
+		#if event.button() == Qt.LeftButton:
+		#	print ('mouseMoveEvent', event.pos())	
+		
 	def __init__(self):
 		
 		#Create main window base class
 		QMainWindow.__init__(self)
-
+		#self.setAcceptDrops(True)
+		
 		#Init translation system
 		language.init_language()
 		
@@ -59,20 +65,5 @@ class MainWindow(QMainWindow):
 		self.gridLayout_2.removeWidget(self.treeView)
 		self.treeView.close()
 		self.treeView = MediaTreeView(self.tabFiles)
-		self.gridLayout_2.addWidget(self.treeView, 0, 0)
-		
-		mod = QStandardItemModel(0, 2)
-		parent_node = mod.invisibleRootItem()
-		mod.setHeaderData(0, Qt.Horizontal, "Name")
-		mod.setHeaderData(1, Qt.Horizontal, "Type")
-		for i in range(4):
-			item = QStandardItem("Clip" + str(i))
-			parent_node.appendRow(item)
-			index = mod.index(i,1)
-			if i % 2 == 0:
-				mod.setData(index, "Video")
-			else:
-				mod.setData(index, "Audio")
-			
-		self.treeView.setModel(mod)
+		self.gridLayout_2.addWidget(self.treeView, 1, 0)
 
