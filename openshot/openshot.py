@@ -17,7 +17,7 @@
 #	You should have received a copy of the GNU General Public License
 #	along with OpenShot Video Editor.  If not, see <http://www.gnu.org/licenses/>.
 
-import sys
+import sys, os
 from classes import info
 from classes.logger import log
 from PyQt5.QtWidgets import QApplication

@@ -31,7 +31,7 @@ import xml.etree.ElementTree as ElementTree
 
 #This class combines the main window widget with initializing the application and providing a pass-thru exec_ function
 class MainWindow(QMainWindow):
-	ui_path = ('windows','ui','main.ui')
+	ui_path = os.path.join(info.PATH, 'windows','ui','main.ui')
 	
 	#def mouseMoveEvent(self, event):
 		#print ('mouseMoveEvent', event.buttons() & Qt.LeftButton == Qt.LeftButton, event.buttons() & Qt.RightButton == Qt.RightButton, event.buttons() & Qt.NoButton == Qt.NoButton)
@@ -39,7 +39,7 @@ class MainWindow(QMainWindow):
 		#	print ('mouseMoveEvent', event.pos())	
 		
 	def __init__(self):
-		
+
 		#Create main window base class
 		QMainWindow.__init__(self)
 		#self.setAcceptDrops(True)

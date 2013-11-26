@@ -16,11 +16,14 @@
 #	You should have received a copy of the GNU General Public License
 #	along with OpenShot Video Editor.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
+
 VERSION             = "2.0.0"
 DATE                = "20130602800000"
 NAME                = 'openshot'
 GPL_VERSION         = '3'
 SUPPORTED_LANGUAGES = ['English', 'Dutch', 'French', 'German', 'Italian', 'Portuguese', 'Spanish', 'Swedish']
+PATH = os.path.dirname(os.path.dirname( os.path.realpath( __file__) )) # Primary openshot folder
 
 # names of all contributers, using 'u' for unicode encoding
 AF   = {'name': u'Andy Finch', 'email': 'we.rocked.in79@gmail.com'}

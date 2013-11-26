@@ -1,13 +1,12 @@
 [Desktop Entry]
-Name=OpenShot Video Editor
+Name=OpenShot 2.0
 GenericName=Video Editor
-X-GNOME-FullName=OpenShot Video Editor
+X-GNOME-FullName=OpenShot 2.0
 Comment=Create and edit videos and movies
-Exec=openshot %F
+Exec=python3 /home/jonathan/Apps/openshot_qt/openshot/openshot.py %F
 Terminal=false
 Type=Application
 Icon=openshot
 Categories=GNOME;GTK;AudioVideo;Video;AudioVideoEditing;
 MimeType=application/vnd.openshot-project;
 X-AppInstall-Package=openshot
-X-Ubuntu-Gettext-Domain=OpenShot
