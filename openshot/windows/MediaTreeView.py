@@ -1,5 +1,6 @@
 
 from classes.logger import log
+from classes.SettingStore import SettingStore
 from PyQt5.QtCore import QMimeData, QSize, Qt, QCoreApplication, QPoint
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QTreeView, QApplication
@@ -44,6 +45,9 @@ class MediaTreeView(QTreeView):
 		#Keep track of mouse press start position to determine when to start drag
 		self.startDragPos = None
 		self.setAcceptDrops(True)
+		
+		settings = SettingStore()
+		settings.load(None)
 		
 		#Load data model and add some items to it
 		mod = QStandardItemModel(0, 2)

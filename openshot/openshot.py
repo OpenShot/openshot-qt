@@ -27,10 +27,22 @@ from windows.MainWindow import MainWindow
 def main():
 	""""Initialise settings (not implemented) and create main window/application."""
 	
+	# Display version and exit (if requested)
+	if "--version" in sys.argv:
+		print ("OpenShot version %s" % info.VERSION)
+		exit()
+
+	print ("--------------------------------")
+	print ("   OpenShot (version %s)" % info.SETUP['version'])
+	print ("--------------------------------")
+	
 	log.info('OpenShot version ' + info.VERSION)
 
 	# Create application
 	app = QApplication(sys.argv)
+	app.setApplicationName('openshot')
+	app.setApplicationVersion(info.VERSION)
+	#app.setOrganizationName('OpenShot LLC')
 	
 	# Create main window and start event loop
 	win = MainWindow()
