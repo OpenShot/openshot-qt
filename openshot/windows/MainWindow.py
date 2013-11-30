@@ -23,7 +23,7 @@ from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 from windows.TimelineWebView import TimelineWebView
-from classes import language, info, ui_util
+from classes import language, info, ui_util, SettingStore, qt_types
 from classes.logger import log
 from images import openshot_rc
 from windows.MediaTreeView import MediaTreeView
@@ -33,10 +33,36 @@ import xml.etree.ElementTree as ElementTree
 class MainWindow(QMainWindow):
 	ui_path = os.path.join(info.PATH, 'windows','ui','main.ui')
 	
-	#def mouseMoveEvent(self, event):
-		#print ('mouseMoveEvent', event.buttons() & Qt.LeftButton == Qt.LeftButton, event.buttons() & Qt.RightButton == Qt.RightButton, event.buttons() & Qt.NoButton == Qt.NoButton)
-		#if event.button() == Qt.LeftButton:
-		#	print ('mouseMoveEvent', event.pos())	
+	def closeEvent(self, event):
+		self.save_settings()
+	
+	def save_settings(self):
+		settings = SettingStore.get_settings()
+
+		#Save window state and geometry (saves toolbar and dock locations)
+		settings.set('window_state', qt_types.bytes_to_str(self.saveState()))
+		settings.set('window_geometry', qt_types.bytes_to_str(self.saveGeometry()))
+
+		#Splitter sizes
+		sizes = self.splitter_2.sizes()
+		settings.set('window_splitter_2_pos', sizes)
+		sizes = self.splitter.sizes()
+		settings.set('window_splitter_pos', sizes)
+		
+		#TODO: Call save_settings on any sub-objects necessary
+	
+	def load_settings(self):
+		settings = SettingStore.get_settings()
+		
+		#Window state and geometry (also toolbar and dock locations)
+		if settings.get('window_geometry'): self.restoreGeometry(qt_types.str_to_bytes(settings.get('window_geometry')))
+		if settings.get('window_state'): self.restoreState(qt_types.str_to_bytes(settings.get('window_state')))
+		
+		#Splitter sizes
+		if settings.get('window_splitter_pos'): self.splitter.setSizes(settings.get('window_splitter_pos'))
+		if settings.get('window_splitter_2_pos'): self.splitter_2.setSizes(settings.get('window_splitter_2_pos'))
+
+		#TODO: Call load_settings on any sub-objects necessary
 		
 	def __init__(self):
 
@@ -52,6 +78,9 @@ class MainWindow(QMainWindow):
 		
 		#Load UI from designer
 		ui_util.load_ui(self, self.ui_path)
+		
+		#Load user settings for window
+		self.load_settings()
 
 		#Init UI
 		ui_util.init_ui(self)

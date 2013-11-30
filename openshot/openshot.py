@@ -18,7 +18,7 @@
 #	along with OpenShot Video Editor.  If not, see <http://www.gnu.org/licenses/>.
 
 import sys, os
-from classes import info
+from classes import info, SettingStore
 from classes.logger import log
 from PyQt5.QtWidgets import QApplication
 from windows.MainWindow import MainWindow
@@ -29,25 +29,32 @@ def main():
 	
 	# Display version and exit (if requested)
 	if "--version" in sys.argv:
-		print ("OpenShot version %s" % info.VERSION)
+		print ("OpenShot version %s" % info.SETUP['version'])
 		exit()
 
-	print ("--------------------------------")
-	print ("   OpenShot (version %s)" % info.SETUP['version'])
-	print ("--------------------------------")
+	log.info("--------------------------------")
+	log.info("   OpenShot (version %s)" % info.SETUP['version'])
+	log.info("--------------------------------")
 	
-	log.info('OpenShot version ' + info.VERSION)
-
 	# Create application
 	app = QApplication(sys.argv)
 	app.setApplicationName('openshot')
-	app.setApplicationVersion(info.VERSION)
-	#app.setOrganizationName('OpenShot LLC')
+	app.setApplicationVersion(info.SETUP['version'])
 	
+	# Init settings
+	app.settings = SettingStore.SettingStore()
+	if not app.settings.load():
+		log.error("Couldn't load user settings. Exiting.")
+		exit()
+		
 	# Create main window and start event loop
 	win = MainWindow()
 	win.show()
-	sys.exit(app.exec_())
+	res = app.exec_()
+	
+	app.settings.save()
+		
+	sys.exit(res)
 
 if __name__ == '__main__':
 	main()
