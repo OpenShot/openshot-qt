@@ -18,10 +18,9 @@
 #	along with OpenShot Video Editor.  If not, see <http://www.gnu.org/licenses/>.
 
 import sys, os
-from classes import info, SettingStore
+from classes import info
+from classes.OpenShotApp import OpenShotApp
 from classes.logger import log
-from PyQt5.QtWidgets import QApplication
-from windows.MainWindow import MainWindow
 
 # This method starts OpenShot
 def main():
@@ -37,24 +36,9 @@ def main():
 	log.info("--------------------------------")
 	
 	# Create application
-	app = QApplication(sys.argv)
-	app.setApplicationName('openshot')
-	app.setApplicationVersion(info.SETUP['version'])
-	
-	# Init settings
-	app.settings = SettingStore.SettingStore()
-	if not app.settings.load():
-		log.error("Couldn't load user settings. Exiting.")
-		exit()
-		
-	# Create main window and start event loop
-	win = MainWindow()
-	win.show()
-	res = app.exec_()
-	
-	app.settings.save()
-		
-	sys.exit(res)
+	app = OpenShotApp(sys.argv)
+	# Run and return result
+	sys.exit(app.run())
 
 if __name__ == '__main__':
 	main()

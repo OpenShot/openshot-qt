@@ -63,6 +63,7 @@ def init_element(window, elem):
 	name = ''
 	if hasattr(elem, 'objectName'):
 		name = elem.objectName()
+		connect_auto_events(window, elem, name)
 	
 	#Handle generic translatable properties
 	if hasattr(elem, 'setText') and elem.text() != "":
@@ -96,6 +97,21 @@ def init_element(window, elem):
 				if has_icon or fallback_icon:
 					elem.setIcon(QIcon.fromTheme(theme_name, fallback_icon))
 
+def connect_auto_events(window, elem, name):
+	#If trigger slot available check it
+	if hasattr(elem, 'trigger'):
+		func_name = name + "_trigger"
+		if hasattr(window, func_name) and callable(getattr(window, func_name)):
+			func = getattr(window, func_name)
+			log.info("Binding event %s:%s", window.objectName(), func_name)
+			elem.triggered.connect(getattr(window, func_name))
+	if hasattr(elem, 'click'):
+		func_name = name + "_click"
+		if hasattr(window, func_name) and callable(getattr(window, func_name)):
+			func = getattr(window, func_name)
+			log.info("Binding event %s:%s", window.objectName(), func_name)
+			elem.clicked.connect(getattr(window, func_name))
+					
 def init_ui(window):
 	log.info('Initializing UI for %s', window.objectName())
 	
@@ -105,3 +121,4 @@ def init_ui(window):
 	# Loop through all actions
 	for action in window.findChildren(QAction):
 		init_element(window, action)
+	

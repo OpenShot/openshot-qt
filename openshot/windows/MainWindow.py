@@ -23,7 +23,7 @@ from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 from windows.TimelineWebView import TimelineWebView
-from classes import language, info, ui_util, SettingStore, qt_types
+from classes import info, ui_util, SettingStore, qt_types, OpenShotApp
 from classes.logger import log
 from images import openshot_rc
 from windows.MediaTreeView import MediaTreeView
@@ -33,9 +33,61 @@ import xml.etree.ElementTree as ElementTree
 class MainWindow(QMainWindow):
 	ui_path = os.path.join(info.PATH, 'windows','ui','main.ui')
 	
+	#Save window settings on close
 	def closeEvent(self, event):
 		self.save_settings()
+		
+	def actionNew_trigger(self, event):
+		app = OpenShotApp.get_app()
+		app.project.new()
+		log.info("New Project loaded.")
+		
+	def actionOpen_trigger(self, event):
+		app = OpenShotApp.get_app()
+		file_path, file_type = QFileDialog.getOpenFileName(self, app._tr("Open Project..."))
+		if file_path:
+			app.project.load(file_path)
+			app.project.current_filepath = file_path
+			log.info("Loaded %s" % (file_path))
+		#log.info ("Open")
+		
+	def actionSave_trigger(self, event):
+		app = OpenShotApp.get_app()
+		#Get current filepath if any, otherwise ask user
+		file_path = app.project.current_filepath
+		if not file_path:
+			file_path, file_type = QFileDialog.getSaveFileName(self, app._tr("Save Project..."))
+		
+		if file_path:
+			print ("File_path: ", file_path)
+			try:
+				app.project.save(file_path)
+				app.project.current_filepath = file_path
+				log.info("Saved %s" % (file_path))
+			except Exception as ex:
+				log.error("Couldn't save project %s", file_path)
+
+	def actionSaveAs_trigger(self, event):
+		app = OpenShotApp.get_app()
+		file_path, file_type = QFileDialog.getSaveFileName(self, app._tr("Save Project As..."))
+		if file_path:
+			try:
+				app.project.save(file_path)
+				app.project.current_filepath = file_path
+				log.info("Saved %s" % (file_path))
+			except Exception as ex:
+				log.error("Couldn't save project %s", file_path)
+		
+	def actionUndo_trigger(self, event):
+		log.info ("Undo")
+	def actionRedo_trigger(self, event):
+		log.info ("Redo")
+	def btnPlay_click(self, event):
+		log.info ("Play button")
+	def btnFastForward_click(self, event):
+		log.info ("FastForward button")
 	
+	#Update window settings in setting store
 	def save_settings(self):
 		settings = SettingStore.get_settings()
 
@@ -51,6 +103,7 @@ class MainWindow(QMainWindow):
 		
 		#TODO: Call save_settings on any sub-objects necessary
 	
+	#Get window settings from setting store
 	def load_settings(self):
 		settings = SettingStore.get_settings()
 		
@@ -70,9 +123,7 @@ class MainWindow(QMainWindow):
 		QMainWindow.__init__(self)
 		#self.setAcceptDrops(True)
 		
-		#Init translation system
-		language.init_language()
-		
+
 		#Load theme if not set by OS
 		ui_util.load_theme()
 		
