@@ -23,14 +23,14 @@ from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 from windows.TimelineWebView import TimelineWebView
-from classes import info, ui_util, SettingStore, qt_types, OpenShotApp
+from classes import info, ui_util, SettingStore, qt_types, OpenShotApp, UpdateManager
 from classes.logger import log
 from images import openshot_rc
 from windows.MediaTreeView import MediaTreeView
 import xml.etree.ElementTree as ElementTree
 
 #This class combines the main window widget with initializing the application and providing a pass-thru exec_ function
-class MainWindow(QMainWindow):
+class MainWindow(QMainWindow, UpdateManager.UpdateWatcher):
 	ui_path = os.path.join(info.PATH, 'windows','ui','main.ui')
 	
 	#Save window settings on close
@@ -48,8 +48,8 @@ class MainWindow(QMainWindow):
 		if file_path:
 			app.project.load(file_path)
 			app.project.current_filepath = file_path
+			app.update_manager.reset()
 			log.info("Loaded project %s" % (file_path))
-		#log.info ("Open")
 		
 	def actionSave_trigger(self, event):
 		app = OpenShotApp.get_app()
@@ -78,32 +78,46 @@ class MainWindow(QMainWindow):
 				log.error("Couldn't save project %s", file_path)
 		
 	def actionUndo_trigger(self, event):
-		log.info ("Undo")
 		app = OpenShotApp.get_app()
 		app.update_manager.undo()
+		#log.info(app.project._data)
+
 	def actionRedo_trigger(self, event):
-		log.info ("Redo")
 		app = OpenShotApp.get_app()
 		app.update_manager.redo()
+		#log.info(app.project._data)
 		
 	def btnPlay_click(self, event):
-		log.info ("Add/increment value")
 		app = OpenShotApp.get_app()
 		curr_val = app.project.get("settings/nfigg-setting")
 		if curr_val == None:
-			app.update_manager.add("settings/nfigg-setting", 1)
+			log.info ("Addvalue")
+			app.update_manager.add("settings/nfigg-setting", {"a": 1, "b": 5})
 		else:
-			app.update_manager.update("settings/nfigg-setting", curr_val+1)
-			
+			log.info ("Increment value")
+			update = dict()
+			update["a"] = curr_val["a"] + 1
+			app.update_manager.update("settings/nfigg-setting", update, partial_update=True)
+		#log.info(app.project._data)
 		
 	def btnFastForward_click(self, event):
-		log.info ("Remove/decrement value")
 		app = OpenShotApp.get_app()
 		curr_val = app.project.get("settings/nfigg-setting")
-		if not curr_val == None and curr_val > 1:
-			app.update_manager.update("settings/nfigg-setting", curr_val-1)
-		else:
+		if not curr_val == None and curr_val["a"] > 1:
+			log.info ("Remove value")
+			update = dict()
+			update["a"] = curr_val["a"] - 1
+			app.update_manager.update("settings/nfigg-setting", update, partial_update=True)
+		elif not curr_val == None:
+			log.info ("Decrement value")
 			app.update_manager.remove("settings/nfigg-setting")
+		#log.info(app.project._data)
+	
+	#Update undo and redo buttons enabled/disabled to available changes
+	def updateStatusChanged(self, undo_status, redo_status):
+		#log.info("updateStatusChanged %s, %s", undo_status, redo_status)
+		self.actionUndo.setEnabled(undo_status)
+		self.actionRedo.setEnabled(redo_status)
 	
 	#Update window settings in setting store
 	def save_settings(self):
@@ -152,6 +166,10 @@ class MainWindow(QMainWindow):
 
 		#Init UI
 		ui_util.init_ui(self)
+		
+		#Start undo and redo actions disabled
+		self.actionUndo.setEnabled(False)
+		self.actionRedo.setEnabled(False)
 
 		#setup timeline
 		self.timeline = TimelineWebView(self)

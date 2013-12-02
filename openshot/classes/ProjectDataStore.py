@@ -21,6 +21,7 @@ import os
 from classes.JsonDataStore import JsonDataStore
 from classes.UpdateManager import UpdateInterface
 from classes import info
+from classes.logger import log
 
 class ProjectDataStore(JsonDataStore, UpdateInterface):
 	"""ProjectDataStore - JsonDataStore sub-class which allows more advanced searching of data structure, implements changes inteface."""
@@ -101,7 +102,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 					ret = obj #Save old value of 
 					del parent[my_key]
 				else:
-					ret = parent[my_key]
+					ret = obj
 					parent[my_key] = values
 				return ret
 		

@@ -19,13 +19,17 @@
 
 from classes.logger import log
 
+class UpdateWatcher:
+	def updateStatusChanged(self, undo_status, redo_status):
+		raise NotImplementedError("updateStatus() not implemented in UpdateWatcher implementer.")
+
 class UpdateInterface:
-	def add(self, key, values):
-		raise NotImplementedError("add() not implemted in UpdateInterface implementer.")
-	def update(self, key, values, partial_update=False):
-		raise NotImplementedError("update() not implemted in UpdateInterface implementer.")
-	def remove(self, key):
-		raise NotImplementedError("remove() not implemted in UpdateInterface implementer.")
+	def add(self, action):
+		raise NotImplementedError("add() not implemented in UpdateInterface implementer.")
+	def update(self, action):
+		raise NotImplementedError("update() not implemented in UpdateInterface implementer.")
+	def remove(self, action):
+		raise NotImplementedError("remove() not implemented in UpdateInterface implementer.")
 
 class UpdateAction:
 	"""An data structure representing a single update manager action, including any necessary data to reverse the action."""
@@ -42,15 +46,33 @@ class UpdateAction:
 		
 class UpdateManager:
 	def __init__(self):
+		self.statusWatchers = []
 		self.updateListeners = []
 		self.actionHistory = [] #List of actions performed to current state
 		self.redoHistory = [] #List of actions undone
+		self.currentStatus = [None, None] #Status of Undo and Redo buttons (true/false for should be enabled)
+		
+	def reset(self):
+		self.actionHistory.clear()
+		self.redoHistory.clear()
 		
 	def add_listener(self, listener):
 		if not listener in self.updateListeners:
 			self.updateListeners.append(listener)
 		else:
 			log.warning("Listener already added.")
+			
+	def add_watcher(self, watcher):
+		if not watcher in self.statusWatchers:
+			self.statusWatchers.append(watcher)
+		else:
+			log.warning("Watcher already added.")
+		
+	def update_watchers(self):
+		new_status = (len(self.actionHistory) >= 1, len(self.redoHistory) >= 1)
+		if self.currentStatus[0] != new_status[0] or self.currentStatus[1] != new_status[1]:
+			for watcher in self.statusWatchers:
+				watcher.updateStatusChanged(*new_status)
 		
 	#This can only be called on actions already run,
 	# as the old_values member is only populated during the
@@ -58,6 +80,7 @@ class UpdateManager:
 	# the old_values member is needed to reverse the changes
 	# caused by actions.
 	def get_reverse_action(self, action):
+		#log.info("Reversing action: %s, %s, %s, %s", action.type, action.key, action.values, action.partial_update)
 		reverse = UpdateAction(action.type, action.key, action.values, action.partial_update)
 		#On adds, setup remove
 		if action.type == "add":
@@ -69,13 +92,14 @@ class UpdateManager:
 		#On updates, just swap the old and new values data
 
 		#Swap old and new values
-		old_vals = reverse.old_values
-		reverse.old_values = reverse.values
-		reverse.values = old_vals
+		reverse.old_values = action.values
+		reverse.values = action.old_values
 		
+		#log.info("Reversed values: %s, %s, %s, %s", reverse.type, reverse.key, reverse.values, reverse.partial_update)
+		
+		return reverse
 			
 	def undo(self):
-		log.info("History: %s", self.actionHistory)
 		if len(self.actionHistory) > 0:
 			last_action = self.actionHistory.pop()
 			self.redoHistory.append(last_action)
@@ -91,6 +115,7 @@ class UpdateManager:
 			#Perform next redo action
 			self.dispatch_action(next_action)
 	
+	#Carry out an action on all listeners
 	def dispatch_action(self, action):
 		try:
 			for listener in self.updateListeners:
@@ -101,7 +126,8 @@ class UpdateManager:
 				elif action.type == "remove":
 					listener.remove(action)
 		except Exception as ex:
-			log.error("Couldn't apply '%s' to update listener: %s", action.type, listener)
+			log.error("Couldn't apply '%s' to update listener: %s\n%s", action.type, listener, ex)
+		self.update_watchers()
 	
 	#Perform new actions, clearing redo history for taking a new path
 	def add(self, key, values):
