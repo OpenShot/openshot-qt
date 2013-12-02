@@ -36,6 +36,14 @@ class SettingStore(JsonDataStore):
 		self.settings_filename = "openshot.settings"
 		self.default_settings_filename = os.path.join(info.PATH, 'settings', '_default.settings')
 		
+	#Store setting, but adding isn't allowed. All possible settings must be in default settings file.
+	def set(self, key, value):
+		key = key.lower()
+		if key in self._data:
+			self._data[key] = value
+		else:
+			log.warn("%s key '%s' not valid. The following are valid: %s", self.data_type, key, list(self._data.keys()))
+
 	#Load user settings file from disk, merging with allowed settings in default settings file. Creates user settings if missing.
 	def load(self):
 		#Default and user settings objects

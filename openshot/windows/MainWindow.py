@@ -40,7 +40,7 @@ class MainWindow(QMainWindow):
 	def actionNew_trigger(self, event):
 		app = OpenShotApp.get_app()
 		app.project.new()
-		log.info("New Project loaded.")
+		log.info("New Project created.")
 		
 	def actionOpen_trigger(self, event):
 		app = OpenShotApp.get_app()
@@ -48,7 +48,7 @@ class MainWindow(QMainWindow):
 		if file_path:
 			app.project.load(file_path)
 			app.project.current_filepath = file_path
-			log.info("Loaded %s" % (file_path))
+			log.info("Loaded project %s" % (file_path))
 		#log.info ("Open")
 		
 	def actionSave_trigger(self, event):
@@ -59,7 +59,6 @@ class MainWindow(QMainWindow):
 			file_path, file_type = QFileDialog.getSaveFileName(self, app._tr("Save Project..."))
 		
 		if file_path:
-			print ("File_path: ", file_path)
 			try:
 				app.project.save(file_path)
 				app.project.current_filepath = file_path
@@ -80,12 +79,31 @@ class MainWindow(QMainWindow):
 		
 	def actionUndo_trigger(self, event):
 		log.info ("Undo")
+		app = OpenShotApp.get_app()
+		app.update_manager.undo()
 	def actionRedo_trigger(self, event):
 		log.info ("Redo")
+		app = OpenShotApp.get_app()
+		app.update_manager.redo()
+		
 	def btnPlay_click(self, event):
-		log.info ("Play button")
+		log.info ("Add/increment value")
+		app = OpenShotApp.get_app()
+		curr_val = app.project.get("settings/nfigg-setting")
+		if curr_val == None:
+			app.update_manager.add("settings/nfigg-setting", 1)
+		else:
+			app.update_manager.update("settings/nfigg-setting", curr_val+1)
+			
+		
 	def btnFastForward_click(self, event):
-		log.info ("FastForward button")
+		log.info ("Remove/decrement value")
+		app = OpenShotApp.get_app()
+		curr_val = app.project.get("settings/nfigg-setting")
+		if not curr_val == None and curr_val > 1:
+			app.update_manager.update("settings/nfigg-setting", curr_val-1)
+		else:
+			app.update_manager.remove("settings/nfigg-setting")
 	
 	#Update window settings in setting store
 	def save_settings(self):
@@ -123,7 +141,6 @@ class MainWindow(QMainWindow):
 		QMainWindow.__init__(self)
 		#self.setAcceptDrops(True)
 		
-
 		#Load theme if not set by OS
 		ui_util.load_theme()
 		

@@ -17,7 +17,7 @@
 #	You should have received a copy of the GNU General Public License
 #	along with OpenShot Video Editor.  If not, see <http://www.gnu.org/licenses/>.
 
-from classes import info, SettingStore, ProjectDataStore, language
+from classes import info, SettingStore, ProjectDataStore, UpdateManager, language
 from PyQt5.QtWidgets import QApplication
 
 def get_app():
@@ -45,8 +45,12 @@ class OpenShotApp(QApplication):
 		#Tests of project data loading/saving
 		self.project = ProjectDataStore.ProjectDataStore()
 		
+		#Init Update Manager
+		self.update_manager = UpdateManager.UpdateManager()
+		self.update_manager.add_listener(self.project)
+		
 		#proj.load(proj_path)
-		#print (proj._data)
+		#print (self.project._data)
 		#proj.set('fps', proj.get('fps') + 5)
 		#print (proj._data)
 		#proj.save(proj_path)

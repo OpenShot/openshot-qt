@@ -35,13 +35,10 @@ class JsonDataStore:
 		key = key.lower()
 		return self._data.get(key, None)
 		
-	#Store setting, but adding isn't allowed. All possible settings must be in default settings file.
+	#Store value in key.
 	def set(self, key, value):
 		key = key.lower()
-		if key in self._data:
-			self._data[key] = value
-		else:
-			log.warn("%s key '%s' not valid. The following are valid: %s", self.data_type, key, list(self._data.keys()))
+		self._data[key] = value
 		
 	#Make all keys in dictionary lower cased
 	def homogenize_keys(self, data):
