@@ -217,7 +217,6 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher):
 		self.sliderZoom.setRange(8, 200)
 		self.sliderZoom.setValue(20)
 		self.sliderZoom.setInvertedControls(True)
-		#self.sliderZoom.setSizeHint(100, 20)
 		self.sliderZoom.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
 		self.timelineToolbar.addWidget(self.sliderZoom)
 		
@@ -228,7 +227,6 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher):
 
 		#Create main window base class
 		QMainWindow.__init__(self)
-		
 		
 		#Load theme if not set by OS
 		ui_util.load_theme()
@@ -251,8 +249,6 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher):
 		self.frameWeb.layout().addWidget(self.timeline)
 		
 		#setup tree
-		#self.gridLayout_2.removeWidget(self.treeView)
-		#self.treeView.close()
-		self.treeView = MediaTreeView(self.tabFiles)
+		self.treeView = MediaTreeView(self)
 		self.gridLayout_2.addWidget(self.treeView, 1, 0)
 

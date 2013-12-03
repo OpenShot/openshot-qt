@@ -93,7 +93,6 @@ class TimelineWebView(QWebView):
 		self.page().mainFrame().javaScriptWindowObjectCleared.connect(self.setup_js_data)
 		
 		#Connect zoom functionality
-		print (window.sliderZoom.singleStep(), window.sliderZoom.pageStep())
 		window.sliderZoom.valueChanged.connect(self.update_zoom)
 
 		

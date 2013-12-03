@@ -50,16 +50,20 @@
 						<div class="clip_top">
 							<div class="clip_menu" tl-clip-menu></div>
 							
-							<div class="clip_effects" id="effects_{{clip.number}}" ng-show="clip.effects.length">
+							<span class="clip_effects" id="effects_{{clip.number}}" ng-show="clip.effects.length">
 								<img ng-repeat="effect in clip.effects" id="effect_{{clip.number}}_{{$index}}" class="effect_icon" ng-src="media/images/effects/{{effect.icon}}"/>
-							</div>
+							</span>
 							<div class="clip_label">Clip {{clip.number}}</div>
 							<br class="cleared">
 						</div>
 						<br class="cleared">
-						<img class="thumb-start" ng-src="media/images/clip_images/{{clip.images.start}}.png"/>
-						<img class="thumb-end" ng-src="media/images/clip_images/{{clip.images.end}}.png"/>
-						<canvas height="46px" class="audio" style="width:{{clip.length * pixelsPerSecond}}px;left:{{clip.position * pixelsPerSecond}}px;" tl-audio></canvas>
+						<div class="thumb-container">
+							<img class="thumb thumb-start" ng-src="media/images/clip_images/{{clip.images.start}}.png"/>
+							<img class="thumb thumb-end" ng-src="media/images/clip_images/{{clip.images.end}}.png"/>
+						</div>
+						<div class="audio-container">
+							<canvas height="46px" width="{{clip.length * pixelsPerSecond}}px;left:{{clip.position * pixelsPerSecond}}px" class="audio"  tl-audio></canvas>
+						</div>
 					</div>
 				</div>
 			</div>

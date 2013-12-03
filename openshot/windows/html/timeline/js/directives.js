@@ -6,7 +6,8 @@ var clip_lefts = {};
 var is_scrolling = false;
 var starting_scrollbar = { x: 0, y: 0 };
 var starting_mouse_position = { x: 0, y: 0 };
-
+//variables for scrolling control
+var scroll_left_pixels = 0;
 
 
 //treats element as a track
@@ -34,7 +35,10 @@ App.directive('tlTrack', function($timeout) {
 		       			clip_id = clip.attr("id");
 						clip_num = clip_id.substr(clip_id.indexOf("_") + 1);
 						clip_top = clip.position().top;
-						clip_left = clip.position().left;
+						clip_left = clip.position().left + scroll_left_pixels;
+
+						//make sure the clip isn't dropped off too far to the left
+						if (clip_left < 0) clip_left = 0;
 
 		            	//get track the clip was dropped on 
 		            	drop_track_id = findTrackAtLocation(parseInt(clip_top));
@@ -87,25 +91,8 @@ App.directive('tlClip', function($timeout){
 				clip_lefts["clip_"+scope.clip.number] = element.position().left;
 			
 				//if clip has audio data, show it instead of images
-				if (scope.clip.audio_data){
-					//hide images
-					element.find(".thumb-start").hide()
-					element.find(".thumb-end").hide()
-					//draw audio
-					var ctx = element.find(".audio")[0].getContext('2d');
-					var mid_point = parseInt(element.css("height")) / 2;
-					var line_spot = 5;
-					for (var i = 0; i < scope.clip.audio_data.length; i++) {
-						//line_spot += 1;
-						//ctx.lineWidth = 1;
-						//ctx.beginPath();
-						//ctx.moveTo(line_spot, mid_point);
-						//ctx.lineTo(line_spot, mid_point);
-						//ctx.strokeStyle = "#fff";
-						//ctx.stroke();
-					}
-		
-					
+				if (scope.clip.show_audio){
+					drawAudio(scope, element);
 				}
 				
 			},0);
@@ -116,6 +103,8 @@ App.directive('tlClip', function($timeout){
 				maxWidth: scope.clip.duration * scope.pixelsPerSecond,
 				start: function(e, ui) {
 					dragging = true;
+
+					
 					//determine which side is being changed
 					var parentOffset = element.offset(); 
 					var mouseLoc = e.pageX - parentOffset.left;
@@ -124,10 +113,19 @@ App.directive('tlClip', function($timeout){
 					} else {
 						dragLoc = 'right';
 					}
+
+					//hide audio canvas, as we'll need to redraw it
+					element.find(".audio-container").hide();
+
+					//hide the image container while it resizes
+					element.find(".thumb-container").hide();
+					element.find(".clip_top").hide();
+
 					console.log("DRAGGING SIDE: " + dragLoc);
 
 				},
 				stop: function(e, ui) {
+
 					dragging = false;
 					//get amount changed in width
 					var delta_x = ui.size.width - ui.originalSize.width;
@@ -166,6 +164,7 @@ App.directive('tlClip', function($timeout){
 						console.log("NEW END: " + new_end);
 					}
 
+					//apply the new start, end and length to the clip's scope
 					scope.$apply(function(){
 						if (scope.clip.end != new_end){
 							scope.clip.end = new_end;
@@ -173,10 +172,55 @@ App.directive('tlClip', function($timeout){
 						if (scope.clip.start != new_start){
 							scope.clip.start = new_start;
 						}
+						scope.clip.length = element.width() / scope.pixelsPerSecond;
 					});
-					
 
+					//check clip width to determine which elements can be shown
+					var clip_width = element.width();
+					var thumb_width = $(".thumb").outerWidth(true);
+					var effects_width = element.find(".clip_effects").outerWidth(true);	
+					var label_width = element.find(".clip_label").outerWidth(true);
+					var menu_width = element.find(".clip_menu").outerWidth(true);	
+					console.log(element.find(".clip_label"));
+					//set min widths
+					var min_for_thumb_end = thumb_width * 2;
+					var min_for_thumb_start = thumb_width;
+					var min_for_menu = menu_width;
+					var min_for_effects = menu_width + effects_width;
+					console.log("Menu: " + menu_width);
+					console.log("Effects " + effects_width);
+					console.log("Label " + label_width);
+					var min_for_label = menu_width + effects_width + label_width;
 
+					console.log("min for label: " + min_for_label + " clip_width: " + clip_width );
+
+					//resize the audio canvas to match the new clip width
+					if (scope.clip.show_audio){
+						element.find(".audio-container").show();
+						//redraw audio as the resize cleared the canvas
+						drawAudio(scope,element);
+					}else{
+						//show the images as audio is not shown
+
+						//show end clip?
+						(clip_width <= min_for_thumb_end) ? element.find(".thumb-end").hide() : element.find(".thumb-end").show();
+						
+						//show start clip?
+						(clip_width <= min_for_thumb_start) ? element.find(".thumb-start").hide() : element.find(".thumb-start").show();
+						
+						//show label?
+						(clip_width <= min_for_label) ? element.find(".clip_label").hide() : element.find(".clip_label").show();
+						console.log("width: " + clip_width + " | min_end: " + min_for_label);	
+						
+						//show effects?
+						(clip_width <= min_for_effects) ? element.find(".clip_effects").hide() : element.find(".clip_effects").show();
+				
+						//show menu?
+						(clip_width <= min_for_menu) ? element.find(".clip_menu").hide() : element.find(".clip_menu").show();
+				
+						element.find(".clip_top").show();
+						element.find(".thumb-container").show();
+					}
 					dragLoc = null;
 					
 					
@@ -223,6 +267,11 @@ App.directive('tlClip', function($timeout){
                 	// Clear previous drag position
 					previous_drag_position = null;
 					dragging = false;
+
+					//redraw audio
+					if (scope.clip.show_audio){
+						drawAudio(scope, element);
+					}
 
 				},
                 drag: function(e, ui) {
@@ -288,6 +337,8 @@ App.directive('tlMultiSelectable', function(){
 
 // This container allows for tracks to be scrolled (with synced ruler)
 // and allows for panning of the timeline with the middle mouse button
+
+
 App.directive('tlScrollableTracks', function () {
 	return {
 		restrict: 'A',
@@ -296,6 +347,9 @@ App.directive('tlScrollableTracks', function () {
 			
 			//sync ruler to track scrolling
 			element.on('scroll', function () {
+				//set amount scrolled
+				scroll_left_pixels = element.scrollLeft();
+
 				$('#track_controls').scrollTop(element.scrollTop());
 				$('#scrolling_ruler').scrollLeft(element.scrollLeft());
 				$('#progress_container').scrollLeft(element.scrollLeft());
@@ -306,7 +360,6 @@ App.directive('tlScrollableTracks', function () {
 				//make sure the playhead line stays with the playhead top
 				scope.$apply(function(){
 					scope.playlineLocation = line_loc;
-
 				});
 			});
 
