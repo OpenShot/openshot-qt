@@ -56,6 +56,24 @@ def search_dir(base_path, theme_name):
 	#If no match found in dir, return None
 	return None
 	
+def setup_icon(window, elem, name, theme_name=None):
+	type_filter = 'action'
+	if isinstance(elem, QWidget): #Search for widget with name instead
+		type_filter = 'widget'
+	#Find iconset in tree (if any)
+	iconset = window.uiTree.find('.//' + type_filter + '[@name="' + name + '"]/property[@name="icon"]/iconset')
+	if iconset != None: #For some reason "if iconset:" doesn't work the same as "!= None"
+		if not theme_name:
+			theme_name = iconset.get('theme', '')
+		if theme_name:
+			has_icon = QIcon.hasThemeIcon(theme_name)
+			if not has_icon:
+				log.warn('Icon theme %s not found. Will use backup icon.', theme_name)
+			fallback_icon, fallback_path = get_default_icon(theme_name)
+			#log.info('Fallback icon path for %s is %s', theme_name, fallback_path)
+			if has_icon or fallback_icon:
+				elem.setIcon(QIcon.fromTheme(theme_name, fallback_icon))
+	
 #Initialize language and icons of the given element
 def init_element(window, elem):
 	_translate = QApplication.instance().translate
@@ -81,21 +99,7 @@ def init_element(window, elem):
 			elem.setTabToolTip(i, _translate("", elem.tabToolTip(i)) )
 	#Set icon if possible
 	if hasattr(elem, 'setIcon') and name != '': #Has ability to set its icon
-		type_filter = 'action'
-		if isinstance(elem, QWidget): #Search for widget with name instead
-			type_filter = 'widget'
-		#Find iconset in tree (if any)
-		iconset = window.uiTree.find('.//' + type_filter + '[@name="' + name + '"]/property[@name="icon"]/iconset')
-		if iconset != None: #For some reason "if iconset:" doesn't work the same as "!= None"
-			theme_name = iconset.get('theme', '')
-			if theme_name:
-				has_icon = QIcon.hasThemeIcon(theme_name)
-				if not has_icon:
-					log.warn('Icon theme %s not found. Will use backup icon.', theme_name)
-				fallback_icon, fallback_path = get_default_icon(theme_name)
-				#log.info('Fallback icon path for %s is %s', theme_name, fallback_path)
-				if has_icon or fallback_icon:
-					elem.setIcon(QIcon.fromTheme(theme_name, fallback_icon))
+		setup_icon(window, elem, name)
 
 def connect_auto_events(window, elem, name):
 	#If trigger slot available check it
@@ -121,4 +125,7 @@ def init_ui(window):
 	# Loop through all actions
 	for action in window.findChildren(QAction):
 		init_element(window, action)
+	
+def transfer_children(from_widget, to_widget):
+	log.info("Transfering children from '%s' to '%s'", from_widget.objectName(), to_widget.objectName())
 	

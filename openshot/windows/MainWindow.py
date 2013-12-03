@@ -31,7 +31,7 @@ import xml.etree.ElementTree as ElementTree
 
 #This class combines the main window widget with initializing the application and providing a pass-thru exec_ function
 class MainWindow(QMainWindow, UpdateManager.UpdateWatcher):
-	ui_path = os.path.join(info.PATH, 'windows','ui','main.ui')
+	ui_path = os.path.join(info.PATH, 'windows','ui', 'main.ui')
 	
 	#Save window settings on close
 	def closeEvent(self, event):
@@ -87,7 +87,7 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher):
 		app.update_manager.redo()
 		#log.info(app.project._data)
 		
-	def btnPlay_click(self, event):
+	def actionPlay_trigger(self, event):
 		app = OpenShotApp.get_app()
 		curr_val = app.project.get("settings/nfigg-setting")
 		if curr_val == None:
@@ -98,18 +98,23 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher):
 			update = dict()
 			update["a"] = curr_val["a"] + 1
 			app.update_manager.update("settings/nfigg-setting", update, partial_update=True)
+			
+		if self.actionPlay.isChecked():
+			ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
+		else:
+			ui_util.setup_icon(self, self.actionPlay, "actionPlay") #to default
 		#log.info(app.project._data)
 		
-	def btnFastForward_click(self, event):
+	def actionFastForward_trigger(self, event):
 		app = OpenShotApp.get_app()
 		curr_val = app.project.get("settings/nfigg-setting")
 		if not curr_val == None and curr_val["a"] > 1:
-			log.info ("Remove value")
+			log.info ("Decrement value")
 			update = dict()
 			update["a"] = curr_val["a"] - 1
 			app.update_manager.update("settings/nfigg-setting", update, partial_update=True)
 		elif not curr_val == None:
-			log.info ("Decrement value")
+			log.info ("Remove value")
 			app.update_manager.remove("settings/nfigg-setting")
 		#log.info(app.project._data)
 	
@@ -149,11 +154,81 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher):
 
 		#TODO: Call load_settings on any sub-objects necessary
 		
+	def setup_toolbars(self):
+		app = OpenShotApp.get_app()
+		
+		#Start undo and redo actions disabled
+		self.actionUndo.setEnabled(False)
+		self.actionRedo.setEnabled(False)
+
+		#Add Video Preview toolbar
+		self.videoToolbar = QToolBar("Timeline Toolbar")
+		
+		#Add left spacer
+		spacer = QWidget(self)
+		spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+		self.videoToolbar.addWidget(spacer)
+		
+		#Playback controls
+		self.videoToolbar.addAction(self.actionJumpStart)
+		self.videoToolbar.addAction(self.actionRewind)
+		self.videoToolbar.addAction(self.actionPlay)
+		self.videoToolbar.addAction(self.actionFastForward)
+		self.videoToolbar.addAction(self.actionJumpEnd)
+		self.actionPlay.setCheckable(True)
+		
+		#Add right spacer
+		spacer = QWidget(self)
+		spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+		self.videoToolbar.addWidget(spacer)
+		
+		self.tabVideo.layout().addWidget(self.videoToolbar)
+		
+		#Add Timeline toolbar
+		self.timelineToolbar = QToolBar("Timeline Toolbar", self)
+		
+		self.timelineToolbar.addAction(self.actionAddTrack)
+		self.timelineToolbar.addSeparator()
+
+		#Create togglable group of actions for selecting current tool
+		self.toolActionGroup = QActionGroup(self)
+		self.toolActionGroup.setExclusive(True)
+		self.toolActionGroup.addAction(self.actionArrowTool)
+		self.toolActionGroup.addAction(self.actionRazorTool)
+		self.actionArrowTool.setChecked(True)
+		self.timelineToolbar.addAction(self.actionArrowTool)
+		self.timelineToolbar.addAction(self.actionRazorTool)
+
+		#rest of options
+		self.timelineToolbar.addAction(self.actionSnappingTool)
+		self.timelineToolbar.addSeparator()
+		self.timelineToolbar.addAction(self.actionAddMarker)
+		self.timelineToolbar.addAction(self.actionPreviousMarker)
+		self.timelineToolbar.addAction(self.actionNextMarker)
+		self.timelineToolbar.addSeparator()
+
+		#Zoom controls
+		self.label = QLabel(app._tr("Zoom In") + "/" + app._tr("Zoom Out") + ":", self)
+		#self.label #todo set padding or something
+		self.timelineToolbar.addWidget(self.label)
+		
+		self.sliderZoom = QSlider(Qt.Horizontal, self)
+		self.sliderZoom.setPageStep(6)
+		self.sliderZoom.setRange(8, 200)
+		self.sliderZoom.setValue(20)
+		self.sliderZoom.setInvertedControls(True)
+		#self.sliderZoom.setSizeHint(100, 20)
+		self.sliderZoom.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
+		self.timelineToolbar.addWidget(self.sliderZoom)
+		
+		#Add toolbar to web frame
+		self.frameWeb.layout().addWidget(self.timelineToolbar)
+		
 	def __init__(self):
 
 		#Create main window base class
 		QMainWindow.__init__(self)
-		#self.setAcceptDrops(True)
+		
 		
 		#Load theme if not set by OS
 		ui_util.load_theme()
@@ -166,19 +241,18 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher):
 
 		#Init UI
 		ui_util.init_ui(self)
-		
-		#Start undo and redo actions disabled
-		self.actionUndo.setEnabled(False)
-		self.actionRedo.setEnabled(False)
 
+		#Setup toolbars that aren't on main window, set initial state of items, etc
+		self.setup_toolbars()
+		
 		#setup timeline
 		self.timeline = TimelineWebView(self)
 		#add timeline to web frame layout
 		self.frameWeb.layout().addWidget(self.timeline)
 		
 		#setup tree
-		self.gridLayout_2.removeWidget(self.treeView)
-		self.treeView.close()
+		#self.gridLayout_2.removeWidget(self.treeView)
+		#self.treeView.close()
 		self.treeView = MediaTreeView(self.tabFiles)
 		self.gridLayout_2.addWidget(self.treeView, 1, 0)
 

@@ -40,6 +40,21 @@
     <bool>false</bool>
    </property>
    <layout class="QGridLayout" name="gridLayout">
+    <property name="leftMargin">
+     <number>5</number>
+    </property>
+    <property name="topMargin">
+     <number>5</number>
+    </property>
+    <property name="rightMargin">
+     <number>5</number>
+    </property>
+    <property name="bottomMargin">
+     <number>5</number>
+    </property>
+    <property name="spacing">
+     <number>3</number>
+    </property>
     <item row="0" column="0">
      <widget class="QSplitter" name="splitter_2">
       <property name="orientation">
@@ -128,13 +143,6 @@
             </layout>
            </widget>
           </item>
-          <item row="1" column="0">
-           <widget class="QTreeView" name="treeView">
-            <property name="acceptDrops">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
          </layout>
         </widget>
         <widget class="QWidget" name="tab_2">
@@ -153,175 +161,49 @@
          </attribute>
         </widget>
        </widget>
-       <widget class="QFrame" name="frame">
-        <property name="enabled">
-         <bool>true</bool>
+       <widget class="QTabWidget" name="tabOuterVideo">
+        <property name="currentIndex">
+         <number>0</number>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
-         <property name="leftMargin">
-          <number>9</number>
-         </property>
-         <item>
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>OpenShot Error</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QGraphicsView" name="graphicsView">
-           <property name="autoFillBackground">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QFrame" name="frame_3">
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
-            <item>
-             <spacer name="horizontalSpacer_2">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QPushButton" name="btnPlay">
-              <property name="toolTip">
-               <string>Play</string>
-              </property>
-              <property name="icon">
-               <iconset theme="media-playback-start">
-                <normaloff/>
-               </iconset>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="btnFastForward">
-              <property name="toolTip">
-               <string>Seek Forward</string>
-              </property>
-              <property name="icon">
-               <iconset theme="media-seek-forward">
-                <normaloff/>
-               </iconset>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_3">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QWidget" name="tabVideo">
+         <attribute name="title">
+          <string>Video Preview</string>
+         </attribute>
+         <attribute name="toolTip">
+          <string>Video Preview</string>
+         </attribute>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>5</number>
+          </property>
+          <property name="topMargin">
+           <number>5</number>
+          </property>
+          <property name="rightMargin">
+           <number>5</number>
+          </property>
+          <property name="bottomMargin">
+           <number>5</number>
+          </property>
+          <item>
+           <widget class="QWidget" name="videoDisplay" native="true">
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(0, 0, 0);</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
        </widget>
       </widget>
-      <widget class="QFrame" name="frameWeb">
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
-         <widget class="QFrame" name="frame_2">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-          <layout class="QHBoxLayout" name="horizontalLayout">
-           <item>
-            <widget class="QLabel" name="label">
-             <property name="text">
-              <string>Zoom</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QSlider" name="sliderZoom">
-             <property name="maximumSize">
-              <size>
-               <width>200</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="minimum">
-              <number>8</number>
-             </property>
-             <property name="maximum">
-              <number>210</number>
-             </property>
-             <property name="singleStep">
-              <number>2</number>
-             </property>
-             <property name="pageStep">
-              <number>20</number>
-             </property>
-             <property name="value">
-              <number>16</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="invertedControls">
-              <bool>true</bool>
-             </property>
-             <property name="tickPosition">
-              <enum>QSlider::NoTicks</enum>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="lblZoomAmt">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </widget>
-        </item>
-       </layout>
+      <widget class="QWidget" name="frameWeb" native="true">
+       <layout class="QVBoxLayout" name="verticalLayout_2"/>
       </widget>
      </widget>
     </item>
@@ -338,7 +220,7 @@
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>File</string>
+     <string>&amp;File</string>
     </property>
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
@@ -350,8 +232,41 @@
     <addaction name="separator"/>
     <addaction name="actionSave"/>
     <addaction name="actionSaveAs"/>
+    <addaction name="separator"/>
+    <addaction name="actionExportVideo"/>
+    <addaction name="actionUploadVideo"/>
+    <addaction name="separator"/>
+    <addaction name="actionQuit"/>
+   </widget>
+   <widget class="QMenu" name="menu_Edit">
+    <property name="title">
+     <string>&amp;Edit</string>
+    </property>
+    <addaction name="actionUndo"/>
+    <addaction name="actionRedo"/>
+    <addaction name="separator"/>
+    <addaction name="actionPreferences"/>
+   </widget>
+   <widget class="QMenu" name="menuTitle">
+    <property name="title">
+     <string>Title</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
    </widget>
    <addaction name="menuFile"/>
+   <addaction name="menu_Edit"/>
+   <addaction name="menuTitle"/>
+   <addaction name="menuView"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
@@ -372,6 +287,9 @@
    <addaction name="actionRedo"/>
    <addaction name="separator"/>
    <addaction name="actionImportFiles"/>
+   <addaction name="separator"/>
+   <addaction name="actionTakeSnapshot"/>
+   <addaction name="actionExportVideo"/>
   </widget>
   <action name="actionNew">
    <property name="icon">
@@ -499,9 +417,222 @@
     <string>Remove Transition</string>
    </property>
   </action>
+  <action name="actionTakeSnapshot">
+   <property name="text">
+    <string>Take Snapshot</string>
+   </property>
+   <property name="toolTip">
+    <string>Take Snapshot</string>
+   </property>
+  </action>
+  <action name="actionExportVideo">
+   <property name="icon">
+    <iconset theme="media-record" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/media-toolbar/media-record.svg</normaloff>:/icons/Compass/actions/media-toolbar/media-record.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Export Video</string>
+   </property>
+   <property name="toolTip">
+    <string>Export Video</string>
+   </property>
+  </action>
+  <action name="actionUploadVideo">
+   <property name="text">
+    <string>Upload Video</string>
+   </property>
+   <property name="toolTip">
+    <string>Upload Video</string>
+   </property>
+  </action>
+  <action name="actionQuit">
+   <property name="icon">
+    <iconset theme="gtk-quit"/>
+   </property>
+   <property name="text">
+    <string>&amp;Quit</string>
+   </property>
+   <property name="toolTip">
+    <string>Quit</string>
+   </property>
+  </action>
+  <action name="actionAddTrack">
+   <property name="icon">
+    <iconset theme="add" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/misc/add.svg</normaloff>:/icons/Compass/actions/misc/add.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Add Track</string>
+   </property>
+   <property name="toolTip">
+    <string>Add Track</string>
+   </property>
+  </action>
+  <action name="actionPreferences">
+   <property name="icon">
+    <iconset theme="document-properties" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/misc/document-properties.svg</normaloff>:/icons/Compass/actions/misc/document-properties.svg</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Preferences</string>
+   </property>
+   <property name="toolTip">
+    <string>Preferences</string>
+   </property>
+  </action>
+  <action name="actionPlay">
+   <property name="icon">
+    <iconset theme="media-playback-start" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/media-toolbar/media-playback-start.svg</normaloff>:/icons/Compass/actions/media-toolbar/media-playback-start.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Play</string>
+   </property>
+   <property name="toolTip">
+    <string>Play</string>
+   </property>
+  </action>
+  <action name="actionJumpStart">
+   <property name="icon">
+    <iconset theme="go-first" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/nav-toolbar/go-first.svg</normaloff>:/icons/Compass/actions/nav-toolbar/go-first.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Jump To Start</string>
+   </property>
+   <property name="toolTip">
+    <string>Jump To Start</string>
+   </property>
+  </action>
+  <action name="actionRewind">
+   <property name="icon">
+    <iconset theme="media-seek-backward" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/media-toolbar/media-seek-backward.svg</normaloff>:/icons/Compass/actions/media-toolbar/media-seek-backward.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Rewind</string>
+   </property>
+   <property name="toolTip">
+    <string>Rewind</string>
+   </property>
+  </action>
+  <action name="actionFastForward">
+   <property name="icon">
+    <iconset theme="media-seek-forward" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/media-toolbar/media-seek-forward.svg</normaloff>:/icons/Compass/actions/media-toolbar/media-seek-forward.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Fast Forward</string>
+   </property>
+   <property name="toolTip">
+    <string>Fast Forward</string>
+   </property>
+  </action>
+  <action name="actionJumpEnd">
+   <property name="icon">
+    <iconset theme="go-last" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/nav-toolbar/go-last.svg</normaloff>:/icons/Compass/actions/nav-toolbar/go-last.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Jump To End</string>
+   </property>
+   <property name="toolTip">
+    <string>Jump To End</string>
+   </property>
+  </action>
+  <action name="actionArrowTool">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset theme="document-send" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/misc/document-send.svg</normaloff>:/icons/Compass/actions/misc/document-send.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Arrow Tool</string>
+   </property>
+   <property name="toolTip">
+    <string>Arrow Tool</string>
+   </property>
+  </action>
+  <action name="actionRazorTool">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset theme="edit-cut" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/edit-toolbar/edit-cut.svg</normaloff>:/icons/Compass/actions/edit-toolbar/edit-cut.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Razor Tool</string>
+   </property>
+   <property name="toolTip">
+    <string>Razor Tool</string>
+   </property>
+  </action>
+  <action name="actionSnappingTool">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Snapping Enabled</string>
+   </property>
+   <property name="toolTip">
+    <string>Snapping Enabled</string>
+   </property>
+  </action>
+  <action name="actionAddMarker">
+   <property name="text">
+    <string>Add Marker</string>
+   </property>
+   <property name="toolTip">
+    <string>Add Marker</string>
+   </property>
+  </action>
+  <action name="actionPreviousMarker">
+   <property name="icon">
+    <iconset theme="go-first" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/nav-toolbar/go-first.svg</normaloff>:/icons/Compass/actions/nav-toolbar/go-first.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Previous Marker</string>
+   </property>
+   <property name="toolTip">
+    <string>Previous Marker</string>
+   </property>
+  </action>
+  <action name="actionNextMarker">
+   <property name="icon">
+    <iconset theme="go-last" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/nav-toolbar/go-last.svg</normaloff>:/icons/Compass/actions/nav-toolbar/go-last.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Next Marker</string>
+   </property>
+   <property name="toolTip">
+    <string>Next Marker</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="../../images/openshot.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>actionQuit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>403</x>
+     <y>314</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>403</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

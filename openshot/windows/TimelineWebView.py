@@ -56,19 +56,8 @@ class TimelineWebView(QWebView):
 		if int(QCoreApplication.instance().keyboardModifiers() & Qt.ControlModifier) > 0:
 			#For each 120 (standard scroll unit) adjust the zoom slider
 			tick_scale = 120
-			y = event.angleDelta().y()
-			up = y > 0
-			while (y != 0):
-				if up and y > tick_scale:
-					y -= tick_scale
-				elif not up and y < -tick_scale:
-					y += tick_scale
-				else:
-					y = 0
-				if up:
-					self.window.sliderZoom.triggerAction(QAbstractSlider.SliderPageStepSub)
-				else:
-					self.window.sliderZoom.triggerAction(QAbstractSlider.SliderPageStepAdd)		
+			steps = int(event.angleDelta().y() / tick_scale)
+			self.window.sliderZoom.setValue(self.window.sliderZoom.value() - self.window.sliderZoom.pageStep() * steps)
 		#Otherwise pass on to implement default functionality (scroll in QWebView)
 		else:
 			#self.show_context_menu('clip') #Test of spontaneous context menu creation
@@ -104,6 +93,7 @@ class TimelineWebView(QWebView):
 		self.page().mainFrame().javaScriptWindowObjectCleared.connect(self.setup_js_data)
 		
 		#Connect zoom functionality
+		print (window.sliderZoom.singleStep(), window.sliderZoom.pageStep())
 		window.sliderZoom.valueChanged.connect(self.update_zoom)
 
 		
