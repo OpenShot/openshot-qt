@@ -1,4 +1,4 @@
-var App = angular.module('openshot-timeline', []);
+var App = angular.module('openshot-timeline', ['ui.bootstrap']);
 
 
 

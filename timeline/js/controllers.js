@@ -1,5 +1,5 @@
 
-App.controller('TimelineCtrl', function($scope,$timeout) {
+App.controller('TimelineCtrl',function($scope,$timeout) {
 
 
 

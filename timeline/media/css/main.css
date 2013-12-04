@@ -43,8 +43,9 @@ body {
 .clip_top {}
 .clip_menu {float:left;margin-top:4px;margin-left:4px;margin-right:4px;width:12px;height:12px;background-image: url(../images/menu.png);}
 .clip_label {float:left; padding-top: 2px; width:50px; margin-left: 2px; color:#000;font-weight:bold;}
-.clip_effects {float:left; margin-left:2px; margin-right:2px; background: rgba(54, 25, 25, .2); padding:2px;overflow:hidden;line-height:18px;height:18px;border-top-left-radius: 6px; border-bottom-left-radius: 6px;border-top-right-radius: 6px; border-bottom-right-radius: 6px;}
+.clip_effects {border:1px solid #000; text-align:center; width:20px; font-size:14px; padding:1px; font-weight:bold; float:left; margin-left:2px; margin-right:2px; margin-top:2px; cursor:default; background: rgba(54, 25, 25, .2); overflow:hidden;line-height:15px;height:15px;border-top-left-radius: 6px; border-bottom-left-radius: 6px;border-top-right-radius: 6px; border-bottom-right-radius: 6px;}
 .effect_icon {margin-left:1px;margin-right:1px;}
+
 .clip { min-width:0px; height: 68px; position: absolute; left: 100px; font-family: Sans; font-size: 9pt; background-color: #ef7f00; background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(162,213,249,1)), color-stop(50%,rgba(92,153,206,1)), color-stop(51%,rgba(92,153,206,1)), color-stop(100%,rgba(162,213,249,1))); border-radius: 8px; border: 1px solid #4b92ad; border-left: 2px solid #4b92ad; border-right: 2px solid #4b92ad; }
 .left_edge_stop { border-left: 2px solid #4b92ad; }
 .right_edge_stop { border-right: 2px solid #4b92ad; }
@@ -55,8 +56,10 @@ body {
 .thumb-start { float:left; }
 .thumb-end {float:right; }
 .audio {}
-.thumb-container { margin-top:-14px; }
-.audio-container { display:none; margin-top:-15px; background-color:#000;height:46px;border-top-left-radius: 4px; border-bottom-left-radius: 4px;border-top-right-radius: 4px; border-bottom-right-radius: 4px;}
+.thumb-container { margin-top:-18px; }
+.audio-container { display:none; margin-top:-18px; background-color:#000;height:46px;border-top-left-radius: 4px; border-bottom-left-radius: 4px;border-top-right-radius: 4px; border-bottom-right-radius: 4px;}
+
+
 /* Scrollbar style */
 ::-webkit-scrollbar {width: 6px; height: 6px; background: #000000; }
 ::-webkit-scrollbar-thumb { background-color: #4b92ad; -webkit-border-radius: 1ex; }
