@@ -18,6 +18,9 @@ body {
   border:2px dotted white;
 } 
 
+img {
+    max-width: none;
+}
 
 #scrolling_ruler { overflow: hidden; position: relative; }
 #scrolling_tracks { height: 316px; overflow: scroll; position: relative; }

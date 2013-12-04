@@ -92,7 +92,7 @@ App.directive('tlClip', function($timeout){
 			
 				//if clip has audio data, show it instead of images
 				if (scope.clip.show_audio){
-					drawAudio(scope, element);
+					drawAudio(scope, scope.clip.number);
 				}
 				
 			},0);
@@ -179,7 +179,7 @@ App.directive('tlClip', function($timeout){
 					if (scope.clip.show_audio){
 						element.find(".audio-container").show();
 						//redraw audio as the resize cleared the canvas
-						drawAudio(scope,element);
+						drawAudio(scope, scope.clip.number);
 					}
 				
 					dragLoc = null;
@@ -188,45 +188,10 @@ App.directive('tlClip', function($timeout){
 
 				},
 				resize: function() {
-					//check clip width to determine which elements can be shown
-					var clip_width = element.width();
-					var thumb_width = $(".thumb").outerWidth(true);
-					var effects_width = element.find(".clip_effects").outerWidth(true);	
-					var label_width = element.find(".clip_label").outerWidth(true);
-					var menu_width = element.find(".clip_menu").outerWidth(true);	
-					console.log(element.find(".clip_label"));
-					//set min widths
-					var min_for_thumb_end = thumb_width * 2;
-					var min_for_thumb_start = thumb_width;
-					var min_for_menu = menu_width;
-					var min_for_effects = menu_width + effects_width;
-					var min_for_label = menu_width + effects_width + label_width;
-
-					console.log("min for label: " + min_for_label + " clip_width: " + clip_width );
+					//show or hide elements based on size
+					//drawAudio(scope, scope.clip.number);
+					handleVisibleClipElements(scope, scope.clip.number);
 					
-				
-					//show the images as audio is not shown
-					if (!scope.clip.show_audio){
-						//show end clip?
-						(clip_width <= min_for_thumb_end) ? element.find(".thumb-end").hide() : element.find(".thumb-end").show();
-						
-						//show start clip?
-						(clip_width <= min_for_thumb_start) ? element.find(".thumb-start").hide() : element.find(".thumb-start").show();
-					}
-
-					//show label?
-					(clip_width <= min_for_label) ? element.find(".clip_label").hide() : element.find(".clip_label").show();
-					console.log("width: " + clip_width + " | min_end: " + min_for_label);	
-					
-					//show effects?
-					(clip_width <= min_for_effects) ? element.find(".clip_effects").hide() : element.find(".clip_effects").show();
-			
-					//show menu?
-					(clip_width <= min_for_menu) ? element.find(".clip_menu").hide() : element.find(".clip_menu").show();
-			
-					element.find(".clip_top").show();
-					element.find(".thumb-container").show();
-				
 				},
 
 			});
@@ -272,7 +237,7 @@ App.directive('tlClip', function($timeout){
 
 					//redraw audio
 					if (scope.clip.show_audio){
-						drawAudio(scope, element);
+						drawAudio(scope, scope.clip.number);
 					}
 
 				},
@@ -502,6 +467,14 @@ App.directive('tlRuler', function ($timeout) {
 							};
 							
 						});
+
+						//redraw audio if needed
+						$.each(scope.clips, function(){
+							drawAudio(scope, this.number);
+							handleVisibleClipElements(scope, this.number);
+						});
+						
+						
 						
 				    }, 0);   
 
