@@ -10,8 +10,7 @@ function findElement(arr, propName, propValue) {
 
 //draws the audio wave on a clip
 function drawAudio(scope, element){
-    //hide images and show audio container
-    element.find(".thumb-container").hide();
+    //show audio container
     element.find(".audio-container").show();
     
     //draw audio

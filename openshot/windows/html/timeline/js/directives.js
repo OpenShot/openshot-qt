@@ -118,8 +118,8 @@ App.directive('tlClip', function($timeout){
 					element.find(".audio-container").hide();
 
 					//hide the image container while it resizes
-					element.find(".thumb-container").hide();
-					element.find(".clip_top").hide();
+					//element.find(".thumb-container").hide();
+					//element.find(".clip_top").hide();
 
 					console.log("DRAGGING SIDE: " + dragLoc);
 
@@ -175,6 +175,19 @@ App.directive('tlClip', function($timeout){
 						scope.clip.length = element.width() / scope.pixelsPerSecond;
 					});
 
+					//resize the audio canvas to match the new clip width
+					if (scope.clip.show_audio){
+						element.find(".audio-container").show();
+						//redraw audio as the resize cleared the canvas
+						drawAudio(scope,element);
+					}
+				
+					dragLoc = null;
+					
+					
+
+				},
+				resize: function() {
 					//check clip width to determine which elements can be shown
 					var clip_width = element.width();
 					var thumb_width = $(".thumb").outerWidth(true);
@@ -187,44 +200,33 @@ App.directive('tlClip', function($timeout){
 					var min_for_thumb_start = thumb_width;
 					var min_for_menu = menu_width;
 					var min_for_effects = menu_width + effects_width;
-					console.log("Menu: " + menu_width);
-					console.log("Effects " + effects_width);
-					console.log("Label " + label_width);
 					var min_for_label = menu_width + effects_width + label_width;
 
 					console.log("min for label: " + min_for_label + " clip_width: " + clip_width );
-
-					//resize the audio canvas to match the new clip width
-					if (scope.clip.show_audio){
-						element.find(".audio-container").show();
-						//redraw audio as the resize cleared the canvas
-						drawAudio(scope,element);
-					}else{
-						//show the images as audio is not shown
-
+					
+				
+					//show the images as audio is not shown
+					if (!scope.clip.show_audio){
 						//show end clip?
 						(clip_width <= min_for_thumb_end) ? element.find(".thumb-end").hide() : element.find(".thumb-end").show();
 						
 						//show start clip?
 						(clip_width <= min_for_thumb_start) ? element.find(".thumb-start").hide() : element.find(".thumb-start").show();
-						
-						//show label?
-						(clip_width <= min_for_label) ? element.find(".clip_label").hide() : element.find(".clip_label").show();
-						console.log("width: " + clip_width + " | min_end: " + min_for_label);	
-						
-						//show effects?
-						(clip_width <= min_for_effects) ? element.find(".clip_effects").hide() : element.find(".clip_effects").show();
-				
-						//show menu?
-						(clip_width <= min_for_menu) ? element.find(".clip_menu").hide() : element.find(".clip_menu").show();
-				
-						element.find(".clip_top").show();
-						element.find(".thumb-container").show();
 					}
-					dragLoc = null;
-					
-					
 
+					//show label?
+					(clip_width <= min_for_label) ? element.find(".clip_label").hide() : element.find(".clip_label").show();
+					console.log("width: " + clip_width + " | min_end: " + min_for_label);	
+					
+					//show effects?
+					(clip_width <= min_for_effects) ? element.find(".clip_effects").hide() : element.find(".clip_effects").show();
+			
+					//show menu?
+					(clip_width <= min_for_menu) ? element.find(".clip_menu").hide() : element.find(".clip_menu").show();
+			
+					element.find(".clip_top").show();
+					element.find(".thumb-container").show();
+				
 				},
 
 			});
@@ -323,6 +325,15 @@ App.directive('tlClip', function($timeout){
 
 
 
+App.directive('tlClipEffects', function(){
+	return{
+		link: function(scope, element, attrs){
+
+		}
+	}
+});
+
+
 App.directive('tlMultiSelectable', function(){
 	return {
 		link: function(scope, element, attrs){
@@ -366,6 +377,7 @@ App.directive('tlScrollableTracks', function () {
 			//handle panning when middle mouse is clicked
 			element.on('mousedown', function(e) {
 				if (e.which == 2) { // middle button
+					e.preventDefault();
 					is_scrolling = true;
 					starting_scrollbar = { x: element.scrollLeft(), y: element.scrollTop() }
 					starting_mouse_position = { x: e.pageX, y: e.pageY }
