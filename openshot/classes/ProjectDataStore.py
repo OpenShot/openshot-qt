@@ -17,7 +17,7 @@
 #	You should have received a copy of the GNU General Public License
 #	along with OpenShot Video Editor.  If not, see <http://www.gnu.org/licenses/>.
 
-import os
+import os, random, copy
 from classes.JsonDataStore import JsonDataStore
 from classes.UpdateManager import UpdateInterface
 from classes import info
@@ -31,6 +31,10 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 		self.data_type = "project data" #Used in error messages
 		self.current_filepath = "" #What is currently loaded or last saved
 		self.default_project_filepath = os.path.join(info.PATH, 'settings', '_default.project')
+		
+		log.info(self.generate_id())
+		log.info(self.generate_id())
+		log.info(self.generate_id())
 		
 		#Load default project data on creation
 		self.new()
@@ -55,7 +59,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 			obj = obj[key_part]
 			#If this was last part, we've found object, return it
 			if len(parts) == 0:
-				return obj
+				return copy.deepcopy(obj)
 
 	#Store setting, but adding isn't allowed. All possible settings must be in default settings file.
 	def _set(self, key, values=None, add=False, partial_update=False, remove=False):
@@ -146,3 +150,12 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 	def remove(self, action):
 		old_vals = self._set(action.key, remove=True)
 		action.set_old_values(old_vals)
+		
+	#Utility methods
+	def generate_id(self, digits=10):
+		chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+		id = ""
+		for i in range(digits):
+			c_index = random.randint(0, len(chars)-1)
+			id += (chars[c_index])
+		return id

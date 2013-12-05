@@ -17,11 +17,14 @@
 #	You should have received a copy of the GNU General Public License
 #	along with OpenShot Video Editor.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
+from urllib.parse import urlparse
 from classes.logger import log
 from classes.SettingStore import SettingStore
-from PyQt5.QtCore import QMimeData, QSize, Qt, QCoreApplication, QPoint
+from classes.OpenShotApp import get_app
+from PyQt5.QtCore import QMimeData, QSize, Qt, QCoreApplication, QPoint, QFileInfo
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QTreeView, QApplication
+from PyQt5.QtWidgets import QTreeView, QApplication, QMessageBox
 
 class MediaTreeView(QTreeView):
 	drag_item_size = 32
@@ -47,12 +50,71 @@ class MediaTreeView(QTreeView):
 	def dragMoveEvent(self, event):
 		pass
 	
+	def update_model(self):
+		files = get_app().project.get("files")
+		
+		#Get model
+		mod = self.model()
+		mod.setRowCount(0) #Remove all but header
+		#add item for each file
+		for file in files:
+			path, filename = os.path.split(file["path"])
+			item = QStandardItem(filename)
+			mod.invisibleRootItem().appendRow(item)
+			row = mod.rowCount() - 1
+			mod.setData( mod.index(row,1), "Unknown")
+			mod.setData( mod.index(row,2), path)
+			mod.setData( mod.index(row,3), file["id"])
+		
+	def add_file(self, filepath):
+		path, filename = os.path.split(filepath)
+		
+		#Add file into project
+		app = get_app()
+		proj = app.project
+		files = proj.get("files") #get files list
+		found = False
+		new_id = proj.generate_id()
+		
+		for f in files:
+			if f["id"] == new_id:
+				new_id = proj.generate_id()
+			if f["path"] == filepath:
+				found = True
+				break
+			
+		if found:
+			msg = QMessageBox()
+			msg.setText(app._tr("File already added to project."))
+			msg.exec_()
+			return False
+
+		#Create file info
+		file = {"id": new_id, "path": filepath, "tags": [], "chunk_completion": 0.0, "chunk_path": "", "info": {}}
+		files.append(file)
+		
+		#Update files
+		app.update_manager.update("files", files)
+			
+		#Refresh tree model
+		self.update_model()
+		
+	
 	#Handle a drag and drop being dropped on widget
 	def dropEvent(self, event):
 		log.info('Dropping file(s) on files tree.')
-		for u in event.mimeData().urls():
-			log.info('Url: ' + u.toString())
-		event.accept()
+		for uri in event.mimeData().urls():
+			log.info('Uri: ' + uri.toString())
+			file_url = urlparse(uri.toString())
+			if file_url.scheme == "file":
+				filepath = file_url.path
+				if filepath[0] == "/" and ":" in filepath:
+					filepath = filepath[1:]
+				log.info('Path: %s', filepath)
+				log.info("Exists: %s, IsFile: %s", os.path.exists(filepath), os.path.isfile(filepath))
+				if os.path.exists(filepath) and os.path.isfile(filepath):
+					self.add_file(filepath)
+					event.accept()
 		
 	def mousePressEvent(self, event):
 		self.startDragPos = event.pos()
@@ -66,19 +128,22 @@ class MediaTreeView(QTreeView):
 		
 		
 		#Load data model and add some items to it
-		mod = QStandardItemModel(0, 2)
+		mod = QStandardItemModel(0, 4)
 		parent_node = mod.invisibleRootItem()
 		mod.setHeaderData(0, Qt.Horizontal, "Name")
 		mod.setHeaderData(1, Qt.Horizontal, "Type")
-		for i in range(4):
-			item = QStandardItem("Clip" + str(i))
-			parent_node.appendRow(item)
-			index = mod.index(i,1)
-			if i % 2 == 0:
-				mod.setData(index, "Video")
-			else:
-				mod.setData(index, "Audio")
+		mod.setHeaderData(2, Qt.Horizontal, "Path")
+		mod.setHeaderData(3, Qt.Horizontal, "ID")
 		self.setModel(mod)
+		self.update_model()
+		#for i in range(4):
+		#	item = QStandardItem("Clip" + str(i))
+		#	parent_node.appendRow(item)
+		#	index = mod.index(i,1)
+		#	if i % 2 == 0:
+		#		mod.setData(index, "Video")
+		#	else:
+		#		mod.setData(index, "Audio")
 	
 	
 	

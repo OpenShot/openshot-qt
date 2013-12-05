@@ -49,6 +49,7 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher):
 			app.project.load(file_path)
 			app.project.current_filepath = file_path
 			app.update_manager.reset()
+			self.treeView.update_model()
 			log.info("Loaded project %s" % (file_path))
 		
 	def actionSave_trigger(self, event):
@@ -76,6 +77,15 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher):
 				log.info("Saved %s" % (file_path))
 			except Exception as ex:
 				log.error("Couldn't save project %s", file_path)
+		
+	def actionImportFiles_trigger(self, event):
+		app = OpenShotApp.get_app()
+		file_path, file_type = QFileDialog.getOpenFileName(self, app._tr("Import File..."))
+		if file_path:
+			self.treeView.add_file(file_path)
+			self.treeView.update_model()
+			log.info("Loaded project %s" % (file_path))
+
 		
 	def actionUndo_trigger(self, event):
 		app = OpenShotApp.get_app()
