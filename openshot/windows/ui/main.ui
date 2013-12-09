@@ -81,68 +81,22 @@
          <attribute name="title">
           <string>Project Files</string>
          </attribute>
-         <layout class="QGridLayout" name="gridLayout_2">
-          <item row="0" column="0">
-           <widget class="QWidget" name="widget" native="true">
-            <layout class="QHBoxLayout" name="horizontalLayout_3">
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
-             <item>
-              <widget class="QPushButton" name="pushButton_2">
-               <property name="text">
-                <string>Show All</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_3">
-               <property name="text">
-                <string>Video</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_4">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>Audio</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_5">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>Image</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit"/>
-             </item>
-            </layout>
-           </widget>
-          </item>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>5</number>
+          </property>
+          <property name="topMargin">
+           <number>5</number>
+          </property>
+          <property name="rightMargin">
+           <number>5</number>
+          </property>
+          <property name="bottomMargin">
+           <number>5</number>
+          </property>
          </layout>
         </widget>
         <widget class="QWidget" name="tab_2">
@@ -203,7 +157,20 @@
        </widget>
       </widget>
       <widget class="QWidget" name="frameWeb" native="true">
-       <layout class="QVBoxLayout" name="verticalLayout_2"/>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <property name="leftMargin">
+         <number>5</number>
+        </property>
+        <property name="topMargin">
+         <number>5</number>
+        </property>
+        <property name="rightMargin">
+         <number>5</number>
+        </property>
+        <property name="bottomMargin">
+         <number>5</number>
+        </property>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -447,7 +414,9 @@
   </action>
   <action name="actionQuit">
    <property name="icon">
-    <iconset theme="gtk-quit"/>
+    <iconset theme="gtk-quit">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Quit</string>
@@ -613,6 +582,62 @@
     <string>Next Marker</string>
    </property>
   </action>
+  <action name="actionFilesShowAll">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show All</string>
+   </property>
+   <property name="toolTip">
+    <string>Show All</string>
+   </property>
+  </action>
+  <action name="actionFilesShowVideo">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Video</string>
+   </property>
+   <property name="toolTip">
+    <string>Video</string>
+   </property>
+  </action>
+  <action name="actionFilesShowAudio">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Audio</string>
+   </property>
+   <property name="toolTip">
+    <string>Audio</string>
+   </property>
+  </action>
+  <action name="actionFilesShowImage">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Image</string>
+   </property>
+   <property name="toolTip">
+    <string>Image</string>
+   </property>
+  </action>
+  <action name="actionFilesClear">
+   <property name="icon">
+    <iconset theme="editclear" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/misc/editclear.svg</normaloff>:/icons/Compass/actions/misc/editclear.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Clear</string>
+   </property>
+   <property name="toolTip">
+    <string>Clear</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="../../images/openshot.qrc"/>
@@ -625,8 +650,8 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>403</x>
-     <y>314</y>
+     <x>-1</x>
+     <y>-1</y>
     </hint>
     <hint type="destinationlabel">
      <x>403</x>

@@ -97,6 +97,16 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher):
 		app.update_manager.redo()
 		#log.info(app.project._data)
 		
+	def add(self, action):
+		if action.key.startswith("files"):
+			self.treeView.update_model()
+	def update(self, action):
+		if action.key.startswith("files"):
+			self.treeView.update_model()
+	def remove(self, action):
+		if action.key.startswith("files"):
+			self.treeView.update_model()
+		
 	def actionPlay_trigger(self, event):
 		app = OpenShotApp.get_app()
 		curr_val = app.project.get("settings/nfigg-setting")
@@ -170,6 +180,25 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher):
 		#Start undo and redo actions disabled
 		self.actionUndo.setEnabled(False)
 		self.actionRedo.setEnabled(False)
+		
+		#Add files toolbar
+		self.filesToolbar = QToolBar("Files Toolbar")
+		self.filesActionGroup = QActionGroup(self)
+		self.filesActionGroup.setExclusive(True)
+		self.filesActionGroup.addAction(self.actionFilesShowAll)
+		self.filesActionGroup.addAction(self.actionFilesShowVideo)
+		self.filesActionGroup.addAction(self.actionFilesShowAudio)
+		self.filesActionGroup.addAction(self.actionFilesShowImage)
+		self.actionFilesShowAll.setChecked(True)
+		self.filesToolbar.addAction(self.actionFilesShowAll)
+		self.filesToolbar.addAction(self.actionFilesShowVideo)
+		self.filesToolbar.addAction(self.actionFilesShowAudio)
+		self.filesToolbar.addAction(self.actionFilesShowImage)
+		self.filesFilter = QLineEdit()
+		self.filesToolbar.addWidget(self.filesFilter)
+		self.actionFilesClear.setEnabled(False)
+		self.filesToolbar.addAction(self.actionFilesClear)
+		self.tabFiles.layout().addWidget(self.filesToolbar)
 
 		#Add Video Preview toolbar
 		self.videoToolbar = QToolBar("Timeline Toolbar")
@@ -260,5 +289,5 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher):
 		
 		#setup tree
 		self.treeView = MediaTreeView(self)
-		self.gridLayout_2.addWidget(self.treeView, 1, 0)
+		self.tabFiles.layout().addWidget(self.treeView) #gridLayout_2  , 1, 0
 

@@ -51,6 +51,7 @@ class MediaTreeView(QTreeView):
 		pass
 	
 	def update_model(self):
+		log.info("updating files model.")
 		files = get_app().project.get("files")
 		
 		#Get model
@@ -97,7 +98,7 @@ class MediaTreeView(QTreeView):
 		app.update_manager.update("files", files)
 			
 		#Refresh tree model
-		self.update_model()
+		#self.update_model()
 		
 	
 	#Handle a drag and drop being dropped on widget
