@@ -23,7 +23,8 @@ from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 from windows.TimelineWebView import TimelineWebView
-from classes import info, ui_util, SettingStore, qt_types, OpenShotApp, UpdateManager
+from classes import info, ui_util, SettingStore, qt_types, UpdateManager
+from classes.OpenShotApp import get_app
 from classes.logger import log
 from images import openshot_rc
 from windows.MediaTreeView import MediaTreeView
@@ -38,12 +39,11 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher, UpdateManager.UpdateI
 		self.save_settings()
 		
 	def actionNew_trigger(self, event):
-		app = OpenShotApp.get_app()
-		app.project.new()
+		get_app().project.new()
 		log.info("New Project created.")
 		
 	def actionOpen_trigger(self, event):
-		app = OpenShotApp.get_app()
+		app = get_app()
 		file_path, file_type = QFileDialog.getOpenFileName(self, app._tr("Open Project..."))
 		if file_path:
 			app.project.load(file_path)
@@ -53,7 +53,7 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher, UpdateManager.UpdateI
 			log.info("Loaded project %s" % (file_path))
 		
 	def actionSave_trigger(self, event):
-		app = OpenShotApp.get_app()
+		app = get_app()
 		#Get current filepath if any, otherwise ask user
 		file_path = app.project.current_filepath
 		if not file_path:
@@ -68,7 +68,7 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher, UpdateManager.UpdateI
 				log.error("Couldn't save project %s", file_path)
 
 	def actionSaveAs_trigger(self, event):
-		app = OpenShotApp.get_app()
+		app = get_app()
 		file_path, file_type = QFileDialog.getSaveFileName(self, app._tr("Save Project As..."))
 		if file_path:
 			try:
@@ -79,7 +79,7 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher, UpdateManager.UpdateI
 				log.error("Couldn't save project %s", file_path)
 		
 	def actionImportFiles_trigger(self, event):
-		app = OpenShotApp.get_app()
+		app = get_app()
 		file_path, file_type = QFileDialog.getOpenFileName(self, app._tr("Import File..."))
 		if file_path:
 			self.mediaTreeView.add_file(file_path)
@@ -88,30 +88,26 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher, UpdateManager.UpdateI
 
 		
 	def actionUndo_trigger(self, event):
-		app = OpenShotApp.get_app()
+		app = get_app()
 		app.update_manager.undo()
 		#log.info(app.project._data)
 
 	def actionRedo_trigger(self, event):
-		app = OpenShotApp.get_app()
+		app = get_app()
 		app.update_manager.redo()
 		#log.info(app.project._data)
 		
-	
-	#UpdateManager.UpdateInterface implementation
-	# These events can be used to respond to certain updates by refreshing ui elemnts, etc.
-	def add(self, action):
-		if action.key.startswith("files"):
-			self.mediaTreeView.update_model()
-	def update(self, action):
-		if action.key.startswith("files"):
-			self.mediaTreeView.update_model()
-	def remove(self, action):
-		if action.key.startswith("files"):
-			self.mediaTreeView.update_model()
+	def actionFilesShowAll_trigger(self, event):
+		self.mediaTreeView.update_model()
+	def actionFilesShowVideo_trigger(self, event):
+		self.mediaTreeView.update_model()
+	def actionFilesShowAudio_trigger(self, event):
+		self.mediaTreeView.update_model()
+	def actionFilesShowImage_trigger(self, event):
+		self.mediaTreeView.update_model()
 	
 	def actionPlay_trigger(self, event):
-		app = OpenShotApp.get_app()
+		app = get_app()
 		curr_val = app.project.get("settings/nfigg-setting")
 		if curr_val == None:
 			log.info ("Addvalue")
@@ -129,7 +125,7 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher, UpdateManager.UpdateI
 		#log.info(app.project._data)
 		
 	def actionFastForward_trigger(self, event):
-		app = OpenShotApp.get_app()
+		app = get_app()
 		curr_val = app.project.get("settings/nfigg-setting")
 		if not curr_val == None and curr_val["a"] > 1:
 			log.info ("Decrement value")
@@ -178,13 +174,13 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher, UpdateManager.UpdateI
 		#TODO: Call load_settings on any sub-objects necessary
 		
 	def setup_toolbars(self):
-		app = OpenShotApp.get_app()
+		app = get_app()
 		
 		#Start undo and redo actions disabled
 		self.actionUndo.setEnabled(False)
 		self.actionRedo.setEnabled(False)
 		
-		#Add files toolbar
+		#Add files toolbar =================================================================================
 		self.filesToolbar = QToolBar("Files Toolbar")
 		self.filesActionGroup = QActionGroup(self)
 		self.filesActionGroup.setExclusive(True)
@@ -198,12 +194,13 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher, UpdateManager.UpdateI
 		self.filesToolbar.addAction(self.actionFilesShowAudio)
 		self.filesToolbar.addAction(self.actionFilesShowImage)
 		self.filesFilter = QLineEdit()
+		self.filesFilter.setObjectName("filesFilter")
 		self.filesToolbar.addWidget(self.filesFilter)
 		self.actionFilesClear.setEnabled(False)
 		self.filesToolbar.addAction(self.actionFilesClear)
 		self.tabFiles.layout().addWidget(self.filesToolbar)
 
-		#Add Video Preview toolbar
+		#Add Video Preview toolbar ==========================================================================
 		self.videoToolbar = QToolBar("Timeline Toolbar")
 		
 		#Add left spacer
@@ -226,7 +223,7 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher, UpdateManager.UpdateI
 		
 		self.tabVideo.layout().addWidget(self.videoToolbar)
 		
-		#Add Timeline toolbar
+		#Add Timeline toolbar ================================================================================
 		self.timelineToolbar = QToolBar("Timeline Toolbar", self)
 		
 		self.timelineToolbar.addAction(self.actionAddTrack)
@@ -269,6 +266,8 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher, UpdateManager.UpdateI
 
 		#Create main window base class
 		QMainWindow.__init__(self)
+		#set window on app for reference during initialization of children
+		get_app().window = self
 		
 		#Load theme if not set by OS
 		ui_util.load_theme()
@@ -285,14 +284,11 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher, UpdateManager.UpdateI
 		#Setup toolbars that aren't on main window, set initial state of items, etc
 		self.setup_toolbars()
 		
-		#Register self to get data updates
-		app = OpenShotApp.get_app()
-		app.update_manager.add_listener(self)
+		# Add window as watcher to receive undo/redo status updates
+		get_app().update_manager.add_watcher(self)
 		
 		#setup timeline
 		self.timeline = TimelineWebView(self)
-		app.update_manager.add_listener(self.timeline)
-		#add timeline to web frame layout
 		self.frameWeb.layout().addWidget(self.timeline)
 		
 		#setup tree

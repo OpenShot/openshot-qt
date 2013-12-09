@@ -18,7 +18,7 @@
 #	along with OpenShot Video Editor.  If not, see <http://www.gnu.org/licenses/>.
 
 import simplejson as json
-import sys, os
+import sys, os, copy
 from PyQt5.QtCore import QStandardPaths, QCoreApplication
 from classes.logger import log
 from classes import info
@@ -33,7 +33,7 @@ class JsonDataStore:
 	#Get key from settings
 	def get(self, key):
 		key = key.lower()
-		return self._data.get(key, None)
+		return copy.deepcopy(self._data.get(key, None))
 		
 	#Store value in key.
 	def set(self, key, value):

@@ -24,11 +24,11 @@ class UpdateWatcher:
 		raise NotImplementedError("updateStatus() not implemented in UpdateWatcher implementer.")
 
 class UpdateInterface:
-	def add(self, action):
+	def update_add(self, action):
 		raise NotImplementedError("add() not implemented in UpdateInterface implementer.")
-	def update(self, action):
+	def update_update(self, action):
 		raise NotImplementedError("update() not implemented in UpdateInterface implementer.")
-	def remove(self, action):
+	def update_remove(self, action):
 		raise NotImplementedError("remove() not implemented in UpdateInterface implementer.")
 
 class UpdateAction:
@@ -120,11 +120,11 @@ class UpdateManager:
 		try:
 			for listener in self.updateListeners:
 				if action.type == "add":
-					listener.add(action)
+					listener.update_add(action)
 				elif action.type == "update":
-					listener.update(action)
+					listener.update_update(action)
 				elif action.type == "remove":
-					listener.remove(action)
+					listener.update_remove(action)
 		except Exception as ex:
 			log.error("Couldn't apply '%s' to update listener: %s\n%s", action.type, listener, ex)
 		self.update_watchers()

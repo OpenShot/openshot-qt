@@ -32,10 +32,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 		self.current_filepath = "" #What is currently loaded or last saved
 		self.default_project_filepath = os.path.join(info.PATH, 'settings', '_default.project')
 		
-		log.info(self.generate_id())
-		log.info(self.generate_id())
-		log.info(self.generate_id())
-		
 		#Load default project data on creation
 		self.new()
 
@@ -140,14 +136,14 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 		self.current_filepath = file_path
 
 	#UpdateInterface methods
-	def add(self, action):
+	def update_add(self, action):
 		self._set(action.key, action.values, add=True)
 	
-	def update(self, action):
+	def update_update(self, action):
 		old_vals = self._set(action.key, action.values, partial_update=action.partial_update)
 		action.set_old_values(old_vals) #Save previous values to reverse this action
 		
-	def remove(self, action):
+	def update_remove(self, action):
 		old_vals = self._set(action.key, remove=True)
 		action.set_old_values(old_vals)
 		

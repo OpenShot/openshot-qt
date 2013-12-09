@@ -17,6 +17,7 @@
 #	You should have received a copy of the GNU General Public License
 #	along with OpenShot Video Editor.  If not, see <http://www.gnu.org/licenses/>.
 
+from classes.logger import log
 from classes import info, SettingStore, ProjectDataStore, UpdateManager, language
 from PyQt5.QtWidgets import QApplication
 
@@ -48,21 +49,12 @@ class OpenShotApp(QApplication):
 		#Init Update Manager
 		self.update_manager = UpdateManager.UpdateManager()
 		self.update_manager.add_listener(self.project)
-		
-		#proj.load(proj_path)
-		#print (self.project._data)
-		#proj.set('fps', proj.get('fps') + 5)
-		#print (proj._data)
-		#proj.save(proj_path)
 			
 		# Create main window
 		from windows.MainWindow import MainWindow
 		self.window = MainWindow()
 		self.window.show()
-		
-		# Add window as watcher to receive undo/redo status updates
-		self.update_manager.add_watcher(self.window)
-	
+			
 	def _tr(self, message):
 		return self.translate("", message)
 		

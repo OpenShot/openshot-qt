@@ -158,6 +158,9 @@
       </widget>
       <widget class="QWidget" name="frameWeb" native="true">
        <layout class="QVBoxLayout" name="verticalLayout_2">
+        <property name="spacing">
+         <number>0</number>
+        </property>
         <property name="leftMargin">
          <number>5</number>
         </property>

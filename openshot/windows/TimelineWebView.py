@@ -23,13 +23,22 @@ from PyQt5.QtGui import QCursor
 from PyQt5.QtWidgets import QAbstractSlider, QMenu
 from PyQt5.QtWebKitWidgets import QWebView
 from classes.logger import log
-from classes import info
+from classes.OpenShotApp import get_app
+from classes import info, UpdateManager
 
 JS_SCOPE_SELECTOR = "$('body').scope()"
 
-class TimelineWebView(QWebView):
+class TimelineWebView(QWebView, UpdateManager.UpdateInterface):
 	html_path = os.path.join(info.PATH, 'windows','html','timeline','index.html')
 
+	#UpdateManager.UpdateInterface implementation
+	def update_add(self, action):
+		log.info("Timeline update_add handler")
+	def update_update(self, action):
+		log.info("Timeline update_update handler")
+	def update_remove(self, action):
+		log.info("Timeline update_remove handler")
+	
 	#Prevent default context menu, and ignore, so that javascript can intercept
 	def contextMenuEvent(self, event):
 		event.ignore()
@@ -85,6 +94,9 @@ class TimelineWebView(QWebView):
 		QWebView.__init__(self)
 		self.window = window
 		self.setAcceptDrops(True)
+
+		#Add self as listener to project data updates (used to update the timeline)
+		get_app().update_manager.add_listener(self)
 		
 		#set url from configuration (QUrl takes absolute paths for file system paths, create from QFileInfo)
 		self.setUrl(QUrl.fromLocalFile(QFileInfo(self.html_path).absoluteFilePath()))

@@ -19,6 +19,7 @@
 
 import os
 from urllib.parse import urlparse
+from classes import UpdateManager
 from classes.logger import log
 from classes.SettingStore import SettingStore
 from classes.OpenShotApp import get_app
@@ -26,9 +27,21 @@ from PyQt5.QtCore import QMimeData, QSize, Qt, QCoreApplication, QPoint, QFileIn
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QTreeView, QApplication, QMessageBox
 
-class MediaTreeView(QTreeView):
+class MediaTreeView(QTreeView, UpdateManager.UpdateInterface):
 	drag_item_size = 32
 	
+	#UpdateManager.UpdateInterface implementation
+	# These events can be used to respond to certain updates by refreshing ui elemnts, etc.
+	def update_add(self, action):
+		if action.key.startswith("files"):
+			self.update_model()
+	def update_update(self, action):
+		if action.key.startswith("files"):
+			self.update_model()
+	def update_remove(self, action):
+		if action.key.startswith("files"):
+			self.update_model()
+			
 	def mouseMoveEvent(self, event):
 		#If mouse drag detected, set the proper data and icon and start dragging
 		if event.buttons() & Qt.LeftButton == Qt.LeftButton and (event.pos() - self.startDragPos).manhattanLength() >= QApplication.startDragDistance():
@@ -50,9 +63,25 @@ class MediaTreeView(QTreeView):
 	def dragMoveEvent(self, event):
 		pass
 	
+	def get_filetype(self, file):
+		path = file["path"]
+		
+		if path.endswith((".mp4", ".avi", ".mov")):
+			return "video"
+		if path.endswith((".mp3", ".wav", ".ogg")):
+			return "audio"
+		if path.endswith((".jpg", ".jpeg", ".png", ".bmp")):
+			return "image"
+			
+		#Otherwise, unknown
+		return "unknown"
+			
 	def update_model(self):
 		log.info("updating files model.")
 		files = get_app().project.get("files")
+		
+		#Get window to check filters
+		win = get_app().window
 		
 		#Get model
 		mod = self.model()
@@ -60,10 +89,26 @@ class MediaTreeView(QTreeView):
 		#add item for each file
 		for file in files:
 			path, filename = os.path.split(file["path"])
+			
+			if not win.actionFilesShowAll.isChecked():
+				if win.actionFilesShowVideo.isChecked():
+					if not file["type"] == "video":
+						continue #to next file, didn't match filter
+				elif win.actionFilesShowAudio.isChecked():
+					if not file["type"] == "audio":
+						continue #to next file, didn't match filter
+				elif win.actionFilesShowImage.isChecked():
+					if not file["type"] == "image":
+						continue #to next file, didn't match filter
+						
+			if win.filesFilter.text() != "":
+				if not win.filesFilter.text() in filename:
+					continue
+			
 			item = QStandardItem(filename)
 			mod.invisibleRootItem().appendRow(item)
 			row = mod.rowCount() - 1
-			mod.setData( mod.index(row,1), "Unknown")
+			mod.setData( mod.index(row,1), file["type"])
 			mod.setData( mod.index(row,2), path)
 			mod.setData( mod.index(row,3), file["id"])
 		
@@ -92,41 +137,52 @@ class MediaTreeView(QTreeView):
 
 		#Create file info
 		file = {"id": new_id, "path": filepath, "tags": [], "chunk_completion": 0.0, "chunk_path": "", "info": {}}
+		file['type'] = self.get_filetype(file)
 		files.append(file)
 		
 		#Update files
-		app.update_manager.update("files", files)
-			
-		#Refresh tree model
-		#self.update_model()
-		
+		app.update_manager.update("files", files)		
 	
 	#Handle a drag and drop being dropped on widget
 	def dropEvent(self, event):
-		log.info('Dropping file(s) on files tree.')
+		#log.info('Dropping file(s) on files tree.')
 		for uri in event.mimeData().urls():
-			log.info('Uri: ' + uri.toString())
+			#log.info('Uri: ' + uri.toString())
 			file_url = urlparse(uri.toString())
 			if file_url.scheme == "file":
 				filepath = file_url.path
 				if filepath[0] == "/" and ":" in filepath:
 					filepath = filepath[1:]
-				log.info('Path: %s', filepath)
-				log.info("Exists: %s, IsFile: %s", os.path.exists(filepath), os.path.isfile(filepath))
+				#log.info('Path: %s', filepath)
+				#log.info("Exists: %s, IsFile: %s", os.path.exists(filepath), os.path.isfile(filepath))
 				if os.path.exists(filepath) and os.path.isfile(filepath):
+					log.info('Adding file: %s', filepath)
 					self.add_file(filepath)
 					event.accept()
 		
 	def mousePressEvent(self, event):
 		self.startDragPos = event.pos()
 			
+	def clear_filter(self):
+		get_app().window.filesFilter.setText("")
+		
+	def filter_changed(self):
+		self.update_model()
+		win = get_app().window
+		if win.filesFilter.text() == "":
+			win.actionFilesClear.setEnabled(False)
+		else:
+			win.actionFilesClear.setEnabled(True)
+			
 	def __init__(self, *args):
 		QTreeView.__init__(self, *args)
-		
 		#Keep track of mouse press start position to determine when to start drag
 		self.startDragPos = None
 		self.setAcceptDrops(True)
 		
+		#Add self as listener to project data updates (undo/redo, as well as normal actions handled within this class all update the tree model)
+		app = get_app()
+		app.update_manager.add_listener(self)
 		
 		#Load data model and add some items to it
 		mod = QStandardItemModel(0, 4)
@@ -137,14 +193,11 @@ class MediaTreeView(QTreeView):
 		mod.setHeaderData(3, Qt.Horizontal, "ID")
 		self.setModel(mod)
 		self.update_model()
-		#for i in range(4):
-		#	item = QStandardItem("Clip" + str(i))
-		#	parent_node.appendRow(item)
-		#	index = mod.index(i,1)
-		#	if i % 2 == 0:
-		#		mod.setData(index, "Video")
-		#	else:
-		#		mod.setData(index, "Audio")
-	
+
+		#setup filter events
+		app.window.filesFilter.textChanged.connect(self.filter_changed)
+		app.window.actionFilesClear.triggered.connect(self.clear_filter)
+		
+
 	
 	
