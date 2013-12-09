@@ -29,8 +29,8 @@ from images import openshot_rc
 from windows.MediaTreeView import MediaTreeView
 import xml.etree.ElementTree as ElementTree
 
-#This class combines the main window widget with initializing the application and providing a pass-thru exec_ function
-class MainWindow(QMainWindow, UpdateManager.UpdateWatcher):
+#This class contains the logic for the main window widget
+class MainWindow(QMainWindow, UpdateManager.UpdateWatcher, UpdateManager.UpdateInterface):
 	ui_path = os.path.join(info.PATH, 'windows','ui', 'main.ui')
 	
 	#Save window settings on close
@@ -49,7 +49,7 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher):
 			app.project.load(file_path)
 			app.project.current_filepath = file_path
 			app.update_manager.reset()
-			self.treeView.update_model()
+			self.mediaTreeView.update_model()
 			log.info("Loaded project %s" % (file_path))
 		
 	def actionSave_trigger(self, event):
@@ -82,8 +82,8 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher):
 		app = OpenShotApp.get_app()
 		file_path, file_type = QFileDialog.getOpenFileName(self, app._tr("Import File..."))
 		if file_path:
-			self.treeView.add_file(file_path)
-			self.treeView.update_model()
+			self.mediaTreeView.add_file(file_path)
+			self.mediaTreeView.update_model()
 			log.info("Loaded project %s" % (file_path))
 
 		
@@ -97,16 +97,19 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher):
 		app.update_manager.redo()
 		#log.info(app.project._data)
 		
+	
+	#UpdateManager.UpdateInterface implementation
+	# These events can be used to respond to certain updates by refreshing ui elemnts, etc.
 	def add(self, action):
 		if action.key.startswith("files"):
-			self.treeView.update_model()
+			self.mediaTreeView.update_model()
 	def update(self, action):
 		if action.key.startswith("files"):
-			self.treeView.update_model()
+			self.mediaTreeView.update_model()
 	def remove(self, action):
 		if action.key.startswith("files"):
-			self.treeView.update_model()
-		
+			self.mediaTreeView.update_model()
+	
 	def actionPlay_trigger(self, event):
 		app = OpenShotApp.get_app()
 		curr_val = app.project.get("settings/nfigg-setting")
@@ -282,12 +285,17 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher):
 		#Setup toolbars that aren't on main window, set initial state of items, etc
 		self.setup_toolbars()
 		
+		#Register self to get data updates
+		app = OpenShotApp.get_app()
+		app.update_manager.add_listener(self)
+		
 		#setup timeline
 		self.timeline = TimelineWebView(self)
+		app.update_manager.add_listener(self.timeline)
 		#add timeline to web frame layout
 		self.frameWeb.layout().addWidget(self.timeline)
 		
 		#setup tree
-		self.treeView = MediaTreeView(self)
-		self.tabFiles.layout().addWidget(self.treeView) #gridLayout_2  , 1, 0
+		self.mediaTreeView = MediaTreeView(self)
+		self.tabFiles.layout().addWidget(self.mediaTreeView) #gridLayout_2  , 1, 0
 

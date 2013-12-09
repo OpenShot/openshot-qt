@@ -58,7 +58,6 @@ class OpenShotApp(QApplication):
 		# Create main window
 		from windows.MainWindow import MainWindow
 		self.window = MainWindow()
-		self.update_manager.add_listener(self.window)
 		self.window.show()
 		
 		# Add window as watcher to receive undo/redo status updates
