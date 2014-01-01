@@ -56,6 +56,8 @@ class TimelineWebView(QWebView, UpdateManager.UpdateInterface):
 	
 	#Handle changes to zoom level, update js
 	def update_zoom(self, newValue):
+		_ = get_app()._tr
+		self.window.zoomScaleLabel.setText(_("%s seconds") % newValue)
 		#Get access to timeline scope and set scale to zoom slider value (passed in)
 		cmd = JS_SCOPE_SELECTOR + ".setScale(" + str(newValue) + ");"
 		self.page().mainFrame().evaluateJavaScript(cmd)

@@ -44,20 +44,22 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher, UpdateManager.UpdateI
 		
 	def actionOpen_trigger(self, event):
 		app = get_app()
-		file_path, file_type = QFileDialog.getOpenFileName(self, app._tr("Open Project..."))
+		_ = app._tr
+		file_path, file_type = QFileDialog.getOpenFileName(self, _("Open Project..."))
 		if file_path:
 			app.project.load(file_path)
 			app.project.current_filepath = file_path
 			app.update_manager.reset()
-			self.mediaTreeView.update_model()
+			self.filesTreeView.update_model()
 			log.info("Loaded project %s" % (file_path))
 		
 	def actionSave_trigger(self, event):
 		app = get_app()
+		_ = app._tr
 		#Get current filepath if any, otherwise ask user
 		file_path = app.project.current_filepath
 		if not file_path:
-			file_path, file_type = QFileDialog.getSaveFileName(self, app._tr("Save Project..."))
+			file_path, file_type = QFileDialog.getSaveFileName(self, _("Save Project..."))
 		
 		if file_path:
 			try:
@@ -69,7 +71,8 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher, UpdateManager.UpdateI
 
 	def actionSaveAs_trigger(self, event):
 		app = get_app()
-		file_path, file_type = QFileDialog.getSaveFileName(self, app._tr("Save Project As..."))
+		_ = app._tr
+		file_path, file_type = QFileDialog.getSaveFileName(self, _("Save Project As..."))
 		if file_path:
 			try:
 				app.project.save(file_path)
@@ -80,10 +83,11 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher, UpdateManager.UpdateI
 		
 	def actionImportFiles_trigger(self, event):
 		app = get_app()
-		file_path, file_type = QFileDialog.getOpenFileName(self, app._tr("Import File..."))
+		_ = app._tr
+		file_path, file_type = QFileDialog.getOpenFileName(self, _("Import File..."))
 		if file_path:
-			self.mediaTreeView.add_file(file_path)
-			self.mediaTreeView.update_model()
+			self.filesTreeView.add_file(file_path)
+			self.filesTreeView.update_model()
 			log.info("Loaded project %s" % (file_path))
 
 		
@@ -98,48 +102,58 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher, UpdateManager.UpdateI
 		#log.info(app.project._data)
 		
 	def actionFilesShowAll_trigger(self, event):
-		self.mediaTreeView.update_model()
+		self.filesTreeView.update_model()
 	def actionFilesShowVideo_trigger(self, event):
-		self.mediaTreeView.update_model()
+		self.filesTreeView.update_model()
 	def actionFilesShowAudio_trigger(self, event):
-		self.mediaTreeView.update_model()
+		self.filesTreeView.update_model()
 	def actionFilesShowImage_trigger(self, event):
-		self.mediaTreeView.update_model()
-	
-	def actionPlay_trigger(self, event):
-		app = get_app()
-		curr_val = app.project.get("settings/nfigg-setting")
-		if curr_val == None:
-			log.info ("Addvalue")
-			app.update_manager.add("settings/nfigg-setting", {"a": 1, "b": 5})
-		else:
-			log.info ("Increment value")
-			update = dict()
-			update["a"] = curr_val["a"] + 1
-			app.update_manager.update("settings/nfigg-setting", update, partial_update=True)
-			
-		if self.actionPlay.isChecked():
-			ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
-		else:
-			ui_util.setup_icon(self, self.actionPlay, "actionPlay") #to default
+		self.filesTreeView.update_model()
+
+	#Project settings test code
+		# app = get_app()
+		# curr_val = app.project.get("settings/nfigg-setting")
+		# if curr_val == None:
+			# log.info ("Addvalue")
+			# app.update_manager.add("settings/nfigg-setting", {"a": 1, "b": 5})
+		# else:
+			# log.info ("Increment value")
+			# update = dict()
+			# update["a"] = curr_val["a"] + 1
+			# app.update_manager.update("settings/nfigg-setting", update, partial_update=True)
+		#log.info(app.project._data)
+	#Other project settings test code
+		# app = get_app()
+		# curr_val = app.project.get("settings/nfigg-setting")
+		# if not curr_val == None and curr_val["a"] > 1:
+			# log.info ("Decrement value")
+			# update = dict()
+			# update["a"] = curr_val["a"] - 1
+			# app.update_manager.update("settings/nfigg-setting", update, partial_update=True)
+		# elif not curr_val == None:
+			# log.info ("Remove value")
+			# app.update_manager.remove("settings/nfigg-setting")
 		#log.info(app.project._data)
 		
+	def actionPlay_trigger(self, event):
+		if self.actionPlay.isChecked():
+			ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
+			#TODO: call on library to pause
+		else:
+			ui_util.setup_icon(self, self.actionPlay, "actionPlay") #to default
+			#TODO: call on library to play
+		
 	def actionFastForward_trigger(self, event):
-		app = get_app()
-		curr_val = app.project.get("settings/nfigg-setting")
-		if not curr_val == None and curr_val["a"] > 1:
-			log.info ("Decrement value")
-			update = dict()
-			update["a"] = curr_val["a"] - 1
-			app.update_manager.update("settings/nfigg-setting", update, partial_update=True)
-		elif not curr_val == None:
-			log.info ("Remove value")
-			app.update_manager.remove("settings/nfigg-setting")
-		#log.info(app.project._data)
+		pass
 	
+	def actionTimelineZoomIn_trigger(self, event):
+		self.sliderZoom.setValue(self.sliderZoom.value() - self.sliderZoom.singleStep())
+	
+	def actionTimelineZoomOut_trigger(self, event):
+		self.sliderZoom.setValue(self.sliderZoom.value() + self.sliderZoom.singleStep())
+
 	#Update undo and redo buttons enabled/disabled to available changes
 	def updateStatusChanged(self, undo_status, redo_status):
-		#log.info("updateStatusChanged %s, %s", undo_status, redo_status)
 		self.actionUndo.setEnabled(undo_status)
 		self.actionRedo.setEnabled(redo_status)
 	
@@ -174,7 +188,7 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher, UpdateManager.UpdateI
 		#TODO: Call load_settings on any sub-objects necessary
 		
 	def setup_toolbars(self):
-		app = get_app()
+		_ =  get_app()._tr #Get translation function
 		
 		#Start undo and redo actions disabled
 		self.actionUndo.setEnabled(False)
@@ -199,9 +213,43 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher, UpdateManager.UpdateI
 		self.actionFilesClear.setEnabled(False)
 		self.filesToolbar.addAction(self.actionFilesClear)
 		self.tabFiles.layout().addWidget(self.filesToolbar)
+		
+		#Add transitions toolbar =================================================================================
+		self.transitionsToolbar = QToolBar("Transitions Toolbar")
+		self.transitionsActionGroup = QActionGroup(self)
+		self.transitionsActionGroup.setExclusive(True)
+		self.transitionsActionGroup.addAction(self.actionTransitionsShowAll)
+		self.transitionsActionGroup.addAction(self.actionTransitionsShowCommon)
+		self.actionTransitionsShowAll.setChecked(True)
+		self.transitionsToolbar.addAction(self.actionTransitionsShowAll)
+		self.transitionsToolbar.addAction(self.actionTransitionsShowCommon)
+		self.transitionsFilter = QLineEdit()
+		self.transitionsFilter.setObjectName("transitionsFilter")
+		self.transitionsToolbar.addWidget(self.transitionsFilter)
+		self.actionTransitionsClear.setEnabled(False)
+		self.transitionsToolbar.addAction(self.actionTransitionsClear)
+		self.tabTransitions.layout().addWidget(self.transitionsToolbar)
+		
+		#Add effects toolbar =================================================================================
+		self.effectsToolbar = QToolBar("Effects Toolbar")
+		self.effectsActionGroup = QActionGroup(self)
+		self.effectsActionGroup.setExclusive(True)
+		self.effectsActionGroup.addAction(self.actionEffectsShowAll)
+		self.effectsActionGroup.addAction(self.actionEffectsShowVideo)
+		self.effectsActionGroup.addAction(self.actionEffectsShowAudio)
+		self.actionEffectsShowAll.setChecked(True)
+		self.effectsToolbar.addAction(self.actionEffectsShowAll)
+		self.effectsToolbar.addAction(self.actionEffectsShowVideo)
+		self.effectsToolbar.addAction(self.actionEffectsShowAudio)
+		self.effectsFilter = QLineEdit()
+		self.effectsFilter.setObjectName("effectsFilter")
+		self.effectsToolbar.addWidget(self.effectsFilter)
+		self.actionEffectsClear.setEnabled(False)
+		self.effectsToolbar.addAction(self.actionEffectsClear)
+		self.tabEffects.layout().addWidget(self.effectsToolbar)	
 
 		#Add Video Preview toolbar ==========================================================================
-		self.videoToolbar = QToolBar("Timeline Toolbar")
+		self.videoToolbar = QToolBar("Video Toolbar")
 		
 		#Add left spacer
 		spacer = QWidget(self)
@@ -246,20 +294,24 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher, UpdateManager.UpdateI
 		self.timelineToolbar.addAction(self.actionNextMarker)
 		self.timelineToolbar.addSeparator()
 
-		#Zoom controls
-		self.label = QLabel(app._tr("Zoom In") + "/" + app._tr("Zoom Out") + ":", self)
-		#self.label #todo set padding or something
-		self.timelineToolbar.addWidget(self.label)
-		
+		#Setup Zoom slider
 		self.sliderZoom = QSlider(Qt.Horizontal, self)
 		self.sliderZoom.setPageStep(6)
 		self.sliderZoom.setRange(8, 200)
 		self.sliderZoom.setValue(20)
 		self.sliderZoom.setInvertedControls(True)
-		self.sliderZoom.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
-		self.timelineToolbar.addWidget(self.sliderZoom)
+		#self.sliderZoom.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
+		self.sliderZoom.resize(100, 16)
+
+		self.zoomScaleLabel = QLabel(_("%s seconds") % self.sliderZoom.value())
 		
-		#Add toolbar to web frame
+		#add zoom widgets
+		self.timelineToolbar.addAction(self.actionTimelineZoomIn)
+		self.timelineToolbar.addWidget(self.sliderZoom)
+		self.timelineToolbar.addAction(self.actionTimelineZoomOut)
+		self.timelineToolbar.addWidget(self.zoomScaleLabel)
+		
+		#Add timeline toolbar to web frame
 		self.frameWeb.layout().addWidget(self.timelineToolbar)
 		
 	def __init__(self):
@@ -291,7 +343,15 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher, UpdateManager.UpdateI
 		self.timeline = TimelineWebView(self)
 		self.frameWeb.layout().addWidget(self.timeline)
 		
-		#setup tree
-		self.mediaTreeView = MediaTreeView(self)
-		self.tabFiles.layout().addWidget(self.mediaTreeView) #gridLayout_2  , 1, 0
+		#setup files tree
+		self.filesTreeView = MediaTreeView(self)
+		self.tabFiles.layout().addWidget(self.filesTreeView) #gridLayout_2  , 1, 0
 
+		#setup transitions tree
+		self.transitionsTreeView = MediaTreeView(self)
+		self.tabTransitions.layout().addWidget(self.transitionsTreeView) #gridLayout_2  , 1, 0
+
+		#setup effects tree
+		self.effectsTreeView = MediaTreeView(self)
+		self.tabEffects.layout().addWidget(self.effectsTreeView) #gridLayout_2  , 1, 0
+		

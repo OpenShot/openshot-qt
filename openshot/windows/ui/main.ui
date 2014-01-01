@@ -99,20 +99,71 @@
           </property>
          </layout>
         </widget>
-        <widget class="QWidget" name="tab_2">
+        <widget class="QWidget" name="tabTransitions">
          <attribute name="title">
           <string>Transitions</string>
          </attribute>
+         <layout class="QVBoxLayout" name="verticalLayout_5">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>5</number>
+          </property>
+          <property name="topMargin">
+           <number>5</number>
+          </property>
+          <property name="rightMargin">
+           <number>5</number>
+          </property>
+          <property name="bottomMargin">
+           <number>5</number>
+          </property>
+         </layout>
         </widget>
-        <widget class="QWidget" name="tab_3">
+        <widget class="QWidget" name="tabEffects">
          <attribute name="title">
           <string>Effects</string>
          </attribute>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>5</number>
+          </property>
+          <property name="topMargin">
+           <number>5</number>
+          </property>
+          <property name="rightMargin">
+           <number>5</number>
+          </property>
+          <property name="bottomMargin">
+           <number>5</number>
+          </property>
+         </layout>
         </widget>
-        <widget class="QWidget" name="tab_4">
+        <widget class="QWidget" name="tabHistory">
          <attribute name="title">
           <string>History</string>
          </attribute>
+         <layout class="QVBoxLayout" name="verticalLayout_6">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>5</number>
+          </property>
+          <property name="topMargin">
+           <number>5</number>
+          </property>
+          <property name="rightMargin">
+           <number>5</number>
+          </property>
+          <property name="bottomMargin">
+           <number>5</number>
+          </property>
+         </layout>
         </widget>
        </widget>
        <widget class="QTabWidget" name="tabOuterVideo">
@@ -269,6 +320,9 @@
    <property name="text">
     <string>New Project...</string>
    </property>
+   <property name="toolTip">
+    <string>New Project</string>
+   </property>
   </action>
   <action name="actionOpen">
    <property name="icon">
@@ -277,6 +331,9 @@
    </property>
    <property name="text">
     <string>Open Project...</string>
+   </property>
+   <property name="toolTip">
+    <string>Open Project</string>
    </property>
   </action>
   <action name="actionSave">
@@ -287,6 +344,9 @@
    <property name="text">
     <string>Save Project</string>
    </property>
+   <property name="toolTip">
+    <string>Save Project</string>
+   </property>
   </action>
   <action name="actionUndo">
    <property name="icon">
@@ -294,6 +354,9 @@
      <normaloff>:/icons/Compass/actions/edit-toolbar/undo.svg</normaloff>:/icons/Compass/actions/edit-toolbar/undo.svg</iconset>
    </property>
    <property name="text">
+    <string>Undo</string>
+   </property>
+   <property name="toolTip">
     <string>Undo</string>
    </property>
   </action>
@@ -329,6 +392,9 @@
    <property name="text">
     <string>Import Files...</string>
    </property>
+   <property name="toolTip">
+    <string>Import Files</string>
+   </property>
   </action>
   <action name="actionImportImageSequence">
    <property name="icon">
@@ -339,7 +405,7 @@
     <string>Import Image Sequence...</string>
    </property>
    <property name="toolTip">
-    <string>Import Image Sequence...</string>
+    <string>Import Image Sequence</string>
    </property>
   </action>
   <action name="actionImportTransition">
@@ -351,7 +417,7 @@
     <string>Import New Transition...</string>
    </property>
    <property name="toolTip">
-    <string>Import New Transition...</string>
+    <string>Import New Transition</string>
    </property>
   </action>
   <action name="actionRedo">
@@ -360,6 +426,9 @@
      <normaloff>:/icons/Compass/actions/edit-toolbar/redo.svg</normaloff>:/icons/Compass/actions/edit-toolbar/redo.svg</iconset>
    </property>
    <property name="text">
+    <string>Redo</string>
+   </property>
+   <property name="toolTip">
     <string>Redo</string>
    </property>
   </action>
@@ -639,6 +708,109 @@
    </property>
    <property name="toolTip">
     <string>Clear</string>
+   </property>
+  </action>
+  <action name="actionTransitionsShowAll">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show All</string>
+   </property>
+   <property name="toolTip">
+    <string>Show All</string>
+   </property>
+  </action>
+  <action name="actionTransitionsShowCommon">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Common</string>
+   </property>
+   <property name="toolTip">
+    <string>Common</string>
+   </property>
+  </action>
+  <action name="actionTransitionsClear">
+   <property name="icon">
+    <iconset theme="editclear" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/misc/editclear.svg</normaloff>:/icons/Compass/actions/misc/editclear.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Clear</string>
+   </property>
+   <property name="toolTip">
+    <string>Clear</string>
+   </property>
+  </action>
+  <action name="actionEffectsShowAll">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show All</string>
+   </property>
+   <property name="toolTip">
+    <string>Show All</string>
+   </property>
+  </action>
+  <action name="actionEffectsShowVideo">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Video</string>
+   </property>
+   <property name="toolTip">
+    <string>Video</string>
+   </property>
+  </action>
+  <action name="actionEffectsShowAudio">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Audio</string>
+   </property>
+   <property name="toolTip">
+    <string>Audio</string>
+   </property>
+  </action>
+  <action name="actionEffectsClear">
+   <property name="icon">
+    <iconset theme="editclear" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/misc/editclear.svg</normaloff>:/icons/Compass/actions/misc/editclear.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Clear</string>
+   </property>
+   <property name="toolTip">
+    <string>Clear</string>
+   </property>
+  </action>
+  <action name="actionTimelineZoomIn">
+   <property name="icon">
+    <iconset theme="zoom-in" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/misc/zoom-in.svg</normaloff>:/icons/Compass/actions/misc/zoom-in.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom In</string>
+   </property>
+   <property name="toolTip">
+    <string>Zoom In</string>
+   </property>
+  </action>
+  <action name="actionTimelineZoomOut">
+   <property name="icon">
+    <iconset theme="zoom-out" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/misc/zoom-out.svg</normaloff>:/icons/Compass/actions/misc/zoom-out.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom Out</string>
+   </property>
+   <property name="toolTip">
+    <string>Zoom Out</string>
    </property>
   </action>
  </widget>

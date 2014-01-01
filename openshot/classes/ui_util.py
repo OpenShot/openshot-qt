@@ -56,23 +56,34 @@ def search_dir(base_path, theme_name):
 	#If no match found in dir, return None
 	return None
 	
+def get_icon(theme_name):
+	"""Get either the current theme icon or fallback to default theme (for custom icons). Returns None if none found or empty name."""
+	
+	if theme_name:
+		has_icon = QIcon.hasThemeIcon(theme_name)
+		if not has_icon:
+			log.warn('Icon theme %s not found. Will use backup icon.', theme_name)
+		fallback_icon, fallback_path = get_default_icon(theme_name)
+		#log.info('Fallback icon path for %s is %s', theme_name, fallback_path)
+		if has_icon or fallback_icon:
+			return QIcon.fromTheme(theme_name, fallback_icon)
+	return None
+	
 def setup_icon(window, elem, name, theme_name=None):
+	"""Using the window xml, set the icon on the given element, or if theme_name passed load that icon.""" 
+
 	type_filter = 'action'
 	if isinstance(elem, QWidget): #Search for widget with name instead
 		type_filter = 'widget'
 	#Find iconset in tree (if any)
 	iconset = window.uiTree.find('.//' + type_filter + '[@name="' + name + '"]/property[@name="icon"]/iconset')
-	if iconset != None: #For some reason "if iconset:" doesn't work the same as "!= None"
+	if iconset != None or theme_name: #For some reason "if iconset:" doesn't work the same as "!= None"
 		if not theme_name:
 			theme_name = iconset.get('theme', '')
-		if theme_name:
-			has_icon = QIcon.hasThemeIcon(theme_name)
-			if not has_icon:
-				log.warn('Icon theme %s not found. Will use backup icon.', theme_name)
-			fallback_icon, fallback_path = get_default_icon(theme_name)
-			#log.info('Fallback icon path for %s is %s', theme_name, fallback_path)
-			if has_icon or fallback_icon:
-				elem.setIcon(QIcon.fromTheme(theme_name, fallback_icon))
+		#Get Icon (either current theme or fallback)
+		icon = get_icon(theme_name)
+		if icon:
+			elem.setIcon(icon)
 	
 #Initialize language and icons of the given element
 def init_element(window, elem):
@@ -86,8 +97,8 @@ def init_element(window, elem):
 	#Handle generic translatable properties
 	if hasattr(elem, 'setText') and elem.text() != "":
 		elem.setText( _translate("", elem.text()) )
-	if hasattr(elem, 'setTooltip') and elem.tooltip() != "":
-		elem.setTooltip( _translate("", elem.tooltip()) )
+	if hasattr(elem, 'setToolTip') and elem.toolTip() != "":
+		elem.setToolTip( _translate("", elem.toolTip()) )
 	if hasattr(elem, 'setWindowTitle') and elem.windowTitle() != "":
 		elem.setWindowTitle( _translate("", elem.windowTitle()) )
 	if hasattr(elem, 'setTitle') and elem.title() != "":
