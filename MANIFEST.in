@@ -1,0 +1,11 @@
+include AUTHORS
+include COPYING
+include README
+recursive-include bin *
+recursive-include docs *
+recursive-include src *
+recursive-include xdg *
+
+global-exclude *pyc
+global-exclude .project
+global-exclude .pydevproject
