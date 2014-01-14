@@ -54,7 +54,7 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher, UpdateManager.UpdateI
 	def actionOpen_trigger(self, event):
 		app = get_app()
 		_ = app._tr
-		file_path, file_type = QFileDialog.getOpenFileName(self, _("Open Project..."))
+		file_path, file_type = QFileDialog.getOpenFileName(self, _("Open Project...")) #, options=QFileDialog.DontUseNativeDialog)
 		if file_path:
 			app.project.load(file_path)
 			app.project.current_filepath = file_path
@@ -93,8 +93,8 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher, UpdateManager.UpdateI
 	def actionImportFiles_trigger(self, event):
 		app = get_app()
 		_ = app._tr
-		file_path, file_type = QFileDialog.getOpenFileName(self, _("Import File..."))
-		if file_path:
+		files = QFileDialog.getOpenFileNames(self, _("Import File..."))[0]
+		for file_path in files:
 			self.filesTreeView.add_file(file_path)
 			self.filesTreeView.update_model()
 			log.info("Loaded project %s" % (file_path))
