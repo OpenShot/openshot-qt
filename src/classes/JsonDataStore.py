@@ -26,7 +26,11 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import simplejson as json
+try:
+    import json
+except ImportError:
+    import simplejson as json
+    
 import sys, os, copy
 from PyQt5.QtCore import QStandardPaths, QCoreApplication
 from classes.logger import log
