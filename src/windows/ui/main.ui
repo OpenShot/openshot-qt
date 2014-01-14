@@ -40,16 +40,7 @@
     <bool>false</bool>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <property name="leftMargin">
-     <number>5</number>
-    </property>
-    <property name="topMargin">
-     <number>5</number>
-    </property>
-    <property name="rightMargin">
-     <number>5</number>
-    </property>
-    <property name="bottomMargin">
+    <property name="margin">
      <number>5</number>
     </property>
     <property name="spacing">
@@ -85,16 +76,7 @@
           <property name="spacing">
            <number>0</number>
           </property>
-          <property name="leftMargin">
-           <number>5</number>
-          </property>
-          <property name="topMargin">
-           <number>5</number>
-          </property>
-          <property name="rightMargin">
-           <number>5</number>
-          </property>
-          <property name="bottomMargin">
+          <property name="margin">
            <number>5</number>
           </property>
          </layout>
@@ -107,16 +89,7 @@
           <property name="spacing">
            <number>0</number>
           </property>
-          <property name="leftMargin">
-           <number>5</number>
-          </property>
-          <property name="topMargin">
-           <number>5</number>
-          </property>
-          <property name="rightMargin">
-           <number>5</number>
-          </property>
-          <property name="bottomMargin">
+          <property name="margin">
            <number>5</number>
           </property>
          </layout>
@@ -129,16 +102,7 @@
           <property name="spacing">
            <number>0</number>
           </property>
-          <property name="leftMargin">
-           <number>5</number>
-          </property>
-          <property name="topMargin">
-           <number>5</number>
-          </property>
-          <property name="rightMargin">
-           <number>5</number>
-          </property>
-          <property name="bottomMargin">
+          <property name="margin">
            <number>5</number>
           </property>
          </layout>
@@ -151,16 +115,7 @@
           <property name="spacing">
            <number>0</number>
           </property>
-          <property name="leftMargin">
-           <number>5</number>
-          </property>
-          <property name="topMargin">
-           <number>5</number>
-          </property>
-          <property name="rightMargin">
-           <number>5</number>
-          </property>
-          <property name="bottomMargin">
+          <property name="margin">
            <number>5</number>
           </property>
          </layout>
@@ -181,16 +136,7 @@
           <property name="spacing">
            <number>0</number>
           </property>
-          <property name="leftMargin">
-           <number>5</number>
-          </property>
-          <property name="topMargin">
-           <number>5</number>
-          </property>
-          <property name="rightMargin">
-           <number>5</number>
-          </property>
-          <property name="bottomMargin">
+          <property name="margin">
            <number>5</number>
           </property>
           <item>
@@ -212,16 +158,7 @@
         <property name="spacing">
          <number>0</number>
         </property>
-        <property name="leftMargin">
-         <number>5</number>
-        </property>
-        <property name="topMargin">
-         <number>5</number>
-        </property>
-        <property name="rightMargin">
-         <number>5</number>
-        </property>
-        <property name="bottomMargin">
+        <property name="margin">
          <number>5</number>
         </property>
        </layout>
@@ -236,7 +173,7 @@
      <x>0</x>
      <y>0</y>
      <width>808</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -457,6 +394,10 @@
    </property>
   </action>
   <action name="actionTakeSnapshot">
+   <property name="icon">
+    <iconset resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/custom/snapshot.png</normaloff>:/icons/Compass/actions/custom/snapshot.png</iconset>
+   </property>
    <property name="text">
     <string>Take Snapshot</string>
    </property>
@@ -477,6 +418,10 @@
    </property>
   </action>
   <action name="actionUploadVideo">
+   <property name="icon">
+    <iconset resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/misc/document-send.svg</normaloff>:/icons/Compass/actions/misc/document-send.svg</iconset>
+   </property>
    <property name="text">
     <string>Upload Video</string>
    </property>
@@ -615,6 +560,10 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/custom/snap.png</normaloff>:/icons/Compass/actions/custom/snap.png</iconset>
+   </property>
    <property name="text">
     <string>Snapping Enabled</string>
    </property>
@@ -623,6 +572,10 @@
    </property>
   </action>
   <action name="actionAddMarker">
+   <property name="icon">
+    <iconset resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/custom/add_marker.png</normaloff>:/icons/Compass/actions/custom/add_marker.png</iconset>
+   </property>
    <property name="text">
     <string>Add Marker</string>
    </property>
