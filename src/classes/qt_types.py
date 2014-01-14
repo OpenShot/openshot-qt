@@ -32,6 +32,6 @@ from PyQt5.QtCore import QByteArray
 
 #QByteArray helpers
 def str_to_bytes(string):
-	return QByteArray.fromBase64(string)
+	return QByteArray.fromBase64(string.encode("utf-8"))
 def bytes_to_str(bytes):
-	return bytes.toBase64().data()
+	return bytes.toBase64().data().decode("utf-8")

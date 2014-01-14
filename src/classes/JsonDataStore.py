@@ -85,7 +85,7 @@ class JsonDataStore:
 		return default
 		
 	def read_from_file(self, file_path):
-		#log.debug("loading", file_path)
+		#log.debug("loading %s", file_path)
 		try:
 			with open(file_path, 'r') as f:
 				contents = f.read()

@@ -63,7 +63,7 @@ class SettingStore(JsonDataStore):
 		
 		#Try to find user settings file
 		file_path = QStandardPaths.locate(QStandardPaths.ConfigLocation, self.settings_filename)
-		
+
 		#If user settings file doesn't exist yet, try to create a default settings file
 		if not file_path:
 			writable_path = QStandardPaths.writableLocation(QStandardPaths.ConfigLocation)
