@@ -2,7 +2,7 @@ include AUTHORS
 include COPYING
 include README
 recursive-include bin *
-recursive-include docs *
+recursive-include doc *
 recursive-include src *
 recursive-include xdg *
 

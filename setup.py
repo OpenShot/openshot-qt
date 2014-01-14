@@ -1,33 +1,36 @@
-# @file
-# @brief Distutils Setup.py file - Used to install OpenShot 2.0
-# @author Jonathan Thomas <jonathan@openshot.org>
-#
-# @section LICENSE
-#
-# Copyright (c) 2008-2014 OpenShot Studios, LLC
-# (http://www.openshotstudios.com). This file is part of
-# OpenShot Video Editor (http://www.openshot.org), an open-source project
-# dedicated to delivering high quality video editing and animation solutions
-# to the world.
-#
-# OpenShot Video Editor is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# OpenShot Video Editor is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
+""" 
+ @file
+ @brief Setup script to install OpenShot 2.0
+ @author Jonathan Thomas <jonathan@openshot.org>
+ 
+ @section LICENSE
+ 
+ Copyright (c) 2008-2014 OpenShot Studios, LLC
+ (http://www.openshotstudios.com). This file is part of
+ OpenShot Video Editor (http://www.openshot.org), an open-source project
+ dedicated to delivering high quality video editing and animation solutions
+ to the world.
+ 
+ OpenShot Video Editor is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ OpenShot Video Editor is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
+ """
 
 import glob, os, sys, subprocess
 from distutils.core import setup
-
-print "Execution path: %s" % os.path.abspath(__file__)
+from classes.logger import log
 from src.classes import info
+
+log.info("Execution path: %s" % os.path.abspath(__file__))
 
 # Boolean: running as root?
 ROOT = os.geteuid() == 0
@@ -35,7 +38,7 @@ ROOT = os.geteuid() == 0
 # system update services for Mime and Desktop registrations.
 # The debian/openshot.postinst script must do those.
 if not os.getenv("FAKEROOTKEY") == None:
-	print "NOTICE: Detected execution in a FakeRoot so disabling calls to system update services."
+	log.info("NOTICE: Detected execution in a FakeRoot so disabling calls to system update services.")
 	ROOT = False
 
 os_files = [
@@ -48,8 +51,8 @@ os_files = [
 	 # launcher (mime.types)
 	 ('lib/mime/packages',['xdg/openshot']),
 	 # man-page ("man 1 openshot")
-	 ('share/man/man1',['docs/openshot.1']),
-	 ('share/man/man1',['docs/openshot-render.1']),
+	 ('share/man/man1',['doc/openshot.1']),
+	 ('share/man/man1',['doc/openshot-render.1']),
 ]
 
 # Add all the translations
