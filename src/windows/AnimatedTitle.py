@@ -43,15 +43,10 @@ class AnimatedTitle(QDialog):
 
 		#Create dialog class
 		QDialog.__init__(self)
-		#set window on app for reference during initialization of children
-		get_app().window = self
-		
-		#Load theme if not set by OS
-		ui_util.load_theme()
-		
+
 		#Load UI from designer
 		ui_util.load_ui(self, self.ui_path)
-		
+
 		#Init UI
 		ui_util.init_ui(self)
 
