@@ -209,6 +209,8 @@
     <property name="title">
      <string>Title</string>
     </property>
+    <addaction name="actionTitle"/>
+    <addaction name="actionAnimatedTitle"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -764,6 +766,28 @@
    </property>
    <property name="toolTip">
     <string>Zoom Out</string>
+   </property>
+  </action>
+  <action name="actionTitle">
+   <property name="icon">
+    <iconset theme="font"/>
+   </property>
+   <property name="text">
+    <string>Title</string>
+   </property>
+   <property name="toolTip">
+    <string>Title</string>
+   </property>
+  </action>
+  <action name="actionAnimatedTitle">
+   <property name="icon">
+    <iconset theme="font"/>
+   </property>
+   <property name="text">
+    <string>Animated Title</string>
+   </property>
+   <property name="toolTip">
+    <string>Animated Title</string>
    </property>
   </action>
  </widget>

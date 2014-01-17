@@ -156,13 +156,18 @@ def connect_auto_events(window, elem, name):
 					
 def init_ui(window):
 	log.info('Initializing UI for %s', window.objectName())
-	
-	# Loop through all widgets
-	for widget in window.findChildren(QWidget):
-		init_element(window, widget)
-	# Loop through all actions
-	for action in window.findChildren(QAction):
-		init_element(window, action)
+
+	try:	
+		# Loop through all widgets
+		for widget in window.findChildren(QWidget):
+			init_element(window, widget)
+			
+		# Loop through all actions
+		for action in window.findChildren(QAction):
+			#log.info('Initializing element: %s', action)
+			init_element(window, action)
+	except:
+		log.info('Failed to initialize an element on %s', window.objectName())
 	
 def transfer_children(from_widget, to_widget):
 	log.info("Transfering children from '%s' to '%s'", from_widget.objectName(), to_widget.objectName())

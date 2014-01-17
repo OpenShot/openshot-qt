@@ -51,6 +51,12 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher, UpdateManager.UpdateI
 		get_app().project.new()
 		log.info("New Project created.")
 		
+	def actionAnimatedTitle_trigger(self, event):
+		# show dialog
+		from windows.AnimatedTitle import AnimatedTitle
+		win = AnimatedTitle()
+		win.show()
+		
 	def actionOpen_trigger(self, event):
 		app = get_app()
 		_ = app._tr
