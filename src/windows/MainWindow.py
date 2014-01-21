@@ -61,6 +61,17 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher, UpdateManager.UpdateI
 			log.info('animated title add confirmed')
 		else:
 			log.info('animated title add cancelled')
+			
+	def actionTitle_trigger(self, event):
+		# show dialog
+		from windows.TitleEditor import TitleEditor
+		win = TitleEditor()
+		#Run the dialog event loop - blocking interaction on this window during that time
+		result = win.exec_()
+		if result == QDialog.Accepted:
+			log.info('title editor add confirmed')
+		else:
+			log.info('title editor add cancelled')
 		
 	def actionOpen_trigger(self, event):
 		app = get_app()
