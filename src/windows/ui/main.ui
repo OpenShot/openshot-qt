@@ -16,6 +16,9 @@
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
+  <property name="focusPolicy">
+   <enum>Qt::StrongFocus</enum>
+  </property>
   <property name="windowTitle">
    <string>OpenShot</string>
   </property>
@@ -66,7 +69,7 @@
          <bool>false</bool>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="tabFiles">
          <attribute name="title">
@@ -99,19 +102,6 @@
           <string>Effects</string>
          </attribute>
          <layout class="QVBoxLayout" name="verticalLayout_4">
-          <property name="spacing">
-           <number>0</number>
-          </property>
-          <property name="margin">
-           <number>5</number>
-          </property>
-         </layout>
-        </widget>
-        <widget class="QWidget" name="tabHistory">
-         <attribute name="title">
-          <string>History</string>
-         </attribute>
-         <layout class="QVBoxLayout" name="verticalLayout_6">
           <property name="spacing">
            <number>0</number>
           </property>
@@ -173,7 +163,7 @@
      <x>0</x>
      <y>0</y>
      <width>808</width>
-     <height>25</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -216,6 +206,10 @@
     <property name="title">
      <string>View</string>
     </property>
+    <addaction name="actionView_Toolbar"/>
+    <addaction name="separator"/>
+    <addaction name="actionFullscreen"/>
+    <addaction name="actionExit_Fullscreen"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -794,6 +788,50 @@
     <string>Animated Title</string>
    </property>
   </action>
+  <action name="actionFullscreen">
+   <property name="icon">
+    <iconset theme="view-fullscreen">
+     <normaloff/>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Fullscreen</string>
+   </property>
+   <property name="toolTip">
+    <string>Fullscreen</string>
+   </property>
+   <property name="shortcut">
+    <string>F11</string>
+   </property>
+  </action>
+  <action name="actionExit_Fullscreen">
+   <property name="icon">
+    <iconset theme="view-restore"/>
+   </property>
+   <property name="text">
+    <string>Exit Fullscreen</string>
+   </property>
+   <property name="toolTip">
+    <string>Exit Fullscreen</string>
+   </property>
+   <property name="shortcut">
+    <string>Esc</string>
+   </property>
+  </action>
+  <action name="actionView_Toolbar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset theme="zoom-in"/>
+   </property>
+   <property name="text">
+    <string>View Toolbar</string>
+   </property>
+   <property name="toolTip">
+    <string>View Toolbar</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="../../images/openshot.qrc"/>
@@ -812,6 +850,54 @@
     <hint type="destinationlabel">
      <x>403</x>
      <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionFullscreen</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>showFullScreen()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>403</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionExit_Fullscreen</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>showNormal()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>403</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionView_Toolbar</sender>
+   <signal>triggered()</signal>
+   <receiver>toolBar</receiver>
+   <slot>showNormal()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>403</x>
+     <y>42</y>
     </hint>
    </hints>
   </connection>
