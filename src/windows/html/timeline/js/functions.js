@@ -50,7 +50,7 @@ function handleVisibleClipElements(scope, clip_number){
     (clip_width <= min_for_menu) ? element.find(".clip_menu").hide() : element.find(".clip_menu").show();
 
     element.find(".clip_top").show();
-    element.find(".thumb-container").show();
+    //element.find(".thumb-container").show();
 }
 
 //draws the audio wave on a clip
@@ -62,7 +62,7 @@ function drawAudio(scope, clip_number){
         element = $("#clip_"+clip_number);
 
         //show audio container
-        element.find(".audio-container").show();
+        //element.find(".audio-container").show();
         
         //draw audio
         var audio_canvas = element.find(".audio");

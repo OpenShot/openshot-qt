@@ -428,7 +428,7 @@ App.directive('tlRuler', function ($timeout) {
 
 				    	//loop em and draw em
 						for (x=0;x<num_ticks+1;x++){
-							ctx.lineWidth = 2;
+							ctx.lineWidth = 1;
 							ctx.beginPath();
 
 							//if it's even, make the line longer

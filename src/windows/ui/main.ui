@@ -770,7 +770,9 @@
   </action>
   <action name="actionTitle">
    <property name="icon">
-    <iconset theme="font"/>
+    <iconset theme="font">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Title</string>
@@ -781,7 +783,9 @@
   </action>
   <action name="actionAnimatedTitle">
    <property name="icon">
-    <iconset theme="font"/>
+    <iconset theme="font">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Animated Title</string>
