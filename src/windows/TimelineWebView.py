@@ -34,12 +34,16 @@ from PyQt5.QtWebKitWidgets import QWebView
 from classes.logger import log
 from classes.OpenShotApp import get_app
 from classes import info, UpdateManager
+import simplejson as json
 
 JS_SCOPE_SELECTOR = "$('body').scope()"
 
 class TimelineWebView(QWebView, UpdateManager.UpdateInterface):
 	html_path = os.path.join(info.PATH, 'windows','html','timeline','index.html')
 
+	def eval_js(self, code):
+		self.page().mainFrame().evaluateJavaScript(cmd)
+	
 	#UpdateManager.UpdateInterface implementation
 	def update_add(self, action):
 		log.info("Timeline update_add handler")
@@ -92,6 +96,12 @@ class TimelineWebView(QWebView, UpdateManager.UpdateInterface):
 		#If a plain text drag accept
 		if not event.mimeData().hasUrls() and event.mimeData().hasText():
 			event.accept()
+			pos = event.posF()
+			#build data to pass to timeline js
+			data = {"x": pos.x(), "y": pos.y(), "clip_url": event.mimeData().text()}
+			#eval_js(
+			
+			
 
 	#Without defining this method, the 'copy' action doesn't show with cursor
 	def dragMoveEvent(self, event):

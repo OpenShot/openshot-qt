@@ -27,7 +27,7 @@
  """
 
 from classes.logger import log
-from classes import info, SettingStore, ProjectDataStore, UpdateManager, language
+from classes import info, SettingStore, ProjectDataStore, UpdateManager, language, ui_util
 from PyQt5.QtWidgets import QApplication
 
 def get_app():
@@ -57,7 +57,11 @@ class OpenShotApp(QApplication):
 		
 		#Init Update Manager
 		self.update_manager = UpdateManager.UpdateManager()
+		#It is important that the project is the first listener if the key gets updat
 		self.update_manager.add_listener(self.project)
+			
+		#Load ui theme if not set by OS
+		ui_util.load_theme()
 			
 		# Create main window
 		from windows.MainWindow import MainWindow

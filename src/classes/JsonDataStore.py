@@ -37,13 +37,17 @@ from classes.logger import log
 from classes import info
 
 class JsonDataStore:
-	"""JsonDataStore - class which allows getting/storing of settings, loading and saving to json"""
+	"""JsonDataStore - class which allows getting/setting of key/value settings, and loading and saving to json files.
+	Internal storage of a dictionary. Uses json or simplejson packages to serialize and deserialize from json to dictionary.
+	Keys are assumed to be strings, but subclasses which override get/set methods may use different key types.
+	The write_to_file and read_from_file methods are key type agnostic."""
 	
+	#Create default data storage and default data type for logging messages
 	def __init__(self):
 		self._data = {} #Private data store, accessible through the get and set methods
 		self.data_type = "json data"
 
-	#Get key from settings
+	#Get copied value of a given key in data store
 	def get(self, key):
 		key = key.lower()
 		return copy.deepcopy(self._data.get(key, None))
@@ -73,6 +77,7 @@ class JsonDataStore:
 			data[key] = add_set[key]
 		
 	#Merge settings files, removing invalid settings based on default settings
+	#This is only called by some sub-classes that use string keys
 	def merge_settings(self, default, user):
 		#Make sure all keys are lowercase
 		self.homogenize_keys(default)

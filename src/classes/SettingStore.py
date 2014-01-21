@@ -37,10 +37,11 @@ def get_settings():
 	return QCoreApplication.instance().settings
 
 class SettingStore(JsonDataStore):
-	"""SettingStore - JsonDataStore sub-class which restricts settings to default settings file, merges user settings on load, assumes default OS dir."""
+	"""SettingStore - JsonDataStore sub-class which only allows setting preexisting keys taken from default settings file, merges user settings on load, assumes default OS dir."""
 	
 	def __init__(self):
 		JsonDataStore.__init__(self)
+		#Set the data type name for logging clarity (base class functions use this variable)
 		self.data_type = "user settings"
 		self.settings_filename = "openshot.settings"
 		self.default_settings_filename = os.path.join(info.PATH, 'settings', '_default.settings')

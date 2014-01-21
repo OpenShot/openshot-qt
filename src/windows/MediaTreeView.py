@@ -34,28 +34,30 @@ from classes.SettingStore import SettingStore
 from classes.OpenShotApp import get_app
 from PyQt5.QtCore import QMimeData, QSize, Qt, QCoreApplication, QPoint, QFileInfo
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QTreeView, QApplication, QMessageBox
+from PyQt5.QtWidgets import QTreeWidget, QApplication, QMessageBox, QTreeWidgetItem
 
-class MediaTreeView(QTreeView, UpdateManager.UpdateInterface):
+class MediaTreeView(QTreeWidget, UpdateManager.UpdateInterface):
 	drag_item_size = 32
 	
 	#UpdateManager.UpdateInterface implementation
 	# These events can be used to respond to certain updates by refreshing ui elemnts, etc.
 	def update_add(self, action):
-		if action.key.startswith("files"):
+		if len(action.key) >= 1 and action.key[0].lower() == "files":
 			self.update_model()
 	def update_update(self, action):
-		if action.key.startswith("files"):
+		if len(action.key) >= 1 and action.key[0].lower() == "files":
 			self.update_model()
 	def update_remove(self, action):
-		if action.key.startswith("files"):
+		if len(action.key) >= 1 and action.key[0].lower() == "files":
 			self.update_model()
 			
 	def mouseMoveEvent(self, event):
 		#If mouse drag detected, set the proper data and icon and start dragging
 		if event.buttons() & Qt.LeftButton == Qt.LeftButton and (event.pos() - self.startDragPos).manhattanLength() >= QApplication.startDragDistance():
+			#Setup data based on item being dragged
 			data = QMimeData()
-			data.setText('Test value 1')
+			data.setText(self.dragItem.text(2) + self.dragItem.text(0))
+			#Start drag operation
 			drag = QDrag(self)
 			drag.setMimeData(data)
 			drag.setPixmap(QIcon.fromTheme('document-new').pixmap(QSize(self.drag_item_size,self.drag_item_size)))
@@ -87,14 +89,12 @@ class MediaTreeView(QTreeView, UpdateManager.UpdateInterface):
 			
 	def update_model(self):
 		log.info("updating files model.")
-		files = get_app().project.get("files")
+		files = get_app().project.get(["files"])
 		
 		#Get window to check filters
 		win = get_app().window
 		
-		#Get model
-		mod = self.model()
-		mod.setRowCount(0) #Remove all but header
+		self.clear() #Clear items in tree
 		#add item for each file
 		for file in files:
 			path, filename = os.path.split(file["path"])
@@ -114,12 +114,12 @@ class MediaTreeView(QTreeView, UpdateManager.UpdateInterface):
 				if not win.filesFilter.text() in filename:
 					continue
 			
-			item = QStandardItem(filename)
-			mod.invisibleRootItem().appendRow(item)
-			row = mod.rowCount() - 1
-			mod.setData( mod.index(row,1), file["type"])
-			mod.setData( mod.index(row,2), path)
-			mod.setData( mod.index(row,3), file["id"])
+			item = QTreeWidgetItem(self)
+			item.setText(0, filename)
+			item.setText(1, file["type"])
+			item.setText(2, path)
+			item.setText(3, file["id"])
+			self.addTopLevelItem(item)
 		
 	def add_file(self, filepath):
 		path, filename = os.path.split(filepath)
@@ -127,16 +127,35 @@ class MediaTreeView(QTreeView, UpdateManager.UpdateInterface):
 		#Add file into project
 		app = get_app()
 		proj = app.project
-		files = proj.get("files") #get files list
+		files = proj.get(["files"]) #get files list
 		found = False
 		new_id = proj.generate_id()
 		
-		for f in files:
-			if f["id"] == new_id:
-				new_id = proj.generate_id()
+		#Check for new_id and filepath in current file list to prevent duplicates
+		index = 0
+		sanity_check, sanity_limit = 0, 10
+		while index < len(files):
+			if sanity_check > sanity_limit: #Stop checking if we can't get a unique id in 10 tries
+				break;
+			f = files[index]
+			#Stop checking if we find this filepath already in the list, don't allow duplicate.
 			if f["path"] == filepath:
 				found = True
 				break
+			#Generate new id and start loop over again if duplicate id is found
+			if f["id"] == new_id: #If this ID is found, generate a new one
+				new_id = proj.generate_id()
+				index = 0
+				sanity_check += 1
+				continue
+			#Move to next item
+			index += 1
+		
+		if sanity_check > sanity_limit:
+			msg = QMessageBox()
+			msg.setText(app._tr("Error generating file id."))
+			msg.exec_()
+			return False
 			
 		if found:
 			msg = QMessageBox()
@@ -147,10 +166,10 @@ class MediaTreeView(QTreeView, UpdateManager.UpdateInterface):
 		#Create file info
 		file = {"id": new_id, "path": filepath, "tags": [], "chunk_completion": 0.0, "chunk_path": "", "info": {}}
 		file['type'] = self.get_filetype(file)
-		files.append(file)
 		
-		#Update files
-		app.update_manager.update("files", files)		
+		#Add file to files list via update manager
+		app.update_manager.add(["files", ""], file)
+		return True
 	
 	#Handle a drag and drop being dropped on widget
 	def dropEvent(self, event):
@@ -166,11 +185,14 @@ class MediaTreeView(QTreeView, UpdateManager.UpdateInterface):
 				#log.info("Exists: %s, IsFile: %s", os.path.exists(filepath), os.path.isfile(filepath))
 				if os.path.exists(filepath) and os.path.isfile(filepath):
 					log.info('Adding file: %s', filepath)
-					self.add_file(filepath)
-					event.accept()
+					if self.add_file(filepath):
+						event.accept()
 		
 	def mousePressEvent(self, event):
+		#Save position of mouse press to check for drag
 		self.startDragPos = event.pos()
+		#Save item clicked on to use if drag starts
+		self.dragItem = self.itemAt(event.pos())
 			
 	def clear_filter(self):
 		get_app().window.filesFilter.setText("")
@@ -184,7 +206,7 @@ class MediaTreeView(QTreeView, UpdateManager.UpdateInterface):
 			win.actionFilesClear.setEnabled(True)
 			
 	def __init__(self, *args):
-		QTreeView.__init__(self, *args)
+		QTreeWidget.__init__(self, *args)
 		#Keep track of mouse press start position to determine when to start drag
 		self.startDragPos = None
 		self.setAcceptDrops(True)
@@ -192,15 +214,34 @@ class MediaTreeView(QTreeView, UpdateManager.UpdateInterface):
 		#Add self as listener to project data updates (undo/redo, as well as normal actions handled within this class all update the tree model)
 		app = get_app()
 		app.update_manager.add_listener(self)
+
+		#Setup header columns
+		self.setColumnCount(4)
+		self.setHeaderLabels(["Name","Type","Path","ID"])
+
+		#Example manipulation of tree widget
+		"""items = []
+		item = QTreeWidgetItem(self)
+		item.setText(0, "a name.avi")
+		item.setText(1, "Video")
+		item.setText(2, "a/b/c/d_e_v_/")
+		item.setText(3, app.project.generate_id())
+		items.append(item)
+		item = QTreeWidgetItem(self)
+		item.setText(0, "askjdf.avi")
+		item.setText(1, "Video")
+		item.setText(2, "a/b/c/d_e_v_/")
+		item.setText(3, app.project.generate_id())
+		items.append(item)
+		item = QTreeWidgetItem(self)
+		item.setText(0, "daft_punk.mp3")
+		item.setText(1, "Audio")
+		item.setText(2, "a/b/c/d_e_v_/")
+		item.setText(3, app.project.generate_id())
+		items.append(item)
+		self.insertTopLevelItems(0, items)"""
 		
-		#Load data model and add some items to it
-		mod = QStandardItemModel(0, 4)
-		parent_node = mod.invisibleRootItem()
-		mod.setHeaderData(0, Qt.Horizontal, "Name")
-		mod.setHeaderData(1, Qt.Horizontal, "Type")
-		mod.setHeaderData(2, Qt.Horizontal, "Path")
-		mod.setHeaderData(3, Qt.Horizontal, "ID")
-		self.setModel(mod)
+		#Update model based on loaded project
 		self.update_model()
 
 		#setup filter events

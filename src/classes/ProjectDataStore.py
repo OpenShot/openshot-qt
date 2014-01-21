@@ -45,76 +45,192 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 		self.new()
 
 	def get(self, key):
-		key = key.lower()
+		if not isinstance(key, list):
+			log.warning("get() key must be a list. key: %s", key)
+			return None
 		if not key:
 			log.warning("Cannot get empty key.")
 			return None
-		parts = key.split("/")
 		obj = self._data
-		#Walk object tree expecting the key path to be from root.
-		while (True):
-			key_part = parts.pop(0)
-			#If object is a list, use int key instead of string
-			if isinstance(obj, list):
-				key_part = int(key_part) #May throw error on non-int index to list
+		#Iterate through key list finding subobjects either by name or by an object match criteria such as {"id":"ADB34"}.
+		for i in range(len(key)):
+			key_part = key[i]
+			
+			#Key_part must be a string or dictionary
+			if not isinstance(key_part, dict) and not isinstance(key_part, str) and not isinstance(key_part, int):
+				log.error("Unexpected key part type: %s", type(key_part).__name__)
+				return None
+			#Object must be a dictionary or list (in order to sub-navigate)
+			if not isinstance(obj, dict) and not isinstance(obj, list):
+				log.error("Unexpected project data store object type: %s", type(obj).__name__)
+				return None
+			
+			#If key_part is a dictionary and obj is a list or dict, each key is tested as a property of the items in the current object
+			# in the project data structure, and the first match is returned.
+			if isinstance(key_part, dict) and (isinstance(obj, list) or isinstance(obj, dict)):
+				#Overall status of finding a matching subobject
+				found = False
+				#Loop through each item in object to find match
+				for obj_key in obj:
+					item = obj[obj_key]
+					#True until something disqualifies this as a match
+					match = True
+					#Check each key in key_part dictionary and if not found to be equal as a property in item, move on to next item in list
+					for subkey in key_part:
+						subkey = subkey.lower()
+						#If object is missing the key or the values differ, then it doesn't match.
+						if (not subkey in item) or item[subkey] == key_part[subkey]:
+							match = False
+							break #exit subkey for loop, this item didn't qualify
+					#If matched, set key_part to index of list or dict and stop loop
+					if match:
+						found = True
+						key_part = obj_key
+						break
+				#No match found, return None
+				if not found:
+					return None
+			
+			#If key_part is a string, homogenize to lower case for comparisons
+			if isinstance(key_part, str):
+				key_part = key_part.lower()
+				#If object is a list, key_part must be an int index.
+				if isinstance(obj, list):
+					try:
+						key_part = int(key_part) #May throw error on non-int index to list
+					except:
+						return None
+			
 			#If next part of path isn't in current object map, return failure
 			if not key_part in obj:
+				log.warn("Key not found in project. Mismatch on key part %s (\"%s\").\nKey: %s", (i+1), key_part, key)
 				return None
-			#Get sub-object based on part key as new object
+			#Get sub-object based on part key as new object, continue to next part
 			obj = obj[key_part]
-			#If this was last part, we've found object, return it
-			if len(parts) == 0:
-				return copy.deepcopy(obj)
+		
+		#After processing each key, we've found object, return copy of it
+		return copy.deepcopy(obj)
 
+	def set(self, key, value):
+		"""Prevent calling JsonDataStore set() method. It is not allowed in ProjectDataStore, as changes come from UpdateManager."""
+		raise Exception("ProjectDataStore.set() is not allowed. Changes must route through UpdateManager.")
+		
 	#Store setting, but adding isn't allowed. All possible settings must be in default settings file.
 	def _set(self, key, values=None, add=False, partial_update=False, remove=False):
-		key = key.lower()
-		
+		log.info("_set key: %s values: %s add: %s partial: %s remove: %s", key, values, add, partial_update, remove)
+		if not isinstance(key, list):
+			log.warning("set() key must be a list. key: %s", key)
+			return None
 		if not key:
 			log.warning("Cannot set empty key.")
 			return None
-		parts = key.split("/")
+			
 		parent, my_key = None, ""
 		obj = self._data
-		#Walk object tree expecting the key path to be from root.
-		while (True):
-			key_part = parts.pop(0)
-			#If object is a list, use int key instead of string
-			if isinstance(obj, list):
-				key_part = int(key_part) #May throw error on non-int index to list
-			#If this is an add and we are on last part, check and add it
-			if add and len(parts) == 0:
-				if key_part in obj:
-					log.warning("Add attempted with existing key: %s", key)
-					return None
-				#Store new key,value
-				obj[key_part] = values
-				return None					
-				
-			#If next part of path isn't in current object map, return failure
-			if not key_part in obj:
+		
+		#Iterate through key list finding subobjects either by name or by an object match criteria such as {"id":"ADB34"}.
+		for i in range(len(key)):
+			key_part = key[i]
+			#log.info("index: %s key_part: %s", i, key_part)
+						
+			#Key_part must be a string or dictionary
+			if not isinstance(key_part, dict) and not isinstance(key_part, str):
+				log.error("Unexpected key part type: %s", type(key_part).__name__)
 				return None
+			#Object must be a dictionary or list (in order to sub-navigate)
+			if not isinstance(obj, dict) and not isinstance(obj, list):
+				log.error("Unexpected project data store object type: %s", type(obj).__name__)
+				return None
+				
+			#Final key_part on add is the element being added. It does not match anything, but it can indicate the key for a parent dictionary.
+			if add and i == len(key) - 1:
+				#log.info("breaking loop for add")
+				parent, my_key = obj, key_part
+				
+				#Break loop and go straight to add operation
+				break
+				
+			#A blank final key_part on a remove indicates to remove the last item of a list
+			# This type of remove is generated as the reverse of an add ending in ""
+			if remove and i == len(key) - 1 and key_part == "":
+				if isinstance(obj, list):
+					key_part = len(obj) - 1 #Save key_part as last index, which will be deleted from parent
+				else:
+					log.error("Remove ending in blank must be a list. Key: %s", key)
+					return None
+			
+			#If key_part is a dictionary and obj is a list, each key is tested as a property of the current object
+			# in the project data structure, and the first match index is saved.
+			if isinstance(key_part, dict) and (isinstance(obj, list) or isinstance(obj, dict)):
+				#Overall status of finding a matching subobject
+				found = False
+				for obj_key in obj:
+					item = obj[obj_key]
+					#True until something disqualifies this as a match
+					match = True
+					#Check each key in key_part dictionary and if not found to be equal as a property in item, move on to next item in list
+					for subkey in key_part:
+						subkey = subkey.lower()
+						#If object is missing the key or the values differ, then it doesn't match.
+						if (not subkey in item) or item[subkey] == key_part[subkey]:
+							match = False
+							break #exit subkey for loop, this item didn't qualify
+					#If matched, set key_part to index of list or dict and stop loop
+					if match:
+						found = True
+						key_part = obj_key
+						break
+				#No match found, return None
+				if not found:
+					return None			
+			
+			#If key_part is a string, homogenize to lower case for comparisons
+			if isinstance(key_part, str) and key_part != "":
+				key_part = key_part.lower()
+				#If object is a list and key_part a str, convert to an int index.
+				if isinstance(obj, list):
+					try:
+						key_part = int(key_part) #May throw error on non-int index to list
+					except:
+						log.error("Invalid index to list: %s", key_part)
+						return None
+			
+			#If next part of path isn't in current object dict or list, return failure
+			#log.info("path check key_part: %s in object: %s, contained: %s", key_part, obj, (key_part in obj))
+			#Check if index is valid for list or dict
+			if not (isinstance(obj, list) and key_part >= 0 and key_part < len(obj)) and not (isinstance(obj, dict) and key_part in obj):
+				log.error("Key not found in project. Mismatch on key part %s (%s).\nKey: %s", (i+1), key_part, key)
+				return None
+			
 			#Get sub-object based on part key as new object
 			parent, my_key = obj, key_part
 			obj = obj[key_part]
 			
-			#If this was last part, we've found object, set/update it
-			if len(parts) == 0:
-				ret = None
-				#If partial update and both object and values are dictionaries, only copy over the keys in 'values'
-				if isinstance(obj, dict) and isinstance(values, dict) and partial_update:
-					ret = dict()
-					for k in values:
-						ret[k] = obj[k] #Save each old value
-						obj[k] = values[k] #Set new value
-				elif remove:
-					ret = obj #Save old value of 
-					del parent[my_key]
-				else:
-					ret = obj
-					parent[my_key] = values
-				return ret
-		
+		#After processing each key, we've found object and parent, return former value/s on update
+		ret = None
+		#If partial update and both object and values are dictionaries, only copy over the keys in 'values'
+		if isinstance(obj, dict) and isinstance(values, dict) and partial_update:
+			ret = dict()
+			for k in values:
+				ret[k] = obj[k] #Save each old value
+				obj[k] = values[k] #Set new value
+		elif remove:
+			ret = obj #Save old value of removed object
+			del parent[my_key]
+		else: #Add or Full Update
+			ret = obj
+			#For adds to list perform an insert to index or the end if not specified
+			if add and isinstance(parent, list):
+				#log.info("adding to list")
+				if my_key == "":
+					parent.append(values)
+				elif isinstance(my_key, int):
+					parent.insert(my_key, values)
+			#Otherwise, set the given index
+			else:
+				#log.info("setting key on dict")
+				parent[my_key] = values
+		return ret
 		
 				
 	#Load default project data
