@@ -30,7 +30,7 @@ import sys, os
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import *
-from PyQt5 import uic
+from PyQt5 import uic, QtGui
 from windows.TimelineWebView import TimelineWebView
 from classes import info, ui_util, SettingStore, qt_types, UpdateManager
 from classes.OpenShotApp import get_app
@@ -387,6 +387,16 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher, UpdateManager.UpdateI
 		# Init fullscreen menu visibility
 		self.init_fullscreen_menu()
 		
+		#sys.path.insert(0,"/usr/local/share/pyshared/libopenshot")
+		#import openshot
+		#import sip
+		
+		# Draw test image to QGraphicsView
+		#scene = QGraphicsScene()
+		#self.videoDisplay.setScene(scene)
+		#reader = openshot.DummyReader(openshot.Fraction(24,1), 640, 480, 48000, 2, 10.0)
+		#reader.DrawFrameOnScene("/home/jonathan/Pictures/tux.jpg", int(sip.unwrapinstance(scene)))
+
 		#setup timeline
 		self.timeline = TimelineWebView(self)
 		self.frameWeb.layout().addWidget(self.timeline)

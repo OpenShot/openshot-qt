@@ -130,12 +130,9 @@
            <number>5</number>
           </property>
           <item>
-           <widget class="QWidget" name="videoDisplay" native="true">
-            <property name="autoFillBackground">
-             <bool>false</bool>
-            </property>
+           <widget class="QGraphicsView" name="videoDisplay">
             <property name="styleSheet">
-             <string notr="true">background-color: rgb(0, 0, 0);</string>
+             <string notr="true">background-color: #000</string>
             </property>
            </widget>
           </item>
