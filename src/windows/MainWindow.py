@@ -182,6 +182,23 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher, UpdateManager.UpdateI
 	
 	def actionTimelineZoomOut_trigger(self, event):
 		self.sliderZoom.setValue(self.sliderZoom.value() + self.sliderZoom.singleStep())
+		
+	def actionFullscreen_trigger(self, event):
+		# Hide fullscreen button, and display exit fullscreen button
+		self.actionFullscreen.setVisible(False)
+		self.actionExit_Fullscreen.setVisible(True)
+
+	def actionExit_Fullscreen_trigger(self, event):
+		# Hide exit fullscreen button, and display fullscreen button
+		self.actionExit_Fullscreen.setVisible(False)
+		self.actionFullscreen.setVisible(True)
+		
+	# Init fullscreen menu visibility
+	def init_fullscreen_menu(self):
+		if self.isFullScreen():
+			self.actionFullscreen_trigger(None)
+		else:
+			self.actionExit_Fullscreen_trigger(None)
 
 	#Update undo and redo buttons enabled/disabled to available changes
 	def updateStatusChanged(self, undo_status, redo_status):
@@ -366,6 +383,9 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher, UpdateManager.UpdateI
 		
 		# Add window as watcher to receive undo/redo status updates
 		get_app().update_manager.add_watcher(self)
+		
+		# Init fullscreen menu visibility
+		self.init_fullscreen_menu()
 		
 		#setup timeline
 		self.timeline = TimelineWebView(self)
