@@ -146,7 +146,7 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher, UpdateManager.UpdateI
 		# curr_val = app.project.get("settings/nfigg-setting")
 		# if curr_val == None:
 			# log.info ("Addvalue")
-			# app.update_manager.add("settings/nfigg-setting", {"a": 1, "b": 5})
+			# app.update_manager.insert("settings/nfigg-setting", {"a": 1, "b": 5})
 		# else:
 			# log.info ("Increment value")
 			# update = dict()
@@ -163,7 +163,7 @@ class MainWindow(QMainWindow, UpdateManager.UpdateWatcher, UpdateManager.UpdateI
 			# app.update_manager.update("settings/nfigg-setting", update, partial_update=True)
 		# elif not curr_val == None:
 			# log.info ("Remove value")
-			# app.update_manager.remove("settings/nfigg-setting")
+			# app.update_manager.delete("settings/nfigg-setting")
 		#log.info(app.project._data)
 		
 	def actionPlay_trigger(self, event):

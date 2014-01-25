@@ -44,14 +44,20 @@ class TimelineWebView(QWebView, UpdateManager.UpdateInterface):
 	def eval_js(self, code):
 		self.page().mainFrame().evaluateJavaScript(cmd)
 	
-	#UpdateManager.UpdateInterface implementation
-	def update_add(self, action):
-		log.info("Timeline update_add handler")
-	def update_update(self, action):
-		log.info("Timeline update_update handler")
-	def update_remove(self, action):
-		log.info("Timeline update_remove handler")
-	
+	# This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
+	def changed(self, action):
+		if action.type == "insert":
+			# Insert new item
+			log.info("Timeline listener invoked for 'insert'")
+			
+		elif action.type == "update":
+			# Update existing item
+			log.info("Timeline listener invoked for 'update'")
+			
+		elif action.type == "delete":
+			# Delete existing item
+			log.info("Timeline listener invoked for 'delete'")
+
 	#Prevent default context menu, and ignore, so that javascript can intercept
 	def contextMenuEvent(self, event):
 		event.ignore()

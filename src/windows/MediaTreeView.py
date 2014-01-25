@@ -39,18 +39,14 @@ from PyQt5.QtWidgets import QTreeWidget, QApplication, QMessageBox, QTreeWidgetI
 class MediaTreeView(QTreeWidget, UpdateManager.UpdateInterface):
 	drag_item_size = 32
 	
-	#UpdateManager.UpdateInterface implementation
-	# These events can be used to respond to certain updates by refreshing ui elemnts, etc.
-	def update_add(self, action):
+	# This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
+	def changed(self, action):
+
+		# Something was changed in the 'files' list
 		if len(action.key) >= 1 and action.key[0].lower() == "files":
+			# Refresh project files model
 			self.update_model()
-	def update_update(self, action):
-		if len(action.key) >= 1 and action.key[0].lower() == "files":
-			self.update_model()
-	def update_remove(self, action):
-		if len(action.key) >= 1 and action.key[0].lower() == "files":
-			self.update_model()
-			
+
 	def mouseMoveEvent(self, event):
 		#If mouse drag detected, set the proper data and icon and start dragging
 		if event.buttons() & Qt.LeftButton == Qt.LeftButton and (event.pos() - self.startDragPos).manhattanLength() >= QApplication.startDragDistance():
@@ -168,7 +164,7 @@ class MediaTreeView(QTreeWidget, UpdateManager.UpdateInterface):
 		file['type'] = self.get_filetype(file)
 		
 		#Add file to files list via update manager
-		app.update_manager.add(["files", ""], file)
+		app.update_manager.insert(["files", ""], file)
 		return True
 	
 	#Handle a drag and drop being dropped on widget

@@ -260,18 +260,22 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 		#On success, save current filepath
 		self.current_filepath = file_path
 
-	#UpdateInterface methods
-	def update_add(self, action):
-		self._set(action.key, action.values, add=True)
-	
-	def update_update(self, action):
-		old_vals = self._set(action.key, action.values, partial_update=action.partial_update)
-		action.set_old_values(old_vals) #Save previous values to reverse this action
-		
-	def update_remove(self, action):
-		old_vals = self._set(action.key, remove=True)
-		action.set_old_values(old_vals)
-		
+	# This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
+	def changed(self, action):
+		if action.type == "insert":
+			# Insert new item
+			self._set(action.key, action.values, add=True)
+			
+		elif action.type == "update":
+			# Update existing item
+			old_vals = self._set(action.key, action.values, partial_update=action.partial_update)
+			action.set_old_values(old_vals) #Save previous values to reverse this action
+			
+		elif action.type == "delete":
+			# Delete existing item
+			old_vals = self._set(action.key, remove=True)
+			action.set_old_values(old_vals)
+
 	#Utility methods
 	def generate_id(self, digits=10):
 		chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
