@@ -31,9 +31,12 @@ from classes import info, settings, project_data, updates, language, ui_util
 from PyQt5.QtWidgets import QApplication
 
 def get_app():
+	""" Returns the current QApplication instance of OpenShot """
 	return QApplication.instance()
 
 class OpenShotApp(QApplication):
+	""" This class is the primary QApplication for OpenShot """
+	
 	def __init__(self, *args):
 		QApplication.__init__(self, *args)
 		
@@ -73,7 +76,8 @@ class OpenShotApp(QApplication):
 		
 	#Start event loop
 	def run(self):
-		#start event loop
+		""" Start the primary Qt event loop for the interface """
+
 		res = self.exec_()
 		
 		try:

@@ -37,6 +37,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QTreeWidget, QApplication, QMessageBox, QTreeWidgetItem
 
 class MediaTreeView(QTreeWidget, updates.UpdateInterface):
+	""" A TreeView QWidget used on the main window """ 
 	drag_item_size = 32
 	
 	# This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)

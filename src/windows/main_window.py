@@ -39,8 +39,10 @@ from images import openshot_rc
 from windows.media_treeview import MediaTreeView
 import xml.etree.ElementTree as ElementTree
 
-#This class contains the logic for the main window widget
 class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
+	""" This class contains the logic for the main window widget """
+	
+	# Path to ui file
 	ui_path = os.path.join(info.PATH, 'windows','ui', 'main-window.ui')
 	
 	#Save window settings on close

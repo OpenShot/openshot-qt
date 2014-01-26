@@ -1,6 +1,6 @@
 """ 
  @file
- @brief This file creates the QApplication, and displays the main window
+ @brief This file updates the OpenShot.POT (language translation template) by scanning all source files.
  @author Jonathan Thomas <jonathan@openshot.org>
  
  This file helps you generate the POT file that contains all of the translatable

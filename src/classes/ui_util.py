@@ -37,6 +37,8 @@ from PyQt5 import uic
 DEFAULT_THEME_NAME = "Compass"
 
 def load_theme():
+	""" Load the current OS theme, or fallback to a default one """
+	
 	#If theme not reported by OS
 	if QIcon.themeName() == '':
 		#Address known Ubuntu bug of not reporting configured theme name, use default ubuntu theme
@@ -47,6 +49,8 @@ def load_theme():
 			QIcon.setThemeName(DEFAULT_THEME_NAME)
 			
 def load_ui(window, path):
+	""" Load a Qt *.ui file, and also load an XML parsed version """ 
+	
 	#Load ui from configured path
 	uic.loadUi(path, window)
 
@@ -54,6 +58,8 @@ def load_ui(window, path):
 	window.uiTree = xml.etree.ElementTree.parse(path)
 
 def get_default_icon(theme_name):
+	""" Get a QIcon, and fallback to default theme if OS does not support themes. """
+	
 	#Default path to backup icons
 	start_path = ":/icons/" + DEFAULT_THEME_NAME + "/"
 	
@@ -61,6 +67,8 @@ def get_default_icon(theme_name):
 	return QIcon(icon_path), icon_path
 
 def search_dir(base_path, theme_name):
+	""" Search for theme name """
+	
 	#Search each entry in this directory
 	base_dir = QDir(base_path)
 	for e in base_dir.entryList():
@@ -112,8 +120,9 @@ def setup_icon(window, elem, name, theme_name=None):
 		if icon:
 			elem.setIcon(icon)
 	
-#Initialize language and icons of the given element
 def init_element(window, elem):
+	""" Initialize language and icons of the given element """
+
 	_translate = QApplication.instance().translate
 	
 	name = ''
@@ -140,6 +149,8 @@ def init_element(window, elem):
 		setup_icon(window, elem, name)
 
 def connect_auto_events(window, elem, name):
+	""" Connect any events in a *.ui file with matching Python method names """
+	
 	#If trigger slot available check it
 	if hasattr(elem, 'trigger'):
 		func_name = name + "_trigger"
@@ -155,6 +166,7 @@ def connect_auto_events(window, elem, name):
 			elem.clicked.connect(getattr(window, func_name))
 					
 def init_ui(window):
+	""" Initialize all child widgets and action of a window or dialog """
 	log.info('Initializing UI for %s', window.objectName())
 
 	try:	

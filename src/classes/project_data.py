@@ -33,7 +33,7 @@ from classes import info
 from classes.logger import log
 
 class ProjectDataStore(JsonDataStore, UpdateInterface):
-	"""ProjectDataStore - JsonDataStore sub-class which allows more advanced searching of data structure, implements changes inteface."""
+	""" This class allows advanced searching of data structure, implements changes interface """
 	
 	def __init__(self):
 		JsonDataStore.__init__(self)
@@ -45,6 +45,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 		self.new()
 
 	def get(self, key):
+		""" Get copied value of a given key in data store """
+		
 		if not isinstance(key, list):
 			log.warning("get() key must be a list. key: %s", key)
 			return None
@@ -113,10 +115,12 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
 	def set(self, key, value):
 		"""Prevent calling JsonDataStore set() method. It is not allowed in ProjectDataStore, as changes come from UpdateManager."""
+		
 		raise Exception("ProjectDataStore.set() is not allowed. Changes must route through UpdateManager.")
 		
-	#Store setting, but adding isn't allowed. All possible settings must be in default settings file.
 	def _set(self, key, values=None, add=False, partial_update=False, remove=False):
+		""" Store setting, but adding isn't allowed. All possible settings must be in default settings file. """
+		
 		log.info("_set key: %s values: %s add: %s partial: %s remove: %s", key, values, add, partial_update, remove)
 		if not isinstance(key, list):
 			log.warning("set() key must be a list. key: %s", key)
@@ -235,12 +239,12 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 				
 	#Load default project data
 	def new(self):
-		#Try to load default project settings file, will raise error on failure
+		""" Try to load default project settings file, will raise error on failure """
 		self._data = self.read_from_file(self.default_project_filepath)
 		
-	#Load project from file
 	def load(self, file_path):
-		#Re-load default project
+		""" Load project from file """
+		
 		self.new()
 		#Default project data
 		default_project = self._data
@@ -253,15 +257,16 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 		#On success, save current filepath
 		self.current_filepath = file_path
 
-	#Save project file to disk
 	def save(self, file_path):
+		""" Save project file to disk """ 
+		
 		#Try to save project settings file, will raise error on failure
 		self.write_to_file(file_path, self._data)
 		#On success, save current filepath
 		self.current_filepath = file_path
 
-	# This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
 	def changed(self, action):
+		""" This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """
 		if action.type == "insert":
 			# Insert new item
 			self._set(action.key, action.values, add=True)
@@ -278,6 +283,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
 	#Utility methods
 	def generate_id(self, digits=10):
+		""" Generate random alphanumeric ids """
+		
 		chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 		id = ""
 		for i in range(digits):

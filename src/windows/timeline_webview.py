@@ -39,6 +39,9 @@ import simplejson as json
 JS_SCOPE_SELECTOR = "$('body').scope()"
 
 class TimelineWebView(QWebView, updates.UpdateInterface):
+	""" A WebView QWidget used to load the Timeline """
+	
+	# Path to ui file
 	html_path = os.path.join(info.PATH, 'timeline','index.html')
 
 	def eval_js(self, code):

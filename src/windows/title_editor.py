@@ -34,8 +34,10 @@ from PyQt5 import uic
 from classes import info, ui_util, settings, qt_types, updates
 from classes.logger import log
 
-# Title Editor Dialog
 class TitleEditor(QDialog):
+	""" Title Editor Dialog """
+	
+	# Path to ui file
 	ui_path = os.path.join(info.PATH, 'windows','ui', 'title-editor.ui')
 		
 	def __init__(self):

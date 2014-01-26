@@ -35,8 +35,10 @@ from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
 
-# Animated Title Dialog
 class AnimatedTitle(QDialog):
+	""" Animated Title Dialog """
+	
+	# Path to ui file
 	ui_path = os.path.join(info.PATH, 'windows','ui', 'animated-title.ui')
 		
 	def __init__(self):

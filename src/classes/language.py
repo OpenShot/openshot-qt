@@ -31,6 +31,8 @@ from PyQt5.QtCore import QLocale, QLibraryInfo, QTranslator, QCoreApplication
 from classes.logger import log
 
 def init_language():
+	""" Find the current locale, and install the correct translators """
+	
 	#Get app instance
 	app = QCoreApplication.instance()
 
@@ -65,6 +67,8 @@ def init_language():
 #  path - base path for file (pattern may contain more path)
 #  
 def find_language_match(pattern, path, translator, locale_name):
+	""" Match all combinations of locale, language, and country """
+	
 	success = False
 	locale_parts = locale_name.split('_')
 	

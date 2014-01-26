@@ -37,7 +37,7 @@ from classes.logger import log
 from classes import info
 
 class JsonDataStore:
-	"""JsonDataStore - class which allows getting/setting of key/value settings, and loading and saving to json files.
+	""" This class which allows getting/setting of key/value settings, and loading and saving to json files.
 	Internal storage of a dictionary. Uses json or simplejson packages to serialize and deserialize from json to dictionary.
 	Keys are assumed to be strings, but subclasses which override get/set methods may use different key types.
 	The write_to_file and read_from_file methods are key type agnostic."""
@@ -47,18 +47,18 @@ class JsonDataStore:
 		self._data = {} #Private data store, accessible through the get and set methods
 		self.data_type = "json data"
 
-	#Get copied value of a given key in data store
 	def get(self, key):
+		""" Get copied value of a given key in data store """
 		key = key.lower()
 		return copy.deepcopy(self._data.get(key, None))
 		
-	#Store value in key.
 	def set(self, key, value):
+		""" Store value in key """
 		key = key.lower()
 		self._data[key] = value
 		
-	#Make all keys in dictionary lower cased
 	def homogenize_keys(self, data):
+		""" Make all keys in dictionary lower cased """
 		rem_list = []
 		add_set = {}
 		#Find keys that need changing
@@ -76,9 +76,9 @@ class JsonDataStore:
 			#log.info("Relacing with lowercased user setting key '%s'", key)
 			data[key] = add_set[key]
 		
-	#Merge settings files, removing invalid settings based on default settings
-	#This is only called by some sub-classes that use string keys
 	def merge_settings(self, default, user):
+		""" Merge settings files, removing invalid settings based on default settings
+			This is only called by some sub-classes that use string keys """
 		#Make sure all keys are lowercase
 		self.homogenize_keys(default)
 		self.homogenize_keys(user)
@@ -90,6 +90,7 @@ class JsonDataStore:
 		return default
 		
 	def read_from_file(self, file_path):
+		""" Load JSON settings from a file """
 		#log.debug("loading %s", file_path)
 		try:
 			with open(file_path, 'r') as f:
@@ -106,7 +107,7 @@ class JsonDataStore:
 		raise Exception(msg)
 		
 	def write_to_file(self, file_path, data):
-		#Save data to file
+		""" Save JSON settings to a file """
 		#log.debug("saving", file_path, data)
 		try:
 			with open(file_path, 'w') as f:

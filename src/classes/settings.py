@@ -34,10 +34,11 @@ from classes import info
 from classes.json_data import JsonDataStore
 
 def get_settings():
+	""" Get the current QApplication's settings instance """
 	return QCoreApplication.instance().settings
 
 class SettingStore(JsonDataStore):
-	"""SettingStore - JsonDataStore sub-class which only allows setting preexisting keys taken from default settings file, merges user settings on load, assumes default OS dir."""
+	""" This class only allows setting pre-existing keys taken from default settings file, and merges user settings on load, assumes default OS dir."""
 	
 	def __init__(self):
 		JsonDataStore.__init__(self)
@@ -46,16 +47,18 @@ class SettingStore(JsonDataStore):
 		self.settings_filename = "openshot.settings"
 		self.default_settings_filename = os.path.join(info.PATH, 'settings', '_default.settings')
 		
-	#Store setting, but adding isn't allowed. All possible settings must be in default settings file.
 	def set(self, key, value):
+		""" Store setting, but adding isn't allowed. All possible settings must be in default settings file. """
+		
 		key = key.lower()
 		if key in self._data:
 			self._data[key] = value
 		else:
 			log.warn("%s key '%s' not valid. The following are valid: %s", self.data_type, key, list(self._data.keys()))
 
-	#Load user settings file from disk, merging with allowed settings in default settings file. Creates user settings if missing.
 	def load(self):
+		""" Load user settings file from disk, merging with allowed settings in default settings file. Creates user settings if missing. """
+		
 		#Default and user settings objects
 		default_settings, user_settings = {}, {}
 	
@@ -92,8 +95,9 @@ class SettingStore(JsonDataStore):
 		#Return success of saving user settings file back after merge
 		return self.write_to_file(file_path, self._data)
 		
-	#Save user settings file to disk
 	def save(self):
+		""" Save user settings file to disk """
+		
 		#Try to find user settings file
 		file_path = QStandardPaths.locate(QStandardPaths.ConfigLocation, self.settings_filename)
 		
