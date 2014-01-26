@@ -66,6 +66,7 @@ effects_path = os.path.join(openshot_path, 'effects')
 blender_path = os.path.join(openshot_path, 'blender')
 transitions_path = os.path.join(openshot_path, 'transitions')
 export_path = os.path.join(openshot_path, 'presets')
+windows_ui_path = os.path.join(openshot_path, 'windows', 'ui')
 locale_path = os.path.join(openshot_path, 'locale', 'OpenShot')
 
 log.info("-----------------------------------------------------")
@@ -73,27 +74,36 @@ log.info(" Creating 4 temp POT files")
 log.info("-----------------------------------------------------")
 
 # create empty temp files in the /openshot/language folder (these are used as temp POT files)
-temp_files = ['OpenShot_source', 'OpenShot_glade', 'OpenShot_effects', 'OpenShot_export', 'OpenShot_transitions']
+temp_files = ['OpenShot_source.pot', 'OpenShot_glade.pot', 'OpenShot_effects.pot', 'OpenShot_export.pot', 'OpenShot_transitions.pot', 'OpenShot_QtUi.pot']
 for temp_file_name in temp_files:
-	temp_file_path = os.path.join(openshot_path, temp_file_name)
+	temp_file_path = os.path.join(langage_folder_path, temp_file_name)
 	if os.path.exists(temp_file_path):
 		os.remove(temp_file_path)
 	f = open(temp_file_path, "w")
 	f.close()
 	
 log.info("-----------------------------------------------------")
-log.info(" Using xgettext to generate .Glade and .py POT files")
+log.info(" Using xgettext to generate .py POT files")
 log.info("-----------------------------------------------------")
 
 # Generate POT for Source Code strings (i.e. strings marked with a _("translate me"))
-subprocess.call('find %s -iname "*.py" -exec xgettext -j -o %s --keyword=_ {} \;' % (openshot_path, os.path.join(langage_folder_path, 'OpenShot_source')), shell=True)
-subprocess.call('find %s -iname "*.ui" -exec xgettext -j -L Glade -o %s --keyword=translatable {} \;' % (openshot_path, os.path.join(langage_folder_path, 'OpenShot_glade')), shell=True)
+subprocess.call('find %s -iname "*.py" -exec xgettext -j -o %s --keyword=_ {} \;' % (openshot_path, os.path.join(langage_folder_path, 'OpenShot_source.pot')), shell=True)
+
+log.info("-----------------------------------------------------")
+log.info(" Using Qt's lupdate to generate .ui POT files")
+log.info("-----------------------------------------------------")
+
+# Generate POT for Qt *.ui files (which require the lupdate command, and ts2po command)
+os.chdir(windows_ui_path)
+subprocess.call('lupdate *.ui -ts %s' % (os.path.join(langage_folder_path, 'OpenShot_QtUi.ts')), shell=True)
+subprocess.call('lupdate *.ui -ts %s' % (os.path.join(langage_folder_path, 'OpenShot_QtUi.pot')), shell=True)
+os.chdir(langage_folder_path)
 
 log.info("-----------------------------------------------------")
 log.info(" Updating auto created POT files to set CharSet")
 log.info("-----------------------------------------------------")
 
-temp_files = ['OpenShot_source', 'OpenShot_glade']
+temp_files = ['OpenShot_source.pot', 'OpenShot_glade.pot']
 for temp_file in temp_files:
 	# get the entire text
 	f = open(os.path.join(langage_folder_path, temp_file), "r")
@@ -209,7 +219,7 @@ header_text = header_text + '"Content-Type: text/plain; charset=UTF-8\\n"\n'
 header_text = header_text + '"Content-Transfer-Encoding: 8bit\\n"\n'
 
 # Create POT files for the custom text (from our XML files)
-temp_files = [['OpenShot_effects',effects_text], ['OpenShot_export',export_text], ['OpenShot_transitions',transitions_text]]
+temp_files = [['OpenShot_effects.pot',effects_text], ['OpenShot_export.pot',export_text], ['OpenShot_transitions.pot',transitions_text]]
 for temp_file, text_dict in temp_files:
 	f = open(temp_file, "w")
 	
@@ -229,10 +239,10 @@ for temp_file, text_dict in temp_files:
 	
 	
 log.info("-----------------------------------------------------")
-log.info(" Combine all 5 temp POT files using msgcat command (this removes dupes) ")
+log.info(" Combine all temp POT files using msgcat command (this removes dupes) ")
 log.info("-----------------------------------------------------")
 	
-temp_files = ['OpenShot_source', 'OpenShot_glade', 'OpenShot_effects', 'OpenShot_export', 'OpenShot_transitions']
+temp_files = ['OpenShot_source.pot', 'OpenShot_glade.pot', 'OpenShot_effects.pot', 'OpenShot_export.pot', 'OpenShot_transitions.pot', 'OpenShot_QtUi.pot']
 command = "msgcat"
 for temp_file in temp_files:
 	# append files
@@ -246,7 +256,7 @@ subprocess.call(command, shell=True)
 	
 	
 log.info("-----------------------------------------------------")
-log.info(" Create FINAL POT File from 4 temp POT files ")
+log.info(" Create FINAL POT File from all temp POT files ")
 log.info("-----------------------------------------------------")
 
 # get the entire text of OpenShot.POT
@@ -275,13 +285,13 @@ final.close()
 
 
 log.info("-----------------------------------------------------")
-log.info(" Remove 4 temp POT files ")
+log.info(" Remove all temp POT files ")
 log.info("-----------------------------------------------------")
 
 # Delete all 4 temp files
-temp_files = ['OpenShot_source', 'OpenShot_glade', 'OpenShot_effects', 'OpenShot_export', 'OpenShot_transitions']
+temp_files = ['OpenShot_source.pot', 'OpenShot_glade.pot', 'OpenShot_effects.pot', 'OpenShot_export.pot', 'OpenShot_transitions.pot', 'OpenShot_QtUi.pot', 'OpenShot_QtUi.ts']
 for temp_file_name in temp_files:
-	temp_file_path = os.path.join(openshot_path, temp_file_name)
+	temp_file_path = os.path.join(langage_folder_path, temp_file_name)
 	if os.path.exists(temp_file_path):
 		os.remove(temp_file_path)
 		
