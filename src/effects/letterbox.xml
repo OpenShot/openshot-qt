@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">Letterbox</title>
+	<description translatable="True">Adds black borders at the top and bottom</description>
+	<icon>letterbox.png</icon>
+	<category>Video</category>
+	<service>frei0r.letterb0xed</service>
+	
+	<param name="Border Width" type="spinner" title="Border Width" description="">
+		<min>0.0</min>
+		<max>1.0</max>
+		<step>0.01</step>
+		<default>0.4</default>
+	</param>
+	
+	<param name="Transparency" type="dropdown" title="Transparency" description="">
+		<values>
+			<value name="Yes" num="1"/>
+			<value name="No" num="0"/> 
+		</values>
+		<default>0</default>
+	</param>
+</effect>

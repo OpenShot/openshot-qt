@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">Glow</title>
+	<description translatable="True">Add a glow effect to the image</description>
+	<icon>glow.png</icon>
+	<category>Video</category>
+	<service>frei0r.glow</service>
+	
+	<param name="Blur" type="spinner" title="Blur" description="">
+		<min>0.0</min>
+		<max>3.0</max>
+		<step>0.01</step>
+		<default>0.75</default>
+	</param>
+
+</effect>

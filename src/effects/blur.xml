@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">Blur</title>
+	<description translatable="True">Blur the image similar to an out-of-focus camera</description>
+	<icon>blur.png</icon>
+	<category>Video</category>
+	<service>boxblur</service>
+	
+	<param name="start" type="hscale" title="Start" description=""> 
+		<min>1.0</min> 
+		<max>200</max> 
+		<default>50</default> 
+	</param> 
+ 
+	<param name="end" type="hscale" title="End" description=""> 
+		<min>1.0</min> 
+		<max>200</max> 
+		<default>50</default> 
+	</param> 
+
+</effect>

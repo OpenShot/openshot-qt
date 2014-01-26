@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">Brightness</title>
+	<description translatable="True">Adjusts the brightness of the image</description>
+	<icon>brightness.png</icon>
+	<category>Video</category>
+	<service>brightness</service>
+	
+	<param name="start" type="spinner" title="Start Value" description="">
+		<min>0.0</min>
+		<max>3</max>
+		<default>1.5</default>
+	</param>
+	
+	<param name="end" type="spinner" title="End Value" description="">
+		<min>0.0</min>
+		<max>3</max>
+		<default>1.5</default>
+	</param>
+
+</effect>

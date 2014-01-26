@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-export-option>
+<export-option>
+	<type translatable="True">Web</type>
+	<title translatable="True">Flickr-HD</title>
+	<videoformat>mov</videoformat>
+	<videocodec>libx264</videocodec>
+	<audiocodec>ac3</audiocodec>
+	<audiochannels>2</audiochannels>
+	<videobitrate
+	 low="384 kb/s"
+	 med="5 Mb/s"
+	 high="15.00 Mb/s"></videobitrate>
+	<audiobitrate
+	 low="96 kb/s"
+	 med="128 kb/s"
+	 high="192 kb/s"></audiobitrate>
+	<samplerate>44100</samplerate>
+	<projectprofile>HD 720p 25 fps</projectprofile>
+	<projectprofile>HD 720p 29.97 fps</projectprofile>
+</export-option>

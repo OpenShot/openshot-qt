@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">Contrast</title>
+	<description translatable="True">Adjusts the contrast of a source image</description>
+	<icon>contrast.png</icon>
+	<category>Video</category>
+	<service>frei0r.contrast0r</service>
+	
+	<param name="Contrast" type="spinner" title="Contrast" description="contrast value, 0.5 is normal contrast">
+		<min>0.0</min>
+		<max>1.0</max>
+		<step>0.01</step>
+		<default>0.5</default>
+	</param>
+
+</effect>
+

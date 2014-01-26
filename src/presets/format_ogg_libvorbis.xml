@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-export-option>
+<export-option>
+	<type translatable="True">All Formats</type>
+	<title translatable="True">OGG (theora/vorbis)</title>
+	<videoformat>ogg</videoformat>
+	<videocodec>libtheora</videocodec>
+	<audiocodec>libvorbis</audiocodec>
+	<audiochannels>2</audiochannels>
+	<videobitrate
+	 low="384 kb/s"
+	 med="5 Mb/s"
+	 high="15.00 Mb/s"></videobitrate>
+	<audiobitrate
+	 low="96 kb/s"
+	 med="128 kb/s"
+	 high="192 kb/s"></audiobitrate>
+	<samplerate>44100</samplerate>
+</export-option>

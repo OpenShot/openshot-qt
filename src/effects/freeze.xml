@@ -1,0 +1,30 @@
+<!DOCTYPE openshot-effect> 
+<effect> 
+	<title translatable="True">Freeze</title> 
+	<description translatable="True">Freeze the frame of a video</description> 
+	<icon>freeze.png</icon> 
+	<category>Video</category> 
+	<service>freeze</service> 
+ 
+	<param name="frame" type="spinner" title="Frame Number" description=""> 
+		<min>0.0</min> 
+		<max>100000.0</max> 
+		<step>1.0</step>
+		<default>0.0</default> 
+	</param> 
+	<param name="freeze_after" type="dropdown" title="Freeze After" description=""> 
+		<values> 
+			<value name="Yes" num="1.0"/> 
+			<value name="No" num="0.0"/> 
+		</values> 
+		<default>0.0</default> 
+	</param> 
+	<param name="freeze_before" type="dropdown" title="Freeze Before" description=""> 
+		<values> 
+			<value name="Yes" num="1.0"/> 
+			<value name="No" num="0.0"/> 
+		</values> 
+		<default>0.0</default> 
+	</param> 
+ 
+</effect> 

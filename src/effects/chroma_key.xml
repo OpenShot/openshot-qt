@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">Chroma Key</title>
+	<description translatable="True">Make a single color transparent.  Also referred to as green screen and blue screen.</description>
+	<icon>chroma_key.png</icon>
+	<category>Video</category>
+	<service>chroma</service>
+	
+	<param name="variance" type="spinner" title="Variance" description="">
+		<min>0.0</min>
+		<max>1.0</max>
+		<step>0.01</step>
+		<default>0.10</default>
+	</param>
+	
+	<param name="key" type="color" title="Key" description="">
+		<default>#00ff00</default>
+	</param>
+
+</effect>

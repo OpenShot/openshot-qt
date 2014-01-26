@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">Old Grain</title>
+	<description translatable="True">Adds static and grain to the image</description>
+	<icon>old_grain.png</icon>
+	<category>Video</category>
+	<service>grain</service>
+	
+	<param name="noise" type="spinner" title="Noise" description="">
+		<min>0.0</min>
+		<max>80.0</max>
+		<step>1.0</step>
+		<default>40.0</default>
+	</param>
+	
+	<param name="contrast" type="spinner" title="Contrast" description="">
+		<min>0.0</min>
+		<max>300.0</max>
+		<step>1.0</step>
+		<default>160.0</default>
+	</param>
+	
+	<param name="brightness" type="spinner" title="Brightness" description="">
+		<min>0.0</min>
+		<max>300.0</max>
+		<step>1.0</step>
+		<default>70.0</default>
+	</param>
+
+</effect>
+
+

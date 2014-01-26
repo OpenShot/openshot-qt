@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">Primary Colors</title>
+	<description translatable="True">Reduce image to primary colors</description>
+	<icon>primaries.png</icon>
+	<category>Video</category>
+	<service>frei0r.primaries</service>
+	
+	<param name="Factor" type="spinner" title="Factor" description="Influence of mean px value, > 32 = 0">
+		<min>0.0</min>
+		<max>32.0</max>
+		<step>1.0</step>
+		<default>1.0</default>
+	</param>
+	
+</effect>
+

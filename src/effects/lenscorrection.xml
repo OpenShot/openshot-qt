@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">Lens Correction</title>
+	<description translatable="True">Allows compensation of lens distortion</description>
+	<icon>lenscorrection.png</icon>
+	<category>Video</category>
+	<service>frei0r.lenscorrection</service>
+	
+	<param name="xcenter" type="spinner" title="X Center" description="">
+		<min>0.0</min>
+		<max>1.0</max>
+		<default>0.5</default>
+	</param>
+	
+	<param name="ycenter" type="spinner" title="Y Center" description="">
+		<min>0.0</min>
+		<max>1.0</max>
+		<default>0.5</default>
+	</param>
+	
+	<param name="correctionnearcenter" type="spinner" title="Correction near center" description="">
+		<min>0.0</min>
+		<max>1.0</max>
+		<default>0.5</default>
+	</param>
+	
+	<param name="correctionnearedges" type="spinner" title="Correction near edges" description="">
+		<min>0.0</min>
+		<max>1.0</max>
+		<default>1.0</default>
+	</param>
+	
+	<param name="brightness" type="spinner" title="Brightness" description="">
+		<min>0.0</min>
+		<max>1.0</max>
+		<default>1.0</default>
+	</param>
+		
+</effect>

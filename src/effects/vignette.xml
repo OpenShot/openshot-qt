@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">Vignette</title>
+	<description translatable="True">Lens vignetting</description>
+	<icon>vignette.png</icon>
+	<category>Video</category>
+	<service>frei0r.vignette</service>
+	
+	<param name="aspect" type="spinner" title="Aspect ratio" description="Aspect ratio">
+		<min>0.0</min>
+		<max>1.0</max>
+		<default>0.5</default>
+	</param>
+	
+	<param name="clearCenter" type="spinner" title="Center size" description="Size of the unaffected center">
+		<min>0.0</min>
+		<max>1.0</max>
+		<default>0.3</default>
+	</param>
+	
+	<param name="soft" type="spinner" title="Softness" description="Softness">
+		<min>0.0</min>
+		<max>1.0</max>
+		<default>0.0</default>
+	</param>	
+	
+</effect>

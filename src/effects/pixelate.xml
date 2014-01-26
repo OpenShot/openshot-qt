@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">Pixelate</title>
+	<description translatable="True">Increase the size of pixels to obscure the image</description>
+	<icon>pixelate.png</icon>
+	<category>Video</category>
+	<service>frei0r.pixeliz0r</service>
+	
+	<param name="BlockSizeX" type="spinner" title="Block Size X" description="">
+		<min>0.0</min>
+		<max>1.0</max>
+		<step>0.01</step>
+		<default>0.03</default>
+	</param>
+	
+	<param name="BlockSizeY" type="spinner" title="Block Size Y" description="">
+		<min>0.0</min>
+		<max>1.0</max>
+		<step>0.01</step>
+		<default>0.03</default>
+	</param>
+
+</effect>

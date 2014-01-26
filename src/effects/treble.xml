@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">Treble</title>
+	<description translatable="True">Adjust the high-pitched sound or tone</description>
+	<icon>audio.png</icon>
+	<category>Audio</category>
+	<service>sox:treble</service>
+
+	<param name="gain" type="spinner" title="Gain" description="">
+		<min>-20</min>
+		<max>20</max>
+		<step>1.0</step>
+		<default>10</default>
+	</param>
+
+	<param name="frequency" type="spinner" title="Frequency" description="">
+		<min>3000</min>
+		<max>22000</max>
+		<step>1.0</step>
+		<default>5000</default>
+	</param>
+
+</effect>

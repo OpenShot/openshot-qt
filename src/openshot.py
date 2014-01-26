@@ -42,7 +42,7 @@
 
 import sys, os
 from classes import info
-from classes.OpenShotApp import OpenShotApp
+from classes.app import OpenShotApp
 from classes.logger import log
 
 def main():

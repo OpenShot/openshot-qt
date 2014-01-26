@@ -1,0 +1,149 @@
+# OpenShot Video Editor POT Template File.
+# Copyright (C) 2009  Jonathan Thomas
+# This file is distributed under the same license as the PACKAGE package.
+# Jonathan Thomas <Jonathan.Oomph@gmail.com>, 2009.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor (version: 2.0.0)\n"
+"Report-Msgid-Bugs-To: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
+"POT-Creation-Date: 2014-01-25 19:25:46.266279\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
+"Language-Team: https://translations.launchpad.net/+groups/launchpad-translators\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: /home/jonathan/apps/openshot_qt/src/presets/format_mpeg_mpeg2.xml
+msgid "MPEG (mpeg2)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/metacafe.xml
+msgid "Metacafe"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/vimeo.xml
+msgid "Web"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/apple_tv.xml
+msgid "Device"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/dvd_pal.xml
+msgid "DVD-PAL"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/avchd.xml
+msgid "Blu-Ray/AVCHD"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/format_mp4_xvid.xml
+msgid "MP4 (Xvid)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/format_mp4_mpeg4.xml
+msgid "MP4 (mpeg4)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/format_ogg_flac.xml
+msgid "OGG (theora/flac)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/vimeo_WS.xml
+msgid "Vimeo-SD Widescreen"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/format_mov_mpeg4.xml
+msgid "MOV (mpeg4)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/avchd.xml
+msgid "AVCHD Disks"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/dvd_ntsc.xml
+msgid "DVD-NTSC"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/format_avi_mp4.xml
+msgid "AVI (mpeg4)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/youtube.xml
+msgid "YouTube"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/format_mp4_x264.xml
+msgid "MP4 (h.264)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/format_avi_x264.xml
+msgid "AVI (h.264)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/vimeo_HD.xml
+msgid "Vimeo-HD"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/xbox360.xml
+msgid "Xbox 360"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/format_avi_mpeg2.xml
+msgid "AVI (mpeg2)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/format_mov_x264.xml
+msgid "MOV (h.264)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/flickr_HD.xml
+msgid "Flickr-HD"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/wikipedia.xml
+msgid "Wikipedia"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/format_flv_x264.xml
+msgid "FLV (h.264)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/apple_tv.xml
+msgid "Apple TV"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/format_webm_libvpx.xml
+msgid "WEBM (vpx)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/vimeo.xml
+msgid "Vimeo-SD"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/nokia_nHD.xml
+msgid "Nokia nHD"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/youtube_HD.xml
+msgid "YouTube-HD"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/format_ogg_libvorbis.xml
+msgid "OGG (theora/vorbis)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/dvd_pal.xml
+msgid "DVD"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/format_mp4_mpeg4.xml
+msgid "All Formats"
+msgstr ""
+
+#: /home/jonathan/apps/openshot_qt/src/presets/picasa.xml
+msgid "Picasa"
+msgstr ""

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">Sepia</title>
+	<description translatable="True">Adjust the color of the image to emulate black-and-white film that has had sepia pigment added</description>
+	<icon>sepia.png</icon>
+	<category>Video</category>
+	<service>sepia</service>
+	
+	<param name="u" type="spinner" title="u" description="">
+		<min>0.0</min>
+		<max>200.0</max>
+		<step>1.0</step>
+		<default>75</default>
+	</param>
+	
+	<param name="v" type="spinner" title="v" description="">
+		<min>0.0</min>
+		<max>200.0</max>
+		<step>1.0</step>
+		<default>150</default>
+	</param>
+
+</effect>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">Old Film</title>
+	<description translatable="True">Adjusts the gamma and brightness randomly to create the illusion of old film</description>
+	<icon>old_film.png</icon>
+	<category>Video</category>
+	<service>oldfilm</service>
+	
+	<param name="delta" type="spinner" title="Delta" description="">
+		<min>0.0</min>
+		<max>30.0</max>
+		<step>0.5</step>
+		<default>14.0</default>
+	</param>
+	
+	<param name="every" type="spinner" title="Every" description="">
+		<min>0.0</min>
+		<max>40.0</max>
+		<step>0.5</step>
+		<default>20.0</default>
+	</param>
+	
+	<param name="brightnessdelta_up" type="spinner" title="Brightness Delta Up" description="">
+		<min>0.0</min>
+		<max>40</max>
+		<step>0.5</step>
+		<default>20.0</default>
+	</param>
+	
+	<param name="brightnessdelta_down" type="spinner" title="Brightness Delta Down" description="">
+		<min>0.0</min>
+		<max>40</max>
+		<step>0.5</step>
+		<default>30.0</default>
+	</param>
+	
+	<param name="brightnessdelta_every" type="spinner" title="Brightness Delta Every" description="">
+		<min>0.0</min>
+		<max>100.0</max>
+		<step>1.0</step>
+		<default>70.0</default>
+	</param>
+
+</effect>
+

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">Baltan</title>
+	<description translatable="True">delayed alpha smoothed blit of time</description>
+	<icon>baltan.png</icon>
+	<category>Video</category>
+	<service>frei0r.baltan</service>
+			
+</effect>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">Delay grab</title>
+	<description translatable="True">Delayed frame blitting mapped on a time bitmap</description>
+	<icon>delaygrab.png</icon>
+	<category>Video</category>
+	<service>frei0r.delaygrab</service>
+			
+</effect>

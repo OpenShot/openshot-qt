@@ -27,7 +27,7 @@
 
 import glob, os, sys, subprocess
 from distutils.core import setup
-from classes.logger import log
+from src.classes.logger import log
 from src.classes import info
 
 log.info("Execution path: %s" % os.path.abspath(__file__))
@@ -66,11 +66,10 @@ for filepath in glob.glob("src/locale/*/LC_MESSAGES/*"):
 # -------------------------------------
 dist = setup(
 	 scripts	= ['bin/openshot','bin/openshot-render'],
-	 packages	 = ['src', 'src.classes', 'src.language', 'src.windows', 'src.uploads', 'src.uploads.vimeo', 'src.uploads.vimeo.httplib2', 'src.uploads.vimeo.httplib2wrap', 'src.uploads.vimeo.oauth2', 'src.uploads.vimeo.oauth2.clients', 'src.uploads.youtube', 'src.uploads.youtube.atom', 'src.uploads.youtube.gdata', 'src.uploads.youtube.gdata.geo', 'src.uploads.youtube.gdata.media', 'src.uploads.youtube.gdata.oauth', 'src.uploads.youtube.gdata.opensearch', 'src.uploads.youtube.gdata.tlslite', 'src.uploads.youtube.gdata.tlslite.integration', 'src.uploads.youtube.gdata.tlslite.utils', 'src.uploads.youtube.gdata.youtube'],
+	 packages	 = ['src', 'src.classes', 'src.images', 'src.locale', 'src.settings', 'src.timeline', 'src.windows', 'src.windows.ui' ],
 	 package_data = {
-	 				'src' : ['export_presets/*', 'images/*', 'locale/OpenShot/*', 'locale/README', 'profiles/*', 'themes/*/*.png', 'themes/*/*.xml', 'themes/*/icons/*.png', 'titles/*/*.svg', 'transitions/icons/medium/*.png', 'transitions/icons/small/*.png', 'transitions/*.pgm', 'transitions/*.png', 'transitions/*.svg', 'effects/icons/medium/*.png', 'effects/icons/small/*.png', 'effects/*.xml', 'blender/blend/*.blend', 'blender/icons/*.png', 'blender/earth/*.jpg', 'blender/scripts/*.py', 'blender/*.xml'] + locale_files,
-	 				'src.windows' : ['ui/*.ui', 'ui/icons/*'],
-	 				'src.uploads' : ['logos/*.png'],
+	 				'src' : ['presets/*', 'images/*', 'locale/OpenShot/*', 'locale/README', 'profiles/*', 'transitions/icons/medium/*.png', 'transitions/icons/small/*.png', 'transitions/*.pgm', 'transitions/*.png', 'transitions/*.svg', 'effects/icons/medium/*.png', 'effects/icons/small/*.png', 'effects/*.xml', 'blender/blend/*.blend', 'blender/icons/*.png', 'blender/earth/*.jpg', 'blender/scripts/*.py', 'blender/*.xml'] + locale_files,
+	 				'src.windows' : ['ui/*.ui'],
 	 				},
 	 data_files = os_files,
 	 **info.SETUP

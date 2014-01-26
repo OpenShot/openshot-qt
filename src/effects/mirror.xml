@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">Mirror</title>
+	<description translatable="True">Split and mirror the image</description>
+	<icon>mirror.png</icon>
+	<category>Video</category>
+	<service>mirror</service>
+
+	<param name="mirror" type="dropdown" title="Mirror" description="">
+		<values>
+			<value name="flip" num="flip"/>
+			<value name="flop" num="flop"/> 
+			<value name="horizontal" num="horizontal"/> 
+			<value name="vertical" num="vertical"/> 
+			<value name="diagonal" num="diagonal"/>
+			<value name="xdiagonal" num="xdiagonal"/> 
+		</values>
+		<default>flip</default>
+	</param>
+	
+	<param name="reverse" type="dropdown" title="Reverse" description="">
+		<values>
+			<value name="Yes" num="1.0"/>
+			<value name="No" num="0.0"/> 
+		</values>
+		<default>1.0</default>
+	</param>
+
+</effect>

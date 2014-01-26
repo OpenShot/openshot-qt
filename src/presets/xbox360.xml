@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-export-option>
+<export-option>
+	<type translatable="True">Device</type>
+	<title translatable="True">Xbox 360</title>
+	<videoformat>avi</videoformat>
+	<videocodec>libxvid</videocodec>
+	<audiocodec>ac3</audiocodec>
+	<audiochannels>2</audiochannels>
+	<videobitrate
+	 low="2 Mb/s"
+	 med="5 Mb/s"
+	 high="8 Mb/s"></videobitrate>
+	<audiobitrate
+	 low="128 kb/s"
+	 med="256 kb/s"
+	 high="320 kb/s"></audiobitrate>
+	<samplerate>44100</samplerate>
+	<projectprofile>DV/DVD Widescreen NTSC</projectprofile>
+	<projectprofile>HD 720p 29.97 fps</projectprofile>
+</export-option>

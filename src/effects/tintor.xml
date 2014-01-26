@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">Tint</title>
+	<description translatable="True">Tint a source image with specified color</description>
+	<icon>tintor.png</icon>
+	<category>Video</category>
+	<service>frei0r.tint0r</service>
+	
+	<param name="Map black to" type="color" title="Map black to" description="The color to map source color with null luminance.">
+		<default>#000000</default>
+	</param>
+	
+	<param name="Map white to" type="color" title="Map white to" description="The color to map source color with full luminance.">
+		<default>#80FF80</default>
+	</param>
+	
+	<param name="Tint amount" type="spinner" title="Tint amount" description="Amount of color">
+		<min>0.0</min>
+		<max>1.0</max>
+		<step>0.01</step>
+		<default>0.25</default>
+	</param>
+
+</effect>

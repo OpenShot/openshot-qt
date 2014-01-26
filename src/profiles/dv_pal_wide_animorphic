@@ -1,0 +1,10 @@
+description=DV/DVD Widescreen PAL (Anamorphic)
+frame_rate_num=25
+frame_rate_den=1
+width=720
+height=576
+progressive=1
+sample_aspect_num=64
+sample_aspect_den=45
+display_aspect_num=16
+display_aspect_den=9

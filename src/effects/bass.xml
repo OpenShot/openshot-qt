@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">Bass</title>
+	<description translatable="True">Adjust the low-pitched sound or tone</description>
+	<icon>audio.png</icon>
+	<category>Audio</category>
+	<service>sox:bass</service>
+
+	<param name="gain" type="spinner" title="Gain" description="">
+		<min>-50</min>
+		<max>50</max>
+		<step>1.0</step>
+		<default>10</default>
+	</param>
+	
+	<param name="frequency" type="spinner" title="Frequency" description="">
+		<min>1</min>
+		<max>5000</max>
+		<step>1.0</step>
+		<default>100</default>
+	</param>
+			
+</effect>

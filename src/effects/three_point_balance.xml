@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">Three point balance</title>
+	<description translatable="True">Adjust color balance with 3 color points</description>
+	<icon>three_point_balance.png</icon>
+	<category>Video</category>
+	<service>frei0r.three_point_balance</service>
+	
+	<param name="Black color" type="color" title="Black color" description="Black color">
+		<default>#000000</default>
+	</param>
+	
+	<param name="Gray color" type="color" title="Gray color" description="Gray color">
+		<default>#a5b3a5</default>
+	</param>
+	
+	<param name="White color" type="color" title="White color" description="White color">
+		<default>#ffffff</default>
+	</param>
+	
+	<param name="Split preview" type="dropdown" title="Split preview" description="Split preview">
+		<values>
+			<value name="Yes" num="1.0"/>
+			<value name="No" num="0.0"/> 
+		</values>		
+		<default>0.0</default>
+	</param>
+		
+	<param name="Source image on left side" type="dropdown" title="Source image on left side" description="Source image on left side">
+		<values>
+			<value name="Yes" num="1.0"/>
+			<value name="No" num="0.0"/> 
+		</values>		
+		<default>1.0</default>
+	</param>
+			
+</effect>

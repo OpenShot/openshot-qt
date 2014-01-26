@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-export-option>
+<export-option>
+	<type translatable="True">Web</type>
+	<title translatable="True">Vimeo-HD</title>
+	<videoformat>mp4</videoformat>
+	<videocodec>libx264</videocodec>
+	<audiocodec>libmp3lame</audiocodec>
+	<audiochannels>2</audiochannels>
+	<videobitrate
+	 low="2 Mb/s"
+	 med="5 Mb/s"
+	 high="8 Mb/s"></videobitrate>
+	<audiobitrate
+	 low="128 kb/s"
+	 med="256 kb/s"
+	 high="320 kb/s"></audiobitrate>
+	<samplerate>44100</samplerate>
+	<projectprofile>HD 720p 25 fps</projectprofile>
+	<projectprofile>HD 720p 29.97 fps</projectprofile>
+</export-option>

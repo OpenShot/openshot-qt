@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">Oversaturate Color</title>
+	<description translatable="True">Oversaturate the color in the image, like in old Technicolor movies</description>
+	<icon>tcolor.png</icon>
+	<category>Video</category>
+	<service>tcolor</service>
+	
+	<param name="oversaturate_cb" type="hscale" title="Blue/Yellow" description="">
+		<min>-400.0</min>
+		<max>400.0</max>
+		<step>1.0</step>
+		<default>300</default>
+	</param>
+	
+	<param name="oversaturate_cr" type="hscale" title="Red/Green Axis" description="">
+		<min>-400.0</min>
+		<max>400.0</max>
+		<step>1.0</step>
+		<default>50</default>
+	</param>
+
+</effect>

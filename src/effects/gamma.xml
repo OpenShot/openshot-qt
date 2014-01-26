@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">Gamma</title>
+	<description translatable="True">Adjusts the gamma or luminance value of the image</description>
+	<icon>gamma.png</icon>
+	<category>Video</category>
+	<service>gamma</service>
+	
+	<param name="gamma" type="spinner" title="Gamma" description="">
+		<min>0.01</min>
+		<max>2.0</max>
+		<step>0.01</step>
+		<default>0.5</default>
+	</param>
+
+</effect>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">Alphagrad</title>
+	<description translatable="True">Fills alpha channel with a gradient</description>
+	<icon>alphagrad.png</icon>
+	<category>Video</category>
+	<service>frei0r.alphagrad</service>
+	
+	<param name="Position" type="spinner" title="Position" description="">
+		<min>0.0</min>
+		<max>1.0</max>
+		<default>0.5</default>
+	</param>
+	
+	<param name="Transition width" type="spinner" title="Transition width" description="">
+		<min>0.0</min>
+		<max>1.0</max>
+		<default>0.5</default>
+	</param>
+	
+	<param name="Tilt" type="spinner" title="Tilt" description="">
+		<min>0.0</min>
+		<max>1.0</max>
+		<default>0.2</default>
+	</param>
+	
+	<param name="Min" type="spinner" title="Min" description="">
+		<min>0.0</min>
+		<max>1.0</max>
+		<default>0.0</default>
+	</param>
+	
+	<param name="Max" type="spinner" title="Max" description="">
+		<min>0.0</min>
+		<max>1.0</max>
+		<default>0.5</default>
+	</param>
+	
+	<param name="Operation" type="spinner" title="Operation" description="">
+		<min>0.0</min>
+		<max>1.0</max>
+		<default>0.5</default>
+	</param>
+		
+</effect>

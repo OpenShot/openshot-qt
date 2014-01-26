@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">Sharpness</title>
+	<description translatable="True">Make image sharper</description>
+	<icon>sharpness.png</icon>
+	<category>Video</category>
+	<service>frei0r.sharpness</service>
+	
+	<param name="Amount" type="spinner" title="Amount" description="">
+		<min>0.0</min>
+		<max>1.0</max>
+		<default>0.6</default>
+	</param>
+	
+	<param name="Size" type="spinner" title="Size" description="">
+		<min>0.0</min>
+		<max>1.0</max>
+		<default>0.5</default>
+	</param>	
+	
+</effect>
