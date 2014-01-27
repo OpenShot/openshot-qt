@@ -45,11 +45,11 @@ App.directive('tlTrack', function($timeout) {
 		            	
 		            	//if the droptrack was found, update the json
 		            	if (drop_track_id != -1){ 
-		            		//get track number from track.id
+		            		//get track id from track.id
 		            		drop_track_num = drop_track_id.substr(drop_track_id.indexOf("_") + 1);
 		            		
 		            		//find the clip in the json data
-		            		elm = findElement(scope.project.clips, "number", clip_num);
+		            		elm = findElement(scope.project.clips, "id", clip_num);
 		            		
 		            		clip_tops[clip_id] = clip.position().top;
 							clip_lefts[clip_id] = clip.position().left;	
@@ -87,12 +87,12 @@ App.directive('tlClip', function($timeout){
 
 
 			$timeout(function(){
-				clip_tops["clip_"+scope.clip.number] = element.position().top;
-				clip_lefts["clip_"+scope.clip.number] = element.position().left;
+				clip_tops["clip_"+scope.clip.id] = element.position().top;
+				clip_lefts["clip_"+scope.clip.id] = element.position().left;
 			
 				//if clip has audio data, show it instead of images
 				if (scope.clip.show_audio){
-					drawAudio(scope, scope.clip.number);
+					drawAudio(scope, scope.clip.id);
 				}
 				
 			},0);
@@ -179,7 +179,7 @@ App.directive('tlClip', function($timeout){
 					if (scope.clip.show_audio){
 						element.find(".audio-container").show();
 						//redraw audio as the resize cleared the canvas
-						drawAudio(scope, scope.clip.number);
+						drawAudio(scope, scope.clip.id);
 					}
 				
 					dragLoc = null;
@@ -189,8 +189,8 @@ App.directive('tlClip', function($timeout){
 				},
 				resize: function() {
 					//show or hide elements based on size
-					//drawAudio(scope, scope.clip.number);
-					handleVisibleClipElements(scope, scope.clip.number);
+					//drawAudio(scope, scope.clip.id);
+					handleVisibleClipElements(scope, scope.clip.id);
 					
 				},
 
@@ -237,7 +237,7 @@ App.directive('tlClip', function($timeout){
 
 					//redraw audio
 					if (scope.clip.show_audio){
-						drawAudio(scope, scope.clip.number);
+						drawAudio(scope, scope.clip.id);
 					}
 
 				},
@@ -470,8 +470,8 @@ App.directive('tlRuler', function ($timeout) {
 
 						//redraw audio if needed
 						$.each(scope.project.clips, function(){
-							drawAudio(scope, this.number);
-							handleVisibleClipElements(scope, this.number);
+							drawAudio(scope, this.id);
+							handleVisibleClipElements(scope, this.id);
 						});
 						
 						

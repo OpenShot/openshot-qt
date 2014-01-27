@@ -12,8 +12,8 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
       
       clips : [
 	               { 
-	                 number : '1', 
-	                 layer : '1', 
+	                 id : '1', 
+	                 layer : 1, 
 	                 image : 'track1.png',
 	                 locked : false,
 	                 duration : 32, //max length in seconds
@@ -32,8 +32,8 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 	
 	               },
 	               {
-	                 number : '2', 
-	                 layer : '2', 
+	                 id : '2', 
+	                 layer : 2, 
 	                 image : 'track2.png',
 	                 locked : false,
 	                 duration : 45,
@@ -45,8 +45,8 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 	                 show_audio : false,
 	               },
 	               {
-	                 number : '3', 
-	                 layer : '3', 
+	                 id : '3', 
+	                 layer : 3, 
 	                 image : 'track3.png',
 	                 locked : false,
 	                 duration : 120,
@@ -66,11 +66,11 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
              ],
              
      layers : [
-	               {number:'4'},
-	               {number:'3'},
-	               {number:'2'},               
-	               {number:'1'},
-	               {number:'0'}, 
+	               {number:4},
+	               {number:3},
+	               {number:2},               
+	               {number:1},
+	               {number:0}, 
              ],
              
      markers : [

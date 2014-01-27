@@ -8,11 +8,11 @@ function findElement(arr, propName, propValue) {
 }
 
 
-function handleVisibleClipElements(scope, clip_number){
+function handleVisibleClipElements(scope, clip_id){
 
     //get the clip in the scope
-    clip = findElement(scope.project.clips, "number", clip_number);
-    element = $("#clip_"+clip_number);
+    clip = findElement(scope.project.clips, "id", clip_id);
+    element = $("#clip_"+clip_id);
 
     //check clip width to determine which elements can be shown
     var clip_width = element.width();
@@ -36,7 +36,7 @@ function handleVisibleClipElements(scope, clip_number){
         
         //show start clip?
         (clip_width <= min_for_thumb_start) ? element.find(".thumb-start").hide() : element.find(".thumb-start").show();
-        console.log("W: " + clip_width  + " --- CLIP" + clip.number + " : " + min_for_thumb_start);
+        console.log("W: " + clip_width  + " --- CLIP" + clip.id + " : " + min_for_thumb_start);
         
     }
 
@@ -54,12 +54,12 @@ function handleVisibleClipElements(scope, clip_number){
 }
 
 //draws the audio wave on a clip
-function drawAudio(scope, clip_number){
+function drawAudio(scope, clip_id){
     //get the clip in the scope
-    clip = findElement(scope.project.clips, "number", clip_number);
+    clip = findElement(scope.project.clips, "id", clip_id);
     
     if (clip.show_audio){
-        element = $("#clip_"+clip_number);
+        element = $("#clip_"+clip_id);
 
         //show audio container
         //element.find(".audio-container").show();
