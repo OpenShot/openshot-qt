@@ -24,8 +24,8 @@
 			<div id="ruler_time">{{playheadTime}}</div>
 		</div>
 		<div id="scrolling_ruler">
-			<canvas tl-ruler id="ruler" width="{{project.length * pixelsPerSecond}}px" height="39px"></canvas>
-			<div class="playhead_box" style="width:{{project.length * pixelsPerSecond}}px;">
+			<canvas tl-ruler id="ruler" width="{{project.duration * pixelsPerSecond}}px" height="39px"></canvas>
+			<div class="playhead_box" style="width:{{project.duration * pixelsPerSecond}}px;">
 				<div tl-playhead style="left:{{(project.playhead_position * pixelsPerSecond) + playheadOffset}}px;position:absolute;">
 					<div class="playhead-top"></div>				
 				</div>
@@ -35,18 +35,18 @@
  		
  		<!-- PROGRESS BAR -->
 		<div id="progress_container">
-			<canvas  tl-progress id="progress" width="{{project.length * pixelsPerSecond}}px" height="5px"></canvas>
+			<canvas tl-progress id="progress" width="{{project.duration * pixelsPerSecond}}px" height="5px"></canvas>
 		</div>
 
 		<!-- TRACKS -->
 		<div id="track_controls">
-			<div ng-repeat="track in tracks" id="track_static_{{track.number}}" class="track_name"><div class="track_label">Track {{track.number}}</div></div>
+			<div ng-repeat="layer in project.layers" id="track_static_{{layer.number}}" class="track_name"><div class="track_label">Track {{track.number}}</div></div>
 			<br>
 		</div>
 		<div tl-scrollable-tracks id="scrolling_tracks">
 			<div tl-multi-selectable>
-				<div tl-track  ng-repeat="track in tracks" id="track_{{track.number}}" class="track" style="width:{{project.length * pixelsPerSecond}}px;">
-					<div tl-clip ng-repeat="clip in clips | filter:filterByTrack(track)" id="clip_{{clip.number}}" class="clip" style="width:{{clip.length * pixelsPerSecond}}px;left:{{clip.position * pixelsPerSecond}}px;">
+				<div tl-track  ng-repeat="layer in project.layers" id="track_{{layer.number}}" class="track" style="width:{{project.duration * pixelsPerSecond}}px;">
+					<div tl-clip ng-repeat="clip in project.clips | filter:filterByLayer(layer)" id="clip_{{clip.number}}" class="clip" style="width:{{ (clip.end - clip.start) * pixelsPerSecond}}px;left:{{clip.position * pixelsPerSecond}}px;">
 						<div class="clip_top">
 							<div tl-clip-menu class="clip_menu"></div>
 							<div class="clip_effects" id="effects_{{clip.number}}" ng-show="clip.effects.length" tooltip="Effects Applied" tooltip-placement="right" tooltip-trigger='mouseenter' >
@@ -64,7 +64,7 @@
 							<img class="thumb thumb-end" ng-src="media/images/clip_images/{{clip.images.end}}.png"/>
 						</div>
 						<div ng-show="{{clip.show_audio}}" class="audio-container">
-							<canvas tl-audio height="46px" width="{{clip.length * pixelsPerSecond}}px;left:{{clip.position * pixelsPerSecond}}px" class="audio"></canvas>
+							<canvas tl-audio height="46px" width="{{ (clip.end - clip.start) * pixelsPerSecond}}px;left:{{clip.position * pixelsPerSecond}}px" class="audio"></canvas>
 						</div>
 					</div>
 				</div>

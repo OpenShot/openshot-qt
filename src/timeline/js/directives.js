@@ -49,7 +49,7 @@ App.directive('tlTrack', function($timeout) {
 		            		drop_track_num = drop_track_id.substr(drop_track_id.indexOf("_") + 1);
 		            		
 		            		//find the clip in the json data
-		            		elm = findElement(scope.clips, "number", clip_num);
+		            		elm = findElement(scope.project.clips, "number", clip_num);
 		            		
 		            		clip_tops[clip_id] = clip.position().top;
 							clip_lefts[clip_id] = clip.position().left;	
@@ -57,7 +57,7 @@ App.directive('tlTrack', function($timeout) {
 		            		//change the clip's track and position in the json data
 		            		scope.$apply(function(){
 		            			//set track
-		            			elm.track = drop_track_num;
+		            			elm.layer = drop_track_num;
 		            			elm.position =  parseInt(clip_left)/scope.pixelsPerSecond;
 							});
 
@@ -417,7 +417,7 @@ App.directive('tlRuler', function ($timeout) {
 						var scale = scope.project.scale;
 						var tick_pixels = scope.project.tick_pixels;
 						var each_tick = tick_pixels / 2;
-						var pixel_length = scope.project.length * scope.pixelsPerSecond;
+						var pixel_length = scope.project.duration * scope.pixelsPerSecond;
 
 				    	//draw the ruler
 				    	var ctx = element[0].getContext('2d');
@@ -457,7 +457,7 @@ App.directive('tlRuler', function ($timeout) {
 						}
 
 						//marker images
-						$.each(scope.markers, function() {
+						$.each(scope.project.markers, function() {
 							
 							var img = new Image();
 							img.src = "media/images/markers/"+this.icon;
@@ -469,7 +469,7 @@ App.directive('tlRuler', function ($timeout) {
 						});
 
 						//redraw audio if needed
-						$.each(scope.clips, function(){
+						$.each(scope.project.clips, function(){
 							drawAudio(scope, this.number);
 							handleVisibleClipElements(scope, this.number);
 						});
@@ -496,7 +496,7 @@ App.directive('tlProgress', function($timeout){
 			scope.$watch('progress + project.scale', function (val) {
                 if (val) {
                 	$timeout(function(){
-				        var progress = scope.progress;
+				        var progress = scope.project.progress;
 						for(p=0;p<progress.length;p++){
 							
 							//get the progress item details

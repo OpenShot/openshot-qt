@@ -41,7 +41,7 @@ JS_SCOPE_SELECTOR = "$('body').scope()"
 class TimelineWebView(QWebView, updates.UpdateInterface):
 	""" A WebView QWidget used to load the Timeline """
 	
-	# Path to ui file
+	# Path to html file
 	html_path = os.path.join(info.PATH, 'timeline','index.html')
 
 	def eval_js(self, code):
@@ -49,6 +49,17 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 	
 	# This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
 	def changed(self, action):
+		
+		#Get access to timeline scope and set scale to zoom slider value (passed in)
+		#cmd = JS_SCOPE_SELECTOR + ".setScale(" + str(newValue) + ");"
+		#self.page().mainFrame().evaluateJavaScript(cmd)
+		s = action.Json()
+		log.info(s)
+		
+		new_action = updates.UpdateAction()
+		log.info(new_action.Json())
+		
+		
 		if action.type == "insert":
 			# Insert new item
 			log.info("Timeline listener invoked for 'insert'")

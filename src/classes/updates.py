@@ -28,6 +28,12 @@
 
 from classes.logger import log
 
+try:
+    import json
+except ImportError:
+    import simplejson as json
+
+
 class UpdateWatcher:
 	""" Interface for classes that listen for 'undo' and 'redo' events. """
 	
@@ -46,7 +52,7 @@ class UpdateInterface:
 class UpdateAction:
 	"""A data structure representing a single update manager action, including any necessary data to reverse the action."""
 	
-	def __init__(self, type, key, values=None, partial_update=False):
+	def __init__(self, type=None, key=[], values=None, partial_update=False):
 		self.type = type	# insert, update, or delete
 		self.key = key		# list which contains the path to the item, for example: ["clips",{"id":"123"}]
 		self.values = values
@@ -55,6 +61,31 @@ class UpdateAction:
 		
 	def set_old_values(self, old_vals):
 		self.old_values = old_vals
+		
+	def json(self):
+		""" Get the JSON string representing this UpdateAction """
+		update_action_dict = { "type" : self.type, 
+						  "key" : self.key,
+						  "value" : self.values,
+						  "old_value" : self.old_values,
+						  "partial" : self.partial_update }
+		
+		# Serialize as JSON
+		return json.dumps(update_action_dict)
+		
+	def load_json(self, value):
+		""" Load this UpdateAction from a JSON string """
+
+		# Load JSON string
+		update_action_dict = json.loads(value)
+		
+		# Set the Update Action properties
+		self.type = update_action_dict["type"]
+		self.key = update_action_dict["key"]
+		self.values = update_action_dict["value"]
+		self.old_values = update_action_dict["old_value"]
+		self.partial_update = update_action_dict["partial"]
+		
 		
 class UpdateManager:
 	""" This class is used to track and distribute changes to listeners. Typically, only 1 instance of this class is needed,

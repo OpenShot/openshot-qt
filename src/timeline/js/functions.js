@@ -11,7 +11,7 @@ function findElement(arr, propName, propValue) {
 function handleVisibleClipElements(scope, clip_number){
 
     //get the clip in the scope
-    clip = findElement(scope.clips, "number", clip_number);
+    clip = findElement(scope.project.clips, "number", clip_number);
     element = $("#clip_"+clip_number);
 
     //check clip width to determine which elements can be shown
@@ -56,7 +56,7 @@ function handleVisibleClipElements(scope, clip_number){
 //draws the audio wave on a clip
 function drawAudio(scope, clip_number){
     //get the clip in the scope
-    clip = findElement(scope.clips, "number", clip_number);
+    clip = findElement(scope.project.clips, "number", clip_number);
     
     if (clip.show_audio){
         element = $("#clip_"+clip_number);
@@ -118,8 +118,6 @@ function findTrackAtLocation(top){
 	var retVal = -1;
     
     //if the clip was dropped above the top track, return -1
-   
-
     var track_count = $('.track').length;
 
     
