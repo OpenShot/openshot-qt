@@ -133,14 +133,105 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
  // to the timeline. A change can be an insert, update, or delete. The change is passed in
  // as JSON, which represents the change.
  $scope.ApplyJsonDiff = function(jsonDiff){
-     
 	 
+	 // Loop through each UpdateAction
+	 for (z = 0; z < jsonDiff.length; z++)
+	 {
+		 // Get the UpdateAction
+		 var action = jsonDiff[z];
+
+		 // Get the root key (if any)
+		 var root_key = null;
+		 if (action.key.length > 0)
+			 root_key = action.key[0];
+
+		 // Process each type of change 
+		 switch (root_key) {
+		 case "clips":
+			 // Process a clip action
+			 $scope.apply_json_to_clips(action);
+			 break;
+			 
+		 case "files":
+			 // Process a files action
+			 break;
+			 
+		 case "effects":
+			 // Process an effects action
+			 break;
+			 
+		 default:
+			 // Process a timeline action
+			 break;
+		 }
+	 }
 	 
-	 $scope.$apply(function(){
-         $scope.project.scale = scaleVal;
-         $scope.pixelsPerSecond =  parseFloat($scope.project.tick_pixels) / parseFloat($scope.project.scale);
-     });
  };
+ 
+ // Apply the an UpdateAction to a clip
+ $scope.apply_json_to_clips = function(action) {
+	 
+	 // Find the object in the scope (if any)
+	 var scope_object = null;
+	 var scope_position = 0;
+	 if (action.key.length > 1) {
+		 // Get the id
+		 var action_clip_id = action.key[1]['id'];
+		 
+		 // Loop through each clip (and find matching id)
+		 for (z = 0; z < $scope.project.clips.length; z++) {
+			 // Get clip
+			 var clip = $scope.project.clips[z];
+			 
+			 // See if ids match
+			 if (clip.id == action_clip_id) {
+				 // Found a match, break loop
+				 scope_object = clip;
+				 scope_position = z;
+				 break;
+			 }
+		 }
+	 }
+	 
+	 switch (action.type) {
+	 case "insert":
+		 // Insert new clip
+		 $scope.$apply(function(){
+			 $scope.project.clips.push(action.value);
+		 });
+		 break;
+		 
+	 case "update":
+		 // Update clip
+		 $scope.$apply(function(){
+			 // update matching properties
+			 if (action.value.layer !== 'undefined')
+				 scope_object.layer = action.value.layer;
+			 if (action.value.position !== 'undefined')
+				 scope_object.position = action.value.position;
+			 if (action.value.start !== 'undefined')
+				 scope_object.start = action.value.start;
+			 if (action.value.end !== 'undefined')
+				 scope_object.end = action.value.end;
+			 if (action.value.duration !== 'undefined')
+				 scope_object.duration = action.value.duration;
+			 if (action.value.volume !== 'undefined')
+				 scope_object.volume = action.value.volume;
+			 if (action.value.reader !== 'undefined')
+				 scope_object.reader = action.value.reader;
+		 });
+		 break;
+		 
+	 case "delete":
+		 // Delete clip
+		 $scope.$apply(function(){
+			 $scope.project.clips.splice(scope_position, 1);
+		 });
+		 break;
+	 }
+	 
+	 
+ }
   
 // ############# END QT FUNCTIONS #################### //   
 

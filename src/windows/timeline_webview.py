@@ -50,27 +50,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 	# This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
 	def changed(self, action):
 		
-		#Get access to timeline scope and set scale to zoom slider value (passed in)
-		#cmd = JS_SCOPE_SELECTOR + ".setScale(" + str(newValue) + ");"
-		#self.page().mainFrame().evaluateJavaScript(cmd)
-		s = action.Json()
-		log.info(s)
-		
-		new_action = updates.UpdateAction()
-		log.info(new_action.Json())
-		
-		
-		if action.type == "insert":
-			# Insert new item
-			log.info("Timeline listener invoked for 'insert'")
-			
-		elif action.type == "update":
-			# Update existing item
-			log.info("Timeline listener invoked for 'update'")
-			
-		elif action.type == "delete":
-			# Delete existing item
-			log.info("Timeline listener invoked for 'delete'")
+		# Send a JSON version of the UpdateAction to the timeline webview method: ApplyJsonDiff()
+		cmd = JS_SCOPE_SELECTOR + ".ApplyJsonDiff([" + action.json() + "]);"
+		self.page().mainFrame().evaluateJavaScript(cmd)
+
 
 	#Prevent default context menu, and ignore, so that javascript can intercept
 	def contextMenuEvent(self, event):
