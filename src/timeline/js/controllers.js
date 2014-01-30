@@ -135,37 +135,44 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
  $scope.ApplyJsonDiff = function(jsonDiff){
 	 
 	 // Loop through each UpdateAction
-	 for (z = 0; z < jsonDiff.length; z++)
-	 {
+	 for (action_number = 0; action_number < jsonDiff.length; action_number++) {
+	 	
 		 // Get the UpdateAction
-		 var action = jsonDiff[z];
+		 var action = jsonDiff[action_number];
+		 
+		 // Iterate through the key levels (looking for a matching element in the $scope.project)
+		 previous_object = null;
+		 current_object = $scope.project;
+		 for(var key_value in action.key) {
 
-		 // Get the root key (if any)
-		 var root_key = null;
-		 if (action.key.length > 0)
-			 root_key = action.key[0];
-
-		 // Process each type of change 
-		 switch (root_key) {
-		 case "clips":
-			 // Process a clip action
-			 $scope.apply_json_to_clips(action);
-			 break;
-			 
-		 case "files":
-			 // Process a files action
-			 break;
-			 
-		 case "effects":
-			 // Process an effects action
-			 break;
-			 
-		 default:
-			 // Process a timeline action
-			 break;
+		 	// Check the key type
+		 	if (key_value.constructor == String) {
+		 		// Does the key value exist in scope
+		 		if (key_value in current_object) {
+		 			// Found a match, so set current level and previous level
+		 			previous_object = current_object;
+		 			current_object = current_object[key_value];
+		 		}
+		 		
+		 	} else if (key_value.constructor == Object) {
+		 		// Get the id from the object (if any)
+		 		var id = null;
+		 		if ("id" in key_value)
+		 			id = key_value["id"];
+		 			
+		 		// Be sure the current_object is an Array
+		 		if (current_object.constructor == Array) {
+			 		// Filter the current_object for a specific id
+			 		for(var child_object in current_object) {
+	
+			 		}
+		 		}
+		 	}
+		 	
+		 	
+		 	
 		 }
 	 }
-	 
  };
  
  // Apply the an UpdateAction to a clip
