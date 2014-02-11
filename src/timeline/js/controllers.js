@@ -105,6 +105,7 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
   $scope.playheadOffset = 0;
   $scope.playheadTime =  secondsToTime($scope.project.playhead_position);
   $scope.playlineLocation = 0;
+  $scope.current_track = { element: null, number: 0 };
   
   //filters clips by layer
   $scope.filterByLayer = function (layer) {
@@ -127,6 +128,37 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
          $scope.project.scale = scaleVal;
          $scope.pixelsPerSecond =  parseFloat($scope.project.tick_pixels) / parseFloat($scope.project.scale);
      });
+ };
+ 
+ // Add a new clip to the timeline
+ $scope.AddClip = function(x, y, clip_json){
+	 $scope.$apply(function(){
+		 
+		 // Convert x and y into timeline vars
+		 var scrolling_tracks_offset = $("#scrolling_tracks").offset().left;
+		 var clip_position = parseFloat(x - scrolling_tracks_offset) / parseFloat($scope.pixelsPerSecond);
+		 clip_json.position = clip_position;
+		 clip_json.layer = $scope.current_track.number;
+		 
+		 // Push new clip onto stack
+		 $scope.project.clips.push(clip_json);
+
+	 });
+ };
+ 
+ // Move a new clip to the timeline
+ $scope.MoveClip = function(x, y){
+	 $scope.$apply(function(){
+		 
+		 // Convert x and y into timeline vars
+		 var scrolling_tracks_offset = $("#scrolling_tracks").offset().left;
+		 var clip_position = parseFloat(x - scrolling_tracks_offset) / parseFloat($scope.pixelsPerSecond);
+		 
+		 // Update clip position & layer (based on x,y)
+		 $scope.project.clips[$scope.project.clips.length - 1].position = clip_position;
+		 $scope.project.clips[$scope.project.clips.length - 1].layer = $scope.current_track.number;
+		 
+	 });
  };
   
  // Apply JSON diff from UpdateManager (this is how the user interface communicates changes
@@ -186,9 +218,11 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 			 		}
 			 	}
 			}
+			 
 			 	
 		 	// Now that we have a matching object in the $scope.project...
 		 	if (current_object){ 
+		 		// INSERT OBJECT
 			 	if (action.type == "insert") {
 			 		// Insert action's value into current_object
 			 		if (current_object.constructor == Array)
@@ -207,6 +241,7 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 			 		}
 			 		
 			 	} else if (action.type == "update") {
+			 		// UPDATE OBJECT
 			 		// Update: If action and current object are Objects
 			 		if (current_object.constructor == Object && action.value.constructor == Object)
 				 		for (var update_key in action.value)
@@ -227,6 +262,7 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 				 		
 			 		
 			 	} else if (action.type == "delete") {
+			 		// DELETE OBJECT
 			 		// delete current object from it's parent (previous object)
 			 		previous_object.splice(current_position, 1); 
 			 	}

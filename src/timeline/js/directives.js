@@ -17,6 +17,22 @@ App.directive('tlTrack', function($timeout) {
         // A = attribute, E = Element, C = Class and M = HTML Comment
         restrict:'A',
         link: function(scope, element, attrs) {
+        	
+        	element.mousemove(function( event ) {
+        		// Has the current track changed?
+        		if (scope.current_track.element != $(this)) {
+        			var track_elem = $(this);
+        			scope.$apply(function(){
+        				// Set current track on mouseover
+        				scope.current_track.element = track_elem;
+		        		
+		        		// Get layer number
+        				scope.current_track.number = parseInt(track_elem.attr('id').replace('track_', ''));
+        				//console.log(scope.current_track.number);
+        			});
+        		}
+        			
+        	});
 
         	//make it accept drops
         	element.droppable({
@@ -218,7 +234,7 @@ App.directive('tlClip', function($timeout){
 		        //revert: true, //reverts back to original place if not dropped
 		        snap: ".track", // snaps to a track
 		        snapMode: "inner", 
-		        snapTolerance: 40, 
+		        snapTolerance: 20, 
 		        stack: ".clip", 
 		        containment:'#scrolling_tracks',
 		        scroll: false,

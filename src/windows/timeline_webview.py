@@ -34,8 +34,13 @@ from PyQt5.QtWebKitWidgets import QWebView
 from classes.logger import log
 from classes.app import get_app
 from classes import info, updates
-import simplejson as json
+import uuid
 
+try:
+    import json
+except ImportError:
+    import simplejson as json
+    
 JS_SCOPE_SELECTOR = "$('body').scope()"
 
 class TimelineWebView(QWebView, updates.UpdateInterface):
@@ -45,14 +50,14 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 	html_path = os.path.join(info.PATH, 'timeline','index.html')
 
 	def eval_js(self, code):
-		self.page().mainFrame().evaluateJavaScript(cmd)
+		self.page().mainFrame().evaluateJavaScript(code)
 	
 	# This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
 	def changed(self, action):
 		
 		# Send a JSON version of the UpdateAction to the timeline webview method: ApplyJsonDiff()
-		cmd = JS_SCOPE_SELECTOR + ".ApplyJsonDiff([" + action.json() + "]);"
-		self.page().mainFrame().evaluateJavaScript(cmd)
+		code = JS_SCOPE_SELECTOR + ".ApplyJsonDiff([" + action.json() + "]);"
+		self.eval_js(code)
 
 
 	#Prevent default context menu, and ignore, so that javascript can intercept
@@ -100,15 +105,43 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		if not event.mimeData().hasUrls() and event.mimeData().hasText():
 			event.accept()
 			pos = event.posF()
+			#data = {"x": pos.x(), "y": pos.y(), "clip_url": event.mimeData().text()}
+
 			#build data to pass to timeline js
-			data = {"x": pos.x(), "y": pos.y(), "clip_url": event.mimeData().text()}
-			#eval_js(
+			new_clip = {
+	                 "id" : str(uuid.uuid1())[:5], 
+	                 "layer" : 4, 
+	                 "image" : "track2.png",
+	                 "locked" : False,
+	                 "duration" : 60,
+	                 "start" : 0,
+	                 "end" : 60,
+	                 "position" : 0.0,
+	                 "effects" : [],
+	                 "images" : { "start": 0, "end": 60},
+	                 "show_audio" : False,
+	               }
 			
+			# Add clip to timeline
+			code = JS_SCOPE_SELECTOR + ".AddClip(" + str(pos.x()) + ", " + str(pos.y()) + ", " + json.dumps(new_clip) + ");"
+			self.eval_js(code)
 			
+			log.info('Dragging %s in timeline.', event.mimeData().text())
+			event.accept()
+
 
 	#Without defining this method, the 'copy' action doesn't show with cursor
 	def dragMoveEvent(self, event):
-		pass
+		
+		# Get cursor position
+		pos = event.posF()
+		
+		# Move clip on timeline
+		code = JS_SCOPE_SELECTOR + ".MoveClip(" + str(pos.x()) + ", " + str(pos.y()) + ");"
+		self.eval_js(code)
+		
+		#log.info('Moving %s in timeline.', event.mimeData().text())
+		event.accept()
 	
 	def dropEvent(self, event):
 		log.info('Dropping %s in timeline.', event.mimeData().text())
