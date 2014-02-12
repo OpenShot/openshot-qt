@@ -35,6 +35,7 @@ from classes.app import get_app
 from PyQt5.QtCore import QMimeData, QSize, Qt, QCoreApplication, QPoint, QFileInfo
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QTreeWidget, QApplication, QMessageBox, QTreeWidgetItem
+import openshot # Python module for libopenshot (required video editing module installed separately)
 
 class MediaTreeView(QTreeWidget, updates.UpdateInterface):
 	""" A TreeView QWidget used on the main window """ 
@@ -161,6 +162,10 @@ class MediaTreeView(QTreeWidget, updates.UpdateInterface):
 			msg.setText(app._tr("File already added to project."))
 			msg.exec_()
 			return False
+		
+		# Inspect the file with libopenshot
+		clip = openshot.Clip(filepath)
+		print(clip.Reader().info.vcodec)
 
 		#Create file info
 		file = {"id": new_id, "path": filepath, "tags": [], "chunk_completion": 0.0, "chunk_path": "", "info": {}}
