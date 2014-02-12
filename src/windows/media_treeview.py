@@ -112,10 +112,12 @@ class MediaTreeView(QTreeWidget, updates.UpdateInterface):
 					continue
 			
 			item = QTreeWidgetItem(self)
-			item.setText(0, filename)
-			item.setText(1, file["type"])
-			item.setText(2, path)
-			item.setText(3, file["id"])
+			item.setIcon(0, QIcon("/home/jonathan/apps/openshot/openshot/images/AudioThumbnail.png"));
+			item.setText(1, filename)
+			item.setText(2, file["type"])
+			item.setText(3, path)
+			item.setText(4, file["id"])
+			#item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
 			self.addTopLevelItem(item)
 		
 	def add_file(self, filepath):
@@ -213,8 +215,11 @@ class MediaTreeView(QTreeWidget, updates.UpdateInterface):
 		app.updates.add_listener(self)
 
 		#Setup header columns
-		self.setColumnCount(4)
-		self.setHeaderLabels(["Name","Type","Path","ID"])
+		self.setColumnCount(5)
+		self.setHeaderLabels(["Thumb","Name","Type","Path","ID"])
+		self.setIconSize(QSize(75, 62))
+		self.setIndentation(0)
+		#self.setSelectionBehavior(QTreeWidget.SelectRows)
 
 		#Example manipulation of tree widget
 		"""items = []

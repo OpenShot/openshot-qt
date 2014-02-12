@@ -66,11 +66,11 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
              ],
              
      layers : [
-	               {number:4},
-	               {number:3},
-	               {number:2},               
-	               {number:1},
-	               {number:0}, 
+	               {number:4, y:0},
+	               {number:3, y:0},
+	               {number:2, y:0},               
+	               {number:1, y:0},
+	               {number:0, y:0}, 
              ],
              
      markers : [
@@ -105,7 +105,6 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
   $scope.playheadOffset = 0;
   $scope.playheadTime =  secondsToTime($scope.project.playhead_position);
   $scope.playlineLocation = 0;
-  $scope.current_track = { element: null, number: 0 };
   
   //filters clips by layer
   $scope.filterByLayer = function (layer) {
@@ -138,7 +137,7 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 		 var scrolling_tracks_offset = $("#scrolling_tracks").offset().left;
 		 var clip_position = parseFloat(x - scrolling_tracks_offset) / parseFloat($scope.pixelsPerSecond);
 		 clip_json.position = clip_position;
-		 clip_json.layer = $scope.current_track.number;
+		 clip_json.layer = $scope.GetTrackAtY(y).number;
 		 
 		 // Push new clip onto stack
 		 $scope.project.clips.push(clip_json);
@@ -151,16 +150,61 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 	 $scope.$apply(function(){
 		 
 		 // Convert x and y into timeline vars
-		 var scrolling_tracks_offset = $("#scrolling_tracks").offset().left;
-		 var clip_position = parseFloat(x - scrolling_tracks_offset) / parseFloat($scope.pixelsPerSecond);
+		 var scrolling_tracks_offset_left = $("#scrolling_tracks").offset().left;
+		 var scrolling_tracks_offset_top = $("#scrolling_tracks").offset().top;
+		 var clip_position = parseFloat(x - scrolling_tracks_offset_left) / parseFloat($scope.pixelsPerSecond);
+		 if (clip_position < 0)
+			 clip_position = 0;
 		 
 		 // Update clip position & layer (based on x,y)
 		 $scope.project.clips[$scope.project.clips.length - 1].position = clip_position;
-		 $scope.project.clips[$scope.project.clips.length - 1].layer = $scope.current_track.number;
+		 $scope.project.clips[$scope.project.clips.length - 1].layer = $scope.GetTrackAtY(y - scrolling_tracks_offset_top).number;
+		 
+		 // Find clip object on screen (move y to match cursor)
+		 //var elem = $("#clip_" +  $scope.project.clips[$scope.project.clips.length - 1].id);
 		 
 	 });
  };
+ 
+ // Update X,Y indexes of tracks / layers (anytime the project.layers scope changes)
+ $scope.UpdateLayerIndex = function(){
+	 $scope.$apply(function(){
+		 
+		 // Loop through each layer
+		for (var layer_index = 0; layer_index < $scope.project.layers.length; layer_index++) {
+			var layer = $scope.project.layers[layer_index];
+			
+			// Find element on screen (bound to this layer)
+			var layer_elem = $("#track_" + layer.number);
+			if (layer_elem) {
+				// Update the top offset
+				layer.y = layer_elem.offset().top;
+			}
+		}
+		
+	 });
+ };
   
+ // Find a track at a given y coordinate (if any)
+ $scope.GetTrackAtY = function(y){
+
+		// Loop through each layer (looking for the closest track based on Y coordinate)
+		for (var layer_index = 0; layer_index < $scope.project.layers.length; layer_index++) {
+			var layer = $scope.project.layers[layer_index];
+			
+			// Compare position of track to Y param
+			if (layer.y > y)
+				// return first matching layer
+				return layer;
+		}
+		
+		// no layer found (return top layer... if any)
+		if ($scope.project.layers.length > 0)
+			return $scope.project.layers[0];
+		else
+			return null;
+ };
+ 
  // Apply JSON diff from UpdateManager (this is how the user interface communicates changes
  // to the timeline. A change can be an insert, update, or delete. The change is passed in
  // as JSON, which represents the change.

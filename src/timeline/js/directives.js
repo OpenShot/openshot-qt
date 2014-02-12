@@ -18,21 +18,16 @@ App.directive('tlTrack', function($timeout) {
         restrict:'A',
         link: function(scope, element, attrs) {
         	
-        	element.mousemove(function( event ) {
-        		// Has the current track changed?
-        		if (scope.current_track.element != $(this)) {
-        			var track_elem = $(this);
-        			scope.$apply(function(){
-        				// Set current track on mouseover
-        				scope.current_track.element = track_elem;
-		        		
-		        		// Get layer number
-        				scope.current_track.number = parseInt(track_elem.attr('id').replace('track_', ''));
-        				//console.log(scope.current_track.number);
-        			});
-        		}
-        			
-        	});
+			scope.$watch('project.layers', function (val) {
+                if (val) {
+                	$timeout(function(){
+				        // Update track indexes if tracks change
+                		scope.UpdateLayerIndex();
+                		console.log('update track indexes...');
+                	}, 0);
+                		
+                }
+            });
 
         	//make it accept drops
         	element.droppable({
