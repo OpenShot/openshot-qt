@@ -3,6 +3,7 @@
  @brief This file listens to changes, and updates the primary project data
  @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
+ @author Olivier Girard <eolinwen@gmail.com>
  
  @section LICENSE
  
@@ -48,7 +49,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 		""" Get copied value of a given key in data store """
 		
 		if not isinstance(key, list):
-			log.warning("get() key must be a list. key: %s", key)
+			log.warning("get() key must be a list. key: {}".format(key))
 			return None
 		if not key:
 			log.warning("Cannot get empty key.")
@@ -60,11 +61,11 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 			
 			#Key_part must be a string or dictionary
 			if not isinstance(key_part, dict) and not isinstance(key_part, str) and not isinstance(key_part, int):
-				log.error("Unexpected key part type: %s", type(key_part).__name__)
+				log.error("Unexpected key part type: {}".format(type(key_part).__name__))
 				return None
 			#Object must be a dictionary or list (in order to sub-navigate)
 			if not isinstance(obj, dict) and not isinstance(obj, list):
-				log.error("Unexpected project data store object type: %s", type(obj).__name__)
+				log.error("Unexpected project data store object type: {}".format(type(obj).__name__))
 				return None
 			
 			#If key_part is a dictionary and obj is a list or dict, each key is tested as a property of the items in the current object
@@ -105,7 +106,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 			
 			#If next part of path isn't in current object map, return failure
 			if not key_part in obj:
-				log.warn("Key not found in project. Mismatch on key part %s (\"%s\").\nKey: %s", (i+1), key_part, key)
+				log.warn("Key not found in project. Mismatch on key part {} (\"{}\").\nKey: {}".format((i+1), key_part, key))
 				return None
 			#Get sub-object based on part key as new object, continue to next part
 			obj = obj[key_part]
@@ -121,9 +122,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 	def _set(self, key, values=None, add=False, partial_update=False, remove=False):
 		""" Store setting, but adding isn't allowed. All possible settings must be in default settings file. """
 		
-		log.info("_set key: %s values: %s add: %s partial: %s remove: %s", key, values, add, partial_update, remove)
+		log.info("_set key: {} values: {} add: {} partial: {} remove: {}".format(key, values, add, partial_update, remove))
 		if not isinstance(key, list):
-			log.warning("set() key must be a list. key: %s", key)
+			log.warning("set() key must be a list. key: {}".format(key))
 			return None
 		if not key:
 			log.warning("Cannot set empty key.")
@@ -135,15 +136,15 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 		#Iterate through key list finding subobjects either by name or by an object match criteria such as {"id":"ADB34"}.
 		for i in range(len(key)):
 			key_part = key[i]
-			#log.info("index: %s key_part: %s", i, key_part)
+			#log.info("index: {} key_part: {}".format(i, key_part))
 						
 			#Key_part must be a string or dictionary
 			if not isinstance(key_part, dict) and not isinstance(key_part, str):
-				log.error("Unexpected key part type: %s", type(key_part).__name__)
+				log.error("Unexpected key part type: {}".format(type(key_part).__name__))
 				return None
 			#Object must be a dictionary or list (in order to sub-navigate)
 			if not isinstance(obj, dict) and not isinstance(obj, list):
-				log.error("Unexpected project data store object type: %s", type(obj).__name__)
+				log.error("Unexpected project data store object type: {}".format(type(obj).__name__))
 				return None
 				
 			#Final key_part on add is the element being added. It does not match anything, but it can indicate the key for a parent dictionary.
@@ -160,7 +161,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 				if isinstance(obj, list):
 					key_part = len(obj) - 1 #Save key_part as last index, which will be deleted from parent
 				else:
-					log.error("Remove ending in blank must be a list. Key: %s", key)
+					log.error("Remove ending in blank must be a list. Key: {}".format(key))
 					return None
 			
 			#If key_part is a dictionary and obj is a list, each key is tested as a property of the current object
@@ -196,14 +197,14 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 					try:
 						key_part = int(key_part) #May throw error on non-int index to list
 					except:
-						log.error("Invalid index to list: %s", key_part)
+						log.error("Invalid index to list: {}".format(key_part))
 						return None
 			
 			#If next part of path isn't in current object dict or list, return failure
-			#log.info("path check key_part: %s in object: %s, contained: %s", key_part, obj, (key_part in obj))
+			#log.info("path check key_part: {} in object: {}, contained: {}".format(key_part, obj, (key_part in obj)))
 			#Check if index is valid for list or dict
 			if not (isinstance(obj, list) and key_part >= 0 and key_part < len(obj)) and not (isinstance(obj, dict) and key_part in obj):
-				log.error("Key not found in project. Mismatch on key part %s (%s).\nKey: %s", (i+1), key_part, key)
+				log.error("Key not found in project. Mismatch on key part {} ({}).\nKey: {}".format((i+1), key_part, key))
 				return None
 			
 			#Get sub-object based on part key as new object

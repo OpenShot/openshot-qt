@@ -3,6 +3,7 @@
  @brief This file contains the project file tree, used by the main window
  @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
+ @author Olivier Girard <eolinwen@gmail.com>
  
  @section LICENSE
  
@@ -185,10 +186,10 @@ class MediaTreeView(QTreeWidget, updates.UpdateInterface):
 				filepath = file_url.path
 				if filepath[0] == "/" and ":" in filepath:
 					filepath = filepath[1:]
-				#log.info('Path: %s', filepath)
-				#log.info("Exists: %s, IsFile: %s", os.path.exists(filepath), os.path.isfile(filepath))
+				#log.info('Path: {}'.format(filepath))
+				#log.info("Exists: {}, IsFile: {}".format(os.path.exists(filepath), os.path.isfile(filepath)))
 				if os.path.exists(filepath) and os.path.isfile(filepath):
-					log.info('Adding file: %s', filepath)
+					log.info('Adding file: {}'.format(filepath))
 					if self.add_file(filepath):
 						event.accept()
 		

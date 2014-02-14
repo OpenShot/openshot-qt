@@ -3,6 +3,7 @@
  @brief This file contains the classes needed for tracking updates and distributing changes
  @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
+ @author Olivier Girard <eolinwen@gmail.com>
  
  @section LICENSE
  
@@ -135,7 +136,7 @@ class UpdateManager:
 	def get_reverse_action(self, action):
 		""" Convert an UpdateAction into the opposite type (i.e. 'insert' becomes an 'delete') """
 		
-		#log.info("Reversing action: %s, %s, %s, %s", action.type, action.key, action.values, action.partial_update)
+		#log.info("Reversing action: {}, {}, {}, {}".format(action.type, action.key, action.values, action.partial_update))
 		reverse = UpdateAction(action.type, action.key, action.values, action.partial_update)
 		#On adds, setup remove
 		if action.type == "insert":
@@ -149,7 +150,7 @@ class UpdateManager:
 		reverse.old_values = action.values
 		reverse.values = action.old_values
 		
-		#log.info("Reversed values: %s, %s, %s, %s", reverse.type, reverse.key, reverse.values, reverse.partial_update)
+		#log.info("Reversed values: {}, {}, {}, {}".format(reverse.type, reverse.key, reverse.values, reverse.partial_update))
 		return reverse
 			
 	def undo(self):
@@ -183,7 +184,7 @@ class UpdateManager:
 				listener.changed(action)
 
 		except Exception as ex:
-			log.error("Couldn't apply '%s' to update listener: %s\n%s", action.type, listener, ex)
+			log.error("Couldn't apply '{}' to update listener: {}\n{}".format(action.type, listener, ex))
 		self.update_watchers()
 	
 	#Perform new actions, clearing redo history for taking a new path

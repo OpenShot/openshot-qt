@@ -3,6 +3,7 @@
  @brief This file contains helper functions for Qt types (string to base64)
  @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
+ @author Olivier Girard <eolinwen@gmail.com>
  
  @section LICENSE
  

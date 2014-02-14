@@ -3,6 +3,7 @@
  @brief This file loads the interactive HTML timeline
  @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
+ @author Olivier Girard <eolinwen@gmail.com>
  
  @section LICENSE
  
@@ -78,7 +79,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 	#Handle changes to zoom level, update js
 	def update_zoom(self, newValue):
 		_ = get_app()._tr
-		self.window.zoomScaleLabel.setText(_("%s seconds") % newValue)
+		self.window.zoomScaleLabel.setText(_("{} seconds").format(newValue))
 		#Get access to timeline scope and set scale to zoom slider value (passed in)
 		cmd = JS_SCOPE_SELECTOR + ".setScale(" + str(newValue) + ");"
 		self.page().mainFrame().evaluateJavaScript(cmd)
@@ -126,7 +127,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 			code = JS_SCOPE_SELECTOR + ".AddClip(" + str(pos.x()) + ", " + str(pos.y()) + ", " + json.dumps(new_clip) + ");"
 			self.eval_js(code)
 			
-			log.info('Dragging %s in timeline.', event.mimeData().text())
+			log.info('Dragging {} in timeline.'.format(event.mimeData().text()))
 			event.accept()
 
 
@@ -140,11 +141,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		code = JS_SCOPE_SELECTOR + ".MoveClip(" + str(pos.x()) + ", " + str(pos.y()) + ");"
 		self.eval_js(code)
 		
-		#log.info('Moving %s in timeline.', event.mimeData().text())
+		#log.info('Moving {} in timeline.'.format(event.mimeData().text()))
 		event.accept()
 	
 	def dropEvent(self, event):
-		log.info('Dropping %s in timeline.', event.mimeData().text())
+		log.info('Dropping {} in timeline.'.format(event.mimeData().text()))
 		event.accept()
 	
 	def __init__(self, window):

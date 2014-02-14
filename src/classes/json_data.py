@@ -3,6 +3,7 @@
  @brief This file loads and saves settings (as JSON)
  @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
+ @author Olivier Girard <eolinwen@gmail.com>
  
  @section LICENSE
  
@@ -69,11 +70,11 @@ class JsonDataStore:
 				add_set[key_lower] = data[key]
 		#Remove non-lowercase keys
 		for key in rem_list:
-			#log.info("Removing non-lowercased user setting key '%s'", key)
+			#log.info("Removing non-lowercased user setting key '{}'".format(key))
 			del data[key]
 		#Add lowercased data back in
 		for key in add_set:
-			#log.info("Relacing with lowercased user setting key '%s'", key)
+			#log.info("Relacing with lowercased user setting key '{}'".format(key))
 			data[key] = add_set[key]
 		
 	def merge_settings(self, default, user):
@@ -91,7 +92,7 @@ class JsonDataStore:
 		
 	def read_from_file(self, file_path):
 		""" Load JSON settings from a file """
-		#log.debug("loading %s", file_path)
+		#log.debug("loading {}".format(file_path))
 		try:
 			with open(file_path, 'r') as f:
 				contents = f.read()
@@ -99,10 +100,10 @@ class JsonDataStore:
 					#log.debug("loaded", contents)
 					return json.loads(contents)
 		except Exception as ex:
-			msg = "Couldn't load %s file: %s" % (self.data_type, ex)
+			msg = ("Couldn't load {} file: {}".format(self.data_type, ex))
 			log.error(msg)
 			raise Exception(msg)
-		msg = "Couldn't load %s file, no data." % self.data_type
+		msg = ("Couldn't load {} file, no data.".format(self.data_type))
 		log.warning(msg)
 		raise Exception(msg)
 		
@@ -113,7 +114,7 @@ class JsonDataStore:
 			with open(file_path, 'w') as f:
 				f.write(json.dumps(data))
 		except Exception as ex:
-			msg = "Couldn't save %s file:\n%s\n%s" % (self.data_type, file_path, ex)
+			msg = ("Couldn't save {} file:\n{}\n{}".format(self.data_type, file_path, ex))
 			log.error(msg)
 			raise Exception(msg)
 		

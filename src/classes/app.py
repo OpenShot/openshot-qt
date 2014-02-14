@@ -3,6 +3,7 @@
  @brief This file creates the QApplication, and displays the main window
  @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
+ @author olivier Girard <eolinwen@gmail.com>
  
  @section LICENSE
  
@@ -49,7 +50,7 @@ class OpenShotApp(QApplication):
 		try:
 			self.settings.load()
 		except Exception as ex:
-			log.error("Couldn't load user settings. Exiting.\n%s", ex)
+			log.error("Couldn't load user settings. Exiting.\n{}".format(ex))
 			exit()
 		
 		#Init translation system
@@ -83,7 +84,7 @@ class OpenShotApp(QApplication):
 		try:
 			self.settings.save()
 		except Exception as ex:
-			log.error("Couldn't save user settings on exit.\n%s", ex)
+			log.error("Couldn't save user settings on exit.\n{}".format(ex))
 			
 		#return exit result
 		return res

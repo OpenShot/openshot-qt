@@ -1,27 +1,28 @@
-""" 
+"""
  @file
  @brief This file loads the main window (i.e. the primary user-interface)
  @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
- 
+ @author Olivier Girard <eolinwen@gmail.com>
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2014 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
@@ -74,7 +75,29 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 			log.info('title editor add confirmed')
 		else:
 			log.info('title editor add cancelled')
-		
+			
+	#def actionImportImageSequence_trigger(self, event):
+		#show dialog
+		#from windows.Import_image_seq import ImportImageSeq
+		#win = ImportImageSeq()
+		#Run the dialog event loop - blocking interaction on this window during that time
+		#result = win.exec_()
+		#if result == QDialog.Accepted:
+			#log.info('Import image sequence add confirmed')
+		#else:
+			#log.info('Import image sequence add cancelled') 
+			
+	#def actionImportTransition_trigger(self, event):
+		#show dialog
+		#from windows.Import_transitions import ImportTransition
+		#win = ImportTransition()
+		#Run the dialog event loop -blocking interaction on this window during that time
+		#result = win.exec_()
+		#if result == QDialog.Accepted:
+			#log.info('Import transition add confirmed')
+		#else:
+			#log.info('Import transition add cancelled')
+				
 	def actionOpen_trigger(self, event):
 		app = get_app()
 		_ = app._tr
@@ -84,7 +107,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 			app.project.current_filepath = file_path
 			app.updates.reset()
 			self.filesTreeView.update_model()
-			log.info("Loaded project %s" % (file_path))
+			log.info("Loaded project {}".format(file_path))
 		
 	def actionSave_trigger(self, event):
 		app = get_app()
@@ -98,9 +121,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 			try:
 				app.project.save(file_path)
 				app.project.current_filepath = file_path
-				log.info("Saved %s" % (file_path))
+				log.info("Saved {}".format(file_path))
 			except Exception as ex:
-				log.error("Couldn't save project %s", file_path)
+				log.error("Couldn't save project {}".format(file_path))
 
 	def actionSaveAs_trigger(self, event):
 		app = get_app()
@@ -110,9 +133,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 			try:
 				app.project.save(file_path)
 				app.project.current_filepath = file_path
-				log.info("Saved %s" % (file_path))
+				log.info("Saved {}".format(file_path))
 			except Exception as ex:
-				log.error("Couldn't save project %s", file_path)
+				log.error("Couldn't save project {}".format(file_path))
 		
 	def actionImportFiles_trigger(self, event):
 		app = get_app()
@@ -121,7 +144,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		for file_path in files:
 			self.filesTreeView.add_file(file_path)
 			self.filesTreeView.update_model()
-			log.info("Loaded project %s" % (file_path))
+			log.info("Loaded project {}".format(file_path))
 
 		
 	def actionUndo_trigger(self, event):
@@ -353,7 +376,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		#self.sliderZoom.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
 		self.sliderZoom.resize(100, 16)
 
-		self.zoomScaleLabel = QLabel(_("%s seconds") % self.sliderZoom.value())
+		self.zoomScaleLabel = QLabel(_("{} seconds").format(self.sliderZoom.value()))
 		
 		#add zoom widgets
 		self.timelineToolbar.addAction(self.actionTimelineZoomIn)

@@ -3,6 +3,7 @@
  @brief This file loads and saves settings 
  @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
+ @author Olivier Girard <eolinwen@gmail.com>
  
  @section LICENSE
  
@@ -54,7 +55,7 @@ class SettingStore(JsonDataStore):
 		if key in self._data:
 			self._data[key] = value
 		else:
-			log.warn("%s key '%s' not valid. The following are valid: %s", self.data_type, key, list(self._data.keys()))
+			log.warn("{} key '{}' not valid. The following are valid: {}".format(self.data_type, key, list(self._data.keys())))
 
 	def load(self):
 		""" Load user settings file from disk, merging with allowed settings in default settings file. Creates user settings if missing. """
@@ -77,7 +78,7 @@ class SettingStore(JsonDataStore):
 				try:
 					os.mkdir(writable_path)
 				except Exception as ex:
-					msg = "Couldn't create %s folder for openshot:\n%s\n%s" % (self.data_type, writable_path, ex)
+					msg = ("Couldn't create {} folder for openshot:\n{}\n{}".format(self.data_type, writable_path, ex))
 					log.error(msg)
 					raise Exception(msg)
 					
@@ -103,7 +104,7 @@ class SettingStore(JsonDataStore):
 		
 		#If user settings file doesn't exist yet, try to create a default settings file
 		if not file_path:
-			msg = "Couldn't find %s file on save(). Load must create any missing %s file." % (self.data_type, self.data_type)
+			msg = ("Couldn't find {} file on save(). Load must create any missing {} file.".format(self.data_type, self.data_type))
 			log.error(msg)
 			raise Exception(msg)
 			
