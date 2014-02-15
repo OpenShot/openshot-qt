@@ -76,28 +76,39 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		else:
 			log.info('title editor add cancelled')
 			
-	#def actionImportImageSequence_trigger(self, event):
+	def actionImportImageSequence_trigger(self, event):
 		#show dialog
-		#from windows.Import_image_seq import ImportImageSeq
-		#win = ImportImageSeq()
+		from windows.Import_image_seq import ImportImageSeq
+		win = ImportImageSeq()
 		#Run the dialog event loop - blocking interaction on this window during that time
-		#result = win.exec_()
-		#if result == QDialog.Accepted:
-			#log.info('Import image sequence add confirmed')
-		#else:
-			#log.info('Import image sequence add cancelled') 
+		result = win.exec_()
+		if result == QDialog.Accepted:
+			log.info('Import image sequence add confirmed')
+		else:
+			log.info('Import image sequence add cancelled') 
 			
-	#def actionImportTransition_trigger(self, event):
+	def actionImportTransition_trigger(self, event):
 		#show dialog
-		#from windows.Import_transitions import ImportTransition
-		#win = ImportTransition()
+		from windows.Import_transitions import ImportTransition
+		win = ImportTransition()
 		#Run the dialog event loop -blocking interaction on this window during that time
-		#result = win.exec_()
-		#if result == QDialog.Accepted:
-			#log.info('Import transition add confirmed')
-		#else:
-			#log.info('Import transition add cancelled')
-				
+		result = win.exec_()
+		if result == QDialog.Accepted:
+			log.info('Import transition add confirmed')
+		else:
+			log.info('Import transition add cancelled')
+			
+	def actionImportTitle_trigger(self, event):
+		#show dialog
+		from windows.Import_titles import ImportTitles
+		win = ImportTitles()
+		# Run the dialog event loop - blocking interaction on this window during that time
+		result == win.exec_()
+		if result ==  QDialog.Accepted:
+			log.info('Import title add confirmed')
+		else:
+			log.info('Import title add cancelled')
+							
 	def actionOpen_trigger(self, event):
 		app = get_app()
 		_ = app._tr
