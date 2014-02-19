@@ -35,7 +35,7 @@ from classes.settings import SettingStore
 from classes.app import get_app
 from PyQt5.QtCore import QMimeData, QSize, Qt, QCoreApplication, QPoint, QFileInfo
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QTreeWidget, QApplication, QMessageBox, QTreeWidgetItem
+from PyQt5.QtWidgets import QTreeWidget, QApplication, QMessageBox, QTreeWidgetItem, QAbstractItemView
 import openshot # Python module for libopenshot (required video editing module installed separately)
 
 class MediaTreeView(QTreeWidget, updates.UpdateInterface):
@@ -62,6 +62,14 @@ class MediaTreeView(QTreeWidget, updates.UpdateInterface):
 			drag.setPixmap(QIcon.fromTheme('document-new').pixmap(QSize(self.drag_item_size,self.drag_item_size)))
 			drag.setHotSpot(QPoint(self.drag_item_size/2,self.drag_item_size/2))
 			drag.exec_()
+
+			# Accept event
+			event.accept()
+			return
+		
+		# Ignore event, propagate to parent 
+		event.ignore()
+		super().mouseMoveEvent(event)
 	
 	def dragEnterEvent(self, event):
 		#If dragging urls onto widget, accept
@@ -119,7 +127,7 @@ class MediaTreeView(QTreeWidget, updates.UpdateInterface):
 			item.setText(2, file["type"])
 			item.setText(3, path)
 			item.setText(4, file["id"])
-			#item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
+			item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 			self.addTopLevelItem(item)
 		
 	def add_file(self, filepath):
@@ -194,10 +202,14 @@ class MediaTreeView(QTreeWidget, updates.UpdateInterface):
 						event.accept()
 		
 	def mousePressEvent(self, event):
+		# Select the current item
+		self.setCurrentItem(self.itemAt(event.pos()))
+		
 		#Save position of mouse press to check for drag
 		self.startDragPos = event.pos()
 		#Save item clicked on to use if drag starts
 		self.dragItem = self.itemAt(event.pos())
+		
 			
 	def clear_filter(self):
 		get_app().window.filesFilter.setText("")
@@ -225,30 +237,9 @@ class MediaTreeView(QTreeWidget, updates.UpdateInterface):
 		self.setHeaderLabels(["Thumb","Name","Type","Path","ID"])
 		self.setIconSize(QSize(75, 62))
 		self.setIndentation(0)
-		#self.setSelectionBehavior(QTreeWidget.SelectRows)
+		self.setSelectionBehavior(QTreeWidget.SelectRows)
+		self.setSelectionBehavior(QAbstractItemView.SelectRows)
 
-		#Example manipulation of tree widget
-		"""items = []
-		item = QTreeWidgetItem(self)
-		item.setText(0, "a name.avi")
-		item.setText(1, "Video")
-		item.setText(2, "a/b/c/d_e_v_/")
-		item.setText(3, app.project.generate_id())
-		items.append(item)
-		item = QTreeWidgetItem(self)
-		item.setText(0, "askjdf.avi")
-		item.setText(1, "Video")
-		item.setText(2, "a/b/c/d_e_v_/")
-		item.setText(3, app.project.generate_id())
-		items.append(item)
-		item = QTreeWidgetItem(self)
-		item.setText(0, "daft_punk.mp3")
-		item.setText(1, "Audio")
-		item.setText(2, "a/b/c/d_e_v_/")
-		item.setText(3, app.project.generate_id())
-		items.append(item)
-		self.insertTopLevelItems(0, items)"""
-		
 		#Update model based on loaded project
 		self.update_model()
 
