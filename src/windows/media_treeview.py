@@ -175,6 +175,10 @@ class MediaTreeView(QTreeWidget, updates.UpdateInterface):
 			item.setText(4, file["id"])
 			item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 			self.addTopLevelItem(item)
+			
+		# Resize columns to match contents
+		for column in range(4):
+			self.resizeColumnToContents(column)
 		
 	def add_file(self, filepath):
 		path, filename = os.path.split(filepath)
