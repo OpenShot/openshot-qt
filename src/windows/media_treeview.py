@@ -38,6 +38,11 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QTreeWidget, QApplication, QMessageBox, QTreeWidgetItem, QAbstractItemView
 import openshot # Python module for libopenshot (required video editing module installed separately)
 
+try:
+    import json
+except ImportError:
+    import simplejson as json
+
 class MediaTreeView(QTreeWidget, updates.UpdateInterface):
 	""" A TreeView QWidget used on the main window """ 
 	drag_item_size = 32
@@ -80,19 +85,23 @@ class MediaTreeView(QTreeWidget, updates.UpdateInterface):
 	#Without defining this method, the 'copy' action doesn't show with cursor
 	def dragMoveEvent(self, event):
 		pass
-	
-	def get_filetype(self, file):
-		path = file["path"]
 		
-		if path.endswith((".mp4", ".avi", ".mov")):
-			return "video"
-		if path.endswith((".mp3", ".wav", ".ogg")):
-			return "audio"
-		if path.endswith((".jpg", ".jpeg", ".png", ".bmp")):
-			return "image"
-			
-		#Otherwise, unknown
-		return "unknown"
+	def mousePressEvent(self, event):
+		# Select the current item
+		self.setCurrentItem(self.itemAt(event.pos()))
+		
+		#Save position of mouse press to check for drag
+		self.startDragPos = event.pos()
+		#Save item clicked on to use if drag starts
+		self.dragItem = self.itemAt(event.pos())
+	
+	def is_image(self, file):
+		path = file["path"].lower()
+		
+		if path.endswith((".jpg", ".jpeg", ".png", ".bmp", ".svg")):
+			return True
+		else:
+			return False
 			
 	def update_model(self):
 		log.info("updating files model.")
@@ -106,15 +115,23 @@ class MediaTreeView(QTreeWidget, updates.UpdateInterface):
 		for file in files:
 			path, filename = os.path.split(file["path"])
 			
+			# Determine type
+			if file["has_video"] and not self.is_image(file):
+				file["media_type"] = "video"
+			elif file["has_video"] and self.is_image(file):
+				file["media_type"] = "image"
+			elif file["has_audio"] and not file["has_video"]:
+				file["media_type"] = "audio"				
+			
 			if not win.actionFilesShowAll.isChecked():
 				if win.actionFilesShowVideo.isChecked():
-					if not file["type"] == "video":
+					if not file["media_type"] == "video":
 						continue #to next file, didn't match filter
 				elif win.actionFilesShowAudio.isChecked():
-					if not file["type"] == "audio":
+					if not file["media_type"] == "audio":
 						continue #to next file, didn't match filter
 				elif win.actionFilesShowImage.isChecked():
-					if not file["type"] == "image":
+					if not file["media_type"] == "image":
 						continue #to next file, didn't match filter
 						
 			if win.filesFilter.text() != "":
@@ -124,7 +141,7 @@ class MediaTreeView(QTreeWidget, updates.UpdateInterface):
 			item = QTreeWidgetItem(self)
 			item.setIcon(0, QIcon("/home/jonathan/apps/openshot/openshot/images/AudioThumbnail.png"));
 			item.setText(1, filename)
-			item.setText(2, file["type"])
+			item.setText(2, file["media_type"])
 			item.setText(3, path)
 			item.setText(4, file["id"])
 			item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
@@ -162,55 +179,56 @@ class MediaTreeView(QTreeWidget, updates.UpdateInterface):
 		
 		if sanity_check > sanity_limit:
 			msg = QMessageBox()
-			msg.setText(app._tr("Error generating file id."))
+			msg.setText(app._tr("Error generating unique file ID for %s." % filename))
 			msg.exec_()
 			return False
 			
 		if found:
 			msg = QMessageBox()
-			msg.setText(app._tr("File already added to project."))
+			msg.setText(app._tr("%s already added to project." % filename))
 			msg.exec_()
 			return False
 		
 		# Inspect the file with libopenshot
-		clip = openshot.Clip(filepath)
-		print(clip.Reader().info.vcodec)
+		clip = None
 
-		#Create file info
-		file = {"id": new_id, "path": filepath, "tags": [], "chunk_completion": 0.0, "chunk_path": "", "info": {}}
-		file['type'] = self.get_filetype(file)
+		# Load filepath in libopenshot clip object (which will try multiple readers to open it)
+		clip = openshot.Clip(filepath)
+
+		# Get the JSON for the clip's internal reader
+		try:
+			reader = clip.Reader()
+			file_json = json.loads(reader.Json())
+			
+			# Add unique ID to the JSON
+			file_json["id"] = new_id
+			
+			#Add file to files list via update manager
+			app.updates.insert(["files", ""], file_json)
+			return True
 		
-		#Add file to files list via update manager
-		app.updates.insert(["files", ""], file)
-		return True
+		except:
+			# Handle exception
+			msg = QMessageBox()
+			msg.setText(app._tr("%s is not a valid video, audio, or image file." % filename))
+			msg.exec_()
+			return False
+		
 	
-	#Handle a drag and drop being dropped on widget
+	# Handle a drag and drop being dropped on widget
 	def dropEvent(self, event):
 		#log.info('Dropping file(s) on files tree.')
 		for uri in event.mimeData().urls():
-			#log.info('Uri: ' + uri.toString())
 			file_url = urlparse(uri.toString())
 			if file_url.scheme == "file":
 				filepath = file_url.path
 				if filepath[0] == "/" and ":" in filepath:
 					filepath = filepath[1:]
-				#log.info('Path: {}'.format(filepath))
-				#log.info("Exists: {}, IsFile: {}".format(os.path.exists(filepath), os.path.isfile(filepath)))
 				if os.path.exists(filepath) and os.path.isfile(filepath):
 					log.info('Adding file: {}'.format(filepath))
 					if self.add_file(filepath):
 						event.accept()
 		
-	def mousePressEvent(self, event):
-		# Select the current item
-		self.setCurrentItem(self.itemAt(event.pos()))
-		
-		#Save position of mouse press to check for drag
-		self.startDragPos = event.pos()
-		#Save item clicked on to use if drag starts
-		self.dragItem = self.itemAt(event.pos())
-		
-			
 	def clear_filter(self):
 		get_app().window.filesFilter.setText("")
 		
