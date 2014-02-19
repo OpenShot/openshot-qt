@@ -30,6 +30,7 @@
 import os
 from urllib.parse import urlparse
 from classes import updates
+from classes import info
 from classes.logger import log
 from classes.settings import SettingStore
 from classes.app import get_app
@@ -105,23 +106,17 @@ class MediaTreeView(QTreeWidget, updates.UpdateInterface):
 			
 	def update_model(self):
 		log.info("updating files model.")
-		files = get_app().project.get(["files"])
-		
+		app = get_app()
+		proj = app.project
+		files = proj.get(["files"])
+
 		#Get window to check filters
-		win = get_app().window
+		win = app.window
 		
 		self.clear() #Clear items in tree
 		#add item for each file
 		for file in files:
 			path, filename = os.path.split(file["path"])
-			
-			# Determine type
-			if file["has_video"] and not self.is_image(file):
-				file["media_type"] = "video"
-			elif file["has_video"] and self.is_image(file):
-				file["media_type"] = "image"
-			elif file["has_audio"] and not file["has_video"]:
-				file["media_type"] = "audio"				
 			
 			if not win.actionFilesShowAll.isChecked():
 				if win.actionFilesShowVideo.isChecked():
@@ -137,9 +132,43 @@ class MediaTreeView(QTreeWidget, updates.UpdateInterface):
 			if win.filesFilter.text() != "":
 				if not win.filesFilter.text() in filename:
 					continue
+
+			# Generate thumbnail for file (if needed)
+			if (file["media_type"] == "video" or file["media_type"] == "image"):
+				# Determine thumb path
+				thumb_path = os.path.join(proj.current_filepath, "%s.png" % file["id"])
+				
+				# Check if thumb exists
+				if not os.path.exists(thumb_path):
+
+					try:
+						# Reload this reader
+						clip = openshot.Clip(file["path"])
+						reader = clip.Reader()
+
+						# Open reader
+						reader.Open()
+						
+						# Determine scale of thumbnail
+						scale = 86.0 / file["width"]
+						
+						# Save thumbnail
+						reader.GetFrame(0).Save(thumb_path, scale)
+						reader.Close()
+
+					except:
+						# Handle exception
+						msg = QMessageBox()
+						msg.setText(app._tr("%s is not a valid video, audio, or image file." % filename))
+						msg.exec_()
+						return False
+
+			else:
+				# Audio file
+				thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.png")
 			
 			item = QTreeWidgetItem(self)
-			item.setIcon(0, QIcon("/home/jonathan/apps/openshot/openshot/images/AudioThumbnail.png"));
+			item.setIcon(0, QIcon(thumb_path));
 			item.setText(1, filename)
 			item.setText(2, file["media_type"])
 			item.setText(3, path)
@@ -202,8 +231,16 @@ class MediaTreeView(QTreeWidget, updates.UpdateInterface):
 			
 			# Add unique ID to the JSON
 			file_json["id"] = new_id
+
+			# Determine media type
+			if file_json["has_video"] and not self.is_image(file_json):
+				file_json["media_type"] = "video"
+			elif file_json["has_video"] and self.is_image(file_json):
+				file_json["media_type"] = "image"
+			elif file_json["has_audio"] and not file_json["has_video"]:
+				file_json["media_type"] = "audio"	
 			
-			#Add file to files list via update manager
+			# Add file to files list via update manager
 			app.updates.insert(["files", ""], file_json)
 			return True
 		

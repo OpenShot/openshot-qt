@@ -115,7 +115,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		file_path, file_type = QFileDialog.getOpenFileName(self, _("Open Project...")) #, options=QFileDialog.DontUseNativeDialog)
 		if file_path:
 			app.project.load(file_path)
-			app.project.current_filepath = file_path
 			app.updates.reset()
 			self.filesTreeView.update_model()
 			log.info("Loaded project {}".format(file_path))

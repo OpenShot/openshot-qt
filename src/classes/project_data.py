@@ -27,7 +27,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import os, random, copy
+import os, sys, random, copy
 from classes.json_data import JsonDataStore
 from classes.updates import UpdateInterface
 from classes import info
@@ -39,8 +39,14 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 	def __init__(self):
 		JsonDataStore.__init__(self)
 		self.data_type = "project data" #Used in error messages
-		self.current_filepath = "" #What is currently loaded or last saved
 		self.default_project_filepath = os.path.join(info.PATH, 'settings', '_default.project')
+		
+		# Set default filepath to user's home folder
+		self.current_filepath = os.path.join(os.path.expanduser("~"), ".openshot_qt")
+
+		if not os.path.exists(self.current_filepath):
+			# Create folder if it does not exist
+			os.makedirs(self.current_filepath)
 		
 		#Load default project data on creation
 		self.new()
@@ -256,7 +262,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 		#Merge default and project settings, excluding settings not in default.
 		self._data = self.merge_settings(default_project, project_data)
 		#On success, save current filepath
-		self.current_filepath = file_path
+		self.current_filepath = os.path.dirname(file_path)
 
 	def save(self, file_path):
 		""" Save project file to disk """ 
@@ -264,7 +270,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 		#Try to save project settings file, will raise error on failure
 		self.write_to_file(file_path, self._data)
 		#On success, save current filepath
-		self.current_filepath = file_path
+		self.current_filepath = os.path.dirname(file_path)
 
 	def changed(self, action):
 		""" This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """
