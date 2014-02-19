@@ -61,7 +61,7 @@ class MediaTreeView(QTreeWidget, updates.UpdateInterface):
 		if event.buttons() & Qt.LeftButton == Qt.LeftButton and (event.pos() - self.startDragPos).manhattanLength() >= QApplication.startDragDistance():
 			#Setup data based on item being dragged
 			data = QMimeData()
-			data.setText(self.dragItem.text(2) + self.dragItem.text(0))
+			data.setText(self.dragItem.text(4)) # Add file ID to mimedata
 			#Start drag operation
 			drag = QDrag(self)
 			drag.setMimeData(data)

@@ -20,6 +20,7 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 	                 start : 0,
 	                 end : 32,
 	                 position : 0.0,
+	                 title : 'Clip A',
 	                 effects : [
 	                           { effect : 'Black and White', icon : 'bw.png'},
 	                           { effect : 'Old Movie',icon : 'om.png'},
@@ -40,6 +41,7 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 	                 start : 0,
 	                 end : 45,
 	                 position : 0.0,
+	                 title : 'Clip B',
 	                 effects : [],
 	                 images : {start: 3, end: 7},
 	                 show_audio : false,
@@ -53,6 +55,7 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 	                 start : 0,
 	                 end : 120,
 	                 position : 32.0,
+	                 title : 'Clip C',
 	                 effects : [
 	                           { effect : 'Old Movie',icon : 'om.png'},
 	                           { effect : 'Blur', icon: 'blur.png'},

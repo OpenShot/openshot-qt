@@ -104,22 +104,50 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 	def dragEnterEvent(self, event):
 		#If a plain text drag accept
 		if not event.mimeData().hasUrls() and event.mimeData().hasText():
+			file_id = event.mimeData().text()
 			event.accept()
 			pos = event.posF()
-			#data = {"x": pos.x(), "y": pos.y(), "clip_url": event.mimeData().text()}
+			
+			# Find file object in project data
+			app = get_app()
+			proj = app.project
+			files = proj.get(["files"])
+			
+			# Loop until correct file is found
+			file = None
+			for f in files:
+				if f["id"] == file_id:
+					file = f
+					break
+				
+			# Bail if no file found
+			if not file:
+				event.ignore()
+				return
+			
+			if (file["media_type"] == "video" or file["media_type"] == "image"):
+				# Determine thumb path
+				thumb_path = os.path.join(proj.current_filepath, "%s.png" % file["id"])
+			else:
+				# Audio file
+				thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.png")
+				
+			# Get file name
+			path, filename = os.path.split(file["path"])
 
 			#build data to pass to timeline js
 			new_clip = {
-	                 "id" : str(uuid.uuid1())[:5], 
-	                 "layer" : 4, 
-	                 "image" : "track2.png",
+	                 "id" : file["id"],
+	                 "title" : filename,
+	                 "layer" : 0, 
+	                 "image" : thumb_path,
 	                 "locked" : False,
-	                 "duration" : 60,
+	                 "duration" : file["duration"],
 	                 "start" : 0,
-	                 "end" : 60,
+	                 "end" : file["duration"],
 	                 "position" : 0.0,
 	                 "effects" : [],
-	                 "images" : { "start": 0, "end": 60},
+	                 "images" : { "start": 0, "end": file["duration"]},
 	                 "show_audio" : False,
 	               }
 			
