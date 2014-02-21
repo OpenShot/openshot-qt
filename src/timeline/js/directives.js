@@ -78,7 +78,7 @@ App.directive('tlTrack', function($timeout) {
 		        }	
 		    });
     	}    
-    }
+    };
 });
 
 
@@ -309,7 +309,7 @@ App.directive('tlClip', function($timeout){
 
 
 		}
-	}
+	};
 });
 
 
@@ -320,7 +320,7 @@ App.directive('tlClipEffects', function(){
 		link: function(scope, element, attrs){
 
 		}
-	}
+	};
 });
 
 
@@ -331,7 +331,7 @@ App.directive('tlMultiSelectable', function(){
 				filter: '.clip',
 			});
 		}
-	}
+	};
 });
 
 
@@ -369,8 +369,8 @@ App.directive('tlScrollableTracks', function () {
 				if (e.which == 2) { // middle button
 					e.preventDefault();
 					is_scrolling = true;
-					starting_scrollbar = { x: element.scrollLeft(), y: element.scrollTop() }
-					starting_mouse_position = { x: e.pageX, y: e.pageY }
+					starting_scrollbar = { x: element.scrollLeft(), y: element.scrollTop() };
+					starting_mouse_position = { x: e.pageX, y: e.pageY };
 				}
 				return true;
 			});
@@ -379,7 +379,7 @@ App.directive('tlScrollableTracks', function () {
 			element.on('mousemove', function(e){
 				if (is_scrolling) {
 					// Calculate difference from last position
-					difference = { x: starting_mouse_position.x-e.pageX, y: starting_mouse_position.y-e.pageY}
+					difference = { x: starting_mouse_position.x-e.pageX, y: starting_mouse_position.y-e.pageY};
 
 					// Scroll the tracks div
 					element.scrollLeft(starting_scrollbar.x + difference.x);
@@ -391,7 +391,7 @@ App.directive('tlScrollableTracks', function () {
 
 		}
 	};
-})
+});
 
 //the body of the app. allows for capture of released middle mouse button
 App.directive('tlBody', function () {
@@ -463,7 +463,7 @@ App.directive('tlRuler', function ($timeout) {
 								if (x != 0){
 									//get time for this tick
 									time = (scale * x) /2;
-									time_text = secondsToTime(time)
+									time_text = secondsToTime(time);
 
 									//write time on the canvas, centered above long tick
 									ctx.fillStyle = "#fff";
@@ -511,7 +511,7 @@ App.directive('tlRuler', function ($timeout) {
 		
 
 	};
-})
+});
 
 
 // Handles the HTML5 canvas progress bar
@@ -542,7 +542,7 @@ App.directive('tlProgress', function($timeout){
 						   	if (status == 'complete'){
 								ctx.fillStyle = 'green';
 							}else{
-								ctx.fillStyle = 'yellow'
+								ctx.fillStyle = 'yellow';
 							}
 						   	ctx.fill();
 						}
@@ -553,7 +553,7 @@ App.directive('tlProgress', function($timeout){
 
 			
 		}
-	}
+	};
 });
 
 

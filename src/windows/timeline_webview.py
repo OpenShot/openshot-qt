@@ -35,7 +35,13 @@ from PyQt5.QtWebKitWidgets import QWebView
 from classes.logger import log
 from classes.app import get_app
 from classes import info, updates
+import openshot # Python module for libopenshot (required video editing module installed separately)
 import uuid
+
+try:
+    import json
+except ImportError:
+    import simplejson as json
 
 try:
     import json
@@ -135,23 +141,23 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 				
 			# Get file name
 			path, filename = os.path.split(file["path"])
-
-			#build data to pass to timeline js
-			new_clip = {
-					 "id" : str(uuid.uuid1())[:5], 
-	                 "file_id" : file["id"],
-	                 "title" : filename,
-	                 "layer" : 0, 
-	                 "image" : thumb_path,
-	                 "locked" : False,
-	                 "duration" : file["duration"],
-	                 "start" : 0,
-	                 "end" : file["duration"],
-	                 "position" : 0.0,
-	                 "effects" : [],
-	                 "images" : { "start": 0, "end": file["duration"]},
-	                 "show_audio" : False,
-	               }
+			
+			# Create clip object for this file
+			c = openshot.Clip(file["path"])
+			
+			# Append missing attributes to Clip JSON
+			new_clip = json.loads(c.Json())
+			new_clip["id"] = str(uuid.uuid1())[:5]
+			new_clip["file_id"] = file["id"]
+			new_clip["title"] = filename
+			new_clip["image"] = thumb_path
+			
+			# Adjust clip duration, start, and end
+			new_clip["duration"] = new_clip["reader"]["duration"]
+			if file["media_type"] != "image":
+				new_clip["end"] = new_clip["reader"]["duration"]
+			else:
+				new_clip["end"] = 8.0 # default to 8 seconds
 			
 			# Add clip to timeline
 			code = JS_SCOPE_SELECTOR + ".AddClip(" + str(pos.x()) + ", " + str(pos.y()) + ", " + json.dumps(new_clip) + ");"

@@ -176,6 +176,9 @@ class MediaTreeView(QTreeWidget, updates.UpdateInterface):
 			item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 			self.addTopLevelItem(item)
 			
+			# Process events in QT (to keep the interface responsive)
+			app.processEvents()
+			
 		# Resize columns to match contents
 		for column in range(4):
 			self.resizeColumnToContents(column)

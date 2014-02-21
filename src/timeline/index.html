@@ -50,7 +50,7 @@
 						<div class="clip_top">
 							<div tl-clip-menu class="clip_menu"></div>
 							<div class="clip_effects" id="effects_{{clip.id}}" ng-show="clip.effects.length" tooltip="Effects Applied" tooltip-placement="right" tooltip-trigger='mouseenter' >
-								{{clip.effects.length}}
+								{{clip.effects.length}} 
 							</div>
 							<!--<span class="clip_effects" id="effects_{{clip.id}}" ng-show="clip.effects.length">
 								<img ng-repeat="effect in clip.effects" id="effect_{{clip.id}}_{{$index}}" class="effect_icon" ng-src="media/images/effects/{{effect.icon}}"/>
@@ -60,8 +60,8 @@
 						</div>
 						<br class="cleared">
 						<div ng-show="{{!clip.show_audio}}" class="thumb-container">
-							<img class="thumb thumb-start" ng-src="media/images/clip_images/{{clip.images.start}}.png"/>
-							<img class="thumb thumb-end" ng-src="media/images/clip_images/{{clip.images.end}}.png"/>
+							<img class="thumb thumb-start" ng-src="{{ clip.image }}"/>
+							<!--img class="thumb thumb-end" ng-src="media/images/clip_images/{{clip.images.end}}.png"/-->
 						</div>
 						<div ng-show="{{clip.show_audio}}" class="audio-container">
 							<canvas tl-audio height="46px" width="{{ (clip.end - clip.start) * pixelsPerSecond}}px;left:{{clip.position * pixelsPerSecond}}px" class="audio"></canvas>

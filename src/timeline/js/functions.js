@@ -32,11 +32,11 @@ function handleVisibleClipElements(scope, clip_id){
     //show the images as audio is not shown
     if (!clip.show_audio){
         //show end clip?
-        (clip_width <= min_for_thumb_end) ? element.find(".thumb-end").hide() : element.find(".thumb-end").show();
+        //(clip_width <= min_for_thumb_end) ? element.find(".thumb-end").hide() : element.find(".thumb-end").show();
         
         //show start clip?
-        (clip_width <= min_for_thumb_start) ? element.find(".thumb-start").hide() : element.find(".thumb-start").show();
-        console.log("W: " + clip_width  + " --- CLIP" + clip.id + " : " + min_for_thumb_start);
+        //(clip_width <= min_for_thumb_start) ? element.find(".thumb-start").hide() : element.find(".thumb-start").show();
+        //console.log("W: " + clip_width  + " --- CLIP" + clip.id + " : " + min_for_thumb_start);
         
     }
 
