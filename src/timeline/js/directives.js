@@ -98,8 +98,8 @@ App.directive('tlClip', function($timeout){
 
 
 			$timeout(function(){
-				clip_tops["clip_"+scope.clip.id] = element.position().top;
-				clip_lefts["clip_"+scope.clip.id] = element.position().left;
+				//clip_tops["clip_"+scope.clip.id] = element.position().top;
+				//clip_lefts["clip_"+scope.clip.id] = element.position().left;
 			
 				//if clip has audio data, show it instead of images
 				if (scope.clip.show_audio){
@@ -223,11 +223,23 @@ App.directive('tlClip', function($timeout){
 		        		element.addClass('ui-selected');
 		        	}
 		        	
+	            	var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
+	            	var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
+		        	
+		        	// Init all other selected clips (prepare to drag them)
+		        	$(".ui-selected").not($(this)).each(function(){
+		        		clip_tops[$(this).attr('id')] = $(this).position().top + vert_scroll_offset;
+						clip_lefts[$(this).attr('id')] = $(this).position().left + horz_scroll_offset;
+	            	});
+		        	
 		        },
                 stop: function(event, ui) {
                 	// Clear previous drag position
 					previous_drag_position = null;
 					dragging = false;
+					
+					clip_tops = {};
+					clip_lefts = {};
 
 					//redraw audio
 					if (scope.clip.show_audio){
@@ -247,7 +259,6 @@ App.directive('tlClip', function($timeout){
 					}
 
 					// set previous position (for next time around)
-
 					previous_drag_position = ui.position;
 
 	            	// Calculate amount to move clips
@@ -263,23 +274,21 @@ App.directive('tlClip', function($timeout){
 	                	var pos = $(this).position();
 	                	var newY = clip_tops[$(this).attr('id')] + y_offset;
 	                	var newX = clip_lefts[$(this).attr('id')] + x_offset;
-	                	
-						//update the clip location in the array
-	                	clip_tops[$(this).attr('id')] = newY;
-						clip_lefts[$(this).attr('id')] = newX;
-						
 
 	                	if (newY < 0){
 	                		newY = 0;
-	                		ui.position.left = previous_x;
+	                		ui.position.top = previous_y;
 	                	}
 	                	
 	                	if (newX < 0){
 	                		newX = 0;
 	                		ui.position.left = previous_x;
 	                	}
-
-
+	                	
+						//update the clip location in the array
+	                	clip_tops[$(this).attr('id')] = newY;
+						clip_lefts[$(this).attr('id')] = newX;
+						
 						//change the element location
 						$(this).css('left', newX);
 				    	$(this).css('top', newY)
