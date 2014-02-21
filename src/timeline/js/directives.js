@@ -114,7 +114,6 @@ App.directive('tlClip', function($timeout){
 				maxWidth: scope.clip.duration * scope.pixelsPerSecond,
 				start: function(e, ui) {
 					dragging = true;
-
 					
 					//determine which side is being changed
 					var parentOffset = element.offset(); 
@@ -139,51 +138,35 @@ App.directive('tlClip', function($timeout){
 
 					dragging = false;
 					//get amount changed in width
-					var delta_x = ui.size.width - ui.originalSize.width;
+					var delta_x = ui.originalSize.width - ui.size.width;
+					var delta_time = Math.round(delta_x/scope.pixelsPerSecond);
+
 					//change the clip end/start based on which side was dragged
 					new_left = scope.clip.start;
 					new_right = scope.clip.end;
 
 					if (dragLoc == 'left'){
 						//changing the start of the clip
-						//if clip was made larger, the start spot decreased
-						if (delta_x > 0){
-							//larger, so decrease clip start based on pixels per second
-							var new_start = scope.clip.start -  Math.round(delta_x/scope.pixelsPerSecond);
-							
-						}else{
-							//smaller, so increase the clipse start based on pixels per second
-							var new_start = scope.clip.start -  Math.round(delta_x/scope.pixelsPerSecond);
-							//can't be less than 0
-							if (new_start < 0) new_start = 0;
-						}
-						console.log("NEW START: " + new_start);
+						new_left += delta_time;
+						if (new_left < 0) new_left = 0; // prevent less than zero
 
 					} else {
 						//changing the end of the clips
-						//if clip was made larger, the end spot increased
-						if (delta_x > 0){
-							//larger, so increase clip end based on pixels per second
-							var new_end = scope.clip.end + Math.round(delta_x/scope.pixelsPerSecond);
-							//can't be longer than the duration
-							if (new_end > scope.duration) new_end = scope.clip.end;
-							
-						}else{
-							//smaller, so decrease the clip end based on pixels per second
-							var new_end = scope.clip.end +  Math.round(delta_x/scope.pixelsPerSecond);
-						}
-						console.log("NEW END: " + new_end);
+						new_right -= delta_time;
+						if (new_right > scope.clip.duration) new_right = scope.clip.duration;
 					}
 
 					//apply the new start, end and length to the clip's scope
 					scope.$apply(function(){
-						if (scope.clip.end != new_end){
-							scope.clip.end = new_end;
+	
+						if (scope.clip.end != new_right){
+							scope.clip.end = new_right;
 						}
-						if (scope.clip.start != new_start){
-							scope.clip.start = new_start;
+						if (scope.clip.start != new_left){
+							scope.clip.start = new_left;
+							scope.clip.position += delta_time;
 						}
-						scope.clip.length = element.width() / scope.pixelsPerSecond;
+
 					});
 
 					//resize the audio canvas to match the new clip width

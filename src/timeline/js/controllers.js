@@ -10,8 +10,8 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
       tick_pixels : 100, //pixels between tick mark
       playhead_position : 123, //position of play head
       
-      clips : [],
-      clips_hide : [
+      clips_hide : [],
+      clips : [
 	               { 
 	                 id : '1', 
 	                 layer : 1, 
@@ -63,7 +63,7 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 	                           { effect : 'Cartoon', icon: 'cartoon.png'}
 	                           ],
 	                 images : { start: 5, end: 10 },
-	                 show_audio : true,
+	                 show_audio : false,
 	                 audio_data : [.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3, ]
 	                 //audio_data : [.0,.0,.1,.3,.5],
 	               },
@@ -163,10 +163,7 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 		 // Update clip position & layer (based on x,y)
 		 $scope.project.clips[$scope.project.clips.length - 1].position = clip_position;
 		 $scope.project.clips[$scope.project.clips.length - 1].layer = $scope.GetTrackAtY(y - scrolling_tracks_offset_top).number;
-		 
-		 // Find clip object on screen (move y to match cursor)
-		 //var elem = $("#clip_" +  $scope.project.clips[$scope.project.clips.length - 1].id);
-		 
+
 	 });
  };
  
