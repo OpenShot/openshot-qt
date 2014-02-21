@@ -10,8 +10,8 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
       tick_pixels : 100, //pixels between tick mark
       playhead_position : 123, //position of play head
       
-      clips : [],
-      clips_hide : [
+      clips_hide : [],
+      clips : [
 	               { 
 	                 id : '1', 
 	                 layer : 1, 

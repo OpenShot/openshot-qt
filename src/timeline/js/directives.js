@@ -38,10 +38,9 @@ App.directive('tlTrack', function($timeout) {
 		       		$(".ui-selected").each(function() {
 		       			var clip = $(this);
 						
-						if (clip.hasClass('ui-selected')){
+						if (clip.hasClass('ui-selected'))
 			        		clip.removeClass('ui-selected');
-			        	}
-			        	
+
 		       			//get the clip properties we need
 		       			clip_id = clip.attr("id");
 						clip_num = clip_id.substr(clip_id.indexOf("_") + 1);
@@ -61,9 +60,6 @@ App.directive('tlTrack', function($timeout) {
 		            		
 		            		//find the clip in the json data
 		            		elm = findElement(scope.project.clips, "id", clip_num);
-		            		
-		            		clip_tops[clip_id] = clip.position().top;
-							clip_lefts[clip_id] = clip.position().left;	
 
 		            		//change the clip's track and position in the json data
 		            		scope.$apply(function(){
@@ -218,6 +214,7 @@ App.directive('tlClip', function($timeout){
 		        scroll: false,
 		        revert: 'invalid',
 		        start: function(event, ui) {
+		        	previous_drag_position = null;
 		        	dragging = true;
 		        	if (!element.hasClass('ui-selected')){
 		        		element.addClass('ui-selected');
@@ -227,7 +224,7 @@ App.directive('tlClip', function($timeout){
 	            	var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
 		        	
 		        	// Init all other selected clips (prepare to drag them)
-		        	$(".ui-selected").not($(this)).each(function(){
+		        	$(".ui-selected").each(function(){
 		        		clip_tops[$(this).attr('id')] = $(this).position().top + vert_scroll_offset;
 						clip_lefts[$(this).attr('id')] = $(this).position().left + horz_scroll_offset;
 	            	});
@@ -248,6 +245,7 @@ App.directive('tlClip', function($timeout){
 
 				},
                 drag: function(e, ui) {
+                	console.log(clip_lefts);
 
                 	var previous_x = ui.originalPosition.left;
 					var previous_y = ui.originalPosition.top;
@@ -278,11 +276,13 @@ App.directive('tlClip', function($timeout){
 	                	if (newY < 0){
 	                		newY = 0;
 	                		ui.position.top = previous_y;
+	                		clip_tops[element.attr('id')] = previous_y;
 	                	}
 	                	
 	                	if (newX < 0){
 	                		newX = 0;
 	                		ui.position.left = previous_x;
+	                		clip_lefts[element.attr('id')] = previous_x;
 	                	}
 	                	
 						//update the clip location in the array
