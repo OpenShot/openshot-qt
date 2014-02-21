@@ -44,7 +44,7 @@ def load_theme():
 	if QIcon.themeName() == '':
 		#Address known Ubuntu bug of not reporting configured theme name, use default ubuntu theme
 		if os.getenv('DESKTOP_SESSION') == 'ubuntu':
-			QIcon.setThemeName("ubuntu-mono-dark")
+			QIcon.setThemeName('unity-icon-theme')
 		#Windows/Mac use packaged theme
 		else:
 			QIcon.setThemeName(DEFAULT_THEME_NAME)

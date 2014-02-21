@@ -102,8 +102,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		self.page().mainFrame().addToJavaScriptWindowObject('mainWindow', self.window)
 		
 	def dragEnterEvent(self, event):
+        
 		#If a plain text drag accept
-		if not event.mimeData().hasUrls() and event.mimeData().hasText():
+		if not self.new_clip and not event.mimeData().hasUrls() and event.mimeData().hasText():
 			file_id = event.mimeData().text()
 			event.accept()
 			pos = event.posF()
@@ -137,7 +138,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
 			#build data to pass to timeline js
 			new_clip = {
-	                 "id" : file["id"],
+					 "id" : str(uuid.uuid1())[:5], 
+	                 "file_id" : file["id"],
 	                 "title" : filename,
 	                 "layer" : 0, 
 	                 "image" : thumb_path,
@@ -156,7 +158,12 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 			self.eval_js(code)
 			
 			log.info('Dragging {} in timeline.'.format(event.mimeData().text()))
-			event.accept()
+            
+			# Track that a new clip is being 'added'
+			self.new_clip = True
+			
+		# accept all events, even if a new clip is not being added
+		event.accept()
 
 
 	#Without defining this method, the 'copy' action doesn't show with cursor
@@ -175,6 +182,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 	def dropEvent(self, event):
 		log.info('Dropping {} in timeline.'.format(event.mimeData().text()))
 		event.accept()
+        
+		# Clear new clip
+		self.new_clip = False
 	
 	def __init__(self, window):
 		QWebView.__init__(self)
@@ -192,5 +202,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		
 		#Connect zoom functionality
 		window.sliderZoom.valueChanged.connect(self.update_zoom)
+        
+		# Init New clip
+		self.new_clip = False
 
 		
