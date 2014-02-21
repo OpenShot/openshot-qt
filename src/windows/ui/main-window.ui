@@ -252,6 +252,9 @@
    <property name="toolTip">
     <string>New Project</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
   </action>
   <action name="actionOpen">
    <property name="icon">
@@ -263,6 +266,9 @@
    </property>
    <property name="toolTip">
     <string>Open Project</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
    </property>
   </action>
   <action name="actionSave">
@@ -276,6 +282,9 @@
    <property name="toolTip">
     <string>Save Project</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
   </action>
   <action name="actionUndo">
    <property name="icon">
@@ -288,6 +297,9 @@
    <property name="toolTip">
     <string>Undo</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
   </action>
   <action name="actionSaveAs">
    <property name="icon">
@@ -299,6 +311,9 @@
    </property>
    <property name="toolTip">
     <string>Save Project As...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
    </property>
   </action>
   <action name="actionRecent">
@@ -324,6 +339,9 @@
    <property name="toolTip">
     <string>Import Files</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
+   </property>
   </action>
   <action name="actionImportImageSequence">
    <property name="icon">
@@ -335,6 +353,9 @@
    </property>
    <property name="toolTip">
     <string>Import Image Sequence</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
    </property>
   </action>
   <action name="actionImportTransition">
@@ -348,6 +369,9 @@
    <property name="toolTip">
     <string>Import New Transition</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+W</string>
+   </property>
   </action>
   <action name="actionRedo">
    <property name="icon">
@@ -359,6 +383,9 @@
    </property>
    <property name="toolTip">
     <string>Redo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Y</string>
    </property>
   </action>
   <action name="actionRemoveClip">
@@ -396,6 +423,9 @@
    <property name="toolTip">
     <string>Take Snapshot</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
+   </property>
   </action>
   <action name="actionExportVideo">
    <property name="icon">
@@ -407,6 +437,9 @@
    </property>
    <property name="toolTip">
     <string>Export Video</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
    </property>
   </action>
   <action name="actionUploadVideo">
@@ -420,6 +453,9 @@
    <property name="toolTip">
     <string>Upload Video</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+U</string>
+   </property>
   </action>
   <action name="actionQuit">
    <property name="icon">
@@ -432,6 +468,9 @@
    </property>
    <property name="toolTip">
     <string>Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
    </property>
   </action>
   <action name="actionAddTrack">
@@ -456,6 +495,9 @@
    </property>
    <property name="toolTip">
     <string>Preferences</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
    </property>
   </action>
   <action name="actionPlay">
@@ -745,6 +787,9 @@
    <property name="toolTip">
     <string>Zoom In</string>
    </property>
+   <property name="shortcut">
+    <string>+</string>
+   </property>
   </action>
   <action name="actionTimelineZoomOut">
    <property name="icon">
@@ -756,6 +801,9 @@
    </property>
    <property name="toolTip">
     <string>Zoom Out</string>
+   </property>
+   <property name="shortcut">
+    <string>-</string>
    </property>
   </action>
   <action name="actionTitle">
@@ -770,6 +818,9 @@
    <property name="toolTip">
     <string>Title</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
+   </property>
   </action>
   <action name="actionAnimatedTitle">
    <property name="icon">
@@ -782,6 +833,9 @@
    </property>
    <property name="toolTip">
     <string>Animated Title</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+B</string>
    </property>
   </action>
   <action name="actionFullscreen">
