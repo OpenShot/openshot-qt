@@ -3,7 +3,7 @@
  @brief This file loads the import transition dialog (i.e add external transitions)
  @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
- @author Olivier Girard <eolinwen@gmail.com>
+ @author Olivier Girard <olivier@openshot.org>
 
  @section LICENSE
 

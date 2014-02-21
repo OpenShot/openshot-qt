@@ -3,7 +3,7 @@
  @brief This file loads the transitions properties dialog (i.e contextual dialog for transitions and masks)
  @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
- @author Olivier Girard <eolinwen@gmail.com>
+ @author Olivier Girard <olivier@openshot.org>
 
  @section LICENSE
 

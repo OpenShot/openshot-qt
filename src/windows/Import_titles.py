@@ -3,7 +3,7 @@
  @brief This file loads the import title dialog (i.e add external titles)
  @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
- @author Olivier Girard <eolinwen@gmail.com>
+ @author Olivier Girard <olivier@openshot.org>
 
  @section LICENSE
 

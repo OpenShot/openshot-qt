@@ -1,6 +1,6 @@
 """
  @file
- @brief This file loads the import maps dialog (i.e earth animation)
+ @brief This file help you to create a new project (i.e add a new project)
  @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
  @author Olivier Girard <olivier@openshot.org>
@@ -26,10 +26,9 @@
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
-
+ 
 import os
 import sys
-import shutil
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import *
@@ -37,20 +36,19 @@ from PyQt5 import uic
 from classes import info, ui_util, settings, qt_types, updates
 from classes.logger import log
 
-class ImportMaps(QDialog):
-	""" Import Maps Dialog """
+class NewProject(QDialog):
+	""" New Project Dialog """
 
 	# Path to ui file
-	ui_path = os.path.join(info.PATH, 'windows', 'ui', 'import-maps.ui')
+	ui_path = os.path.join(info.PATH, 'windows', 'ui', 'new-project.ui')
 	
 	def __init__(self):
 		
 		# Create dialog class
 		QDialog.__init__(self)
 		
-		# Load UI from designer
+		# Load ui from designer
 		ui_util.load_ui(self, self.ui_path)
 		
 		# Init UI
 		ui_util.init_ui(self)
-		

@@ -3,7 +3,7 @@
  @brief This file loads the main window (i.e. the primary user-interface)
  @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
- @author Olivier Girard <eolinwen@gmail.com>
+ @author Olivier Girard <olivier@openshot.org>
 
  @section LICENSE
 
@@ -53,6 +53,15 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 	def actionNew_trigger(self, event):
 		get_app().project.new()
 		log.info("New Project created.")
+		# Show dialog
+		from windows.new_project import NewProject
+		win = NewProject()
+		#Run the dialog event loop - blocking interaction on this window during that time
+		result = win.exec_()
+		if result == QDialog.Accepted:
+			log.info('new project add confirmed')
+		else:
+			log.info('new project add cancelled')
 		
 	def actionAnimatedTitle_trigger(self, event):
 		# show dialog
