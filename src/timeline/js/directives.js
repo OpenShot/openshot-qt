@@ -253,6 +253,7 @@ App.directive('tlClip', function($timeout){
 
 				},
                 drag: function(e, ui) {
+
                 	var previous_x = ui.originalPosition.left;
 					var previous_y = ui.originalPosition.top;
 					if (previous_drag_position)
@@ -262,7 +263,8 @@ App.directive('tlClip', function($timeout){
 						previous_y = previous_drag_position.top;
 					}
 
-					// set previous position (for next time round)
+					// set previous position (for next time around)
+
 					previous_drag_position = ui.position;
 
 	            	// Calculate amount to move clips
@@ -279,10 +281,22 @@ App.directive('tlClip', function($timeout){
 	                	var newY = clip_tops[$(this).attr('id')] + y_offset;
 	                	var newX = clip_lefts[$(this).attr('id')] + x_offset;
 	                	
-	                	//update the clip location in the array
+						//update the clip location in the array
 	                	clip_tops[$(this).attr('id')] = newY;
 						clip_lefts[$(this).attr('id')] = newX;
 						
+
+	                	if (newY < 0){
+	                		newY = 0;
+	                		ui.position.left = previous_x;
+	                	}
+	                	
+	                	if (newX < 0){
+	                		newX = 0;
+	                		ui.position.left = previous_x;
+	                	}
+
+
 						//change the element location
 						$(this).css('left', newX);
 				    	$(this).css('top', newY)
