@@ -419,9 +419,21 @@ App.directive('tlRuler', function ($timeout) {
 					$timeout(function(){
 						scope.playlineLocation = $(".playhead-top").offset().left + scope.playheadOffset;
 					},0);
-					
 				});
-	            
+			});
+			
+			element.on('mousemove', function(e){
+				if (e.which == 1) { // left button
+					var playhead_seconds = (e.pageX - element.offset().left) / scope.pixelsPerSecond;
+					scope.$apply(function(){
+						scope.project.playhead_position = playhead_seconds;
+						scope.playheadTime = secondsToTime(playhead_seconds);
+						//use timeout to ensure that the playhead has moved before setting the line location off of it
+						$timeout(function(){
+							scope.playlineLocation = $(".playhead-top").offset().left + scope.playheadOffset;
+						},0);
+					});
+				}
 			});
 
 			//watch the scale value so it will be able to draw the ruler after changes,
@@ -505,6 +517,41 @@ App.directive('tlRuler', function ($timeout) {
 	};
 });
 
+
+//The HTML5 canvas ruler
+App.directive('tlPlayheadbox', function ($timeout) {
+	return {
+		restrict: 'A',
+		link: function (scope, element, attrs) {
+			//on click of the ruler canvas, jump playhead to the clicked spot
+			element.on('mousedown', function(e){
+				var playhead_seconds = (e.pageX - element.offset().left) / scope.pixelsPerSecond;
+				scope.$apply(function(){
+					scope.project.playhead_position = playhead_seconds;
+					scope.playheadTime = secondsToTime(playhead_seconds);
+					//use timeout to ensure that the playhead has moved before setting the line location off of it
+					$timeout(function(){
+						scope.playlineLocation = $(".playhead-top").offset().left + scope.playheadOffset;
+					},0);
+				});
+			});
+			
+			element.on('mousemove', function(e){
+				if (e.which == 1) { // left button
+					var playhead_seconds = (e.pageX - element.offset().left) / scope.pixelsPerSecond;
+					scope.$apply(function(){
+						scope.project.playhead_position = playhead_seconds;
+						scope.playheadTime = secondsToTime(playhead_seconds);
+						//use timeout to ensure that the playhead has moved before setting the line location off of it
+						$timeout(function(){
+							scope.playlineLocation = $(".playhead-top").offset().left + scope.playheadOffset;
+						},0);
+					});
+				}
+			});
+		}
+	};
+});
 
 // Handles the HTML5 canvas progress bar
 App.directive('tlProgress', function($timeout){

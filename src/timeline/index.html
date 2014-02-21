@@ -25,7 +25,7 @@
 		</div>
 		<div id="scrolling_ruler">
 			<canvas tl-ruler id="ruler" width="{{project.duration * pixelsPerSecond}}px" height="39px"></canvas>
-			<div class="playhead_box" style="width:{{project.duration * pixelsPerSecond}}px;">
+			<div tl-playheadbox class="playhead_box" style="width:{{project.duration * pixelsPerSecond}}px;">
 				<div tl-playhead style="left:{{(project.playhead_position * pixelsPerSecond) + playheadOffset}}px;position:absolute;">
 					<div class="playhead-top"></div>				
 				</div>
