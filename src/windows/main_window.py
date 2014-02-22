@@ -184,6 +184,17 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		self.filesTreeView.update_model()
 	def actionFilesShowImage_trigger(self, event):
 		self.filesTreeView.update_model()
+		
+	def actionAbout_trigger(self, event):
+		#Show dialog
+		from windows.about import About
+		win = About()
+		#Run the dialog event loop - blocking interaction on this window during this time
+		result = win.exec_()
+		if result == QDialog.Accepted:
+			log.info('About Openshot add confirmed')
+		else:
+			log.info('About Openshot add cancelled')
 
 	#Project settings test code
 		# app = get_app()
