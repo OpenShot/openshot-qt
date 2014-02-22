@@ -44,14 +44,14 @@ App.directive('tlTrack', function($timeout) {
 		       			//get the clip properties we need
 		       			clip_id = clip.attr("id");
 						clip_num = clip_id.substr(clip_id.indexOf("_") + 1);
-						clip_top = clip.position().top;
+						clip_middle = clip.position().top + (clip.height() / 2); // find middle of clip
 						clip_left = clip.position().left + scroll_left_pixels;
 
 						//make sure the clip isn't dropped off too far to the left
 						if (clip_left < 0) clip_left = 0;
 
 		            	//get track the clip was dropped on 
-		            	drop_track_id = findTrackAtLocation(parseInt(clip_top));
+		            	drop_track_id = findTrackAtLocation(parseInt(clip_middle));
 		            	
 		            	//if the droptrack was found, update the json
 		            	if (drop_track_id != -1){ 
@@ -222,11 +222,10 @@ App.directive('tlClip', function($timeout){
 		        	
 		        	// Init all other selected clips (prepare to drag them)
 		        	$(".ui-selected").each(function(){
-                        pos =  {"top": $(this).position().top + vert_scroll_offset,
-                                 "left": $(this).position().left + horz_scroll_offset};
-
-		        		start_clips[$(this).attr('id')] = pos
-                        move_clips[$(this).attr('id')] = pos
+		        		start_clips[$(this).attr('id')] = {"top": $(this).position().top + vert_scroll_offset,
+                                						   "left": $(this).position().left + horz_scroll_offset};
+                        move_clips[$(this).attr('id')] = {"top": $(this).position().top + vert_scroll_offset,
+                               							  "left": $(this).position().left + horz_scroll_offset};
                     });
 		        	
 		        },
@@ -235,10 +234,6 @@ App.directive('tlClip', function($timeout){
 					previous_drag_position = null;
 					dragging = false;
 
-                    //clear clip position arrays
-                    move_clips = {}
-                    start_clips = {}
-
 					//redraw audio
 					if (scope.clip.show_audio){
 						drawAudio(scope, scope.clip.id);
@@ -246,8 +241,6 @@ App.directive('tlClip', function($timeout){
 
 				},
                 drag: function(e, ui) {
-                	//console.log(clip_lefts);
-
                 	var previous_x = ui.originalPosition.left;
 					var previous_y = ui.originalPosition.top;
 					if (previous_drag_position)
@@ -268,13 +261,11 @@ App.directive('tlClip', function($timeout){
 					move_clips[element.attr('id')] = {"top": ui.position.top,
                                                       "left": ui.position.left};
 
-
 					// Move all other selected clips with this one
 	                $(".ui-selected").not($(this)).each(function(){
 	                	var pos = $(this).position();
 	                	var newY = move_clips[$(this).attr('id')]["top"] + y_offset;
                         var newX = move_clips[$(this).attr('id')]["left"] + x_offset;
-
 
 	                	if (newY < 0){
 	                		newY = 0;
@@ -297,25 +288,22 @@ App.directive('tlClip', function($timeout){
 
 						//change the element location
 						$(this).css('left', newX);
-				    	$(this).css('top', newY)
+				    	$(this).css('top', newY);
 				    	
 				    });
                 },
                 revert: function(valid) {
                     if(!valid) {
-                        console.log('invalid drop');
                         //the drop spot was invalid, so we're going to move all clips to their original position
                         $(".ui-selected").each(function(){
-                            console.log("TOP: " + $(this).attr('id') + " - " + start_clips[$(this).attr('id')]['top']);
+                        	var oldY = start_clips[$(this).attr('id')]['top'];
+                        	var oldX = start_clips[$(this).attr('id')]['left'];
 
-                            var newTop = start_clips[$(this).attr('id')]['top'];
-                            $(this).css('top', 200 );
-
-                            //$(this).css('top', parseInt(newTop));
-                            $(this).css('left', parseInt(start_clips[$(this).attr('id')]['left']));
-                        })
+                        	$(this).css('left', oldX);
+				    		$(this).css('top', oldY);
+                        });
                     }
-                    return !valid;
+                    return false;
                 }
 		      });
 

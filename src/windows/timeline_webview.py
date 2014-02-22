@@ -66,6 +66,33 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		code = JS_SCOPE_SELECTOR + ".ApplyJsonDiff([" + action.json() + "]);"
 		self.eval_js(code)
 
+	#Javascript callable function to update the project data when a clip changes
+	@pyqtSlot()
+	def update_clip_data(self, clip_json):
+		""" Create an updateAction and send it to the update manager """
+		
+		# read clip json
+		clip_data = simplejson.loads(clip_json)
+		
+		# Get app 
+		app = get_app()
+		proj = app.project
+		clips = app.project.clips
+		
+		# Does clip already exist
+		found_id = None
+		for existing_clip in clips:
+			if existing_clip["id"] == clip_data["id"]:
+				found_id = clip_data["id"]
+				
+		# find the clip in the project data
+		if not found_id:
+			# insert a clip
+			app.updates.insert(["clips", ""], file_json)
+		else:
+			# update a clip
+			app.updates.update(["clips", {"id" : found_id}], file_json)
+
 
 	#Prevent default context menu, and ignore, so that javascript can intercept
 	def contextMenuEvent(self, event):
