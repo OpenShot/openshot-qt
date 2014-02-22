@@ -15,9 +15,12 @@ var scroll_left_pixels = 0;
 
 //build bounding box
 function setBoundingBox(clip){
-    var clip_bottom = clip.position().top + parseInt(clip.css('height'));
-    var clip_top = clip.position().top;
-    var clip_left = clip.position().left;
+	var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
+	var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
+	
+    var clip_bottom = clip.position().top + clip.height() + vert_scroll_offset;
+    var clip_top = clip.position().top + vert_scroll_offset;
+    var clip_left = clip.position().left + horz_scroll_offset;
 
     if(jQuery.isEmptyObject(bounding_box)){
         bounding_box.left = clip_left;
@@ -90,6 +93,10 @@ App.directive('tlTrack', function($timeout) {
 		            			//set track
 		            			elm.layer = drop_track_num;
 		            			elm.position =  parseInt(clip_left)/scope.pixelsPerSecond;
+		            			
+								// update clip in Qt (very important =)
+		            			if (scope.Qt)
+		            				timeline.update_clip_data(JSON.stringify(elm));
 							});
 
 		            	}
@@ -151,7 +158,6 @@ App.directive('tlClip', function($timeout){
 					//element.find(".thumb-container").hide();
 					//element.find(".clip_top").hide();
 
-					console.log("DRAGGING SIDE: " + dragLoc);
 
 				},
 				stop: function(e, ui) {
@@ -291,31 +297,28 @@ App.directive('tlClip', function($timeout){
 					move_clips[element.attr('id')] = {"top": ui.position.top,
                                                       "left": ui.position.left};
 
-                      //update box
+                    //update box
                     bounding_box.left += x_offset;
                     bounding_box.top += y_offset;
-
+                    
+                    if (bounding_box.left < 0) {
+                    	x_offset -= bounding_box.left;
+                    	bounding_box.left = 0;
+                		ui.position.left = previous_x + x_offset;
+                		move_clips[element.attr('id')]["left"] = ui.position.left;
+                    }
+                    if (bounding_box.top < 0) {
+                    	y_offset -= bounding_box.top;
+                    	bounding_box.top = 0;
+                		ui.position.top = previous_y + y_offset;
+                		move_clips[element.attr('id')]["top"] = ui.position.top;
+                    }
+                    	
     				// Move all other selected clips with this one
 	                $(".ui-selected").not($(this)).each(function(){
 	                	var pos = $(this).position();
 	                	var newY = move_clips[$(this).attr('id')]["top"] + y_offset;
                         var newX = move_clips[$(this).attr('id')]["left"] + x_offset;
-
-	                	if (bounding_box.top <= 0){
-                            bounding_box.top = 0;
-	                		newX = move_clips[$(this).attr('id')]["top"];
-	                		ui.position.top = previous_y;
-	                		move_clips[element.attr('id')]["top"] = previous_y;
-                        }
-
-                        console.log("LEFT: " + bounding_box.left);
-	                	if (bounding_box.left <= 0){
-	                		bounding_box.left = 0;
-                            newX = move_clips[$(this).attr('id')]["left"];
-	                		ui.position.left = previous_x;
-	                		move_clips[element.attr('id')]["left"] = previous_x;
-
-	                	}
 
 						//update the clip location in the array
 	                	move_clips[$(this).attr('id')]['top'] = newY;

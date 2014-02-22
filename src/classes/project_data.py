@@ -80,21 +80,20 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 				#Overall status of finding a matching subobject
 				found = False
 				#Loop through each item in object to find match
-				for obj_key in obj:
-					item = obj[obj_key]
+				for item in obj:
 					#True until something disqualifies this as a match
 					match = True
 					#Check each key in key_part dictionary and if not found to be equal as a property in item, move on to next item in list
 					for subkey in key_part:
 						subkey = subkey.lower()
 						#If object is missing the key or the values differ, then it doesn't match.
-						if (not subkey in item) or item[subkey] == key_part[subkey]:
+						if not (subkey in item and item[subkey] == key_part[subkey]):
 							match = False
 							break #exit subkey for loop, this item didn't qualify
 					#If matched, set key_part to index of list or dict and stop loop
 					if match:
 						found = True
-						key_part = obj_key
+						key_part = item
 						break
 				#No match found, return None
 				if not found:
@@ -175,21 +174,20 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 			if isinstance(key_part, dict) and (isinstance(obj, list) or isinstance(obj, dict)):
 				#Overall status of finding a matching subobject
 				found = False
-				for obj_key in obj:
-					item = obj[obj_key]
+				for item in obj:
 					#True until something disqualifies this as a match
 					match = True
 					#Check each key in key_part dictionary and if not found to be equal as a property in item, move on to next item in list
 					for subkey in key_part:
 						subkey = subkey.lower()
 						#If object is missing the key or the values differ, then it doesn't match.
-						if (not subkey in item) or item[subkey] == key_part[subkey]:
+						if not (subkey in item and item[subkey] == key_part[subkey]):
 							match = False
 							break #exit subkey for loop, this item didn't qualify
 					#If matched, set key_part to index of list or dict and stop loop
 					if match:
 						found = True
-						key_part = obj_key
+						key_part = item
 						break
 				#No match found, return None
 				if not found:

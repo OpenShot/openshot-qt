@@ -67,17 +67,17 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		self.eval_js(code)
 
 	#Javascript callable function to update the project data when a clip changes
-	@pyqtSlot()
+	@pyqtSlot(str)
 	def update_clip_data(self, clip_json):
 		""" Create an updateAction and send it to the update manager """
-		
+
 		# read clip json
-		clip_data = simplejson.loads(clip_json)
+		clip_data = json.loads(clip_json)
 		
 		# Get app 
 		app = get_app()
 		proj = app.project
-		clips = app.project.clips
+		clips = proj.get(["clips"])
 		
 		# Does clip already exist
 		found_id = None
@@ -88,10 +88,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		# find the clip in the project data
 		if not found_id:
 			# insert a clip
-			app.updates.insert(["clips", ""], file_json)
+			app.updates.insert(["clips", ""], clip_data)
 		else:
 			# update a clip
-			app.updates.update(["clips", {"id" : found_id}], file_json)
+			app.updates.update(["clips", {"id" : found_id}], clip_data)
 
 
 	#Prevent default context menu, and ignore, so that javascript can intercept
@@ -100,7 +100,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		
 	#Javascript callable function to show clip or transition content menus, passing in type to show
 	@pyqtSlot()
-	def show_context_menu(self, type):
+	def show_context_menu(self, type=None):
 		menu = QMenu(self)
 		menu.addAction(self.window.actionNew)
 		if type == "clip":
@@ -133,6 +133,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		#Export self as a javascript object in webview
 		self.page().mainFrame().addToJavaScriptWindowObject('timeline', self)
 		self.page().mainFrame().addToJavaScriptWindowObject('mainWindow', self.window)
+		
+		
 		
 	def dragEnterEvent(self, event):
         
@@ -238,5 +240,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         
 		# Init New clip
 		self.new_clip = False
+		
+
 
 		

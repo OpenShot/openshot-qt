@@ -10,8 +10,8 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
       tick_pixels : 100, //pixels between tick mark
       playhead_position : 123, //position of play head
       
-      clips_hide : [],
-      clips : [
+      clips : [],
+      clips_hide : [
 	               { 
 	                 id : '1', 
 	                 layer : 1, 
@@ -109,6 +109,8 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
   $scope.playheadOffset = 0;
   $scope.playheadTime =  secondsToTime($scope.project.playhead_position);
   $scope.playlineLocation = 0;
+  $scope.Qt = true;
+  $scope.EnableQt = function() { $scope.Qt = true; };
   
   //filters clips by layer
   $scope.filterByLayer = function (layer) {
