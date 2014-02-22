@@ -1,7 +1,7 @@
 var dragging = false;
 var previous_drag_position = null;
-var clip_tops = {};
-var clip_lefts = {};
+var start_clips = {};
+var move_clips = {};
 //variables for panning by middle click
 var is_scrolling = false;
 var starting_scrollbar = { x: 0, y: 0 };
@@ -131,7 +131,6 @@ App.directive('tlClip', function($timeout){
 
 				},
 				stop: function(e, ui) {
-
 					dragging = false;
 					//get amount changed in width
 					var delta_x = ui.originalSize.width - ui.size.width;
@@ -173,8 +172,6 @@ App.directive('tlClip', function($timeout){
 					}
 				
 					dragLoc = null;
-					
-					
 
 				},
 				resize: function() {
@@ -225,18 +222,22 @@ App.directive('tlClip', function($timeout){
 		        	
 		        	// Init all other selected clips (prepare to drag them)
 		        	$(".ui-selected").each(function(){
-		        		clip_tops[$(this).attr('id')] = $(this).position().top + vert_scroll_offset;
-						clip_lefts[$(this).attr('id')] = $(this).position().left + horz_scroll_offset;
-	            	});
+                        pos =  {"top": $(this).position().top + vert_scroll_offset,
+                                 "left": $(this).position().left + horz_scroll_offset};
+
+		        		start_clips[$(this).attr('id')] = pos
+                        move_clips[$(this).attr('id')] = pos
+                    });
 		        	
 		        },
                 stop: function(event, ui) {
                 	// Clear previous drag position
 					previous_drag_position = null;
 					dragging = false;
-					
-					clip_tops = {};
-					clip_lefts = {};
+
+                    //clear clip position arrays
+                    move_clips = {}
+                    start_clips = {}
 
 					//redraw audio
 					if (scope.clip.show_audio){
@@ -245,7 +246,7 @@ App.directive('tlClip', function($timeout){
 
 				},
                 drag: function(e, ui) {
-                	console.log(clip_lefts);
+                	//console.log(clip_lefts);
 
                 	var previous_x = ui.originalPosition.left;
 					var previous_y = ui.originalPosition.top;
@@ -264,39 +265,58 @@ App.directive('tlClip', function($timeout){
 	            	var y_offset = ui.position.top - previous_y;
 
 	            	//update the dragged clip location in the location arrays
-					clip_tops[element.attr('id')] = ui.position.top;
-					clip_lefts[element.attr('id')] = ui.position.left;
+					move_clips[element.attr('id')] = {"top": ui.position.top,
+                                                      "left": ui.position.left};
+
 
 					// Move all other selected clips with this one
 	                $(".ui-selected").not($(this)).each(function(){
 	                	var pos = $(this).position();
-	                	var newY = clip_tops[$(this).attr('id')] + y_offset;
-	                	var newX = clip_lefts[$(this).attr('id')] + x_offset;
+	                	var newY = move_clips[$(this).attr('id')]["top"] + y_offset;
+                        var newX = move_clips[$(this).attr('id')]["left"] + x_offset;
+
 
 	                	if (newY < 0){
 	                		newY = 0;
 	                		ui.position.top = previous_y;
-	                		clip_tops[element.attr('id')] = previous_y;
-	                	}
+	                		//clip_tops[element.attr('id')] = previous_y;
+	                	    move_clips[$(this).attr('id')]["top"] = previous_y;
+                        }
 	                	
 	                	if (newX < 0){
 	                		newX = 0;
 	                		ui.position.left = previous_x;
-	                		clip_lefts[element.attr('id')] = previous_x;
+	                		//clip_lefts[element.attr('id')] = previous_x;
+                            move_clips[$(this).attr('id')]["left"] = previous_x;
+
 	                	}
 	                	
 						//update the clip location in the array
-	                	clip_tops[$(this).attr('id')] = newY;
-						clip_lefts[$(this).attr('id')] = newX;
-						
+	                	move_clips[$(this).attr('id')]['top'] = newY;
+                        move_clips[$(this).attr('id')]['left'] = newX;
+
 						//change the element location
 						$(this).css('left', newX);
 				    	$(this).css('top', newY)
 				    	
 				    });
-                	
-                	
-		        },
+                },
+                revert: function(valid) {
+                    if(!valid) {
+                        console.log('invalid drop');
+                        //the drop spot was invalid, so we're going to move all clips to their original position
+                        $(".ui-selected").each(function(){
+                            console.log("TOP: " + $(this).attr('id') + " - " + start_clips[$(this).attr('id')]['top']);
+
+                            var newTop = start_clips[$(this).attr('id')]['top'];
+                            $(this).css('top', 200 );
+
+                            //$(this).css('top', parseInt(newTop));
+                            $(this).css('left', parseInt(start_clips[$(this).attr('id')]['left']));
+                        })
+                    }
+                    return !valid;
+                }
 		      });
 
 
