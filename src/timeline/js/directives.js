@@ -2,12 +2,36 @@ var dragging = false;
 var previous_drag_position = null;
 var start_clips = {};
 var move_clips = {};
+var bounding_box = Object();
+var out_of_bounds = false;
+
 //variables for panning by middle click
 var is_scrolling = false;
 var starting_scrollbar = { x: 0, y: 0 };
 var starting_mouse_position = { x: 0, y: 0 };
 //variables for scrolling control
 var scroll_left_pixels = 0;
+
+
+//build bounding box
+function setBoundingBox(clip){
+    var clip_bottom = clip.position().top + parseInt(clip.css('height'));
+    var clip_top = clip.position().top;
+    var clip_left = clip.position().left;
+
+    if(jQuery.isEmptyObject(bounding_box)){
+        bounding_box.left = clip_left;
+        bounding_box.top = clip_top;
+        bounding_box.bottom = clip_bottom;
+    }else{
+        //compare and change if clip is a better fit for bounding box edges
+        if (clip_top < bounding_box.top) bounding_box.top = clip_top;
+        if (clip_left < bounding_box.left) bounding_box.left = clip_left;
+        if (clip_bottom > bounding_box.bottom) bounding_box.bottom = clip_bottom;
+    }
+}
+
+
 
 
 //treats element as a track
@@ -219,13 +243,18 @@ App.directive('tlClip', function($timeout){
 		        	
 	            	var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
 	            	var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
-		        	
+
+                    bounding_box = {};
+
 		        	// Init all other selected clips (prepare to drag them)
 		        	$(".ui-selected").each(function(){
 		        		start_clips[$(this).attr('id')] = {"top": $(this).position().top + vert_scroll_offset,
                                 						   "left": $(this).position().left + horz_scroll_offset};
                         move_clips[$(this).attr('id')] = {"top": $(this).position().top + vert_scroll_offset,
                                							  "left": $(this).position().left + horz_scroll_offset};
+
+                        //send clip to bounding box builder
+                        setBoundingBox($(this));
                     });
 		        	
 		        },
@@ -257,31 +286,37 @@ App.directive('tlClip', function($timeout){
 	            	var x_offset = ui.position.left - previous_x;
 	            	var y_offset = ui.position.top - previous_y;
 
-	            	//update the dragged clip location in the location arrays
+
+                    //update the dragged clip location in the location arrays
 					move_clips[element.attr('id')] = {"top": ui.position.top,
                                                       "left": ui.position.left};
 
-					// Move all other selected clips with this one
+                      //update box
+                    bounding_box.left += x_offset;
+                    bounding_box.top += y_offset;
+
+    				// Move all other selected clips with this one
 	                $(".ui-selected").not($(this)).each(function(){
 	                	var pos = $(this).position();
 	                	var newY = move_clips[$(this).attr('id')]["top"] + y_offset;
                         var newX = move_clips[$(this).attr('id')]["left"] + x_offset;
 
-	                	if (newY < 0){
-	                		newY = 0;
+	                	if (bounding_box.top <= 0){
+                            bounding_box.top = 0;
+	                		newX = move_clips[$(this).attr('id')]["top"];
 	                		ui.position.top = previous_y;
-	                		//clip_tops[element.attr('id')] = previous_y;
-	                	    move_clips[$(this).attr('id')]["top"] = previous_y;
+	                		move_clips[element.attr('id')]["top"] = previous_y;
                         }
-	                	
-	                	if (newX < 0){
-	                		newX = 0;
+
+                        console.log("LEFT: " + bounding_box.left);
+	                	if (bounding_box.left <= 0){
+	                		bounding_box.left = 0;
+                            newX = move_clips[$(this).attr('id')]["left"];
 	                		ui.position.left = previous_x;
-	                		//clip_lefts[element.attr('id')] = previous_x;
-                            move_clips[$(this).attr('id')]["left"] = previous_x;
+	                		move_clips[element.attr('id')]["left"] = previous_x;
 
 	                	}
-	                	
+
 						//update the clip location in the array
 	                	move_clips[$(this).attr('id')]['top'] = newY;
                         move_clips[$(this).attr('id')]['left'] = newX;
@@ -289,8 +324,9 @@ App.directive('tlClip', function($timeout){
 						//change the element location
 						$(this).css('left', newX);
 				    	$(this).css('top', newY);
-				    	
+
 				    });
+
                 },
                 revert: function(valid) {
                     if(!valid) {
