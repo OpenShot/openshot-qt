@@ -141,6 +141,11 @@ class UpdateManager:
 		#On adds, setup remove
 		if action.type == "insert":
 			reverse.type = "delete"
+			
+			# replace last part of key with ID (so the delete knows which item to delete)
+			id = action.values["id"]
+			action.key[-1] = { "id" : id}
+			
 		#On removes, setup add with old value
 		elif action.type == "delete":
 			reverse.type = "insert"

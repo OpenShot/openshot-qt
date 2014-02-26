@@ -86,17 +86,17 @@ App.directive('tlTrack', function($timeout) {
 		            		drop_track_num = drop_track_id.substr(drop_track_id.indexOf("_") + 1);
 		            		
 		            		//find the clip in the json data
-		            		elm = findElement(scope.project.clips, "id", clip_num);
+		            		clip_data = findElement(scope.project.clips, "id", clip_num);
 
 		            		//change the clip's track and position in the json data
 		            		scope.$apply(function(){
 		            			//set track
-		            			elm.layer = drop_track_num;
-		            			elm.position =  parseInt(clip_left)/scope.pixelsPerSecond;
+		            			clip_data.layer = drop_track_num;
+		            			clip_data.position =  parseInt(clip_left)/scope.pixelsPerSecond;
 		            			
 								// update clip in Qt (very important =)
 		            			if (scope.Qt)
-		            				timeline.update_clip_data(JSON.stringify(elm));
+		            				timeline.update_clip_data(JSON.stringify(clip_data));
 							});
 
 		            	}
@@ -191,6 +191,10 @@ App.directive('tlClip', function($timeout){
 							scope.clip.start = new_left;
 							scope.clip.position += delta_time;
 						}
+						
+						// update clip in Qt (very important =)
+            			if (scope.Qt)
+            				timeline.update_clip_data(JSON.stringify(scope.clip));
 
 					});
 
