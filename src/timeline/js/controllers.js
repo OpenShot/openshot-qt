@@ -166,6 +166,8 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 		 $scope.project.clips[$scope.project.clips.length - 1].position = clip_position;
 		 $scope.project.clips[$scope.project.clips.length - 1].layer = $scope.GetTrackAtY(y - scrolling_tracks_offset_top).number;
 
+		 // hide and show elements of the clip (based on size)
+		 handleVisibleClipElements($scope, $scope.project.clips[$scope.project.clips.length - 1].id);
 	 });
  };
  

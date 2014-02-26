@@ -11,6 +11,8 @@ var starting_scrollbar = { x: 0, y: 0 };
 var starting_mouse_position = { x: 0, y: 0 };
 //variables for scrolling control
 var scroll_left_pixels = 0;
+//variables for resizing clips
+var last_resizable = { left: 0, width: 0 };
 
 
 //build bounding box
@@ -163,7 +165,7 @@ App.directive('tlClip', function($timeout){
 				stop: function(e, ui) {
 					dragging = false;
 					//get amount changed in width
-					var delta_x = ui.originalSize.width - ui.size.width;
+					var delta_x = ui.originalSize.width - last_resizable.width;
 					var delta_time = Math.round(delta_x/scope.pixelsPerSecond);
 
 					//change the clip end/start based on which side was dragged
@@ -208,7 +210,37 @@ App.directive('tlClip', function($timeout){
 					dragLoc = null;
 
 				},
-				resize: function() {
+				resize: function(e, ui) {
+					
+					// get amount changed in width
+					var delta_x = ui.originalSize.width - ui.size.width;
+					var delta_time = Math.round(delta_x/scope.pixelsPerSecond);
+
+					// change the clip end/start based on which side was dragged
+					new_left = scope.clip.start;
+					new_right = scope.clip.end;
+
+					if (dragLoc == 'left'){
+						// changing the start of the clip
+						new_left += delta_time;
+						if (new_left < 0) { 
+							ui.element.width(last_resizable.width + (new_left * scope.pixelsPerSecond));
+							ui.element.css("left", last_resizable.left - (new_left * scope.pixelsPerSecond));
+						}
+						console.log("new_left" + new_left);
+					} else {
+						// changing the end of the clips
+						new_right -= delta_time;
+						if (new_right > scope.clip.duration) {
+							new_right = scope.clip.duration - new_right;
+							ui.element.width(last_resizable.width + (new_right * scope.pixelsPerSecond));
+						}
+					}
+
+					// Set last_resizable
+					last_resizable.left = ui.position.left;
+					last_resizable.width = ui.size.width;
+					
 					//show or hide elements based on size
 					//drawAudio(scope, scope.clip.id);
 					handleVisibleClipElements(scope, scope.clip.id);

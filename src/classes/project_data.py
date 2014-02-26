@@ -146,28 +146,10 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 		for key_index in range(len(key)):
 			key_part = key[key_index]
 			
-			# Set parent to the last set obj
-			parent = obj
-			
 			# Key_part must be a string or dictionary
 			if not isinstance(key_part, dict) and not isinstance(key_part, str):
 				log.error("Unexpected key part type: {}".format(type(key_part).__name__))
 				return None
-			
-			# Final key_part on add is the element being added. It does not match anything, but it can indicate the key for a parent dictionary.
-			if add and key_index == len(key) - 1:
-				# log.info("breaking loop for add")
-				parent, my_key = obj, key_part
-				break
-			
-			# A blank final key_part on a remove indicates to remove the last item of a list
-			# This type of remove is generated as the reverse of an add ending in ""
-			if remove and key_index == len(key) - 1 and key_part == "":
-				if isinstance(obj, list):
-					parent = obj
-					key_part = len(obj) - 1 # Save key_part as last index, which will be deleted from parent
-					my_key = key_part
-					obj = parent[my_key]
 
 			# If key_part is a dictionary and obj is a list or dict, each key is tested as a property of the items in the current object
 			# in the project data structure, and the first match is returned.
@@ -214,6 +196,11 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 				# Get sub-object based on part key as new object, continue to next part
 				obj = obj[key_part]
 				my_key = key_part
+				
+						
+			# Set parent to the last set obj (if not final iteration)
+			if key_index < (len(key) - 1) or key_index == 0:
+				parent = obj
 
 
 		# After processing each key, we've found object and parent, return former value/s on update

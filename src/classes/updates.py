@@ -27,6 +27,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+import copy
 from classes.logger import log
 
 try:
@@ -144,7 +145,7 @@ class UpdateManager:
 			
 			# replace last part of key with ID (so the delete knows which item to delete)
 			id = action.values["id"]
-			action.key[-1] = { "id" : id}
+			action.key.append({ "id" : id})
 			
 		#On removes, setup add with old value
 		elif action.type == "delete":
@@ -174,6 +175,11 @@ class UpdateManager:
 		if len(self.redoHistory) > 0:
 			#Get last undone action off redo history (remove)
 			next_action = self.redoHistory.pop()
+		
+			# Remove ID from insert (if found)
+			if next_action.type == "insert" and isinstance(next_action.key[-1], dict) and "id" in next_action.key[-1]:
+				next_action.key = next_action.key[:-1]
+
 			self.actionHistory.append(next_action)
 			#Perform next redo action
 			self.dispatch_action(next_action)

@@ -24,5 +24,5 @@ var App = angular.module('openshot-timeline', ['ui.bootstrap']);
 	});
 });
 
-
-
+// Init window resize
+$(window).trigger('resize');

@@ -248,7 +248,7 @@ class MediaTreeView(QTreeWidget, updates.UpdateInterface):
 				file_json["media_type"] = "audio"	
 			
 			# Add file to files list via update manager
-			app.updates.insert(["files", ""], file_json)
+			app.updates.insert(["files"], file_json)
 			return True
 		
 		except:

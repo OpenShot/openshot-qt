@@ -72,7 +72,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		""" Create an updateAction and send it to the update manager """
 
 		# read clip json
-		clip_data = json.loads(clip_json)
+		if not isinstance(clip_json, dict):
+			clip_data = json.loads(clip_json)
+		else:
+			clip_data = clip_json
 		
 		# Get app 
 		app = get_app()
@@ -88,7 +91,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		# find the clip in the project data
 		if not found_id:
 			# insert a clip
-			app.updates.insert(["clips", ""], clip_data)
+			app.updates.insert(["clips"], clip_data)
 		else:
 			# update a clip
 			app.updates.update(["clips", {"id" : found_id}], clip_data)
@@ -189,8 +192,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 				new_clip["end"] = 8.0 # default to 8 seconds
 			
 			# Add clip to timeline
-			code = JS_SCOPE_SELECTOR + ".AddClip(" + str(pos.x()) + ", " + str(pos.y()) + ", " + json.dumps(new_clip) + ");"
-			self.eval_js(code)
+			self.update_clip_data(new_clip)
+			#code = JS_SCOPE_SELECTOR + ".AddClip(" + str(pos.x()) + ", " + str(pos.y()) + ", " + json.dumps(new_clip) + ");"
+			#self.eval_js(code)
 			
 			log.info('Dragging {} in timeline.'.format(event.mimeData().text()))
             
