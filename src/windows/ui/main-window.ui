@@ -211,9 +211,11 @@
     <property name="title">
      <string>Help</string>
     </property>
+    <addaction name="separator"/>
     <addaction name="actionReportBug"/>
     <addaction name="actionAskQuestion"/>
     <addaction name="actionTranslate"/>
+    <addaction name="actionDonate"/>
     <addaction name="separator"/>
     <addaction name="actionAbout"/>
    </widget>
@@ -961,6 +963,15 @@
    </property>
    <property name="text">
     <string>Translate this Application...</string>
+   </property>
+  </action>
+  <action name="actionDonate">
+   <property name="icon">
+    <iconset resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/misc/go-home.svg</normaloff>:/icons/Compass/actions/misc/go-home.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Donate</string>
    </property>
   </action>
  </widget>

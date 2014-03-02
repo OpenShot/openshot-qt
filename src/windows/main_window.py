@@ -209,7 +209,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 	def actionAskQuestion_trigger(self, event):
 		try:
 			webbrowser.open("https://answers.launchpad.net/openshot/+addquestion")
-			log.info("Open the Question launchpad web page")
+			log.info("Open the Question launchpad web page with success")
 		except:
 			QMessageBox.information(self, "Error !", "Unable to open the Question web page")
 			log.info("Unable to open the Question web page")
@@ -217,10 +217,18 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 	def actionTranslate_trigger(self, event):
 		try:
 			webbrowser.open("https://translations.launchpad.net/openshot")
-			log.info("Open the Translate launchpad web page")
+			log.info("Open the Translate launchpad web page with success")
 		except:
 			QMessageBox.information(self, "Error !", "Unable to open the Translation web page")
 			log.info("Unable to open the Translation web page")
+			
+	def actionDonate_trigger(self, event):
+		try:
+			webbrowser.open("http://openshot.org/donate/")
+			log.info("Open the Donate web page with success")
+		except:
+			QMessageBox.information(self, "Error !", "Unable to open the Donate web page")
+			log.info("Unable to open the Donate web page") 
 
 	def actionPlay_trigger(self, event):
 		if self.actionPlay.isChecked():
