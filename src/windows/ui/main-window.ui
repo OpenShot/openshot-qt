@@ -211,6 +211,7 @@
     <property name="title">
      <string>Help</string>
     </property>
+    <addaction name="actionHelpContents"/>
     <addaction name="separator"/>
     <addaction name="actionReportBug"/>
     <addaction name="actionAskQuestion"/>
@@ -972,6 +973,17 @@
    </property>
    <property name="text">
     <string>Donate</string>
+   </property>
+  </action>
+  <action name="actionHelpContents">
+   <property name="icon">
+    <iconset theme="help"/>
+   </property>
+   <property name="text">
+    <string>Contents</string>
+   </property>
+   <property name="toolTip">
+    <string>Open Help Contents</string>
    </property>
   </action>
  </widget>

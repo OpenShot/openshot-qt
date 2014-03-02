@@ -187,6 +187,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 	def actionFilesShowImage_trigger(self, event):
 		self.filesTreeView.filter_changed()
 		
+	def actionHelpContents_trigger(self, event):
+		try:
+			webbrowser.open("http://openshotusers.com/")
+			log.info("Help Contents is open")
+		except:
+			QMessageBox.information(self, "Error !", "Unable to open the Help Contents. Please ensure the openshot-doc package is installed.")
+			log.info("Unable to open the Help Contents")
+		
 	def actionAbout_trigger(self, event):
 		#Show dialog
 		from windows.about import About
