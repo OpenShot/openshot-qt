@@ -43,16 +43,7 @@
     <bool>false</bool>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <property name="leftMargin">
-     <number>5</number>
-    </property>
-    <property name="topMargin">
-     <number>5</number>
-    </property>
-    <property name="rightMargin">
-     <number>5</number>
-    </property>
-    <property name="bottomMargin">
+    <property name="margin">
      <number>5</number>
     </property>
     <property name="spacing">
@@ -88,16 +79,7 @@
           <property name="spacing">
            <number>0</number>
           </property>
-          <property name="leftMargin">
-           <number>5</number>
-          </property>
-          <property name="topMargin">
-           <number>5</number>
-          </property>
-          <property name="rightMargin">
-           <number>5</number>
-          </property>
-          <property name="bottomMargin">
+          <property name="margin">
            <number>5</number>
           </property>
          </layout>
@@ -110,16 +92,7 @@
           <property name="spacing">
            <number>0</number>
           </property>
-          <property name="leftMargin">
-           <number>5</number>
-          </property>
-          <property name="topMargin">
-           <number>5</number>
-          </property>
-          <property name="rightMargin">
-           <number>5</number>
-          </property>
-          <property name="bottomMargin">
+          <property name="margin">
            <number>5</number>
           </property>
          </layout>
@@ -132,16 +105,7 @@
           <property name="spacing">
            <number>0</number>
           </property>
-          <property name="leftMargin">
-           <number>5</number>
-          </property>
-          <property name="topMargin">
-           <number>5</number>
-          </property>
-          <property name="rightMargin">
-           <number>5</number>
-          </property>
-          <property name="bottomMargin">
+          <property name="margin">
            <number>5</number>
           </property>
          </layout>
@@ -162,16 +126,7 @@
           <property name="spacing">
            <number>0</number>
           </property>
-          <property name="leftMargin">
-           <number>5</number>
-          </property>
-          <property name="topMargin">
-           <number>5</number>
-          </property>
-          <property name="rightMargin">
-           <number>5</number>
-          </property>
-          <property name="bottomMargin">
+          <property name="margin">
            <number>5</number>
           </property>
           <item>
@@ -190,16 +145,7 @@
         <property name="spacing">
          <number>0</number>
         </property>
-        <property name="leftMargin">
-         <number>5</number>
-        </property>
-        <property name="topMargin">
-         <number>5</number>
-        </property>
-        <property name="rightMargin">
-         <number>5</number>
-        </property>
-        <property name="bottomMargin">
+        <property name="margin">
          <number>5</number>
         </property>
        </layout>
@@ -960,6 +906,30 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+A</string>
+   </property>
+  </action>
+  <action name="actionThumbnailView">
+   <property name="icon">
+    <iconset resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/misc/view-preview.svg</normaloff>:/icons/Compass/actions/misc/view-preview.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Thumbnail View</string>
+   </property>
+   <property name="toolTip">
+    <string>Thumbnail View</string>
+   </property>
+  </action>
+  <action name="actionDetailsView">
+   <property name="icon">
+    <iconset resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/misc/view-list-details.svg</normaloff>:/icons/Compass/actions/misc/view-list-details.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Details View</string>
+   </property>
+   <property name="toolTip">
+    <string>Details View</string>
    </property>
   </action>
  </widget>

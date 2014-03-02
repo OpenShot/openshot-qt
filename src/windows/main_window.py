@@ -37,7 +37,8 @@ from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
 from images import openshot_rc
-from windows.media_treeview import MediaTreeView
+from windows.views.files_treeview import FilesTreeView
+from windows.views.files_listview import FilesListView
 import xml.etree.ElementTree as ElementTree
 
 class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
@@ -125,7 +126,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		if file_path:
 			app.project.load(file_path)
 			app.updates.reset()
-			self.filesTreeView.update_model()
+			self.filesTreeView.filter_changed()
 			log.info("Loaded project {}".format(file_path))
 		
 	def actionSave_trigger(self, event):
@@ -162,7 +163,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		files = QFileDialog.getOpenFileNames(self, _("Import File..."))[0]
 		for file_path in files:
 			self.filesTreeView.add_file(file_path)
-			self.filesTreeView.update_model()
+			self.filesTreeView.filter_changed()
 			log.info("Loaded project {}".format(file_path))
 
 		
@@ -177,13 +178,13 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		#log.info(app.project._data)
 		
 	def actionFilesShowAll_trigger(self, event):
-		self.filesTreeView.update_model()
+		self.filesTreeView.filter_changed()
 	def actionFilesShowVideo_trigger(self, event):
-		self.filesTreeView.update_model()
+		self.filesTreeView.filter_changed()
 	def actionFilesShowAudio_trigger(self, event):
-		self.filesTreeView.update_model()
+		self.filesTreeView.filter_changed()
 	def actionFilesShowImage_trigger(self, event):
-		self.filesTreeView.update_model()
+		self.filesTreeView.filter_changed()
 		
 	def actionAbout_trigger(self, event):
 		#Show dialog
@@ -196,31 +197,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		else:
 			log.info('About Openshot add cancelled')
 
-	#Project settings test code
-		# app = get_app()
-		# curr_val = app.project.get("settings/nfigg-setting")
-		# if curr_val == None:
-			# log.info ("Addvalue")
-			# app.updates.insert("settings/nfigg-setting", {"a": 1, "b": 5})
-		# else:
-			# log.info ("Increment value")
-			# update = dict()
-			# update["a"] = curr_val["a"] + 1
-			# app.updates.update("settings/nfigg-setting", update, partial_update=True)
-		#log.info(app.project._data)
-	#Other project settings test code
-		# app = get_app()
-		# curr_val = app.project.get("settings/nfigg-setting")
-		# if not curr_val == None and curr_val["a"] > 1:
-			# log.info ("Decrement value")
-			# update = dict()
-			# update["a"] = curr_val["a"] - 1
-			# app.updates.update("settings/nfigg-setting", update, partial_update=True)
-		# elif not curr_val == None:
-			# log.info ("Remove value")
-			# app.updates.delete("settings/nfigg-setting")
-		#log.info(app.project._data)
-		
 	def actionPlay_trigger(self, event):
 		if self.actionPlay.isChecked():
 			ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
@@ -417,10 +393,23 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		#Add timeline toolbar to web frame
 		self.frameWeb.layout().addWidget(self.timelineToolbar)
 		
+	def actionDetailsView_trigger(self, event):
+		log.info("Switch to Details View")
+		self.tabFiles.layout().removeWidget(self.filesTreeView)
+		self.filesTreeView = FilesTreeView(self)
+		self.tabFiles.layout().addWidget(self.filesTreeView) #gridLayout_2  , 1, 0
+		
+	def actionThumbnailView_trigger(self, event):
+		log.info("Switch to Thumbnail View")
+		self.tabFiles.layout().removeWidget(self.filesTreeView)
+		self.filesTreeView = FilesListView(self)
+		self.tabFiles.layout().addWidget(self.filesTreeView) #gridLayout_2  , 1, 0
+
 	def __init__(self):
 
 		#Create main window base class
 		QMainWindow.__init__(self)
+		
 		#set window on app for reference during initialization of children
 		get_app().window = self
 		
@@ -442,29 +431,19 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		# Init fullscreen menu visibility
 		self.init_fullscreen_menu()
 		
-		#sys.path.insert(0,"/usr/local/share/pyshared/libopenshot")
-		#import openshot
-		#import sip
-		
-		# Draw test image to QGraphicsView
-		#scene = QGraphicsScene()
-		#self.videoDisplay.setScene(scene)
-		#reader = openshot.DummyReader(openshot.Fraction(24,1), 640, 480, 48000, 2, 10.0)
-		#reader.DrawFrameOnScene("/home/jonathan/Pictures/tux.jpg", int(sip.unwrapinstance(scene)))
-
 		#setup timeline
 		self.timeline = TimelineWebView(self)
 		self.frameWeb.layout().addWidget(self.timeline)
 		
 		#setup files tree
-		self.filesTreeView = MediaTreeView(self)
+		self.filesTreeView = FilesListView(self)
 		self.tabFiles.layout().addWidget(self.filesTreeView) #gridLayout_2  , 1, 0
 
 		#setup transitions tree
-		self.transitionsTreeView = MediaTreeView(self)
-		self.tabTransitions.layout().addWidget(self.transitionsTreeView) #gridLayout_2  , 1, 0
+		#self.transitionsTreeView = MediaTreeView(self)
+		#self.tabTransitions.layout().addWidget(self.transitionsTreeView) #gridLayout_2  , 1, 0
 
 		#setup effects tree
-		self.effectsTreeView = MediaTreeView(self)
-		self.tabEffects.layout().addWidget(self.effectsTreeView) #gridLayout_2  , 1, 0
+		#self.effectsTreeView = MediaTreeView(self)
+		#self.tabEffects.layout().addWidget(self.effectsTreeView) #gridLayout_2  , 1, 0
 		
