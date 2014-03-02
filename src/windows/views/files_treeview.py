@@ -152,9 +152,6 @@ class FilesTreeView(QTreeView):
 			return False
 			
 		if found:
-			msg = QMessageBox()
-			msg.setText(app._tr("%s already added to project." % filename))
-			msg.exec_()
 			return False
 		
 		# Inspect the file with libopenshot

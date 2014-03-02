@@ -46,9 +46,9 @@ class FilesModel(updates.UpdateInterface):
 		# Something was changed in the 'files' list
 		if len(action.key) >= 1 and action.key[0].lower() == "files":
 			# Refresh project files model
-			self.update_model()
+			self.update_model(clear=False)
 			
-	def update_model(self):
+	def update_model(self, clear=True):
 		log.info("updating files model.")
 		app = get_app()
 		proj = app.project
@@ -58,7 +58,9 @@ class FilesModel(updates.UpdateInterface):
 		win = app.window
 		
 		# Clear all items
-		self.model.clear()
+		if clear:
+			self.model_ids = {}
+			self.model.clear()
 		
 		# Add Headers
 		self.model.setHorizontalHeaderLabels(["Thumb", "Name", "Type" ])
@@ -150,8 +152,10 @@ class FilesModel(updates.UpdateInterface):
 			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 			row.append(col)
 
-			# Append ROW to MODEL
-			self.model.appendRow(row)
+			# Append ROW to MODEL (if does not already exist in model)
+			if not file["id"] in self.model_ids:
+				self.model.appendRow(row)
+				self.model_ids[file["id"]] = file["id"]
 			
 			# Process events in QT (to keep the interface responsive)
 			app.processEvents()
@@ -165,6 +169,7 @@ class FilesModel(updates.UpdateInterface):
 		# Create standard model 
 		self.model = QStandardItemModel()
 		self.model.setColumnCount(5)
+		self.model_ids = {}
 
 		# Update model based on loaded project
 		self.update_model()
