@@ -40,6 +40,7 @@ from images import openshot_rc
 from windows.views.files_treeview import FilesTreeView
 from windows.views.files_listview import FilesListView
 import xml.etree.ElementTree as ElementTree
+import webbrowser
 
 class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 	""" This class contains the logic for the main window widget """
@@ -196,6 +197,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 			log.info('About Openshot add confirmed')
 		else:
 			log.info('About Openshot add cancelled')
+			
+	def actionReportBug_trigger(self, event):
+		try:
+			webbrowser.open("https://bugs.launchpad.net/openshot/+filebug")
+			log.info("Open the Report Bug Launchpad web page with success")
+		except:
+			QMessageBox.information(self, "Error !", "Unable to open the launchpad web page")
+			log.info("Unable to open the Report Bug launchpad web page") 
 
 	def actionPlay_trigger(self, event):
 		if self.actionPlay.isChecked():

@@ -211,6 +211,8 @@
     <property name="title">
      <string>Help</string>
     </property>
+    <addaction name="actionReportBug"/>
+    <addaction name="separator"/>
     <addaction name="actionAbout"/>
    </widget>
    <addaction name="menuFile"/>
@@ -930,6 +932,15 @@
    </property>
    <property name="toolTip">
     <string>Details View</string>
+   </property>
+  </action>
+  <action name="actionReportBug">
+   <property name="icon">
+    <iconset resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/misc/document-send.svg</normaloff>:/icons/Compass/actions/misc/document-send.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Report a Bug...</string>
    </property>
   </action>
  </widget>
