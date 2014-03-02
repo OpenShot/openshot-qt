@@ -212,6 +212,7 @@
      <string>Help</string>
     </property>
     <addaction name="actionReportBug"/>
+    <addaction name="actionAskQuestion"/>
     <addaction name="separator"/>
     <addaction name="actionAbout"/>
    </widget>
@@ -941,6 +942,15 @@
    </property>
    <property name="text">
     <string>Report a Bug...</string>
+   </property>
+  </action>
+  <action name="actionAskQuestion">
+   <property name="icon">
+    <iconset resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/help-info/help-faq.svg</normaloff>:/icons/Compass/actions/help-info/help-faq.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Ask a Question...</string>
    </property>
   </action>
  </widget>

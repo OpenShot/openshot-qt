@@ -205,6 +205,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		except:
 			QMessageBox.information(self, "Error !", "Unable to open the launchpad web page")
 			log.info("Unable to open the Report Bug launchpad web page") 
+			
+	def actionAskQuestion_trigger(self, event):
+		try:
+			webbrowser.open("https://answers.launchpad.net/openshot/+addquestion")
+			log.info("Open the Question launchpad web page")
+		except:
+			QMessageBox.information(self, "Error !", "Unable to open the Question web page")
+			log.info("Unable to open the Question web page")
 
 	def actionPlay_trigger(self, event):
 		if self.actionPlay.isChecked():
