@@ -213,6 +213,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		except:
 			QMessageBox.information(self, "Error !", "Unable to open the Question web page")
 			log.info("Unable to open the Question web page")
+			
+	def actionTranslate_trigger(self, event):
+		try:
+			webbrowser.open("https://translations.launchpad.net/openshot")
+			log.info("Open the Translate launchpad web page")
+		except:
+			QMessageBox.information(self, "Error !", "Unable to open the Translation web page")
+			log.info("Unable to open the Translation web page")
 
 	def actionPlay_trigger(self, event):
 		if self.actionPlay.isChecked():

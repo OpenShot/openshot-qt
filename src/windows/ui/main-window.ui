@@ -213,6 +213,7 @@
     </property>
     <addaction name="actionReportBug"/>
     <addaction name="actionAskQuestion"/>
+    <addaction name="actionTranslate"/>
     <addaction name="separator"/>
     <addaction name="actionAbout"/>
    </widget>
@@ -951,6 +952,15 @@
    </property>
    <property name="text">
     <string>Ask a Question...</string>
+   </property>
+  </action>
+  <action name="actionTranslate">
+   <property name="icon">
+    <iconset resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/misc/get-hot-new-stuff.svg</normaloff>:/icons/Compass/actions/misc/get-hot-new-stuff.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Translate this Application...</string>
    </property>
   </action>
  </widget>
