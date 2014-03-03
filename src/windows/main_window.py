@@ -167,7 +167,17 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 			self.filesTreeView.filter_changed()
 			log.info("Loaded project {}".format(file_path))
 
-		
+	def actionUploadVideo_trigger(self, event):
+		#show window
+		from windows.upload_video import UploadVideo
+		win = UploadVideo()
+		#Run the dialog event loop - blocking interaction on this window during this time
+		result = win.exec_()
+		if result == QDialog.Accepted:
+			log.info('Upload Video add confirmed')
+		else:
+			log.info('Upload Video add cancelled')
+	
 	def actionUndo_trigger(self, event):
 		app = get_app()
 		app.updates.undo()
