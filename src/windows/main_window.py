@@ -188,6 +188,17 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		app.updates.redo()
 		#log.info(app.project._data)
 		
+	def actionPreferences_trigger(self, event):
+		#Show dialog
+		from windows.preferences import Preferences
+		win = Preferences()
+		#Run the dialog event loop - blocking interaction on this window during this time
+		result = win.exec_()
+		if result == QDialog.Accepted:
+			log.info('Preferences add confirmed')
+		else:
+			log.info('Preferences add cancelled')
+		
 	def actionFilesShowAll_trigger(self, event):
 		self.filesTreeView.filter_changed()
 	def actionFilesShowVideo_trigger(self, event):
