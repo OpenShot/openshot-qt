@@ -109,7 +109,7 @@ class FilesListView(QListView):
 	def is_image(self, file):
 		path = file["path"].lower()
 		
-		if path.endswith((".jpg", ".jpeg", ".png", ".bmp", ".svg")):
+		if path.endswith((".jpg", ".jpeg", ".png", ".bmp", ".svg", ".thm", ".gif", ".bmp", ".pgm", ".tif", ".tiff")):
 			return True
 		else:
 			return False

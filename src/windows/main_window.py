@@ -39,6 +39,8 @@ from classes.logger import log
 from images import openshot_rc
 from windows.views.files_treeview import FilesTreeView
 from windows.views.files_listview import FilesListView
+from windows.views.transitions_treeview import TransitionsTreeView
+from windows.views.transitions_listview import TransitionsListView
 import xml.etree.ElementTree as ElementTree
 import webbrowser
 
@@ -207,6 +209,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		self.filesTreeView.filter_changed()
 	def actionFilesShowImage_trigger(self, event):
 		self.filesTreeView.filter_changed()
+	def actionTransitionsShowAll_trigger(self, event):
+		self.transitionsTreeView.filter_changed()
+	def actionTransitionsShowCommon_trigger(self, event):
+		self.transitionsTreeView.filter_changed()
 		
 	def actionHelpContents_trigger(self, event):
 		try:
@@ -285,6 +291,38 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		# Hide exit fullscreen button, and display fullscreen button
 		self.actionExit_Fullscreen.setVisible(False)
 		self.actionFullscreen.setVisible(True)
+
+	def actionDetailsView_trigger(self, event):
+		log.info("Switch to Details View")
+		
+		# Files
+		if self.tabMain.currentIndex() == 0:
+			self.tabFiles.layout().removeWidget(self.filesTreeView)
+			self.filesTreeView = FilesTreeView(self)
+			self.tabFiles.layout().addWidget(self.filesTreeView)
+			
+		# Transitions
+		elif self.tabMain.currentIndex() == 1:
+			self.tabTransitions.layout().removeWidget(self.transitionsTreeView)
+			self.transitionsTreeView = TransitionsTreeView(self)
+			self.tabTransitions.layout().addWidget(self.transitionsTreeView)			
+		
+	def actionThumbnailView_trigger(self, event):
+		log.info("Switch to Thumbnail View")
+		
+		# Files
+		if self.tabMain.currentIndex() == 0:
+			self.tabFiles.layout().removeWidget(self.filesTreeView)
+			self.filesTreeView = FilesListView(self)
+			self.tabFiles.layout().addWidget(self.filesTreeView)
+			
+		# Transitions
+		elif self.tabMain.currentIndex() == 1:
+			self.tabTransitions.layout().removeWidget(self.transitionsTreeView)
+			self.transitionsTreeView = TransitionsListView(self)
+			self.tabTransitions.layout().addWidget(self.transitionsTreeView)	
+		
+
 		
 	# Init fullscreen menu visibility
 	def init_fullscreen_menu(self):
@@ -454,18 +492,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		
 		#Add timeline toolbar to web frame
 		self.frameWeb.layout().addWidget(self.timelineToolbar)
-		
-	def actionDetailsView_trigger(self, event):
-		log.info("Switch to Details View")
-		self.tabFiles.layout().removeWidget(self.filesTreeView)
-		self.filesTreeView = FilesTreeView(self)
-		self.tabFiles.layout().addWidget(self.filesTreeView) #gridLayout_2  , 1, 0
-		
-	def actionThumbnailView_trigger(self, event):
-		log.info("Switch to Thumbnail View")
-		self.tabFiles.layout().removeWidget(self.filesTreeView)
-		self.filesTreeView = FilesListView(self)
-		self.tabFiles.layout().addWidget(self.filesTreeView) #gridLayout_2  , 1, 0
 
 	def __init__(self):
 
@@ -502,8 +528,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		self.tabFiles.layout().addWidget(self.filesTreeView) #gridLayout_2  , 1, 0
 
 		#setup transitions tree
-		#self.transitionsTreeView = MediaTreeView(self)
-		#self.tabTransitions.layout().addWidget(self.transitionsTreeView) #gridLayout_2  , 1, 0
+		self.transitionsTreeView = TransitionsTreeView(self)
+		self.tabTransitions.layout().addWidget(self.transitionsTreeView) #gridLayout_2  , 1, 0
 
 		#setup effects tree
 		#self.effectsTreeView = MediaTreeView(self)

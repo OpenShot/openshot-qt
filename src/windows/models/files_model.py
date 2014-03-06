@@ -1,6 +1,6 @@
 """ 
  @file
- @brief This file contains the project file tree, used by the main window
+ @brief This file contains the project file model, used by the project tree
  @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
  
@@ -46,7 +46,12 @@ class FilesModel(updates.UpdateInterface):
 		# Something was changed in the 'files' list
 		if len(action.key) >= 1 and action.key[0].lower() == "files":
 			# Refresh project files model
-			self.update_model(clear=False)
+			if action.type == "insert":
+				# Don't clear the existing items if only inserting new things
+				self.update_model(clear=False)
+			else:
+				# Clear existing items
+				self.update_model(clear=False)
 			
 	def update_model(self, clear=True):
 		log.info("updating files model.")
@@ -112,7 +117,7 @@ class FilesModel(updates.UpdateInterface):
 						msg = QMessageBox()
 						msg.setText(app._tr("%s is not a valid video, audio, or image file." % filename))
 						msg.exec_()
-						return False
+						continue
 
 			else:
 				# Audio file

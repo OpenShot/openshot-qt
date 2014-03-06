@@ -110,7 +110,7 @@ class FilesTreeView(QTreeView):
 	def is_image(self, file):
 		path = file["path"].lower()
 		
-		if path.endswith((".jpg", ".jpeg", ".png", ".bmp", ".svg")):
+		if path.endswith((".jpg", ".jpeg", ".png", ".bmp", ".svg", ".thm", ".gif", ".bmp", ".pgm", ".tif", ".tiff")):
 			return True
 		else:
 			return False
@@ -207,6 +207,7 @@ class FilesTreeView(QTreeView):
 		
 	def filter_changed(self):
 		self.files_model.update_model()
+		self.resizeColumnToContents(3)
 		if self.win.filesFilter.text() == "":
 			self.win.actionFilesClear.setEnabled(False)
 		else:
@@ -236,6 +237,7 @@ class FilesTreeView(QTreeView):
 		self.setSelectionBehavior(QAbstractItemView.SelectRows)
 		self.hideColumn(3)
 		self.hideColumn(4)
+		self.resizeColumnToContents(3)
 
 		# setup filter events
 		app = get_app()

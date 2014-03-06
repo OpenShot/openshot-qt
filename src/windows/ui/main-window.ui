@@ -977,7 +977,9 @@
   </action>
   <action name="actionHelpContents">
    <property name="icon">
-    <iconset theme="help"/>
+    <iconset theme="help">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Contents</string>
