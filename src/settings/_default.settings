@@ -1,1 +1,10 @@
-{"volume":60,"window_state":"","window_geometry":"","window_splitter_pos":"","window_splitter_2_pos":""}
+{
+  "volume": 60,
+  "window_state": "",
+  "window_geometry": "",
+  "window_splitter_pos": "",
+  "window_splitter_2_pos": "",
+  "file_view": "details",
+  "transitions_view": "thumbnail",
+  "effects_view": "thumbnail"
+}

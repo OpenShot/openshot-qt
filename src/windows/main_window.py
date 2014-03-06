@@ -303,41 +303,54 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 	def actionDetailsView_trigger(self, event):
 		log.info("Switch to Details View")
 		
+		# Get settings
+		s = settings.get_settings()
+		
 		# Files
 		if self.tabMain.currentIndex() == 0:
+			s.set("file_view", "details")
 			self.tabFiles.layout().removeWidget(self.filesTreeView)
 			self.filesTreeView = FilesTreeView(self)
 			self.tabFiles.layout().addWidget(self.filesTreeView)
 			
 		# Transitions
 		elif self.tabMain.currentIndex() == 1:
+			s.set("transitions_view", "details")
 			self.tabTransitions.layout().removeWidget(self.transitionsTreeView)
 			self.transitionsTreeView = TransitionsTreeView(self)
 			self.tabTransitions.layout().addWidget(self.transitionsTreeView)
 			
 		# Effects
 		elif self.tabMain.currentIndex() == 2:
+			s.set("effects_view", "details")
 			self.tabEffects.layout().removeWidget(self.effectsTreeView)
 			self.effectsTreeView = EffectsTreeView(self)
 			self.tabEffects.layout().addWidget(self.effectsTreeView)
+
 		
 	def actionThumbnailView_trigger(self, event):
 		log.info("Switch to Thumbnail View")
 		
+		# Get settings
+		s = settings.get_settings()
+		
 		# Files
 		if self.tabMain.currentIndex() == 0:
+			s.set("file_view", "thumbnail")
 			self.tabFiles.layout().removeWidget(self.filesTreeView)
 			self.filesTreeView = FilesListView(self)
 			self.tabFiles.layout().addWidget(self.filesTreeView)
 			
 		# Transitions
 		elif self.tabMain.currentIndex() == 1:
+			s.set("transitions_view", "thumbnail")
 			self.tabTransitions.layout().removeWidget(self.transitionsTreeView)
 			self.transitionsTreeView = TransitionsListView(self)
 			self.tabTransitions.layout().addWidget(self.transitionsTreeView)	
 		
 		# Effects
 		elif self.tabMain.currentIndex() == 2:
+			s.set("effects_view", "thumbnail")
 			self.tabEffects.layout().removeWidget(self.effectsTreeView)
 			self.effectsTreeView = EffectsListView(self)
 			self.tabEffects.layout().addWidget(self.effectsTreeView)	
@@ -525,6 +538,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		
 		#Load user settings for window
 		self.load_settings()
+		s = settings.get_settings()
 
 		#Init UI
 		ui_util.init_ui(self)
@@ -543,14 +557,23 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		self.frameWeb.layout().addWidget(self.timeline)
 		
 		#setup files tree
-		self.filesTreeView = FilesListView(self)
+		if s.get("file_view") == "details":
+			self.filesTreeView = FilesTreeView(self)
+		else:
+			self.filesTreeView = FilesListView(self)
 		self.tabFiles.layout().addWidget(self.filesTreeView) #gridLayout_2  , 1, 0
 
 		#setup transitions tree
-		self.transitionsTreeView = TransitionsTreeView(self)
+		if s.get("transitions_view") == "details":
+			self.transitionsTreeView = TransitionsTreeView(self)
+		else:
+			self.transitionsTreeView = TransitionsListView(self)
 		self.tabTransitions.layout().addWidget(self.transitionsTreeView) #gridLayout_2  , 1, 0
 
 		#setup effects tree
-		self.effectsTreeView = EffectsTreeView(self)
+		if s.get("effects_view") == "details":
+			self.effectsTreeView = EffectsTreeView(self)
+		else:
+			self.effectsTreeView = EffectsListView(self)
 		self.tabEffects.layout().addWidget(self.effectsTreeView) #gridLayout_2  , 1, 0
 		
