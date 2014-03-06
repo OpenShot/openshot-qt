@@ -29,6 +29,7 @@
 import os
 from PyQt5.QtCore import QLocale, QLibraryInfo, QTranslator, QCoreApplication
 from classes.logger import log
+from classes import info
 
 def init_language():
 	""" Find the current locale, and install the correct translators """
@@ -42,12 +43,13 @@ def init_language():
 		 "pattern":'qt_%s',
 		 "path":QLibraryInfo.location(QLibraryInfo.TranslationsPath)},
 		{"type":'OpenShot',
-		 "pattern":os.path.join('%s','LC_MESSAGES','openshot'),
-		 "path":'locale'},
+		 "pattern":os.path.join('%s','LC_MESSAGES','OpenShot'),
+		 "path":os.path.join(info.PATH, 'locale')},
 		 )
 	
 	#Determine the environment locale, or default to system locale name
-	locale_name = os.environ.get('LOCALE', QLocale().system().name())
+	log.info(QLocale().system().uiLanguages())
+	locale_name = os.environ.get('LANG', QLocale().system().name())
 	
 	#Don't try on default locale, since it fails to load what is the default language
 	if locale_name == 'en_US':

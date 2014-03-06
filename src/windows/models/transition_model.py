@@ -121,7 +121,7 @@ class TransitionsModel():
 				
 				# Append Filename
 				col = QStandardItem("Name")
-				col.setData(self.app.tr(trans_name), Qt.DisplayRole)
+				col.setData(self.app._tr(trans_name), Qt.DisplayRole)
 				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 				row.append(col)
 				
