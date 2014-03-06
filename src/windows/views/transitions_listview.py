@@ -60,7 +60,7 @@ class TransitionsListView(QListView):
 
 	def mouseMoveEvent(self, event):
 		#If mouse drag detected, set the proper data and icon and start dragging
-		if event.buttons() & Qt.LeftButton == Qt.LeftButton and (event.pos() - self.startDragPos).manhattanLength() >= QApplication.startDragDistance():
+		if self.selected and event.buttons() & Qt.LeftButton == Qt.LeftButton and (event.pos() - self.startDragPos).manhattanLength() >= QApplication.startDragDistance():
 			# Get selected item
 			dragItemRow = self.transition_model.model.itemFromIndex(self.selected).row()
 			

@@ -86,7 +86,7 @@ class FilesModel(updates.UpdateInterface):
 						continue #to next file, didn't match filter
 						
 			if win.filesFilter.text() != "":
-				if not win.filesFilter.text() in filename:
+				if not win.filesFilter.text().lower() in filename.lower():
 					continue
 
 			# Generate thumbnail for file (if needed)

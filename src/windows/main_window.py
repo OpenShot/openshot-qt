@@ -41,6 +41,8 @@ from windows.views.files_treeview import FilesTreeView
 from windows.views.files_listview import FilesListView
 from windows.views.transitions_treeview import TransitionsTreeView
 from windows.views.transitions_listview import TransitionsListView
+from windows.views.effects_treeview import EffectsTreeView
+from windows.views.effects_listview import EffectsListView
 import xml.etree.ElementTree as ElementTree
 import webbrowser
 
@@ -213,6 +215,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		self.transitionsTreeView.filter_changed()
 	def actionTransitionsShowCommon_trigger(self, event):
 		self.transitionsTreeView.filter_changed()
+	def actionEffectsShowAll_trigger(self, event):
+		self.effectsTreeView.filter_changed()
+	def actionEffectsShowVideo_trigger(self, event):
+		self.effectsTreeView.filter_changed()
+	def actionEffectsShowAudio_trigger(self, event):
+		self.effectsTreeView.filter_changed()
 		
 	def actionHelpContents_trigger(self, event):
 		try:
@@ -305,7 +313,13 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		elif self.tabMain.currentIndex() == 1:
 			self.tabTransitions.layout().removeWidget(self.transitionsTreeView)
 			self.transitionsTreeView = TransitionsTreeView(self)
-			self.tabTransitions.layout().addWidget(self.transitionsTreeView)			
+			self.tabTransitions.layout().addWidget(self.transitionsTreeView)
+			
+		# Effects
+		elif self.tabMain.currentIndex() == 2:
+			self.tabEffects.layout().removeWidget(self.effectsTreeView)
+			self.effectsTreeView = EffectsTreeView(self)
+			self.tabEffects.layout().addWidget(self.effectsTreeView)
 		
 	def actionThumbnailView_trigger(self, event):
 		log.info("Switch to Thumbnail View")
@@ -322,6 +336,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 			self.transitionsTreeView = TransitionsListView(self)
 			self.tabTransitions.layout().addWidget(self.transitionsTreeView)	
 		
+		# Effects
+		elif self.tabMain.currentIndex() == 2:
+			self.tabEffects.layout().removeWidget(self.effectsTreeView)
+			self.effectsTreeView = EffectsListView(self)
+			self.tabEffects.layout().addWidget(self.effectsTreeView)	
 
 		
 	# Init fullscreen menu visibility
@@ -532,6 +551,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		self.tabTransitions.layout().addWidget(self.transitionsTreeView) #gridLayout_2  , 1, 0
 
 		#setup effects tree
-		#self.effectsTreeView = MediaTreeView(self)
-		#self.tabEffects.layout().addWidget(self.effectsTreeView) #gridLayout_2  , 1, 0
+		self.effectsTreeView = EffectsTreeView(self)
+		self.tabEffects.layout().addWidget(self.effectsTreeView) #gridLayout_2  , 1, 0
 		

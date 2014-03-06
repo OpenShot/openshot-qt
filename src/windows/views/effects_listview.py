@@ -1,6 +1,6 @@
 """ 
  @file
- @brief This file contains the transitions file treeview, used by the main window
+ @brief This file contains the effects file listview, used by the main window
  @author Jonathan Thomas <jonathan@openshot.org>
  
  @section LICENSE
@@ -34,8 +34,8 @@ from classes.settings import SettingStore
 from classes.app import get_app
 from PyQt5.QtCore import QMimeData, QSize, Qt, QCoreApplication, QPoint, QFileInfo
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QTreeView, QApplication, QMessageBox, QAbstractItemView, QMenu
-from windows.models.transition_model import TransitionsModel
+from PyQt5.QtWidgets import QListView, QApplication, QMessageBox, QAbstractItemView, QMenu
+from windows.models.effects_model import EffectsModel
 import openshot # Python module for libopenshot (required video editing module installed separately)
 
 try:
@@ -43,7 +43,7 @@ try:
 except ImportError:
 	import simplejson as json
 
-class TransitionsTreeView(QTreeView):
+class EffectsListView(QListView):
 	""" A TreeView QWidget used on the main window """ 
 	drag_item_size = 32
 	
@@ -62,16 +62,16 @@ class TransitionsTreeView(QTreeView):
 		#If mouse drag detected, set the proper data and icon and start dragging
 		if self.selected and event.buttons() & Qt.LeftButton == Qt.LeftButton and (event.pos() - self.startDragPos).manhattanLength() >= QApplication.startDragDistance():
 			# Get selected item
-			dragItemRow = self.transition_model.model.itemFromIndex(self.selected).row()
+			dragItemRow = self.effects_model.model.itemFromIndex(self.selected).row()
 			
 			# Get all selected rows items
 			dragItem = []
-			for col in range(4):
-				dragItem.append(self.transition_model.model.item(dragItemRow, col))
+			for col in range(5):
+				dragItem.append(self.effects_model.model.item(dragItemRow, col))
 			
 			# Setup data based on item being dragged
 			data = QMimeData()
-			data.setText(dragItem[3].text()) # Add file path to mimedata
+			data.setText(dragItem[4].text()) # Add file path to mimedata
 			# Start drag operation
 			drag = QDrag(self)
 			drag.setMimeData(data)
@@ -97,24 +97,24 @@ class TransitionsTreeView(QTreeView):
 		
 		
 	def clear_filter(self):
-		get_app().window.transitionsFilter.setText("")
+		get_app().window.effectsFilter.setText("")
 		
 	def filter_changed(self):
-		self.transition_model.update_model()
-		if self.win.transitionsFilter.text() == "":
-			self.win.actionTransitionsClear.setEnabled(False)
+		self.effects_model.update_model()
+		if self.win.effectsFilter.text() == "":
+			self.win.actionEffectsClear.setEnabled(False)
 		else:
-			self.win.actionTransitionsClear.setEnabled(True)
+			self.win.actionEffectsClear.setEnabled(True)
 			
 	def __init__(self, *args):
 		# Invoke parent init
-		QTreeView.__init__(self, *args)
+		QListView.__init__(self, *args)
 		
 		# Get a reference to the window object
 		self.win = get_app().window
 		
 		# Get Model data
-		self.transition_model = TransitionsModel()
+		self.effects_model = EffectsModel()
 		
 		# Keep track of mouse press start position to determine when to start drag
 		self.startDragPos = None
@@ -122,18 +122,15 @@ class TransitionsTreeView(QTreeView):
 		self.deselected = None
 
 		# Setup header columns
-		self.setModel(self.transition_model.model)
-		self.setIconSize(QSize(75, 62))
-		self.setIndentation(0)
-		self.setSelectionBehavior(QTreeView.SelectRows)
-		self.setSelectionBehavior(QAbstractItemView.SelectRows)
-		self.hideColumn(2)
-		self.hideColumn(3)
+		self.setModel(self.effects_model.model)
+		self.setIconSize(QSize(131, 108))
+		self.setViewMode(QListView.IconMode)
+		self.setResizeMode(QListView.Adjust)
 
 		# setup filter events
 		app = get_app()
-		app.window.transitionsFilter.textChanged.connect(self.filter_changed)
-		app.window.actionTransitionsClear.triggered.connect(self.clear_filter)
+		app.window.effectsFilter.textChanged.connect(self.filter_changed)
+		app.window.actionEffectsClear.triggered.connect(self.clear_filter)
 		
 
 	
