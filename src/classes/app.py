@@ -29,7 +29,9 @@
 
 from classes.logger import log
 from classes import info, settings, project_data, updates, language, ui_util
-from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QApplication, QStyleFactory
+from PyQt5.QtGui import QPalette, QColor
+from PyQt5.QtCore import Qt
 
 def get_app():
 	""" Returns the current QApplication instance of OpenShot """
@@ -41,7 +43,7 @@ class OpenShotApp(QApplication):
 	def __init__(self, *args):
 		QApplication.__init__(self, *args)
 		
-		#Setup appication
+		# Setup appication
 		self.setApplicationName('openshot')
 		self.setApplicationVersion(info.SETUP['version'])
 		
@@ -53,19 +55,41 @@ class OpenShotApp(QApplication):
 			log.error("Couldn't load user settings. Exiting.\n{}".format(ex))
 			exit()
 		
-		#Init translation system
+		# Init translation system
 		language.init_language()
 		
-		#Tests of project data loading/saving
+		# Tests of project data loading/saving
 		self.project = project_data.ProjectDataStore()
 		
-		#Init Update Manager
+		# Init Update Manager
 		self.updates = updates.UpdateManager()
-		#It is important that the project is the first listener if the key gets updat
+		# It is important that the project is the first listener if the key gets update
 		self.updates.add_listener(self.project)
 			
-		#Load ui theme if not set by OS
+		# Load ui theme if not set by OS
 		ui_util.load_theme()
+		
+		
+		# Set Experimental Dark Theme
+		self.setStyle(QStyleFactory.create("Fusion"))
+		 
+		darkPalette = self.palette()
+		darkPalette.setColor(QPalette.Window, QColor(53,53,53))
+		darkPalette.setColor(QPalette.WindowText, Qt.white)
+		darkPalette.setColor(QPalette.Base, QColor(25,25,25))
+		darkPalette.setColor(QPalette.AlternateBase, QColor(53,53,53))
+		darkPalette.setColor(QPalette.ToolTipBase, Qt.white)
+		darkPalette.setColor(QPalette.ToolTipText, Qt.white)
+		darkPalette.setColor(QPalette.Text, Qt.white)
+		darkPalette.setColor(QPalette.Button, QColor(53,53,53))
+		darkPalette.setColor(QPalette.ButtonText, Qt.white)
+		darkPalette.setColor(QPalette.BrightText, Qt.red)
+		darkPalette.setColor(QPalette.Link, QColor(42, 130, 218))
+		darkPalette.setColor(QPalette.Highlight, QColor(42, 130, 218))
+		darkPalette.setColor(QPalette.HighlightedText, Qt.black)
+		self.setPalette(darkPalette)
+		self.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }")
+		
 			
 		# Create main window
 		from windows.main_window import MainWindow
@@ -75,7 +99,7 @@ class OpenShotApp(QApplication):
 	def _tr(self, message):
 		return self.translate("", message)
 		
-	#Start event loop
+	# Start event loop
 	def run(self):
 		""" Start the primary Qt event loop for the interface """
 
@@ -86,5 +110,5 @@ class OpenShotApp(QApplication):
 		except Exception as ex:
 			log.error("Couldn't save user settings on exit.\n{}".format(ex))
 			
-		#return exit result
+		# return exit result
 		return res
