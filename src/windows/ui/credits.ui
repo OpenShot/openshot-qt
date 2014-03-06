@@ -30,7 +30,7 @@
     <locale language="English" country="UnitedStates"/>
    </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -88,6 +88,21 @@
        <y>0</y>
        <width>381</width>
        <height>201</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tabkickstarter">
+    <attribute name="title">
+     <string>Kickstarter Bakers</string>
+    </attribute>
+    <widget class="QListView" name="listView">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>381</width>
+       <height>211</height>
       </rect>
      </property>
     </widget>

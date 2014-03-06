@@ -111,7 +111,9 @@
     <string>(None)</string>
    </property>
    <property name="icon">
-    <iconset theme="gtk-open"/>
+    <iconset theme="gtk-open">
+     <normaloff/>
+    </iconset>
    </property>
   </widget>
   <widget class="QComboBox" name="cmbuploadto">
@@ -146,7 +148,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>240</y>
+     <y>230</y>
      <width>321</width>
      <height>16</height>
     </rect>

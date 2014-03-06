@@ -396,7 +396,7 @@
       <rect>
        <x>280</x>
        <y>0</y>
-       <width>141</width>
+       <width>146</width>
        <height>361</height>
       </rect>
      </property>
@@ -431,7 +431,7 @@
     <widget class="QScrollBar" name="verticalScrollBar_3">
      <property name="geometry">
       <rect>
-       <x>400</x>
+       <x>410</x>
        <y>0</y>
        <width>20</width>
        <height>361</height>
