@@ -6,5 +6,6 @@
   "window_splitter_2_pos": "",
   "file_view": "details",
   "transitions_view": "thumbnail",
-  "effects_view": "thumbnail"
+  "effects_view": "thumbnail",
+  "recent_projects" : []
 }

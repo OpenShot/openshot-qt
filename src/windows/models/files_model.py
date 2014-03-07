@@ -92,14 +92,20 @@ class FilesModel(updates.UpdateInterface):
 			# Generate thumbnail for file (if needed)
 			if (file["media_type"] == "video" or file["media_type"] == "image"):
 				# Determine thumb path
-				thumb_path = os.path.join(proj.current_filepath, "%s.png" % file["id"])
+				thumb_path = os.path.join(info.THUMBNAIL_PATH, "%s.png" % file["id"])
 				
 				# Check if thumb exists
 				if not os.path.exists(thumb_path):
 
 					try:
+						# Convert path to the correct relative path (based on this folder)
+						absolute_path_of_file = file["path"]
+						if not os.path.isabs(absolute_path_of_file):
+							absolute_path_of_file = os.path.abspath(os.path.join(info.PATH, file["path"]))
+						relative_path = os.path.relpath(absolute_path_of_file, info.CWD)
+						
 						# Reload this reader
-						clip = openshot.Clip(file["path"])
+						clip = openshot.Clip(relative_path)
 						reader = clip.Reader()
 
 						# Open reader
@@ -111,13 +117,14 @@ class FilesModel(updates.UpdateInterface):
 						# Save thumbnail
 						reader.GetFrame(0).Save(thumb_path, scale)
 						reader.Close()
-
+						
 					except:
 						# Handle exception
 						msg = QMessageBox()
 						msg.setText(app._tr("%s is not a valid video, audio, or image file." % filename))
 						msg.exec_()
 						continue
+
 
 			else:
 				# Audio file

@@ -90,7 +90,7 @@ class EffectsModel():
 						continue
 	
 				# Generate thumbnail for file (if needed)
-				thumb_path = os.path.join(proj.current_filepath, icon_name)
+				thumb_path = os.path.join(info.CACHE_PATH, icon_name)
 				
 				# Check if thumb exists
 				if not os.path.exists(thumb_path):

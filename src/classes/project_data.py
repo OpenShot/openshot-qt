@@ -30,7 +30,7 @@
 import os, sys, random, copy
 from classes.json_data import JsonDataStore
 from classes.updates import UpdateInterface
-from classes import info
+from classes import info, settings
 from classes.logger import log
 
 class ProjectDataStore(JsonDataStore, UpdateInterface):
@@ -42,11 +42,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 		self.default_project_filepath = os.path.join(info.PATH, 'settings', '_default.project')
 		
 		# Set default filepath to user's home folder
-		self.current_filepath = os.path.join(os.path.expanduser("~"), ".openshot_qt")
-
-		if not os.path.exists(self.current_filepath):
-			# Create folder if it does not exist
-			os.makedirs(self.current_filepath)
+		self.current_filepath = None
 		
 		# Load default project data on creation
 		self.new()
@@ -243,16 +239,65 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 		
 		# Merge default and project settings, excluding settings not in default.
 		self._data = self.merge_settings(default_project, project_data)
+		
 		# On success, save current filepath
-		self.current_filepath = os.path.dirname(file_path)
+		self.current_filepath = file_path
+
+		# Add to recent files setting
+		self.add_to_recent_files(file_path)
 
 	def save(self, file_path):
 		""" Save project file to disk """ 
 		
+		# Convert all file paths to relative based on this new project file's directory
+		self.convert_paths_to_relative(file_path)
+		
 		# Try to save project settings file, will raise error on failure
 		self.write_to_file(file_path, self._data)
+		
 		# On success, save current filepath
-		self.current_filepath = os.path.dirname(file_path)
+		self.current_filepath = file_path
+		
+		# Add to recent files setting
+		self.add_to_recent_files(file_path)
+		
+	def add_to_recent_files(self, file_path):
+		""" Add this project to the recent files list """
+		
+		s = settings.get_settings()
+		recent_projects = s.get("recent_projects")
+		
+		# Remove existing project
+		if file_path in recent_projects:
+			recent_projects.remove(file_path)
+			
+		# Remove oldest item (if needed)
+		if len(recent_projects) > 10:
+			del recent_projects[0]
+			
+		# Append file path to end of recent files
+		recent_projects.append(file_path)
+		
+		# Save setting
+		s.set("recent_projects", recent_projects)
+		
+		
+	def convert_paths_to_relative(self, file_path):
+		""" Convert all paths relative to this filepath """
+
+		# Get list of files
+		files = self._data["files"]
+		
+		# Loop through each file
+		for file in files:
+			# Find absolute path of file (if needed)
+			if not os.path.isabs(file["path"]):
+				# Convert path to the correct relative path (based on this folder)
+				file["path"] = os.path.abspath(os.path.join(info.PATH, file["path"]))
+			
+			# Convert absolute path to relavite
+			file["path"] = os.path.relpath(file["path"], info.PATH)
+
 
 	def changed(self, action):
 		""" This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """

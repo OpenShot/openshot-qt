@@ -388,15 +388,17 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 	def load_settings(self):
 		s = settings.get_settings()
 		
-		#Window state and geometry (also toolbar and dock locations)
+		# Window state and geometry (also toolbar and dock locations)
 		if s.get('window_geometry'): self.restoreGeometry(qt_types.str_to_bytes(s.get('window_geometry')))
 		if s.get('window_state'): self.restoreState(qt_types.str_to_bytes(s.get('window_state')))
 		
-		#Splitter sizes
+		# Splitter sizes
 		if s.get('window_splitter_pos'): self.splitter.setSizes(s.get('window_splitter_pos'))
 		if s.get('window_splitter_2_pos'): self.splitter_2.setSizes(s.get('window_splitter_2_pos'))
 
-		#TODO: Call load_settings on any sub-objects necessary
+		# Add Recent files
+		recent_projects = s.get("recent_projects")
+		#for file_path in recent_projects:
 		
 	def setup_toolbars(self):
 		_ =  get_app()._tr #Get translation function

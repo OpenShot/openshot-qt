@@ -166,7 +166,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 			
 			if (file["media_type"] == "video" or file["media_type"] == "image"):
 				# Determine thumb path
-				thumb_path = os.path.join(proj.current_filepath, "%s.png" % file["id"])
+				thumb_path = os.path.join(info.THUMBNAIL_PATH, "%s.png" % file["id"])
 			else:
 				# Audio file
 				thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.png")
@@ -174,8 +174,14 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 			# Get file name
 			path, filename = os.path.split(file["path"])
 			
+			# Convert path to the correct relative path (based on this folder)
+			absolute_path_of_file = file["path"]
+			if not os.path.isabs(absolute_path_of_file):
+				absolute_path_of_file = os.path.abspath(os.path.join(info.PATH, file["path"]))
+			relative_path = os.path.relpath(absolute_path_of_file, info.CWD)
+			
 			# Create clip object for this file
-			c = openshot.Clip(file["path"])
+			c = openshot.Clip(relative_path)
 			
 			# Append missing attributes to Clip JSON
 			new_clip = json.loads(c.Json())
@@ -193,11 +199,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 			
 			# Add clip to timeline
 			self.update_clip_data(new_clip)
-			#code = JS_SCOPE_SELECTOR + ".AddClip(" + str(pos.x()) + ", " + str(pos.y()) + ", " + json.dumps(new_clip) + ");"
-			#self.eval_js(code)
-			
-			log.info('Dragging {} in timeline.'.format(event.mimeData().text()))
-            
+
 			# Track that a new clip is being 'added'
 			self.new_clip = True
 			
