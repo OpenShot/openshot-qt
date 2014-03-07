@@ -122,6 +122,7 @@ class EffectsModel():
 				# Append thumbnail
 				col = QStandardItem()
 				col.setIcon(QIcon(thumb_path))
+				col.setToolTip(self.app._tr(title))
 				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 				row.append(col)
 				
@@ -138,13 +139,13 @@ class EffectsModel():
 				row.append(col)
 				
 				# Append Category
-				col = QStandardItem("Type")
+				col = QStandardItem("Category")
 				col.setData(category, Qt.DisplayRole)
 				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 				row.append(col)
 				
 				# Append Path
-				col = QStandardItem("Type")
+				col = QStandardItem("Path")
 				col.setData(path, Qt.DisplayRole)
 				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 				row.append(col)

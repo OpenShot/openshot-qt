@@ -1,6 +1,6 @@
 """ 
  @file
- @brief This file contains the transitions model, used by the main window
+ @brief This file contains the blender model, used by the 3d anmiated titles screen
  @author Jonathan Thomas <jonathan@openshot.org>
  
  @section LICENSE
@@ -35,12 +35,13 @@ from classes.app import get_app
 from PyQt5.QtCore import QMimeData, QSize, Qt, QCoreApplication, QPoint, QFileInfo
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QTreeWidget, QApplication, QMessageBox, QTreeWidgetItem, QAbstractItemView
+import xml.dom.minidom as xml
 import openshot # Python module for libopenshot (required video editing module installed separately)
 
-class TransitionsModel():
+class BlenderModel():
 			
 	def update_model(self, clear=True):
-		log.info("updating transitions model.")
+		log.info("updating effects model.")
 		app = get_app()
 		proj = app.project
 
@@ -55,43 +56,48 @@ class TransitionsModel():
 		# Add Headers
 		self.model.setHorizontalHeaderLabels(["Thumb", "Name" ])
 		
-		# get a list of files in the OpenShot /transitions directory
-		transitions_dir = os.path.join(info.PATH, "transitions")
-		common_dir = os.path.join(transitions_dir, "common")
-		extra_dir = os.path.join(transitions_dir, "extra")
-		transition_groups = [ { "type" : "common", "dir" : common_dir, "files" : os.listdir(common_dir) },
-							  { "type" : "extra", "dir" : extra_dir, "files" : os.listdir(extra_dir) } ]
-		
-		for group in transition_groups:
-			type = group["type"]
-			dir = group["dir"]
-			files = group["files"]
+		# get a list of files in the OpenShot /effects directory
+		effects_dir = os.path.join(info.PATH, "blender")
+		icons_dir = os.path.join(effects_dir, "icons")
 
-			for filename in sorted(files):
-				path = os.path.join(dir, filename)
-				(fileBaseName, fileExtension)=os.path.splitext(filename)
+		for file in os.listdir(effects_dir):
+			if os.path.isfile(os.path.join(effects_dir, file)) and ".xml" in file:
+				# Split path
+				path = os.path.join(effects_dir, file)
+				(fileBaseName, fileExtension)=os.path.splitext(path)
 				
-				# get name of transition
-				trans_name = fileBaseName.replace("_", " ").capitalize()
+				# load xml effect file
+				xmldoc = xml.parse(path)
+
+				# Get all attributes
+				title = xmldoc.getElementsByTagName("title")[0].childNodes[0].data
+				description = xmldoc.getElementsByTagName("description")[0].childNodes[0].data
+				icon_name = xmldoc.getElementsByTagName("icon")[0].childNodes[0].data
+				icon_path = os.path.join(icons_dir, icon_name)
+				category = xmldoc.getElementsByTagName("category")[0].childNodes[0].data
+				service = xmldoc.getElementsByTagName("service")[0].childNodes[0].data
 				
-				if not win.actionTransitionsShowAll.isChecked():
-					if win.actionTransitionsShowCommon.isChecked():
-						if not type == "common":
+				if not win.actionEffectsShowAll.isChecked():
+					if win.actionEffectsShowVideo.isChecked():
+						if not category == "Video":
+							continue # to next file, didn't match filter
+					elif win.actionEffectsShowAudio.isChecked():
+						if not category == "Audio":
 							continue # to next file, didn't match filter
 	
-				if win.transitionsFilter.text() != "":
-					if not win.transitionsFilter.text().lower() in self.app._tr(trans_name).lower():
+				if win.effectsFilter.text() != "":
+					if not win.effectsFilter.text().lower() in self.app._tr(title).lower() and not win.effectsFilter.text().lower() in self.app._tr(description).lower():
 						continue
 	
 				# Generate thumbnail for file (if needed)
-				thumb_path = os.path.join(info.CACHE_PATH, "%s.png" % fileBaseName)
+				thumb_path = os.path.join(info.CACHE_PATH, icon_name)
 				
 				# Check if thumb exists
 				if not os.path.exists(thumb_path):
 
 					try:
 						# Reload this reader
-						clip = openshot.Clip(path)
+						clip = openshot.Clip(icon_path)
 						reader = clip.Reader()
 
 						# Open reader
@@ -116,19 +122,13 @@ class TransitionsModel():
 				# Append thumbnail
 				col = QStandardItem()
 				col.setIcon(QIcon(thumb_path))
-				col.setToolTip(self.app._tr(trans_name))
+				col.setToolTip(self.app._tr(title))
 				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 				row.append(col)
 				
-				# Append Filename
+				# Append Name
 				col = QStandardItem("Name")
-				col.setData(self.app._tr(trans_name), Qt.DisplayRole)
-				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
-				row.append(col)
-				
-				# Append Media Type
-				col = QStandardItem("Type")
-				col.setData(type, Qt.DisplayRole)
+				col.setData(self.app._tr(title), Qt.DisplayRole)
 				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 				row.append(col)
 				
@@ -151,7 +151,7 @@ class TransitionsModel():
 		# Create standard model 
 		self.app = get_app()
 		self.model = QStandardItemModel()
-		self.model.setColumnCount(4)
+		self.model.setColumnCount(3)
 		self.model_paths = {}
 
 		# Update model based on loaded project

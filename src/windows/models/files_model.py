@@ -136,7 +136,7 @@ class FilesModel(updates.UpdateInterface):
 			# Append thumbnail
 			col = QStandardItem()
 			col.setIcon(QIcon(thumb_path))
-			#col.setData("Thumb", Qt.DisplayRole)
+			col.setToolTip(filename)
 			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 			row.append(col)
 			
