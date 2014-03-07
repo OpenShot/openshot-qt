@@ -43,9 +43,6 @@
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QListView" name="listView"/>
-         </item>
         </layout>
        </item>
       </layout>

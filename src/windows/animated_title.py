@@ -34,6 +34,7 @@ from PyQt5 import uic
 from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
+from windows.views.blender_treeview import BlenderTreeView
 
 class AnimatedTitle(QDialog):
 	""" Animated Title Dialog """
@@ -51,4 +52,8 @@ class AnimatedTitle(QDialog):
 
 		#Init UI
 		ui_util.init_ui(self)
+		
+		# Add blender treeview
+		self.blenderTreeView = BlenderTreeView(self)
+		self.verticalLayout.addWidget(self.blenderTreeView)
 
