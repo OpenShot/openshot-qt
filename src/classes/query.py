@@ -170,4 +170,32 @@ class File(QueryObject):
 	def get(**kwargs):
 		""" Take any arguments given as filters, and find the first matching object """
 		return QueryObject.get(File, **kwargs)
-				
+	
+	def absolute_path(self):
+		""" Get absolute file path of file """
+		
+		# Get project folder (if any)
+		project_folder = None
+		if project.current_filepath:
+			project_folder = os.path.dirname( project.current_filepath )	
+		
+		# Convert relative file path into absolute (if needed)
+		file_path = self.data["path"]
+		if not os.path.isabs(file_path) and project_folder:
+			file_path = os.path.abspath(os.path.join(project_folder, self.data["path"]))
+			
+		# Return absolute path of file
+		return file_path
+	
+	def relative_path(self):
+		""" Get relative path (based on the current working directory) """
+		
+		# Get absolute file path
+		file_path = self.absolute_path()
+		
+		# Convert path to relative (based on current working directory of Python)
+		file_path = os.path.relpath(file_path, info.CWD)
+		
+		# Return relative path
+		return file_path
+	

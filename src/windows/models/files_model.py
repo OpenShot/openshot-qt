@@ -101,13 +101,10 @@ class FilesModel(updates.UpdateInterface):
 
 					try:
 						# Convert path to the correct relative path (based on this folder)
-						absolute_path_of_file = file.data["path"]
-						if not os.path.isabs(absolute_path_of_file):
-							absolute_path_of_file = os.path.abspath(os.path.join(info.PATH, file.data["path"]))
-						relative_path = os.path.relpath(absolute_path_of_file, info.CWD)
+						file_path = file.absolute_path()
 						
 						# Reload this reader
-						clip = openshot.Clip(relative_path)
+						clip = openshot.Clip(file_path)
 						reader = clip.Reader()
 
 						# Open reader

@@ -154,13 +154,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 			path, filename = os.path.split(file.data["path"])
 			
 			# Convert path to the correct relative path (based on this folder)
-			absolute_path_of_file = file.data["path"]
-			if not os.path.isabs(absolute_path_of_file):
-				absolute_path_of_file = os.path.abspath(os.path.join(info.PATH, file.data["path"]))
-			relative_path = os.path.relpath(absolute_path_of_file, info.CWD)
+			file_path = file.absolute_path()
 			
 			# Create clip object for this file
-			c = openshot.Clip(relative_path)
+			c = openshot.Clip(file_path)
 			
 			# Append missing attributes to Clip JSON
 			new_clip = json.loads(c.Json())

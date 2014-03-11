@@ -284,19 +284,26 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 		
 	def convert_paths_to_relative(self, file_path):
 		""" Convert all paths relative to this filepath """
+		
+		# Get project folder
+		existing_project_folder = None
+		if self.current_filepath:
+			existing_project_folder = os.path.dirname( self.current_filepath )
+		new_project_folder = os.path.dirname( file_path )
 
 		# Get list of files
 		files = self._data["files"]
 		
 		# Loop through each file
 		for file in files:
+			path = file["path"]
 			# Find absolute path of file (if needed)
-			if not os.path.isabs(file["path"]):
-				# Convert path to the correct relative path (based on this folder)
-				file["path"] = os.path.abspath(os.path.join(info.PATH, file["path"]))
+			if not os.path.isabs(path):
+				# Convert path to the correct relative path (based on the existing folder)
+				path = os.path.abspath(os.path.join(existing_project_folder, path))
 			
 			# Convert absolute path to relavite
-			file["path"] = os.path.relpath(file["path"], info.PATH)
+			file["path"] = os.path.relpath(path, new_project_folder)
 
 
 	def changed(self, action):
