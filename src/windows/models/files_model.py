@@ -30,6 +30,7 @@ import os
 from urllib.parse import urlparse
 from classes import updates
 from classes import info
+from classes.query import File
 from classes.logger import log
 from classes.settings import SettingStore
 from classes.app import get_app
@@ -56,8 +57,6 @@ class FilesModel(updates.UpdateInterface):
 	def update_model(self, clear=True):
 		log.info("updating files model.")
 		app = get_app()
-		proj = app.project
-		files = proj.get(["files"])
 
 		# Get window to check filters
 		win = app.window
@@ -70,19 +69,22 @@ class FilesModel(updates.UpdateInterface):
 		# Add Headers
 		self.model.setHorizontalHeaderLabels(["Thumb", "Name", "Type" ])
 		
+		# Get list of files in project
+		files = File.filter() # get all files
+		
 		# add item for each file
 		for file in files:
-			path, filename = os.path.split(file["path"])
+			path, filename = os.path.split(file.data["path"])
 			
 			if not win.actionFilesShowAll.isChecked():
 				if win.actionFilesShowVideo.isChecked():
-					if not file["media_type"] == "video":
+					if not file.data["media_type"] == "video":
 						continue #to next file, didn't match filter
 				elif win.actionFilesShowAudio.isChecked():
-					if not file["media_type"] == "audio":
+					if not file.data["media_type"] == "audio":
 						continue #to next file, didn't match filter
 				elif win.actionFilesShowImage.isChecked():
-					if not file["media_type"] == "image":
+					if not file.data["media_type"] == "image":
 						continue #to next file, didn't match filter
 						
 			if win.filesFilter.text() != "":
@@ -90,18 +92,18 @@ class FilesModel(updates.UpdateInterface):
 					continue
 
 			# Generate thumbnail for file (if needed)
-			if (file["media_type"] == "video" or file["media_type"] == "image"):
+			if (file.data["media_type"] == "video" or file.data["media_type"] == "image"):
 				# Determine thumb path
-				thumb_path = os.path.join(info.THUMBNAIL_PATH, "%s.png" % file["id"])
+				thumb_path = os.path.join(info.THUMBNAIL_PATH, "%s.png" % file.id)
 				
 				# Check if thumb exists
 				if not os.path.exists(thumb_path):
 
 					try:
 						# Convert path to the correct relative path (based on this folder)
-						absolute_path_of_file = file["path"]
+						absolute_path_of_file = file.data["path"]
 						if not os.path.isabs(absolute_path_of_file):
-							absolute_path_of_file = os.path.abspath(os.path.join(info.PATH, file["path"]))
+							absolute_path_of_file = os.path.abspath(os.path.join(info.PATH, file.data["path"]))
 						relative_path = os.path.relpath(absolute_path_of_file, info.CWD)
 						
 						# Reload this reader
@@ -112,7 +114,7 @@ class FilesModel(updates.UpdateInterface):
 						reader.Open()
 						
 						# Determine scale of thumbnail
-						scale = 95.0 / file["width"]
+						scale = 95.0 / file.data["width"]
 						
 						# Save thumbnail
 						reader.GetFrame(0).Save(thumb_path, scale)
@@ -148,7 +150,7 @@ class FilesModel(updates.UpdateInterface):
 			
 			# Append Media Type
 			col = QStandardItem("Type")
-			col.setData(file["media_type"], Qt.DisplayRole)
+			col.setData(file.data["media_type"], Qt.DisplayRole)
 			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 			row.append(col)
 			
@@ -160,14 +162,14 @@ class FilesModel(updates.UpdateInterface):
 			
 			# Append ID
 			col = QStandardItem("ID")
-			col.setData(file["id"], Qt.DisplayRole)
+			col.setData(file.data["id"], Qt.DisplayRole)
 			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 			row.append(col)
 
 			# Append ROW to MODEL (if does not already exist in model)
-			if not file["id"] in self.model_ids:
+			if not file.data["id"] in self.model_ids:
 				self.model.appendRow(row)
-				self.model_ids[file["id"]] = file["id"]
+				self.model_ids[file.data["id"]] = file.data["id"]
 			
 			# Process events in QT (to keep the interface responsive)
 			app.processEvents()

@@ -33,7 +33,8 @@ from classes.logger import log
 from classes.app import get_app
 		
 # Get project data reference
-project = get_app().project
+app = get_app()
+project = app.project
 
 class QueryObject:
 	""" This class allows one or more project data objects to be queried """
@@ -41,17 +42,50 @@ class QueryObject:
 	def __init__(self):
 		""" Constructor """
 		
-		self.id = None		# Unique ID of object
-		self.key = None		# Key path to object in project data
-		self.data = None	# Data dictionary of object
+		self.id = None			# Unique ID of object
+		self.key = None			# Key path to object in project data
+		self.data = None		# Data dictionary of object
+		self.type = "insert"	# Type of operation needed to save
 		
-	def save(self):
+	def save(self, OBJECT_TYPE):
 		""" Save the object back to the project data store """
-		pass
+		
+		# Insert or Update this data into the project data store
+		if not self.id and self.type == "insert":
+			
+			# Insert record, and Generate id
+			self.id = project.generate_id()
 
-	def delete(self):
+			# save id in data (if attribute found)
+			self.data["id"] = self.id
+				
+			# Set key (if needed)
+			if not self.key:
+				self.key = copy.deepcopy(OBJECT_TYPE.object_key)
+				self.key.append( { "id" : self.id } )
+				
+			# Insert into project data
+			app.updates.insert(OBJECT_TYPE.object_key, self.data)
+			
+			# Mark record as 'update' now... so another call to this method won't insert it again
+			self.type = "update"
+				
+		elif self.id and self.type == "update":
+
+			# Update existing project data
+			app.updates.update(self.key, self.data)
+			
+		
+
+	def delete(self, OBJECT_TYPE):
 		""" Delete the object from the project data store """
-		pass
+		
+		# Delete if object found and not pending insert
+		if self.id and self.type == "update":
+			# Delete from project data store
+			app.updates.delete(self.key)
+			self.type = "delete"
+			
 	
 	def filter(OBJECT_TYPE, **kwargs):
 		""" Take any arguments given as filters, and find a list of matching objects """
@@ -76,6 +110,7 @@ class QueryObject:
 				object.id = child["id"]
 				object.key = [OBJECT_TYPE.object_name, { "id" : object.id}]
 				object.data = child
+				object.type = "update"
 				matching_objects.append(object)
 				
 		# Return matching objects
@@ -97,14 +132,14 @@ class Clip(QueryObject):
 	""" This class allows one or more project data objects to be queried """
 	object_name = "clips"		# Derived classes should define this
 	object_key = [object_name]	# Derived classes should define this also
-		
+	
 	def save(self):
 		""" Save the object back to the project data store """
-		log.info("Clip save method")
+		super().save(Clip)
 
 	def delete(self):
 		""" Delete the object from the project data store """
-		log.info("Clip delete method")
+		super().delete(Clip)
 
 	def filter(**kwargs):
 		""" Take any arguments given as filters, and find a list of matching objects """
@@ -119,15 +154,15 @@ class File(QueryObject):
 	""" This class allows one or more project data objects to be queried """
 	object_name = "files"		# Derived classes should define this
 	object_key = [object_name]	# Derived classes should define this also
-		
+
 	def save(self):
 		""" Save the object back to the project data store """
-		log.info("File save method")
+		super().save(File)
 
 	def delete(self):
 		""" Delete the object from the project data store """
-		log.info("File delete method")
-
+		super().delete(File)
+		
 	def filter(**kwargs):
 		""" Take any arguments given as filters, and find a list of matching objects """
 		return QueryObject.filter(File, **kwargs)

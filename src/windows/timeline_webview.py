@@ -32,16 +32,13 @@ from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication
 from PyQt5.QtGui import QCursor
 from PyQt5.QtWidgets import QAbstractSlider, QMenu
 from PyQt5.QtWebKitWidgets import QWebView
+from classes.query import File, Clip
 from classes.logger import log
 from classes.app import get_app
 from classes import info, updates
+from classes.query import File, Clip
 import openshot # Python module for libopenshot (required video editing module installed separately)
 import uuid
-
-try:
-    import json
-except ImportError:
-    import simplejson as json
 
 try:
     import json
@@ -76,26 +73,14 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 			clip_data = json.loads(clip_json)
 		else:
 			clip_data = clip_json
-		
-		# Get app 
-		app = get_app()
-		proj = app.project
-		clips = proj.get(["clips"])
-		
-		# Does clip already exist
-		found_id = None
-		for existing_clip in clips:
-			if existing_clip["id"] == clip_data["id"]:
-				found_id = clip_data["id"]
-				
-		# find the clip in the project data
-		if not found_id:
-			# insert a clip
-			app.updates.insert(["clips"], clip_data)
-		else:
-			# update a clip
-			app.updates.update(["clips", {"id" : found_id}], clip_data)
 
+		# Search for matching clip in project data (if any)
+		existing_clip = Clip.get(id=clip_data["id"])
+		if not existing_clip:
+			# Create a new clip (if not exists)
+			existing_clip = Clip()		
+		existing_clip.data = clip_data
+		existing_clip.save()
 
 	#Prevent default context menu, and ignore, so that javascript can intercept
 	def contextMenuEvent(self, event):
@@ -147,37 +132,31 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 			event.accept()
 			pos = event.posF()
 			
-			# Find file object in project data
+			# Get app object
 			app = get_app()
-			proj = app.project
-			files = proj.get(["files"])
-			
-			# Loop until correct file is found
-			file = None
-			for f in files:
-				if f["id"] == file_id:
-					file = f
-					break
-				
+
+			# Search for matching file in project data (if any)
+			file = File.get(id=file_id)
+
 			# Bail if no file found
 			if not file:
 				event.ignore()
 				return
 			
-			if (file["media_type"] == "video" or file["media_type"] == "image"):
+			if (file.data["media_type"] == "video" or file.data["media_type"] == "image"):
 				# Determine thumb path
-				thumb_path = os.path.join(info.THUMBNAIL_PATH, "%s.png" % file["id"])
+				thumb_path = os.path.join(info.THUMBNAIL_PATH, "%s.png" % file.data["id"])
 			else:
 				# Audio file
 				thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.png")
 				
 			# Get file name
-			path, filename = os.path.split(file["path"])
+			path, filename = os.path.split(file.data["path"])
 			
 			# Convert path to the correct relative path (based on this folder)
-			absolute_path_of_file = file["path"]
+			absolute_path_of_file = file.data["path"]
 			if not os.path.isabs(absolute_path_of_file):
-				absolute_path_of_file = os.path.abspath(os.path.join(info.PATH, file["path"]))
+				absolute_path_of_file = os.path.abspath(os.path.join(info.PATH, file.data["path"]))
 			relative_path = os.path.relpath(absolute_path_of_file, info.CWD)
 			
 			# Create clip object for this file
@@ -185,14 +164,13 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 			
 			# Append missing attributes to Clip JSON
 			new_clip = json.loads(c.Json())
-			new_clip["id"] = str(uuid.uuid1())[:5]
-			new_clip["file_id"] = file["id"]
+			new_clip["file_id"] = file.id
 			new_clip["title"] = filename
 			new_clip["image"] = thumb_path
 			
 			# Adjust clip duration, start, and end
 			new_clip["duration"] = new_clip["reader"]["duration"]
-			if file["media_type"] != "image":
+			if file.data["media_type"] != "image":
 				new_clip["end"] = new_clip["reader"]["duration"]
 			else:
 				new_clip["end"] = 8.0 # default to 8 seconds

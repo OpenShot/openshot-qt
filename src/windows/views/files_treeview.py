@@ -29,8 +29,8 @@
 
 import os
 from urllib.parse import urlparse
-from classes import updates
 from classes import info
+from classes.query import File
 from classes.logger import log
 from classes.settings import SettingStore
 from classes.app import get_app
@@ -120,42 +120,13 @@ class FilesTreeView(QTreeView):
 		
 		# Add file into project
 		app = get_app()
-		proj = app.project
-		files = proj.get(["files"]) #get files list
-		found = False
-		new_id = proj.generate_id()
+
+		# Check for this path in our existing project data
+		file = File.get(path=filepath)
 		
-		# Check for new_id and filepath in current file list to prevent duplicates
-		index = 0
-		sanity_check, sanity_limit = 0, 10
-		while index < len(files):
-			if sanity_check > sanity_limit: #Stop checking if we can't get a unique id in 10 tries
-				break;
-			f = files[index]
-			# Stop checking if we find this filepath already in the list, don't allow duplicate.
-			if f["path"] == filepath:
-				found = True
-				break
-			# Generate new id and start loop over again if duplicate id is found
-			if f["id"] == new_id: #If this ID is found, generate a new one
-				new_id = proj.generate_id()
-				index = 0
-				sanity_check += 1
-				continue
-			# Move to next item
-			index += 1
-		
-		if sanity_check > sanity_limit:
-			msg = QMessageBox()
-			msg.setText(app._tr("Error generating unique file ID for %s." % filename))
-			msg.exec_()
-			return False
-			
-		if found:
-			return False
-		
-		# Inspect the file with libopenshot
-		clip = None
+		# If this file is already found, exit
+		if file:
+			return
 
 		# Load filepath in libopenshot clip object (which will try multiple readers to open it)
 		clip = openshot.Clip(filepath)
@@ -163,21 +134,20 @@ class FilesTreeView(QTreeView):
 		# Get the JSON for the clip's internal reader
 		try:
 			reader = clip.Reader()
-			file_json = json.loads(reader.Json())
-			
-			# Add unique ID to the JSON
-			file_json["id"] = new_id
+			file_data = json.loads(reader.Json())
 
 			# Determine media type
-			if file_json["has_video"] and not self.is_image(file_json):
-				file_json["media_type"] = "video"
-			elif file_json["has_video"] and self.is_image(file_json):
-				file_json["media_type"] = "image"
-			elif file_json["has_audio"] and not file_json["has_video"]:
-				file_json["media_type"] = "audio"	
+			if file_data["has_video"] and not self.is_image(file_data):
+				file_data["media_type"] = "video"
+			elif file_data["has_video"] and self.is_image(file_data):
+				file_data["media_type"] = "image"
+			elif file_data["has_audio"] and not file_data["has_video"]:
+				file_data["media_type"] = "audio"	
 			
-			# Add file to files list via update manager
-			app.updates.insert(["files"], file_json)
+			# Save new file to the project data
+			file = File()
+			file.data = file_data
+			file.save()
 			return True
 		
 		except:
