@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2012-09-26 09:57+0000\n"
-"PO-Revision-Date: 2013-04-23 05:55+0000\n"
-"Last-Translator: dhardiputra <dhardiputra@gmail.com>\n"
+"PO-Revision-Date: 2014-01-26 07:08+0000\n"
+"Last-Translator: Icho Y. Chandra <Unknown>\n"
 "Language-Team: Indonesian <id@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-04-24 04:48+0000\n"
-"X-Generator: Launchpad (build 16580)\n"
+"X-Launchpad-Export-Date: 2014-01-27 05:16+0000\n"
+"X-Generator: Launchpad (build 16914)\n"
 
 #: /home/jonathan/openshot/openshot/windows/TreeEffects.py:48
 #: /home/jonathan/openshot/openshot/windows/TreeFiles.py:47
@@ -3027,7 +3027,7 @@ msgstr ""
 
 #: /home/jonathan/openshot/openshot/effects/levels.xml
 msgid "Output level black point"
-msgstr ""
+msgstr "Titik hitam tingkat keluaran"
 
 #: /home/jonathan/openshot/openshot/effects/defish0r.xml
 msgid "Amount"
@@ -3135,7 +3135,7 @@ msgstr "Pengaturan warna sederhana"
 
 #: /home/jonathan/openshot/openshot/effects/vignette.xml
 msgid "Center size"
-msgstr ""
+msgstr "Ukuran tengah"
 
 #: /home/jonathan/openshot/openshot/effects/phaser.xml
 msgid "Decay"
@@ -3212,7 +3212,7 @@ msgstr "v"
 
 #: /home/jonathan/openshot/openshot/blender/glass_slider.xml
 msgid "Background: Fresnel"
-msgstr ""
+msgstr "Latar Belakang: Fresnel"
 
 #: /home/jonathan/openshot/openshot/blender/neon_curves.xml
 msgid "Line 3 Color"
@@ -3500,7 +3500,7 @@ msgstr "Keseimbangan tiga titik"
 
 #: /home/jonathan/openshot/openshot/blender/magic_wand.xml
 msgid "Magic Wand"
-msgstr ""
+msgstr "Tongkat Ajaib"
 
 #: /home/jonathan/openshot/openshot/effects/levels.xml
 msgid "Show histogram"
@@ -3655,7 +3655,7 @@ msgstr "White Balance"
 
 #: /home/jonathan/openshot/openshot/blender/glass_slider.xml
 msgid "Background: Diffuse Color"
-msgstr ""
+msgstr "Latar Belakang: Difusi Warna"
 
 #: /home/jonathan/openshot/openshot/effects/letterbox.xml
 msgid "Transparency"
@@ -3723,15 +3723,15 @@ msgstr "Atur tingkat kecerahan dari sebuah gambar"
 
 #: /home/jonathan/openshot/openshot/effects/alphagrad.xml
 msgid "Fills alpha channel with a gradient"
-msgstr ""
+msgstr "Isi kanal alpha dengan gradien"
 
 #: /home/jonathan/openshot/openshot/effects/levels.xml
 msgid "Input level white point"
-msgstr ""
+msgstr "Titik putih tingkat masukan"
 
 #: /home/jonathan/openshot/openshot/effects/primaries.xml
 msgid "Reduce image to primary colors"
-msgstr ""
+msgstr "Reduksi gambar menjadi warna-warna primer"
 
 #: /home/jonathan/openshot/openshot/effects/letterbox.xml
 msgid "Adds black borders at the top and bottom"
@@ -3799,7 +3799,7 @@ msgstr ""
 
 #: /home/jonathan/openshot/openshot/blender/neon_curves.xml
 msgid "Line 2 Color"
-msgstr ""
+msgstr "Warna Garis 2"
 
 #: /home/jonathan/openshot/openshot/blender/trees.xml
 msgid "Specular Intensity"
@@ -3839,7 +3839,7 @@ msgstr ""
 
 #: /home/jonathan/openshot/openshot/blender/snow.xml
 msgid "Snow"
-msgstr ""
+msgstr "Salju"
 
 #: /home/jonathan/openshot/openshot/blender/earth_real.xml
 msgid "Arrival Longitude (seconds)"
@@ -3903,7 +3903,7 @@ msgstr "Nomor"
 
 #: /home/jonathan/openshot/openshot/blender/glass_slider.xml
 msgid "Background: Alpha"
-msgstr ""
+msgstr "Latar Belakang: Alpha"
 
 #: /home/jonathan/openshot/openshot/blender/blinds.xml
 msgid "Blinds (Two Titles)"
@@ -3959,7 +3959,7 @@ msgstr "Ukuran Teks"
 
 #: /home/jonathan/openshot/openshot/effects/levels.xml
 msgid "Input level black point"
-msgstr ""
+msgstr "Titik hitam tingkat masukan"
 
 #: /home/jonathan/openshot/openshot/effects/edgeglow.xml
 msgid "Red Scale"
@@ -3971,7 +3971,7 @@ msgstr "Chroma Hold"
 
 #: /home/jonathan/openshot/openshot/blender/explode.xml
 msgid "Display Ground"
-msgstr ""
+msgstr "Tampilkan Tanah"
 
 #: /home/jonathan/openshot/openshot/blender/wireframe_text.xml
 msgid "Wireframe Text"
@@ -3979,7 +3979,7 @@ msgstr ""
 
 #: /home/jonathan/openshot/openshot/blender/neon_curves.xml
 msgid "Line 1 Color"
-msgstr ""
+msgstr "Warna Garis 1"
 
 #: /home/jonathan/openshot/openshot/blender/glass_slider.xml
 msgid "Glass Slider"
@@ -4067,7 +4067,7 @@ msgstr ""
 
 #: /home/jonathan/openshot/openshot/blender/trees.xml
 msgid "Diffuse Color"
-msgstr ""
+msgstr "Difusikan Warna"
 
 #: /home/jonathan/openshot/openshot/effects/distort.xml
 msgid "Amplitude"
@@ -4167,7 +4167,7 @@ msgstr ""
 
 #: /home/jonathan/openshot/openshot/effects/levels.xml
 msgid "Output level white point"
-msgstr ""
+msgstr "Titik putih tingkat keluaran"
 
 #: /home/jonathan/openshot/openshot/effects/charcoal.xml
 msgid "Y Scatter"
@@ -4223,7 +4223,7 @@ msgstr "Keseimbangan"
 
 #: /home/jonathan/openshot/openshot/blender/earth_real.xml
 msgid "World Map (Realistic)"
-msgstr ""
+msgstr "Peta Dunia (Nyata)"
 
 #: openshot.xml:783(para)
 msgid "Left"
@@ -4316,7 +4316,7 @@ msgstr ""
 
 #: /home/jonathan/openshot/openshot/effects/tintor.xml
 msgid "Tint amount"
-msgstr ""
+msgstr "Jumlah tinta"
 
 #: /home/jonathan/openshot/openshot/blender/dissolve.xml
 msgid "Dissolving Text"
@@ -4553,7 +4553,7 @@ msgstr "Spiral medium"
 
 #: /home/jonathan/openshot/openshot/transitions/clouds_2.png
 msgid "Clouds 2"
-msgstr ""
+msgstr "Awan 2"
 
 #: openshot.xml:3241(para)
 msgid "Wipe left to right"
@@ -4561,7 +4561,7 @@ msgstr "Menghapus dari kiri ke kanan"
 
 #: /home/jonathan/openshot/openshot/transitions/boxes_1.png
 msgid "Boxes 1"
-msgstr ""
+msgstr "Kotak 1"
 
 #: /home/jonathan/openshot/openshot/transitions/bubbles.png
 msgid "Bubbles"
@@ -4621,7 +4621,7 @@ msgstr "Searah jarum jam"
 
 #: /home/jonathan/openshot/openshot/transitions/boxes_2.png
 msgid "Boxes 2"
-msgstr ""
+msgstr "Kotak 2"
 
 #: openshot.xml:3098(para)
 msgid "Spiral small"

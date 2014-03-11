@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2012-09-26 09:57+0000\n"
-"PO-Revision-Date: 2013-06-01 18:07+0000\n"
-"Last-Translator: Pawouek <pawouek@buziaczek.pl>\n"
+"PO-Revision-Date: 2013-12-03 21:10+0000\n"
+"Last-Translator: Marek Koteluk <Unknown>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-06-02 05:22+0000\n"
-"X-Generator: Launchpad (build 16660)\n"
+"X-Launchpad-Export-Date: 2013-12-04 05:34+0000\n"
+"X-Generator: Launchpad (build 16861)\n"
 
 #: /home/jonathan/openshot/openshot/windows/TreeEffects.py:48
 #: /home/jonathan/openshot/openshot/windows/TreeFiles.py:47
@@ -1056,8 +1056,10 @@ msgstr ""
 "  Kevin https://launchpad.net/~kevin-wolny\n"
 "  Krzysiek https://launchpad.net/~krzysztof-niziolek\n"
 "  Kuba Mędrek https://launchpad.net/~kubix-medrek\n"
+"  Maciej Olszewski https://launchpad.net/~ojejujejuczarodzieju\n"
 "  Marcin Czechowski https://launchpad.net/~czechows\n"
 "  Marek Jędrzejewski https://launchpad.net/~slomianowlosy\n"
+"  Marek Koteluk https://launchpad.net/~pilulae\n"
 "  Mariusz Kujawski https://launchpad.net/~marines\n"
 "  Mateusz K. https://launchpad.net/~pecet-full\n"
 "  Pawouek https://launchpad.net/~pawouek\n"
@@ -1070,7 +1072,7 @@ msgstr ""
 "  Szymon Sieciński https://launchpad.net/~szymon-siecinski\n"
 "  Tomasz Gawrych https://launchpad.net/~aramroth\n"
 "  WebNuLL https://launchpad.net/~babciastefa\n"
-"  dec https://launchpad.net/~december0123\n"
+"  december0123 https://launchpad.net/~december0123\n"
 "  konrad509 https://launchpad.net/~konrad509-op\n"
 "  pp/bs https://launchpad.net/~pawprok\n"
 "  przemw https://launchpad.net/~przemw\n"
@@ -3031,7 +3033,7 @@ msgstr "Drzewa"
 
 #: /home/jonathan/openshot/openshot/effects/baltan.xml
 msgid "Baltan"
-msgstr ""
+msgstr "Efekt Baltan"
 
 #: /home/jonathan/openshot/openshot/effects/white_balance.xml
 msgid "Neutral Color"
@@ -3159,7 +3161,7 @@ msgstr "Proste dopasowanie koloru"
 
 #: /home/jonathan/openshot/openshot/effects/vignette.xml
 msgid "Center size"
-msgstr ""
+msgstr "Rozmiar centrum obrazu"
 
 #: /home/jonathan/openshot/openshot/effects/phaser.xml
 msgid "Decay"
@@ -3245,7 +3247,7 @@ msgstr "Kolor 3 linii"
 
 #: /home/jonathan/openshot/openshot/effects/edgeglow.xml
 msgid "Up Scale"
-msgstr ""
+msgstr "Przeskaluj w górę"
 
 #: /home/jonathan/openshot/openshot/effects/alphagrad.xml
 msgid "Min"
@@ -3293,7 +3295,7 @@ msgstr "Wzmocnienie"
 
 #: /home/jonathan/openshot/openshot/effects/delaygrab.xml
 msgid "Delay grab"
-msgstr ""
+msgstr "Opóźnij przechwytywanie"
 
 #: /home/jonathan/openshot/openshot/effects/phaser.xml
 msgid "Gain Out"
@@ -3581,7 +3583,7 @@ msgstr "Kolor 4 linii"
 
 #: /home/jonathan/openshot/openshot/effects/scanlines.xml
 msgid "Scan Lines"
-msgstr ""
+msgstr "Linie skanowania"
 
 #: /home/jonathan/openshot/openshot/effects/defish0r.xml
 msgid "Scaling"
@@ -3631,7 +3633,7 @@ msgstr "Lewo | Prawo"
 
 #: /home/jonathan/openshot/openshot/effects/flippo.xml
 msgid "Flippo"
-msgstr ""
+msgstr "Flippo"
 
 #: /home/jonathan/openshot/openshot/effects/distort.xml
 msgid "Frequency"
@@ -3799,7 +3801,7 @@ msgstr "Ramki obrazu (4 obrazy)"
 
 #: /home/jonathan/openshot/openshot/blender/colors.xml
 msgid "Background: Specular Intensity"
-msgstr ""
+msgstr "Tło: Intensywność odbić"
 
 #: /home/jonathan/openshot/openshot/effects/defish0r.xml
 msgid "Aspect type"
@@ -3827,7 +3829,7 @@ msgstr "Kolor 2 linii"
 
 #: /home/jonathan/openshot/openshot/blender/trees.xml
 msgid "Specular Intensity"
-msgstr ""
+msgstr "Intensywność odbić"
 
 #: /home/jonathan/openshot/openshot/effects/tcolor.xml
 msgid "Red/Green Axis"
@@ -3879,7 +3881,7 @@ msgstr "Wartość początkowa"
 
 #: /home/jonathan/openshot/openshot/effects/threelay0r.xml
 msgid "Dynamic 3 level thresholding"
-msgstr ""
+msgstr "Dynamiczne 3 poziomowe obcinanie"
 
 #: /home/jonathan/openshot/openshot/blender/magic_wand.xml
 msgid "Halo: Use Rings"
@@ -3915,7 +3917,7 @@ msgstr "Halo: twardość"
 
 #: /home/jonathan/openshot/openshot/blender/colors.xml
 msgid "Tile 1: Diffuse Color"
-msgstr ""
+msgstr "Tytuł 1 : Kolor rozpraszania"
 
 #: /home/jonathan/openshot/openshot/effects/sepia.xml
 msgid "Sepia"
@@ -3935,7 +3937,7 @@ msgstr "Zciemnianie (Dwa tytuły)"
 
 #: /home/jonathan/openshot/openshot/effects/cartoon.xml
 msgid "Diff Space"
-msgstr ""
+msgstr "Przestrzeń rozpraszania"
 
 #: /home/jonathan/openshot/openshot/effects/sharpness.xml
 msgid "Size"
@@ -3987,7 +3989,7 @@ msgstr "Poziom wejściowy punktu czerni"
 
 #: /home/jonathan/openshot/openshot/effects/edgeglow.xml
 msgid "Red Scale"
-msgstr ""
+msgstr "Skala czerwieni"
 
 #: /home/jonathan/openshot/openshot/effects/chroma_hold.xml
 msgid "Chroma Hold"
@@ -3995,11 +3997,11 @@ msgstr ""
 
 #: /home/jonathan/openshot/openshot/blender/explode.xml
 msgid "Display Ground"
-msgstr ""
+msgstr "Wyświetlanie tła"
 
 #: /home/jonathan/openshot/openshot/blender/wireframe_text.xml
 msgid "Wireframe Text"
-msgstr ""
+msgstr "Kontur tekstu"
 
 #: /home/jonathan/openshot/openshot/blender/neon_curves.xml
 msgid "Line 1 Color"
@@ -4027,7 +4029,7 @@ msgstr "Słońce: Rodzaj blasku"
 
 #: /home/jonathan/openshot/openshot/effects/defish0r.xml
 msgid "Manual Scale"
-msgstr ""
+msgstr "Ręczne skalowanie"
 
 #: /home/jonathan/openshot/openshot/effects/contrast.xml
 msgid "Adjusts the contrast of a source image"
@@ -4139,7 +4141,7 @@ msgstr "Dostosuj balans bieli i temperaturę kolorów"
 
 #: /home/jonathan/openshot/openshot/blender/trees.xml
 msgid "Bevel Depth"
-msgstr ""
+msgstr "Głębokość ukosu"
 
 #: /home/jonathan/openshot/openshot/effects/levels.xml
 msgid "Channel"
@@ -4155,7 +4157,7 @@ msgstr "Korekcja soczewki"
 
 #: /home/jonathan/openshot/openshot/effects/tehroxx0r.xml
 msgid "something videowall-ish"
-msgstr ""
+msgstr "Ś"
 
 #: /home/jonathan/openshot/openshot/blender/snow.xml
 msgid "Gravity: Z"
@@ -4175,7 +4177,7 @@ msgstr "Kolor odbicia"
 
 #: /home/jonathan/openshot/openshot/effects/treble.xml
 msgid "Adjust the high-pitched sound or tone"
-msgstr ""
+msgstr "Regulacja dźwięków wysokiej częstotliwości lub tonu"
 
 #: /home/jonathan/openshot/openshot/effects/hue.xml
 msgid "Hue"
@@ -4207,7 +4209,7 @@ msgstr "Podstawowe kolory"
 
 #: /home/jonathan/openshot/openshot/blender/zoom_clapboard.xml
 msgid "Zoom to Clapboard"
-msgstr ""
+msgstr "Powiększ do Clapboard"
 
 #: /home/jonathan/openshot/openshot/effects/nosync.xml
 msgid "Horizontal Sync"
@@ -4231,7 +4233,7 @@ msgstr "Co"
 
 #: /home/jonathan/openshot/openshot/blender/explode.xml
 msgid "Particle Number"
-msgstr ""
+msgstr "Ilość cząstek"
 
 #: /home/jonathan/openshot/openshot/effects/old_dust.xml
 msgid "Max Diameter"
@@ -4259,7 +4261,7 @@ msgstr "Podziel podgląd"
 
 #: /home/jonathan/openshot/openshot/effects/defish0r.xml
 msgid "Manual Pixel Aspect ratio"
-msgstr ""
+msgstr "Ręczne proporcje pikseli"
 
 #: /home/jonathan/openshot/openshot/effects/levels.xml
 msgid "Histogram position"
@@ -4279,7 +4281,7 @@ msgstr "Stosunek rozmiarów"
 
 #: /home/jonathan/openshot/openshot/blender/colors.xml
 msgid "Tile 3: Diffuse Color"
-msgstr ""
+msgstr "Tytuł 3 : Kolor rozpraszania"
 
 #: /home/jonathan/openshot/openshot/effects/sepia.xml
 msgid ""
@@ -4343,7 +4345,7 @@ msgstr "Stopień odcienia"
 
 #: /home/jonathan/openshot/openshot/blender/dissolve.xml
 msgid "Dissolving Text"
-msgstr ""
+msgstr "Rozpływanie tekstu"
 
 #: /home/jonathan/openshot/openshot/effects/tcolor.xml
 msgid "Oversaturate the color in the image, like in old Technicolor movies"
@@ -4355,7 +4357,7 @@ msgstr "Kolor"
 
 #: /home/jonathan/openshot/openshot/effects/tintor.xml
 msgid "Map white to"
-msgstr ""
+msgstr "Mapuj biały do"
 
 #: /home/jonathan/openshot/openshot/blender/colors.xml
 msgid "Tile 2: Diffuse Color"

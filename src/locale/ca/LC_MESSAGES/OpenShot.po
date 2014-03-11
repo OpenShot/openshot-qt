@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2012-09-26 09:57+0000\n"
-"PO-Revision-Date: 2013-01-09 23:35+0000\n"
-"Last-Translator: David Planella <david.planella@ubuntu.com>\n"
+"PO-Revision-Date: 2014-01-07 19:11+0000\n"
+"Last-Translator: Oscar Espuña <oscar_espuna@hotmail.com>\n"
 "Language-Team: Catalan <ca@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-01-11 04:37+0000\n"
-"X-Generator: Launchpad (build 16412)\n"
+"X-Launchpad-Export-Date: 2014-01-08 04:53+0000\n"
+"X-Generator: Launchpad (build 16877)\n"
 
 #: /home/jonathan/openshot/openshot/windows/TreeEffects.py:48
 #: /home/jonathan/openshot/openshot/windows/TreeFiles.py:47
@@ -96,6 +96,16 @@ msgid ""
 "Blender Path:\n"
 "%s%s"
 msgstr ""
+"És necessari tenir Blender, la suite gratuïta de codi obert de creació de "
+"contingut 3D, per a dur a terme aquesta acció (http://www.blender.org).\n"
+"\n"
+"Comproveu les preferències d'OpenShot i assegureu-vos que l'executable de "
+"Blender sigui el correcte. Aquesta configuració ha de ser la ruta de "
+"l'executable de 'blender' al vostre ordinador. Assegureu-vos, també, de què "
+"està fent referència a la versió %s o superior de Blender.\n"
+"\n"
+"Ruta de Blender:\n"
+"%s%s"
 
 #: /home/jonathan/openshot/openshot/windows/BlenderGenerator.py:704
 #: /home/jonathan/openshot/openshot/windows/ImportImageSeq.py:144
@@ -446,7 +456,7 @@ msgstr "Introduïu un nom de pista."
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2922
 msgid "Cleared track"
-msgstr ""
+msgstr "Pista eliminada"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2933
 msgid "Removed track"
@@ -1055,6 +1065,7 @@ msgstr ""
 "  Joan Duran https://launchpad.net/~jodufi\n"
 "  Marcel https://launchpad.net/~mandameuntornado\n"
 "  Melchor https://launchpad.net/~melchor629\n"
+"  Oscar Espuña https://launchpad.net/~oscar-espuna\n"
 "  Pau Iranzo https://launchpad.net/~paugnu\n"
 "  Perexat https://launchpad.net/~perexat\n"
 "  RIco https://launchpad.net/~rico-rootscore\n"
@@ -1149,6 +1160,13 @@ msgid ""
 "missing codecs.\n"
 "<a href='https://answers.launchpad.net/openshot/+faq/1040'>Learn More</a>"
 msgstr ""
+"Els següents codecs no es troben al seu sistema:\n"
+"\n"
+"{missing_codecs}\n"
+"\n"
+"Voste pot necessitar instal·lar els paquets libavformat-extra  per activar "
+"els codecs no trobats.\n"
+"<a href='https://answers.launchpad.net/openshot/+faq/1040'>Llegir-ne més</a>"
 
 #: /home/jonathan/openshot/openshot/windows/ExportVideo.py:482
 msgid ""
@@ -1159,6 +1177,12 @@ msgid ""
 "You may need to install packages such as libavformat-extra to enable the "
 "missing codecs."
 msgstr ""
+"Els següents codecs no es troben al seu sistema:\n"
+"\n"
+"{missing_codecs}\n"
+"\n"
+"Voste pot necessitar instal·lar els paquets libavformat-extra  per activar "
+"els codecs no trobats."
 
 #: /home/jonathan/openshot/openshot/windows/ExportVideo.py:654
 msgid "Please enter a valid File Name."
@@ -2642,7 +2666,7 @@ msgstr "botó4"
 
 #: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1748
 msgid "Apply effects to all clips on this track"
-msgstr ""
+msgstr "Aplicar els efectes a tots els clips de la pista"
 
 #: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1777
 msgid "<b>Effect Settings</b>"
@@ -2670,7 +2694,7 @@ msgstr "Longitud de la imatge importada"
 
 #: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:135
 msgid "The default length of an image when dropped on the timeline."
-msgstr ""
+msgstr "La durada per defecte d'una imatge quan s'incorpora a la cronologia."
 
 #: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:162
 msgid "Max History Steps:"
@@ -2697,7 +2721,7 @@ msgstr "Utilitza les icones predeterminades:"
 
 #: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:249
 msgid "Set to Yes to use the stock Gnome theme icons."
-msgstr ""
+msgstr "Habiliteu l'opció Si per usar el tema d'icones de Gnome"
 
 #: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:274
 msgid "Use Smooth Scaling:"
@@ -2974,7 +2998,7 @@ msgstr "Durada de l'animació."
 
 #: /home/jonathan/openshot/openshot/effects/alphagrad.xml
 msgid "Alphagrad"
-msgstr ""
+msgstr "Alphagrad"
 
 #: /home/jonathan/openshot/openshot/blender/earth_real.xml
 msgid "Depart Latitude (minutes)"
@@ -3008,7 +3032,7 @@ msgstr "Arbres"
 
 #: /home/jonathan/openshot/openshot/effects/baltan.xml
 msgid "Baltan"
-msgstr ""
+msgstr "Baltan"
 
 #: /home/jonathan/openshot/openshot/effects/white_balance.xml
 msgid "Neutral Color"
@@ -3046,7 +3070,7 @@ msgstr "Disiminuir llum Delta"
 
 #: /home/jonathan/openshot/openshot/effects/three_point_balance.xml
 msgid "Source image on left side"
-msgstr ""
+msgstr "Imatge inicial a l'esquerra"
 
 #: /home/jonathan/openshot/openshot/effects/coloradj_RGB.xml
 msgid "Keep luma"
@@ -3058,7 +3082,7 @@ msgstr "Edgeglow"
 
 #: /home/jonathan/openshot/openshot/blender/spacemovie_intro.xml
 msgid "First Title"
-msgstr ""
+msgstr "Primer títol"
 
 #: /home/jonathan/openshot/openshot/effects/defish0r.xml
 msgid "Defish"
@@ -3098,7 +3122,7 @@ msgstr "Foto per tres rutes"
 
 #: /home/jonathan/openshot/openshot/effects/vignette.xml
 msgid "Lens vignetting"
-msgstr ""
+msgstr "Vinyetatge de la lent"
 
 #: /home/jonathan/openshot/openshot/effects/hue.xml
 msgid "Shift the hue of all colors in the image"
@@ -3118,11 +3142,11 @@ msgstr "Sobel"
 
 #: /home/jonathan/openshot/openshot/effects/lenscorrection.xml
 msgid "Y Center"
-msgstr ""
+msgstr "Y Center"
 
 #: /home/jonathan/openshot/openshot/effects/sharpness.xml
 msgid "Sharpness"
-msgstr ""
+msgstr "Nitidesa"
 
 #: /home/jonathan/openshot/openshot/effects/freeze.xml
 msgid "Freeze"
@@ -3142,7 +3166,7 @@ msgstr "Decrement"
 
 #: /home/jonathan/openshot/openshot/effects/mask0mate.xml
 msgid "Top"
-msgstr ""
+msgstr "Superior"
 
 #: /home/jonathan/openshot/openshot/effects/old_grain.xml
 msgid "Old Grain"
@@ -3253,7 +3277,7 @@ msgstr "Halo: nombre de línies"
 
 #: /home/jonathan/openshot/openshot/effects/mask0mate.xml
 msgid "Creates a square alpha-channel mask"
-msgstr ""
+msgstr "Crea una màscara quadrada d'efecta infrarroig."
 
 #: /home/jonathan/openshot/openshot/blender/spacemovie_intro.xml
 msgid "Main Text"

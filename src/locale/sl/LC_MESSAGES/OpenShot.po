@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2012-09-26 09:57+0000\n"
-"PO-Revision-Date: 2013-06-10 20:24+0000\n"
-"Last-Translator: Rok Fajfar <Unknown>\n"
+"PO-Revision-Date: 2013-09-30 11:15+0000\n"
+"Last-Translator: Damir Jerovšek <Unknown>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-06-11 05:50+0000\n"
-"X-Generator: Launchpad (build 16667)\n"
+"X-Launchpad-Export-Date: 2013-10-01 05:19+0000\n"
+"X-Generator: Launchpad (build 16774)\n"
 
 #: /home/jonathan/openshot/openshot/windows/TreeEffects.py:48
 #: /home/jonathan/openshot/openshot/windows/TreeFiles.py:47
@@ -1046,6 +1046,7 @@ msgstr ""
 "  Martin Srebotnjak https://launchpad.net/~miles\n"
 "  Ozbo https://launchpad.net/~garejnc\n"
 "  Rok Fajfar https://launchpad.net/~rfajfar\n"
+"  Sasa Batistic https://launchpad.net/~sasa-batistic\n"
 "  loro11 https://launchpad.net/~loro-res\n"
 "  sokoban https://launchpad.net/~zokyslav\n"
 "  Štefan Baebler https://launchpad.net/~stefanba"
@@ -1702,7 +1703,7 @@ msgstr "_Zastavi vprašanje ..."
 
 #: /home/jonathan/openshot/openshot/windows/ui/Main.ui:460
 msgid "_Translate this Application..."
-msgstr "_Prevedi ta program..."
+msgstr "_Prevedi ta program ..."
 
 #: /home/jonathan/openshot/openshot/windows/ui/Main.ui:473
 msgid "_Donate"
@@ -2984,7 +2985,7 @@ msgstr "Drevesa"
 
 #: /home/jonathan/openshot/openshot/effects/baltan.xml
 msgid "Baltan"
-msgstr ""
+msgstr "Baltan"
 
 #: /home/jonathan/openshot/openshot/effects/white_balance.xml
 msgid "Neutral Color"
@@ -3096,7 +3097,7 @@ msgstr "Sobel"
 
 #: /home/jonathan/openshot/openshot/effects/lenscorrection.xml
 msgid "Y Center"
-msgstr ""
+msgstr "Središče Y"
 
 #: /home/jonathan/openshot/openshot/effects/sharpness.xml
 msgid "Sharpness"
@@ -3230,7 +3231,7 @@ msgstr "Halo: število črt"
 
 #: /home/jonathan/openshot/openshot/effects/mask0mate.xml
 msgid "Creates a square alpha-channel mask"
-msgstr ""
+msgstr "Ustvari pravokotno masko z alfa-kanalom"
 
 #: /home/jonathan/openshot/openshot/blender/spacemovie_intro.xml
 msgid "Main Text"
@@ -3246,7 +3247,7 @@ msgstr "Okrepitev"
 
 #: /home/jonathan/openshot/openshot/effects/delaygrab.xml
 msgid "Delay grab"
-msgstr ""
+msgstr "Zakasnitev zgrabitve"
 
 #: /home/jonathan/openshot/openshot/effects/phaser.xml
 msgid "Gain Out"
@@ -3518,11 +3519,11 @@ msgstr "Začetek"
 
 #: /home/jonathan/openshot/openshot/effects/lenscorrection.xml
 msgid "X Center"
-msgstr ""
+msgstr "Središče X"
 
 #: openshot.xml:2627(para)
 msgid "Softness"
-msgstr ""
+msgstr "Mehkoba"
 
 #: /home/jonathan/openshot/openshot/effects/levels.xml
 msgid "Adjust luminance or color channel intensity"
@@ -3534,7 +3535,7 @@ msgstr "Barva četrte črte"
 
 #: /home/jonathan/openshot/openshot/effects/scanlines.xml
 msgid "Scan Lines"
-msgstr ""
+msgstr "Črte skeniranja"
 
 #: /home/jonathan/openshot/openshot/effects/defish0r.xml
 msgid "Scaling"
@@ -3655,7 +3656,7 @@ msgstr ""
 
 #: /home/jonathan/openshot/openshot/effects/alphagrad.xml
 msgid "Transition width"
-msgstr ""
+msgstr "Širina prehoda"
 
 #: /home/jonathan/openshot/openshot/blender/slide_left_to_right.xml
 msgid "Slide Left to Right"
@@ -3667,7 +3668,7 @@ msgstr "Koordinata X"
 
 #: /home/jonathan/openshot/openshot/blender/spacemovie_intro.xml
 msgid "Flying Title"
-msgstr ""
+msgstr "Lebdeči naslov"
 
 #: /home/jonathan/openshot/openshot/blender/trees.xml
 msgid "Specular Color"
@@ -3735,7 +3736,7 @@ msgstr "Številka sličice"
 
 #: openshot.xml:799(para)
 msgid "Right"
-msgstr ""
+msgstr "Desno"
 
 #: /home/jonathan/openshot/openshot/effects/gamma.xml
 msgid "Adjusts the gamma or luminance value of the image"
@@ -3855,7 +3856,7 @@ msgstr "Uporabi alfo"
 
 #: /home/jonathan/openshot/openshot/blender/earth_real.xml
 msgid "Display Clouds"
-msgstr ""
+msgstr "Prikaži oblake"
 
 #: /home/jonathan/openshot/openshot/blender/magic_wand.xml
 msgid "Halo: Use Lines"
@@ -3891,7 +3892,7 @@ msgstr "Prostorska sprememba"
 
 #: /home/jonathan/openshot/openshot/effects/sharpness.xml
 msgid "Size"
-msgstr ""
+msgstr "Velikost"
 
 #: /home/jonathan/openshot/openshot/effects/rotate.xml
 msgid "Fixed Rotate Y"
@@ -3899,7 +3900,7 @@ msgstr "Nespremenljivo vrtenje Y"
 
 #: /home/jonathan/openshot/openshot/effects/three_point_balance.xml
 msgid "Gray color"
-msgstr ""
+msgstr "Siva barva"
 
 #: /home/jonathan/openshot/openshot/effects/phaser.xml
 msgid "Delay"
@@ -4051,7 +4052,7 @@ msgstr "Amplituda"
 
 #: /home/jonathan/openshot/openshot/effects/alphagrad.xml
 msgid "Position"
-msgstr ""
+msgstr "Položaj"
 
 #: /home/jonathan/openshot/openshot/effects/old_lines.xml
 msgid "Adds random vertical lines to the image"
@@ -4067,7 +4068,7 @@ msgstr "Odmev"
 
 #: /home/jonathan/openshot/openshot/effects/alphagrad.xml
 msgid "Operation"
-msgstr ""
+msgstr "Opravilo"
 
 #: /home/jonathan/openshot/openshot/effects/blur.xml
 msgid "Blur the image similar to an out-of-focus camera"
@@ -4103,7 +4104,7 @@ msgstr "Os X"
 
 #: /home/jonathan/openshot/openshot/effects/lenscorrection.xml
 msgid "Lens Correction"
-msgstr ""
+msgstr "Popravek leč"
 
 #: /home/jonathan/openshot/openshot/effects/tehroxx0r.xml
 msgid "something videowall-ish"
@@ -4199,11 +4200,11 @@ msgstr "Ravnovesje"
 
 #: /home/jonathan/openshot/openshot/blender/earth_real.xml
 msgid "World Map (Realistic)"
-msgstr ""
+msgstr "Zemljevid sveta (realističen)"
 
 #: openshot.xml:783(para)
 msgid "Left"
-msgstr ""
+msgstr "Levo"
 
 #: /home/jonathan/openshot/openshot/effects/three_point_balance.xml
 msgid "Split preview"
@@ -4223,11 +4224,11 @@ msgstr "Poišče in razžari robove predmetov"
 
 #: /home/jonathan/openshot/openshot/effects/lenscorrection.xml
 msgid "Correction near center"
-msgstr ""
+msgstr "Popravek blizu središča"
 
 #: /home/jonathan/openshot/openshot/effects/vignette.xml
 msgid "Aspect ratio"
-msgstr ""
+msgstr "Razmerje"
 
 #: /home/jonathan/openshot/openshot/blender/colors.xml
 msgid "Tile 3: Diffuse Color"
@@ -4262,7 +4263,7 @@ msgstr "Pretvori barve slike v nasprotne ali komplementarne barve"
 
 #: /home/jonathan/openshot/openshot/effects/alphagrad.xml
 msgid "Max"
-msgstr ""
+msgstr "Največ"
 
 #: /home/jonathan/openshot/openshot/blender/fly_by_1.xml
 msgid "Fly Towards Camera"
@@ -4480,7 +4481,7 @@ msgstr "Diagonalno brisanje 1"
 
 #: /home/jonathan/openshot/openshot/transitions/board.png
 msgid "Board"
-msgstr ""
+msgstr "Plošča"
 
 #: openshot.xml:3215(para)
 msgid "Wipe diagonal 3"
@@ -4536,7 +4537,7 @@ msgstr "Zabris od leve proti desni"
 
 #: /home/jonathan/openshot/openshot/transitions/boxes_1.png
 msgid "Boxes 1"
-msgstr ""
+msgstr "Polja 1"
 
 #: /home/jonathan/openshot/openshot/transitions/bubbles.png
 msgid "Bubbles"
@@ -4584,7 +4585,7 @@ msgstr "Fractal 4"
 
 #: /home/jonathan/openshot/openshot/transitions/vertical_bars.png
 msgid "Vertical bars"
-msgstr ""
+msgstr "Navpični stolpci"
 
 #: openshot.xml:2968(para)
 msgid "Openshot logo"
@@ -4596,7 +4597,7 @@ msgstr "Ura od leve proti desni"
 
 #: /home/jonathan/openshot/openshot/transitions/boxes_2.png
 msgid "Boxes 2"
-msgstr ""
+msgstr "Polja 2"
 
 #: openshot.xml:3098(para)
 msgid "Spiral small"

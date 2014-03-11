@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2012-09-26 09:57+0000\n"
-"PO-Revision-Date: 2012-09-26 16:15+0000\n"
-"Last-Translator: Andy Finch <Unknown>\n"
+"PO-Revision-Date: 2013-07-09 12:51+0000\n"
+"Last-Translator: Anthony Harrington <untaintableangel@ubuntu.com>\n"
 "Language-Team: English (United Kingdom) <en_GB@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-09-27 04:41+0000\n"
-"X-Generator: Launchpad (build 16033)\n"
+"X-Launchpad-Export-Date: 2013-07-10 05:26+0000\n"
+"X-Generator: Launchpad (build 16696)\n"
 
 #: /home/jonathan/openshot/openshot/windows/TreeEffects.py:48
 #: /home/jonathan/openshot/openshot/windows/TreeFiles.py:47
@@ -23,14 +23,11 @@ msgstr ""
 msgid "Thumb"
 msgstr "Thumb"
 
-#: /home/jonathan/openshot/openshot/windows/TreeEffects.py:49
-#: /home/jonathan/openshot/openshot/windows/TreeBlender.py:45
+#: openshot.xml:4223(para)
 msgid "Name"
 msgstr "Name"
 
-#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:36
-#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:85
-#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:158
+#: openshot.xml:1452(para)
 msgid "Transition"
 msgstr "Transition"
 
@@ -43,14 +40,11 @@ msgstr "Transition"
 msgid "Mask"
 msgstr "Mask"
 
-#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:43
-#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:117
-#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:215
+#: openshot.xml:767(para) openshot.xml:2083(para)
 msgid "Up"
 msgstr "Up"
 
-#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:43
-#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:122
+#: openshot.xml:775(para) openshot.xml:2091(para)
 msgid "Down"
 msgstr "Down"
 
@@ -177,17 +171,11 @@ msgstr "New Track"
 msgid "No Fade"
 msgstr "No Fade"
 
-#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:156
-#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:372
-#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1140
-#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1509
+#: openshot.xml:1930(para) openshot.xml:2015(para)
 msgid "Fade In"
 msgstr "Fade In"
 
-#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:156
-#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:377
-#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1154
-#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1520
+#: openshot.xml:1938(para) openshot.xml:2023(para)
 msgid "Fade Out"
 msgstr "Fade Out"
 
@@ -487,8 +475,7 @@ msgstr "Moved track down"
 msgid "Removed marker"
 msgstr "Removed marker"
 
-#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3030
-#: /home/jonathan/openshot/openshot/windows/ui/Main_transition_properties.ui:36
+#: openshot.xml:2644(title)
 msgid "Convert to Mask"
 msgstr "Convert to Mask"
 
@@ -770,11 +757,7 @@ msgstr "Edit Title (Inkscape)"
 msgid "Remove from Project"
 msgstr "Remove from Project"
 
-#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4188
-#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:95
-#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:269
-#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:617
-#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:819
+#: openshot.xml:3987(title)
 msgid "Upload to Web"
 msgstr "Upload to Web"
 
@@ -1061,11 +1044,13 @@ msgstr "MLT XML (*.mlt)"
 msgid "There was an error saving this project as XML."
 msgstr "There was an error saving this project as XML."
 
-#: /home/jonathan/openshot/openshot/windows/About.py:65
+#. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
+#: openshot.xml:0(None)
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Andy Finch https://launchpad.net/~fincha\n"
+"  Anthony Harrington https://launchpad.net/~untaintableangel\n"
 "  Francois Thunus https://launchpad.net/~thunus\n"
 "  Helen McCall https://launchpad.net/~wildnfree\n"
 "  Jonathan Thomas https://launchpad.net/~jonoomph\n"
@@ -1280,8 +1265,7 @@ msgstr "Action"
 msgid "Save Project As..."
 msgstr "Save Project As..."
 
-#: /home/jonathan/openshot/openshot/windows/NewProject.py:86
-#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:8
+#: openshot.xml:1069(title)
 msgid "Create a Project"
 msgstr "Create a Project"
 
@@ -1671,9 +1655,7 @@ msgstr "Import Image Sequence..."
 msgid "Import New Transition..."
 msgstr "Import New Transition..."
 
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:158
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:560
-#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:341
+#: openshot.xml:303(para)
 msgid "Save Project"
 msgstr "Save Project"
 
@@ -1759,13 +1741,11 @@ msgstr "Open Project"
 msgid "Save"
 msgstr "Save"
 
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:585
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:587
+#: openshot.xml:314(para)
 msgid "Undo"
 msgstr "Undo"
 
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:601
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:603
+#: openshot.xml:325(para)
 msgid "Redo"
 msgstr "Redo"
 
@@ -1774,10 +1754,7 @@ msgstr "Redo"
 msgid "Take Snapshot"
 msgstr "Take Snapshot"
 
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:663
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:665
-#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:7
-#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:957
+#: openshot.xml:347(para) openshot.xml:3976(title)
 msgid "Export Video"
 msgstr "Export Video"
 
@@ -1819,8 +1796,7 @@ msgstr "Image"
 msgid "Show only image files"
 msgstr "Show only image files"
 
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:864
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:865
+#: openshot.xml:192(para) openshot.xml:361(title)
 msgid "Project Files"
 msgstr "Project Files"
 
@@ -1836,8 +1812,7 @@ msgstr "Common"
 msgid "Show only common transitions"
 msgstr "Show only common transitions"
 
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:977
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:978
+#: openshot.xml:2509(title)
 msgid "Transitions"
 msgstr "Transitions"
 
@@ -1853,9 +1828,7 @@ msgstr "Show only video effects"
 msgid "Show only audio effects"
 msgstr "Show only audio effects"
 
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1110
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1111
-#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:2047
+#: openshot.xml:3271(title)
 msgid "Effects"
 msgstr "Effects"
 
@@ -1879,8 +1852,7 @@ msgstr "Seek Forward"
 msgid "Seek to Ending"
 msgstr "Seek to Ending"
 
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1346
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1348
+#: openshot.xml:475(para) openshot.xml:1591(para)
 msgid "Add Track"
 msgstr "Add Track"
 
@@ -1894,8 +1866,7 @@ msgstr "Arrow Tool"
 msgid "Razor Tool"
 msgstr "Razor Tool"
 
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1401
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1403
+#: openshot.xml:2557(para)
 msgid "Resize Tool"
 msgstr "Resize Tool"
 
@@ -1904,18 +1875,15 @@ msgstr "Resize Tool"
 msgid "Snapping Tool"
 msgstr "Snapping Tool"
 
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1440
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1442
+#: openshot.xml:530(para) openshot.xml:1646(para)
 msgid "Add Marker"
 msgstr "Add Marker"
 
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1454
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1456
+#: openshot.xml:541(para) openshot.xml:1657(para)
 msgid "Previous Marker"
 msgstr "Previous Marker"
 
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1469
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1471
+#: openshot.xml:552(para) openshot.xml:1668(para)
 msgid "Next Marker"
 msgstr "Next Marker"
 
@@ -1941,8 +1909,7 @@ msgstr "15 seconds"
 msgid "Zoom Out"
 msgstr "Zoom Out"
 
-#: /home/jonathan/openshot/openshot/windows/ui/UploadVideo.ui:9
-#: /home/jonathan/openshot/openshot/windows/ui/UploadVideo.ui:341
+#: openshot.xml:3997(title)
 msgid "Upload Video"
 msgstr "Upload Video"
 
@@ -1994,7 +1961,7 @@ msgstr "Forgot password?"
 msgid "Cancel"
 msgstr "Cancel"
 
-#: /home/jonathan/openshot/openshot/windows/ui/About.ui:8
+#: openshot.xml:4514(title)
 msgid "About OpenShot"
 msgstr "About OpenShot"
 
@@ -2126,7 +2093,7 @@ msgstr "<b>Profile Properties</b>"
 msgid "Remove Marker"
 msgstr "Remove Marker"
 
-#: /home/jonathan/openshot/openshot/windows/ui/titles.ui:10
+#: openshot.xml:2219(title)
 msgid "Title Editor"
 msgstr "Title Editor"
 
@@ -2188,7 +2155,7 @@ msgstr "Duplicate"
 msgid "Make a copy of this clip"
 msgstr "Make a copy of this clip"
 
-#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:86
+#: openshot.xml:1430(para)
 msgid "Fade"
 msgstr "Fade"
 
@@ -2204,8 +2171,7 @@ msgstr "Animate"
 msgid "Animate this clip"
 msgstr "Animate this clip"
 
-#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:110
-#: /home/jonathan/openshot/openshot/effects/rotate.xml
+#: openshot.xml:2007(para)
 msgid "Rotate"
 msgstr "Rotate"
 
@@ -2242,7 +2208,7 @@ msgstr "Replace Clip"
 msgid "Remove Clip"
 msgstr "Remove Clip"
 
-#: /home/jonathan/openshot/openshot/windows/ui/AddFiles.ui:10
+#: openshot.xml:336(para)
 msgid "Import Files"
 msgstr "Import Files"
 
@@ -2285,10 +2251,7 @@ msgstr ""
 msgid "Width:"
 msgstr "Width:"
 
-#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:170
-#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:194
-#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:482
-#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:495
+#: openshot.xml:4149(para)
 msgid "0"
 msgstr "0"
 
@@ -2315,7 +2278,7 @@ msgstr "0.00"
 msgid "Progressive:"
 msgstr "Progressive:"
 
-#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:39
+#: openshot.xml:1251(title)
 msgid "Add to Timeline"
 msgstr "Add to Timeline"
 
@@ -2386,7 +2349,7 @@ msgstr "<b>Transition</b>"
 msgid "Move selected files up"
 msgstr "Move selected files up"
 
-#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:405
+#: openshot.xml:1474(para)
 msgid "Move Up"
 msgstr "Move Up"
 
@@ -2394,7 +2357,7 @@ msgstr "Move Up"
 msgid "Move the selected files down"
 msgstr "Move the selected files down"
 
-#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:419
+#: openshot.xml:1485(para)
 msgid "Move Down"
 msgstr "Move Down"
 
@@ -2410,7 +2373,7 @@ msgstr "Shuffle"
 msgid "Remove the selected files"
 msgstr "Remove the selected files"
 
-#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:456
+#: openshot.xml:2075(para)
 msgid "Remove"
 msgstr "Remove"
 
@@ -2430,8 +2393,7 @@ msgstr ""
 msgid "Select Transition:"
 msgstr "Select Transition:"
 
-#: /home/jonathan/openshot/openshot/windows/ui/AddEffect.ui:8
-#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1679
+#: openshot.xml:3389(para)
 msgid "Add Effect"
 msgstr "Add Effect"
 
@@ -2469,7 +2431,7 @@ msgid ""
 "image00001.png = image%05.png"
 msgstr ""
 "Use this screen to import a sequence of numbered images as a video clip.\n"
-"Be sure all pictures are in the same folder, and are sequencially numbered.\n"
+"Be sure all pictures are in the same folder, and are sequentially numbered.\n"
 "<b>TIP: </b>If you drag and drop a single image from the sequence into the \n"
 "project files tree, it will automatically determine the file pattern.\n"
 "\n"
@@ -2536,7 +2498,7 @@ msgstr ""
 msgid "Repeat Sequence:"
 msgstr "Repeat Sequence:"
 
-#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:97
+#: openshot.xml:1694(title)
 msgid "Clip Properties"
 msgstr "Clip Properties"
 
@@ -2553,11 +2515,11 @@ msgstr "File Name:"
 msgid "N/A"
 msgstr "N/A"
 
-#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:286
+#: openshot.xml:1733(para)
 msgid "Enable Audio"
 msgstr "Enable Audio"
 
-#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:301
+#: openshot.xml:1725(para)
 msgid "Enable Video"
 msgstr "Enable Video"
 
@@ -2589,8 +2551,7 @@ msgstr "Simple"
 msgid "Advanced"
 msgstr "Advanced"
 
-#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:713
-#: /home/jonathan/openshot/openshot/effects/phaser.xml
+#: openshot.xml:1810(para)
 msgid "Speed"
 msgstr "Speed"
 
@@ -2622,11 +2583,11 @@ msgstr "%"
 msgid "Volume:"
 msgstr "Volume:"
 
-#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1316
+#: openshot.xml:1975(para)
 msgid "Stretch Full Screen"
 msgstr "Stretch Full Screen"
 
-#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1329
+#: openshot.xml:1983(para)
 msgid "Maintain Aspect Ratio"
 msgstr "Maintain Aspect Ratio"
 
@@ -2654,7 +2615,7 @@ msgstr "<b>Align</b>"
 msgid "toolbutton1"
 msgstr "toolbutton1"
 
-#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1695
+#: openshot.xml:3400(para)
 msgid "Remove Effect"
 msgstr "Remove Effect"
 
@@ -2800,7 +2761,7 @@ msgstr "Save Before Playback"
 msgid "Autosave"
 msgstr "Autosave"
 
-#: /home/jonathan/openshot/openshot/windows/ui/BlenderGenerator.ui:9
+#: openshot.xml:2388(title)
 msgid "Animated Title Editor"
 msgstr "Animated Title Editor"
 
@@ -2820,7 +2781,7 @@ msgstr "Choose a frame to preview"
 msgid "10/250"
 msgstr "10/250"
 
-#: /home/jonathan/openshot/openshot/windows/ui/BlenderGenerator.ui:140
+#: openshot.xml:2480(para)
 msgid "Refresh"
 msgstr "Refresh"
 
@@ -2828,7 +2789,7 @@ msgstr "Refresh"
 msgid "<b>Modify the 3D Settings</b>"
 msgstr "<b>Modify the 3D Settings</b>"
 
-#: /home/jonathan/openshot/openshot/windows/ui/BlenderGenerator.ui:257
+#: openshot.xml:2502(para)
 msgid "Render"
 msgstr "Render"
 
@@ -3001,7 +2962,7 @@ msgstr "Phaser"
 msgid "Cartoonify the image, using a form of edge detection"
 msgstr "Cartoonify the image, using a form of edge detection"
 
-#: /home/jonathan/openshot/openshot/blender/trees.xml
+#: openshot.xml:4048(para)
 msgid "Title"
 msgstr "Title"
 
@@ -3486,7 +3447,7 @@ msgstr "Letterbox"
 msgid "Old Film"
 msgstr "Old Film"
 
-#: /home/jonathan/openshot/openshot/effects/defish0r.xml
+#: openshot.xml:2605(para)
 msgid "Type"
 msgstr "Type"
 
@@ -3582,7 +3543,7 @@ msgstr "Start"
 msgid "X Center"
 msgstr "X Center"
 
-#: /home/jonathan/openshot/openshot/effects/vignette.xml
+#: openshot.xml:2627(para)
 msgid "Softness"
 msgstr "Softness"
 
@@ -3676,7 +3637,7 @@ msgstr "Interpolation"
 msgid "Saturation"
 msgstr "Saturation"
 
-#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+#: openshot.xml:1894(para)
 msgid "Alpha"
 msgstr "Alpha"
 
@@ -3740,7 +3701,7 @@ msgstr "Specular Colour"
 msgid "Spots: Color Threshold"
 msgstr "Spots: Colour Threshold"
 
-#: /home/jonathan/openshot/openshot/effects/old_lines.xml
+#: openshot.xml:1870(para)
 msgid "Width"
 msgstr "Width"
 
@@ -3796,7 +3757,7 @@ msgstr "Variance"
 msgid "Frame Number"
 msgstr "Frame Number"
 
-#: /home/jonathan/openshot/openshot/effects/mask0mate.xml
+#: openshot.xml:799(para)
 msgid "Right"
 msgstr "Right"
 
@@ -4264,7 +4225,7 @@ msgstr "Balance"
 msgid "World Map (Realistic)"
 msgstr "World Map (Realistic)"
 
-#: /home/jonathan/openshot/openshot/effects/mask0mate.xml
+#: openshot.xml:783(para)
 msgid "Left"
 msgstr "Left"
 
@@ -4493,11 +4454,11 @@ msgstr "MOV (mpeg4)"
 msgid "Flickr-HD"
 msgstr "Flickr-HD"
 
-#: /home/jonathan/openshot/openshot/transitions/fractal_8.png
+#: openshot.xml:2851(para)
 msgid "Fractal 8"
 msgstr "Fractal 8"
 
-#: /home/jonathan/openshot/openshot/transitions/vertical_blinds_in_to_out_big.pgm
+#: openshot.xml:3163(para)
 msgid "Vertical blinds in to out big"
 msgstr "Vertical blinds in to out big"
 
@@ -4505,39 +4466,39 @@ msgstr "Vertical blinds in to out big"
 msgid "Icons"
 msgstr "Icons"
 
-#: /home/jonathan/openshot/openshot/transitions/fractal_2.png
+#: openshot.xml:2773(para)
 msgid "Fractal 2"
 msgstr "Fractal 2"
 
-#: /home/jonathan/openshot/openshot/transitions/fractal_3.png
+#: openshot.xml:2786(para)
 msgid "Fractal 3"
 msgstr "Fractal 3"
 
-#: /home/jonathan/openshot/openshot/transitions/fractal_1.png
+#: openshot.xml:2760(para)
 msgid "Fractal 1"
 msgstr "Fractal 1"
 
-#: /home/jonathan/openshot/openshot/transitions/fractal_6.png
+#: openshot.xml:2825(para)
 msgid "Fractal 6"
 msgstr "Fractal 6"
 
-#: /home/jonathan/openshot/openshot/transitions/fractal_7.png
+#: openshot.xml:2838(para)
 msgid "Fractal 7"
 msgstr "Fractal 7"
 
-#: /home/jonathan/openshot/openshot/transitions/spots.png
+#: openshot.xml:3111(para)
 msgid "Spots"
 msgstr "Spots"
 
-#: /home/jonathan/openshot/openshot/transitions/fractal_5.png
+#: openshot.xml:2812(para)
 msgid "Fractal 5"
 msgstr "Fractal 5"
 
-#: /home/jonathan/openshot/openshot/transitions/wipe_diagonal_4.png
+#: openshot.xml:3228(para)
 msgid "Wipe diagonal 4"
 msgstr "Wipe diagonal 4"
 
-#: /home/jonathan/openshot/openshot/transitions/wipe_diagonal_1.png
+#: openshot.xml:3189(para)
 msgid "Wipe diagonal 1"
 msgstr "Wipe diagonal 1"
 
@@ -4545,47 +4506,47 @@ msgstr "Wipe diagonal 1"
 msgid "Board"
 msgstr "Board"
 
-#: /home/jonathan/openshot/openshot/transitions/wipe_diagonal_3.png
+#: openshot.xml:3215(para)
 msgid "Wipe diagonal 3"
 msgstr "Wipe diagonal 3"
 
-#: /home/jonathan/openshot/openshot/transitions/wipe_diagonal_2.png
+#: openshot.xml:3202(para)
 msgid "Wipe diagonal 2"
 msgstr "Wipe diagonal 2"
 
-#: /home/jonathan/openshot/openshot/transitions/circle_in_to_out.svg
+#: openshot.xml:2708(para)
 msgid "Circle in to out"
 msgstr "Circle in to out"
 
-#: /home/jonathan/openshot/openshot/transitions/hatched_1.png
+#: openshot.xml:2864(para)
 msgid "Hatched 1"
 msgstr "Hatched 1"
 
-#: /home/jonathan/openshot/openshot/transitions/hatched_2.png
+#: openshot.xml:2877(para)
 msgid "Hatched 2"
 msgstr "Hatched 2"
 
-#: /home/jonathan/openshot/openshot/transitions/hatched_3.png
+#: openshot.xml:2890(para)
 msgid "Hatched 3"
 msgstr "Hatched 3"
 
-#: /home/jonathan/openshot/openshot/transitions/puzzle_7_by_7.png
+#: openshot.xml:2981(para)
 msgid "Puzzle 7 by 7"
 msgstr "Puzzle 7 by 7"
 
-#: /home/jonathan/openshot/openshot/transitions/mountains.png
+#: openshot.xml:2955(para)
 msgid "Mountains"
 msgstr "Mountains"
 
-#: /home/jonathan/openshot/openshot/transitions/blinds_in_to_out.pgm
+#: openshot.xml:2669(para)
 msgid "Blinds in to out"
 msgstr "Blinds in to out"
 
-#: /home/jonathan/openshot/openshot/transitions/clock_right_to_left.pgm
+#: openshot.xml:2747(para)
 msgid "Clock right to left"
 msgstr "Clock right to left"
 
-#: /home/jonathan/openshot/openshot/transitions/spiral_medium.pgm
+#: openshot.xml:3085(para)
 msgid "Spiral medium"
 msgstr "Spiral medium"
 
@@ -4593,7 +4554,7 @@ msgstr "Spiral medium"
 msgid "Clouds 2"
 msgstr "Clouds 2"
 
-#: /home/jonathan/openshot/openshot/transitions/wipe_left_to_right.svg
+#: openshot.xml:3241(para)
 msgid "Wipe left to right"
 msgstr "Wipe left to right"
 
@@ -4605,11 +4566,11 @@ msgstr "Boxes 1"
 msgid "Bubbles"
 msgstr "Bubbles"
 
-#: /home/jonathan/openshot/openshot/transitions/wipe_bottom_to_top.svg
+#: openshot.xml:3176(para)
 msgid "Wipe bottom to top"
 msgstr "Wipe bottom to top"
 
-#: /home/jonathan/openshot/openshot/transitions/rectangle_out_to_in.pgm
+#: openshot.xml:3007(para)
 msgid "Rectangle out to in"
 msgstr "Rectangle out to in"
 
@@ -4617,31 +4578,31 @@ msgstr "Rectangle out to in"
 msgid "Clouds"
 msgstr "Clouds"
 
-#: /home/jonathan/openshot/openshot/transitions/wipe_right_to_left.svg
+#: openshot.xml:3254(para)
 msgid "Wipe right to left"
 msgstr "Wipe right to left"
 
-#: /home/jonathan/openshot/openshot/transitions/circle_out_to_in.svg
+#: openshot.xml:2721(para)
 msgid "Circle out to in"
 msgstr "Circle out to in"
 
-#: /home/jonathan/openshot/openshot/transitions/spiral_abstract_1.png
+#: openshot.xml:3046(para)
 msgid "Spiral abstract 1"
 msgstr "Spiral abstract 1"
 
-#: /home/jonathan/openshot/openshot/transitions/rectangle_in_to_out.pgm
+#: openshot.xml:2994(para)
 msgid "Rectangle in to out"
 msgstr "Rectangle in to out"
 
-#: /home/jonathan/openshot/openshot/transitions/spiral_abstract_2.png
+#: openshot.xml:3059(para)
 msgid "Spiral abstract 2"
 msgstr "Spiral abstract 2"
 
-#: /home/jonathan/openshot/openshot/transitions/sand.svg
+#: openshot.xml:3020(para)
 msgid "Sand"
 msgstr "Sand"
 
-#: /home/jonathan/openshot/openshot/transitions/fractal_4.png
+#: openshot.xml:2799(para)
 msgid "Fractal 4"
 msgstr "Fractal 4"
 
@@ -4649,11 +4610,11 @@ msgstr "Fractal 4"
 msgid "Vertical bars"
 msgstr "Vertical bars"
 
-#: /home/jonathan/openshot/openshot/transitions/openshot_logo.pgm
+#: openshot.xml:2968(para)
 msgid "Openshot logo"
 msgstr "Openshot logo"
 
-#: /home/jonathan/openshot/openshot/transitions/clock_left_to_right.pgm
+#: openshot.xml:2734(para)
 msgid "Clock left to right"
 msgstr "Clock left to right"
 
@@ -4661,55 +4622,55 @@ msgstr "Clock left to right"
 msgid "Boxes 2"
 msgstr "Boxes 2"
 
-#: /home/jonathan/openshot/openshot/transitions/spiral_small.pgm
+#: openshot.xml:3098(para)
 msgid "Spiral small"
 msgstr "Spiral small"
 
-#: /home/jonathan/openshot/openshot/transitions/blinds_sliding.png
+#: openshot.xml:2695(para)
 msgid "Blinds sliding"
 msgstr "Blinds sliding"
 
-#: /home/jonathan/openshot/openshot/transitions/sphere.png
+#: openshot.xml:3033(para)
 msgid "Sphere"
 msgstr "Sphere"
 
-#: /home/jonathan/openshot/openshot/transitions/blinds_in_to_out_big.pgm
+#: openshot.xml:2682(para)
 msgid "Blinds in to out big"
 msgstr "Blinds in to out big"
 
-#: /home/jonathan/openshot/openshot/transitions/spiral_big.pgm
+#: openshot.xml:3072(para)
 msgid "Spiral big"
 msgstr "Spiral big"
 
-#: /home/jonathan/openshot/openshot/transitions/star_2.png
+#: openshot.xml:3137(para)
 msgid "Star 2"
 msgstr "Star 2"
 
-#: /home/jonathan/openshot/openshot/transitions/hourglass_3.png
+#: openshot.xml:2929(para)
 msgid "Hourglass 3"
 msgstr "Hourglass 3"
 
-#: /home/jonathan/openshot/openshot/transitions/star_1.png
+#: openshot.xml:3124(para)
 msgid "Star 1"
 msgstr "Star 1"
 
-#: /home/jonathan/openshot/openshot/transitions/hourglass_4.png
+#: openshot.xml:2942(para)
 msgid "Hourglass 4"
 msgstr "Hourglass 4"
 
-#: /home/jonathan/openshot/openshot/transitions/vertical_blinds_in_to_out.pgm
+#: openshot.xml:3150(para)
 msgid "Vertical blinds in to out"
 msgstr "Vertical blinds in to out"
 
-#: /home/jonathan/openshot/openshot/transitions/hourglass_1.png
+#: openshot.xml:2903(para)
 msgid "Hourglass 1"
 msgstr "Hourglass 1"
 
-#: /home/jonathan/openshot/openshot/transitions/wipe_top_to_bottom.svg
+#: openshot.xml:3267(para)
 msgid "Wipe top to bottom"
 msgstr "Wipe top to bottom"
 
-#: /home/jonathan/openshot/openshot/transitions/hourglass_2.png
+#: openshot.xml:2916(para)
 msgid "Hourglass 2"
 msgstr "Hourglass 2"
 

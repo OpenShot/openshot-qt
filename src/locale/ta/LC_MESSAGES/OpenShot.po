@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2012-09-26 09:57+0000\n"
-"PO-Revision-Date: 2012-07-24 16:52+0000\n"
-"Last-Translator: Vivek Ganesan <Unknown>\n"
+"PO-Revision-Date: 2013-10-09 05:14+0000\n"
+"Last-Translator: சதீஸ்குமார் வரதராசு <Unknown>\n"
 "Language-Team: Tamil <ta@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-09-27 04:40+0000\n"
-"X-Generator: Launchpad (build 16033)\n"
+"X-Launchpad-Export-Date: 2013-10-10 04:41+0000\n"
+"X-Generator: Launchpad (build 16799)\n"
 
 #: /home/jonathan/openshot/openshot/windows/TreeEffects.py:48
 #: /home/jonathan/openshot/openshot/windows/TreeFiles.py:47
@@ -23,14 +23,11 @@ msgstr ""
 msgid "Thumb"
 msgstr "கட்டை விரல்"
 
-#: /home/jonathan/openshot/openshot/windows/TreeEffects.py:49
-#: /home/jonathan/openshot/openshot/windows/TreeBlender.py:45
+#: openshot.xml:4223(para)
 msgid "Name"
 msgstr "பெயர்"
 
-#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:36
-#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:85
-#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:158
+#: openshot.xml:1452(para)
 msgid "Transition"
 msgstr "மாறுதல்"
 
@@ -41,18 +38,15 @@ msgstr "மாறுதல்"
 #: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:211
 #: /home/jonathan/openshot/openshot/effects/mask0mate.xml
 msgid "Mask"
-msgstr ""
+msgstr "முகமூடி"
 
-#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:43
-#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:117
-#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:215
+#: openshot.xml:767(para) openshot.xml:2083(para)
 msgid "Up"
-msgstr "மேலே"
+msgstr "மேல்"
 
-#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:43
-#: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:122
+#: openshot.xml:775(para) openshot.xml:2091(para)
 msgid "Down"
-msgstr "கீழே"
+msgstr "கீழ்"
 
 #: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:223
 msgid "Modified transition properties"
@@ -117,7 +111,7 @@ msgstr "கோப்பு சேர்க்கப் பட்டது"
 #: /home/jonathan/openshot/openshot/windows/ExportVideo.py:713
 #: /home/jonathan/openshot/openshot/classes/video.py:138
 msgid "Image Sequence"
-msgstr ""
+msgstr "பட வரிசை"
 
 #: /home/jonathan/openshot/openshot/windows/BlenderGenerator.py:874
 msgid "No frame was found in the output from Blender"
@@ -142,15 +136,15 @@ msgstr "கரைதல்"
 
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:121
 msgid "New Track 1"
-msgstr ""
+msgstr "புதிய தடம் 1"
 
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:122
 msgid "New Track 2"
-msgstr ""
+msgstr "புதிய தடம் 2"
 
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:126
 msgid "New Track"
-msgstr ""
+msgstr "புதிய தடம்"
 
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:156
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:161
@@ -159,17 +153,11 @@ msgstr ""
 msgid "No Fade"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:156
-#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:372
-#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1140
-#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1509
+#: openshot.xml:1930(para) openshot.xml:2015(para)
 msgid "Fade In"
 msgstr "தேய்ந்து மறைய"
 
-#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:156
-#: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:377
-#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1154
-#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1520
+#: openshot.xml:1938(para) openshot.xml:2023(para)
 msgid "Fade Out"
 msgstr ""
 
@@ -183,31 +171,31 @@ msgstr ""
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3460
 #: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:10
 msgid "No Animation"
-msgstr ""
+msgstr "அசைவூட்டம் இல்லாமல்"
 
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:173
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3467
 #: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:46
 msgid "Zoom In (100% to 150%)"
-msgstr ""
+msgstr "பெரிதாக்கு (100% லிருந்து 150%)"
 
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:173
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3471
 #: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:26
 msgid "Zoom In (50% to 100%)"
-msgstr ""
+msgstr "பெரிதாக்கு (50% லிருந்து 100%)"
 
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:173
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3483
 #: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:66
 msgid "Zoom Out (100% to 50%)"
-msgstr ""
+msgstr "சிறிதாக்கு (100% லிருந்து 50%)"
 
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:173
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3487
 #: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:76
 msgid "Zoom Out (150% to 100%)"
-msgstr ""
+msgstr "சிறிதாக்கு (150% லிருந்து 100%)"
 
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:354
 #: /home/jonathan/openshot/openshot/windows/ImportImageSeq.py:79
@@ -242,7 +230,7 @@ msgstr ""
 #: /home/jonathan/openshot/openshot/uploads/manager.py:370
 #: /home/jonathan/openshot/openshot/uploads/manager.py:393
 msgid "Validation Error!"
-msgstr ""
+msgstr "சரிபார்ப்பு பிழை"
 
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:354
 msgid "The top track must be higher than the bottom track."
@@ -271,7 +259,7 @@ msgstr ""
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:1070
 #: /home/jonathan/openshot/openshot/windows/TreeFiles.py:59
 msgid "Choose a Video or Audio File to Begin"
-msgstr ""
+msgstr "துவங்குவதற்கு ஒரு காணொளி அல்லது ஒலி கோப்பைத் தேர்வு செய்யவும்"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:1470
 msgid "Added clip"
@@ -279,15 +267,15 @@ msgstr ""
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:1526
 msgid "Save changes to project \"{0}\" before closing?"
-msgstr ""
+msgstr "மூடுவதற்கு மின் திட்டம்  \"{0}\" ல் மற்றங்களை சேமிக்கவா?"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:1526
 msgid "If you close without saving, your changes will be discarded."
-msgstr ""
+msgstr "நீங்கள் சேமிக்காமல் மூடினால், உங்கள் மாற்றங்கள் நிராகரிக்கப்படும்."
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:1526
 msgid "Close _without saving"
-msgstr "சேமிக்காமல்  மூடு"
+msgstr "சேமிக்காமல்  மூடு (_w)"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:1732
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:1745
@@ -336,17 +324,17 @@ msgstr ""
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2183
 #: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1312
 msgid "Video Preview"
-msgstr "ஒளித்தோற்ற முன்னோட்டம்"
+msgstr "காணொளி முன்னோட்டம்"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2015
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2054
 #, python-format
 msgid "Video Preview (%sX)"
-msgstr ""
+msgstr "காணொளி முன்னோட்டம் (%sX)"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2161
 msgid "Video Preview (Paused)"
-msgstr ""
+msgstr "காணொளி முன்னோட்டம் (இடைநிறுத்தபட்டது)"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2388
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2871
@@ -355,38 +343,38 @@ msgstr ""
 #: /home/jonathan/openshot/openshot/classes/sequences.py:51
 #, python-format
 msgid "Track %s"
-msgstr ""
+msgstr "தடம் %s"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2505
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2524
 #, python-format
 msgid "%s seconds"
-msgstr ""
+msgstr "%s வினாடிகள்"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2616
 #: /home/jonathan/openshot/openshot/windows/AddFiles.py:91
 msgid "Empty Folder "
-msgstr ""
+msgstr "காலி அடைவு "
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2616
 #: /home/jonathan/openshot/openshot/windows/AddFiles.py:91
 msgid "The selected folder was empty."
-msgstr ""
+msgstr "தேர்ந்தெடுத்த அடைவு காலியாக உள்ளது."
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2618
 #: /home/jonathan/openshot/openshot/windows/AddFiles.py:93
 msgid "Empty Folders"
-msgstr ""
+msgstr "காலி அடைவுகள்"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2618
 #: /home/jonathan/openshot/openshot/windows/AddFiles.py:93
 msgid "The selected folders were empty."
-msgstr ""
+msgstr "தேர்ந்தெடுத்த அடைவுகள் காலியாக உள்ளன."
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2622
 #: /home/jonathan/openshot/openshot/windows/AddFiles.py:97
 msgid "Unsupported File Type"
-msgstr ""
+msgstr "துணைபுரியாத கோப்பு வகை"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2622
 #: /home/jonathan/openshot/openshot/windows/AddFiles.py:97
@@ -396,7 +384,7 @@ msgstr ""
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2624
 #: /home/jonathan/openshot/openshot/windows/AddFiles.py:99
 msgid "Unsupported File Types"
-msgstr ""
+msgstr "துணைபுரியாத கோப்பு வகைகள்"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2624
 #: /home/jonathan/openshot/openshot/windows/AddFiles.py:99
@@ -406,17 +394,17 @@ msgstr ""
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2628
 #: /home/jonathan/openshot/openshot/windows/AddFiles.py:103
 msgid "Already Imported File"
-msgstr ""
+msgstr "ஏற்கனவே சேர்க்கப்பட்ட கோப்பு"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2628
 #: /home/jonathan/openshot/openshot/windows/AddFiles.py:103
 msgid "The selected file has already been imported to the project."
-msgstr ""
+msgstr "தேர்ந்தெடுத்த கோப்பு ஏற்கனவே திட்டத்தில் சேர்க்கப்பட்டுவிட்டது."
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2630
 #: /home/jonathan/openshot/openshot/windows/AddFiles.py:105
 msgid "Already Imported Files"
-msgstr ""
+msgstr "ஏற்கனவே சேர்க்கப்பட்ட கோப்புகள்"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2630
 #: /home/jonathan/openshot/openshot/windows/AddFiles.py:105
@@ -445,7 +433,7 @@ msgstr ""
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2933
 msgid "Removed track"
-msgstr ""
+msgstr "நீக்கப்பட்ட தடம்"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2941
 msgid "Moved track up"
@@ -459,8 +447,7 @@ msgstr ""
 msgid "Removed marker"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/windows/MainGTK.py:3030
-#: /home/jonathan/openshot/openshot/windows/ui/Main_transition_properties.ui:36
+#: openshot.xml:2644(title)
 msgid "Convert to Mask"
 msgstr "முகமூடியாக மாற்று"
 
@@ -742,11 +729,7 @@ msgstr ""
 msgid "Remove from Project"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/windows/MainGTK.py:4188
-#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:95
-#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:269
-#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:617
-#: /home/jonathan/openshot/openshot/windows/ExportVideo.py:819
+#: openshot.xml:3987(title)
 msgid "Upload to Web"
 msgstr ""
 
@@ -1027,7 +1010,8 @@ msgstr ""
 msgid "There was an error saving this project as XML."
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/windows/About.py:65
+#. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
+#: openshot.xml:0(None)
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -1036,6 +1020,7 @@ msgstr ""
 "  Vivek Ganesan https://launchpad.net/~vivganes\n"
 "  shirdi.saidasan@gmail.com https://launchpad.net/~shirdi-saidasan\n"
 "  swamytk https://launchpad.net/~swamytk\n"
+"  சதீஸ்குமார் வரதராசு https://launchpad.net/~vsathishkumarmca\n"
 "  நவீன் குமார்(கெம்ளின்) https://launchpad.net/~naveenmtp"
 
 #: /home/jonathan/openshot/openshot/windows/OpenProject.py:42
@@ -1225,8 +1210,7 @@ msgstr "செயல்"
 msgid "Save Project As..."
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/windows/NewProject.py:86
-#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:8
+#: openshot.xml:1069(title)
 msgid "Create a Project"
 msgstr ""
 
@@ -1600,9 +1584,7 @@ msgstr ""
 msgid "Import New Transition..."
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:158
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:560
-#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:341
+#: openshot.xml:303(para)
 msgid "Save Project"
 msgstr "சேமிக்க"
 
@@ -1688,13 +1670,11 @@ msgstr "திட்டப்பணியை திற"
 msgid "Save"
 msgstr "சேமி"
 
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:585
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:587
+#: openshot.xml:314(para)
 msgid "Undo"
 msgstr "மீள்செயல்"
 
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:601
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:603
+#: openshot.xml:325(para)
 msgid "Redo"
 msgstr "மீண்டும் செய்"
 
@@ -1703,10 +1683,7 @@ msgstr "மீண்டும் செய்"
 msgid "Take Snapshot"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:663
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:665
-#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:7
-#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:957
+#: openshot.xml:347(para) openshot.xml:3976(title)
 msgid "Export Video"
 msgstr "வீடியோவை ஏற்றுமதி செய்ய"
 
@@ -1748,8 +1725,7 @@ msgstr "படம்"
 msgid "Show only image files"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:864
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:865
+#: openshot.xml:192(para) openshot.xml:361(title)
 msgid "Project Files"
 msgstr "திட்டப்பணி கோப்புகள்"
 
@@ -1765,8 +1741,7 @@ msgstr "பொதுவாக"
 msgid "Show only common transitions"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:977
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:978
+#: openshot.xml:2509(title)
 msgid "Transitions"
 msgstr ""
 
@@ -1782,9 +1757,7 @@ msgstr ""
 msgid "Show only audio effects"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1110
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1111
-#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:2047
+#: openshot.xml:3271(title)
 msgid "Effects"
 msgstr "சிறப்பீடு"
 
@@ -1808,8 +1781,7 @@ msgstr "முன்னாக தேடு"
 msgid "Seek to Ending"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1346
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1348
+#: openshot.xml:475(para) openshot.xml:1591(para)
 msgid "Add Track"
 msgstr ""
 
@@ -1823,8 +1795,7 @@ msgstr ""
 msgid "Razor Tool"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1401
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1403
+#: openshot.xml:2557(para)
 msgid "Resize Tool"
 msgstr "அளவுமாற்று"
 
@@ -1833,18 +1804,15 @@ msgstr "அளவுமாற்று"
 msgid "Snapping Tool"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1440
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1442
+#: openshot.xml:530(para) openshot.xml:1646(para)
 msgid "Add Marker"
 msgstr "குறியீடு சேர்க்க"
 
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1454
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1456
+#: openshot.xml:541(para) openshot.xml:1657(para)
 msgid "Previous Marker"
 msgstr "முன்னே குறியிடப்பட்ட இடம்"
 
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1469
-#: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1471
+#: openshot.xml:552(para) openshot.xml:1668(para)
 msgid "Next Marker"
 msgstr "அடுத்த குறியிட்ட இடம்"
 
@@ -1870,8 +1838,7 @@ msgstr ""
 msgid "Zoom Out"
 msgstr "விலகிப்பார்"
 
-#: /home/jonathan/openshot/openshot/windows/ui/UploadVideo.ui:9
-#: /home/jonathan/openshot/openshot/windows/ui/UploadVideo.ui:341
+#: openshot.xml:3997(title)
 msgid "Upload Video"
 msgstr ""
 
@@ -1923,7 +1890,7 @@ msgstr ""
 msgid "Cancel"
 msgstr "ரத்துசெய்"
 
-#: /home/jonathan/openshot/openshot/windows/ui/About.ui:8
+#: openshot.xml:4514(title)
 msgid "About OpenShot"
 msgstr ""
 
@@ -2055,7 +2022,7 @@ msgstr ""
 msgid "Remove Marker"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/windows/ui/titles.ui:10
+#: openshot.xml:2219(title)
 msgid "Title Editor"
 msgstr ""
 
@@ -2117,7 +2084,7 @@ msgstr "மறுபதிவாக்கு"
 msgid "Make a copy of this clip"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:86
+#: openshot.xml:1430(para)
 msgid "Fade"
 msgstr "மங்கிய"
 
@@ -2133,8 +2100,7 @@ msgstr ""
 msgid "Animate this clip"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:110
-#: /home/jonathan/openshot/openshot/effects/rotate.xml
+#: openshot.xml:2007(para)
 msgid "Rotate"
 msgstr "சுழற்று"
 
@@ -2171,7 +2137,7 @@ msgstr ""
 msgid "Remove Clip"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/windows/ui/AddFiles.ui:10
+#: openshot.xml:336(para)
 msgid "Import Files"
 msgstr "கோப்புகளை இறக்குமதி செய்ய"
 
@@ -2212,10 +2178,7 @@ msgstr ""
 msgid "Width:"
 msgstr "அகலம்:"
 
-#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:170
-#: /home/jonathan/openshot/openshot/windows/ui/NewProject.ui:194
-#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:482
-#: /home/jonathan/openshot/openshot/windows/ui/ExportVideo.ui:495
+#: openshot.xml:4149(para)
 msgid "0"
 msgstr "0"
 
@@ -2242,7 +2205,7 @@ msgstr "0.00"
 msgid "Progressive:"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:39
+#: openshot.xml:1251(title)
 msgid "Add to Timeline"
 msgstr "காலப்பட்டையில் சேர்க்க"
 
@@ -2311,7 +2274,7 @@ msgstr ""
 msgid "Move selected files up"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:405
+#: openshot.xml:1474(para)
 msgid "Move Up"
 msgstr "மேலே செல்"
 
@@ -2319,7 +2282,7 @@ msgstr "மேலே செல்"
 msgid "Move the selected files down"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:419
+#: openshot.xml:1485(para)
 msgid "Move Down"
 msgstr "கீழே செல்"
 
@@ -2335,7 +2298,7 @@ msgstr "கலக்கு"
 msgid "Remove the selected files"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/windows/ui/AddToTimeline.ui:456
+#: openshot.xml:2075(para)
 msgid "Remove"
 msgstr "நீக்க"
 
@@ -2353,8 +2316,7 @@ msgstr ""
 msgid "Select Transition:"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/windows/ui/AddEffect.ui:8
-#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1679
+#: openshot.xml:3389(para)
 msgid "Add Effect"
 msgstr "சிறப்பீடு சேர்"
 
@@ -2439,7 +2401,7 @@ msgstr ""
 msgid "Repeat Sequence:"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:97
+#: openshot.xml:1694(title)
 msgid "Clip Properties"
 msgstr "துண்டின் தன்மைகள்"
 
@@ -2456,11 +2418,11 @@ msgstr "கோப்பு பெயர்:"
 msgid "N/A"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:286
+#: openshot.xml:1733(para)
 msgid "Enable Audio"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:301
+#: openshot.xml:1725(para)
 msgid "Enable Video"
 msgstr ""
 
@@ -2492,8 +2454,7 @@ msgstr "எளியது"
 msgid "Advanced"
 msgstr "உயர்நிலை"
 
-#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:713
-#: /home/jonathan/openshot/openshot/effects/phaser.xml
+#: openshot.xml:1810(para)
 msgid "Speed"
 msgstr "வேகம்"
 
@@ -2525,11 +2486,11 @@ msgstr "%"
 msgid "Volume:"
 msgstr "ஒலியளவு:"
 
-#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1316
+#: openshot.xml:1975(para)
 msgid "Stretch Full Screen"
 msgstr "முழுத்திரைக்கு விரிய"
 
-#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1329
+#: openshot.xml:1983(para)
 msgid "Maintain Aspect Ratio"
 msgstr "நீள அகல விகிதத்தை தக்க வை"
 
@@ -2557,7 +2518,7 @@ msgstr ""
 msgid "toolbutton1"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/windows/ui/ClipProperties.ui:1695
+#: openshot.xml:3400(para)
 msgid "Remove Effect"
 msgstr ""
 
@@ -2702,7 +2663,7 @@ msgstr ""
 msgid "Autosave"
 msgstr "தானே சேமி"
 
-#: /home/jonathan/openshot/openshot/windows/ui/BlenderGenerator.ui:9
+#: openshot.xml:2388(title)
 msgid "Animated Title Editor"
 msgstr ""
 
@@ -2722,7 +2683,7 @@ msgstr ""
 msgid "10/250"
 msgstr "10/250"
 
-#: /home/jonathan/openshot/openshot/windows/ui/BlenderGenerator.ui:140
+#: openshot.xml:2480(para)
 msgid "Refresh"
 msgstr "புதுப்பி"
 
@@ -2730,7 +2691,7 @@ msgstr "புதுப்பி"
 msgid "<b>Modify the 3D Settings</b>"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/windows/ui/BlenderGenerator.ui:257
+#: openshot.xml:2502(para)
 msgid "Render"
 msgstr ""
 
@@ -2903,7 +2864,7 @@ msgstr ""
 msgid "Cartoonify the image, using a form of edge detection"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/blender/trees.xml
+#: openshot.xml:4048(para)
 msgid "Title"
 msgstr "தலைப்பு"
 
@@ -3379,7 +3340,7 @@ msgstr ""
 msgid "Old Film"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/effects/defish0r.xml
+#: openshot.xml:2605(para)
 msgid "Type"
 msgstr ""
 
@@ -3475,7 +3436,7 @@ msgstr "துவக்கு"
 msgid "X Center"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/effects/vignette.xml
+#: openshot.xml:2627(para)
 msgid "Softness"
 msgstr ""
 
@@ -3568,7 +3529,7 @@ msgstr ""
 msgid "Saturation"
 msgstr "தெவிட்டம்"
 
-#: /home/jonathan/openshot/openshot/blender/magic_wand.xml
+#: openshot.xml:1894(para)
 msgid "Alpha"
 msgstr "ஆல்பா"
 
@@ -3632,7 +3593,7 @@ msgstr ""
 msgid "Spots: Color Threshold"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/effects/old_lines.xml
+#: openshot.xml:1870(para)
 msgid "Width"
 msgstr "அகலம்"
 
@@ -3688,7 +3649,7 @@ msgstr "மாறளவு"
 msgid "Frame Number"
 msgstr "சட்டத்தின் எண்"
 
-#: /home/jonathan/openshot/openshot/effects/mask0mate.xml
+#: openshot.xml:799(para)
 msgid "Right"
 msgstr ""
 
@@ -4156,7 +4117,7 @@ msgstr ""
 msgid "World Map (Realistic)"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/effects/mask0mate.xml
+#: openshot.xml:783(para)
 msgid "Left"
 msgstr ""
 
@@ -4382,11 +4343,11 @@ msgstr ""
 msgid "Flickr-HD"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/fractal_8.png
+#: openshot.xml:2851(para)
 msgid "Fractal 8"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/vertical_blinds_in_to_out_big.pgm
+#: openshot.xml:3163(para)
 msgid "Vertical blinds in to out big"
 msgstr ""
 
@@ -4394,39 +4355,39 @@ msgstr ""
 msgid "Icons"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/fractal_2.png
+#: openshot.xml:2773(para)
 msgid "Fractal 2"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/fractal_3.png
+#: openshot.xml:2786(para)
 msgid "Fractal 3"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/fractal_1.png
+#: openshot.xml:2760(para)
 msgid "Fractal 1"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/fractal_6.png
+#: openshot.xml:2825(para)
 msgid "Fractal 6"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/fractal_7.png
+#: openshot.xml:2838(para)
 msgid "Fractal 7"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/spots.png
+#: openshot.xml:3111(para)
 msgid "Spots"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/fractal_5.png
+#: openshot.xml:2812(para)
 msgid "Fractal 5"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/wipe_diagonal_4.png
+#: openshot.xml:3228(para)
 msgid "Wipe diagonal 4"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/wipe_diagonal_1.png
+#: openshot.xml:3189(para)
 msgid "Wipe diagonal 1"
 msgstr ""
 
@@ -4434,47 +4395,47 @@ msgstr ""
 msgid "Board"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/wipe_diagonal_3.png
+#: openshot.xml:3215(para)
 msgid "Wipe diagonal 3"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/wipe_diagonal_2.png
+#: openshot.xml:3202(para)
 msgid "Wipe diagonal 2"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/circle_in_to_out.svg
+#: openshot.xml:2708(para)
 msgid "Circle in to out"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/hatched_1.png
+#: openshot.xml:2864(para)
 msgid "Hatched 1"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/hatched_2.png
+#: openshot.xml:2877(para)
 msgid "Hatched 2"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/hatched_3.png
+#: openshot.xml:2890(para)
 msgid "Hatched 3"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/puzzle_7_by_7.png
+#: openshot.xml:2981(para)
 msgid "Puzzle 7 by 7"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/mountains.png
+#: openshot.xml:2955(para)
 msgid "Mountains"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/blinds_in_to_out.pgm
+#: openshot.xml:2669(para)
 msgid "Blinds in to out"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/clock_right_to_left.pgm
+#: openshot.xml:2747(para)
 msgid "Clock right to left"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/spiral_medium.pgm
+#: openshot.xml:3085(para)
 msgid "Spiral medium"
 msgstr ""
 
@@ -4482,7 +4443,7 @@ msgstr ""
 msgid "Clouds 2"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/wipe_left_to_right.svg
+#: openshot.xml:3241(para)
 msgid "Wipe left to right"
 msgstr ""
 
@@ -4494,11 +4455,11 @@ msgstr ""
 msgid "Bubbles"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/wipe_bottom_to_top.svg
+#: openshot.xml:3176(para)
 msgid "Wipe bottom to top"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/rectangle_out_to_in.pgm
+#: openshot.xml:3007(para)
 msgid "Rectangle out to in"
 msgstr ""
 
@@ -4506,31 +4467,31 @@ msgstr ""
 msgid "Clouds"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/wipe_right_to_left.svg
+#: openshot.xml:3254(para)
 msgid "Wipe right to left"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/circle_out_to_in.svg
+#: openshot.xml:2721(para)
 msgid "Circle out to in"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/spiral_abstract_1.png
+#: openshot.xml:3046(para)
 msgid "Spiral abstract 1"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/rectangle_in_to_out.pgm
+#: openshot.xml:2994(para)
 msgid "Rectangle in to out"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/spiral_abstract_2.png
+#: openshot.xml:3059(para)
 msgid "Spiral abstract 2"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/sand.svg
+#: openshot.xml:3020(para)
 msgid "Sand"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/fractal_4.png
+#: openshot.xml:2799(para)
 msgid "Fractal 4"
 msgstr ""
 
@@ -4538,11 +4499,11 @@ msgstr ""
 msgid "Vertical bars"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/openshot_logo.pgm
+#: openshot.xml:2968(para)
 msgid "Openshot logo"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/clock_left_to_right.pgm
+#: openshot.xml:2734(para)
 msgid "Clock left to right"
 msgstr ""
 
@@ -4550,55 +4511,55 @@ msgstr ""
 msgid "Boxes 2"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/spiral_small.pgm
+#: openshot.xml:3098(para)
 msgid "Spiral small"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/blinds_sliding.png
+#: openshot.xml:2695(para)
 msgid "Blinds sliding"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/sphere.png
+#: openshot.xml:3033(para)
 msgid "Sphere"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/blinds_in_to_out_big.pgm
+#: openshot.xml:2682(para)
 msgid "Blinds in to out big"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/spiral_big.pgm
+#: openshot.xml:3072(para)
 msgid "Spiral big"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/star_2.png
+#: openshot.xml:3137(para)
 msgid "Star 2"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/hourglass_3.png
+#: openshot.xml:2929(para)
 msgid "Hourglass 3"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/star_1.png
+#: openshot.xml:3124(para)
 msgid "Star 1"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/hourglass_4.png
+#: openshot.xml:2942(para)
 msgid "Hourglass 4"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/vertical_blinds_in_to_out.pgm
+#: openshot.xml:3150(para)
 msgid "Vertical blinds in to out"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/hourglass_1.png
+#: openshot.xml:2903(para)
 msgid "Hourglass 1"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/wipe_top_to_bottom.svg
+#: openshot.xml:3267(para)
 msgid "Wipe top to bottom"
 msgstr ""
 
-#: /home/jonathan/openshot/openshot/transitions/hourglass_2.png
+#: openshot.xml:2916(para)
 msgid "Hourglass 2"
 msgstr ""
 

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2012-09-26 09:57+0000\n"
-"PO-Revision-Date: 2012-10-30 14:10+0000\n"
-"Last-Translator: Yaron <sh.yaron@gmail.com>\n"
+"PO-Revision-Date: 2013-07-29 08:09+0000\n"
+"Last-Translator: Guy Dafny <Unknown>\n"
 "Language-Team: Hebrew <he@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-10-31 04:41+0000\n"
-"X-Generator: Launchpad (build 16218)\n"
+"X-Launchpad-Export-Date: 2013-07-30 04:40+0000\n"
+"X-Generator: Launchpad (build 16700)\n"
 
 #: /home/jonathan/openshot/openshot/windows/TreeEffects.py:48
 #: /home/jonathan/openshot/openshot/windows/TreeFiles.py:47
@@ -2948,7 +2948,7 @@ msgstr "משך ההנפשה"
 
 #: /home/jonathan/openshot/openshot/effects/alphagrad.xml
 msgid "Alphagrad"
-msgstr ""
+msgstr "שקיפות מדורגת"
 
 #: /home/jonathan/openshot/openshot/blender/earth_real.xml
 msgid "Depart Latitude (minutes)"
@@ -4162,7 +4162,7 @@ msgstr "התאמת גודל"
 
 #: /home/jonathan/openshot/openshot/effects/vignette.xml
 msgid "Vignette"
-msgstr ""
+msgstr "הכהיית פינות"
 
 #: /home/jonathan/openshot/openshot/blender/earth_real.xml
 msgid "Arrival Title"

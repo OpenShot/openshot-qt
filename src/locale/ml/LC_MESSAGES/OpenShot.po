@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2012-09-26 09:57+0000\n"
-"PO-Revision-Date: 2012-10-01 14:45+0000\n"
-"Last-Translator: Salil <salilgk@gmail.com>\n"
+"PO-Revision-Date: 2013-12-08 09:55+0000\n"
+"Last-Translator: STyM Alfazz <Unknown>\n"
 "Language-Team: Malayalam <ml@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-10-02 05:21+0000\n"
-"X-Generator: Launchpad (build 16061)\n"
+"X-Launchpad-Export-Date: 2013-12-09 05:20+0000\n"
+"X-Generator: Launchpad (build 16869)\n"
 
 #: /home/jonathan/openshot/openshot/windows/TreeEffects.py:48
 #: /home/jonathan/openshot/openshot/windows/TreeFiles.py:47
@@ -29,7 +29,7 @@ msgstr "പേര്"
 
 #: openshot.xml:1452(para)
 msgid "Transition"
-msgstr ""
+msgstr "രൂപാന്തരം"
 
 #: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:36
 #: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:79
@@ -38,19 +38,19 @@ msgstr ""
 #: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:211
 #: /home/jonathan/openshot/openshot/effects/mask0mate.xml
 msgid "Mask"
-msgstr ""
+msgstr "മുഖംമൂടി"
 
 #: openshot.xml:767(para) openshot.xml:2083(para)
 msgid "Up"
-msgstr ""
+msgstr "മുകളിലേക്ക്"
 
 #: openshot.xml:775(para) openshot.xml:2091(para)
 msgid "Down"
-msgstr ""
+msgstr "താഴോട്ട്"
 
 #: /home/jonathan/openshot/openshot/windows/TransitionProperties.py:223
 msgid "Modified transition properties"
-msgstr ""
+msgstr "മാറ്റിയ  രൂപാന്തരത്തിന്റെ ഗുണഗണങ്ങള്‍"
 
 #: /home/jonathan/openshot/openshot/windows/BlenderGenerator.py:651
 #, python-format
@@ -60,6 +60,10 @@ msgid ""
 "Version Detected:\n"
 "%s"
 msgstr ""
+"\n"
+"\n"
+"പതിപ്പ് കണ്ടെത്തി:\n"
+"%s"
 
 #: /home/jonathan/openshot/openshot/windows/BlenderGenerator.py:654
 #, python-format
@@ -69,10 +73,14 @@ msgid ""
 "Error Output:\n"
 "%s"
 msgstr ""
+"\n"
+"\n"
+"ഔട്ട്പുട്ട് പിശക്:\n"
+"%s"
 
 #: /home/jonathan/openshot/openshot/windows/BlenderGenerator.py:658
 msgid "Blender Error"
-msgstr ""
+msgstr "ബ്ലെന്‍ഡര്‍ പിശക്"
 
 #: /home/jonathan/openshot/openshot/windows/BlenderGenerator.py:658
 #, python-format
@@ -94,7 +102,7 @@ msgstr ""
 #: /home/jonathan/openshot/openshot/classes/files.py:270
 #: /home/jonathan/openshot/openshot/classes/files.py:372
 msgid "Added file"
-msgstr ""
+msgstr "ഫയല്‍ ചേര്‍ത്തു"
 
 #: /home/jonathan/openshot/openshot/windows/BlenderGenerator.py:708
 #: /home/jonathan/openshot/openshot/windows/ImportImageSeq.py:148
@@ -111,91 +119,91 @@ msgstr ""
 #: /home/jonathan/openshot/openshot/windows/ExportVideo.py:713
 #: /home/jonathan/openshot/openshot/classes/video.py:138
 msgid "Image Sequence"
-msgstr ""
+msgstr "ചിത്ര നിര"
 
 #: /home/jonathan/openshot/openshot/windows/BlenderGenerator.py:874
 msgid "No frame was found in the output from Blender"
-msgstr ""
+msgstr "ബ്ലെന്‍ഡറില്‍ ഔട്ട്പുട്ടില്‍ ഫ്രെയിം ഒന്നും കണ്ടെത്താനായില്ല"
 
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:85
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:110
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:334
 msgid "No Transition"
-msgstr ""
+msgstr "രൂപാന്തരം വേണ്ട"
 
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:86
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:337
 msgid "Random Transition"
-msgstr ""
+msgstr "ഏതെങ്കിലും രൂപാന്തരം"
 
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:87
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:88
 #: /home/jonathan/openshot/openshot/windows/IcvTransitions.py:85
 msgid "Dissolve"
-msgstr ""
+msgstr "ലയനം"
 
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:121
 msgid "New Track 1"
-msgstr ""
+msgstr "പുതിയ ട്രാക്ക് 1"
 
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:122
 msgid "New Track 2"
-msgstr ""
+msgstr "പുതിയ ട്രാക്ക് 2"
 
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:126
 msgid "New Track"
-msgstr ""
+msgstr "പുതിയ ട്രാക്ക്‌"
 
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:156
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:161
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3243
 #: /home/jonathan/openshot/openshot/windows/ui/Main_fade_menu.ui:10
 msgid "No Fade"
-msgstr ""
+msgstr "മങ്ങല്‍ വേണ്ട"
 
 #: openshot.xml:1930(para) openshot.xml:2015(para)
 msgid "Fade In"
-msgstr ""
+msgstr "അകത്തേക്ക് മങ്ങുക"
 
 #: openshot.xml:1938(para) openshot.xml:2023(para)
 msgid "Fade Out"
-msgstr ""
+msgstr "പുറത്തേക്ക് മങ്ങുക"
 
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:156
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:382
 msgid "Fade In & Out"
-msgstr ""
+msgstr "അകത്തേക്കും പുറത്തേക്കും മങ്ങുക"
 
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:173
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:178
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3460
 #: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:10
 msgid "No Animation"
-msgstr ""
+msgstr "ആനിമേഷന്‍ വേണ്ട"
 
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:173
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3467
 #: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:46
 msgid "Zoom In (100% to 150%)"
-msgstr ""
+msgstr "വലുതാക്കുക (100% മതല്‍ 150% വരെ)"
 
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:173
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3471
 #: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:26
 msgid "Zoom In (50% to 100%)"
-msgstr "വലുതാക്കുക  (50% to 100%)"
+msgstr "വലുതാക്കുക  (50% മുതല്‍ 100% വരെ)"
 
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:173
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3483
 #: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:66
 msgid "Zoom Out (100% to 50%)"
-msgstr "ചെറുതാക്കുക (100% to 50%)"
+msgstr "ചെറുതാക്കുക (100% മുതല്‍ 50% വരെ)"
 
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:173
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3487
 #: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:76
 msgid "Zoom Out (150% to 100%)"
-msgstr ""
+msgstr "ചെറുതാക്കുക  (150% മുതല്‍ 100% വരെ)"
 
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:354
 #: /home/jonathan/openshot/openshot/windows/ImportImageSeq.py:79
@@ -230,7 +238,7 @@ msgstr ""
 #: /home/jonathan/openshot/openshot/uploads/manager.py:370
 #: /home/jonathan/openshot/openshot/uploads/manager.py:393
 msgid "Validation Error!"
-msgstr ""
+msgstr "സാധുവാക്കലില്‍ പിശക്!"
 
 #: /home/jonathan/openshot/openshot/windows/AddToTimeline.py:354
 msgid "The top track must be higher than the bottom track."
@@ -238,13 +246,13 @@ msgstr ""
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:348
 msgid "Session started"
-msgstr ""
+msgstr "സെഷന്‍ ആരംഭിച്ചു"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:402
 #: /home/jonathan/openshot/openshot/windows/AddFiles.py:117
 #: /home/jonathan/openshot/openshot/windows/AddFiles.py:167
 msgid "Error"
-msgstr ""
+msgstr "പിശക്"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:402
 msgid ""
@@ -259,15 +267,15 @@ msgstr ""
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:1070
 #: /home/jonathan/openshot/openshot/windows/TreeFiles.py:59
 msgid "Choose a Video or Audio File to Begin"
-msgstr ""
+msgstr "തുടങ്ങാനായി ഒരു ശബ്ദ ഫയലോ ചലച്ചിത്ര ഫയലോ തെരെഞ്ഞെടുക്കുക"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:1470
 msgid "Added clip"
-msgstr ""
+msgstr "ക്ലിപ് ചേര്‍ത്തു"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:1526
 msgid "Save changes to project \"{0}\" before closing?"
-msgstr ""
+msgstr "പൂട്ടുന്നതിനു മുമ്പായി പദ്ധതി \"{0}\"യിലെ മാറ്റങ്ങള്‍ സംരക്ഷിക്കണോ?"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:1526
 msgid "If you close without saving, your changes will be discarded."
@@ -275,7 +283,7 @@ msgstr ""
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:1526
 msgid "Close _without saving"
-msgstr ""
+msgstr "_സൂക്ഷിക്കാതെ അടയ്ക്കുക"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:1732
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:1745
@@ -291,7 +299,7 @@ msgstr ""
 #: /home/jonathan/openshot/openshot/classes/theme.py:58
 #: /home/jonathan/openshot/openshot/classes/open_project.py:144
 msgid "Error!"
-msgstr ""
+msgstr "പിശക്!"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:1732
 msgid ""
@@ -303,15 +311,15 @@ msgstr ""
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:1758
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:1770
 msgid "Unable to open the Launchpad web page."
-msgstr ""
+msgstr "ലോഞ്ച്പാഡ് വെബ് താള്‍ തുറക്കാനായില്ല."
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:1781
 msgid "Unable to open the web page."
-msgstr ""
+msgstr "വെബ് താള്‍ തുറക്കാനായില്ല."
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:1874
 msgid "Openshot Error!"
-msgstr ""
+msgstr "ഓപണ്‍ഷോട്ട് പിശക്"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:1874
 msgid "The timeline is empty, there is nothing to export."
@@ -324,17 +332,17 @@ msgstr ""
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2183
 #: /home/jonathan/openshot/openshot/windows/ui/Main.ui:1312
 msgid "Video Preview"
-msgstr ""
+msgstr "ചലച്ചിത്രം കണ്ടുനോക്കുക"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2015
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2054
 #, python-format
 msgid "Video Preview (%sX)"
-msgstr ""
+msgstr "ചലച്ചിത്രം കണ്ടുനോക്കുക (%sX)"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2161
 msgid "Video Preview (Paused)"
-msgstr ""
+msgstr "ചലച്ചിത്രം കണ്ടുനോക്കുക (തത്കാലം നിര്‍ത്തിയിരിക്കുന്നു)"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2388
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2871
@@ -343,58 +351,58 @@ msgstr ""
 #: /home/jonathan/openshot/openshot/classes/sequences.py:51
 #, python-format
 msgid "Track %s"
-msgstr ""
+msgstr "ട്രാക്ക് %s"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2505
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2524
 #, python-format
 msgid "%s seconds"
-msgstr ""
+msgstr "%s സെക്കന്റുകള്‍"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2616
 #: /home/jonathan/openshot/openshot/windows/AddFiles.py:91
 msgid "Empty Folder "
-msgstr ""
+msgstr "ശൂന്യമായ അറ "
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2616
 #: /home/jonathan/openshot/openshot/windows/AddFiles.py:91
 msgid "The selected folder was empty."
-msgstr ""
+msgstr "തെരെഞ്ഞെടുത്ത അറ ശൂന്യമാണ്."
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2618
 #: /home/jonathan/openshot/openshot/windows/AddFiles.py:93
 msgid "Empty Folders"
-msgstr ""
+msgstr "ശൂന്യമായ അറകള്‍"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2618
 #: /home/jonathan/openshot/openshot/windows/AddFiles.py:93
 msgid "The selected folders were empty."
-msgstr ""
+msgstr "തെരെഞ്ഞെടുത്ത അറകള്‍ ശൂന്യമാണ്."
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2622
 #: /home/jonathan/openshot/openshot/windows/AddFiles.py:97
 msgid "Unsupported File Type"
-msgstr ""
+msgstr "പിന്തുണക്കാത്ത തരം ഫയല്‍"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2622
 #: /home/jonathan/openshot/openshot/windows/AddFiles.py:97
 msgid "OpenShot does not support this file type."
-msgstr ""
+msgstr "ഓപണ്‍ഷോട്ട് ഈ തരം ഫയലുകളെ പിന്തുണക്കുന്നില്ല."
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2624
 #: /home/jonathan/openshot/openshot/windows/AddFiles.py:99
 msgid "Unsupported File Types"
-msgstr ""
+msgstr "പിന്തുണക്കാത്ത ഫയല്‍ തരങ്ങള്‍"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2624
 #: /home/jonathan/openshot/openshot/windows/AddFiles.py:99
 msgid "OpenShot supports none of the file types of the selected files."
-msgstr ""
+msgstr "ഓപണ്‍ഷോട്ട് ഈ ഫയല്‍ തരങ്ങളെ പിന്തുണക്കുന്നില്ല."
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2628
 #: /home/jonathan/openshot/openshot/windows/AddFiles.py:103
 msgid "Already Imported File"
-msgstr ""
+msgstr "മുമ്പേ ഇറക്കുമതി ചെയ്ത ഫയല്‍"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2628
 #: /home/jonathan/openshot/openshot/windows/AddFiles.py:103
@@ -404,7 +412,7 @@ msgstr ""
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2630
 #: /home/jonathan/openshot/openshot/windows/AddFiles.py:105
 msgid "Already Imported Files"
-msgstr ""
+msgstr "മുമ്പേ ഇറക്കുമതി ചെയ്ത ഫയലുകള്‍"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2630
 #: /home/jonathan/openshot/openshot/windows/AddFiles.py:105
@@ -414,7 +422,7 @@ msgstr ""
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2633
 #: /home/jonathan/openshot/openshot/windows/AddFiles.py:108
 msgid "File Import Error"
-msgstr ""
+msgstr "ഫയല്‍ ഇറക്കുമതി ചെയ്തതില്‍ പിശക്"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2633
 #: /home/jonathan/openshot/openshot/windows/AddFiles.py:108
@@ -425,23 +433,23 @@ msgstr ""
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2900
 msgid "Please enter a track name."
-msgstr ""
+msgstr "ഒരു ട്രാക്ക് പേര് നല്‍കുക"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2922
 msgid "Cleared track"
-msgstr ""
+msgstr "ട്രാക്ക് ശൂന്യമാക്കി"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2933
 msgid "Removed track"
-msgstr ""
+msgstr "ട്രാക്ക് ഒഴിവാക്കി"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2941
 msgid "Moved track up"
-msgstr ""
+msgstr "ട്രാക്ക് മുകളിലേക്ക് നീക്കി"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:2961
 msgid "Moved track down"
-msgstr ""
+msgstr "ട്രാക്ക് താഴേക്ക് നീക്കി"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3005
 msgid "Removed marker"
@@ -449,29 +457,29 @@ msgstr ""
 
 #: openshot.xml:2644(title)
 msgid "Convert to Mask"
-msgstr ""
+msgstr "മുഖംമൂടിയിലേക്ക് പരിവര്‍ത്തനം നടത്തുക"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3031
 #: /home/jonathan/openshot/openshot/windows/ui/Main_transition_properties.ui:62
 msgid "Remove Transition"
-msgstr ""
+msgstr "രൂപാന്തരം ഒഴിവാക്കുക"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3034
 msgid "Convert to Transition"
-msgstr ""
+msgstr "രൂപാന്തരത്തിലേക്ക് പരിവര്‍ത്തനം നടത്തുക"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3035
 msgid "Remove Mask"
-msgstr ""
+msgstr "മുഖംമൂടി ഒഴിവാക്കുക"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3087
 msgid "Changed transition type"
-msgstr ""
+msgstr "രൂപാന്തര തരം മാറ്റി"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3124
 #: /home/jonathan/openshot/openshot/classes/transition.py:255
 msgid "Removed transition"
-msgstr ""
+msgstr "രൂപാന്തരം ഒഴിവാക്കി"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3144
 msgid "Please enter the # of seconds to shift the transitions:"
@@ -484,127 +492,127 @@ msgstr ""
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3254
 #: /home/jonathan/openshot/openshot/windows/ui/Main_fade_menu.ui:26
 msgid "Fade In (Fast)"
-msgstr ""
+msgstr "അകത്തേക്ക് മങ്ങുക (വേഗത്തില്‍)"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3263
 #: /home/jonathan/openshot/openshot/windows/ui/Main_fade_menu.ui:36
 msgid "Fade Out (Fast)"
-msgstr ""
+msgstr "പുറത്തേക്ക് മങ്ങുക (വേഗത്തില്‍)"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3272
 #: /home/jonathan/openshot/openshot/windows/ui/Main_fade_menu.ui:46
 msgid "Fade In and Out (Fast)"
-msgstr ""
+msgstr "പുറത്തേക്കും അകത്തേക്കും മങ്ങുക (വേഗത്തില്‍)"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3283
 #: /home/jonathan/openshot/openshot/windows/ui/Main_fade_menu.ui:61
 msgid "Fade In (Slow)"
-msgstr ""
+msgstr "അകത്തേക്ക് മങ്ങുക (പതുക്കെ)"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3292
 #: /home/jonathan/openshot/openshot/windows/ui/Main_fade_menu.ui:71
 msgid "Fade Out (Slow)"
-msgstr ""
+msgstr "പുറത്തേക്ക് മങ്ങുക (പതുക്കെ)"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3301
 #: /home/jonathan/openshot/openshot/windows/ui/Main_fade_menu.ui:81
 msgid "Fade In and Out (Slow)"
-msgstr ""
+msgstr "പുറത്തേക്കും അകത്തേക്കും മങ്ങുക (പതുക്കെ)"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3352
 #: /home/jonathan/openshot/openshot/windows/ui/Main_rotate_menu.ui:10
 msgid "No Rotation"
-msgstr ""
+msgstr "കറക്കം വേണ്ട"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3356
 #: /home/jonathan/openshot/openshot/windows/ui/Main_rotate_menu.ui:26
 msgid "Rotate 90 (Right)"
-msgstr ""
+msgstr "90ല്‍ കറക്കുക (വലത്തേക്ക്)"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3360
 #: /home/jonathan/openshot/openshot/windows/ui/Main_rotate_menu.ui:36
 msgid "Rotate 90 (Left)"
-msgstr ""
+msgstr "90ല്‍ കറക്കുക (ഇടത്തേക്ക്)"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3364
 #: /home/jonathan/openshot/openshot/windows/ui/Main_rotate_menu.ui:46
 msgid "Rotate 180 (Flip)"
-msgstr ""
+msgstr "180 കറക്കുക(മറിക്കുക)"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3475
 #: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:36
 msgid "Zoom In (75% to 100%)"
-msgstr ""
+msgstr "വലുതാക്കുക (75% മുതല്‍ 100% വരെ)"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3479
 #: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:56
 msgid "Zoom Out (100% to 75%)"
-msgstr ""
+msgstr "ചെറുതാക്കുക (100% മുതല്‍ 75% വരെ)"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3493
 #: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:91
 msgid "Center to Top"
-msgstr ""
+msgstr "നടുവില്‍ നിന്ന് മുകളിലേക്ക്"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3497
 #: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:101
 msgid "Center to Left"
-msgstr ""
+msgstr "നടുവില്‍ നിന്ന് ഇടത്തേക്ക്"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3501
 #: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:111
 msgid "Center To Right"
-msgstr ""
+msgstr "നടുവില്‍ നിന്ന് വലത്തേക്ക്"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3505
 #: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:121
 msgid "Center to Bottom"
-msgstr ""
+msgstr "നടുവില്‍ നിന്ന് താഴേക്ക്"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3510
 #: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:146
 msgid "Left to Center"
-msgstr ""
+msgstr "ഇടതു നിന്നും നടുവിലേക്ക്"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3514
 #: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:156
 msgid "Right to Center"
-msgstr ""
+msgstr "വലതു നിന്നും നടുവിലേക്ക്"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3518
 #: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:136
 msgid "Top to Center"
-msgstr ""
+msgstr "മുകളില്‍ നിന്നും നടുവിലേക്ക്"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3522
 #: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:166
 msgid "Bottom to Center"
-msgstr ""
+msgstr "താഴെ നിന്നും നടുവിലേക്ക്"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3527
 #: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:191
 msgid "Left to Right"
-msgstr ""
+msgstr "ഇടതു നിന്ന് വലത്തേക്ക്"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3531
 #: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:201
 msgid "Right to Left"
-msgstr ""
+msgstr "വലത് മുതല്‍ ഇടത്"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3535
 #: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:181
 msgid "Top to Bottom"
-msgstr ""
+msgstr "മുകളില്‍ നിന്നും താഴേക്ക്"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3539
 #: /home/jonathan/openshot/openshot/windows/ui/Main_animate_menu.ui:211
 msgid "Bottom to Top"
-msgstr ""
+msgstr "താഴെ നിന്നും മുകളിലേക്ക്"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3596
 #: /home/jonathan/openshot/openshot/windows/ui/Main_layout_menu.ui:10
 msgid "Reset Layout"
-msgstr ""
+msgstr "രൂപരേഖ പുനഃക്രമീകരിക്കുക"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3602
 #: /home/jonathan/openshot/openshot/windows/ui/Main_layout_menu.ui:36
@@ -659,7 +667,7 @@ msgstr ""
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3876
 #: /home/jonathan/openshot/openshot/classes/clip.py:1799
 msgid "Removed clip"
-msgstr ""
+msgstr "ക്ലിപ് നീക്കം ചെയ്തു"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:3896
 msgid "Please enter the # of seconds to shift the clips:"
@@ -683,15 +691,15 @@ msgstr ""
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:4114
 msgid "Create Folder"
-msgstr ""
+msgstr "അറ നിര്‍മ്മിക്കുക"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:4119
 msgid "Add to Timeline..."
-msgstr ""
+msgstr "സമയരേഖയിലേക്ക് ചേര്‍ക്കുക..."
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:4124
 msgid "Preview File"
-msgstr ""
+msgstr "ഫയല്‍ കണ്ടുനോക്കുക"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:4129
 #: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:167
@@ -704,7 +712,7 @@ msgstr ""
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:4139
 msgid "Detail View"
-msgstr ""
+msgstr "വിശദമായി കാണുക"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:4144
 msgid "Move File(s) to Folder"
@@ -714,16 +722,16 @@ msgstr ""
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:4162
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:4330
 msgid "Remove from Folder"
-msgstr ""
+msgstr "അറയില്‍ നിന്ന് നീക്കം ചെയ്യുക"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:4173
 #: /home/jonathan/openshot/openshot/windows/ui/Main_clip_properties.ui:185
 msgid "Edit Title (Simple)"
-msgstr ""
+msgstr "തലക്കെട്ട് തിരുത്തുക (ലളിതം)"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:4178
 msgid "Edit Title (Inkscape)"
-msgstr ""
+msgstr "തലക്കെട്ട് തിരുത്തുക (ഇങ്ക്സ്കേപ്പ്)"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:4183
 msgid "Remove from Project"
@@ -731,12 +739,12 @@ msgstr ""
 
 #: openshot.xml:3987(title)
 msgid "Upload to Web"
-msgstr ""
+msgstr "വെബ്ബിലേക്ക് കയറ്റുമതി ചെയ്യുക"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:4193
 #: /home/jonathan/openshot/openshot/windows/ui/FileProperties.ui:10
 msgid "File Properties"
-msgstr ""
+msgstr "ഫയല്‍ ഗുണഗണങ്ങള്‍"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:4358
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:4409
@@ -756,13 +764,13 @@ msgstr ""
 #: /home/jonathan/openshot/openshot/windows/ExportVideo.py:752
 #: /home/jonathan/openshot/openshot/classes/files.py:164
 msgid "OpenShot Error"
-msgstr ""
+msgstr "ഓപണ്‍ഷോട്ട് പിശക്"
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:4520
 #: /home/jonathan/openshot/openshot/windows/Titles.py:346
 #, python-format
 msgid "Please install %s to use this function."
-msgstr ""
+msgstr "ഈ സൗകര്യം ഉപയോഗിക്കാനായി %s ഇന്‍സ്റ്റാള്‍ ചെയ്യുക."
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:4523
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:4539
@@ -777,7 +785,7 @@ msgstr ""
 
 #: /home/jonathan/openshot/openshot/windows/Profiles.py:182
 msgid "Please enter a profile name."
-msgstr ""
+msgstr "ഒരു പ്രൊഫൈല്‍ പേര് നല്‍കുക."
 
 #: /home/jonathan/openshot/openshot/windows/Profiles.py:187
 msgid "Please enter a valid size."
@@ -816,19 +824,19 @@ msgstr ""
 #: /home/jonathan/openshot/openshot/windows/ClipProperties.py:620
 #: /home/jonathan/openshot/openshot/windows/ClipProperties.py:699
 msgid "Normal Speed"
-msgstr ""
+msgstr "സാധാരണ വേഗത"
 
 #: /home/jonathan/openshot/openshot/windows/ClipProperties.py:67
 #: /home/jonathan/openshot/openshot/windows/ClipProperties.py:768
 msgid "Forward"
-msgstr ""
+msgstr "മുമ്പോട്ട്"
 
 #: /home/jonathan/openshot/openshot/windows/ClipProperties.py:67
 #: /home/jonathan/openshot/openshot/windows/ClipProperties.py:762
 #: /home/jonathan/openshot/openshot/windows/ClipProperties.py:909
 #: /home/jonathan/openshot/openshot/effects/mirror.xml
 msgid "Reverse"
-msgstr ""
+msgstr "വിപരീതം"
 
 #: /home/jonathan/openshot/openshot/windows/ClipProperties.py:74
 #: /home/jonathan/openshot/openshot/windows/ClipProperties.py:595
@@ -837,13 +845,13 @@ msgstr ""
 
 #: /home/jonathan/openshot/openshot/windows/ClipProperties.py:74
 msgid "End of Clip"
-msgstr ""
+msgstr "ക്ലിപ്പിന്റെ അവസാനം"
 
 #: /home/jonathan/openshot/openshot/windows/ClipProperties.py:90
 #: /home/jonathan/openshot/openshot/windows/ClipProperties.py:650
 #: /home/jonathan/openshot/openshot/windows/ClipProperties.py:671
 msgid "{0} seconds"
-msgstr ""
+msgstr "{0} സെക്കന്റുകള്‍"
 
 #: /home/jonathan/openshot/openshot/windows/ClipProperties.py:1020
 msgid "Modified clip properties"
@@ -880,12 +888,12 @@ msgstr ""
 
 #: /home/jonathan/openshot/openshot/windows/Titles.py:234
 msgid "New Title"
-msgstr ""
+msgstr "പുതിയ തലക്കെട്ട്"
 
 #: /home/jonathan/openshot/openshot/windows/Titles.py:238
 #: /home/jonathan/openshot/openshot/windows/ui/TransitionProperties.ui:50
 msgid "Name:"
-msgstr ""
+msgstr "പേര് :"
 
 #: /home/jonathan/openshot/openshot/windows/Titles.py:262
 #, python-format
@@ -1015,6 +1023,7 @@ msgstr ""
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
+"  STyM Alfazz https://launchpad.net/~alfasst\n"
 "  Salil https://launchpad.net/~salilgk"
 
 #: /home/jonathan/openshot/openshot/windows/OpenProject.py:42

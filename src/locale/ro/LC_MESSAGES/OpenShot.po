@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2012-09-26 09:57+0000\n"
-"PO-Revision-Date: 2012-10-17 22:29+0000\n"
-"Last-Translator: Dmitrii Suvorov <suvjunmd@gmail.com>\n"
+"PO-Revision-Date: 2013-12-24 14:44+0000\n"
+"Last-Translator: grevutiu gabriel <gabriel1984sibiu@gmail.com>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-10-18 04:41+0000\n"
-"X-Generator: Launchpad (build 16160)\n"
+"X-Launchpad-Export-Date: 2013-12-25 06:02+0000\n"
+"X-Generator: Launchpad (build 16877)\n"
 
 #: /home/jonathan/openshot/openshot/blender/colors.xml
 msgid "Tile 2: Diffuse Color"
@@ -84,7 +84,7 @@ msgstr ""
 
 #: /home/jonathan/openshot/openshot/windows/BlenderGenerator.py:658
 msgid "Blender Error"
-msgstr "Eroare blender"
+msgstr "Eroare Blender"
 
 #: /home/jonathan/openshot/openshot/windows/BlenderGenerator.py:658
 #, python-format
@@ -100,6 +100,16 @@ msgid ""
 "Blender Path:\n"
 "%s%s"
 msgstr ""
+"Blender, utilitarul open source 3D este necesar pentru această acțiune "
+"(http://www.blender.org).\n"
+"\n"
+"Verificați opțiunile în OpenShot pentru calea către executabilul Blender. "
+"Setarea trebuie să conțină calea către executabil pe computerul "
+"dumneavoastră. În plus, verificați să indice către versiunea %s sau mai "
+"nouă\n"
+"\n"
+"Director instalare Blender\n"
+"%s%s"
 
 #: /home/jonathan/openshot/openshot/windows/BlenderGenerator.py:704
 #: /home/jonathan/openshot/openshot/windows/ImportImageSeq.py:144
@@ -1047,15 +1057,18 @@ msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Alex Eftimie https://launchpad.net/~alexeftimie\n"
+"  Cristiana Nicolae https://launchpad.net/~eeaotly\n"
 "  Dan Telecan https://launchpad.net/~telecan-dan\n"
 "  Denis Darii https://launchpad.net/~dnx\n"
 "  Dmitrii Suvorov https://launchpad.net/~suvjunmd\n"
 "  Dorin Scutarașu https://launchpad.net/~dorins\n"
 "  Lucian Adrian Grijincu https://launchpad.net/~lucian.grijincu\n"
+"  Tibi https://launchpad.net/~avramti-g\n"
 "  ValentinV https://launchpad.net/~valentinverde\n"
 "  cighir.victor https://launchpad.net/~cighir-victor\n"
 "  doru https://launchpad.net/~spown333\n"
 "  dorusto https://launchpad.net/~dorusto\n"
+"  grevutiu gabriel https://launchpad.net/~gabriel1984sibiu\n"
 "  mihaimm https://launchpad.net/~mihaimm\n"
 "  sfantu https://launchpad.net/~sfantus1\n"
 "  svens https://launchpad.net/~svens"
@@ -1142,6 +1155,14 @@ msgid ""
 "missing codecs.\n"
 "<a href='https://answers.launchpad.net/openshot/+faq/1040'>Learn More</a>"
 msgstr ""
+"Următoarele codec-uri lipsesc de pe sistemȘ\n"
+"\n"
+"{missing_codecs}\n"
+"\n"
+"E necesar să instalați pachete adiționale precum libavformat-extra pentru a "
+"activa codecurile lipsă\n"
+"<a href='https://answers.launchpad.net/openshot/+faq/1040'>Mai multe "
+"detalii</a>"
 
 #: /home/jonathan/openshot/openshot/windows/ExportVideo.py:482
 msgid ""
@@ -1152,6 +1173,12 @@ msgid ""
 "You may need to install packages such as libavformat-extra to enable the "
 "missing codecs."
 msgstr ""
+"În sistemul Dvs. nu se află codecul (codecurile) următor (următoare):\n"
+"\n"
+"{missing_codecs}\n"
+"\n"
+"Este necesar să instalaţi pachetul  libavformat-extra pentru a putea activa "
+"codecul (codecurile) lipsă."
 
 #: /home/jonathan/openshot/openshot/windows/ExportVideo.py:654
 msgid "Please enter a valid File Name."
@@ -1224,6 +1251,8 @@ msgid ""
 "You do not have write permissions to the selected folder, please select "
 "another location."
 msgstr ""
+"Nu aveți drepturi de scriere pe directorul selectat, vă rugăm selectați o "
+"altă locație"
 
 #: /home/jonathan/openshot/openshot/windows/ExportVideo.py:796
 msgid "Export Complete"
@@ -1303,6 +1332,8 @@ msgid ""
 "OpenShot.\n"
 "You may need to transcode it to another format."
 msgstr ""
+"Fișierul %s are proprietăți ce pot preveni OpenShot să îl deschidă corect.\n"
+"Este necesar să îl convertiți în alt format de date"
 
 #: /home/jonathan/openshot/openshot/classes/sequences.py:80
 msgid "Added marker"
@@ -2655,7 +2686,7 @@ msgstr "Lungimea imaginii importate:"
 
 #: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:135
 msgid "The default length of an image when dropped on the timeline."
-msgstr ""
+msgstr "Mărimea standard a imaginii în momentul inserării în timeline"
 
 #: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:162
 msgid "Max History Steps:"
@@ -2673,6 +2704,8 @@ msgstr "Mod ieşire:"
 msgid ""
 "Sets the mode of the preview window. Use sdl_preview for less CPU use."
 msgstr ""
+"Setează modul de preview. Folosește sdl_preview pentru a folosi mai puține "
+"resurse de CPU"
 
 #: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:237
 msgid "Use Stock Icons:"
@@ -2680,7 +2713,7 @@ msgstr "Foloseste icoanele standard"
 
 #: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:249
 msgid "Set to Yes to use the stock Gnome theme icons."
-msgstr ""
+msgstr "Selectează Da pentru a folosi pictogramele standard interfeței Gnome"
 
 #: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:274
 msgid "Use Smooth Scaling:"
@@ -2966,7 +2999,7 @@ msgstr "Latitudinea punctului de plecare (minute)"
 
 #: /home/jonathan/openshot/openshot/effects/three_point_balance.xml
 msgid "Adjust color balance with 3 color points"
-msgstr ""
+msgstr "Ajustează balanța de culoare cu 3 puncte de culoare"
 
 #: /home/jonathan/openshot/openshot/effects/nosync.xml
 msgid ""
@@ -3049,7 +3082,7 @@ msgstr "Primul titlu"
 
 #: /home/jonathan/openshot/openshot/effects/defish0r.xml
 msgid "Defish"
-msgstr ""
+msgstr "Defish"
 
 #: /home/jonathan/openshot/openshot/effects/greyscale.xml
 msgid "Greyscale"
@@ -3085,7 +3118,7 @@ msgstr "Locatie imagine 3"
 
 #: /home/jonathan/openshot/openshot/effects/vignette.xml
 msgid "Lens vignetting"
-msgstr ""
+msgstr "Lens vignetting"
 
 #: /home/jonathan/openshot/openshot/effects/hue.xml
 msgid "Shift the hue of all colors in the image"
@@ -3105,7 +3138,7 @@ msgstr "Sobel"
 
 #: /home/jonathan/openshot/openshot/effects/lenscorrection.xml
 msgid "Y Center"
-msgstr ""
+msgstr "Y Center"
 
 #: /home/jonathan/openshot/openshot/effects/sharpness.xml
 msgid "Sharpness"
@@ -3121,7 +3154,7 @@ msgstr "Ajustare simplă a culorii"
 
 #: /home/jonathan/openshot/openshot/effects/vignette.xml
 msgid "Center size"
-msgstr ""
+msgstr "Center size"
 
 #: /home/jonathan/openshot/openshot/effects/phaser.xml
 msgid "Decay"
@@ -3256,7 +3289,7 @@ msgstr "Gain"
 
 #: /home/jonathan/openshot/openshot/effects/delaygrab.xml
 msgid "Delay grab"
-msgstr ""
+msgstr "Delay grab"
 
 #: /home/jonathan/openshot/openshot/effects/phaser.xml
 msgid "Gain Out"
@@ -3320,7 +3353,7 @@ msgstr "Albastru"
 
 #: /home/jonathan/openshot/openshot/effects/mask0mate.xml
 msgid "Bottom"
-msgstr ""
+msgstr "Jos"
 
 #: /home/jonathan/openshot/openshot/effects/phaser.xml
 msgid "Param"
@@ -3496,7 +3529,7 @@ msgstr "Arată histograma"
 
 #: /home/jonathan/openshot/openshot/effects/sharpness.xml
 msgid "Make image sharper"
-msgstr ""
+msgstr "Imagine mai clară"
 
 #: /home/jonathan/openshot/openshot/effects/scanlines.xml
 msgid "Interlaced black lines"
@@ -3512,7 +3545,7 @@ msgstr "Nosync"
 
 #: /home/jonathan/openshot/openshot/effects/alphagrad.xml
 msgid "Tilt"
-msgstr ""
+msgstr "Înclinare"
 
 #: /home/jonathan/openshot/openshot/effects/letterbox.xml
 msgid "Border Width"
@@ -3532,7 +3565,7 @@ msgstr ""
 
 #: openshot.xml:2627(para)
 msgid "Softness"
-msgstr ""
+msgstr "Finețe"
 
 #: /home/jonathan/openshot/openshot/effects/levels.xml
 msgid "Adjust luminance or color channel intensity"
@@ -3658,7 +3691,7 @@ msgstr "Textura personala (Equirectangular)"
 
 #: /home/jonathan/openshot/openshot/effects/lenscorrection.xml
 msgid "Allows compensation of lens distortion"
-msgstr ""
+msgstr "Permite compensarea distorsiunilor produse de lentile"
 
 #: /home/jonathan/openshot/openshot/blender/spacemovie_intro.xml
 msgid "Space Movie Intro"
@@ -3666,7 +3699,7 @@ msgstr ""
 
 #: /home/jonathan/openshot/openshot/effects/alphagrad.xml
 msgid "Transition width"
-msgstr ""
+msgstr "Durata tranziției"
 
 #: /home/jonathan/openshot/openshot/blender/slide_left_to_right.xml
 msgid "Slide Left to Right"
@@ -3746,7 +3779,7 @@ msgstr "Număr cadru"
 
 #: openshot.xml:799(para)
 msgid "Right"
-msgstr ""
+msgstr "Dreapta"
 
 #: /home/jonathan/openshot/openshot/effects/gamma.xml
 msgid "Adjusts the gamma or luminance value of the image"
@@ -3902,7 +3935,7 @@ msgstr "Spatiu Diff"
 
 #: /home/jonathan/openshot/openshot/effects/sharpness.xml
 msgid "Size"
-msgstr ""
+msgstr "Dimensiune"
 
 #: /home/jonathan/openshot/openshot/effects/rotate.xml
 msgid "Fixed Rotate Y"
@@ -4194,7 +4227,7 @@ msgstr "Fiecare"
 
 #: /home/jonathan/openshot/openshot/blender/explode.xml
 msgid "Particle Number"
-msgstr ""
+msgstr "Numărul de particule"
 
 #: /home/jonathan/openshot/openshot/effects/old_dust.xml
 msgid "Max Diameter"
@@ -4214,7 +4247,7 @@ msgstr "Harta lumii (realistă)"
 
 #: openshot.xml:783(para)
 msgid "Left"
-msgstr ""
+msgstr "Stanga"
 
 #: /home/jonathan/openshot/openshot/effects/three_point_balance.xml
 msgid "Split preview"
@@ -4486,7 +4519,7 @@ msgstr "Sterge-ti diagonala 1"
 
 #: /home/jonathan/openshot/openshot/transitions/board.png
 msgid "Board"
-msgstr ""
+msgstr "Panou"
 
 #: openshot.xml:3215(para)
 msgid "Wipe diagonal 3"

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2012-09-26 09:57+0000\n"
-"PO-Revision-Date: 2013-06-07 05:18+0000\n"
-"Last-Translator: freedomrun <Unknown>\n"
+"PO-Revision-Date: 2014-02-03 17:14+0000\n"
+"Last-Translator: Ivan Milićević <Unknown>\n"
 "Language-Team: Croatian <hr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-06-08 05:52+0000\n"
-"X-Generator: Launchpad (build 16667)\n"
+"X-Launchpad-Export-Date: 2014-02-04 05:52+0000\n"
+"X-Generator: Launchpad (build 16916)\n"
 
 #: /home/jonathan/openshot/openshot/windows/TreeEffects.py:48
 #: /home/jonathan/openshot/openshot/windows/TreeFiles.py:47
@@ -25,7 +25,7 @@ msgstr "Sličica"
 
 #: openshot.xml:4223(para)
 msgid "Name"
-msgstr "Ime"
+msgstr "Sličica"
 
 #: openshot.xml:1452(para)
 msgid "Transition"
@@ -62,7 +62,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Detektirana Verzija:\n"
+"Pronađena Inačica:\n"
 "%s"
 
 #: /home/jonathan/openshot/openshot/windows/BlenderGenerator.py:654
@@ -96,6 +96,15 @@ msgid ""
 "Blender Path:\n"
 "%s%s"
 msgstr ""
+"Za ovu radnju  potreban vam je Blender, besplatan skup alata otvorenog koda "
+"za stvaranje 3D sadržaja (http://www.blender.org).\n"
+"\n"
+"Molimo provjerite postavke u OpenShot-u te budite sigurni da se Blender "
+"ispravno izvršava. Ova postavka treba sadržavati putanju prema 'blender' "
+"izvršnoj datoteci na vašem računalu.  Isto tako, budite sigurni da pokazuje "
+"na Blender inačicu %s ili višu.\n"
+"Putanja Blendera:\n"
+"%s%s"
 
 #: /home/jonathan/openshot/openshot/windows/BlenderGenerator.py:704
 #: /home/jonathan/openshot/openshot/windows/ImportImageSeq.py:144
@@ -1045,10 +1054,12 @@ msgstr ""
 "  David Ćavar https://launchpad.net/~palethorn\n"
 "  Davor Buday https://launchpad.net/~davor-buday-gmail\n"
 "  Ilija Ćulap https://launchpad.net/~ilija-culap14\n"
+"  Ivan Milićević https://launchpad.net/~ivmilicevic1\n"
 "  Mato Pavlovic https://launchpad.net/~mato-pavlovic\n"
 "  SanjinSKG https://launchpad.net/~sanjin-kurelic\n"
 "  freedomrun https://launchpad.net/~freedomrun\n"
 "  iweb https://launchpad.net/~bor-mbm\n"
+"  mnovalic https://launchpad.net/~mnovalic\n"
 "  nikola https://launchpad.net/~nikolaanic\n"
 "  student4 https://launchpad.net/~iputnik-msn\n"
 "  tty https://launchpad.net/~tty29a\n"
@@ -2688,7 +2699,7 @@ msgstr "Koristi predložene ikone:"
 
 #: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:249
 msgid "Set to Yes to use the stock Gnome theme icons."
-msgstr ""
+msgstr "Odaberite \"Da\" za korištenje osnovnih ikona Gnome teme."
 
 #: /home/jonathan/openshot/openshot/windows/ui/Preferences.ui:274
 msgid "Use Smooth Scaling:"
@@ -3243,7 +3254,7 @@ msgstr "Halo: broj linija"
 
 #: /home/jonathan/openshot/openshot/effects/mask0mate.xml
 msgid "Creates a square alpha-channel mask"
-msgstr ""
+msgstr "Izrada četvrtaste maske u alfa-kanalu"
 
 #: /home/jonathan/openshot/openshot/blender/spacemovie_intro.xml
 msgid "Main Text"

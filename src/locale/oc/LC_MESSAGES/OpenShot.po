@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2012-09-26 09:57+0000\n"
-"PO-Revision-Date: 2013-06-03 09:31+0000\n"
+"PO-Revision-Date: 2013-11-09 07:53+0000\n"
 "Last-Translator: Cédric VALMARY (Tot en òc) <cvalmary@yahoo.fr>\n"
 "Language-Team: Occitan (post 1500) <oc@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-06-04 05:29+0000\n"
-"X-Generator: Launchpad (build 16660)\n"
+"X-Launchpad-Export-Date: 2013-11-10 05:54+0000\n"
+"X-Generator: Launchpad (build 16820)\n"
 
 #: /home/jonathan/openshot/openshot/windows/TreeEffects.py:48
 #: /home/jonathan/openshot/openshot/windows/TreeFiles.py:47
@@ -4443,7 +4443,7 @@ msgstr ""
 
 #: openshot.xml:3085(para)
 msgid "Spiral medium"
-msgstr ""
+msgstr "Espirala mejana"
 
 #: /home/jonathan/openshot/openshot/transitions/clouds_2.png
 msgid "Clouds 2"
@@ -4503,15 +4503,15 @@ msgstr "Fractal 4"
 
 #: /home/jonathan/openshot/openshot/transitions/vertical_bars.png
 msgid "Vertical bars"
-msgstr ""
+msgstr "Barras verticalas"
 
 #: openshot.xml:2968(para)
 msgid "Openshot logo"
-msgstr ""
+msgstr "Lògo d'Openshot"
 
 #: openshot.xml:2734(para)
 msgid "Clock left to right"
-msgstr ""
+msgstr "Relòtge (sens antiorari)"
 
 #: /home/jonathan/openshot/openshot/transitions/boxes_2.png
 msgid "Boxes 2"
@@ -4519,7 +4519,7 @@ msgstr ""
 
 #: openshot.xml:3098(para)
 msgid "Spiral small"
-msgstr ""
+msgstr "Pichona espirala"
 
 #: openshot.xml:2695(para)
 msgid "Blinds sliding"
@@ -4535,7 +4535,7 @@ msgstr ""
 
 #: openshot.xml:3072(para)
 msgid "Spiral big"
-msgstr ""
+msgstr "Granda espirala"
 
 #: openshot.xml:3137(para)
 msgid "Star 2"

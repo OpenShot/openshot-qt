@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2012-09-26 09:57+0000\n"
-"PO-Revision-Date: 2013-04-18 17:27+0000\n"
-"Last-Translator: radovan <radovanlabuda@centrum.sk>\n"
+"PO-Revision-Date: 2013-08-14 09:26+0000\n"
+"Last-Translator: Eduard Hummel <22edel22@gmail.com>\n"
 "Language-Team: Slovak <sk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-04-19 05:31+0000\n"
-"X-Generator: Launchpad (build 16567)\n"
+"X-Launchpad-Export-Date: 2013-08-15 04:38+0000\n"
+"X-Generator: Launchpad (build 16723)\n"
 
 #: /home/jonathan/openshot/openshot/windows/TreeEffects.py:48
 #: /home/jonathan/openshot/openshot/windows/TreeFiles.py:47
@@ -322,6 +322,8 @@ msgid ""
 "Unable to open the Help Contents. Please ensure the openshot-doc package is "
 "installed."
 msgstr ""
+"Nemožno otvoriť nápovedu. Prosím uistite sa, že máte nainštalovaný balík "
+"openshot-doc."
 
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:1745
 #: /home/jonathan/openshot/openshot/windows/MainGTK.py:1758
@@ -1049,6 +1051,7 @@ msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Afro https://launchpad.net/~amilan-inlogic\n"
+"  Eduard Hummel https://launchpad.net/~eduardhummel\n"
 "  Grešák Michal https://launchpad.net/~gresakm\n"
 "  Milan Slovák https://launchpad.net/~milboys\n"
 "  Pavol Klačanský https://launchpad.net/~pavolzetor\n"
@@ -3094,7 +3097,7 @@ msgstr "Cesta 3.obrázku"
 
 #: /home/jonathan/openshot/openshot/effects/vignette.xml
 msgid "Lens vignetting"
-msgstr ""
+msgstr "Objektívna ozdoba"
 
 #: /home/jonathan/openshot/openshot/effects/hue.xml
 msgid "Shift the hue of all colors in the image"
@@ -3641,7 +3644,7 @@ msgstr "Epizóda"
 
 #: /home/jonathan/openshot/openshot/effects/tehroxx0r.xml
 msgid "TehRoxx0r"
-msgstr ""
+msgstr "TehRoxx0r"
 
 #: /home/jonathan/openshot/openshot/effects/white_balance.xml
 msgid "White Balance"
@@ -4125,7 +4128,7 @@ msgstr "Korekcia šošoviek"
 
 #: /home/jonathan/openshot/openshot/effects/tehroxx0r.xml
 msgid "something videowall-ish"
-msgstr ""
+msgstr "niečo ako videostena"
 
 #: /home/jonathan/openshot/openshot/blender/snow.xml
 msgid "Gravity: Z"
@@ -4189,7 +4192,7 @@ msgstr "Veľkosť"
 
 #: /home/jonathan/openshot/openshot/effects/vignette.xml
 msgid "Vignette"
-msgstr ""
+msgstr "Ozdoba"
 
 #: /home/jonathan/openshot/openshot/blender/earth_real.xml
 msgid "Arrival Title"
