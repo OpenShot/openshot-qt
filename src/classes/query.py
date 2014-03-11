@@ -113,5 +113,26 @@ class Clip(QueryObject):
 	def get(**kwargs):
 		""" Take any arguments given as filters, and find the first matching object """
 		return QueryObject.get(Clip, **kwargs)
-	
+
+
+class File(QueryObject):
+	""" This class allows one or more project data objects to be queried """
+	object_name = "files"		# Derived classes should define this
+	object_key = [object_name]	# Derived classes should define this also
+		
+	def save(self):
+		""" Save the object back to the project data store """
+		log.info("File save method")
+
+	def delete(self):
+		""" Delete the object from the project data store """
+		log.info("File delete method")
+
+	def filter(**kwargs):
+		""" Take any arguments given as filters, and find a list of matching objects """
+		return QueryObject.filter(File, **kwargs)
+		
+	def get(**kwargs):
+		""" Take any arguments given as filters, and find the first matching object """
+		return QueryObject.get(File, **kwargs)
 				
