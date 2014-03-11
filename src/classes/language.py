@@ -34,10 +34,10 @@ from classes import info
 def init_language():
 	""" Find the current locale, and install the correct translators """
 	
-	#Get app instance
+	# Get app instance
 	app = QCoreApplication.instance()
 
-	#Setup of our list of translators and paths
+	# Setup of our list of translators and paths
 	translator_types = (
 		{"type":'QT',
 		 "pattern":'qt_%s',
@@ -47,21 +47,38 @@ def init_language():
 		 "path":os.path.join(info.PATH, 'locale')},
 		 )
 	
-	#Determine the environment locale, or default to system locale name
-	log.info(QLocale().system().uiLanguages())
-	locale_name = os.environ.get('LANG', QLocale().system().name())
+	# Determine the environment locale, or default to system locale name
+	locale_names = [ os.environ.get('LANG', QLocale().system().name()),
+					 os.environ.get('LOCALE', QLocale().system().name()) 
+				   ]
 	
-	#Don't try on default locale, since it fails to load what is the default language
-	if locale_name == 'en_US':
-		return
-
-	#Go through each translator and try to add for current locale
-	for type in translator_types:
-		trans = QTranslator(app)
-		if not find_language_match(type["pattern"], type["path"], trans, locale_name):
-			log.warn(type["type"] + " translations failed to load")
-		else:
-			app.installTranslator(trans)
+	# Output all system languages detected
+	log.info("Qt Detected Languages: %s" % QLocale().system().uiLanguages())
+	log.info("LANG Environment Variable: %s" % os.environ.get('LANG', QLocale().system().name()))
+	log.info("LOCALE Environment Variable: %s" % os.environ.get('LOCALE', QLocale().system().name()))
+	
+	# Loop through environment variables
+	found_language = False
+	for locale_name in locale_names:
+	
+		# Don't try on default locale, since it fails to load what is the default language
+		if 'en_US' in locale_name:
+			log.info("Skipping English language (no need for translation): %s" % locale_name)
+			continue
+	
+		# Go through each translator and try to add for current locale
+		for type in translator_types:
+			trans = QTranslator(app)
+			if find_language_match(type["pattern"], type["path"], trans, locale_name):
+				# Install translation
+				app.installTranslator(trans)
+				found_language = True
+				
+		# Exit if found language
+		if found_language:
+			log.info("Exiting translation system (since we successfully loaded: %s)" % locale_name)
+			break
+				
 
 # Try the full locale and base locale trying to find a valid path
 #  returns True when a match was found.
@@ -79,6 +96,8 @@ def find_language_match(pattern, path, translator, locale_name):
 		formatted_name = pattern % "_".join(locale_parts[:i])
 		log.info('Attempting to load %s in \'%s\'' % (formatted_name, path))
 		success = translator.load(formatted_name, path)
+		if success:
+			log.info('Successfully loaded %s in \'%s\'' % (formatted_name, path))
 		i -= 1
 		
 	return success
