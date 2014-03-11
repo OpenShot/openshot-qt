@@ -91,6 +91,34 @@ class TestQueryClass(unittest.TestCase):
 			# Keep track of the ids
 			TestQueryClass.file_ids.append(query_file.id)
 			
+	def test_add_clip(self):
+		""" Test the Clip.save method by adding multiple clips """
+		
+		# Import additional classes that need the app defined first
+		from classes.query import Clip
+		
+		# Find number of clips in project
+		num_clips = len(Clip.filter())
+		
+		# Create clip
+		c = openshot.Clip()
+		
+		# Parse JSON
+		clip_data = json.loads(c.Json())
+		
+		# Insert into project data
+		query_clip = Clip()
+		query_clip.data = clip_data
+		query_clip.save()
+		
+		self.assertTrue(query_clip)
+		self.assertEqual(len(Clip.filter()), num_clips + 1)
+		
+		# Save the clip again (which should not change the total # of clips)
+		query_clip.save()
+		
+		self.assertEqual(len(Clip.filter()), num_clips + 1)
+			
 	def test_update_clip(self):
 		""" Test the Clip.save method """
 		
@@ -128,8 +156,15 @@ class TestQueryClass(unittest.TestCase):
 		clip.delete()
 		
 		# Verify deleted data
-		clip = Clip.get(id=delete_id)
-		self.assertFalse(clip)
+		deleted_clip = Clip.get(id=delete_id)
+		self.assertFalse(deleted_clip)
+		
+		# Delete clip again (should do nothing)
+		clip.delete()
+		
+		# Verify deleted data
+		deleted_clip = Clip.get(id=delete_id)
+		self.assertFalse(deleted_clip)
 
 	def test_filter_clip(self):
 		""" Test the Clip.filter method """
@@ -196,8 +231,15 @@ class TestQueryClass(unittest.TestCase):
 		file.delete()
 		
 		# Verify deleted data
-		file = File.get(id=delete_id)
-		self.assertFalse(file)
+		deleted_file = File.get(id=delete_id)
+		self.assertFalse(deleted_file)
+		
+		# Delete File again (should do nothing
+		file.delete()
+
+		# Verify deleted data
+		deleted_file = File.get(id=delete_id)
+		self.assertFalse(deleted_file)
 
 	def test_filter_File(self):
 		""" Test the File.filter method """
@@ -226,6 +268,36 @@ class TestQueryClass(unittest.TestCase):
 		# Do not find a File
 		file = File.get(id="invalidID")
 		self.assertEqual(file, None)
+		
+	def test_add_file(self):
+		""" Test the File.save method by adding multiple files """
+		
+		# Import additional classes that need the app defined first
+		from classes.query import File
+		
+		# Find number of files in project
+		num_files = len(File.filter())
+		
+		# Create file
+		r = openshot.DummyReader(openshot.Fraction(24,1), 640, 480, 44100, 2, 30.0)
+		
+		# Parse JSON
+		file_data = json.loads(r.Json())
+		
+		# Insert into project data
+		query_file = File()
+		query_file.data = file_data
+		query_file.data["path"] = os.path.join(PATH, "images", "NoThumbnail.png")
+		query_file.data["media_type"] = "image"
+		query_file.save()
+		
+		self.assertTrue(query_file)
+		self.assertEqual(len(File.filter()), num_files + 1)
+		
+		# Save the file again (which should not change the total # of files)
+		query_file.save()
+		
+		self.assertEqual(len(File.filter()), num_files + 1)
 
 
 if __name__ == '__main__':
