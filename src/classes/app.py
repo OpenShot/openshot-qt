@@ -69,6 +69,8 @@ class OpenShotApp(QApplication):
 		# Load ui theme if not set by OS
 		ui_util.load_theme()
 		
+		# Track which dockable window received a context menu
+		self.context_menu_object = None
 		
 		# Set Experimental Dark Theme
 		self.setStyle(QStyleFactory.create("Fusion"))

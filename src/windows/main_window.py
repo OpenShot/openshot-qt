@@ -304,24 +304,25 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		log.info("Switch to Details View")
 		
 		# Get settings
+		app = get_app()
 		s = settings.get_settings()
 		
 		# Files
-		if self.tabMain.currentIndex() == 0:
+		if app.context_menu_object == "files":
 			s.set("file_view", "details")
 			self.tabFiles.layout().removeWidget(self.filesTreeView)
 			self.filesTreeView = FilesTreeView(self)
 			self.tabFiles.layout().addWidget(self.filesTreeView)
 			
 		# Transitions
-		elif self.tabMain.currentIndex() == 1:
+		elif app.context_menu_object == "transitions":
 			s.set("transitions_view", "details")
 			self.tabTransitions.layout().removeWidget(self.transitionsTreeView)
 			self.transitionsTreeView = TransitionsTreeView(self)
 			self.tabTransitions.layout().addWidget(self.transitionsTreeView)
 			
 		# Effects
-		elif self.tabMain.currentIndex() == 2:
+		elif app.context_menu_object == "effects":
 			s.set("effects_view", "details")
 			self.tabEffects.layout().removeWidget(self.effectsTreeView)
 			self.effectsTreeView = EffectsTreeView(self)
@@ -330,31 +331,113 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		
 	def actionThumbnailView_trigger(self, event):
 		log.info("Switch to Thumbnail View")
-		
+
 		# Get settings
+		app = get_app()
 		s = settings.get_settings()
 		
 		# Files
-		if self.tabMain.currentIndex() == 0:
+		if app.context_menu_object == "files":
 			s.set("file_view", "thumbnail")
 			self.tabFiles.layout().removeWidget(self.filesTreeView)
 			self.filesTreeView = FilesListView(self)
 			self.tabFiles.layout().addWidget(self.filesTreeView)
 			
 		# Transitions
-		elif self.tabMain.currentIndex() == 1:
+		elif app.context_menu_object == "transitions":
 			s.set("transitions_view", "thumbnail")
 			self.tabTransitions.layout().removeWidget(self.transitionsTreeView)
 			self.transitionsTreeView = TransitionsListView(self)
 			self.tabTransitions.layout().addWidget(self.transitionsTreeView)	
 		
 		# Effects
-		elif self.tabMain.currentIndex() == 2:
+		elif app.context_menu_object == "effects":
 			s.set("effects_view", "thumbnail")
 			self.tabEffects.layout().removeWidget(self.effectsTreeView)
 			self.effectsTreeView = EffectsListView(self)
-			self.tabEffects.layout().addWidget(self.effectsTreeView)	
+			self.tabEffects.layout().addWidget(self.effectsTreeView)
+			
+	def getDocks(self):
+		""" Get a list of all dockable widgets """
+		return [ self.dockFiles,
+				 self.dockTransitions,
+				 self.dockEffects,
+				 self.dockVideo ]
 
+	def removeDocks(self):
+		""" Remove all dockable widgets on main screen """
+		for dock in self.getDocks():
+			self.removeDockWidget(dock)
+		
+	def addAllDocks(self, area):
+		""" Add all dockable widgets to the same dock area on the main screen """
+		for dock in self.getDocks():
+			self.addDockWidget(area, dock)
+		
+	def floatDocks(self, is_floating):
+		""" Float or Un-Float all dockable widgets above main screen """
+		for dock in self.getDocks():
+			dock.setFloating(is_floating)
+		
+	def showDocks(self):
+		""" Show all dockable widgets on the main screen """
+		for dock in self.getDocks():
+			dock.show()
+			
+	def freezeDocks(self):
+		""" Freeze all dockable widgets on the main screen (no float, moving, or closing) """
+		for dock in self.getDocks():
+			dock.setFeatures(QDockWidget.NoDockWidgetFeatures)
+
+	def unFreezeDocks(self):
+		""" Un-freeze all dockable widgets on the main screen (allow them to be moved, closed, and floated) """
+		for dock in self.getDocks():
+			dock.setFeatures(QDockWidget.AllDockWidgetFeatures)
+		
+	def hideDocks(self):
+		""" Hide all dockable widgets on the main screen """
+		for dock in self.getDocks():
+			dock.hide()
+		
+	def actionSimple_View_trigger(self, event):
+		""" Switch to the default / simple view  """
+		self.removeDocks()
+		self.addAllDocks(Qt.TopDockWidgetArea)
+		self.floatDocks(False)
+		self.tabifyDockWidget(self.dockFiles, self.dockTransitions)
+		self.tabifyDockWidget(self.dockTransitions, self.dockEffects)
+		self.showDocks()
+
+	def actionAdvanced_View_trigger(self, event):
+		""" Switch to an alternative view """
+		self.removeDocks()
+
+		# Top Dock
+		self.addDockWidget(Qt.TopDockWidgetArea, self.dockFiles)
+		self.addDockWidget(Qt.TopDockWidgetArea, self.dockTransitions)
+		self.addDockWidget(Qt.TopDockWidgetArea, self.dockVideo)
+		
+		# Right Dock
+		self.addDockWidget(Qt.RightDockWidgetArea, self.dockEffects)
+
+		self.floatDocks(False)
+		self.showDocks()
+		
+	def actionFreeze_View_trigger(self, event):
+		""" Freeze all dockable widgets on the main screen """
+		self.freezeDocks()
+		self.actionFreeze_View.setVisible(False)
+		self.actionUn_Freeze_View.setVisible(True)
+	
+	def actionUn_Freeze_View_trigger(self, event):
+		""" Un-Freeze all dockable widgets on the main screen """
+		self.unFreezeDocks()
+		self.actionFreeze_View.setVisible(True)
+		self.actionUn_Freeze_View.setVisible(False)
+		
+	def actionShow_All_trigger(self, event):
+		""" Show all dockable widgets """
+		self.showDocks()
 		
 	# Init fullscreen menu visibility
 	def init_fullscreen_menu(self):
@@ -377,10 +460,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		s.set('window_geometry', qt_types.bytes_to_str(self.saveGeometry()))
 
 		#Splitter sizes
-		sizes = self.splitter_2.sizes()
-		s.set('window_splitter_2_pos', sizes)
-		sizes = self.splitter.sizes()
-		s.set('window_splitter_pos', sizes)
+		#sizes = self.splitter_2.sizes()
+		#s.set('window_splitter_2_pos', sizes)
+		#sizes = self.splitter.sizes()
+		#s.set('window_splitter_pos', sizes)
 		
 		#TODO: Call save_settings on any sub-objects necessary
 	
@@ -393,8 +476,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		if s.get('window_state'): self.restoreState(qt_types.str_to_bytes(s.get('window_state')))
 		
 		# Splitter sizes
-		if s.get('window_splitter_pos'): self.splitter.setSizes(s.get('window_splitter_pos'))
-		if s.get('window_splitter_2_pos'): self.splitter_2.setSizes(s.get('window_splitter_2_pos'))
+		#if s.get('window_splitter_pos'): self.splitter.setSizes(s.get('window_splitter_pos'))
+		#if s.get('window_splitter_2_pos'): self.splitter_2.setSizes(s.get('window_splitter_2_pos'))
 
 		# Add Recent files
 		recent_projects = s.get("recent_projects")
@@ -525,7 +608,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		self.timelineToolbar.addWidget(self.zoomScaleLabel)
 		
 		#Add timeline toolbar to web frame
-		self.frameWeb.layout().addWidget(self.timelineToolbar)
+		self.frameWeb.addWidget(self.timelineToolbar)
 
 	def __init__(self):
 
@@ -563,19 +646,19 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 			self.filesTreeView = FilesTreeView(self)
 		else:
 			self.filesTreeView = FilesListView(self)
-		self.tabFiles.layout().addWidget(self.filesTreeView) #gridLayout_2  , 1, 0
+		self.tabFiles.layout().addWidget(self.filesTreeView)
 
 		#setup transitions tree
 		if s.get("transitions_view") == "details":
 			self.transitionsTreeView = TransitionsTreeView(self)
 		else:
 			self.transitionsTreeView = TransitionsListView(self)
-		self.tabTransitions.layout().addWidget(self.transitionsTreeView) #gridLayout_2  , 1, 0
+		self.tabTransitions.layout().addWidget(self.transitionsTreeView)
 
 		#setup effects tree
 		if s.get("effects_view") == "details":
 			self.effectsTreeView = EffectsTreeView(self)
 		else:
 			self.effectsTreeView = EffectsListView(self)
-		self.tabEffects.layout().addWidget(self.effectsTreeView) #gridLayout_2  , 1, 0
+		self.tabEffects.layout().addWidget(self.effectsTreeView)
 		

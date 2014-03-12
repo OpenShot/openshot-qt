@@ -34,7 +34,7 @@ from classes.settings import SettingStore
 from classes.app import get_app
 from PyQt5.QtCore import QMimeData, QSize, Qt, QCoreApplication, QPoint, QFileInfo
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QTreeView, QApplication, QMessageBox, QAbstractItemView, QMenu
+from PyQt5.QtWidgets import QTreeView, QApplication, QMessageBox, QAbstractItemView, QMenu, QSizePolicy
 from windows.models.transition_model import TransitionsModel
 import openshot # Python module for libopenshot (required video editing module installed separately)
 
@@ -46,13 +46,17 @@ except ImportError:
 class TransitionsTreeView(QTreeView):
 	""" A TreeView QWidget used on the main window """ 
 	drag_item_size = 32
-	
+
 	def currentChanged(self, selected, deselected):
 		# get selected item
 		self.selected = selected
 		self.deselected = deselected
 		
 	def contextMenuEvent(self, event):
+		# Set context menu mode
+		app = get_app()
+		app.context_menu_object = "transitions"
+		
 		menu = QMenu(self)
 		menu.addAction(self.win.actionDetailsView)
 		menu.addAction(self.win.actionThumbnailView)
@@ -129,6 +133,7 @@ class TransitionsTreeView(QTreeView):
 		self.setSelectionBehavior(QAbstractItemView.SelectRows)
 		self.hideColumn(2)
 		self.hideColumn(3)
+		self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
 		# setup filter events
 		app = get_app()

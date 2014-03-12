@@ -32,6 +32,9 @@
   <property name="tabShape">
    <enum>QTabWidget::Rounded</enum>
   </property>
+  <property name="dockNestingEnabled">
+   <bool>true</bool>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">
     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -50,107 +53,7 @@
      <number>3</number>
     </property>
     <item row="0" column="0">
-     <widget class="QSplitter" name="splitter_2">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <widget class="QSplitter" name="splitter">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <widget class="QTabWidget" name="tabMain">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="acceptDrops">
-         <bool>false</bool>
-        </property>
-        <property name="currentIndex">
-         <number>0</number>
-        </property>
-        <widget class="QWidget" name="tabFiles">
-         <attribute name="title">
-          <string>Project Files</string>
-         </attribute>
-         <layout class="QVBoxLayout" name="verticalLayout_3">
-          <property name="spacing">
-           <number>0</number>
-          </property>
-          <property name="margin">
-           <number>5</number>
-          </property>
-         </layout>
-        </widget>
-        <widget class="QWidget" name="tabTransitions">
-         <attribute name="title">
-          <string>Transitions</string>
-         </attribute>
-         <layout class="QVBoxLayout" name="verticalLayout_5">
-          <property name="spacing">
-           <number>0</number>
-          </property>
-          <property name="margin">
-           <number>5</number>
-          </property>
-         </layout>
-        </widget>
-        <widget class="QWidget" name="tabEffects">
-         <attribute name="title">
-          <string>Effects</string>
-         </attribute>
-         <layout class="QVBoxLayout" name="verticalLayout_4">
-          <property name="spacing">
-           <number>0</number>
-          </property>
-          <property name="margin">
-           <number>5</number>
-          </property>
-         </layout>
-        </widget>
-       </widget>
-       <widget class="QTabWidget" name="tabOuterVideo">
-        <property name="currentIndex">
-         <number>0</number>
-        </property>
-        <widget class="QWidget" name="tabVideo">
-         <attribute name="title">
-          <string>Video Preview</string>
-         </attribute>
-         <attribute name="toolTip">
-          <string>Video Preview</string>
-         </attribute>
-         <layout class="QVBoxLayout" name="verticalLayout">
-          <property name="spacing">
-           <number>0</number>
-          </property>
-          <property name="margin">
-           <number>5</number>
-          </property>
-          <item>
-           <widget class="QGraphicsView" name="videoDisplay">
-            <property name="styleSheet">
-             <string notr="true">background-color: #000</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="frameWeb" native="true">
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <property name="spacing">
-         <number>0</number>
-        </property>
-        <property name="margin">
-         <number>5</number>
-        </property>
-       </layout>
-      </widget>
-     </widget>
+     <layout class="QVBoxLayout" name="frameWeb"/>
     </item>
    </layout>
   </widget>
@@ -160,7 +63,7 @@
      <x>0</x>
      <y>0</y>
      <width>808</width>
-     <height>25</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -203,9 +106,23 @@
     <property name="title">
      <string>View</string>
     </property>
+    <widget class="QMenu" name="menuViews">
+     <property name="title">
+      <string>Views</string>
+     </property>
+     <addaction name="actionSimple_View"/>
+     <addaction name="actionAdvanced_View"/>
+     <addaction name="separator"/>
+     <addaction name="actionFreeze_View"/>
+     <addaction name="actionUn_Freeze_View"/>
+     <addaction name="separator"/>
+     <addaction name="actionShow_All"/>
+    </widget>
     <addaction name="actionView_Toolbar"/>
     <addaction name="actionFullscreen"/>
     <addaction name="actionExit_Fullscreen"/>
+    <addaction name="separator"/>
+    <addaction name="menuViews"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -248,6 +165,98 @@
    <addaction name="separator"/>
    <addaction name="actionTakeSnapshot"/>
    <addaction name="actionExportVideo"/>
+  </widget>
+  <widget class="QDockWidget" name="dockFiles">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="windowTitle">
+    <string>Project Files</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>4</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="0" column="0">
+      <layout class="QVBoxLayout" name="tabFiles"/>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockVideo">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="windowTitle">
+    <string>Video Preview</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>4</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2">
+    <layout class="QGridLayout" name="gridLayout_3">
+     <item row="0" column="1">
+      <layout class="QVBoxLayout" name="tabVideo">
+       <item>
+        <widget class="QGraphicsView" name="videoPreview">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>400</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: #000000</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockTransitions">
+   <property name="windowTitle">
+    <string>Transitions</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>4</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_3">
+    <layout class="QGridLayout" name="gridLayout_4">
+     <item row="0" column="0">
+      <layout class="QVBoxLayout" name="tabTransitions"/>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockEffects">
+   <property name="windowTitle">
+    <string>Effects</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>4</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_4">
+    <layout class="QGridLayout" name="gridLayout_5">
+     <item row="0" column="0">
+      <layout class="QVBoxLayout" name="tabEffects"/>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <action name="actionNew">
    <property name="icon">
@@ -986,6 +995,54 @@
    </property>
    <property name="toolTip">
     <string>Open Help Contents</string>
+   </property>
+  </action>
+  <action name="actionSimple_View">
+   <property name="icon">
+    <iconset resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/misc/go-home.svg</normaloff>:/icons/Compass/actions/misc/go-home.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Simple View</string>
+   </property>
+  </action>
+  <action name="actionAdvanced_View">
+   <property name="icon">
+    <iconset resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/misc/get-hot-new-stuff.svg</normaloff>:/icons/Compass/actions/misc/get-hot-new-stuff.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Advanced View</string>
+   </property>
+  </action>
+  <action name="actionFreeze_View">
+   <property name="icon">
+    <iconset resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/misc/lock-secure.svg</normaloff>:/icons/Compass/actions/misc/lock-secure.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Freeze View</string>
+   </property>
+  </action>
+  <action name="actionUn_Freeze_View">
+   <property name="icon">
+    <iconset resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/misc/lock-insecure.svg</normaloff>:/icons/Compass/actions/misc/lock-insecure.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Un-Freeze View</string>
+   </property>
+   <property name="visible">
+    <bool>false</bool>
+   </property>
+  </action>
+  <action name="actionShow_All">
+   <property name="icon">
+    <iconset resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Compass/actions/misc/zoom-in.svg</normaloff>:/icons/Compass/actions/misc/zoom-in.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Show All</string>
    </property>
   </action>
  </widget>

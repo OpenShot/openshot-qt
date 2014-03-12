@@ -54,6 +54,10 @@ class FilesListView(QListView):
 		self.deselected = deselected
 		
 	def contextMenuEvent(self, event):
+		# Set context menu mode
+		app = get_app()
+		app.context_menu_object = "files"
+		
 		menu = QMenu(self)
 		menu.addAction(self.win.actionDetailsView)
 		menu.addAction(self.win.actionThumbnailView)
