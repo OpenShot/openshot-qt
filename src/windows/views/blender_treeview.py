@@ -34,8 +34,9 @@ from classes.settings import SettingStore
 from classes.app import get_app
 from PyQt5.QtCore import QMimeData, QSize, Qt, QCoreApplication, QPoint, QFileInfo
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QTreeView, QApplication, QMessageBox, QAbstractItemView, QMenu
+from PyQt5.QtWidgets import QTreeView, QApplication, QMessageBox, QAbstractItemView, QMenu, QLabel
 from windows.models.blender_model import BlenderModel
+import xml.dom.minidom as xml
 import openshot # Python module for libopenshot (required video editing module installed separately)
 
 try:
@@ -50,6 +51,107 @@ class BlenderTreeView(QTreeView):
 		# get selected item
 		self.selected = selected
 		self.deselected = deselected
+		
+		# Clear existing settings
+		self.win.clear_effect_controls()
+
+		# Get animation details
+		animation = self.get_animation_details()
+		
+		# Loop through params
+		for param in animation["params"]:
+			log.info(param["title"])
+			
+			# Is Hidden Param?
+			if param["name"] == "start_frame" or param["name"] == "end_frame":
+				# add value to dictionary
+				self.params[param["name"]] = int(param["default"])
+				
+				# skip to next param without rendering the controls
+				continue
+			
+			# Create Label
+			label = QLabel()
+			label.setText(param["title"])
+			label.setToolTip(param["title"])
+			self.win.settingsContainer.layout().addWidget(label)
+			
+		
+		
+	def get_animation_details(self):
+		""" Build a dictionary of all animation settings and properties from XML """
+		
+		if not self.selected:
+			return {}
+		
+		# Get all selected rows items
+		ItemRow = self.blender_model.model.itemFromIndex(self.selected).row()
+		animation_title = self.blender_model.model.item(ItemRow, 1).text()
+		xml_path = self.blender_model.model.item(ItemRow, 2).text()
+		
+		# load xml effect file
+		xmldoc = xml.parse(xml_path)
+		
+		# Get list of params
+		animation = { "title" : animation_title, "path" : xml_path, "params" : [] }
+		xml_params = xmldoc.getElementsByTagName("param")
+		
+		# Loop through params
+		for param in xml_params:
+			param_item = {}
+			
+			# Get details of param
+			if param.attributes["title"]:
+				param_item["title"] = param.attributes["title"].value
+			
+			if param.attributes["description"]:
+				param_item["description"] = param.attributes["description"].value
+
+			if param.attributes["name"]:
+				param_item["name"] = param.attributes["name"].value
+
+			if param.attributes["type"]:
+				param_item["type"] = param.attributes["type"].value
+
+			if param.getElementsByTagName("min"):
+				param_item["min"] = param.getElementsByTagName("min")[0].childNodes[0].data
+
+			if param.getElementsByTagName("max"):
+				param_item["max"] = param.getElementsByTagName("max")[0].childNodes[0].data
+
+			if param.getElementsByTagName("step"):
+				param_item["step"] = param.getElementsByTagName("step")[0].childNodes[0].data
+
+			if param.getElementsByTagName("digits"):
+				param_item["digits"] = param.getElementsByTagName("digits")[0].childNodes[0].data
+
+			if param.getElementsByTagName("default"):
+				if param.getElementsByTagName("default")[0].childNodes:
+					param_item["default"] = param.getElementsByTagName("default")[0].childNodes[0].data
+				else:
+					param_item["default"] = ""
+				
+			param_item["values"] = {}
+			values = param.getElementsByTagName("value")
+			for value in values:
+				# Get list of values
+				name = ""
+				num = ""
+				
+				if value.attributes["name"]:
+					name = value.attributes["name"].value
+					
+				if value.attributes["num"]:
+					num = value.attributes["num"].value
+					
+				# add to parameter
+				param_item["values"][name] = num
+				
+			# Append param object to list
+			animation["params"].append(param_item)
+			
+		# Return animation dictionary
+		return animation
 		
 	def contextMenuEvent(self, event):
 		menu = QMenu(self)
@@ -76,7 +178,7 @@ class BlenderTreeView(QTreeView):
 		QTreeView.__init__(self, *args)
 		
 		# Get a reference to the window object
-		self.win = get_app().window
+		self.win = args[0]
 		
 		# Get Model data
 		self.blender_model = BlenderModel()
@@ -84,6 +186,9 @@ class BlenderTreeView(QTreeView):
 		# Keep track of mouse press start position to determine when to start drag
 		self.selected = None
 		self.deselected = None
+		
+		# Init dictionary which holds the values to the template parameters
+		self.params = {}
 
 		# Setup header columns
 		self.setModel(self.blender_model.model)

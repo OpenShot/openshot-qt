@@ -35,6 +35,11 @@ from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
 from windows.views.blender_treeview import BlenderTreeView
+import time, uuid, shutil
+import threading, subprocess, re
+import math
+import subprocess
+
 
 class AnimatedTitle(QDialog):
 	""" Animated Title Dialog """
@@ -56,4 +61,25 @@ class AnimatedTitle(QDialog):
 		# Add blender treeview
 		self.blenderTreeView = BlenderTreeView(self)
 		self.verticalLayout.addWidget(self.blenderTreeView)
+		
+		# Init variables
+		self.unique_folder_name = str(uuid.uuid1())
+		self.output_dir = os.path.join(info.USER_PATH, "blender")
+		self.selected_template = ""
+		self.is_rendering = False
+		self.my_blender = None
+		
+		# Clear all child controls
+		self.clear_effect_controls()
+		
+	def clear_effect_controls(self):
+		""" Clear all child widgets used for settings """
+		
+		# Loop through child widgets
+		for child in self.settingsContainer.children():
+			try:
+				self.settingsContainer.layout().removeWidget(child)
+				child.deleteLater()
+			except:
+				pass
 
