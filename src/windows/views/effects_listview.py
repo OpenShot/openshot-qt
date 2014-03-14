@@ -104,11 +104,14 @@ class EffectsListView(QListView):
 		get_app().window.effectsFilter.setText("")
 		
 	def filter_changed(self):
-		self.effects_model.update_model()
 		if self.win.effectsFilter.text() == "":
 			self.win.actionEffectsClear.setEnabled(False)
 		else:
 			self.win.actionEffectsClear.setEnabled(True)
+		self.refresh_view()
+			
+	def refresh_view(self):
+		self.effects_model.update_model()
 			
 	def __init__(self, *args):
 		# Invoke parent init
@@ -130,6 +133,9 @@ class EffectsListView(QListView):
 		self.setIconSize(QSize(131, 108))
 		self.setViewMode(QListView.IconMode)
 		self.setResizeMode(QListView.Adjust)
+		
+		# Refresh view
+		self.refresh_view()
 
 		# setup filter events
 		app = get_app()

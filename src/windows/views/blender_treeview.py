@@ -67,6 +67,9 @@ class BlenderTreeView(QTreeView):
 		event.ignore()
 		super().mousePressEvent(event)
 		
+	def refresh_view(self):
+		self.blender_model.update_model()
+		self.hideColumn(2)
 			
 	def __init__(self, *args):
 		# Invoke parent init
@@ -88,8 +91,7 @@ class BlenderTreeView(QTreeView):
 		self.setIndentation(0)
 		self.setSelectionBehavior(QTreeView.SelectRows)
 		self.setSelectionBehavior(QAbstractItemView.SelectRows)
-		self.hideColumn(2)
 		
+		# Refresh view
+		self.refresh_view()
 
-	
-	

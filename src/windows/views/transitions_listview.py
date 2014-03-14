@@ -104,11 +104,14 @@ class TransitionsListView(QListView):
 		get_app().window.transitionsFilter.setText("")
 		
 	def filter_changed(self):
-		self.transition_model.update_model()
 		if self.win.transitionsFilter.text() == "":
 			self.win.actionTransitionsClear.setEnabled(False)
 		else:
 			self.win.actionTransitionsClear.setEnabled(True)
+		self.refresh_view()
+			
+	def refresh_view(self):
+		self.transition_model.update_model()
 			
 	def __init__(self, *args):
 		# Invoke parent init
@@ -130,6 +133,9 @@ class TransitionsListView(QListView):
 		self.setIconSize(QSize(131, 108))
 		self.setViewMode(QListView.IconMode)
 		self.setResizeMode(QListView.Adjust)
+		
+		# Refresh view
+		self.refresh_view()
 
 		# setup filter events
 		app = get_app()

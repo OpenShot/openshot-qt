@@ -184,7 +184,7 @@ class UpdateManager:
 			#Perform next redo action
 			self.dispatch_action(next_action)
 	
-	#Carry out an action on all listeners
+	# Carry out an action on all listeners
 	def dispatch_action(self, action):
 		""" Distribute changes to all listeners (by calling their changed() method) """
 		
@@ -197,8 +197,17 @@ class UpdateManager:
 		except Exception as ex:
 			log.error("Couldn't apply '{}' to update listener: {}\n{}".format(action.type, listener, ex))
 		self.update_watchers()
+		
 	
-	#Perform new actions, clearing redo history for taking a new path
+	# Perform load action (loading all project data), clearing history for taking a new path
+	def load(self, values):
+		""" Load all project data via an UpdateAction into the UpdateManager (this action will then be distributed to all listeners) """
+
+		self.redoHistory.clear()
+		self.actionHistory.append(UpdateAction('load', '', values))
+		self.dispatch_action(self.actionHistory[-1])
+	
+	# Perform new actions, clearing redo history for taking a new path
 	def insert(self, key, values):
 		""" Insert a new UpdateAction into the UpdateManager (this action will then be distributed to all listeners) """
 		

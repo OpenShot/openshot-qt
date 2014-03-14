@@ -154,7 +154,4 @@ class TransitionsModel():
 		self.model.setColumnCount(4)
 		self.model_paths = {}
 
-		# Update model based on loaded project
-		self.update_model()
-
 		

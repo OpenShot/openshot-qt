@@ -166,7 +166,4 @@ class EffectsModel():
 		self.model.setColumnCount(5)
 		self.model_paths = {}
 
-		# Update model based on loaded project
-		self.update_model()
-
 		

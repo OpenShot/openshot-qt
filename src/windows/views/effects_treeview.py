@@ -104,11 +104,16 @@ class EffectsTreeView(QTreeView):
 		get_app().window.effectsFilter.setText("")
 		
 	def filter_changed(self):
-		self.effects_model.update_model()
 		if self.win.effectsFilter.text() == "":
 			self.win.actionEffectsClear.setEnabled(False)
 		else:
 			self.win.actionEffectsClear.setEnabled(True)
+		self.refresh_view()
+			
+	def refresh_view(self):
+		self.effects_model.update_model()
+		self.hideColumn(3)
+		self.hideColumn(4)
 			
 	def __init__(self, *args):
 		# Invoke parent init
@@ -119,7 +124,7 @@ class EffectsTreeView(QTreeView):
 		
 		# Get Model data
 		self.effects_model = EffectsModel()
-		
+
 		# Keep track of mouse press start position to determine when to start drag
 		self.startDragPos = None
 		self.selected = None
@@ -131,9 +136,10 @@ class EffectsTreeView(QTreeView):
 		self.setIndentation(0)
 		self.setSelectionBehavior(QTreeView.SelectRows)
 		self.setSelectionBehavior(QAbstractItemView.SelectRows)
-		self.hideColumn(3)
-		self.hideColumn(4)
 		self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+		
+		# Refresh view
+		self.refresh_view()
 
 		# setup filter events
 		app = get_app()

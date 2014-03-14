@@ -57,17 +57,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		self.save_settings()
 		
 	def actionNew_trigger(self, event):
-		get_app().project.new()
+		# clear data and start new project
+		get_app().project.load("")
+		get_app().updates.reset()
+		self.filesTreeView.refresh_view()
 		log.info("New Project created.")
-		# Show dialog
-		from windows.new_project import NewProject
-		win = NewProject()
-		#Run the dialog event loop - blocking interaction on this window during that time
-		result = win.exec_()
-		if result == QDialog.Accepted:
-			log.info('new project add confirmed')
-		else:
-			log.info('new project add cancelled')
 		
 	def actionAnimatedTitle_trigger(self, event):
 		# show dialog
@@ -131,7 +125,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		if file_path:
 			app.project.load(file_path)
 			app.updates.reset()
-			self.filesTreeView.filter_changed()
+			self.filesTreeView.refresh_view()
 			log.info("Loaded project {}".format(file_path))
 		
 	def actionSave_trigger(self, event):
@@ -168,7 +162,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		files = QFileDialog.getOpenFileNames(self, _("Import File..."))[0]
 		for file_path in files:
 			self.filesTreeView.add_file(file_path)
-			self.filesTreeView.filter_changed()
+			self.filesTreeView.refresh_view()
 			log.info("Loaded project {}".format(file_path))
 
 	def actionUploadVideo_trigger(self, event):
@@ -204,23 +198,23 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 			log.info('Preferences add cancelled')
 		
 	def actionFilesShowAll_trigger(self, event):
-		self.filesTreeView.filter_changed()
+		self.filesTreeView.refresh_view()
 	def actionFilesShowVideo_trigger(self, event):
-		self.filesTreeView.filter_changed()
+		self.filesTreeView.refresh_view()
 	def actionFilesShowAudio_trigger(self, event):
-		self.filesTreeView.filter_changed()
+		self.filesTreeView.refresh_view()
 	def actionFilesShowImage_trigger(self, event):
-		self.filesTreeView.filter_changed()
+		self.filesTreeView.refresh_view()
 	def actionTransitionsShowAll_trigger(self, event):
-		self.transitionsTreeView.filter_changed()
+		self.transitionsTreeView.refresh_view()
 	def actionTransitionsShowCommon_trigger(self, event):
-		self.transitionsTreeView.filter_changed()
+		self.transitionsTreeView.refresh_view()
 	def actionEffectsShowAll_trigger(self, event):
-		self.effectsTreeView.filter_changed()
+		self.effectsTreeView.refresh_view()
 	def actionEffectsShowVideo_trigger(self, event):
-		self.effectsTreeView.filter_changed()
+		self.effectsTreeView.refresh_view()
 	def actionEffectsShowAudio_trigger(self, event):
-		self.effectsTreeView.filter_changed()
+		self.effectsTreeView.refresh_view()
 		
 	def actionHelpContents_trigger(self, event):
 		try:
@@ -348,8 +342,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 			s.set("transitions_view", "thumbnail")
 			self.tabTransitions.layout().removeWidget(self.transitionsTreeView)
 			self.transitionsTreeView = TransitionsListView(self)
-			self.tabTransitions.layout().addWidget(self.transitionsTreeView)	
-		
+			self.tabTransitions.layout().addWidget(self.transitionsTreeView)
+
 		# Effects
 		elif app.context_menu_object == "effects":
 			s.set("effects_view", "thumbnail")
@@ -622,7 +616,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		ui_util.load_ui(self, self.ui_path)
 		
 		#Load user settings for window
-		self.load_settings()
 		s = settings.get_settings()
 
 		#Init UI
@@ -630,7 +623,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
 		#Setup toolbars that aren't on main window, set initial state of items, etc
 		self.setup_toolbars()
-		
+
 		# Add window as watcher to receive undo/redo status updates
 		get_app().updates.add_watcher(self)
 		
@@ -661,4 +654,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		else:
 			self.effectsTreeView = EffectsListView(self)
 		self.tabEffects.layout().addWidget(self.effectsTreeView)
-		
+
+		# Load window state and geometry
+		self.load_settings()

@@ -52,7 +52,7 @@ class FilesModel(updates.UpdateInterface):
 				self.update_model(clear=False)
 			else:
 				# Clear existing items
-				self.update_model(clear=False)
+				self.update_model(clear=True)
 			
 	def update_model(self, clear=True):
 		log.info("updating files model.")
@@ -181,8 +181,5 @@ class FilesModel(updates.UpdateInterface):
 		self.model = QStandardItemModel()
 		self.model.setColumnCount(5)
 		self.model_ids = {}
-
-		# Update model based on loaded project
-		self.update_model()
 
 		

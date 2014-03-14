@@ -226,25 +226,33 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 	def new(self):
 		""" Try to load default project settings file, will raise error on failure """
 		self._data = self.read_from_file(self.default_project_filepath)
+		self.current_filepath = None
+
 		
 	def load(self, file_path):
 		""" Load project from file """
 		
 		self.new()
-		# Default project data
-		default_project = self._data
 		
-		# Try to load project data, will raise error on failure
-		project_data = self.read_from_file(file_path)
+		if file_path:
+			# Default project data
+			default_project = self._data
+			
+			# Try to load project data, will raise error on failure
+			project_data = self.read_from_file(file_path)
+			
+			# Merge default and project settings, excluding settings not in default.
+			self._data = self.merge_settings(default_project, project_data)
+			
+			# On success, save current filepath
+			self.current_filepath = file_path
+	
+			# Add to recent files setting
+			self.add_to_recent_files(file_path)
 		
-		# Merge default and project settings, excluding settings not in default.
-		self._data = self.merge_settings(default_project, project_data)
-		
-		# On success, save current filepath
-		self.current_filepath = file_path
-
-		# Add to recent files setting
-		self.add_to_recent_files(file_path)
+		# Get app, and distribute all project data through update manager
+		from classes.app import get_app
+		get_app().updates.load(self._data)
 
 	def save(self, file_path):
 		""" Save project file to disk """ 

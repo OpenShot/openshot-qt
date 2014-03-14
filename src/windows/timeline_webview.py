@@ -60,7 +60,12 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 	def changed(self, action):
 		
 		# Send a JSON version of the UpdateAction to the timeline webview method: ApplyJsonDiff()
-		code = JS_SCOPE_SELECTOR + ".ApplyJsonDiff([" + action.json() + "]);"
+		if action.type == "load":
+			# Load entire project data
+			code = JS_SCOPE_SELECTOR + ".LoadJson(" + action.json() + ");"
+		else:
+			# Apply diff to part of project data
+			code = JS_SCOPE_SELECTOR + ".ApplyJsonDiff([" + action.json() + "]);"
 		self.eval_js(code)
 
 	#Javascript callable function to update the project data when a clip changes

@@ -324,6 +324,20 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 	 return true;
  };
  
+ 
+ // Load entire project data JSON from UpdateManager (i.e. user opened an existing project)
+ $scope.LoadJson = function(EntireProjectJson){
+ 	$scope.$apply(function(){
+ 		
+ 		// Update the entire JSON object for the entire timeline
+ 		$scope.project = EntireProjectJson.value;
+ 		
+	 });
+	 
+	 // return true
+	 return true;
+ };
+ 
   
 // ############# END QT FUNCTIONS #################### //   
 

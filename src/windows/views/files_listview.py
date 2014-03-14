@@ -179,11 +179,14 @@ class FilesListView(QListView):
 		get_app().window.filesFilter.setText("")
 		
 	def filter_changed(self):
-		self.files_model.update_model()
 		if self.win.filesFilter.text() == "":
 			self.win.actionFilesClear.setEnabled(False)
 		else:
 			self.win.actionFilesClear.setEnabled(True)
+		self.refresh_view()
+			
+	def refresh_view(self):
+		self.files_model.update_model()
 			
 	def __init__(self, *args):
 		# Invoke parent init
@@ -206,6 +209,9 @@ class FilesListView(QListView):
 		self.setIconSize(QSize(131, 108))
 		self.setViewMode(QListView.IconMode)
 		self.setResizeMode(QListView.Adjust)
+		
+		# Refresh view
+		self.refresh_view()
 		
 		# setup filter events
 		app = get_app()

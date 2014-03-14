@@ -104,11 +104,16 @@ class TransitionsTreeView(QTreeView):
 		get_app().window.transitionsFilter.setText("")
 		
 	def filter_changed(self):
-		self.transition_model.update_model()
 		if self.win.transitionsFilter.text() == "":
 			self.win.actionTransitionsClear.setEnabled(False)
 		else:
 			self.win.actionTransitionsClear.setEnabled(True)
+		self.refresh_view()
+			
+	def refresh_view(self):
+		self.transition_model.update_model()
+		self.hideColumn(2)
+		self.hideColumn(3)
 			
 	def __init__(self, *args):
 		# Invoke parent init
@@ -119,7 +124,7 @@ class TransitionsTreeView(QTreeView):
 		
 		# Get Model data
 		self.transition_model = TransitionsModel()
-		
+
 		# Keep track of mouse press start position to determine when to start drag
 		self.startDragPos = None
 		self.selected = None
@@ -131,9 +136,10 @@ class TransitionsTreeView(QTreeView):
 		self.setIndentation(0)
 		self.setSelectionBehavior(QTreeView.SelectRows)
 		self.setSelectionBehavior(QAbstractItemView.SelectRows)
-		self.hideColumn(2)
-		self.hideColumn(3)
 		self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+		
+		# Refresh view
+		self.refresh_view()
 
 		# setup filter events
 		app = get_app()

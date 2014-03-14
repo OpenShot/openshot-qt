@@ -180,13 +180,18 @@ class FilesTreeView(QTreeView):
 		get_app().window.filesFilter.setText("")
 		
 	def filter_changed(self):
-		self.files_model.update_model()
-		self.resizeColumnToContents(3)
 		if self.win.filesFilter.text() == "":
 			self.win.actionFilesClear.setEnabled(False)
 		else:
 			self.win.actionFilesClear.setEnabled(True)
+		self.refresh_view()
 			
+	def refresh_view(self):
+		self.files_model.update_model()
+		self.hideColumn(3)
+		self.hideColumn(4)
+		self.resizeColumnToContents(1)
+		
 	def __init__(self, *args):
 		# Invoke parent init
 		QTreeView.__init__(self, *args)
@@ -209,10 +214,10 @@ class FilesTreeView(QTreeView):
 		self.setIndentation(0)
 		self.setSelectionBehavior(QTreeView.SelectRows)
 		self.setSelectionBehavior(QAbstractItemView.SelectRows)
-		self.hideColumn(3)
-		self.hideColumn(4)
-		self.resizeColumnToContents(3)
 		self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+		
+		# Refresh view
+		self.refresh_view()
 
 		# setup filter events
 		app = get_app()

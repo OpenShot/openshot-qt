@@ -2,5 +2,67 @@
   "fps": 30,
   "settings": {},
   "clips": [],
-  "files": []
+  "files": [],
+  
+  "duration": 600,
+  "scale": 16,
+  "tick_pixels": 100,
+  "playhead_position": 0,
+  "layers": [
+    {
+      "number": 4,
+      "y": 0
+    },
+    {
+      "number": 3,
+      "y": 0
+    },
+    {
+      "number": 2,
+      "y": 0
+    },
+    {
+      "number": 1,
+      "y": 0
+    },
+    {
+      "number": 0,
+      "y": 0
+    }
+  ],
+  "markers": [
+    {
+      "location": 16,
+      "icon": "yellow.png"
+    },
+    {
+      "location": 120,
+      "icon": "green.png"
+    },
+    {
+      "location": 300,
+      "icon": "red.png"
+    },
+    {
+      "location": 10,
+      "icon": "purple.png"
+    }
+  ],
+  "progress": [
+    [
+      0,
+      30,
+      "rendering"
+    ],
+    [
+      40,
+      50,
+      "complete"
+    ],
+    [
+      100,
+      150,
+      "complete"
+    ]
+  ]
 }
