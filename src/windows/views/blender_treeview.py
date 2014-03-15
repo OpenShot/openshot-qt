@@ -31,12 +31,14 @@ from classes import updates
 from classes import info
 from classes.logger import log
 from classes.settings import SettingStore
+from classes.query import File
 from classes.app import get_app
 from PyQt5.QtCore import QMimeData, QSize, Qt, QCoreApplication, QPoint, QFileInfo
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QTreeView, QApplication, QMessageBox, QAbstractItemView, QMenu, QLabel
+from PyQt5.QtWidgets import *
 from windows.models.blender_model import BlenderModel
 import xml.dom.minidom as xml
+import functools
 import openshot # Python module for libopenshot (required video editing module installed separately)
 
 try:
@@ -48,9 +50,12 @@ class BlenderTreeView(QTreeView):
 	""" A TreeView QWidget used on the animated title window """ 
 
 	def currentChanged(self, selected, deselected):
-		# get selected item
+		# Get selected item
 		self.selected = selected
 		self.deselected = deselected
+		
+		# Get translation object
+		_ = self.app._tr
 		
 		# Clear existing settings
 		self.win.clear_effect_controls()
@@ -71,12 +76,119 @@ class BlenderTreeView(QTreeView):
 				continue
 			
 			# Create Label
+			widget = None
 			label = QLabel()
-			label.setText(param["title"])
-			label.setToolTip(param["title"])
-			self.win.settingsContainer.layout().addWidget(label)
-			
+			label.setText(_(param["title"]))
+			label.setToolTip(_(param["title"]))
+			#self.win.settingsContainer.layout().addWidget(label)
+
+			if param["type"] == "spinner":
+				# add value to dictionary
+				self.params[param["name"]] = float(param["default"])
+				
+				# create spinner
+				widget = QDoubleSpinBox()
+				widget.setMinimum(float(param["min"]))
+				widget.setMaximum(float(param["max"]))
+				widget.setValue(float(param["default"]))
+				widget.setSingleStep(0.01)
+				widget.setToolTip(param["title"])
+				widget.valueChanged.connect(functools.partial(self.spinner_value_changed, param))
+				
+			elif param["type"] == "text":
+				# add value to dictionary
+				self.params[param["name"]] = _(param["default"])
+				
+				# create spinner
+				widget = QLineEdit()
+				widget.setText(_(param["default"]))
+				widget.textChanged.connect(functools.partial(self.text_value_changed, widget, param))
+
+			elif param["type"] == "multiline":
+				# add value to dictionary
+				self.params[param["name"]] = _(param["default"])
+				
+				# create spinner
+				widget = QTextEdit()
+				widget.setText(_(param["default"]))
+				widget.textChanged.connect(functools.partial(self.text_value_changed, widget, param))
+				
+			elif param["type"] == "dropdown":
+				# add value to dictionary
+				self.params[param["name"]] = param["default"]
+				
+				# create spinner
+				widget = QComboBox()
+				widget.currentIndexChanged.connect(functools.partial(self.dropdown_index_changed, widget, param))
+
+				# Add values to dropdown
+				if "project_files" in param["name"]:
+					# override files dropdown
+					param["values"] = {}
+					for file in File.filter():
+						if file.data["media_type"] in ("image", "video"):
+							(dirName, fileName) = os.path.split(file.data["path"])
+							(fileBaseName, fileExtension)=os.path.splitext(fileName)
+							
+							if fileExtension.lower() not in (".svg"):
+								param["values"][fileName] = "|".join((file.data["path"], str(file.data["height"]), str(file.data["width"]), file.data["media_type"], str(file.data["fps"]["num"]/file.data["fps"]["den"])))
+
+				# Add normal values
+				box_index = 0
+				for k,v in sorted(param["values"].items()):
+					# add dropdown item
+					widget.addItem(_(k), v)
+					
+					# select dropdown (if default)
+					if v == param["default"]:
+						widget.setCurrentIndex(box_index)
+					box_index = box_index + 1
+					
+				if not param["values"]:
+					widget.addItem(_("No Files Found"), "")
+					widget.setEnabled(False)
+					
+			elif param["type"] == "color":
+				# add value to dictionary
+				self.params[param["name"]] = param["default"]
+				
+				widget = QPushButton()
+				widget.setText("")
+				widget.setStyleSheet("background-color: %s" % param["default"])
+				widget.clicked.connect(functools.partial(self.color_button_clicked, widget, param))
+				
+			# Add Label and Widget to the form
+			if (widget and label):
+				self.win.settingsContainer.layout().addRow(label, widget)
+			elif (label):
+				self.win.settingsContainer.layout().addRow(label)
 		
+	def spinner_value_changed(self, param, value ):
+		self.params[param["name"]] = value
+		log.info(value)
+		
+	def text_value_changed(self, widget, param, value=None ):
+		try:
+			# Attempt to load value from QTextEdit (i.e. multi-line)
+			if not value:
+				value = widget.toPlainText()
+		except:
+			pass
+		self.params[param["name"]] = value
+		log.info(value)
+		
+	def dropdown_index_changed(self, widget, param, index ):
+		value = widget.itemData(index)
+		self.params[param["name"]] = value
+		log.info(value)
+		
+	def color_button_clicked(self, widget, param, index ):
+		# Show color dialog
+		currentColor = QColor(self.params[param["name"]])
+		newColor = QColorDialog.getColor(currentColor)
+		widget.setStyleSheet("background-color: %s" % newColor.name())
+		self.params[param["name"]] = newColor.name()
+		log.info(newColor.name())
 		
 	def get_animation_details(self):
 		""" Build a dictionary of all animation settings and properties from XML """
@@ -178,6 +290,7 @@ class BlenderTreeView(QTreeView):
 		QTreeView.__init__(self, *args)
 		
 		# Get a reference to the window object
+		self.app = get_app()
 		self.win = args[0]
 		
 		# Get Model data

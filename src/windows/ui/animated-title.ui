@@ -39,7 +39,7 @@
          <item>
           <widget class="QLabel" name="label">
            <property name="text">
-            <string>Choose an Animation</string>
+            <string>&lt;b&gt;Choose a Template&lt;/b&gt;</string>
            </property>
           </widget>
          </item>
@@ -82,7 +82,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>419</width>
+            <width>378</width>
             <height>277</height>
            </rect>
           </property>
