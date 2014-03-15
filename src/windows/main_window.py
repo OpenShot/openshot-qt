@@ -117,16 +117,58 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 			log.info('Import title add confirmed')
 		else:
 			log.info('Import title add cancelled')
+			
+			
+	def save_project(self, file_path):
+		""" Save a project to a file path, and refresh the screen """
+		app = get_app()
+		
+		try:
+			# Save project to file
+			app.project.save(file_path)
+			
+			# Load recent projects again
+			self.load_recent_menu()
+			
+			log.info("Saved project {}".format(file_path))
+			
+		except Exception as ex:
+			log.error("Couldn't save project {}".format(file_path))
+			
+			
+	def open_project(self, file_path):
+		""" Open a project from a file path, and refresh the screen """
+		
+		app = get_app()
+		
+		try:
+			if os.path.exists(file_path):
+				# Load project file
+				app.project.load(file_path)
+				
+				# Reset undo/redo history
+				app.updates.reset()
+				
+				# Refresh file tree
+				self.filesTreeView.refresh_view()
+				
+				# Load recent projects again
+				self.load_recent_menu()
+				
+				log.info("Loaded project {}".format(file_path))
+				
+		except Exception as ex:
+			log.error("Couldn't save project {}".format(file_path))
+							
 							
 	def actionOpen_trigger(self, event):
 		app = get_app()
 		_ = app._tr
 		file_path, file_type = QFileDialog.getOpenFileName(self, _("Open Project...")) #, options=QFileDialog.DontUseNativeDialog)
-		if file_path:
-			app.project.load(file_path)
-			app.updates.reset()
-			self.filesTreeView.refresh_view()
-			log.info("Loaded project {}".format(file_path))
+
+		# Load project file
+		self.open_project(file_path)
+
 		
 	def actionSave_trigger(self, event):
 		app = get_app()
@@ -137,24 +179,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 			file_path, file_type = QFileDialog.getSaveFileName(self, _("Save Project..."))
 		
 		if file_path:
-			try:
-				app.project.save(file_path)
-				app.project.current_filepath = file_path
-				log.info("Saved {}".format(file_path))
-			except Exception as ex:
-				log.error("Couldn't save project {}".format(file_path))
+			# Save project
+			self.save_project(file_path)
 
 	def actionSaveAs_trigger(self, event):
 		app = get_app()
 		_ = app._tr
 		file_path, file_type = QFileDialog.getSaveFileName(self, _("Save Project As..."))
 		if file_path:
-			try:
-				app.project.save(file_path)
-				app.project.current_filepath = file_path
-				log.info("Saved {}".format(file_path))
-			except Exception as ex:
-				log.error("Couldn't save project {}".format(file_path))
+			# Save project
+			self.save_project(file_path)
 		
 	def actionImportFiles_trigger(self, event):
 		app = get_app()
@@ -452,14 +486,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		#Save window state and geometry (saves toolbar and dock locations)
 		s.set('window_state', qt_types.bytes_to_str(self.saveState()))
 		s.set('window_geometry', qt_types.bytes_to_str(self.saveGeometry()))
-
-		#Splitter sizes
-		#sizes = self.splitter_2.sizes()
-		#s.set('window_splitter_2_pos', sizes)
-		#sizes = self.splitter.sizes()
-		#s.set('window_splitter_pos', sizes)
-		
-		#TODO: Call save_settings on any sub-objects necessary
 	
 	#Get window settings from setting store
 	def load_settings(self):
@@ -469,14 +495,40 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		if s.get('window_geometry'): self.restoreGeometry(qt_types.str_to_bytes(s.get('window_geometry')))
 		if s.get('window_state'): self.restoreState(qt_types.str_to_bytes(s.get('window_state')))
 		
-		# Splitter sizes
-		#if s.get('window_splitter_pos'): self.splitter.setSizes(s.get('window_splitter_pos'))
-		#if s.get('window_splitter_2_pos'): self.splitter_2.setSizes(s.get('window_splitter_2_pos'))
+		# Load Recent Projects
+		self.load_recent_menu()
 
-		# Add Recent files
+			
+	def load_recent_menu(self):
+		""" Clear and load the list of recent menu items """
+		s = settings.get_settings()
+		_ =  get_app()._tr #Get translation function
+
+		# Get list of recent projects
 		recent_projects = s.get("recent_projects")
-		#for file_path in recent_projects:
 		
+		# Add Recent Projects menu (after Open File)
+		import functools
+		if not self.recent_menu:
+			# Create a new recent menu
+			self.recent_menu = self.menuFile.addMenu(QIcon.fromTheme("document-open-recent"), _("Recent Projects"))
+			self.menuFile.insertMenu(self.actionRecent_Placeholder, self.recent_menu)
+		else:
+			# Clear the existing children
+			self.recent_menu.clear()
+
+		# Add recent projects to menu
+		for file_path in reversed(recent_projects):
+			new_action = self.recent_menu.addAction(file_path)
+			new_action.triggered.connect(functools.partial(self.recent_project_clicked, file_path))
+			
+	def recent_project_clicked(self, file_path):
+		""" Load a recent project when clicked """
+
+		# Load project file
+		self.open_project(file_path)
+
+
 	def setup_toolbars(self):
 		_ =  get_app()._tr #Get translation function
 		
@@ -617,6 +669,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		
 		#Load user settings for window
 		s = settings.get_settings()
+		self.recent_menu = None
 
 		#Init UI
 		ui_util.init_ui(self)

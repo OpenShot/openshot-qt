@@ -63,7 +63,7 @@
      <x>0</x>
      <y>0</y>
      <width>808</width>
-     <height>23</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -72,7 +72,7 @@
     </property>
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
-    <addaction name="actionRecent"/>
+    <addaction name="actionRecent_Placeholder"/>
     <addaction name="separator"/>
     <addaction name="actionImportFiles"/>
     <addaction name="actionImportImageSequence"/>
@@ -331,18 +331,6 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+S</string>
-   </property>
-  </action>
-  <action name="actionRecent">
-   <property name="icon">
-    <iconset theme="document-open-recent" resource="../../images/openshot.qrc">
-     <normaloff>:/icons/Compass/actions/misc/document-open-recent.svg</normaloff>:/icons/Compass/actions/misc/document-open-recent.svg</iconset>
-   </property>
-   <property name="text">
-    <string>Recent Projects</string>
-   </property>
-   <property name="toolTip">
-    <string>Recent Projects</string>
    </property>
   </action>
   <action name="actionImportFiles">
@@ -1043,6 +1031,17 @@
    </property>
    <property name="text">
     <string>Show All</string>
+   </property>
+  </action>
+  <action name="actionRecent_Placeholder">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Recent Placeholder</string>
+   </property>
+   <property name="visible">
+    <bool>false</bool>
    </property>
   </action>
  </widget>
