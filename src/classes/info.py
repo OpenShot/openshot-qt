@@ -35,11 +35,12 @@ SUPPORTED_LANGUAGES = ['English', 'Dutch', 'French', 'German', 'Italian', 'Portu
 CWD = os.getcwd()
 PATH = os.path.dirname(os.path.dirname( os.path.realpath( __file__) )) # Primary openshot folder
 USER_PATH = os.path.join(os.path.expanduser("~"), ".openshot_qt")
+BLENDER_PATH = os.path.join(USER_PATH, "blender")
 THUMBNAIL_PATH = os.path.join(USER_PATH, "thumbnail")
 CACHE_PATH = os.path.join(USER_PATH, "cache")
 
 # Create PATHS if they do not exist (this is where temp files are stored... such as cached thumbnails)
-for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH]:
+for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH]:
 	if not os.path.exists(folder):
 		os.makedirs(folder)
 

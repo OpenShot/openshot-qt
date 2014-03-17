@@ -25,7 +25,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import os
+import os, time, uuid, shutil
 from urllib.parse import urlparse
 from classes import updates
 from classes import info
@@ -63,6 +63,9 @@ class BlenderTreeView(QTreeView):
 		# Get animation details
 		animation = self.get_animation_details()
 		
+		# Assign a new unique id for each template selected
+		self.generateUniqueFolder()
+
 		# Loop through params
 		for param in animation["params"]:
 			log.info(param["title"])
@@ -162,6 +165,13 @@ class BlenderTreeView(QTreeView):
 				self.win.settingsContainer.layout().addRow(label, widget)
 			elif (label):
 				self.win.settingsContainer.layout().addRow(label)
+				
+		# Enable interface
+		self.enable_interface()
+		
+		# Init slider values
+		self.init_slider_values()
+		
 		
 	def spinner_value_changed(self, param, value ):
 		self.params[param["name"]] = value
@@ -189,6 +199,63 @@ class BlenderTreeView(QTreeView):
 		widget.setStyleSheet("background-color: %s" % newColor.name())
 		self.params[param["name"]] = newColor.name()
 		log.info(newColor.name())
+		
+	def generateUniqueFolder(self):
+		""" Generate a new, unique folder name to contain Blender frames """
+		
+		# Assign a new unique id for each template selected
+		self.unique_folder_name = str(uuid.uuid1())
+		
+		# Create a folder (if it does not exist)
+		if not os.path.exists(os.path.join(info.BLENDER_PATH, self.unique_folder_name)):
+			os.mkdir(os.path.join(info.BLENDER_PATH, self.unique_folder_name))
+		
+	def disable_interface(self):
+		""" Disable all controls on interface """
+		self.win.btnRefresh.setEnabled(False)
+		self.win.sliderPreview.setEnabled(False)
+	
+	def enable_interface(self):
+		""" Disable all controls on interface """
+		self.win.btnRefresh.setEnabled(True)
+		self.win.sliderPreview.setEnabled(True)
+		
+	def init_slider_values(self):
+		""" Init the slider and preview frame label to the currently selected animation """
+		
+		# Get current preview slider frame
+		preview_frame_number = self.win.sliderPreview.value()
+		length = int(self.params["end_frame"])
+		
+		# Get the animation speed (if any)
+		if not self.params["animation_speed"]:
+			self.params["animation_speed"] = 1
+		else:
+			# Adjust length (based on animation speed multiplier)
+			length *= int(self.params["animation_speed"])
+
+		# Update the preview slider
+		middle_frame = int(length / 2)
+		# Be sure the new 'middle frame' and the current preview frame are not the same
+		# This causes the thumbnail to refresh.
+		if preview_frame_number == middle_frame:
+			middle_frame += 1
+		self.win.sliderPreview.setMinimum(self.params["start_frame"])
+		self.win.sliderPreview.setMaximum(length)
+		self.win.sliderPreview.setValue(middle_frame)
+		
+		# Update preview label
+		self.win.lblFrame.setText("%s/%s" % (middle_frame, length))
+	
+	def btnRefresh_clicked(self, checked):
+		log.info("Refresh Me!")
+		
+	def sliderPreview_released(self):
+		
+		# Update preview label
+		preview_frame_number = self.win.sliderPreview.value()
+		length = int(self.params["end_frame"])
+		self.win.lblFrame.setText("%s/%s" % (preview_frame_number, length))
 		
 	def get_animation_details(self):
 		""" Build a dictionary of all animation settings and properties from XML """
@@ -302,6 +369,12 @@ class BlenderTreeView(QTreeView):
 		
 		# Init dictionary which holds the values to the template parameters
 		self.params = {}
+		
+		# Assign a new unique id for each template selected
+		self.unique_folder_name = None
+		
+		# Disable interface
+		self.disable_interface()
 
 		# Setup header columns
 		self.setModel(self.blender_model.model)
@@ -309,6 +382,10 @@ class BlenderTreeView(QTreeView):
 		self.setIndentation(0)
 		self.setSelectionBehavior(QTreeView.SelectRows)
 		self.setSelectionBehavior(QAbstractItemView.SelectRows)
+		
+		# Hook up button
+		self.win.btnRefresh.clicked.connect(functools.partial(self.btnRefresh_clicked))
+		self.win.sliderPreview.sliderReleased.connect(functools.partial(self.sliderPreview_released))
 		
 		# Refresh view
 		self.refresh_view()
