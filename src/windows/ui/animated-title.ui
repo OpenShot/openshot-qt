@@ -23,7 +23,7 @@
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
+      <set>QDialogButtonBox::NoButton</set>
      </property>
     </widget>
    </item>
@@ -82,8 +82,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>387</width>
-            <height>242</height>
+            <width>391</width>
+            <height>267</height>
            </rect>
           </property>
           <layout class="QFormLayout" name="formLayout">

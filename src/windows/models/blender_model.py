@@ -137,6 +137,12 @@ class BlenderModel():
 				col.setData(path, Qt.DisplayRole)
 				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 				row.append(col)
+				
+				# Append Service
+				col = QStandardItem("Service")
+				col.setData(service, Qt.DisplayRole)
+				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+				row.append(col)
 	
 				# Append ROW to MODEL (if does not already exist in model)
 				if not path in self.model_paths:
@@ -151,5 +157,5 @@ class BlenderModel():
 		# Create standard model 
 		self.app = get_app()
 		self.model = QStandardItemModel()
-		self.model.setColumnCount(3)
+		self.model.setColumnCount(4)
 		self.model_paths = {}

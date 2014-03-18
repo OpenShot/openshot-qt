@@ -62,6 +62,12 @@ class AnimatedTitle(QDialog):
 		self.blenderTreeView = BlenderTreeView(self)
 		self.verticalLayout.addWidget(self.blenderTreeView)
 		
+		# Add render button
+		app = get_app()
+		_ = app._tr
+		self.buttonBox.addButton(QPushButton(_('Render')), QDialogButtonBox.AcceptRole)
+		self.buttonBox.addButton(QPushButton(_('Cancel')), QDialogButtonBox.RejectRole)
+
 		# Init variables
 		self.unique_folder_name = str(uuid.uuid1())
 		self.output_dir = os.path.join(info.USER_PATH, "blender")

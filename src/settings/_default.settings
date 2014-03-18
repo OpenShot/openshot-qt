@@ -7,5 +7,6 @@
   "file_view": "details",
   "transitions_view": "thumbnail",
   "effects_view": "thumbnail",
-  "recent_projects" : []
+  "recent_projects" : [],
+  "blender_command" : "/home/jonathan/blender-2.69-linux-glibc211-x86_64/blender"
 }

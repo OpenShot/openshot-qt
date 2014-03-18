@@ -1,5 +1,8 @@
 {
   "fps": 30,
+  "width": 720,
+  "height": 1280,
+  
   "settings": {},
   "clips": [],
   "files": [],
