@@ -63,6 +63,7 @@ class OpenShotApp(QApplication):
 		
 		# Init Update Manager
 		self.updates = updates.UpdateManager()
+		
 		# It is important that the project is the first listener if the key gets update
 		self.updates.add_listener(self.project)
 			

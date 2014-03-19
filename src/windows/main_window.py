@@ -36,6 +36,7 @@ from windows.timeline_webview import TimelineWebView
 from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
+from classes.timeline import TimelineSync
 from images import openshot_rc
 from windows.views.files_treeview import FilesTreeView
 from windows.views.files_listview import FilesListView
@@ -43,6 +44,7 @@ from windows.views.transitions_treeview import TransitionsTreeView
 from windows.views.transitions_listview import TransitionsListView
 from windows.views.effects_treeview import EffectsTreeView
 from windows.views.effects_listview import EffectsListView
+from windows.preview_thread import PreviewThread
 import xml.etree.ElementTree as ElementTree
 import webbrowser
 
@@ -710,3 +712,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
 		# Load window state and geometry
 		self.load_settings()
+		
+		# Create the timeline sync object (used for previewing timeline)
+		self.timeline_sync = TimelineSync()
+		
+		# Start the preview thread
+		self.preview_thread = PreviewThread(self, self.timeline_sync.timeline)
+		self.preview_thread.start()
+		

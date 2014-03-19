@@ -63,7 +63,7 @@
      <x>0</x>
      <y>0</y>
      <width>808</width>
-     <height>25</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -205,13 +205,7 @@
      <item row="0" column="1">
       <layout class="QVBoxLayout" name="tabVideo">
        <item>
-        <widget class="QGraphicsView" name="videoPreview">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
+        <widget class="QLabel" name="videoPreview">
          <property name="minimumSize">
           <size>
            <width>400</width>
@@ -219,7 +213,13 @@
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: #000000</string>
+          <string notr="true">background-color: #000000;</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
