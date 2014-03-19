@@ -262,17 +262,24 @@ class BlenderTreeView(QTreeView):
 		if not os.path.exists(os.path.join(info.BLENDER_PATH, self.unique_folder_name)):
 			os.mkdir(os.path.join(info.BLENDER_PATH, self.unique_folder_name))
 		
-	def disable_interface(self):
+	def disable_interface(self, cursor=True):
 		""" Disable all controls on interface """
 		self.win.btnRefresh.setEnabled(False)
 		self.win.sliderPreview.setEnabled(False)
 		self.win.buttonBox.setEnabled(False)
+		
+		# Show 'Wait' cursor
+		if cursor:
+			QApplication.setOverrideCursor(Qt.WaitCursor)
 	
 	def enable_interface(self):
 		""" Disable all controls on interface """
 		self.win.btnRefresh.setEnabled(True)
 		self.win.sliderPreview.setEnabled(True)
 		self.win.buttonBox.setEnabled(True)
+		
+		# Restore normal cursor
+		QApplication.restoreOverrideCursor()
 		
 	def init_slider_values(self):
 		""" Init the slider and preview frame label to the currently selected animation """
@@ -290,16 +297,16 @@ class BlenderTreeView(QTreeView):
 
 		# Update the preview slider
 		middle_frame = int(length / 2)
-		# Be sure the new 'middle frame' and the current preview frame are not the same
-		# This causes the thumbnail to refresh.
-		if preview_frame_number == middle_frame:
-			middle_frame += 1
+		
 		self.win.sliderPreview.setMinimum(self.params["start_frame"])
 		self.win.sliderPreview.setMaximum(length)
 		self.win.sliderPreview.setValue(middle_frame)
 		
 		# Update preview label
 		self.win.lblFrame.setText("%s/%s" % (middle_frame, length))
+		
+		# Click the refresh button
+		self.btnRefresh_clicked(None)
 	
 	def btnRefresh_clicked(self, checked):
 		
@@ -342,6 +349,9 @@ class BlenderTreeView(QTreeView):
 		preview_frame_number = self.win.sliderPreview.value()
 		length = int(self.params["end_frame"])
 		self.win.lblFrame.setText("%s/%s" % (preview_frame_number, length))
+		
+		# Render current frame
+		self.Render(preview_frame_number)
 		
 	def get_animation_details(self):
 		""" Build a dictionary of all animation settings and properties from XML """
@@ -439,45 +449,6 @@ class BlenderTreeView(QTreeView):
 		self.blender_model.update_model()
 		self.hideColumn(2)
 		self.hideColumn(3)
-			
-	def __init__(self, *args):
-		# Invoke parent init
-		QTreeView.__init__(self, *args)
-		
-		# Get a reference to the window object
-		self.app = get_app()
-		self.win = args[0]
-		
-		# Get Model data
-		self.blender_model = BlenderModel()
-		
-		# Keep track of mouse press start position to determine when to start drag
-		self.selected = None
-		self.deselected = None
-		
-		# Init dictionary which holds the values to the template parameters
-		self.params = {}
-		
-		# Assign a new unique id for each template selected
-		self.unique_folder_name = None
-		
-		# Disable interface
-		self.disable_interface()
-		self.selected_template = ""
-
-		# Setup header columns
-		self.setModel(self.blender_model.model)
-		self.setIconSize(QSize(131, 108))
-		self.setIndentation(0)
-		self.setSelectionBehavior(QTreeView.SelectRows)
-		self.setSelectionBehavior(QAbstractItemView.SelectRows)
-		
-		# Hook up button
-		self.win.btnRefresh.clicked.connect(functools.partial(self.btnRefresh_clicked))
-		self.win.sliderPreview.sliderReleased.connect(functools.partial(self.sliderPreview_released))
-		
-		# Refresh view
-		self.refresh_view()
 		
 	def get_project_params(self, is_preview=True):
 		""" Return a dictionary of project related settings, needed by the Blender python script. """
@@ -579,24 +550,10 @@ class BlenderTreeView(QTreeView):
 
 		# get the pixbuf
 		image = QImage(image_path)
-		item = QGraphicsPixmapItem(QPixmap.fromImage(image))
-		scene = QGraphicsScene()
-		scene.addItem(item)
-		
-		self.win.imgPreview.setScene(scene)
-		self.win.imgPreview.show()
-			
-		
-		# get size of real image
-		#real_width = pbThumb.get_width()
-		#real_height = pbThumb.get_height()
-		#ratio = float(real_width) / float(real_height)
+		scaled_image = image.scaledToHeight(self.win.imgPreview.height(), Qt.SmoothTransformation);
+		pixmap = QPixmap.fromImage(scaled_image)
+		self.win.imgPreview.setPixmap(pixmap)
 
-		# resize thumbnail
-		#pbThumb = pbThumb.scale_simple(int(self.image_height * ratio), int(self.image_height), gtk.gdk.INTERP_BILINEAR)
-
-		# update image
-		#self.imgPreview.set_from_pixbuf(pbThumb)
 		
 	def Render(self, frame=None):
 		""" Render an images sequence of the current template using Blender 2.62+ and the
@@ -631,6 +588,44 @@ class BlenderTreeView(QTreeView):
 		# Start blender thread
 		self.my_blender.start()
 
+	def __init__(self, *args):
+		# Invoke parent init
+		QTreeView.__init__(self, *args)
+		
+		# Get a reference to the window object
+		self.app = get_app()
+		self.win = args[0]
+		
+		# Get Model data
+		self.blender_model = BlenderModel()
+		
+		# Keep track of mouse press start position to determine when to start drag
+		self.selected = None
+		self.deselected = None
+		
+		# Init dictionary which holds the values to the template parameters
+		self.params = {}
+		
+		# Assign a new unique id for each template selected
+		self.unique_folder_name = None
+		
+		# Disable interface
+		self.disable_interface(cursor=False)
+		self.selected_template = ""
+
+		# Setup header columns
+		self.setModel(self.blender_model.model)
+		self.setIconSize(QSize(131, 108))
+		self.setIndentation(0)
+		self.setSelectionBehavior(QTreeView.SelectRows)
+		self.setSelectionBehavior(QAbstractItemView.SelectRows)
+		
+		# Hook up button
+		self.win.btnRefresh.clicked.connect(functools.partial(self.btnRefresh_clicked))
+		self.win.sliderPreview.sliderReleased.connect(functools.partial(self.sliderPreview_released))
+		
+		# Refresh view
+		self.refresh_view()
 
 
 class BlenderCommand(threading.Thread):

@@ -138,7 +138,7 @@ def createDissolveText(title,extrude,bevel_depth,spacemode,textsize,width,font):
 	ActiveObjectText.modifiers['Remesh'].octree_depth = 9 #10 best quality but vertices number too high
 	ActiveObjectText.modifiers['Remesh'].scale=0.99
 	ActiveObjectText.modifiers['Remesh'].mode='SMOOTH'
-	ActiveObjectText.modifiers['Remesh'].remove_disconnected_pieces=False
+	ActiveObjectText.modifiers['Remesh'].use_remove_disconnected=False
 	#apply this mofifier
 	bpy.ops.object.modifier_apply(apply_as='DATA', modifier="Remesh")
 	
@@ -167,7 +167,7 @@ def createDissolveText(title,extrude,bevel_depth,spacemode,textsize,width,font):
 	ActiveObjectText.particle_systems['ParticleSystem'].settings.render_type='NONE'
 	ActiveObjectText.particle_systems['ParticleSystem'].settings.draw_method='DOT'
 	ActiveObjectText.particle_systems['ParticleSystem'].settings.effector_weights.gravity = 0
-	ActiveObjectText.particle_systems['ParticleSystem'].settings.adaptive_subframes = True
+	ActiveObjectText.particle_systems['ParticleSystem'].settings.use_adaptive_subframes = True
 	ActiveObjectText.particle_systems['ParticleSystem'].settings.courant_target = 0.2
 
 	bpy.ops.object.select_all(action='DESELECT')
