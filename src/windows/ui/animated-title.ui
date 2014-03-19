@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Animated Titles</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../../../../../openshot_qt/xdg/openshot.svg</normaloff>../../../../../openshot_qt/xdg/openshot.svg</iconset>
+  </property>
   <property name="autoFillBackground">
    <bool>false</bool>
   </property>
@@ -66,8 +70,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>391</width>
-            <height>207</height>
+            <width>392</width>
+            <height>209</height>
            </rect>
           </property>
           <layout class="QFormLayout" name="formLayout">
