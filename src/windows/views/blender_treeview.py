@@ -27,6 +27,7 @@
 
 import os, time, uuid, shutil
 import threading, subprocess, re
+from _sre import MAXREPEAT
 from urllib.parse import urlparse
 from classes import updates
 from classes import info
@@ -48,7 +49,7 @@ except ImportError:
 	import simplejson as json
 	
 class QBlenderEvent(QEvent):
-	""" A custom Blender QEvent """
+	""" A custom Blender QEvent, which can safely be sent from the Blender thread to the Qt thread (to communicate) """
 	 
 	def __init__(self, id, data=None, *args):
 		# Invoke parent init
@@ -59,51 +60,44 @@ class QBlenderEvent(QEvent):
 class BlenderTreeView(QTreeView):
 	""" A TreeView QWidget used on the animated title window """ 
 
-	
-	def eventFilter (self, object, event):
-		""" Custom event handler """
-		log.info(object)
-		log.info(event.type())
-		
-		data = None
-		try:
-			data = event.data
-		except:
-			event.ignore()
-			return False
-		
-		log.info('CUSTOM EVENT!')
-		
-		if event.id == "1":
+	def customEvent(self, event):
+		""" Only events can be sent between threads, so this event handler catches special QBlenderEvent objects,
+		which let the Blender thread communicate with the Qt interface. """
+
+		if event.id == 1001:
 			# Close window
 			self.close()
 			
-		elif event.id == "2":
+		elif event.id == 1002:
 			# Render Finished
 			self.render_finished()
 			
-		elif event.id == "3":
+		elif event.id == 1003:
 			# Error from blender (with version data)
 			self.error_with_blender(event.data)
 			
-		elif event.id == "4":
+		elif event.id == 1004:
 			# Error from blender (with no data)
 			self.error_with_blender()
 			
-		elif event.id == "5":
+		elif event.id == "1005":
 			# Update progress bar
 			self.update_progress_bar(event.data['current_frame'], event.data['current_part'], event.data['max_parts'])
 			
-		elif event.id == "6":
+		elif event.id == 1006:
 			# Update image prevent
 			self.update_image(event.data)
 			
-		elif event.id == "7":
+		elif event.id == 1007:
 			# Error from blender (with no version and custom message)
 			self.error_with_blender(None, event.data)
 			
+		elif event.id == 1008:
+			# Re-enable interface
+			self.enable_interface()
+			
 		event.accept()
-		return True
+		#return event
 
 
 	def currentChanged(self, selected, deselected):
@@ -210,7 +204,8 @@ class BlenderTreeView(QTreeView):
 					
 			elif param["type"] == "color":
 				# add value to dictionary
-				self.params[param["name"]] = param["default"]
+				color = QColor(param["default"])
+				self.params[param["name"]] = [color.redF(), color.greenF(), color.blueF()]
 				
 				widget = QPushButton()
 				widget.setText("")
@@ -254,7 +249,7 @@ class BlenderTreeView(QTreeView):
 		currentColor = QColor(self.params[param["name"]])
 		newColor = QColorDialog.getColor(currentColor)
 		widget.setStyleSheet("background-color: %s" % newColor.name())
-		self.params[param["name"]] = newColor.name()
+		self.params[param["name"]] = [newColor.redF(), newColor.greenF(), newColor.blueF()]
 		log.info(newColor.name())
 		
 	def generateUniqueFolder(self):
@@ -583,12 +578,13 @@ class BlenderTreeView(QTreeView):
 		log.info("update_image: %s" % image_path)
 
 		# get the pixbuf
-		item = QGraphicsPixmapItem(QPixmap.fromImage(image_path))
+		image = QImage(image_path)
+		item = QGraphicsPixmapItem(QPixmap.fromImage(image))
 		scene = QGraphicsScene()
 		scene.addItem(item)
 		
-		self.imgPreview.setScene(scene)
-		self.imgPreview.show()
+		self.win.imgPreview.setScene(scene)
+		self.win.imgPreview.show()
 			
 		
 		# get size of real image
@@ -670,14 +666,11 @@ class BlenderCommand(threading.Thread):
 			self.process.kill()
 		else:
 			# close window if thread was killed
-			QCoreApplication.postEvent(self.parent, QBlenderEvent(1, {"data":None}))
+			QCoreApplication.postEvent(self.parent, QBlenderEvent(1001, {"data":None}))
 		
 
 	def run(self):
 		_ = self.parent.app._tr
-
-		self.myevent = QBlenderEvent(65534, {"data":None})
-		QCoreApplication.sendEvent(self.parent, self.myevent)
 
 		try:
 			# Shell the blender command to create the image sequence
@@ -686,7 +679,7 @@ class BlenderCommand(threading.Thread):
 			self.process = subprocess.Popen(command_get_version, stdout=subprocess.PIPE)
 			
 			# Check the version of Blender
-			self.version = self.blender_version.findall(self.process.stdout.readline())
+			self.version = self.blender_version.findall(str(self.process.stdout.readline()))
 
 			if self.version:
 				if float(self.version[0]) < 2.62:
@@ -695,7 +688,7 @@ class BlenderCommand(threading.Thread):
 					self.is_running = False
 					
 					# Wrong version of Blender.  Must be 2.62+:
-					QCoreApplication.postEvent(self.parent, QBlenderEvent(3, {"data":float(self.version[0])}))
+					QCoreApplication.postEvent(self.parent, QBlenderEvent(1003, {"data":float(self.version[0])}))
 					#self.parent.error_with_blender(float(self.version[0]))
 					return
 			
@@ -713,13 +706,13 @@ class BlenderCommand(threading.Thread):
 			#gobject.idle_add(self.frm3dGenerator.frm3dGenerator.window.set_cursor, None)
 			self.is_running = False
 			
-			QCoreApplication.postEvent(self.parent, QBlenderEvent(4, None))
+			QCoreApplication.postEvent(self.parent, QBlenderEvent(1004, None))
 			return
 
-		while self.is_running:
+		while self.is_running and self.process.poll() is None:
 
 			# Look for progress info in the Blender Output
-			line = self.process.stdout.readline()
+			line = str(self.process.stdout.readline())
 			self.command_output = self.command_output + line + "\n"	# append all output into a variable
 			output_frame = self.blender_frame_expression.findall(line)
 
@@ -735,10 +728,10 @@ class BlenderCommand(threading.Thread):
 				# Update progress bar
 				if not self.preview_mode:
 					# only update progress if in 'render' mode
-					QCoreApplication.postEvent(self.parent, QBlenderEvent(5, {"current_frame":current_frame, "current_part":current_part, "max_parts":max_parts}))
+					QCoreApplication.postEvent(self.parent, QBlenderEvent(1005, {"current_frame":current_frame, "current_part":current_part, "max_parts":max_parts}))
 				
 			# Look for progress info in the Blender Output
-			output_saved = self.blender_saved_expression.findall(line)
+			output_saved = self.blender_saved_expression.findall(str(line))
 
 			# Does it have a match?
 			if output_saved:
@@ -748,15 +741,14 @@ class BlenderCommand(threading.Thread):
 				time_saved = output_saved[0][1]
 				
 				# Update preview image
-				QCoreApplication.postEvent(self.parent, QBlenderEvent(6, image_path))
-			
-			# Are we done? Should we exit the loop?	
-			if line == '' and self.process.poll() != None:
-				break
+				QCoreApplication.postEvent(self.parent, QBlenderEvent(1006, image_path))
 
 				
 		# change cursor to "default"
 		#gobject.idle_add(self.frm3dGenerator.frm3dGenerator.window.set_cursor, None)
+		
+		# Re-enable the interface
+		QCoreApplication.postEvent(self.parent, QBlenderEvent(1008))
 
 		# Check if NO FRAMES are detected
 		if not self.frame_detected:
@@ -764,18 +756,18 @@ class BlenderCommand(threading.Thread):
 			# the wrong command being executed... or an error in Blender.
 			log.info("No frame was found in the output from Blender")
 			#gobject.idle_add(self.frm3dGenerator.error_with_blender, None, _("No frame was found in the output from Blender"))
-			QCoreApplication.postEvent(self.parent, QBlenderEvent(7, _("No frame was found in the output from Blender")))
+			QCoreApplication.postEvent(self.parent, QBlenderEvent(1007, _("No frame was found in the output from Blender")))
 		
 		# Done with render (i.e. close window)
 		elif not self.preview_mode:
 			# only close window if in 'render' mode
-			QCoreApplication.postEvent(self.parent, QEvent({"id":2, "data":None}))
+			QCoreApplication.postEvent(self.parent, QBlenderEvent(1002))
 			
 		# Thread finished
 		log.info("Blender render thread finished")
 		if self.is_running == False:
 			# close window if thread was killed
-			QCoreApplication.postEvent(self.parent, QEvent({"id":1, "data":None}))
+			QCoreApplication.postEvent(self.parent, QBlenderEvent(1001))
 			
 		# mark thread as finished
 		self.is_running = False

@@ -50,7 +50,7 @@
      <widget class="QWidget" name="widget_2" native="true">
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="1" column="0">
-        <widget class="QGraphicsView" name="graphicsView">
+        <widget class="QGraphicsView" name="imgPreview">
          <property name="maximumSize">
           <size>
            <width>16777215</width>
@@ -59,6 +59,12 @@
          </property>
          <property name="styleSheet">
           <string notr="true">background-color:#000000;</string>
+         </property>
+         <property name="verticalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+         <property name="horizontalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
          </property>
          <property name="interactive">
           <bool>true</bool>
