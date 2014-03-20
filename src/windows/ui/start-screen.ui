@@ -95,7 +95,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../../images/folder-documents.png</normaloff>../../images/folder-documents.png</iconset>
+      <normaloff>../../images/folder-blue.png</normaloff>../../images/folder-blue.png</iconset>
     </property>
     <property name="iconSize">
      <size>
