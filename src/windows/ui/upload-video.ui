@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>350</width>
-    <height>600</height>
+    <width>419</width>
+    <height>712</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,10 +23,10 @@
   <widget class="QPushButton" name="btncancel">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>560</y>
-     <width>100</width>
-     <height>27</height>
+     <x>30</x>
+     <y>660</y>
+     <width>150</width>
+     <height>30</height>
     </rect>
    </property>
    <property name="text">
@@ -36,10 +36,10 @@
   <widget class="QPushButton" name="btnupload">
    <property name="geometry">
     <rect>
-     <x>240</x>
-     <y>560</y>
-     <width>100</width>
-     <height>27</height>
+     <x>230</x>
+     <y>660</y>
+     <width>150</width>
+     <height>30</height>
     </rect>
    </property>
    <property name="text">
@@ -51,7 +51,7 @@
     <rect>
      <x>9</x>
      <y>10</y>
-     <width>331</width>
+     <width>391</width>
      <height>154</height>
     </rect>
    </property>
@@ -76,9 +76,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>170</y>
-     <width>130</width>
-     <height>15</height>
+     <y>180</y>
+     <width>111</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">
@@ -89,9 +89,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>200</y>
-     <width>130</width>
-     <height>15</height>
+     <y>220</y>
+     <width>121</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">
@@ -103,8 +103,8 @@
     <rect>
      <x>140</x>
      <y>170</y>
-     <width>190</width>
-     <height>27</height>
+     <width>261</width>
+     <height>30</height>
     </rect>
    </property>
    <property name="text">
@@ -120,9 +120,9 @@
    <property name="geometry">
     <rect>
      <x>140</x>
-     <y>200</y>
-     <width>190</width>
-     <height>25</height>
+     <y>210</y>
+     <width>261</width>
+     <height>30</height>
     </rect>
    </property>
    <item>
@@ -148,8 +148,8 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>230</y>
-     <width>321</width>
+     <y>240</y>
+     <width>391</width>
      <height>16</height>
     </rect>
    </property>
@@ -161,9 +161,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>260</y>
-     <width>130</width>
-     <height>15</height>
+     <y>270</y>
+     <width>121</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">
@@ -174,9 +174,9 @@
    <property name="geometry">
     <rect>
      <x>140</x>
-     <y>250</y>
-     <width>190</width>
-     <height>25</height>
+     <y>260</y>
+     <width>261</width>
+     <height>30</height>
     </rect>
    </property>
   </widget>
@@ -184,9 +184,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>290</y>
-     <width>130</width>
-     <height>15</height>
+     <y>310</y>
+     <width>121</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">
@@ -197,8 +197,8 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>410</y>
-     <width>321</width>
+     <y>430</y>
+     <width>391</width>
      <height>16</height>
     </rect>
    </property>
@@ -210,9 +210,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>430</y>
-     <width>130</width>
-     <height>15</height>
+     <y>460</y>
+     <width>121</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">
@@ -223,9 +223,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>460</y>
-     <width>130</width>
-     <height>15</height>
+     <y>510</y>
+     <width>121</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">
@@ -236,9 +236,9 @@
    <property name="geometry">
     <rect>
      <x>140</x>
-     <y>430</y>
-     <width>190</width>
-     <height>25</height>
+     <y>450</y>
+     <width>261</width>
+     <height>30</height>
     </rect>
    </property>
   </widget>
@@ -246,9 +246,9 @@
    <property name="geometry">
     <rect>
      <x>140</x>
-     <y>460</y>
-     <width>190</width>
-     <height>25</height>
+     <y>500</y>
+     <width>261</width>
+     <height>30</height>
     </rect>
    </property>
   </widget>
@@ -256,8 +256,8 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>490</y>
-     <width>321</width>
+     <y>540</y>
+     <width>391</width>
      <height>3</height>
     </rect>
    </property>
@@ -268,8 +268,8 @@
   <widget class="QLabel" name="lblwebsite">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>500</y>
+     <x>140</x>
+     <y>550</y>
      <width>160</width>
      <height>15</height>
     </rect>
@@ -285,9 +285,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>520</y>
-     <width>321</width>
-     <height>23</height>
+     <y>590</y>
+     <width>391</width>
+     <height>30</height>
     </rect>
    </property>
    <property name="value">
@@ -298,9 +298,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>550</y>
-     <width>321</width>
-     <height>3</height>
+     <y>630</y>
+     <width>391</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="orientation">
@@ -311,8 +311,8 @@
    <property name="geometry">
     <rect>
      <x>140</x>
-     <y>280</y>
-     <width>190</width>
+     <y>310</y>
+     <width>261</width>
      <height>121</height>
     </rect>
    </property>
@@ -348,12 +348,28 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>175</x>
-     <y>569</y>
+     <x>85</x>
+     <y>669</y>
     </hint>
     <hint type="destinationlabel">
      <x>63</x>
      <y>548</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnupload</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>326</x>
+     <y>679</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>406</x>
+     <y>696</y>
     </hint>
    </hints>
   </connection>
