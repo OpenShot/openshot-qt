@@ -52,7 +52,7 @@
      </property>
     </widget>
    </widget>
-   <widget class="QSlider" name="horizontalSlider">
+   <widget class="QSlider" name="sliderplayer">
     <property name="geometry">
      <rect>
       <x>60</x>
@@ -65,7 +65,7 @@
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="btnplayer">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -221,7 +221,7 @@
         <string>Enable Audio</string>
        </property>
       </widget>
-      <widget class="QDoubleSpinBox" name="doubleSpinBox">
+      <widget class="QDoubleSpinBox" name="spnpositiontimeline">
        <property name="geometry">
         <rect>
          <x>180</x>
@@ -1263,7 +1263,9 @@
         <string extracomment="Add a effect"/>
        </property>
        <property name="icon">
-        <iconset theme="add"/>
+        <iconset theme="add">
+         <normaloff/>
+        </iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -1282,7 +1284,9 @@
         </rect>
        </property>
        <property name="icon">
-        <iconset theme="remove"/>
+        <iconset theme="remove">
+         <normaloff/>
+        </iconset>
        </property>
        <property name="iconSize">
         <size>
