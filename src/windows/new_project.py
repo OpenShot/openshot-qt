@@ -1,7 +1,6 @@
 """
  @file
  @brief This file help you to create a new project (i.e add a new project)
- @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
  @author Olivier Girard <olivier@openshot.org>
 

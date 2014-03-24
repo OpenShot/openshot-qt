@@ -1,7 +1,6 @@
 """
  @file
  @brief This file loads the Preferences dialog (i.e where is all preferences)
- @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
  @author Olivier Girard <olivier@openshot.org>
 

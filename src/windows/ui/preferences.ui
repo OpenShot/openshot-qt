@@ -23,10 +23,10 @@
   <widget class="QPushButton" name="btnclose">
    <property name="geometry">
     <rect>
-     <x>340</x>
+     <x>330</x>
      <y>460</y>
-     <width>87</width>
-     <height>27</height>
+     <width>90</width>
+     <height>30</height>
     </rect>
    </property>
    <property name="text">
@@ -83,7 +83,7 @@
         <x>210</x>
         <y>10</y>
         <width>190</width>
-        <height>25</height>
+        <height>30</height>
        </rect>
       </property>
      </widget>
@@ -93,7 +93,7 @@
         <x>210</x>
         <y>170</y>
         <width>190</width>
-        <height>25</height>
+        <height>30</height>
        </rect>
       </property>
      </widget>
@@ -103,7 +103,7 @@
         <x>210</x>
         <y>210</y>
         <width>190</width>
-        <height>25</height>
+        <height>30</height>
        </rect>
       </property>
      </widget>
@@ -113,7 +113,7 @@
         <x>210</x>
         <y>250</y>
         <width>190</width>
-        <height>25</height>
+        <height>30</height>
        </rect>
       </property>
      </widget>
@@ -123,7 +123,7 @@
         <x>210</x>
         <y>90</y>
         <width>190</width>
-        <height>25</height>
+        <height>30</height>
        </rect>
       </property>
       <property name="alignment">
@@ -136,7 +136,7 @@
         <x>210</x>
         <y>50</y>
         <width>190</width>
-        <height>25</height>
+        <height>30</height>
        </rect>
       </property>
      </widget>
@@ -146,7 +146,7 @@
         <x>210</x>
         <y>130</y>
         <width>190</width>
-        <height>25</height>
+        <height>30</height>
        </rect>
       </property>
       <property name="alignment">
@@ -159,7 +159,7 @@
         <x>210</x>
         <y>290</y>
         <width>190</width>
-        <height>25</height>
+        <height>30</height>
        </rect>
       </property>
      </widget>
@@ -169,7 +169,7 @@
         <x>210</x>
         <y>330</y>
         <width>190</width>
-        <height>25</height>
+        <height>30</height>
        </rect>
       </property>
      </widget>
@@ -298,7 +298,7 @@
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <widget class="QTableWidget" name="tableWidget">
+     <widget class="QTableWidget" name="tablevideo">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -306,9 +306,6 @@
         <width>141</width>
         <height>361</height>
        </rect>
-      </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
       </property>
       <property name="horizontalScrollBarPolicy">
        <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -331,12 +328,12 @@
       <attribute name="horizontalHeaderMinimumSectionSize">
        <number>25</number>
       </attribute>
-      <attribute name="verticalHeaderDefaultSectionSize">
-       <number>30</number>
-      </attribute>
       <column>
        <property name="text">
         <string>Video Codecs</string>
+       </property>
+       <property name="toolTip">
+        <string>List of Video Codecs available in FFmeg</string>
        </property>
        <property name="textAlignment">
         <set>AlignHCenter|AlignVCenter|AlignCenter</set>
@@ -363,14 +360,14 @@
        <x>230</x>
        <y>370</y>
        <width>130</width>
-       <height>27</height>
+       <height>30</height>
       </rect>
      </property>
      <property name="text">
       <string>Reload Codecs</string>
      </property>
     </widget>
-    <widget class="QTableWidget" name="tableWidget_2">
+    <widget class="QTableWidget" name="tableaudio">
      <property name="geometry">
       <rect>
        <x>140</x>
@@ -382,16 +379,22 @@
      <property name="horizontalScrollBarPolicy">
       <enum>Qt::ScrollBarAlwaysOff</enum>
      </property>
+     <attribute name="horizontalHeaderDefaultSectionSize">
+      <number>100</number>
+     </attribute>
      <column>
       <property name="text">
        <string>Audio Codecs</string>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;List of Audio Codecs available in FFmpeg&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="textAlignment">
        <set>AlignHCenter|AlignVCenter|AlignCenter</set>
       </property>
      </column>
     </widget>
-    <widget class="QTableWidget" name="tableWidget_3">
+    <widget class="QTableWidget" name="tableformat">
      <property name="geometry">
       <rect>
        <x>280</x>
@@ -409,6 +412,9 @@
      <column>
       <property name="text">
        <string>Formats</string>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;List of Formats available in FFmpeg&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="textAlignment">
        <set>AlignHCenter|AlignVCenter|AlignCenter</set>
@@ -471,7 +477,7 @@
        <x>150</x>
        <y>10</y>
        <width>260</width>
-       <height>25</height>
+       <height>30</height>
       </rect>
      </property>
     </widget>
@@ -481,7 +487,7 @@
        <x>150</x>
        <y>60</y>
        <width>260</width>
-       <height>27</height>
+       <height>30</height>
       </rect>
      </property>
      <property name="text">
@@ -498,7 +504,7 @@
       <rect>
        <x>10</x>
        <y>20</y>
-       <width>200</width>
+       <width>391</width>
        <height>21</height>
       </rect>
      </property>
@@ -511,7 +517,7 @@
       <rect>
        <x>10</x>
        <y>60</y>
-       <width>200</width>
+       <width>401</width>
        <height>21</height>
       </rect>
      </property>
@@ -524,8 +530,8 @@
       <rect>
        <x>10</x>
        <y>100</y>
-       <width>250</width>
-       <height>15</height>
+       <width>261</width>
+       <height>16</height>
       </rect>
      </property>
      <property name="text">
@@ -538,7 +544,7 @@
        <x>280</x>
        <y>90</y>
        <width>130</width>
-       <height>25</height>
+       <height>30</height>
       </rect>
      </property>
      <property name="alignment">

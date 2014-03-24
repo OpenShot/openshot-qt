@@ -1,7 +1,6 @@
 """
  @file
  @brief This file loads the file properties dialog (i.e give info about the file)
- @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
  @author Olivier Girard <olivier@openshot.org>
 

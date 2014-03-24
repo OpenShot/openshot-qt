@@ -1,7 +1,6 @@
 """
  @file
  @brief This file loads the Export Video dialog (i.e export video clip in another or not format)
- @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
  @author Olivier Girard <olivier@openshot.org>
 

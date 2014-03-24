@@ -1,7 +1,6 @@
 """
  @file
  @brief This file loads the Folder Name dialog (i.e Creeate a folder in the Openshot tree)
- @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
  @author Olivier Girard <olivier@openshot.org>
 

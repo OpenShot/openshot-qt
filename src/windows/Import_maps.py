@@ -1,7 +1,6 @@
 """
  @file
  @brief This file loads the import maps dialog (i.e earth animation)
- @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
  @author Olivier Girard <olivier@openshot.org>
 

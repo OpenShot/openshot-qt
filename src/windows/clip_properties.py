@@ -1,7 +1,6 @@
 """
  @file
  @brief This file loads the Clip Properties dialog (i.e where is all properties of the clip)
- @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
  @author Olivier Girard <olivier@openshot.org>
 

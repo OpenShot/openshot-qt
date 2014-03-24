@@ -1,7 +1,6 @@
 """
  @file
  @brief This file loads the About dialog (i.e about Openshot Project)
- @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
  @author Olivier Girard <olivier@openshot.org>
 

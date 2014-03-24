@@ -1,7 +1,6 @@
 """
  @file
  @brief This file loads the custom ffmpeg command dialog (i.e create custom presets)
- @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
  @author Olivier Girard <olivier@openshot.org>
 

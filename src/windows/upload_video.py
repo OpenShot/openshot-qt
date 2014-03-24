@@ -1,7 +1,6 @@
 """
  @file
  @brief This file loads the Upload Video dialog (i.e Upload a video in a web service)
- @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
  @author Olivier Girard <olivier@openshot.org>
 

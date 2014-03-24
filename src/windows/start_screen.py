@@ -1,7 +1,6 @@
 """ 
  @file
  @brief This file contains the Simplefied Window dialog (i.e This screen is a shortcut for the main funcitons of Openshot)
- @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
  @author Olivier Girard <olivier@openshot.org>
  
