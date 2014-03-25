@@ -53,9 +53,9 @@ def init_language():
 				   ]
 	
 	# Output all system languages detected
-	log.info("Qt Detected Languages: %s" % QLocale().system().uiLanguages())
-	log.info("LANG Environment Variable: %s" % os.environ.get('LANG', QLocale().system().name()))
-	log.info("LOCALE Environment Variable: %s" % os.environ.get('LOCALE', QLocale().system().name()))
+	log.info("Qt Detected Languages: {}".format(QLocale().system().uiLanguages()))
+	log.info("LANG Environment Variable: {}".format(os.environ.get('LANG', QLocale().system().name())))
+	log.info("LOCALE Environment Variable: {}".format(os.environ.get('LOCALE', QLocale().system().name())))
 	
 	# Loop through environment variables
 	found_language = False
@@ -63,7 +63,7 @@ def init_language():
 	
 		# Don't try on default locale, since it fails to load what is the default language
 		if 'en_US' in locale_name:
-			log.info("Skipping English language (no need for translation): %s" % locale_name)
+			log.info("Skipping English language (no need for translation): {}".format(locale_name))
 			continue
 	
 		# Go through each translator and try to add for current locale
@@ -76,7 +76,7 @@ def init_language():
 				
 		# Exit if found language
 		if found_language:
-			log.info("Exiting translation system (since we successfully loaded: %s)" % locale_name)
+			log.info("Exiting translation system (since we successfully loaded: {})".format(locale_name))
 			break
 				
 
@@ -94,10 +94,10 @@ def find_language_match(pattern, path, translator, locale_name):
 	i = len(locale_parts)
 	while not success and i > 0:
 		formatted_name = pattern % "_".join(locale_parts[:i])
-		log.info('Attempting to load %s in \'%s\'' % (formatted_name, path))
+		log.info('Attempting to load {} in \'{}\''.format(formatted_name, path))
 		success = translator.load(formatted_name, path)
 		if success:
-			log.info('Successfully loaded %s in \'%s\'' % (formatted_name, path))
+			log.info('Successfully loaded {} in \'{}\''.format(formatted_name, path))
 		i -= 1
 		
 	return success

@@ -113,7 +113,7 @@ class BlenderModel():
 					except:
 						# Handle exception
 						msg = QMessageBox()
-						msg.setText(app._tr("%s is not a valid image file." % filename))
+						msg.setText(app._tr("{} is not a valid image file.".format(filename)))
 						msg.exec_()
 						continue
 				

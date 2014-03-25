@@ -209,7 +209,7 @@ class BlenderTreeView(QTreeView):
 				
 				widget = QPushButton()
 				widget.setText("")
-				widget.setStyleSheet("background-color: %s" % param["default"])
+				widget.setStyleSheet("background-color: {}".format(param["default"]))
 				widget.clicked.connect(functools.partial(self.color_button_clicked, widget, param))
 				
 			# Add Label and Widget to the form
@@ -248,7 +248,7 @@ class BlenderTreeView(QTreeView):
 		# Show color dialog
 		currentColor = QColor(self.params[param["name"]])
 		newColor = QColorDialog.getColor(currentColor)
-		widget.setStyleSheet("background-color: %s" % newColor.name())
+		widget.setStyleSheet("background-color: {}".format(newColor.name()))
 		self.params[param["name"]] = [newColor.redF(), newColor.greenF(), newColor.blueF()]
 		log.info(newColor.name())
 		
@@ -303,7 +303,7 @@ class BlenderTreeView(QTreeView):
 		self.win.sliderPreview.setValue(middle_frame)
 		
 		# Update preview label
-		self.win.lblFrame.setText("%s/%s" % (middle_frame, length))
+		self.win.lblFrame.setText("{}/{}".format(middle_frame, length))
 		
 		# Click the refresh button
 		self.btnRefresh_clicked(None)
@@ -348,7 +348,7 @@ class BlenderTreeView(QTreeView):
 		# Update preview label
 		preview_frame_number = self.win.sliderPreview.value()
 		length = int(self.params["end_frame"])
-		self.win.lblFrame.setText("%s/%s" % (preview_frame_number, length))
+		self.win.lblFrame.setText("{}/{}".format(preview_frame_number, length))
 		
 		# Render current frame
 		self.Render(preview_frame_number)
@@ -487,16 +487,16 @@ class BlenderTreeView(QTreeView):
 		
 		version_message = ""
 		if version:
-			version_message = _("\n\nVersion Detected:\n%s") % version
+			version_message = _("\n\nVersion Detected:\n{}").format(version)
 			
 		if command_output:
-			version_message = _("\n\nError Output:\n%s") % command_output
+			version_message = _("\n\nError Output:\n{}").format(command_output)
 		
 		# show error message
 		blender_version = "2.62"
 		# Handle exception
 		msg = QMessageBox()
-		msg.setText(_("Blender, the free open source 3D content creation suite is required for this action (http://www.blender.org).\n\nPlease check the preferences in OpenShot and be sure the Blender executable is correct.  This setting should be the path of the 'blender' executable on your computer.  Also, please be sure that it is pointing to Blender version %s or greater.\n\nBlender Path:\n%s%s") % (blender_version, s.get("blender_command"), version_message))
+		msg.setText(_("Blender, the free open source 3D content creation suite is required for this action (http://www.blender.org).\n\nPlease check the preferences in OpenShot and be sure the Blender executable is correct.  This setting should be the path of the 'blender' executable on your computer.  Also, please be sure that it is pointing to Blender version {} or greater.\n\nBlender Path:\n{}{}").format(blender_version, s.get("blender_command"), version_message))
 		msg.exec_()
 
 		# Enable the Render button again
@@ -514,22 +514,22 @@ class BlenderTreeView(QTreeView):
 		user_params = "\n#BEGIN INJECTING PARAMS\n"
 		for k,v in self.params.items():
 			if type(v) == int or type(v) == float or type(v) == list or type(v) == bool:
-				user_params += "params['%s'] = %s\n" % (k,v)
+				user_params += "params['{}'] = {}\n".format(k,v)
 			if type(v) == str:
-				user_params += "params['%s'] = '%s'\n" % (k, v.replace("'", r"\'"))
+				user_params += "params['{}'] = '{}'\n".format(k, v.replace("'", r"\'"))
 
 		for k,v in self.get_project_params(is_preview).items():
 			if type(v) == int or type(v) == float or type(v) == list or type(v) == bool:
-				user_params += "params['%s'] = %s\n" % (k,v)
+				user_params += "params['{}'] = {}\n".format(k,v)
 			if type(v) == str:
-				user_params += "params['%s'] = '%s'\n" % (k, v.replace("'", r"\'"))
+				user_params += "params['{}'] = '{}'\n".format(k, v.replace("'", r"\'"))
 		user_params += "#END INJECTING PARAMS\n"
 		
 		# Force the Frame to 1 frame (for previewing)
 		if frame:
 			user_params += "\n\n#ONLY RENDER 1 FRAME FOR PREVIEW\n"
-			user_params += "params['%s'] = %s\n" % ("start_frame", frame)
-			user_params += "params['%s'] = %s\n" % ("end_frame", frame)
+			user_params += "params['{}'] = {}\n".format("start_frame", frame)
+			user_params += "params['{}'] = {}\n".format("end_frame", frame)
 			user_params += "\n\n#END ONLY RENDER 1 FRAME FOR PREVIEW\n"
 		
 		# Open new temp .py file, and inject the user parameters
@@ -546,7 +546,7 @@ class BlenderTreeView(QTreeView):
 		f.close()
 
 	def update_image(self, image_path):
-		log.info("update_image: %s" % image_path)
+		log.info("update_image: {}".format(image_path))
 
 		# get the pixbuf
 		image = QImage(image_path)
@@ -688,7 +688,7 @@ class BlenderCommand(threading.Thread):
 					return
 			
 			# debug info
-			log.info("Blender command: %s %s '%s' %s '%s'" % (command_render[0], command_render[1], command_render[2], command_render[3], command_render[4]))
+			log.info("Blender command: {} {} '{}' {} '{}'".format(command_render[0], command_render[1], command_render[2], command_render[3], command_render[4]))
 			
 			# Run real command to render Blender project
 			self.process = subprocess.Popen(command_render, stdout=subprocess.PIPE)

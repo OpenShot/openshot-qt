@@ -94,7 +94,7 @@ class FilesModel(updates.UpdateInterface):
 			# Generate thumbnail for file (if needed)
 			if (file.data["media_type"] == "video" or file.data["media_type"] == "image"):
 				# Determine thumb path
-				thumb_path = os.path.join(info.THUMBNAIL_PATH, "%s.png" % file.id)
+				thumb_path = os.path.join(info.THUMBNAIL_PATH, "{}.png".format(file.id))
 				
 				# Check if thumb exists
 				if not os.path.exists(thumb_path):
@@ -120,7 +120,7 @@ class FilesModel(updates.UpdateInterface):
 					except:
 						# Handle exception
 						msg = QMessageBox()
-						msg.setText(app._tr("%s is not a valid video, audio, or image file." % filename))
+						msg.setText(app._tr("{} is not a valid video, audio, or image file.".format(filename)))
 						msg.exec_()
 						continue
 
