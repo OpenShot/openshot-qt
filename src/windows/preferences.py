@@ -73,15 +73,5 @@ class Preferences(QDialog):
 		for icon_size in [_("Small"), _("Medium")]:
 			self.cboiconsize.addItem(icon_size)
 			
-		self.btnmanageprofiles.clicked.connect(self.loadmanager)
 		
-		#load ui for manage profiles
-		from windows.profiles_manager import ProfileManager
-		win = ProfileManager()
-		result = win.exec_()
-		if result == QDialog.Accepted:
-			log.info('Profile Manager add confirmed')
-		else:
-			log.info('Profile Manager add cancelled')
-		self.btnmanageprofiles.clicked.connect(self.loadmanager)
 		
