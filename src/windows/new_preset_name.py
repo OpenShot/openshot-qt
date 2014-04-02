@@ -1,7 +1,6 @@
 """ 
  @file
  @brief This file contains the New Preset Name dialog (i.e create name of new presets)
- @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
  @author Olivier Girard <olivier@openshot.org>
  

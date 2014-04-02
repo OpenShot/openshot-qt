@@ -156,7 +156,7 @@ class FilesListView(QListView):
 		except:
 			# Handle exception
 			msg = QMessageBox()
-			msg.setText(app._tr("%s is not a valid video, audio, or image file." % filename))
+			msg.setText(app._tr("{} is not a valid video, audio, or image file.".format(filename)))
 			msg.exec_()
 			return False
 		

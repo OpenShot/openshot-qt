@@ -1,7 +1,6 @@
 """ 
  @file
  @brief This file contains the squeze dialog (i.e see the effect applied on the video file)
- @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
  @author Olivier Girard <olivier@openshot.org>
  

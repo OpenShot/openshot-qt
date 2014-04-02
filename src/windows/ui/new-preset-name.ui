@@ -33,7 +33,7 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="lnenewpresetname">
    <property name="geometry">
     <rect>
      <x>20</x>

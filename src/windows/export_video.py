@@ -1,6 +1,6 @@
 """
  @file
- @brief This file loads the Profiles Manager dialog (i.e Create your own profile)
+ @brief This file loads the Export Video dialog (i.e export video clip in another or not format)
  @author Jonathan Thomas <jonathan@openshot.org>
  @author Olivier Girard <olivier@openshot.org>
 
@@ -35,10 +35,11 @@ from PyQt5 import uic
 from classes import info, ui_util, settings, qt_types, updates
 from classes.logger import log
 
-class ProfileManager(QDialog):
-	""" Profile Manager Dialog """
+class ExportVideo(QDialog):
+	""" Export Video Dialog """
 	
-	ui_path = os.path.join(info.PATH, 'windows', 'ui', 'profiles-manager.ui')
+	#Path to ui file
+	ui_path = os.path.join(info.PATH, 'windows', 'ui', 'export-video.ui')
 	
 	def __init__(self):
 		
@@ -50,3 +51,4 @@ class ProfileManager(QDialog):
 		
 		#Init UI
 		ui_util.init_ui(self)
+		

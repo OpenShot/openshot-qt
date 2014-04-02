@@ -6,18 +6,28 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>723</width>
-    <height>540</height>
+    <width>814</width>
+    <height>550</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Animated Titles</string>
+   <string>Title Editor</string>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
+   <item row="2" column="0">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
     <widget class="QSplitter" name="splitter">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -52,22 +62,13 @@
        </property>
        <item row="0" column="0">
         <widget class="QLabel" name="label">
-         <property name="font">
-          <font>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
          <property name="text">
-          <string>Start here:</string>
-         </property>
-         <property name="margin">
-          <number>0</number>
+          <string>Template:</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
-        <widget class="QComboBox" name="comboBox">
+       <item row="0" column="1">
+        <widget class="QComboBox" name="cmbTemplate">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -83,47 +84,194 @@
         </widget>
        </item>
        <item row="2" column="0">
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Name:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="txtName">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="toolTip">
+          <string>Do not enter a file extension</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QPushButton" name="btnCreateNew">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
          <property name="text">
-          <string>Create new Title</string>
+          <string>Create</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_2">
-         <property name="font">
-          <font>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
+       <item row="4" column="1">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
          </property>
-         <property name="text">
-          <string>Editing Tools:</string>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>10</height>
+          </size>
          </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QPushButton" name="pushButton_2">
-         <property name="text">
-          <string>Edit Text</string>
-         </property>
-        </widget>
+        </spacer>
        </item>
        <item row="5" column="0">
-        <widget class="QPushButton" name="pushButton_3">
+        <widget class="QLabel" name="lblLine1">
          <property name="text">
-          <string>Font Properties</string>
+          <string>Line 1:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QLineEdit" name="txtLine1">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>69</width>
+           <height>0</height>
+          </size>
          </property>
         </widget>
        </item>
        <item row="6" column="0">
-        <widget class="QPushButton" name="pushButton_4">
+        <widget class="QLabel" name="lblLine2">
+         <property name="text">
+          <string>Line 2:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QLineEdit" name="txtLine2">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0">
+        <widget class="QLabel" name="lblLine3">
+         <property name="text">
+          <string>Line 3:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="1">
+        <widget class="QLineEdit" name="txtLine3">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="0">
+        <widget class="QLabel" name="lblLine4">
+         <property name="text">
+          <string>Line 4:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="1">
+        <widget class="QLineEdit" name="txtLine4">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="1">
+        <widget class="QPushButton" name="btnApplyText">
+         <property name="text">
+          <string>Apply Text</string>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="1">
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>10</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="11" column="1">
+        <widget class="QPushButton" name="btnFont">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>Change Font</string>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="0">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Text Color:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="1">
+        <widget class="QPushButton" name="btnFontColor">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="toolTip">
+          <string/>
+         </property>
+         <property name="text">
+          <string>Text Color</string>
+         </property>
+        </widget>
+       </item>
+       <item row="13" column="0">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>Background Color:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="13" column="1">
+        <widget class="QPushButton" name="btnBackgroundColor">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="toolTip">
+          <string/>
+         </property>
+         <property name="text">
+          <string>Background Color</string>
+         </property>
+        </widget>
+       </item>
+       <item row="14" column="1">
+        <widget class="QPushButton" name="btnAdvanced">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>Use Advanced Editor</string>
          </property>
@@ -133,18 +281,22 @@
      </widget>
     </widget>
    </item>
-   <item row="1" column="0">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
-   </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>cmbTemplate</tabstop>
+  <tabstop>txtName</tabstop>
+  <tabstop>btnCreateNew</tabstop>
+  <tabstop>txtLine1</tabstop>
+  <tabstop>txtLine2</tabstop>
+  <tabstop>btnApplyText</tabstop>
+  <tabstop>btnFont</tabstop>
+  <tabstop>btnFontColor</tabstop>
+  <tabstop>btnBackgroundColor</tabstop>
+  <tabstop>btnAdvanced</tabstop>
+  <tabstop>buttonBox</tabstop>
+  <tabstop>graphicsView</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

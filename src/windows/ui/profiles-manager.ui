@@ -33,7 +33,7 @@
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Profile:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="btnremoveprofile">
    <property name="geometry">
     <rect>
      <x>410</x>
@@ -43,7 +43,9 @@
     </rect>
    </property>
    <property name="icon">
-    <iconset theme="remove"/>
+    <iconset theme="remove">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="iconSize">
     <size>
@@ -52,7 +54,7 @@
     </size>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="btnaddprofile">
    <property name="geometry">
     <rect>
      <x>360</x>
@@ -62,7 +64,9 @@
     </rect>
    </property>
    <property name="icon">
-    <iconset theme="add"/>
+    <iconset theme="add">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="iconSize">
     <size>
@@ -120,7 +124,7 @@
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Profile Name:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="lblprofilename">
    <property name="geometry">
     <rect>
      <x>150</x>
@@ -130,7 +134,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_3">
+  <widget class="QPushButton" name="btnadd">
    <property name="geometry">
     <rect>
      <x>400</x>
@@ -140,7 +144,9 @@
     </rect>
    </property>
    <property name="icon">
-    <iconset theme="gtk-open"/>
+    <iconset theme="gtk-open">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="iconSize">
     <size>
@@ -154,8 +160,8 @@
     <rect>
      <x>20</x>
      <y>170</y>
-     <width>58</width>
-     <height>15</height>
+     <width>111</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">
@@ -226,12 +232,12 @@
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QCheckBox" name="checkBox">
+  <widget class="QCheckBox" name="chkprogressive">
    <property name="geometry">
     <rect>
      <x>20</x>
      <y>330</y>
-     <width>130</width>
+     <width>521</width>
      <height>21</height>
     </rect>
    </property>
@@ -239,12 +245,12 @@
     <string>Progressive</string>
    </property>
   </widget>
-  <widget class="QCheckBox" name="checkBox_2">
+  <widget class="QCheckBox" name="chkdefaultprofile">
    <property name="geometry">
     <rect>
      <x>20</x>
      <y>370</y>
-     <width>250</width>
+     <width>391</width>
      <height>21</height>
     </rect>
    </property>
@@ -252,33 +258,33 @@
     <string>Use this profile as default profile</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_4">
+  <widget class="QPushButton" name="btnsave">
    <property name="geometry">
     <rect>
      <x>190</x>
      <y>410</y>
      <width>100</width>
-     <height>27</height>
+     <height>30</height>
     </rect>
    </property>
    <property name="text">
     <string>Save</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_5">
+  <widget class="QPushButton" name="btnclose">
    <property name="geometry">
     <rect>
      <x>310</x>
      <y>410</y>
      <width>100</width>
-     <height>27</height>
+     <height>30</height>
     </rect>
    </property>
    <property name="text">
     <string>Close</string>
    </property>
   </widget>
-  <widget class="QSpinBox" name="spinBox">
+  <widget class="QSpinBox" name="spnsizetwo">
    <property name="geometry">
     <rect>
      <x>320</x>
@@ -291,7 +297,7 @@
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
   </widget>
-  <widget class="QSpinBox" name="spinBox_2">
+  <widget class="QSpinBox" name="spnratioaspecttwo">
    <property name="geometry">
     <rect>
      <x>320</x>
@@ -304,7 +310,7 @@
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
   </widget>
-  <widget class="QSpinBox" name="spinBox_3">
+  <widget class="QSpinBox" name="spnratiopixeltwo">
    <property name="geometry">
     <rect>
      <x>320</x>
@@ -317,7 +323,7 @@
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
   </widget>
-  <widget class="QSpinBox" name="spinBox_4">
+  <widget class="QSpinBox" name="spnframeratetwo">
    <property name="geometry">
     <rect>
      <x>320</x>
@@ -330,7 +336,7 @@
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
   </widget>
-  <widget class="QSpinBox" name="spinBox_5">
+  <widget class="QSpinBox" name="spbsize">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -343,7 +349,7 @@
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
   </widget>
-  <widget class="QSpinBox" name="spinBox_6">
+  <widget class="QSpinBox" name="spnratioaspect">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -356,7 +362,7 @@
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
   </widget>
-  <widget class="QSpinBox" name="spinBox_7">
+  <widget class="QSpinBox" name="spnratiopixel">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -369,7 +375,7 @@
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
   </widget>
-  <widget class="QSpinBox" name="spinBox_8">
+  <widget class="QSpinBox" name="spnframerate">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -387,8 +393,8 @@
     <rect>
      <x>20</x>
      <y>210</y>
-     <width>58</width>
-     <height>15</height>
+     <width>121</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">
@@ -400,8 +406,8 @@
     <rect>
      <x>20</x>
      <y>250</y>
-     <width>58</width>
-     <height>15</height>
+     <width>111</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">
@@ -413,8 +419,8 @@
     <rect>
      <x>20</x>
      <y>290</y>
-     <width>58</width>
-     <height>15</height>
+     <width>131</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">
@@ -425,7 +431,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>pushButton_5</sender>
+   <sender>btnclose</sender>
    <signal>clicked()</signal>
    <receiver>Dialog</receiver>
    <slot>reject()</slot>
@@ -441,7 +447,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_4</sender>
+   <sender>btnsave</sender>
    <signal>clicked()</signal>
    <receiver>Dialog</receiver>
    <slot>accept()</slot>

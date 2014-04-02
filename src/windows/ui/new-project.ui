@@ -16,26 +16,26 @@
   <property name="locale">
    <locale language="English" country="UnitedStates"/>
   </property>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="btnsave">
    <property name="geometry">
     <rect>
      <x>380</x>
      <y>440</y>
      <width>150</width>
-     <height>27</height>
+     <height>30</height>
     </rect>
    </property>
    <property name="text">
     <string>Save the Project...</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_3">
+  <widget class="QPushButton" name="btncancel">
    <property name="geometry">
     <rect>
      <x>210</x>
      <y>440</y>
      <width>150</width>
-     <height>27</height>
+     <height>30</height>
     </rect>
    </property>
    <property name="text">
@@ -107,33 +107,33 @@
     <string>Profile Project :</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="lblprojectname">
    <property name="geometry">
     <rect>
      <x>340</x>
      <y>30</y>
      <width>181</width>
-     <height>25</height>
+     <height>30</height>
     </rect>
    </property>
   </widget>
-  <widget class="QComboBox" name="comboBox">
+  <widget class="QComboBox" name="cmbprojectfolder">
    <property name="geometry">
     <rect>
      <x>340</x>
      <y>70</y>
      <width>181</width>
-     <height>25</height>
+     <height>30</height>
     </rect>
    </property>
   </widget>
-  <widget class="QComboBox" name="comboBox_2">
+  <widget class="QComboBox" name="cmbprofileproject">
    <property name="geometry">
     <rect>
      <x>340</x>
      <y>110</y>
      <width>181</width>
-     <height>25</height>
+     <height>30</height>
     </rect>
    </property>
   </widget>
@@ -150,7 +150,7 @@
     <string>Width:</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_5">
+  <widget class="QLabel" name="lblwidth">
    <property name="geometry">
     <rect>
      <x>420</x>
@@ -173,7 +173,7 @@
     <string>Height:</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_7">
+  <widget class="QLabel" name="lblheight">
    <property name="geometry">
     <rect>
      <x>420</x>
@@ -196,7 +196,7 @@
     <string>Proportion:</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_9">
+  <widget class="QLabel" name="lblproportion">
    <property name="geometry">
     <rect>
      <x>420</x>
@@ -219,7 +219,7 @@
     <string>Frames by Seconds:</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_11">
+  <widget class="QLabel" name="lblframes">
    <property name="geometry">
     <rect>
      <x>420</x>
@@ -242,7 +242,7 @@
     <string>Pixel Ratio:</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_13">
+  <widget class="QLabel" name="lblratio">
    <property name="geometry">
     <rect>
      <x>420</x>
@@ -265,7 +265,7 @@
     <string>Progressive:</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_15">
+  <widget class="QLabel" name="lblprogressive">
    <property name="geometry">
     <rect>
      <x>420</x>
@@ -292,7 +292,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>pushButton_3</sender>
+   <sender>btncancel</sender>
    <signal>clicked()</signal>
    <receiver>Dialog</receiver>
    <slot>reject()</slot>
@@ -308,7 +308,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_2</sender>
+   <sender>btnsave</sender>
    <signal>clicked()</signal>
    <receiver>Dialog</receiver>
    <slot>accept()</slot>

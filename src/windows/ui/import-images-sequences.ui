@@ -288,5 +288,21 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>btnImport</sender>
+   <signal>clicked()</signal>
+   <receiver>QDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>390</x>
+     <y>489</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>531</x>
+     <y>433</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
 </ui>

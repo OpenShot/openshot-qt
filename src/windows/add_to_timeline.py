@@ -1,7 +1,6 @@
 """
  @file
  @brief This file loads the Addtotimeline dialog (i.e add several clips in the timeline)
- @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
  @author Olivier Girard <olivier@openshot.org>
 

@@ -499,5 +499,22 @@
   </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>QDialog</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>332</x>
+     <y>857</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>134</x>
+     <y>857</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

@@ -33,7 +33,9 @@
     <string>Cancel</string>
    </property>
    <property name="icon">
-    <iconset theme="gtk-cancel"/>
+    <iconset theme="gtk-cancel">
+     <normaloff/>
+    </iconset>
    </property>
   </widget>
   <widget class="QProgressBar" name="progressBar">
@@ -87,5 +89,22 @@
   </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>btncancel</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>419</x>
+     <y>166</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>200</x>
+     <y>156</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

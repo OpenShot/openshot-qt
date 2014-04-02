@@ -1,7 +1,6 @@
 """
  @file
  @brief This file loads the Preferences dialog (i.e where is all preferences)
- @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
  @author Olivier Girard <olivier@openshot.org>
 
@@ -34,6 +33,7 @@ from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 from classes import info, ui_util, settings, qt_types, updates
+from classes.app import get_app
 from classes.logger import log
 
 class Preferences(QDialog):
@@ -52,3 +52,26 @@ class Preferences(QDialog):
 		
 		#Init UI
 		ui_util.init_ui(self)
+
+		#get translations
+		app = get_app()
+		_ = app._tr
+		
+		#populate stock icons combo
+		for use_stock in [_("Yes"), _("No")]:
+			self.cboicons.addItem(use_stock)
+			
+		#populate output mode combo
+		for output_mode in [_("sdl"), _("sdl_preview")]:
+			self.cbooutputmode.addItem(output_mode)
+			
+		#populate scrolling options
+		for use_stock in [_("Yes"), _("No")]:
+			self.cbosmooth.addItem(use_stock)
+		
+		#populate icon size option	combo
+		for icon_size in [_("Small"), _("Medium")]:
+			self.cboiconsize.addItem(icon_size)
+			
+		
+		

@@ -212,6 +212,17 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 			log.info('Upload Video add confirmed')
 		else:
 			log.info('Upload Video add cancelled')
+			
+	def actionExportVideo_trigger(self, event):
+		#show window
+		from windows.export_video import ExportVideo
+		win = ExportVideo()
+		#Run the dialog event loop - blocking interaction on this window during this time
+		result = win.exec_()
+		if result == QDialog.Accepted:
+			log.info('Export Video add confirmed')
+		else:
+			log.info('Export Video add cancelled')
 	
 	def actionUndo_trigger(self, event):
 		app = get_app()
