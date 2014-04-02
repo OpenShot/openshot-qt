@@ -44,6 +44,7 @@ from windows.views.transitions_treeview import TransitionsTreeView
 from windows.views.transitions_listview import TransitionsListView
 from windows.views.effects_treeview import EffectsTreeView
 from windows.views.effects_listview import EffectsListView
+from windows.video_widget import VideoWidget
 from windows.preview_thread import PreviewThread
 import xml.etree.ElementTree as ElementTree
 import webbrowser
@@ -685,30 +686,34 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		# Init fullscreen menu visibility
 		self.init_fullscreen_menu()
 		
-		#setup timeline
+		# Setup timeline
 		self.timeline = TimelineWebView(self)
 		self.frameWeb.layout().addWidget(self.timeline)
 		
-		#setup files tree
+		# Setup files tree
 		if s.get("file_view") == "details":
 			self.filesTreeView = FilesTreeView(self)
 		else:
 			self.filesTreeView = FilesListView(self)
 		self.tabFiles.layout().addWidget(self.filesTreeView)
 
-		#setup transitions tree
+		# Setup transitions tree
 		if s.get("transitions_view") == "details":
 			self.transitionsTreeView = TransitionsTreeView(self)
 		else:
 			self.transitionsTreeView = TransitionsListView(self)
 		self.tabTransitions.layout().addWidget(self.transitionsTreeView)
 
-		#setup effects tree
+		# Setup effects tree
 		if s.get("effects_view") == "details":
 			self.effectsTreeView = EffectsTreeView(self)
 		else:
 			self.effectsTreeView = EffectsListView(self)
 		self.tabEffects.layout().addWidget(self.effectsTreeView)
+		
+		# Setup video preview QWidget
+		self.videoPreview = VideoWidget()
+		self.tabVideo.layout().insertWidget(0, self.videoPreview)
 
 		# Load window state and geometry
 		self.load_settings()

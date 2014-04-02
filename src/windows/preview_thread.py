@@ -35,11 +35,12 @@ from classes.logger import log
 from classes import settings
 from classes.query import File
 from classes.app import get_app
-from PyQt5.QtCore import QMimeData, QSize, Qt, QCoreApplication, QPoint, QFileInfo, QEvent
+from PyQt5.QtCore import QMimeData, QSize, Qt, QCoreApplication, QPoint, QFileInfo, QEvent, QObject
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 import functools
 import openshot # Python module for libopenshot (required video editing module installed separately)
+import sip
 
 try:
 	import json
@@ -66,6 +67,24 @@ class PreviewThread(threading.Thread):
 		self.number = None
 		self.parent = parent
 		self.timeline = timeline
+		self.videoPreview = parent.videoPreview
+		
+		# Create QtPlayer class from libopenshot
+		self.player = openshot.QtPlayer()
+
+		# Get the address of the player's renderer (a QObject that emits signals when frames are ready)
+		self.renderer_address = self.player.GetRendererQObject()
+		self.player.SetQWidget(int(sip.unwrapinstance(self.videoPreview)))
+		self.renderer = sip.wrapinstance(self.renderer_address, QObject)
+		self.videoPreview.connectSignals(self.renderer)
+		
+		# Connect test reader
+		#self.reader = openshot.FFmpegReader("/home/jonathan/Videos/sintel_trailer-720p.mp4")
+		#self.reader.Open()
+		#self.player.Reader(self.reader)
+		
+		# Set the Speed
+		#self.player.Speed(1.0)
 		
 	def kill(self):
 		""" Kill this thread """
@@ -78,10 +97,13 @@ class PreviewThread(threading.Thread):
 		self.number = number
 
 	def run(self):
+		
+		# Start playback
+		#self.player.Play()
 
 		# Main loop, waiting for frames to process
 		while self.is_running:
-			
+
 			# Generate a preview (if needed)
 			if self.number:
 				# File path of preview

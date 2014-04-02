@@ -63,7 +63,7 @@
      <x>0</x>
      <y>0</y>
      <width>808</width>
-     <height>23</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -203,27 +203,7 @@
    <widget class="QWidget" name="dockWidgetContents_2">
     <layout class="QGridLayout" name="gridLayout_3">
      <item row="0" column="1">
-      <layout class="QVBoxLayout" name="tabVideo">
-       <item>
-        <widget class="QLabel" name="videoPreview">
-         <property name="minimumSize">
-          <size>
-           <width>400</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: #000000;</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <layout class="QVBoxLayout" name="tabVideo"/>
      </item>
     </layout>
    </widget>
