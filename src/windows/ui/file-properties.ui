@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>QDialog</class>
- <widget class="QWidget" name="QDialog">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,8 +11,53 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string/>
+   <string>Dialog</string>
   </property>
+  <property name="locale">
+   <locale language="English" country="UnitedStates"/>
+  </property>
+  <widget class="QPushButton" name="btnapply">
+   <property name="geometry">
+    <rect>
+     <x>420</x>
+     <y>830</y>
+     <width>151</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Apply</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnclose">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>830</y>
+     <width>151</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Close</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_13">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>30</y>
+     <width>120</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Label:</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+  </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
@@ -29,30 +74,89 @@
     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="Line" name="line_3">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>610</y>
-     <width>120</width>
-     <height>25</height>
+     <x>20</x>
+     <y>120</y>
+     <width>560</width>
+     <height>3</height>
     </rect>
    </property>
-   <property name="text">
-    <string>Video Codec :</string>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
+  <widget class="QGraphicsView" name="graphicsView">
    <property name="geometry">
     <rect>
-     <x>330</x>
-     <y>460</y>
+     <x>60</x>
+     <y>140</y>
+     <width>471</width>
+     <height>301</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="Line" name="line_4">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>450</y>
+     <width>560</width>
+     <height>3</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="Line" name="line_2">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>750</y>
+     <width>550</width>
+     <height>3</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="Line" name="line">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>450</y>
+     <width>20</width>
+     <height>300</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Vertical</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>780</y>
      <width>120</width>
      <height>25</height>
     </rect>
    </property>
    <property name="text">
-    <string>Type File : </string>
+    <string>Path file :</string>
+   </property>
+  </widget>
+  <widget class="QTextBrowser" name="textBrowser_3">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>772</y>
+     <width>351</width>
+     <height>41</height>
+    </rect>
    </property>
   </widget>
   <widget class="QLabel" name="label_4">
@@ -66,19 +170,6 @@
    </property>
    <property name="text">
     <string>Format Video : </string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_5">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>780</y>
-     <width>120</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Path file :</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_6">
@@ -104,7 +195,59 @@
     </rect>
    </property>
    <property name="text">
-    <string>Length File : </string>
+    <string>Lenght File : </string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>610</y>
+     <width>120</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Video Codec :</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_12">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>670</y>
+     <width>120</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Video Bitrate :</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_24">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>720</y>
+     <width>131</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Aspect Ratio :</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbltypefile">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>460</y>
+     <width>120</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Type File : </string>
    </property>
   </widget>
   <widget class="QLabel" name="label_8">
@@ -159,105 +302,20 @@
     <string>Audio Bitrate :</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_12">
+  <widget class="QLabel" name="label_26">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>670</y>
+     <x>330</x>
+     <y>720</y>
      <width>120</width>
      <height>25</height>
     </rect>
    </property>
    <property name="text">
-    <string>Video Bitrate :</string>
+    <string>Framerate :</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>420</x>
-     <y>830</y>
-     <width>151</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Apply</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_13">
-   <property name="geometry">
-    <rect>
-     <x>60</x>
-     <y>30</y>
-     <width>120</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Label:</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-   </property>
-  </widget>
-  <widget class="QTextBrowser" name="textBrowser">
-   <property name="geometry">
-    <rect>
-     <x>210</x>
-     <y>20</y>
-     <width>350</width>
-     <height>41</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_2">
-   <property name="geometry">
-    <rect>
-     <x>240</x>
-     <y>830</y>
-     <width>151</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Close</string>
-   </property>
-  </widget>
-  <widget class="QGraphicsView" name="graphicsView">
-   <property name="geometry">
-    <rect>
-     <x>60</x>
-     <y>140</y>
-     <width>471</width>
-     <height>301</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="Line" name="line">
-   <property name="geometry">
-    <rect>
-     <x>300</x>
-     <y>450</y>
-     <width>20</width>
-     <height>300</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Vertical</enum>
-   </property>
-  </widget>
-  <widget class="QTextBrowser" name="textBrowser_2">
-   <property name="geometry">
-    <rect>
-     <x>210</x>
-     <y>70</y>
-     <width>351</width>
-     <height>41</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_14">
+  <widget class="QLabel" name="lblformat">
    <property name="geometry">
     <rect>
      <x>190</x>
@@ -283,46 +341,7 @@
     <string>Video</string>
    </property>
   </widget>
-  <widget class="Line" name="line_2">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>750</y>
-     <width>550</width>
-     <height>3</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-  </widget>
-  <widget class="Line" name="line_3">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>120</y>
-     <width>560</width>
-     <height>3</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-  </widget>
-  <widget class="Line" name="line_4">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>450</y>
-     <width>560</width>
-     <height>3</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_16">
+  <widget class="QLabel" name="lblsize">
    <property name="geometry">
     <rect>
      <x>190</x>
@@ -335,7 +354,7 @@
     <string>1280 x 720</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_17">
+  <widget class="QLabel" name="lbllenght">
    <property name="geometry">
     <rect>
      <x>190</x>
@@ -348,7 +367,7 @@
     <string>00:23:27:239</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_18">
+  <widget class="QLabel" name="lblvideocodec">
    <property name="geometry">
     <rect>
      <x>190</x>
@@ -361,7 +380,7 @@
     <string>MPEG-4 AVC</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_19">
+  <widget class="QLabel" name="lblvideobitrate">
    <property name="geometry">
     <rect>
      <x>190</x>
@@ -374,85 +393,7 @@
     <string>8600 k/bts</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_20">
-   <property name="geometry">
-    <rect>
-     <x>480</x>
-     <y>670</y>
-     <width>100</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>192 k/bts</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_21">
-   <property name="geometry">
-    <rect>
-     <x>480</x>
-     <y>610</y>
-     <width>100</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>2</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_22">
-   <property name="geometry">
-    <rect>
-     <x>480</x>
-     <y>510</y>
-     <width>100</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>FLAC / .flac</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_23">
-   <property name="geometry">
-    <rect>
-     <x>480</x>
-     <y>560</y>
-     <width>100</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>48000 Hz</string>
-   </property>
-  </widget>
-  <widget class="QTextBrowser" name="textBrowser_3">
-   <property name="geometry">
-    <rect>
-     <x>210</x>
-     <y>780</y>
-     <width>351</width>
-     <height>41</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_24">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>720</y>
-     <width>131</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Aspect Ratio :</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_25">
+  <widget class="QLabel" name="lblratio">
    <property name="geometry">
     <rect>
      <x>190</x>
@@ -468,20 +409,62 @@
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QLabel" name="label_26">
+  <widget class="QLabel" name="lblaudio">
    <property name="geometry">
     <rect>
-     <x>330</x>
-     <y>720</y>
-     <width>120</width>
+     <x>480</x>
+     <y>510</y>
+     <width>100</width>
      <height>25</height>
     </rect>
    </property>
    <property name="text">
-    <string>Framerate :</string>
+    <string>FLAC / .flac</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_27">
+  <widget class="QLabel" name="lblaudiosamplerate">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>560</y>
+     <width>100</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>48000 Hz</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblaudiochannels">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>610</y>
+     <width>100</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>2</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblaudiobitrate">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>670</y>
+     <width>100</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>192 k/bts</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblframerate">
    <property name="geometry">
     <rect>
      <x>480</x>
@@ -497,22 +480,58 @@
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
+  <widget class="QLineEdit" name="lnelabel">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>20</y>
+     <width>350</width>
+     <height>41</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lnefilename">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>70</y>
+     <width>350</width>
+     <height>41</height>
+    </rect>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections>
   <connection>
-   <sender>pushButton_2</sender>
+   <sender>btnapply</sender>
    <signal>clicked()</signal>
-   <receiver>QDialog</receiver>
-   <slot>close()</slot>
+   <receiver>Dialog</receiver>
+   <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>332</x>
-     <y>857</y>
+     <x>482</x>
+     <y>851</y>
     </hint>
     <hint type="destinationlabel">
-     <x>134</x>
-     <y>857</y>
+     <x>347</x>
+     <y>877</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnclose</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>261</x>
+     <y>850</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>105</x>
+     <y>853</y>
     </hint>
    </hints>
   </connection>
