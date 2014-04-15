@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg2" xmlns="http://www.w3.org/2000/svg" height="22" width="22" version="1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs4">
+  <linearGradient id="linearGradient3600">
+   <stop id="stop3602" style="stop-color:#f4f4f4" offset="0"/>
+   <stop id="stop3604" style="stop-color:#dbdbdb" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient3931">
+   <stop id="stop3933" style="stop-color:#787a75" offset="0"/>
+   <stop id="stop3935" style="stop-color:#cbcbcb" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient2990" y2="47.013" xlink:href="#linearGradient3600" gradientUnits="userSpaceOnUse" x2="25.132" gradientTransform="matrix(.51431 0 0 .46669 -.84342 -.20044)" y1="6.7287" x1="25.132"/>
+  <linearGradient id="linearGradient2992" y2="-.10106" xlink:href="#linearGradient3931" gradientUnits="userSpaceOnUse" x2="-47.636" gradientTransform="matrix(.41530 0 0 .43675 29.712 -.72055)" y1="17.518" x1="-56.333"/>
+  <linearGradient id="linearGradient2906" y2="47.013" xlink:href="#linearGradient3600" gradientUnits="userSpaceOnUse" x2="25.132" gradientTransform="matrix(.51431 0 0 .46669 -6.8434 -6.2004)" y1="6.7287" x1="25.132"/>
+  <linearGradient id="linearGradient2908" y2="2.9062" xlink:href="#linearGradient3931" gradientUnits="userSpaceOnUse" x2="-51.786" gradientTransform="matrix(.41530 0 0 .43675 23.712 -6.7206)" y1="34.058" x1="-55.344"/>
+ </defs>
+ <path id="path2904" style="stroke-linejoin:round;stroke:url(#linearGradient2908);stroke-width:.99914;fill:url(#linearGradient2906)" d="m1.5 0.5h13v15h-13v-15z"/>
+ <path id="rect2594" style="stroke-linejoin:round;stroke:url(#linearGradient2992);stroke-width:.99914;fill:url(#linearGradient2990)" d="m7.5 6.5h13v15h-13v-15z"/>
+ <path id="path3696" style="opacity:.2;stroke:#000;stroke-linecap:square;stroke-width:1px;fill:none" d="m9.5 17.5h7m-7-3h8m-8-3h5m-5-3h9m-15 3h3m-3-3h3m-3-3h5m-5-3h9"/>
+</svg>

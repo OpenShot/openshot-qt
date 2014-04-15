@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg3257" xmlns="http://www.w3.org/2000/svg" height="32" width="32" version="1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs3259">
+  <linearGradient id="linearGradient2831" y2="31.067" gradientUnits="userSpaceOnUse" x2="15" y1="1" x1="15">
+   <stop id="stop3247" style="stop-color:#fff" offset="0"/>
+   <stop id="stop3249" style="stop-color:#fff;stop-opacity:0" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient2834" y2="27.418" gradientUnits="userSpaceOnUse" x2="23.878" gradientTransform="matrix(1.372 0 0 1.3637 -16.76 -15.39)" y1="18.618" x1="23.878">
+   <stop id="stop3945" style="stop-color:#e35d4f" offset="0"/>
+   <stop id="stop3947" style="stop-color:#c6262e" offset="1"/>
+  </linearGradient>
+  <radialGradient id="radialGradient2837" gradientUnits="userSpaceOnUse" cy="4.625" cx="62.625" gradientTransform="matrix(1.5059 0 0 .23529 -78.306 20.412)" r="10.625">
+   <stop id="stop8840" offset="0"/>
+   <stop id="stop8842" style="stop-opacity:0" offset="1"/>
+  </radialGradient>
+ </defs>
+ <path id="path8836" style="opacity:.3;fill-rule:evenodd;fill:url(#radialGradient2837)" d="m32 21.5c0 1.3807-7.1634 2.5-16 2.5s-16-1.119-16-2.5c0-1.3807 7.1634-2.5 16-2.5s16 1.1193 16 2.5z"/>
+ <path id="path2262" style="stroke-linejoin:round;fill-rule:evenodd;stroke:#a53738;fill:url(#linearGradient2834)" d="m30.5 10.5v11h-29v-11h29z"/>
+ <path id="path3253" style="opacity:.4;stroke:url(#linearGradient2831);fill:none" d="m2.5 11.5v9h27v-9h-27z"/>
+</svg>

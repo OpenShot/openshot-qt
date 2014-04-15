@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg3750" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="22" width="22" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <defs id="defs3752">
+  <linearGradient id="linearGradient2894" y2="22.687" gradientUnits="userSpaceOnUse" x2="12.299" gradientTransform="matrix(1.0407 0 0 .94322 -2.2997 -5.3988)" y1=".42284" x1="12.299">
+   <stop id="stop3618" style="stop-color:#f0c178" offset="0"/>
+   <stop id="stop3270" style="stop-color:#e18941" offset=".5"/>
+   <stop id="stop3620" style="stop-color:#ec4f18" offset="1"/>
+  </linearGradient>
+  <radialGradient id="radialGradient2897" xlink:href="#linearGradient259" gradientUnits="userSpaceOnUse" cy="35.737" cx="33.967" gradientTransform="matrix(.45689 0 0 .50789 -.24387 -6.2788)" r="86.708"/>
+  <linearGradient id="linearGradient259">
+   <stop id="stop260" style="stop-color:#828282" offset="0"/>
+   <stop id="stop261" style="stop-color:#434343" offset="1"/>
+  </linearGradient>
+  <radialGradient id="radialGradient3748" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient259" cx="33.967" cy="35.737" r="86.708" gradientTransform="matrix(.49493 0 0 .50886 -1.8886 -6.2822)"/>
+ </defs>
+ <metadata id="metadata3755">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g id="layer1" transform="translate(0,6)">
+  <path id="path3385" style="stroke:#333;display:block;fill:url(#radialGradient3748)" d="m4.7691 15.5h-3.1338c-0.2539-0.23681-0.060832-0.70697-0.12116-1.0422v-18.843l0.0354-0.0814 0.0858-0.0336h3.0912"/>
+  <path id="rect15391" style="stroke:#333;display:block;fill:url(#radialGradient2897)" d="m16.5-4.5h2.8751c0.23439 0.23636 0.05616 0.70564 0.11185 1.0403 0 6.2691 0.0082 12.484 0.0082 18.754 0 0.27612-0.46648 0.19514-1.0226 0.19514-0.64946 0-1.2989-0.02681-1.9484-0.02681"/>
+  <rect id="rect3457" style="stroke:#333;fill:url(#linearGradient2894)" rx="0" ry="0" height="20" width="12" y="-4.5" x="4.5"/>
+  <path id="path3460" style="stroke:#333;fill:none" d="m4.5 5.5h12.002"/>
+  <g id="g2547" style="stroke-width:.99939" transform="matrix(0.936 0 0 1.045 -1.6329 -6.0885)">
+   <rect id="rect3464" style="fill:#fff" height=".89926" width="1" y="2.0974" x="4.3611"/>
+   <rect id="rect3466" style="fill:#fff" height=".89926" width="1" y="4.0987" x="4.3611"/>
+   <rect id="rect3468" style="fill:#fff" height=".89926" width="1" y="6.1" x="4.3611"/>
+   <rect id="rect3470" style="fill:#fff" height=".89926" width="1" y="8.1013" x="4.3611"/>
+   <rect id="rect3472" style="fill:#fff" height=".89926" width="1" y="10.103" x="4.3611"/>
+   <rect id="rect3474" style="fill:#fff" height=".89926" width="1" y="12.104" x="4.3611"/>
+   <rect id="rect3476" style="fill:#fff" height=".89926" width="1" y="14.105" x="4.3611"/>
+   <rect id="rect3478" style="fill:#fff" height=".89926" width="1" y="16.107" x="4.3611"/>
+   <rect id="rect3480" style="fill:#fff" height=".89926" width="1" y="18.108" x="4.3611"/>
+  </g>
+  <g id="g2559" style="stroke-width:.99939" transform="matrix(0.936 0 0 1.045 13.53 -6.0885)">
+   <rect id="rect2561" style="fill:#fff" height=".89926" width="1" y="2.0974" x="4.3611"/>
+   <rect id="rect2563" style="fill:#fff" height=".89926" width="1" y="4.0987" x="4.3611"/>
+   <rect id="rect2565" style="fill:#fff" height=".89926" width="1" y="6.1" x="4.3611"/>
+   <rect id="rect2567" style="fill:#fff" height=".89926" width="1" y="8.1013" x="4.3611"/>
+   <rect id="rect2569" style="fill:#fff" height=".89926" width="1" y="10.103" x="4.3611"/>
+   <rect id="rect2571" style="fill:#fff" height=".89926" width="1" y="12.104" x="4.3611"/>
+   <rect id="rect2573" style="fill:#fff" height=".89926" width="1" y="14.105" x="4.3611"/>
+   <rect id="rect2575" style="fill:#fff" height=".89926" width="1" y="16.107" x="4.3611"/>
+   <rect id="rect2577" style="fill:#fff" height=".89926" width="1" y="18.108" x="4.3611"/>
+  </g>
+  <path id="path4015" style="opacity:.36638;stroke:#fff;stroke-linecap:square;display:block;fill:none" d="m5.5 6.5h9.9995"/>
+  <path id="path4017" style="opacity:.36638;stroke:#fff;stroke-linecap:square;display:block;fill:none" d="m5.5-3.5h9.9995"/>
+ </g>
+</svg>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg3675" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="48" width="48" version="1.0" xmlns:cc="http://creativecommons.org/ns#" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <metadata id="metadata29">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs id="defs3677">
+  <linearGradient id="linearGradient2407" y2="5.4676" gradientUnits="userSpaceOnUse" x2="63.397" gradientTransform="matrix(2.1154 0 0 2.1153 -107.58 32.427)" y1="-12.489" x1="63.397">
+   <stop id="stop4875" style="stop-color:#fff" offset="0"/>
+   <stop id="stop4877" style="stop-color:#fff;stop-opacity:0" offset="1"/>
+  </linearGradient>
+  <radialGradient id="radialGradient2410" gradientUnits="userSpaceOnUse" cy="3.99" cx="23.896" gradientTransform="matrix(0 2.2875 -3.0194 0 36.047 -50.63)" r="20.397">
+   <stop id="stop2778" style="stop-color:#8badea" offset="0"/>
+   <stop id="stop2780" style="stop-color:#6396cd" offset=".26238"/>
+   <stop id="stop2782" style="stop-color:#3b7caf" offset=".66094"/>
+   <stop id="stop2784" style="stop-color:#194c70" offset="1"/>
+  </radialGradient>
+  <linearGradient id="linearGradient2412" y2="3.0816" gradientUnits="userSpaceOnUse" x2="18.379" gradientTransform="matrix(.95844 0 0 .95844 .99752 1.9975)" y1="44.98" x1="18.379">
+   <stop id="stop2788" style="stop-color:#1f4b6a" offset="0"/>
+   <stop id="stop2790" style="stop-color:#4083c2" offset="1"/>
+  </linearGradient>
+  <radialGradient id="radialGradient2415" gradientUnits="userSpaceOnUse" cy="4.625" cx="62.625" gradientTransform="matrix(2.1647 0 0 .75294 -111.56 36.518)" r="10.625">
+   <stop id="stop8840" offset="0"/>
+   <stop id="stop8842" style="stop-opacity:0" offset="1"/>
+  </radialGradient>
+ </defs>
+ <path id="path8836" style="opacity:.3;fill-rule:evenodd;fill:url(#radialGradient2415)" d="m47 40c0 4.418-10.297 8-23 8s-23-3.582-23-8 10.297-8 23-8 23 3.582 23 8z"/>
+ <path id="path2555" style="stroke-linejoin:round;stroke:url(#linearGradient2412);stroke-linecap:round;stroke-width:1.0037;fill:url(#radialGradient2410)" d="m24 5.5018c-10.758 0-19.498 8.7402-19.498 19.498-0.0002 10.758 8.74 19.498 19.498 19.498s19.498-8.74 19.498-19.498-8.74-19.498-19.498-19.498z"/>
+ <path id="path8655" style="opacity:.4;stroke:url(#linearGradient2407);fill:none" d="m42.5 24.999c0 10.218-8.283 18.501-18.5 18.501s-18.5-8.283-18.5-18.501c0-10.217 8.283-18.499 18.5-18.499s18.5 8.282 18.5 18.499z"/>
+ <path id="path9053" style="opacity:.2" d="m24.91 30.164c-0.066-2.359 0.463-4.649 2.691-6.271 2.354-1.834 4.621-4.129 4.382-6.835-0.053-2.609-3.093-4.653-6.368-4.947-3.684-0.511-8.142 0.751-9.377 3.629-0.626 1.399-0.045 3.91 2.056 3.91 1.229 0 1.794-0.794 1.887-1.521 0.07-0.549-0.156-1.04-0.289-1.494-0.152-0.517 0.496-1.519 1.202-1.928 0.59-0.341 1.207-0.455 1.298-0.477 2.118-0.509 4.229 0.615 5.11 1.984 0.881 1.368-0.088 3.444-1.482 5.463-1.395 2.018-2.891 4.311-2.885 6.746 0 0.928-0.082 1.243-0.024 1.618 0.047 0.299 1.039 0.263 1.799 0.123zm-0.966 3.174c-2.025-0.11-3.427 2.186-2.211 3.649 1.087 1.615 4.133 1.217 4.656-0.612 0.542-1.423-0.764-3.06-2.445-3.037z"/>
+ <path id="path3298" style="fill:#fff" d="m24.91 31.164c-0.066-2.359 0.463-4.649 2.691-6.271 2.354-1.834 4.621-4.129 4.382-6.835-0.053-2.609-3.093-4.653-6.368-4.947-3.684-0.511-8.142 0.751-9.377 3.629-0.626 1.399-0.045 3.91 2.056 3.91 1.229 0 1.794-0.794 1.887-1.521 0.07-0.549-0.156-1.04-0.289-1.494-0.152-0.517 0.496-1.519 1.202-1.928 0.59-0.341 1.207-0.455 1.298-0.477 2.118-0.509 4.229 0.615 5.11 1.984 0.881 1.368-0.088 3.444-1.482 5.463-1.395 2.018-2.891 4.311-2.885 6.746 0 0.928-0.082 1.243-0.024 1.618 0.047 0.299 1.039 0.263 1.799 0.123zm-0.966 3.174c-2.025-0.11-3.427 2.186-2.211 3.649 1.087 1.615 4.133 1.217 4.656-0.612 0.542-1.423-0.764-3.06-2.445-3.037z"/>
+</svg>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg2992" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="64px" width="64px" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <defs id="defs2994">
+  <linearGradient id="linearGradient2907" y2="5.4676" gradientUnits="userSpaceOnUse" x2="63.397" gradientTransform="matrix(2.8014 0 0 2.8014 -142.25 43.835)" y1="-12.489" x1="63.397">
+   <stop id="stop4875-7" style="stop-color:#fff" offset="0"/>
+   <stop id="stop4877-6" style="stop-color:#fff;stop-opacity:0" offset="1"/>
+  </linearGradient>
+  <radialGradient id="radialGradient2910" gradientUnits="userSpaceOnUse" cy="3.99" cx="23.896" gradientTransform="matrix(0 2.9914 -3.9485 0 47.755 -64.903)" r="20.397">
+   <stop id="stop3244" style="stop-color:#f8b17e" offset="0"/>
+   <stop id="stop3246" style="stop-color:#e35d4f" offset=".26238"/>
+   <stop id="stop3248" style="stop-color:#c6262e" offset=".66094"/>
+   <stop id="stop3250" style="stop-color:#690b54" offset="1"/>
+  </radialGradient>
+  <linearGradient id="linearGradient2912" y2="3.0816" gradientUnits="userSpaceOnUse" x2="18.379" gradientTransform="matrix(1.2534 0 0 1.2534 1.9192 3.9192)" y1="44.98" x1="18.379">
+   <stop id="stop2492" style="stop-color:#791235" offset="0"/>
+   <stop id="stop2494" style="stop-color:#dd3b27" offset="1"/>
+  </linearGradient>
+  <radialGradient id="radialGradient2990" gradientUnits="userSpaceOnUse" cx="62.625" cy="4.625" r="10.625" gradientTransform="matrix(2.9176 0 0 .98823 -150.72 48.929)">
+   <stop id="stop8840-3" offset="0"/>
+   <stop id="stop8842-2" style="stop-opacity:0" offset="1"/>
+  </radialGradient>
+ </defs>
+ <metadata id="metadata2997">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g id="layer1">
+  <path id="path8836-1" style="opacity:.3;fill-rule:evenodd;fill:url(#radialGradient2990)" d="m63 53.5c0 5.799-13.879 10.5-31 10.5s-31-4.701-31-10.5 13.879-10.5 31-10.5 31 4.701 31 10.5z"/>
+  <path id="path2555-5" style="stroke-linejoin:round;stroke:url(#linearGradient2912);stroke-linecap:round;fill:url(#radialGradient2910)" d="m32 8.5018c-14.069 0-25.498 11.429-25.498 25.498s11.429 25.498 25.498 25.498 25.498-11.429 25.498-25.498-11.429-25.498-25.498-25.498z"/>
+  <path id="path8655-9" style="opacity:.4;stroke:url(#linearGradient2907);fill:none" d="m56.5 33.999c0 13.531-10.97 24.501-24.5 24.501-13.531 0-24.5-10.97-24.5-24.501s10.969-24.499 24.5-24.499c13.53 0 24.5 10.968 24.5 24.499z"/>
+  <path id="path3256-1" style="fill:#a8252e;fill-rule:evenodd" d="m23.787 21-3.7874 3.7874 7.814 7.7741c0.24005 0.24308 0.24005 0.634 0 0.87708l-7.814 7.775 3.787 3.787 7.774-7.774c0.24308-0.24006 0.634-0.24006 0.87708 0l7.775 7.774 3.787-3.787-7.774-7.774c-0.24006-0.24308-0.24006-0.634 0-0.87708l7.7741-7.7741-3.7874-3.7874-7.7741 7.7741c-0.24308 0.24006-0.634 0.24006-0.87708 0l-7.7741-7.7741z"/>
+  <path id="path3256" style="fill:#fff;fill-rule:evenodd" d="m23.787 22-3.7874 3.7874 7.814 7.7741c0.24005 0.24308 0.24005 0.634 0 0.87708l-7.814 7.775 3.787 3.787 7.774-7.774c0.24308-0.24006 0.634-0.24006 0.87708 0l7.775 7.774 3.787-3.787-7.774-7.774c-0.24006-0.24308-0.24006-0.634 0-0.87708l7.7741-7.7741-3.7874-3.7874-7.7741 7.7741c-0.24308 0.24006-0.634 0.24006-0.87708 0l-7.7741-7.7741z"/>
+ </g>
+</svg>

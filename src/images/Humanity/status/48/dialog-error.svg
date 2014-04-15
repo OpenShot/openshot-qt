@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg3260" xmlns="http://www.w3.org/2000/svg" height="48" width="48" version="1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs3262">
+  <radialGradient id="radialGradient2486" gradientUnits="userSpaceOnUse" cy="4.625" cx="62.625" gradientTransform="matrix(2.1647 0 0 .75294 -111.56 36.518)" r="10.625">
+   <stop id="stop8840" offset="0"/>
+   <stop id="stop8842" style="stop-opacity:0" offset="1"/>
+  </radialGradient>
+  <linearGradient id="linearGradient2483" y2="3.0816" gradientUnits="userSpaceOnUse" x2="18.379" gradientTransform="matrix(.95844 0 0 .95844 .99752 1.9975)" y1="44.98" x1="18.379">
+   <stop id="stop2492" style="stop-color:#791235" offset="0"/>
+   <stop id="stop2494" style="stop-color:#dd3b27" offset="1"/>
+  </linearGradient>
+  <radialGradient id="radialGradient2481" gradientUnits="userSpaceOnUse" cy="3.99" cx="23.896" gradientTransform="matrix(0 2.2875 -3.0194 0 36.047 -50.63)" r="20.397">
+   <stop id="stop3244" style="stop-color:#f8b17e" offset="0"/>
+   <stop id="stop3246" style="stop-color:#e35d4f" offset=".26238"/>
+   <stop id="stop3248" style="stop-color:#c6262e" offset=".66094"/>
+   <stop id="stop3250" style="stop-color:#690b54" offset="1"/>
+  </radialGradient>
+  <linearGradient id="linearGradient2478" y2="5.4676" gradientUnits="userSpaceOnUse" x2="63.397" gradientTransform="matrix(2.1154 0 0 2.1153 -107.58 32.427)" y1="-12.489" x1="63.397">
+   <stop id="stop4875" style="stop-color:#fff" offset="0"/>
+   <stop id="stop4877" style="stop-color:#fff;stop-opacity:0" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g id="layer1">
+  <path id="path8836" style="opacity:.3;fill-rule:evenodd;fill:url(#radialGradient2486)" d="m47 40c0 4.418-10.297 8-23 8s-23-3.582-23-8 10.297-8 23-8 23 3.582 23 8z"/>
+  <path id="path2555" style="stroke-linejoin:round;stroke:url(#linearGradient2483);stroke-linecap:round;stroke-width:1.0037;fill:url(#radialGradient2481)" d="m24 5.5018c-10.758 0-19.498 8.7402-19.498 19.498-0.0002 10.758 8.74 19.498 19.498 19.498s19.498-8.74 19.498-19.498-8.74-19.498-19.498-19.498z"/>
+  <path id="path8655" style="opacity:.4;stroke:url(#linearGradient2478);fill:none" d="m42.5 24.999c0 10.218-8.283 18.501-18.5 18.501s-18.5-8.283-18.5-18.501c0-10.217 8.283-18.499 18.5-18.499s18.5 8.282 18.5 18.499z"/>
+  <path id="path2975" style="opacity:.2" d="m9 26h30v-5h-30v5z"/>
+  <path id="path3360" style="fill:#fff" d="m9 27h30v-5h-30v5z"/>
+ </g>
+</svg>

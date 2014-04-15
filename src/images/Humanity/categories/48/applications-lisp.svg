@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg3578" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="48" width="48" version="1.0" xmlns:cc="http://creativecommons.org/ns#" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <metadata id="metadata43">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs id="defs3580">
+  <linearGradient id="linearGradient2877-634-617" y2="39.999" gradientUnits="userSpaceOnUse" x2="25.058" y1="47.028" x1="25.058">
+   <stop id="stop2895" style="stop-color:#181818;stop-opacity:0" offset="0"/>
+   <stop id="stop2897" style="stop-color:#181818" offset=".5"/>
+   <stop id="stop2899" style="stop-color:#181818;stop-opacity:0" offset="1"/>
+  </linearGradient>
+  <radialGradient id="radialGradient2875-742-326" gradientUnits="userSpaceOnUse" cy="43.5" cx="4.993" gradientTransform="matrix(2.0038 0 0 1.4 -20.012 -104.4)" r="2.5">
+   <stop id="stop2889" style="stop-color:#181818" offset="0"/>
+   <stop id="stop2891" style="stop-color:#181818;stop-opacity:0" offset="1"/>
+  </radialGradient>
+  <radialGradient id="radialGradient2873-966-168" gradientUnits="userSpaceOnUse" cy="43.5" cx="4.993" gradientTransform="matrix(2.0038 0 0 1.4 27.988 -17.4)" r="2.5">
+   <stop id="stop2883" style="stop-color:#181818" offset="0"/>
+   <stop id="stop2885" style="stop-color:#181818;stop-opacity:0" offset="1"/>
+  </radialGradient>
+  <linearGradient id="linearGradient3008" y2="43.033" xlink:href="#linearGradient3220" gradientUnits="userSpaceOnUse" x2="15" gradientTransform="translate(0 .96744)" y1="5.0326" x1="15"/>
+  <linearGradient id="linearGradient3003" y2="43" gradientUnits="userSpaceOnUse" x2="24" gradientTransform="translate(0 1)" y1="7" x1="24">
+   <stop id="stop2919" style="stop-color:#fff" offset="0"/>
+   <stop id="stop2921" style="stop-color:#fff;stop-opacity:0" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient3299">
+   <stop id="stop3301" style="stop-color:#d2d2d2" offset="0"/>
+   <stop id="stop3303" style="stop-color:#f4f4f4" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient3220">
+   <stop id="stop3222" style="stop-color:#999" offset="0"/>
+   <stop id="stop3224" style="stop-color:#808080" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient4028" y2="43.033" xlink:href="#linearGradient3220" gradientUnits="userSpaceOnUse" x2="14" gradientTransform="translate(0 .96744)" y1="5.0326" x1="14"/>
+  <linearGradient id="linearGradient4085" y2="44" xlink:href="#linearGradient3220" gradientUnits="userSpaceOnUse" x2="21" y1="6" x1="21"/>
+  <linearGradient id="linearGradient4087" y2="35" xlink:href="#linearGradient3299" gradientUnits="userSpaceOnUse" x2="22" y1="43" x1="22"/>
+  <linearGradient id="linearGradient4089" y2="22" xlink:href="#linearGradient3299" gradientUnits="userSpaceOnUse" x2="25" y1="30" x1="25"/>
+  <linearGradient id="linearGradient4091" y2="9" xlink:href="#linearGradient3299" gradientUnits="userSpaceOnUse" x2="25" y1="17" x1="25"/>
+ </defs>
+ <g id="layer1">
+  <g id="g2036" transform="matrix(1.1 0 0 .44444 -2.4 25.111)">
+   <g id="g3712" style="opacity:.4" transform="matrix(1.0526 0 0 1.2857 -1.2632 -13.429)">
+    <rect id="rect2801" style="fill:url(#radialGradient2873-966-168)" height="7" width="5" y="40" x="38"/>
+    <rect id="rect3696" style="fill:url(#radialGradient2875-742-326)" transform="scale(-1)" height="7" width="5" y="-47" x="-10"/>
+    <rect id="rect3700" style="fill:url(#linearGradient2877-634-617)" height="7" width="28" y="40" x="10"/>
+   </g>
+  </g>
+  <rect id="rect3949" style="stroke-linejoin:round;stroke:url(#linearGradient3008);stroke-linecap:round;fill:url(#linearGradient4091)" rx="2.2322" ry="2.2322" height="39.972" width="39" y="4.4952" x="4.5"/>
+  <path id="rect5505" style="stroke-linejoin:round;stroke:url(#linearGradient4085);stroke-linecap:round;fill:url(#linearGradient4089)" d="m43.5 18v24.235c0 1.2366-0.99557 2.2322-2.2322 2.2322h-34.536c-1.2364 0-2.232-0.995-2.232-2.232v-24.235"/>
+  <path id="rect3951" style="stroke-linejoin:round;stroke:url(#linearGradient4028);stroke-linecap:round;fill:url(#linearGradient4087)" d="m43.5 31v11.235c0 1.2366-0.99557 2.2322-2.2322 2.2322h-34.536c-1.2364 0-2.232-0.995-2.232-2.232v-11.235"/>
+  <rect id="rect6741" style="stroke-linejoin:round;stroke:url(#linearGradient3003);stroke-linecap:round;fill:none" rx="1.3652" ry="1.3652" height="37.884" width="37" y="5.6161" x="5.5"/>
+  <text id="text3795" y="15" x="10" xml:space="preserve" style="opacity:.8;font-size:8px;font-family:UbuntuBeta;letter-spacing:0px;line-height:125%;word-spacing:0px;stroke:#ffffff;stroke-width:1px;fill:none"><tspan id="tspan3797" y="15" x="10">(</tspan></text>
+  <text id="text3023" y="14" x="10" xml:space="preserve" style="opacity:.6;font-size:8px;font-family:UbuntuBeta;letter-spacing:0px;line-height:125%;word-spacing:0px;stroke:#000000;stroke-width:1px;fill:none"><tspan id="tspan3025" y="14" x="10">(</tspan></text>
+  <text id="text3799" y="15" x="16.000002" xml:space="preserve" style="opacity:.8;font-size:8px;font-family:UbuntuBeta;letter-spacing:0px;line-height:125%;word-spacing:0px;stroke:#ffffff;stroke-width:1px;fill:none"><tspan id="tspan3801" y="15" x="16.000002">(</tspan></text>
+  <text id="text3803" y="14" x="16.000002" xml:space="preserve" style="opacity:.9;font-size:8px;font-family:UbuntuBeta;letter-spacing:0px;line-height:125%;word-spacing:0px;stroke:#9d3ea4;stroke-width:1px;fill:none"><tspan id="tspan3805" y="14" x="16.000002">(</tspan></text>
+  <text id="text3807" y="28" x="14" xml:space="preserve" style="opacity:.8;font-size:8px;font-family:UbuntuBeta;letter-spacing:0px;line-height:125%;word-spacing:0px;stroke:#ffffff;stroke-width:1px;fill:none"><tspan id="tspan3809" y="28" x="14">(</tspan></text>
+  <text id="text3811" y="27" x="14" xml:space="preserve" style="opacity:.9;font-size:8px;font-family:UbuntuBeta;letter-spacing:0px;line-height:125%;word-spacing:0px;stroke:#9d3ea4;stroke-width:1px;fill:none"><tspan id="tspan3813" y="27" x="14">(</tspan></text>
+  <text id="text3815" style="opacity:.8;font-size:8px;font-family:UbuntuBeta;letter-spacing:0px;line-height:125%;word-spacing:0px;stroke:#ffffff;stroke-width:1px;fill:none" xml:space="preserve" transform="scale(-1,1)" y="28" x="-33.192001"><tspan id="tspan3817" y="28" x="-33.192001">(</tspan></text>
+  <text id="text3819" style="opacity:.8;font-size:8px;font-family:UbuntuBeta;letter-spacing:0px;line-height:125%;word-spacing:0px;stroke:#194c70;stroke-width:1px;fill:none" xml:space="preserve" transform="scale(-1,1)" y="27" x="-33.192001"><tspan id="tspan3821" y="27" x="-33.192001">(</tspan></text>
+  <text id="text3823" style="opacity:.8;font-size:8px;font-family:UbuntuBeta;letter-spacing:0px;line-height:125%;word-spacing:0px;stroke:#ffffff;stroke-width:1px;fill:none" xml:space="preserve" transform="scale(-1,1)" y="28" x="-37.192001"><tspan id="tspan3825" y="28" x="-37.192001">(</tspan></text>
+  <text id="text3827" style="opacity:.9;font-size:8px;font-family:UbuntuBeta;letter-spacing:0px;line-height:125%;word-spacing:0px;stroke:#9d3ea4;stroke-width:1px;fill:none" xml:space="preserve" transform="scale(-1,1)" y="27" x="-37.192001"><tspan id="tspan3829" y="27" x="-37.192001">(</tspan></text>
+  <text id="text3831" y="28" x="18" xml:space="preserve" style="opacity:.8;font-size:8px;font-family:UbuntuBeta;letter-spacing:0px;line-height:125%;word-spacing:0px;stroke:#ffffff;stroke-width:1px;fill:none"><tspan id="tspan3833" y="28" x="18">(</tspan></text>
+  <text id="text3835" y="27" x="18" xml:space="preserve" style="opacity:.8;font-size:8px;font-family:UbuntuBeta;letter-spacing:0px;line-height:125%;word-spacing:0px;stroke:#194c70;stroke-width:1px;fill:none"><tspan id="tspan3837" y="27" x="18">(</tspan></text>
+  <text id="text3839" y="41" x="10" xml:space="preserve" style="opacity:.8;font-size:8px;font-family:UbuntuBeta;letter-spacing:0px;line-height:125%;word-spacing:0px;stroke:#ffffff;stroke-width:1px;fill:none"><tspan id="tspan3841" y="41" x="10">(</tspan></text>
+  <text id="text3843" y="40" x="10" xml:space="preserve" style="opacity:.9;font-size:8px;font-family:UbuntuBeta;letter-spacing:0px;line-height:125%;word-spacing:0px;stroke:#bb5e12;stroke-width:1px;fill:none"><tspan id="tspan3845" y="40" x="10">(</tspan></text>
+  <text id="text3847" style="opacity:.8;font-size:8px;font-family:UbuntuBeta;letter-spacing:0px;line-height:125%;word-spacing:0px;stroke:#ffffff;stroke-width:1px;fill:none" xml:space="preserve" transform="scale(-1,1)" y="41" x="-20.191999"><tspan id="tspan3849" y="41" x="-20.191999">(</tspan></text>
+  <text id="text3851" style="opacity:.9;font-size:8px;font-family:UbuntuBeta;letter-spacing:0px;line-height:125%;word-spacing:0px;stroke:#bb5e12;stroke-width:1px;fill:none" xml:space="preserve" transform="scale(-1,1)" y="40" x="-20.191999"><tspan id="tspan3853" y="40" x="-20.191999">(</tspan></text>
+  <text id="text3971" y="41" x="26" xml:space="preserve" style="opacity:.8;font-size:8px;font-family:UbuntuBeta;letter-spacing:0px;line-height:125%;word-spacing:0px;stroke:#ffffff;stroke-width:1px;fill:none"><tspan id="tspan3973" y="41" x="26">(</tspan></text>
+  <text id="text3975" y="40" x="26" xml:space="preserve" style="opacity:.9;font-size:8px;font-family:UbuntuBeta;letter-spacing:0px;line-height:125%;word-spacing:0px;stroke:#699536;stroke-width:1px;fill:none"><tspan id="tspan3977" y="40" x="26">(</tspan></text>
+  <text id="text3979" style="opacity:.8;font-size:8px;font-family:UbuntuBeta;letter-spacing:0px;line-height:125%;word-spacing:0px;stroke:#ffffff;stroke-width:1px;fill:none" xml:space="preserve" transform="scale(-1,1)" y="41" x="-36.192001"><tspan id="tspan3981" y="41" x="-36.192001">(</tspan></text>
+  <text id="text3983" style="opacity:.9;font-size:8px;font-family:UbuntuBeta;letter-spacing:0px;line-height:125%;word-spacing:0px;stroke:#699536;stroke-width:1px;fill:none" xml:space="preserve" transform="scale(-1,1)" y="40" x="-36.192001"><tspan id="tspan3985" y="40" x="-36.192001">(</tspan></text>
+ </g>
+</svg>

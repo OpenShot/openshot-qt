@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg3334" xmlns="http://www.w3.org/2000/svg" height="48" width="48" version="1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs3336">
+  <linearGradient id="linearGradient2877" y2="39.999" gradientUnits="userSpaceOnUse" x2="25.058" y1="47.028" x1="25.058">
+   <stop id="stop3704" style="stop-opacity:0" offset="0"/>
+   <stop id="stop3710" offset=".5"/>
+   <stop id="stop3706" style="stop-opacity:0" offset="1"/>
+  </linearGradient>
+  <radialGradient id="radialGradient2875" xlink:href="#linearGradient3688" gradientUnits="userSpaceOnUse" cy="43.5" cx="4.993" gradientTransform="matrix(2.0038 0 0 1.4 -20.012 -104.4)" r="2.5"/>
+  <linearGradient id="linearGradient3688">
+   <stop id="stop3690" offset="0"/>
+   <stop id="stop3692" style="stop-opacity:0" offset="1"/>
+  </linearGradient>
+  <radialGradient id="radialGradient2873" xlink:href="#linearGradient3688" gradientUnits="userSpaceOnUse" cy="43.5" cx="4.993" gradientTransform="matrix(2.0038 0 0 1.4 27.988 -17.4)" r="2.5"/>
+  <linearGradient id="linearGradient2865" y2="3.899" gradientUnits="userSpaceOnUse" x2="24" gradientTransform="translate(0 .96744)" y1="44" x1="24">
+   <stop id="stop2492" style="stop-color:#791235" offset="0"/>
+   <stop id="stop2494" style="stop-color:#dd3b27" offset="1"/>
+  </linearGradient>
+  <radialGradient id="radialGradient2863" gradientUnits="userSpaceOnUse" cy="10.424" cx="12.011" gradientTransform="matrix(5.6342e-8 1.6801 -2.4235 1.0381e-8 44.478 -5.9267)" r="20">
+   <stop id="stop3244" style="stop-color:#f89b7e" offset="0"/>
+   <stop id="stop3246" style="stop-color:#e35d4f" offset=".26238"/>
+   <stop id="stop3248" style="stop-color:#c6262e" offset=".66094"/>
+   <stop id="stop3250" style="stop-color:#690b2c" offset="1"/>
+  </radialGradient>
+  <linearGradient id="linearGradient2855" y2="43" gradientUnits="userSpaceOnUse" x2="24" gradientTransform="translate(0 .96744)" y1="5" x1="24">
+   <stop id="stop3310-1-4" style="stop-color:#fff" offset="0"/>
+   <stop id="stop3312-5-3" style="stop-color:#fff;stop-opacity:0" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g id="layer1">
+  <g id="g2036" transform="matrix(1.1 0 0 .44444 -2.4 25.111)">
+   <g id="g3712" style="opacity:.4" transform="matrix(1.0526 0 0 1.2857 -1.2632 -13.429)">
+    <rect id="rect2801" style="fill:url(#radialGradient2873)" height="7" width="5" y="40" x="38"/>
+    <rect id="rect3696" style="fill:url(#radialGradient2875)" transform="scale(-1)" height="7" width="5" y="-47" x="-10"/>
+    <rect id="rect3700" style="fill:url(#linearGradient2877)" height="7" width="28" y="40" x="10"/>
+   </g>
+  </g>
+  <rect id="rect5505" style="stroke-linejoin:round;stroke:url(#linearGradient2865);stroke-linecap:round;fill:url(#radialGradient2863)" rx="2.2322" ry="2.2322" height="39" width="39" y="5.4674" x="4.5"/>
+  <rect id="rect6741" style="opacity:.4;stroke-linejoin:round;stroke:url(#linearGradient2855);stroke-linecap:round;fill:none" rx="1.3652" ry="1.3652" height="37" width="37" y="6.4674" x="5.5"/>
+  <g id="g2558" style="opacity:.4;stroke:#000;stroke-linecap:round;stroke-miterlimit:0;stroke-width:2.2099;fill:none" transform="matrix(1.305 0 0 1.3227 -6.6686 -4.8529)">
+   <path id="path2560" style="stroke:#000;stroke-linecap:round;stroke-miterlimit:0;stroke-width:2.2099;fill:none" d="m19.282 15.806c-6.9924 3.8128-3.8304 14.739 4.1635 14.739 7.9107 0 11.456-10.358 4.1635-14.739"/>
+   <path id="path2562" style="stroke:#000;stroke-linecap:round;stroke-miterlimit:0;stroke-width:2.2099;fill:none" d="m23.5 20.496v-7.4131"/>
+  </g>
+  <g id="g2419" style="stroke:#fff;stroke-linecap:round;stroke-miterlimit:0;stroke-width:2.2099;fill:none" transform="matrix(1.305 0 0 1.3227 -6.6686 -3.8529)">
+   <path id="path3339" style="stroke:#fff;stroke-linecap:round;stroke-miterlimit:0;stroke-width:2.2099;fill:none" d="m19.282 15.806c-6.9924 3.8128-3.8304 14.739 4.1635 14.739 7.9107 0 11.456-10.358 4.1635-14.739"/>
+   <path id="path3341" style="stroke:#fff;stroke-linecap:round;stroke-miterlimit:0;stroke-width:2.2099;fill:none" d="m23.5 20.496v-7.4131"/>
+  </g>
+ </g>
+</svg>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg2" xmlns="http://www.w3.org/2000/svg" height="22" width="22" version="1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs4">
+  <linearGradient id="linearGradient2401" y2="27.495" gradientUnits="userSpaceOnUse" x2="23.878" gradientTransform="matrix(.89889 0 0 .89347 -10.464 -9.566)" y1="18.535" x1="23.878">
+   <stop id="stop3713" style="stop-color:#e35d4f" offset="0"/>
+   <stop id="stop3715" style="stop-color:#c6262e" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient2398" y2="45.69" gradientUnits="userSpaceOnUse" x2="24.139" gradientTransform="matrix(.53994 0 0 .53668 -1.8489 -1.5062)" y1="6.5317" x1="24.139">
+   <stop id="stop4224" style="stop-color:#fff" offset="0"/>
+   <stop id="stop4226" style="stop-color:#fff;stop-opacity:0" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g id="layer1">
+  <path id="path2262" style="stroke-linejoin:round;fill-rule:evenodd;stroke:#a53738;fill:url(#linearGradient2401)" d="m20.5 7.4948v7.0052h-19v-7.0052h19z"/>
+  <path id="path2272" style="opacity:.4;stroke:url(#linearGradient2398);fill:none" d="m19.5 8.4948v5.0052h-17v-5.0052h17z"/>
+ </g>
+</svg>

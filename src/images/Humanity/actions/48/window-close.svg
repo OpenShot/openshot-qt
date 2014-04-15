@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg2405" xmlns="http://www.w3.org/2000/svg" height="48" width="48" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs2407">
+  <radialGradient id="radialGradient2177" gradientUnits="userSpaceOnUse" cy="35.127" cx="23.071" gradientTransform="matrix(.91481 .012650 -.0082150 .21356 2.2539 27.189)" r="10.319">
+   <stop id="stop2093" offset="0"/>
+   <stop id="stop2095" style="stop-opacity:0" offset="1"/>
+  </radialGradient>
+  <linearGradient id="linearGradient2181" y2="32.85" gradientUnits="userSpaceOnUse" x2="16.145" gradientTransform="matrix(1.0318 -1.0287 1.0318 1.0287 -26.553 23.964)" y1="17.13" x1="31.865">
+   <stop id="stop7918" style="stop-color:#fff" offset="0"/>
+   <stop id="stop7920" style="stop-color:#fff;stop-opacity:.34021" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient2179" y2="46.421" gradientUnits="userSpaceOnUse" x2="34.163" gradientTransform="matrix(1.0318 -1.0287 1.0318 1.0287 -59.146 28.538)" y1="30.701" x1="49.882">
+   <stop id="stop1324" style="stop-color:#b4b4b4" offset="0"/>
+   <stop id="stop1326" style="stop-color:#505050" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g id="layer1">
+  <path id="path1361" style="opacity:.25571;fill:url(#radialGradient2177)" d="m33.278 34.941a10.319 2.3202 0 1 1 -20.639 0 10.319 2.3202 0 1 1 20.639 0z" transform="matrix(2.3012 0 0 1.919 -28.833 -24.805)"/>
+  <path id="text1314" style="stroke-linejoin:round;stroke:#4d4d4d;stroke-width:.98170;fill:#555753" d="m41.892 35.011-10.392-10.017 10-10.494-7.209-6.5-10.291 10-10.5-10-7.5 6.739 10.5 10.212-10.5 10.049 7.5 7 10.488-10.5 10.512 10.5 7.392-6.989z"/>
+  <path id="path7076" style="opacity:.40860;stroke-linejoin:round;stroke:url(#linearGradient2181);stroke-width:.98170;fill:url(#linearGradient2179)" d="m40.5 35-10.5-10 10-10.5-5.708-4.9586-10.292 9.9586-10.5-10-6 5.5 10.5 9.945-10.5 10.055 6 5.5 10.5-10.5 10.5 10.5 6-5.5z"/>
+ </g>
+</svg>

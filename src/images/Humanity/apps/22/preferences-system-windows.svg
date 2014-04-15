@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg3082" xmlns="http://www.w3.org/2000/svg" height="22" width="22" version="1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs3084">
+  <linearGradient id="linearGradient6457">
+   <stop id="stop6459" style="stop-color:#fff;stop-opacity:.94118" offset="0"/>
+   <stop id="stop6461" style="stop-color:#fff;stop-opacity:.70588" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient2781">
+   <stop id="stop2783" style="stop-color:#505050" offset="0"/>
+   <stop id="stop6301" style="stop-color:#6e6e6e" offset=".13216"/>
+   <stop id="stop2785" style="stop-color:#8c8c8c" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient3690">
+   <stop id="stop3692" style="stop-color:#fff" offset="0"/>
+   <stop id="stop3694" style="stop-color:#fff;stop-opacity:.46875" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient5625" y2="39.924" xlink:href="#linearGradient2781" gradientUnits="userSpaceOnUse" x2="21.78" gradientTransform="matrix(.42425 0 0 .42624 4.8937 -2.3362)" y1="8.5763" x1="21.866"/>
+  <linearGradient id="linearGradient5627" y2="15.044" xlink:href="#linearGradient3690" gradientUnits="userSpaceOnUse" x2="16.075" gradientTransform="matrix(.38711 0 0 .37933 5.8222 -1.1037)" y1="9.0735" x1="16.034"/>
+  <linearGradient id="linearGradient5629" y2="40" xlink:href="#linearGradient6457" gradientUnits="userSpaceOnUse" x2="24" gradientTransform="matrix(.34211 0 0 .29630 7.2895 2.1483)" y1="13" x1="24"/>
+  <linearGradient id="linearGradient5631" y2="39.924" xlink:href="#linearGradient2781" gradientUnits="userSpaceOnUse" x2="21.78" gradientTransform="matrix(.42425 0 0 .42624 -2.1063 4.6637)" y1="8.5763" x1="21.866"/>
+  <linearGradient id="linearGradient5633" y2="15.044" xlink:href="#linearGradient3690" gradientUnits="userSpaceOnUse" x2="16.075" gradientTransform="matrix(.38711 0 0 .37933 -1.1778 5.8962)" y1="9.0735" x1="16.034"/>
+  <linearGradient id="linearGradient5635" y2="40" xlink:href="#linearGradient6457" gradientUnits="userSpaceOnUse" x2="24" gradientTransform="matrix(.34211 0 0 .29630 .28947 9.1481)" y1="13" x1="24"/>
+ </defs>
+ <g id="g5611" transform="translate(-1 -1)">
+  <rect id="rect6448" style="stroke-linejoin:round;stroke:#565853;stroke-width:.99969;fill:url(#linearGradient5625)" height="13" width="14" y="1.4999" x="8.4998"/>
+  <rect id="rect6450" style="opacity:.2;stroke:url(#linearGradient5627);stroke-width:.99953;fill:none" height="11" width="12" y="2.4999" x="9.4998"/>
+  <rect id="rect6452" style="fill:url(#linearGradient5629)" height="8" width="13" y="6.0001" x="9"/>
+  <path id="path6454" style="fill:#ffc24c" d="m21 4.2501c0.000178 0.41416-0.33566 0.75-0.75 0.75s-0.75018-0.33584-0.75-0.75c-0.000181-0.41416 0.33566-0.75 0.75-0.75s0.75018 0.33584 0.75 0.75z"/>
+  <path id="path6456" style="fill:#ffc24c" d="m19 4.2501c0.000178 0.41416-0.33566 0.75-0.75 0.75s-0.75018-0.33584-0.75-0.75c-0.000181-0.41416 0.33566-0.75 0.75-0.75s0.75018 0.33584 0.75 0.75z"/>
+  <path id="path6458" style="fill:#ffc24c" d="m17 4.2501c0.000178 0.41416-0.33566 0.75-0.75 0.75s-0.75018-0.33584-0.75-0.75c-0.000181-0.41416 0.33566-0.75 0.75-0.75s0.75018 0.33584 0.75 0.75z"/>
+  <rect id="rect1887" style="stroke-linejoin:round;stroke:#565853;stroke-width:.99969;fill:url(#linearGradient5631)" height="13" width="14" y="8.4998" x="1.4998"/>
+  <rect id="rect2779" style="opacity:.2;stroke:url(#linearGradient5633);stroke-width:.99953;fill:none" height="11" width="12" y="9.4998" x="2.4998"/>
+  <rect id="rect6287" style="fill:url(#linearGradient5635)" height="8" width="13" y="13" x="2"/>
+  <path id="path6293" style="fill:#ffc24c" d="m14 11.25c0.000178 0.41416-0.33566 0.75-0.75 0.75s-0.75018-0.33584-0.75-0.75c-0.000181-0.41416 0.33566-0.75 0.75-0.75s0.75018 0.33584 0.75 0.75z"/>
+  <path id="path6302" style="fill:#ffc24c" d="m12 11.25c0.000178 0.41416-0.33566 0.75-0.75 0.75s-0.75018-0.33584-0.75-0.75c-0.000181-0.41416 0.33566-0.75 0.75-0.75s0.75018 0.33584 0.75 0.75z"/>
+  <path id="path6304" style="fill:#ffc24c" d="m10 11.25c0.0001781 0.41416-0.33566 0.75-0.75 0.75s-0.75018-0.33584-0.75-0.75c-0.000181-0.41416 0.33566-0.75 0.75-0.75s0.75018 0.33584 0.75 0.75z"/>
+ </g>
+</svg>

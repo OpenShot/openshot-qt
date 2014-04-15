@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg2" xmlns="http://www.w3.org/2000/svg" height="22" width="22" version="1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs4">
+  <linearGradient id="linearGradient3587-6-5">
+   <stop id="stop3589-9-2" offset="0"/>
+   <stop id="stop3591-7-4" style="stop-color:#363636" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient3170" y2="11.969" xlink:href="#linearGradient3587-6-5" gradientUnits="userSpaceOnUse" x2="15.669" gradientTransform="matrix(.93023 0 0 1.236 -11.576 5.1536)" y1="-2.622" x1="15.669"/>
+  <linearGradient id="linearGradient3173" y2="4.9946" xlink:href="#linearGradient3587-6-5" gradientUnits="userSpaceOnUse" x2="35.008" gradientTransform="translate(-25.786 -3.0357)" y1="23.179" x1="35.008"/>
+ </defs>
+ <path id="path3229" style="opacity:.6;fill-rule:evenodd;fill:#fff" d="m11 4c-4.416 0-8 3.584-8 8s3.584 8 8 8 8-3.584 8-8-3.584-8-8-8zm0 5c1.656 0 3 1.344 3 3s-1.344 3-3 3-3-1.344-3-3 1.344-3 3-3z"/>
+ <path id="path3170" style="opacity:0.42;fill-rule:evenodd;fill:url(#linearGradient3173)" d="m11 3c-4.416 0-8 3.584-8 8s3.584 8 8 8c0.897 0 1.757-0.165 2.562-0.438l-1.531-4.75c-0.324 0.12-0.665 0.188-1.031 0.188-1.656 0-3-1.344-3-3s1.344-3 3-3v-5zm8 8c0 0.33-0.024 0.649-0.062 0.969 0.038-0.319 0.062-0.64 0.062-0.969zm-2.625 5.906c-0.178 0.162-0.371 0.324-0.563 0.469 0.196-0.148 0.382-0.304 0.563-0.469zm-1.687 1.188c-0.275 0.145-0.56 0.265-0.844 0.375 0.29-0.111 0.57-0.233 0.844-0.375z"/>
+ <path id="path3288" style="opacity:.7;fill:url(#linearGradient3170)" d="m11 3v5c1.656 0 3 1.344 3 3 0 0.988-0.482 1.859-1.219 2.406-0.238 0.176-0.485 0.311-0.75 0.406l1.531 4.782c0.767-0.259 1.503-0.65 2.188-1.156 1.971-1.458 3.25-3.8 3.25-6.438 0-4.416-3.584-8-8-8z"/>
+</svg>

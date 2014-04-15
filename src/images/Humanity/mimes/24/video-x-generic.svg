@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg3851" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="24" width="24" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <defs id="defs3853">
+  <linearGradient id="linearGradient2989" y2="22.662" gradientUnits="userSpaceOnUse" x2="12.299" gradientTransform="matrix(1.0407 0 0 .99038 -.29970 -7.4438)" y1=".44808" x1="12.299">
+   <stop id="stop3618" style="stop-color:#f0c178" offset="0"/>
+   <stop id="stop3270" style="stop-color:#e18941" offset=".5"/>
+   <stop id="stop3620" style="stop-color:#ec4f18" offset="1"/>
+  </linearGradient>
+  <radialGradient id="radialGradient2992" xlink:href="#linearGradient259" gradientUnits="userSpaceOnUse" cy="35.737" cx="33.967" gradientTransform="matrix(.45689 0 0 .53329 1.7561 -8.3678)" r="86.708"/>
+  <linearGradient id="linearGradient259">
+   <stop id="stop260" style="stop-color:#828282" offset="0"/>
+   <stop id="stop261" style="stop-color:#434343" offset="1"/>
+  </linearGradient>
+  <radialGradient id="radialGradient2995" xlink:href="#linearGradient259" gradientUnits="userSpaceOnUse" cy="35.737" cx="33.967" gradientTransform="matrix(.49493 0 0 .53363 .11140 -8.3687)" r="86.708"/>
+  <linearGradient id="linearGradient2543" y2="609.51" gradientUnits="userSpaceOnUse" x2="302.86" gradientTransform="matrix(2.7744 0 0 1.9697 -1892.2 -872.89)" y1="366.65" x1="302.86">
+   <stop id="stop5050" style="stop-opacity:0" offset="0"/>
+   <stop id="stop5056" offset=".5"/>
+   <stop id="stop5052" style="stop-opacity:0" offset="1"/>
+  </linearGradient>
+  <radialGradient id="radialGradient2545" xlink:href="#linearGradient5060" gradientUnits="userSpaceOnUse" cy="486.65" cx="605.71" gradientTransform="matrix(2.7744 0 0 1.9697 -1891.6 -872.89)" r="117.14"/>
+  <linearGradient id="linearGradient5060">
+   <stop id="stop5062" offset="0"/>
+   <stop id="stop5064" style="stop-opacity:0" offset="1"/>
+  </linearGradient>
+  <radialGradient id="radialGradient3849" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient5060" cx="605.71" cy="486.65" r="117.14" gradientTransform="matrix(-2.7744 0 0 1.9697 112.76 -872.89)"/>
+ </defs>
+ <metadata id="metadata3856">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g id="layer1" transform="translate(0,8)">
+  <g id="g5022" transform="matrix(.011328 0 0 .0062715 22.575 13.945)">
+   <rect id="rect4173" style="opacity:.40206;fill:url(#linearGradient2543)" height="478.36" width="1339.6" y="-150.7" x="-1559.3"/>
+   <path id="path5058" style="opacity:.40206;fill:url(#radialGradient2545)" d="m-219.62-150.68v478.33c142.87 0.90045 345.4-107.17 345.4-239.2s-159.44-239.13-345.4-239.13z"/>
+   <path id="path5018" style="opacity:.40206;fill:url(#radialGradient3849)" d="m-1559.3-150.68v478.33c-142.87 0.90045-345.4-107.17-345.4-239.2s159.44-239.13 345.4-239.13z"/>
+  </g>
+  <path id="path3385" style="stroke:#333;display:block;fill:url(#radialGradient2995)" d="m6.7691 14.474h-3.1338c-0.2539-0.24834-0.060832-0.74139-0.12116-1.093v-19.76l0.035409-0.085295 0.085751-0.035221h3.0912"/>
+  <path id="rect15391" style="stroke:#333;display:block;fill:url(#radialGradient2992)" d="m18.5-6.5h2.8751c0.23439 0.24818 0.05616 0.74092 0.11185 1.0923 0 6.5825 0.0082 13.109 0.0082 19.691 0 0.28993-0.46648 0.2049-1.0226 0.2049-0.64946 0-1.2989-0.02815-1.9484-0.02815"/>
+  <rect id="rect3457" style="stroke:#333;fill:url(#linearGradient2989)" rx="0" ry="0" height="21" width="12" y="-6.5" x="6.5"/>
+  <path id="path3460" style="stroke:#333;fill:none" d="m6.5 3.5h12.002"/>
+  <g id="g2547" style="stroke-width:.99939" transform="matrix(0.936 0 0 1.045 .36710 -8.0885)">
+   <rect id="rect3464" style="fill:#fff" height=".89926" width="1" y="2.0974" x="4.3611"/>
+   <rect id="rect3466" style="fill:#fff" height=".89926" width="1" y="4.0987" x="4.3611"/>
+   <rect id="rect3468" style="fill:#fff" height=".89926" width="1" y="6.1" x="4.3611"/>
+   <rect id="rect3470" style="fill:#fff" height=".89926" width="1" y="8.1013" x="4.3611"/>
+   <rect id="rect3472" style="fill:#fff" height=".89926" width="1" y="10.103" x="4.3611"/>
+   <rect id="rect3474" style="fill:#fff" height=".89926" width="1" y="12.104" x="4.3611"/>
+   <rect id="rect3476" style="fill:#fff" height=".89926" width="1" y="14.105" x="4.3611"/>
+   <rect id="rect3478" style="fill:#fff" height=".89926" width="1" y="16.107" x="4.3611"/>
+   <rect id="rect3480" style="fill:#fff" height=".89926" width="1" y="18.108" x="4.3611"/>
+   <rect id="rect3482" style="fill:#fff" height=".89926" width="1" y="20.109" x="4.3611"/>
+  </g>
+  <g id="g2559" style="stroke-width:.99939" transform="matrix(0.936 0 0 1.045 15.53 -8.0885)">
+   <rect id="rect2561" style="fill:#fff" height=".89926" width="1" y="2.0974" x="4.3611"/>
+   <rect id="rect2563" style="fill:#fff" height=".89926" width="1" y="4.0987" x="4.3611"/>
+   <rect id="rect2565" style="fill:#fff" height=".89926" width="1" y="6.1" x="4.3611"/>
+   <rect id="rect2567" style="fill:#fff" height=".89926" width="1" y="8.1013" x="4.3611"/>
+   <rect id="rect2569" style="fill:#fff" height=".89926" width="1" y="10.103" x="4.3611"/>
+   <rect id="rect2571" style="fill:#fff" height=".89926" width="1" y="12.104" x="4.3611"/>
+   <rect id="rect2573" style="fill:#fff" height=".89926" width="1" y="14.105" x="4.3611"/>
+   <rect id="rect2575" style="fill:#fff" height=".89926" width="1" y="16.107" x="4.3611"/>
+   <rect id="rect2577" style="fill:#fff" height=".89926" width="1" y="18.108" x="4.3611"/>
+   <rect id="rect2579" style="fill:#fff" height=".89926" width="1" y="20.109" x="4.3611"/>
+  </g>
+  <path id="path4015" style="opacity:.36638;stroke:#fff;stroke-linecap:square;display:block;fill:none" d="m7.5 4.5h9.9995"/>
+  <path id="path4017" style="opacity:.36638;stroke:#fff;stroke-linecap:square;display:block;fill:none" d="m7.5-5.5h9.9995"/>
+ </g>
+</svg>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg2816" xmlns="http://www.w3.org/2000/svg" height="16" width="16" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs2818">
+  <radialGradient id="radialGradient3618" gradientUnits="userSpaceOnUse" cy="3" cx="3.6667" gradientTransform="matrix(1.5,0,0,1,-1.5,0)" r="8">
+   <stop id="stop3700" style="stop-color:#eeeeec" offset="0"/>
+   <stop id="stop3702" style="stop-color:#babdb6" offset=".79220"/>
+   <stop id="stop3704" style="stop-color:#a1a59b" offset="1"/>
+  </radialGradient>
+  <linearGradient id="linearGradient3687" y2="16" gradientUnits="userSpaceOnUse" x2="8" y1="-2" x1="5">
+   <stop id="stop3683" style="stop-color:#fff" offset="0"/>
+   <stop id="stop3685" style="stop-color:#fff;stop-opacity:0" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient2854" y2="32.485" gradientUnits="userSpaceOnUse" x2="24.104" gradientTransform="matrix(.32803 0 0 .32571 4.445 -3.468)" y1="15.169" x1="24.104">
+   <stop id="stop3567" style="stop-color:#ecf5b6" offset="0"/>
+   <stop id="stop3949" style="stop-color:#9fba48" offset="1"/>
+  </linearGradient>
+ </defs>
+ <path id="path2819" style="stroke:#888a86;fill:url(#radialGradient3618)" d="m0.5 7.5v-3c0-3 2.5-3.9167 4-4h7c1.5 0.11458 4 1 4 4v3c0 3-1.5139 4-3 4-2.3962-0.01417-0.51616 2.7243 0 4h-0.66667l-4.3333-4h-3c-1.5278-0.03125-4-1-4-4z"/>
+ <path id="path3616" style="opacity:.6;stroke:url(#linearGradient3687);fill:none" d="m4.5625 1.4688c-0.5845 0.0324-1.4215 0.2575-2.0313 0.7187-0.6097 0.4612-1.0624 1.0797-1.0624 2.3125v3c0 1.2358 0.427 1.8799 1.0312 2.3438 0.59591 0.45748 1.4296 0.6705 2 0.6875h0.03125 2.9688a0.96191 0.96191 0 0 1 0.65625 0.25l2.25 2.0625c-0.07837-0.43001-0.11298-0.89055 0.15625-1.375 0.35897-0.64594 1.156-0.94212 1.9375-0.9375 0.52732 0 0.97811-0.15748 1.3438-0.5625 0.36564-0.40502 0.6875-1.1305 0.6875-2.4688v-3c0-1.233-0.421-1.854-1.031-2.3127s-1.46-0.6727-2.062-0.7187h-6.875z"/>
+ <path id="path2262" style="stroke-linejoin:round;fill-rule:evenodd;stroke:#699536;stroke-width:1.0151;fill:url(#linearGradient2854)" d="m10.5 2.5v-1.9925h3v1.9925h1.9925v3h-1.9925v1.9925h-3v-1.9925h-1.9925v-3h1.9925z"/>
+</svg>

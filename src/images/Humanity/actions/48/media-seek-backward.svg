@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg2436" xmlns="http://www.w3.org/2000/svg" height="48" width="48" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs2438">
+  <linearGradient id="linearGradient5325">
+   <stop id="stop5327" style="stop-color:#eeeeec" offset="0"/>
+   <stop id="stop5329" style="stop-color:#babdb6" offset=".79521"/>
+   <stop id="stop5331" style="stop-color:#a1a59b" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient2399" y2="36.569" xlink:href="#linearGradient4222" gradientUnits="userSpaceOnUse" x2="22.683" y1="-3.7612" x1="46.81"/>
+  <linearGradient id="linearGradient4222">
+   <stop id="stop4224" style="stop-color:#fff" offset="0"/>
+   <stop id="stop4226" style="stop-color:#fff;stop-opacity:0" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient2397" y2="40.394" xlink:href="#linearGradient4222" gradientUnits="userSpaceOnUse" x2="20.825" y1="-14.909" x1="54.57"/>
+  <linearGradient id="linearGradient2395" y2="13" xlink:href="#linearGradient5325" gradientUnits="userSpaceOnUse" x2="34.048" y1="32" x1="34.048"/>
+  <linearGradient id="linearGradient2393" y2="13" xlink:href="#linearGradient5325" gradientUnits="userSpaceOnUse" x2="16.048" y1="32" x1="16.048"/>
+ </defs>
+ <g id="layer1" transform="translate(.29988)">
+  <g id="g2379" transform="matrix(-1 0 0 1 48.748 0)">
+   <path id="path8027" style="fill-rule:evenodd;stroke-dashoffset:0.7;stroke:#888a86;stroke-linecap:square;fill:url(#linearGradient2393)" d="m6.5 35v-22l18.496 11.01-18.496 10.99z" transform="matrix(1 0 0 -1 0 48)"/>
+   <path id="path8033" style="fill-rule:evenodd;stroke-dashoffset:0.7;stroke:#888a86;stroke-linecap:square;fill:url(#linearGradient2395)" d="m24.5 35v-22l18.496 11.01-18.496 10.99z" transform="matrix(1 0 0 -1 0 48)"/>
+   <path id="path8035" style="stroke-dashoffset:0.7;stroke:url(#linearGradient2397);stroke-linecap:square;fill:none" d="m22.5 14.781v18.438l15.531-9.219-15.531-9.219z" transform="matrix(1 0 0 -1 3 48)"/>
+   <path id="path8029" style="stroke-dashoffset:0.7;stroke:url(#linearGradient2399);stroke-linecap:square;fill:none" d="m22.5 14.781v18.438l15.531-9.219-15.531-9.219z" transform="matrix(1 0 0 -1 -15 48)"/>
+  </g>
+ </g>
+</svg>

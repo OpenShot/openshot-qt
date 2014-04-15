@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg2448" xmlns="http://www.w3.org/2000/svg" height="48" width="48" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs2450">
+  <radialGradient id="radialGradient1444" gradientUnits="userSpaceOnUse" cy="36.421" cx="24.837" gradientTransform="matrix(1 0 0 .53672 0 16.873)" r="15.645">
+   <stop id="stop8664" offset="0"/>
+   <stop id="stop8666" style="stop-opacity:0" offset="1"/>
+  </radialGradient>
+  <linearGradient id="linearGradient2628" y2="24.558" gradientUnits="userSpaceOnUse" x2="-91.513" gradientTransform="matrix(1.0173 -.24356 .24356 1.0173 110.52 -7.9554)" y1="-5.3879" x1="-84.344">
+   <stop id="stop2266" style="stop-color:#d7e866" offset="0"/>
+   <stop id="stop2268" style="stop-color:#8cab2a" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient3406" y2="47.76" gradientUnits="userSpaceOnUse" x2="20.494" y1="6.0098" x1="20.494">
+   <stop id="stop3402" style="stop-color:#fff" offset="0"/>
+   <stop id="stop3404" style="stop-color:#fff;stop-opacity:0" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g id="layer1">
+  <path id="path8660" style="opacity:.20455;color:black;fill-rule:evenodd;fill:url(#radialGradient1444)" d="m40.482 36.421a15.645 8.3969 0 1 1 -31.289 0 15.645 8.3969 0 1 1 31.289 0z" transform="matrix(1.2145 0 0 .59546 -6.1638 20.313)"/>
+  <path id="path1542" style="stroke-linejoin:round;stroke:#42770c;stroke-linecap:round;fill:url(#linearGradient2628)" d="m33.706 5.4818c-0.55973-0.056806-1.1162 0.21734-1.4038 0.74365l-12.253 22.42-7.878-6.264c-0.70175-0.38345-1.5773-0.13677-1.9607 0.56498l-3.5329 4.5357c-0.38345 0.70174-0.12549 1.577 0.57625 1.9605 0 0 14.384 11.88 14.402 11.889 0.16447 0.08987 0.33646 0.13509 0.5113 0.15718 0.57112 0.07217 1.1556-0.19616 1.4492-0.73343l16.527-30.237c0.383-0.7013 0.125-1.5766-0.577-1.9601l-5.302-2.9097c-0.175-0.0958-0.37-0.1484-0.557-0.1674z"/>
+  <path id="path1544" style="opacity:.4;stroke-linejoin:round;stroke:url(#linearGradient3406);stroke-linecap:round;fill:none" d="m32.939 7.2013-6.209 11.407-5.533 10.061c-0.17848 0.1811-0.12384 0.75409-0.9027 0.95297-0.53887 0.1376-0.63635-0.06289-1.2042-0.42791l-6.9506-5.4922c-0.7733-0.62166-0.74975-0.58936-1.2973-0.03737l-2.7904 3.521c-0.75181 0.80467-0.63536 1.2908 0.30175 1.891 0 0 13.078 10.78 13.095 10.788 0.15556 0.085 0.0892 0.11414 0.75786 0.57814 0.42893 0.29764 0.80754-0.64798 1.0834-1.1529l15.901-29.015c0.36-0.6595 0.333-0.6506-0.331-1.0133l-4.742-2.5144c-0.684-0.3714-0.687-0.3672-1.179 0.454z"/>
+ </g>
+</svg>

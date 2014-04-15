@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg3247" xmlns="http://www.w3.org/2000/svg" height="16" width="16" version="1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs3249">
+  <linearGradient id="linearGradient2401" y2="34.225" gradientUnits="userSpaceOnUse" x2="24.104" gradientTransform="matrix(.70965 0 0 .70537 -8.945 -8.2363)" y1="15.181" x1="24.104">
+   <stop id="stop2266" style="stop-color:#d7e866" offset="0"/>
+   <stop id="stop2268" style="stop-color:#8cab2a" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient3190" y2="16.004" gradientUnits="userSpaceOnUse" x2="8" x1="8">
+   <stop id="stop3182" style="stop-color:#fff" offset="0"/>
+   <stop id="stop3184" style="stop-color:#fff;stop-opacity:0" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g id="layer1">
+  <path id="path2262" style="stroke-linejoin:round;fill-rule:evenodd;stroke:#699536;fill:url(#linearGradient2401)" d="m5.5 5.5v-5h5v5h5v5h-5v5h-5v-5h-5v-5h5z"/>
+  <path id="path3188" style="opacity:.4;stroke:url(#linearGradient3190);fill:none" d="m6.5 1.5v4c-0.00481 0.55028-0.44972 0.99519-1 1h-4v3h4c0.55028 0.00481 0.99519 0.44972 1 1v4h3v-4c0.00481-0.55028 0.44972-0.99519 1-1h4v-3h-4c-0.5503-0.0048-0.9952-0.4497-1-1v-4h-3z"/>
+ </g>
+</svg>

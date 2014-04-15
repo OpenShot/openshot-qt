@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg2864" xmlns="http://www.w3.org/2000/svg" height="22" width="22" version="1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs2866">
+  <linearGradient id="linearGradient3973" y2="52.94" gradientUnits="userSpaceOnUse" x2="10.44" gradientTransform="matrix(.41957 0 0 .46627 10.651 -.81763)" y1="9.9657" x1="10.44">
+   <stop id="stop2784" style="stop-color:#fff" offset="0"/>
+   <stop id="stop2786" style="stop-color:#fff;stop-opacity:0" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient3976" y2="45.497" gradientUnits="userSpaceOnUse" x2="-11.107" gradientTransform="matrix(.49028 0 0 .48842 10.445 -1.2222)" y1="4.549" x1="-11.107">
+   <stop id="stop4610" style="stop-color:#eeeeec" offset="0"/>
+   <stop id="stop4612" style="stop-color:#babdb6" offset=".79955"/>
+   <stop id="stop4614" style="stop-color:#a1a59b" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient3979" y2="45.497" gradientUnits="userSpaceOnUse" x2="11.33" gradientTransform="matrix(.49028 0 0 .48842 10.445 -1.2222)" y1="4.549" x1="11.33">
+   <stop id="stop4602" style="stop-color:#eeeeec" offset="0"/>
+   <stop id="stop4604" style="stop-color:#babdb6" offset=".79955"/>
+   <stop id="stop4606" style="stop-color:#a1a59b" offset="1"/>
+  </linearGradient>
+ </defs>
+ <path id="path3898" style="stroke-linejoin:round;fill-rule:evenodd;stroke:#888a86;stroke-linecap:round;stroke-width:1.0026;fill:url(#linearGradient3979)" d="m12.501 0.50129v19.997h7.9974v-19.997h-7.9974z"/>
+ <path id="path2645" style="stroke-linejoin:round;fill-rule:evenodd;stroke:#888a86;stroke-linecap:round;stroke-width:1.0026;fill:url(#linearGradient3976)" d="m1.5013 0.50129v19.997h7.9974v-19.997h-7.9974z"/>
+ <path id="path2647" style="opacity:0.41;stroke-opacity:.97255;stroke:url(#linearGradient3973);stroke-linecap:round;stroke-width:.99428;fill:none" d="m13.497 1.4968v18.006l6.0057-0.02133v-17.984h-6.0057zm-11-1e-7v18.006l6.0057-0.02133v-17.984h-6.0057z"/>
+</svg>

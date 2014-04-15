@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg2841" xmlns="http://www.w3.org/2000/svg" height="22" width="22" version="1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs2843">
+  <radialGradient id="radialGradient4811" gradientUnits="userSpaceOnUse" cy="19.031" cx="11.25" gradientTransform="matrix(1 0 0 .28295 0 13.646)" r="8.0625">
+   <stop id="stop2487" style="stop-color:#0d0d0d" offset="0"/>
+   <stop id="stop2489" style="stop-color:#0d0d0d;stop-opacity:0" offset="1"/>
+  </radialGradient>
+  <linearGradient id="linearGradient4813" y2="31.138" gradientUnits="userSpaceOnUse" x2="-93.088" gradientTransform="matrix(.51128 -.12167 .12241 .50821 56.783 -3.2077)" y1="2.0691" x1="-86.129">
+   <stop id="stop2266" style="stop-color:#d7e866" offset="0"/>
+   <stop id="stop2268" style="stop-color:#8cab2a" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient3597" y2="47.76" gradientUnits="userSpaceOnUse" x2="20.494" gradientTransform="matrix(.50259 0 0 .49957 1.194 .76653)" y1="6.0098" x1="20.494">
+   <stop id="stop3402" style="stop-color:#fff" offset="0"/>
+   <stop id="stop3404" style="stop-color:#fff;stop-opacity:0" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g id="layer1" transform="translate(-2,-2)">
+  <path id="path4346" style="opacity:.16292;fill:url(#radialGradient4811)" d="m19.312 19.031a8.0625 2.2812 0 1 1 -16.125 0 8.0625 2.2812 0 1 1 16.125 0z" transform="matrix(1.4884 0 0 1.4466 -4.7442 -6.8302)"/>
+  <path id="path1542" style="stroke-linejoin:round;stroke:#699536;stroke-linecap:round;stroke-width:1.0028;fill:url(#linearGradient4813)" d="m18.175 3.5051c-0.28132-0.028378-0.561 0.10858-0.70554 0.3715l-6.158 11.2-3.9593-3.13c-0.3527-0.191-0.7927-0.068-0.9855 0.283l-1.7756 2.2659c-0.19272 0.35056-0.063069 0.78783 0.28962 0.97939 0 0 7.2294 5.935 7.2384 5.9394 0.08266 0.0449 0.1691 0.06749 0.25697 0.07853 0.28704 0.03605 0.58079-0.098 0.72834-0.3664l8.305-15.105c0.19272-0.35057 0.06307-0.78783-0.28962-0.97939l-2.664-1.4539c-0.08817-0.047891-0.186-0.074167-0.27977-0.083626z"/>
+  <path id="path1544" style="opacity:.4;stroke:url(#linearGradient3597);stroke-linecap:round;stroke-width:1.0028;fill:none" d="m18.214 4.6151-6.593 11.979-4.578-3.601c-0.5 0.6-0.8489 1.092-1.4161 1.8 0 0 6.6812 5.4506 6.7617 5.5344 0.25102-0.4046 7.8917-14.328 8.0035-14.541-0.16743-0.11534-2.1201-1.1252-2.1778-1.1715z"/>
+ </g>
+</svg>

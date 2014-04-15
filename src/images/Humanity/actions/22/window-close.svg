@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg2" xmlns="http://www.w3.org/2000/svg" height="22" width="22" version="1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs4">
+  <radialGradient id="radialGradient2410" gradientUnits="userSpaceOnUse" cy="35.127" cx="23.071" gradientTransform="matrix(.91481 .012650 -.0082150 .21356 2.2539 27.189)" r="10.319">
+   <stop id="stop2093" style="stop-opacity:.39216" offset="0"/>
+   <stop id="stop3169" style="stop-opacity:.31373" offset=".5"/>
+   <stop id="stop2095" style="stop-opacity:0" offset="1"/>
+  </radialGradient>
+  <linearGradient id="linearGradient3217" y2="22" gradientUnits="userSpaceOnUse" x2="11.192" y1="3" x1="11.192">
+   <stop id="stop3205" style="stop-color:#777976" offset="0"/>
+   <stop id="stop3207" style="stop-color:#565755" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient3167" y2="32.702" xlink:href="#linearGradient7916" gradientUnits="userSpaceOnUse" x2="16.331" gradientTransform="matrix(.53153 -.53096 .53153 .53096 -14.042 11.965)" y1="13.023" x1="36.011"/>
+  <linearGradient id="linearGradient7916">
+   <stop id="stop7918" style="stop-color:#fff" offset="0"/>
+   <stop id="stop7920" style="stop-color:#fff;stop-opacity:0" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient2419" y2="32.702" xlink:href="#linearGradient7916" gradientUnits="userSpaceOnUse" x2="16.331" gradientTransform="matrix(.53153 -.53096 .53153 .53096 -14.578 12.233)" y1="20.584" x1="28.449"/>
+ </defs>
+ <g id="layer1" transform="translate(-1 -1)">
+  <path id="path1361" style="opacity:.4;fill:url(#radialGradient2410)" d="m33.278 34.941a10.319 2.3202 0 1 1 -20.639 0 10.319 2.3202 0 1 1 20.639 0z" transform="matrix(1.1629 0 0 .96975 -14.698 -12.134)"/>
+  <path id="text1314" style="stroke-linejoin:round;stroke:#4d4d4d;fill:url(#linearGradient3217)" d="m21.5 17.8-5.501-5.303 5.293-5.5558-3.816-3.4412-5.448 5.2941-5.5578-5.2941-3.9702 3.5677 5.5583 5.4063-5.5583 5.32 3.9702 3.706 5.5518-5.559 5.565 5.559 3.913-3.7z"/>
+  <path id="path7076" style="opacity:.4;stroke:url(#linearGradient3167);stroke-linecap:square;fill:none" d="m19.904 6.9841-2.409-2.1005-5.495 5.3094-5.5-5.3791-2.5 2.2592"/>
+  <path id="path3165" style="opacity:.4;stroke:url(#linearGradient2419);fill:none" d="m20.398 18.05-5.4574-5.2579m-5.9157 0.2152-5.5611 5.3112"/>
+ </g>
+</svg>

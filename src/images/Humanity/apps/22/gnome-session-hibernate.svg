@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg4138" xmlns="http://www.w3.org/2000/svg" height="22" width="22" version="1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs4140">
+  <linearGradient id="linearGradient5130" y2="45.359" gradientUnits="userSpaceOnUse" x2="19.177" gradientTransform="matrix(.49168 0 0 .49168 -.30133 .69817)" y1="13.48" x1="19.177">
+   <stop id="stop5356" style="stop-color:#3f3f3f" offset="0"/>
+   <stop id="stop5358" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient5128" y2="45.348" gradientUnits="userSpaceOnUse" x2="28.771" gradientTransform="matrix(.49168 0 0 .49168 -.30133 .69817)" y1="12.918" x1="28.771">
+   <stop id="stop37937" style="stop-color:#929292" offset="0"/>
+   <stop id="stop37939" style="stop-color:#4a4a4a" offset="1"/>
+  </linearGradient>
+  <radialGradient id="radialGradient5350" gradientUnits="userSpaceOnUse" cy="10.045" cx="11.902" gradientTransform="matrix(.57006 0 0 .57006 2.2365 2.8599)" r="29.293">
+   <stop id="stop2147" style="stop-color:#fffffd" offset="0"/>
+   <stop id="stop2149" style="stop-color:#cbcbc9" offset="1"/>
+  </radialGradient>
+ </defs>
+ <g id="layer1" transform="translate(-1 -1)">
+  <path id="path2555" style="stroke-linejoin:round;stroke:url(#linearGradient5130);stroke-linecap:round;stroke-width:.99995;fill:url(#linearGradient5128)" d="m11.492 2.5c-5.5191 0-9.9922 4.4731-9.9922 9.9922s4.4731 10.008 9.9922 10.008 10.008-4.4888 10.008-10.008c0-5.5191-4.4888-9.9922-10.008-9.9922z"/>
+  <path id="path35549" style="fill:url(#radialGradient5350);fill-rule:evenodd" d="m20 12.5a8.5 8.5 0 0 1 -17 0 8.5 8.5 0 1 1 17 0z"/>
+  <path id="path2308" style="fill-rule:evenodd;stroke:#727272;stroke-linecap:round;fill:#1f1f1f" d="m11.5 7.5v-1.569"/>
+  <path id="path2312" style="stroke:#000;stroke-linecap:round;stroke-width:.5;fill:none" d="m11.195 12.714 5.401-5.4018"/>
+  <path id="path2314" style="stroke:#000;stroke-linecap:round;stroke-width:.5;fill:none" d="m12.072 12.754-3.6082-3.608"/>
+  <path id="path2316" style="fill-rule:evenodd;stroke:#f00;stroke-linecap:round;stroke-width:.5;fill:#f00" d="m11.314 12.435 6.1512-1.6482"/>
+  <path id="path5368" style="fill-rule:evenodd;stroke:#121212;stroke-linecap:round;fill:#121212" d="m11.5 19.285v-1.569"/>
+  <path id="path5370" style="fill-rule:evenodd;stroke:#1f1f1f;stroke-linecap:round;fill:#1f1f1f" d="m16.5 12.5h1.569"/>
+  <path id="path5372" style="fill-rule:evenodd;stroke:#5f5f5f;stroke-linecap:round;fill:#1f1f1f" d="m4.7331 12.5h1.5337"/>
+  <path id="path13687" style="stroke:#356ca0;fill:#7da5ca" d="m22.5 3.508-3.3686 3.0278h3.3686v1.9639h-5.9995v-2.1871l3.117-2.7672h-3.117v-2.0452h5.9995v2.0078z"/>
+  <path id="path13696" style="stroke:#356ca0;fill:#7da5ca" d="m19.5 12.671-2.3264 1.8562h2.3264v1.9603h-5v-2.13l2.1943-1.8737h-2.1943v-1.984h5v2.1713z"/>
+ </g>
+</svg>

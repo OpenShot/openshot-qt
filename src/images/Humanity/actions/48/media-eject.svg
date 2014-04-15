@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg3318" xmlns="http://www.w3.org/2000/svg" height="48" width="48" version="1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs3320">
+  <linearGradient id="linearGradient2439-704" y2="28.033" gradientUnits="userSpaceOnUse" x2="25.416" gradientTransform="matrix(1.0551 0 0 1.0481 -1.3893 -.35807)" y1="7.0204" x1="25.416">
+   <stop id="stop3263" style="stop-color:#8e8e8e" offset="0"/>
+   <stop id="stop3265" style="stop-color:#4b4b4b" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient2436-593" y2="28.982" gradientUnits="userSpaceOnUse" x2="24.853" gradientTransform="matrix(1.0409 0 0 1.0211 -.83523 -.62819)" y1="9.039" x1="24.853">
+   <stop id="stop3269" style="stop-color:#fff" offset="0"/>
+   <stop id="stop3271" style="stop-color:#fff;stop-opacity:0" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient3218-173" y2="41.286" gradientUnits="userSpaceOnUse" x2="-22.855" gradientTransform="translate(46.857 -1.2857)" y1="35.357" x1="-22.855">
+   <stop id="stop3275" style="stop-color:#fff" offset="0"/>
+   <stop id="stop3277" style="stop-color:#fff;stop-opacity:0" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g id="layer1">
+  <rect id="rect2426" style="stroke-linejoin:round;stroke-width:1.0654;stroke:#3f3f3f;display:block;fill:#4f4f4f" rx="0" ry="0" height="5.9346" width="30.935" y="34.533" x="8.5327"/>
+  <path id="path2428" style="stroke-linejoin:round;stroke-width:1.0053;stroke:#3f3f3f;display:block;fill:url(#linearGradient2439-704)" d="m8.5027 28.497h30.995l-15.696-20.994-15.299 20.994z"/>
+  <path id="path2430" style="opacity:.4;stroke-linejoin:round;stroke-width:1.0053;stroke:url(#linearGradient2436-593);display:block;fill:none" d="m23.951 9.1043c-4.467 6.1477-8.934 12.296-13.401 18.444h26.912c-4.587-6.148-8.924-12.296-13.511-18.444z"/>
+  <rect id="rect2432" style="opacity:.4;stroke-linejoin:round;stroke-width:1.1123;stroke:url(#linearGradient3218-173);display:block;fill:none" rx="0" ry="0" height="3.8877" width="28.892" y="35.556" x="9.5562"/>
+ </g>
+</svg>
