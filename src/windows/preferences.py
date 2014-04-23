@@ -35,6 +35,7 @@ from PyQt5 import uic
 from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
+from windows.profile_manager import ProfileManager 
 
 class Preferences(QDialog):
 	""" Preferences Dialog """
@@ -73,5 +74,10 @@ class Preferences(QDialog):
 		for icon_size in [_("Small"), _("Medium")]:
 			self.cboiconsize.addItem(icon_size)
 			
+		#Add signals
+		self.btnmanageprofiles.clicked.connect(self.load_profile_manager)
 		
+	def load_profile_manager(self):
+		window = ProfileManager()
+		window.exec_()
 		
