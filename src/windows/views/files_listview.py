@@ -170,7 +170,7 @@ class FilesListView(QListView):
 				filepath = file_url.path
 				if filepath[0] == "/" and ":" in filepath:
 					filepath = filepath[1:]
-				if os.path.exists(filepath) and os.path.isfile(filepath):
+				if os.path.exists(filepath.encode('UTF-8')) and os.path.isfile(filepath.encode('UTF-8')):
 					log.info('Adding file: {}'.format(filepath))
 					if self.add_file(filepath):
 						event.accept()
