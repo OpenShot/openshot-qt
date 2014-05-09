@@ -74,7 +74,7 @@ class Preferences(QDialog):
 		for icon_size in [_("Small"), _("Medium")]:
 			self.cboiconsize.addItem(icon_size)
 			
-		#Add signals
+		#set events handlers
 		self.btnmanageprofiles.clicked.connect(self.load_profile_manager)
 		
 	def load_profile_manager(self):

@@ -14,6 +14,9 @@
    <iconset>
     <normaloff>../../../xdg/openshot.svg</normaloff>../../../xdg/openshot.svg</iconset>
   </property>
+  <property name="locale">
+   <locale language="English" country="UnitedStates"/>
+  </property>
   <widget class="QWidget" name="widget" native="true">
    <property name="geometry">
     <rect>
@@ -87,7 +90,7 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QGraphicsView" name="graphicsView">
+   <widget class="QPushButton" name="btncrop">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -96,8 +99,38 @@
       <height>120</height>
      </rect>
     </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../images/crop.png</normaloff>../../images/crop.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>140</width>
+      <height>120</height>
+     </size>
+    </property>
    </widget>
-   <widget class="QGraphicsView" name="graphicsView_2">
+   <widget class="QPushButton" name="btnnone">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>190</y>
+      <width>160</width>
+      <height>120</height>
+     </rect>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../images/none.png</normaloff>../../images/none.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>160</width>
+      <height>82</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnsqueze">
     <property name="geometry">
      <rect>
       <x>240</x>
@@ -106,8 +139,18 @@
       <height>120</height>
      </rect>
     </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../images/squeze.png</normaloff>../../images/squeze.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>150</width>
+      <height>100</height>
+     </size>
+    </property>
    </widget>
-   <widget class="QGraphicsView" name="graphicsView_3">
+   <widget class="QPushButton" name="btnletterbox">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -116,15 +159,15 @@
       <height>120</height>
      </rect>
     </property>
-   </widget>
-   <widget class="QGraphicsView" name="graphicsView_4">
-    <property name="geometry">
-     <rect>
-      <x>240</x>
-      <y>190</y>
-      <width>160</width>
-      <height>120</height>
-     </rect>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../images/letterbox.png</normaloff>../../images/letterbox.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>140</width>
+      <height>110</height>
+     </size>
     </property>
    </widget>
   </widget>

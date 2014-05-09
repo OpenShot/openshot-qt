@@ -97,7 +97,7 @@
     </iconset>
    </property>
   </widget>
-  <widget class="QComboBox" name="comboBox">
+  <widget class="QComboBox" name="cbopreset">
    <property name="geometry">
     <rect>
      <x>190</x>
@@ -169,6 +169,9 @@
     </rect>
    </property>
    <widget class="QTabWidget" name="tabWidget">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -226,10 +229,13 @@
        <string>Original Size</string>
       </property>
       <property name="checked">
-       <bool>true</bool>
+       <bool>false</bool>
       </property>
      </widget>
      <widget class="QLabel" name="label_17">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -243,6 +249,9 @@
       </property>
      </widget>
      <widget class="QLabel" name="label_18">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>260</x>
@@ -255,7 +264,10 @@
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
-     <widget class="QTimeEdit" name="tmefrom">
+     <widget class="QTimeEdit" name="spbfrom">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>110</x>
@@ -271,7 +283,10 @@
        <string>HH:mm:ss:ms</string>
       </property>
      </widget>
-     <widget class="QTimeEdit" name="tmeto">
+     <widget class="QTimeEdit" name="spbto">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>340</x>
@@ -301,6 +316,9 @@
       </property>
      </widget>
      <widget class="QLabel" name="label_20">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -327,6 +345,9 @@
       </property>
      </widget>
      <widget class="QSpinBox" name="spbwidth">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>120</x>
@@ -343,6 +364,9 @@
       </property>
      </widget>
      <widget class="QSpinBox" name="spbheight">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>380</x>
@@ -358,7 +382,10 @@
        <number>720</number>
       </property>
      </widget>
-     <widget class="QPushButton" name="btnpreservesration">
+     <widget class="QPushButton" name="btnpreserveratio">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>230</x>
@@ -368,7 +395,7 @@
        </rect>
       </property>
       <property name="icon">
-       <iconset resource="../../images/openshot.qrc">
+       <iconset>
         <normaloff>:/icons/Compass/actions/media-toolbar/media-playlist-repeat.svg</normaloff>:/icons/Compass/actions/media-toolbar/media-playlist-repeat.svg</iconset>
       </property>
       <property name="iconSize">
@@ -391,7 +418,7 @@
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Scale Method:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
-     <widget class="QComboBox" name="cbm">
+     <widget class="QComboBox" name="cbosqueze">
       <property name="geometry">
        <rect>
         <x>230</x>
@@ -419,7 +446,7 @@
        <string>Use Project Profile Settings</string>
       </property>
       <property name="checked">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
      </widget>
      <widget class="QLabel" name="label_33">

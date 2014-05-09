@@ -35,6 +35,7 @@ from PyQt5.QtWidgets import *
 from PyQt5 import uic
 from classes import info, ui_util, settings, qt_types, updates
 from classes.logger import log
+from classes.app import get_app
 
 class Squeze(QDialog):
 	""" Squeze Dialog """
@@ -52,5 +53,34 @@ class Squeze(QDialog):
 		
 		#Init UI
 		ui_util.init_ui(self)
+		
+		#Get translations
+		app = get_app()
+		_ = app._tr
 	
 	
+		#set events handlers
+		self.btncrop.clicked.connect(self.load_crop)
+		self.btnsqueze.clicked.connect(self.load_squeze)
+		self.btnletterbox.clicked.connect(self.load_letter_box)
+		self.btnnone.clicked.connect(self.close_dialog)
+		self.btnnone.pressed.connect(self.reject)
+		
+	def load_crop(self):
+		log.info('crop function is called')
+		pass
+		
+	def load_squeze(self):
+		log.info('squeze function is called')
+		pass
+		
+	def load_letter_box(self):
+		log.info('letter box function is called')
+		pass
+		
+	def close_dialog(self):
+		#QDialog.close()
+		QDialog.rejected()
+		log.info('None screen is closed')
+		
+		
