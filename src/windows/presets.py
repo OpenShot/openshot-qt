@@ -35,6 +35,7 @@ from PyQt5.QtWidgets import *
 from PyQt5 import uic
 from classes import info, ui_util, settings, qt_types, updates
 from classes.logger import log
+from classes.app import get_app
 
 class Presets(QDialog):
 	""" Presets Dialog """
@@ -52,3 +53,27 @@ class Presets(QDialog):
 		
 		# Init UI
 		ui_util.init_ui(self)
+
+		#get translations
+		app = get_app()
+		_ = app._tr
+		
+		##set even handlers
+		self.cmbpresets.activated.connect(self.load_presets_list)
+		self.btnclearpreset.clicked.connect(self.delete_preset)
+		self.btnsavecurrent.clicked.connect(self.save_current_preset)
+		
+	def load_presets_list(self):
+		""" Display presets list """
+		#log.info('The preset {} has been used'.format(name))
+		pass
+		
+	def delete_preset(self):
+		""" Delete the preset which has been previously created """
+		#log.info('The preset {} has been deleted'.format(name))
+		pass
+		
+	def save_current_preset(self):
+		""" Save this new preset """
+		#log.info('The preset {} has been created'.format(name))
+		pass

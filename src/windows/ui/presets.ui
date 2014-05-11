@@ -27,7 +27,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="btnclear">
+  <widget class="QPushButton" name="btnclearpreset">
    <property name="geometry">
     <rect>
      <x>130</x>
@@ -89,7 +89,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="btnclear_2">
+  <widget class="QPushButton" name="btnsavecurrent">
    <property name="geometry">
     <rect>
      <x>270</x>

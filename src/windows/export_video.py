@@ -68,14 +68,32 @@ class ExportVideo(QDialog):
 		#set events handlers
 		self.cbosqueze.activated.connect(self.load_squeze)
 		self.btnexportcommand.clicked.connect(self.load_export_command)
+		self.btnloadffmpegcommand.clicked.connect(self.load_ffmpeg_command)
 		self.btnfolder.clicked.connect(self.choose_folder_output)
 		self.btndeletepreset.clicked.connect(self.delete_preset)
 		self.btnsavepreset.clicked.connect(self.save_preset)
 		self.cbopreset.activated.connect(self.load_preset)
+		self.cmbformatvideo.activated.connect(self.load_format_video)
+		self.cmbvideo.activated.connect(self.video_codecs)
 		self.cmbcompressionmethod.activated.connect(self.load_compression_method_activated)
 		self.chkentiresequence.stateChanged.connect(self.lenght_group_state)
 		self.chkprojectprofilesettings.stateChanged.connect(self.direction_group)
 		self.btnpreserveratio.clicked.connect(self.preserve_ratio)
+		self.spbrate.valueChanged.connect(self.rate_changed)
+		self.spbmax.valueChanged.connect(self.max_changed)
+		self.cmbaudio.activated.connect(self.audio_codecs)
+		self.cmbsimplerate.activated.connect(self.simple_rate_changed)
+		self.cmbchannels.activated.connect(self.channels_selected)
+		self.sliderbitrate.valueChanged.connect(self.bitrate_changed)
+		self.cmbformatimage.activated.connect(self.format_image)
+		self.sliderquality.valueChanged.connect(self.quality_changed)
+		self.spbdigits.valueChanged.connect(self.digits_changed)
+		self.spbinterval.valueChanged.connect(self.interval_changed)
+		self.spboffset.valueChanged.connect(self.offset_changed)
+		self.lblprefix.textChanged.connect(self.new_prefix)
+		self.lblsuffix.textChanged.connect(self.new_suffix)
+		#self.lblframename.textChanged.connect(self.new_frame_name)
+		
 		
 		#Init some variables
 		self.chkentiresequence.setEnabled(True)
@@ -94,16 +112,7 @@ class ExportVideo(QDialog):
 		self.spbheight.setEnabled(False)
 		self.chkdirectcopy.setEnabled(True)
 
-        #Init some variables
-        #Todo find a way for having checking and setEnable variables. What S**** 4 days on for nothing...
-        #self.chkentiresequence.setEnabled(True)
-        #self.chkentiresequence.isChecked(True)
-        #self.label_17.setEnabled(False)
-        #self.spbfrom.setEnabled(False)
-        #self.label_18.isEnable(False)
-        #self.spbto.isEnable(False)
-        
-        #populate new preset name
+		#Populate new preset name
 		self.cbopreset.addItem("<Select a Preset or Create your own>")
 		self.preset_path = os.path.join(info.PATH, 'presets')
 		for file in sorted(os.listdir(self.preset_path)):
@@ -140,13 +149,20 @@ class ExportVideo(QDialog):
 		
 	def load_squeze(self):
 		""" Display Squeze Screen """
+		log.info('Squeze screen has been called')
 		windo = Squeze()
 		windo.exec_()
 		
 	def load_export_command(self):
 		"""" Display Export FFmpeg Command Pesonalized """
+		log.info('FFmpeg Command Personlized screen has been called')
 		windo = Presets()
 		windo.exec_()
+		
+	def load_ffmpeg_command(self):
+		""" Load a ffmpeg command """
+		#log.info('Load an existing ffmpeg command')
+		pass
 		
 	def delete_preset(self):
 		""" Remove a preset """
@@ -202,6 +218,82 @@ class ExportVideo(QDialog):
 			#msg.exec_()
 		pass
 		
-
-        
+	def load_format_video(self):
+		""" Load all video format """
+		#log.info('The Video Format {} has been used'.format(format))
+		pass
+		
+	def video_codecs(self):
+		""" Display all Codecs Video """
+		#log.info('The Video codec {} has been used'.format(video)) 
+		pass
+		
+	def rate_changed(self):
+		""" Rate is changed """
+		#log.info('The Rate {} has been changed to {}'.format(initial_value, final_value))
+		pass
     
+	def max_changed(self):
+		""" Max Rate is changed """
+		#log.info('The Max Rate {} has been changed to {}'.format(initial_value, final_value))
+		pass
+		
+	def audio_codecs(self):
+		""" Display all Codecs Audio """
+		#log.info('The Rate {} has been changed to {}'.format(initial_value, final_value))
+		pass
+		
+	def simple_rate_changed(self):
+		""" Display the Simple Rate choosen """
+		#log.info('The Simple Rate {} has been changed to {}'.format(initial_simplerate, final_simplerate))
+		pass
+		
+	def channels_selected(self):
+		""" Display the Channel choosen """
+		#log.info('The Channel {} has been changed to {}'.format(initial_channel, final_channel))
+		pass
+		
+	def bitrate_changed(self):
+		""" Display the Bitrate """
+		#log.info('The Bitrate {} has been changed to {}'.format(initial_bitrate, final_bitrate))
+		pass
+			
+	def format_image(self):
+		""" Display all Format Image """
+		#log.info('The Format Image {} has been changed to {}'.format(initial_format, final_format))
+		pass
+		
+	def quality_changed(self):
+		""" Display the Quality """
+		#log.info('The Quality {} has been changed to {}'.format(initial_quality, final_quality))
+		pass
+		
+	def digits_changed(self):
+		""" Display Digits """
+		#log.info('Digits {} have been changed to {}'.format(initial_digits, final_digits))
+		pass
+		
+	def interval_changed(self):
+		""" Display interval """
+		#log.info(' Interval {} has been changed to {}'.format(initial_interval, final_interval)
+		pass
+		
+	def offset_changed(self):
+		""" Display offset """
+		#log.info('Offset {} has been changed to {}'.format(initial_offset, final_offset))
+		pass
+	
+	def new_prefix(self):
+		""" Display the new prefix """
+		#log.info('The prefix {} has been changed to {}'.format(initial_prefix, final_prefix))
+		pass	
+	
+	def new_suffix(self):
+		""" Display the new suffix """
+		#log.info('The suffix {} has been changed to {}'.format(initial_suffix, final_suffix))
+		pass
+		
+	#def new_frame_name(self):
+		#""" Display the new frame name """
+		#log.info('')
+		#pass
