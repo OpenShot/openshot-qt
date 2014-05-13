@@ -430,7 +430,7 @@
   <action name="actionUploadVideo">
    <property name="icon">
     <iconset resource="../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/places/32/folder_download.svg</normaloff>:/icons/Humanity/places/32/folder_download.svg</iconset>
+     <normaloff>:/icons/Humanity/places/16/folder-remote.svg</normaloff>:/icons/Humanity/places/16/folder-remote.svg</iconset>
    </property>
    <property name="text">
     <string>Upload Video</string>
@@ -880,7 +880,7 @@
   <action name="actionAbout">
    <property name="icon">
     <iconset resource="../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/32/gtk-about.svg</normaloff>:/icons/Humanity/actions/32/gtk-about.svg</iconset>
+     <normaloff>:/icons/Humanity/actions/16/help-about.svg</normaloff>:/icons/Humanity/actions/16/help-about.svg</iconset>
    </property>
    <property name="text">
     <string>About OpenShot</string>
@@ -919,7 +919,7 @@
   <action name="actionReportBug">
    <property name="icon">
     <iconset resource="../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/status/32/dialog-error.svg</normaloff>:/icons/Humanity/status/32/dialog-error.svg</iconset>
+     <normaloff>:/icons/Humanity/status/16/dialog-error.svg</normaloff>:/icons/Humanity/status/16/dialog-error.svg</iconset>
    </property>
    <property name="text">
     <string>Report a Bug...</string>
@@ -928,7 +928,7 @@
   <action name="actionAskQuestion">
    <property name="icon">
     <iconset resource="../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/status/32/dialog-question.svg</normaloff>:/icons/Humanity/status/32/dialog-question.svg</iconset>
+     <normaloff>:/icons/Humanity/actions/16/im-message-new.svg</normaloff>:/icons/Humanity/actions/16/im-message-new.svg</iconset>
    </property>
    <property name="text">
     <string>Ask a Question...</string>
@@ -937,7 +937,7 @@
   <action name="actionTranslate">
    <property name="icon">
     <iconset resource="../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/stock/32/stock_new-meeting.svg</normaloff>:/icons/Humanity/stock/32/stock_new-meeting.svg</iconset>
+     <normaloff>:/icons/Humanity/stock/16/stock_person.svg</normaloff>:/icons/Humanity/stock/16/stock_person.svg</iconset>
    </property>
    <property name="text">
     <string>Translate this Application...</string>
@@ -946,7 +946,7 @@
   <action name="actionDonate">
    <property name="icon">
     <iconset resource="../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/32/bookmark-new.svg</normaloff>:/icons/Humanity/actions/32/bookmark-new.svg</iconset>
+     <normaloff>:/icons/Humanity/actions/16/bookmark-new.svg</normaloff>:/icons/Humanity/actions/16/bookmark-new.svg</iconset>
    </property>
    <property name="text">
     <string>Donate</string>
@@ -986,7 +986,7 @@
   <action name="actionFreeze_View">
    <property name="icon">
     <iconset>
-     <normaloff>:/icons/Compass/actions/misc/lock-secure.svg</normaloff>:/icons/Compass/actions/misc/lock-secure.svg</iconset>
+     <normaloff>:/icons/Humanity/status/locked.svg</normaloff>:/icons/Humanity/status/misc/locked.svg</iconset>
    </property>
    <property name="text">
     <string>Freeze View</string>
@@ -995,7 +995,7 @@
   <action name="actionUn_Freeze_View">
    <property name="icon">
     <iconset>
-     <normaloff>:/icons/Compass/actions/misc/lock-insecure.svg</normaloff>:/icons/Compass/actions/misc/lock-insecure.svg</iconset>
+     <normaloff>:/icons/Humanity/status/locked.svg</normaloff>:/icons/Humanity/status/locked.svg</iconset>
    </property>
    <property name="text">
     <string>Un-Freeze View</string>
