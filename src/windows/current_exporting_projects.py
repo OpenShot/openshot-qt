@@ -35,6 +35,8 @@ from PyQt5.QtWidgets import *
 from PyQt5 import uic
 from classes import info, ui_util, settings, qt_types, updates
 from classes.logger import log
+from classes.app import get_app
+import openshot
 
 class CurrentExportingProjects(QDialog):
 	""" Current Exporting Projects """
@@ -52,3 +54,39 @@ class CurrentExportingProjects(QDialog):
 		
 		#Init UI
 		ui_util.init_ui(self)
+
+		#get translations
+		self.app = get_app()
+		_ = self.app._tr
+
+		#set events handlers
+		self.btnAdd.clicked.connect(self.add_preset)
+		self.btnModified.clicked.connect(self.modified_preset)
+		self.btnRename.clicked.connect(self.rename_preset)
+		self.btnCopy.clicked.connect(self.copy_preset)
+		self.btnDelete.clicked.connect(self.delete_preset)
+		
+	def add_preset(self):
+		""" Add a new preset previously created """
+		log.info('A new preset has been created')
+		pass
+		
+	def modified_preset(self):
+		""" Modified a preset previously created """
+		log.info('A preset has been modified')
+		pass
+		
+	def rename_preset(self):
+		""" Rename a preset previously created """
+		log.info('A preset has been renamed')
+		pass
+		
+	def copy_preset(self):
+		""" Copy a preset previously created """
+		log.info('A preset has been copied')
+		pass
+		
+	def delete_preset(self):
+		""" Delete a preset previously created """
+		log.info('A preset has been deleted')
+		pass

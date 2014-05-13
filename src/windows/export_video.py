@@ -39,6 +39,8 @@ from classes.app import get_app
 from windows.squeze import Squeze
 from windows.presets import Presets
 from windows.new_preset_name import NewPresetName
+from windows.current_exporting_projects import CurrentExportingProjects
+from windows.progress_bar_export import ProgressBarExport
 import openshot
 
 class ExportVideo(QDialog):
@@ -57,7 +59,7 @@ class ExportVideo(QDialog):
 		
 		#Init UI
 		ui_util.init_ui(self)
-		
+
 		#get translations
 		self.app = get_app()
 		_ = self.app._tr
@@ -66,18 +68,16 @@ class ExportVideo(QDialog):
 		self.project = self.app.project
 		
 		#set events handlers
-		self.cbosqueze.activated.connect(self.load_squeze)
-		self.btnexportcommand.clicked.connect(self.load_export_command)
-		self.btnloadffmpegcommand.clicked.connect(self.load_ffmpeg_command)
 		self.btnfolder.clicked.connect(self.choose_folder_output)
 		self.btndeletepreset.clicked.connect(self.delete_preset)
 		self.btnsavepreset.clicked.connect(self.save_preset)
 		self.cbopreset.activated.connect(self.load_preset)
+		self.chkentiresequence.stateChanged.connect(self.lenght_group_state)
+		self.chkprojectprofilesettings.stateChanged.connect(self.direction_group)
+		self.cbosqueze.activated.connect(self.load_squeze)
 		self.cmbformatvideo.activated.connect(self.load_format_video)
 		self.cmbvideo.activated.connect(self.video_codecs)
 		self.cmbcompressionmethod.activated.connect(self.load_compression_method_activated)
-		self.chkentiresequence.stateChanged.connect(self.lenght_group_state)
-		self.chkprojectprofilesettings.stateChanged.connect(self.direction_group)
 		self.btnpreserveratio.clicked.connect(self.preserve_ratio)
 		self.spbrate.valueChanged.connect(self.rate_changed)
 		self.spbmax.valueChanged.connect(self.max_changed)
@@ -92,6 +92,9 @@ class ExportVideo(QDialog):
 		self.spboffset.valueChanged.connect(self.offset_changed)
 		self.lblprefix.textChanged.connect(self.new_prefix)
 		self.lblsuffix.textChanged.connect(self.new_suffix)
+		self.btnloadffmpegcommand.clicked.connect(self.load_ffmpeg_command)
+		self.btnexportcommand.clicked.connect(self.load_export_command)
+		self.btnexport.clicked.connect(self.run_progress_bar_export)
 		#self.lblframename.textChanged.connect(self.new_frame_name)
 		
 		
@@ -123,7 +126,12 @@ class ExportVideo(QDialog):
 		#populate compression method
 		for compression_method in [_("Average Bit Rate Size"), _("Average Bit Rate Quality")]:
 			self.cmbcompressionmethod.addItem(compression_method)  
-        
+			
+		#populate image format Qcombobox
+		image_extension = [_(".jpg"), (".jpeg"), (".png"), (".bmp"), (".svg"), (".thm"), (".gif"), (".ppm"), (".pgm"), (".tif"), (".tiff")]
+		for extension in image_extension:
+			self.cmbformatimage.addItem(extension)
+
 	def choose_folder_output(self):
 		""" Choose a folder for the render """
 		
@@ -160,17 +168,20 @@ class ExportVideo(QDialog):
 		windo.exec_()
 		
 	def load_ffmpeg_command(self):
-		""" Load a ffmpeg command """
-		#log.info('Load an existing ffmpeg command')
-		pass
+		""" Load a ffmpeg command Personalized"""
+		log.info('Load an existing ffmpeg command')
+		windo = Presets()
+		windo.exec_()
 		
 	def delete_preset(self):
 		""" Remove a preset """
 		pass
 		
 	def save_preset(self):
-		""" Save a new preset """
-		pass
+		""" Save a new preset in the Current Exporting Project screen"""
+		log.info('The Current Exporting Project screen has been called')
+		windo = CurrentExportingProjects()
+		windo.exec_()
 		
 	def lblfilename_changed(self):
 		""" Type a new name for the output file """
@@ -206,10 +217,10 @@ class ExportVideo(QDialog):
 		#Todo find a way to display the corresponding screen 
 		
 		#compression_method = self.cmbcompressionmethod.setCurrentText()
-		#if compression_method == _("Average Bit Rate Size"):
+		#if compression_method.is_selected == _("Average Bit Rate Size"):
 			#self.cmbcompressionmethod["compression_method"] = "Average Bit Rate Size"
 			#msg = QMessagebox()
-			#msg.setText(_("Average Bit Rate Size Screen is lanunched"))
+			#msg.setText(_("Average Bit Rate Size Screen is launnched"))
 			#msg.exec_()
 		#else:
 			#self.cmbcompressionmethod["compression_method"] = "Average Bit Rate Quality"
@@ -232,7 +243,7 @@ class ExportVideo(QDialog):
 		""" Rate is changed """
 		#log.info('The Rate {} has been changed to {}'.format(initial_value, final_value))
 		pass
-    
+
 	def max_changed(self):
 		""" Max Rate is changed """
 		#log.info('The Max Rate {} has been changed to {}'.format(initial_value, final_value))
@@ -292,6 +303,12 @@ class ExportVideo(QDialog):
 		""" Display the new suffix """
 		#log.info('The suffix {} has been changed to {}'.format(initial_suffix, final_suffix))
 		pass
+		
+	def run_progress_bar_export(self):
+		""" Run the conversion and show a progress bar for this one until it will be finished """
+		log.info('Conversion has been started')
+		windo = ProgressBarExport()
+		windo.exec_() 
 		
 	#def new_frame_name(self):
 		#""" Display the new frame name """

@@ -48,7 +48,7 @@
     <string>Add</string>
    </property>
    <property name="icon">
-    <iconset resource="../../images/openshot.qrc">
+    <iconset>
      <normaloff>:/icons/Compass/actions/misc/contact-new.svg</normaloff>:/icons/Compass/actions/misc/contact-new.svg</iconset>
    </property>
    <property name="iconSize">
@@ -76,7 +76,7 @@
     <string>Modified</string>
    </property>
    <property name="icon">
-    <iconset resource="../../images/openshot.qrc">
+    <iconset>
      <normaloff>:/icons/Compass/actions/edit-toolbar/document-export.svg</normaloff>:/icons/Compass/actions/edit-toolbar/document-export.svg</iconset>
    </property>
    <property name="iconSize">
@@ -104,7 +104,7 @@
     <string>Rename</string>
    </property>
    <property name="icon">
-    <iconset resource="../../images/openshot.qrc">
+    <iconset>
      <normaloff>:/icons/Compass/actions/edit-toolbar/document-page-setup.svg</normaloff>:/icons/Compass/actions/edit-toolbar/document-page-setup.svg</iconset>
    </property>
    <property name="iconSize">
@@ -132,7 +132,7 @@
     <string>Copy</string>
    </property>
    <property name="icon">
-    <iconset resource="../../images/openshot.qrc">
+    <iconset>
      <normaloff>:/icons/Compass/actions/edit-toolbar/edit.svg</normaloff>:/icons/Compass/actions/edit-toolbar/edit.svg</iconset>
    </property>
    <property name="iconSize">
@@ -160,7 +160,7 @@
     <string>Delete</string>
    </property>
    <property name="icon">
-    <iconset resource="../../images/openshot.qrc">
+    <iconset>
      <normaloff>:/icons/Compass/actions/misc/edit-delete.svg</normaloff>:/icons/Compass/actions/misc/edit-delete.svg</iconset>
    </property>
    <property name="iconSize">
@@ -191,7 +191,7 @@
     <string>Close</string>
    </property>
    <property name="icon">
-    <iconset resource="../../images/openshot.qrc">
+    <iconset>
      <normaloff>:/icons/Compass/actions/misc/button-cancel.svg</normaloff>:/icons/Compass/actions/misc/button-cancel.svg</iconset>
    </property>
    <property name="iconSize">
@@ -201,7 +201,37 @@
     </size>
    </property>
   </widget>
+  <widget class="QPushButton" name="btnnamelistpreset">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>360</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Presets</string>
+   </property>
+  </widget>
  </widget>
+ <tabstops>
+  <tabstop>btnAdd</tabstop>
+  <tabstop>btnModified</tabstop>
+  <tabstop>btnRename</tabstop>
+  <tabstop>btnCopy</tabstop>
+  <tabstop>btnDelete</tabstop>
+  <tabstop>btnnamelistpreset</tabstop>
+  <tabstop>btnClose</tabstop>
+  <tabstop>listView</tabstop>
+ </tabstops>
  <resources>
   <include location="../../images/openshot.qrc"/>
  </resources>

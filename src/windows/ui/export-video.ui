@@ -887,6 +887,9 @@
         <height>30</height>
        </rect>
       </property>
+      <property name="text">
+       <string>image_</string>
+      </property>
      </widget>
      <widget class="QLineEdit" name="lblsuffix">
       <property name="geometry">
@@ -896,6 +899,9 @@
         <width>130</width>
         <height>30</height>
        </rect>
+      </property>
+      <property name="text">
+       <string>.resiszed</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_12">
@@ -993,6 +999,12 @@
       </property>
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+      <property name="suffix">
+       <string>000</string>
+      </property>
+      <property name="maximum">
+       <number>9900000</number>
       </property>
      </widget>
     </widget>

@@ -40,7 +40,7 @@ class ProgressBarExport(QDialog):
 	""" Progress Bar Export Dialog """
 	
 	#Path to ui file
-	ui_path = os.path.join(info.PATH, 'window', 'ui', 'progress-bar-export.ui')
+	ui_path = os.path.join(info.PATH, 'windows', 'ui', 'progress-bar-export.ui')
 	
 	def __init__(self):
 		
