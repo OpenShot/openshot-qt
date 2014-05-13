@@ -34,6 +34,7 @@ from PyQt5.QtWidgets import *
 from PyQt5 import uic
 from classes import info, ui_util, settings, qt_types, updates
 from classes.logger import log
+from classes.app import get_app
 
 class About(QDialog):
 	""" About Dialog """
@@ -50,3 +51,22 @@ class About(QDialog):
 		
 		# Init Ui
 		ui_util.init_ui(self)
+
+		#get translations
+		self.app = get_app()
+		_ = self.app._tr
+
+		#set events handlers
+		self.btncredit.clicked.connect(self.load_credit)
+		self.btnlicense.clicked.connect(self.load_license)
+		
+	def load_credit(self):
+		""" Load Credits for everybody who has contribuated in several domain for Openshot """
+		log.info('Credit screen has been opened')
+		pass
+		
+	def load_license(self):
+		""" Load License of the project """
+		log.info('License screen has been opened')
+		pass
+		 

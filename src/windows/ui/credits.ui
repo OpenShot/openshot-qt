@@ -36,7 +36,7 @@
     <attribute name="title">
      <string>Written by</string>
     </attribute>
-    <widget class="QListView" name="listViewwritten">
+    <widget class="QTextBrowser" name="textBrowserwritten">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -51,7 +51,7 @@
     <attribute name="title">
      <string>Documented by</string>
     </attribute>
-    <widget class="QListView" name="listViewdocumented">
+    <widget class="QTextBrowser" name="textBrowserdocumented">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -66,7 +66,7 @@
     <attribute name="title">
      <string>Translated by</string>
     </attribute>
-    <widget class="QListView" name="listViewtranslated">
+    <widget class="QTextBrowser" name="textBrowsertranslated">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -81,7 +81,7 @@
     <attribute name="title">
      <string>Artwork by</string>
     </attribute>
-    <widget class="QListView" name="listViewartwork">
+    <widget class="QTextBrowser" name="textBrowserartwork">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -96,13 +96,13 @@
     <attribute name="title">
      <string>Kickstarter Bakers</string>
     </attribute>
-    <widget class="QListView" name="listView">
+    <widget class="QTextBrowser" name="textBrowserkickstarter">
      <property name="geometry">
       <rect>
        <x>0</x>
        <y>0</y>
        <width>381</width>
-       <height>211</height>
+       <height>201</height>
       </rect>
      </property>
     </widget>

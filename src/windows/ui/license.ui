@@ -17,16 +17,6 @@
    <iconset>
     <normaloff>../../../xdg/openshot.svg</normaloff>../../../xdg/openshot.svg</iconset>
   </property>
-  <widget class="QListView" name="listViewlicense">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>381</width>
-     <height>191</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QPushButton" name="btnclose">
    <property name="geometry">
     <rect>
@@ -41,6 +31,16 @@
    </property>
    <property name="text">
     <string>Close</string>
+   </property>
+  </widget>
+  <widget class="QTextBrowser" name="textBrowser">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>381</width>
+     <height>191</height>
+    </rect>
    </property>
   </widget>
  </widget>
