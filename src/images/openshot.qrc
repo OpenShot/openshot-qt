@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/"/>
     <qresource prefix="/icons">
-        <file>Humanity/index.theme</file>
         <file>Humanity/actions/custom/arrow.png</file>
         <file>Humanity/actions/custom/razor_line_with_razor.png</file>
         <file>Humanity/actions/custom/snapshot.png</file>
@@ -310,5 +309,12 @@
         <file>Humanity/actions/16/bookmark-new.svg</file>
         <file>Humanity/actions/16/appointment-new.svg</file>
         <file>Humanity/actions/16/address-book-new.svg</file>
+        <file>Humanity/actions/16/get-hot-new-stuff.png</file>
+        <file>Humanity/actions/16/view-preview.png</file>
+        <file>Humanity/actions/16/edit-undo.svg</file>
+        <file>Humanity/actions/16/edit-redo.svg</file>
+        <file>Humanity/actions/16/view-list-details.png</file>
+        <file>Humanity/actions/16/zoom-in.png</file>
+        <file>Humanity/actions/16/zoom-out.png</file>
     </qresource>
 </RCC>
