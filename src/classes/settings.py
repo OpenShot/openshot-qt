@@ -74,7 +74,7 @@ class SettingStore(JsonDataStore):
 			writable_path = QStandardPaths.writableLocation(QStandardPaths.ConfigLocation)
 			
 			#Create folder if not found
-			if not os.path.exists(writable_path):
+			if not os.path.exists(writable_path.encode('UTF-8')):
 				try:
 					os.mkdir(writable_path)
 				except Exception as ex:

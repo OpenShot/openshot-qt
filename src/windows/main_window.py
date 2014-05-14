@@ -145,7 +145,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		app = get_app()
 		
 		try:
-			if os.path.exists(file_path):
+			if os.path.exists(file_path.encode('UTF-8')):
 				# Load project file
 				app.project.load(file_path)
 				

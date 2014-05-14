@@ -41,7 +41,7 @@ CACHE_PATH = os.path.join(USER_PATH, "cache")
 
 # Create PATHS if they do not exist (this is where temp files are stored... such as cached thumbnails)
 for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH]:
-	if not os.path.exists(folder):
+	if not os.path.exists(folder.encode('UTF-8')):
 		os.makedirs(folder)
 
 # names of all contributers, using 'u' for unicode encoding
