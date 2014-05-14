@@ -285,7 +285,7 @@
   </action>
   <action name="actionUndo">
    <property name="icon">
-    <iconset theme="undo">
+    <iconset theme="edit-undo">
      <normaloff>:/icons/Humanity/actions/16/edit-undo.svg</normaloff>:/icons/Humanity/actions/16/edit-undo.svg</iconset>
    </property>
    <property name="text">
@@ -315,7 +315,7 @@
   </action>
   <action name="actionImportFiles">
    <property name="icon">
-    <iconset theme="add">
+    <iconset theme="list-add">
      <normaloff>:/icons/Humanity/actions/16/list-add.svg</normaloff>:/icons/Humanity/actions/16/list-add.svg</iconset>
    </property>
    <property name="text">
@@ -330,7 +330,7 @@
   </action>
   <action name="actionImportImageSequence">
    <property name="icon">
-    <iconset theme="add">
+    <iconset theme="list-add">
      <normaloff>:/icons/Humanity/actions/16/list-add.svg</normaloff>:/icons/Humanity/actions/16/list-add.svg</iconset>
    </property>
    <property name="text">
@@ -345,7 +345,7 @@
   </action>
   <action name="actionImportTransition">
    <property name="icon">
-    <iconset theme="add">
+    <iconset theme="list-add">
      <normaloff>:/icons/Humanity/actions/16/list-add.svg</normaloff>:/icons/Humanity/actions/16/list-add.svg</iconset>
    </property>
    <property name="text">
@@ -360,7 +360,7 @@
   </action>
   <action name="actionRedo">
    <property name="icon">
-    <iconset theme="redo">
+    <iconset theme="edit-redo">
      <normaloff>:/icons/Humanity/actions/16/edit-redo.svg</normaloff>:/icons/Humanity/actions/16/edit-redo.svg</iconset>
    </property>
    <property name="text">
@@ -375,7 +375,7 @@
   </action>
   <action name="actionRemoveClip">
    <property name="icon">
-    <iconset theme="edit-delete">
+    <iconset theme="list-remove">
      <normaloff>:/icons/Humanity/actions/16/list-remove.svg</normaloff>:/icons/Humanity/actions/16/list-remove.svg</iconset>
    </property>
    <property name="text">
@@ -387,7 +387,7 @@
   </action>
   <action name="actionRemoveTransition">
    <property name="icon">
-    <iconset theme="edit-delete">
+    <iconset theme="list-remove">
      <normaloff>:/icons/Humanity/actions/16/list-remove.svg</normaloff>:/icons/Humanity/actions/16/list-remove.svg</iconset>
    </property>
    <property name="text">
@@ -399,7 +399,7 @@
   </action>
   <action name="actionTakeSnapshot">
    <property name="icon">
-    <iconset resource="../../images/openshot.qrc">
+    <iconset>
      <normaloff>:/icons/Humanity/actions/custom/snapshot.png</normaloff>:/icons/Humanity/actions/custom/snapshot.png</iconset>
    </property>
    <property name="text">
@@ -429,7 +429,7 @@
   </action>
   <action name="actionUploadVideo">
    <property name="icon">
-    <iconset theme="folder-remote" resource="../../images/openshot.qrc">
+    <iconset theme="folder-remote">
      <normaloff>:/icons/Humanity/places/16/folder-remote.svg</normaloff>:/icons/Humanity/places/16/folder-remote.svg</iconset>
    </property>
    <property name="text">
@@ -460,7 +460,7 @@
   </action>
   <action name="actionAddTrack">
    <property name="icon">
-    <iconset theme="add">
+    <iconset theme="list-add">
      <normaloff>:/icons/Humanity/actions/16/list-add.svg</normaloff>:/icons/Humanity/actions/16/list-add.svg</iconset>
    </property>
    <property name="text">
@@ -550,7 +550,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../../images/openshot.qrc">
+    <iconset>
      <normaloff>:/icons/Humanity/actions/custom/arrow.png</normaloff>:/icons/Humanity/actions/custom/arrow.png</iconset>
    </property>
    <property name="text">
@@ -565,7 +565,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../../images/openshot.qrc">
+    <iconset>
      <normaloff>:/icons/Humanity/actions/custom/razor_line_with_razor.png</normaloff>:/icons/Humanity/actions/custom/razor_line_with_razor.png</iconset>
    </property>
    <property name="text">
@@ -580,7 +580,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../../images/openshot.qrc">
+    <iconset>
      <normaloff>:/icons/Humanity/actions/custom/snap.png</normaloff>:/icons/Humanity/actions/custom/snap.png</iconset>
    </property>
    <property name="text">
@@ -592,7 +592,7 @@
   </action>
   <action name="actionAddMarker">
    <property name="icon">
-    <iconset resource="../../images/openshot.qrc">
+    <iconset>
      <normaloff>:/icons/Humanity/actions/custom/add_marker.png</normaloff>:/icons/Humanity/actions/custom/add_marker.png</iconset>
    </property>
    <property name="text">
@@ -867,8 +867,7 @@
    </property>
    <property name="icon">
     <iconset theme="zoom-in">
-     <normaloff/>
-    </iconset>
+     <normaloff>:/icons/Humanity/actions/16/zoom-in.svg</normaloff>:/icons/Humanity/actions/16/zoom-in.svg</iconset>
    </property>
    <property name="text">
     <string>View Toolbar</string>
@@ -927,7 +926,7 @@
   </action>
   <action name="actionAskQuestion">
    <property name="icon">
-    <iconset theme="im-message-new" resource="../../images/openshot.qrc">
+    <iconset theme="im-message-new">
      <normaloff>:/icons/Humanity/actions/16/im-message-new.svg</normaloff>:/icons/Humanity/actions/16/im-message-new.svg</iconset>
    </property>
    <property name="text">
@@ -936,7 +935,7 @@
   </action>
   <action name="actionTranslate">
    <property name="icon">
-    <iconset theme="stock_person" resource="../../images/openshot.qrc">
+    <iconset theme="stock_person">
      <normaloff>:/icons/Humanity/stock/16/stock_person.svg</normaloff>:/icons/Humanity/stock/16/stock_person.svg</iconset>
    </property>
    <property name="text">
