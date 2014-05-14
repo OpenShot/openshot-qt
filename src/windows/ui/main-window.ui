@@ -241,7 +241,7 @@
   <action name="actionNew">
    <property name="icon">
     <iconset theme="document-new">
-     <normaloff>:/icons/Compass/actions/edit-toolbar/document-new.svg</normaloff>:/icons/Compass/actions/edit-toolbar/document-new.svg</iconset>
+     <normaloff>:/icons/Humanity/actions/16/document-new.svg</normaloff>:/icons/Humanity/actions/16/document-new.svg</iconset>
    </property>
    <property name="text">
     <string>New Project...</string>
@@ -256,7 +256,7 @@
   <action name="actionOpen">
    <property name="icon">
     <iconset theme="document-open">
-     <normaloff>:/icons/Compass/actions/edit-toolbar/document-open.svg</normaloff>:/icons/Compass/actions/edit-toolbar/document-open.svg</iconset>
+     <normaloff>:/icons/Humanity/actions/16/document-open.svg</normaloff>:/icons/Humanity/actions/16/document-open.svg</iconset>
    </property>
    <property name="text">
     <string>Open Project...</string>
@@ -271,7 +271,7 @@
   <action name="actionSave">
    <property name="icon">
     <iconset theme="document-save">
-     <normaloff>:/icons/Compass/actions/edit-toolbar/document-save.svg</normaloff>:/icons/Compass/actions/edit-toolbar/document-save.svg</iconset>
+     <normaloff>:/icons/Humanity/actions/16/document-save.svg</normaloff>:/icons/Humanity/actions/16/document-save.svg</iconset>
    </property>
    <property name="text">
     <string>Save Project</string>
@@ -286,7 +286,7 @@
   <action name="actionUndo">
    <property name="icon">
     <iconset theme="undo">
-     <normaloff>:/icons/Compass/actions/edit-toolbar/undo.svg</normaloff>:/icons/Compass/actions/edit-toolbar/undo.svg</iconset>
+     <normaloff>:/icons/Humanity/actions/16/edit-undo.svg</normaloff>:/icons/Humanity/actions/16/edit-undo.svg</iconset>
    </property>
    <property name="text">
     <string>Undo</string>
@@ -301,7 +301,7 @@
   <action name="actionSaveAs">
    <property name="icon">
     <iconset theme="document-save-as">
-     <normaloff>:/icons/Compass/actions/edit-toolbar/document-save-as.svg</normaloff>:/icons/Compass/actions/edit-toolbar/document-save-as.svg</iconset>
+     <normaloff>:/icons/Humanity/actions/16/document-save-as.svg</normaloff>:/icons/Humanity/actions/16/document-save-as.svg</iconset>
    </property>
    <property name="text">
     <string>Save Project As...</string>
@@ -316,7 +316,7 @@
   <action name="actionImportFiles">
    <property name="icon">
     <iconset theme="add">
-     <normaloff>:/icons/Compass/actions/misc/add.svg</normaloff>:/icons/Compass/actions/misc/add.svg</iconset>
+     <normaloff>:/icons/Humanity/actions/16/list-add.svg</normaloff>:/icons/Humanity/actions/16/list-add.svg</iconset>
    </property>
    <property name="text">
     <string>Import Files...</string>
@@ -331,7 +331,7 @@
   <action name="actionImportImageSequence">
    <property name="icon">
     <iconset theme="add">
-     <normaloff>:/icons/Compass/actions/misc/add.svg</normaloff>:/icons/Compass/actions/misc/add.svg</iconset>
+     <normaloff>:/icons/Humanity/actions/16/list-add.svg</normaloff>:/icons/Humanity/actions/16/list-add.svg</iconset>
    </property>
    <property name="text">
     <string>Import Image Sequence...</string>
@@ -346,7 +346,7 @@
   <action name="actionImportTransition">
    <property name="icon">
     <iconset theme="add">
-     <normaloff>:/icons/Compass/actions/misc/add.svg</normaloff>:/icons/Compass/actions/misc/add.svg</iconset>
+     <normaloff>:/icons/Humanity/actions/16/list-add.svg</normaloff>:/icons/Humanity/actions/16/list-add.svg</iconset>
    </property>
    <property name="text">
     <string>Import New Transition...</string>
@@ -361,7 +361,7 @@
   <action name="actionRedo">
    <property name="icon">
     <iconset theme="redo">
-     <normaloff>:/icons/Compass/actions/edit-toolbar/redo.svg</normaloff>:/icons/Compass/actions/edit-toolbar/redo.svg</iconset>
+     <normaloff>:/icons/Humanity/actions/16/edit-redo.svg</normaloff>:/icons/Humanity/actions/16/edit-redo.svg</iconset>
    </property>
    <property name="text">
     <string>Redo</string>
@@ -376,7 +376,7 @@
   <action name="actionRemoveClip">
    <property name="icon">
     <iconset theme="edit-delete">
-     <normaloff>:/icons/Compass/actions/misc/edit-delete.svg</normaloff>:/icons/Compass/actions/misc/edit-delete.svg</iconset>
+     <normaloff>:/icons/Humanity/actions/16/list-remove.svg</normaloff>:/icons/Humanity/actions/16/list-remove.svg</iconset>
    </property>
    <property name="text">
     <string>Remove Clip</string>
@@ -388,7 +388,7 @@
   <action name="actionRemoveTransition">
    <property name="icon">
     <iconset theme="edit-delete">
-     <normaloff>:/icons/Compass/actions/misc/edit-delete.svg</normaloff>:/icons/Compass/actions/misc/edit-delete.svg</iconset>
+     <normaloff>:/icons/Humanity/actions/16/list-remove.svg</normaloff>:/icons/Humanity/actions/16/list-remove.svg</iconset>
    </property>
    <property name="text">
     <string>Remove Transition</string>
@@ -415,7 +415,7 @@
   <action name="actionExportVideo">
    <property name="icon">
     <iconset theme="media-record">
-     <normaloff>:/icons/Compass/actions/media-toolbar/media-record.svg</normaloff>:/icons/Compass/actions/media-toolbar/media-record.svg</iconset>
+     <normaloff>:/icons/Humanity/actions/16/media-record.svg</normaloff>:/icons/Humanity/actions/16/media-record.svg</iconset>
    </property>
    <property name="text">
     <string>Export Video</string>
@@ -429,7 +429,7 @@
   </action>
   <action name="actionUploadVideo">
    <property name="icon">
-    <iconset resource="../../images/openshot.qrc">
+    <iconset theme="folder-remote" resource="../../images/openshot.qrc">
      <normaloff>:/icons/Humanity/places/16/folder-remote.svg</normaloff>:/icons/Humanity/places/16/folder-remote.svg</iconset>
    </property>
    <property name="text">
@@ -461,7 +461,7 @@
   <action name="actionAddTrack">
    <property name="icon">
     <iconset theme="add">
-     <normaloff>:/icons/Compass/actions/misc/add.svg</normaloff>:/icons/Compass/actions/misc/add.svg</iconset>
+     <normaloff>:/icons/Humanity/actions/16/list-add.svg</normaloff>:/icons/Humanity/actions/16/list-add.svg</iconset>
    </property>
    <property name="text">
     <string>Add Track</string>
@@ -473,7 +473,7 @@
   <action name="actionPreferences">
    <property name="icon">
     <iconset theme="document-properties">
-     <normaloff>:/icons/Compass/actions/misc/document-properties.svg</normaloff>:/icons/Compass/actions/misc/document-properties.svg</iconset>
+     <normaloff>:/icons/Humanity/actions/16/document-properties.svg</normaloff>:/icons/Humanity/actions/16/document-properties.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Preferences</string>
@@ -488,7 +488,7 @@
   <action name="actionPlay">
    <property name="icon">
     <iconset theme="media-playback-start">
-     <normaloff>:/icons/Compass/actions/media-toolbar/media-playback-start.svg</normaloff>:/icons/Compass/actions/media-toolbar/media-playback-start.svg</iconset>
+     <normaloff>:/icons/Humanity/actions/16/media-playback-start.svg</normaloff>:/icons/Humanity/actions/16/media-playback-start.svg</iconset>
    </property>
    <property name="text">
     <string>Play</string>
@@ -500,7 +500,7 @@
   <action name="actionJumpStart">
    <property name="icon">
     <iconset theme="go-first">
-     <normaloff>:/icons/Compass/actions/nav-toolbar/go-first.svg</normaloff>:/icons/Compass/actions/nav-toolbar/go-first.svg</iconset>
+     <normaloff>:/icons/Humanity/actions/16/go-first.svg</normaloff>:/icons/Humanity/actions/16/go-first.svg</iconset>
    </property>
    <property name="text">
     <string>Jump To Start</string>
@@ -512,7 +512,7 @@
   <action name="actionRewind">
    <property name="icon">
     <iconset theme="media-seek-backward">
-     <normaloff>:/icons/Compass/actions/media-toolbar/media-seek-backward.svg</normaloff>:/icons/Compass/actions/media-toolbar/media-seek-backward.svg</iconset>
+     <normaloff>:/icons/Humanity/actions/16/media-seek-backward.svg</normaloff>:/icons/Humanity/actions/16/media-seek-backward.svg</iconset>
    </property>
    <property name="text">
     <string>Rewind</string>
@@ -524,7 +524,7 @@
   <action name="actionFastForward">
    <property name="icon">
     <iconset theme="media-seek-forward">
-     <normaloff>:/icons/Compass/actions/media-toolbar/media-seek-forward.svg</normaloff>:/icons/Compass/actions/media-toolbar/media-seek-forward.svg</iconset>
+     <normaloff>:/icons/Humanity/actions/16/media-seek-forward.svg</normaloff>:/icons/Humanity/actions/16/media-seek-forward.svg</iconset>
    </property>
    <property name="text">
     <string>Fast Forward</string>
@@ -536,7 +536,7 @@
   <action name="actionJumpEnd">
    <property name="icon">
     <iconset theme="go-last">
-     <normaloff>:/icons/Compass/actions/nav-toolbar/go-last.svg</normaloff>:/icons/Compass/actions/nav-toolbar/go-last.svg</iconset>
+     <normaloff>:/icons/Humanity/actions/16/go-last.svg</normaloff>:/icons/Humanity/actions/16/go-last.svg</iconset>
    </property>
    <property name="text">
     <string>Jump To End</string>
@@ -550,8 +550,8 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset theme="document-send">
-     <normaloff>:/icons/Compass/actions/misc/document-send.svg</normaloff>:/icons/Compass/actions/misc/document-send.svg</iconset>
+    <iconset resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/custom/arrow.png</normaloff>:/icons/Humanity/actions/custom/arrow.png</iconset>
    </property>
    <property name="text">
     <string>Arrow Tool</string>
@@ -565,8 +565,8 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset theme="edit-cut">
-     <normaloff>:/icons/Compass/actions/edit-toolbar/edit-cut.svg</normaloff>:/icons/Compass/actions/edit-toolbar/edit-cut.svg</iconset>
+    <iconset resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/custom/razor_line_with_razor.png</normaloff>:/icons/Humanity/actions/custom/razor_line_with_razor.png</iconset>
    </property>
    <property name="text">
     <string>Razor Tool</string>
@@ -605,7 +605,7 @@
   <action name="actionPreviousMarker">
    <property name="icon">
     <iconset theme="go-first">
-     <normaloff>:/icons/Compass/actions/nav-toolbar/go-first.svg</normaloff>:/icons/Compass/actions/nav-toolbar/go-first.svg</iconset>
+     <normaloff>:/icons/Humanity/actions/16/go-first.svg</normaloff>:/icons/Humanity/actions/16/go-first.svg</iconset>
    </property>
    <property name="text">
     <string>Previous Marker</string>
@@ -617,7 +617,7 @@
   <action name="actionNextMarker">
    <property name="icon">
     <iconset theme="go-last">
-     <normaloff>:/icons/Compass/actions/nav-toolbar/go-last.svg</normaloff>:/icons/Compass/actions/nav-toolbar/go-last.svg</iconset>
+     <normaloff>:/icons/Humanity/actions/16/go-last.svg</normaloff>:/icons/Humanity/actions/16/go-last.svg</iconset>
    </property>
    <property name="text">
     <string>Next Marker</string>
@@ -672,8 +672,8 @@
   </action>
   <action name="actionFilesClear">
    <property name="icon">
-    <iconset theme="editclear">
-     <normaloff>:/icons/Compass/actions/misc/editclear.svg</normaloff>:/icons/Compass/actions/misc/editclear.svg</iconset>
+    <iconset theme="edit-clear">
+     <normaloff>:/icons/Humanity/actions/16/edit-clear.svg</normaloff>:/icons/Humanity/actions/16/edit-clear.svg</iconset>
    </property>
    <property name="text">
     <string>Clear</string>
@@ -706,8 +706,8 @@
   </action>
   <action name="actionTransitionsClear">
    <property name="icon">
-    <iconset theme="editclear">
-     <normaloff>:/icons/Compass/actions/misc/editclear.svg</normaloff>:/icons/Compass/actions/misc/editclear.svg</iconset>
+    <iconset theme="edit-clear">
+     <normaloff>:/icons/Humanity/actions/16/edit-clear.svg</normaloff>:/icons/Humanity/actions/16/edit-clear.svg</iconset>
    </property>
    <property name="text">
     <string>Clear</string>
@@ -751,8 +751,8 @@
   </action>
   <action name="actionEffectsClear">
    <property name="icon">
-    <iconset theme="editclear">
-     <normaloff>:/icons/Compass/actions/misc/editclear.svg</normaloff>:/icons/Compass/actions/misc/editclear.svg</iconset>
+    <iconset theme="edit-clear">
+     <normaloff>:/icons/Humanity/actions/16/edit-clear.svg</normaloff>:/icons/Humanity/actions/16/edit-clear.svg</iconset>
    </property>
    <property name="text">
     <string>Clear</string>
@@ -764,7 +764,7 @@
   <action name="actionTimelineZoomIn">
    <property name="icon">
     <iconset theme="zoom-in">
-     <normaloff>:/icons/Compass/actions/misc/zoom-in.svg</normaloff>:/icons/Compass/actions/misc/zoom-in.svg</iconset>
+     <normaloff>:/icons/Humanity/actions/16/zoom-in.svg</normaloff>:/icons/Humanity/actions/16/zoom-in.svg</iconset>
    </property>
    <property name="text">
     <string>Zoom In</string>
@@ -779,7 +779,7 @@
   <action name="actionTimelineZoomOut">
    <property name="icon">
     <iconset theme="zoom-out">
-     <normaloff>:/icons/Compass/actions/misc/zoom-out.svg</normaloff>:/icons/Compass/actions/misc/zoom-out.svg</iconset>
+     <normaloff>:/icons/Humanity/actions/16/zoom-out.svg</normaloff>:/icons/Humanity/actions/16/zoom-out.svg</iconset>
    </property>
    <property name="text">
     <string>Zoom Out</string>
@@ -879,7 +879,7 @@
   </action>
   <action name="actionAbout">
    <property name="icon">
-    <iconset resource="../../images/openshot.qrc">
+    <iconset theme="help-about">
      <normaloff>:/icons/Humanity/actions/16/help-about.svg</normaloff>:/icons/Humanity/actions/16/help-about.svg</iconset>
    </property>
    <property name="text">
@@ -894,8 +894,8 @@
   </action>
   <action name="actionThumbnailView">
    <property name="icon">
-    <iconset>
-     <normaloff>:/icons/Compass/actions/misc/view-preview.svg</normaloff>:/icons/Compass/actions/misc/view-preview.svg</iconset>
+    <iconset theme="view-preview">
+     <normaloff>:/icons/Humanity/actions/16/view-preview.svg</normaloff>:/icons/Humanity/actions/16/view-preview.svg</iconset>
    </property>
    <property name="text">
     <string>Thumbnail View</string>
@@ -906,8 +906,8 @@
   </action>
   <action name="actionDetailsView">
    <property name="icon">
-    <iconset>
-     <normaloff>:/icons/Compass/actions/misc/view-list-details.svg</normaloff>:/icons/Compass/actions/misc/view-list-details.svg</iconset>
+    <iconset theme="view-list-details">
+     <normaloff>:/icons/Humanity/actions/16/view-list-details.svg</normaloff>:/icons/Humanity/actions/16/view-list-details.svg</iconset>
    </property>
    <property name="text">
     <string>Details View</string>
@@ -918,7 +918,7 @@
   </action>
   <action name="actionReportBug">
    <property name="icon">
-    <iconset resource="../../images/openshot.qrc">
+    <iconset theme="dialog-error">
      <normaloff>:/icons/Humanity/status/16/dialog-error.svg</normaloff>:/icons/Humanity/status/16/dialog-error.svg</iconset>
    </property>
    <property name="text">
@@ -927,7 +927,7 @@
   </action>
   <action name="actionAskQuestion">
    <property name="icon">
-    <iconset resource="../../images/openshot.qrc">
+    <iconset theme="im-message-new" resource="../../images/openshot.qrc">
      <normaloff>:/icons/Humanity/actions/16/im-message-new.svg</normaloff>:/icons/Humanity/actions/16/im-message-new.svg</iconset>
    </property>
    <property name="text">
@@ -936,7 +936,7 @@
   </action>
   <action name="actionTranslate">
    <property name="icon">
-    <iconset resource="../../images/openshot.qrc">
+    <iconset theme="stock_person" resource="../../images/openshot.qrc">
      <normaloff>:/icons/Humanity/stock/16/stock_person.svg</normaloff>:/icons/Humanity/stock/16/stock_person.svg</iconset>
    </property>
    <property name="text">
@@ -945,7 +945,7 @@
   </action>
   <action name="actionDonate">
    <property name="icon">
-    <iconset resource="../../images/openshot.qrc">
+    <iconset theme="bookmark-new">
      <normaloff>:/icons/Humanity/actions/16/bookmark-new.svg</normaloff>:/icons/Humanity/actions/16/bookmark-new.svg</iconset>
    </property>
    <property name="text">
@@ -967,8 +967,8 @@
   </action>
   <action name="actionSimple_View">
    <property name="icon">
-    <iconset>
-     <normaloff>:/icons/Compass/actions/misc/go-home.svg</normaloff>:/icons/Compass/actions/misc/go-home.svg</iconset>
+    <iconset theme="go-home">
+     <normaloff>:/icons/Humanity/actions/16/go-home.svg</normaloff>:/icons/Humanity/actions/16/go-home.svg</iconset>
    </property>
    <property name="text">
     <string>Simple View</string>
@@ -976,8 +976,8 @@
   </action>
   <action name="actionAdvanced_View">
    <property name="icon">
-    <iconset>
-     <normaloff>:/icons/Compass/actions/misc/get-hot-new-stuff.svg</normaloff>:/icons/Compass/actions/misc/get-hot-new-stuff.svg</iconset>
+    <iconset theme="get-hot-new-stuff">
+     <normaloff>:/icons/Humanity/actions/16/get-hot-new-stuff.svg</normaloff>:/icons/Humanity/actions/16/get-hot-new-stuff.svg</iconset>
    </property>
    <property name="text">
     <string>Advanced View</string>
@@ -985,7 +985,7 @@
   </action>
   <action name="actionFreeze_View">
    <property name="icon">
-    <iconset>
+    <iconset theme="locked">
      <normaloff>:/icons/Humanity/status/locked.svg</normaloff>:/icons/Humanity/status/misc/locked.svg</iconset>
    </property>
    <property name="text">
@@ -994,7 +994,7 @@
   </action>
   <action name="actionUn_Freeze_View">
    <property name="icon">
-    <iconset>
+    <iconset theme="locked">
      <normaloff>:/icons/Humanity/status/locked.svg</normaloff>:/icons/Humanity/status/locked.svg</iconset>
    </property>
    <property name="text">
@@ -1006,8 +1006,8 @@
   </action>
   <action name="actionShow_All">
    <property name="icon">
-    <iconset>
-     <normaloff>:/icons/Compass/actions/misc/zoom-in.svg</normaloff>:/icons/Compass/actions/misc/zoom-in.svg</iconset>
+    <iconset theme="zoom-in">
+     <normaloff>:/icons/Humanity/actions/16/zoom-in.svg</normaloff>:/icons/Humanity/actions/16/zoom-in.svg</iconset>
    </property>
    <property name="text">
     <string>Show All</string>

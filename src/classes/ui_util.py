@@ -35,19 +35,12 @@ from PyQt5.QtGui import QPixmap, QImageReader, QIcon
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 
-DEFAULT_THEME_NAME = "Compass"
+DEFAULT_THEME_NAME = "Humanity"
 
 def load_theme():
 	""" Load the current OS theme, or fallback to a default one """
 	
-	#If theme not reported by OS
-	if QIcon.themeName() == '':
-		#Address known Ubuntu bug of not reporting configured theme name, use default ubuntu theme
-		if os.getenv('DESKTOP_SESSION') == 'ubuntu':
-			QIcon.setThemeName('unity-icon-theme')
-		#Windows/Mac use packaged theme
-		else:
-			QIcon.setThemeName(DEFAULT_THEME_NAME)
+	QIcon.setThemeName(DEFAULT_THEME_NAME)
 			
 def load_ui(window, path):
 	""" Load a Qt *.ui file, and also load an XML parsed version """ 
