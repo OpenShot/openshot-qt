@@ -24,7 +24,7 @@
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
- 
+
 import os
 
 VERSION             = "2.0.0"
@@ -38,9 +38,10 @@ USER_PATH = os.path.join(os.path.expanduser("~"), ".openshot_qt")
 BLENDER_PATH = os.path.join(USER_PATH, "blender")
 THUMBNAIL_PATH = os.path.join(USER_PATH, "thumbnail")
 CACHE_PATH = os.path.join(USER_PATH, "cache")
+TITLE_PATH = os.path.join(USER_PATH, "title")
 
 # Create PATHS if they do not exist (this is where temp files are stored... such as cached thumbnails)
-for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH]:
+for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH, TITLE_PATH]:
 	if not os.path.exists(folder.encode('UTF-8')):
 		os.makedirs(folder)
 

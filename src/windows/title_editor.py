@@ -1,7 +1,6 @@
 """ 
  @file
  @brief This file loads the title editor dialog (i.e SVG creator)
- @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
  @author Andy Finch <andy@openshot.org>
  
@@ -27,7 +26,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import sys, os, fnmatch
+import sys, os, fnmatch, shutil
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import *
@@ -36,9 +35,15 @@ from PyQt5.QtWebKitWidgets import QWebView
 from classes import info, ui_util, settings, qt_types, updates
 from classes.logger import log
 from classes.app import get_app
+from classes.query import File
 import functools, subprocess
 from xml.dom import minidom
 import openshot
+
+try:
+	import json
+except ImportError:
+	import simplejson as json
 
 
 class TitleEditor(QDialog):
@@ -53,6 +58,7 @@ class TitleEditor(QDialog):
 		QDialog.__init__(self)
 
 		self.app = get_app()
+		self.project = self.app.project
 
 		# Get translation object
 		_ = self.app._tr
@@ -63,8 +69,7 @@ class TitleEditor(QDialog):
 		#Init UI
 		ui_util.init_ui(self)
 
-		self.project = self.app.project
-
+		# Initialize variables
 		self.template_name = ""
 		imp = minidom.getDOMImplementation()
 		self.xmldoc = imp.createDocument(None, "any", None)
@@ -85,17 +90,10 @@ class TitleEditor(QDialog):
 
 		self.display_name = ""
 		self.font_family = "Bitstream Vera Sans"
-
 		self.tspan_node = None
 
-		#initially hide the text input fields,
-		#they are set to show later, depending on what template is selected
-		self.txtLine2.setVisible(False)
-		self.lblLine2.setVisible(False)
-		self.txtLine3.setVisible(False)
-		self.lblLine3.setVisible(False)
-		self.txtLine4.setVisible(False)
-		self.lblLine4.setVisible(False)
+		# Hide all textboxes
+		self.hide_textboxes()
 
 		#load the template files
 		self.cmbTemplate.addItem("<Select a template>")
@@ -106,22 +104,74 @@ class TitleEditor(QDialog):
 				(fileName, fileExtension) = os.path.splitext(file)
 			self.cmbTemplate.addItem(fileName.replace("_", " "))
 
-
 		#set event handlers
-		self.txtName.textChanged.connect(functools.partial(self.txtName_changed))
-		self.btnCreateNew.clicked.connect(functools.partial(self.btnCreateNew_clicked))
 		self.cmbTemplate.activated.connect(functools.partial(self.cmbTemplate_activated))
 		self.btnFontColor.clicked.connect(functools.partial(self.btnFontColor_clicked))
 		self.btnBackgroundColor.clicked.connect(functools.partial(self.btnBackgroundColor_clicked))
 		self.btnFont.clicked.connect(functools.partial(self.btnFont_clicked))
-		self.btnApplyText.clicked.connect(functools.partial(self.btnApplyText_clicked))
 		self.btnAdvanced.clicked.connect(functools.partial(self.btnAdvanced_clicked))
+		self.txtLine1.textChanged.connect(functools.partial(self.txtLine_changed))
+		self.txtLine2.textChanged.connect(functools.partial(self.txtLine_changed))
+		self.txtLine3.textChanged.connect(functools.partial(self.txtLine_changed))
+		self.txtLine4.textChanged.connect(functools.partial(self.txtLine_changed))
+		
+	def txtLine_changed(self):
 
+		# Update text values in the SVG
+		text_list = []
+		text_list.append(self.txtLine1.text())
+		text_list.append(self.txtLine2.text())
+		text_list.append(self.txtLine3.text())
+		text_list.append(self.txtLine4.text())
+		for i in range(0, self.text_fields):
+			if len(self.tspan_node[i].childNodes) > 0 and i <= (len(text_list) - 1):
+				new_text_node = self.xmldoc.createTextNode(text_list[i])
+				old_text_node = self.tspan_node[i].childNodes[0]
+				self.tspan_node[i].removeChild(old_text_node)
+				# add new text node
+				self.tspan_node[i].appendChild(new_text_node)
+		
+		# Something changed, so update temp SVG
+		self.writeToFile(self.xmldoc)
 
-	def display_svg(self, filename):
+		# Display SVG again
+		self.display_svg()
+
+	def hide_textboxes(self):
+		""" Hide all text inputs """
+		self.txtLine1.setVisible(False)
+		self.lblLine1.setVisible(False)
+		self.txtLine2.setVisible(False)
+		self.lblLine2.setVisible(False)
+		self.txtLine3.setVisible(False)
+		self.lblLine3.setVisible(False)
+		self.txtLine4.setVisible(False)
+		self.lblLine4.setVisible(False)
+		
+	def show_textboxes(self, num_fields):
+		""" Only show a certain number of text inputs """
+
+		if num_fields >= 1:
+			self.txtLine1.setEnabled(True)
+			self.txtLine1.setVisible(True)
+			self.lblLine1.setVisible(True)
+		if num_fields >= 2:
+			self.txtLine2.setEnabled(True)
+			self.txtLine2.setVisible(True)
+			self.lblLine2.setVisible(True)
+		if num_fields >= 3:
+			self.txtLine3.setEnabled(True)
+			self.txtLine3.setVisible(True)
+			self.lblLine3.setVisible(True)
+		if num_fields >= 4:
+			self.txtLine4.setEnabled(True)
+			self.txtLine4.setVisible(True)
+			self.lblLine4.setVisible(True)
+
+	def display_svg(self):
 		scene = QGraphicsScene(self)
 		view = self.graphicsView
-		svg = QtGui.QPixmap(filename)
+		svg = QtGui.QPixmap(self.filename)
 		svg_scaled = svg.scaled(svg.width() / 4, svg.height() / 4, Qt.KeepAspectRatio)
 		scene.addPixmap(svg_scaled)
 		view.setScene(scene)
@@ -130,94 +180,79 @@ class TitleEditor(QDialog):
 	def cmbTemplate_activated(self):
 		#reconstruct the filename from the modified display name
 		if self.cmbTemplate.currentIndex() > 0:
-			#ignore the 'select a template entry
+			#ignore the 'select a template entry'
 			template = self.cmbTemplate.currentText()
 			self.template_name = template.replace(" ", "_") + ".svg"
-			self.display_svg(os.path.join(info.PATH, 'titles', self.template_name))
-			self.txtLine2.setVisible(False)
-			self.lblLine2.setVisible(False)
-			self.txtLine3.setVisible(False)
-			self.lblLine3.setVisible(False)
-			self.txtLine4.setVisible(False)
-			self.lblLine4.setVisible(False)
+			
+			# Create temp version of SVG title
+			self.filename = self.create_temp_title(os.path.join(info.PATH, 'titles', self.template_name))
+			
+			# Load temp title
+			self.load_svg_template()
+			
+			# Display tmp title
+			self.display_svg()
+
+	def create_temp_title(self, template_path):
+
+		# Set temp file path
+		self.filename = os.path.join(info.TITLE_PATH, "temp.svg")
+
+		# Copy template to temp file
+		shutil.copy(template_path, self.filename)
+		
+		# return temp path 
+		return self.filename
 
 
-	def txtName_changed(self):
-		if self.btnCreateNew.isEnabled() == False:
-			self.btnCreateNew.setEnabled(True)
-
-
-	def btnCreateNew_clicked(self):
-		#project = self.app.project
-		#project_params = {}
-
-		#project_params["current_filepath"] = project.get(["current_filepath"])
-		base_path = info.THUMBNAIL_PATH
-		self.filename = os.path.join(base_path, self.txtName.text() + ".svg")
-
-		self.load_svg_template(self.template_name)
-
-		self.update_font_color_button()
-		self.update_background_color_button()
-
-		#write the new file
-		self.writeToFile(self.xmldoc)
-		self.txtLine1.setEnabled(True)
-		self.txtLine2.setEnabled(True)
-		self.btnFont.setEnabled(True)
-		self.btnFontColor.setEnabled(True)
-		self.btnBackgroundColor.setEnabled(True)
-		self.btnAdvanced.setEnabled(True)
-
-		if self.noTitles == True:
-			self.btnFont.setEnabled(False)
-			self.btnFontColor.setEnabled(False)
-
-
-	def load_svg_template(self, filename):
-		self.svgname = os.path.join(self.template_dir, filename)
+	def load_svg_template(self):
+		""" Load an SVG title and init all textboxes and controls """
+		
 		#parse the svg object
-		self.xmldoc = minidom.parse(self.svgname)
+		self.xmldoc = minidom.parse(self.filename)
 		#get the text elements
 		self.tspan_node = self.xmldoc.getElementsByTagName('tspan')
 		self.text_fields = len(self.tspan_node)
 
-		if self.text_fields == 0:
-			self.txtLine1.setVisible(False)
-			self.lblLine1.setVisible(False)
-			self.txtLine2.setVisible(False)
-			self.lblLine2.setVisible(False)
-			self.noTitles = True
-		else:
-			self.noTitles = False
+		# Hide all text inputs
+		self.hide_textboxes()
+		# Show the correct number of text inputs
+		self.show_textboxes(self.text_fields)
 
+		# Get text nodes and rect nodes
 		self.text_node = self.xmldoc.getElementsByTagName('text')
-		#get the rect element
 		self.rect_node = self.xmldoc.getElementsByTagName('rect')
 
-		#populate the text boxes
+		# Get text values
 		title_text = []
 		for i in range(0, self.text_fields):
 			if len(self.tspan_node[i].childNodes) > 0:
 				title_text.append(self.tspan_node[i].childNodes[0].data)
 
+		# Set textbox values
 		num_fields = len(title_text)
-		#we'll assume there will always be 1 field
-		self.txtLine1.setText(title_text[0])
-		if num_fields == 2 or num_fields == 3 or num_fields == 4:
+		if num_fields >= 1:
+			self.txtLine1.setText(title_text[0])
+		if num_fields >= 2:
 			self.txtLine2.setText(title_text[1])
-			self.txtLine2.setVisible(True)
-			self.lblLine2.setVisible(True)
-		if num_fields == 3 or num_fields == 4:
+		if num_fields >= 3:
 			self.txtLine3.setText(title_text[2])
-			self.txtLine3.setEnabled(True)
-			self.txtLine3.setVisible(True)
-			self.lblLine3.setVisible(True)
-		if num_fields == 4:
-			self.txtLine4.setEnabled(True)
+		if num_fields >= 4:
 			self.txtLine4.setText(title_text[3])
-			self.txtLine4.setVisible(True)
-			self.lblLine4.setVisible(True)
+
+		# Update color buttons
+		self.update_font_color_button()
+		self.update_background_color_button()
+		
+		# Enable / Disable buttons based on # of text nodes
+		if num_fields >= 1:
+			self.btnFont.setEnabled(True)
+			self.btnFontColor.setEnabled(True)
+			self.btnBackgroundColor.setEnabled(True)
+			self.btnAdvanced.setEnabled(True)
+		else:
+			self.btnFont.setEnabled(False)
+			self.btnFontColor.setEnabled(False)
 
 
 
@@ -227,45 +262,70 @@ class TitleEditor(QDialog):
 		if not self.filename.endswith("svg"):
 			self.filename = self.filename + ".svg"
 		try:
-			#TODO: check if file exists
 			file = open(self.filename, "wb")  #wb needed for windows support
 			file.write(bytes(xmldoc.toxml(), 'UTF-8'))
 			file.close()
 		except IOError as inst:
-			#messagebox.show(_("OpenShot Error"), _("Unexpected Error '%s' while writing to '%s'." % (inst, self.filename)))
-			pass
-
+			log.error("Error writing SVG title")
+			
 
 	def btnFontColor_clicked(self):
-		col = QColorDialog.getColor(Qt.white,
-            self,
-            "Select Colour...",
-            QColorDialog.DontUseNativeDialog|QColorDialog.ShowAlphaChannel)
+		app = get_app()
+		_ = app._tr
+		
+		# Get color from user
+		col = QColorDialog.getColor(Qt.white, self, _("Select a Color"), 
+								QColorDialog.DontUseNativeDialog|QColorDialog.ShowAlphaChannel)
 
+		# Update SVG colors
 		if col.isValid():
 			self.btnFontColor.setStyleSheet("background-color: %s" % col.name())
 			self.set_font_color_elements(col.name(), col.alphaF())
+			
+		# Something changed, so update temp SVG
+		self.writeToFile(self.xmldoc)
+
+		# Display SVG again
+		self.display_svg()
 
 
 	def btnBackgroundColor_clicked(self):
-		col = QColorDialog.getColor(Qt.white,
-            self,
-            "Select Colour...",
-            QColorDialog.DontUseNativeDialog|QColorDialog.ShowAlphaChannel)
+		app = get_app()
+		_ = app._tr
+		
+		# Get color from user
+		col = QColorDialog.getColor(Qt.white, self, _("Select a Color"), 
+								QColorDialog.DontUseNativeDialog|QColorDialog.ShowAlphaChannel)
 
+		# Update SVG colors
 		if col.isValid():
 			self.btnBackgroundColor.setStyleSheet("background-color: %s" % col.name())
 			self.set_bg_style(col.name(), col.alphaF())
+			
+		# Something changed, so update temp SVG
+		self.writeToFile(self.xmldoc)
+
+		# Display SVG again
+		self.display_svg()
 
 
 	def btnFont_clicked(self):
+		# Get font from user
 		font, ok = QFontDialog.getFont()
+		
+		# Update SVG font
 		if ok:
 			fontinfo = QtGui.QFontInfo(font)
 			self.font_family = fontinfo.family()
 			self.font_style = fontinfo.styleName()
 			self.font_weight = fontinfo.weight()
 			self.set_font_style()
+
+		# Something changed, so update temp SVG
+		self.writeToFile(self.xmldoc)
+
+		# Display SVG again
+		self.display_svg()
 
 
 	def find_in_list(self, l, value):
@@ -409,10 +469,6 @@ class TitleEditor(QDialog):
 			tspan_child.setAttribute("style", self.title_style_string)
 
 
-		#write the file and preview the image
-		self.writeToFile(self.xmldoc)
-		self.display_svg(self.filename)
-
 	def set_bg_style(self, color, alpha):
 		'''sets the background color'''
 
@@ -438,8 +494,6 @@ class TitleEditor(QDialog):
 			#set the node in the xml doc
 			self.rect_node[0].setAttribute("style", self.bg_style_string)
 
-			self.writeToFile(self.xmldoc)
-			self.display_svg(self.filename)
 
 	def set_font_color_elements(self, color, alpha):
 
@@ -482,31 +536,64 @@ class TitleEditor(QDialog):
 				tspan_child.setAttribute("style", t.join(ar))
 
 
-		#write the file and preview the image
-		self.writeToFile(self.xmldoc)
-		self.display_svg(self.filename)
-
-	def btnApplyText_clicked(self):
-				#
-		# replace textnode (if any)
-		text_list = []
-		text_list.append(self.txtLine1.text())
-		text_list.append(self.txtLine2.text())
-		text_list.append(self.txtLine3.text())
-		text_list.append(self.txtLine4.text())
-		for i in range(0, self.text_fields):
-			if len(self.tspan_node[i].childNodes) > 0 and i <= (len(text_list) - 1):
-				new_text_node = self.xmldoc.createTextNode(text_list[i])
-				old_text_node = self.tspan_node[i].childNodes[0]
-				self.tspan_node[i].removeChild(old_text_node)
-				# add new text node
-				self.tspan_node[i].appendChild(new_text_node)
-		self.writeToFile(self.xmldoc)
-		self.display_svg(self.filename)
-
 	def accept(self):
-		#TODO add the file to the project
-		pass
+		app = get_app()
+		_ = app._tr
+		
+		# Get file path for SVG title
+		file_path, file_type = QFileDialog.getSaveFileName(self, _("Save Title As..."))
+		if not file_path.endswith("svg"):
+			file_path = file_path + ".svg"
+
+		if file_path:
+			# Update filename
+			self.filename = file_path
+			
+			# Save title
+			self.writeToFile(self.xmldoc)
+			
+			# Add file to project
+			self.add_file(self.filename)
+			
+			# Close window
+			super(TitleEditor, self).accept()
+			
+	def add_file(self, filepath):
+		path, filename = os.path.split(filepath)
+		
+		# Add file into project
+		app = get_app()
+
+		# Check for this path in our existing project data
+		file = File.get(path=filepath)
+		
+		# If this file is already found, exit
+		if file:
+			return
+
+		# Load filepath in libopenshot clip object (which will try multiple readers to open it)
+		clip = openshot.Clip(filepath)
+
+		# Get the JSON for the clip's internal reader
+		try:
+			reader = clip.Reader()
+			file_data = json.loads(reader.Json())
+
+			# Set media type
+			file_data["media_type"] = "image"
+
+			# Save new file to the project data
+			file = File()
+			file.data = file_data
+			file.save()
+			return True
+		
+		except:
+			# Handle exception
+			msg = QMessageBox()
+			msg.setText(app._tr("{} is not a valid video, audio, or image file.".format(filename)))
+			msg.exec_()
+			return False
 
 	def btnAdvanced_clicked(self):
 		_ = self.app._tr
@@ -525,7 +612,8 @@ class TitleEditor(QDialog):
 				p.communicate()
 
 				# update image preview
-				self.display_svg(self.filename)
+				self.load_svg_template()
+				self.display_svg()
 			else:
 				msg = QMessageBox()
 				msg.setText(_("There was an error trying to open {}.").format(prog.capitalize()))
