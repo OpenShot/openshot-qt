@@ -34,11 +34,17 @@ from PyQt5 import uic
 from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
+from classes.query import File
 from windows.views.blender_treeview import BlenderTreeView
 import time, uuid, shutil
 import threading, subprocess, re
 import math
 import subprocess
+
+try:
+	import json
+except ImportError:
+	import simplejson as json
 
 
 class AnimatedTitle(QDialog):
@@ -77,6 +83,61 @@ class AnimatedTitle(QDialog):
 		
 		# Clear all child controls
 		self.clear_effect_controls()
+		
+	def accept(self):
+		log.info('Render Animation')
+		
+		# Get the app
+		app = get_app()
+		
+		# Render
+		self.blenderTreeView.Render()
+		
+		# Wait for rendering
+		while self.blenderTreeView.my_blender.is_running:
+			# Sleep
+			time.sleep(1.0)
+			log.info('rendering...')
+			
+		# Add File
+		#add_file()
+
+		# Close window
+		super(AnimatedTitle, self).accept()
+		
+	def add_file(self, filepath):
+		path, filename = os.path.split(filepath)
+		
+		# Add file into project
+		app = get_app()
+
+		# Check for this path in our existing project data
+		file = File.get(path=filepath)
+		
+		# If this file is already found, exit
+		if file:
+			return
+
+		# Get the JSON for the clip's internal reader
+		try:
+			reader = openshot.FFmpegReader(filepath)
+			file_data = json.loads(reader.Json())
+
+			# Set media type
+			file_data["media_type"] = "video"
+
+			# Save new file to the project data
+			file = File()
+			file.data = file_data
+			file.save()
+			return True
+		
+		except:
+			# Handle exception
+			msg = QMessageBox()
+			msg.setText(app._tr("{} is not a valid video, audio, or image file.".format(filename)))
+			msg.exec_()
+			return False
 		
 	def clear_effect_controls(self):
 		""" Clear all child widgets used for settings """

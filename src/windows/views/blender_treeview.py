@@ -86,6 +86,7 @@ class BlenderTreeView(QTreeView):
 			
 		elif event.id == 1006:
 			# Update image prevent
+			log.info('Draw image!')
 			self.update_image(event.data)
 			
 		elif event.id == 1007:
@@ -554,7 +555,6 @@ class BlenderTreeView(QTreeView):
 		pixmap = QPixmap.fromImage(scaled_image)
 		self.win.imgPreview.setPixmap(pixmap)
 
-		
 	def Render(self, frame=None):
 		""" Render an images sequence of the current template using Blender 2.62+ and the
 		Blender Python API. """
