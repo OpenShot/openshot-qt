@@ -85,7 +85,7 @@ App.directive('tlTrack', function($timeout) {
 		            	//if the droptrack was found, update the json
 		            	if (drop_track_id != -1){ 
 		            		//get track id from track.id
-		            		drop_track_num = drop_track_id.substr(drop_track_id.indexOf("_") + 1);
+		            		drop_track_num = parseInt(drop_track_id.substr(drop_track_id.indexOf("_") + 1));
 		            		
 		            		//find the clip in the json data
 		            		clip_data = findElement(scope.project.clips, "id", clip_num);
