@@ -1,12 +1,13 @@
 {
-  "fps": 30,
+  "fps": {
+    "num": 24,
+    "den": 1
+  },
   "width": 1280,
   "height": 720,
-  
   "settings": {},
   "clips": [],
   "files": [],
-  
   "duration": 600,
   "scale": 16,
   "tick_pixels": 100,

@@ -64,14 +64,17 @@ class UpdateAction:
 	def set_old_values(self, old_vals):
 		self.old_values = old_vals
 		
-	def json(self, is_array=False):
+	def json(self, is_array=False, only_value=False):
 		""" Get the JSON string representing this UpdateAction """
 		
 		# Build the dictionary to be serialized
-		data_dict = { "type" : self.type, 
-						  "key" : self.key,
-						  "value" : self.values,
-						  "partial" : self.partial_update }
+		if only_value:
+			data_dict = self.values
+		else:
+			data_dict = { "type" : self.type, 
+							  "key" : self.key,
+							  "value" : self.values,
+							  "partial" : self.partial_update }
 		
 		if not is_array:
 			# Use a JSON Object as the root object
