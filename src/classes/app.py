@@ -46,7 +46,7 @@ class OpenShotApp(QApplication):
 		# Setup appication
 		self.setApplicationName('openshot')
 		self.setApplicationVersion(info.SETUP['version'])
-		self.setWindowIcon(QIcon("xdg/openshot.svg"))
+		#self.setWindowIcon(QIcon("xdg/openshot.svg"))
 		
 		# Init settings
 		self.settings = settings.SettingStore()
@@ -98,7 +98,6 @@ class OpenShotApp(QApplication):
 		# Create main window
 		from windows.main_window import MainWindow
 		self.window = MainWindow()
-		self.window.setWindowIcon(QIcon("xdg/openshot.svg"))
 		self.window.show()
 			
 	def _tr(self, message):

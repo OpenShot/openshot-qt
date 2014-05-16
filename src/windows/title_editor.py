@@ -262,7 +262,7 @@ class TitleEditor(QDialog):
 		if not self.filename.endswith("svg"):
 			self.filename = self.filename + ".svg"
 		try:
-			file = open(self.filename, "wb")  #wb needed for windows support
+			file = open(self.filename.encode('UTF-8'), "wb")  #wb needed for windows support
 			file.write(bytes(xmldoc.toxml(), 'UTF-8'))
 			file.close()
 		except IOError as inst:
