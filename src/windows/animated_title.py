@@ -40,6 +40,7 @@ import time, uuid, shutil
 import threading, subprocess, re
 import math
 import subprocess
+import openshot # Python module for libopenshot (required video editing module installed separately)
 
 try:
 	import json
@@ -85,27 +86,20 @@ class AnimatedTitle(QDialog):
 		self.clear_effect_controls()
 		
 	def accept(self):
-		log.info('Render Animation')
-		
-		# Get the app
-		app = get_app()
+		""" Start rendering animation, but don't close window """
 		
 		# Render
 		self.blenderTreeView.Render()
-		
-		# Wait for rendering
-		while self.blenderTreeView.my_blender.is_running:
-			# Sleep
-			time.sleep(1.0)
-			log.info('rendering...')
-			
-		# Add File
-		#add_file()
 
-		# Close window
+		
+	def close(self):
+		""" Actually close window and accept dialog """
+		
 		super(AnimatedTitle, self).accept()
 		
+		
 	def add_file(self, filepath):
+		""" Add an animation to the project file tree """
 		path, filename = os.path.split(filepath)
 		
 		# Add file into project
@@ -120,12 +114,16 @@ class AnimatedTitle(QDialog):
 
 		# Get the JSON for the clip's internal reader
 		try:
+			# Open image sequence in FFmpegReader
 			reader = openshot.FFmpegReader(filepath)
+			reader.Open()
+			
+			# Serialize JSON for the reader
 			file_data = json.loads(reader.Json())
-
+	
 			# Set media type
 			file_data["media_type"] = "video"
-
+	
 			# Save new file to the project data
 			file = File()
 			file.data = file_data
