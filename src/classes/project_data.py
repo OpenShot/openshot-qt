@@ -27,7 +27,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import os, sys, random, copy
+import os, sys, random, copy, shutil
 from classes.json_data import JsonDataStore
 from classes.updates import UpdateInterface
 from classes import info, settings
@@ -257,6 +257,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 	def save(self, file_path):
 		""" Save project file to disk """ 
 		
+		# Move all temp files (i.e. Blender animations) to the project folder
+		self.move_temp_paths_to_project_folder(file_path)
+		
 		# Convert all file paths to relative based on this new project file's directory
 		self.convert_paths_to_relative(file_path)
 		
@@ -268,6 +271,37 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 		
 		# Add to recent files setting
 		self.add_to_recent_files(file_path)
+		
+		
+	def move_temp_paths_to_project_folder(self, file_path):
+		""" Move all temp files (such as Blender anmiations) to the project folder. """
+
+		# Get project folder
+		new_project_folder = os.path.dirname( file_path )
+
+		# Get list of files
+		files = self._data["files"]
+		
+		# Loop through each file
+		for file in files:
+			path = file["path"]
+
+			# Find any temp file paths
+			if info.BLENDER_PATH in path:
+				log.info("TEMP FOLDER DETECTED")
+				
+				# Get folder of file
+				folder_path, file_name = os.path.split(path)
+				parent_path, folder_name = os.path.split(folder_path)
+
+				# Update path to new folder
+				path = os.path.join(new_project_folder, folder_name)
+
+				# Copy temp folder to project folder
+				shutil.copytree(folder_path, path)
+			
+			# Update paths in project to new location
+			file["path"] = os.path.join(path, file_name)
 		
 	def add_to_recent_files(self, file_path):
 		""" Add this project to the recent files list """
