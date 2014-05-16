@@ -91,13 +91,31 @@ class AnimatedTitle(QDialog):
 		# Render
 		self.blenderTreeView.Render()
 
-		
 	def close(self):
 		""" Actually close window and accept dialog """
 		
+		# Re-enable interface
+		self.blenderTreeView.enable_interface()
+		
+		# Accept dialog
 		super(AnimatedTitle, self).accept()
+
+	def closeEvent(self, event):
+
+		# Stop threads
+		self.blenderTreeView.background.quit()
 		
+		# Re-enable interface
+		self.blenderTreeView.enable_interface()
 		
+	def reject(self):
+
+		# Stop threads
+		self.blenderTreeView.background.quit()
+		
+		# Cancel dialog
+		super(AnimatedTitle, self).reject()
+
 	def add_file(self, filepath):
 		""" Add an animation to the project file tree """
 		path, filename = os.path.split(filepath)

@@ -57,7 +57,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 	
 	#Save window settings on close
 	def closeEvent(self, event):
+		# Save settings
 		self.save_settings()
+		
+		# Stop threads
+		self.preview_thread.kill()
 		
 	def actionNew_trigger(self, event):
 		# clear data and start new project
@@ -328,63 +332,57 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		
 	def keyPressEvent(self, event):
 		""" Add some shortkey for Player """
-		self.key = QString()
+		self.key = ""
 		
 		#TODO : replace method by the corresponding and check them
-		#Basic shortkeys i.e just a letter
+		# Basic shortcuts i.e just a letter
 		if event.key() == Qt.Key_Left:
-			self.actionPlay()
-			#return True
+			self.actionPlay.trigger()
+
 		elif event.key() == Qt.Key_Right:
-			self.actionPlay()
-			#return True
+			self.actionPlay.trigger()
+
 		elif event.key() == Qt.Key_Up:
-			self.actionPlay()
-			#return True
+			self.actionPlay.trigger()
+
 		elif event.key() == Qt.Key_Down:
-			self.actionPlay()
-			#return True
+			self.actionPlay.trigger()
+
 		elif event.key() == Qt.Key_C:
-			self.actionPlay()
-			#return True
+			self.actionPlay.trigger()
+
 		elif event.key() == Qt.Key_J:
-			self.actionPlay()
-			#return True
+			self.actionPlay.trigger()
+
 		elif event.key() == Qt.Key_L:
-			self.actionFastForward()
-			#return True
+			self.actionFastForward.trigger()
+
 		elif event.key() == Qt.Key_M:
-			self.actionPlay()
-			#return True
+			self.actionPlay.trigger()
+
 		elif event.key() == Qt.Key_D:
 			#Add the Ctrl key 
 			if event.modifiers() & Qt.ControlModifier:
-				self.key = "Ctrl+D"
-				self.actionFastForward()
-				#return True
+				self.actionFastForward.trigger()
+
 		elif event.key() == Qt.Key_End:
 			#Add the Ctrl key
 			if event.modifiers() & Qt.ControlModifier:
-				self.key = "Ctrl+End"
-				self.actionFastForward()
-				#return True
+				self.actionFastForward.trigger()
+
 		elif event.key() == Qt.Key_Home:
 			#Add the Ctrl key
 			if event.modifiers() & Qt.ControlModifier:
-				self.key = "Ctrl+Home"
-				self.actionFastForward()
-				#return True
+				self.actionFastForward.trigger()
+
 		elif event.key() == Qt.Key_K or Qt.Key_Space:
-			self.actionPlay()
-			#return True
+			self.actionPlay.trigger()
+
 		elif event.key() == Qt.Key_Tab:
-			self.actionPlay()
-			#return True
-		if self.key:
-			self.key = QString(self.key)
-			self.update()
-		else:
-			QMainWindow.keyPressEvent(self.event)
+			self.actionPlay.trigger()
+			
+		# Bubble event on
+		event.ignore()
 	
 	def actionTimelineZoomIn_trigger(self, event):
 		self.sliderZoom.setValue(self.sliderZoom.value() + self.sliderZoom.singleStep())

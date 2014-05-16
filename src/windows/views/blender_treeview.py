@@ -586,7 +586,7 @@ class BlenderTreeView(QTreeView):
 
 
 		# Background Worker Thread (for Blender process)
-		background = QThread(self)
+		self.background = QThread(self)
 		self.worker = Worker()  # no parent!
 		
 		# Hook up signals to Background Worker
@@ -600,8 +600,8 @@ class BlenderTreeView(QTreeView):
 		self.worker.enable_interface.connect(self.onRenableInterface)
 
 		# Move Worker to new thread, and Start
-		self.worker.moveToThread(background)
-		background.start()
+		self.worker.moveToThread(self.background)
+		self.background.start()
 		
 	# Signal when to close window (1001)
 	def onCloseWindow(self):

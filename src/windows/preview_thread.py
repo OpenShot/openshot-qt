@@ -118,3 +118,4 @@ class PreviewThread(threading.Thread):
 			
 			# wait for a small delay
 			time.sleep(0.25)
+			#log.info("preview thread...")

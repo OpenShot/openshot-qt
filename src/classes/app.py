@@ -30,7 +30,7 @@
 from classes.logger import log
 from classes import info, settings, project_data, updates, language, ui_util
 from PyQt5.QtWidgets import QApplication, QStyleFactory
-from PyQt5.QtGui import QPalette, QColor
+from PyQt5.QtGui import QPalette, QColor, QIcon
 from PyQt5.QtCore import Qt
 
 def get_app():
@@ -46,6 +46,7 @@ class OpenShotApp(QApplication):
 		# Setup appication
 		self.setApplicationName('openshot')
 		self.setApplicationVersion(info.SETUP['version'])
+		self.setWindowIcon(QIcon("xdg/openshot.svg"))
 		
 		# Init settings
 		self.settings = settings.SettingStore()
@@ -97,6 +98,7 @@ class OpenShotApp(QApplication):
 		# Create main window
 		from windows.main_window import MainWindow
 		self.window = MainWindow()
+		self.window.setWindowIcon(QIcon("xdg/openshot.svg"))
 		self.window.show()
 			
 	def _tr(self, message):
@@ -112,6 +114,6 @@ class OpenShotApp(QApplication):
 			self.settings.save()
 		except Exception as ex:
 			log.error("Couldn't save user settings on exit.\n{}".format(ex))
-			
+
 		# return exit result
 		return res
