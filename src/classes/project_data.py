@@ -300,8 +300,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 				# Copy temp folder to project folder
 				shutil.copytree(folder_path, path)
 			
-			# Update paths in project to new location
-			file["path"] = os.path.join(path, file_name)
+				# Update paths in project to new location
+				file["path"] = os.path.join(path, file_name)
 		
 	def add_to_recent_files(self, file_path):
 		""" Add this project to the recent files list """
