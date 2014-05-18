@@ -43,7 +43,7 @@ class JsonDataStore:
 	Keys are assumed to be strings, but subclasses which override get/set methods may use different key types.
 	The write_to_file and read_from_file methods are key type agnostic."""
 	
-	#Create default data storage and default data type for logging messages
+	# Create default data storage and default data type for logging messages
 	def __init__(self):
 		self._data = {} #Private data store, accessible through the get and set methods
 		self.data_type = "json data"
@@ -51,42 +51,57 @@ class JsonDataStore:
 	def get(self, key):
 		""" Get copied value of a given key in data store """
 		key = key.lower()
-		return copy.deepcopy(self._data.get(key, None))
+		
+		# Determine if the root element is a dictionary or list (i.e. project data or settings data)
+		if type(self._data) == list:
+			# Settings data, search for matching "setting" attribute (i.e. list)
+			# Load user setting's values (for easy merging)
+			user_values = {}
+			for item in self._data:
+				if "setting" in item and "value" in item:
+					user_values[item["setting"].lower()] = item["value"]
+			
+			# Settings data
+			return copy.deepcopy(user_values.get(key, None))
+		else:
+			# Project data (i.e dictionary)
+			return copy.deepcopy(self._data.get(key, None))
 		
 	def set(self, key, value):
 		""" Store value in key """
 		key = key.lower()
-		self._data[key] = value
 		
-	def homogenize_keys(self, data):
-		""" Make all keys in dictionary lower cased """
-		rem_list = []
-		add_set = {}
-		#Find keys that need changing
-		for key in data:
-			key_lower = key.lower()
-			if key != key_lower:
-				rem_list.append(key)
-				add_set[key_lower] = data[key]
-		#Remove non-lowercase keys
-		for key in rem_list:
-			#log.info("Removing non-lowercased user setting key '{}'".format(key))
-			del data[key]
-		#Add lowercased data back in
-		for key in add_set:
-			#log.info("Relacing with lowercased user setting key '{}'".format(key))
-			data[key] = add_set[key]
+		# Determine if the root element is a dictionary or list (i.e. project data or settings data)
+		if type(self._data) == list:
+			# Settings data, search for matching "setting" attribute (i.e. list)
+			# Load user setting's values (for easy merging)
+			user_values = {}
+			for item in self._data:
+				if "setting" in item and "value" in item:
+					user_values[item["setting"].lower()] = item
+					
+			# Settings data
+			user_values[key]["value"] = value
+		
+		else:
+			# Project data (i.e dictionary)
+			self._data[key] = value
 		
 	def merge_settings(self, default, user):
 		""" Merge settings files, removing invalid settings based on default settings
 			This is only called by some sub-classes that use string keys """
-		#Make sure all keys are lowercase
-		self.homogenize_keys(default)
-		self.homogenize_keys(user)
-	
-		for key in default:
-			if key in user:
-				default[key] = user[key]
+		
+		# Load user setting's values (for easy merging)
+		user_values = {}
+		for item in user:
+			if "setting" in item and "value" in item:
+				user_values[item["setting"]] = item["value"]
+
+		# Update default values to match user values
+		for item in default:
+			user_value = user_values.get(item["setting"], None)
+			if user_value:
+				item["value"] = user_value
 		
 		return default
 		

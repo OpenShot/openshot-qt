@@ -1,12 +1,156 @@
-{
-  "volume": 60,
-  "window_state": "",
-  "window_geometry": "",
-  "window_splitter_pos": "",
-  "window_splitter_2_pos": "",
-  "file_view": "details",
-  "transitions_view": "thumbnail",
-  "effects_view": "thumbnail",
-  "recent_projects" : [],
-  "blender_command" : "/home/jonathan/blender-2.69-linux-glibc211-x86_64/blender"
-}
+[
+  {
+    "setting": "theme",
+    "title": "Default Theme",
+    "category": "General",
+    "type": "dropdown",
+    "default": "Humanity: Dark",
+    "value": "Humanity: Dark",
+    "values": [
+      {
+        "name": "Humanity",
+        "value": "Humanity"
+      },
+      {
+        "name": "Humanity: Dark",
+        "value": "Humanity: Dark"
+      }
+    ]
+  },
+  {
+    "setting": "default-image-length",
+    "title": "Default Image Length",
+    "category": "General",
+    "type": "spinner",
+    "min": 0,
+    "max": 1000,
+    "default": 7,
+    "value": 7
+  },
+  {
+    "setting": "volume",
+    "title": "Volume",
+    "category": "General",
+    "type": "spinner",
+    "min": 0,
+    "max": 100,
+    "default": 75,
+    "value": 60
+  },
+  {
+    "setting": "blender_command",
+    "title": "Blender Command (path)",
+    "category": "General",
+    "type": "text",
+    "default": "/path/to/blender",
+    "value": ""
+  },
+  {
+    "setting": "window_state",
+    "title": "",
+    "category": "Qt",
+    "type": "hidden",
+    "default": "",
+    "value": ""
+  },
+  {
+    "setting": "window_geometry",
+    "title": "",
+    "category": "Qt",
+    "type": "hidden",
+    "default": "",
+    "value": ""
+  },
+  {
+    "setting": "window_splitter_pos",
+    "title": "",
+    "category": "Qt",
+    "type": "hidden",
+    "default": "",
+    "value": ""
+  },
+  {
+    "setting": "window_splitter_2_pos",
+    "title": "",
+    "category": "Qt",
+    "type": "hidden",
+    "default": "",
+    "value": ""
+  },
+  {
+    "setting": "file_view",
+    "title": "",
+    "category": "UI",
+    "type": "hidden",
+    "default": "details",
+    "value": "details"
+  },
+  {
+    "setting": "transitions_view",
+    "title": "",
+    "category": "UI",
+    "type": "hidden",
+    "default": "thumbnail",
+    "value": "thumbnail"
+  },
+  {
+    "setting": "effects_view",
+    "title": "",
+    "category": "UI",
+    "type": "hidden",
+    "default": "thumbnail",
+    "value": "thumbnail"
+  },
+  {
+    "setting": "recent_projects",
+    "title": "",
+    "category": "UI",
+    "type": "hidden",
+    "default": "thumbnail",
+    "value": []
+  },
+  {
+    "setting": "default-profile",
+    "title": "Default Profile",
+    "category": "Profiles",
+    "type": "dropdown",
+    "default": "NTSC 720p",
+    "value": "NTSC 720p",
+    "values": [
+      {
+        "name": "NTSC 720p",
+        "value": "NTSC 720p"
+      },
+      {
+        "name": "NTSC 1080p",
+        "value": "NTSC 1080p"
+      }
+    ]
+  },
+  {
+    "setting": "enable-auto-save",
+    "title": "Enable Autosave",
+    "category": "Autosave",
+    "type": "bool",
+    "default": false,
+    "value": false
+  },
+  {
+    "setting": "save-before-playback",
+    "title": "Save Before Playback",
+    "category": "Autosave",
+    "type": "bool",
+    "default": false,
+    "value": false
+  },
+  {
+    "setting": "autosave-interval",
+    "title": "Volume",
+    "category": "Autosave",
+    "type": "spinner",
+    "min": 0,
+    "max": 60,
+    "default": 5,
+    "value": 5
+  }
+]
