@@ -70,6 +70,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		self.filesTreeView.refresh_view()
 		log.info("New Project created.")
 		
+		# Set Window title
+		self.SetWindowTitle()
+		
 	def actionAnimatedTitle_trigger(self, event):
 		# show dialog
 		from windows.animated_title import AnimatedTitle
@@ -133,6 +136,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		try:
 			# Save project to file
 			app.project.save(file_path)
+
+			# Set Window title
+			self.SetWindowTitle()
 			
 			# Load recent projects again
 			self.load_recent_menu()
@@ -152,6 +158,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 			if os.path.exists(file_path.encode('UTF-8')):
 				# Load project file
 				app.project.load(file_path)
+				
+				# Set Window title
+				self.SetWindowTitle()
 				
 				# Reset undo/redo history
 				app.updates.reset()
@@ -546,6 +555,23 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		else:
 			self.actionExit_Fullscreen_trigger(None)
 
+	def SetWindowTitle(self):
+		""" Set the window title based on a variety of factors """
+		
+		#Get translation function
+		_ =  get_app()._tr 
+		
+		# Is this a saved project?
+		if not get_app().project.current_filepath:
+			# Not saved yet
+			self.setWindowTitle("%s [%s] - %s" % (_("Untitled Project"), get_app().project.get(["profile"]), "OpenShot Video Editor"))
+		else:
+			# Yes, project is saved
+			# Get just the filename
+			parent_path, filename = os.path.split(get_app().project.current_filepath)
+			filename = filename.replace(".json", "").replace("_", " ").replace("-", " ").capitalize()
+			self.setWindowTitle("%s [%s] - %s" % (filename, get_app().project.get(["profile"]), "OpenShot Video Editor"))
+
 	#Update undo and redo buttons enabled/disabled to available changes
 	def updateStatusChanged(self, undo_status, redo_status):
 		self.actionUndo.setEnabled(undo_status)
@@ -758,6 +784,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		# Setup timeline
 		self.timeline = TimelineWebView(self)
 		self.frameWeb.layout().addWidget(self.timeline)
+		
+		# Set Window title
+		self.SetWindowTitle()
 		
 		# Setup files tree
 		if s.get("file_view") == "details":

@@ -90,20 +90,34 @@ class JsonDataStore:
 	def merge_settings(self, default, user):
 		""" Merge settings files, removing invalid settings based on default settings
 			This is only called by some sub-classes that use string keys """
+			
+		# Determine if the root element is a dictionary or list (i.e. project data or settings data)
+		if type(default) == list:
 		
-		# Load user setting's values (for easy merging)
-		user_values = {}
-		for item in user:
-			if "setting" in item and "value" in item:
-				user_values[item["setting"]] = item["value"]
-
-		# Update default values to match user values
-		for item in default:
-			user_value = user_values.get(item["setting"], None)
-			if user_value:
-				item["value"] = user_value
+			# Load user setting's values (for easy merging)
+			user_values = {}
+			for item in user:
+				if "setting" in item and "value" in item:
+					user_values[item["setting"]] = item["value"]
+	
+			# Update default values to match user values
+			for item in default:
+				user_value = user_values.get(item["setting"], None)
+				if user_value:
+					item["value"] = user_value
+					
+			# Return merged list
+			return default
 		
-		return default
+		else:
+			# Root object is a dictionary (i.e. project data)
+			for key in default:
+				if key not in user:
+					# Add missing key to user dictionary
+					user[key] = default[key]
+					
+			# Return merged dictionary
+			return user
 		
 	def read_from_file(self, file_path):
 		""" Load JSON settings from a file """

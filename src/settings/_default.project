@@ -12,6 +12,7 @@
   "scale": 16,
   "tick_pixels": 100,
   "playhead_position": 0,
+  "profile": "NTSC 720p",
   "layers": [
     {
       "number": 4,
