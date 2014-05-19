@@ -36,6 +36,7 @@ from classes.query import File, Clip
 from classes.logger import log
 from classes.app import get_app
 from classes import info, updates
+from classes import settings
 from classes.query import File, Clip
 import openshot # Python module for libopenshot (required video editing module installed separately)
 import uuid
@@ -175,7 +176,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 			if file.data["media_type"] != "image":
 				new_clip["end"] = new_clip["reader"]["duration"]
 			else:
-				new_clip["end"] = 8.0 # default to 8 seconds
+				new_clip["end"] = self.settings.get("default-image-length") # default to 8 seconds
 			
 			# Add clip to timeline
 			self.update_clip_data(new_clip)
@@ -211,6 +212,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		QWebView.__init__(self)
 		self.window = window
 		self.setAcceptDrops(True)
+		
+		# Get settings
+		self.settings = settings.get_settings()
 
 		#Add self as listener to project data updates (used to update the timeline)
 		get_app().updates.add_listener(self)

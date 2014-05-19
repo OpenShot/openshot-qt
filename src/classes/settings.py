@@ -48,6 +48,10 @@ class SettingStore(JsonDataStore):
 		self.settings_filename = "openshot.settings"
 		self.default_settings_filename = os.path.join(info.PATH, 'settings', '_default.settings')
 		
+	def get_all_settings(self):
+		""" Get the entire list of settings (with all metadata) """
+		return self._data
+		
 	def set(self, key, value):
 		""" Store setting, but adding isn't allowed. All possible settings must be in default settings file. """
 		key = key.lower()

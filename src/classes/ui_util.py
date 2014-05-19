@@ -30,6 +30,7 @@
 import os
 import xml.etree.ElementTree
 from classes.logger import log
+from classes import settings 
 from PyQt5.QtCore import QDir, Qt
 from PyQt5.QtGui import QPixmap, QImageReader, QIcon
 from PyQt5.QtWidgets import *
@@ -40,8 +41,10 @@ DEFAULT_THEME_NAME = "Humanity"
 def load_theme():
 	""" Load the current OS theme, or fallback to a default one """
 	
+	s = settings.get_settings()
+	
 	# If theme not reported by OS
-	if QIcon.themeName() == '':
+	if QIcon.themeName() == '' and not s.get("theme") == "No Theme":
 		
 		# Address known Ubuntu bug of not reporting configured theme name, use default ubuntu theme
 		if os.getenv('DESKTOP_SESSION') == 'ubuntu':

@@ -4,7 +4,6 @@
     "title": "Default Theme",
     "category": "General",
     "type": "dropdown",
-    "default": "Humanity: Dark",
     "value": "Humanity: Dark",
     "values": [
       {
@@ -14,17 +13,20 @@
       {
         "name": "Humanity: Dark",
         "value": "Humanity: Dark"
+      },
+      {
+        "name": "No Theme",
+        "value": "No Theme"
       }
     ]
   },
   {
     "setting": "default-image-length",
-    "title": "Default Image Length",
+    "title": "Image Length (seconds)",
     "category": "General",
     "type": "spinner",
     "min": 0,
     "max": 1000,
-    "default": 7,
     "value": 7
   },
   {
@@ -34,23 +36,20 @@
     "type": "spinner",
     "min": 0,
     "max": 100,
-    "default": 75,
-    "value": 60
+    "value": 75
   },
   {
     "setting": "blender_command",
     "title": "Blender Command (path)",
     "category": "General",
     "type": "text",
-    "default": "/path/to/blender",
-    "value": ""
+    "value": "/path/to/blender"
   },
   {
     "setting": "window_state",
     "title": "",
     "category": "Qt",
     "type": "hidden",
-    "default": "",
     "value": ""
   },
   {
@@ -58,7 +57,6 @@
     "title": "",
     "category": "Qt",
     "type": "hidden",
-    "default": "",
     "value": ""
   },
   {
@@ -66,7 +64,6 @@
     "title": "",
     "category": "Qt",
     "type": "hidden",
-    "default": "",
     "value": ""
   },
   {
@@ -74,7 +71,6 @@
     "title": "",
     "category": "Qt",
     "type": "hidden",
-    "default": "",
     "value": ""
   },
   {
@@ -82,7 +78,6 @@
     "title": "",
     "category": "UI",
     "type": "hidden",
-    "default": "details",
     "value": "details"
   },
   {
@@ -90,7 +85,6 @@
     "title": "",
     "category": "UI",
     "type": "hidden",
-    "default": "thumbnail",
     "value": "thumbnail"
   },
   {
@@ -98,7 +92,6 @@
     "title": "",
     "category": "UI",
     "type": "hidden",
-    "default": "thumbnail",
     "value": "thumbnail"
   },
   {
@@ -106,7 +99,6 @@
     "title": "",
     "category": "UI",
     "type": "hidden",
-    "default": "thumbnail",
     "value": []
   },
   {
@@ -114,7 +106,6 @@
     "title": "Default Profile",
     "category": "Profiles",
     "type": "dropdown",
-    "default": "NTSC 720p",
     "value": "NTSC 720p",
     "values": [
       {
@@ -132,7 +123,6 @@
     "title": "Enable Autosave",
     "category": "Autosave",
     "type": "bool",
-    "default": false,
     "value": false
   },
   {
@@ -140,17 +130,15 @@
     "title": "Save Before Playback",
     "category": "Autosave",
     "type": "bool",
-    "default": false,
     "value": false
   },
   {
     "setting": "autosave-interval",
-    "title": "Volume",
+    "title": "Autosave Interval (minutes)",
     "category": "Autosave",
     "type": "spinner",
     "min": 0,
     "max": 60,
-    "default": 5,
     "value": 5
   }
 ]
