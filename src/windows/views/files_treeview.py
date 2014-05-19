@@ -60,8 +60,21 @@ class FilesTreeView(QTreeView):
 		app.context_menu_object = "files"
 		
 		menu = QMenu(self)
-		menu.addAction(self.win.actionDetailsView)
+
+		if self.selected:
+			# If file selected, show file related options
+			menu.addAction(self.win.actionAdd_to_Timeline)
+			menu.addAction(self.win.actionPreview_File)
+			menu.addSeparator()
+			menu.addAction(self.win.actionFile_Properties)
+			menu.addAction(self.win.actionRemove_from_Project)
+			menu.addSeparator()
+			
+		menu.addAction(self.win.actionImportFiles)
+		menu.addSeparator()
 		menu.addAction(self.win.actionThumbnailView)
+		
+		# Show menu
 		menu.exec_(QCursor.pos())
 
 	def mouseMoveEvent(self, event):

@@ -46,7 +46,16 @@
     <bool>false</bool>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <property name="margin">
+    <property name="leftMargin">
+     <number>5</number>
+    </property>
+    <property name="topMargin">
+     <number>5</number>
+    </property>
+    <property name="rightMargin">
+     <number>5</number>
+    </property>
+    <property name="bottomMargin">
      <number>5</number>
     </property>
     <property name="spacing">
@@ -893,14 +902,14 @@
   </action>
   <action name="actionThumbnailView">
    <property name="icon">
-    <iconset theme="view-preview">
-     <normaloff>:/icons/Humanity/actions/16/view-preview.svg</normaloff>:/icons/Humanity/actions/16/view-preview.svg</iconset>
+    <iconset theme="view-preview" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/view-preview.png</normaloff>:/icons/Humanity/actions/16/view-preview.png</iconset>
    </property>
    <property name="text">
-    <string>Thumbnail View</string>
+    <string>Icon View</string>
    </property>
    <property name="toolTip">
-    <string>Thumbnail View</string>
+    <string>Icon View</string>
    </property>
   </action>
   <action name="actionDetailsView">
@@ -1033,6 +1042,54 @@
    </property>
    <property name="toolTip">
     <string>Profile</string>
+   </property>
+  </action>
+  <action name="actionAdd_to_Timeline">
+   <property name="icon">
+    <iconset theme="list-add" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/list-add.svg</normaloff>:/icons/Humanity/actions/16/list-add.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Add to Timeline</string>
+   </property>
+   <property name="toolTip">
+    <string>Add to Timeline</string>
+   </property>
+  </action>
+  <action name="actionPreview_File">
+   <property name="icon">
+    <iconset theme="media-playback-start" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/media-playback-start.svg</normaloff>:/icons/Humanity/actions/16/media-playback-start.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Preview File</string>
+   </property>
+   <property name="toolTip">
+    <string>Preview File</string>
+   </property>
+  </action>
+  <action name="actionRemove_from_Project">
+   <property name="icon">
+    <iconset theme="list-remove" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/list-remove.svg</normaloff>:/icons/Humanity/actions/16/list-remove.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Remove from Project</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove from </string>
+   </property>
+  </action>
+  <action name="actionFile_Properties">
+   <property name="icon">
+    <iconset theme="video-x-generic" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/mimes/16/video-x-generic.svg</normaloff>:/icons/Humanity/mimes/16/video-x-generic.svg</iconset>
+   </property>
+   <property name="text">
+    <string>File Properties</string>
+   </property>
+   <property name="toolTip">
+    <string>File Properties</string>
    </property>
   </action>
  </widget>

@@ -49,18 +49,32 @@ class FilesListView(QListView):
 	drag_item_size = 32
 	
 	def currentChanged(self, selected, deselected):
+		log.info('currentChanged')
 		# get selected item
 		self.selected = selected
 		self.deselected = deselected
-		
+
 	def contextMenuEvent(self, event):
 		# Set context menu mode
 		app = get_app()
 		app.context_menu_object = "files"
 		
 		menu = QMenu(self)
+
+		if self.selected:
+			# If file selected, show file related options
+			menu.addAction(self.win.actionAdd_to_Timeline)
+			menu.addAction(self.win.actionPreview_File)
+			menu.addSeparator()
+			menu.addAction(self.win.actionFile_Properties)
+			menu.addAction(self.win.actionRemove_from_Project)
+			menu.addSeparator()
+			
+		menu.addAction(self.win.actionImportFiles)
+		menu.addSeparator()
 		menu.addAction(self.win.actionDetailsView)
-		menu.addAction(self.win.actionThumbnailView)
+		
+		# Show menu
 		menu.exec_(QCursor.pos())
 
 	def mouseMoveEvent(self, event):
@@ -101,11 +115,12 @@ class FilesListView(QListView):
 	# Without defining this method, the 'copy' action doesn't show with cursor
 	def dragMoveEvent(self, event):
 		pass
-		
+
 	def mousePressEvent(self, event):
+
 		# Save position of mouse press to check for drag
 		self.startDragPos = event.pos()
-		
+
 		# Ignore event, propagate to parent 
 		event.ignore()
 		super().mousePressEvent(event)
