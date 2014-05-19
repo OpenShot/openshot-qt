@@ -214,7 +214,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 				parent.append(values)
 					
 			# Otherwise, set the given index
-			elif isinstance(parent, dict):
+			elif isinstance(values, dict):
 				# Update existing dictionary value
 				obj.update(values)
 				
