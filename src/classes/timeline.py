@@ -53,6 +53,10 @@ class TimelineSync(UpdateInterface):
 	def changed(self, action):
 		""" This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """
 		
+		# Ignore changes that don't affect libopenshot
+		if len(action.key) >= 1 and action.key[0].lower() in ["files", "profile"]:
+			return
+		
 		# Pass the change to the libopenshot timeline
 		try:
 			if action.type == "load":

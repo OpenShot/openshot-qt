@@ -214,9 +214,13 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 				parent.append(values)
 					
 			# Otherwise, set the given index
-			else:
+			elif isinstance(parent, dict):
 				# Update existing dictionary value
 				obj.update(values)
+				
+			else:
+			 	# Update root string
+			 	self._data[my_key] = values
 				
 		# Return the previous value to the matching item (used for history tracking)
 		return ret

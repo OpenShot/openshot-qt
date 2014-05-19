@@ -392,6 +392,15 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 			
 		# Bubble event on
 		event.ignore()
+		
+	def actionProfile_trigger(self, event):
+		#Show dialog
+		from windows.profile import Profile
+		win = Profile()
+		#Run the dialog event loop - blocking interaction on this window during this time
+		result = win.exec_()
+		if result == QDialog.Accepted:
+			log.info('Profile add confirmed')
 	
 	def actionTimelineZoomIn_trigger(self, event):
 		self.sliderZoom.setValue(self.sliderZoom.value() + self.sliderZoom.singleStep())
@@ -555,22 +564,25 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		else:
 			self.actionExit_Fullscreen_trigger(None)
 
-	def SetWindowTitle(self):
+	def SetWindowTitle(self, profile=None):
 		""" Set the window title based on a variety of factors """
 		
 		#Get translation function
-		_ =  get_app()._tr 
+		_ =  get_app()._tr
+		
+		if not profile:
+			profile = get_app().project.get(["profile"])
 		
 		# Is this a saved project?
 		if not get_app().project.current_filepath:
 			# Not saved yet
-			self.setWindowTitle("%s [%s] - %s" % (_("Untitled Project"), get_app().project.get(["profile"]), "OpenShot Video Editor"))
+			self.setWindowTitle("%s [%s] - %s" % (_("Untitled Project"), profile, "OpenShot Video Editor"))
 		else:
 			# Yes, project is saved
 			# Get just the filename
 			parent_path, filename = os.path.split(get_app().project.current_filepath)
 			filename = filename.replace(".json", "").replace("_", " ").replace("-", " ").capitalize()
-			self.setWindowTitle("%s [%s] - %s" % (filename, get_app().project.get(["profile"]), "OpenShot Video Editor"))
+			self.setWindowTitle("%s [%s] - %s" % (filename, profile, "OpenShot Video Editor"))
 
 	#Update undo and redo buttons enabled/disabled to available changes
 	def updateStatusChanged(self, undo_status, redo_status):

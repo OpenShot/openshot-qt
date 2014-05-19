@@ -162,8 +162,8 @@
    <addaction name="actionRedo"/>
    <addaction name="separator"/>
    <addaction name="actionImportFiles"/>
+   <addaction name="actionProfile"/>
    <addaction name="separator"/>
-   <addaction name="actionTakeSnapshot"/>
    <addaction name="actionExportVideo"/>
   </widget>
   <widget class="QDockWidget" name="dockFiles">
@@ -1021,6 +1021,18 @@
    </property>
    <property name="visible">
     <bool>false</bool>
+   </property>
+  </action>
+  <action name="actionProfile">
+   <property name="icon">
+    <iconset theme="video-x-generic" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/mimes/16/video-x-generic.svg</normaloff>:/icons/Humanity/mimes/16/video-x-generic.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Profile</string>
+   </property>
+   <property name="toolTip">
+    <string>Profile</string>
    </property>
   </action>
  </widget>
