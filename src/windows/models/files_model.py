@@ -132,7 +132,7 @@ class FilesModel(updates.UpdateInterface):
 			# Append thumbnail
 			col = QStandardItem()
 			col.setIcon(QIcon(thumb_path))
-			col.setText(filename)
+			col.setText((filename[:9] + '...') if len(filename) > 10 else filename)
 			col.setToolTip(filename)
 			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 			row.append(col)
@@ -140,7 +140,7 @@ class FilesModel(updates.UpdateInterface):
 			# Append Filename
 			col = QStandardItem("Name")
 			col.setData(filename, Qt.DisplayRole)
-			col.setText(filename)
+			col.setText((filename[:20] + '...') if len(filename) > 15 else filename)
 			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 			row.append(col)
 			
