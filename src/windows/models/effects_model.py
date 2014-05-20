@@ -102,12 +102,9 @@ class EffectsModel():
 
 						# Open reader
 						reader.Open()
-						
-						# Determine scale of thumbnail
-						scale = 95.0 / reader.info.width
-						
+
 						# Save thumbnail
-						reader.GetFrame(0).Save(thumb_path, scale)
+						reader.GetFrame(0).Thumbnail(thumb_path, 98, 64, os.path.join(info.IMAGES_PATH, "mask.png"), "", "#000", True)
 						reader.Close()
 
 					except:
@@ -122,6 +119,7 @@ class EffectsModel():
 				# Append thumbnail
 				col = QStandardItem()
 				col.setIcon(QIcon(thumb_path))
+				col.setText(self.app._tr(title))
 				col.setToolTip(self.app._tr(title))
 				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 				row.append(col)
@@ -129,6 +127,7 @@ class EffectsModel():
 				# Append Name
 				col = QStandardItem("Name")
 				col.setData(self.app._tr(title), Qt.DisplayRole)
+				col.setText(self.app._tr(title))
 				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 				row.append(col)
 				
@@ -141,12 +140,14 @@ class EffectsModel():
 				# Append Category
 				col = QStandardItem("Category")
 				col.setData(category, Qt.DisplayRole)
+				col.setText(category)
 				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 				row.append(col)
 				
 				# Append Path
 				col = QStandardItem("Path")
 				col.setData(path, Qt.DisplayRole)
+				col.setText(path)
 				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 				row.append(col)
 	

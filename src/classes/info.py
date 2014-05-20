@@ -40,6 +40,7 @@ THUMBNAIL_PATH = os.path.join(USER_PATH, "thumbnail")
 CACHE_PATH = os.path.join(USER_PATH, "cache")
 TITLE_PATH = os.path.join(USER_PATH, "title")
 PROFILE_PATH = os.path.join(PATH, "profiles")
+IMAGES_PATH = os.path.join(PATH, "images")
 
 # Create PATHS if they do not exist (this is where temp files are stored... such as cached thumbnails)
 for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH, TITLE_PATH]:

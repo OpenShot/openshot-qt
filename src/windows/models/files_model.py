@@ -109,12 +109,9 @@ class FilesModel(updates.UpdateInterface):
 
 						# Open reader
 						reader.Open()
-						
-						# Determine scale of thumbnail
-						scale = 95.0 / file.data["width"]
-						
+
 						# Save thumbnail
-						reader.GetFrame(0).Save(thumb_path, scale)
+						reader.GetFrame(0).Thumbnail(thumb_path, 98, 64, os.path.join(info.IMAGES_PATH, "mask.png"), os.path.join(info.IMAGES_PATH, "overlay.png"), "#000", False)
 						reader.Close()
 						
 					except:
@@ -135,6 +132,7 @@ class FilesModel(updates.UpdateInterface):
 			# Append thumbnail
 			col = QStandardItem()
 			col.setIcon(QIcon(thumb_path))
+			col.setText(filename)
 			col.setToolTip(filename)
 			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 			row.append(col)
@@ -142,24 +140,28 @@ class FilesModel(updates.UpdateInterface):
 			# Append Filename
 			col = QStandardItem("Name")
 			col.setData(filename, Qt.DisplayRole)
+			col.setText(filename)
 			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 			row.append(col)
 			
 			# Append Media Type
 			col = QStandardItem("Type")
 			col.setData(file.data["media_type"], Qt.DisplayRole)
+			col.setText(file.data["media_type"])
 			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 			row.append(col)
 			
 			# Append Path
 			col = QStandardItem("Path")
 			col.setData(path, Qt.DisplayRole)
+			col.setText(path)
 			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 			row.append(col)
 			
 			# Append ID
 			col = QStandardItem("ID")
 			col.setData(file.data["id"], Qt.DisplayRole)
+			col.setText(file.data["id"])
 			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 			row.append(col)
 

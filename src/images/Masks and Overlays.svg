@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="Masks and Overlays.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="5.6568542"
+     inkscape:cx="142.33901"
+     inkscape:cy="959.97316"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1855"
+     inkscape:window-height="1056"
+     inkscape:window-x="65"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g4111"
+       transform="matrix(0.72941498,0,0,0.72941498,5.9528704,28.783482)"
+       inkscape:export-filename="/home/jonathan/apps/openshot_qt/src/images/mask.png"
+       inkscape:export-xdpi="111.50923"
+       inkscape:export-ydpi="111.50923">
+      <rect
+         inkscape:export-ydpi="111.50923"
+         inkscape:export-xdpi="111.50923"
+         inkscape:export-filename="/home/jonathan/Downloads/mask.png"
+         y="35.362183"
+         x="22"
+         height="71"
+         width="108"
+         id="rect2985"
+         style="fill:#000000;fill-opacity:1;stroke:none" />
+      <rect
+         inkscape:export-ydpi="111.50923"
+         inkscape:export-xdpi="111.50923"
+         inkscape:export-filename="/home/jonathan/Downloads/mask.png"
+         ry="11.034356"
+         rx="11.021077"
+         y="35.362183"
+         x="22"
+         height="70.97097"
+         width="107.95644"
+         id="rect3755"
+         style="fill:#ffffff;fill-opacity:1;stroke:none" />
+    </g>
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:none"
+       d="m 106.375,54.6875 0,51.8125 9.125,0 0,-51.8125 -9.125,0 z m 1.125,1.1875 6.875,0 0,3.875 -6.875,0 0,-3.875 z m 0,6.53125 6.875,0 0,3.875 -6.875,0 0,-3.875 z m 0,6.5 6.875,0 0,3.875 -6.875,0 0,-3.875 z m 0,6.5 6.875,0 0,3.875 -6.875,0 0,-3.875 z m 0,6.5 6.875,0 0,3.875 -6.875,0 0,-3.875 z m 0,6.5 6.875,0 0,3.875 -6.875,0 0,-3.875 z m 0,6.53125 6.875,0 0,3.875 -6.875,0 0,-3.875 z m 0,6.5 6.875,0 0,3.875 -6.875,0 0,-3.875 z"
+       id="rect4214"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/jonathan/apps/openshot_qt/src/images/overlay.png"
+       inkscape:export-xdpi="111.50923"
+       inkscape:export-ydpi="111.50923" />
+    <g
+       transform="translate(84.375,0.12499612)"
+       id="g4296-0"
+       style="opacity:0.52674897"
+       inkscape:export-filename="/home/jonathan/apps/openshot_qt/src/images/overlay.png"
+       inkscape:export-xdpi="111.50923"
+       inkscape:export-ydpi="111.50923">
+      <rect
+         transform="scale(1,-1)"
+         y="-59.635406"
+         x="23.12521"
+         height="3.875"
+         width="6.875"
+         id="rect4216-33"
+         style="fill:#ffffff;fill-opacity:1;stroke:none" />
+      <rect
+         y="62.266769"
+         x="23.12521"
+         height="3.875"
+         width="6.875"
+         id="rect4216-3-5"
+         style="fill:#ffffff;fill-opacity:1;stroke:none" />
+      <rect
+         y="68.773102"
+         x="23.12521"
+         height="3.875"
+         width="6.875"
+         id="rect4216-7-5"
+         style="fill:#ffffff;fill-opacity:1;stroke:none" />
+      <rect
+         y="75.279472"
+         x="23.12521"
+         height="3.875"
+         width="6.875"
+         id="rect4216-9-6"
+         style="fill:#ffffff;fill-opacity:1;stroke:none" />
+      <rect
+         y="81.785751"
+         x="23.12521"
+         height="3.875"
+         width="6.875"
+         id="rect4216-34-3"
+         style="fill:#ffffff;fill-opacity:1;stroke:none" />
+      <rect
+         y="88.292122"
+         x="23.12521"
+         height="3.875"
+         width="6.875"
+         id="rect4216-1-3"
+         style="fill:#ffffff;fill-opacity:1;stroke:none" />
+      <rect
+         y="94.798462"
+         x="23.12521"
+         height="3.875"
+         width="6.875"
+         id="rect4216-4-0"
+         style="fill:#ffffff;fill-opacity:1;stroke:none" />
+      <rect
+         y="101.30479"
+         x="23.12521"
+         height="3.875"
+         width="6.875"
+         id="rect4216-16-0"
+         style="fill:#ffffff;fill-opacity:1;stroke:none" />
+    </g>
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#000000;fill-opacity:1;stroke:none"
+       d="m 176.02346,54.687503 0,51.812497 9.12464,0 0,-51.812497 -9.12464,0 z m 1.125,1.1875 6.875,0 0,3.875 -6.875,0 0,-3.875 z m 0,6.53125 6.875,0 0,3.875 -6.875,0 0,-3.875 z m 0,6.5 6.875,0 0,3.875 -6.875,0 0,-3.875 z m 0,6.5 6.875,0 0,3.875 -6.875,0 0,-3.875 z m 0,6.5 6.875,0 0,3.875 -6.875,0 0,-3.875 z m 0,6.5 6.875,0 0,3.875 -6.875,0 0,-3.875 z m 0,6.53125 6.875,0 0,3.875 -6.875,0 0,-3.875 z m 0,6.499997 6.875,0 0,3.875 -6.875,0 0,-3.875 z"
+       id="rect4214-6"
+       inkscape:export-filename="/home/jonathan/apps/openshot_qt/src/images/overlay.png"
+       inkscape:export-xdpi="111.50923"
+       inkscape:export-ydpi="111.50923" />
+    <g
+       transform="translate(154.02346,0.12499862)"
+       id="g4296-0-4"
+       style="opacity:0.52674897"
+       inkscape:export-filename="/home/jonathan/apps/openshot_qt/src/images/overlay.png"
+       inkscape:export-xdpi="111.50923"
+       inkscape:export-ydpi="111.50923">
+      <rect
+         transform="scale(1,-1)"
+         y="-59.635406"
+         x="23.12521"
+         height="3.875"
+         width="6.875"
+         id="rect4216-33-4"
+         style="fill:#ffffff;fill-opacity:1;stroke:none" />
+      <rect
+         y="62.266769"
+         x="23.12521"
+         height="3.875"
+         width="6.875"
+         id="rect4216-3-5-4"
+         style="fill:#ffffff;fill-opacity:1;stroke:none" />
+      <rect
+         y="68.773102"
+         x="23.12521"
+         height="3.875"
+         width="6.875"
+         id="rect4216-7-5-8"
+         style="fill:#ffffff;fill-opacity:1;stroke:none" />
+      <rect
+         y="75.279472"
+         x="23.12521"
+         height="3.875"
+         width="6.875"
+         id="rect4216-9-6-2"
+         style="fill:#ffffff;fill-opacity:1;stroke:none" />
+      <rect
+         y="81.785751"
+         x="23.12521"
+         height="3.875"
+         width="6.875"
+         id="rect4216-34-3-9"
+         style="fill:#ffffff;fill-opacity:1;stroke:none" />
+      <rect
+         y="88.292122"
+         x="23.12521"
+         height="3.875"
+         width="6.875"
+         id="rect4216-1-3-6"
+         style="fill:#ffffff;fill-opacity:1;stroke:none" />
+      <rect
+         y="94.798462"
+         x="23.12521"
+         height="3.875"
+         width="6.875"
+         id="rect4216-4-0-4"
+         style="fill:#ffffff;fill-opacity:1;stroke:none" />
+      <rect
+         y="101.30479"
+         x="23.12521"
+         height="3.875"
+         width="6.875"
+         id="rect4216-16-0-3"
+         style="fill:#ffffff;fill-opacity:1;stroke:none" />
+    </g>
+  </g>
+</svg>

@@ -576,6 +576,8 @@ class BlenderTreeView(QTreeView):
 		self.setIndentation(0)
 		self.setSelectionBehavior(QTreeView.SelectRows)
 		self.setSelectionBehavior(QAbstractItemView.SelectRows)
+		self.setWordWrap(True)
+		self.setStyleSheet('QTreeView::item { padding-top: 2px; }')
 		
 		# Hook up button
 		self.win.btnRefresh.clicked.connect(functools.partial(self.btnRefresh_clicked))

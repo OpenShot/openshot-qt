@@ -228,6 +228,8 @@ class FilesTreeView(QTreeView):
 		self.setSelectionBehavior(QTreeView.SelectRows)
 		self.setSelectionBehavior(QAbstractItemView.SelectRows)
 		self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+		self.setWordWrap(True)
+		self.setStyleSheet('QTreeView::item { padding-top: 2px; }')
 		
 		# Refresh view
 		self.refresh_view()

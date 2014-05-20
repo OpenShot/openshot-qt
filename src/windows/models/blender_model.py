@@ -122,6 +122,7 @@ class BlenderModel():
 				# Append thumbnail
 				col = QStandardItem()
 				col.setIcon(QIcon(thumb_path))
+				col.setText(self.app._tr(title))
 				col.setToolTip(self.app._tr(title))
 				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 				row.append(col)
@@ -129,18 +130,21 @@ class BlenderModel():
 				# Append Name
 				col = QStandardItem("Name")
 				col.setData(self.app._tr(title), Qt.DisplayRole)
+				col.setText(self.app._tr(title))
 				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 				row.append(col)
 				
 				# Append Path
 				col = QStandardItem("Path")
 				col.setData(path, Qt.DisplayRole)
+				col.setText(path)
 				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 				row.append(col)
 				
 				# Append Service
 				col = QStandardItem("Service")
 				col.setData(service, Qt.DisplayRole)
+				col.setText(service)
 				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 				row.append(col)
 	

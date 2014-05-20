@@ -224,6 +224,9 @@ class FilesListView(QListView):
 		self.setIconSize(QSize(131, 108))
 		self.setViewMode(QListView.IconMode)
 		self.setResizeMode(QListView.Adjust)
+		self.setUniformItemSizes(True)
+		self.setWordWrap(True)
+		self.setStyleSheet('QListView::item { padding-top: 2px; }')
 		
 		# Refresh view
 		self.refresh_view()
