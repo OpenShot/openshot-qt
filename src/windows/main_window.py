@@ -429,6 +429,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		if app.context_menu_object == "files":
 			s.set("file_view", "details")
 			self.tabFiles.layout().removeWidget(self.filesTreeView)
+			self.filesTreeView.deleteLater()
+			self.filesTreeView = None
 			self.filesTreeView = FilesTreeView(self)
 			self.tabFiles.layout().addWidget(self.filesTreeView)
 			
@@ -436,6 +438,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		elif app.context_menu_object == "transitions":
 			s.set("transitions_view", "details")
 			self.tabTransitions.layout().removeWidget(self.transitionsTreeView)
+			self.transitionsTreeView.deleteLater()
+			self.transitionsTreeView = None
 			self.transitionsTreeView = TransitionsTreeView(self)
 			self.tabTransitions.layout().addWidget(self.transitionsTreeView)
 			
@@ -443,6 +447,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		elif app.context_menu_object == "effects":
 			s.set("effects_view", "details")
 			self.tabEffects.layout().removeWidget(self.effectsTreeView)
+			self.effectsTreeView.deleteLater()
+			self.effectsTreeView = None
 			self.effectsTreeView = EffectsTreeView(self)
 			self.tabEffects.layout().addWidget(self.effectsTreeView)
 
@@ -458,6 +464,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		if app.context_menu_object == "files":
 			s.set("file_view", "thumbnail")
 			self.tabFiles.layout().removeWidget(self.filesTreeView)
+			self.filesTreeView.deleteLater()
+			self.filesTreeView = None
 			self.filesTreeView = FilesListView(self)
 			self.tabFiles.layout().addWidget(self.filesTreeView)
 			
@@ -465,6 +473,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		elif app.context_menu_object == "transitions":
 			s.set("transitions_view", "thumbnail")
 			self.tabTransitions.layout().removeWidget(self.transitionsTreeView)
+			self.transitionsTreeView.deleteLater()
+			self.transitionsTreeView = None
 			self.transitionsTreeView = TransitionsListView(self)
 			self.tabTransitions.layout().addWidget(self.transitionsTreeView)
 
@@ -472,6 +482,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		elif app.context_menu_object == "effects":
 			s.set("effects_view", "thumbnail")
 			self.tabEffects.layout().removeWidget(self.effectsTreeView)
+			self.effectsTreeView.deleteLater()
+			self.effectsTreeView = None
 			self.effectsTreeView = EffectsListView(self)
 			self.tabEffects.layout().addWidget(self.effectsTreeView)
 			
