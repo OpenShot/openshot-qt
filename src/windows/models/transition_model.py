@@ -37,6 +37,31 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QTreeWidget, QApplication, QMessageBox, QTreeWidgetItem, QAbstractItemView
 import openshot # Python module for libopenshot (required video editing module installed separately)
 
+try:
+    import json
+except ImportError:
+    import simplejson as json
+
+class TransitionStandardItemModel(QStandardItemModel):
+	
+	def __init__(self, parent=None):
+		QStandardItemModel.__init__(self)
+		
+	def mimeData(self, indexes):
+		
+		# Create MimeData for drag operation
+		data = QMimeData()
+
+		# Get list of all selected file ids
+		files = []
+		for item in indexes:
+			selected_row = self.itemFromIndex(item).row()
+			files.append(self.item(selected_row, 3).text())
+		data.setText(json.dumps(files))
+
+		# Return Mimedata
+		return data
+		
 class TransitionsModel():
 			
 	def update_model(self, clear=True):
@@ -115,28 +140,28 @@ class TransitionsModel():
 				col.setIcon(QIcon(thumb_path))
 				col.setText(self.app._tr(trans_name))
 				col.setToolTip(self.app._tr(trans_name))
-				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
 				row.append(col)
 				
 				# Append Filename
 				col = QStandardItem("Name")
 				col.setData(self.app._tr(trans_name), Qt.DisplayRole)
 				col.setText(self.app._tr(trans_name))
-				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
 				row.append(col)
 				
 				# Append Media Type
 				col = QStandardItem("Type")
 				col.setData(type, Qt.DisplayRole)
 				col.setText(type)
-				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
 				row.append(col)
 				
 				# Append Path
 				col = QStandardItem("Path")
 				col.setData(path, Qt.DisplayRole)
 				col.setText(path)
-				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
 				row.append(col)
 	
 				# Append ROW to MODEL (if does not already exist in model)
@@ -151,7 +176,7 @@ class TransitionsModel():
 
 		# Create standard model 
 		self.app = get_app()
-		self.model = QStandardItemModel()
+		self.model = TransitionStandardItemModel()
 		self.model.setColumnCount(4)
 		self.model_paths = {}
 

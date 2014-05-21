@@ -420,6 +420,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 					# Remove clip
 					c.delete()
 			
+		# Clear selected files
+		self.selected_files = []
 		
 	
 	def actionTimelineZoomIn_trigger(self, event):
@@ -506,6 +508,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 			self.effectsTreeView = None
 			self.effectsTreeView = EffectsListView(self)
 			self.tabEffects.layout().addWidget(self.effectsTreeView)
+			
+	def resize_contents(self):
+		if self.filesTreeView:
+			self.filesTreeView.resize_contents()
 			
 	def getDocks(self):
 		""" Get a list of all dockable widgets """

@@ -46,20 +46,24 @@ except ImportError:
 
 class FilesListView(QListView):
 	""" A ListView QWidget used on the main window """ 
-	drag_item_size = 32
+	drag_item_size = 48
 	
-	def currentChanged(self, selected, deselected):
-		log.info('currentChanged')
-		# get selected item
-		self.selected = selected
-		self.deselected = deselected
+	def updateSelection(self):
+		log.info('updateSelection')
 		
-		# keep track of the selected file on the main window
-		if self.selected:
-			selected_row = self.files_model.model.itemFromIndex(self.selected).row()
-			self.win.selected_files = [self.files_model.model.item(selected_row, 4).text()]
+		# Track selected items
+		self.selected = self.selectionModel().selectedIndexes()
+		
+		# Track selected file ids on main window
+		self.win.selected_files = []
+		for selection in self.selected:
+			selected_row = self.files_model.model.itemFromIndex(selection).row()
+			self.win.selected_files.append(self.files_model.model.item(selected_row, 4).text())
 
 	def contextMenuEvent(self, event):
+		# Update selection
+		self.updateSelection()
+		
 		# Set context menu mode
 		app = get_app()
 		app.context_menu_object = "files"
@@ -82,53 +86,30 @@ class FilesListView(QListView):
 		# Show menu
 		menu.exec_(QCursor.pos())
 
-	def mouseMoveEvent(self, event):
-		#If mouse drag detected, set the proper data and icon and start dragging
-		if self.selected and event.buttons() & Qt.LeftButton == Qt.LeftButton and (event.pos() - self.startDragPos).manhattanLength() >= QApplication.startDragDistance():
-			# Get selected item
-			dragItemRow = self.files_model.model.itemFromIndex(self.selected).row()
-			
-			# Get all selected rows items
-			dragItem = []
-			for col in range(5):
-				dragItem.append(self.files_model.model.item(dragItemRow, col))
-			
-			# Setup data based on item being dragged
-			data = QMimeData()
-			data.setText(dragItem[4].text()) # Add file ID to mimedata
-			# Start drag operation
-			drag = QDrag(self)
-			drag.setMimeData(data)
-			drag.setPixmap(QIcon.fromTheme('document-new').pixmap(QSize(self.drag_item_size,self.drag_item_size)))
-			drag.setHotSpot(QPoint(self.drag_item_size/2,self.drag_item_size/2))
-			drag.exec_()
-
-			# Accept event
-			event.accept()
-			return
-		
-		# Ignore event, propagate to parent 
-		event.ignore()
-		super().mouseMoveEvent(event)
-	
 	def dragEnterEvent(self, event):
 		# If dragging urls onto widget, accept
 		if event.mimeData().hasUrls():
 			event.setDropAction(Qt.CopyAction)
 			event.accept()
+			
+	def startDrag(self, event):
+		""" Override startDrag method to display custom icon """
+
+		# Get image of selected item
+		selected_row = self.files_model.model.itemFromIndex(self.selectionModel().selectedIndexes()[0]).row()
+		icon = self.files_model.model.item(selected_row, 0).icon()
+		
+		# Start drag operation
+		drag = QDrag(self)
+		drag.setMimeData(self.files_model.model.mimeData(self.selectionModel().selectedIndexes()))
+		#drag.setPixmap(QIcon.fromTheme('document-new').pixmap(QSize(self.drag_item_size,self.drag_item_size)))
+		drag.setPixmap(icon.pixmap(QSize(self.drag_item_size,self.drag_item_size)))
+		drag.setHotSpot(QPoint(self.drag_item_size/2,self.drag_item_size/2))
+		drag.exec_()
 
 	# Without defining this method, the 'copy' action doesn't show with cursor
 	def dragMoveEvent(self, event):
 		pass
-
-	def mousePressEvent(self, event):
-
-		# Save position of mouse press to check for drag
-		self.startDragPos = event.pos()
-
-		# Ignore event, propagate to parent 
-		event.ignore()
-		super().mousePressEvent(event)
 		
 	def is_image(self, file):
 		path = file["path"].lower()
@@ -207,6 +188,9 @@ class FilesListView(QListView):
 			
 	def refresh_view(self):
 		self.files_model.update_model()
+
+	def resize_contents(self):
+		pass
 			
 	def __init__(self, *args):
 		# Invoke parent init
@@ -217,18 +201,17 @@ class FilesListView(QListView):
 		
 		# Get Model data
 		self.files_model = FilesModel()
-		
-		# Keep track of mouse press start position to determine when to start drag
-		self.startDragPos = None
 		self.setAcceptDrops(True)
-		self.selected = None
-		self.deselected = None
+		self.setDragEnabled(True)
+		self.setDropIndicatorShown(True)
+		self.selected = []
 
 		# Setup header columns
 		self.setModel(self.files_model.model)
 		self.setIconSize(QSize(131, 108))
 		self.setViewMode(QListView.IconMode)
 		self.setResizeMode(QListView.Adjust)
+		self.setSelectionMode( QAbstractItemView.ExtendedSelection )
 		self.setUniformItemSizes(True)
 		self.setWordWrap(True)
 		self.setStyleSheet('QListView::item { padding-top: 2px; }')

@@ -38,6 +38,32 @@ from PyQt5.QtWidgets import QTreeWidget, QApplication, QMessageBox, QTreeWidgetI
 import xml.dom.minidom as xml
 import openshot # Python module for libopenshot (required video editing module installed separately)
 
+try:
+    import json
+except ImportError:
+    import simplejson as json
+
+class EffectsStandardItemModel(QStandardItemModel):
+	
+	def __init__(self, parent=None):
+		QStandardItemModel.__init__(self)
+		
+	def mimeData(self, indexes):
+		
+		# Create MimeData for drag operation
+		data = QMimeData()
+
+		# Get list of all selected file ids
+		files = []
+		for item in indexes:
+			selected_row = self.itemFromIndex(item).row()
+			files.append(self.item(selected_row, 4).text())
+		data.setText(json.dumps(files))
+
+		# Return Mimedata
+		return data
+		
+
 class EffectsModel():
 			
 	def update_model(self, clear=True):
@@ -121,34 +147,34 @@ class EffectsModel():
 				col.setIcon(QIcon(thumb_path))
 				col.setText(self.app._tr(title))
 				col.setToolTip(self.app._tr(title))
-				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
 				row.append(col)
 				
 				# Append Name
 				col = QStandardItem("Name")
 				col.setData(self.app._tr(title), Qt.DisplayRole)
 				col.setText(self.app._tr(title))
-				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
 				row.append(col)
 				
 				# Append Description
 				col = QStandardItem("Description")
 				col.setData(self.app._tr(description), Qt.DisplayRole)
-				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
 				row.append(col)
 				
 				# Append Category
 				col = QStandardItem("Category")
 				col.setData(category, Qt.DisplayRole)
 				col.setText(category)
-				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
 				row.append(col)
 				
 				# Append Path
 				col = QStandardItem("Path")
 				col.setData(path, Qt.DisplayRole)
 				col.setText(path)
-				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
 				row.append(col)
 	
 				# Append ROW to MODEL (if does not already exist in model)
@@ -163,7 +189,7 @@ class EffectsModel():
 
 		# Create standard model 
 		self.app = get_app()
-		self.model = QStandardItemModel()
+		self.model = EffectsStandardItemModel()
 		self.model.setColumnCount(5)
 		self.model_paths = {}
 

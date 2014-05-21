@@ -45,13 +45,8 @@ except ImportError:
 
 class EffectsListView(QListView):
 	""" A TreeView QWidget used on the main window """ 
-	drag_item_size = 32
+	drag_item_size = 48
 	
-	def currentChanged(self, selected, deselected):
-		# get selected item
-		self.selected = selected
-		self.deselected = deselected
-		
 	def contextMenuEvent(self, event):
 		# Set context menu mode
 		app = get_app()
@@ -62,43 +57,20 @@ class EffectsListView(QListView):
 		menu.addAction(self.win.actionThumbnailView)
 		menu.exec_(QCursor.pos())
 
-	def mouseMoveEvent(self, event):
-		#If mouse drag detected, set the proper data and icon and start dragging
-		if self.selected and event.buttons() & Qt.LeftButton == Qt.LeftButton and (event.pos() - self.startDragPos).manhattanLength() >= QApplication.startDragDistance():
-			# Get selected item
-			dragItemRow = self.effects_model.model.itemFromIndex(self.selected).row()
-			
-			# Get all selected rows items
-			dragItem = []
-			for col in range(5):
-				dragItem.append(self.effects_model.model.item(dragItemRow, col))
-			
-			# Setup data based on item being dragged
-			data = QMimeData()
-			data.setText(dragItem[4].text()) # Add file path to mimedata
-			# Start drag operation
-			drag = QDrag(self)
-			drag.setMimeData(data)
-			drag.setPixmap(QIcon.fromTheme('document-new').pixmap(QSize(self.drag_item_size,self.drag_item_size)))
-			drag.setHotSpot(QPoint(self.drag_item_size/2,self.drag_item_size/2))
-			drag.exec_()
+	def startDrag(self, event):
+		""" Override startDrag method to display custom icon """
 
-			# Accept event
-			event.accept()
-			return
+		# Get image of selected item
+		selected_row = self.effects_model.model.itemFromIndex(self.selectionModel().selectedIndexes()[0]).row()
+		icon = self.effects_model.model.item(selected_row, 0).icon()
 		
-		# Ignore event, propagate to parent 
-		event.ignore()
-		super().mouseMoveEvent(event)
-	
-	def mousePressEvent(self, event):
-		# Save position of mouse press to check for drag
-		self.startDragPos = event.pos()
-		
-		# Ignore event, propagate to parent 
-		event.ignore()
-		super().mousePressEvent(event)
-		
+		# Start drag operation
+		drag = QDrag(self)
+		drag.setMimeData(self.effects_model.model.mimeData(self.selectionModel().selectedIndexes()))
+		#drag.setPixmap(QIcon.fromTheme('document-new').pixmap(QSize(self.drag_item_size,self.drag_item_size)))
+		drag.setPixmap(icon.pixmap(QSize(self.drag_item_size,self.drag_item_size)))
+		drag.setHotSpot(QPoint(self.drag_item_size/2,self.drag_item_size/2))
+		drag.exec_()
 		
 	def clear_filter(self):
 		get_app().window.effectsFilter.setText("")
@@ -124,9 +96,9 @@ class EffectsListView(QListView):
 		self.effects_model = EffectsModel()
 		
 		# Keep track of mouse press start position to determine when to start drag
-		self.startDragPos = None
-		self.selected = None
-		self.deselected = None
+		self.setAcceptDrops(True)
+		self.setDragEnabled(True)
+		self.setDropIndicatorShown(True)
 
 		# Setup header columns
 		self.setModel(self.effects_model.model)

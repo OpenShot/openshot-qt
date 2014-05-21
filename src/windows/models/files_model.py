@@ -39,6 +39,32 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QTreeWidget, QApplication, QMessageBox, QTreeWidgetItem, QAbstractItemView
 import openshot # Python module for libopenshot (required video editing module installed separately)
 
+try:
+    import json
+except ImportError:
+    import simplejson as json
+
+class FileStandardItemModel(QStandardItemModel):
+	
+	def __init__(self, parent=None):
+		QStandardItemModel.__init__(self)
+		
+	def mimeData(self, indexes):
+		
+		# Create MimeData for drag operation
+		data = QMimeData()
+
+		# Get list of all selected file ids
+		files = []
+		for item in indexes:
+			selected_row = self.itemFromIndex(item).row()
+			files.append(self.item(selected_row, 4).text())
+		data.setText(json.dumps(files))
+
+		# Return Mimedata
+		return data
+		
+
 class FilesModel(updates.UpdateInterface):
 	
 	# This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
@@ -139,35 +165,35 @@ class FilesModel(updates.UpdateInterface):
 			col.setIcon(QIcon(thumb_path))
 			col.setText((filename[:9] + '...') if len(filename) > 10 else filename)
 			col.setToolTip(filename)
-			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
 			row.append(col)
 			
 			# Append Filename
 			col = QStandardItem("Name")
 			col.setData(filename, Qt.DisplayRole)
 			col.setText((filename[:20] + '...') if len(filename) > 15 else filename)
-			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
 			row.append(col)
 			
 			# Append Media Type
 			col = QStandardItem("Type")
 			col.setData(file.data["media_type"], Qt.DisplayRole)
 			col.setText(file.data["media_type"])
-			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
 			row.append(col)
 			
 			# Append Path
 			col = QStandardItem("Path")
 			col.setData(path, Qt.DisplayRole)
 			col.setText(path)
-			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
 			row.append(col)
 			
 			# Append ID
 			col = QStandardItem("ID")
 			col.setData(file.data["id"], Qt.DisplayRole)
 			col.setText(file.data["id"])
-			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
 			row.append(col)
 
 			# Append ROW to MODEL (if does not already exist in model)
@@ -177,6 +203,9 @@ class FilesModel(updates.UpdateInterface):
 			
 			# Process events in QT (to keep the interface responsive)
 			app.processEvents()
+				
+			# Refresh view and filters (to hide or show this new item)
+			get_app().window.resize_contents()
 
 	def __init__(self, *args):
 
@@ -185,7 +214,7 @@ class FilesModel(updates.UpdateInterface):
 		app.updates.add_listener(self)
 
 		# Create standard model 
-		self.model = QStandardItemModel()
+		self.model = FileStandardItemModel()
 		self.model.setColumnCount(5)
 		self.model_ids = {}
 

@@ -134,7 +134,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         
 		#If a plain text drag accept
 		if not self.new_clip and not event.mimeData().hasUrls() and event.mimeData().hasText():
-			file_id = event.mimeData().text()
+			file_ids = json.loads(event.mimeData().text())
+			file_id = file_ids[0]
 			event.accept()
 			pos = event.posF()
 			
