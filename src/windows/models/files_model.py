@@ -109,9 +109,14 @@ class FilesModel(updates.UpdateInterface):
 
 						# Open reader
 						reader.Open()
+						
+						# Determine if video overlay should be applied to thumbnail
+						overlay_path = ""
+						if file.data["media_type"] == "video":
+							overlay_path = os.path.join(info.IMAGES_PATH, "overlay.png")
 
 						# Save thumbnail
-						reader.GetFrame(0).Thumbnail(thumb_path, 98, 64, os.path.join(info.IMAGES_PATH, "mask.png"), os.path.join(info.IMAGES_PATH, "overlay.png"), "#000", False)
+						reader.GetFrame(0).Thumbnail(thumb_path, 98, 64, os.path.join(info.IMAGES_PATH, "mask.png"), overlay_path, "#000", False)
 						reader.Close()
 						
 					except:

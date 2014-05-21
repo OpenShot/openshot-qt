@@ -12,10 +12,13 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    id="svg2"
    version="1.1"
-   inkscape:version="0.47 r22583"
-   width="86.1175"
-   height="74.059319"
-   sodipodi:docname="AudioThumbnail.svg">
+   inkscape:version="0.48.4 r9939"
+   width="98.03125"
+   height="64.03125"
+   sodipodi:docname="AudioThumbnail.svg"
+   inkscape:export-filename="/home/jonathan/apps/openshot_qt/src/images/AudioThumbnail.png"
+   inkscape:export-xdpi="89.956078"
+   inkscape:export-ydpi="89.956078">
   <metadata
      id="metadata8">
     <rdf:RDF>
@@ -24,7 +27,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -34,7 +37,7 @@
        inkscape:collect="always"
        id="linearGradient3606">
       <stop
-         style="stop-color:#c8c8c0;stop-opacity:1"
+         style="stop-color:#f1f1f1;stop-opacity:1"
          offset="0"
          id="stop3608" />
       <stop
@@ -65,7 +68,7 @@
        fx="39.194912"
        fy="37.156776"
        r="39.067795"
-       gradientTransform="matrix(1.5919567,0,0,1.459313,-19.337857,-17.193711)"
+       gradientTransform="matrix(1.8328988,0,0,1.278359,-22.840309,-15.468449)"
        gradientUnits="userSpaceOnUse" />
     <inkscape:perspective
        id="perspective3628"
@@ -91,51 +94,62 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1680"
-     inkscape:window-height="936"
+     inkscape:window-width="920"
+     inkscape:window-height="705"
      id="namedview4"
      showgrid="false"
      inkscape:zoom="3.1891892"
-     inkscape:cx="44.001706"
-     inkscape:cy="25.126093"
-     inkscape:window-x="0"
-     inkscape:window-y="24"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg2" />
+     inkscape:cx="51.21357"
+     inkscape:cy="27.953957"
+     inkscape:window-x="879"
+     inkscape:window-y="80"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
   <rect
-     style="fill:url(#radialGradient3612);fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+     style="fill:url(#radialGradient3612);fill-opacity:1;stroke:none"
      id="rect2818"
-     width="85.1175"
-     height="73.059319"
-     x="0.5"
-     y="0.5"
-     ry="6.8983049"
-     rx="7.2118692"
+     width="98"
+     height="64"
+     x="0"
+     y="0.03125"
+     ry="12.072653"
+     rx="12.072653"
      inkscape:export-filename="/home/jonathan/openshot/openshot/images/AudioThumbnail.png"
      inkscape:export-xdpi="90"
      inkscape:export-ydpi="90" />
-  <path
-     style="fill:#c8c8c0;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-     d="M 63.285073,6.6942911 26.9173,16.01118 l 0,32.59375 c -1.101429,-0.431134 -2.277034,-0.6875 -3.53125,-0.6875 -5.387912,0 -9.781251,4.393339 -9.781251,9.78125 0,5.387911 4.393339,9.75 9.781251,9.75 5.387911,0 9.75,-4.362089 9.75,-9.75 0,-0.45662 -0.0643,-0.903822 -0.125,-1.34375 l 0.125,0 -0.4375,-36.145789 25.274023,-6.4211 0.65625,28.90625 c -1.276337,-0.612766 -2.708315,-0.96875 -4.21875,-0.96875 -5.387911,0 -9.75,4.362089 -9.75,9.75 0,5.387911 4.362089,9.75 9.75,9.75 5.093219,0 9.276559,-3.896738 9.71875,-8.875 l 0.03125,0 0,-0.53125 c 0.004,-0.11467 0,-0.228107 0,-0.34375 0,-0.336744 -0.03125,-0.670352 -0.03125,-1 0,0 0,-0.03125 0,-0.03125 L 63.285073,6.6942911 z"
-     id="path3616"
-     inkscape:export-filename="/home/jonathan/openshot/openshot/images/AudioThumbnail.png"
-     inkscape:export-xdpi="90"
-     inkscape:export-ydpi="90"
-     sodipodi:nodetypes="cccsssscccccssscccsscc" />
-  <path
-     style="opacity:0.39330546;fill:#ffffff;fill-opacity:1;stroke:none"
-     d="m 16.723596,59.904526 c -0.752063,-6.611927 2.701197,-8.805604 7.760197,-9.312237 0,0 -2.644777,1.295108 -4.683833,3.547519 -1.885471,2.082755 -3.076364,5.764718 -3.076364,5.764718 z"
-     id="path3646"
-     sodipodi:nodetypes="ccsc"
-     inkscape:export-filename="/home/jonathan/openshot/openshot/images/AudioThumbnail.png"
-     inkscape:export-xdpi="90"
-     inkscape:export-ydpi="90" />
-  <path
-     style="opacity:0.39330546;fill:#ffffff;fill-opacity:1;stroke:none"
-     d="m 47.926651,53.252929 c -0.752062,-6.611927 2.701197,-8.805604 7.760197,-9.312237 0,0 -2.644777,1.295108 -4.683833,3.547519 -1.885471,2.082755 -3.076364,5.764718 -3.076364,5.764718 z"
-     id="path3646-5"
-     sodipodi:nodetypes="ccsc"
-     inkscape:export-filename="/home/jonathan/openshot/openshot/images/AudioThumbnail.png"
-     inkscape:export-xdpi="90"
-     inkscape:export-ydpi="90" />
+  <g
+     id="g3783"
+     transform="translate(-2.1949152,-0.94067796)">
+    <path
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccsssscccccssscccsscc"
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/jonathan/openshot/openshot/images/AudioThumbnail.png"
+       id="path3616"
+       d="m 72.135827,5.815698 -37.437446,8.045867 0,28.147269 c -1.133825,-0.372318 -2.344008,-0.593711 -3.635114,-0.593711 -5.546385,0 -10.068944,3.793994 -10.068944,8.44688 0,4.652885 4.522559,8.419892 10.068944,8.419892 5.546383,0 10.036774,-3.767007 10.036774,-8.419892 0,-0.394328 -0.06619,-0.780522 -0.128678,-1.160434 l 0.128678,0 -0.450369,-31.214734 26.0174,-5.545125 0.675552,24.962822 C 66.028746,36.375361 64.55465,36.06794 62.999789,36.06794 c -5.546384,0 -10.036774,3.767007 -10.036774,8.419893 0,4.652885 4.49039,8.419892 10.036774,8.419892 5.243024,0 9.549407,-3.36514 10.004604,-7.664261 l 0.03217,0 0,-0.458776 c 0.0042,-0.09902 0,-0.196988 0,-0.296855 0,-0.290806 -0.03217,-0.578902 -0.03217,-0.86358 0,0 0,-0.02699 0,-0.02699 L 72.135827,5.815698 z"
+       style="fill:#000000;fill-opacity:1;stroke:#555555;stroke-width:0.75;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <path
+       inkscape:connector-curvature="0"
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/jonathan/openshot/openshot/images/AudioThumbnail.png"
+       sodipodi:nodetypes="ccsc"
+       id="path3646"
+       d="m 24.204852,51.766925 c -0.774183,-5.70992 2.780646,-7.604333 7.988445,-8.041851 0,0 -2.722567,1.118428 -4.821597,3.063563 -1.940928,1.798622 -3.166848,4.978288 -3.166848,4.978288 z"
+       style="opacity:0.62962964;fill:#ffffff;fill-opacity:1;stroke:none" />
+    <path
+       inkscape:connector-curvature="0"
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/jonathan/openshot/openshot/images/AudioThumbnail.png"
+       sodipodi:nodetypes="ccsc"
+       id="path3646-5"
+       d="m 56.325673,46.022747 c -0.774183,-5.70992 2.780646,-7.604332 7.988445,-8.04185 0,0 -2.722567,1.118428 -4.821597,3.063563 -1.940928,1.798622 -3.166848,4.978287 -3.166848,4.978287 z"
+       style="opacity:0.62962964;fill:#ffffff;fill-opacity:1;stroke:none" />
+  </g>
 </svg>
