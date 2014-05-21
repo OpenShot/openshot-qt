@@ -1,8 +1,6 @@
 
 App.controller('TimelineCtrl',function($scope,$timeout) {
 
-
-
   $scope.project =
     {
       duration : 600, //length of project in seconds
@@ -21,7 +19,7 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 	                 start : 0,
 	                 end : 32,
 	                 position : 0.0,
-	                 title : 'Clip A',
+	                 title : 'Clip U2V5ENELDY',
 	                 effects : [
 	                           { effect : 'Black and White', icon : 'bw.png'},
 	                           { effect : 'Old Movie',icon : 'om.png'},
@@ -151,6 +149,22 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 	 });
  };
  
+ // Show clip context menu
+ $scope.ShowClipMenu = function(clip_id) {
+ 	if ($scope.Qt) {
+	 	timeline.qt_log("$scope.ShowClipMenu");
+	 	timeline.ShowClipMenu(clip_id);
+ 	}
+ };
+ 
+  // Show playhead context menu
+ $scope.ShowPlayheadMenu = function(position) {
+ 	if ($scope.Qt) {
+	 	timeline.qt_log("$scope.ShowPlayheadMenu");
+	 	timeline.ShowPlayheadMenu(position);
+	 }
+ };
+ 
  // Move a new clip to the timeline
  $scope.MoveClip = function(x, y){
 	 $scope.$apply(function(){
@@ -214,111 +228,115 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
  // to the timeline. A change can be an insert, update, or delete. The change is passed in
  // as JSON, which represents the change.
  $scope.ApplyJsonDiff = function(jsonDiff){
- 	$scope.$apply(function(){
-	 
-		 // Loop through each UpdateAction
-		for (var action_index = 0; action_index < jsonDiff.length; action_index++) {
-			var action = jsonDiff[action_index];
-		 	
-			 // Iterate through the key levels (looking for a matching element in the $scope.project)
-			 var previous_object = null;
-			 var current_object = $scope.project;
-			 var current_position = 0;
-			 var current_key = "";
-			 for (var key_index = 0; key_index < action.key.length; key_index++) {
-			 	var key_value = action.key[key_index];
-	
-			 	// Check the key type
-			 	if (key_value.constructor == String) {
-			 		// Does the key value exist in scope
-			 		if (!current_object.hasOwnProperty(key_value))
-			 			// No match, bail out
-			 			return false;
+
+	timeline.qt_log(JSON.stringify($scope.project.clips));
+
+	 // Loop through each UpdateAction
+	for (var action_index = 0; action_index < jsonDiff.length; action_index++) {
+		var action = jsonDiff[action_index];
+	 	
+		 // Iterate through the key levels (looking for a matching element in the $scope.project)
+		 var previous_object = null;
+		 var current_object = $scope.project;
+		 var current_position = 0;
+		 var current_key = "";
+		 for (var key_index = 0; key_index < action.key.length; key_index++) {
+		 	var key_value = action.key[key_index];
+
+		 	// Check the key type
+		 	if (key_value.constructor == String) {
+		 		// Does the key value exist in scope
+		 		if (!current_object.hasOwnProperty(key_value))
+		 			// No match, bail out
+		 			return false;
+		 		
+	 			// set current level and previous level
+	 			previous_object = current_object;
+	 			current_object = current_object[key_value];
+	 			current_key = key_value;
+		 		
+		 	} else if (key_value.constructor == Object) {
+		 		// Get the id from the object (if any)
+		 		var id = null;
+		 		if ("id" in key_value)
+		 			id = key_value["id"];
+		 			
+		 		// Be sure the current_object is an Array
+		 		if (current_object.constructor == Array) {
+			 		// Filter the current_object for a specific id
+			 		current_position = 0;
+			 		for (var child_index = 0; child_index < current_object.length; child_index++) {
+			 			var child_object = current_object[child_index];
 			 		
-		 			// set current level and previous level
-		 			previous_object = current_object;
-		 			current_object = current_object[key_value];
-		 			current_key = key_value;
-			 		
-			 	} else if (key_value.constructor == Object) {
-			 		// Get the id from the object (if any)
-			 		var id = null;
-			 		if ("id" in key_value)
-			 			id = key_value["id"];
-			 			
-			 		// Be sure the current_object is an Array
-			 		if (current_object.constructor == Array) {
-				 		// Filter the current_object for a specific id
-				 		current_position = 0;
-				 		for (var child_index = 0; child_index < current_object.length; child_index++) {
-				 			var child_object = current_object[child_index];
+						// Find matching child
+						if (child_object.hasOwnProperty("id") && child_object.id == id) {
+				 			// set current level and previous level
+				 			previous_object = current_object;
+				 			current_object = child_object;
+				 			break; // found child, stop looping
+				 		}
 				 		
-							// Find matching child
-							if (child_object.hasOwnProperty("id") && child_object.id == id) {
-					 			// set current level and previous level
-					 			previous_object = current_object;
-					 			current_object = child_object;
-					 			break; // found child, stop looping
-					 		}
-					 		
-					 		// increment index
-					 		current_position++;
-				 		}
+				 		// increment index
+				 		current_position++;
 			 		}
-			 	}
-			}
-			 
-			 	
-		 	// Now that we have a matching object in the $scope.project...
-		 	if (current_object){ 
-		 		// INSERT OBJECT
-			 	if (action.type == "insert") {
-			 		// Insert action's value into current_object
-			 		if (current_object.constructor == Array)
-			 			// push new element into array
-			 			current_object.push(action.value);
-			 		else {
-				 		// replace the entire value
-				 		if (previous_object.constructor == Array) {
-				 			// replace entire value in OBJECT
-				 			previous_object[current_position] = action.value;
-				 			
-				 		} else if (previous_object.constructor == Object) {
-				 			// replace entire value in OBJECT
-				 			previous_object[current_key] = action.value;
-				 		}
-			 		}
-			 		
-			 	} else if (action.type == "update") {
-			 		// UPDATE OBJECT
-			 		// Update: If action and current object are Objects
-			 		if (current_object.constructor == Object && action.value.constructor == Object)
-				 		for (var update_key in action.value)
-				 			if (update_key in current_object)
-				 				// Only copy over keys that exist in both action and current_object
-				 				current_object[update_key] = action.value[update_key];
-				 	else {
-				 		// replace the entire value
-				 		if (previous_object.constructor == Array) {
-				 			// replace entire value in OBJECT
-				 			previous_object[current_position] = action.value;
-				 			
-				 		} else if (previous_object.constructor == Object) {
-				 			// replace entire value in OBJECT
-				 			previous_object[current_key] = action.value;
-				 		}
-				 	}
-				 		
-			 		
-			 	} else if (action.type == "delete") {
-			 		// DELETE OBJECT
-			 		// delete current object from it's parent (previous object)
-			 		previous_object.splice(current_position, 1); 
-			 	}
+		 		}
 		 	}
-		}	
-		
-	 });
+		}
+
+	 	// Now that we have a matching object in the $scope.project...
+	 	if (current_object){ 
+	 		// INSERT OBJECT
+		 	if (action.type == "insert") {
+		 		$scope.$apply(function(){
+		 		// Insert action's value into current_object
+		 		if (current_object.constructor == Array)
+		 			// push new element into array
+		 			current_object.push(action.value);
+		 		else {
+			 		// replace the entire value
+			 		if (previous_object.constructor == Array) {
+			 			// replace entire value in OBJECT
+			 			previous_object[current_position] = action.value;
+			 			
+			 		} else if (previous_object.constructor == Object) {
+			 			// replace entire value in OBJECT
+			 			previous_object[current_key] = action.value;
+			 		}
+		 		}
+		 		});
+		 		
+		 	} else if (action.type == "update") {
+		 		$scope.$apply(function(){
+		 		// UPDATE OBJECT
+		 		// Update: If action and current object are Objects
+		 		if (current_object.constructor == Object && action.value.constructor == Object)
+			 		for (var update_key in action.value)
+			 			if (update_key in current_object)
+			 				// Only copy over keys that exist in both action and current_object
+			 				current_object[update_key] = action.value[update_key];
+			 	else {
+			 		// replace the entire value
+			 		if (previous_object.constructor == Array) {
+			 			// replace entire value in OBJECT
+			 			previous_object[current_position] = action.value;
+			 			
+			 		} else if (previous_object.constructor == Object) {
+			 			// replace entire value in OBJECT
+			 			previous_object[current_key] = action.value;
+			 		}
+			 	}
+			 	});
+			 		
+		 		
+		 	} else if (action.type == "delete") {
+		 		// DELETE OBJECT
+		 		// delete current object from it's parent (previous object)
+		 		$scope.$apply(function(){
+		 			previous_object.splice(current_position, 1); 
+		 		});
+		 	}
+	 	}
+	}	
 	 
 	 // return true
 	 return true;

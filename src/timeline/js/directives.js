@@ -36,8 +36,18 @@ function setBoundingBox(clip){
     }
 }
 
-
-
+// handle right-click context menus 
+App.directive('ngRightClick', function($parse) {
+    return function(scope, element, attrs) {
+        var fn = $parse(attrs.ngRightClick);
+        element.bind('contextmenu', function(event) {
+            scope.$apply(function() {
+                event.preventDefault();
+                fn(scope, {$event:event});
+            });
+        });
+    };
+});
 
 //treats element as a track
 //1: allows clips to be dropped

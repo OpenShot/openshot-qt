@@ -93,8 +93,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		event.ignore()
 		
 	#Javascript callable function to show clip or transition content menus, passing in type to show
-	@pyqtSlot()
-	def show_context_menu(self, type=None):
+	@pyqtSlot(str)
+	def ShowPlayheadMenu(self, position=None):
+		log.info('ShowPlayheadMenu: %s' % position)
+
 		menu = QMenu(self)
 		menu.addAction(self.window.actionNew)
 		if type == "clip":
@@ -102,6 +104,21 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		elif type == "transition":
 			menu.addAction(self.window.actionRemoveTransition)
 		menu.exec_(QCursor.pos())
+		
+	@pyqtSlot(str)
+	def ShowClipMenu(self, clip_id=None):
+		log.info('ShowClipMenu: %s' % clip_id)
+
+		# Set the selected clip
+		self.window.selected_clips = [clip_id]
+		
+		menu = QMenu(self)
+		menu.addAction(self.window.actionRemoveClip)
+		menu.exec_(QCursor.pos())
+		
+	@pyqtSlot(str)
+	def qt_log(self, message=None):
+		log.info(message)
 	
 	#Handle changes to zoom level, update js
 	def update_zoom(self, newValue):

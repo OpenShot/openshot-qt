@@ -423,6 +423,20 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		# Clear selected files
 		self.selected_files = []
 		
+	def actionRemoveClip_trigger(self, event):
+		log.info('actionRemoveClip_trigger')
+		
+		# Loop through selected clips
+		for clip_id in self.selected_clips:
+			# Find matching file
+			clips = Clip.filter(id=clip_id)
+			for c in clips: 
+				# Remove clip
+				c.delete()
+				
+		# Clear selected clips
+		self.selected_clips = []
+
 	
 	def actionTimelineZoomIn_trigger(self, event):
 		self.sliderZoom.setValue(self.sliderZoom.value() + self.sliderZoom.singleStep())
@@ -830,6 +844,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		
 		# Track the selected file(s)
 		self.selected_files = []
+		self.selected_clips = []
 		
 		# Init fullscreen menu visibility
 		self.init_fullscreen_menu()
