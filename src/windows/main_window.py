@@ -37,6 +37,7 @@ from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
 from classes.timeline import TimelineSync
+from classes.query import File, Clip
 from images import openshot_rc
 from windows.views.files_treeview import FilesTreeView
 from windows.views.files_listview import FilesListView
@@ -401,6 +402,25 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		result = win.exec_()
 		if result == QDialog.Accepted:
 			log.info('Profile add confirmed')
+			
+	def actionRemove_from_Project_trigger(self, event):
+		log.info("actionRemove_from_Project_trigger")
+		
+		# Loop through selected files
+		for file_id in self.selected_files:
+			# Find matching file
+			f = File.get(id=file_id)
+			if f:
+				# Remove file
+				f.delete()
+				
+				# Find matching clips (if any)
+				clips = Clip.filter(file_id=file_id)
+				for c in clips: 
+					# Remove clip
+					c.delete()
+			
+		
 	
 	def actionTimelineZoomIn_trigger(self, event):
 		self.sliderZoom.setValue(self.sliderZoom.value() + self.sliderZoom.singleStep())
@@ -801,6 +821,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
 		# Add window as watcher to receive undo/redo status updates
 		get_app().updates.add_watcher(self)
+		
+		# Track the selected file(s)
+		self.selected_files = []
 		
 		# Init fullscreen menu visibility
 		self.init_fullscreen_menu()

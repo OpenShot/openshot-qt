@@ -53,6 +53,11 @@ class FilesTreeView(QTreeView):
 		# get selected item
 		self.selected = selected
 		self.deselected = deselected
+
+		# keep track of the selected file on the main window
+		if self.selected:
+			selected_row = self.files_model.model.itemFromIndex(self.selected).row()
+			self.win.selected_files = [self.files_model.model.item(selected_row, 4).text()]
 		
 	def contextMenuEvent(self, event):
 		# Set context menu mode
