@@ -35,6 +35,7 @@ import random
 import unittest
 import uuid
 from classes.app import OpenShotApp
+from classes import info
 import openshot # Python module for libopenshot (required video editing module installed separately)
 
 try:
@@ -60,7 +61,7 @@ class TestQueryClass(unittest.TestCase):
 		# Insert some clips into the project data
 		for num in range(5):
 			# Create clip
-			c = openshot.Clip()
+			c = openshot.Clip(os.path.join(info.IMAGES_PATH, "AboutLogo.png" ))
 			
 			# Parse JSON
 			clip_data = json.loads(c.Json())
@@ -84,7 +85,7 @@ class TestQueryClass(unittest.TestCase):
 			# Insert into project data
 			query_file = File()
 			query_file.data = file_data
-			query_file.data["path"] = os.path.join(PATH, "images", "NoThumbnail.png")
+			query_file.data["path"] = os.path.join(info.IMAGES_PATH, "AboutLogo.png" )
 			query_file.data["media_type"] = "image"
 			query_file.save()
 			
@@ -101,7 +102,7 @@ class TestQueryClass(unittest.TestCase):
 		num_clips = len(Clip.filter())
 		
 		# Create clip
-		c = openshot.Clip()
+		c = openshot.Clip(os.path.join(info.IMAGES_PATH, "AboutLogo.png" ))
 		
 		# Parse JSON
 		clip_data = json.loads(c.Json())
@@ -131,14 +132,14 @@ class TestQueryClass(unittest.TestCase):
 		self.assertTrue(clip)
 		
 		# Update clip
-		clip.data["layer"] = "2"
+		clip.data["layer"] = 2
 		clip.data["title"] = "My Title"
 		clip.save()
 		
 		# Verify updated data
 		# Get clip again
 		clip = Clip.get(id=update_id)
-		self.assertEqual(clip.data["layer"], "2")
+		self.assertEqual(clip.data["layer"], 2)
 		self.assertEqual(clip.data["title"], "My Title")
 			
 	def test_delete_clip(self):

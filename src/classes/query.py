@@ -129,7 +129,7 @@ class QueryObject:
 			return None
 
 class Clip(QueryObject):
-	""" This class allows one or more project data objects to be queried """
+	""" This class allows Clips to be queried, updated, and deleted from the project data. """
 	object_name = "clips"		# Derived classes should define this
 	object_key = [object_name]	# Derived classes should define this also
 	
@@ -151,7 +151,7 @@ class Clip(QueryObject):
 
 
 class File(QueryObject):
-	""" This class allows one or more project data objects to be queried """
+	""" This class allows Files to be queried, updated, and deleted from the project data. """
 	object_name = "files"		# Derived classes should define this
 	object_key = [object_name]	# Derived classes should define this also
 
@@ -198,4 +198,3 @@ class File(QueryObject):
 		
 		# Return relative path
 		return file_path
-	
