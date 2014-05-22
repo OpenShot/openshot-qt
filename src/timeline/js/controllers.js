@@ -229,8 +229,6 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
  // as JSON, which represents the change.
  $scope.ApplyJsonDiff = function(jsonDiff){
 
-	timeline.qt_log(JSON.stringify($scope.project.clips));
-
 	 // Loop through each UpdateAction
 	for (var action_index = 0; action_index < jsonDiff.length; action_index++) {
 		var action = jsonDiff[action_index];
@@ -332,7 +330,7 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 		 		// DELETE OBJECT
 		 		// delete current object from it's parent (previous object)
 		 		$scope.$apply(function(){
-		 			previous_object.splice(current_position, 1); 
+		 			previous_object.splice(current_position, 1);
 		 		});
 		 	}
 	 	}

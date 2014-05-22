@@ -103,7 +103,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 			menu.addAction(self.window.actionRemoveClip)
 		elif type == "transition":
 			menu.addAction(self.window.actionRemoveTransition)
-		menu.exec_(QCursor.pos())
+		return menu.popup(QCursor.pos())
 		
 	@pyqtSlot(str)
 	def ShowClipMenu(self, clip_id=None):
@@ -114,7 +114,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		
 		menu = QMenu(self)
 		menu.addAction(self.window.actionRemoveClip)
-		menu.exec_(QCursor.pos())
+		return menu.popup(QCursor.pos())
 		
 	@pyqtSlot(str)
 	def qt_log(self, message=None):

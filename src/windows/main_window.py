@@ -330,6 +330,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 			log.info("Unable to open the Donate web page") 
 
 	def actionPlay_trigger(self, event):
+
 		if self.actionPlay.isChecked():
 			ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
 			#TODO: call on library to pause
@@ -425,7 +426,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		
 	def actionRemoveClip_trigger(self, event):
 		log.info('actionRemoveClip_trigger')
-		
+
 		# Loop through selected clips
 		for clip_id in self.selected_clips:
 			# Find matching file
@@ -436,7 +437,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 				
 		# Clear selected clips
 		self.selected_clips = []
-
+		
 	
 	def actionTimelineZoomIn_trigger(self, event):
 		self.sliderZoom.setValue(self.sliderZoom.value() + self.sliderZoom.singleStep())
