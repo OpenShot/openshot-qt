@@ -334,9 +334,30 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		if self.actionPlay.isChecked():
 			ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
 			#TODO: call on library to pause
+			self.preview_thread.Play()
+			
 		else:
 			ui_util.setup_icon(self, self.actionPlay, "actionPlay") #to default
 			#TODO: call on library to play
+			self.preview_thread.Pause()
+			
+	def actionPreview_File_trigger(self, event):
+		""" Preview the selected media file """
+		log.info('actionPreview_File_trigger')
+		
+		if self.selected_files:
+			# Find matching file
+			f = File.get(id=self.selected_files[0])
+			if f:
+				# Get file path
+				previewPath = f.data["path"]
+				
+				# Load file into player
+				self.preview_thread.LoadFile(previewPath)
+
+				# Trigger play button
+				self.actionPlay.setChecked(False)
+				self.actionPlay.trigger()
 		
 	def actionFastForward_trigger(self, event):
 		pass

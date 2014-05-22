@@ -68,7 +68,12 @@ class PreviewThread(threading.Thread):
 		self.parent = parent
 		self.timeline = timeline
 		self.videoPreview = parent.videoPreview
+		self.player = None
 		
+		# Init new player
+		self.initPlayer()
+		
+	def initPlayer(self):
 		# Create QtPlayer class from libopenshot
 		self.player = openshot.QtPlayer()
 
@@ -77,14 +82,6 @@ class PreviewThread(threading.Thread):
 		self.player.SetQWidget(int(sip.unwrapinstance(self.videoPreview)))
 		self.renderer = sip.wrapinstance(self.renderer_address, QObject)
 		self.videoPreview.connectSignals(self.renderer)
-		
-		# Connect test reader
-		#self.reader = openshot.FFmpegReader("/home/jonathan/Videos/sintel_trailer-720p.mp4")
-		#self.reader.Open()
-		#self.player.Reader(self.reader)
-		
-		# Set the Speed
-		#self.player.Speed(1.0)
 		
 	def kill(self):
 		""" Kill this thread """
@@ -95,20 +92,48 @@ class PreviewThread(threading.Thread):
 		
 		# Mark frame number for processing
 		self.number = number
+		
+	def LoadFile(self, path):
+		""" Load a media file into the video player """
+		
+		# Stop player (if it's playing)
+		#if self.player and self.player.Mode() != openshot.PLAYBACK_STOPPED:
+		#	self.player.Stop()
+
+		log.info("loadReader...")
+		self.reader = openshot.Clip(path).Reader()
+		self.reader.Open()
+		self.player.Reader(self.reader)
+		
+		# Set the Speed
+		self.player.Speed(1.0)
+		
+		
+	def Play(self):
+		""" Start playing the video player """
+
+		# Start playback
+		log.info("Play...")
+		self.player.Play()
+		
+	def Pause(self):
+		""" Start playing the video player """
+
+		# Start playback
+		log.info("Pause...")
+		self.player.Pause()
+
 
 	def run(self):
-		
-		# Start playback
-		#self.player.Play()
 
 		# Main loop, waiting for frames to process
 		while self.is_running:
-
+			pass
 			# Generate a preview (if needed)
-			if self.number:
+			#if self.number:
 				# File path of preview
-				file_path = os.path.join(info.THUMBNAIL_PATH, "preview.png")
-				log.info("Generating thumbnail for frame %s: %s" % (self.number, file_path))
+				#file_path = os.path.join(info.THUMBNAIL_PATH, "preview.png")
+				#log.info("Generating thumbnail for frame %s: %s" % (self.number, file_path))
 				
 				# Generate timeline image
 				#timeline.GetFrame(self.number).Save(file_path, 1.0)
@@ -118,4 +143,4 @@ class PreviewThread(threading.Thread):
 			
 			# wait for a small delay
 			time.sleep(0.25)
-			#log.info("preview thread...")
+			#log.info("Preview thread...")
