@@ -45,6 +45,7 @@ from windows.views.transitions_treeview import TransitionsTreeView
 from windows.views.transitions_listview import TransitionsListView
 from windows.views.effects_treeview import EffectsTreeView
 from windows.views.effects_listview import EffectsListView
+from windows.views.properties_tableview import PropertiesTableView
 from windows.video_widget import VideoWidget
 from windows.preview_thread import PreviewThread
 import xml.etree.ElementTree as ElementTree
@@ -407,11 +408,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 			if event.modifiers() & Qt.ControlModifier:
 				self.actionFastForward.trigger()
 
-		elif event.key() == Qt.Key_K or Qt.Key_Space:
-			self.actionPlay.trigger()
-
-		elif event.key() == Qt.Key_Tab:
-			self.actionPlay.trigger()
+		#elif event.key() == Qt.Key_K or Qt.Key_Space:
+		#	self.actionPlay.trigger()
+		#
+		#elif event.key() == Qt.Key_Tab:
+		#	self.actionPlay.trigger()
 			
 		# Bubble event on
 		event.ignore()
@@ -554,16 +555,18 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		return [ self.dockFiles,
 				 self.dockTransitions,
 				 self.dockEffects,
-				 self.dockVideo ]
+				 self.dockVideo,
+				 self.dockProperties,
+				 self.dockKeyframe ]
 
 	def removeDocks(self):
 		""" Remove all dockable widgets on main screen """
 		for dock in self.getDocks():
 			self.removeDockWidget(dock)
 		
-	def addAllDocks(self, area):
+	def addDocks(self, docks, area):
 		""" Add all dockable widgets to the same dock area on the main screen """
-		for dock in self.getDocks():
+		for dock in docks:
 			self.addDockWidget(area, dock)
 		
 	def floatDocks(self, is_floating):
@@ -571,10 +574,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		for dock in self.getDocks():
 			dock.setFloating(is_floating)
 		
-	def showDocks(self):
+	def showDocks(self, docks):
 		""" Show all dockable widgets on the main screen """
-		for dock in self.getDocks():
-			dock.show()
+		for dock in docks:
+			if get_app().window.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
+				# Only show correctly docked widgets
+				dock.show()
 			
 	def freezeDocks(self):
 		""" Freeze all dockable widgets on the main screen (no float, moving, or closing) """
@@ -594,26 +599,24 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 	def actionSimple_View_trigger(self, event):
 		""" Switch to the default / simple view  """
 		self.removeDocks()
-		self.addAllDocks(Qt.TopDockWidgetArea)
+		self.addDocks([self.dockFiles, self.dockTransitions, self.dockEffects, self.dockVideo], Qt.TopDockWidgetArea)
 		self.floatDocks(False)
 		self.tabifyDockWidget(self.dockFiles, self.dockTransitions)
 		self.tabifyDockWidget(self.dockTransitions, self.dockEffects)
-		self.showDocks()
+		self.showDocks([self.dockFiles, self.dockTransitions, self.dockEffects, self.dockVideo])
 
 	def actionAdvanced_View_trigger(self, event):
 		""" Switch to an alternative view """
 		self.removeDocks()
 
-		# Top Dock
-		self.addDockWidget(Qt.TopDockWidgetArea, self.dockFiles)
-		self.addDockWidget(Qt.TopDockWidgetArea, self.dockTransitions)
-		self.addDockWidget(Qt.TopDockWidgetArea, self.dockVideo)
-		
-		# Right Dock
-		self.addDockWidget(Qt.RightDockWidgetArea, self.dockEffects)
+		# Add Docks
+		self.addDocks([self.dockFiles, self.dockTransitions, self.dockVideo], Qt.TopDockWidgetArea)
+		self.addDocks([self.dockEffects], Qt.RightDockWidgetArea)
+		self.addDocks([self.dockProperties, self.dockKeyframe], Qt.LeftDockWidgetArea)
+		self.tabifyDockWidget(self.dockProperties, self.dockKeyframe)
 
 		self.floatDocks(False)
-		self.showDocks()
+		self.showDocks([self.dockFiles, self.dockTransitions, self.dockVideo, self.dockEffects, self.dockProperties, self.dockKeyframe])
 		
 	def actionFreeze_View_trigger(self, event):
 		""" Freeze all dockable widgets on the main screen """
@@ -629,7 +632,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		
 	def actionShow_All_trigger(self, event):
 		""" Show all dockable widgets """
-		self.showDocks()
+		self.showDocks(self.getDocks())
 		
 	# Init fullscreen menu visibility
 	def init_fullscreen_menu(self):
@@ -735,6 +738,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		self.filesToolbar.addAction(self.actionFilesShowImage)
 		self.filesFilter = QLineEdit()
 		self.filesFilter.setObjectName("filesFilter")
+		self.filesFilter.setPlaceholderText(_("Filter"))
 		self.filesToolbar.addWidget(self.filesFilter)
 		self.actionFilesClear.setEnabled(False)
 		self.filesToolbar.addAction(self.actionFilesClear)
@@ -751,6 +755,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		self.transitionsToolbar.addAction(self.actionTransitionsShowCommon)
 		self.transitionsFilter = QLineEdit()
 		self.transitionsFilter.setObjectName("transitionsFilter")
+		self.transitionsFilter.setPlaceholderText(_("Filter"))
 		self.transitionsToolbar.addWidget(self.transitionsFilter)
 		self.actionTransitionsClear.setEnabled(False)
 		self.transitionsToolbar.addAction(self.actionTransitionsClear)
@@ -769,6 +774,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		self.effectsToolbar.addAction(self.actionEffectsShowAudio)
 		self.effectsFilter = QLineEdit()
 		self.effectsFilter.setObjectName("effectsFilter")
+		self.effectsFilter.setPlaceholderText(_("Filter"))
 		self.effectsToolbar.addWidget(self.effectsFilter)
 		self.actionEffectsClear.setEnabled(False)
 		self.effectsToolbar.addAction(self.actionEffectsClear)
@@ -898,6 +904,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		else:
 			self.effectsTreeView = EffectsListView(self)
 		self.tabEffects.layout().addWidget(self.effectsTreeView)
+		
+		# Setup properties table
+		self.propertyTableView = PropertiesTableView(self)
+		self.dockPropertiesContent.layout().addWidget(self.propertyTableView)
 		
 		# Setup video preview QWidget
 		self.videoPreview = VideoWidget()
