@@ -6,7 +6,7 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
       duration : 600, //length of project in seconds
       scale : 16.0, //seconds per tick
       tick_pixels : 100, //pixels between tick mark
-      playhead_position : 123, //position of play head
+      playhead_position : 10, //position of play head
       
       clips : [],
       clips_hide : [

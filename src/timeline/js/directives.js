@@ -548,9 +548,12 @@ App.directive('tlRuler', function ($timeout) {
 				    	//set number of ticks based 2 for each pixel_length
 				    	num_ticks = pixel_length / 50;
 
+						ctx.lineWidth = 1;
+						ctx.strokeStyle = "#c8c8c8";
+						ctx.lineCap = "round";
+				    	
 				    	//loop em and draw em
 						for (x=0;x<num_ticks+1;x++){
-							ctx.lineWidth = 1;
 							ctx.beginPath();
 
 							//if it's even, make the line longer
@@ -563,9 +566,9 @@ App.directive('tlRuler', function ($timeout) {
 									time_text = secondsToTime(time);
 
 									//write time on the canvas, centered above long tick
-									ctx.fillStyle = "#fff";
-									ctx.font = "bold 10px Arial";
-									ctx.fillText(time_text, x*each_tick-22, 10);	
+									ctx.fillStyle = "#c8c8c8";
+									ctx.font = "0.9em Sans";
+									ctx.fillText(time_text, x*each_tick-22, 11);	
 								}
 							} else { 
 								//shorter line
@@ -574,7 +577,6 @@ App.directive('tlRuler', function ($timeout) {
 							
 							ctx.moveTo(x*each_tick, 39);
 							ctx.lineTo(x*each_tick, line_top);
-							ctx.strokeStyle = "#fff";
 							ctx.stroke();
 						}
 

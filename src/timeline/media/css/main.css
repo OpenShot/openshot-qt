@@ -17,7 +17,9 @@ body {
 .ui-selectable-helper{
   position:absolute;
   z-index:99999;
-  border:1px dotted white;
+  border:1px solid #2a82da;
+  background-color: #2a82da;
+  opacity: 0.4;
 } 
 
 img {
@@ -29,7 +31,7 @@ img {
 #ruler_label { height: 39px; width: 140px; float: left; margin-bottom: 4px; }
 #ruler_ticks { background-color:#000; }
 #ruler_time { font-family: Sans; font-size: 13pt; color: #c8c8c8; padding-top: 14px; padding-left: 40px;}
-#progress_container {margin-left:140px;overflow: hidden;}
+#progress_container {margin-left:140px; overflow: hidden; height: 13px;}
 
 /* Tracks */
 #track_controls { width: 140px; position: relative; float: left; height: 316px; overflow: hidden;}
@@ -38,9 +40,9 @@ img {
 .track { height: 70px; background-color: #000; margin-bottom: 8px; background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(50,50,50,1)), color-stop(100%,rgba(6,6,6,1))); border-top: 1px solid #4b92ad; border-bottom: 1px solid #4b92ad; }
 
 /* Playhead */
-.playhead-line { z-index: 9999; position: absolute; height:335px; width:2.5px; background-color:#498ea7; opacity:0.8; left:5.5px;}
-.playhead-top { z-index: 9999; margin-left: -2px; width:18px; height:12px; background-image: url(../images/play_head.png); opacity:0.7;cursor:pointer;}
-.playhead_box { position:absolute; top:31px; height:15px;}
+.playhead-line { z-index: 9999; position: absolute; height:335px; width:1px; background-color:#ff0024; opacity:1; left:5.5px;}
+.playhead-top { z-index: 9999; margin-left: -4px; width:25px; height:32px; background-image: url(../images/play_head.png); opacity:1;cursor:pointer;}
+.playhead_box { position:absolute; top:12px; height:15px;}
 .marker {position:absolute; top:30px;}
 
 
