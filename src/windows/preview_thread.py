@@ -91,23 +91,24 @@ class PreviewThread(threading.Thread):
 		""" Preview a certain frame """
 		
 		# Mark frame number for processing
-		self.number = number
+		self.player.Seek(number)
 		
 	def LoadFile(self, path):
 		""" Load a media file into the video player """
 		
-		# Stop player (if it's playing)
-		#if self.player and self.player.Mode() != openshot.PLAYBACK_STOPPED:
-		#	self.player.Stop()
-
+		# Load Reader
 		log.info("loadReader...")
 		self.reader = openshot.Clip(path).Reader()
 		self.reader.Open()
 		self.player.Reader(self.reader)
-		
-		# Set the Speed
-		self.player.Speed(1.0)
-		
+
+		# Stop player (if it's playing)
+		#if self.player and self.player.Mode() != openshot.PLAYBACK_PAUSED:
+		#	self.player.Pause()
+
+		# Seek to 1st frame
+		self.player.Seek(1)
+
 		
 	def Play(self):
 		""" Start playing the video player """
