@@ -22,6 +22,14 @@ var App = angular.module('openshot-timeline', ['ui.bootstrap']);
 		$("#scrolling_tracks").height(new_track_height);
 		$(".playhead-line").height(new_playhead_line_height);
 	});
+	
+	// Check for Qt Integration
+	if(typeof timeline != 'undefined') {
+		timeline.qt_log("Qt Found!");
+		$('body').scope().EnableQt()
+	} else {
+		console.log("Qt NOT Found!");
+	}
 });
 
 // Init window resize

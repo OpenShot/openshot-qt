@@ -10,7 +10,14 @@
 		<script type="text/javascript" src="app.js"></script>
 		<script type="text/javascript" src="js/functions.js"></script>
     	<script type="text/javascript" src="js/controllers.js"></script>
-    	<script type="text/javascript" src="js/directives.js"></script>
+    	
+    	<script type="text/javascript" src="js/directives/ruler.js"></script>
+    	<script type="text/javascript" src="js/directives/playhead.js"></script>
+    	<script type="text/javascript" src="js/directives/track.js"></script>
+    	<script type="text/javascript" src="js/directives/clip.js"></script>
+    	<script type="text/javascript" src="js/directives/transition.js"></script>
+    	<script type="text/javascript" src="js/directives/misc.js"></script>
+    	    	
 		<script type="text/javascript" src="media/js/debug.js"></script>
 		<script type="text/javascript" src="media/js/ui-bootstrap-tpls-0.7.0.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="media/css/bootstrap.min.css">
@@ -67,6 +74,16 @@
 							<canvas tl-audio height="46px" width="{{ (clip.end - clip.start) * pixelsPerSecond}}px;left:{{clip.position * pixelsPerSecond}}px" class="audio"></canvas>
 						</div>
 					</div>
+					
+					<div tl-transition ng-repeat="transition in project.transitions | filter:filterByLayer(layer)" id="transition_{{transition.id}}" ng-right-click="ShowClipMenu(transition.id)" class="transition" style="width:{{ transition.duration * pixelsPerSecond}}px;left:{{transition.position * pixelsPerSecond}}px;">
+						<div class="transition_top">
+							<div tl-clip-menu class="transition_menu"></div>
+							<div class="transition_label">{{transition.title}}</div>
+							<br class="cleared">
+						</div>
+						<br class="cleared">
+					</div>					
+					
 				</div>
 			</div>
 		</div>

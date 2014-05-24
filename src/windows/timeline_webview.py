@@ -144,8 +144,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		#Export self as a javascript object in webview
 		self.page().mainFrame().addToJavaScriptWindowObject('timeline', self)
 		self.page().mainFrame().addToJavaScriptWindowObject('mainWindow', self.window)
-		
-		
+
 		
 	def dragEnterEvent(self, event):
         
@@ -248,7 +247,3 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         
 		# Init New clip
 		self.new_clip = False
-		
-
-
-		

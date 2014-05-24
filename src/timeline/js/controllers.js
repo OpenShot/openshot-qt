@@ -8,8 +8,7 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
       tick_pixels : 100, //pixels between tick mark
       playhead_position : 10, //position of play head
       
-      clips : [],
-      clips_hide : [
+      clips : [
 	               { 
 	                 id : '1', 
 	                 layer : 1, 
@@ -67,6 +66,17 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 	               },
              ],
              
+     transitions : [
+	                	{
+	   	                 id : '5', 
+		                 layer : 4, 
+		                 title : 'Transition',
+		                 position : 20.0,
+		                 duration : 120
+	                	}
+                    
+                    ],
+             
      layers : [
 	               {number:4, y:0},
 	               {number:3, y:0},
@@ -107,8 +117,13 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
   $scope.playheadOffset = 0;
   $scope.playheadTime =  secondsToTime($scope.project.playhead_position);
   $scope.playlineLocation = 0;
-  $scope.Qt = true;
-  $scope.EnableQt = function() { $scope.Qt = true; };
+  $scope.Qt = false;
+  $scope.EnableQt = function() { 
+	  	$scope.Qt = true;
+	  	$scope.project.clips = [];
+	  	$scope.project.transitions = [];
+	  	timeline.qt_log("$scope.Qt = true;"); 
+	  };
   
   //filters clips by layer
   $scope.filterByLayer = function (layer) {

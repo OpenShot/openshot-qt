@@ -66,6 +66,14 @@ img {
 .thumb-container { display:none; margin-top:-18px; }
 .audio-container { display:none; margin-top:-18px; background-color:#000;height:46px;border-top-left-radius: 4px; border-bottom-left-radius: 4px;border-top-right-radius: 4px; border-bottom-right-radius: 4px;}
 
+/* Transitions */
+.transition_top {}
+.transition { color: #fff; min-width:0px; height: 64px; position: absolute; margin-top:2px; left: 100px; font-family: Sans; font-size: 9pt; background-color: #ef7f00; background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(82,82,82,1)), color-stop(100%,rgba(34,38,40,1))); border-radius: 8px; border: 1px solid #4b92ad; border-left: 2px solid #4b92ad; border-right: 2px solid #4b92ad; }
+.transition_menu {float:left;margin-top:4px;margin-left:4px;margin-right:4px;width:12px;height:12px;background-image: url(../images/menu.png);}
+.transition_label {float:left; padding-top: 2px; width:50px; margin-left: 2px; color:#fff;font-weight:bold;}
+
+
+
 
 /* Scrollbar style */
 ::-webkit-scrollbar {width: 6px; height: 6px; background: #000000; }
