@@ -62,9 +62,14 @@ class ClipStandardItemModel(QStandardItemModel):
 
 		# Return Mimedata
 		return data
-		
+
 
 class ClipPropertiesModel():
+	
+	
+	def itemChanged(self, item):
+		log.info("itemChanged to %s" % item.text())
+		
 	
 	def update_model(self, filter=""):
 		log.info("updating clip properties model.")
@@ -133,4 +138,6 @@ class ClipPropertiesModel():
 		self.model = ClipStandardItemModel()
 		self.model.setColumnCount(2)
 
-
+		# Connect data changed signal
+		self.model.itemChanged.connect(self.itemChanged)
+		
