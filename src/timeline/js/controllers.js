@@ -188,7 +188,7 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
  };
  
  // Move a new clip to the timeline
- $scope.MoveClip = function(x, y){
+ $scope.MoveItem = function(x, y, item_type){
 	 $scope.$apply(function(){
 		 
 		 // Convert x and y into timeline vars
@@ -199,11 +199,20 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 			 clip_position = 0;
 		 
 		 // Update clip position & layer (based on x,y)
-		 $scope.project.clips[$scope.project.clips.length - 1].position = clip_position;
-		 $scope.project.clips[$scope.project.clips.length - 1].layer = $scope.GetTrackAtY(y - scrolling_tracks_offset_top).number;
+		 if (item_type == "clip") {
+			 // move clip
+			 $scope.project.clips[$scope.project.clips.length - 1].position = clip_position;
+			 $scope.project.clips[$scope.project.clips.length - 1].layer = $scope.GetTrackAtY(y - scrolling_tracks_offset_top).number;
 
-		 // hide and show elements of the clip (based on size)
-		 handleVisibleClipElements($scope, $scope.project.clips[$scope.project.clips.length - 1].id);
+			 // hide and show elements of the clip (based on size)
+			 handleVisibleClipElements($scope, $scope.project.clips[$scope.project.clips.length - 1].id);
+		 
+		 } else if (item_type == "transition") {
+			 // move transition
+			 $scope.project.transitions[$scope.project.transitions.length - 1].position = clip_position;
+			 $scope.project.transitions[$scope.project.transitions.length - 1].layer = $scope.GetTrackAtY(y - scrolling_tracks_offset_top).number;
+		 }
+
 	 });
  };
  

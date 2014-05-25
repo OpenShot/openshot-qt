@@ -73,9 +73,9 @@ App.directive('tlTrack', function($timeout) {
 		            			
 								// update clip in Qt (very important =)
 		            			if (scope.Qt && item_type == 'clip')
-		            				timeline.update_clip_data(JSON.stringify(clip_data));
-		            			//else if (scope.Qt && item_type == 'transition')
-		            			//	timeline.update_clip_data(JSON.stringify(clip_data));
+		            				timeline.update_clip_data(JSON.stringify(item_data));
+		            			else if (scope.Qt && item_type == 'transition')
+		            				timeline.update_transition_data(JSON.stringify(item_data));
 							});
 
 		            	}

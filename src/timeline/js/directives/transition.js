@@ -87,8 +87,8 @@ App.directive('tlTransition', function($timeout){
 						}
 						
 						// update transition in Qt (very important =)
-            			//if (scope.Qt)
-            			//	timeline.update_transition_data(JSON.stringify(scope.transition));
+            			if (scope.Qt)
+            				timeline.update_transition_data(JSON.stringify(scope.transition));
 
 					});
 				
@@ -121,10 +121,7 @@ App.directive('tlTransition', function($timeout){
 					// Set last_resizable
 					last_resizable.left = ui.position.left;
 					last_resizable.width = ui.size.width;
-					
-					//show or hide elements based on size
-					//handleVisibleTransitionsElements(scope, scope.transition.id);
-					
+
 				},
 
 			});

@@ -54,9 +54,10 @@ class TestQueryClass(unittest.TestCase):
 		TestQueryClass.app = OpenShotApp(sys.argv)
 		TestQueryClass.clip_ids = []
 		TestQueryClass.file_ids = []
+		TestQueryClass.transition_ids = []
 		
 		# Import additional classes that need the app defined first
-		from classes.query import Clip, File
+		from classes.query import Clip, File, Transition
 
 		# Insert some clips into the project data
 		for num in range(5):
@@ -91,6 +92,26 @@ class TestQueryClass(unittest.TestCase):
 			
 			# Keep track of the ids
 			TestQueryClass.file_ids.append(query_file.id)
+			
+		# Insert some transitions into the project data
+		for num in range(5):
+			# Create dummy transition
+			transitions_data = {
+	             "id" : str(num), 
+                 "layer" : num, 
+                 "title" : "Transition",
+                 "position" : 20.0 + num,
+                 "duration" : 30 + num
+	             }
+
+			# Insert into project data
+			query_transition = Transition()
+			query_transition.data = transitions_data
+			query_transition.save()
+			
+			# Keep track of the ids
+			TestQueryClass.transition_ids.append(query_transition.id)
+			
 			
 	def test_add_clip(self):
 		""" Test the Clip.save method by adding multiple clips """

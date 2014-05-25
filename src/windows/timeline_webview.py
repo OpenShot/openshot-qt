@@ -32,7 +32,7 @@ from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication
 from PyQt5.QtGui import QCursor
 from PyQt5.QtWidgets import QAbstractSlider, QMenu
 from PyQt5.QtWebKitWidgets import QWebView
-from classes.query import File, Clip
+from classes.query import File, Clip, Transition
 from classes.logger import log
 from classes.app import get_app
 from classes import info, updates
@@ -87,6 +87,25 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 			existing_clip = Clip()		
 		existing_clip.data = clip_data
 		existing_clip.save()
+		
+	#Javascript callable function to update the project data when a transition changes
+	@pyqtSlot(str)
+	def update_transition_data(self, transition_json):
+		""" Create an updateAction and send it to the update manager """
+
+		# read clip json
+		if not isinstance(transition_json, dict):
+			transition_data = json.loads(transition_json)
+		else:
+			transition_data = transition_json
+
+		# Search for matching clip in project data (if any)
+		existing_item = Transition.get(id=transition_data["id"])
+		if not existing_item:
+			# Create a new clip (if not exists)
+			existing_item = Transition()		
+		existing_item.data = transition_data
+		existing_item.save()
 
 	#Prevent default context menu, and ignore, so that javascript can intercept
 	def contextMenuEvent(self, event):
@@ -152,7 +171,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		if not self.new_item and not event.mimeData().hasUrls() and event.mimeData().hasText():
 			# get type of dropped data
 			self.item_type = event.mimeData().html()
-			log.info(self.item_type)
+
+			# Track that a new item is being 'added'
+			self.new_item = True
 			
 			# Get the mime data (i.e. list of files, list of transitions, etc...)
 			data = json.loads(event.mimeData().text())
@@ -215,13 +236,22 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 			
 			# Add clip to timeline
 			self.update_clip_data(new_clip)
-
-			# Track that a new clip is being 'added'
-			self.new_item = True
 	
 	# Add Transition
 	def addTransition(self, file_ids, position):
 		log.info("addTransition...")
+		
+		# Create transition dictionary
+		transitions_data = {
+             "id" : get_app().project.generate_id(), 
+             "layer" : 0, 
+             "title" : "Transition",
+             "position" : 0,
+             "duration" : 10
+             }
+		
+		# Send to update manager
+		self.update_transition_data(transitions_data)
 	
 	# Add Effect
 	def addEffect(self, file_ids, position):
@@ -234,7 +264,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		pos = event.posF()
 		
 		# Move clip on timeline
-		code = JS_SCOPE_SELECTOR + ".MoveClip(" + str(pos.x()) + ", " + str(pos.y()) + ");"
+		if self.item_type == "clip":
+			code = JS_SCOPE_SELECTOR + ".MoveItem(" + str(pos.x()) + ", " + str(pos.y()) + ", 'clip');"
+		elif self.item_type == "transition":
+			code = JS_SCOPE_SELECTOR + ".MoveItem(" + str(pos.x()) + ", " + str(pos.y()) + ", 'transition');"
 		self.eval_js(code)
 		
 		#log.info('Moving {} in timeline.'.format(event.mimeData().text()))
