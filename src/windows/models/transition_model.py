@@ -58,6 +58,7 @@ class TransitionStandardItemModel(QStandardItemModel):
 			selected_row = self.itemFromIndex(item).row()
 			files.append(self.item(selected_row, 3).text())
 		data.setText(json.dumps(files))
+		data.setHtml("transition")
 
 		# Return Mimedata
 		return data

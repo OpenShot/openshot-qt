@@ -58,7 +58,7 @@ img {
 .right_edge_stop { border-right: 2px solid #4b92ad; }
 .highlight_clip { background-color: #fff; }
 .ui-selecting { border-left: 2px solid yellow; border-right: 2px solid yellow; }
-.ui-selected { border-left: 2px solid red; border-right: 2px solid red; }\
+.ui-selected { border-left: 2px solid red; border-right: 2px solid red; }
 .thumb {margin-left:10px; width: 66px; height: 46px;}
 .thumb-start { float:left; }
 .thumb-end {float:right; }
@@ -68,7 +68,7 @@ img {
 
 /* Transitions */
 .transition_top {}
-.transition { color: #fff; min-width:0px; height: 64px; position: absolute; margin-top:2px; left: 100px; font-family: Sans; font-size: 9pt; background-color: #ef7f00; background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(82,82,82,1)), color-stop(100%,rgba(34,38,40,1))); border-radius: 8px; border: 1px solid #4b92ad; border-left: 2px solid #4b92ad; border-right: 2px solid #4b92ad; }
+.transition { color: #fff; min-width:0px; height: 64px; position: absolute; margin-top:2px; left: 100px; font-family: Sans; font-size: 9pt; background-color: #0192c; background: -webkit-linear-gradient(top, #0192c1 0%,#3fa1bf 100%); border-radius: 8px; border: 1px solid #0192c1; border-left: 2px solid #0192c1; border-right: 2px solid #0192c1; background-image: url(../images/transition.png); background-repeat: no-repeat; background-position: center; background-size: 100% 66px; opacity:0.75; }
 .transition_menu {float:left;margin-top:4px;margin-left:4px;margin-right:4px;width:12px;height:12px;background-image: url(../images/menu.png);}
 .transition_label {float:left; padding-top: 2px; width:50px; margin-left: 2px; color:#fff;font-weight:bold;}
 

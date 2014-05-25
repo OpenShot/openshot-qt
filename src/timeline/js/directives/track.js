@@ -20,45 +20,62 @@ App.directive('tlTrack', function($timeout) {
 
         	//make it accept drops
         	element.droppable({
-		        accept: ".clip",
+		        accept: ".droppable",
 		       	drop:function(event,ui) {
 
 		       		//with each dragged clip, find out which track they landed on
 		       		$(".ui-selected").each(function() {
-		       			var clip = $(this);
+		       			var item = $(this);
 						
-						if (clip.hasClass('ui-selected'))
-			        		clip.removeClass('ui-selected');
+		       			// Remove selected class
+						if (item.hasClass('ui-selected'))
+							item.removeClass('ui-selected');
+						
+						// Determine type of item
+						item_type = null;
+						if (item.hasClass('clip'))
+							item_type = 'clip';
+						else if(item.hasClass('transition'))
+							item_type = 'transition';
+						else
+							// Unknown drop type
+							return;
 
-		       			//get the clip properties we need
-		       			clip_id = clip.attr("id");
-						clip_num = clip_id.substr(clip_id.indexOf("_") + 1);
-						clip_middle = clip.position().top + (clip.height() / 2); // find middle of clip
-						clip_left = clip.position().left + scroll_left_pixels;
+		       			// get the item properties we need
+		       			item_id = item.attr("id");
+		       			item_num = item_id.substr(item_id.indexOf("_") + 1);
+		       			item_middle = item.position().top + (item.height() / 2); // find middle of clip
+		       			item_left = item.position().left + scroll_left_pixels;
 
-						//make sure the clip isn't dropped off too far to the left
-						if (clip_left < 0) clip_left = 0;
+						// make sure the item isn't dropped off too far to the left
+						if (item_left < 0) item_left = 0;
 
-		            	//get track the clip was dropped on 
-		            	drop_track_id = findTrackAtLocation(parseInt(clip_middle));
+		            	// get track the item was dropped on 
+		            	drop_track_id = findTrackAtLocation(parseInt(item_middle));
 		            	
-		            	//if the droptrack was found, update the json
+		            	// if the droptrack was found, update the json
 		            	if (drop_track_id != -1){ 
-		            		//get track id from track.id
+		            		// get track id from track.id
 		            		drop_track_num = parseInt(drop_track_id.substr(drop_track_id.indexOf("_") + 1));
 		            		
-		            		//find the clip in the json data
-		            		clip_data = findElement(scope.project.clips, "id", clip_num);
+		            		// find the item in the json data
+		            		item_data = null;
+		            		if (item_type == 'clip')
+		            			item_data = findElement(scope.project.clips, "id", item_num);
+		            		else if (item_type == 'transition')
+		            			item_data = findElement(scope.project.transitions, "id", item_num);
 
-		            		//change the clip's track and position in the json data
+		            		// change the clip's track and position in the json data
 		            		scope.$apply(function(){
 		            			//set track
-		            			clip_data.layer = drop_track_num;
-		            			clip_data.position =  parseInt(clip_left)/scope.pixelsPerSecond;
+		            			item_data.layer = drop_track_num;
+		            			item_data.position =  parseInt(item_left)/scope.pixelsPerSecond;
 		            			
 								// update clip in Qt (very important =)
-		            			if (scope.Qt)
+		            			if (scope.Qt && item_type == 'clip')
 		            				timeline.update_clip_data(JSON.stringify(clip_data));
+		            			//else if (scope.Qt && item_type == 'transition')
+		            			//	timeline.update_clip_data(JSON.stringify(clip_data));
 							});
 
 		            	}

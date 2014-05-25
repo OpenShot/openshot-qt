@@ -72,7 +72,14 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 		                 layer : 4, 
 		                 title : 'Transition',
 		                 position : 20.0,
-		                 duration : 120
+		                 duration : 30
+	                	},
+	                	{
+	   	                 id : '6', 
+		                 layer : 3, 
+		                 title : 'Transition',
+		                 position : 137.5,
+		                 duration : 30
 	                	}
                     
                     ],

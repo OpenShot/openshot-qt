@@ -60,6 +60,7 @@ class FileStandardItemModel(QStandardItemModel):
 			selected_row = self.itemFromIndex(item).row()
 			files.append(self.item(selected_row, 4).text())
 		data.setText(json.dumps(files))
+		data.setHtml("clip")
 
 		# Return Mimedata
 		return data

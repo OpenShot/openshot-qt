@@ -149,16 +149,34 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 	def dragEnterEvent(self, event):
         
 		#If a plain text drag accept
-		if not self.new_clip and not event.mimeData().hasUrls() and event.mimeData().hasText():
-			file_ids = json.loads(event.mimeData().text())
-			file_id = file_ids[0]
-			event.accept()
+		if not self.new_item and not event.mimeData().hasUrls() and event.mimeData().hasText():
+			# get type of dropped data
+			self.item_type = event.mimeData().html()
+			log.info(self.item_type)
+			
+			# Get the mime data (i.e. list of files, list of transitions, etc...)
+			data = json.loads(event.mimeData().text())
 			pos = event.posF()
 			
+			# create the item
+			if self.item_type == "clip":
+				self.addClip(data, pos)
+			elif self.item_type == "transition":
+				self.addTransition(data, pos)
+			elif self.item_type == "effect":
+				self.addEffect(data, pos)
+			
+		# accept all events, even if a new clip is not being added
+		event.accept()
+
+	# Add Clip
+	def addClip(self, data, position):
+		
 			# Get app object
 			app = get_app()
 
 			# Search for matching file in project data (if any)
+			file_id = data[0]
 			file = File.get(id=file_id)
 
 			# Bail if no file found
@@ -199,11 +217,15 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 			self.update_clip_data(new_clip)
 
 			# Track that a new clip is being 'added'
-			self.new_clip = True
-			
-		# accept all events, even if a new clip is not being added
-		event.accept()
-
+			self.new_item = True
+	
+	# Add Transition
+	def addTransition(self, file_ids, position):
+		log.info("addTransition...")
+	
+	# Add Effect
+	def addEffect(self, file_ids, position):
+		log.info("addEffect...")
 
 	#Without defining this method, the 'copy' action doesn't show with cursor
 	def dragMoveEvent(self, event):
@@ -223,7 +245,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		event.accept()
         
 		# Clear new clip
-		self.new_clip = False
+		self.new_item = False
+		self.item_type = None
 	
 	def __init__(self, window):
 		QWebView.__init__(self)
@@ -246,4 +269,5 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		window.sliderZoom.valueChanged.connect(self.update_zoom)
         
 		# Init New clip
-		self.new_clip = False
+		self.new_item = False
+		self.item_type = None
