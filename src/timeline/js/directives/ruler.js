@@ -24,14 +24,6 @@ App.directive('tlScrollableTracks', function () {
 				$('#track_controls').scrollTop(element.scrollTop());
 				$('#scrolling_ruler').scrollLeft(element.scrollLeft());
 				$('#progress_container').scrollLeft(element.scrollLeft());
-				
-				//set new playline location
-				var line_loc = $(".playhead-top").offset().left + scope.playheadOffset;
-
-				//make sure the playhead line stays with the playhead top
-				scope.$apply(function(){
-					scope.playlineLocation = line_loc;
-				});
 			});
 
 			//handle panning when middle mouse is clicked
@@ -87,27 +79,31 @@ App.directive('tlRuler', function ($timeout) {
 		link: function (scope, element, attrs) {
 			//on click of the ruler canvas, jump playhead to the clicked spot
 			element.on('mousedown', function(e){
-				var playhead_seconds = (e.pageX - element.offset().left) / scope.pixelsPerSecond;
-				scope.$apply(function(){
-					scope.project.playhead_position = playhead_seconds;
-					scope.playheadTime = secondsToTime(playhead_seconds);
-					//use timeout to ensure that the playhead has moved before setting the line location off of it
-					$timeout(function(){
-						scope.playlineLocation = $(".playhead-top").offset().left + scope.playheadOffset;
-					},0);
+				// Get playhead position
+				var playhead_left = e.pageX - element.offset().left;
+				var playhead_seconds = playhead_left / scope.pixelsPerSecond;
+				
+				// Animate to new position (and then update scope)
+				scope.playhead_animating = true;
+				$(".playhead-line").animate({left: playhead_left + scope.playheadOffset }, 200);
+				$(".playhead-top").animate({left: playhead_left + scope.playheadOffset }, 200, function() {
+					// Animation complete.
+					scope.$apply(function(){
+						scope.project.playhead_position = playhead_seconds;
+						scope.playheadTime = secondsToTime(playhead_seconds);
+						scope.playhead_animating = false;
+					});
 				});
+
 			});
 			
+			// Move playhead to new position (if it's not currently being animated)
 			element.on('mousemove', function(e){
-				if (e.which == 1) { // left button
+				if (e.which == 1 && !scope.playhead_animating) { // left button
 					var playhead_seconds = (e.pageX - element.offset().left) / scope.pixelsPerSecond;
 					scope.$apply(function(){
 						scope.project.playhead_position = playhead_seconds;
 						scope.playheadTime = secondsToTime(playhead_seconds);
-						//use timeout to ensure that the playhead has moved before setting the line location off of it
-						$timeout(function(){
-							scope.playlineLocation = $(".playhead-top").offset().left + scope.playheadOffset;
-						},0);
 					});
 				}
 			});
@@ -192,6 +188,39 @@ App.directive('tlRuler', function ($timeout) {
 
 	};
 });
+
+
+//The HTML5 canvas ruler
+App.directive('tlRulertime', function ($timeout) {
+	return {
+		restrict: 'A',
+		link: function (scope, element, attrs) {
+			//on click of the ruler canvas, jump playhead to the clicked spot
+			element.on('mousedown', function(e){
+				var playhead_seconds = 0.0;
+				scope.$apply(function(){
+					scope.project.playhead_position = playhead_seconds;
+					scope.playheadTime = secondsToTime(playhead_seconds);
+				});
+
+			});
+			
+			// Move playhead to new position (if it's not currently being animated)
+			element.on('mousemove', function(e){
+				if (e.which == 1 && !scope.playhead_animating) { // left button
+					var playhead_seconds = 0.0;
+					scope.$apply(function(){
+						scope.project.playhead_position = playhead_seconds;
+						scope.playheadTime = secondsToTime(playhead_seconds);
+					});
+				}
+			});
+			
+			
+		}
+	};
+});
+		
 
 
 //Handles the HTML5 canvas progress bar

@@ -3,47 +3,51 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 		<title>OpenShot Timeline</title>
+		
+		<!-- JQuery & Angular -->
 		<link type="text/css" href="media/css/ui-darkness/jquery-ui-1.10.2.custom.css" rel="stylesheet" />
 		<script type="text/javascript" src="media/js/jquery-1.10.2.js"></script>
 		<script type="text/javascript" src="media/js/jquery-ui-1.10.2.custom.js"></script>
 		<script type="text/javascript" src="media/js/angular.min.js"></script>
+		<script type="text/javascript" src="media/js/jquery.simulate.js"></script>
+		
+		<!-- OpenShot JavaScript Sources -->
 		<script type="text/javascript" src="app.js"></script>
 		<script type="text/javascript" src="js/functions.js"></script>
     	<script type="text/javascript" src="js/controllers.js"></script>
-    	
     	<script type="text/javascript" src="js/directives/ruler.js"></script>
     	<script type="text/javascript" src="js/directives/playhead.js"></script>
     	<script type="text/javascript" src="js/directives/track.js"></script>
     	<script type="text/javascript" src="js/directives/clip.js"></script>
     	<script type="text/javascript" src="js/directives/transition.js"></script>
-    	<script type="text/javascript" src="js/directives/misc.js"></script>
-    	    	
+    	<script type="text/javascript" src="js/directives/misc.js"></script> 	
 		<script type="text/javascript" src="media/js/debug.js"></script>
 		<script type="text/javascript" src="media/js/ui-bootstrap-tpls-0.7.0.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="media/css/bootstrap.min.css">
-		<link type="text/css" href="media/css/main.css" rel="stylesheet" />
-		<link type="text/css" href="media/css/debug.css" rel="stylesheet" />
+
+		<!-- OpenShot StyleSheets -->
+		<link type="text/css" rel="stylesheet" href="media/css/main.css" />
+		<link type="text/css" rel="stylesheet" href="media/css/debug.css" />		
+		
+		<!-- JQuery & Bootstrap StyleSheets -->
+		<link type="text/css" rel="stylesheet" href="media/css/bootstrap.min.css">
 	</head>
-	<body  tl-body ng-controller="TimelineCtrl">
+	<body  tl-body ng-controller="TimelineCtrl" >
 		
 		<!-- RULER -->
-		<div id="ruler_label">
+		<div tl-rulertime id="ruler_label">
 			<div id="ruler_time">{{playheadTime}}</div>
 		</div>
 		<div id="scrolling_ruler">
-			<canvas tl-ruler id="ruler" width="{{project.duration * pixelsPerSecond}}px" height="39px"></canvas>
-			<div tl-playheadbox class="playhead_box" style="width:{{project.duration * pixelsPerSecond}}px;">
-				<div tl-playhead ng-right-click="ShowPlayheadMenu(project.playhead_position)" style="left:{{(project.playhead_position * pixelsPerSecond) + playheadOffset}}px;position:absolute;">
-					<div class="playhead-top"></div>				
-				</div>
+			<!-- PLAYHEAD TOP -->
+			<div tl-playhead class="playhead playhead-top" ng-right-click="ShowPlayheadMenu(project.playhead_position)" style="left:{{(project.playhead_position * pixelsPerSecond) + playheadOffset}}px;">
+				<div class="playhead-line-small"></div>
 			</div>
+			<canvas tl-ruler id="ruler" width="{{project.duration * pixelsPerSecond}}px" height="39px"></canvas>
+			
+			<!-- PROGRESS BAR -->
+			<canvas tl-progress id="progress" width="{{project.duration * pixelsPerSecond}}px" height="3px"></canvas>	
  		</div>
  		<div class="cleared"></div>
- 		
- 		<!-- PROGRESS BAR -->
-		<div id="progress_container">
-			<canvas tl-progress id="progress" width="{{project.duration * pixelsPerSecond}}px" height="5px"></canvas>
-		</div>
 
 		<!-- TRACKS -->
 		<div id="track_controls">
@@ -51,8 +55,9 @@
 			<br>
 		</div>
 		<div tl-scrollable-tracks id="scrolling_tracks">
-			<div tl-multi-selectable>
-				<div tl-track  ng-repeat="layer in project.layers" id="track_{{layer.number}}" class="track" style="width:{{project.duration * pixelsPerSecond}}px;">
+			<div id="track-container" tl-multi-selectable>
+				<div tl-track  ng-repeat="layer in project.layers" id="track_{{layer.number}}" class="track" style="width:{{(project.duration * pixelsPerSecond) + playheadOffset}}px;">
+					
 					<!-- CLIPS -->
 					<div tl-clip ng-repeat="clip in project.clips | filter:filterByLayer(layer)" id="clip_{{clip.id}}" ng-right-click="ShowClipMenu(clip.id)" class="clip droppable" style="width:{{ (clip.end - clip.start) * pixelsPerSecond}}px;left:{{clip.position * pixelsPerSecond}}px;">
 						<div class="clip_top">
@@ -88,10 +93,14 @@
 					
 				</div>
 			</div>
-		</div>
-		<div tl-playline class="playhead-line"></div>
+
+			<!-- FLOATING PLAYHEAD -->
+			<div tl-playline class="playhead playhead-line" style="height: {{ playhead_height }}px; left:{{(project.playhead_position * pixelsPerSecond) + playheadOffset}}px;"></div>
 		
-		<!-- DEBUG SECTION -->
+		</div>
+		
+		
+		<!-- HIDDEN DEBUG SECTION -->
 		<script language="javascript">
 			
 		</script>

@@ -7,7 +7,6 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
       scale : 16.0, //seconds per tick
       tick_pixels : 100, //pixels between tick mark
       playhead_position : 10, //position of play head
-      
       clips : [
 	               { 
 	                 id : '1', 
@@ -122,8 +121,9 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
   //tracked vars
   $scope.pixelsPerSecond =  parseFloat($scope.project.tick_pixels) / parseFloat($scope.project.scale);
   $scope.playheadOffset = 0;
+  $scope.playhead_animating = false;
+  $scope.playhead_height = 300;
   $scope.playheadTime =  secondsToTime($scope.project.playhead_position);
-  $scope.playlineLocation = 0;
   $scope.Qt = false;
   $scope.EnableQt = function() { 
 	  	$scope.Qt = true;

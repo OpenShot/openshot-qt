@@ -9,6 +9,7 @@ body {
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(14,14,14,1)), color-stop(100%,rgba(125,126,125,1)));
 	overflow: hidden; /* prevent document scrollbars (the timeline handles it's own overflow) */
 	-webkit-user-select: none;
+	line-height: 10px;
 }
 
 /* General */
@@ -26,7 +27,8 @@ img {
     max-width: none;
 }
 
-#scrolling_ruler { overflow: hidden; position: relative; }
+/* Ruler */
+#scrolling_ruler { overflow: hidden; position: relative;line-height: 4px; }
 #scrolling_tracks { height: 316px; overflow: scroll; position: relative; }
 #ruler_label { height: 39px; width: 140px; float: left; margin-bottom: 4px; }
 #ruler_ticks { background-color:#000; }
@@ -36,15 +38,14 @@ img {
 /* Tracks */
 #track_controls { width: 140px; position: relative; float: left; height: 316px; overflow: hidden;}
 .track_label { padding-top: 2px; padding-left: 2px; }
-.track_name { width: 100%; height: 70px; font-family: Sans; color: #fff; font-size: 9pt; padding-left: 4px; margin-left: 5px; margin-bottom: 8px; background-color: #000; border: 1px solid #4B92AD; border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
+.track_name { width: 130px; height: 70px; font-family: Sans; color: #fff; font-size: 9pt; padding-left: 4px; margin-left: 5px; margin-bottom: 8px; background-color: #000; border: 1px solid #4B92AD; border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
 .track { height: 70px; background-color: #000; margin-bottom: 8px; background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(50,50,50,1)), color-stop(100%,rgba(6,6,6,1))); border-top: 1px solid #4b92ad; border-bottom: 1px solid #4b92ad; }
 
 /* Playhead */
-.playhead-line { z-index: 9999; position: absolute; height:335px; width:1px; background-color:#ff0024; opacity:1; left:5.5px;}
-.playhead-top { z-index: 9999; margin-left: -4px; width:25px; height:32px; background-image: url(../images/play_head.png); opacity:1;cursor:pointer;}
-.playhead_box { position:absolute; top:12px; height:15px;}
+.playhead-line { z-index: 9999; position: absolute; height:316px; top:0px; margin-left: 8px; width:1px; background-color:#ff0024; opacity:1;}
+.playhead-line-small { z-index: 9999; position: absolute; height:20px; top:32px;; margin-left: 12px; width:1px; background-color:#ff0024; opacity:1;}
+.playhead-top { z-index: 9999; position: absolute; margin-left: -4px; margin-top: 12px; width:25px; height:32px; background-image: url(../images/play_head.png); opacity:1;cursor:pointer;}
 .marker {position:absolute; top:30px;}
-
 
 /* Clips */
 .clip_top {}
