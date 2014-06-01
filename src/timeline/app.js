@@ -1,5 +1,5 @@
 // Angular app init
-var App = angular.module('openshot-timeline', ['ui.bootstrap']);
+var App = angular.module('openshot-timeline', ['ui.bootstrap','ngAnimate']);
 
 
 // Window resize code

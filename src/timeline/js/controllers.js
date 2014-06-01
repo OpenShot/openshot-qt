@@ -191,6 +191,11 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
  $scope.MoveItem = function(x, y, item_type){
 	 $scope.$apply(function(){
 		 
+     	var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
+    	var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
+    	x += horz_scroll_offset;
+    	y += vert_scroll_offset;
+		 
 		 // Convert x and y into timeline vars
 		 var scrolling_tracks_offset_left = $("#scrolling_tracks").offset().left;
 		 var scrolling_tracks_offset_top = $("#scrolling_tracks").offset().top;

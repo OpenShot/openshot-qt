@@ -9,6 +9,7 @@
 		<script type="text/javascript" src="media/js/jquery-1.10.2.js"></script>
 		<script type="text/javascript" src="media/js/jquery-ui-1.10.2.custom.js"></script>
 		<script type="text/javascript" src="media/js/angular.min.js"></script>
+		<script type="text/javascript" src="media/js/angular-animate.min.js"></script>
 		<script type="text/javascript" src="media/js/jquery.simulate.js"></script>
 		
 		<!-- OpenShot JavaScript Sources -->
@@ -59,7 +60,7 @@
 				<div tl-track  ng-repeat="layer in project.layers" id="track_{{layer.number}}" class="track" style="width:{{(project.duration * pixelsPerSecond) + playheadOffset}}px;">
 					
 					<!-- CLIPS -->
-					<div tl-clip ng-repeat="clip in project.clips | filter:filterByLayer(layer)" id="clip_{{clip.id}}" ng-right-click="ShowClipMenu(clip.id)" class="clip droppable" style="width:{{ (clip.end - clip.start) * pixelsPerSecond}}px;left:{{clip.position * pixelsPerSecond}}px;">
+					<div ng-hide tl-clip ng-repeat="clip in project.clips | filter:filterByLayer(layer)" id="clip_{{clip.id}}" ng-right-click="ShowClipMenu(clip.id)" class="clip droppable" style="width:{{ (clip.end - clip.start) * pixelsPerSecond}}px;left:{{clip.position * pixelsPerSecond}}px;">
 						<div class="clip_top">
 							<div tl-clip-menu class="clip_menu"></div>
 							<div class="clip_effects" id="effects_{{clip.id}}" ng-show="clip.effects.length" tooltip="Effects Applied" tooltip-placement="right" tooltip-trigger='mouseenter' >
@@ -82,7 +83,7 @@
 					</div>
 					
 					<!-- TRANSITIONS -->
-					<div tl-transition ng-repeat="transition in project.transitions | filter:filterByLayer(layer)" id="transition_{{transition.id}}" ng-right-click="ShowClipMenu(transition.id)" class="transition droppable" style="width:{{ transition.duration * pixelsPerSecond}}px;left:{{transition.position * pixelsPerSecond}}px;">
+					<div ng-hide tl-transition ng-repeat="transition in project.transitions | filter:filterByLayer(layer)" id="transition_{{transition.id}}" ng-right-click="ShowClipMenu(transition.id)" class="transition droppable" style="width:{{ transition.duration * pixelsPerSecond}}px;left:{{transition.position * pixelsPerSecond}}px;">
 						<div class="transition_top">
 							<div tl-clip-menu class="transition_menu"></div>
 							<!--div class="transition_label">{{transition.title}}</div-->
