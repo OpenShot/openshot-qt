@@ -41,33 +41,18 @@ App.directive('tlPlayhead', function(){
 			var playhead_top_w = parseInt($(".playhead-top").css("width")) - 8.0; // I'm not sure why I need to remove another 8 pixels here
 			scope.playheadOffset = 0.0 - (playhead_top_w / 2.0);
 
-			//set as draggable
-			element.draggable({
-				//containment:'#scrolling_ruler',
-		        scroll: false,
-		        
-		        start: function(event, ui) {
-		        	
-		        },
-	            stop: function(event, ui) {
-	            	
-				},
-	            drag: function(e, ui) {
-	            	//force playhead to stay where it's supposed to
-	             	ui.position.top = playhead_y_max;
-	             	if (ui.position.left < scope.playheadOffset) ui.position.left = scope.playheadOffset;
+			// Move playhead to new position (if it's not currently being animated)
+			element.on('mousemove', function(e){
+				if (e.which == 1 && !scope.playhead_animating) { // left button
+					var playhead_seconds = (e.pageX - $("#ruler").offset().left) / scope.pixelsPerSecond;
 
-	             	//update the playhead position in the json data
-	             	scope.$apply(function(){
-	             		//set position of playhead
-	             		playhead_seconds = (ui.position.left - scope.playheadOffset) / scope.pixelsPerSecond;
-	             		scope.project.playhead_position = playhead_seconds;
-	             		scope.playheadTime = secondsToTime(playhead_seconds);
-	             	});
-
-
-		        },
-		    });
+					scope.$apply(function(){
+						scope.project.playhead_position = playhead_seconds;
+						scope.playheadTime = secondsToTime(playhead_seconds);
+					});
+				}
+			});
+			
 		}
 	};
 });
