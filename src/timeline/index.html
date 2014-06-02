@@ -2,6 +2,9 @@
 <html ng-app="openshot-timeline">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<META name="author" content="OpenShot Studios, LLC">
+  		<META name="copyright" content="Copyright (c) 2008-2014 OpenShot Studios, LLC">
+  		<META name="license" content="GPLv3">
 		<title>OpenShot Timeline</title>
 		
 		<!-- JQuery & Angular -->
@@ -34,10 +37,11 @@
 	</head>
 	<body  tl-body ng-controller="TimelineCtrl" >
 		
-		<!-- RULER -->
+		<!-- RULER NAME (left of screen) -->
 		<div tl-rulertime id="ruler_label">
 			<div id="ruler_time">{{playheadTime}}</div>
 		</div>
+		<!-- RULER (right of screen) -->
 		<div id="scrolling_ruler">
 			<!-- PLAYHEAD TOP -->
 			<div tl-playhead class="playhead playhead-top" ng-right-click="ShowPlayheadMenu(project.playhead_position)" style="left:{{(project.playhead_position * pixelsPerSecond) + playheadOffset}}px;">
@@ -50,19 +54,20 @@
  		</div>
  		<div class="cleared"></div>
 
-		<!-- TRACKS -->
+		<!-- TRACKS NAMES (left of screen) -->
 		<div id="track_controls">
 			<div ng-repeat="layer in project.layers" id="track_static_{{layer.number}}" class="track_name"><div class="track_label">Track {{layer.number}}</div></div>
 			<br>
 		</div>
+		<!-- TRACKS CONTAINER (right of screen) -->
 		<div tl-scrollable-tracks id="scrolling_tracks">
 			<div id="track-container" tl-multi-selectable>
-				<!-- LOOP THROUG EACH TRACK -->
+				<!-- TRACKS -->
 				<div tl-track  ng-repeat="layer in project.layers" id="track_{{layer.number}}" class="track" style="width:{{(project.duration * pixelsPerSecond) + playheadOffset}}px;">
 				</div>
 				
 				<!-- CLIPS -->
-				<div ng-hide tl-clip ng-repeat="clip in project.clips" id="clip_{{clip.id}}" ng-right-click="ShowClipMenu(clip.id)" class="clip droppable" style="width:{{ (clip.end - clip.start) * pixelsPerSecond}}px; left:{{clip.position * pixelsPerSecond}}px;top:{{getTrackY(clip.layer)}}px;">
+				<div ng-hide tl-clip ng-repeat="clip in project.clips" id="clip_{{clip.id}}" ng-right-click="ShowClipMenu(clip.id)" class="clip droppable" style="width:{{ (clip.end - clip.start) * pixelsPerSecond}}px; left:{{clip.position * pixelsPerSecond}}px;top:{{getTrackTop(clip.layer)}}px;">
 					<div class="clip_top">
 						<div tl-clip-menu class="clip_menu"></div>
 						<div class="clip_effects" id="effects_{{clip.id}}" ng-show="clip.effects.length" tooltip="Effects Applied" tooltip-placement="right" tooltip-trigger='mouseenter' >
@@ -85,7 +90,7 @@
 				</div>
 				
 				<!-- TRANSITIONS -->
-				<div ng-hide tl-transition ng-repeat="transition in project.transitions" id="transition_{{transition.id}}" ng-right-click="ShowClipMenu(transition.id)" class="transition droppable" style="width:{{ transition.duration * pixelsPerSecond}}px;left:{{transition.position * pixelsPerSecond}}px; top:{{getTrackY(transition.layer)}}px;">
+				<div ng-hide tl-transition ng-repeat="transition in project.transitions" id="transition_{{transition.id}}" ng-right-click="ShowClipMenu(transition.id)" class="transition droppable" style="width:{{ transition.duration * pixelsPerSecond}}px;left:{{transition.position * pixelsPerSecond}}px; top:{{getTrackTop(transition.layer)}}px;">
 					<div class="transition_top">
 						<div tl-clip-menu class="transition_menu"></div>
 						<!--div class="transition_label">{{transition.title}}</div-->
@@ -93,13 +98,12 @@
 					</div>
 					<br class="cleared">
 				</div>					
-					
 
 			</div>
 
 			<!-- FLOATING PLAYHEAD -->
 			<div tl-playline class="playhead playhead-line" style="height: {{ playhead_height }}px; left:{{(project.playhead_position * pixelsPerSecond) + playheadOffset}}px;"></div>
-		
+
 		</div>
 		
 		

@@ -1,12 +1,43 @@
+/**
+ * @file
+ * @brief The AngularJS controller used by the OpenShot Timeline 
+ * @author Jonathan Thomas <jonathan@openshot.org>
+ * @author Cody Parker <cody@yourcodepro.com>
+ *
+ * @section LICENSE
+ *
+ * Copyright (c) 2008-2014 OpenShot Studios, LLC
+ * <http://www.openshotstudios.com/>. This file is part of
+ * OpenShot Video Editor, an open-source project dedicated to
+ * delivering high quality video editing and animation solutions to the
+ * world. For more information visit <http://www.openshot.org/>.
+ *
+ * OpenShot Video Editor is free software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * OpenShot Video Editor is distributed in the hope that it will be
+ * useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
+
+// Initialize the main controller module 
 App.controller('TimelineCtrl',function($scope,$timeout) {
+	
 
-  $scope.project =
+	// DEMO DATA (used when debugging outside of Qt using Chrome)
+	$scope.project =
     {
-      duration : 600, //length of project in seconds
-      scale : 16.0, //seconds per tick
-      tick_pixels : 100, //pixels between tick mark
-      playhead_position : 10, //position of play head
+      duration : 600,			//length of project in seconds
+      scale : 16.0,				//seconds per tick
+      tick_pixels : 100,		//pixels between tick mark
+      playhead_position : 10,	//position of play head
       clips : [
 	               { 
 	                 id : '1', 
@@ -61,11 +92,10 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 	                 images : { start: 5, end: 10 },
 	                 show_audio : false,
 	                 audio_data : [.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3, ]
-	                 //audio_data : [.0,.0,.1,.3,.5],
 	               },
              ],
              
-     transitions : [
+	  transitions : [
 	                	{
 	   	                 id : '5', 
 		                 layer : 4, 
@@ -83,7 +113,7 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
                     
                     ],
              
-     layers : [
+	  layers : [
 	               {number:4, y:0},
 	               {number:3, y:0},
 	               {number:2, y:0},               
@@ -91,7 +121,7 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 	               {number:0, y:0}, 
              ],
              
-     markers : [
+	  markers : [
 	                {
 	                  location : 16,
 	                  icon : 'yellow.png'
@@ -110,41 +140,31 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 	                },
               ],
               
-      progress : [
+	  progress : [
 	                  [0, 30, 'rendering'],
 	                  [40, 50, 'complete'],
 	                  [100, 150, 'complete'],
                   ]
     };
   
-
-  //tracked vars
+  // Additional variables used to control the rendering of HTML
   $scope.pixelsPerSecond =  parseFloat($scope.project.tick_pixels) / parseFloat($scope.project.scale);
   $scope.playheadOffset = 0;
   $scope.playhead_animating = false;
   $scope.playhead_height = 300;
   $scope.playheadTime =  secondsToTime($scope.project.playhead_position);
+  
+  // Method to set if Qt is detected (which clears demo data)
   $scope.Qt = false;
   $scope.EnableQt = function() { 
 	  	$scope.Qt = true;
 	  	$scope.project.clips = [];
 	  	$scope.project.transitions = [];
 	  	timeline.qt_log("$scope.Qt = true;"); 
-	  };
-  
-  //filters clips by layer
-  $scope.filterByLayer = function (layer) {
-      return function (item) {
-          if (item.layer == layer.number){
-            return true; //belongs on this layer 
-          } else {
-            return false; //does not belong on this layer
-          }
-      };
   };
   
-  // Determine track position in vertical pixels
-  $scope.getTrackY = function(layer){
+  // Determine track top (in vertical pixels)
+  $scope.getTrackTop = function(layer){
 	  // Get scrollbar position
 	  var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
 	  var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
@@ -156,7 +176,6 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 	  else
 		  return 0;
   };
-
 
 
 // ############# QT FUNCTIONS #################### //
@@ -281,7 +300,7 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 	 });
  };
   
- // Find a track at a given y coordinate (if any)
+ // Find a track JSON object at a given y coordinate (if any)
  $scope.GetTrackAtY = function(y){
 
 		// Loop through each layer (looking for the closest track based on Y coordinate)
@@ -420,11 +439,10 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
  
  // Load entire project data JSON from UpdateManager (i.e. user opened an existing project)
  $scope.LoadJson = function(EntireProjectJson){
- 	$scope.$apply(function(){
- 		
+ 	
+	 $scope.$apply(function(){
  		// Update the entire JSON object for the entire timeline
  		$scope.project = EntireProjectJson.value;
- 		
 	 });
 	 
 	 // return true
@@ -438,6 +456,7 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 
 // ############ DEBUG STUFFS ################## //
 
+  // Debug method to add clips to the $scope
   $scope.addClips = function(numClips) {
         startNum = $scope.project.clips.length + 1;
         $.each(numClips, function() {
@@ -457,18 +476,19 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 
     };
 
-
-$scope.addEffect = function(clipNum){
-    //find the clip in the json data
-    elm = findElement($scope.project.clips, "number", clipNum);
-    elm.effects.push({
-       effect : 'Old Movie',
-       icon : 'om.png'
-    });
-    $scope.clipNum = "";
+  // Debug method to add effects to a clip's $scope
+  $scope.addEffect = function(clipNum){
+	    //find the clip in the json data
+	    elm = findElement($scope.project.clips, "number", clipNum);
+	    elm.effects.push({
+	       effect : 'Old Movie',
+	       icon : 'om.png'
+	    });
+	    $scope.clipNum = "";
                     
-}
+  }
 
+  // Debug method to add a marker to the $scope
   $scope.addMarker = function(markLoc){
         $scope.project.markers.push({
           location: parseInt(markLoc),
@@ -477,7 +497,7 @@ $scope.addEffect = function(clipNum){
         $scope.markLoc = "";
   };
 
-
+  // Debug method to change a clip's image
   $scope.changeImage = function(startImage){
       console.log(startImage);
         $scope.project.clips[2].images.start=startImage;

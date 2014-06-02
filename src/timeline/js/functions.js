@@ -1,27 +1,57 @@
-//finds an element with a particular value in the json data
+/**
+ * @file
+ * @brief Misc Functions used by the OpenShot Timeline 
+ * @author Jonathan Thomas <jonathan@openshot.org>
+ * @author Cody Parker <cody@yourcodepro.com>
+ *
+ * @section LICENSE
+ *
+ * Copyright (c) 2008-2014 OpenShot Studios, LLC
+ * <http://www.openshotstudios.com/>. This file is part of
+ * OpenShot Video Editor, an open-source project dedicated to
+ * delivering high quality video editing and animation solutions to the
+ * world. For more information visit <http://www.openshot.org/>.
+ *
+ * OpenShot Video Editor is free software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * OpenShot Video Editor is distributed in the hope that it will be
+ * useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
+// Find a JSON element / object with a particular value in the json data
 function findElement(arr, propName, propValue) {
 
+  // Loop through array looking for a matching element
   for (var i=0; i < arr.length; i++)
     if (arr[i][propName] == propValue)
       return arr[i];
 
 }
 
-
+// Hide and show various clip elements (based on width of clip)
 function handleVisibleClipElements(scope, clip_id){
 
-    //get the clip in the scope
+    // Get the clip in the scope
     clip = findElement(scope.project.clips, "id", clip_id);
     element = $("#clip_"+clip_id);
 
-    //check clip width to determine which elements can be shown
+    // Check clip width to determine which elements can be shown
     var clip_width = element.width();
     var thumb_width = $(".thumb").outerWidth(true);
     var effects_width = element.find(".clip_effects").outerWidth(true); 
     var label_width = element.find(".clip_label").outerWidth(true);
     var menu_width = element.find(".clip_menu").outerWidth(true);   
     
-    //set min widths
+    // Set min widths
     var min_for_thumb_end = thumb_width * 2;
     var min_for_thumb_start = thumb_width;
     var min_for_menu = menu_width;
@@ -29,7 +59,7 @@ function handleVisibleClipElements(scope, clip_id){
     var min_for_label = menu_width + effects_width + label_width;
 
 
-    //show the images as audio is not shown
+    // Show the images as audio is not shown
     if (!clip.show_audio){
         //show end clip?
         //(clip_width <= min_for_thumb_end) ? element.find(".thumb-end").hide() : element.find(".thumb-end").show();
@@ -37,23 +67,22 @@ function handleVisibleClipElements(scope, clip_id){
         //show start clip?
         //(clip_width <= min_for_thumb_start) ? element.find(".thumb-start").hide() : element.find(".thumb-start").show();
         //console.log("W: " + clip_width  + " --- CLIP" + clip.id + " : " + min_for_thumb_start);
-        
     }
 
-    //show label?
+    // Show label?
     (clip_width <= min_for_label) ? element.find(".clip_label").hide() : element.find(".clip_label").show();
     
-    //show effects?
+    // Show effects?
     (clip_width <= min_for_effects) ? element.find(".clip_effects").hide() : element.find(".clip_effects").show();
 
-    //show menu?
+    // Show menu?
     (clip_width <= min_for_menu) ? element.find(".clip_menu").hide() : element.find(".clip_menu").show();
 
     element.find(".clip_top").show();
     //element.find(".thumb-container").show();
 }
 
-//draws the audio wave on a clip
+// Draw the audio wave on a clip
 function drawAudio(scope, clip_id){
     //get the clip in the scope
     clip = findElement(scope.project.clips, "id", clip_id);
@@ -103,6 +132,7 @@ function drawAudio(scope, clip_id){
     
 }
 
+// Convert seconds into formatted time stamp
 function secondsToTime(secs)
 {
     var t = new Date(1970,0,1);
@@ -113,6 +143,7 @@ function secondsToTime(secs)
     return s;
 }
 
+// Find the closest track number (based on a Y coordinate)
 function findTrackAtLocation(top){
 	//default return value
 	var retVal = "track_-1";
@@ -148,7 +179,4 @@ function findTrackAtLocation(top){
 
     return parseInt(retVal.substr(retVal.indexOf("_") + 1));;
 }
-
-
-
 
