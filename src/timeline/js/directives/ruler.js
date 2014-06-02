@@ -1,15 +1,43 @@
-//variables for panning by middle click
+/**
+ * @file
+ * @brief Ruler directives (dragging playhead functionality, progress bars, tick marks, etc...)
+ * @author Jonathan Thomas <jonathan@openshot.org>
+ * @author Cody Parker <cody@yourcodepro.com>
+ *
+ * @section LICENSE
+ *
+ * Copyright (c) 2008-2014 OpenShot Studios, LLC
+ * <http://www.openshotstudios.com/>. This file is part of
+ * OpenShot Video Editor, an open-source project dedicated to
+ * delivering high quality video editing and animation solutions to the
+ * world. For more information visit <http://www.openshot.org/>.
+ *
+ * OpenShot Video Editor is free software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * OpenShot Video Editor is distributed in the hope that it will be
+ * useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
+// Variables for panning by middle click
 var is_scrolling = false;
 var starting_scrollbar = { x: 0, y: 0 };
 var starting_mouse_position = { x: 0, y: 0 };
 
-//variables for scrolling control
+// Variables for scrolling control
 var scroll_left_pixels = 0;
 
 
-
-//This container allows for tracks to be scrolled (with synced ruler)
-//and allows for panning of the timeline with the middle mouse button
+// This container allows for tracks to be scrolled (with synced ruler)
+// and allows for panning of the timeline with the middle mouse button
 App.directive('tlScrollableTracks', function () {
 	return {
 		restrict: 'A',
@@ -55,7 +83,7 @@ App.directive('tlScrollableTracks', function () {
 	};
 });
 
-//the body of the app. allows for capture of released middle mouse button
+// Track scrolling mode on body tag... allows for capture of released middle mouse button
 App.directive('tlBody', function () {
 	return {
 		link: function (scope, element, attrs){
@@ -72,7 +100,7 @@ App.directive('tlBody', function () {
 });
 
 
-//The HTML5 canvas ruler
+// The HTML5 canvas ruler
 App.directive('tlRuler', function ($timeout) {
 	return {
 		restrict: 'A',
@@ -190,7 +218,7 @@ App.directive('tlRuler', function ($timeout) {
 });
 
 
-//The HTML5 canvas ruler
+// The HTML5 canvas ruler
 App.directive('tlRulertime', function ($timeout) {
 	return {
 		restrict: 'A',
@@ -223,7 +251,7 @@ App.directive('tlRulertime', function ($timeout) {
 		
 
 
-//Handles the HTML5 canvas progress bar
+// Handles the HTML5 canvas progress bar
 App.directive('tlProgress', function($timeout){
 	return {
 		link: function(scope, element, attrs){

@@ -1,6 +1,34 @@
+/**
+ * @file
+ * @brief Track directives (droppable functionality, etc...)
+ * @author Jonathan Thomas <jonathan@openshot.org>
+ * @author Cody Parker <cody@yourcodepro.com>
+ *
+ * @section LICENSE
+ *
+ * Copyright (c) 2008-2014 OpenShot Studios, LLC
+ * <http://www.openshotstudios.com/>. This file is part of
+ * OpenShot Video Editor, an open-source project dedicated to
+ * delivering high quality video editing and animation solutions to the
+ * world. For more information visit <http://www.openshot.org/>.
+ *
+ * OpenShot Video Editor is free software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * OpenShot Video Editor is distributed in the hope that it will be
+ * useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-//treats element as a track
-//1: allows clips to be dropped
+
+// Treats element as a track
+// 1: allows clips, transitions, and effects to be dropped
 App.directive('tlTrack', function($timeout) {
     return {
         // A = attribute, E = Element, C = Class and M = HTML Comment

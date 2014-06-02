@@ -1,3 +1,33 @@
+/**
+ * @file
+ * @brief Transition directives (draggable & resizable functionality)
+ * @author Jonathan Thomas <jonathan@openshot.org>
+ * @author Cody Parker <cody@yourcodepro.com>
+ *
+ * @section LICENSE
+ *
+ * Copyright (c) 2008-2014 OpenShot Studios, LLC
+ * <http://www.openshotstudios.com/>. This file is part of
+ * OpenShot Video Editor, an open-source project dedicated to
+ * delivering high quality video editing and animation solutions to the
+ * world. For more information visit <http://www.openshot.org/>.
+ *
+ * OpenShot Video Editor is free software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * OpenShot Video Editor is distributed in the hope that it will be
+ * useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
+// Init Variables
 var dragging = false;
 var previous_drag_position = null;
 var start_transitions = {};
@@ -5,10 +35,10 @@ var move_transitions = {};
 var bounding_box = Object();
 var out_of_bounds = false;
 
-//variables for resizing transitions
+// Variables for resizing transitions
 var last_resizable = { left: 0, width: 0 };
 
-//build bounding box
+// Build bounding box (since multiple clips can be selected)
 function setBoundingBox(transition){
 	var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
 	var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
@@ -30,10 +60,10 @@ function setBoundingBox(transition){
 }
 
 
-//treats element as a transition
-//1: can be dragged
-//2: can be resized
-//3: class change when hovered over
+// Treats element as a transition
+// 1: can be dragged
+// 2: can be resized
+// 3: class change when hovered over
 var dragLog = null;
 
 App.directive('tlTransition', function($timeout){
@@ -259,7 +289,7 @@ App.directive('tlTransition', function($timeout){
 	};
 });
 
-
+//Handle multiple selections
 App.directive('tlMultiSelectable', function(){
 	return {
 		link: function(scope, element, attrs){
