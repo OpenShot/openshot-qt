@@ -37,6 +37,17 @@ function findElement(arr, propName, propValue) {
 
 }
 
+// Get the height of the track container (minus bottom margin of last track)
+function getTrackContainerHeight() {
+	
+	var track_margin = 0;
+	if ($(".track").length)
+		if ($(".track").css("margin-bottom"))
+			track_margin = parseInt($(".track").css("margin-bottom").replace("px",""));
+	
+	return $("#track-container").height() - track_margin;
+}
+
 // Hide and show various clip elements (based on width of clip)
 function handleVisibleClipElements(scope, clip_id){
 
