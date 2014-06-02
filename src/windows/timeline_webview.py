@@ -55,7 +55,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 	html_path = os.path.join(info.PATH, 'timeline','index.html')
 
 	def eval_js(self, code):
-		self.page().mainFrame().evaluateJavaScript(code)
+		return self.page().mainFrame().evaluateJavaScript(code)
 	
 	# This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
 	def changed(self, action):
@@ -227,6 +227,14 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 			new_clip["title"] = filename
 			new_clip["image"] = thumb_path
 			
+			# Find the closest track (from javascript)
+			top_layer = int(self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack(" + str(position.y()) + ");"))
+			new_clip["layer"] = top_layer
+			
+			# Find position from javascript
+			js_position = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition(" + str(position.x()) + ");")
+			new_clip["position"] = js_position
+			
 			# Adjust clip duration, start, and end
 			new_clip["duration"] = new_clip["reader"]["duration"]
 			if file.data["media_type"] != "image":
@@ -241,12 +249,18 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 	def addTransition(self, file_ids, position):
 		log.info("addTransition...")
 		
+		# Find the closest track (from javascript)
+		top_layer = int(self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack(" + str(position.y()) + ");"))
+		
+		# Find position from javascript
+		js_position = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition(" + str(position.x()) + ");")
+		
 		# Create transition dictionary
 		transitions_data = {
              "id" : get_app().project.generate_id(), 
-             "layer" : 0, 
+             "layer" : top_layer, 
              "title" : "Transition",
-             "position" : 0,
+             "position" : js_position,
              "duration" : 10
              }
 		

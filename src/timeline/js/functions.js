@@ -120,7 +120,6 @@ function findTrackAtLocation(top){
     //if the clip was dropped above the top track, return -1
     var track_count = $('.track').length;
 
-    
 	//loop all tracks
 	$(".track").each(function(index, element) {
         var track = $(this);
@@ -128,6 +127,7 @@ function findTrackAtLocation(top){
         //if clip top is less than 0, then set it to the first track
         if (index == 0 && top < 0) {
             retVal = track.attr("id");
+            return false;
         }else{
             //otherwise, find the correct track
             track_top = track.position().top;
@@ -135,12 +135,14 @@ function findTrackAtLocation(top){
             if (top >= track_top && top <= track_bottom){
         		//found the track at this location
         		retVal = track.attr("id");
+        		return false;
         	}
         }
 
         //if this is the last and no track was found, return the last track
         if (index == track_count - 1 && retVal == -1) {
             retVal = track.attr("id");
+            return false;
         }
     });
 

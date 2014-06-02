@@ -71,7 +71,7 @@ img {
 .clip.ng-enter,
 .clip.ng-leave {
   -webkit-transition:0.2s linear all;
-  transition:0.2s linear all;
+  transition:0.4s linear all;
 }
 
 .clip.ng-enter,

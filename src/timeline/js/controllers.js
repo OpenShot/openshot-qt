@@ -142,6 +142,20 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
           }
       };
   };
+  
+  // Determine track position in vertical pixels
+  $scope.getTrackY = function(layer){
+	  // Get scrollbar position
+	  var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
+	  var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
+
+	  // Find this tracks Y location
+	  var track_id = "div#track_" + layer;
+	  if ($(track_id).length)
+		  return $(track_id).position().top + vert_scroll_offset;
+	  else
+		  return 0;
+  };
 
 
 
@@ -185,6 +199,34 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 	 	timeline.qt_log("$scope.ShowPlayheadMenu");
 	 	timeline.ShowPlayheadMenu(position);
 	 }
+ };
+ 
+ // Get Position of item (used by Qt)
+ $scope.GetJavaScriptPosition = function(x){
+	// Adjust for scrollbar position
+	var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
+	var scrolling_tracks_offset_left = $("#scrolling_tracks").offset().left;
+	x += horz_scroll_offset;
+
+	 // Convert x into position in seconds
+	 var clip_position = parseFloat(x - scrolling_tracks_offset_left) / parseFloat($scope.pixelsPerSecond);
+	 if (clip_position < 0)
+		 clip_position = 0;
+	 
+	 // Return position in seconds
+	 return clip_position;
+ };
+ 
+ // Get Track number of item (used by Qt)
+ $scope.GetJavaScriptTrack = function(y){
+	// Adjust for scrollbar position
+  	var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
+  	var scrolling_tracks_offset_top = $("#scrolling_tracks").offset().top;
+	y += vert_scroll_offset;
+
+	// Return number of track
+	var track_number = parseInt($scope.GetTrackAtY(y - scrolling_tracks_offset_top).number);
+	return track_number;
  };
  
  // Move a new clip to the timeline
