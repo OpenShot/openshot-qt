@@ -95,23 +95,24 @@ class QueryObject:
 		matching_objects = []
 		
 		# Loop through all children objects
-		for child in parent:
-			
-			# Loop through all kwargs (and look for matches)
-			match = True
-			for key, value in kwargs.items():
-				if key in child and not child[key] == value:
-					match = False
-					break
+		if parent:
+			for child in parent:
 				
-			# Add matched record
-			if match:
-				object = OBJECT_TYPE()
-				object.id = child["id"]
-				object.key = [OBJECT_TYPE.object_name, { "id" : object.id}]
-				object.data = child
-				object.type = "update"
-				matching_objects.append(object)
+				# Loop through all kwargs (and look for matches)
+				match = True
+				for key, value in kwargs.items():
+					if key in child and not child[key] == value:
+						match = False
+						break
+					
+				# Add matched record
+				if match:
+					object = OBJECT_TYPE()
+					object.id = child["id"]
+					object.key = [OBJECT_TYPE.object_name, { "id" : object.id}]
+					object.data = child
+					object.type = "update"
+					matching_objects.append(object)
 				
 		# Return matching objects
 		return matching_objects
