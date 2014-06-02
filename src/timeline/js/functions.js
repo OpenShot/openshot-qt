@@ -115,7 +115,7 @@ function secondsToTime(secs)
 
 function findTrackAtLocation(top){
 	//default return value
-	var retVal = -1;
+	var retVal = "track_-1";
     
     //if the clip was dropped above the top track, return -1
     var track_count = $('.track').length;
@@ -146,7 +146,7 @@ function findTrackAtLocation(top){
         }
     });
 
-    return retVal;
+    return parseInt(retVal.substr(retVal.indexOf("_") + 1));;
 }
 
 

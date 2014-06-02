@@ -221,11 +221,10 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
  $scope.GetJavaScriptTrack = function(y){
 	// Adjust for scrollbar position
   	var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
-  	var scrolling_tracks_offset_top = $("#scrolling_tracks").offset().top;
 	y += vert_scroll_offset;
 
 	// Return number of track
-	var track_number = parseInt($scope.GetTrackAtY(y - scrolling_tracks_offset_top).number);
+	var track_number = parseInt($scope.GetTrackAtY(y).number);
 	return track_number;
  };
  

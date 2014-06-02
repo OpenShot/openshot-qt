@@ -51,13 +51,11 @@ App.directive('tlTrack', function($timeout) {
 						if (item_left < 0) item_left = 0;
 
 		            	// get track the item was dropped on 
-		            	drop_track_id = findTrackAtLocation(parseInt(item_middle));
+						drop_track_num = findTrackAtLocation(parseInt(item_middle));
 		            	
 		            	// if the droptrack was found, update the json
-		            	if (drop_track_id != -1){ 
-		            		// get track id from track.id
-		            		drop_track_num = parseInt(drop_track_id.substr(drop_track_id.indexOf("_") + 1));
-		            		
+		            	if (drop_track_num != -1){ 
+
 		            		// find the item in the json data
 		            		item_data = null;
 		            		if (item_type == 'clip')
