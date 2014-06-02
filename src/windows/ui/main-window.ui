@@ -813,7 +813,7 @@
     <string>Zoom In</string>
    </property>
    <property name="shortcut">
-    <string>+</string>
+    <string>=</string>
    </property>
   </action>
   <action name="actionTimelineZoomOut">
@@ -1125,7 +1125,9 @@
   </action>
   <action name="actionPropertyClear">
    <property name="icon">
-    <iconset theme="edit-clear"/>
+    <iconset theme="edit-clear">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Clear</string>

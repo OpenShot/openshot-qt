@@ -90,7 +90,7 @@
 				</div>
 				
 				<!-- TRANSITIONS -->
-				<div ng-hide tl-transition ng-repeat="transition in project.transitions" id="transition_{{transition.id}}" ng-right-click="ShowClipMenu(transition.id)" class="transition droppable" style="width:{{ transition.duration * pixelsPerSecond}}px;left:{{transition.position * pixelsPerSecond}}px; top:{{getTrackTop(transition.layer)}}px;">
+				<div ng-hide tl-transition ng-repeat="transition in project.transitions" id="transition_{{transition.id}}" ng-right-click="ShowTransitionMenu(transition.id)" class="transition droppable" style="width:{{ transition.duration * pixelsPerSecond}}px;left:{{transition.position * pixelsPerSecond}}px; top:{{getTrackTop(transition.layer)}}px;">
 					<div class="transition_top">
 						<div tl-clip-menu class="transition_menu"></div>
 						<!--div class="transition_label">{{transition.title}}</div-->

@@ -212,6 +212,14 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
  	}
  };
  
+ // Show transition context menu
+ $scope.ShowTransitionMenu = function(tran_id) {
+ 	if ($scope.Qt) {
+	 	timeline.qt_log("$scope.ShowTransitionMenu");
+	 	timeline.ShowTransitionMenu(tran_id);
+ 	}
+ };
+ 
   // Show playhead context menu
  $scope.ShowPlayheadMenu = function(position) {
  	if ($scope.Qt) {

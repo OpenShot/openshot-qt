@@ -37,7 +37,7 @@ from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
 from classes.timeline import TimelineSync
-from classes.query import File, Clip
+from classes.query import File, Clip, Transition
 from images import openshot_rc
 from windows.views.files_treeview import FilesTreeView
 from windows.views.files_listview import FilesListView
@@ -460,12 +460,26 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		# Clear selected clips
 		self.selected_clips = []
 		
+	def actionRemoveTransition_trigger(self, event):
+		log.info('actionRemoveTransition_trigger')
+
+		# Loop through selected clips
+		for tran_id in self.selected_transitions:
+			# Find matching file
+			transitions = Transition.filter(id=tran_id)
+			for t in transitions: 
+				# Remove transition
+				t.delete()
+				
+		# Clear selected clips
+		self.selected_transitions = []
+		
 	
 	def actionTimelineZoomIn_trigger(self, event):
-		self.sliderZoom.setValue(self.sliderZoom.value() + self.sliderZoom.singleStep())
+		self.sliderZoom.setValue(self.sliderZoom.value() - self.sliderZoom.singleStep())
 	
 	def actionTimelineZoomOut_trigger(self, event):
-		self.sliderZoom.setValue(self.sliderZoom.value() - self.sliderZoom.singleStep())
+		self.sliderZoom.setValue(self.sliderZoom.value() + self.sliderZoom.singleStep())
 		
 	def actionFullscreen_trigger(self, event):
 		# Hide fullscreen button, and display exit fullscreen button
@@ -838,9 +852,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		self.zoomScaleLabel = QLabel(_("{} seconds").format(self.sliderZoom.value()))
 		
 		#add zoom widgets
-		self.timelineToolbar.addAction(self.actionTimelineZoomOut)
-		self.timelineToolbar.addWidget(self.sliderZoom)
 		self.timelineToolbar.addAction(self.actionTimelineZoomIn)
+		self.timelineToolbar.addWidget(self.sliderZoom)
+		self.timelineToolbar.addAction(self.actionTimelineZoomOut)
 		self.timelineToolbar.addWidget(self.zoomScaleLabel)
 		
 		#Add timeline toolbar to web frame
@@ -873,6 +887,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		# Track the selected file(s)
 		self.selected_files = []
 		self.selected_clips = []
+		self.selected_transitions = []
 		
 		# Init fullscreen menu visibility
 		self.init_fullscreen_menu()

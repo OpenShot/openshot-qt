@@ -134,6 +134,17 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		menu = QMenu(self)
 		menu.addAction(self.window.actionRemoveClip)
 		return menu.popup(QCursor.pos())
+	
+	@pyqtSlot(str)
+	def ShowTransitionMenu(self, tran_id=None):
+		log.info('ShowTransitionMenu: %s' % tran_id)
+
+		# Set the selected transition
+		self.window.selected_transitions = [tran_id]
+		
+		menu = QMenu(self)
+		menu.addAction(self.window.actionRemoveTransition)
+		return menu.popup(QCursor.pos())
 		
 	@pyqtSlot(str)
 	def qt_log(self, message=None):
