@@ -58,8 +58,8 @@ img {
 .left_edge_stop { border-left: 2px solid #4b92ad; }
 .right_edge_stop { border-right: 2px solid #4b92ad; }
 .highlight_clip { background-color: #fff; }
-.ui-selecting { border-left: 2px solid yellow; border-right: 2px solid yellow; }
-.ui-selected { border-left: 2px solid red; border-right: 2px solid red; }
+.ui-selecting { border-left: 2px solid yellow!important; border-right: 2px solid yellow!important; }
+.ui-selected { border-left: 2px solid red!important; border-right: 2px solid red!important; }
 .thumb {margin-left:10px; width: 66px; height: 46px;}
 .thumb-start { float:left; }
 .thumb-end {float:right; }

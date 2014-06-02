@@ -264,7 +264,7 @@ App.directive('tlMultiSelectable', function(){
 	return {
 		link: function(scope, element, attrs){
 			element.selectable({
-				filter: '.transition',
+				filter: '.droppable',
 			});
 		}
 	};
