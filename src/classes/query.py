@@ -65,7 +65,7 @@ class QueryObject:
 				self.key.append( { "id" : self.id } )
 				
 			# Insert into project data
-			app.updates.insert(OBJECT_TYPE.object_key, self.data)
+			app.updates.insert(copy.deepcopy(OBJECT_TYPE.object_key), self.data)
 			
 			# Mark record as 'update' now... so another call to this method won't insert it again
 			self.type = "update"

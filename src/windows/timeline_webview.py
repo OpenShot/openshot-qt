@@ -301,7 +301,17 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 	def dropEvent(self, event):
 		log.info('Dropping {} in timeline.'.format(event.mimeData().text()))
 		event.accept()
-        
+		
+		# Update project data with final position of item
+		if self.item_type == "clip":
+			# Update most recent clip
+			self.eval_js(JS_SCOPE_SELECTOR + ".UpdateRecentItemJSON('clip');")
+
+		elif self.item_type == "transition":
+			# Update most recent transition
+			self.eval_js(JS_SCOPE_SELECTOR + ".UpdateRecentItemJSON('transition');")
+
+	
 		# Clear new clip
 		self.new_item = False
 		self.item_type = None

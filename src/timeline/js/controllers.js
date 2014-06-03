@@ -255,6 +255,21 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 	return track_number;
  };
  
+ // Get JSON of most recent item (used by Qt)
+ $scope.UpdateRecentItemJSON = function(item_type) {
+	 	timeline.qt_log(item_type);
+	 	
+		// update clip in Qt (very important =)
+		if (item_type == 'clip') {
+			var item_data = $scope.project.clips[$scope.project.clips.length - 1];
+			timeline.update_clip_data(JSON.stringify(item_data));
+		}
+		else if (item_type == 'transition') {
+			var item_data = $scope.project.transitions[$scope.project.transitions.length - 1];
+			timeline.update_transition_data(JSON.stringify(item_data));
+		}
+ }
+ 
  // Move a new clip to the timeline
  $scope.MoveItem = function(x, y, item_type){
 	 $scope.$apply(function(){
@@ -270,7 +285,7 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
 		 var clip_position = parseFloat(x - scrolling_tracks_offset_left) / parseFloat($scope.pixelsPerSecond);
 		 if (clip_position < 0)
 			 clip_position = 0;
-		 
+
 		 // Update clip position & layer (based on x,y)
 		 if (item_type == "clip") {
 			 // move clip
