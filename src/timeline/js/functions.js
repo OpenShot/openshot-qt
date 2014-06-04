@@ -191,3 +191,38 @@ function findTrackAtLocation(top){
     return parseInt(retVal.substr(retVal.indexOf("_") + 1));;
 }
 
+
+var bounding_box = Object();
+
+// Build bounding box (since multiple clips can be selected)
+function setBoundingBox(clip){
+	var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
+	var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
+	
+    var clip_bottom = clip.position().top + clip.height() + vert_scroll_offset;
+    var clip_top = clip.position().top + vert_scroll_offset;
+    var clip_left = clip.position().left + horz_scroll_offset;
+    var clip_right = clip.position().left + horz_scroll_offset + clip.width();
+
+    if(jQuery.isEmptyObject(bounding_box)){
+        bounding_box.left = clip_left;
+        bounding_box.top = clip_top;
+        bounding_box.bottom = clip_bottom;
+        bounding_box.right = clip_right;
+        bounding_box.height = clip.height();
+        bounding_box.width = clip.width();
+    }else{
+        //compare and change if clip is a better fit for bounding box edges
+        if (clip_top < bounding_box.top) bounding_box.top = clip_top;
+        if (clip_left < bounding_box.left) bounding_box.left = clip_left;
+        if (clip_bottom > bounding_box.bottom) bounding_box.bottom = clip_bottom;
+        if (clip_right > bounding_box.right) bounding_box.right = clip_right;
+        
+        // compare height and width of bounding box (take the largest number)
+        var height = bounding_box.bottom - bounding_box.top;
+        var width = bounding_box.right - bounding_box.left;
+        if (height > bounding_box.height) bounding_box.height = height;
+        if (width > bounding_box.width) bounding_box.width = width;
+    }
+}
+

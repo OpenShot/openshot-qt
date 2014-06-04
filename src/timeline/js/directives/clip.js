@@ -32,34 +32,11 @@ var dragging = false;
 var previous_drag_position = null;
 var start_clips = {};
 var move_clips = {};
-var bounding_box = Object();
 var out_of_bounds = false;
 var track_container_height = -1;
 
 // Variables for resizing clips
 var last_resizable = { left: 0, width: 0 };
-
-// Build bounding box (since multiple clips can be selected)
-function setBoundingBox(clip){
-	var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
-	var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
-	
-    var clip_bottom = clip.position().top + clip.height() + vert_scroll_offset;
-    var clip_top = clip.position().top + vert_scroll_offset;
-    var clip_left = clip.position().left + horz_scroll_offset;
-
-    if(jQuery.isEmptyObject(bounding_box)){
-        bounding_box.left = clip_left;
-        bounding_box.top = clip_top;
-        bounding_box.bottom = clip_bottom;
-    }else{
-        //compare and change if clip is a better fit for bounding box edges
-        if (clip_top < bounding_box.top) bounding_box.top = clip_top;
-        if (clip_left < bounding_box.left) bounding_box.left = clip_left;
-        if (clip_bottom > bounding_box.bottom) bounding_box.bottom = clip_bottom;
-    }
-}
-
 
 // Treats element as a clip
 // 1: can be dragged
@@ -277,11 +254,12 @@ App.directive('tlClip', function($timeout){
 					move_clips[element.attr('id')] = {"top": ui.position.top,
                                                       "left": ui.position.left};
 
-                    //update box
+                    // update box
                     bounding_box.left += x_offset;
+                    bounding_box.right += x_offset;
                     bounding_box.top += y_offset;
                     bounding_box.bottom += y_offset;
-                    
+
                     if (bounding_box.left < 0) {
                     	x_offset -= bounding_box.left;
                     	bounding_box.left = 0;
@@ -291,12 +269,14 @@ App.directive('tlClip', function($timeout){
                     if (bounding_box.top < 0) {
                     	y_offset -= bounding_box.top;
                     	bounding_box.top = 0;
+                    	bounding_box.bottom = bounding_box.height;
                 		ui.position.top = previous_y + y_offset;
                 		move_clips[element.attr('id')]["top"] = ui.position.top;
                     }
                     if (bounding_box.bottom > track_container_height) {
                     	y_offset -= (bounding_box.bottom - track_container_height);
                     	bounding_box.bottom = track_container_height;
+                    	bounding_box.top = bounding_box.bottom - bounding_box.height;
                 		ui.position.top = previous_y + y_offset;
                 		move_clips[element.attr('id')]["top"] = ui.position.top;
                     }

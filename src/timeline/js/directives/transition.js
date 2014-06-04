@@ -32,34 +32,11 @@ var dragging = false;
 var previous_drag_position = null;
 var start_transitions = {};
 var move_transitions = {};
-var bounding_box = Object();
 var out_of_bounds = false;
 var track_container_height = -1;
 
 // Variables for resizing transitions
 var last_resizable = { left: 0, width: 0 };
-
-// Build bounding box (since multiple clips can be selected)
-function setBoundingBox(transition){
-	var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
-	var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
-	
-    var transition_bottom = transition.position().top + transition.height() + vert_scroll_offset;
-    var transition_top = transition.position().top + vert_scroll_offset;
-    var transition_left = transition.position().left + horz_scroll_offset;
-
-    if(jQuery.isEmptyObject(bounding_box)){
-        bounding_box.left = transition_left;
-        bounding_box.top = transition_top;
-        bounding_box.bottom = transition_bottom;
-    }else{
-        //compare and change if transition is a better fit for bounding box edges
-        if (transition_top < bounding_box.top) bounding_box.top = transition_top;
-        if (transition_left < bounding_box.left) bounding_box.left = transition_left;
-        if (transition_bottom > bounding_box.bottom) bounding_box.bottom = transition_bottom;
-    }
-}
-
 
 // Treats element as a transition
 // 1: can be dragged
@@ -237,6 +214,7 @@ App.directive('tlTransition', function($timeout){
 
                     //update box
                     bounding_box.left += x_offset;
+                    bounding_box.right += x_offset;
                     bounding_box.top += y_offset;
                     bounding_box.bottom += y_offset;
                     
@@ -249,12 +227,14 @@ App.directive('tlTransition', function($timeout){
                     if (bounding_box.top < 0) {
                     	y_offset -= bounding_box.top;
                     	bounding_box.top = 0;
+                    	bounding_box.bottom = bounding_box.height;
                 		ui.position.top = previous_y + y_offset;
                 		move_transitions[element.attr('id')]["top"] = ui.position.top;
                     }
                     if (bounding_box.bottom > track_container_height) {
                     	y_offset -= (bounding_box.bottom - track_container_height);
                     	bounding_box.bottom = track_container_height;
+                    	bounding_box.top = bounding_box.bottom - bounding_box.height;
                 		ui.position.top = previous_y + y_offset;
                 		move_transitions[element.attr('id')]["top"] = ui.position.top;
                     }
