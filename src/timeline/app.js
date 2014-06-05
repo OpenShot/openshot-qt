@@ -61,5 +61,15 @@ var App = angular.module('openshot-timeline', ['ui.bootstrap','ngAnimate']);
 	
 	// Manually trigger the window resize code (to verify it runs at least once)
 	$(window).trigger('resize');
+	
+	// Bind to keydown event (to detect SHIFT)
+	$( "body" ).keydown(function(event) {
+	  if (event.which==16)
+    	$('body').scope().shift_pressed = true;
+	});
+	$( "body" ).keyup(function(event) {
+	  if ($('body').scope().shift_pressed)
+	  	$('body').scope().shift_pressed = false;
+	});
 });
 

@@ -28,8 +28,7 @@
 
 
 // Initialize the main controller module 
-App.controller('TimelineCtrl',function($scope,$timeout) {
-	
+App.controller('TimelineCtrl',function($scope) {
 
 	// DEMO DATA (used when debugging outside of Qt using Chrome)
 	$scope.project =
@@ -153,6 +152,7 @@ App.controller('TimelineCtrl',function($scope,$timeout) {
   $scope.playhead_animating = false;
   $scope.playhead_height = 300;
   $scope.playheadTime =  secondsToTime($scope.project.playhead_position);
+  $scope.shift_pressed = false;
   
   // Method to set if Qt is detected (which clears demo data)
   $scope.Qt = false;

@@ -186,7 +186,6 @@ App.directive('tlClip', function($timeout){
 					}
 			  	}
 			);
-			
 
 			//handle draggability of clip
 			element.draggable({
@@ -249,10 +248,16 @@ App.directive('tlClip', function($timeout){
 	            	var x_offset = ui.position.left - previous_x;
 	            	var y_offset = ui.position.top - previous_y;
 
-
                     //update the dragged clip location in the location arrays
 					move_clips[element.attr('id')] = {"top": ui.position.top,
                                                       "left": ui.position.left};
+                                                      
+					// Check for shift key
+					if (scope.shift_pressed) {
+						// freeze X movement
+						x_offset = 0;
+						ui.position.left = previous_x;
+					}
 
                     // update box
                     bounding_box.left += x_offset;
@@ -309,7 +314,6 @@ App.directive('tlClip', function($timeout){
 				    		$(this).css('top', oldY);
                         });
                     }
-                    return false;
                 }
 		      });
 

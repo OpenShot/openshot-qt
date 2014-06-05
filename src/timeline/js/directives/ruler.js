@@ -62,7 +62,6 @@ App.directive('tlScrollableTracks', function () {
 					starting_scrollbar = { x: element.scrollLeft(), y: element.scrollTop() };
 					starting_mouse_position = { x: e.pageX, y: e.pageY };
 				}
-				return true;
 			});
 
 			//pans the timeline on move
@@ -75,7 +74,6 @@ App.directive('tlScrollableTracks', function () {
 					element.scrollLeft(starting_scrollbar.x + difference.x);
 					element.scrollTop(starting_scrollbar.y + difference.y);
 				}
-				return true;
 			});
 			
 
@@ -91,7 +89,6 @@ App.directive('tlBody', function () {
 			element.on('mouseup', function(e){
 				if (e.which == 2) // middle button
 					is_scrolling = false;
-				return true;
 			});
 
 
@@ -219,7 +216,7 @@ App.directive('tlRuler', function ($timeout) {
 
 
 // The HTML5 canvas ruler
-App.directive('tlRulertime', function ($timeout) {
+App.directive('tlRulertime', function () {
 	return {
 		restrict: 'A',
 		link: function (scope, element, attrs) {

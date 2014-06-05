@@ -44,7 +44,7 @@ var last_resizable = { left: 0, width: 0 };
 // 3: class change when hovered over
 var dragLog = null;
 
-App.directive('tlTransition', function($timeout){
+App.directive('tlTransition', function(){
 	return {
 		scope: "@",
 		link: function(scope, element, attrs){
@@ -156,7 +156,7 @@ App.directive('tlTransition', function($timeout){
 		        snap: ".track", // snaps to a track
 		        snapMode: "inner", 
 		        snapTolerance: 20, 
-		        stack: ".transition", 
+		        stack: ".droppable", 
 		        scroll: false,
 		        revert: 'invalid',
 		        start: function(event, ui) {
@@ -206,7 +206,13 @@ App.directive('tlTransition', function($timeout){
 	            	// Calculate amount to move transitions
 	            	var x_offset = ui.position.left - previous_x;
 	            	var y_offset = ui.position.top - previous_y;
-
+	            	
+					// Check for shift key
+					if (scope.shift_pressed) {
+						// freeze X movement
+						x_offset = 0;
+						ui.position.left = previous_x;
+					}
 
                     //update the dragged transition location in the location arrays
 					move_transitions[element.attr('id')] = {"top": ui.position.top,
@@ -267,7 +273,6 @@ App.directive('tlTransition', function($timeout){
 				    		$(this).css('top', oldY);
                         });
                     }
-                    return false;
                 }
 		      });
 
