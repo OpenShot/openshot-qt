@@ -157,7 +157,7 @@ App.directive('tlTransition', function(){
 		        snapMode: "inner", 
 		        snapTolerance: 20, 
 		        stack: ".droppable", 
-		        scroll: false,
+		        scroll: true,
 		        revert: 'invalid',
 		        start: function(event, ui) {
 		        	previous_drag_position = null;
