@@ -206,47 +206,18 @@ App.directive('tlTransition', function(){
 	            	// Calculate amount to move transitions
 	            	var x_offset = ui.position.left - previous_x;
 	            	var y_offset = ui.position.top - previous_y;
-	            	
-					// Check for shift key
-					if (scope.shift_pressed) {
-						// freeze X movement
-						x_offset = 0;
-						ui.position.left = previous_x;
-					}
 
                     //update the dragged transition location in the location arrays
 					move_transitions[element.attr('id')] = {"top": ui.position.top,
                                                       "left": ui.position.left};
 
-                    //update box
-                    bounding_box.left += x_offset;
-                    bounding_box.right += x_offset;
-                    bounding_box.top += y_offset;
-                    bounding_box.bottom += y_offset;
-                    
-                    if (bounding_box.left < 0) {
-                    	x_offset -= bounding_box.left;
-                    	bounding_box.left = 0;
-                		ui.position.left = previous_x + x_offset;
-                		move_transitions[element.attr('id')]["left"] = ui.position.left;
-                    }
-                    if (bounding_box.top < 0) {
-                    	y_offset -= bounding_box.top;
-                    	bounding_box.top = 0;
-                    	bounding_box.bottom = bounding_box.height;
-                		ui.position.top = previous_y + y_offset;
-                		move_transitions[element.attr('id')]["top"] = ui.position.top;
-                    }
-                    if (bounding_box.bottom > track_container_height) {
-                    	y_offset -= (bounding_box.bottom - track_container_height);
-                    	bounding_box.bottom = track_container_height;
-                    	bounding_box.top = bounding_box.bottom - bounding_box.height;
-                		ui.position.top = previous_y + y_offset;
-                		move_transitions[element.attr('id')]["top"] = ui.position.top;
-                    }
-                    	
+					// Move the bounding box and apply snapping rules
+					results = moveBoundingBox(scope, element, previous_x, previous_y, x_offset, y_offset, ui);
+					x_offset = results.x_offset;
+					y_offset = results.y_offset;
+
     				// Move all other selected transitions with this one
-	                $(".ui-selected").not($(this)).each(function(){
+	                $(".ui-selected").each(function(){
 	                	var pos = $(this).position();
 	                	var newY = move_transitions[$(this).attr('id')]["top"] + y_offset;
                         var newX = move_transitions[$(this).attr('id')]["left"] + x_offset;

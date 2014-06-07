@@ -34,6 +34,7 @@ img {
 #ruler_ticks { background-color:#000; }
 #ruler_time { font-family: Sans; font-size: 13pt; color: #c8c8c8; padding-top: 14px; padding-left: 40px;}
 #progress_container {margin-left:140px; overflow: hidden; height: 13px;}
+.drag_cursor { cursor: move; }
 
 /* Tracks */
 #track_controls { width: 140px; position: relative; float: left; height: 316px; overflow: hidden;}

@@ -194,29 +194,29 @@ function findTrackAtLocation(top){
 
 var bounding_box = Object();
 
-// Build bounding box (since multiple clips can be selected)
-function setBoundingBox(clip){
+// Build bounding box (since multiple items can be selected)
+function setBoundingBox(item){
 	var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
 	var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
 	
-    var clip_bottom = clip.position().top + clip.height() + vert_scroll_offset;
-    var clip_top = clip.position().top + vert_scroll_offset;
-    var clip_left = clip.position().left + horz_scroll_offset;
-    var clip_right = clip.position().left + horz_scroll_offset + clip.width();
+    var item_bottom = item.position().top + item.height() + vert_scroll_offset;
+    var item_top = item.position().top + vert_scroll_offset;
+    var item_left = item.position().left + horz_scroll_offset;
+    var item_right = item.position().left + horz_scroll_offset + item.width();
 
     if(jQuery.isEmptyObject(bounding_box)){
-        bounding_box.left = clip_left;
-        bounding_box.top = clip_top;
-        bounding_box.bottom = clip_bottom;
-        bounding_box.right = clip_right;
-        bounding_box.height = clip.height();
-        bounding_box.width = clip.width();
+        bounding_box.left = item_left;
+        bounding_box.top = item_top;
+        bounding_box.bottom = item_bottom;
+        bounding_box.right = item_right;
+        bounding_box.height = item.height();
+        bounding_box.width = item.width();
     }else{
-        //compare and change if clip is a better fit for bounding box edges
-        if (clip_top < bounding_box.top) bounding_box.top = clip_top;
-        if (clip_left < bounding_box.left) bounding_box.left = clip_left;
-        if (clip_bottom > bounding_box.bottom) bounding_box.bottom = clip_bottom;
-        if (clip_right > bounding_box.right) bounding_box.right = clip_right;
+        //compare and change if item is a better fit for bounding box edges
+        if (item_top < bounding_box.top) bounding_box.top = item_top;
+        if (item_left < bounding_box.left) bounding_box.left = item_left;
+        if (item_bottom > bounding_box.bottom) bounding_box.bottom = item_bottom;
+        if (item_right > bounding_box.right) bounding_box.right = item_right;
         
         // compare height and width of bounding box (take the largest number)
         var height = bounding_box.bottom - bounding_box.top;
@@ -224,5 +224,46 @@ function setBoundingBox(clip){
         if (height > bounding_box.height) bounding_box.height = height;
         if (width > bounding_box.width) bounding_box.width = width;
     }
+}
+
+// Move bounding box (apply snapping and constraints)
+function moveBoundingBox(scope, element, previous_x, previous_y, x_offset, y_offset, ui) {
+    
+	// Check for shift key
+	if (scope.shift_pressed) {
+		// freeze X movement
+		x_offset = 0;
+		ui.position.left = previous_x;
+	}
+
+    // Update bounding box
+    bounding_box.left += x_offset;
+    bounding_box.right += x_offset;
+    bounding_box.top += y_offset;
+    bounding_box.bottom += y_offset;
+
+    // Check overall timeline constraints (i.e don't let clips be dragged outside the timeline)
+    if (bounding_box.left < 0) {
+    	// Top border
+    	x_offset -= bounding_box.left;
+    	bounding_box.left = 0;
+		ui.position.left = previous_x + x_offset;
+    }
+    if (bounding_box.top < 0) {
+    	// Left border
+    	y_offset -= bounding_box.top;
+    	bounding_box.top = 0;
+    	bounding_box.bottom = bounding_box.height;
+		ui.position.top = previous_y + y_offset;
+    }
+    if (bounding_box.bottom > track_container_height) {
+    	// Bottom border
+    	y_offset -= (bounding_box.bottom - track_container_height);
+    	bounding_box.bottom = track_container_height;
+    	bounding_box.top = bounding_box.bottom - bounding_box.height;
+		ui.position.top = previous_y + y_offset;
+    }
+    
+    return { 'x_offset' : x_offset, 'y_offset' : y_offset };
 }
 

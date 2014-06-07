@@ -44,7 +44,7 @@ App.directive('tlScrollableTracks', function () {
 		
 		link: function (scope, element, attrs) {
 			
-			//sync ruler to track scrolling
+			// Sync ruler to track scrolling
 			element.on('scroll', function () {
 				//set amount scrolled
 				scroll_left_pixels = element.scrollLeft();
@@ -54,17 +54,18 @@ App.directive('tlScrollableTracks', function () {
 				$('#progress_container').scrollLeft(element.scrollLeft());
 			});
 
-			//handle panning when middle mouse is clicked
+			// Initialize panning when middle mouse is clicked
 			element.on('mousedown', function(e) {
 				if (e.which == 2) { // middle button
 					e.preventDefault();
 					is_scrolling = true;
 					starting_scrollbar = { x: element.scrollLeft(), y: element.scrollTop() };
 					starting_mouse_position = { x: e.pageX, y: e.pageY };
+					element.addClass('drag_cursor');
 				}
 			});
 
-			//pans the timeline on move
+			// Pans the timeline (on middle mouse clip and drag)
 			element.on('mousemove', function(e){
 				if (is_scrolling) {
 					// Calculate difference from last position
@@ -74,6 +75,11 @@ App.directive('tlScrollableTracks', function () {
 					element.scrollLeft(starting_scrollbar.x + difference.x);
 					element.scrollTop(starting_scrollbar.y + difference.y);
 				}
+			});
+			
+			// Remove move cursor (i.e. dragging has stopped)
+			element.on('mouseup', function(e) {
+				element.removeClass('drag_cursor');
 			});
 			
 

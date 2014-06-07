@@ -248,47 +248,17 @@ App.directive('tlClip', function($timeout){
 	            	var x_offset = ui.position.left - previous_x;
 	            	var y_offset = ui.position.top - previous_y;
 
-                    //update the dragged clip location in the location arrays
+                    // Update the dragged clip location in the location arrays
 					move_clips[element.attr('id')] = {"top": ui.position.top,
                                                       "left": ui.position.left};
-                                                      
-					// Check for shift key
-					if (scope.shift_pressed) {
-						// freeze X movement
-						x_offset = 0;
-						ui.position.left = previous_x;
-					}
 
-                    // update box
-                    bounding_box.left += x_offset;
-                    bounding_box.right += x_offset;
-                    bounding_box.top += y_offset;
-                    bounding_box.bottom += y_offset;
-
-                    if (bounding_box.left < 0) {
-                    	x_offset -= bounding_box.left;
-                    	bounding_box.left = 0;
-                		ui.position.left = previous_x + x_offset;
-                		move_clips[element.attr('id')]["left"] = ui.position.left;
-                    }
-                    if (bounding_box.top < 0) {
-                    	y_offset -= bounding_box.top;
-                    	bounding_box.top = 0;
-                    	bounding_box.bottom = bounding_box.height;
-                		ui.position.top = previous_y + y_offset;
-                		move_clips[element.attr('id')]["top"] = ui.position.top;
-                    }
-                    if (bounding_box.bottom > track_container_height) {
-                    	y_offset -= (bounding_box.bottom - track_container_height);
-                    	bounding_box.bottom = track_container_height;
-                    	bounding_box.top = bounding_box.bottom - bounding_box.height;
-                		ui.position.top = previous_y + y_offset;
-                		move_clips[element.attr('id')]["top"] = ui.position.top;
-                    }
-                    	
+					// Move the bounding box and apply snapping rules
+					results = moveBoundingBox(scope, element, previous_x, previous_y, x_offset, y_offset, ui);
+					x_offset = results.x_offset;
+					y_offset = results.y_offset;
+                    
     				// Move all other selected clips with this one
-	                $(".ui-selected").not($(this)).each(function(){
-	                	var pos = $(this).position();
+	                $(".ui-selected").each(function(){
 	                	var newY = move_clips[$(this).attr('id')]["top"] + y_offset;
                         var newX = move_clips[$(this).attr('id')]["left"] + x_offset;
 
