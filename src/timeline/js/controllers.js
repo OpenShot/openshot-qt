@@ -33,6 +33,10 @@ App.controller('TimelineCtrl',function($scope) {
 	// DEMO DATA (used when debugging outside of Qt using Chrome)
 	$scope.project =
     {
+	  fps: {
+		    num : 24,
+		    den : 1
+		   },
       duration : 600,			//length of project in seconds
       scale : 16.0,				//seconds per tick
       tick_pixels : 100,		//pixels between tick mark
@@ -153,6 +157,8 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.playhead_height = 300;
   $scope.playheadTime =  secondsToTime($scope.project.playhead_position);
   $scope.shift_pressed = false;
+  $scope.snapline_position = 0.0;
+  $scope.snapline = false;
   
   // Method to set if Qt is detected (which clears demo data)
   $scope.Qt = false;
@@ -322,7 +328,93 @@ App.controller('TimelineCtrl',function($scope) {
 		
 	 });
  };
-  
+ 
+ // Sort clips and transitions by position
+ $scope.SortItems = function(){
+	 console.log('Sorting clips and transitions');
+	 
+	 // Sort by position second
+	 $scope.project.clips = $scope.project.clips.sort(function(a,b) {
+		    if ( a.position < b.position )
+		        return -1;
+		    if ( a.position > b.position )
+		        return 1;
+		    return 0;
+	  });
+	 
+	// Print clips 
+	//for (var index = 0; index < $scope.project.clips.length; index++) {
+	//	var clip = $scope.project.clips[index];
+	//	console.log('clip layer: ' + clip.layer + ', position: ' + clip.position);
+	//}
+ };
+ 
+ // Search through clips and transitions to find the closest element within a given threashold
+ $scope.GetNearbyPosition = function(pixel_position, threashold){
+	var position = pixel_position / $scope.pixelsPerSecond;
+	var smallest_diff = 900.0;
+	var smallest_abs_diff = 900.0;
+	var snapping_position = 0.0;
+	var end_padding = $scope.project.fps.den / $scope.project.fps.num; // add a frame onto the end of clips
+	var diffs = [];
+	 
+	// Add clip position to array
+	for (var index = 0; index < $scope.project.clips.length; index++) {
+		var clip = $scope.project.clips[index];
+		diffs.push({'diff' : position - clip.position, 'position' : clip.position}, // left side of clip
+		           {'diff' : position - (clip.position + (clip.end - clip.start) + end_padding), 'position' : clip.position + (clip.end - clip.start) + end_padding}); // right side of clip
+	}
+	
+	// Add transition position to array
+	for (var index = 0; index < $scope.project.transitions.length; index++) {
+		var transition = $scope.project.transitions[index];
+		diffs.push({'diff' : position - transition.position, 'position' : transition.position}, // left side of transition
+		           {'diff' : position - (transition.position + transition.duration + end_padding), 'position' : transition.position + transition.duration + end_padding}); // right side of transition
+	}
+	
+	// Add playhead position to array
+	var playhead_diff = position - $scope.project.playhead_position;
+	diffs.push({'diff' : playhead_diff, 'position' : $scope.project.playhead_position });
+	
+	// Loop through diffs (and find the smallest one)
+	for (var diff_index = 0; diff_index < diffs.length; diff_index++) {
+		var diff = diffs[diff_index].diff;
+		var position = diffs[diff_index].position;
+		var abs_diff = Math.abs(diff);
+		
+		// Check if this clip is nearby
+		if (abs_diff < smallest_abs_diff && abs_diff <= threashold) {
+			// This one is smaller
+			smallest_diff = diff;
+			smallest_abs_diff = abs_diff;
+			snapping_position = position;
+		}
+	}
+	
+	// no nearby found?
+	if (smallest_diff == 900.0)
+		smallest_diff = 0.0;
+	
+	// Return closest nearby position
+	return [smallest_diff, snapping_position];
+ };
+ 
+  // Show the nearby snapping line
+ $scope.ShowSnapline = function(position){
+	 $scope.$apply(function(){
+		$scope.snapline_position = position;
+		$scope.snapline = true; 
+	 });
+ };
+ 
+ // Hide the nearby snapping line
+ $scope.HideSnapline = function(){
+	 $scope.$apply(function(){
+		 $scope.snapline_position = -1;
+		$scope.snapline = false; 
+	 });
+ };
+ 
  // Find a track JSON object at a given y coordinate (if any)
  $scope.GetTrackAtY = function(y){
 

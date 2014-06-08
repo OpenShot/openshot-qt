@@ -101,8 +101,11 @@
 
 			</div>
 
-			<!-- FLOATING PLAYHEAD -->
-			<div tl-playline class="playhead playhead-line" style="height: {{ playhead_height }}px; left:{{(project.playhead_position * pixelsPerSecond) + playheadOffset}}px;"></div>
+			<!-- FLOATING PLAYHEAD LINE -->
+			<div class="playhead playhead-line" style="height: {{ playhead_height }}px; left:{{(project.playhead_position * pixelsPerSecond) + playheadOffset}}px;"></div>
+
+			<!-- SNAPPING HINT LINE -->
+			<div ng-show="snapline" class="snapping-line" style="height: {{ playhead_height }}px; left:{{( snapline_position * pixelsPerSecond)}}px;"></div>
 
 		</div>
 		

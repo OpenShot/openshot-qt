@@ -219,8 +219,15 @@ App.directive('tlClip', function($timeout){
                         setBoundingBox($(this));
                     });
 		        	
+		        	// Sort clip and transition data
+		        	scope.SortItems();
+		        	
 		        },
                 stop: function(event, ui) {
+                	
+                	// Hide snapline (if any)
+                	scope.HideSnapline();
+
                 	// Clear previous drag position
 					previous_drag_position = null;
 					dragging = false;
