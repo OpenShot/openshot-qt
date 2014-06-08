@@ -13,7 +13,7 @@ body {
 }
 
 /* General */
-#cleared {height:0px; clear:both;}
+.cleared { height:0px; clear:both;}
 
 .ui-selectable-helper{
   position:absolute;
