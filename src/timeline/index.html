@@ -61,7 +61,7 @@
 		</div>
 		<!-- TRACKS CONTAINER (right of screen) -->
 		<div tl-scrollable-tracks id="scrolling_tracks">
-			<div id="track-container" tl-track tl-multi-selectable>
+			<div id="track-container" tl-track tl-multi-selectable style="width: {{project.duration * pixelsPerSecond}}px;">
 				<!-- TRACKS -->
 				<div ng-repeat="layer in project.layers" id="track_{{layer.number}}" class="track" style="width:{{(project.duration * pixelsPerSecond) + playheadOffset}}px;">
 				</div>
