@@ -352,8 +352,28 @@ App.controller('TimelineCtrl',function($scope) {
  };
  
  // Find overlapping clips
- $scope.GetOverlappingClips = function(pixel_positions, threashold, ignore_ids) {
+ $scope.GetMissingTransitions = function(clip_id, threashold) {
  	
+ 	var overlapping_clips = [];
+ 	var transitions = [];
+ 	
+ 	// Get clip that matches this id
+ 	var original_clip = findElement($scope.project.clips, "id", clip_id);
+	
+	// Search through all other clips on this track, and look for overlapping ones
+	for (var index = 0; index < $scope.project.clips.length; index++) {
+		var clip = $scope.project.clips[index];
+
+		// skip clips that are not on the same layer
+		if (original_clip.layer != clip.layer)
+			continue;
+		
+		// is clip overlapping
+		var clip_right = clip.position + (clip.end - clip.start);
+		//if (clip.position > original_clip.position || )
+		
+		//overlapping_clips.push();
+	}
  	
  };
  
