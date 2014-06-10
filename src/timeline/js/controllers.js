@@ -350,7 +350,7 @@ App.controller('TimelineCtrl',function($scope) {
  };
  
  // Search through clips and transitions to find the closest element within a given threashold
- $scope.GetNearbyPosition = function(pixel_positions, threashold){
+ $scope.GetNearbyPosition = function(pixel_positions, threashold, ignore_ids){
 	// init some vars
 	var smallest_diff = 900.0;
 	var smallest_abs_diff = 900.0;
@@ -366,6 +366,11 @@ App.controller('TimelineCtrl',function($scope) {
 		// Add clip position to array
 		for (var index = 0; index < $scope.project.clips.length; index++) {
 			var clip = $scope.project.clips[index];
+
+			// exit out if this item is in ignore_ids
+			if (ignore_ids.hasOwnProperty(clip.id))
+				continue;
+			
 			diffs.push({'diff' : position - clip.position, 'position' : clip.position}, // left side of clip
 			           {'diff' : position - (clip.position + (clip.end - clip.start) + end_padding), 'position' : clip.position + (clip.end - clip.start) + end_padding}); // right side of clip
 		}
@@ -373,6 +378,11 @@ App.controller('TimelineCtrl',function($scope) {
 		// Add transition position to array
 		for (var index = 0; index < $scope.project.transitions.length; index++) {
 			var transition = $scope.project.transitions[index];
+			
+			// exit out if this item is in ignore_ids
+			if (ignore_ids.hasOwnProperty(transition.id))
+				continue;
+			
 			diffs.push({'diff' : position - transition.position, 'position' : transition.position}, // left side of transition
 			           {'diff' : position - (transition.position + transition.duration + end_padding), 'position' : transition.position + transition.duration + end_padding}); // right side of transition
 		}

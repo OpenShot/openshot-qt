@@ -265,8 +265,15 @@ function moveBoundingBox(scope, element, previous_x, previous_y, x_offset, y_off
 		ui.position.top = previous_y + y_offset;
     }
     
+    // Get list of current selected ids (so we can ignore their snapping x coordinates)
+    selected_ids = {};
+	$(".ui-selected").each(function() {
+		var item_id = $(this).attr('id');
+		selected_ids[item_id.substr(item_id.indexOf("_") + 1)] = true;
+	});
+    
     // Find closest nearby object, if any (for snapping)
-    var results = scope.GetNearbyPosition([bounding_box.left, bounding_box.right], 1.0);
+    var results = scope.GetNearbyPosition([bounding_box.left, bounding_box.right], 1.0, selected_ids);
     var nearby_offset = results[0] * scope.pixelsPerSecond;
     var snapline_position = results[1];
 
