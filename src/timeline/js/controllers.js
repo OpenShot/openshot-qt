@@ -350,44 +350,50 @@ App.controller('TimelineCtrl',function($scope) {
  };
  
  // Search through clips and transitions to find the closest element within a given threashold
- $scope.GetNearbyPosition = function(pixel_position, threashold){
-	var position = pixel_position / $scope.pixelsPerSecond;
+ $scope.GetNearbyPosition = function(pixel_positions, threashold){
+	// init some vars
 	var smallest_diff = 900.0;
 	var smallest_abs_diff = 900.0;
 	var snapping_position = 0.0;
 	var end_padding = $scope.project.fps.den / $scope.project.fps.num; // add a frame onto the end of clips
 	var diffs = [];
-	 
-	// Add clip position to array
-	for (var index = 0; index < $scope.project.clips.length; index++) {
-		var clip = $scope.project.clips[index];
-		diffs.push({'diff' : position - clip.position, 'position' : clip.position}, // left side of clip
-		           {'diff' : position - (clip.position + (clip.end - clip.start) + end_padding), 'position' : clip.position + (clip.end - clip.start) + end_padding}); // right side of clip
-	}
 	
-	// Add transition position to array
-	for (var index = 0; index < $scope.project.transitions.length; index++) {
-		var transition = $scope.project.transitions[index];
-		diffs.push({'diff' : position - transition.position, 'position' : transition.position}, // left side of transition
-		           {'diff' : position - (transition.position + transition.duration + end_padding), 'position' : transition.position + transition.duration + end_padding}); // right side of transition
-	}
-	
-	// Add playhead position to array
-	var playhead_diff = position - $scope.project.playhead_position;
-	diffs.push({'diff' : playhead_diff, 'position' : $scope.project.playhead_position });
-	
-	// Loop through diffs (and find the smallest one)
-	for (var diff_index = 0; diff_index < diffs.length; diff_index++) {
-		var diff = diffs[diff_index].diff;
-		var position = diffs[diff_index].position;
-		var abs_diff = Math.abs(diff);
+	// Loop through each pixel position (supports multiple positions: i.e. left and right side of bounding box)
+	for (var pos_index = 0; pos_index < pixel_positions.length; pos_index++) {
+		var pixel_position = pixel_positions[pos_index];
+		var position = pixel_position / $scope.pixelsPerSecond;
+		 
+		// Add clip position to array
+		for (var index = 0; index < $scope.project.clips.length; index++) {
+			var clip = $scope.project.clips[index];
+			diffs.push({'diff' : position - clip.position, 'position' : clip.position}, // left side of clip
+			           {'diff' : position - (clip.position + (clip.end - clip.start) + end_padding), 'position' : clip.position + (clip.end - clip.start) + end_padding}); // right side of clip
+		}
 		
-		// Check if this clip is nearby
-		if (abs_diff < smallest_abs_diff && abs_diff <= threashold) {
-			// This one is smaller
-			smallest_diff = diff;
-			smallest_abs_diff = abs_diff;
-			snapping_position = position;
+		// Add transition position to array
+		for (var index = 0; index < $scope.project.transitions.length; index++) {
+			var transition = $scope.project.transitions[index];
+			diffs.push({'diff' : position - transition.position, 'position' : transition.position}, // left side of transition
+			           {'diff' : position - (transition.position + transition.duration + end_padding), 'position' : transition.position + transition.duration + end_padding}); // right side of transition
+		}
+		
+		// Add playhead position to array
+		var playhead_diff = position - $scope.project.playhead_position;
+		diffs.push({'diff' : playhead_diff, 'position' : $scope.project.playhead_position });
+		
+		// Loop through diffs (and find the smallest one)
+		for (var diff_index = 0; diff_index < diffs.length; diff_index++) {
+			var diff = diffs[diff_index].diff;
+			var position = diffs[diff_index].position;
+			var abs_diff = Math.abs(diff);
+			
+			// Check if this clip is nearby
+			if (abs_diff < smallest_abs_diff && abs_diff <= threashold) {
+				// This one is smaller
+				smallest_diff = diff;
+				smallest_abs_diff = abs_diff;
+				snapping_position = position;
+			}
 		}
 	}
 	
@@ -410,7 +416,6 @@ App.controller('TimelineCtrl',function($scope) {
  // Hide the nearby snapping line
  $scope.HideSnapline = function(){
 	 $scope.$apply(function(){
-		 $scope.snapline_position = -1;
 		$scope.snapline = false; 
 	 });
  };

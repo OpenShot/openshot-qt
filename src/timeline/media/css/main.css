@@ -108,13 +108,13 @@ img {
 }
 
 /* Snapping / snapline */
-.snapping-line { z-index: 9998; position: absolute; height:316px; top:0px; width:1px; background-color:#32b7ea; opacity:0.75;-webkit-transition: 0.3s linear all; }
+.snapping-line { z-index: 9998; position: absolute; height:316px; top:0px; width:1px; background-color:#32b7ea; opacity:0.75; transition: 0.3s linear all; }
 
 /* Snap line Animations */
-.snapping-line.ng-hide-add, .snapping-line.ng-hide-remove { display: block !important; opacity:0; }
+.snapping-line.ng-hide-add { display: block !important; }
+.snapping-line.ng-hide-remove { display: block !important; opacity: 0.0; }
 .snapping-line.ng-hide-remove.ng-hide-remove-active { opacity:0.75; }
-.snapping-line.ng-hide-add{ opacity:0.75; }
-.snapping-line.ng-hide-add.ng-hide-add-active { opacity:0; }
+.snapping-line.ng-hide-add.ng-hide-add-active { opacity:0.0; }
 
 /* Scrollbar style */
 ::-webkit-scrollbar {width: 6px; height: 6px; background: #000000; }

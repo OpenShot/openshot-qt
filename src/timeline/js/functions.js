@@ -247,6 +247,7 @@ function moveBoundingBox(scope, element, previous_x, previous_y, x_offset, y_off
     	// Left border
     	x_offset -= bounding_box.left;
     	bounding_box.left = 0;
+    	bounding_box.right = bounding_box.width;
 		ui.position.left = previous_x + x_offset;
     }
     if (bounding_box.top < 0) {
@@ -265,24 +266,26 @@ function moveBoundingBox(scope, element, previous_x, previous_y, x_offset, y_off
     }
     
     // Find closest nearby object, if any (for snapping)
-    var results = scope.GetNearbyPosition(bounding_box.left, 1.0);
+    var results = scope.GetNearbyPosition([bounding_box.left, bounding_box.right], 1.0);
     var nearby_offset = results[0] * scope.pixelsPerSecond;
     var snapline_position = results[1];
 
     if (snapline_position) {
+    	snapped = true; 
+    	
     	// Show snapping line
     	scope.ShowSnapline(snapline_position);
 
     	// Snap bounding box to this position
     	x_offset -= nearby_offset;
     	bounding_box.left -= nearby_offset;
+    	bounding_box.right -= nearby_offset;
 		ui.position.left -= nearby_offset;
-    }
-    else {
-    	// Hide snapline
-    	scope.HideSnapline();
-    }
-    	
+		
+    } else {
+	    // Hide snapline
+		scope.HideSnapline();
+	}
     
     return { 'x_offset' : x_offset, 'y_offset' : y_offset };
 }
