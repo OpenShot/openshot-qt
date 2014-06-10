@@ -332,21 +332,29 @@ App.controller('TimelineCtrl',function($scope) {
  // Sort clips and transitions by position
  $scope.SortItems = function(){
 	 console.log('Sorting clips and transitions');
+	 $scope.$apply(function(){
+	 	
+		 // Sort by position second
+		 $scope.project.clips = $scope.project.clips.sort(function(a,b) {
+			    if ( a.position < b.position )
+			        return -1;
+			    if ( a.position > b.position )
+			        return 1;
+			    return 0;
+		  });
 	 
-	 // Sort by position second
-	 $scope.project.clips = $scope.project.clips.sort(function(a,b) {
-		    if ( a.position < b.position )
-		        return -1;
-		    if ( a.position > b.position )
-		        return 1;
-		    return 0;
-	  });
-	 
+	});
 	// Print clips 
 	//for (var index = 0; index < $scope.project.clips.length; index++) {
 	//	var clip = $scope.project.clips[index];
 	//	console.log('clip layer: ' + clip.layer + ', position: ' + clip.position);
 	//}
+ };
+ 
+ // Find overlapping clips
+ $scope.GetOverlappingClips = function(pixel_positions, threashold, ignore_ids) {
+ 	
+ 	
  };
  
  // Search through clips and transitions to find the closest element within a given threashold
@@ -559,6 +567,9 @@ App.controller('TimelineCtrl',function($scope) {
 		 			previous_object.splice(current_position, 1);
 		 		});
 		 	}
+		 	
+		    // Re-sort clips and transitions array
+		    scope.SortItems();
 	 	}
 	}	
 	 

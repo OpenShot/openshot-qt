@@ -219,9 +219,6 @@ App.directive('tlClip', function($timeout){
                         setBoundingBox($(this));
                     });
 		        	
-		        	// Sort clip and transition data
-		        	scope.SortItems();
-		        	
 		        },
                 stop: function(event, ui) {
                 	

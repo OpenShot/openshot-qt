@@ -106,7 +106,9 @@ App.directive('tlTrack', function($timeout) {
 
 		            	}
 		            });
-
+		            
+		            // Re-sort clips
+		            scope.SortItems();
 		        }	
 		    });
     	}    
