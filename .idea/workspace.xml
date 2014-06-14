@@ -23,10 +23,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Import_transitions.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Import_transitions.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/windows/Import_transitions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.54474705" vertical-offset="1150" max-vertical-offset="2178">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1150" max-vertical-offset="2178">
               <caret line="95" column="24" selection-start-line="95" selection-start-column="24" selection-end-line="95" selection-end-column="24" />
               <folding>
                 <element signature="e#1129#1138#0" expanded="true" />
@@ -35,11 +35,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="info.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="info.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/classes/info.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="162" max-vertical-offset="1818">
-              <caret line="51" column="67" selection-start-line="51" selection-start-column="67" selection-end-line="51" selection-end-column="67" />
+            <state vertical-scroll-proportion="0.6384236" vertical-offset="486" max-vertical-offset="1836">
+              <caret line="63" column="27" selection-start-line="63" selection-start-column="27" selection-end-line="63" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -90,9 +90,9 @@
         <option value="$USER_HOME$/openshot_qt/src/windows/progress_bar_export.py" />
         <option value="$PROJECT_DIR$/src/windows/export_video.py" />
         <option value="$USER_HOME$/openshot_qt/src/windows/about.py" />
-        <option value="$PROJECT_DIR$/AUTHORS" />
         <option value="$PROJECT_DIR$/src/windows/main_window.py" />
         <option value="$PROJECT_DIR$/src/windows/Import_transitions.py" />
+        <option value="$PROJECT_DIR$/AUTHORS" />
         <option value="$PROJECT_DIR$/src/classes/info.py" />
       </list>
     </option>
@@ -727,13 +727,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AUTHORS">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15758754" vertical-offset="0" max-vertical-offset="1028">
-          <caret line="9" column="34" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/windows/export_video.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1654" max-vertical-offset="5526">
@@ -797,18 +790,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/info.py">
+    <entry file="file://$PROJECT_DIR$/src/windows/Import_transitions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="162" max-vertical-offset="1818">
-          <caret line="51" column="67" selection-start-line="51" selection-start-column="67" selection-end-line="51" selection-end-column="67" />
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1150" max-vertical-offset="2178">
+          <caret line="95" column="24" selection-start-line="95" selection-start-column="24" selection-end-line="95" selection-end-column="24" />
+          <folding>
+            <element signature="e#1129#1138#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/windows/about.py">
+    <entry file="file://$PROJECT_DIR$/src/windows/main_window.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="88" max-vertical-offset="1260">
-          <caret line="60" column="38" selection-start-line="60" selection-start-column="38" selection-end-line="60" selection-end-column="38" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="216" max-vertical-offset="16632">
+          <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -821,21 +816,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/windows/main_window.py">
+    <entry file="file://$PROJECT_DIR$/src/windows/about.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="216" max-vertical-offset="16632">
-          <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="88" max-vertical-offset="1260">
+          <caret line="60" column="38" selection-start-line="60" selection-start-column="38" selection-end-line="60" selection-end-column="38" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/windows/Import_transitions.py">
+    <entry file="file://$PROJECT_DIR$/AUTHORS">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.54474705" vertical-offset="1150" max-vertical-offset="2178">
-          <caret line="95" column="24" selection-start-line="95" selection-start-column="24" selection-end-line="95" selection-end-column="24" />
-          <folding>
-            <element signature="e#1129#1138#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.14007781" vertical-offset="0" max-vertical-offset="1028">
+          <caret line="8" column="36" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/classes/info.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6384236" vertical-offset="486" max-vertical-offset="1836">
+          <caret line="63" column="27" selection-start-line="63" selection-start-column="27" selection-end-line="63" selection-end-column="27" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -49,16 +49,17 @@ for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH, TITLE_PATH, 
 		os.makedirs(folder)
 
 # names of all contributers, using 'u' for unicode encoding
-AF   = {'name': u'Andy Finch', 'email': 'we.rocked.in79@gmail.com'}
+AF   = {'name': u'Andy Finch', 'email': 'andy@openshot.org'}
 NF   = {'name': u'Noah Figg', 'email': 'eggmunkee@hotmail.com'}
 JT   = {'name': u'Jonathan Thomas', 'email': 'jonathan@openshot.org'}
-OG   = {'name': u'Olivier Girard', 'email': 'eolinwen@gmail.com'}
+OG   = {'name': u'Olivier Girard', 'email': 'olivier@openshot.org'}
 CP   = {'name': u'Cody Parker', 'email': 'cody@yourcodepro.com'}
+FM   = {'name': u'Foster McLane', 'email': 'fmkclane@gmail.com'}
 
 
 #credits
 CREDITS = {
-    'code'          : [JT, NF, AF, CP, OG],
+    'code'          : [JT, NF, AF, CP, OG, FM],
     'artwork'       : [JT],
     'documentation' : [JT],
     'translation'   : [OG],
