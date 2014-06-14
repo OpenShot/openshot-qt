@@ -33,7 +33,7 @@
      <x>130</x>
      <y>50</y>
      <width>100</width>
-     <height>27</height>
+     <height>30</height>
     </rect>
    </property>
    <property name="text">
@@ -46,7 +46,7 @@
      <x>310</x>
      <y>280</y>
      <width>87</width>
-     <height>27</height>
+     <height>30</height>
     </rect>
    </property>
    <property name="text">
@@ -59,7 +59,7 @@
      <x>210</x>
      <y>280</y>
      <width>87</width>
-     <height>27</height>
+     <height>30</height>
     </rect>
    </property>
    <property name="text">
@@ -85,7 +85,7 @@
      <x>110</x>
      <y>10</y>
      <width>285</width>
-     <height>25</height>
+     <height>30</height>
     </rect>
    </property>
   </widget>
@@ -95,7 +95,7 @@
      <x>270</x>
      <y>50</y>
      <width>100</width>
-     <height>27</height>
+     <height>30</height>
     </rect>
    </property>
    <property name="text">

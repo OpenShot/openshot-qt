@@ -290,7 +290,7 @@
      <x>320</x>
      <y>160</y>
      <width>115</width>
-     <height>25</height>
+     <height>30</height>
     </rect>
    </property>
    <property name="alignment">
@@ -303,7 +303,7 @@
      <x>320</x>
      <y>200</y>
      <width>115</width>
-     <height>25</height>
+     <height>30</height>
     </rect>
    </property>
    <property name="alignment">
@@ -316,7 +316,7 @@
      <x>320</x>
      <y>240</y>
      <width>115</width>
-     <height>25</height>
+     <height>30</height>
     </rect>
    </property>
    <property name="alignment">
@@ -329,7 +329,7 @@
      <x>320</x>
      <y>280</y>
      <width>115</width>
-     <height>25</height>
+     <height>30</height>
     </rect>
    </property>
    <property name="alignment">
@@ -342,7 +342,7 @@
      <x>160</x>
      <y>160</y>
      <width>115</width>
-     <height>25</height>
+     <height>30</height>
     </rect>
    </property>
    <property name="alignment">
@@ -355,7 +355,7 @@
      <x>160</x>
      <y>200</y>
      <width>115</width>
-     <height>25</height>
+     <height>30</height>
     </rect>
    </property>
    <property name="alignment">
@@ -368,7 +368,7 @@
      <x>160</x>
      <y>240</y>
      <width>115</width>
-     <height>25</height>
+     <height>30</height>
     </rect>
    </property>
    <property name="alignment">
@@ -381,7 +381,7 @@
      <x>160</x>
      <y>280</y>
      <width>115</width>
-     <height>25</height>
+     <height>30</height>
     </rect>
    </property>
    <property name="alignment">
