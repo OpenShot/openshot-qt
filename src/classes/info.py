@@ -39,11 +39,12 @@ BLENDER_PATH = os.path.join(USER_PATH, "blender")
 THUMBNAIL_PATH = os.path.join(USER_PATH, "thumbnail")
 CACHE_PATH = os.path.join(USER_PATH, "cache")
 TITLE_PATH = os.path.join(USER_PATH, "title")
-PROFILE_PATH = os.path.join(PATH, "profiles")
+PROFILES_PATH = os.path.join(PATH, "profiles")
 IMAGES_PATH = os.path.join(PATH, "images")
+TRANSITIONS_PATH = os.path.join(USER_PATH, "transitions")
 
 # Create PATHS if they do not exist (this is where temp files are stored... such as cached thumbnails)
-for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH, TITLE_PATH]:
+for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH, TITLE_PATH, PROFILES_PATH, IMAGES_PATH, TRANSITIONS_PATH]:
 	if not os.path.exists(folder.encode('UTF-8')):
 		os.makedirs(folder)
 
