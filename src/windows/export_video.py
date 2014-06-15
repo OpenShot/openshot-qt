@@ -38,7 +38,6 @@ from classes.logger import log
 from classes.app import get_app
 from windows.squeze import Squeze
 from windows.presets import Presets
-from windows.new_preset_name import NewPresetName
 from windows.current_exporting_projects import CurrentExportingProjects
 from windows.progress_bar_export import ProgressBarExport
 import openshot
@@ -148,7 +147,8 @@ class ExportVideo(QDialog):
 		""" State of the Lenght Group """
 		#if state == Qt.Checked:
 			#self.chkentiresequence.isChecked(True)
-		#self.chkentiresequence.isChecked(False)
+		#else:
+		# self.chkentiresequence.isChecked(False)
 		#pass
 		
 	def direction_group(self):
@@ -179,9 +179,7 @@ class ExportVideo(QDialog):
 		
 	def save_preset(self):
 		""" Save a new preset in the Current Exporting Project screen"""
-		log.info('The Current Exporting Project screen has been called')
-		windo = CurrentExportingProjects()
-		windo.exec_()
+		pass
 		
 	def lblfilename_changed(self):
 		""" Type a new name for the output file """
@@ -198,10 +196,10 @@ class ExportVideo(QDialog):
 	def load_preset(self, preset_name=None):
 		""" Run a preset or Create one """
 		#Todo find a way to add custom Item and avoid to run for each item the preset screen
-		
-		windo = NewPresetName()
+		log.info('The Current Exporting Project screen has been called')
+		windo = CurrentExportingProjects()
 		windo.exec_()
-		
+
 		if self.cbopreset.currentIndex() >0:
 			preset = self.cbopreset.currentText()
 			self.preset_name = preset.replace(".xml", "")
@@ -220,7 +218,7 @@ class ExportVideo(QDialog):
 		#if compression_method.is_selected == _("Average Bit Rate Size"):
 			#self.cmbcompressionmethod["compression_method"] = "Average Bit Rate Size"
 			#msg = QMessagebox()
-			#msg.setText(_("Average Bit Rate Size Screen is launnched"))
+			#msg.setText(_("Average Bit Rate Size Screen is launched"))
 			#msg.exec_()
 		#else:
 			#self.cmbcompressionmethod["compression_method"] = "Average Bit Rate Quality"

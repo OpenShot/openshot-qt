@@ -36,6 +36,7 @@ from PyQt5 import uic
 from classes import info, ui_util, settings, qt_types, updates
 from classes.logger import log
 from classes.app import get_app
+from windows.new_preset_name import NewPresetName
 import openshot
 
 class CurrentExportingProjects(QDialog):
@@ -79,7 +80,8 @@ class CurrentExportingProjects(QDialog):
 	def rename_preset(self):
 		""" Rename a preset previously created """
 		log.info('A preset has been renamed')
-		pass
+		windo = NewPresetName()
+		windo.exec_()
 		
 	def copy_preset(self):
 		""" Copy a preset previously created """

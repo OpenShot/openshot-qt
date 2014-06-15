@@ -113,3 +113,6 @@ class ImportTransition(QDialog):
 		except:
 			#Show a QMessagebox for user to know that's a chess
 			QMessageBox.information(self, "OpenShot", _("There was an error importing the Transition"))
+
+	def refresh_view(self):
+		self.transition_model.update_model()
