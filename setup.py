@@ -1,6 +1,6 @@
 """ 
  @file
- @brief Setup script to install OpenShot 2.0
+ @brief Setup script to install OpenShot (on Linux and without any dependencies such as libopenshot)
  @author Jonathan Thomas <jonathan@openshot.org>
  
  @section LICENSE
