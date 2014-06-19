@@ -17,7 +17,7 @@
                 <shortcut>
                     <comment>OpenShot Video Editor</comment>
                     <exec>${installdir}/launch</exec>
-                    <icon>${installdir}/xdg/openshot.png</icon>
+                    <icon>${installdir}/images/openshot.png</icon>
                     <name>OpenShot 2.0</name>
                     <path>${installdir}</path>
                     <platforms>all</platforms>
@@ -25,7 +25,7 @@
                     <runInTerminal>0</runInTerminal>
                     <windowsExec>${installdir}/launch</windowsExec>
                     <windowsExecArgs></windowsExecArgs>
-                    <windowsIcon>${installdir}/xdg/openshot.png</windowsIcon>
+                    <windowsIcon>${installdir}/images/openshot.png</windowsIcon>
                     <windowsPath>${installdir}</windowsPath>
                 </shortcut>
             </desktopShortcutList>
