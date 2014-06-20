@@ -148,9 +148,6 @@
                             <origin>/home/jonathan/apps/openshot_qt/build/exe.linux-x86_64-3.3/libopenshot.so.1</origin>
                         </distributionFile>
                         <distributionFile>
-                            <origin>/home/jonathan/apps/openshot_qt/build/exe.linux-x86_64-3.3/libpython3.3m.so.1.0</origin>
-                        </distributionFile>
-                        <distributionFile>
                             <origin>/home/jonathan/apps/openshot_qt/build/exe.linux-x86_64-3.3/library.zip</origin>
                         </distributionFile>
                         <distributionFile>
@@ -201,6 +198,9 @@
                         <distributionFile>
                             <origin>/home/jonathan/apps/openshot_qt/build/exe.linux-x86_64-3.3/termios.cpython-33m-x86_64-linux-gnu.so</origin>
                         </distributionFile>
+                        <distributionFile>
+                            <origin>/home/jonathan/apps/openshot_qt/build/exe.linux-x86_64-3.3/libpython3.3m.so.1.0</origin>
+                        </distributionFile>
                     </distributionFileList>
                     <shortcutList>
                         <shortcut>
@@ -220,9 +220,9 @@
                     </shortcutList>
                 </folder>
                 <folder>
-                    <description>Program Files</description>
-                    <destination>${installdir}</destination>
-                    <name>programfileslinux</name>
+                    <description>/usr/local/lib</description>
+                    <destination>/usr/local/lib</destination>
+                    <name>linuxusrlib</name>
                     <platforms>linux</platforms>
                     <distributionFileList>
                         <distributionFile>
@@ -243,6 +243,14 @@
                         <distributionFile>
                             <origin>/usr/local/lib/libopenshot.so.1</origin>
                         </distributionFile>
+                    </distributionFileList>
+                </folder>
+                <folder>
+                    <description>/usr/local/lib/python3.3/dist-packages</description>
+                    <destination>/usr/local/lib/python3.3/dist-packages</destination>
+                    <name>pythonlocallib</name>
+                    <platforms>linux</platforms>
+                    <distributionFileList>
                         <distributionFile>
                             <origin>/usr/local/lib/python3.3/dist-packages/_openshot.so</origin>
                         </distributionFile>
@@ -250,18 +258,6 @@
                             <origin>/usr/local/lib/python3.3/dist-packages/openshot.py</origin>
                         </distributionFile>
                     </distributionFileList>
-                </folder>
-                <folder>
-                    <description>Program Files</description>
-                    <destination>${installdir}</destination>
-                    <name>programfileswindows</name>
-                    <platforms>windows</platforms>
-                </folder>
-                <folder>
-                    <description>Program Files</description>
-                    <destination>${installdir}</destination>
-                    <name>programfilesosx</name>
-                    <platforms>osx</platforms>
                 </folder>
             </folderList>
             <startMenuShortcutList>
@@ -276,14 +272,6 @@
                     <windowsPath>${installdir}/</windowsPath>
                 </startMenuShortcut>
             </startMenuShortcutList>
-        </component>
-        <component>
-            <name>libopenshot</name>
-            <description>OpenShot Library (libopenshot)</description>
-            <canBeEdited>1</canBeEdited>
-            <detailedDescription>Video and audio editing library</detailedDescription>
-            <selected>0</selected>
-            <show>1</show>
         </component>
     </componentList>
     <enableRollback>1</enableRollback>

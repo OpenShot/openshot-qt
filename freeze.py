@@ -58,7 +58,7 @@ if sys.platform == "win32":
     
 elif sys.platform == "linux":
 	# Find all related SO files
-	for filename in find_files('/usr/local/lib/', ['*openshot*.so']):
+	for filename in find_files('/usr/local/lib/', ['*openshot*.so*']):
 		if "python" not in filename:
 			external_so_files.append((filename, filename.replace('/usr/local/lib/', '')))
 
