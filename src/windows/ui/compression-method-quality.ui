@@ -80,6 +80,11 @@
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>cmbquality</tabstop>
+  <tabstop>horizontalSlider</tabstop>
+  <tabstop>buttonBox</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
