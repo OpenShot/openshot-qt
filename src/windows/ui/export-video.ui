@@ -10,6 +10,12 @@
     <height>800</height>
    </rect>
   </property>
+  <property name="maximumSize">
+   <size>
+    <width>530</width>
+    <height>800</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>Export Video</string>
   </property>

@@ -98,7 +98,7 @@ class License(QDialog):
 
         # Init license
         #license_path = os.path.join(path_xdg, 'COPYING')
-        license_path = os.path.join(info.PATH, 'COPYING')
+        #license_path = os.path.join(info.PATH, 'COPYING')
         #my_license = open('license_path', "r")
         #content = my_license.read()
         #for text in license_path:
