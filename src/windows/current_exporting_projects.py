@@ -82,7 +82,7 @@ class CurrentExportingProjects(QDialog):
 		log.info('A preset has been renamed')
 		windo = NewPresetName()
 		windo.exec_()
-		
+
 	def copy_preset(self):
 		""" Copy a preset previously created """
 		log.info('A preset has been copied')

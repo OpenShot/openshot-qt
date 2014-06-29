@@ -54,7 +54,7 @@ class ExportVideo(QDialog):
         # Create dialog class
         QDialog.__init__(self)
 
-        #Load UI from designer
+        # Load UI from designer
         ui_util.load_ui(self, self.ui_path)
 
         #Init UI
@@ -125,13 +125,14 @@ class ExportVideo(QDialog):
 
         #populate compression method
 
-        compression_method = [_("Average Bit Rate Size"), _("Average Bit Rate Quality")]
+        compression_method = [_("Average Bit Rate")]
         for method in compression_method:
             self.cmbcompressionmethod.addItem(method)
 
         # populate image format Qcombobox
-        image_extension = [_(".jpg"), _(".jpeg"), _(".png"), _(".bmp"), _(".svg"), _(".thm"), _(".gif"), _(".ppm"), _(".pgm"),
-                       _(".tif"), _(".tiff")]
+        image_extension = [_(".jpg"), _(".jpeg"), _(".png"), _(".bmp"), _(".svg"), _(".thm"), _(".gif"), _(".ppm"),
+                           _(".pgm"),
+                           _(".tif"), _(".tiff")]
         for extension in image_extension:
             self.cmbformatimage.addItem(extension)
 
@@ -147,17 +148,17 @@ class ExportVideo(QDialog):
 
         # for file_path in files:
         # self.filesTreeView.add_file(file_path)
-        #self.filesTreeView.refresh_view()
+        # self.filesTreeView.refresh_view()
         #log.info("Exported project {}".format(file_path))
 
     def lenght_group_state(self):
         """ State of the Lenght Group """
 
 
-        #if state == Qt.Checked:
-            #self.chkentiresequence.isChecked(True)
+        # if state == Qt.Checked:
+        #self.chkentiresequence.isChecked(True)
         #else:
-            # self.chkentiresequence.isChecked(False)
+        # self.chkentiresequence.isChecked(False)
         #pass
 
     def direction_group(self):
@@ -202,8 +203,8 @@ class ExportVideo(QDialog):
 
 
     def load_extension(self):
-       """ Show the file extension """
-       pass
+        """ Show the file extension """
+        pass
 
 
     def load_destination(self):
@@ -213,7 +214,7 @@ class ExportVideo(QDialog):
 
     def load_preset(self, preset_name=None):
         """ Run a preset or Create one """
-        #Todo find a way to add custom Item and avoid to run for each item the preset screen
+        # Todo find a way to add custom Item and avoid to run for each item the preset screen
         log.info('The Current Exporting Project screen has been called')
         windo = CurrentExportingProjects()
         windo.exec_()
@@ -232,144 +233,121 @@ class ExportVideo(QDialog):
     def load_compression_method_activated(self):
         """ Choose two different method following the size or the quality """
 
-        #Todo find a way to display the corresponding screen
+        # Todo find a way to display the corresponding screen
         app = get_app()
         _ = app._tr
 
-        if self.cmbcompressionmethod == "Average Bit Rate Size":
-            windo = AverageBitRateSize()
+        if self.cmbcompressionmethod.currentText():
+            windo = AverageBitRate()
             windo.exec_()
-        else:
-           self.cmbcompressionmethod == "Average Bit Rate Quality"
-           windo = AverageBitRateQuality()
-           windo.exec_()
 
     def load_format_video(self):
         """ Load all video format """
-        #log.info('The Video Format {} has been used'.format(format))
+        # log.info('The Video Format {} has been used'.format(format))
         pass
 
 
     def video_codecs(self):
         """ Display all Codecs Video """
-        #log.info('The Video codec {} has been used'.format(video))
+        # log.info('The Video codec {} has been used'.format(video))
         pass
 
 
     def rate_changed(self):
         """ Rate is changed """
-        #log.info('The Rate {} has been changed to {}'.format(initial_value, final_value))
+        # log.info('The Rate {} has been changed to {}'.format(initial_value, final_value))
         pass
 
 
     def max_changed(self):
         """ Max Rate is changed """
-        #log.info('The Max Rate {} has been changed to {}'.format(initial_value, final_value))
+        # log.info('The Max Rate {} has been changed to {}'.format(initial_value, final_value))
         pass
 
 
     def audio_codecs(self):
         """ Display all Codecs Audio """
-        #log.info('The Rate {} has been changed to {}'.format(initial_value, final_value))
+        # log.info('The Rate {} has been changed to {}'.format(initial_value, final_value))
         pass
 
 
     def simple_rate_changed(self):
         """ Display the Simple Rate choosen """
-        #log.info('The Simple Rate {} has been changed to {}'.format(initial_simplerate, final_simplerate))
+        # log.info('The Simple Rate {} has been changed to {}'.format(initial_simplerate, final_simplerate))
         pass
 
 
     def channels_selected(self):
         """ Display the Channel choosen """
-        #log.info('The Channel {} has been changed to {}'.format(initial_channel, final_channel))
+        # log.info('The Channel {} has been changed to {}'.format(initial_channel, final_channel))
         pass
 
 
     def bitrate_changed(self):
         """ Display the Bitrate """
-        #log.info('The Bitrate {} has been changed to {}'.format(initial_bitrate, final_bitrate))
+        # log.info('The Bitrate {} has been changed to {}'.format(initial_bitrate, final_bitrate))
         pass
 
 
     def format_image(self):
-       """ Display all Format Image """
-       #log.info('The Format Image {} has been changed to {}'.format(initial_format, final_format))
-       pass
+        """ Display all Format Image """
+        # log.info('The Format Image {} has been changed to {}'.format(initial_format, final_format))
+        pass
 
 
     def quality_changed(self):
         """ Display the Quality """
-        #log.info('The Quality {} has been changed to {}'.format(initial_quality, final_quality))
+        # log.info('The Quality {} has been changed to {}'.format(initial_quality, final_quality))
         pass
 
 
     def digits_changed(self):
         """ Display Digits """
-        #log.info('Digits {} have been changed to {}'.format(initial_digits, final_digits))
+        # log.info('Digits {} have been changed to {}'.format(initial_digits, final_digits))
         pass
 
 
     def interval_changed(self):
         """ Display interval """
-        #log.info(' Interval {} has been changed to {}'.format(initial_interval, final_interval)
+        # log.info(' Interval {} has been changed to {}'.format(initial_interval, final_interval)
         pass
 
 
     def offset_changed(self):
         """ Display offset """
-        #log.info('Offset {} has been changed to {}'.format(initial_offset, final_offset))
+        # log.info('Offset {} has been changed to {}'.format(initial_offset, final_offset))
         pass
 
 
     def new_prefix(self):
-       """ Display the new prefix """
-       #log.info('The prefix {} has been changed to {}'.format(initial_prefix, final_prefix))
-       pass
+        """ Display the new prefix """
+        # log.info('The prefix {} has been changed to {}'.format(initial_prefix, final_prefix))
+        pass
 
 
     def new_suffix(self):
         """ Display the new suffix """
-        #log.info('The suffix {} has been changed to {}'.format(initial_suffix, final_suffix))
+        # log.info('The suffix {} has been changed to {}'.format(initial_suffix, final_suffix))
         pass
 
 
     def run_progress_bar_export(self):
-       """ Run the conversion and show a progress bar for this one until it will be finished """
-       log.info('Conversion has been started')
-       windo = ProgressBarExport()
-       windo.exec_()
+        """ Run the conversion and show a progress bar for this one until it will be finished """
+        log.info('Conversion has been started')
+        windo = ProgressBarExport()
+        windo.exec_()
 
 
-    #def new_frame_name(self):
+        # def new_frame_name(self):
         #""" Display the new frame name """
         #log.info('')
         #pass
 
-class AverageBitRateSize(QDialog):
-    """ Average Bitrate Size Dialog """
 
-    ui_path = os.path.join(info.PATH, 'windows', 'ui', 'compression-method-size.ui')
+class AverageBitRate(QDialog):
+    """ Average Bitrate Dialog """
 
-    def __init__(self):
-        # Create dialog class
-        QDialog.__init__(self)
-
-        # Load UI from designer
-        ui_util.load_ui(self, self.ui_path)
-
-        # Init Ui
-        ui_util.init_ui(self)
-
-        #get translations
-        self.app = get_app()
-        _ = self.app._tr
-
-
-class AverageBitRateQuality(QDialog):
-    """ Average Bitrate Quality Dialog """
-
-    ui_path = os.path.join(info.PATH, 'windows', 'ui', 'compression-method-quality.ui')
+    ui_path = os.path.join(info.PATH, 'windows', 'ui', 'compression-method.ui')
 
     def __init__(self):
         # Create dialog class
@@ -381,6 +359,59 @@ class AverageBitRateQuality(QDialog):
         # Init Ui
         ui_util.init_ui(self)
 
-        #get translations
+        # get translations
         self.app = get_app()
         _ = self.app._tr
+
+        #set events handlers
+        self.cbosize.activated.connect(self.cbosize_changed)
+        #self.spnsize.valueChanged(int).connect(self.spnsize_changed)
+
+        #Init some variables
+
+        #Populate compression-method
+        compression_method = [_("Target File Size"), _("Constant Quality")]
+        for method in compression_method:
+            self.cbosize.addItem(method)
+
+        self.hide_quality_values()
+
+    def cbosize_changed(self):
+        """
+        Following the item selected, change the method of compression
+        """
+        if self.cbosize.currentIndex() == 0:
+            self.lcdquality.setVisible(False)
+            self.qualityslider.setVisible(False)
+            self.label_4.setVisible(False)
+            self.spnsize.setVisible(True)
+            self.label_2.setVisible(True)
+            self.label_3.setVisible(True)
+            log.info('The Target size screen has been called')
+        else:
+            self.spnsize.setVisible(False)
+            self.label_2.setVisible(False)
+            self.label_3.setVisible(False)
+            self.lcdquality.setVisible(True)
+            self.qualityslider.setVisible(True)
+            self.label_4.setVisible(True)
+            log.info('The quality screen has been called')
+
+    def spnsize_changed(self):
+        """
+        The user can change the size of the file
+        """
+        pass
+
+    def hide_quality_values(self):
+        """
+        When the screen is displayed the first time and one the first item, parameters of Quality are hidden
+        """
+        self.lcdquality.setVisible(False)
+        self.qualityslider.setVisible(False)
+        self.label_4.setVisible(False)
+        self.spnsize.setVisible(True)
+        self.label_2.setVisible(True)
+        self.label_3.setVisible(True)
+
+

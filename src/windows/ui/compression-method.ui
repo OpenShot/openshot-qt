@@ -154,6 +154,9 @@
      <height>40</height>
     </rect>
    </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
    <property name="digitCount">
     <number>3</number>
    </property>
