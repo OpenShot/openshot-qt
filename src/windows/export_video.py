@@ -143,13 +143,11 @@ class ExportVideo(QDialog):
         app = get_app()
         _ = app._tr
 
-        files = QFileDialog.getOpenFileNames(self, _("Export File..."))[0]
+        output_path = QFileDialog.getExistingDirectory(self, _("Choose Export Directory..."), self.lbldestination.text())
 
-
-        # for file_path in files:
-        # self.filesTreeView.add_file(file_path)
-        # self.filesTreeView.refresh_view()
-        #log.info("Exported project {}".format(file_path))
+        if len(output_path) > 0:
+            self.lbldestination.setText(output_path)
+            log.info("Exported project to {}".format(output_path))
 
     def lenght_group_state(self):
         """ State of the Lenght Group """
