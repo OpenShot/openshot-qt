@@ -136,6 +136,71 @@ class ExportVideo(QDialog):
         for extension in image_extension:
             self.cmbformatimage.addItem(extension)
 
+        #populate format combo
+        format_video = {'Avid DNxHD (.mov) 1080 30 220 mb/s': 'dnxhd', 'Avid DNxHD (.mov) 1080 30 145 mb/s': 'dnxhd',
+                        'Avid DNxHD (.mov) 1080 25 185 mb/s': 'dnxhd', 'Avid DNxHD (.mov) 1080 25 120 mb/s': 'dnxhd',
+                        'Avid DNxHD (.mov) 1080 25 36 mb/s': 'dnxhd', 'Avid DNxHD (.mov) 1080 24 175 mb/s': 'dnxhd',
+                        'Avid DNxHD (.mov) 1080 24 115 mb/s': 'dnxhd', 'Avid DNxHD (.mov) 1080 24 36 mb/s': 'dnxhd',
+                        'Avid DNxHD (.mov) 1080 23.976 175 mb/s': 'dnxhd', 'Avid DNxHD (.mov) 1080 23.976 115 mb/s': 'dnxhd',
+                        'Avid DNxHD (.mov) 1080 23.976 36 mb/s': 'dnxhd', 'Avid DNxHD (.mov) 1080 29.97 220 mb/s': 'dnxhd',
+                        'Avid DNxHD (.mov) 1080 29.97 145 mb/s': 'dnxhd', 'Avid DNxHD (.mov) 1080 29.67 45 mb/s': 'dnxhd',
+                        'Avid DNxHD (.mov) 720 60 220 mb/s': 'dnxhd', 'Avid DNxHD (.mov) 720 60 145 mb/s': 'dnxhd',
+                        'Avid DNxHD (.mov) 720 50 175 mb/s': 'dnxhd', 'Avid DNxHD (.mov) 720 50 115 mb/s': 'dnxhd',
+                        'Avid DNxHD (.mov) 720 30 110 mb/s': 'dnxhd', 'Avid DNxHD (.mov) 720 30 75 mb/s': 'dnxhd',
+                        'Avid DNxHD (.mov) 720 25 90 mb/s': 'dnxhd', 'Avid DNxHD (.mov) 720 25 60 mb/s': 'dnxhd',
+                        'Avid DNxHD (.mov) 720 23.976 90 mb/s': 'dnxhd', 'Avid DNxHD (.mov) 720 23.976 60 mb/s': 'dnxhd',
+                        'DVD PAL Widescreen HQ': 'dvd', 'DVD NTSC Widescreen HQ': 'dvd', 'DVD PAL Fullscreen HQ': 'dvd',
+                        'DVD NTSC Fullscreen HQ': 'dvd', 'Raw DV (.dv)': 'dv', 'Avi DV (.avi)': 'avi', 'Apple ProRes 422': 'mov',
+                        'MPEG-2 Program Stream (.vob)': 'vob', 'MPEG-2 Transport Stream (.ts)': 'mpegts', 'DV PAL': 'dv',
+                        'Avi': 'avi', 'WebM': 'webm', 'HDV 1080 i50 (.ts)': 'mpegts', 'HDV 1080 i60 (.ts)': 'mpegts',
+                        'HDV 1080 p24 (.ts)': 'mpegts', 'HDV 1080 p25 (.ts)': 'mpegts', 'HDV 1080 p30 (.ts)': 'mpegts',
+                        'HDV 720 p24 (.ts)': 'mpegts', 'HDV 720 p25 (.ts)': 'mpegts', 'HDV 720 p30 (.ts)': 'mpegts',
+                        'HDV 720 i50 (.ts)': 'mpegts', 'HDV 720 i60 (.ts)': 'mpegts', 'OGG THEORA HQ (.ogg)': 'ogg', 'VCD PAL (.mpg)': 'vcd', 'VCD NTSC (.mpg)': 'vcd',
+                        'WebM HQ (.webm)': 'webm', 'WebM SQ (.webm)': 'webm', 'QuickTime HQ (.mov)': 'mov', 'SVCD PAL (.mpg) HQ': 'mpeg2video', 'SVCD NTSC (.mpg) HQ': 'mpg',
+                        'SVCD PAL (.mpg) Fast': 'mpeg2video', 'SVCD NTSC (.mpg) Fast': 'mpeg2video', '3GPP2 (.3gp2)': '3g2', '3GPP (.3gp)': '3gp', 'ROQ (.roq)': 'roqvideo',
+                        'RealMedia (.rm)': 'rm', 'DVIX (.divx) HQ': 'divx', 'PSP MP4 (.mp4)': 'psp', 'REDCODE R3D (.r3d)': 'r3d',
+                        'BDAV MPEG-2 Transport Stream (.m2ts)': '', 'MPEG VIDEO File (.mpg, .mpeg)': 'mpegvideo', 'MATROSKA (.mkv)': 'mkv', 'MP4': 'mp4', 'FLV (.flv)': 'flv',
+                        'FLash 9': 'avm2', 'Advanced Systems Format/Window Media Format (.asf)': 'asf', 'MPEG-4 (.m4v)': 'm4v', 'H264 (.)': 'h264', 'iPod H264 MP4 (.mp4)': 'ipod'
+                        }
+        format_audio = {'PCM A LAW': 'alaw', 'PCM mu-law': 'mulaw'}
+        for keys in format_video:
+            self.cmbformatvideo.addItem(keys)
+
+        #populate video codecs combo
+        video_codec = {'Xvid': 'libxvid', 'H264/MPEG-4 AVC':'libx264', 'OGG VORBIS': 'ogg', 'DV': 'dv', 'VP8': 'libvpx', 'Motion JPEG': 'mjepg',
+                       'VP9': 'libvpx', 'H261': 'h261', 'H263': '263', 'Theora': '', 'Dirac': 'dirac', 'WMV': 'wmv', 'FLV': 'flv'}
+        for keys in video_codec:
+            self.cmbvideo.addItem(keys)
+
+        #populate audio codecs combo
+        audio_codec = {'MP3': 'libmp3lame', 'OGG VORBIS': 'oggvorbis','MP2': 'mpeg2audio', 'FLAC': 'flac',
+                       'AAC-LC': 'aac', 'WAVE': 'wav', 'AC3': 'ac3', 'DTS': 'dts', 'WMA': 'wma', 'AMR-NB': '',
+                       'PCM 8 bits': 'u8', 'PCM 16 bits little-endian': 'u16le', 'PCM 16 bits big-endian': 'u16be'}
+        for keys in audio_codec:
+            self.cmbaudio.addItem(keys)
+
+        #Populate simplerate combo
+        simple_rate = [_('Copy'), _('8000'), _('11025'), _('16000'), _('22050'), _('24000'), _('32000'), _('44100'),
+                       _('48000')]
+        for rate in simple_rate:
+            self.cmbsimplerate.addItem(rate)
+
+        #populate audio channels
+        audio_channels = [_('Copy'), _('Mono'), _('Stereo'), _('Join Stereo'), _('DTS')]
+        for channels in audio_channels:
+            self.cmbchannels.addItem(channels)
+
+        #populate bitrate
+        #audio_bitrates = [_('32'), _('40'), _('48'), _('56'), _('64'), _('80'), _('96'), _('112'), _('128'), _('144'),
+                          #_('160'), _('160'), _('168'), _('176'), _('184'), _('192'), _('200'), _('208'), _('216'),
+                          #_('224'), _('232'), _('240'), _('248'), _('256'), _('264'), _('272'), _('280'), _('288'),
+                          #_('296'), _('304'), _('312'), _('320'), _('328'), _('336'), _('344'), _('352'), _('360'), _('368'), _('376'), _('384'), _('392'), _('400'), _('408'),
+                          #_('416'), _('424'), _('432'), _('440'), _('448'), _('456'), _('464'), _('472'), _('480'), _('488'), _('496'), _('504'), _('512'), _('520'), _('528'),
+                          #_('536'), _('544'), _('552'), _('560'), _('568'), _('576'), _('584'), _('592'), _('600'), _('608'), _('616'), _('624'), _('632'), _('640')]
+        #for bitrates in audio_bitrates:
+            #self.sliderbitrate.value(bitrates)
+
+
 
     def choose_folder_output(self):
         """ Choose a folder for the render """
