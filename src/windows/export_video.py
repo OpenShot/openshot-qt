@@ -70,7 +70,7 @@ class ExportVideo(QDialog):
         #set events handlers
         self.btnfolder.clicked.connect(self.choose_folder_output)
         self.btndeletepreset.clicked.connect(self.delete_preset)
-        self.btnsavepreset.clicked.connect(self.save_preset)
+        self.btnapplypreset.clicked.connect(self.apply_preset)
         self.cbopreset.activated.connect(self.load_preset)
         self.chkentiresequence.stateChanged.connect(self.lenght_group_state)
         self.chkprojectprofilesettings.stateChanged.connect(self.direction_group)
@@ -100,7 +100,7 @@ class ExportVideo(QDialog):
 
         #Init some variables
         self.chkentiresequence.setEnabled(True)
-        #self.chkentiresequence.isChecked(True)
+        #self.chkentiresequence.isChecked()
         self.label_17.setEnabled(False)
         self.spbfrom.setEnabled(False)
         self.label_18.setEnabled(False)
@@ -114,6 +114,8 @@ class ExportVideo(QDialog):
         self.btnpreserveratio.setEnabled(False)
         self.spbheight.setEnabled(False)
         self.chkdirectcopy.setEnabled(True)
+        #self.lblfilename.
+
 
         #Populate new preset name
         self.cbopreset.addItem("<Select a Preset or Create your own>")
@@ -171,6 +173,14 @@ class ExportVideo(QDialog):
                        'VP9': 'libvpx', 'H261': 'h261', 'H263': '263', 'Theora': '', 'Dirac': 'dirac', 'WMV': 'wmv', 'FLV': 'flv'}
         for keys in video_codec:
             self.cmbvideo.addItem(keys)
+
+        aspect_ratio = [_('4/3'), _('16/9')]
+        for ratio in aspect_ratio:
+            self.cmbaspectratio.addItem(ratio)
+
+        frame_per_seconds = [_('23.976'), _('24'), _('25'), _('29.976'), _('30'), _('50'), _('60')]
+        for fps in frame_per_seconds:
+            self.cmbfps.addItem(fps)
 
         #populate audio codecs combo
         audio_codec = {'MP3': 'libmp3lame', 'OGG VORBIS': 'oggvorbis','MP2': 'mpeg2audio', 'FLAC': 'flac',
@@ -255,8 +265,8 @@ class ExportVideo(QDialog):
         pass
 
 
-    def save_preset(self):
-        """ Save a new preset in the Current Exporting Project screen"""
+    def apply_preset(self):
+        """ Use the preset selectionned in the preset combobox"""
         pass
 
 

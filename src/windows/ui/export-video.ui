@@ -90,9 +90,9 @@
     </widget>
    </item>
    <item row="3" column="2" colspan="2">
-    <widget class="QPushButton" name="btnsavepreset">
+    <widget class="QPushButton" name="btnapplypreset">
      <property name="text">
-      <string>Save Preset</string>
+      <string>Apply Preset</string>
      </property>
     </widget>
    </item>
@@ -466,7 +466,7 @@
            </rect>
           </property>
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rate:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;BitRate:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
          <widget class="QLabel" name="label_26">
@@ -479,14 +479,14 @@
            </rect>
           </property>
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Max:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Max Bitrate:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
          <widget class="QLabel" name="label_27">
           <property name="geometry">
            <rect>
             <x>20</x>
-            <y>280</y>
+            <y>370</y>
             <width>171</width>
             <height>15</height>
            </rect>
@@ -499,7 +499,7 @@
           <property name="geometry">
            <rect>
             <x>20</x>
-            <y>330</y>
+            <y>420</y>
             <width>171</width>
             <height>15</height>
            </rect>
@@ -512,7 +512,7 @@
           <property name="geometry">
            <rect>
             <x>20</x>
-            <y>380</y>
+            <y>470</y>
             <width>171</width>
             <height>15</height>
            </rect>
@@ -525,13 +525,22 @@
           <property name="geometry">
            <rect>
             <x>20</x>
-            <y>450</y>
+            <y>550</y>
             <width>441</width>
             <height>24</height>
            </rect>
           </property>
+          <property name="minimum">
+           <number>8</number>
+          </property>
           <property name="maximum">
-           <number>320</number>
+           <number>640</number>
+          </property>
+          <property name="singleStep">
+           <number>8</number>
+          </property>
+          <property name="pageStep">
+           <number>1</number>
           </property>
           <property name="sliderPosition">
            <number>192</number>
@@ -544,7 +553,7 @@
           <property name="geometry">
            <rect>
             <x>20</x>
-            <y>430</y>
+            <y>520</y>
             <width>130</width>
             <height>15</height>
            </rect>
@@ -596,7 +605,7 @@
           <property name="geometry">
            <rect>
             <x>230</x>
-            <y>370</y>
+            <y>460</y>
             <width>240</width>
             <height>30</height>
            </rect>
@@ -606,7 +615,7 @@
           <property name="geometry">
            <rect>
             <x>230</x>
-            <y>270</y>
+            <y>360</y>
             <width>240</width>
             <height>30</height>
            </rect>
@@ -616,7 +625,7 @@
           <property name="geometry">
            <rect>
             <x>230</x>
-            <y>320</y>
+            <y>410</y>
             <width>240</width>
             <height>30</height>
            </rect>
@@ -653,6 +662,83 @@
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+         <widget class="QLCDNumber" name="lcdaudiobitrate">
+          <property name="geometry">
+           <rect>
+            <x>340</x>
+            <y>510</y>
+            <width>70</width>
+            <height>40</height>
+           </rect>
+          </property>
+          <property name="inputMethodHints">
+           <set>Qt::ImhNone</set>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::WinPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Plain</enum>
+          </property>
+          <property name="lineWidth">
+           <number>1</number>
+          </property>
+          <property name="digitCount">
+           <number>3</number>
+          </property>
+          <property name="segmentStyle">
+           <enum>QLCDNumber::Flat</enum>
+          </property>
+          <property name="intValue" stdset="0">
+           <number>192</number>
+          </property>
+         </widget>
+         <widget class="QComboBox" name="cmbaspectratio">
+          <property name="geometry">
+           <rect>
+            <x>230</x>
+            <y>260</y>
+            <width>240</width>
+            <height>30</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QComboBox" name="cmbfps">
+          <property name="geometry">
+           <rect>
+            <x>230</x>
+            <y>310</y>
+            <width>240</width>
+            <height>30</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_34">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>270</y>
+            <width>171</width>
+            <height>15</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Aspect Ratio:</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_35">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>320</y>
+            <width>171</width>
+            <height>15</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Frames per Second:</string>
           </property>
          </widget>
         </widget>
@@ -1010,8 +1096,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>257</x>
-     <y>727</y>
+     <x>261</x>
+     <y>790</y>
     </hint>
     <hint type="destinationlabel">
      <x>95</x>
@@ -1026,12 +1112,28 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>439</x>
-     <y>723</y>
+     <x>520</x>
+     <y>790</y>
     </hint>
     <hint type="destinationlabel">
      <x>494</x>
      <y>751</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>sliderbitrate</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>lcdaudiobitrate</receiver>
+   <slot>display(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>304</x>
+     <y>722</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>377</x>
+     <y>692</y>
     </hint>
    </hints>
   </connection>
