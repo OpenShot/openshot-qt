@@ -100,7 +100,7 @@ class ExportVideo(QDialog):
 
         #Init some variables
         self.chkentiresequence.setEnabled(True)
-        #self.chkentiresequence.isChecked()
+        #self.chkentiresequence.setChecked()
         self.label_17.setEnabled(False)
         self.spbfrom.setEnabled(False)
         self.label_18.setEnabled(False)
@@ -114,7 +114,9 @@ class ExportVideo(QDialog):
         self.btnpreserveratio.setEnabled(False)
         self.spbheight.setEnabled(False)
         self.chkdirectcopy.setEnabled(True)
-        #self.lblfilename.
+        self.lblfilename.setText("My Awesome Movie")
+        self.lblfilename.setFocus()
+        self.lblfilename.selectAll()
 
 
         #Populate new preset name
@@ -139,34 +141,17 @@ class ExportVideo(QDialog):
             self.cmbformatimage.addItem(extension)
 
         #populate format combo
-        format_video = {'Avid DNxHD (.mov) 1080 30 220 mb/s': 'dnxhd', 'Avid DNxHD (.mov) 1080 30 145 mb/s': 'dnxhd',
-                        'Avid DNxHD (.mov) 1080 25 185 mb/s': 'dnxhd', 'Avid DNxHD (.mov) 1080 25 120 mb/s': 'dnxhd',
-                        'Avid DNxHD (.mov) 1080 25 36 mb/s': 'dnxhd', 'Avid DNxHD (.mov) 1080 24 175 mb/s': 'dnxhd',
-                        'Avid DNxHD (.mov) 1080 24 115 mb/s': 'dnxhd', 'Avid DNxHD (.mov) 1080 24 36 mb/s': 'dnxhd',
-                        'Avid DNxHD (.mov) 1080 23.976 175 mb/s': 'dnxhd', 'Avid DNxHD (.mov) 1080 23.976 115 mb/s': 'dnxhd',
-                        'Avid DNxHD (.mov) 1080 23.976 36 mb/s': 'dnxhd', 'Avid DNxHD (.mov) 1080 29.97 220 mb/s': 'dnxhd',
-                        'Avid DNxHD (.mov) 1080 29.97 145 mb/s': 'dnxhd', 'Avid DNxHD (.mov) 1080 29.67 45 mb/s': 'dnxhd',
-                        'Avid DNxHD (.mov) 720 60 220 mb/s': 'dnxhd', 'Avid DNxHD (.mov) 720 60 145 mb/s': 'dnxhd',
-                        'Avid DNxHD (.mov) 720 50 175 mb/s': 'dnxhd', 'Avid DNxHD (.mov) 720 50 115 mb/s': 'dnxhd',
-                        'Avid DNxHD (.mov) 720 30 110 mb/s': 'dnxhd', 'Avid DNxHD (.mov) 720 30 75 mb/s': 'dnxhd',
-                        'Avid DNxHD (.mov) 720 25 90 mb/s': 'dnxhd', 'Avid DNxHD (.mov) 720 25 60 mb/s': 'dnxhd',
-                        'Avid DNxHD (.mov) 720 23.976 90 mb/s': 'dnxhd', 'Avid DNxHD (.mov) 720 23.976 60 mb/s': 'dnxhd',
-                        'DVD PAL Widescreen HQ': 'dvd', 'DVD NTSC Widescreen HQ': 'dvd', 'DVD PAL Fullscreen HQ': 'dvd',
-                        'DVD NTSC Fullscreen HQ': 'dvd', 'Raw DV (.dv)': 'dv', 'Avi DV (.avi)': 'avi', 'Apple ProRes 422': 'mov',
-                        'MPEG-2 Program Stream (.vob)': 'vob', 'MPEG-2 Transport Stream (.ts)': 'mpegts', 'DV PAL': 'dv',
-                        'Avi': 'avi', 'WebM': 'webm', 'HDV 1080 i50 (.ts)': 'mpegts', 'HDV 1080 i60 (.ts)': 'mpegts',
-                        'HDV 1080 p24 (.ts)': 'mpegts', 'HDV 1080 p25 (.ts)': 'mpegts', 'HDV 1080 p30 (.ts)': 'mpegts',
-                        'HDV 720 p24 (.ts)': 'mpegts', 'HDV 720 p25 (.ts)': 'mpegts', 'HDV 720 p30 (.ts)': 'mpegts',
-                        'HDV 720 i50 (.ts)': 'mpegts', 'HDV 720 i60 (.ts)': 'mpegts', 'OGG THEORA HQ (.ogg)': 'ogg', 'VCD PAL (.mpg)': 'vcd', 'VCD NTSC (.mpg)': 'vcd',
-                        'WebM HQ (.webm)': 'webm', 'WebM SQ (.webm)': 'webm', 'QuickTime HQ (.mov)': 'mov', 'SVCD PAL (.mpg) HQ': 'mpeg2video', 'SVCD NTSC (.mpg) HQ': 'mpg',
-                        'SVCD PAL (.mpg) Fast': 'mpeg2video', 'SVCD NTSC (.mpg) Fast': 'mpeg2video', '3GPP2 (.3gp2)': '3g2', '3GPP (.3gp)': '3gp', 'ROQ (.roq)': 'roqvideo',
-                        'RealMedia (.rm)': 'rm', 'DVIX (.divx) HQ': 'divx', 'PSP MP4 (.mp4)': 'psp', 'REDCODE R3D (.r3d)': 'r3d',
-                        'BDAV MPEG-2 Transport Stream (.m2ts)': '', 'MPEG VIDEO File (.mpg, .mpeg)': 'mpegvideo', 'MATROSKA (.mkv)': 'mkv', 'MP4': 'mp4', 'FLV (.flv)': 'flv',
-                        'FLash 9': 'avm2', 'Advanced Systems Format/Window Media Format (.asf)': 'asf', 'MPEG-4 (.m4v)': 'm4v', 'H264 (.)': 'h264', 'iPod H264 MP4 (.mp4)': 'ipod'
-                        }
-        format_audio = {'PCM A LAW': 'alaw', 'PCM mu-law': 'mulaw'}
+        format_video = [_('mkv'), _('mov'), _('mp4'), _('dnxhd'), _('.dvd'), _('vob'), _('.mpg'), _('mpegts'), _('mpegps'),
+                        _('.dv'), _('.avi'), _('.webm'), _('.ts'), _('.ogg'), _('.3gp2'), _('.3gp'), _('.roq'), _('rm'),
+                        _('.divx'), _('.xvid'), _('.m2ts'), _('.r3d'), _('.MPG'), _('.flv'), _('avm2'), _('.asf'), _('.m4v'),
+                        _('.h264'), _('.ac3'), _('.mp2'), _('.mp3'), _('.wav'), _('.ogg'), _('.flac'), _('.aac'), _('.wma'),
+                        _('.opus'), _('.alaw'), _('.mulaw'), _('.mka')]
+
         for keys in format_video:
             self.cmbformatvideo.addItem(keys)
+
+        for extension in format_video:
+            self.cmbextension.addItem(extension)
 
         #populate video codecs combo
         video_codec = {'Xvid': 'libxvid', 'H264/MPEG-4 AVC':'libx264', 'OGG VORBIS': 'ogg', 'DV': 'dv', 'VP8': 'libvpx', 'Motion JPEG': 'mjepg',
