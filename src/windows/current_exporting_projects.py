@@ -37,58 +37,61 @@ from classes import info, ui_util, settings, qt_types, updates
 from classes.logger import log
 from classes.app import get_app
 from windows.new_preset_name import NewPresetName
+from windows.presets import Presets
 import openshot
 
 class CurrentExportingProjects(QDialog):
-	""" Current Exporting Projects """
-	
-	#Path to ui file
-	ui_path = os.path.join(info.PATH, 'windows', 'ui', 'current-exporting-projects.ui')
-	
-	def __init__(self):
-		
-		#Create dialog class
-		QDialog.__init__(self)
-		
-		#Load UI from designer
-		ui_util.load_ui(self, self.ui_path)
-		
-		#Init UI
-		ui_util.init_ui(self)
+    """ Current Exporting Projects """
 
-		#get translations
-		self.app = get_app()
-		_ = self.app._tr
+    #Path to ui file
+    ui_path = os.path.join(info.PATH, 'windows', 'ui', 'current-exporting-projects.ui')
 
-		#set events handlers
-		self.btnAdd.clicked.connect(self.add_preset)
-		self.btnModified.clicked.connect(self.modified_preset)
-		self.btnRename.clicked.connect(self.rename_preset)
-		self.btnCopy.clicked.connect(self.copy_preset)
-		self.btnDelete.clicked.connect(self.delete_preset)
-		
-	def add_preset(self):
-		""" Add a new preset previously created """
-		log.info('A new preset has been created')
-		pass
-		
-	def modified_preset(self):
-		""" Modified a preset previously created """
-		log.info('A preset has been modified')
-		pass
-		
-	def rename_preset(self):
-		""" Rename a preset previously created """
-		log.info('A preset has been renamed')
-		windo = NewPresetName()
-		windo.exec_()
+    def __init__(self):
 
-	def copy_preset(self):
-		""" Copy a preset previously created """
-		log.info('A preset has been copied')
-		pass
-		
-	def delete_preset(self):
-		""" Delete a preset previously created """
-		log.info('A preset has been deleted')
-		pass
+        #Create dialog class
+        QDialog.__init__(self)
+
+        #Load UI from designer
+        ui_util.load_ui(self, self.ui_path)
+
+        #Init UI
+        ui_util.init_ui(self)
+
+        #get translations
+        self.app = get_app()
+        _ = self.app._tr
+
+        #set events handlers
+        self.btnAdd.clicked.connect(self.add_preset)
+        self.btnModified.clicked.connect(self.modified_preset)
+        self.btnRename.clicked.connect(self.rename_preset)
+        self.btnCopy.clicked.connect(self.copy_preset)
+        self.btnDelete.clicked.connect(self.delete_preset)
+
+    def add_preset(self):
+        """ Add a new preset previously created """
+        log.info('A new preset has been created')
+        windo = Presets()
+        windo.exec_()
+
+    def modified_preset(self):
+        """ Modified a preset previously created """
+        log.info('A preset has been modified')
+        windo = Presets()
+        windo.exec_()
+
+    def rename_preset(self):
+        """ Rename a preset previously created """
+        log.info('A preset has been renamed')
+        windo = NewPresetName()
+        windo.exec_()
+
+    def copy_preset(self):
+        """ Copy a preset previously created """
+        log.info('A preset has been copied')
+        pass
+
+    def delete_preset(self):
+        """ Delete a preset previously created """
+        log.info('A preset has been deleted')
+        pass

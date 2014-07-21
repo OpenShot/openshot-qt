@@ -141,7 +141,7 @@ class ExportVideo(QDialog):
             self.cmbformatimage.addItem(extension)
 
         #populate format combo
-        format_video = [_('mkv'), _('mov'), _('mp4'), _('dnxhd'), _('.dvd'), _('vob'), _('.mpg'), _('mpegts'), _('mpegps'),
+        format_video = [_('.mkv'), _('.mov'), _('.mp4'), _('.dnxhd'), _('.dvd'), _('vob'), _('.mpg'), _('mpegts'), _('mpegps'),
                         _('.dv'), _('.avi'), _('.webm'), _('.ts'), _('.ogg'), _('.3gp2'), _('.3gp'), _('.roq'), _('rm'),
                         _('.divx'), _('.xvid'), _('.m2ts'), _('.r3d'), _('.MPG'), _('.flv'), _('avm2'), _('.asf'), _('.m4v'),
                         _('.h264'), _('.ac3'), _('.mp2'), _('.mp3'), _('.wav'), _('.ogg'), _('.flac'), _('.aac'), _('.wma'),
