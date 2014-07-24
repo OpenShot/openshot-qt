@@ -40,7 +40,7 @@ img {
 #track_controls { width: 140px; position: relative; float: left; height: 316px; overflow: hidden;}
 .track_label { padding-top: 2px; padding-left: 2px; }
 .track_name { width: 130px; height: 70px; font-family: Sans; color: #fff; font-size: 9pt; padding-left: 4px; margin-left: 5px; margin-bottom: 8px; background-color: #000; border: 1px solid #4B92AD; border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
-.track { height: 70px; background-color: #000; margin-bottom: 8px; background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(50,50,50,1)), color-stop(100%,rgba(6,6,6,1))); border-top: 1px solid #4b92ad; border-bottom: 1px solid #4b92ad; }
+.track { height: 70px; background-color: #000; margin-bottom: 8px; background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(50,50,50,1)), color-stop(100%,rgba(6,6,6,1))); border-top: 1px solid #4b92ad; border-bottom: 1px solid #4b92ad; border-right: 1px solid #4B92AD; border-top-right-radius: 8px; border-bottom-right-radius: 8px; }
 
 /* Playhead */
 .playhead-line { z-index: 9998; position: absolute; height:316px; top:0px; margin-left: 8px; width:1px; background-color:#ff0024; opacity:1;}
@@ -119,23 +119,4 @@ img {
 /* Scrollbar style */
 ::-webkit-scrollbar {width: 6px; height: 6px; background: #000000; }
 ::-webkit-scrollbar-thumb { background-color: #4b92ad; -webkit-border-radius: 1ex; }
-
-/* Debug Panel */
-.gear {
-	position: absolute;
-	top: 5px;
-	right: 5px;
-	z-index: 9999;
-	-webkit-transition: all 0.2s ease-in-out;
-	transition: all 0.2s ease-in-out;
-	padding: 5px;
-	background-color: silver;
-	border-radius: 8px;
-	opacity: 0.75;
-	cursor: pointer;
-}
-
-.gear:hover {
-	opacity: 0.95;
-}
 

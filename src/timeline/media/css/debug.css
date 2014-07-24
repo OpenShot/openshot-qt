@@ -1,3 +1,21 @@
+.gear {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	z-index: 9999;
+	-webkit-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+	padding: 5px;
+	background-color: silver;
+	border-radius: 8px;
+	opacity: 0.75;
+	cursor: pointer;
+}
+
+.gear:hover {
+	opacity: 0.95;
+}
+
 .debug-window {
 	background-color:rgba(1, 146, 193, 0.74);
 	overflow: hidden;
