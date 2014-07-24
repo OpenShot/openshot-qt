@@ -38,8 +38,9 @@ img {
 
 /* Tracks */
 #track_controls { width: 140px; position: relative; float: left; height: 316px; overflow: hidden;}
-.track_label { padding-top: 2px; padding-left: 2px; }
-.track_name { width: 130px; height: 70px; font-family: Sans; color: #fff; font-size: 9pt; padding-left: 4px; margin-left: 5px; margin-bottom: 8px; background-color: #000; border: 1px solid #4B92AD; border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
+.track_top { background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.20)), color-stop(100%,rgba(255,255,255,0))); border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
+.track_label { padding-top: 2px; padding-left: 2px; padding-left: 4px; }
+.track_name { width: 140px; height: 70px; font-family: Sans; color: #fff; font-size: 9pt; margin-left: 5px; margin-bottom: 8px; background-color: #000; border: 1px solid #4B92AD; border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
 .track { height: 70px; background-color: #000; margin-bottom: 8px; background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(50,50,50,1)), color-stop(100%,rgba(6,6,6,1))); border-top: 1px solid #4b92ad; border-bottom: 1px solid #4b92ad; border-right: 1px solid #4B92AD; border-top-right-radius: 8px; border-bottom-right-radius: 8px; }
 
 /* Playhead */
@@ -85,7 +86,7 @@ img {
 }
 
 /* Transitions */
-.transition_top {}
+.transition_top { background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.75)), color-stop(100%,rgba(255,255,255,0))); border-radius: 8px; }
 .transition { z-index:8000; color: #fff; min-width:0px; height: 64px; position: absolute; margin-top:2px; left: 100px; font-family: Sans; font-size: 9pt; background-color: #0192c; background: -webkit-linear-gradient(top, #0192c1 0%,#3fa1bf 100%); border-radius: 8px; border: 1px solid #0192c1; border-left: 2px solid #0192c1; border-right: 2px solid #0192c1; background-image: url(../images/transition.png); background-repeat: no-repeat; background-position: center; background-size: 100% 66px; opacity:0.75; }
 .transition_menu {float:left;margin-top:4px;margin-left:4px;margin-right:4px;width:12px;height:12px;background-image: url(../images/menu.png);}
 .transition_label {float:left; padding-top: 2px; width:50px; margin-left: 2px; color:#fff;font-weight:bold;}

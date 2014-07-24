@@ -57,7 +57,11 @@
 
 		<!-- TRACKS NAMES (left of screen) -->
 		<div id="track_controls">
-			<div ng-repeat="layer in project.layers" id="track_static_{{layer.number}}" class="track_name"><div class="track_label">Track {{layer.number}}</div></div>
+			<div ng-repeat="layer in project.layers" id="track_static_{{layer.number}}" class="track_name">
+				<div class="track_top">
+					<div class="track_label">Track {{layer.number}}</div>
+				</div>
+			</div>
 			<br>
 		</div>
 		<!-- TRACKS CONTAINER (right of screen) -->
