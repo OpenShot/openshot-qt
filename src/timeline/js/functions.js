@@ -81,7 +81,7 @@ function handleVisibleClipElements(scope, clip_id){
     }
 
     // Show label?
-    (clip_width <= min_for_label) ? element.find(".clip_label").hide() : element.find(".clip_label").show();
+    (clip_width <= min_for_menu) ? element.find(".clip_label").hide() : element.find(".clip_label").show();
     
     // Show effects?
     (clip_width <= min_for_effects) ? element.find(".clip_effects").hide() : element.find(".clip_effects").show();

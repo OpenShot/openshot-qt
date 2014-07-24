@@ -69,14 +69,14 @@
 				<!-- CLIPS -->
 				<div ng-hide tl-clip ng-repeat="clip in project.clips" id="clip_{{clip.id}}" ng-right-click="ShowClipMenu(clip.id)" class="clip droppable" style="width:{{ (clip.end - clip.start) * pixelsPerSecond}}px; left:{{clip.position * pixelsPerSecond}}px;top:{{getTrackTop(clip.layer)}}px;z-index:{{5000 + $index}};">
 					<div class="clip_top">
-						<div tl-clip-menu class="clip_menu"></div>
-						<div class="clip_effects" id="effects_{{clip.id}}" ng-show="clip.effects.length" tooltip="Effects Applied" tooltip-placement="right" tooltip-trigger='mouseenter' >
+						<div tl-clip-menu class="clip_menu" ng-click="ShowClipMenu(clip.id)"></div>
+						<div class="clip_effects" id="effects_{{clip.id}}" ng-show="clip.effects.length" tooltip="Effects"  tooltip-placement="right" tooltip-popup-delay="400">
 							{{clip.effects.length}} 
 						</div>
 						<!--<span class="clip_effects" id="effects_{{clip.id}}" ng-show="clip.effects.length">
 							<img ng-repeat="effect in clip.effects" id="effect_{{clip.id}}_{{$index}}" class="effect_icon" ng-src="media/images/effects/{{effect.icon}}"/>
 						</span>-->
-						<div class="clip_label">{{clip.title}}</div>
+						<div class="clip_label" tooltip="{{clip.title}}" tooltip-placement="right" tooltip-popup-delay="400">{{clip.title}}</div>
 						<br class="cleared">
 					</div>
 					<br class="cleared">
@@ -114,50 +114,46 @@
 		<script language="javascript">
 			
 		</script>
-		<div style="display: none;">
-			<a id="toggle_debug" href="#" style="color:#fff;">DATA +</a>
-			<br>
-			<div class="debug-window ui-corner-all" style="display:none;">
-				<div class="debug-text ui-corner-all">
-					TRACK DATA: <pre>{{tracks | json}}</pre>
-					<br><br>
-					MARKER DATA: <pre>{{markers | json}}</pre>
-				</div>
-				<div class="debug-text ui-corner-all">CLIPS DATA: <pre>{{clips | json}}</pre></div>
-				<div class="debug-text ui-corner-all">PROJECT DATA: <pre>pixels per second: {{pixelsPerSecond}} <br> playhead offset: {{playheadOffset}} <br> {{project | json}}</pre></div>
-				<div class="debug-text ui-corner-all">ACTIONS:<br><br>
+		
+		<div ng-show="!Qt" class="gear" ng-click="ToggleDebug()">
+			<img src="media/images/gear.png" width="40">
+		</div>
+		
+		<div ng-show="debug" class="debug-window ui-corner-all">
+				<div class="debug-text ui-corner-all" style="width: 20%;">PROJECT DATA: <pre>pixels per second: {{pixelsPerSecond}} <br> playhead offset: {{playheadOffset}} <br> {{project | json}}</pre></div>
+				<div class="debug-text ui-corner-all" style="width: 70%;">ACTIONS:<br><br>
 					<div>
 						<p>Add Clips:</p>	
 						<input type="text" name="numClips" ng-model="numClips" size="5" style="width:100px;" placeholder="# of clips"/>
     					<button ng-click="addClips(numClips)">add clips</button> <br/>
     				
-    				<div style="height:1px;background-color:#cfcfcf;margin:15px;"></div>
-    				<div>
-    					<p>Scale:</p>	
-    					<input id="scaleVal" ng-model="project.scale" style="width:100px;">
-    					<div db-slider></div>
-    				</div>
-    				<div style="height:1px;background-color:#cfcfcf;margin:15px;"></div>
-    				<div>
-						<p>Add Marker:</p>	
-						<input type="text" name="markLoc" ng-model="markLoc" size="5" style="width:100px;" placeholder="loc of marker"/>
-    					<button ng-click="addMarker(markLoc)">add marker</button> <br/>
-    				</div>
-    				<div style="height:1px;background-color:#cfcfcf;margin:15px;"></div>
-					<div>
-						<p>Add Effect:</p>	
-						<input type="text" name="clipNum" ng-model="clipNum" size="5" style="width:100px;" placeholder="clip #"/>
-    					<button ng-click="addEffect(clipNum)">add effect</button> <br/>
-    				</div>
-    				<div style="height:1px;background-color:#cfcfcf;margin:15px;"></div>
-					<div>
-						<p>Change clip image:</p>	
-						<input type="text" name="startImage" ng-model="startImage" size="5" style="width:100px;" placeholder="start clip for #3"/>
-    					<button ng-click="changeImage(startImage)">change img</button> <br/>
-    				</div>
+	    				<div style="height:1px;background-color:#cfcfcf;margin:15px;"></div>
+	    				<div>
+	    					<p>Scale:</p>	
+	    					<input id="scaleVal" ng-model="project.scale" style="width:100px;"><br><br>
+	    					<div db-slider></div>
+	    				</div>
+	    				<div style="height:1px;background-color:#cfcfcf;margin:15px;"></div>
+	    				<div>
+							<p>Add Marker:</p>	
+							<input type="text" name="markLoc" ng-model="markLoc" size="5" style="width:100px;" placeholder="loc of marker"/>
+	    					<button ng-click="addMarker(markLoc)">add marker</button> <br/>
+	    				</div>
+	    				<div style="height:1px;background-color:#cfcfcf;margin:15px;"></div>
+						<div>
+							<p>Add Effect:</p>	
+							<input type="text" name="clipNum" ng-model="clipNum" size="5" style="width:100px;" placeholder="clip #"/>
+	    					<button ng-click="addEffect(clipNum)">add effect</button> <br/>
+	    				</div>
+	    				<div style="height:1px;background-color:#cfcfcf;margin:15px;"></div>
+						<div>
+							<p>Change clip image:</p>	
+							<input type="text" name="startImage" ng-model="startImage" size="5" style="width:100px;" placeholder="start clip for #3"/>
+	    					<button ng-click="changeImage(startImage)">change img</button> <br/>
+	    				</div>
+					</div>
+					<div class="cleared"></div>
 				</div>
-				<div class="cleared"></div>
-			</div>
 		</div>
 		<!-- END DEBUG SECTION -->
 	</body>

@@ -159,6 +159,7 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.shift_pressed = false;
   $scope.snapline_position = 0.0;
   $scope.snapline = false;
+  $scope.debug = false;
   
   // Method to set if Qt is detected (which clears demo data)
   $scope.Qt = false;
@@ -616,6 +617,13 @@ App.controller('TimelineCtrl',function($scope) {
 
 
 // ############ DEBUG STUFFS ################## //
+ 
+ $scope.ToggleDebug = function() {
+	 if ($scope.debug == true)
+		 $scope.debug = false;
+	 else
+		 $scope.debug = true;
+ };
 
   // Debug method to add clips to the $scope
   $scope.addClips = function(numClips) {

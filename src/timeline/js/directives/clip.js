@@ -166,7 +166,6 @@ App.directive('tlClip', function($timeout){
 					//show or hide elements based on size
 					//drawAudio(scope, scope.clip.id);
 					handleVisibleClipElements(scope, scope.clip.id);
-					
 				},
 
 			});
