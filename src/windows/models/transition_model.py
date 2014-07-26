@@ -126,6 +126,7 @@ class TransitionsModel():
 						# Save thumbnail
 						reader.GetFrame(0).Thumbnail(thumb_path, 98, 64, os.path.join(info.IMAGES_PATH, "mask.png"), "", "#000", True)
 						reader.Close()
+						clip.Close()
 
 					except:
 						# Handle exception

@@ -26,6 +26,11 @@
  """
  
  # Syntax to build redistributable package:  python3 freeze.py build
+ #
+ # Troubleshooting: If you encounter an error while attempting to freeze
+ # the PyQt5/uic/port_v2, remove the __init__.py in that folder. And if 
+ # you are manually compiling PyQt5 on Windows, remove the -strip line
+ # from the Makefile.
 
 import glob, os, sys, subprocess, fnmatch
 from cx_Freeze import setup, Executable
@@ -64,8 +69,8 @@ elif sys.platform == "linux":
 
 # Get list of all Python files
 src_files = []
-for filename in find_files('src', ['*.py','*.settings','*.project','*.svg','*.png','*.ui','*.blend','*.html','*.css','*.js']):
-	src_files.append((filename, filename.replace('src/', '')))
+for filename in find_files('src', ['*.py','*.settings','*.project','*.svg','*.png','*.ui','*.blend','*.html','*.css','*.js','*.xml']):
+	src_files.append((filename, filename.replace('src/', '').replace('src\\', '')))
 
 # Dependencies are automatically detected, but it might need fine tuning.
 build_exe_options = { "packages" : ["os", "sys", "openshot", "PyQt5", "time", "uuid", "shutil", "threading", "subprocess", "re", "math", "subprocess", "xml", "urllib", "webbrowser", json_library],

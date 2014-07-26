@@ -145,6 +145,7 @@ class FilesModel(updates.UpdateInterface):
 						# Save thumbnail
 						reader.GetFrame(0).Thumbnail(thumb_path, 98, 64, os.path.join(info.IMAGES_PATH, "mask.png"), overlay_path, "#000", False)
 						reader.Close()
+						clip.Close()
 						
 					except:
 						# Handle exception
