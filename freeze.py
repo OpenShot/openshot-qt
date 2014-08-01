@@ -31,6 +31,11 @@
  # the PyQt5/uic/port_v2, remove the __init__.py in that folder. And if 
  # you are manually compiling PyQt5 on Windows, remove the -strip line
  # from the Makefile.
+ #
+ # Mac Syntax to Build App Bundle:
+ # 1) python3 freeze.py bdist_mac --include-frameworks "/usr/local/Cellar/qt5/5.3.1/Frameworks/QtCore.framework,/usr/local/Cellar/qt5/5.3.1/Frameworks/QtGui.framework,/usr/local/Cellar/qt5/5.3.1/Frameworks/QtMultimedia.framework,/usr/local/Cellar/qt5/5.3.1/Frameworks/QtMultimediaWidgets.framework,/usr/local/Cellar/qt5/5.3.1/Frameworks/QtNetwork.framework,/usr/local/Cellar/qt5/5.3.1/Frameworks/QtWidgets.framework" --qt-menu-nib="/usr/local/Cellar/qt5/5.3.1/plugins/platforms/" --iconfile=../openshot.icns --custom-info-plist=installer/Info.plist --bundle-name="OpenShot Video Editor"
+ # 2) change Contents/Info.plist to use launch-mac.sh as the Executable name
+
 
 import glob, os, sys, subprocess, fnmatch
 from cx_Freeze import setup, Executable
@@ -43,6 +48,9 @@ try:
 except ImportError:
     import simplejson as json
     json_library = "simplejson"
+    
+# Determine absolute PATH of OpenShot folder
+PATH = os.path.dirname( os.path.realpath( __file__) ) # Primary openshot folder
 
 # Find files matching patterns
 def find_files(directory, patterns):
@@ -56,7 +64,9 @@ def find_files(directory, patterns):
 
 # GUI applications require a different base on Windows
 base = None
+src_files = []
 external_so_files = []
+
 if sys.platform == "win32":
     base = "Win32GUI"
     external_so_files = []
@@ -66,14 +76,23 @@ elif sys.platform == "linux":
 	for filename in find_files('/usr/local/lib/', ['*openshot*.so*']):
 		if "python" not in filename:
 			external_so_files.append((filename, filename.replace('/usr/local/lib/', '')))
+            
+elif sys.platform == "darwin":
+	# Copy required ImageMagick files
+	for filename in find_files('/usr/local/Cellar/imagemagick/6.8.9-5/lib/ImageMagick/', ['*']):
+		external_so_files.append((filename, filename.replace('/usr/local/Cellar/imagemagick/6.8.9-5/lib/', '')))
+		
+	# Copy openshot.py Python bindings
+	src_files.append(("/usr/local/lib/python3.3/site-packages/openshot.py", "openshot.py"))
+	src_files.append((os.path.join(PATH, 'installer', 'launch-mac.sh'), "launch-mac.sh"))
+
 
 # Get list of all Python files
-src_files = []
 for filename in find_files('src', ['*.py','*.settings','*.project','*.svg','*.png','*.ui','*.blend','*.html','*.css','*.js','*.xml']):
 	src_files.append((filename, filename.replace('src/', '').replace('src\\', '')))
 
 # Dependencies are automatically detected, but it might need fine tuning.
-build_exe_options = { "packages" : ["os", "sys", "openshot", "PyQt5", "time", "uuid", "shutil", "threading", "subprocess", "re", "math", "subprocess", "xml", "urllib", "webbrowser", json_library],
+build_exe_options = { "packages" : ["os", "sys", "PyQt5", "openshot", "time", "uuid", "shutil", "threading", "subprocess", "re", "math", "subprocess", "xml", "urllib", "webbrowser", json_library],
 					  "include_files" : src_files + external_so_files  }
 
 # Create distutils setup object

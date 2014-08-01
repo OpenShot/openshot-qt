@@ -39,7 +39,6 @@ from windows.views.blender_treeview import BlenderTreeView
 import time, uuid, shutil
 import threading, subprocess, re
 import math
-import subprocess
 import openshot # Python module for libopenshot (required video editing module installed separately)
 
 try:
