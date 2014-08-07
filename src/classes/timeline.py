@@ -46,7 +46,11 @@ class TimelineSync(UpdateInterface):
 		
 		# Create an instance of a libopenshot Timeline object
 		self.timeline = openshot.Timeline(width, height, openshot.Fraction(fps["num"],fps["den"]), 44100, 2)
-		
+		self.timeline.info.has_audio = True
+		self.timeline.info.has_video = True
+		self.timeline.info.video_length = 99999
+		self.timeline.info.duration = 999.99
+
 		# Add self as listener to project data updates
 		self.app.updates.add_listener(self)
 		
@@ -66,11 +70,11 @@ class TimelineSync(UpdateInterface):
 			else:
 				# This JSON DIFF is passed to libopenshot to update the timeline
 				self.timeline.ApplyJsonDiff(action.json(is_array=True))
-				#print(self.timeline.Json())
+				print(self.timeline.Json())
 				#print(action.json(is_array=True))
 				
 				#if len(self.timeline.Clips()) > 0:
-				#	self.timeline.GetFrame(1).Display()
+				#	self.timeline.GetFrame(200).Display()
 		except:
 			log.info("Error applying JSON to timeline object in libopenshot")
 		

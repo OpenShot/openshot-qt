@@ -45,11 +45,8 @@ App.directive('tlPlayhead', function(){
 			element.on('mousemove', function(e){
 				if (e.which == 1 && !scope.playhead_animating) { // left button
 					var playhead_seconds = (e.pageX - $("#ruler").offset().left) / scope.pixelsPerSecond;
-
-					scope.$apply(function(){
-						scope.project.playhead_position = playhead_seconds;
-						scope.playheadTime = secondsToTime(playhead_seconds);
-					});
+					scope.MovePlayhead(playhead_seconds);
+					scope.PreviewFrame(playhead_seconds);
 				}
 			});
 			

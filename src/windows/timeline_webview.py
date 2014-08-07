@@ -146,6 +146,24 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		menu.addAction(self.window.actionRemoveTransition)
 		return menu.popup(QCursor.pos())
 		
+	@pyqtSlot(float, int, str)
+	def PlayheadMoved(self, position_seconds, position_frames, time_code):
+		if self.last_position_frames != position_frames:
+			# Update time code (to prevent duplicate previews)
+			self.last_position_frames = position_frames
+			
+			# Notify main window of current frame
+			self.window.previewFrame(position_seconds, position_frames, time_code)
+	
+	@pyqtSlot(int)
+	def movePlayhead(self, position_frames):
+		""" Move the playhead since the position has changed inside OpenShot (probably due to the video player) """
+		
+		#Get access to timeline scope and set scale to zoom slider value (passed in)
+		code = JS_SCOPE_SELECTOR + ".MovePlayheadToFrame(" + str(position_frames) + ");"
+		#self.eval_js(code)
+		log.info(code)
+		
 	@pyqtSlot(str)
 	def qt_log(self, message=None):
 		log.info(message)
@@ -320,6 +338,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		QWebView.__init__(self)
 		self.window = window
 		self.setAcceptDrops(True)
+		self.last_position_frames = None
 		
 		# Get settings
 		self.settings = settings.get_settings()

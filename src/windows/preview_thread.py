@@ -69,9 +69,14 @@ class PreviewThread(threading.Thread):
 		self.timeline = timeline
 		self.videoPreview = parent.videoPreview
 		self.player = None
+		self.current_frame = None
 		
 		# Init new player
 		self.initPlayer()
+		
+		# Connect player to timeline reader
+		self.player.Reader(self.timeline)
+		self.player.Pause()
 		
 	def initPlayer(self):
 		# Create QtPlayer class from libopenshot
@@ -128,8 +133,13 @@ class PreviewThread(threading.Thread):
 	def run(self):
 
 		# Main loop, waiting for frames to process
-		while self.is_running:
-			pass
+		while self.is_running:			
+			
+			# Move playhead (if playing)
+			if self.player.Mode() == openshot.PLAYBACK_PLAY and self.current_frame != self.player.Position():
+				self.current_frame = self.player.Position()
+				self.parent.movePlayhead(self.current_frame)
+
 			# Generate a preview (if needed)
 			#if self.number:
 				# File path of preview

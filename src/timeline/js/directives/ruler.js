@@ -114,14 +114,18 @@ App.directive('tlRuler', function ($timeout) {
 				var playhead_left = e.pageX - element.offset().left;
 				var playhead_seconds = playhead_left / scope.pixelsPerSecond;
 				
+				// Immediately preview frame (don't wait for animated playhead)
+				scope.PreviewFrame(playhead_seconds);
+				
 				// Animate to new position (and then update scope)
 				scope.playhead_animating = true;
 				$(".playhead-line").animate({left: playhead_left + scope.playheadOffset }, 200);
 				$(".playhead-top").animate({left: playhead_left + scope.playheadOffset }, 200, function() {
+					// Update playhead
+					scope.MovePlayhead(playhead_seconds);
+					
 					// Animation complete.
 					scope.$apply(function(){
-						scope.project.playhead_position = playhead_seconds;
-						scope.playheadTime = secondsToTime(playhead_seconds);
 						scope.playhead_animating = false;
 					});
 				});
@@ -132,10 +136,9 @@ App.directive('tlRuler', function ($timeout) {
 			element.on('mousemove', function(e){
 				if (e.which == 1 && !scope.playhead_animating) { // left button
 					var playhead_seconds = (e.pageX - element.offset().left) / scope.pixelsPerSecond;
-					scope.$apply(function(){
-						scope.project.playhead_position = playhead_seconds;
-						scope.playheadTime = secondsToTime(playhead_seconds);
-					});
+					// Update playhead
+					scope.MovePlayhead(playhead_seconds);
+					scope.PreviewFrame(playhead_seconds);
 				}
 			});
 
@@ -229,10 +232,9 @@ App.directive('tlRulertime', function () {
 			//on click of the ruler canvas, jump playhead to the clicked spot
 			element.on('mousedown', function(e){
 				var playhead_seconds = 0.0;
-				scope.$apply(function(){
-					scope.project.playhead_position = playhead_seconds;
-					scope.playheadTime = secondsToTime(playhead_seconds);
-				});
+				// Update playhead
+				scope.MovePlayhead(playhead_seconds);
+				scope.PreviewFrame(playhead_seconds);
 
 			});
 			
@@ -240,10 +242,9 @@ App.directive('tlRulertime', function () {
 			element.on('mousemove', function(e){
 				if (e.which == 1 && !scope.playhead_animating) { // left button
 					var playhead_seconds = 0.0;
-					scope.$apply(function(){
-						scope.project.playhead_position = playhead_seconds;
-						scope.playheadTime = secondsToTime(playhead_seconds);
-					});
+					// Update playhead
+					scope.MovePlayhead(playhead_seconds);
+					scope.PreviewFrame(playhead_seconds);
 				}
 			});
 			

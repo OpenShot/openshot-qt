@@ -169,6 +169,42 @@ App.controller('TimelineCtrl',function($scope) {
 	  	$scope.project.transitions = [];
 	  	timeline.qt_log("$scope.Qt = true;"); 
   };
+
+  // Move the playhead to a specific time
+  $scope.MovePlayhead = function(position_seconds) {
+	  // Update internal scope (in seconds)
+	  $scope.$apply(function(){
+		  $scope.project.playhead_position = position_seconds;
+		  $scope.playheadTime = secondsToTime(position_seconds);
+	  });
+  };
+  
+  // Move the playhead to a specific frame
+  $scope.MovePlayheadToFrame = function(position_frames) {
+	  if ($scope.Qt) {
+		 	timeline.qt_log("MovePlayheadToFrame!!!");
+	  }
+	  
+	  // Determine seconds
+	  var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
+	  var position_seconds = position_frames / frames_per_second;
+	  
+	  // Update internal scope (in seconds)
+	  $scope.MovePlayhead(position_seconds);
+  };
+
+  // Move the playhead to a specific time
+  $scope.PreviewFrame = function(position_seconds) {
+	  // Determine frame
+	  var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
+	  var frame = position_seconds * frames_per_second;
+	  
+	  // Update GUI with position (to the preview can be updated)
+	  if ($scope.Qt) {
+		  timeline.PlayheadMoved(position_seconds, frame, secondsToTime(position_seconds));
+	  }
+  };
+  
   
   // Determine track top (in vertical pixels)
   $scope.getTrackTop = function(layer){

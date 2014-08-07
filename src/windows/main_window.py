@@ -334,12 +334,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
 		if self.actionPlay.isChecked():
 			ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
-			#TODO: call on library to pause
 			self.preview_thread.Play()
 			
 		else:
 			ui_util.setup_icon(self, self.actionPlay, "actionPlay") #to default
-			#TODO: call on library to play
 			self.preview_thread.Pause()
 			
 	def actionPreview_File_trigger(self, event):
@@ -359,6 +357,22 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 				# Trigger play button
 				self.actionPlay.setChecked(False)
 				self.actionPlay.trigger()
+		
+	# Preview a specific frame
+	def previewFrame(self, position_seconds, position_frames, time_code):
+		log.info(position_seconds)
+		log.info(position_frames)
+		log.info(time_code)
+		
+		# Notify preview thread
+		self.preview_thread.previewFrame(position_frames)
+
+	# Update playhead position
+	def movePlayhead(self, position_frames):
+		log.info(position_frames)
+		
+		# Notify preview thread
+		self.timeline.movePlayhead(position_frames)
 		
 	def actionFastForward_trigger(self, event):
 		pass
@@ -675,12 +689,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 			filename = filename.replace(".json", "").replace("_", " ").replace("-", " ").capitalize()
 			self.setWindowTitle("%s [%s] - %s" % (filename, profile, "OpenShot Video Editor"))
 
-	#Update undo and redo buttons enabled/disabled to available changes
+	# Update undo and redo buttons enabled/disabled to available changes
 	def updateStatusChanged(self, undo_status, redo_status):
 		self.actionUndo.setEnabled(undo_status)
 		self.actionRedo.setEnabled(redo_status)
-	
-	#Update window settings in setting store
+
+	# Update window settings in setting store
 	def save_settings(self):
 		s = settings.get_settings()
 
@@ -688,7 +702,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		s.set('window_state', qt_types.bytes_to_str(self.saveState()))
 		s.set('window_geometry', qt_types.bytes_to_str(self.saveGeometry()))
 	
-	#Get window settings from setting store
+	# Get window settings from setting store
 	def load_settings(self):
 		s = settings.get_settings()
 		
