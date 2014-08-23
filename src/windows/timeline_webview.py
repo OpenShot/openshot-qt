@@ -161,8 +161,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		
 		#Get access to timeline scope and set scale to zoom slider value (passed in)
 		code = JS_SCOPE_SELECTOR + ".MovePlayheadToFrame(" + str(position_frames) + ");"
-		#self.eval_js(code)
-		log.info(code)
+		self.eval_js(code)
+		#log.info(code)
 		
 	@pyqtSlot(str)
 	def qt_log(self, message=None):

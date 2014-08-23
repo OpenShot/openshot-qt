@@ -47,7 +47,7 @@ from windows.views.effects_treeview import EffectsTreeView
 from windows.views.effects_listview import EffectsListView
 from windows.views.properties_tableview import PropertiesTableView
 from windows.video_widget import VideoWidget
-from windows.preview_thread import PreviewThread
+from windows.preview_thread import PreviewParent
 import xml.etree.ElementTree as ElementTree
 import webbrowser
 
@@ -949,6 +949,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		self.timeline_sync = TimelineSync()
 		
 		# Start the preview thread
-		self.preview_thread = PreviewThread(self, self.timeline_sync.timeline)
-		self.preview_thread.start()
+		self.preview_parent = PreviewParent()
+		self.preview_parent.Init(self, self.timeline_sync.timeline)
+		self.preview_thread = self.preview_parent.worker
 		

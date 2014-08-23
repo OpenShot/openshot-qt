@@ -35,7 +35,7 @@ from classes.logger import log
 from classes import settings
 from classes.query import File
 from classes.app import get_app
-from PyQt5.QtCore import QMimeData, QSize, Qt, QCoreApplication, QPoint, QFileInfo, QEvent, QObject
+from PyQt5.QtCore import QMimeData, QSize, Qt, QCoreApplication, QPoint, QFileInfo, QEvent, QObject, QThread, pyqtSlot, pyqtSignal
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 import functools
@@ -47,29 +47,64 @@ try:
 except ImportError:
 	import simplejson as json
 	
-class QPreviewEvent(QEvent):
-	""" A custom QEvent, which can safely be sent from the preview thread to the Qt thread (to communicate) """
-	 
-	def __init__(self, id, data=None, *args):
-		# Invoke parent init
-		QEvent.__init__(self, id)
-		self.data = data
-		self.id = id
+class PreviewParent(QObject):
+	""" Class which communicates with the PlayerWorker Class (running on a separate thread) """
+	
+	# Signal when the frame position changes in the preview player
+	def onPositionChanged(self, current_frame):
+		log.info ('onPositionChanged')
+		self.parent.movePlayhead(current_frame)
+			
+	# Signal when the playback mode changes in the preview player (i.e PLAY, PAUSE, STOP)
+	def onModeChanged(self, current_mode):
+		log.info ('onModeChanged')
 
-class PreviewThread(threading.Thread):
-	def __init__(self, parent, timeline):
-
-		# base class constructor
-		threading.Thread.__init__(self)
+	@pyqtSlot(object, object)
+	def Init(self, parent, timeline):
+		# Important vars
+		self.parent = parent
+		self.timeline = timeline
 		
+		# Background Worker Thread (for Blender process)
+		self.background = QThread(self)
+		self.worker = PlayerWorker()  # no parent!
+		
+		# Init worker variables
+		self.worker.Init(parent, timeline)
+		
+		# Hook up signals to Background Worker
+		self.worker.position_changed.connect(self.onPositionChanged)
+		self.worker.mode_changed.connect(self.onModeChanged)
+		self.background.started.connect(self.worker.Start)
+		
+		# Move Worker to new thread, and Start
+		self.worker.moveToThread(self.background)
+		self.background.start()
+
+
+class PlayerWorker(QObject):
+	""" QT Player Worker Object (to preview video on a separate thread) """
+	
+	position_changed = pyqtSignal(int)
+	mode_changed = pyqtSignal(object)
+	
+	@pyqtSlot(object, object)
+	def Init(self, parent, timeline):
+		self.parent = parent
+		self.timeline = timeline
+	
+	@pyqtSlot()
+	def Start(self):
+		""" This method starts the video player """
+		log.info ("QThread Start Method Invoked")
+	
 		# Flag to run thread
 		self.is_running = True
 		self.number = None
-		self.parent = parent
-		self.timeline = timeline
-		self.videoPreview = parent.videoPreview
+		self.videoPreview = self.parent.videoPreview
 		self.player = None
 		self.current_frame = None
+		self.current_mode = None
 		
 		# Init new player
 		self.initPlayer()
@@ -78,6 +113,23 @@ class PreviewThread(threading.Thread):
 		self.player.Reader(self.timeline)
 		self.player.Pause()
 		
+		# Main loop, waiting for frames to process
+		while self.is_running:			
+			
+			# Emit position changed signal (if needed)
+			if self.player.Mode() == openshot.PLAYBACK_PLAY and self.current_frame != self.player.Position():
+				self.current_frame = self.player.Position()
+				self.position_changed.emit(self.current_frame)
+			
+			# Emit mode changed signal (if needed)
+			if self.player.Mode() != self.current_mode:
+				self.current_mode = self.player.Mode()
+				self.mode_changed.emit(self.current_mode)
+
+			# wait for a small delay
+			time.sleep(0.05)
+	
+	@pyqtSlot()
 	def initPlayer(self):
 		# Create QtPlayer class from libopenshot
 		self.player = openshot.QtPlayer()
@@ -87,17 +139,20 @@ class PreviewThread(threading.Thread):
 		self.player.SetQWidget(int(sip.unwrapinstance(self.videoPreview)))
 		self.renderer = sip.wrapinstance(self.renderer_address, QObject)
 		self.videoPreview.connectSignals(self.renderer)
-		
+	
+	@pyqtSlot()
 	def kill(self):
 		""" Kill this thread """
 		self.is_running = False
 		
+	@pyqtSlot(int)
 	def previewFrame(self, number):
 		""" Preview a certain frame """
 		
 		# Mark frame number for processing
 		self.player.Seek(number)
-		
+	
+	@pyqtSlot(str)
 	def LoadFile(self, path):
 		""" Load a media file into the video player """
 		
@@ -114,14 +169,15 @@ class PreviewThread(threading.Thread):
 		# Seek to 1st frame
 		self.player.Seek(1)
 
-		
+	@pyqtSlot()
 	def Play(self):
 		""" Start playing the video player """
 
 		# Start playback
 		log.info("Play...")
 		self.player.Play()
-		
+	
+	@pyqtSlot()
 	def Pause(self):
 		""" Start playing the video player """
 
@@ -130,28 +186,3 @@ class PreviewThread(threading.Thread):
 		self.player.Pause()
 
 
-	def run(self):
-
-		# Main loop, waiting for frames to process
-		while self.is_running:			
-			
-			# Move playhead (if playing)
-			if self.player.Mode() == openshot.PLAYBACK_PLAY and self.current_frame != self.player.Position():
-				self.current_frame = self.player.Position()
-				self.parent.movePlayhead(self.current_frame)
-
-			# Generate a preview (if needed)
-			#if self.number:
-				# File path of preview
-				#file_path = os.path.join(info.THUMBNAIL_PATH, "preview.png")
-				#log.info("Generating thumbnail for frame %s: %s" % (self.number, file_path))
-				
-				# Generate timeline image
-				#timeline.GetFrame(self.number).Save(file_path, 1.0)
-		
-				# Update preview in Qt
-				#QCoreApplication.postEvent(self.parent, QPreviewEvent(1001, { "file_path" : file_path }))
-			
-			# wait for a small delay
-			time.sleep(0.25)
-			#log.info("Preview thread...")

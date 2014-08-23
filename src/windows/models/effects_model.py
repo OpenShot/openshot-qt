@@ -137,7 +137,7 @@ class EffectsModel():
 					except:
 						# Handle exception
 						msg = QMessageBox()
-						msg.setText(app._tr("{} is not a valid image file.".format(filename)))
+						msg.setText(app._tr("{} is not a valid image file.".format(icon_path)))
 						msg.exec_()
 						continue
 				
