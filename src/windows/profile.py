@@ -65,9 +65,9 @@ class Profile(QDialog):
 		# Loop through profiles
 		self.profile_names = []
 		self.profile_paths = {}
-		for file in os.listdir(info.PROFILE_PATH):
+		for file in os.listdir(info.PROFILES_PATH):
 			# Load Profile
-			profile_path = os.path.join(info.PROFILE_PATH, file)
+			profile_path = os.path.join(info.PROFILES_PATH, file)
 			profile = openshot.Profile(profile_path)
 			
 			# Add description of Profile to list

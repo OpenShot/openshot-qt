@@ -33,23 +33,13 @@ from classes.settings import SettingStore
 from classes.app import get_app
 from PyQt5.QtCore import QMimeData, QSize, Qt, QCoreApplication, QPoint, QFileInfo, QRect
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QLabel, QApplication, QMessageBox, QAbstractItemView, QMenu, QSizePolicy
+from PyQt5.QtWidgets import QLabel, QApplication, QMessageBox, QAbstractItemView, QMenu, QSizePolicy, QWidget
 from windows.models.effects_model import EffectsModel
 import openshot # Python module for libopenshot (required video editing module installed separately)
 
 
-class VideoWidget(QLabel):
+class VideoWidget(QWidget):
 	""" A QWidget used on the video display widget """ 
-	
-#	def contextMenuEvent(self, event):
-#		# Set context menu mode
-#		app = get_app()
-#		app.context_menu_object = "effects"
-#		
-#		menu = QMenu(self)
-#		menu.addAction(self.win.actionDetailsView)
-#		menu.addAction(self.win.actionThumbnailView)
-#		menu.exec_(QCursor.pos())
 
 	def paintEvent(self, event, *args):
 		""" Custom paint event """
@@ -57,8 +47,29 @@ class VideoWidget(QLabel):
 		if self.current_image:
 			# Paint custom frame image on QWidget
 			painter = QPainter(self)
-			painter.fillRect(event.rect(), self.palette().window());
-			painter.drawImage(QRect(0, 0, self.width(), self.height()), self.current_image);
+
+			# maintain aspect ratio
+			painter.fillRect(event.rect(), self.palette().window())
+			painter.setViewport(self.centeredViewport(self.width(), self.height()))
+			painter.drawImage(QRect(0, 0, self.width(), self.height()), self.current_image)
+			
+			
+	def SetAspectRatio(self, new_aspect_ratio, new_pixel_ratio):
+		""" Set a new aspect ratio """
+		self.aspect_ratio = new_aspect_ratio
+		self.pixel_ratio = new_pixel_ratio
+			
+	def centeredViewport(self, width, height):
+		""" Calculate size of viewport to maintain apsect ratio """
+
+		aspectRatio = self.aspect_ratio.ToFloat() * self.pixel_ratio.ToFloat()
+		heightFromWidth = width / aspectRatio
+		widthFromHeight = height * aspectRatio
+	
+		if heightFromWidth <= height:
+			return QRect(0,(height - heightFromWidth) / 2, width, heightFromWidth)
+		else:
+			return QRect((width - widthFromHeight) / 2.0, 0, widthFromHeight, height)
 		
 	def present(self, image, *args):
 		""" Present the current frame """
@@ -75,12 +86,22 @@ class VideoWidget(QLabel):
 
 	def __init__(self, *args):
 		# Invoke parent init
-		QLabel.__init__(self, *args)
+		QWidget.__init__(self, *args)
 		
-		# Set background-color
-		self.setStyleSheet("background-color: #000000;")
-		self.setAlignment(Qt.AlignCenter)
-		self.setMinimumWidth(400)
+		# Init aspect ratio settings (default values)
+		self.aspect_ratio = openshot.Fraction()
+		self.pixel_ratio = openshot.Fraction()
+		self.aspect_ratio.num = 16
+		self.aspect_ratio.den = 9
+		self.pixel_ratio.num = 1
+		self.pixel_ratio.den = 1
+		
+		# Init Qt style properties (black background, ect...)
+		p = QPalette()
+		p.setColor(QPalette.Window, Qt.black)
+		super().setPalette(p)
+		super().setAttribute(Qt.WA_OpaquePaintEvent)
+		super().setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
 		
 		# Init current frame's QImage
 		self.current_image = None
