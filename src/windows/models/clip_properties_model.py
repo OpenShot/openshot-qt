@@ -116,15 +116,16 @@ class ClipPropertiesModel():
 			
 			# Append Property Name
 			col = QStandardItem("Property")
-			col.setData(name, Qt.DisplayRole)
+			#col.setData(name, Qt.DisplayRole)
 			col.setText(label)
+			#col.setBackground(QColor(42, 130, 218)) # Only highlight background for keyframe'd values
 			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 			row.append(col)
 			
 			# Append Value
 			col = QStandardItem("Value")
-			col.setData("", Qt.DisplayRole)
 			col.setText("")
+			#col.setBackground(QColor(42, 130, 218)) # Only highlight background for keyframe'd values
 			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsEditable)
 			row.append(col)
 
