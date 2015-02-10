@@ -84,33 +84,30 @@ class ClipPropertiesModel():
 		# Get a generic emtpy clip
 		c = openshot.Clip()
 		
+		# example code to add a keyframe
+		c.alpha.AddPoint(1, 1.0);
+		c.alpha.AddPoint(30, 0.0);
+		c.scale_y.AddPoint(1, 100.0);
+		c.scale_y.AddPoint(30, 25.0);
+		
+		all_properties = json.loads(c.PropertiesJSON(1))
+		
 		# Get list of clip properties [ ('Location x', 'location_x', <class 'openshot.Keyframe'>), ('Location y', 'location_y', <class 'openshot.Keyframe'>), ('Open', 'Open', <class 'method'>),... ] 
-		all_properties = sorted([(prop.capitalize().replace('_',' '), prop, type(getattr(c, prop))) for prop in c.__dir__()])
+		#all_properties = sorted([(prop.capitalize().replace('_',' '), prop, type(getattr(c, prop))) for prop in c.__dir__()])
 
 		# Loop through properties, and build a model	
-		for property in all_properties:
-			label = property[0]
-			name = property[1]
-			prop_type = property[2]
-			
-			# Hide certain properties
-			if name.startswith("_") or name.lower().startswith("get") or "json" in name.lower() or name.lower() == "this":
-				# skip this property
-				continue
+		for property in all_properties.items():
+			label = property[1]["name"]
+			name = property[1]["name"]
+			value = property[1]["value"]
+			type = property[1]["type"]
+			memo = property[1]["memo"]
+			readonly = property[1]["readonly"]
+			keyframe = property[1]["keyframe"]
 			
 			# Hide filtered out properties
 			if filter and filter.lower() not in name.lower():
 				continue
-			
-			# Better determine type of methods
-			try:
-				if prop_type == types.MethodType:
-					# Set type to return value
-					prop_type = type(prop_type())
-			except:
-				# If requires arguments or fails to execute function, skip property
-				continue
-				
 			
 			row = []
 			
@@ -118,14 +115,16 @@ class ClipPropertiesModel():
 			col = QStandardItem("Property")
 			#col.setData(name, Qt.DisplayRole)
 			col.setText(label)
-			#col.setBackground(QColor(42, 130, 218)) # Only highlight background for keyframe'd values
+			if keyframe:
+				col.setBackground(QColor(42, 130, 218)) # Only highlight background for keyframe'd values
 			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 			row.append(col)
 			
 			# Append Value
 			col = QStandardItem("Value")
-			col.setText("")
-			#col.setBackground(QColor(42, 130, 218)) # Only highlight background for keyframe'd values
+			col.setText(str(value))
+			if keyframe:
+				col.setBackground(QColor(42, 130, 218)) # Only highlight background for keyframe'd values
 			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsEditable)
 			row.append(col)
 
