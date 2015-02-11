@@ -462,6 +462,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		
 	def actionRemoveClip_trigger(self, event):
 		log.info('actionRemoveClip_trigger')
+		log.info(self.selected_clips)
 
 		# Loop through selected clips
 		for clip_id in self.selected_clips:
@@ -693,6 +694,20 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 	def updateStatusChanged(self, undo_status, redo_status):
 		self.actionUndo.setEnabled(undo_status)
 		self.actionRedo.setEnabled(redo_status)
+	
+	# Add to the selected items	
+	def addSelection(self, item_id, item_type):
+		if item_type == "clip":
+			self.selected_clips.append(item_id)
+		elif item_type == "transition":
+			self.selected_transitions.append(item_id)
+			
+	# Remove from the selected items	
+	def removeSelection(self, item_id, item_type):
+		if item_type == "clip":
+			self.selected_clips.remove(item_id)
+		elif item_type == "transition":
+			self.selected_transitions.remove(item_id)
 
 	# Update window settings in setting store
 	def save_settings(self):

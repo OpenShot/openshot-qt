@@ -691,7 +691,7 @@ App.controller('TimelineCtrl',function($scope) {
 	    });
 	    $scope.clipNum = "";
                     
-  }
+  };
 
   // Debug method to add a marker to the $scope
   $scope.addMarker = function(markLoc){

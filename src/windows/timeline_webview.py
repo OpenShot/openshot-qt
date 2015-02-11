@@ -128,8 +128,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 	def ShowClipMenu(self, clip_id=None):
 		log.info('ShowClipMenu: %s' % clip_id)
 
-		# Set the selected clip
-		self.window.selected_clips = [clip_id]
+		# Set the selected clip (if needed)
+		if clip_id not in self.window.selected_clips:
+			self.window.addSelection(clip_id, 'clip')
 		
 		menu = QMenu(self)
 		menu.addAction(self.window.actionRemoveClip)
@@ -139,8 +140,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 	def ShowTransitionMenu(self, tran_id=None):
 		log.info('ShowTransitionMenu: %s' % tran_id)
 
-		# Set the selected transition
-		self.window.selected_transitions = [tran_id]
+		# Set the selected transition (if needed)
+		if tran_id not in self.window.selected_transitions:
+			self.window.addSelection(tran_id, 'transition')
 		
 		menu = QMenu(self)
 		menu.addAction(self.window.actionRemoveTransition)
@@ -163,6 +165,21 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		code = JS_SCOPE_SELECTOR + ".MovePlayheadToFrame(" + str(position_frames) + ");"
 		self.eval_js(code)
 		#log.info(code)
+		
+	@pyqtSlot(str, str)
+	def addSelection(self, item_id, item_type):
+		""" Add the selected item to the current selection """
+
+		# Add to main window
+		self.window.addSelection(item_id, item_type)
+		
+	@pyqtSlot(str, str)
+	def removeSelection(self, item_id, item_type):
+		""" Remove the selected clip from the selection """
+		
+		# Remove from main window
+		self.window.removeSelection(item_id, item_type)
+		
 		
 	@pyqtSlot(str)
 	def qt_log(self, message=None):

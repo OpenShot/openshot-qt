@@ -64,10 +64,17 @@ class ClipStandardItemModel(QStandardItemModel):
 		return data
 
 
-class ClipPropertiesModel():
+class ClipPropertiesModel(updates.UpdateInterface):
+	
+	# This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
+	def changed(self, action):
+		
+		# Send a JSON version of the UpdateAction to the timeline webview method: ApplyJsonDiff()
+		if action.type in ["insert", "delete"] and action.key == "clips":
+			print ("CLIP CHANGED")
 	
 	
-	def itemChanged(self, item):
+	def value_updated(self, item):
 		log.info("itemChanged to %s" % item.text())
 		
 	
@@ -133,11 +140,17 @@ class ClipPropertiesModel():
 
 
 	def __init__(self, *args):
+		
+		# Keep track of the selected items (clips, transitions, etc...)
+		self.selected = []
 
 		# Create standard model 
 		self.model = ClipStandardItemModel()
 		self.model.setColumnCount(2)
+		
+		#Add self as listener to project data updates (used to update the timeline)
+		get_app().updates.add_listener(self)
 
 		# Connect data changed signal
-		self.model.itemChanged.connect(self.itemChanged)
+		self.model.itemChanged.connect(self.value_updated)
 		

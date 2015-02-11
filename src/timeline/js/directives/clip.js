@@ -310,6 +310,46 @@ App.directive('tlMultiSelectable', function(){
 		link: function(scope, element, attrs){
 			element.selectable({
 				filter: '.droppable',
+				selected: function( event, ui ) {
+
+					// Identify the selected ID and TYPE
+					var id = ui.selected.id;
+					var type = "";
+					if (id.match("^clip_")) {
+						id = id.replace("clip_", "");
+						type = "clip";
+					} else if (id.match("^transition_")) {
+						id = id.replace("transition_", "");
+						type = "transition";
+					}
+					
+					if (scope.Qt)
+					{
+						timeline.qt_log("Add to selection: " + id);
+						timeline.addSelection(id, type);
+					}
+						 
+				},
+				unselected: function( event, ui ) {
+
+					// Identify the selected ID and TYPE
+					var id = ui.selected.id;
+					var type = "";
+					if (id.match("^clip_")) {
+						id = id.replace("clip_", "");
+						type = "clip";
+					} else if (id.match("^transition_")) {
+						id = id.replace("transition_", "");
+						type = "transition";
+					}
+					
+					if (scope.Qt)
+					{
+						timeline.qt_log("Remove from selection: " + id);
+						timeline.removeSelection(id, type);
+					}
+						 
+				}
 			});
 		}
 	};

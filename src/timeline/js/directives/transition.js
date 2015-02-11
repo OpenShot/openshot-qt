@@ -256,18 +256,6 @@ App.directive('tlTransition', function(){
 	};
 });
 
-//Handle multiple selections
-App.directive('tlMultiSelectable', function(){
-	return {
-		link: function(scope, element, attrs){
-			element.selectable({
-				filter: '.droppable',
-			});
-		}
-	};
-});
-
-
 
 
 
