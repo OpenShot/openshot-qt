@@ -333,7 +333,7 @@ App.directive('tlMultiSelectable', function(){
 				unselected: function( event, ui ) {
 
 					// Identify the selected ID and TYPE
-					var id = ui.selected.id;
+					var id = ui.unselected.id;
 					var type = "";
 					if (id.match("^clip_")) {
 						id = id.replace("clip_", "");

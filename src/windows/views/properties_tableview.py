@@ -46,6 +46,27 @@ except ImportError:
 class PropertiesTableView(QTableView):
 	""" A Properties Table QWidget used on the main window """ 
 	
+	def select_item(self, item_id, item_type):
+		""" Update the selected item in the properties window """
+		
+		# Get translation object
+		_ = get_app()._tr
+		
+		# Set label
+		if item_id:
+			get_app().window.lblSelectedItem.setText(_("Selection: %s") % item_id)
+		else:
+			get_app().window.lblSelectedItem.setText(_("No Selection"))
+			
+		# Update item
+		self.clip_properties_model.update_item(item_id, item_type)
+
+	def select_frame(self, frame_number):
+		""" Update the values of the selected clip, based on the current frame """
+		
+		# Update item
+		self.clip_properties_model.update_frame(frame_number)
+	
 	def filter_changed(self, value=None):
 		""" Filter the list of properties """
 		

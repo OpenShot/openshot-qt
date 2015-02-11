@@ -150,7 +150,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		
 	@pyqtSlot(float, int, str)
 	def PlayheadMoved(self, position_seconds, position_frames, time_code):
+
 		if self.last_position_frames != position_frames:
+
 			# Update time code (to prevent duplicate previews)
 			self.last_position_frames = position_frames
 			

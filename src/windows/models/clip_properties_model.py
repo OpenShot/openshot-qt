@@ -27,9 +27,10 @@
 
 import os, types
 from urllib.parse import urlparse
+from collections import OrderedDict
 from classes import updates
 from classes import info
-from classes.query import File
+from classes.query import File, Clip
 from classes.logger import log
 from classes.settings import SettingStore
 from classes.app import get_app
@@ -66,6 +67,33 @@ class ClipStandardItemModel(QStandardItemModel):
 
 class ClipPropertiesModel(updates.UpdateInterface):
 	
+	# Update the selected item (which drives what properties show up)
+	def update_item(self, item_id, item_type):
+		# Clear previous selection
+		self.selected = []
+		
+		if item_type == "clip":
+			c = None
+			clips = get_app().window.timeline_sync.timeline.Clips()
+			for clip in clips:
+				if clip.Id() == item_id:
+					c = clip
+					break
+				
+			self.selected.append(c)
+		
+		# Update the model data
+		self.update_model(get_app().window.txtPropertyFilter.text())
+		
+	# Update the values of the selected clip, based on the current frame
+	def update_frame(self, frame_number):
+		# Update frame number
+		self.frame_number = frame_number
+
+		# Update the model data
+		self.update_model(get_app().window.txtPropertyFilter.text())
+			
+	
 	# This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
 	def changed(self, action):
 		
@@ -89,60 +117,67 @@ class ClipPropertiesModel(updates.UpdateInterface):
 		self.model.setHorizontalHeaderLabels(["Property", "Value" ])
 		
 		# Get a generic emtpy clip
-		c = openshot.Clip()
-		
-		# example code to add a keyframe
-		c.alpha.AddPoint(1, 1.0);
-		c.alpha.AddPoint(30, 0.0);
-		c.scale_y.AddPoint(1, 100.0);
-		c.scale_y.AddPoint(30, 25.0);
-		
-		all_properties = json.loads(c.PropertiesJSON(1))
-		
-		# Get list of clip properties [ ('Location x', 'location_x', <class 'openshot.Keyframe'>), ('Location y', 'location_y', <class 'openshot.Keyframe'>), ('Open', 'Open', <class 'method'>),... ] 
-		#all_properties = sorted([(prop.capitalize().replace('_',' '), prop, type(getattr(c, prop))) for prop in c.__dir__()])
-
-		# Loop through properties, and build a model	
-		for property in all_properties.items():
-			label = property[1]["name"]
-			name = property[1]["name"]
-			value = property[1]["value"]
-			type = property[1]["type"]
-			memo = property[1]["memo"]
-			readonly = property[1]["readonly"]
-			keyframe = property[1]["keyframe"]
+		if self.selected:
+			c = self.selected[0]
 			
-			# Hide filtered out properties
-			if filter and filter.lower() not in name.lower():
-				continue
+			# example code to add a keyframe
+			#c.alpha.AddPoint(1, 1.0);
+			#c.alpha.AddPoint(750, 0.0);
+			#c.location_x.AddPoint(1, 100.0);
+			#c.location_x.AddPoint(300, 25.0);
 			
-			row = []
+			# Get raw unordered JSON properties
+			raw_properties = json.loads(c.PropertiesJSON(self.frame_number))
 			
-			# Append Property Name
-			col = QStandardItem("Property")
-			#col.setData(name, Qt.DisplayRole)
-			col.setText(label)
-			if keyframe:
-				col.setBackground(QColor(42, 130, 218)) # Only highlight background for keyframe'd values
-			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
-			row.append(col)
-			
-			# Append Value
-			col = QStandardItem("Value")
-			col.setText(str(value))
-			if keyframe:
-				col.setBackground(QColor(42, 130, 218)) # Only highlight background for keyframe'd values
-			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsEditable)
-			row.append(col)
-
-			# Append ROW to MODEL (if does not already exist in model)
-			self.model.appendRow(row)
+			# Sort the list of properties 
+			all_properties = OrderedDict(sorted(raw_properties.items(), key=lambda x: x[1]['name']))
+	
+			# Loop through properties, and build a model	
+			for property in all_properties.items():
+				label = property[1]["name"]
+				name = property[1]["name"]
+				value = property[1]["value"]
+				type = property[1]["type"]
+				memo = property[1]["memo"]
+				readonly = property[1]["readonly"]
+				keyframe = property[1]["keyframe"]
+				points = property[1]["points"]
+				
+				# Hide filtered out properties
+				if filter and filter.lower() not in name.lower():
+					continue
+				
+				row = []
+				
+				# Append Property Name
+				col = QStandardItem("Property")
+				col.setText(label)
+				if keyframe and points > 1:
+					col.setBackground(QColor(42, 130, 218)) # Highlight keyframe background
+				elif points > 1:
+					col.setBackground(QColor(53,53,53)) # Highlight interpolated value background
+				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+				row.append(col)
+				
+				# Append Value
+				col = QStandardItem("Value")
+				col.setText(str(value))
+				if keyframe and points > 1:
+					col.setBackground(QColor(42, 130, 218)) # Highlight keyframe background
+				elif points > 1:
+					col.setBackground(QColor(53,53,53)) # Highlight interpolated value background
+				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsEditable)
+				row.append(col)
+	
+				# Append ROW to MODEL (if does not already exist in model)
+				self.model.appendRow(row)
 
 
 	def __init__(self, *args):
 		
 		# Keep track of the selected items (clips, transitions, etc...)
 		self.selected = []
+		self.frame_number = 1
 
 		# Create standard model 
 		self.model = ClipStandardItemModel()

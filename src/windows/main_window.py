@@ -366,6 +366,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		
 		# Notify preview thread
 		self.preview_thread.previewFrame(position_frames)
+		
+		# Notify properties dialog
+		self.propertyTableView.select_frame(position_frames)
 
 	# Update playhead position
 	def movePlayhead(self, position_frames):
@@ -373,6 +376,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		
 		# Notify preview thread
 		self.timeline.movePlayhead(position_frames)
+
 		
 	def actionFastForward_trigger(self, event):
 		pass
@@ -462,7 +466,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		
 	def actionRemoveClip_trigger(self, event):
 		log.info('actionRemoveClip_trigger')
-		log.info(self.selected_clips)
 
 		# Loop through selected clips
 		for clip_id in self.selected_clips:
@@ -702,12 +705,18 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		elif item_type == "transition":
 			self.selected_transitions.append(item_id)
 			
+		# Change selected item in properties view
+		self.propertyTableView.select_item(item_id, item_type)
+			
 	# Remove from the selected items	
 	def removeSelection(self, item_id, item_type):
 		if item_type == "clip":
 			self.selected_clips.remove(item_id)
 		elif item_type == "transition":
 			self.selected_transitions.remove(item_id)
+			
+		# Clear selection in properties view
+		self.propertyTableView.select_item("", "")
 
 	# Update window settings in setting store
 	def save_settings(self):
@@ -951,7 +960,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		
 		# Setup properties table
 		self.propertyTableView = PropertiesTableView(self)
-		self.dockPropertiesContent.layout().addWidget(self.propertyTableView)
+		self.dockPropertiesContent.layout().addWidget(self.propertyTableView, 3, 1)
 		
 		# Setup video preview QWidget
 		self.videoPreview = VideoWidget()

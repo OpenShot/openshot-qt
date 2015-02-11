@@ -46,7 +46,16 @@
     <bool>false</bool>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <property name="margin">
+    <property name="leftMargin">
+     <number>5</number>
+    </property>
+    <property name="topMargin">
+     <number>5</number>
+    </property>
+    <property name="rightMargin">
+     <number>5</number>
+    </property>
+    <property name="bottomMargin">
      <number>5</number>
     </property>
     <property name="spacing">
@@ -253,7 +262,20 @@
    </attribute>
    <widget class="QWidget" name="dockPropertiesContent">
     <layout class="QGridLayout" name="gridLayout_6">
-     <item row="0" column="0">
+     <item row="1" column="1">
+      <widget class="QLabel" name="lblSelectedItem">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>No Selection</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
       <widget class="QLineEdit" name="txtPropertyFilter">
        <property name="inputMask">
         <string/>
