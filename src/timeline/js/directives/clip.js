@@ -197,8 +197,22 @@ App.directive('tlClip', function($timeout){
 		        start: function(event, ui) {
 		        	previous_drag_position = null;
 		        	dragging = true;
-		        	if (!element.hasClass('ui-selected')){
-		        		element.addClass('ui-selected');
+		        	if (!element.hasClass('ui-selected')) 
+		        	{
+						// If other items are selected, unselect them					
+						if ($(".ui-selected").length > 0) {	
+							for (var clip_index = 0; clip_index < scope.project.clips.length; clip_index++)
+								if (scope.project.clips[clip_index].id == $(this).attr("id").replace("clip_", ""))
+									scope.project.clips[clip_index].selected = true;	
+								else
+									scope.project.clips[clip_index].selected = false;
+						
+							// Remove all selected items
+							$(".ui-selected").removeClass('ui-selected');
+						}
+
+						// select new item
+						element.addClass('ui-selected');
 		        	}
 		        	
 	            	var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
@@ -310,17 +324,22 @@ App.directive('tlMultiSelectable', function(){
 		link: function(scope, element, attrs){
 			element.selectable({
 				filter: '.droppable',
+				distance: 0,
 				selected: function( event, ui ) {
 
 					// Identify the selected ID and TYPE
 					var id = ui.selected.id;
 					var type = "";
+					var item = null;
+					
 					if (id.match("^clip_")) {
 						id = id.replace("clip_", "");
 						type = "clip";
+						item = findElement(scope.project.clips, "id", id);
 					} else if (id.match("^transition_")) {
 						id = id.replace("transition_", "");
 						type = "transition";
+						item = findElement(scope.project.transitions, "id", id);
 					}
 					
 					if (scope.Qt)
@@ -328,6 +347,10 @@ App.directive('tlMultiSelectable', function(){
 						timeline.qt_log("Add to selection: " + id);
 						timeline.addSelection(id, type);
 					}
+					
+					scope.$apply(function(){
+						item.selected = true;
+					});
 						 
 				},
 				unselected: function( event, ui ) {
@@ -335,12 +358,16 @@ App.directive('tlMultiSelectable', function(){
 					// Identify the selected ID and TYPE
 					var id = ui.unselected.id;
 					var type = "";
+					var item = null;
+					
 					if (id.match("^clip_")) {
 						id = id.replace("clip_", "");
 						type = "clip";
+						item = findElement(scope.project.clips, "id", id);
 					} else if (id.match("^transition_")) {
 						id = id.replace("transition_", "");
 						type = "transition";
+						item = findElement(scope.project.transitions, "id", id);
 					}
 					
 					if (scope.Qt)
@@ -348,6 +375,9 @@ App.directive('tlMultiSelectable', function(){
 						timeline.qt_log("Remove from selection: " + id);
 						timeline.removeSelection(id, type);
 					}
+					scope.$apply(function(){
+						item.selected = false;
+					});
 						 
 				}
 			});

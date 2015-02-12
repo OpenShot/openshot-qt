@@ -61,6 +61,7 @@ App.controller('TimelineCtrl',function($scope) {
 	                           ],
 	                 images :  {start: 1, end: 4},
 	                 show_audio : false,
+
 	
 	               },
 	               {
@@ -247,6 +248,24 @@ App.controller('TimelineCtrl',function($scope) {
 	 });
  };
  
+ 
+ // Show clip context menu
+ $scope.SelectClip = function(clip_id) {
+ 	// Unselect all clips
+	for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++)
+		$scope.project.clips[clip_index].selected = false;
+	
+	// Select the new clip
+	var clip = findElement($scope.project.clips, "id", clip_id);
+	clip.selected = true;
+
+ 	if ($scope.Qt) {
+	 	timeline.qt_log("SelectClip");
+	 	timeline.qt_log(clip_id);
+	 	timeline.addSelection(clip_id, "clip");
+ 	}
+ };
+ 
  // Show clip context menu
  $scope.ShowClipMenu = function(clip_id) {
  	if ($scope.Qt) {
@@ -311,7 +330,7 @@ App.controller('TimelineCtrl',function($scope) {
 			var item_data = $scope.project.transitions[$scope.project.transitions.length - 1];
 			timeline.update_transition_data(JSON.stringify(item_data));
 		}
- }
+ };
  
  // Move a new clip to the timeline
  $scope.MoveItem = function(x, y, item_type){

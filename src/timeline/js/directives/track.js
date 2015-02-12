@@ -56,8 +56,12 @@ App.directive('tlTrack', function($timeout) {
 		       			var item = $(this);
 						
 		       			// Remove selected class
-						if (item.hasClass('ui-selected'))
-							item.removeClass('ui-selected');
+						if ($(".ui-selected").length > 1)
+						{
+							for (var clip_index = 0; clip_index < scope.project.clips.length; clip_index++)
+								scope.project.clips[clip_index].selected = false;
+							
+						}
 						
 						// Determine type of item
 						item_type = null;

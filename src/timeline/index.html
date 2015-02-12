@@ -8,12 +8,12 @@
 		<title>OpenShot Timeline</title>
 		
 		<!-- JQuery & Angular -->
-		<link type="text/css" href="media/css/ui-darkness/jquery-ui-1.10.2.custom.css" rel="stylesheet" />
-		<script type="text/javascript" src="media/js/jquery-1.10.2.js"></script>
-		<script type="text/javascript" src="media/js/jquery-ui-1.10.2.custom.js"></script>
+		<link type="text/css" rel="stylesheet" href="media/css/jquery-ui.css" />
+		<link type="text/css" rel="stylesheet" href="media/css/ui-darkness/jquery-ui.theme.css" />
+		<script type="text/javascript" src="media/js/jquery.js"></script>
+		<script type="text/javascript" src="media/js/jquery-ui.js"></script>
 		<script type="text/javascript" src="media/js/angular.min.js"></script>
 		<script type="text/javascript" src="media/js/angular-animate.min.js"></script>
-		<script type="text/javascript" src="media/js/jquery.simulate.js"></script>
 		
 		<!-- OpenShot JavaScript Sources -->
 		<script type="text/javascript" src="app.js"></script>
@@ -72,7 +72,7 @@
 				</div>
 				
 				<!-- CLIPS -->
-				<div ng-hide tl-clip ng-repeat="clip in project.clips" id="clip_{{clip.id}}" ng-right-click="ShowClipMenu(clip.id)" class="clip droppable" style="width:{{ (clip.end - clip.start) * pixelsPerSecond}}px; left:{{clip.position * pixelsPerSecond}}px;top:{{getTrackTop(clip.layer)}}px;z-index:{{5000 + $index}};">
+				<div ng-hide tl-clip ng-repeat="clip in project.clips" id="clip_{{clip.id}}" ng-click="SelectClip(clip.id)" ng-right-click="ShowClipMenu(clip.id)" class="clip droppable" ng-class="clip.selected ? 'ui-selected' : ''" style="width:{{ (clip.end - clip.start) * pixelsPerSecond}}px; left:{{clip.position * pixelsPerSecond}}px;top:{{getTrackTop(clip.layer)}}px;z-index:{{5000 + $index}};">
 					<div class="clip_top">
 						<div tl-clip-menu class="clip_menu" ng-click="ShowClipMenu(clip.id)"></div>
 						<div class="clip_effects" id="effects_{{clip.id}}" ng-show="clip.effects.length" tooltip="Effects"  tooltip-placement="right" tooltip-popup-delay="400">
