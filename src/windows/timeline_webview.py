@@ -326,14 +326,15 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		pos = event.posF()
 		
 		# Move clip on timeline
+		code = ""
 		if self.item_type == "clip":
 			code = JS_SCOPE_SELECTOR + ".MoveItem(" + str(pos.x()) + ", " + str(pos.y()) + ", 'clip');"
 		elif self.item_type == "transition":
 			code = JS_SCOPE_SELECTOR + ".MoveItem(" + str(pos.x()) + ", " + str(pos.y()) + ", 'transition');"
 		self.eval_js(code)
-		
-		#log.info('Moving {} in timeline.'.format(event.mimeData().text()))
-		event.accept()
+
+		if code:
+			event.accept()
 	
 	def dropEvent(self, event):
 		log.info('Dropping {} in timeline.'.format(event.mimeData().text()))

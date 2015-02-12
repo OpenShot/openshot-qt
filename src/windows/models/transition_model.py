@@ -97,6 +97,10 @@ class TransitionsModel():
 				path = os.path.join(dir, filename)
 				(fileBaseName, fileExtension)=os.path.splitext(filename)
 				
+				# Skip hidden files (such as .DS_Store, etc...)
+				if filename[0] == "." or "thumbs.db" in filename.lower():
+					continue
+				
 				# get name of transition
 				trans_name = fileBaseName.replace("_", " ").capitalize()
 				

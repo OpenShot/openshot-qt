@@ -44,15 +44,25 @@ class VideoWidget(QWidget):
 	def paintEvent(self, event, *args):
 		""" Custom paint event """
 
-		if self.current_image:
-			# Paint custom frame image on QWidget
-			painter = QPainter(self)
+		# Paint custom frame image on QWidget
+		painter = QPainter(self)
+		painter.setRenderHint(QPainter.Antialiasing)
+		
+		# Fill background black
+		painter.fillRect(event.rect(), self.palette().window())
 
-			# maintain aspect ratio
-			painter.fillRect(event.rect(), self.palette().window())
-			painter.setViewport(self.centeredViewport(self.width(), self.height()))
-			painter.drawImage(QRect(0, 0, self.width(), self.height()), self.current_image)
-			
+		if self.current_image:
+			# DRAW FRAME
+			# Calculate new frame image size, maintaining aspect ratio
+			pixSize = self.current_image.size()
+			pixSize.scale(event.rect().size(), Qt.KeepAspectRatio)
+		
+			# Scale image
+			scaledPix = self.current_image.scaled(pixSize, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+		
+			# Calculate center of QWidget and Draw image
+			center = self.centeredViewport(self.width(), self.height())
+			painter.drawImage(center, scaledPix)
 			
 	def SetAspectRatio(self, new_aspect_ratio, new_pixel_ratio):
 		""" Set a new aspect ratio """
