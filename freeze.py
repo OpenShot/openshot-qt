@@ -35,6 +35,8 @@
  # Mac Syntax to Build App Bundle:
  # 1) python3 freeze.py bdist_mac --include-frameworks "/usr/local/Cellar/qt5/5.3.1/Frameworks/QtCore.framework,/usr/local/Cellar/qt5/5.3.1/Frameworks/QtGui.framework,/usr/local/Cellar/qt5/5.3.1/Frameworks/QtMultimedia.framework,/usr/local/Cellar/qt5/5.3.1/Frameworks/QtMultimediaWidgets.framework,/usr/local/Cellar/qt5/5.3.1/Frameworks/QtNetwork.framework,/usr/local/Cellar/qt5/5.3.1/Frameworks/QtWidgets.framework" --qt-menu-nib="/usr/local/Cellar/qt5/5.3.1/plugins/platforms/" --iconfile=../openshot.icns --custom-info-plist=installer/Info.plist --bundle-name="OpenShot Video Editor"
  # 2) change Contents/Info.plist to use launch-mac.sh as the Executable name
+ # 3) manually fix rsvg executable: 
+ #    sudo dylibbundler -od -of -b -x ~/apps/rsvg/rsvg-convert -d ./rsvg-libs/ -p @executable_path/rsvg-libs/
 
 
 import glob, os, sys, subprocess, fnmatch
@@ -81,10 +83,15 @@ elif sys.platform == "darwin":
 	# Copy required ImageMagick files
 	for filename in find_files('/usr/local/Cellar/imagemagick/6.8.9-5/lib/ImageMagick/', ['*']):
 		external_so_files.append((filename, filename.replace('/usr/local/Cellar/imagemagick/6.8.9-5/lib/', '')))
+	for filename in find_files('/usr/local/Cellar/imagemagick/6.8.9-5/etc/ImageMagick-6/', ['*']):
+		external_so_files.append((filename, filename.replace('/usr/local/Cellar/imagemagick/6.8.9-5/etc/ImageMagick-6/', 'ImageMagick/etc/configuration/')))
+	for filename in find_files('/Users/jonathan/apps/rsvg/', ['*']):
+		external_so_files.append((filename, filename.replace('/Users/jonathan/apps/rsvg/', '')))
 		
 	# Copy openshot.py Python bindings
 	src_files.append(("/usr/local/lib/python3.3/site-packages/openshot.py", "openshot.py"))
 	src_files.append((os.path.join(PATH, 'installer', 'launch-mac.sh'), "launch-mac.sh"))
+
 
 
 # Get list of all Python files
