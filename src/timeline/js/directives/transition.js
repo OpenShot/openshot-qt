@@ -162,9 +162,29 @@ App.directive('tlTransition', function(){
 		        start: function(event, ui) {
 		        	previous_drag_position = null;
 		        	dragging = true;
-		        	if (!element.hasClass('ui-selected')){
-		        		element.addClass('ui-selected');
-		        	}
+		        	if (!element.hasClass('ui-selected')) 
+		        	{
+		        		// Clear previous selections?
+		        		var clear_selections = false;
+		        		if ($(".ui-selected").length > 0)
+		        			clear_selections = true;
+		        		
+		        		// SelectClip, SelectTransition
+		        		var id = $(this).attr("id");
+		        		if (element.hasClass('clip')) {
+							// Select this clip, unselect all others
+		        			scope.SelectTransition("", clear_selections);
+		        			scope.SelectClip(id, clear_selections);
+		        			
+		        		} else if (element.hasClass('transition')) {
+							// Select this transition, unselect all others
+		        			scope.SelectClip("", clear_selections);
+		        			scope.SelectTransition(id, clear_selections);
+		        		}
+					}
+					
+				 	// Apply scope up to this point
+				 	scope.$apply(function(){});
 		        	
 	            	var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
 	            	var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();

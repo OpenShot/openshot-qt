@@ -199,22 +199,28 @@ App.directive('tlClip', function($timeout){
 		        	dragging = true;
 		        	if (!element.hasClass('ui-selected')) 
 		        	{
-						// If other items are selected, unselect them					
-						if ($(".ui-selected").length > 0) {	
-							for (var clip_index = 0; clip_index < scope.project.clips.length; clip_index++)
-								if (scope.project.clips[clip_index].id == $(this).attr("id").replace("clip_", ""))
-									scope.project.clips[clip_index].selected = true;	
-								else
-									scope.project.clips[clip_index].selected = false;
-						
-							// Remove all selected items
-							$(".ui-selected").removeClass('ui-selected');
-						}
+		        		// Clear previous selections?
+		        		var clear_selections = false;
+		        		if ($(".ui-selected").length > 0)
+		        			clear_selections = true;
+		        		
+		        		// SelectClip, SelectTransition
+		        		var id = $(this).attr("id");
+		        		if (element.hasClass('clip')) {
+							// Select this clip, unselect all others
+		        			scope.SelectTransition("", clear_selections);
+		        			scope.SelectClip(id, clear_selections);
+		        			
+		        		} else if (element.hasClass('transition')) {
+							// Select this transition, unselect all others
+		        			scope.SelectClip("", clear_selections);
+		        			scope.SelectTransition(id, clear_selections);
+		        		}
+					}
+					
+				 	// Apply scope up to this point
+				 	scope.$apply(function(){});
 
-						// select new item
-						element.addClass('ui-selected');
-		        	}
-		        	
 	            	var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
 	            	var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
 	            	track_container_height = getTrackContainerHeight();

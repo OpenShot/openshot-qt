@@ -51,16 +51,25 @@ App.directive('tlTrack', function($timeout) {
 		        accept: ".droppable",
 		       	drop:function(event,ui) {
 
-		       		//with each dragged clip, find out which track they landed on
+		       		// with each dragged clip, find out which track they landed on
+		       		// Loop through each selected item, and remove the selection if multiple items are selected
+		       		// If only 1 item is selected, leave it selected
 		       		$(".ui-selected").each(function() {
 		       			var item = $(this);
 						
-		       			// Remove selected class
+		       			// Remove all selections
 						if ($(".ui-selected").length > 1)
 						{
-							for (var clip_index = 0; clip_index < scope.project.clips.length; clip_index++)
+							for (var clip_index = 0; clip_index < scope.project.clips.length; clip_index++) {
 								scope.project.clips[clip_index].selected = false;
-							
+								if (scope.Qt)
+									timeline.removeSelection(scope.project.clips[clip_index].id.replace("clip_", ""), "clip");
+							}
+							for (var tran_index = 0; tran_index < scope.project.transitions.length; tran_index++) {
+								scope.project.transitions[tran_index].selected = false;
+								if (scope.Qt)
+									timeline.removeSelection(scope.project.transitions[tran_index].id.replace("transition_", ""), "transition");
+							}
 						}
 						
 						// Determine type of item

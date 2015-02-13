@@ -700,9 +700,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 	
 	# Add to the selected items	
 	def addSelection(self, item_id, item_type):
-		if item_type == "clip":
+		if item_type == "clip" and item_id not in self.selected_clips:
 			self.selected_clips.append(item_id)
-		elif item_type == "transition":
+		elif item_type == "transition" and item_id not in self.selected_transitions:
 			self.selected_transitions.append(item_id)
 			
 		# Change selected item in properties view
@@ -710,13 +710,20 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 			
 	# Remove from the selected items	
 	def removeSelection(self, item_id, item_type):
-		if item_type == "clip":
+		if item_type == "clip" and item_id in self.selected_clips:
 			self.selected_clips.remove(item_id)
-		elif item_type == "transition":
+		elif item_type == "transition" and item_id in self.selected_transitions:
 			self.selected_transitions.remove(item_id)
 			
-		# Clear selection in properties view
-		self.propertyTableView.select_item("", "")
+		# Move selection to next selected clip (if any)
+		if item_type == "clip" and self.selected_clips:
+			self.propertyTableView.select_item(self.selected_clips[0], "clip")
+		elif item_type == "transition" and self.selected_transitions:
+			self.propertyTableView.select_item(self.selected_transitions[0], "transition")
+		else:
+			# Clear selection in properties view
+			self.propertyTableView.select_item("", "")
+
 
 	# Update window settings in setting store
 	def save_settings(self):

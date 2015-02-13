@@ -72,7 +72,7 @@
 				</div>
 				
 				<!-- CLIPS -->
-				<div ng-hide tl-clip ng-repeat="clip in project.clips" id="clip_{{clip.id}}" ng-click="SelectClip(clip.id)" ng-right-click="ShowClipMenu(clip.id)" class="clip droppable" ng-class="clip.selected ? 'ui-selected' : ''" style="width:{{ (clip.end - clip.start) * pixelsPerSecond}}px; left:{{clip.position * pixelsPerSecond}}px;top:{{getTrackTop(clip.layer)}}px;z-index:{{5000 + $index}};">
+				<div ng-hide tl-clip ng-repeat="clip in project.clips" id="clip_{{clip.id}}" ng-click="SelectClip(clip.id, true)" ng-right-click="ShowClipMenu(clip.id)" class="clip droppable" ng-class="clip.selected ? 'ui-selected' : ''" style="width:{{ (clip.end - clip.start) * pixelsPerSecond}}px; left:{{clip.position * pixelsPerSecond}}px;top:{{getTrackTop(clip.layer)}}px;z-index:{{5000 + $index}};">
 					<div class="clip_top">
 						<div tl-clip-menu class="clip_menu" ng-click="ShowClipMenu(clip.id)"></div>
 						<div class="clip_effects" id="effects_{{clip.id}}" ng-show="clip.effects.length" tooltip="Effects"  tooltip-placement="right" tooltip-popup-delay="400">
@@ -95,7 +95,7 @@
 				</div>
 				
 				<!-- TRANSITIONS -->
-				<div ng-hide tl-transition ng-repeat="transition in project.transitions" id="transition_{{transition.id}}" ng-right-click="ShowTransitionMenu(transition.id)" class="transition droppable" style="width:{{ transition.duration * pixelsPerSecond}}px;left:{{transition.position * pixelsPerSecond}}px; top:{{getTrackTop(transition.layer)}}px;z-index:{{8000 + $index}};">
+				<div ng-hide tl-transition ng-repeat="transition in project.transitions" id="transition_{{transition.id}}" ng-click="SelectTransition(transition.id, true)" ng-right-click="ShowTransitionMenu(transition.id)" class="transition droppable" ng-class="transition.selected ? 'ui-selected' : ''" style="width:{{ transition.duration * pixelsPerSecond}}px;left:{{transition.position * pixelsPerSecond}}px; top:{{getTrackTop(transition.layer)}}px;z-index:{{8000 + $index}};">
 					<div class="transition_top">
 						<div tl-clip-menu class="transition_menu" ng-click="ShowTransitionMenu(transition.id)"></div>
 						<!--div class="transition_label">{{transition.title}}</div-->

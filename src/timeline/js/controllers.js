@@ -249,21 +249,50 @@ App.controller('TimelineCtrl',function($scope) {
  };
  
  
- // Show clip context menu
- $scope.SelectClip = function(clip_id) {
+ // Select clip in scope
+ $scope.SelectClip = function(clip_id, clear_selections) {
+ 	// Trim clip_id
+ 	var id = clip_id.replace("clip_", "");
+
+	// Clear transitions also (if needed)
+	if (id != "" && clear_selections)
+		$scope.SelectTransition("", true);
+ 	
  	// Unselect all clips
 	for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++)
-		$scope.project.clips[clip_index].selected = false;
-	
-	// Select the new clip
-	var clip = findElement($scope.project.clips, "id", clip_id);
-	clip.selected = true;
+		if ($scope.project.clips[clip_index].id == id) {
+			$scope.project.clips[clip_index].selected = true;
+			if ($scope.Qt)
+	 			timeline.addSelection(id, "clip");
+		}
+		else if (clear_selections) {
+			$scope.project.clips[clip_index].selected = false;
+			if ($scope.Qt)
+	 			timeline.removeSelection($scope.project.clips[clip_index].id, "clip");
+		}
+ };
+ 
+  // Select transition in scope
+ $scope.SelectTransition = function(tran_id, clear_selections) {
+ 	// Trim tran_id
+ 	var id = tran_id.replace("transition_", "");
 
- 	if ($scope.Qt) {
-	 	timeline.qt_log("SelectClip");
-	 	timeline.qt_log(clip_id);
-	 	timeline.addSelection(clip_id, "clip");
- 	}
+	// Clear clips also (if needed)
+	if (id != "" && clear_selections)
+		$scope.SelectClip("", true);
+ 	
+ 	// Unselect all transitions
+	for (var tran_index = 0; tran_index < $scope.project.transitions.length; tran_index++)
+		if ($scope.project.transitions[tran_index].id == id) {
+			$scope.project.transitions[tran_index].selected = true;
+		 	if ($scope.Qt)
+			 	timeline.addSelection(id, "transition");
+		}
+		else if (clear_selections) {
+			$scope.project.transitions[tran_index].selected = false;
+		 	if ($scope.Qt)
+			 	timeline.removeSelection($scope.project.transitions[tran_index].id, "transition");
+		}
  };
  
  // Show clip context menu
