@@ -65,7 +65,7 @@ class ClipStandardItemModel(QStandardItemModel):
 		return data
 
 
-class ClipPropertiesModel(updates.UpdateInterface):
+class ClipPropertiesModel():
 	
 	# Update the selected item (which drives what properties show up)
 	def update_item(self, item_id, item_type):
@@ -94,14 +94,6 @@ class ClipPropertiesModel(updates.UpdateInterface):
 		self.update_model(get_app().window.txtPropertyFilter.text())
 			
 	
-	# This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
-	def changed(self, action):
-		
-		# Send a JSON version of the UpdateAction to the timeline webview method: ApplyJsonDiff()
-		if action.type in ["insert", "delete"] and action.key == "clips":
-			print ("CLIP CHANGED")
-	
-	
 	def value_updated(self, item):
 		log.info("itemChanged to %s" % item.text())
 		
@@ -109,12 +101,6 @@ class ClipPropertiesModel(updates.UpdateInterface):
 	def update_model(self, filter=""):
 		log.info("updating clip properties model.")
 		app = get_app()
-		
-		# Clear previous model data (if any)
-		self.model.clear()
-
-		# Add Headers
-		self.model.setHorizontalHeaderLabels(["Property", "Value" ])
 		
 		# Get a generic emtpy clip
 		if self.selected:
@@ -128,7 +114,20 @@ class ClipPropertiesModel(updates.UpdateInterface):
 			
 			# Get raw unordered JSON properties
 			raw_properties = json.loads(c.PropertiesJSON(self.frame_number))
+
+			# Check if the properties changed for this clip?
+			if raw_properties["hash"]["memo"] != self.previous_hash:
+				self.previous_hash = raw_properties["hash"]["memo"]
+			else:
+				# Properties don't need to be updated (they haven't changed)
+				return
 			
+			# Clear previous model data (if any)
+			self.model.clear()
+	
+			# Add Headers
+			self.model.setHorizontalHeaderLabels(["Property", "Value" ])
+
 			# Sort the list of properties 
 			all_properties = OrderedDict(sorted(raw_properties.items(), key=lambda x: x[1]['name']))
 	
@@ -153,9 +152,9 @@ class ClipPropertiesModel(updates.UpdateInterface):
 				col = QStandardItem("Property")
 				col.setText(label)
 				if keyframe and points > 1:
-					col.setBackground(QColor(42, 130, 218)) # Highlight keyframe background
+					col.setBackground(QColor("green")) # Highlight keyframe background
 				elif points > 1:
-					col.setBackground(QColor(53,53,53)) # Highlight interpolated value background
+					col.setBackground(QColor(42, 130, 218)) # Highlight interpolated value background
 				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
 				row.append(col)
 				
@@ -163,14 +162,25 @@ class ClipPropertiesModel(updates.UpdateInterface):
 				col = QStandardItem("Value")
 				col.setText(str(value))
 				if keyframe and points > 1:
-					col.setBackground(QColor(42, 130, 218)) # Highlight keyframe background
+					col.setBackground(QColor("green")) # Highlight keyframe background
 				elif points > 1:
-					col.setBackground(QColor(53,53,53)) # Highlight interpolated value background
+					col.setBackground(QColor(42, 130, 218)) # Highlight interpolated value background
 				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsEditable)
 				row.append(col)
 	
 				# Append ROW to MODEL (if does not already exist in model)
 				self.model.appendRow(row)
+				
+		else:
+			# Clear previous properties hash
+			self.previous_hash = ""
+			
+			# Clear previous model data (if any)
+			self.model.clear()
+	
+			# Add Headers
+			self.model.setHorizontalHeaderLabels(["Property", "Value" ])
+
 
 
 	def __init__(self, *args):
@@ -178,13 +188,11 @@ class ClipPropertiesModel(updates.UpdateInterface):
 		# Keep track of the selected items (clips, transitions, etc...)
 		self.selected = []
 		self.frame_number = 1
+		self.previous_hash = ""
 
 		# Create standard model 
 		self.model = ClipStandardItemModel()
 		self.model.setColumnCount(2)
-		
-		#Add self as listener to project data updates (used to update the timeline)
-		get_app().updates.add_listener(self)
 
 		# Connect data changed signal
 		self.model.itemChanged.connect(self.value_updated)
