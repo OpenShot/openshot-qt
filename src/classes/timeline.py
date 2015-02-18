@@ -51,8 +51,9 @@ class TimelineSync(UpdateInterface):
 		self.timeline.info.video_length = 99999
 		self.timeline.info.duration = 999.99
 
-		# Add self as listener to project data updates
-		self.app.updates.add_listener(self)
+		# Add self as listener to project data updates (at the beginning of the list)
+		# This listener will receive events before others.
+		self.app.updates.add_listener(self, 0)
 		
 	def changed(self, action):
 		""" This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """

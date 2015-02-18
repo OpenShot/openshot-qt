@@ -32,7 +32,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import *
 from PyQt5 import uic, QtGui
-from windows.timeline_webview import TimelineWebView
+from windows.views.timeline_webview import TimelineWebView
 from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log

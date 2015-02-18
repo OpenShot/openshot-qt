@@ -116,11 +116,16 @@ class UpdateManager:
 		self.actionHistory.clear()
 		self.redoHistory.clear()
 		
-	def add_listener(self, listener):
+	def add_listener(self, listener, index=-1):
 		""" Add a new listener (which will invoke the changed(action) method each time an UpdateAction is available). """
 		
 		if not listener in self.updateListeners:
-			self.updateListeners.append(listener)
+			if index <= -1:
+				# Add listener to end of list
+				self.updateListeners.append(listener)
+			else:
+				# Insert listener at index
+				self.updateListeners.insert(index, listener)
 		else:
 			log.warning("Listener already added.")
 			

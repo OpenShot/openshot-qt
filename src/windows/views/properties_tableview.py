@@ -35,7 +35,7 @@ from classes.app import get_app
 from PyQt5.QtCore import QMimeData, QSize, Qt, QCoreApplication, QPoint, QFileInfo
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QTableView, QApplication, QMessageBox, QAbstractItemView, QMenu, QSizePolicy, QHeaderView
-from windows.models.clip_properties_model import ClipPropertiesModel
+from windows.models.properties_model import PropertiesModel
 import openshot # Python module for libopenshot (required video editing module installed separately)
 
 try:
@@ -81,7 +81,7 @@ class PropertiesTableView(QTableView):
 		self.win = get_app().window
 		
 		# Get Model data
-		self.clip_properties_model = ClipPropertiesModel()
+		self.clip_properties_model = PropertiesModel()
 		
 		# Keep track of mouse press start position to determine when to start drag
 		self.selected = []
