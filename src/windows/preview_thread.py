@@ -111,13 +111,14 @@ class PlayerWorker(QObject):
 		
 		# Connect player to timeline reader
 		self.player.Reader(self.timeline)
+		self.player.Play()
 		self.player.Pause()
 		
 		# Main loop, waiting for frames to process
 		while self.is_running:			
 			
 			# Emit position changed signal (if needed)
-			if self.player.Mode() == openshot.PLAYBACK_PLAY and self.current_frame != self.player.Position():
+			if self.current_frame != self.player.Position():
 				self.current_frame = self.player.Position()
 				self.position_changed.emit(self.current_frame)
 			
@@ -127,10 +128,12 @@ class PlayerWorker(QObject):
 				self.mode_changed.emit(self.current_mode)
 
 			# wait for a small delay
-			time.sleep(0.05)
+			time.sleep(0.01)
 	
 	@pyqtSlot()
 	def initPlayer(self):
+		log.info("initPlayer")
+		
 		# Create QtPlayer class from libopenshot
 		self.player = openshot.QtPlayer()
 
@@ -148,6 +151,8 @@ class PlayerWorker(QObject):
 	@pyqtSlot(int)
 	def previewFrame(self, number):
 		""" Preview a certain frame """
+		
+		log.info("previewFrame: %s" % number)
 		
 		# Mark frame number for processing
 		self.player.Seek(number)

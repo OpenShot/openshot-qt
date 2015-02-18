@@ -183,7 +183,7 @@ App.controller('TimelineCtrl',function($scope) {
   // Move the playhead to a specific frame
   $scope.MovePlayheadToFrame = function(position_frames) {
 	  if ($scope.Qt) {
-		 	timeline.qt_log("MovePlayheadToFrame!!!");
+		 	timeline.qt_log("MovePlayheadToFrame");
 	  }
 	  
 	  // Determine seconds

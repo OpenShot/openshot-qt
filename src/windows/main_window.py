@@ -330,7 +330,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 			QMessageBox.information(self, "Error !", "Unable to open the Donate web page")
 			log.info("Unable to open the Donate web page") 
 
-	def actionPlay_trigger(self, event):
+	def actionPlay_trigger(self, event, force=None):
+
+		if force == "pause":
+			self.actionPlay.setChecked(False)
+		elif force == "play":
+			self.actionPlay.setChecked(True)
 
 		if self.actionPlay.isChecked():
 			ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
@@ -340,6 +345,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 			ui_util.setup_icon(self, self.actionPlay, "actionPlay") #to default
 			self.preview_thread.Pause()
 			
+
 	def actionPreview_File_trigger(self, event):
 		""" Preview the selected media file """
 		log.info('actionPreview_File_trigger')
@@ -379,19 +385,57 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
 		
 	def actionFastForward_trigger(self, event):
-		pass
+		
+		# Get the video player object
+		player = self.preview_thread.player
+		
+		if player.Speed() + 1 != 0:
+			player.Speed(player.Speed() + 1)
+		else:
+			player.Speed(player.Speed() + 2)
+
+		if player.Mode() == openshot.PLAYBACK_PAUSED:
+			self.actionPlay.trigger()
+			
+		
+	def actionRewind_trigger(self, event):
+		
+		# Get the video player object
+		player = self.preview_thread.player
+		
+		if player.Speed() - 1 != 0:
+			player.Speed(player.Speed() - 1)
+		else:
+			player.Speed(player.Speed() - 2)
+
+		if player.Mode() == openshot.PLAYBACK_PAUSED:
+			self.actionPlay.trigger()
 		
 	def keyPressEvent(self, event):
 		""" Add some shortkey for Player """
 		self.key = ""
 		
-		#TODO : replace method by the corresponding and check them
+		# Get the video player object
+		player = self.preview_thread.player
+		
 		# Basic shortcuts i.e just a letter
 		if event.key() == Qt.Key_Left:
-			self.actionPlay.trigger()
+			# Pause video
+			self.actionPlay_trigger(event, force="pause")
+			# Set speed to 0
+			if player.Speed() != 0:
+				player.Speed(0)
+			# Seek to previous frame
+			player.Seek(player.Position() - 1)
 
 		elif event.key() == Qt.Key_Right:
-			self.actionPlay.trigger()
+			# Pause video
+			self.actionPlay_trigger(event, force="pause")
+			# Set speed to 0
+			if player.Speed() != 0:
+				player.Speed(0)
+			# Seek to next frame
+			player.Seek(player.Position() + 1)
 
 		elif event.key() == Qt.Key_Up:
 			self.actionPlay.trigger()
@@ -403,10 +447,17 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 			self.actionPlay.trigger()
 
 		elif event.key() == Qt.Key_J:
+			self.actionRewind.trigger()
+			ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
+			self.actionPlay.setChecked(True)
+			
+		elif event.key() == Qt.Key_K or event.key() == Qt.Key_Space:
 			self.actionPlay.trigger()
 
 		elif event.key() == Qt.Key_L:
 			self.actionFastForward.trigger()
+			ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
+			self.actionPlay.setChecked(True)
 
 		elif event.key() == Qt.Key_M:
 			self.actionPlay.trigger()
@@ -425,12 +476,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 			#Add the Ctrl key
 			if event.modifiers() & Qt.ControlModifier:
 				self.actionFastForward.trigger()
-
-		#elif event.key() == Qt.Key_K or Qt.Key_Space:
-		#	self.actionPlay.trigger()
-		#
-		#elif event.key() == Qt.Key_Tab:
-		#	self.actionPlay.trigger()
 			
 		# Bubble event on
 		event.ignore()
