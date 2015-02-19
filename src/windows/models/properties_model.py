@@ -96,22 +96,82 @@ class PropertiesModel(updates.UpdateInterface):
 		
 	# Update the values of the selected clip, based on the current frame
 	def update_frame(self, frame_number):
-		# Update frame number
-		self.frame_number = frame_number
+		
+		# Check for a selected clip
+		if self.selected:
+			clip = self.selected[0]
+			
+			# Get FPS from project
+			fps = get_app().project.get(["fps"])
+			fps_float = float(fps["num"]) / float(fps["den"])
 
-		# Update the model data
-		self.update_model(get_app().window.txtPropertyFilter.text())
+			# Requested time
+			requested_time = float(frame_number - 1) / fps_float
+
+			# Determine the frame needed for this clip (based on the position on the timeline)		
+			time_diff = (requested_time - clip.Position()) + clip.Start();
+			self.frame_number = round(time_diff * fps_float) + 1;
+			
+			if self.frame_number < 0:
+				self.frame_number = 1
+			
+			log.info("Update frame to %s" % self.frame_number)
+	
+			# Update the model data
+			self.update_model(get_app().window.txtPropertyFilter.text())
 			
 	
 	def value_updated(self, item):
-		log.info("itemChanged to %s" % item.text())
+		
+		# Determine what was changed
+		property_name = self.model.item(item.row(), 0).text()
+		property_key = self.model.item(item.row(), 0).data()
+		clip_id = item.data()
+		new_value = float(item.text())
+
+		log.info("%s for %s changed to %s at frame %s" % (property_key, clip_id, new_value, self.frame_number))
+		
+		# Find this clip
+		c = Clip.get(id=clip_id)
+		if c:
+			# Update clip attribute
+			if property_key in c.data:
+				# Check the type of property (some are keyframe, and some are not)
+				if type(c.data[property_key]) == dict:
+					# Keyframe
+					# Loop through points, find a matching points on this frame
+					found_point = False
+					for point in c.data[property_key]["Points"]:
+						if point["co"]["X"] == self.frame_number:
+							# Found point, Update value
+							found_point = True
+							point["co"]["Y"] = float(new_value)
+					
+					# Create new point (if needed)
+					if not found_point:
+						c.data[property_key]["Points"].append({'co': {'X': self.frame_number, 'Y': new_value}, 'interpolation': 1})
+				
+				elif type(c.data[property_key]) == int:
+					# Integer
+					c.data[property_key] = int(new_value)
+				
+				elif type(c.data[property_key]) == float:
+					# Float
+					c.data[property_key] = float(new_value)
+				
+				elif type(c.data[property_key]) == string:
+					# String
+					c.data[property_key] = str(new_value)
+								
+			# Save changes
+			c.save()
 		
 	
 	def update_model(self, filter=""):
 		log.info("updating clip properties model.")
 		app = get_app()
 		
-		# Get a generic emtpy clip
+		# Check for a selected clip
 		if self.selected:
 			c = self.selected[0]
 			
@@ -144,7 +204,7 @@ class PropertiesModel(updates.UpdateInterface):
 			# Loop through properties, and build a model	
 			for property in all_properties.items():
 				label = property[1]["name"]
-				name = property[1]["name"]
+				name = property[0]
 				value = property[1]["value"]
 				type = property[1]["type"]
 				memo = property[1]["memo"]
@@ -161,6 +221,7 @@ class PropertiesModel(updates.UpdateInterface):
 				# Append Property Name
 				col = QStandardItem("Property")
 				col.setText(label)
+				col.setData(name)
 				if keyframe and points > 1:
 					col.setBackground(QColor("green")) # Highlight keyframe background
 				elif points > 1:
@@ -170,7 +231,8 @@ class PropertiesModel(updates.UpdateInterface):
 				
 				# Append Value
 				col = QStandardItem("Value")
-				col.setText(str(value))
+				col.setText("%0.2f" % value)
+				col.setData(c.Id())
 				if keyframe and points > 1:
 					col.setBackground(QColor("green")) # Highlight keyframe background
 				elif points > 1:

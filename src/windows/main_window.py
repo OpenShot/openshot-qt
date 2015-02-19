@@ -427,6 +427,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 				player.Speed(0)
 			# Seek to previous frame
 			player.Seek(player.Position() - 1)
+			
+			# Notify properties dialog
+			self.propertyTableView.select_frame(player.Position())
 
 		elif event.key() == Qt.Key_Right:
 			# Pause video
@@ -436,6 +439,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 				player.Speed(0)
 			# Seek to next frame
 			player.Seek(player.Position() + 1)
+			
+			# Notify properties dialog
+			self.propertyTableView.select_frame(player.Position())
 
 		elif event.key() == Qt.Key_Up:
 			self.actionPlay.trigger()
@@ -453,6 +459,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 			
 		elif event.key() == Qt.Key_K or event.key() == Qt.Key_Space:
 			self.actionPlay.trigger()
+			
+			# Notify properties dialog
+			self.propertyTableView.select_frame(player.Position())
 
 		elif event.key() == Qt.Key_L:
 			self.actionFastForward.trigger()
