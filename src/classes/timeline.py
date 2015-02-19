@@ -50,6 +50,7 @@ class TimelineSync(UpdateInterface):
 		self.timeline.info.has_video = True
 		self.timeline.info.video_length = 99999
 		self.timeline.info.duration = 999.99
+		self.timeline.debug = True
 
 		# Add self as listener to project data updates (at the beginning of the list)
 		# This listener will receive events before others.
