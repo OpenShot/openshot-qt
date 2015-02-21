@@ -129,15 +129,23 @@ class PropertiesModel(updates.UpdateInterface):
 			self.update_model(get_app().window.txtPropertyFilter.text())
 			
 	
-	def value_updated(self, item):
+	def value_updated(self, item, interpolation=-1):
+		""" Table cell change event - also handles context menu to update interpolation value """
 		
 		# Determine what was changed
-		property_name = self.model.item(item.row(), 0).text()
-		property_key = self.model.item(item.row(), 0).data()
+		property = self.model.item(item.row(), 0).data()
+		property_name = property[1]["name"]
+		closest_point_x = property[1]["closest_point_x"]
+		property_key = property[0]
 		clip_id = item.data()
-		new_value = float(item.text())
+		
+		# Get value (if any)
+		if item.text():
+			new_value = float(item.text())
+		else:
+			new_value = None
 
-		log.info("%s for %s changed to %s at frame %s" % (property_key, clip_id, new_value, self.frame_number))
+		log.info("%s for %s changed to %s at frame %s with interpolation: %s at closest x: %s" % (property_key, clip_id, new_value, self.frame_number, interpolation, closest_point_x))
 		
 		# Find this clip
 		c = Clip.get(id=clip_id)
@@ -149,14 +157,31 @@ class PropertiesModel(updates.UpdateInterface):
 					# Keyframe
 					# Loop through points, find a matching points on this frame
 					found_point = False
+					point_to_delete = None
 					for point in c.data[property_key]["Points"]:
-						if point["co"]["X"] == self.frame_number:
+						log.info("looping points: co.X = %s" % point["co"]["X"] )
+						if interpolation == -1 and point["co"]["X"] == self.frame_number:
 							# Found point, Update value
 							found_point = True
-							point["co"]["Y"] = float(new_value)
+							# Update or delete point
+							if new_value != None:
+								point["co"]["Y"] = float(new_value)
+							else:
+								point_to_delete = point
+							break
+							
+						elif interpolation > -1 and point["co"]["X"] == closest_point_x:
+							# Only update interpolation type
+							found_point = True
+							point["interpolation"] = interpolation
+							break
+					
+					# Delete point (if needed)
+					if point_to_delete:
+						c.data[property_key]["Points"].remove(point_to_delete)
 					
 					# Create new point (if needed)
-					if not found_point:
+					if not found_point and point_to_delete == None:
 						c.data[property_key]["Points"].append({'co': {'X': self.frame_number, 'Y': new_value}, 'interpolation': 1})
 				
 				elif type(c.data[property_key]) == int:
@@ -173,6 +198,9 @@ class PropertiesModel(updates.UpdateInterface):
 								
 			# Save changes
 			c.save()
+			
+			# Force refresh of properties
+			self.update_model(get_app().window.txtPropertyFilter.text())
 		
 	
 	def update_model(self, filter=""):
@@ -213,6 +241,8 @@ class PropertiesModel(updates.UpdateInterface):
 				readonly = property[1]["readonly"]
 				keyframe = property[1]["keyframe"]
 				points = property[1]["points"]
+				interpolation = property[1]["interpolation"]
+				closest_point_x = property[1]["closest_point_x"]
 				
 				# Hide filtered out properties
 				if filter and filter.lower() not in name.lower():
@@ -223,7 +253,7 @@ class PropertiesModel(updates.UpdateInterface):
 				# Append Property Name
 				col = QStandardItem("Property")
 				col.setText(label)
-				col.setData(name)
+				col.setData(property)
 				if keyframe and points > 1:
 					col.setBackground(QColor("green")) # Highlight keyframe background
 				elif points > 1:
@@ -235,10 +265,19 @@ class PropertiesModel(updates.UpdateInterface):
 				col = QStandardItem("Value")
 				col.setText("%0.2f" % value)
 				col.setData(c.Id())
-				if keyframe and points > 1:
-					col.setBackground(QColor("green")) # Highlight keyframe background
-				elif points > 1:
-					col.setBackground(QColor(42, 130, 218)) # Highlight interpolated value background
+				if points > 1:
+					# Apply icon to cell
+					my_icon = QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % interpolation))
+					col.setData(my_icon, Qt.DecorationRole)
+					
+					log.info(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % interpolation))
+
+					# Set the background color of the cell
+					if keyframe:
+						col.setBackground(QColor("green")) # Highlight keyframe background
+					else:
+						col.setBackground(QColor(42, 130, 218)) # Highlight interpolated value background
+
 				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsEditable)
 				row.append(col)
 	

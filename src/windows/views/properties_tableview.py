@@ -28,7 +28,7 @@
 import os
 from urllib.parse import urlparse
 from classes import info
-from classes.query import File
+from classes.query import File, Clip
 from classes.logger import log
 from classes.settings import SettingStore
 from classes.app import get_app
@@ -73,6 +73,56 @@ class PropertiesTableView(QTableView):
 		# Update model
 		self.clip_properties_model.update_model(value)
 		
+	def contextMenuEvent(self, pos):
+		# Get data model and selection 
+		model = self.clip_properties_model.model
+		selected = self.selectionModel().selectedIndexes()
+		
+		# Get the currently selected item
+		selected_label = None
+		selected_value = None
+		for selection in selected:
+			selected_row = model.itemFromIndex(selection).row()
+			selected_label = model.item(selected_row, 0)
+			selected_value = model.item(selected_row, 1)
+			self.selected_item = selected_value # keep track of selected value column
+			frame_number = self.clip_properties_model.frame_number
+
+		# If item selected
+		if selected_label and selected_value:
+			# Get data from selected item
+			property = selected_label.data()
+			property_name = property[1]["name"]
+			points = property[1]["points"]
+			property_key = property[0]
+			clip_id = selected_value.data()
+	
+			log.info("Context menu shown for %s (%s) for clip %s on frame %s" % (property_name, property_key, clip_id, frame_number))
+			
+			# Popup context menu (if keyframeable)
+			if points > 1:
+				menu = QMenu(self)
+				Bezier_Action = menu.addAction("BEZIER")
+				Bezier_Action.triggered.connect(self.Bezier_Action_Triggered)
+				Linear_Action = menu.addAction("LINEAR")
+				Linear_Action.triggered.connect(self.Linear_Action_Triggered)
+				Constant_Action = menu.addAction("CONSTANT")
+				Constant_Action.triggered.connect(self.Constant_Action_Triggered)
+				menu.popup(QCursor.pos())
+			
+	def Bezier_Action_Triggered(self, event):
+		log.info("Bezier_Action_Triggered")
+		self.clip_properties_model.value_updated(self.selected_item, 0)
+		
+	def Linear_Action_Triggered(self, event):
+		log.info("Linear_Action_Triggered")
+		self.clip_properties_model.value_updated(self.selected_item, 1)
+		
+	def Constant_Action_Triggered(self, event):
+		log.info("Constant_Action_Triggered")
+		self.clip_properties_model.value_updated(self.selected_item, 2)
+
+		
 	def __init__(self, *args):
 		# Invoke parent init
 		QTableView.__init__(self, *args)
@@ -85,6 +135,7 @@ class PropertiesTableView(QTableView):
 		
 		# Keep track of mouse press start position to determine when to start drag
 		self.selected = []
+		self.selected_item = None
 
 		# Setup header columns
 		self.setModel(self.clip_properties_model.model)
