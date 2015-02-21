@@ -72,6 +72,7 @@ class PropertiesModel(updates.UpdateInterface):
 		
 		# Handle change
 		if action.key and action.key[0] == "clips":
+			log.info(action.values)
 			# Update the model data
 			self.update_model(get_app().window.txtPropertyFilter.text())
 
@@ -112,8 +113,15 @@ class PropertiesModel(updates.UpdateInterface):
 			time_diff = (requested_time - clip.Position()) + clip.Start();
 			self.frame_number = round(time_diff * fps_float) + 1;
 			
-			if self.frame_number < 0:
-				self.frame_number = 1
+			# Calculate biggest and smallest possible frames
+			min_frame_number = round((clip.Start() * fps_float)) + 1
+			max_frame_number = round((clip.End() * fps_float)) + 1
+
+			# Adjust frame number if out of range
+			if self.frame_number < min_frame_number:
+				self.frame_number = min_frame_number
+			if self.frame_number > max_frame_number:
+				self.frame_number = max_frame_number
 			
 			log.info("Update frame to %s" % self.frame_number)
 	
@@ -174,13 +182,7 @@ class PropertiesModel(updates.UpdateInterface):
 		# Check for a selected clip
 		if self.selected:
 			c = self.selected[0]
-			
-			# example code to add a keyframe
-			#c.alpha.AddPoint(1, 1.0);
-			#c.alpha.AddPoint(750, 0.0);
-			#c.location_x.AddPoint(1, 100.0);
-			#c.location_x.AddPoint(300, 25.0);
-			
+
 			# Get raw unordered JSON properties
 			raw_properties = json.loads(c.PropertiesJSON(self.frame_number))
 

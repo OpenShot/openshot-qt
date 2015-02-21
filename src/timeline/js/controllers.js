@@ -689,6 +689,9 @@ App.controller('TimelineCtrl',function($scope) {
 	 $scope.$apply(function(){
  		// Update the entire JSON object for the entire timeline
  		$scope.project = EntireProjectJson.value;
+ 		
+ 		// Un-select any selected items
+ 		$scope.SelectClip("", true);
 	 });
 	 
 	 // return true
