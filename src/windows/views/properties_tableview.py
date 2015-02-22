@@ -98,6 +98,8 @@ class PropertiesTableView(QTableView):
 			clip_id = selected_value.data()
 	
 			log.info("Context menu shown for %s (%s) for clip %s on frame %s" % (property_name, property_key, clip_id, frame_number))
+			log.info("Points: %s" % points)
+			log.info("Property: %s" % str(property))
 			
 			# Popup context menu (if keyframeable)
 			if points > 1:
@@ -131,7 +133,7 @@ class PropertiesTableView(QTableView):
 		self.win = get_app().window
 		
 		# Get Model data
-		self.clip_properties_model = PropertiesModel()
+		self.clip_properties_model = PropertiesModel(self)
 		
 		# Keep track of mouse press start position to determine when to start drag
 		self.selected = []

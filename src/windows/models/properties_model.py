@@ -91,7 +91,11 @@ class PropertiesModel(updates.UpdateInterface):
 					break
 				
 			self.selected.append(c)
-		
+			
+			
+		# Get ID of item
+		self.new_item = True
+
 		# Update the model data
 		self.update_model(get_app().window.txtPropertyFilter.text())
 		
@@ -132,6 +136,10 @@ class PropertiesModel(updates.UpdateInterface):
 	def value_updated(self, item, interpolation=-1):
 		""" Table cell change event - also handles context menu to update interpolation value """
 		
+		if self.ignore_update_signal:
+			log.info("value_updated: ignored")
+			return
+		
 		# Determine what was changed
 		property = self.model.item(item.row(), 0).data()
 		property_name = property[1]["name"]
@@ -152,6 +160,8 @@ class PropertiesModel(updates.UpdateInterface):
 		if c:
 			# Update clip attribute
 			if property_key in c.data:
+				log.info(c.data)
+				
 				# Check the type of property (some are keyframe, and some are not)
 				if type(c.data[property_key]) == dict:
 					# Keyframe
@@ -166,6 +176,7 @@ class PropertiesModel(updates.UpdateInterface):
 							# Update or delete point
 							if new_value != None:
 								point["co"]["Y"] = float(new_value)
+								log.info("updating point: co.X = %s to value: %s" % (point["co"]["X"], float(new_value)) )
 							else:
 								point_to_delete = point
 							break
@@ -174,6 +185,7 @@ class PropertiesModel(updates.UpdateInterface):
 							# Only update interpolation type
 							found_point = True
 							point["interpolation"] = interpolation
+							log.info("updating interpolation mode point: co.X = %s to %s" % (point["co"]["X"], interpolation) )
 							break
 					
 					# Delete point (if needed)
@@ -192,45 +204,58 @@ class PropertiesModel(updates.UpdateInterface):
 					# Float
 					c.data[property_key] = float(new_value)
 				
-				elif type(c.data[property_key]) == string:
+				elif type(c.data[property_key]) == str:
 					# String
 					c.data[property_key] = str(new_value)
 								
 			# Save changes
-			c.save()
+			c.save()	
 			
-			# Force refresh of properties
-			self.update_model(get_app().window.txtPropertyFilter.text())
-		
+			# Clear selection
+			self.parent.clearSelection()
+
 	
 	def update_model(self, filter=""):
 		log.info("updating clip properties model.")
 		app = get_app()
-		
+
 		# Check for a selected clip
-		if self.selected:
+		if self.selected and self.selected[0]:
 			c = self.selected[0]
 
 			# Get raw unordered JSON properties
 			raw_properties = json.loads(c.PropertiesJSON(self.frame_number))
+			all_properties = OrderedDict(sorted(raw_properties.items(), key=lambda x: x[1]['name']))
+
+			log.info("Getting properties for frame %s: %s" % (self.frame_number, str(all_properties)))
 
 			# Check if the properties changed for this clip?
 			hash = "%s-%s" % (filter, raw_properties["hash"]["memo"])
 			if hash != self.previous_hash:
 				self.previous_hash = hash
+				
+				if self.previous_filter != filter:
+					self.previous_filter = filter
+					self.new_item = True # filter changed, so we need to regenerate the entire model
 			else:
 				# Properties don't need to be updated (they haven't changed)
 				return
-			
-			# Clear previous model data (if any)
-			self.model.clear()
-	
-			# Add Headers
-			self.model.setHorizontalHeaderLabels(["Property", "Value" ])
 
-			# Sort the list of properties 
-			all_properties = OrderedDict(sorted(raw_properties.items(), key=lambda x: x[1]['name']))
+			# Ignore any events from this method
+			self.ignore_update_signal = True
+
+			# Clear previous model data (if item is different)
+			if self.new_item:
+				# Prepare for new properties
+				self.items = {}
+				self.model.clear()
+
+				log.info("Clear property model: %s" % raw_properties["hash"]["memo"])
 	
+				# Add Headers
+				self.model.setHorizontalHeaderLabels(["Property", "Value" ])
+				
+
 			# Loop through properties, and build a model	
 			for property in all_properties.items():
 				label = property[1]["name"]
@@ -248,41 +273,85 @@ class PropertiesModel(updates.UpdateInterface):
 				if filter and filter.lower() not in name.lower():
 					continue
 				
+				# Insert new data into model, or update existing values
 				row = []
-				
-				# Append Property Name
-				col = QStandardItem("Property")
-				col.setText(label)
-				col.setData(property)
-				if keyframe and points > 1:
-					col.setBackground(QColor("green")) # Highlight keyframe background
-				elif points > 1:
-					col.setBackground(QColor(42, 130, 218)) # Highlight interpolated value background
-				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
-				row.append(col)
-				
-				# Append Value
-				col = QStandardItem("Value")
-				col.setText("%0.2f" % value)
-				col.setData(c.Id())
-				if points > 1:
-					# Apply icon to cell
-					my_icon = QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % interpolation))
-					col.setData(my_icon, Qt.DecorationRole)
+				if self.new_item:
 					
-					log.info(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % interpolation))
-
-					# Set the background color of the cell
-					if keyframe:
+					# Append Property Name
+					col = QStandardItem("Property")
+					col.setText(label)
+					col.setData(property)
+					if keyframe and points > 1:
 						col.setBackground(QColor("green")) # Highlight keyframe background
-					else:
+					elif points > 1:
 						col.setBackground(QColor(42, 130, 218)) # Highlight interpolated value background
-
-				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsEditable)
-				row.append(col)
+					col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+					row.append(col)
+					
+					# Append Value
+					col = QStandardItem("Value")
+					col.setText("%0.2f" % value)
+					col.setData(c.Id())
+					if points > 1:
+						# Apply icon to cell
+						my_icon = QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % interpolation))
+						col.setData(my_icon, Qt.DecorationRole)
+						
+						log.info(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % interpolation))
 	
-				# Append ROW to MODEL (if does not already exist in model)
-				self.model.appendRow(row)
+						# Set the background color of the cell
+						if keyframe:
+							col.setBackground(QColor("green")) # Highlight keyframe background
+						else:
+							col.setBackground(QColor(42, 130, 218)) # Highlight interpolated value background
+	
+					col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsEditable)
+					row.append(col)
+					
+					# Append ROW to MODEL (if does not already exist in model)
+					self.model.appendRow(row)
+					
+				else:
+					# Update the value of the existing model
+					# Get 1st Column
+					col = self.items[name]["row"][0]
+					col.setData(property)
+					if keyframe and points > 1:
+						col.setBackground(QColor("green")) # Highlight keyframe background
+					elif points > 1:
+						col.setBackground(QColor(42, 130, 218)) # Highlight interpolated value background
+					else:
+						col.setBackground(QStandardItem("Empty").background())
+						
+					# Update helper dictionary
+					row.append(col)
+					
+					# Get 2nd Column
+					col = self.items[name]["row"][1]
+					col.setText("%0.2f" % value)
+
+					if points > 1:
+						# Apply icon to cell
+						my_icon = QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % interpolation))
+						col.setData(my_icon, Qt.DecorationRole)
+
+						# Set the background color of the cell
+						if keyframe:
+							col.setBackground(QColor("green")) # Highlight keyframe background
+						else:
+							col.setBackground(QColor(42, 130, 218)) # Highlight interpolated value background
+					else:
+						# clear background color
+						col.setBackground(QStandardItem("Empty").background())
+						
+					# Update helper dictionary
+					row.append(col)
+						
+				# Keep track of items in a dictionary (for quick look up)
+				self.items[name] = { "row": row, "property":property}
+				
+			# Update the values on the next call to this method (instead of adding rows)
+			self.new_item = False
 				
 		else:
 			# Clear previous properties hash
@@ -295,13 +364,22 @@ class PropertiesModel(updates.UpdateInterface):
 			self.model.setHorizontalHeaderLabels(["Property", "Value" ])
 
 
+		# Done updating model
+		self.ignore_update_signal = False
 
-	def __init__(self, *args):
+
+	def __init__(self, parent, *args):
 		
 		# Keep track of the selected items (clips, transitions, etc...)
 		self.selected = []
+		self.current_item_id = None
 		self.frame_number = 1
 		self.previous_hash = ""
+		self.new_item = True
+		self.items = {}
+		self.ignore_update_signal = False
+		self.parent = parent
+		self.previous_filter = None
 
 		# Create standard model 
 		self.model = ClipStandardItemModel()
