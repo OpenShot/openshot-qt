@@ -62,7 +62,7 @@ App.controller('TimelineCtrl',function($scope) {
 	                 images :  {start: 1, end: 4},
 	                 show_audio : false,
 
-					alpha: {
+					 alpha: {
 					    Points: [
 					      {
 					        "interpolation": 2,
@@ -86,7 +86,14 @@ App.controller('TimelineCtrl',function($scope) {
 					        }
 					      }
 						]
-					}
+					},
+					location_x: { Points: [] },
+					location_y: { Points: [] },
+					scale_x: { Points: [] },
+					scale_y: { Points: [] },
+					rotation: { Points: [] },
+					time: { Points: [] },
+					volume: { Points: [] }
 	                 
 	               },
 	               {
@@ -102,6 +109,14 @@ App.controller('TimelineCtrl',function($scope) {
 	                 effects : [],
 	                 images : {start: 3, end: 7},
 	                 show_audio : false,
+	                 alpha: { Points: [] },
+	                 location_x: { Points: [] },
+					 location_y: { Points: [] },
+					 scale_x: { Points: [] },
+					 scale_y: { Points: [] },
+					 rotation: { Points: [] },
+					 time: { Points: [] },
+					 volume: { Points: [] }
 	               },
 	               {
 	                 id : '3', 
@@ -120,7 +135,15 @@ App.controller('TimelineCtrl',function($scope) {
 	                           ],
 	                 images : { start: 5, end: 10 },
 	                 show_audio : false,
-	                 audio_data : [.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3, ]
+	                 audio_data : [.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3, ],
+	                 alpha: { Points: [] },
+	                 location_x: { Points: [] },
+					 location_y: { Points: [] },
+					 scale_x: { Points: [] },
+					 scale_y: { Points: [] },
+					 rotation: { Points: [] },
+					 time: { Points: [] },
+					 volume: { Points: [] }
 	               },
              ],
              
@@ -230,6 +253,55 @@ App.controller('TimelineCtrl',function($scope) {
 	  if ($scope.Qt) {
 		  timeline.PlayheadMoved(position_seconds, frame, secondsToTime(position_seconds));
 	  }
+  };
+  
+  // Get an array of keyframe points for the selected clips
+  $scope.getKeyframes = function(clip){
+  	// List of keyframes
+  	keyframes = {};
+
+ 	// Add location_x Keyframes
+ 	if (clip.location_x.Points.length > 1)
+		for (var point = 0; point < clip.location_x.Points.length; point++)
+			keyframes[clip.location_x.Points[point].co.X] = clip.location_x.Points[point].co.Y;
+			
+ 	// Add location_y Keyframes
+ 	if (clip.location_y.Points.length > 1)
+		for (var point = 0; point < clip.location_y.Points.length; point++)
+			keyframes[clip.location_y.Points[point].co.X] = clip.location_y.Points[point].co.Y;
+			
+ 	// Add scale_x Keyframes
+ 	if (clip.scale_x.Points.length > 1)
+		for (var point = 0; point < clip.scale_x.Points.length; point++)
+			keyframes[clip.scale_x.Points[point].co.X] = clip.scale_x.Points[point].co.Y;
+			
+ 	// Add scale_y Keyframes
+ 	if (clip.scale_y.Points.length > 1)
+		for (var point = 0; point < clip.scale_y.Points.length; point++)
+			keyframes[clip.scale_y.Points[point].co.X] = clip.scale_y.Points[point].co.Y;
+			
+ 	// Add alpha Keyframes
+ 	if (clip.alpha.Points.length > 1)
+		for (var point = 0; point < clip.alpha.Points.length; point++)
+			keyframes[clip.alpha.Points[point].co.X] = clip.alpha.Points[point].co.Y;
+			
+ 	// Add rotation Keyframes
+ 	if (clip.rotation.Points.length > 1)
+		for (var point = 0; point < clip.rotation.Points.length; point++)
+			keyframes[clip.rotation.Points[point].co.X] = clip.rotation.Points[point].co.Y;
+			
+ 	// Add volume Keyframes
+ 	if (clip.volume.Points.length > 1)
+		for (var point = 0; point < clip.volume.Points.length; point++)
+			keyframes[clip.volume.Points[point].co.X] = clip.volume.Points[point].co.Y;
+			
+ 	// Add time Keyframes
+ 	if (clip.time.Points.length > 1)
+		for (var point = 0; point < clip.time.Points.length; point++)
+			keyframes[clip.time.Points[point].co.X] = clip.time.Points[point].co.Y;
+
+	// Return keyframe array
+	return keyframes;
   };
   
   
@@ -723,7 +795,6 @@ App.controller('TimelineCtrl',function($scope) {
 	 // return true
 	 return true;
  };
- 
   
 // ############# END QT FUNCTIONS #################### //   
 

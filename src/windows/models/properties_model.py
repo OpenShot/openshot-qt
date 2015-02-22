@@ -207,7 +207,11 @@ class PropertiesModel(updates.UpdateInterface):
 				elif type(c.data[property_key]) == str:
 					# String
 					c.data[property_key] = str(new_value)
-								
+							
+			
+			# Reduce # of clip properties we are saving (performance boost)
+			c.data = { property_key: c.data[property_key] }
+				
 			# Save changes
 			c.save()	
 			

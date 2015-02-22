@@ -71,7 +71,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
 	#Javascript callable function to update the project data when a clip changes
 	@pyqtSlot(str)
-	def update_clip_data(self, clip_json):
+	def update_clip_data(self, clip_json, only_basic_props=True):
 		""" Create an updateAction and send it to the update manager """
 
 		# read clip json
@@ -84,8 +84,20 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		existing_clip = Clip.get(id=clip_data["id"])
 		if not existing_clip:
 			# Create a new clip (if not exists)
-			existing_clip = Clip()		
+			existing_clip = Clip()
 		existing_clip.data = clip_data
+		
+		# Remove unneeded properties (since they don't change here... this is a performance boost)
+		if only_basic_props:
+			existing_clip.data = {}
+			existing_clip.data["id"] = clip_data["id"]
+			existing_clip.data["layer"] = clip_data["layer"]
+			existing_clip.data["position"] = clip_data["position"]
+			existing_clip.data["start"] = clip_data["start"]
+			existing_clip.data["end"] = clip_data["end"]
+			existing_clip.data["duration"] = clip_data["duration"]
+
+		# Save clip		
 		existing_clip.save()
 		
 	#Javascript callable function to update the project data when a transition changes
@@ -291,7 +303,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 				new_clip["end"] = self.settings.get("default-image-length") # default to 8 seconds
 			
 			# Add clip to timeline
-			self.update_clip_data(new_clip)
+			self.update_clip_data(new_clip, only_basic_props=False)
 	
 	# Add Transition
 	def addTransition(self, file_ids, position):
