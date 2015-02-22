@@ -72,14 +72,14 @@
 				</div>
 				
 				<!-- CLIPS -->
-				<div ng-hide tl-clip ng-repeat="clip in project.clips" id="clip_{{clip.id}}" ng-click="SelectClip(clip.id, true)" ng-right-click="ShowClipMenu(clip.id)" class="clip droppable" ng-class="clip.selected ? 'ui-selected' : ''" style="width:{{ (clip.end - clip.start) * pixelsPerSecond}}px; left:{{clip.position * pixelsPerSecond}}px;top:{{getTrackTop(clip.layer)}}px;z-index:{{5000 + $index}};">
+				<div ng-hide tl-clip ng-repeat="clip in project.clips" id="clip_{{clip.id}}" ng-click="SelectClip(clip.id, true)" ng-right-click="ShowClipMenu(clip.id)" class="clip droppable" ng-class="clip.selected ? 'ui-selected' : ''" style="width:{{ ((clip.end - clip.start) * pixelsPerSecond) - (border_offset * 2)}}px; left:{{clip.position * pixelsPerSecond}}px;top:{{getTrackTop(clip.layer)}}px;z-index:{{5000 + $index}};">
 					<div class="clip_top">
 						<div tl-clip-menu class="clip_menu" ng-click="ShowClipMenu(clip.id)"></div>
 						<div class="clip_effects" id="effects_{{clip.id}}" ng-show="clip.effects.length" tooltip="Effects"  tooltip-placement="right" tooltip-popup-delay="400">
 							{{clip.effects.length}} 
 						</div>
 						<span class="keyframe_point" id="points_for_{{clip.id}}" ng-show="clip.alpha.Points.length > 1 && clip.selected">
-							<img ng-repeat="point in clip.alpha.Points" id="point_{{point.co.X}}_{{$index}}" style="position: absolute; top: 0px; left: {{(point.co.X / (project.fps.num / project.fps.den) - clip.start) * pixelsPerSecond}}px;" class="point_icon" ng-src="media/images/keyframes/point.png"/>
+							<img ng-repeat="point in clip.alpha.Points" id="point_{{point.co.X}}_{{$index}}" style="position: absolute; top: 0px; left: {{((point.co.X / (project.fps.num / project.fps.den) - clip.start) * pixelsPerSecond) - (border_offset * 2)}}px;" class="point_icon" ng-src="media/images/keyframes/point.png"/>
 						</span>
 						<div class="clip_label" tooltip="{{clip.title}}" tooltip-placement="right" tooltip-popup-delay="400">{{clip.title}}</div>
 						<br class="cleared">

@@ -186,6 +186,7 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.snapline_position = 0.0;
   $scope.snapline = false;
   $scope.debug = false;
+  $scope.border_offset = 2;
   
   // Method to set if Qt is detected (which clears demo data)
   $scope.Qt = false;
