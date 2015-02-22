@@ -62,7 +62,32 @@ App.controller('TimelineCtrl',function($scope) {
 	                 images :  {start: 1, end: 4},
 	                 show_audio : false,
 
-	
+					alpha: {
+					    Points: [
+					      {
+					        "interpolation": 2,
+					        "co": {
+					          "Y": 0,
+					          "X": 1
+					        }
+					      },
+					      {
+					        "interpolation": 1,
+					        "co": {
+					          "Y": 0,
+					          "X": 1057
+					        }
+					      },
+					      {
+					        "interpolation": 1,
+					        "co": {
+					          "Y": 1,
+					          "X": 2809
+					        }
+					      }
+						]
+					}
+	                 
 	               },
 	               {
 	                 id : '2', 
