@@ -166,27 +166,32 @@ App.controller('TimelineCtrl',function($scope) {
                     ],
              
 	  layers : [
-	               {number:4, y:0},
-	               {number:3, y:0},
-	               {number:2, y:0},               
-	               {number:1, y:0},
-	               {number:0, y:0}, 
+	  				{id: 'L0', number:0, y:0},
+					{id: 'L1', number:1, y:0},
+					{id: 'L2', number:2, y:0}, 	  				
+					{id: 'L3', number:3, y:0},
+					{id: 'L4', number:4, y:0}
+	  				
              ],
              
 	  markers : [
 	                {
+	                  id : 'M1',
 	                  location : 16,
 	                  icon : 'yellow.png'
 	                },
 	                {
+	                  id : 'M2',
 	                  location: 120,
 	                  icon : 'green.png'
 	                },
 	                {
+	                  id : 'M3',
 	                  location: 300,
 	                  icon : 'red.png'
 	                },
 	                {
+	                  id : 'M4',
 	                  location: 10,
 	                  icon : 'purple.png'
 	                },
@@ -216,7 +221,9 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.EnableQt = function() { 
 	  	$scope.Qt = true;
 	  	$scope.project.clips = [];
+	  	$scope.project.markers = [];
 	  	$scope.project.transitions = [];
+	  	$scope.project.progress = [];
 	  	timeline.qt_log("$scope.Qt = true;"); 
   };
 
@@ -406,6 +413,22 @@ App.controller('TimelineCtrl',function($scope) {
  	if ($scope.Qt) {
 	 	timeline.qt_log("$scope.ShowTransitionMenu");
 	 	timeline.ShowTransitionMenu(tran_id);
+ 	}
+ };
+ 
+ // Show track context menu
+ $scope.ShowTrackMenu = function(layer_id) {
+ 	if ($scope.Qt) {
+	 	timeline.qt_log("$scope.ShowTrackMenu");
+	 	timeline.ShowTrackMenu(layer_id);
+ 	}
+ };
+
+ // Show marker context menu
+ $scope.ShowMarkerMenu = function(marker_id) {
+ 	if ($scope.Qt) {
+	 	timeline.qt_log("$scope.ShowMarkerMenu");
+	 	timeline.ShowMarkerMenu(marker_id);
  	}
  };
  
@@ -645,7 +668,7 @@ App.controller('TimelineCtrl',function($scope) {
  $scope.GetTrackAtY = function(y){
 
 		// Loop through each layer (looking for the closest track based on Y coordinate)
-		for (var layer_index = 0; layer_index < $scope.project.layers.length; layer_index++) {
+		for (var layer_index = $scope.project.layers.length - 1; layer_index >= 0 ; layer_index--) {
 			var layer = $scope.project.layers[layer_index];
 			
 			// Compare position of track to Y param
@@ -653,7 +676,7 @@ App.controller('TimelineCtrl',function($scope) {
 				// return first matching layer
 				return layer;
 		}
-		
+
 		// no layer found (return top layer... if any)
 		if ($scope.project.layers.length > 0)
 			return $scope.project.layers[0];

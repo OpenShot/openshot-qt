@@ -37,7 +37,7 @@ from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
 from classes.timeline import TimelineSync
-from classes.query import File, Clip, Transition
+from classes.query import File, Clip, Transition, Marker, Track
 from images import openshot_rc
 from windows.views.files_treeview import FilesTreeView
 from windows.views.files_listview import FilesListView
@@ -410,6 +410,61 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
 		if player.Mode() == openshot.PLAYBACK_PAUSED:
 			self.actionPlay.trigger()
+			
+	def actionJumpStart_trigger(self, event):
+		log.info("actionJumpStart_trigger")
+		
+	def actionJumpEnd_trigger(self, event):
+		log.info("actionJumpEnd_trigger")
+		
+		
+			
+	def actionAddTrack_trigger(self, event):
+		log.info("actionAddTrack_trigger")
+
+		# Get # of tracks
+		track_number = len(get_app().project.get(["layers"]))
+
+		# Look for existing Marker
+		track = Track()
+		track.data = { "number":track_number, "y":0 }
+		track.save()
+		
+	def actionArrowTool_trigger(self, event):
+		log.info("actionArrowTool_trigger")
+		
+	def actionRazorTool_trigger(self, event):
+		log.info("actionRazorTool_trigger")
+		
+	def actionSnappingTool_trigger(self, event):
+		log.info("actionSnappingTool_trigger")
+		log.info(self.actionSnappingTool.isChecked())
+		
+	def actionAddMarker_trigger(self, event):
+		log.info("actionAddMarker_trigger")
+
+		# Get player object		
+		player = self.preview_thread.player
+		
+		# Calculate frames per second
+		fps = get_app().project.get(["fps"])
+		fps_float = float(fps["num"]) / float(fps["den"])
+		
+		# Calculate position in seconds
+		position = player.Position() / fps_float 
+		
+		# Look for existing Marker
+		marker = Marker()
+		marker.data = { "location":position, "icon": "blue.png" }
+		marker.save()
+		
+	def actionPreviousMarker_trigger(self, event):
+		log.info("actionPreviousMarker_trigger")
+		
+	def actionNextMarker_trigger(self, event):
+		log.info("actionNextMarker_trigger")
+		
+		
 		
 	def keyPressEvent(self, event):
 		""" Add some shortkey for Player """
@@ -546,6 +601,23 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		# Clear selected clips
 		self.selected_transitions = []
 		
+	def actionRemoveTrack_trigger(self, event):
+		log.info('actionRemoveTrack_trigger')
+		
+		for track_id in self.selected_tracks:
+			tracks = Track.filter(id=track_id)
+			for t in tracks: 
+				# Remove track
+				t.delete()
+
+	def actionRemoveMarker_trigger(self, event):
+		log.info('actionRemoveMarker_trigger')
+		
+		for marker_id in self.selected_markers:
+			marker = Marker.filter(id=marker_id)
+			for m in marker: 
+				# Remove track
+				m.delete()
 	
 	def actionTimelineZoomIn_trigger(self, event):
 		self.sliderZoom.setValue(self.sliderZoom.value() - self.sliderZoom.singleStep())
@@ -987,6 +1059,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		self.selected_files = []
 		self.selected_clips = []
 		self.selected_transitions = []
+		self.selected_markers = []
+		self.selected_tracks = []
 		
 		# Init fullscreen menu visibility
 		self.init_fullscreen_menu()

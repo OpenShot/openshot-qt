@@ -1158,6 +1158,30 @@
     <string>Clear</string>
    </property>
   </action>
+  <action name="actionRemoveTrack">
+   <property name="icon">
+    <iconset theme="list-remove" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/list-remove.svg</normaloff>:/icons/Humanity/actions/16/list-remove.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Remove Track</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove Track</string>
+   </property>
+  </action>
+  <action name="actionRemoveMarker">
+   <property name="icon">
+    <iconset theme="list-remove" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/list-remove.svg</normaloff>:/icons/Humanity/actions/16/list-remove.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Remove Marker</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove Marker</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="../../images/openshot.qrc"/>

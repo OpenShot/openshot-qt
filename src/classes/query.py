@@ -221,3 +221,47 @@ class File(QueryObject):
 		
 		# Return relative path
 		return file_path
+
+
+class Marker(QueryObject):
+	""" This class allows Markers to be queried, updated, and deleted from the project data. """
+	object_name = "markers"		# Derived classes should define this
+	object_key = [object_name]	# Derived classes should define this also
+	
+	def save(self):
+		""" Save the object back to the project data store """
+		super().save(Marker)
+
+	def delete(self):
+		""" Delete the object from the project data store """
+		super().delete(Marker)
+
+	def filter(**kwargs):
+		""" Take any arguments given as filters, and find a list of matching objects """
+		return QueryObject.filter(Marker, **kwargs)
+		
+	def get(**kwargs):
+		""" Take any arguments given as filters, and find the first matching object """
+		return QueryObject.get(Marker, **kwargs)
+	
+	
+class Track(QueryObject):
+	""" This class allows Tracks to be queried, updated, and deleted from the project data. """
+	object_name = "layers"		# Derived classes should define this
+	object_key = [object_name]	# Derived classes should define this also
+	
+	def save(self):
+		""" Save the object back to the project data store """
+		super().save(Track)
+
+	def delete(self):
+		""" Delete the object from the project data store """
+		super().delete(Track)
+
+	def filter(**kwargs):
+		""" Take any arguments given as filters, and find a list of matching objects """
+		return QueryObject.filter(Track, **kwargs)
+		
+	def get(**kwargs):
+		""" Take any arguments given as filters, and find the first matching object """
+		return QueryObject.get(Track, **kwargs)

@@ -35,11 +35,13 @@ App.directive('tlTrack', function($timeout) {
         restrict:'A',
         link: function(scope, element, attrs) {
         	
-			scope.$watch('project.layers', function (val) {
+			scope.$watch('project.layers.length', function (val) {
                 if (val) {
                 	$timeout(function(){
 				        // Update track indexes if tracks change
                 		scope.UpdateLayerIndex();
+						scope.playhead_height = $("#track-container").height();
+						$(".playhead-line").height(scope.playhead_height);
                 		console.log('update track indexes...');
                 	}, 0);
                 		

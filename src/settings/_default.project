@@ -16,44 +16,32 @@
   "profile": "HDV 720 24p",
   "layers": [
     {
-      "number": 4,
+      "id": "L0",
+      "number": 0,
       "y": 0
     },
     {
-      "number": 3,
-      "y": 0
-    },
-    {
-      "number": 2,
-      "y": 0
-    },
-    {
+      "id": "L1",
       "number": 1,
       "y": 0
     },
     {
-      "number": 0,
+      "id": "L2",
+      "number": 2,
+      "y": 0
+    },
+    {
+      "id": "L3",
+      "number": 3,
+      "y": 0
+    },
+    {
+      "id": "L4",
+      "number": 4,
       "y": 0
     }
   ],
-  "markers": [
-    {
-      "location": 16,
-      "icon": "yellow.png"
-    },
-    {
-      "location": 120,
-      "icon": "green.png"
-    },
-    {
-      "location": 300,
-      "icon": "red.png"
-    },
-    {
-      "location": 10,
-      "icon": "purple.png"
-    }
-  ],
+  "markers": [  ],
   "progress": [
     [
       0,

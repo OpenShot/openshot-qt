@@ -32,7 +32,7 @@ from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication
 from PyQt5.QtGui import QCursor
 from PyQt5.QtWidgets import QAbstractSlider, QMenu
 from PyQt5.QtWebKitWidgets import QWebView
-from classes.query import File, Clip, Transition
+from classes.query import File, Clip, Transition, Track
 from classes.logger import log
 from classes.app import get_app
 from classes import info, updates
@@ -158,6 +158,28 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		
 		menu = QMenu(self)
 		menu.addAction(self.window.actionRemoveTransition)
+		return menu.popup(QCursor.pos())
+	
+	@pyqtSlot(str)
+	def ShowTrackMenu(self, layer_id=None):
+		log.info('ShowTrackMenu: %s' % layer_id)
+		
+		if layer_id not in self.window.selected_tracks:
+			self.window.selected_tracks = [layer_id]
+	
+		menu = QMenu(self)
+		menu.addAction(self.window.actionRemoveTrack)
+		return menu.popup(QCursor.pos())
+	
+	@pyqtSlot(str)
+	def ShowMarkerMenu(self, marker_id=None):
+		log.info('ShowMarkerMenu: %s' % marker_id)
+	
+		if marker_id not in self.window.selected_markers:
+			self.window.selected_markers = [marker_id]
+	
+		menu = QMenu(self)
+		menu.addAction(self.window.actionRemoveMarker)
 		return menu.popup(QCursor.pos())
 		
 	@pyqtSlot(float, int, str)

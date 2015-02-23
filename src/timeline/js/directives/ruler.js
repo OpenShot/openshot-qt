@@ -144,7 +144,7 @@ App.directive('tlRuler', function ($timeout) {
 
 			//watch the scale value so it will be able to draw the ruler after changes,
 			//otherwise the canvas is just reset to blank
-			scope.$watch('project.scale + markers', function (val) {
+			scope.$watch('project.scale + markers.length', function (val) {
              if (val){
              	
 	            	 $timeout(function(){
@@ -194,16 +194,16 @@ App.directive('tlRuler', function ($timeout) {
 						}
 
 						//marker images
-						$.each(scope.project.markers, function() {
-							
-							var img = new Image();
-							img.src = "media/images/markers/"+this.icon;
-							var img_loc = this.location * scope.pixelsPerSecond;
-							img.onload = function() {
-								ctx.drawImage(img, img_loc-img.width/2, 25);
-							};
-							
-						});
+						//$.each(scope.project.markers, function() {
+						//	
+						//	var img = new Image();
+						//	img.src = "media/images/markers/"+this.icon;
+						//	var img_loc = this.location * scope.pixelsPerSecond;
+						//	img.onload = function() {
+						//		ctx.drawImage(img, img_loc-img.width/2, 25);
+						//	};
+						//	
+						//});
 
 						//redraw audio if needed
 						$.each(scope.project.clips, function(){
