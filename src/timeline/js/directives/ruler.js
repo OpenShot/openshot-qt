@@ -176,12 +176,12 @@ App.directive('tlRuler', function ($timeout) {
 								if (x != 0){
 									//get time for this tick
 									time = (scale * x) /2;
-									time_text = secondsToTime(time);
+									time_text = secondsToTime(time, scope.project.fps.num, scope.project.fps.den);
 
 									//write time on the canvas, centered above long tick
 									ctx.fillStyle = "#c8c8c8";
 									ctx.font = "0.9em Sans";
-									ctx.fillText(time_text, x*each_tick-22, 11);	
+									ctx.fillText(time_text["hour"] +":"+ time_text["min"] +":"+ time_text["sec"], x*each_tick-22, 11);	
 								}
 							} else { 
 								//shorter line

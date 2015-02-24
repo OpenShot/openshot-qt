@@ -209,7 +209,7 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.playheadOffset = 0;
   $scope.playhead_animating = false;
   $scope.playhead_height = 300;
-  $scope.playheadTime =  secondsToTime($scope.project.playhead_position);
+  $scope.playheadTime =  secondsToTime($scope.project.playhead_position, $scope.project.fps.num, $scope.project.fps.den);
   $scope.shift_pressed = false;
   $scope.snapline_position = 0.0;
   $scope.snapline = false;
@@ -231,16 +231,22 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.MovePlayhead = function(position_seconds) {
 	  // Update internal scope (in seconds)
 	  $scope.$apply(function(){
+	  if ($scope.Qt)
+		 	timeline.qt_log("$scope.MovePlayhead to seconds " + position_seconds);
+	  	
 		  $scope.project.playhead_position = position_seconds;
-		  $scope.playheadTime = secondsToTime(position_seconds);
+		  $scope.playheadTime = secondsToTime(position_seconds, $scope.project.fps.num, $scope.project.fps.den);
 	  });
   };
   
   // Move the playhead to a specific frame
   $scope.MovePlayheadToFrame = function(position_frames) {
-	  if ($scope.Qt) {
-		 	timeline.qt_log("MovePlayheadToFrame");
-	  }
+	  if ($scope.Qt)
+		 	timeline.qt_log("$scope.MovePlayheadToFrame to frame " + position_frames);
+	  
+	  // Don't move the playhead if it's currently animating
+	  if ($scope.playhead_animating)
+	  		return;
 	  
 	  // Determine seconds
 	  var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
@@ -252,14 +258,16 @@ App.controller('TimelineCtrl',function($scope) {
 
   // Move the playhead to a specific time
   $scope.PreviewFrame = function(position_seconds) {
+	  if ($scope.Qt)
+		 	timeline.qt_log("$scope.PreviewFrame to seconds " + position_seconds);
+  	
 	  // Determine frame
 	  var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
-	  var frame = position_seconds * frames_per_second;
+	  var frame = (position_seconds * frames_per_second) + 1;
 	  
 	  // Update GUI with position (to the preview can be updated)
-	  if ($scope.Qt) {
-		  timeline.PlayheadMoved(position_seconds, frame, secondsToTime(position_seconds));
-	  }
+	  if ($scope.Qt)
+		  timeline.PlayheadMoved(position_seconds, frame, secondsToTime(position_seconds, $scope.project.fps.num, $scope.project.fps.den));
   };
   
   // Get an array of keyframe points for the selected clips

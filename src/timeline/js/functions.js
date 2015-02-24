@@ -143,15 +143,29 @@ function drawAudio(scope, clip_id){
     
 }
 
-// Convert seconds into formatted time stamp
-function secondsToTime(secs)
+function padNumber(value, pad_length)
 {
-    var t = new Date(1970,0,1);
-    t.setSeconds(secs);
-    var s = t.toTimeString().substr(0,8);
-    if(secs > 86399)
-    	s = Math.floor((t - Date.parse("1/1/70")) / 3600000) + s.substr(2);
-    return s;
+	return ("10000"+value).slice(-1* pad_length);
+}
+
+// Convert seconds into formatted time stamp
+function secondsToTime(secs, fps_num, fps_den)
+{
+	// calculate time of playhead
+	var milliseconds = secs * 1000;
+	var sec = Math.floor(milliseconds/1000);
+	var milli = milliseconds % 1000;
+	var min = Math.floor(sec/60);
+	var sec = sec % 60;
+	var hour = Math.floor(min/60);
+	var min = min % 60;
+	var day = Math.floor(hour/24);
+	var hour = hour % 24;
+	var week = Math.floor(day/7);
+	var day = day % 7;
+
+	var frame = Math.round((milli / 1000.0) * (fps_num / fps_den));
+    return { "week":padNumber(week,2), "day":padNumber(day,2), "hour":padNumber(hour,2), "min":padNumber(min,2), "sec":padNumber(sec,2), "milli":padNumber(milli,2), "frame":padNumber(frame,2) };
 }
 
 // Find the closest track number (based on a Y coordinate)

@@ -156,6 +156,8 @@ class PlayerWorker(QObject):
 		
 		# Mark frame number for processing
 		self.player.Seek(number)
+		
+		log.info("self.player.Position(): %s" % self.player.Position())
 	
 	@pyqtSlot(str)
 	def LoadFile(self, path):

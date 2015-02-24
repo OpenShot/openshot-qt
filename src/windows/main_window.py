@@ -366,9 +366,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		
 	# Preview a specific frame
 	def previewFrame(self, position_seconds, position_frames, time_code):
-		log.info(position_seconds)
-		log.info(position_frames)
-		log.info(time_code)
+		log.info("previewFrame - position_seconds: %s, position_frames: %s, time_code: %s" % (position_seconds, position_frames, time_code))
 		
 		# Notify preview thread
 		self.preview_thread.previewFrame(position_frames)
@@ -472,6 +470,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		
 		# Get the video player object
 		player = self.preview_thread.player
+		
+		log.info("keyPressEvent: player.Position(): %s" % player.Position())
 		
 		# Basic shortcuts i.e just a letter
 		if event.key() == Qt.Key_Left:
