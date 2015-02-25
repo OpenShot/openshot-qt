@@ -117,6 +117,21 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 			# Create a new clip (if not exists)
 			existing_item = Transition()		
 		existing_item.data = transition_data
+		
+		
+		# Get FPS from project
+		fps = get_app().project.get(["fps"])
+		fps_float = float(fps["num"]) / float(fps["den"])
+		
+		# Update the brightness and contrast keyframes to match the duration of the transition
+		duration = existing_item.data["end"] - existing_item.data["start"]
+		brightness = openshot.Keyframe()
+		brightness.AddPoint(1, 100.0)
+		brightness.AddPoint(duration * fps_float, -100.0)
+		existing_item.data["brightness"] = json.loads(brightness.Json())
+		
+		
+		# Save transition
 		existing_item.save()
 
 	#Prevent default context menu, and ignore, so that javascript can intercept
@@ -340,15 +355,34 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		# Find position from javascript
 		js_position = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition(" + str(position.x()) + ");")
 		
+		# Get FPS from project
+		fps = get_app().project.get(["fps"])
+		fps_float = float(fps["num"]) / float(fps["den"])
+		
+		# Open up ImageReader for transition Image
+		transition_reader = openshot.ImageReader(file_ids[0])
+
+		brightness = openshot.Keyframe()
+		brightness.AddPoint(1, 100.0)
+		brightness.AddPoint(10 * fps_float, -100.0)
+		
+		contrast = openshot.Keyframe()
+		contrast.AddPoint(1, 3.0)
+
 		# Create transition dictionary
 		transitions_data = {
              "id" : get_app().project.generate_id(), 
              "layer" : top_layer, 
              "title" : "Transition",
-             "position" : js_position,
-             "duration" : 10
+			 "type" : "Mask",
+			 "position" : js_position,
+			 "start" : 0,
+			 "end" : 10,
+			 "brightness" :	json.loads(brightness.Json()),
+			 "contrast" :	json.loads(contrast.Json()),
+			 "reader" 	:	json.loads(transition_reader.Json())
              }
-		
+
 		# Send to update manager
 		self.update_transition_data(transitions_data)
 	

@@ -67,10 +67,10 @@ App.directive('tlTrack', function($timeout) {
 								if (scope.Qt)
 									timeline.removeSelection(scope.project.clips[clip_index].id.replace("clip_", ""), "clip");
 							}
-							for (var tran_index = 0; tran_index < scope.project.transitions.length; tran_index++) {
-								scope.project.transitions[tran_index].selected = false;
+							for (var tran_index = 0; tran_index < scope.project.effects.length; tran_index++) {
+								scope.project.effects[tran_index].selected = false;
 								if (scope.Qt)
-									timeline.removeSelection(scope.project.transitions[tran_index].id.replace("transition_", ""), "transition");
+									timeline.removeSelection(scope.project.effects[tran_index].id.replace("transition_", ""), "transition");
 							}
 						}
 						
@@ -104,7 +104,7 @@ App.directive('tlTrack', function($timeout) {
 		            		if (item_type == 'clip')
 		            			item_data = findElement(scope.project.clips, "id", item_num);
 		            		else if (item_type == 'transition')
-		            			item_data = findElement(scope.project.transitions, "id", item_num);
+		            			item_data = findElement(scope.project.effects, "id", item_num);
 
 		            		// change the clip's track and position in the json data
 		            		scope.$apply(function(){

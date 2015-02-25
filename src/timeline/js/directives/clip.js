@@ -345,7 +345,7 @@ App.directive('tlMultiSelectable', function(){
 					} else if (id.match("^transition_")) {
 						id = id.replace("transition_", "");
 						type = "transition";
-						item = findElement(scope.project.transitions, "id", id);
+						item = findElement(scope.project.effects, "id", id);
 					}
 					
 					if (scope.Qt)
@@ -373,7 +373,7 @@ App.directive('tlMultiSelectable', function(){
 					} else if (id.match("^transition_")) {
 						id = id.replace("transition_", "");
 						type = "transition";
-						item = findElement(scope.project.transitions, "id", id);
+						item = findElement(scope.project.effects, "id", id);
 					}
 					
 					if (scope.Qt)

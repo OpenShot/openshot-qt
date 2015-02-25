@@ -147,20 +147,22 @@ App.controller('TimelineCtrl',function($scope) {
 	               },
              ],
              
-	  transitions : [
+	  effects : [
 	                	{
 	   	                 id : '5', 
 		                 layer : 4, 
 		                 title : 'Transition',
 		                 position : 20.0,
-		                 duration : 30
+		                 start : 0,
+		                 end : 30
 	                	},
 	                	{
 	   	                 id : '6', 
 		                 layer : 3, 
 		                 title : 'Transition',
 		                 position : 137.5,
-		                 duration : 30
+		                 start : 0,
+		                 end : 30
 	                	}
                     
                     ],
@@ -222,7 +224,7 @@ App.controller('TimelineCtrl',function($scope) {
 	  	$scope.Qt = true;
 	  	$scope.project.clips = [];
 	  	$scope.project.markers = [];
-	  	$scope.project.transitions = [];
+	  	$scope.project.effects = [];
 	  	$scope.project.progress = [];
 	  	timeline.qt_log("$scope.Qt = true;"); 
   };
@@ -395,16 +397,16 @@ App.controller('TimelineCtrl',function($scope) {
 		$scope.SelectClip("", true);
  	
  	// Unselect all transitions
-	for (var tran_index = 0; tran_index < $scope.project.transitions.length; tran_index++)
-		if ($scope.project.transitions[tran_index].id == id) {
-			$scope.project.transitions[tran_index].selected = true;
+	for (var tran_index = 0; tran_index < $scope.project.effects.length; tran_index++)
+		if ($scope.project.effects[tran_index].id == id) {
+			$scope.project.effects[tran_index].selected = true;
 		 	if ($scope.Qt)
 			 	timeline.addSelection(id, "transition");
 		}
 		else if (clear_selections) {
-			$scope.project.transitions[tran_index].selected = false;
+			$scope.project.effects[tran_index].selected = false;
 		 	if ($scope.Qt)
-			 	timeline.removeSelection($scope.project.transitions[tran_index].id, "transition");
+			 	timeline.removeSelection($scope.project.effects[tran_index].id, "transition");
 		}
  };
  
@@ -485,7 +487,7 @@ App.controller('TimelineCtrl',function($scope) {
 			timeline.update_clip_data(JSON.stringify(item_data));
 		}
 		else if (item_type == 'transition') {
-			var item_data = $scope.project.transitions[$scope.project.transitions.length - 1];
+			var item_data = $scope.project.effects[$scope.project.effects.length - 1];
 			timeline.update_transition_data(JSON.stringify(item_data));
 		}
  };
@@ -517,8 +519,8 @@ App.controller('TimelineCtrl',function($scope) {
 		 
 		 } else if (item_type == "transition") {
 			 // move transition
-			 $scope.project.transitions[$scope.project.transitions.length - 1].position = clip_position;
-			 $scope.project.transitions[$scope.project.transitions.length - 1].layer = $scope.GetTrackAtY(y - scrolling_tracks_offset_top).number;
+			 $scope.project.effects[$scope.project.effects.length - 1].position = clip_position;
+			 $scope.project.effects[$scope.project.effects.length - 1].layer = $scope.GetTrackAtY(y - scrolling_tracks_offset_top).number;
 		 }
 
 	 });
@@ -618,8 +620,8 @@ App.controller('TimelineCtrl',function($scope) {
 		}
 		
 		// Add transition position to array
-		for (var index = 0; index < $scope.project.transitions.length; index++) {
-			var transition = $scope.project.transitions[index];
+		for (var index = 0; index < $scope.project.effects.length; index++) {
+			var transition = $scope.project.effects[index];
 			
 			// exit out if this item is in ignore_ids
 			if (ignore_ids.hasOwnProperty(transition.id))

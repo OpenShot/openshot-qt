@@ -100,7 +100,7 @@
 				</div>
 				
 				<!-- TRANSITIONS -->
-				<div ng-hide tl-transition ng-repeat="transition in project.transitions" id="transition_{{transition.id}}" ng-click="SelectTransition(transition.id, true)" ng-right-click="ShowTransitionMenu(transition.id)" class="transition droppable" ng-class="transition.selected ? 'ui-selected' : ''" style="width:{{ transition.duration * pixelsPerSecond}}px;left:{{transition.position * pixelsPerSecond}}px; top:{{getTrackTop(transition.layer)}}px;z-index:{{8000 + $index}};">
+				<div ng-hide tl-transition ng-repeat="transition in project.effects" id="transition_{{transition.id}}" ng-click="SelectTransition(transition.id, true)" ng-right-click="ShowTransitionMenu(transition.id)" class="transition droppable" ng-class="transition.selected ? 'ui-selected' : ''" style="width:{{ (transition.end - transition.start) * pixelsPerSecond}}px;left:{{transition.position * pixelsPerSecond}}px; top:{{getTrackTop(transition.layer)}}px;z-index:{{8000 + $index}};">
 					<div class="transition_top">
 						<div tl-clip-menu class="transition_menu" ng-click="ShowTransitionMenu(transition.id)"></div>
 						<!--div class="transition_label">{{transition.title}}</div-->

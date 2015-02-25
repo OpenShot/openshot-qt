@@ -73,7 +73,7 @@ App.directive('tlTransition', function(){
 
 					//change the transition end/start based on which side was dragged
 					new_left = scope.transition.position;
-					new_right = scope.transition.duration;
+					new_right = (scope.transition.end - scope.transition.start);
 
 					if (dragLoc == 'left'){
 						//changing the start of the transition
@@ -87,11 +87,11 @@ App.directive('tlTransition', function(){
 					scope.$apply(function(){
 	
 						if (dragLoc == 'right'){
-							scope.transition.duration = new_right;
+							scope.transition.end = new_right;
 						}
 						if (dragLoc == 'left'){
 							scope.transition.position = new_left;
-							scope.transition.duration -= delta_time;
+							scope.transition.end -= delta_time;
 						}
 						
 						// update transition in Qt (very important =)
@@ -111,7 +111,7 @@ App.directive('tlTransition', function(){
 
 					// change the transition end/start based on which side was dragged
 					new_left = scope.transition.position;
-					new_right = scope.transition.duration;
+					new_right = (scope.transition.end - scope.transition.start);
 
 					if (dragLoc == 'left'){
 						// changing the start of the transition

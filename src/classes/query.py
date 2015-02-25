@@ -152,9 +152,9 @@ class Clip(QueryObject):
 
 
 class Transition(QueryObject):
-	""" This class allows Clips to be queried, updated, and deleted from the project data. """
-	object_name = "transitions"		# Derived classes should define this
-	object_key = [object_name]		# Derived classes should define this also
+	""" This class allows Transitions (i.e. timeline effects) to be queried, updated, and deleted from the project data. """
+	object_name = "effects"		# Derived classes should define this
+	object_key = [object_name]	# Derived classes should define this also
 	
 	def save(self):
 		""" Save the object back to the project data store """
