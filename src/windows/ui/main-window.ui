@@ -1182,6 +1182,30 @@
     <string>Remove Marker</string>
    </property>
   </action>
+  <action name="actionAddTrackAbove">
+   <property name="icon">
+    <iconset theme="list-add" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/list-add.svg</normaloff>:/icons/Humanity/actions/16/list-add.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Add Track Above</string>
+   </property>
+   <property name="toolTip">
+    <string>Add Track Above</string>
+   </property>
+  </action>
+  <action name="actionAddTrackBelow">
+   <property name="icon">
+    <iconset theme="list-add" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/list-add.svg</normaloff>:/icons/Humanity/actions/16/list-add.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Add Track Below</string>
+   </property>
+   <property name="toolTip">
+    <string>Add Track Below</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="../../images/openshot.qrc"/>

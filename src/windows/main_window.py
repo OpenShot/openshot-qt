@@ -428,6 +428,28 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 		track.data = { "number":track_number, "y":0 }
 		track.save()
 		
+	def actionAddTrackAbove_trigger(self, event):
+		log.info("actionAddTrackAbove_trigger")
+
+		# Get # of tracks
+		track_number = len(get_app().project.get(["layers"]))
+
+		# Look for existing Marker
+		track = Track()
+		track.data = { "number":track_number, "y":0 }
+		track.save()
+		
+	def actionAddTrackBelow_trigger(self, event):
+		log.info("actionAddTrackAbove_trigger")
+
+		# Get # of tracks
+		track_number = len(get_app().project.get(["layers"]))
+
+		# Look for existing Marker
+		track = Track()
+		track.data = { "number":track_number, "y":0 }
+		track.save()
+		
 	def actionArrowTool_trigger(self, event):
 		log.info("actionArrowTool_trigger")
 		

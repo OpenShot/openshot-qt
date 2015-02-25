@@ -115,11 +115,11 @@ class PropertiesModel(updates.UpdateInterface):
 
 			# Determine the frame needed for this clip (based on the position on the timeline)		
 			time_diff = (requested_time - clip.Position()) + clip.Start();
-			self.frame_number = round(time_diff * fps_float) + 1;
+			self.frame_number = int(time_diff * fps_float) + 1;
 			
 			# Calculate biggest and smallest possible frames
-			min_frame_number = round((clip.Start() * fps_float)) + 1
-			max_frame_number = round((clip.End() * fps_float)) + 1
+			min_frame_number = int((clip.Start() * fps_float)) + 1
+			max_frame_number = int((clip.End() * fps_float)) + 1
 
 			# Adjust frame number if out of range
 			if self.frame_number < min_frame_number:
@@ -157,6 +157,7 @@ class PropertiesModel(updates.UpdateInterface):
 		log.info("%s for %s changed to %s at frame %s with interpolation: %s at closest x: %s" % (property_key, clip_id, new_value, self.frame_number, interpolation, closest_point_x))
 		
 		# Find this clip
+		clip_updated = False
 		c = Clip.get(id=clip_id)
 		if c:
 			# Update clip attribute
@@ -174,6 +175,7 @@ class PropertiesModel(updates.UpdateInterface):
 						if interpolation == -1 and point["co"]["X"] == self.frame_number:
 							# Found point, Update value
 							found_point = True
+							clip_updated = True
 							# Update or delete point
 							if new_value != None:
 								point["co"]["Y"] = float(new_value)
@@ -185,28 +187,36 @@ class PropertiesModel(updates.UpdateInterface):
 						elif interpolation > -1 and point["co"]["X"] == closest_point_x:
 							# Only update interpolation type
 							found_point = True
+							clip_updated = True
 							point["interpolation"] = interpolation
 							log.info("updating interpolation mode point: co.X = %s to %s" % (point["co"]["X"], interpolation) )
 							break
 					
 					# Delete point (if needed)
 					if point_to_delete:
+						clip_updated = True
+						log.info("Found point to delete at X=%s" % point_to_delete["co"]["X"])
 						c.data[property_key]["Points"].remove(point_to_delete)
 					
 					# Create new point (if needed)
-					if not found_point and point_to_delete == None:
+					elif not found_point and new_value != None:
+						clip_updated = True
+						log.info("Created new point at X=%s" % self.frame_number)
 						c.data[property_key]["Points"].append({'co': {'X': self.frame_number, 'Y': new_value}, 'interpolation': 1})
 				
 				elif property_type == "int":
 					# Integer
+					clip_updated = True
 					c.data[property_key] = int(new_value)
 				
 				elif property_type == "float":
 					# Float
+					clip_updated = True
 					c.data[property_key] = float(new_value)
 				
 				elif property_type == "string":
 					# String
+					clip_updated = True
 					c.data[property_key] = str(new_value)
 							
 			
@@ -214,7 +224,8 @@ class PropertiesModel(updates.UpdateInterface):
 			c.data = { property_key: c.data[property_key] }
 				
 			# Save changes
-			c.save()	
+			if clip_updated:
+				c.save()
 			
 			# Clear selection
 			self.parent.clearSelection()

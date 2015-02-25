@@ -129,12 +129,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		log.info('ShowPlayheadMenu: %s' % position)
 
 		menu = QMenu(self)
-		menu.addAction(self.window.actionNew)
 		if type == "clip":
 			menu.addAction(self.window.actionRemoveClip)
 		elif type == "transition":
 			menu.addAction(self.window.actionRemoveTransition)
-		return menu.popup(QCursor.pos())
+		#return menu.popup(QCursor.pos())
 		
 	@pyqtSlot(str)
 	def ShowClipMenu(self, clip_id=None):
@@ -168,6 +167,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 			self.window.selected_tracks = [layer_id]
 	
 		menu = QMenu(self)
+		menu.addAction(self.window.actionAddTrackAbove)
+		menu.addAction(self.window.actionAddTrackBelow)
+		menu.addSeparator()
 		menu.addAction(self.window.actionRemoveTrack)
 		return menu.popup(QCursor.pos())
 	
