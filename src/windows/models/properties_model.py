@@ -144,6 +144,7 @@ class PropertiesModel(updates.UpdateInterface):
 		property = self.model.item(item.row(), 0).data()
 		property_name = property[1]["name"]
 		closest_point_x = property[1]["closest_point_x"]
+		property_type = property[1]["type"]
 		property_key = property[0]
 		clip_id = item.data()
 		
@@ -196,15 +197,15 @@ class PropertiesModel(updates.UpdateInterface):
 					if not found_point and point_to_delete == None:
 						c.data[property_key]["Points"].append({'co': {'X': self.frame_number, 'Y': new_value}, 'interpolation': 1})
 				
-				elif type(c.data[property_key]) == int:
+				elif property_type == "int":
 					# Integer
 					c.data[property_key] = int(new_value)
 				
-				elif type(c.data[property_key]) == float:
+				elif property_type == "float":
 					# Float
 					c.data[property_key] = float(new_value)
 				
-				elif type(c.data[property_key]) == str:
+				elif property_type == "string":
 					# String
 					c.data[property_key] = str(new_value)
 							

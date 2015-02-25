@@ -250,7 +250,7 @@ App.controller('TimelineCtrl',function($scope) {
 	  
 	  // Determine seconds
 	  var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
-	  var position_seconds = position_frames / frames_per_second;
+	  var position_seconds = ((position_frames - 1) / frames_per_second);
 	  
 	  // Update internal scope (in seconds)
 	  $scope.MovePlayhead(position_seconds);
