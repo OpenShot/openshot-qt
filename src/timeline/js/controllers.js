@@ -541,13 +541,13 @@ App.controller('TimelineCtrl',function($scope) {
  };
  
  // Find overlapping clips
- $scope.GetMissingTransitions = function(clip_id, threashold) {
- 	
- 	var overlapping_clips = [];
- 	var transitions = [];
+ $scope.GetMissingTransitions = function(original_clip) {
+
+ 	var transition_size = null;
  	
  	// Get clip that matches this id
- 	var original_clip = findElement($scope.project.clips, "id", clip_id);
+ 	var original_left = original_clip.position;
+ 	var original_right = original_clip.position + (original_clip.end - original_clip.start);
 	
 	// Search through all other clips on this track, and look for overlapping ones
 	for (var index = 0; index < $scope.project.clips.length; index++) {
@@ -558,12 +558,19 @@ App.controller('TimelineCtrl',function($scope) {
 			continue;
 		
 		// is clip overlapping
+		var clip_left = clip.position;
 		var clip_right = clip.position + (clip.end - clip.start);
-		//if (clip.position > original_clip.position || )
 		
-		//overlapping_clips.push();
+		if (original_left < clip_right && original_left > clip_left)
+			transition_size = { "position" : original_left, "layer" : clip.layer, "start" : 0, "end" : (clip_right - original_left) };
+		else if (original_right > clip_left && original_right < clip_right)
+			transition_size = { "position" : clip_left, "layer" : clip.layer, "start" : 0, "end" : (original_right - clip_left) };
+
+		if (transition_size != null)
+			return transition_size;
 	}
  	
+ 	return null;
  };
  
  // Search through clips and transitions to find the closest element within a given threashold

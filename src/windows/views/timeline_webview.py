@@ -99,6 +99,44 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		# Save clip		
 		existing_clip.save()
 		
+	#Add missing transition
+	@pyqtSlot(str)
+	def add_missing_transition(self, transition_json):
+		
+		transition_details = json.loads(transition_json)
+		
+		# Get FPS from project
+		fps = get_app().project.get(["fps"])
+		fps_float = float(fps["num"]) / float(fps["den"])
+		
+		# Open up ImageReader for transition Image
+		transition_reader = openshot.ImageReader(os.path.join(info.PATH, "transitions", "extra", "wipe_diagonal_2.png"))
+
+		# Reverse the brightness, to correctly transition for overlapping clips
+		brightness = openshot.Keyframe()
+		brightness.AddPoint(1, -100.0)
+		brightness.AddPoint((transition_details["end"]) * fps_float, 100.0)
+		
+		contrast = openshot.Keyframe()
+		contrast.AddPoint(1, 3.0)
+
+		# Create transition dictionary
+		transitions_data = {
+             "id" : get_app().project.generate_id(), 
+             "layer" : transition_details["layer"], 
+             "title" : "Transition",
+			 "type" : "Mask",
+			 "position" : transition_details["position"],
+			 "start" : transition_details["start"],
+			 "end" : transition_details["end"],
+			 "brightness" :	json.loads(brightness.Json()),
+			 "contrast" :	json.loads(contrast.Json()),
+			 "reader" 	:	json.loads(transition_reader.Json())
+             }
+
+		# Send to update manager
+		self.update_transition_data(transitions_data, only_basic_props=False)
+		
 	#Javascript callable function to update the project data when a transition changes
 	@pyqtSlot(str)
 	def update_transition_data(self, transition_json, only_basic_props=True):

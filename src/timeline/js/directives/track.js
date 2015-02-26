@@ -105,19 +105,28 @@ App.directive('tlTrack', function($timeout) {
 		            			item_data = findElement(scope.project.clips, "id", item_num);
 		            		else if (item_type == 'transition')
 		            			item_data = findElement(scope.project.effects, "id", item_num);
+		            			
 
 		            		// change the clip's track and position in the json data
 		            		scope.$apply(function(){
 		            			//set track
 		            			item_data.layer = drop_track_num;
 		            			item_data.position =  parseInt(item_left)/scope.pixelsPerSecond;
-		            			
-								// update clip in Qt (very important =)
-		            			if (scope.Qt && item_type == 'clip')
-		            				timeline.update_clip_data(JSON.stringify(item_data));
-		            			else if (scope.Qt && item_type == 'transition')
-		            				timeline.update_transition_data(JSON.stringify(item_data));
-							});
+		            		});	
+		            		
+							// update clip in Qt (very important =)
+	            			if (scope.Qt && item_type == 'clip') {
+	            				timeline.update_clip_data(JSON.stringify(item_data));
+
+			            		// Look for overlapping clips (and add the missing transition)
+			            		missing_transition_details = scope.GetMissingTransitions(item_data);
+			            		if (missing_transition_details != null)
+		            				timeline.add_missing_transition(JSON.stringify(missing_transition_details));
+
+	            			}
+	            			else if (scope.Qt && item_type == 'transition')
+	            				timeline.update_transition_data(JSON.stringify(item_data));
+							
 
 		            	}
 		            });
