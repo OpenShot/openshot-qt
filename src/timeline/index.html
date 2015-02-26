@@ -83,6 +83,7 @@
 						<div class="clip_effects" id="effects_{{clip.id}}" ng-show="clip.effects.length" tooltip="Effects"  tooltip-placement="right" tooltip-popup-delay="400">
 							{{clip.effects.length}} 
 						</div>
+						<!-- CLIP KEYFRAME POINTS -->
 						<span class="keyframe_point" id="points_for_{{clip.id}}" ng-show="clip.selected">
 							<img ng-repeat="(point, value) in getKeyframes(clip)" id="point_{{point}}_{{$index}}" style="position: absolute; bottom: 0px; left: {{((point / (project.fps.num / project.fps.den) - clip.start) * pixelsPerSecond) - (border_offset * 2)}}px;" class="point_icon" ng-src="media/images/keyframes/point.png"/>
 						</span>
@@ -100,9 +101,13 @@
 				</div>
 				
 				<!-- TRANSITIONS -->
-				<div ng-hide tl-transition ng-repeat="transition in project.effects" id="transition_{{transition.id}}" ng-click="SelectTransition(transition.id, true)" ng-right-click="ShowTransitionMenu(transition.id)" class="transition droppable" ng-class="transition.selected ? 'ui-selected' : ''" style="width:{{ (transition.end - transition.start) * pixelsPerSecond}}px;left:{{transition.position * pixelsPerSecond}}px; top:{{getTrackTop(transition.layer)}}px;z-index:{{8000 + $index}};">
+				<div ng-hide tl-transition ng-repeat="transition in project.effects" id="transition_{{transition.id}}" ng-click="SelectTransition(transition.id, true)" ng-right-click="ShowTransitionMenu(transition.id)" class="transition droppable" ng-class="transition.selected ? 'ui-selected' : ''" style="width:{{ ((transition.end - transition.start) * pixelsPerSecond) - (border_offset * 2)}}px;left:{{transition.position * pixelsPerSecond}}px; top:{{getTrackTop(transition.layer)}}px;z-index:{{8000 + $index}};">
 					<div class="transition_top">
 						<div tl-clip-menu class="transition_menu" ng-click="ShowTransitionMenu(transition.id)"></div>
+						<!-- TRANSITION KEYFRAME POINTS -->
+						<span class="keyframe_point" id="points_for_{{transition.id}}" ng-show="transition.selected">
+							<img ng-repeat="(point, value) in getKeyframes(transition)" id="point_{{point}}_{{$index}}" style="position: absolute; bottom: 0px; left: {{((point / (project.fps.num / project.fps.den) - clip.start) * pixelsPerSecond) - (border_offset * 2)}}px;" class="point_icon" ng-src="media/images/keyframes/point.png"/>
+						</span>
 						<!--div class="transition_label">{{transition.title}}</div-->
 						<br class="cleared">
 					</div>

@@ -95,7 +95,7 @@ class PropertiesTableView(QTableView):
 			property_name = property[1]["name"]
 			points = property[1]["points"]
 			property_key = property[0]
-			clip_id = selected_value.data()
+			clip_id, item_type = selected_value.data()
 	
 			log.info("Context menu shown for %s (%s) for clip %s on frame %s" % (property_name, property_key, clip_id, frame_number))
 			log.info("Points: %s" % points)

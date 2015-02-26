@@ -273,49 +273,22 @@ App.controller('TimelineCtrl',function($scope) {
   };
   
   // Get an array of keyframe points for the selected clips
-  $scope.getKeyframes = function(clip){
+  $scope.getKeyframes = function(object){
   	// List of keyframes
   	keyframes = {};
 
- 	// Add location_x Keyframes
- 	if (clip.location_x.Points.length > 1)
-		for (var point = 0; point < clip.location_x.Points.length; point++)
-			keyframes[clip.location_x.Points[point].co.X] = clip.location_x.Points[point].co.Y;
-			
- 	// Add location_y Keyframes
- 	if (clip.location_y.Points.length > 1)
-		for (var point = 0; point < clip.location_y.Points.length; point++)
-			keyframes[clip.location_y.Points[point].co.X] = clip.location_y.Points[point].co.Y;
-			
- 	// Add scale_x Keyframes
- 	if (clip.scale_x.Points.length > 1)
-		for (var point = 0; point < clip.scale_x.Points.length; point++)
-			keyframes[clip.scale_x.Points[point].co.X] = clip.scale_x.Points[point].co.Y;
-			
- 	// Add scale_y Keyframes
- 	if (clip.scale_y.Points.length > 1)
-		for (var point = 0; point < clip.scale_y.Points.length; point++)
-			keyframes[clip.scale_y.Points[point].co.X] = clip.scale_y.Points[point].co.Y;
-			
- 	// Add alpha Keyframes
- 	if (clip.alpha.Points.length > 1)
-		for (var point = 0; point < clip.alpha.Points.length; point++)
-			keyframes[clip.alpha.Points[point].co.X] = clip.alpha.Points[point].co.Y;
-			
- 	// Add rotation Keyframes
- 	if (clip.rotation.Points.length > 1)
-		for (var point = 0; point < clip.rotation.Points.length; point++)
-			keyframes[clip.rotation.Points[point].co.X] = clip.rotation.Points[point].co.Y;
-			
- 	// Add volume Keyframes
- 	if (clip.volume.Points.length > 1)
-		for (var point = 0; point < clip.volume.Points.length; point++)
-			keyframes[clip.volume.Points[point].co.X] = clip.volume.Points[point].co.Y;
-			
- 	// Add time Keyframes
- 	if (clip.time.Points.length > 1)
-		for (var point = 0; point < clip.time.Points.length; point++)
-			keyframes[clip.time.Points[point].co.X] = clip.time.Points[point].co.Y;
+ 	// Loop through properties of an object (clip/transition), looking for keyframe points
+	for (child in object) {
+	    if (!object.hasOwnProperty(child)) {
+	        //The current property is not a direct property of p
+	        continue;
+	    }
+	    
+	    // Determine if this property is a Keyframe
+	 	if (typeof object[child] == "object" && "Points" in object[child])
+			for (var point = 0; point < object[child].Points.length; point++)
+				keyframes[object[child].Points[point].co.X] = object[child].Points[point].co.Y;
+	}
 
 	// Return keyframe array
 	return keyframes;

@@ -30,7 +30,7 @@ from urllib.parse import urlparse
 from collections import OrderedDict
 from classes import updates
 from classes import info
-from classes.query import File, Clip
+from classes.query import File, Clip, Transition
 from classes.logger import log
 from classes.settings import SettingStore
 from classes.app import get_app
@@ -82,6 +82,8 @@ class PropertiesModel(updates.UpdateInterface):
 		# Clear previous selection
 		self.selected = []
 		
+		log.info("Update item: %s" % item_type)
+		
 		if item_type == "clip":
 			c = None
 			clips = get_app().window.timeline_sync.timeline.Clips()
@@ -89,8 +91,22 @@ class PropertiesModel(updates.UpdateInterface):
 				if clip.Id() == item_id:
 					c = clip
 					break
+			
+			# Append to selected clips
+			self.selected.append((c, item_type))
+
+		if item_type == "transition":
+			t = None
+			trans = get_app().window.timeline_sync.timeline.Effects()
+			for tran in trans:
+				if tran.Id() == item_id:
+					t = tran
+					break
 				
-			self.selected.append(c)
+			log.info(t)
+			
+			# Append to selected clips
+			self.selected.append((t, item_type))
 			
 			
 		# Get ID of item
@@ -104,7 +120,7 @@ class PropertiesModel(updates.UpdateInterface):
 		
 		# Check for a selected clip
 		if self.selected:
-			clip = self.selected[0]
+			clip, item_type = self.selected[0]
 			
 			# Get FPS from project
 			fps = get_app().project.get(["fps"])
@@ -146,7 +162,7 @@ class PropertiesModel(updates.UpdateInterface):
 		closest_point_x = property[1]["closest_point_x"]
 		property_type = property[1]["type"]
 		property_key = property[0]
-		clip_id = item.data()
+		clip_id, item_type = item.data()
 		
 		# Get value (if any)
 		if item.text():
@@ -155,10 +171,20 @@ class PropertiesModel(updates.UpdateInterface):
 			new_value = None
 
 		log.info("%s for %s changed to %s at frame %s with interpolation: %s at closest x: %s" % (property_key, clip_id, new_value, self.frame_number, interpolation, closest_point_x))
-		
+	
+	
 		# Find this clip
+		c = None
 		clip_updated = False
-		c = Clip.get(id=clip_id)
+		
+		if item_type == "clip":
+			# Get clip object
+			c = Clip.get(id=clip_id)
+		elif item_type == "transition":
+			# Get transition object
+			c = Transition.get(id=clip_id)
+		
+		
 		if c:
 			# Update clip attribute
 			if property_key in c.data:
@@ -237,7 +263,7 @@ class PropertiesModel(updates.UpdateInterface):
 
 		# Check for a selected clip
 		if self.selected and self.selected[0]:
-			c = self.selected[0]
+			c, item_type = self.selected[0]
 
 			# Get raw unordered JSON properties
 			raw_properties = json.loads(c.PropertiesJSON(self.frame_number))
@@ -307,7 +333,7 @@ class PropertiesModel(updates.UpdateInterface):
 					# Append Value
 					col = QStandardItem("Value")
 					col.setText("%0.2f" % value)
-					col.setData(c.Id())
+					col.setData((c.Id(), item_type))
 					if points > 1:
 						# Apply icon to cell
 						my_icon = QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % interpolation))
