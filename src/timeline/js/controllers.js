@@ -276,7 +276,7 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.getKeyframes = function(object){
   	// List of keyframes
   	keyframes = {};
-
+  	
  	// Loop through properties of an object (clip/transition), looking for keyframe points
 	for (child in object) {
 	    if (!object.hasOwnProperty(child)) {
@@ -289,7 +289,7 @@ App.controller('TimelineCtrl',function($scope) {
 			for (var point = 0; point < object[child].Points.length; point++)
 				keyframes[object[child].Points[point].co.X] = object[child].Points[point].co.Y;
 	}
-
+	
 	// Return keyframe array
 	return keyframes;
   };
@@ -728,45 +728,55 @@ App.controller('TimelineCtrl',function($scope) {
 	 	if (current_object){ 
 	 		// INSERT OBJECT
 		 	if (action.type == "insert") {
-		 		$scope.$apply(function(){
+		 		
 		 		// Insert action's value into current_object
 		 		if (current_object.constructor == Array)
 		 			// push new element into array
-		 			current_object.push(action.value);
+		 			$scope.$apply(function(){
+		 				current_object.push(action.value);
+		 			});
 		 		else {
 			 		// replace the entire value
 			 		if (previous_object.constructor == Array) {
 			 			// replace entire value in OBJECT
-			 			previous_object[current_position] = action.value;
+			 			$scope.$apply(function(){
+			 				previous_object[current_position] = action.value;
+			 			});
 			 			
 			 		} else if (previous_object.constructor == Object) {
 			 			// replace entire value in OBJECT
-			 			previous_object[current_key] = action.value;
+			 			$scope.$apply(function(){
+			 				previous_object[current_key] = action.value;
+			 			});
 			 		}
 		 		}
-		 		});
 		 		
 		 	} else if (action.type == "update") {
-		 		$scope.$apply(function(){
+		 		
 		 		// UPDATE OBJECT
 		 		// Update: If action and current object are Objects
 		 		if (current_object.constructor == Object && action.value.constructor == Object)
 			 		for (var update_key in action.value)
 			 			if (update_key in current_object)
 			 				// Only copy over keys that exist in both action and current_object
-			 				current_object[update_key] = action.value[update_key];
+			 				$scope.$apply(function(){
+			 					current_object[update_key] = action.value[update_key];
+			 				});
 			 	else {
 			 		// replace the entire value
 			 		if (previous_object.constructor == Array) {
 			 			// replace entire value in OBJECT
-			 			previous_object[current_position] = action.value;
+			 			$scope.$apply(function(){
+			 				previous_object[current_position] = action.value;
+			 			});
 			 			
 			 		} else if (previous_object.constructor == Object) {
 			 			// replace entire value in OBJECT
-			 			previous_object[current_key] = action.value;
+			 			$scope.$apply(function(){
+			 				previous_object[current_key] = action.value;
+			 			});
 			 		}
 			 	}
-			 	});
 			 		
 		 		
 		 	} else if (action.type == "delete") {

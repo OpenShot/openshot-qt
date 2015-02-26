@@ -95,14 +95,13 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 			existing_clip.data["position"] = clip_data["position"]
 			existing_clip.data["start"] = clip_data["start"]
 			existing_clip.data["end"] = clip_data["end"]
-			existing_clip.data["duration"] = clip_data["duration"]
 
 		# Save clip		
 		existing_clip.save()
 		
 	#Javascript callable function to update the project data when a transition changes
 	@pyqtSlot(str)
-	def update_transition_data(self, transition_json):
+	def update_transition_data(self, transition_json, only_basic_props=True):
 		""" Create an updateAction and send it to the update manager """
 
 		# read clip json
@@ -128,9 +127,17 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		brightness = openshot.Keyframe()
 		brightness.AddPoint(1, 100.0)
 		brightness.AddPoint(duration * fps_float, -100.0)
-		existing_item.data["brightness"] = json.loads(brightness.Json())
 		
-		
+		# Only include the basic properties (performance boost)
+		if only_basic_props:
+			existing_item.data = {}
+			existing_item.data["id"] = transition_data["id"]
+			existing_item.data["layer"] = transition_data["layer"]
+			existing_item.data["position"] = transition_data["position"]
+			existing_item.data["start"] = transition_data["start"]
+			existing_item.data["end"] = transition_data["end"]
+			existing_item.data["brightness"] = json.loads(brightness.Json())
+
 		# Save transition
 		existing_item.save()
 
@@ -384,7 +391,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
              }
 
 		# Send to update manager
-		self.update_transition_data(transitions_data)
+		self.update_transition_data(transitions_data, only_basic_props=False)
 	
 	# Add Effect
 	def addEffect(self, file_ids, position):
