@@ -45,12 +45,16 @@ class TimelineSync(UpdateInterface):
 		height = project.get(["height"])
 		
 		# Create an instance of a libopenshot Timeline object
-		self.timeline = openshot.Timeline(width, height, openshot.Fraction(fps["num"],fps["den"]), 44100, 2)
+		self.timeline = openshot.Timeline(width, height, openshot.Fraction(fps["num"],fps["den"]), 48000, 2, openshot.LAYOUT_STEREO)
+		self.timeline.info.channel_layout = openshot.LAYOUT_STEREO
 		self.timeline.info.has_audio = True
 		self.timeline.info.has_video = True
 		self.timeline.info.video_length = 99999
 		self.timeline.info.duration = 999.99
-		self.timeline.debug = True
+		self.timeline.debug = False
+		
+		# Open the timeline reader
+		self.timeline.Open()
 
 		# Add self as listener to project data updates (at the beginning of the list)
 		# This listener will receive events before others.
@@ -68,6 +72,7 @@ class TimelineSync(UpdateInterface):
 			if action.type == "load":
 				# This JSON is initially loaded to libopenshot to update the timeline
 				self.timeline.SetJson(action.json(only_value=True))
+				self.timeline.Open() # Re-Open the Timeline reader
 
 			else:
 				# This JSON DIFF is passed to libopenshot to update the timeline

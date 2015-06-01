@@ -108,7 +108,7 @@ class PlayerWorker(QObject):
 		
 		# Init new player
 		self.initPlayer()
-		
+
 		# Connect player to timeline reader
 		self.player.Reader(self.timeline)
 		self.player.Play()
@@ -156,8 +156,20 @@ class PlayerWorker(QObject):
 		
 		# Mark frame number for processing
 		self.player.Seek(number)
-		
+
 		log.info("self.player.Position(): %s" % self.player.Position())
+		
+	@pyqtSlot(int)
+	def refreshFrame(self):
+		""" Refresh a certain frame """
+		
+		log.info("refreshFrame")
+		
+		# Mark frame number for processing
+		self.player.Seek(self.player.Position())
+
+		log.info("self.player.Position(): %s" % self.player.Position())
+	
 	
 	@pyqtSlot(str)
 	def LoadFile(self, path):

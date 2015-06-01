@@ -40,6 +40,7 @@ from classes import settings
 from classes.query import File, Clip
 import openshot # Python module for libopenshot (required video editing module installed separately)
 import uuid
+from openshot import BEZIER
 
 try:
     import json
@@ -109,16 +110,17 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		fps = get_app().project.get(["fps"])
 		fps_float = float(fps["num"]) / float(fps["den"])
 		
-		# Open up ImageReader for transition Image
-		transition_reader = openshot.ImageReader(os.path.join(info.PATH, "transitions", "extra", "wipe_diagonal_2.png"))
+		# Open up QtImageReader for transition Image
+		transition_reader = openshot.QtImageReader(os.path.join(info.PATH, "transitions", "extra", "wipe_diagonal_2.png"))
 
-		# Reverse the brightness, to correctly transition for overlapping clips
-		brightness = openshot.Keyframe()
-		brightness.AddPoint(1, -100.0)
-		brightness.AddPoint((transition_details["end"]) * fps_float, 100.0)
-		
-		contrast = openshot.Keyframe()
-		contrast.AddPoint(1, 3.0)
+		# Generate transition object 
+		transition_object = openshot.Mask()
+
+		# Set brightness and contrast, to correctly transition for overlapping clips
+		brightness = transition_object.brightness
+		brightness.AddPoint(1, 1.0, BEZIER)
+		brightness.AddPoint((transition_details["end"]) * fps_float, -1.0, BEZIER)
+		contrast = openshot.Keyframe(3.0)
 
 		# Create transition dictionary
 		transitions_data = {
@@ -131,7 +133,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 			 "end" : transition_details["end"],
 			 "brightness" :	json.loads(brightness.Json()),
 			 "contrast" :	json.loads(contrast.Json()),
-			 "reader" 	:	json.loads(transition_reader.Json())
+			 "reader" 	:	json.loads(transition_reader.Json()),
+			 "replace_image" : False
              }
 
 		# Send to update manager
@@ -163,8 +166,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		# Update the brightness and contrast keyframes to match the duration of the transition
 		duration = existing_item.data["end"] - existing_item.data["start"]
 		brightness = openshot.Keyframe()
-		brightness.AddPoint(1, 100.0)
-		brightness.AddPoint(duration * fps_float, -100.0)
+		brightness.AddPoint(1, 1.0, BEZIER)
+		brightness.AddPoint(duration * fps_float, -1.0, BEZIER)
 		
 		# Only include the basic properties (performance boost)
 		if only_basic_props:
@@ -404,15 +407,13 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		fps = get_app().project.get(["fps"])
 		fps_float = float(fps["num"]) / float(fps["den"])
 		
-		# Open up ImageReader for transition Image
-		transition_reader = openshot.ImageReader(file_ids[0])
+		# Open up QtImageReader for transition Image
+		transition_reader = openshot.QtImageReader(file_ids[0])
 
 		brightness = openshot.Keyframe()
-		brightness.AddPoint(1, 100.0)
-		brightness.AddPoint(10 * fps_float, -100.0)
-		
-		contrast = openshot.Keyframe()
-		contrast.AddPoint(1, 3.0)
+		brightness.AddPoint(1, 1.0, BEZIER)
+		brightness.AddPoint(10 * fps_float, -1.0, BEZIER)
+		contrast = openshot.Keyframe(3.0)
 
 		# Create transition dictionary
 		transitions_data = {
@@ -425,7 +426,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 			 "end" : 10,
 			 "brightness" :	json.loads(brightness.Json()),
 			 "contrast" :	json.loads(contrast.Json()),
-			 "reader" 	:	json.loads(transition_reader.Json())
+			 "reader" 	:	json.loads(transition_reader.Json()),
+			 "replace_image" : False
              }
 
 		# Send to update manager

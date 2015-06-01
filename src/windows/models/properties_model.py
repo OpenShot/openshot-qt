@@ -240,6 +240,11 @@ class PropertiesModel(updates.UpdateInterface):
 					clip_updated = True
 					c.data[property_key] = float(new_value)
 				
+				elif property_type == "bool":
+					# Boolean
+					clip_updated = True
+					c.data[property_key] = bool(new_value)
+				
 				elif property_type == "string":
 					# String
 					clip_updated = True
@@ -251,7 +256,11 @@ class PropertiesModel(updates.UpdateInterface):
 				
 			# Save changes
 			if clip_updated:
+				# Save
 				c.save()
+				
+				# Update the preview
+				get_app().window.preview_thread.refreshFrame()
 			
 			# Clear selection
 			self.parent.clearSelection()
