@@ -34,7 +34,6 @@ from PyQt5 import uic
 from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
-from classes.query import Timeline
 from windows.profile_manager import ProfileManager
 import functools
 import openshot # Python module for libopenshot (required video editing module installed separately)
@@ -113,27 +112,14 @@ class Profile(QDialog):
 		self.lblSize.setText("%sx%s" % (profile.info.width, profile.info.height))
 		self.lblFPS.setText("%0.2f" % (profile.info.fps.num / profile.info.fps.den))
 		self.lblOther.setText("DAR: %s/%s, SAR: %s/%s, Interlaced: %s" % (profile.info.display_ratio.num, profile.info.display_ratio.den, profile.info.pixel_ratio.num, profile.info.pixel_ratio.den, profile.info.interlaced_frame))
-		
+
 		# Update timeline settings
-		#get_app().updates.update(["profile"], profile.info.description )
-		timeline = Timeline.get()
-		timeline.data["width"] = profile.info.width
-		timeline.data["height"] = profile.info.height
-		timeline.data["fps"]["num"] = profile.info.fps.num
-		timeline.data["fps"]["den"] = profile.info.fps.den
-		timeline.data["display_ratio"]["num"] = profile.info.display_ratio.num
-		timeline.data["display_ratio"]["den"] = profile.info.display_ratio.den
-		timeline.data["pixel_ratio"]["num"] = profile.info.pixel_ratio.num
-		timeline.data["pixel_ratio"]["den"] = profile.info.pixel_ratio.den
-		timeline.data["interlaced_frame"] = profile.info.interlaced_frame
-		
-		timeline.data["sample_rate"] = 44100
-		timeline.data["channels"] = 2
-		timeline.data["channel_layout"] = openshot.LAYOUT_STEREO
-		
-		# Save settings
-		timeline.save()
-		
+		get_app().updates.update(["width"], profile.info.width )
+		get_app().updates.update(["height"], profile.info.height )
+		get_app().updates.update(["fps","num"], profile.info.fps.num )
+		get_app().updates.update(["fps","den"], profile.info.fps.den )
+		get_app().updates.update(["profile"], profile.info.description )
+
 		# Update Window Title
 		get_app().window.SetWindowTitle( profile.info.description )
 

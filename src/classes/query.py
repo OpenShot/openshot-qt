@@ -93,7 +93,7 @@ class QueryObject:
 		# Get a list of all objects of this type
 		parent = project.get(OBJECT_TYPE.object_key)
 		matching_objects = []
-		
+
 		# Loop through all children objects
 		if parent:
 			for child in parent:
@@ -266,25 +266,3 @@ class Track(QueryObject):
 		""" Take any arguments given as filters, and find the first matching object """
 		return QueryObject.get(Track, **kwargs)
 	
-	
-	
-class Timeline(QueryObject):
-	""" This class allows the Timeline to be queried, updated, and deleted from the project data. """
-	object_name = ""			# Derived classes should define this
-	object_key = [object_name]	# Derived classes should define this also
-	
-	def save(self):
-		""" Save the object back to the project data store """
-		super().save(Timeline)
-
-	def delete(self):
-		""" Delete the object from the project data store """
-		super().delete(Timeline)
-
-	def filter(**kwargs):
-		""" Take any arguments given as filters, and find a list of matching objects """
-		return QueryObject.filter(Timeline, **kwargs)
-		
-	def get(**kwargs):
-		""" Take any arguments given as filters, and find the first matching object """
-		return QueryObject.get(Timeline, **kwargs)

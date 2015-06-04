@@ -64,7 +64,11 @@ class TimelineSync(UpdateInterface):
 		""" This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """
 		
 		# Ignore changes that don't affect libopenshot
-		if len(action.key) >= 1 and action.key[0].lower() in ["files", "profile", "markers", "layers"]:
+		if len(action.key) >= 1 and action.key[0].lower() in ["files", "markers", "layers"]:
+			return
+		elif len(action.key) >= 1 and action.key[0].lower() in ["profile"]:
+			# The timeline's profile changed, so update all clips
+			self.timeline.ApplyMapperToClips()
 			return
 		
 		# Pass the change to the libopenshot timeline
@@ -76,6 +80,7 @@ class TimelineSync(UpdateInterface):
 
 			else:
 				# This JSON DIFF is passed to libopenshot to update the timeline
+				print(action.json(is_array=True))
 				self.timeline.ApplyJsonDiff(action.json(is_array=True))
 
 		except:

@@ -49,7 +49,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
 	def get(self, key):
 		""" Get copied value of a given key in data store """
-		
+
 		# Verify key is valid type
 		if not isinstance(key, list):
 			log.warning("get() key must be a list. key: {}".format(key))
@@ -57,7 +57,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 		if not key:
 			log.warning("Cannot get empty key.")
 			return None
-		
+
 		# Get reference to internal data structure
 		obj = self._data
 		
@@ -111,7 +111,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 					log.warn("Key not found in project. Mismatch on key part {} (\"{}\").\nKey: {}".format((key_index), key_part, key))
 					return None
 				
-				# Get sub-object based on part key as new object, continue to next part
+				# Get the matching item
 				obj = obj[key_part]
 		
 		# After processing each key, we've found object, return copy of it
@@ -141,7 +141,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 		# Iterate through key list finding sub-objects either by name or by an object match criteria such as {"id":"ADB34"}.
 		for key_index in range(len(key)):
 			key_part = key[key_index]
-			
+
 			# Key_part must be a string or dictionary
 			if not isinstance(key_part, dict) and not isinstance(key_part, str):
 				log.error("Unexpected key part type: {}".format(type(key_part).__name__))
@@ -174,11 +174,12 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 				# No match found, return None
 				if not found:
 					return None	
-			
+
+
 			# If key_part is a string, homogenize to lower case for comparisons
 			if isinstance(key_part, str):
 				key_part = key_part.lower()
-			
+
 				# Check current obj type (should be dictionary)
 				if not isinstance(obj, dict):
 					log.warn("Invalid project data structure. Trying to use a key on a non-dictionary object. Key part: {} (\"{}\").\nKey: {}".format((key_index), key_part, key))
@@ -207,6 +208,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 			del parent[my_key]
 			
 		else:
+
 			# Add or Full Update
 			# For adds to list perform an insert to index or the end if not specified
 			if add and isinstance(parent, list):
@@ -219,6 +221,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 				obj.update(values)
 				
 			else:
+
 			 	# Update root string
 			 	self._data[my_key] = values
 				
