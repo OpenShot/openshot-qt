@@ -660,6 +660,7 @@ App.controller('TimelineCtrl',function($scope) {
 		// Loop through each layer (looking for the closest track based on Y coordinate)
 		for (var layer_index = $scope.project.layers.length - 1; layer_index >= 0 ; layer_index--) {
 			var layer = $scope.project.layers[layer_index];
+			timeline.qt_log(layer); 
 			
 			// Compare position of track to Y param
 			if (layer.y > y)
@@ -814,6 +815,9 @@ App.controller('TimelineCtrl',function($scope) {
  		// Un-select any selected items
  		$scope.SelectClip("", true);
 	 });
+
+	// Re-index Layer Y values
+	$scope.UpdateLayerIndex();
 	 
 	 // return true
 	 return true;

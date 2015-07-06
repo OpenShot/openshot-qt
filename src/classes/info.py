@@ -34,7 +34,8 @@ GPL_VERSION         = '3'
 SUPPORTED_LANGUAGES = ['English', 'Dutch', 'French', 'German', 'Italian', 'Portuguese', 'Spanish', 'Swedish']
 CWD = os.getcwd()
 PATH = os.path.dirname(os.path.dirname( os.path.realpath( __file__) )) # Primary openshot folder
-USER_PATH = os.path.join(os.path.expanduser("~"), ".openshot_qt")
+HOME_PATH = os.path.join(os.path.expanduser("~"))
+USER_PATH = os.path.join(HOME_PATH, ".openshot_qt")
 BLENDER_PATH = os.path.join(USER_PATH, "blender")
 THUMBNAIL_PATH = os.path.join(USER_PATH, "thumbnail")
 CACHE_PATH = os.path.join(USER_PATH, "cache")
@@ -42,6 +43,7 @@ TITLE_PATH = os.path.join(USER_PATH, "title")
 PROFILES_PATH = os.path.join(PATH, "profiles")
 IMAGES_PATH = os.path.join(PATH, "images")
 TRANSITIONS_PATH = os.path.join(USER_PATH, "transitions")
+EXPORT_PRESETS_DIR = os.path.join(PATH, "presets")
 
 # Create PATHS if they do not exist (this is where temp files are stored... such as cached thumbnails)
 for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH, TITLE_PATH, PROFILES_PATH, IMAGES_PATH, TRANSITIONS_PATH]:

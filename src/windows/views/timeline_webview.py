@@ -326,7 +326,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 			# Get the mime data (i.e. list of files, list of transitions, etc...)
 			data = json.loads(event.mimeData().text())
 			pos = event.posF()
-			
+
 			# create the item
 			if self.item_type == "clip":
 				self.addClip(data, pos)
@@ -374,11 +374,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 			new_clip["file_id"] = file.id
 			new_clip["title"] = filename
 			new_clip["image"] = thumb_path
-			
+
 			# Find the closest track (from javascript)
 			top_layer = int(self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack(" + str(position.y()) + ");"))
 			new_clip["layer"] = top_layer
-			
+
 			# Find position from javascript
 			js_position = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition(" + str(position.x()) + ");")
 			new_clip["position"] = js_position
@@ -442,7 +442,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 		
 		# Get cursor position
 		pos = event.posF()
-		
+
 		# Move clip on timeline
 		code = ""
 		if self.item_type == "clip":

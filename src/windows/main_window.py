@@ -230,8 +230,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 			
 	def actionExportVideo_trigger(self, event):
 		#show window
-		from windows.export_video import ExportVideo
-		win = ExportVideo()
+		from windows.export import Export
+		win = Export()
 		#Run the dialog event loop - blocking interaction on this window during this time
 		result = win.exec_()
 		if result == QDialog.Accepted:
