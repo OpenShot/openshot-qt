@@ -182,6 +182,8 @@ class Export(QDialog):
 		# Load profile settings into advanced editor
 		self.txtWidth.setValue(profile.info.width)
 		self.txtHeight.setValue(profile.info.height)
+		self.txtFrameRateNum.setValue(profile.info.fps.num)
+		self.txtFrameRateDen.setValue(profile.info.fps.den)
 		self.txtAspectRatioNum.setValue(profile.info.display_ratio.num)
 		self.txtAspectRatioDen.setValue(profile.info.display_ratio.den)
 		self.txtPixelRatioNum.setValue(profile.info.pixel_ratio.num)
@@ -256,9 +258,9 @@ class Export(QDialog):
 					ac = xmldoc.getElementsByTagName("audiocodec")
 					self.txtAudioCodec.setText(ac[0].childNodes[0].data)
 					sr = xmldoc.getElementsByTagName("samplerate")
-					self.txtSampleRate.setText(sr[0].childNodes[0].data)
+					self.txtSampleRate.setValue(int(sr[0].childNodes[0].data))
 					c = xmldoc.getElementsByTagName("audiochannels")
-					self.txtChannels.setText(c[0].childNodes[0].data)
+					self.txtChannels.setValue(int(c[0].childNodes[0].data))
 					
 			# init the profiles combo
 			for item in sorted(profiles_list):
@@ -272,11 +274,6 @@ class Export(QDialog):
 				self.cboSimpleQuality.addItem(_("Med"), "Med")
 			if v_h or a_h:
 				self.cboSimpleQuality.addItem(_("High"), "High")
-				
-
-			# default quality (to lowest)	
-			#self.set_dropdown_values(_("Low"), self.cboSimpleQuality)
-			#self.set_dropdown_values(_("Med"), self.cboSimpleQuality)
 		
 		
 	def cboSimpleVideoProfile_index_changed(self, widget, index):
@@ -317,13 +314,67 @@ class Export(QDialog):
 		file_path = QFileDialog.getExistingDirectory(self, _("Choose a Folder...")) #, options=QFileDialog.DontUseNativeDialog)
 		self.txtExportFolder.setText(file_path)
 		
+
+
+	def convert_to_bytes(self, BitRateString):
+		bit_rate_bytes = 0
+		
+		# split the string into pieces
+		s = BitRateString.lower().split(" ")
+		measurement = "kb"
+		
+		try:
+			# Get Bit Rate
+			if len(s) >= 2:
+				raw_number_string = s[0]
+				raw_measurement = s[1]
+
+				# convert string number to float (based on locale settings)
+				raw_number = locale.atof(raw_number_string)
+
+				if "kb" in raw_measurement:
+					measurement = "kb"
+					bit_rate_bytes = raw_number * 1000.0
+					
+				elif "mb" in raw_measurement:
+					measurement = "mb"
+					bit_rate_bytes = raw_number * 1000.0 * 1000.0
+					
+		except:
+			pass
+
+		# return the bit rate in bytes
+		return str(int(bit_rate_bytes))
+			
+		
 		
 	def accept(self):
 		""" Start rendering animation, but don't close window """
-		
-		log.info("accept")
-		
 
+		# Determine final exported file path
+		export_file_path = os.path.join(self.txtExportFolder.text().strip(), "%s.%s" % (self.txtFileName.text().strip(), self.txtVideoFormat.text().strip()))
+		log.info(export_file_path)
+		
+		# Create FFmpegWriter
+		w = openshot.FFmpegWriter(export_file_path);
+		
+		# Set Audio & Video Options
+		w.SetVideoOptions(True, self.txtVideoCodec.text(), openshot.Fraction(self.txtFrameRateNum.value(), self.txtFrameRateDen.value()), self.txtWidth.value(), self.txtHeight.value(), openshot.Fraction(self.txtPixelRatioNum.value(), self.txtPixelRatioDen.value()), False, False, int(self.convert_to_bytes(self.txtVideoBitRate.text())));
+		w.SetAudioOptions(True, self.txtAudioCodec.text(), self.txtSampleRate.value(), self.txtChannels.value(), openshot.LAYOUT_STEREO, int(self.convert_to_bytes(self.txtAudioBitrate.text())));
+
+		# Open the writer
+		w.Open();
+		
+		# Write some test frames
+		w.WriteFrame(get_app().window.timeline_sync.timeline, 1, 100)
+		
+		# Close writer
+		w.Close()
+		
+		
+		# Close dialog		
+		self.close()
+		
 
 	def reject(self):
 		
