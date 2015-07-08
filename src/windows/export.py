@@ -83,6 +83,7 @@ class Export(QDialog):
 			self.cboExportTo.addItem(option)
 
 		# Connect signals
+		self.btnBrowse.clicked.connect(functools.partial(self.btnBrowse_clicked))
 		self.cboSimpleProjectType.currentIndexChanged.connect(functools.partial(self.cboSimpleProjectType_index_changed, self.cboSimpleProjectType))
 		self.cboProfile.currentIndexChanged.connect(functools.partial(self.cboProfile_index_changed, self.cboProfile))
 		self.cboSimpleTarget.currentIndexChanged.connect(functools.partial(self.cboSimpleTarget_index_changed, self.cboSimpleTarget))
@@ -300,8 +301,21 @@ class Export(QDialog):
 		log.info(selected_quality)
 
 		# Set the video and audio bitrates
-		self.txtVideoBitRate.setText(self.vbr[selected_quality])
-		self.txtAudioBitrate.setText(self.abr[selected_quality])
+		if selected_quality:
+			self.txtVideoBitRate.setText(self.vbr[selected_quality])
+			self.txtAudioBitrate.setText(self.abr[selected_quality])
+		
+		
+	def btnBrowse_clicked(self):
+		log.info("btnBrowse_clicked")
+		
+		#get translations
+		app = get_app()
+		_ = app._tr
+		
+		# update export folder path
+		file_path = QFileDialog.getExistingDirectory(self, _("Choose a Folder...")) #, options=QFileDialog.DontUseNativeDialog)
+		self.txtExportFolder.setText(file_path)
 		
 		
 	def accept(self):
