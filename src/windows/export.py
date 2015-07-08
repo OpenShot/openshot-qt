@@ -1,6 +1,6 @@
 """
  @file
- @brief This file loads the Preferences dialog (i.e where is all preferences)
+ @brief This file loads the Video Export dialog (i.e where is all preferences)
  @author Jonathan Thomas <jonathan@openshot.org>
 
  @section LICENSE
@@ -72,24 +72,25 @@ class Export(QDialog):
 
 		# Default export path
 		self.txtExportFolder.setText(info.HOME_PATH)
-
-		#load the simple project type dropdown
-		presets = []
-		for file in os.listdir(info.EXPORT_PRESETS_DIR):
-			xmldoc = xml.parse(os.path.join(info.EXPORT_PRESETS_DIR, file))
-			type = xmldoc.getElementsByTagName("type")
-			log.info(os.path.join(info.EXPORT_PRESETS_DIR, file))
-			presets.append(_(type[0].childNodes[0].data))
-			
-		# Exclude duplicates
-		presets = list(set(presets))
-		for item in sorted(presets):
-			self.cboSimpleProjectType.addItem(item, item)
 		
+		# Default image type
+		self.txtImageFormat.setText("%05.png")
+		
+		# Loop through Export To options
+		export_options = [_("Video & Audio"), _("Image Sequence")]
+		for option in export_options:
+			# append profile to list
+			self.cboExportTo.addItem(option)
+
 		# Connect signals
 		self.cboSimpleProjectType.currentIndexChanged.connect(functools.partial(self.cboSimpleProjectType_index_changed, self.cboSimpleProjectType))
-			
-
+		self.cboProfile.currentIndexChanged.connect(functools.partial(self.cboProfile_index_changed, self.cboProfile))
+		self.cboSimpleTarget.currentIndexChanged.connect(functools.partial(self.cboSimpleTarget_index_changed, self.cboSimpleTarget))
+		self.cboSimpleVideoProfile.currentIndexChanged.connect(functools.partial(self.cboSimpleVideoProfile_index_changed, self.cboSimpleVideoProfile))
+		self.cboSimpleQuality.currentIndexChanged.connect(functools.partial(self.cboSimpleQuality_index_changed, self.cboSimpleQuality))
+		
+		
+		# ********* Advaned Profile List **********
 		# Loop through profiles
 		self.profile_names = []
 		self.profile_paths = {}
@@ -111,7 +112,7 @@ class Export(QDialog):
 		for profile_name in self.profile_names:
 			
 			# Add to dropdown
-			self.cboSimpleVideoProfile.addItem(profile_name, self.profile_paths[profile_name])
+			self.cboProfile.addItem(profile_name, self.profile_paths[profile_name])
 
 			# Set default (if it matches the project)
 			if app.project.get(['profile']) == profile_name:
@@ -119,6 +120,23 @@ class Export(QDialog):
 			
 			# increment item counter
 			box_index += 1
+			
+
+		# ********* Simple Project Type **********
+		# load the simple project type dropdown
+		presets = []
+		for file in os.listdir(info.EXPORT_PRESETS_DIR):
+			xmldoc = xml.parse(os.path.join(info.EXPORT_PRESETS_DIR, file))
+			type = xmldoc.getElementsByTagName("type")
+			presets.append(_(type[0].childNodes[0].data))
+			
+		# Exclude duplicates
+		presets = list(set(presets))
+		for item in sorted(presets):
+			self.cboSimpleProjectType.addItem(item, item)
+		
+
+
 
 
 
@@ -133,7 +151,6 @@ class Export(QDialog):
 		app = get_app()
 		_ = app._tr
 		
-		
 		#parse the xml files and get targets that match the project type
 		project_types = []
 		for file in os.listdir(info.EXPORT_PRESETS_DIR):
@@ -145,22 +162,146 @@ class Export(QDialog):
 				for title in titles:
 					project_types.append(_(title.childNodes[0].data))
 		
-		
+		# Add all targets for selected project type
 		for item in sorted(project_types):
 			self.cboSimpleTarget.addItem(item, item)
+
 		
-		if selected_project == _("All Formats"):
-			pass
-			# default to MP4 for this type
-			#self.set_dropdown_values(_("OGG (theora/vorbis)"), self.cboSimpleTarget)
-			
-			# default the profile (based on the current project's profile)
-			#self.set_dropdown_values(_(self.project.project_type), self.cboSimpleVideoProfile)
-			
+	def cboProfile_index_changed(self, widget, index):
+		selected_profile_path = widget.itemData(index)
+		log.info(selected_profile_path)
+		
+		#get translations
+		app = get_app()
+		_ = app._tr
+		
+		# Load profile
+		profile = openshot.Profile(selected_profile_path)
+
+		# Load profile settings into advanced editor
+		self.txtWidth.setValue(profile.info.width)
+		self.txtHeight.setValue(profile.info.height)
+		self.txtAspectRatioNum.setValue(profile.info.display_ratio.num)
+		self.txtAspectRatioDen.setValue(profile.info.display_ratio.den)
+		self.txtPixelRatioNum.setValue(profile.info.pixel_ratio.num)
+		self.txtPixelRatioNum.setValue(profile.info.pixel_ratio.den)
+		
+		# Load the interlaced options
+		self.cboInterlaced.clear()
+		self.cboInterlaced.addItem(_("Yes"), "Yes")
+		self.cboInterlaced.addItem(_("No"), "No")
+		if profile.info.interlaced_frame:
+			self.cboInterlaced.setCurrentIndex(0)
 		else:
-			# choose first taret
-			#self.cboSimpleTarget.setEnabled(False)
-			pass
+			self.cboInterlaced.setCurrentIndex(1)
+
+		
+	def cboSimpleTarget_index_changed(self, widget, index):
+		selected_target = widget.itemData(index)
+		log.info(selected_target)
+		
+		# Clear the following options
+		self.cboSimpleVideoProfile.clear()
+		self.cboSimpleQuality.clear()
+		
+		#get translations
+		app = get_app()
+		_ = app._tr
+
+
+		#don't do anything if the combo has been cleared
+		if selected_target:
+			profiles_list = []
+			
+			#parse the xml to return suggested profiles
+			profile_index = 0
+			for file in os.listdir(info.EXPORT_PRESETS_DIR):
+				xmldoc = xml.parse(os.path.join(info.EXPORT_PRESETS_DIR, file))
+				title = xmldoc.getElementsByTagName("title")
+				if _(title[0].childNodes[0].data) == selected_target:
+					profiles = xmldoc.getElementsByTagName("projectprofile")
+					
+					#get the basic profile
+					if profiles:
+						# if profiles are defined, show them
+						for profile in profiles:
+							profiles_list.append(_(profile.childNodes[0].data))
+					else:
+						# show all profiles
+						for profile_name in self.profile_names:
+							profiles_list.append(profile_name)
+					
+					#get the video bit rate(s)
+					videobitrate = xmldoc.getElementsByTagName("videobitrate")
+					for rate in videobitrate:
+						v_l = rate.attributes["low"].value
+						v_m = rate.attributes["med"].value
+						v_h = rate.attributes["high"].value
+						self.vbr = {_("Low"): v_l, _("Med"): v_m, _("High"): v_h}
+
+					#get the audio bit rates
+					audiobitrate = xmldoc.getElementsByTagName("audiobitrate")
+					for audiorate in audiobitrate:
+						a_l = audiorate.attributes["low"].value
+						a_m = audiorate.attributes["med"].value
+						a_h = audiorate.attributes["high"].value
+						self.abr = {_("Low"): a_l, _("Med"): a_m, _("High"): a_h}
+					
+					#get the remaining values
+					vf = xmldoc.getElementsByTagName("videoformat")
+					self.txtVideoFormat.setText(vf[0].childNodes[0].data)
+					vc = xmldoc.getElementsByTagName("videocodec")
+					self.txtVideoCodec.setText(vc[0].childNodes[0].data)
+					ac = xmldoc.getElementsByTagName("audiocodec")
+					self.txtAudioCodec.setText(ac[0].childNodes[0].data)
+					sr = xmldoc.getElementsByTagName("samplerate")
+					self.txtSampleRate.setText(sr[0].childNodes[0].data)
+					c = xmldoc.getElementsByTagName("audiochannels")
+					self.txtChannels.setText(c[0].childNodes[0].data)
+					
+			# init the profiles combo
+			for item in sorted(profiles_list):
+				self.cboSimpleVideoProfile.addItem(item, self.profile_paths[item])
+
+			#set the quality combo
+			#only populate with quality settings that exist
+			if v_l or a_l:
+				self.cboSimpleQuality.addItem(_("Low"), "Low")
+			if v_m or a_m:
+				self.cboSimpleQuality.addItem(_("Med"), "Med")
+			if v_h or a_h:
+				self.cboSimpleQuality.addItem(_("High"), "High")
+				
+
+			# default quality (to lowest)	
+			#self.set_dropdown_values(_("Low"), self.cboSimpleQuality)
+			#self.set_dropdown_values(_("Med"), self.cboSimpleQuality)
+		
+		
+	def cboSimpleVideoProfile_index_changed(self, widget, index):
+		selected_profile_path = widget.itemData(index)
+		log.info(selected_profile_path)
+
+		# Look for matching profile in advanced options
+		profile_index = 0
+		for profile_name in self.profile_names:
+			# Check for matching profile
+			if self.profile_paths[profile_name] == selected_profile_path:
+				# Matched!
+				self.cboProfile.setCurrentIndex(profile_index)
+				break
+			
+			# increment index
+			profile_index += 1
+
+
+	def cboSimpleQuality_index_changed(self, widget, index):
+		selected_quality = widget.itemData(index)
+		log.info(selected_quality)
+
+		# Set the video and audio bitrates
+		self.txtVideoBitRate.setText(self.vbr[selected_quality])
+		self.txtAudioBitrate.setText(self.abr[selected_quality])
 		
 		
 	def accept(self):
@@ -168,15 +309,11 @@ class Export(QDialog):
 		
 		log.info("accept")
 		
-		# Render
-		#self.blenderTreeView.Render()
+
 
 	def reject(self):
 		
 		log.info("reject")
-
-		# Stop threads
-		#self.blenderTreeView.background.quit()
 		
 		# Cancel dialog
 		super(Export, self).reject()
