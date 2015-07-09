@@ -113,6 +113,9 @@ App.directive('tlTrack', function($timeout) {
 		            			item_data.layer = drop_track_num;
 		            			item_data.position =  parseInt(item_left)/scope.pixelsPerSecond;
 		            		});	
+
+					// Resize timeline if it's too small to contain all clips
+					scope.ResizeTimeline();
 		            		
 							// update clip in Qt (very important =)
 	            			if (scope.Qt && item_type == 'clip') {

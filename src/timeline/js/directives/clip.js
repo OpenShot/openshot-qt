@@ -115,6 +115,9 @@ App.directive('tlClip', function($timeout){
 							scope.clip.start = new_left;
 							scope.clip.position += delta_time;
 						}
+
+					// Resize timeline if it's too small to contain all clips
+					scope.ResizeTimeline();
 						
 						// update clip in Qt (very important =)
             			if (scope.Qt)
@@ -138,6 +141,15 @@ App.directive('tlClip', function($timeout){
 					var delta_x = ui.originalSize.width - ui.size.width;
 					var delta_time = Math.round(delta_x/scope.pixelsPerSecond);
 
+					// Preview frame during resize
+					if (dragLoc == 'left'){
+						// Preview the left side of the clip
+						scope.PreviewFrame(scope.clip.position + delta_time);
+					} else {
+						// Preview the right side of the clip
+						scope.PreviewFrame((scope.clip.position + (scope.clip.end - scope.clip.start)) - delta_time);
+					}
+
 					// change the clip end/start based on which side was dragged
 					new_left = scope.clip.start;
 					new_right = scope.clip.end;
@@ -149,7 +161,6 @@ App.directive('tlClip', function($timeout){
 							ui.element.width(last_resizable.width + (new_left * scope.pixelsPerSecond));
 							ui.element.css("left", last_resizable.left - (new_left * scope.pixelsPerSecond));
 						}
-						console.log("new_left" + new_left);
 					} else {
 						// changing the end of the clips
 						new_right -= delta_time;

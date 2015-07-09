@@ -144,7 +144,7 @@ App.directive('tlRuler', function ($timeout) {
 
 			//watch the scale value so it will be able to draw the ruler after changes,
 			//otherwise the canvas is just reset to blank
-			scope.$watch('project.scale + markers.length', function (val) {
+			scope.$watch('project.scale + markers.length + project.duration', function (val) {
              if (val){
              	
 	            	 $timeout(function(){

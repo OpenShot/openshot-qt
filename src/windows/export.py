@@ -356,20 +356,24 @@ class Export(QDialog):
 		log.info(export_file_path)
 		
 		# Create FFmpegWriter
-		w = openshot.FFmpegWriter(export_file_path);
-		
-		# Set Audio & Video Options
-		w.SetVideoOptions(True, self.txtVideoCodec.text(), openshot.Fraction(self.txtFrameRateNum.value(), self.txtFrameRateDen.value()), self.txtWidth.value(), self.txtHeight.value(), openshot.Fraction(self.txtPixelRatioNum.value(), self.txtPixelRatioDen.value()), False, False, int(self.convert_to_bytes(self.txtVideoBitRate.text())));
-		w.SetAudioOptions(True, self.txtAudioCodec.text(), self.txtSampleRate.value(), self.txtChannels.value(), openshot.LAYOUT_STEREO, int(self.convert_to_bytes(self.txtAudioBitrate.text())));
-
-		# Open the writer
-		w.Open();
-		
-		# Write some test frames
-		w.WriteFrame(get_app().window.timeline_sync.timeline, 1, 100)
-		
-		# Close writer
-		w.Close()
+		try:
+			w = openshot.FFmpegWriter(export_file_path);
+			
+			# Set Audio & Video Options
+			w.SetVideoOptions(True, self.txtVideoCodec.text(), openshot.Fraction(self.txtFrameRateNum.value(), self.txtFrameRateDen.value()), self.txtWidth.value(), self.txtHeight.value(), openshot.Fraction(self.txtPixelRatioNum.value(), self.txtPixelRatioDen.value()), False, False, int(self.convert_to_bytes(self.txtVideoBitRate.text())));
+			w.SetAudioOptions(True, self.txtAudioCodec.text(), self.txtSampleRate.value(), self.txtChannels.value(), openshot.LAYOUT_STEREO, int(self.convert_to_bytes(self.txtAudioBitrate.text())));
+	
+			# Open the writer
+			w.Open();
+			
+			# Write some test frames
+			w.WriteFrame(get_app().window.timeline_sync.timeline, 1, 100)
+			
+			# Close writer
+			w.Close()
+			
+		except:
+			log.info("Error writing video file")
 		
 		
 		# Close dialog		

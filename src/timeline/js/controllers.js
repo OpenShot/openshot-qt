@@ -382,6 +382,24 @@ App.controller('TimelineCtrl',function($scope) {
 			 	timeline.removeSelection($scope.project.effects[tran_index].id, "transition");
 		}
  };
+
+// Find the furthest right edge on the timeline (and resize it if too small)
+ $scope.ResizeTimeline = function() {
+
+ 	// Unselect all clips
+	var furthest_right_edge = 0;
+	for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++)
+	{
+		var clip = $scope.project.clips[clip_index];
+		var right_edge = clip.position + (clip.end - clip.start);
+		if (right_edge > furthest_right_edge)
+			furthest_right_edge = right_edge;
+	}
+
+	// Resize timeline
+	if (furthest_right_edge > $scope.project.duration)
+		$scope.project.duration = furthest_right_edge + 10;
+ };
  
  // Show clip context menu
  $scope.ShowClipMenu = function(clip_id) {
@@ -463,6 +481,10 @@ App.controller('TimelineCtrl',function($scope) {
 			var item_data = $scope.project.effects[$scope.project.effects.length - 1];
 			timeline.update_transition_data(JSON.stringify(item_data));
 		}
+
+	    // Resize timeline if it's too small to contain all clips
+	    $scope.ResizeTimeline();
+		 	
  };
  
  // Move a new clip to the timeline
@@ -736,7 +758,7 @@ App.controller('TimelineCtrl',function($scope) {
 	 	if (current_object){ 
 	 		// INSERT OBJECT
 		 	if (action.type == "insert") {
-		 		
+
 		 		// Insert action's value into current_object
 		 		if (current_object.constructor == Array)
 		 			// push new element into array
@@ -794,14 +816,18 @@ App.controller('TimelineCtrl',function($scope) {
 		 			previous_object.splice(current_position, 1);
 		 		});
 		 	}
+
+		    // Resize timeline if it's too small to contain all clips
+		    $scope.ResizeTimeline();
 		 	
 		    // Re-sort clips and transitions array
 		    scope.SortItems();
+
 	 	}
 	}	
 	 
-	 // return true
-	 return true;
+	// return true
+	return true;
  };
  
  
