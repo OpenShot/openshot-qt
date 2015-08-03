@@ -26,7 +26,9 @@
  """
 
 import os
-import sys 
+import sys
+import subprocess
+import locale
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import *
@@ -109,7 +111,7 @@ class Export(QDialog):
 		
 		# Loop through sorted profiles
 		box_index = 0
-		selected_index = 0
+		self.selected_profile_index = 0
 		for profile_name in self.profile_names:
 			
 			# Add to dropdown
@@ -117,7 +119,7 @@ class Export(QDialog):
 
 			# Set default (if it matches the project)
 			if app.project.get(['profile']) == profile_name:
-				selected_index = box_index
+				self.selected_profile_index = box_index
 			
 			# increment item counter
 			box_index += 1
@@ -187,8 +189,8 @@ class Export(QDialog):
 		self.txtAspectRatioNum.setValue(profile.info.display_ratio.num)
 		self.txtAspectRatioDen.setValue(profile.info.display_ratio.den)
 		self.txtPixelRatioNum.setValue(profile.info.pixel_ratio.num)
-		self.txtPixelRatioNum.setValue(profile.info.pixel_ratio.den)
-		
+		self.txtPixelRatioDen.setValue(profile.info.pixel_ratio.den)
+
 		# Load the interlaced options
 		self.cboInterlaced.clear()
 		self.cboInterlaced.addItem(_("Yes"), "Yes")
@@ -225,15 +227,17 @@ class Export(QDialog):
 					profiles = xmldoc.getElementsByTagName("projectprofile")
 					
 					#get the basic profile
+					all_profiles = False
 					if profiles:
 						# if profiles are defined, show them
 						for profile in profiles:
 							profiles_list.append(_(profile.childNodes[0].data))
 					else:
 						# show all profiles
+						all_profiles = True
 						for profile_name in self.profile_names:
 							profiles_list.append(profile_name)
-					
+
 					#get the video bit rate(s)
 					videobitrate = xmldoc.getElementsByTagName("videobitrate")
 					for rate in videobitrate:
@@ -265,6 +269,10 @@ class Export(QDialog):
 			# init the profiles combo
 			for item in sorted(profiles_list):
 				self.cboSimpleVideoProfile.addItem(item, self.profile_paths[item])
+
+			if all_profiles:
+				# select the project's current profile
+				self.cboSimpleVideoProfile.setCurrentIndex(self.selected_profile_index)
 
 			#set the quality combo
 			#only populate with quality settings that exist
@@ -345,44 +353,78 @@ class Export(QDialog):
 
 		# return the bit rate in bytes
 		return str(int(bit_rate_bytes))
-			
-		
+
 		
 	def accept(self):
-		""" Start rendering animation, but don't close window """
+		""" Start exporting video, but don't close window """
 
-		# Determine final exported file path
-		export_file_path = os.path.join(self.txtExportFolder.text().strip(), "%s.%s" % (self.txtFileName.text().strip(), self.txtVideoFormat.text().strip()))
-		log.info(export_file_path)
+		# Test the export settings before starting, must be executed out of process
+		# to ensure we don't crash Python
+		#export_test_path = os.path.join(info.PATH, "windows", "export_test.py")
+		#process = subprocess.Popen(["python3", export_test_path, self.txtVideoFormat.text(), self.txtVideoCodec.text(), str(self.txtFrameRateNum.value()), str(self.txtFrameRateDen.value()), str(self.txtWidth.value()), str(self.txtHeight.value()), str(self.txtPixelRatioNum.value()), str(self.txtPixelRatioDen.value()), self.convert_to_bytes(self.txtVideoBitRate.text()), self.txtAudioCodec.text(), str(self.txtSampleRate.value()), str(self.txtChannels.value()), str(openshot.LAYOUT_STEREO), self.convert_to_bytes(self.txtAudioBitrate.text())], stdout=subprocess.PIPE)
+
+		# Check the version of Blender
+		test_success = False
+		# while process.poll() is None:
+		# 	output = str(process.stdout.readline())
+		# 	print (output)
+		# 	if "*SUCCESS*" in output:
+		# 		test_success = True
 		
-		# Create FFmpegWriter
-		try:
-			w = openshot.FFmpegWriter(export_file_path);
+		# Show error message (if needed)
+		if test_success:
+			# Test Failed
+			print("SORRY, SOMETHING BAD HAPPENDED... TRY AGAIN LATER")
 			
-			# Set Audio & Video Options
-			w.SetVideoOptions(True, self.txtVideoCodec.text(), openshot.Fraction(self.txtFrameRateNum.value(), self.txtFrameRateDen.value()), self.txtWidth.value(), self.txtHeight.value(), openshot.Fraction(self.txtPixelRatioNum.value(), self.txtPixelRatioDen.value()), False, False, int(self.convert_to_bytes(self.txtVideoBitRate.text())));
-			w.SetAudioOptions(True, self.txtAudioCodec.text(), self.txtSampleRate.value(), self.txtChannels.value(), openshot.LAYOUT_STEREO, int(self.convert_to_bytes(self.txtAudioBitrate.text())));
-	
-			# Open the writer
-			w.Open();
+		else:
+			# Test Succeeded
+			# Determine final exported file path
+			export_file_path = os.path.join(self.txtExportFolder.text().strip(), "%s.%s" % (self.txtFileName.text().strip(), self.txtVideoFormat.text().strip()))
+			log.info(export_file_path)
 			
-			# Write some test frames
-			w.WriteFrame(get_app().window.timeline_sync.timeline, 1, 100)
-			
-			# Close writer
-			w.Close()
-			
-		except:
-			log.info("Error writing video file")
+			# Create FFmpegWriter
+			try:
+				w = openshot.FFmpegWriter(export_file_path);
+				
+				# Set Audio & Video Options
+				w.SetVideoOptions(True, self.txtVideoCodec.text(), openshot.Fraction(self.txtFrameRateNum.value(), self.txtFrameRateDen.value()), self.txtWidth.value(), self.txtHeight.value(), openshot.Fraction(self.txtPixelRatioNum.value(), self.txtPixelRatioDen.value()), False, False, int(self.convert_to_bytes(self.txtVideoBitRate.text())));
+				w.SetAudioOptions(True, self.txtAudioCodec.text(), self.txtSampleRate.value(), self.txtChannels.value(), openshot.LAYOUT_STEREO, int(self.convert_to_bytes(self.txtAudioBitrate.text())));
+		
+				# Open the writer
+				w.Open();
+
+				# Init progress bar
+				self.progressExportVideo.setMinimum(1)
+				self.progressExportVideo.setMaximum(100)
+				
+				# Write some test frames
+				#w.WriteFrame(get_app().window.timeline_sync.timeline, 1, 100)
+				for frame in range(1, 101):
+					self.progressExportVideo.setValue(frame)
+					QCoreApplication.processEvents()
+					w.WriteFrame(get_app().window.timeline_sync.timeline.GetFrame(frame))
+				
+				# Close writer
+				w.Close()
+				
+			except:
+				log.info("Error writing video file")
 		
 		
 		# Close dialog		
 		self.close()
+
+		# Accept dialog
+		super(Export, self).accept()
+
+		log.info("End Accept")
 		
 
 	def reject(self):
 		
-		log.info("reject")
+		log.info("Start Reject")
 		
 		# Cancel dialog
 		super(Export, self).reject()
+
+		log.info("End Reject")
