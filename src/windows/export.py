@@ -91,8 +91,8 @@ class Export(QDialog):
 		self.cboSimpleTarget.currentIndexChanged.connect(functools.partial(self.cboSimpleTarget_index_changed, self.cboSimpleTarget))
 		self.cboSimpleVideoProfile.currentIndexChanged.connect(functools.partial(self.cboSimpleVideoProfile_index_changed, self.cboSimpleVideoProfile))
 		self.cboSimpleQuality.currentIndexChanged.connect(functools.partial(self.cboSimpleQuality_index_changed, self.cboSimpleQuality))
-		
-		
+
+
 		# ********* Advaned Profile List **********
 		# Loop through profiles
 		self.profile_names = []
@@ -137,11 +137,20 @@ class Export(QDialog):
 		presets = list(set(presets))
 		for item in sorted(presets):
 			self.cboSimpleProjectType.addItem(item, item)
-		
 
+		# Determine max frame (based on clips)
+		timeline_length = 0.0
+		fps = get_app().window.timeline_sync.timeline.info.fps.ToFloat()
+		clips = get_app().window.timeline_sync.timeline.Clips()
+		for clip in clips:
+			clip_last_frame = clip.Position() + clip.Duration()
+			if clip_last_frame > timeline_length:
+				# Set max length of timeline
+				timeline_length = clip_last_frame
 
-
-
+		# Convert to int and round
+		self.timeline_length_int = round(timeline_length * fps) + 1
+		log.info(self.timeline_length_int)
 
 	def cboSimpleProjectType_index_changed(self, widget, index):
 		selected_project = widget.itemData(index)
@@ -282,6 +291,9 @@ class Export(QDialog):
 				self.cboSimpleQuality.addItem(_("Med"), "Med")
 			if v_h or a_h:
 				self.cboSimpleQuality.addItem(_("High"), "High")
+
+			# Default to the highest quality setting
+			self.cboSimpleQuality.setCurrentIndex(self.cboSimpleQuality.count() - 1)
 		
 		
 	def cboSimpleVideoProfile_index_changed(self, widget, index):
@@ -383,32 +395,33 @@ class Export(QDialog):
 			log.info(export_file_path)
 			
 			# Create FFmpegWriter
-			try:
-				w = openshot.FFmpegWriter(export_file_path);
-				
-				# Set Audio & Video Options
-				w.SetVideoOptions(True, self.txtVideoCodec.text(), openshot.Fraction(self.txtFrameRateNum.value(), self.txtFrameRateDen.value()), self.txtWidth.value(), self.txtHeight.value(), openshot.Fraction(self.txtPixelRatioNum.value(), self.txtPixelRatioDen.value()), False, False, int(self.convert_to_bytes(self.txtVideoBitRate.text())));
-				w.SetAudioOptions(True, self.txtAudioCodec.text(), self.txtSampleRate.value(), self.txtChannels.value(), openshot.LAYOUT_STEREO, int(self.convert_to_bytes(self.txtAudioBitrate.text())));
-		
-				# Open the writer
-				w.Open();
+			#try:
+			w = openshot.FFmpegWriter(export_file_path);
 
-				# Init progress bar
-				self.progressExportVideo.setMinimum(1)
-				self.progressExportVideo.setMaximum(100)
+			# Set Audio & Video Options
+			w.SetVideoOptions(True, self.txtVideoCodec.text(), openshot.Fraction(self.txtFrameRateNum.value(), self.txtFrameRateDen.value()), self.txtWidth.value(), self.txtHeight.value(), openshot.Fraction(self.txtPixelRatioNum.value(), self.txtPixelRatioDen.value()), False, False, int(self.convert_to_bytes(self.txtVideoBitRate.text())));
+			w.SetAudioOptions(True, self.txtAudioCodec.text(), self.txtSampleRate.value(), self.txtChannels.value(), openshot.LAYOUT_STEREO, int(self.convert_to_bytes(self.txtAudioBitrate.text())));
+
+			# Open the writer
+			w.Open();
+
+			# Init progress bar
+			self.progressExportVideo.setMinimum(1)
+			self.progressExportVideo.setMaximum(self.timeline_length_int)
+
+			# Write some test frames
+			#w.WriteFrame(get_app().window.timeline_sync.timeline, 1, 100)
+			for frame in range(1, self.timeline_length_int):
+				log.info(frame)
+				self.progressExportVideo.setValue(frame)
+				QCoreApplication.processEvents()
+				w.WriteFrame(get_app().window.timeline_sync.timeline.GetFrame(frame))
+
+			# Close writer
+			w.Close()
 				
-				# Write some test frames
-				#w.WriteFrame(get_app().window.timeline_sync.timeline, 1, 100)
-				for frame in range(1, 101):
-					self.progressExportVideo.setValue(frame)
-					QCoreApplication.processEvents()
-					w.WriteFrame(get_app().window.timeline_sync.timeline.GetFrame(frame))
-				
-				# Close writer
-				w.Close()
-				
-			except:
-				log.info("Error writing video file")
+			#except:
+			#	log.info("Error writing video file")
 		
 		
 		# Close dialog		

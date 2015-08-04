@@ -37,7 +37,7 @@ App.controller('TimelineCtrl',function($scope) {
 		    num : 24,
 		    den : 1
 		   },
-      duration : 600,			//length of project in seconds
+      duration : 300,				//length of project in seconds
       scale : 16.0,				//seconds per tick
       tick_pixels : 100,		//pixels between tick mark
       playhead_position : 10,	//position of play head
@@ -217,6 +217,7 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.snapline = false;
   $scope.debug = false;
   $scope.border_offset = 2;
+  $scope.min_width = 1024;
   
   // Method to set if Qt is detected (which clears demo data)
   $scope.Qt = false;

@@ -56,7 +56,7 @@
 			<br class="cleared">
 			
 			<!-- PROGRESS BAR -->
-			<canvas tl-progress id="progress" width="{{project.duration * pixelsPerSecond}}px" height="3px"></canvas>	
+			<canvas tl-progress id="progress" width="{{project.duration * pixelsPerSecond}}px" height="3px" style="min-width: {{ min_width }}px;"></canvas>
  		</div>
  		<div class="cleared"></div>
 
@@ -71,9 +71,9 @@
 		</div>
 		<!-- TRACKS CONTAINER (right of screen) -->
 		<div tl-scrollable-tracks id="scrolling_tracks">
-			<div id="track-container" tl-track tl-multi-selectable style="width: {{project.duration * pixelsPerSecond}}px;">
+			<div id="track-container" tl-track tl-multi-selectable style="min-width: {{ min_width }}px; width: {{project.duration * pixelsPerSecond}}px;">
 				<!-- TRACKS -->
-				<div ng-repeat="layer in project.layers.slice().reverse()" id="track_{{layer.number}}" class="track" style="width:{{(project.duration * pixelsPerSecond) + playheadOffset}}px;">
+				<div ng-repeat="layer in project.layers.slice().reverse()" id="track_{{layer.number}}" class="track" style="min-width: {{ min_width }}px; width:{{(project.duration * pixelsPerSecond) + playheadOffset}}px;">
 				</div>
 				
 				<!-- CLIPS -->
