@@ -73,6 +73,17 @@ class Export(QDialog):
         # Default export path
         self.txtExportFolder.setText(info.HOME_PATH)
 
+        # Is this a saved project?
+        if not get_app().project.current_filepath:
+            # Not saved yet
+            self.txtFileName.setText(_("Untitled Project"))
+        else:
+            # Yes, project is saved
+            # Get just the filename
+            parent_path, filename = os.path.split(get_app().project.current_filepath)
+            filename, ext = os.path.splitext(filename)
+            self.txtFileName.setText(filename.replace("_", " ").replace("-", " ").capitalize())
+
         # Default image type
         self.txtImageFormat.setText("%05.png")
 
@@ -148,7 +159,12 @@ class Export(QDialog):
 
         # Convert to int and round
         self.timeline_length_int = round(timeline_length * fps) + 1
-        log.info(self.timeline_length_int)
+
+        # Set the min and max frame numbers for this project
+        self.txtStartFrame.setMaximum(self.timeline_length_int)
+        self.txtEndFrame.setMaximum(self.timeline_length_int)
+        self.txtStartFrame.setValue(1)
+        self.txtEndFrame.setValue(self.timeline_length_int)
 
     def cboSimpleProjectType_index_changed(self, widget, index):
         selected_project = widget.itemData(index)
@@ -415,12 +431,12 @@ class Export(QDialog):
             w.Open()
 
             # Init progress bar
-            self.progressExportVideo.setMinimum(1)
-            self.progressExportVideo.setMaximum(self.timeline_length_int)
+            self.progressExportVideo.setMinimum(self.txtStartFrame.value())
+            self.progressExportVideo.setMaximum(self.txtEndFrame.value())
 
             # Write some test frames
             # w.WriteFrame(get_app().window.timeline_sync.timeline, 1, 100)
-            for frame in range(1, self.timeline_length_int):
+            for frame in range(self.txtStartFrame.value(), self.txtEndFrame.value() + 1):
                 # Update progress bar
                 self.progressExportVideo.setValue(frame)
                 # Process events (to show the progress bar moving)

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
-    <height>438</height>
+    <width>453</width>
+    <height>479</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -340,8 +340,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>460</width>
-            <height>73</height>
+            <width>413</width>
+            <height>119</height>
            </rect>
           </property>
           <attribute name="label">
@@ -382,14 +382,80 @@
              </item>
             </layout>
            </item>
+           <item row="2" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <item>
+              <widget class="QLabel" name="lblEndFrame">
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>End Frame:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="txtEndFrame">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>99999999</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="1" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout_5">
+             <item>
+              <widget class="QLabel" name="lblStartFrame">
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Start Frame:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="txtStartFrame">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>99999999</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
           </layout>
          </widget>
          <widget class="QWidget" name="pageProfile">
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-178</y>
-            <width>447</width>
+            <y>0</y>
+            <width>271</width>
             <height>257</height>
            </rect>
           </property>
@@ -720,8 +786,8 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-38</y>
-            <width>447</width>
+            <y>0</y>
+            <width>185</width>
             <height>117</height>
            </rect>
           </property>
@@ -798,8 +864,8 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-73</y>
-            <width>447</width>
+            <y>0</y>
+            <width>208</width>
             <height>152</height>
            </rect>
           </property>

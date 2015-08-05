@@ -842,7 +842,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             # Yes, project is saved
             # Get just the filename
             parent_path, filename = os.path.split(get_app().project.current_filepath)
-            filename = filename.replace(".json", "").replace("_", " ").replace("-", " ").capitalize()
+            filename, ext = os.path.splitext(filename)
+            filename = filename.replace("_", " ").replace("-", " ").capitalize()
             self.setWindowTitle("%s [%s] - %s" % (filename, profile, "OpenShot Video Editor"))
 
     # Update undo and redo buttons enabled/disabled to available changes
