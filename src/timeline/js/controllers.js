@@ -631,7 +631,7 @@ App.controller('TimelineCtrl',function($scope) {
 				continue;
 			
 			diffs.push({'diff' : position - transition.position, 'position' : transition.position}, // left side of transition
-			           {'diff' : position - (transition.position + transition.duration + end_padding), 'position' : transition.position + transition.duration + end_padding}); // right side of transition
+			           {'diff' : position - (transition.position + (transition.end - transition.start) + end_padding), 'position' : transition.position + (transition.end - transition.start) + end_padding}); // right side of transition
 		}
 		
 		// Add playhead position to array
