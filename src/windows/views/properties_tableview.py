@@ -48,7 +48,7 @@ class PropertiesTableView(QTableView):
 	
 	def select_item(self, item_id, item_type):
 		""" Update the selected item in the properties window """
-		
+
 		# Get translation object
 		_ = get_app()._tr
 		

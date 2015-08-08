@@ -25,244 +25,298 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import os, sys, random, copy
-from classes.json_data import JsonDataStore
-from classes.updates import UpdateInterface
-from classes import info, settings
-from classes.logger import log
+import os
+import copy
+
+from classes import info
 from classes.app import get_app
-		
+
+
 # Get project data reference
 app = get_app()
 project = app.project
 
+
 class QueryObject:
-	""" This class allows one or more project data objects to be queried """
+    """ This class allows one or more project data objects to be queried """
 
-	def __init__(self):
-		""" Constructor """
-		
-		self.id = None			# Unique ID of object
-		self.key = None			# Key path to object in project data
-		self.data = None		# Data dictionary of object
-		self.type = "insert"	# Type of operation needed to save
-		
-	def save(self, OBJECT_TYPE):
-		""" Save the object back to the project data store """
-		
-		# Insert or Update this data into the project data store
-		if not self.id and self.type == "insert":
-			
-			# Insert record, and Generate id
-			self.id = project.generate_id()
+    def __init__(self):
+        """ Constructor """
 
-			# save id in data (if attribute found)
-			self.data["id"] = self.id
-				
-			# Set key (if needed)
-			if not self.key:
-				self.key = copy.deepcopy(OBJECT_TYPE.object_key)
-				self.key.append( { "id" : self.id } )
-				
-			# Insert into project data
-			app.updates.insert(copy.deepcopy(OBJECT_TYPE.object_key), self.data)
-			
-			# Mark record as 'update' now... so another call to this method won't insert it again
-			self.type = "update"
-				
-		elif self.id and self.type == "update":
+        self.id = None  # Unique ID of object
+        self.key = None  # Key path to object in project data
+        self.data = None  # Data dictionary of object
+        self.type = "insert"  # Type of operation needed to save
 
-			# Update existing project data
-			app.updates.update(self.key, self.data)
-			
-		
+    def save(self, OBJECT_TYPE):
+        """ Save the object back to the project data store """
 
-	def delete(self, OBJECT_TYPE):
-		""" Delete the object from the project data store """
-		
-		# Delete if object found and not pending insert
-		if self.id and self.type == "update":
-			# Delete from project data store
-			app.updates.delete(self.key)
-			self.type = "delete"
-			
-	
-	def filter(OBJECT_TYPE, **kwargs):
-		""" Take any arguments given as filters, and find a list of matching objects """
-		
-		# Get a list of all objects of this type
-		parent = project.get(OBJECT_TYPE.object_key)
-		matching_objects = []
+        # Insert or Update this data into the project data store
+        if not self.id and self.type == "insert":
 
-		# Loop through all children objects
-		if parent:
-			for child in parent:
-				
-				# Loop through all kwargs (and look for matches)
-				match = True
-				for key, value in kwargs.items():
-					if key in child and not child[key] == value:
-						match = False
-						break
-					
-				# Add matched record
-				if match:
-					object = OBJECT_TYPE()
-					object.id = child["id"]
-					object.key = [OBJECT_TYPE.object_name, { "id" : object.id}]
-					object.data = child
-					object.type = "update"
-					matching_objects.append(object)
-				
-		# Return matching objects
-		return matching_objects
-				
-	
-	def get(OBJECT_TYPE, **kwargs):
-		""" Take any arguments given as filters, and find the first matching object """
-		
-		# Look for matching objects
-		matching_objects = QueryObject.filter(OBJECT_TYPE, **kwargs)
-		
-		if matching_objects:
-			return matching_objects[0]
-		else:
-			return None
+            # Insert record, and Generate id
+            self.id = project.generate_id()
+
+            # save id in data (if attribute found)
+            self.data["id"] = self.id
+
+            # Set key (if needed)
+            if not self.key:
+                self.key = copy.deepcopy(OBJECT_TYPE.object_key)
+                self.key.append({"id": self.id})
+
+            # Insert into project data
+            app.updates.insert(copy.deepcopy(OBJECT_TYPE.object_key), self.data)
+
+            # Mark record as 'update' now... so another call to this method won't insert it again
+            self.type = "update"
+
+        elif self.id and self.type == "update":
+
+            # Update existing project data
+            app.updates.update(self.key, self.data)
+
+    def delete(self, OBJECT_TYPE):
+        """ Delete the object from the project data store """
+
+        # Delete if object found and not pending insert
+        if self.id and self.type == "update":
+            # Delete from project data store
+            app.updates.delete(self.key)
+            self.type = "delete"
+
+    def filter(OBJECT_TYPE, **kwargs):
+        """ Take any arguments given as filters, and find a list of matching objects """
+
+        # Get a list of all objects of this type
+        parent = project.get(OBJECT_TYPE.object_key)
+        matching_objects = []
+
+        # Loop through all children objects
+        if parent:
+            for child in parent:
+
+                # Loop through all kwargs (and look for matches)
+                match = True
+                for key, value in kwargs.items():
+                    if key in child and not child[key] == value:
+                        match = False
+                        break
+
+                # Add matched record
+                if match:
+                    object = OBJECT_TYPE()
+                    object.id = child["id"]
+                    object.key = [OBJECT_TYPE.object_name, {"id": object.id}]
+                    object.data = child
+                    object.type = "update"
+                    matching_objects.append(object)
+
+        # Return matching objects
+        return matching_objects
+
+    def get(OBJECT_TYPE, **kwargs):
+        """ Take any arguments given as filters, and find the first matching object """
+
+        # Look for matching objects
+        matching_objects = QueryObject.filter(OBJECT_TYPE, **kwargs)
+
+        if matching_objects:
+            return matching_objects[0]
+        else:
+            return None
+
 
 class Clip(QueryObject):
-	""" This class allows Clips to be queried, updated, and deleted from the project data. """
-	object_name = "clips"		# Derived classes should define this
-	object_key = [object_name]	# Derived classes should define this also
-	
-	def save(self):
-		""" Save the object back to the project data store """
-		super().save(Clip)
+    """ This class allows Clips to be queried, updated, and deleted from the project data. """
+    object_name = "clips"  # Derived classes should define this
+    object_key = [object_name]  # Derived classes should define this also
 
-	def delete(self):
-		""" Delete the object from the project data store """
-		super().delete(Clip)
+    def save(self):
+        """ Save the object back to the project data store """
+        super().save(Clip)
 
-	def filter(**kwargs):
-		""" Take any arguments given as filters, and find a list of matching objects """
-		return QueryObject.filter(Clip, **kwargs)
-		
-	def get(**kwargs):
-		""" Take any arguments given as filters, and find the first matching object """
-		return QueryObject.get(Clip, **kwargs)
+    def delete(self):
+        """ Delete the object from the project data store """
+        super().delete(Clip)
+
+    def filter(**kwargs):
+        """ Take any arguments given as filters, and find a list of matching objects """
+        return QueryObject.filter(Clip, **kwargs)
+
+    def get(**kwargs):
+        """ Take any arguments given as filters, and find the first matching object """
+        return QueryObject.get(Clip, **kwargs)
 
 
 class Transition(QueryObject):
-	""" This class allows Transitions (i.e. timeline effects) to be queried, updated, and deleted from the project data. """
-	object_name = "effects"		# Derived classes should define this
-	object_key = [object_name]	# Derived classes should define this also
-	
-	def save(self):
-		""" Save the object back to the project data store """
-		super().save(Transition)
+    """ This class allows Transitions (i.e. timeline effects) to be queried, updated, and deleted from the project data. """
+    object_name = "effects"  # Derived classes should define this
+    object_key = [object_name]  # Derived classes should define this also
 
-	def delete(self):
-		""" Delete the object from the project data store """
-		super().delete(Transition)
+    def save(self):
+        """ Save the object back to the project data store """
+        super().save(Transition)
 
-	def filter(**kwargs):
-		""" Take any arguments given as filters, and find a list of matching objects """
-		return QueryObject.filter(Transition, **kwargs)
-		
-	def get(**kwargs):
-		""" Take any arguments given as filters, and find the first matching object """
-		return QueryObject.get(Transition, **kwargs)
+    def delete(self):
+        """ Delete the object from the project data store """
+        super().delete(Transition)
+
+    def filter(**kwargs):
+        """ Take any arguments given as filters, and find a list of matching objects """
+        return QueryObject.filter(Transition, **kwargs)
+
+    def get(**kwargs):
+        """ Take any arguments given as filters, and find the first matching object """
+        return QueryObject.get(Transition, **kwargs)
 
 
 class File(QueryObject):
-	""" This class allows Files to be queried, updated, and deleted from the project data. """
-	object_name = "files"		# Derived classes should define this
-	object_key = [object_name]	# Derived classes should define this also
+    """ This class allows Files to be queried, updated, and deleted from the project data. """
+    object_name = "files"  # Derived classes should define this
+    object_key = [object_name]  # Derived classes should define this also
 
-	def save(self):
-		""" Save the object back to the project data store """
-		super().save(File)
+    def save(self):
+        """ Save the object back to the project data store """
+        super().save(File)
 
-	def delete(self):
-		""" Delete the object from the project data store """
-		super().delete(File)
-		
-	def filter(**kwargs):
-		""" Take any arguments given as filters, and find a list of matching objects """
-		return QueryObject.filter(File, **kwargs)
-		
-	def get(**kwargs):
-		""" Take any arguments given as filters, and find the first matching object """
-		return QueryObject.get(File, **kwargs)
-	
-	def absolute_path(self):
-		""" Get absolute file path of file """
-		
-		# Get project folder (if any)
-		project_folder = None
-		if project.current_filepath:
-			project_folder = os.path.dirname( project.current_filepath )	
-		
-		# Convert relative file path into absolute (if needed)
-		file_path = self.data["path"]
-		if not os.path.isabs(file_path) and project_folder:
-			file_path = os.path.abspath(os.path.join(project_folder, self.data["path"]))
-			
-		# Return absolute path of file
-		return file_path
-	
-	def relative_path(self):
-		""" Get relative path (based on the current working directory) """
-		
-		# Get absolute file path
-		file_path = self.absolute_path()
-		
-		# Convert path to relative (based on current working directory of Python)
-		file_path = os.path.relpath(file_path, info.CWD)
-		
-		# Return relative path
-		return file_path
+    def delete(self):
+        """ Delete the object from the project data store """
+        super().delete(File)
+
+    def filter(**kwargs):
+        """ Take any arguments given as filters, and find a list of matching objects """
+        return QueryObject.filter(File, **kwargs)
+
+    def get(**kwargs):
+        """ Take any arguments given as filters, and find the first matching object """
+        return QueryObject.get(File, **kwargs)
+
+    def absolute_path(self):
+        """ Get absolute file path of file """
+
+        # Get project folder (if any)
+        project_folder = None
+        if project.current_filepath:
+            project_folder = os.path.dirname(project.current_filepath)
+
+        # Convert relative file path into absolute (if needed)
+        file_path = self.data["path"]
+        if not os.path.isabs(file_path) and project_folder:
+            file_path = os.path.abspath(os.path.join(project_folder, self.data["path"]))
+
+        # Return absolute path of file
+        return file_path
+
+    def relative_path(self):
+        """ Get relative path (based on the current working directory) """
+
+        # Get absolute file path
+        file_path = self.absolute_path()
+
+        # Convert path to relative (based on current working directory of Python)
+        file_path = os.path.relpath(file_path, info.CWD)
+
+        # Return relative path
+        return file_path
 
 
 class Marker(QueryObject):
-	""" This class allows Markers to be queried, updated, and deleted from the project data. """
-	object_name = "markers"		# Derived classes should define this
-	object_key = [object_name]	# Derived classes should define this also
-	
-	def save(self):
-		""" Save the object back to the project data store """
-		super().save(Marker)
+    """ This class allows Markers to be queried, updated, and deleted from the project data. """
+    object_name = "markers"  # Derived classes should define this
+    object_key = [object_name]  # Derived classes should define this also
 
-	def delete(self):
-		""" Delete the object from the project data store """
-		super().delete(Marker)
+    def save(self):
+        """ Save the object back to the project data store """
+        super().save(Marker)
 
-	def filter(**kwargs):
-		""" Take any arguments given as filters, and find a list of matching objects """
-		return QueryObject.filter(Marker, **kwargs)
-		
-	def get(**kwargs):
-		""" Take any arguments given as filters, and find the first matching object """
-		return QueryObject.get(Marker, **kwargs)
-	
-	
+    def delete(self):
+        """ Delete the object from the project data store """
+        super().delete(Marker)
+
+    def filter(**kwargs):
+        """ Take any arguments given as filters, and find a list of matching objects """
+        return QueryObject.filter(Marker, **kwargs)
+
+    def get(**kwargs):
+        """ Take any arguments given as filters, and find the first matching object """
+        return QueryObject.get(Marker, **kwargs)
+
+
 class Track(QueryObject):
-	""" This class allows Tracks to be queried, updated, and deleted from the project data. """
-	object_name = "layers"		# Derived classes should define this
-	object_key = [object_name]	# Derived classes should define this also
-	
-	def save(self):
-		""" Save the object back to the project data store """
-		super().save(Track)
+    """ This class allows Tracks to be queried, updated, and deleted from the project data. """
+    object_name = "layers"  # Derived classes should define this
+    object_key = [object_name]  # Derived classes should define this also
 
-	def delete(self):
-		""" Delete the object from the project data store """
-		super().delete(Track)
+    def save(self):
+        """ Save the object back to the project data store """
+        super().save(Track)
 
-	def filter(**kwargs):
-		""" Take any arguments given as filters, and find a list of matching objects """
-		return QueryObject.filter(Track, **kwargs)
-		
-	def get(**kwargs):
-		""" Take any arguments given as filters, and find the first matching object """
-		return QueryObject.get(Track, **kwargs)
-	
+    def delete(self):
+        """ Delete the object from the project data store """
+        super().delete(Track)
+
+    def filter(**kwargs):
+        """ Take any arguments given as filters, and find a list of matching objects """
+        return QueryObject.filter(Track, **kwargs)
+
+    def get(**kwargs):
+        """ Take any arguments given as filters, and find the first matching object """
+        return QueryObject.get(Track, **kwargs)
+
+
+class Effect(QueryObject):
+    """ This class allows Effects to be queried, updated, and deleted from the project data. """
+    object_name = "effects"  # Derived classes should define this
+    object_key = [object_name]  # Derived classes should define this also
+
+    def save(self):
+        """ Save the object back to the project data store """
+        super().save(Effect)
+
+    def delete(self):
+        """ Delete the object from the project data store """
+        super().delete(Effect)
+
+    def filter(**kwargs):
+        """ Take any arguments given as filters, and find a list of matching objects """
+
+        # Get a list of clips
+        clips = project.get(["clips"])
+        matching_objects = []
+
+        # Loop through all clips
+        if clips:
+            for clip in clips:
+                # Loop through all effects
+                if "effects" in clip:
+                    for child in clip["effects"]:
+
+                        # Loop through all kwargs (and look for matches)
+                        match = True
+                        for key, value in kwargs.items():
+                            if key in child and not child[key] == value:
+                                match = False
+                                break
+
+                        # Add matched record
+                        if match:
+                            object = Effect()
+                            object.id = child["id"]
+                            object.key = ["clips", {"id": clip["id"]}, "effects", {"id": object.id}]
+                            object.data = child
+                            object.type = "update"
+                            matching_objects.append(object)
+
+        # Return matching objects
+        return matching_objects
+
+    def get(**kwargs):
+        """ Take any arguments given as filters, and find the first matching object """
+        # Look for matching objects
+        matching_objects = Effect.filter(**kwargs)
+
+        if matching_objects:
+            return matching_objects[0]
+        else:
+            return None

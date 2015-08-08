@@ -607,11 +607,38 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             # Find matching file
             clips = Clip.filter(id=clip_id)
             for c in clips:
+                # Clear selected clips
+                self.removeSelection(clip_id, "clip")
+
                 # Remove clip
                 c.delete()
 
-        # Clear selected clips
-        self.selected_clips = []
+    def actionRemoveEffect_trigger(self, event):
+        log.info('actionRemoveEffect_trigger')
+
+        # Loop through selected clips
+        for effect_id in self.selected_effects:
+            log.info("effect id: %s" % effect_id)
+
+            # Find matching file
+            clips = Clip.filter()
+            found_effect = None
+            for c in clips:
+                found_effect = False
+                log.info("c.data[effects]: %s" % c.data["effects"])
+
+                for effect in c.data["effects"]:
+                    if effect["id"] == effect_id:
+                        found_effect = effect
+                        break
+
+                if found_effect:
+                    # Remove found effect from clip data and save clip
+                    c.data["effects"].remove(found_effect)
+                    c.save()
+
+                    # Clear selected effects
+                    self.removeSelection(effect_id, "effect")
 
     def actionRemoveTransition_trigger(self, event):
         log.info('actionRemoveTransition_trigger')
@@ -621,11 +648,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             # Find matching file
             transitions = Transition.filter(id=tran_id)
             for t in transitions:
+                # Clear selected clips
+                self.removeSelection(tran_id, "transition")
+
                 # Remove transition
                 t.delete()
-
-        # Clear selected clips
-        self.selected_transitions = []
 
     def actionRemoveTrack_trigger(self, event):
         log.info('actionRemoveTrack_trigger')
@@ -857,6 +884,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             self.selected_clips.append(item_id)
         elif item_type == "transition" and item_id not in self.selected_transitions:
             self.selected_transitions.append(item_id)
+        elif item_type == "effect" and item_id not in self.selected_effects:
+            self.selected_effects.append(item_id)
 
         # Change selected item in properties view
         self.propertyTableView.select_item(item_id, item_type)
@@ -867,12 +896,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             self.selected_clips.remove(item_id)
         elif item_type == "transition" and item_id in self.selected_transitions:
             self.selected_transitions.remove(item_id)
+        elif item_type == "effect" and item_id in self.selected_effects:
+            self.selected_effects.remove(item_id)
 
         # Move selection to next selected clip (if any)
         if item_type == "clip" and self.selected_clips:
-            self.propertyTableView.select_item(self.selected_clips[0], "clip")
+            self.propertyTableView.select_item(self.selected_clips[0], item_type)
         elif item_type == "transition" and self.selected_transitions:
-            self.propertyTableView.select_item(self.selected_transitions[0], "transition")
+            self.propertyTableView.select_item(self.selected_transitions[0], item_type)
+        elif item_type == "effect" and self.selected_effects:
+            self.propertyTableView.select_item(self.selected_effects[0], item_type)
         else:
             # Clear selection in properties view
             self.propertyTableView.select_item("", "")
@@ -1085,6 +1118,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         self.selected_transitions = []
         self.selected_markers = []
         self.selected_tracks = []
+        self.selected_effects = []
 
         # Init fullscreen menu visibility
         self.init_fullscreen_menu()

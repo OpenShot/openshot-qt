@@ -384,6 +384,14 @@ App.controller('TimelineCtrl',function($scope) {
 		}
  };
 
+  // Select transition in scope
+ $scope.SelectEffect = function(effect_id) {
+ 	if ($scope.Qt) {
+	 	timeline.qt_log("$scope.SelectEffect");
+	 	timeline.addSelection(effect_id, "effect");
+ 	}
+ };
+
 // Find the furthest right edge on the timeline (and resize it if too small)
  $scope.ResizeTimeline = function() {
 
@@ -407,6 +415,14 @@ App.controller('TimelineCtrl',function($scope) {
  	if ($scope.Qt) {
 	 	timeline.qt_log("$scope.ShowClipMenu");
 	 	timeline.ShowClipMenu(clip_id);
+ 	}
+ };
+
+ // Show clip context menu
+ $scope.ShowEffectMenu = function(effect_id) {
+ 	if ($scope.Qt) {
+	 	timeline.qt_log("$scope.ShowEffectMenu");
+	 	timeline.ShowEffectMenu(effect_id);
  	}
  };
  

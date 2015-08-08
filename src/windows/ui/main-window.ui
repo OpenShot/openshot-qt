@@ -1206,6 +1206,18 @@
     <string>Add Track Below</string>
    </property>
   </action>
+  <action name="actionRemoveEffect">
+   <property name="icon">
+    <iconset theme="list-remove" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/list-remove.svg</normaloff>:/icons/Humanity/actions/16/list-remove.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Remove Effect</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove Effe</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="../../images/openshot.qrc"/>

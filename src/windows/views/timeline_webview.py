@@ -200,6 +200,18 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             # return menu.popup(QCursor.pos())
 
     @pyqtSlot(str)
+    def ShowEffectMenu(self, effect_id=None):
+        log.info('ShowEffectMenu: %s' % effect_id)
+
+        # Set the selected clip (if needed)
+        if effect_id not in self.window.selected_effects:
+            self.window.addSelection(effect_id, 'effect')
+
+        menu = QMenu(self)
+        menu.addAction(self.window.actionRemoveEffect)
+        return menu.popup(QCursor.pos())
+
+    @pyqtSlot(str)
     def ShowClipMenu(self, clip_id=None):
         log.info('ShowClipMenu: %s' % clip_id)
 
@@ -439,7 +451,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Loop through clips on the closest layer
         possible_clips = Clip.filter(layer=closest_layer)
         for clip in possible_clips:
-            if clip.data["position"] <= js_position <= clip.data["position"] + (clip.data["end"] - clip.data["start"]):
+            if js_position == 0 or (clip.data["position"] <= js_position <= clip.data["position"] + (clip.data["end"] - clip.data["start"])):
                 log.info("Applying effect to clip")
                 log.info(clip)
 
