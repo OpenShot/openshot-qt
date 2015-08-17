@@ -26,164 +26,159 @@
  """
 
 import os
-from urllib.parse import urlparse
-from classes import updates
+
+from PyQt5.QtCore import QMimeData, Qt
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import QMessageBox
+import openshot  # Python module for libopenshot (required video editing module installed separately)
+
 from classes import info
 from classes.logger import log
-from classes.settings import SettingStore
 from classes.app import get_app
-from PyQt5.QtCore import QMimeData, QSize, Qt, QCoreApplication, QPoint, QFileInfo
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QTreeWidget, QApplication, QMessageBox, QTreeWidgetItem, QAbstractItemView
-import openshot # Python module for libopenshot (required video editing module installed separately)
 
 try:
     import json
 except ImportError:
     import simplejson as json
 
+
 class TransitionStandardItemModel(QStandardItemModel):
-	
-	def __init__(self, parent=None):
-		QStandardItemModel.__init__(self)
-		
-	def mimeData(self, indexes):
-		
-		# Create MimeData for drag operation
-		data = QMimeData()
+    def __init__(self, parent=None):
+        QStandardItemModel.__init__(self)
 
-		# Get list of all selected file ids
-		files = []
-		for item in indexes:
-			selected_row = self.itemFromIndex(item).row()
-			files.append(self.item(selected_row, 3).text())
-		data.setText(json.dumps(files))
-		data.setHtml("transition")
+    def mimeData(self, indexes):
+        # Create MimeData for drag operation
+        data = QMimeData()
 
-		# Return Mimedata
-		return data
-		
+        # Get list of all selected file ids
+        files = []
+        for item in indexes:
+            selected_row = self.itemFromIndex(item).row()
+            files.append(self.item(selected_row, 3).text())
+        data.setText(json.dumps(files))
+        data.setHtml("transition")
+
+        # Return Mimedata
+        return data
+
+
 class TransitionsModel():
-			
-	def update_model(self, clear=True):
-		log.info("updating transitions model.")
-		app = get_app()
-		proj = app.project
+    def update_model(self, clear=True):
+        log.info("updating transitions model.")
+        app = get_app()
 
-		# Get window to check filters
-		win = app.window
-		
-		# Clear all items
-		if clear:
-			self.model_paths = {}
-			self.model.clear()
-		
-		# Add Headers
-		self.model.setHorizontalHeaderLabels(["Thumb", "Name" ])
-		
-		# get a list of files in the OpenShot /transitions directory
-		transitions_dir = os.path.join(info.PATH, "transitions")
-		common_dir = os.path.join(transitions_dir, "common")
-		extra_dir = os.path.join(transitions_dir, "extra")
-		transition_groups = [ { "type" : "common", "dir" : common_dir, "files" : os.listdir(common_dir) },
-							  { "type" : "extra", "dir" : extra_dir, "files" : os.listdir(extra_dir) } ]
-		
-		for group in transition_groups:
-			type = group["type"]
-			dir = group["dir"]
-			files = group["files"]
+        # Get window to check filters
+        win = app.window
 
-			for filename in sorted(files):
-				path = os.path.join(dir, filename)
-				(fileBaseName, fileExtension)=os.path.splitext(filename)
-				
-				# Skip hidden files (such as .DS_Store, etc...)
-				if filename[0] == "." or "thumbs.db" in filename.lower():
-					continue
-				
-				# get name of transition
-				trans_name = fileBaseName.replace("_", " ").capitalize()
-				
-				if not win.actionTransitionsShowAll.isChecked():
-					if win.actionTransitionsShowCommon.isChecked():
-						if not type == "common":
-							continue # to next file, didn't match filter
-	
-				if win.transitionsFilter.text() != "":
-					if not win.transitionsFilter.text().lower() in self.app._tr(trans_name).lower():
-						continue
-	
-				# Generate thumbnail for file (if needed)
-				thumb_path = os.path.join(info.CACHE_PATH, "{}.png".format(fileBaseName))
-				
-				# Check if thumb exists
-				if not os.path.exists(thumb_path):
+        # Clear all items
+        if clear:
+            self.model_paths = {}
+            self.model.clear()
 
-					try:
-						# Reload this reader
-						clip = openshot.Clip(path)
-						reader = clip.Reader()
+        # Add Headers
+        self.model.setHorizontalHeaderLabels(["Thumb", "Name"])
 
-						# Open reader
-						reader.Open()
+        # get a list of files in the OpenShot /transitions directory
+        transitions_dir = os.path.join(info.PATH, "transitions")
+        common_dir = os.path.join(transitions_dir, "common")
+        extra_dir = os.path.join(transitions_dir, "extra")
+        transition_groups = [{"type": "common", "dir": common_dir, "files": os.listdir(common_dir)},
+                             {"type": "extra", "dir": extra_dir, "files": os.listdir(extra_dir)}]
 
-						# Save thumbnail
-						reader.GetFrame(0).Thumbnail(thumb_path, 98, 64, os.path.join(info.IMAGES_PATH, "mask.png"), "", "#000", True)
-						reader.Close()
-						clip.Close()
+        for group in transition_groups:
+            type = group["type"]
+            dir = group["dir"]
+            files = group["files"]
 
-					except:
-						# Handle exception
-						msg = QMessageBox()
-						msg.setText(app._tr("{} is not a valid image file.".format(filename)))
-						msg.exec_()
-						continue
-				
-				row = []
-				
-				# Append thumbnail
-				col = QStandardItem()
-				col.setIcon(QIcon(thumb_path))
-				col.setText(self.app._tr(trans_name))
-				col.setToolTip(self.app._tr(trans_name))
-				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
-				row.append(col)
-				
-				# Append Filename
-				col = QStandardItem("Name")
-				col.setData(self.app._tr(trans_name), Qt.DisplayRole)
-				col.setText(self.app._tr(trans_name))
-				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
-				row.append(col)
-				
-				# Append Media Type
-				col = QStandardItem("Type")
-				col.setData(type, Qt.DisplayRole)
-				col.setText(type)
-				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
-				row.append(col)
-				
-				# Append Path
-				col = QStandardItem("Path")
-				col.setData(path, Qt.DisplayRole)
-				col.setText(path)
-				col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
-				row.append(col)
-	
-				# Append ROW to MODEL (if does not already exist in model)
-				if not path in self.model_paths:
-					self.model.appendRow(row)
-					self.model_paths[path] = path
-				
-				# Process events in QT (to keep the interface responsive)
-				app.processEvents()
+            for filename in sorted(files):
+                path = os.path.join(dir, filename)
+                (fileBaseName, fileExtension) = os.path.splitext(filename)
 
-	def __init__(self, *args):
+                # Skip hidden files (such as .DS_Store, etc...)
+                if filename[0] == "." or "thumbs.db" in filename.lower():
+                    continue
 
-		# Create standard model 
-		self.app = get_app()
-		self.model = TransitionStandardItemModel()
-		self.model.setColumnCount(4)
-		self.model_paths = {}
+                # get name of transition
+                trans_name = fileBaseName.replace("_", " ").capitalize()
 
-		
+                if not win.actionTransitionsShowAll.isChecked():
+                    if win.actionTransitionsShowCommon.isChecked():
+                        if not type == "common":
+                            continue  # to next file, didn't match filter
+
+                if win.transitionsFilter.text() != "":
+                    if not win.transitionsFilter.text().lower() in self.app._tr(trans_name).lower():
+                        continue
+
+                # Generate thumbnail for file (if needed)
+                thumb_path = os.path.join(info.CACHE_PATH, "{}.png".format(fileBaseName))
+
+                # Check if thumb exists
+                if not os.path.exists(thumb_path):
+
+                    try:
+                        # Reload this reader
+                        clip = openshot.Clip(path)
+                        reader = clip.Reader()
+
+                        # Open reader
+                        reader.Open()
+
+                        # Save thumbnail
+                        reader.GetFrame(0).Thumbnail(thumb_path, 98, 64, os.path.join(info.IMAGES_PATH, "mask.png"), "", "#000", True)
+                        reader.Close()
+                        clip.Close()
+
+                    except:
+                        # Handle exception
+                        msg = QMessageBox()
+                        msg.setText(app._tr("{} is not a valid image file.".format(filename)))
+                        msg.exec_()
+                        continue
+
+                row = []
+
+                # Append thumbnail
+                col = QStandardItem()
+                col.setIcon(QIcon(thumb_path))
+                col.setText(self.app._tr(trans_name))
+                col.setToolTip(self.app._tr(trans_name))
+                col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
+                row.append(col)
+
+                # Append Filename
+                col = QStandardItem("Name")
+                col.setData(self.app._tr(trans_name), Qt.DisplayRole)
+                col.setText(self.app._tr(trans_name))
+                col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
+                row.append(col)
+
+                # Append Media Type
+                col = QStandardItem("Type")
+                col.setData(type, Qt.DisplayRole)
+                col.setText(type)
+                col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
+                row.append(col)
+
+                # Append Path
+                col = QStandardItem("Path")
+                col.setData(path, Qt.DisplayRole)
+                col.setText(path)
+                col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
+                row.append(col)
+
+                # Append ROW to MODEL (if does not already exist in model)
+                if not path in self.model_paths:
+                    self.model.appendRow(row)
+                    self.model_paths[path] = path
+
+                # Process events in QT (to keep the interface responsive)
+                app.processEvents()
+
+    def __init__(self, *args):
+
+        # Create standard model
+        self.app = get_app()
+        self.model = TransitionStandardItemModel()
+        self.model.setColumnCount(4)
+        self.model_paths = {}

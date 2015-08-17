@@ -25,11 +25,10 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import openshot  # Python module for libopenshot (required video editing module installed separately)
-
 from classes.updates import UpdateInterface
 from classes.logger import log
 from classes.app import get_app
+import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 
 class TimelineSync(UpdateInterface):

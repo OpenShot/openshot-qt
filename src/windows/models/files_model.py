@@ -27,197 +27,192 @@
  """
 
 import os
-from urllib.parse import urlparse
+
+from PyQt5.QtCore import QMimeData, Qt
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import QMessageBox
+import openshot  # Python module for libopenshot (required video editing module installed separately)
+
 from classes import updates
 from classes import info
 from classes.query import File
 from classes.logger import log
-from classes.settings import SettingStore
 from classes.app import get_app
-from PyQt5.QtCore import QMimeData, QSize, Qt, QCoreApplication, QPoint, QFileInfo
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QTreeWidget, QApplication, QMessageBox, QTreeWidgetItem, QAbstractItemView
-import openshot # Python module for libopenshot (required video editing module installed separately)
 
 try:
     import json
 except ImportError:
     import simplejson as json
 
+
 class FileStandardItemModel(QStandardItemModel):
-	
-	def __init__(self, parent=None):
-		QStandardItemModel.__init__(self)
-		
-	def mimeData(self, indexes):
-		
-		# Create MimeData for drag operation
-		data = QMimeData()
+    def __init__(self, parent=None):
+        QStandardItemModel.__init__(self)
 
-		# Get list of all selected file ids
-		files = []
-		for item in indexes:
-			selected_row = self.itemFromIndex(item).row()
-			files.append(self.item(selected_row, 4).text())
-		data.setText(json.dumps(files))
-		data.setHtml("clip")
+    def mimeData(self, indexes):
+        # Create MimeData for drag operation
+        data = QMimeData()
 
-		# Return Mimedata
-		return data
-		
+        # Get list of all selected file ids
+        files = []
+        for item in indexes:
+            selected_row = self.itemFromIndex(item).row()
+            files.append(self.item(selected_row, 4).text())
+        data.setText(json.dumps(files))
+        data.setHtml("clip")
+
+        # Return Mimedata
+        return data
+
 
 class FilesModel(updates.UpdateInterface):
-	
-	# This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
-	def changed(self, action):
+    # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
+    def changed(self, action):
 
-		# Something was changed in the 'files' list
-		if len(action.key) >= 1 and action.key[0].lower() == "files":
-			# Refresh project files model
-			if action.type == "insert":
-				# Don't clear the existing items if only inserting new things
-				self.update_model(clear=False)
-			else:
-				# Clear existing items
-				self.update_model(clear=True)
-			
-	def update_model(self, clear=True):
-		log.info("updating files model.")
-		app = get_app()
+        # Something was changed in the 'files' list
+        if len(action.key) >= 1 and action.key[0].lower() == "files":
+            # Refresh project files model
+            if action.type == "insert":
+                # Don't clear the existing items if only inserting new things
+                self.update_model(clear=False)
+            else:
+                # Clear existing items
+                self.update_model(clear=True)
 
-		# Get window to check filters
-		win = app.window
-		
-		# Clear all items
-		if clear:
-			self.model_ids = {}
-			self.model.clear()
-		
-		# Add Headers
-		self.model.setHorizontalHeaderLabels(["Thumb", "Name", "Type" ])
-		
-		# Get list of files in project
-		files = File.filter() # get all files
-		
-		# add item for each file
-		for file in files:
-			path, filename = os.path.split(file.data["path"])
-			
-			if not win.actionFilesShowAll.isChecked():
-				if win.actionFilesShowVideo.isChecked():
-					if not file.data["media_type"] == "video":
-						continue #to next file, didn't match filter
-				elif win.actionFilesShowAudio.isChecked():
-					if not file.data["media_type"] == "audio":
-						continue #to next file, didn't match filter
-				elif win.actionFilesShowImage.isChecked():
-					if not file.data["media_type"] == "image":
-						continue #to next file, didn't match filter
-						
-			if win.filesFilter.text() != "":
-				if not win.filesFilter.text().lower() in filename.lower():
-					continue
+    def update_model(self, clear=True):
+        log.info("updating files model.")
+        app = get_app()
 
-			# Generate thumbnail for file (if needed)
-			if (file.data["media_type"] == "video" or file.data["media_type"] == "image"):
-				# Determine thumb path
-				thumb_path = os.path.join(info.THUMBNAIL_PATH, "{}.png".format(file.id))
-				
-				# Check if thumb exists
-				if not os.path.exists(thumb_path):
+        # Get window to check filters
+        win = app.window
 
-					try:
-						# Convert path to the correct relative path (based on this folder)
-						file_path = file.absolute_path()
-						
-						# Reload this reader
-						clip = openshot.Clip(file_path)
-						reader = clip.Reader()
+        # Clear all items
+        if clear:
+            self.model_ids = {}
+            self.model.clear()
 
-						# Open reader
-						reader.Open()
-						
-						# Determine if video overlay should be applied to thumbnail
-						overlay_path = ""
-						if file.data["media_type"] == "video":
-							overlay_path = os.path.join(info.IMAGES_PATH, "overlay.png")
+        # Add Headers
+        self.model.setHorizontalHeaderLabels(["Thumb", "Name", "Type"])
 
-						# Save thumbnail
-						reader.GetFrame(0).Thumbnail(thumb_path, 98, 64, os.path.join(info.IMAGES_PATH, "mask.png"), overlay_path, "#000", False)
-						reader.Close()
-						clip.Close()
-						
-					except:
-						# Handle exception
-						msg = QMessageBox()
-						msg.setText(app._tr("{} is not a valid video, audio, or image file.".format(filename)))
-						msg.exec_()
-						continue
+        # Get list of files in project
+        files = File.filter()  # get all files
+
+        # add item for each file
+        for file in files:
+            path, filename = os.path.split(file.data["path"])
+
+            if not win.actionFilesShowAll.isChecked():
+                if win.actionFilesShowVideo.isChecked():
+                    if not file.data["media_type"] == "video":
+                        continue  # to next file, didn't match filter
+                elif win.actionFilesShowAudio.isChecked():
+                    if not file.data["media_type"] == "audio":
+                        continue  # to next file, didn't match filter
+                elif win.actionFilesShowImage.isChecked():
+                    if not file.data["media_type"] == "image":
+                        continue  # to next file, didn't match filter
+
+            if win.filesFilter.text() != "":
+                if not win.filesFilter.text().lower() in filename.lower():
+                    continue
+
+            # Generate thumbnail for file (if needed)
+            if (file.data["media_type"] == "video" or file.data["media_type"] == "image"):
+                # Determine thumb path
+                thumb_path = os.path.join(info.THUMBNAIL_PATH, "{}.png".format(file.id))
+
+                # Check if thumb exists
+                if not os.path.exists(thumb_path):
+
+                    try:
+                        # Convert path to the correct relative path (based on this folder)
+                        file_path = file.absolute_path()
+
+                        # Reload this reader
+                        clip = openshot.Clip(file_path)
+                        reader = clip.Reader()
+
+                        # Open reader
+                        reader.Open()
+
+                        # Determine if video overlay should be applied to thumbnail
+                        overlay_path = ""
+                        if file.data["media_type"] == "video":
+                            overlay_path = os.path.join(info.IMAGES_PATH, "overlay.png")
+
+                        # Save thumbnail
+                        reader.GetFrame(0).Thumbnail(thumb_path, 98, 64, os.path.join(info.IMAGES_PATH, "mask.png"), overlay_path, "#000", False)
+                        reader.Close()
+                        clip.Close()
+
+                    except:
+                        # Handle exception
+                        msg = QMessageBox()
+                        msg.setText(app._tr("{} is not a valid video, audio, or image file.".format(filename)))
+                        msg.exec_()
+                        continue
 
 
-			else:
-				# Audio file
-				thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.png")
-			
+            else:
+                # Audio file
+                thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.png")
 
-			row = []
-			
-			# Append thumbnail
-			col = QStandardItem()
-			col.setIcon(QIcon(thumb_path))
-			col.setText((filename[:9] + '...') if len(filename) > 10 else filename)
-			col.setToolTip(filename)
-			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
-			row.append(col)
-			
-			# Append Filename
-			col = QStandardItem("Name")
-			col.setData(filename, Qt.DisplayRole)
-			col.setText((filename[:20] + '...') if len(filename) > 15 else filename)
-			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
-			row.append(col)
-			
-			# Append Media Type
-			col = QStandardItem("Type")
-			col.setData(file.data["media_type"], Qt.DisplayRole)
-			col.setText(file.data["media_type"])
-			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
-			row.append(col)
-			
-			# Append Path
-			col = QStandardItem("Path")
-			col.setData(path, Qt.DisplayRole)
-			col.setText(path)
-			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
-			row.append(col)
-			
-			# Append ID
-			col = QStandardItem("ID")
-			col.setData(file.data["id"], Qt.DisplayRole)
-			col.setText(file.data["id"])
-			col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
-			row.append(col)
+            row = []
 
-			# Append ROW to MODEL (if does not already exist in model)
-			if not file.data["id"] in self.model_ids:
-				self.model.appendRow(row)
-				self.model_ids[file.data["id"]] = file.data["id"]
-			
-			# Process events in QT (to keep the interface responsive)
-			app.processEvents()
-				
-			# Refresh view and filters (to hide or show this new item)
-			get_app().window.resize_contents()
+            # Append thumbnail
+            col = QStandardItem()
+            col.setIcon(QIcon(thumb_path))
+            col.setText((filename[:9] + '...') if len(filename) > 10 else filename)
+            col.setToolTip(filename)
+            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
+            row.append(col)
 
-	def __init__(self, *args):
+            # Append Filename
+            col = QStandardItem("Name")
+            col.setData(filename, Qt.DisplayRole)
+            col.setText((filename[:20] + '...') if len(filename) > 15 else filename)
+            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
+            row.append(col)
 
-		# Add self as listener to project data updates (undo/redo, as well as normal actions handled within this class all update the tree model)
-		app = get_app()
-		app.updates.add_listener(self)
+            # Append Media Type
+            col = QStandardItem("Type")
+            col.setData(file.data["media_type"], Qt.DisplayRole)
+            col.setText(file.data["media_type"])
+            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
+            row.append(col)
 
-		# Create standard model 
-		self.model = FileStandardItemModel()
-		self.model.setColumnCount(5)
-		self.model_ids = {}
+            # Append Path
+            col = QStandardItem("Path")
+            col.setData(path, Qt.DisplayRole)
+            col.setText(path)
+            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
+            row.append(col)
 
-		
+            # Append ID
+            col = QStandardItem("ID")
+            col.setData(file.data["id"], Qt.DisplayRole)
+            col.setText(file.data["id"])
+            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
+            row.append(col)
+
+            # Append ROW to MODEL (if does not already exist in model)
+            if not file.data["id"] in self.model_ids:
+                self.model.appendRow(row)
+                self.model_ids[file.data["id"]] = file.data["id"]
+
+            # Process events in QT (to keep the interface responsive)
+            app.processEvents()
+
+            # Refresh view and filters (to hide or show this new item)
+            get_app().window.resize_contents()
+
+    def __init__(self, *args):
+
+        # Add self as listener to project data updates (undo/redo, as well as normal actions handled within this class all update the tree model)
+        app = get_app()
+        app.updates.add_listener(self)
+
+        # Create standard model
+        self.model = FileStandardItemModel()
+        self.model.setColumnCount(5)
+        self.model_ids = {}

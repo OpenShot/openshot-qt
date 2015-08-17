@@ -135,8 +135,8 @@ class PropertiesModel(updates.UpdateInterface):
             requested_time = float(frame_number - 1) / fps_float
 
             # Determine the frame needed for this clip (based on the position on the timeline)
-            time_diff = (requested_time - clip.Position()) + clip.Start();
-            self.frame_number = int(time_diff * fps_float) + 1;
+            time_diff = (requested_time - clip.Position()) + clip.Start()
+            self.frame_number = int(time_diff * fps_float) + 1
 
             # Calculate biggest and smallest possible frames
             min_frame_number = int((clip.Start() * fps_float)) + 1
@@ -333,10 +333,6 @@ class PropertiesModel(updates.UpdateInterface):
 
                 # Hide filtered out properties
                 if filter and filter.lower() not in name.lower():
-                    continue
-
-                # Hide the following fields
-                if label == "hash":
                     continue
 
                 # Insert new data into model, or update existing values
