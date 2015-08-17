@@ -641,6 +641,9 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="../../images/openshot.qrc">
      <normaloff>:/icons/Humanity/actions/custom/snap.png</normaloff>:/icons/Humanity/actions/custom/snap.png</iconset>

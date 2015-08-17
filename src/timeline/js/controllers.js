@@ -179,22 +179,22 @@ App.controller('TimelineCtrl',function($scope) {
 	  markers : [
 	                {
 	                  id : 'M1',
-	                  location : 16,
+	                  position : 16,
 	                  icon : 'yellow.png'
 	                },
 	                {
 	                  id : 'M2',
-	                  location: 120,
+	                  position: 120,
 	                  icon : 'green.png'
 	                },
 	                {
 	                  id : 'M3',
-	                  location: 300,
+	                  position: 300,
 	                  icon : 'red.png'
 	                },
 	                {
 	                  id : 'M4',
-	                  location: 10,
+	                  position: 10,
 	                  icon : 'purple.png'
 	                },
               ],
@@ -215,6 +215,7 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.shift_pressed = false;
   $scope.snapline_position = 0.0;
   $scope.snapline = false;
+  $scope.enable_snapping = true;
   $scope.debug = false;
   $scope.border_offset = 2;
   $scope.min_width = 1024;
@@ -318,6 +319,13 @@ App.controller('TimelineCtrl',function($scope) {
       $scope.$apply(function(){
          $scope.project.scale = scaleVal;
          $scope.pixelsPerSecond =  parseFloat($scope.project.tick_pixels) / parseFloat($scope.project.scale);
+     });
+ };
+
+ // Change the snapping mode
+ $scope.SetSnappingMode = function(enable_snapping){
+      $scope.$apply(function(){
+         $scope.enable_snapping = enable_snapping;
      });
  };
  
@@ -626,7 +634,7 @@ App.controller('TimelineCtrl',function($scope) {
 		var pixel_position = pixel_positions[pos_index];
 		var position = pixel_position / $scope.pixelsPerSecond;
 		 
-		// Add clip position to array
+		// Add clip positions to array
 		for (var index = 0; index < $scope.project.clips.length; index++) {
 			var clip = $scope.project.clips[index];
 
@@ -638,10 +646,10 @@ App.controller('TimelineCtrl',function($scope) {
 			           {'diff' : position - (clip.position + (clip.end - clip.start) + end_padding), 'position' : clip.position + (clip.end - clip.start) + end_padding}); // right side of clip
 		}
 		
-		// Add transition position to array
+		// Add transition positions to array
 		for (var index = 0; index < $scope.project.effects.length; index++) {
 			var transition = $scope.project.effects[index];
-			
+
 			// exit out if this item is in ignore_ids
 			if (ignore_ids.hasOwnProperty(transition.id))
 				continue;
@@ -649,7 +657,15 @@ App.controller('TimelineCtrl',function($scope) {
 			diffs.push({'diff' : position - transition.position, 'position' : transition.position}, // left side of transition
 			           {'diff' : position - (transition.position + (transition.end - transition.start) + end_padding), 'position' : transition.position + (transition.end - transition.start) + end_padding}); // right side of transition
 		}
-		
+
+		// Add marker positions to array
+		for (var index = 0; index < $scope.project.markers.length; index++) {
+			var marker = $scope.project.markers[index];
+
+			diffs.push({'diff' : position - marker.position, 'position' : marker.position}, // left side of marker
+			           {'diff' : position - (marker.position + (marker.end - marker.start) + end_padding), 'position' : marker.position + (marker.end - marker.start) + end_padding}); // right side of marker
+		}
+
 		// Add playhead position to array
 		var playhead_diff = position - $scope.project.playhead_position;
 		diffs.push({'diff' : playhead_diff, 'position' : $scope.project.playhead_position });
@@ -699,8 +715,7 @@ App.controller('TimelineCtrl',function($scope) {
 		// Loop through each layer (looking for the closest track based on Y coordinate)
 		for (var layer_index = $scope.project.layers.length - 1; layer_index >= 0 ; layer_index--) {
 			var layer = $scope.project.layers[layer_index];
-			timeline.qt_log(layer); 
-			
+
 			// Compare position of track to Y param
 			if (layer.y > y)
 				// return first matching layer

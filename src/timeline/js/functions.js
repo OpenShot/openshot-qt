@@ -292,16 +292,18 @@ function moveBoundingBox(scope, element, previous_x, previous_y, x_offset, y_off
     var snapline_position = results[1];
 
     if (snapline_position) {
-    	snapped = true; 
-    	
     	// Show snapping line
     	scope.ShowSnapline(snapline_position);
 
-    	// Snap bounding box to this position
-    	x_offset -= nearby_offset;
-    	bounding_box.left -= nearby_offset;
-    	bounding_box.right -= nearby_offset;
-		ui.position.left -= nearby_offset;
+        if (scope.enable_snapping) {
+    	    snapped = true;
+
+            // Snap bounding box to this position
+            x_offset -= nearby_offset;
+            bounding_box.left -= nearby_offset;
+            bounding_box.right -= nearby_offset;
+            ui.position.left -= nearby_offset;
+        }
 		
     } else {
 	    // Hide snapline

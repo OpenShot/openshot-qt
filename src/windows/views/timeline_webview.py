@@ -279,6 +279,13 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         code = JS_SCOPE_SELECTOR + ".MovePlayheadToFrame(" + str(position_frames) + ");"
         self.eval_js(code)
 
+    @pyqtSlot(int)
+    def SetSnappingMode(self, enable_snapping):
+        """ Enable / Disable snapping mode """
+
+        # Init snapping state (1 = snapping, 0 = no snapping)
+        self.eval_js(JS_SCOPE_SELECTOR + ".SetSnappingMode(%s);" % int(enable_snapping))
+
     @pyqtSlot(str, str)
     def addSelection(self, item_id, item_type):
         """ Add the selected item to the current selection """
@@ -321,6 +328,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Export self as a javascript object in webview
         self.page().mainFrame().addToJavaScriptWindowObject('timeline', self)
         self.page().mainFrame().addToJavaScriptWindowObject('mainWindow', self.window)
+
+        # Initialize snapping mode
+        self.SetSnappingMode(self.window.actionSnappingTool.isChecked())
 
     def dragEnterEvent(self, event):
 

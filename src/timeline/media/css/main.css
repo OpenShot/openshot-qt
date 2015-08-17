@@ -46,7 +46,7 @@ img {
 /* Playhead */
 .playhead-line { z-index: 9998; position: absolute; height:316px; top:0px; margin-left: 8px; width:1px; background-color:#ff0024; opacity:1;}
 .playhead-line-small { z-index: 9999; position: absolute; height:20px; top:32px;; margin-left: 12px; width:1px; background-color:#ff0024; opacity:1;}
-.playhead-top { z-index: 9999; position: absolute; margin-left: -4px; margin-top: 12px; width:25px; height:32px; background-image: url(../images/play_head.png); opacity:1;cursor:pointer;}
+.playhead-top { cursor:move; z-index: 9999; position: absolute; margin-left: -4px; margin-top: 12px; width:25px; height:32px; background-image: url(../images/play_head.png); opacity:1;}
 .marker {position:absolute; top:30px;}
 
 /* Clips */

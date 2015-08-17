@@ -160,6 +160,9 @@ class PropertiesModel(updates.UpdateInterface):
             log.info("value_updated: ignored")
             return
 
+        # Get translation method
+        _ = get_app()._tr
+
         # Determine what was changed
         property = self.model.item(item.row(), 0).data()
         property_name = property[1]["name"]
@@ -170,7 +173,19 @@ class PropertiesModel(updates.UpdateInterface):
 
         # Get value (if any)
         if item.text():
-            new_value = float(item.text())
+            # Set and format value based on property type
+            if property_type == "string":
+                # Use string value
+                new_value = item.text()
+            elif property_type == "bool":
+                # Use boolean value
+                if item.text() == _("False"):
+                    new_value = False
+                else:
+                    new_value = True
+            else:
+                # Use numeric value
+                new_value = float(item.text())
         else:
             new_value = None
 
@@ -274,6 +289,7 @@ class PropertiesModel(updates.UpdateInterface):
     def update_model(self, filter=""):
         log.info("updating clip properties model.")
         app = get_app()
+        _ = app._tr
 
         # Check for a selected clip
         if self.selected and self.selected[0]:
@@ -282,20 +298,12 @@ class PropertiesModel(updates.UpdateInterface):
             # Get raw unordered JSON properties
             raw_properties = json.loads(c.PropertiesJSON(self.frame_number))
             all_properties = OrderedDict(sorted(raw_properties.items(), key=lambda x: x[1]['name']))
-
             log.info("Getting properties for frame %s: %s" % (self.frame_number, str(all_properties)))
 
-            # Check if the properties changed for this clip?
-            hash = "%s-%s" % (filter, raw_properties["hash"]["memo"])
-            if hash != self.previous_hash:
-                self.previous_hash = hash
-
-                if self.previous_filter != filter:
-                    self.previous_filter = filter
-                    self.new_item = True  # filter changed, so we need to regenerate the entire model
-            else:
-                # Properties don't need to be updated (they haven't changed)
-                return
+            # Check if filter was changed (if so, wipe previous model data)
+            if self.previous_filter != filter:
+                self.previous_filter = filter
+                self.new_item = True  # filter changed, so we need to regenerate the entire model
 
             # Ignore any events from this method
             self.ignore_update_signal = True
@@ -305,8 +313,6 @@ class PropertiesModel(updates.UpdateInterface):
                 # Prepare for new properties
                 self.items = {}
                 self.model.clear()
-
-                log.info("Clear property model: %s" % raw_properties["hash"]["memo"])
 
                 # Add Headers
                 self.model.setHorizontalHeaderLabels(["Property", "Value"])
@@ -329,24 +335,42 @@ class PropertiesModel(updates.UpdateInterface):
                 if filter and filter.lower() not in name.lower():
                     continue
 
+                # Hide the following fields
+                if label == "hash":
+                    continue
+
                 # Insert new data into model, or update existing values
                 row = []
                 if self.new_item:
 
                     # Append Property Name
                     col = QStandardItem("Property")
-                    col.setText(label)
+                    col.setText(_(label))
                     col.setData(property)
                     if keyframe and points > 1:
                         col.setBackground(QColor("green"))  # Highlight keyframe background
                     elif points > 1:
                         col.setBackground(QColor(42, 130, 218))  # Highlight interpolated value background
-                    col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+                    if readonly:
+                        col.setFlags(Qt.ItemIsEnabled)
+                    else:
+                        col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
                     row.append(col)
 
                     # Append Value
                     col = QStandardItem("Value")
-                    col.setText("%0.2f" % value)
+                    if type == "string":
+                        # Use string value
+                        col.setText(memo)
+                    elif type == "bool":
+                        # Use boolean value
+                        if value:
+                            col.setText(_("True"))
+                        else:
+                            col.setText(_("False"))
+                    else:
+                        # Use numeric value
+                        col.setText("%0.2f" % value)
                     col.setData((c.Id(), item_type))
                     if points > 1:
                         # Apply icon to cell
@@ -361,7 +385,10 @@ class PropertiesModel(updates.UpdateInterface):
                         else:
                             col.setBackground(QColor(42, 130, 218))  # Highlight interpolated value background
 
-                    col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsEditable)
+                    if readonly:
+                        col.setFlags(Qt.ItemIsEnabled)
+                    else:
+                        col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsEditable)
                     row.append(col)
 
                     # Append ROW to MODEL (if does not already exist in model)
@@ -384,7 +411,18 @@ class PropertiesModel(updates.UpdateInterface):
 
                     # Get 2nd Column
                     col = self.items[name]["row"][1]
-                    col.setText("%0.2f" % value)
+                    if type == "string":
+                        # Use string value
+                        col.setText(memo)
+                    elif type == "bool":
+                        # Use boolean value
+                        if value:
+                            col.setText(_("True"))
+                        else:
+                            col.setText(_("False"))
+                    else:
+                        # Use numeric value
+                        col.setText("%0.2f" % value)
 
                     if points > 1:
                         # Apply icon to cell

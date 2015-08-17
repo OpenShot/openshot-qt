@@ -309,7 +309,7 @@ class TestQueryClass(unittest.TestCase):
 		# Insert into project data
 		query_file = File()
 		query_file.data = file_data
-		query_file.data["path"] = os.path.join(PATH, "images", "NoThumbnail.png")
+		query_file.data["path"] = os.path.join(PATH, "images", "openshot.png")
 		query_file.data["media_type"] = "image"
 		query_file.save()
 		

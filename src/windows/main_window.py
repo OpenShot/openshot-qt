@@ -420,8 +420,27 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
     def actionJumpStart_trigger(self, event):
         log.info("actionJumpStart_trigger")
 
+        # Seek to the 1st frame
+        self.preview_thread.player.Seek(1)
+
     def actionJumpEnd_trigger(self, event):
         log.info("actionJumpEnd_trigger")
+
+        # Determine max frame (based on clips)
+        timeline_length = 0.0
+        fps = get_app().window.timeline_sync.timeline.info.fps.ToFloat()
+        clips = get_app().window.timeline_sync.timeline.Clips()
+        for clip in clips:
+            clip_last_frame = clip.Position() + clip.Duration()
+            if clip_last_frame > timeline_length:
+                # Set max length of timeline
+                timeline_length = clip_last_frame
+
+        # Convert to int and round
+        timeline_length_int = round(timeline_length * fps) + 1
+
+        # Seek to the 1st frame
+        self.preview_thread.player.Seek(timeline_length_int)
 
     def actionAddTrack_trigger(self, event):
         log.info("actionAddTrack_trigger")
@@ -459,12 +478,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
     def actionArrowTool_trigger(self, event):
         log.info("actionArrowTool_trigger")
 
-    def actionRazorTool_trigger(self, event):
-        log.info("actionRazorTool_trigger")
-
     def actionSnappingTool_trigger(self, event):
         log.info("actionSnappingTool_trigger")
         log.info(self.actionSnappingTool.isChecked())
+
+        # Enable / Disable snapping mode
+        self.timeline.SetSnappingMode(self.actionSnappingTool.isChecked())
 
     def actionAddMarker_trigger(self, event):
         log.info("actionAddMarker_trigger")
@@ -481,14 +500,67 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Look for existing Marker
         marker = Marker()
-        marker.data = {"location": position, "icon": "blue.png"}
+        marker.data = {"position": position, "icon": "blue.png"}
         marker.save()
 
     def actionPreviousMarker_trigger(self, event):
         log.info("actionPreviousMarker_trigger")
 
+        # Calculate current position (in seconds)
+        fps = get_app().project.get(["fps"])
+        fps_float = float(fps["num"]) / float(fps["den"])
+        current_position = self.preview_thread.current_frame / fps_float
+
+        # Loop through all markers, and find the closest one to the left
+        closest_position = None
+        for marker in Marker.filter():
+            marker_position = marker.data["position"]
+
+            # Is marker smaller than position?
+            if marker_position < current_position:
+                # Is marker larger than previous marker
+                if closest_position and marker_position > closest_position:
+                    # Set a new closest marker
+                    closest_position = marker_position
+                elif not closest_position:
+                    # First one found
+                    closest_position = marker_position
+
+        # Seek to marker position (if any)
+        if closest_position:
+            # Seek
+            frame_to_seek = int(closest_position * fps_float)
+            self.preview_thread.player.Seek(frame_to_seek)
+
     def actionNextMarker_trigger(self, event):
         log.info("actionNextMarker_trigger")
+        log.info(self.preview_thread.current_frame)
+
+        # Calculate current position (in seconds)
+        fps = get_app().project.get(["fps"])
+        fps_float = float(fps["num"]) / float(fps["den"])
+        current_position = self.preview_thread.current_frame / fps_float
+
+        # Loop through all markers, and find the closest one to the right
+        closest_position = None
+        for marker in Marker.filter():
+            marker_position = marker.data["position"]
+
+            # Is marker smaller than position?
+            if marker_position > current_position:
+                # Is marker larger than previous marker
+                if closest_position and marker_position < closest_position:
+                    # Set a new closest marker
+                    closest_position = marker_position
+                elif not closest_position:
+                    # First one found
+                    closest_position = marker_position
+
+        # Seek to marker position (if any)
+        if closest_position:
+            # Seek
+            frame_to_seek = int(closest_position * fps_float)
+            self.preview_thread.player.Seek(frame_to_seek)
 
     def keyPressEvent(self, event):
         """ Add some shortkey for Player """
@@ -1050,15 +1122,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         self.timelineToolbar.addAction(self.actionAddTrack)
         self.timelineToolbar.addSeparator()
-
-        # Create togglable group of actions for selecting current tool
-        self.toolActionGroup = QActionGroup(self)
-        self.toolActionGroup.setExclusive(True)
-        self.toolActionGroup.addAction(self.actionArrowTool)
-        self.toolActionGroup.addAction(self.actionRazorTool)
-        self.actionArrowTool.setChecked(True)
-        self.timelineToolbar.addAction(self.actionArrowTool)
-        self.timelineToolbar.addAction(self.actionRazorTool)
 
         # rest of options
         self.timelineToolbar.addAction(self.actionSnappingTool)
