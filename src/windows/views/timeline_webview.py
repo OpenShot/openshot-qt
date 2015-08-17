@@ -467,6 +467,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
                 # Create Effect
                 effect = None
+                if name == "brightness":
+                    effect = openshot.Brightness()
                 if name == "chromakey":
                     effect = openshot.ChromaKey()
                 elif name == "deinterlace":
@@ -475,6 +477,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                     effect = openshot.Mask()
                 elif name == "negate":
                     effect = openshot.Negate()
+                elif name == "saturation":
+                    effect = openshot.Saturation()
 
                 # Get Effect JSON
                 effect.Id(get_app().project.generate_id())

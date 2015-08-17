@@ -127,6 +127,19 @@ class PropertiesModel(updates.UpdateInterface):
         if self.selected:
             clip, item_type = self.selected[0]
 
+            # If effect, find the position of the parent clip
+            if item_type == "effect":
+                # find parent clip
+                parent_clip_id = Effect.get(id=clip.Id()).parent["id"]
+
+                # Find this clip object
+                clips = get_app().window.timeline_sync.timeline.Clips()
+                for c in clips:
+                    if c.Id() == parent_clip_id:
+                        # Override the selected clip object (so the effect gets the correct starting position)
+                        clip = c
+                        break
+
             # Get FPS from project
             fps = get_app().project.get(["fps"])
             fps_float = float(fps["num"]) / float(fps["den"])
@@ -157,7 +170,6 @@ class PropertiesModel(updates.UpdateInterface):
         """ Table cell change event - also handles context menu to update interpolation value """
 
         if self.ignore_update_signal:
-            log.info("value_updated: ignored")
             return
 
         # Get translation method

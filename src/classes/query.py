@@ -46,6 +46,7 @@ class QueryObject:
         self.id = None  # Unique ID of object
         self.key = None  # Key path to object in project data
         self.data = None  # Data dictionary of object
+        self.parent = None # Only used with effects (who belong to clips)
         self.type = "insert"  # Type of operation needed to save
 
     def save(self, OBJECT_TYPE):
@@ -306,6 +307,7 @@ class Effect(QueryObject):
                             object.key = ["clips", {"id": clip["id"]}, "effects", {"id": object.id}]
                             object.data = child
                             object.type = "update"
+                            object.parent = clip
                             matching_objects.append(object)
 
         # Return matching objects
