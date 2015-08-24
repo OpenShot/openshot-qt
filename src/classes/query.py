@@ -32,6 +32,7 @@ from classes import info
 from classes.app import get_app
 
 
+
 # Get project data reference
 app = get_app()
 project = app.project
@@ -46,7 +47,7 @@ class QueryObject:
         self.id = None  # Unique ID of object
         self.key = None  # Key path to object in project data
         self.data = None  # Data dictionary of object
-        self.parent = None # Only used with effects (who belong to clips)
+        self.parent = None  # Only used with effects (who belong to clips)
         self.type = "insert"  # Type of operation needed to save
 
     def save(self, OBJECT_TYPE):

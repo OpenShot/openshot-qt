@@ -25,10 +25,11 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+import openshot  # Python module for libopenshot (required video editing module installed separately)
+
 from classes.updates import UpdateInterface
 from classes.logger import log
 from classes.app import get_app
-import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 
 class TimelineSync(UpdateInterface):
@@ -44,7 +45,8 @@ class TimelineSync(UpdateInterface):
         height = project.get(["height"])
 
         # Create an instance of a libopenshot Timeline object
-        self.timeline = openshot.Timeline(width, height, openshot.Fraction(fps["num"], fps["den"]), 48000, 2, openshot.LAYOUT_STEREO)
+        self.timeline = openshot.Timeline(width, height, openshot.Fraction(fps["num"], fps["den"]), 48000, 2,
+                                          openshot.LAYOUT_STEREO)
         self.timeline.info.channel_layout = openshot.LAYOUT_STEREO
         self.timeline.info.has_audio = True
         self.timeline.info.has_video = True

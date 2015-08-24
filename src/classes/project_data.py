@@ -27,7 +27,11 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import os, sys, random, copy, shutil
+import os
+import random
+import copy
+import shutil
+
 from classes.json_data import JsonDataStore
 from classes.updates import UpdateInterface
 from classes import info, settings
@@ -104,12 +108,16 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
                 # Check current obj type (should be dictionary)
                 if not isinstance(obj, dict):
-                    log.warn("Invalid project data structure. Trying to use a key on a non-dictionary object. Key part: {} (\"{}\").\nKey: {}".format((key_index), key_part, key))
+                    log.warn(
+                        "Invalid project data structure. Trying to use a key on a non-dictionary object. Key part: {} (\"{}\").\nKey: {}".format(
+                            (key_index), key_part, key))
                     return None
 
                 # If next part of path isn't in current dictionary, return failure
                 if not key_part in obj:
-                    log.warn("Key not found in project. Mismatch on key part {} (\"{}\").\nKey: {}".format((key_index), key_part, key))
+                    log.warn("Key not found in project. Mismatch on key part {} (\"{}\").\nKey: {}".format((key_index),
+                                                                                                           key_part,
+                                                                                                           key))
                     return None
 
                 # Get the matching item
@@ -125,7 +133,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
     def _set(self, key, values=None, add=False, partial_update=False, remove=False):
         """ Store setting, but adding isn't allowed. All possible settings must be in default settings file. """
 
-        log.info("_set key: {} values: {} add: {} partial: {} remove: {}".format(key, values, add, partial_update, remove))
+        log.info(
+            "_set key: {} values: {} add: {} partial: {} remove: {}".format(key, values, add, partial_update, remove))
         parent, my_key = None, ""
 
         # Verify key is valid type
@@ -187,7 +196,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
                 # If next part of path isn't in current dictionary, return failure
                 if not key_part in obj:
-                    log.warn("Key not found in project. Mismatch on key part {} (\"{}\").\nKey: {}".format((key_index), key_part, key))
+                    log.warn("Key not found in project. Mismatch on key part {} (\"{}\").\nKey: {}".format((key_index),
+                                                                                                           key_part,
+                                                                                                           key))
                     return None
 
                 # Get sub-object based on part key as new object, continue to next part

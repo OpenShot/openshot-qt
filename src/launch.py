@@ -40,29 +40,31 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import sys, os
+import sys
+
 from classes import info
 from classes.app import OpenShotApp
 from classes.logger import log
 
+
 def main():
-	""""Initialize settings (not implemented) and create main window/application."""
-	
-	# Display version and exit (if requested)
-	if "--version" in sys.argv:
-		print ("OpenShot version %s" % info.SETUP['version'])
-		exit()
+    """"Initialize settings (not implemented) and create main window/application."""
 
-	log.info("--------------------------------")
-	log.info("   OpenShot (version %s)" % info.SETUP['version'])
-	log.info("--------------------------------")
-	
-	# Create Qt application
-	app = OpenShotApp(sys.argv)
-	
-	# Run and return result
-	sys.exit(app.run())
+    # Display version and exit (if requested)
+    if "--version" in sys.argv:
+        print("OpenShot version %s" % info.SETUP['version'])
+        exit()
+
+    log.info("------------------------------------------------")
+    log.info("   OpenShot (version %s)" % info.SETUP['version'])
+    log.info("------------------------------------------------")
+
+    # Create Qt application
+    app = OpenShotApp(sys.argv)
+
+    # Run and return result
+    sys.exit(app.run())
 
 
-if __name__ == '__main__':
-	main()
+if __name__ == "__main__":
+    main()
