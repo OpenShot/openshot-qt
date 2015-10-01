@@ -66,7 +66,7 @@ class PreviewParent(QObject):
         self.parent = parent
         self.timeline = timeline
 
-        # Background Worker Thread (for Blender process)
+        # Background Worker Thread (for preview video process)
         self.background = QThread(self)
         self.worker = PlayerWorker()  # no parent!
 

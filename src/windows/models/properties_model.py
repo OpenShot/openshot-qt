@@ -166,6 +166,155 @@ class PropertiesModel(updates.UpdateInterface):
             # Update the model data
             self.update_model(get_app().window.txtPropertyFilter.text())
 
+    def remove_keyframe(self, item):
+        """Remove an existing keyframe (if any)"""
+
+        # Determine what was changed
+        property = self.model.item(item.row(), 0).data()
+        property_name = property[1]["name"]
+        property_type = property[1]["type"]
+        closest_point_x = property[1]["closest_point_x"]
+        property_type = property[1]["type"]
+        property_key = property[0]
+        clip_id, item_type = item.data()
+
+        # Find this clip
+        c = None
+        clip_updated = False
+
+        if item_type == "clip":
+            # Get clip object
+            c = Clip.get(id=clip_id)
+        elif item_type == "transition":
+            # Get transition object
+            c = Transition.get(id=clip_id)
+        elif item_type == "effect":
+            # Get effect object
+            c = Effect.get(id=clip_id)
+
+        if c:
+            # Update clip attribute
+            if property_key in c.data:
+                log.info(c.data)
+
+                # Determine type of keyframe (normal or color)
+                keyframe_list = []
+                if property_type == "color":
+                    keyframe_list = [c.data[property_key]["red"], c.data[property_key]["blue"], c.data[property_key]["green"]]
+                else:
+                    keyframe_list = [c.data[property_key]]
+
+                # Loop through each keyframe (red, blue, and green)
+                for keyframe in keyframe_list:
+
+                    # Keyframe
+                    # Loop through points, find a matching points on this frame
+                    point_to_delete = None
+                    for point in keyframe["Points"]:
+                        log.info("looping points: co.X = %s" % point["co"]["X"])
+                        if point["co"]["X"] == self.frame_number:
+                            # Found point, Update value
+                            clip_updated = True
+                            point_to_delete = point
+                            break
+
+                    # Delete point (if needed)
+                    if point_to_delete:
+                        clip_updated = True
+                        log.info("Found point to delete at X=%s" % point_to_delete["co"]["X"])
+                        keyframe["Points"].remove(point_to_delete)
+
+                # Reduce # of clip properties we are saving (performance boost)
+                c.data = {property_key: c.data[property_key]}
+
+                # Save changes
+                if clip_updated:
+                    # Save
+                    c.save()
+
+                    # Update the preview
+                    get_app().window.preview_thread.refreshFrame()
+
+                # Clear selection
+                self.parent.clearSelection()
+
+    def color_update(self, item, new_color, interpolation=-1):
+        """Insert/Update a color keyframe for the selected row"""
+
+        # Determine what was changed
+        property = self.model.item(item.row(), 0).data()
+        property_name = property[1]["name"]
+        property_type = property[1]["type"]
+        closest_point_x = property[1]["closest_point_x"]
+        property_type = property[1]["type"]
+        property_key = property[0]
+        clip_id, item_type = item.data()
+
+        if property_type == "color":
+            # Find this clip
+            c = None
+            clip_updated = False
+
+            if item_type == "clip":
+                # Get clip object
+                c = Clip.get(id=clip_id)
+            elif item_type == "transition":
+                # Get transition object
+                c = Transition.get(id=clip_id)
+            elif item_type == "effect":
+                # Get effect object
+                c = Effect.get(id=clip_id)
+
+            if c:
+                # Update clip attribute
+                if property_key in c.data:
+                    log.info(c.data)
+
+                    # Loop through each keyframe (red, blue, and green)
+                    for color, new_value in [("red", new_color.red()), ("blue", new_color.blue()), ("green", new_color.green())]:
+
+                        # Keyframe
+                        # Loop through points, find a matching points on this frame
+                        found_point = False
+                        for point in c.data[property_key][color]["Points"]:
+                            log.info("looping points: co.X = %s" % point["co"]["X"])
+                            if interpolation == -1 and point["co"]["X"] == self.frame_number:
+                                # Found point, Update value
+                                found_point = True
+                                clip_updated = True
+                                # Update point
+                                point["co"]["Y"] = new_value
+                                log.info("updating point: co.X = %s to value: %s" % (point["co"]["X"], float(new_value)))
+                                break
+
+                            elif interpolation > -1 and point["co"]["X"] == closest_point_x:
+                                # Only update interpolation type
+                                found_point = True
+                                clip_updated = True
+                                point["interpolation"] = interpolation
+                                log.info("updating interpolation mode point: co.X = %s to %s" % (point["co"]["X"], interpolation))
+                                break
+
+                        # Create new point (if needed)
+                        if not found_point:
+                            clip_updated = True
+                            log.info("Created new point at X=%s" % self.frame_number)
+                            c.data[property_key][color]["Points"].append({'co': {'X': self.frame_number, 'Y': new_value}, 'interpolation': 1})
+
+                # Reduce # of clip properties we are saving (performance boost)
+                c.data = {property_key: c.data[property_key]}
+
+                # Save changes
+                if clip_updated:
+                    # Save
+                    c.save()
+
+                    # Update the preview
+                    get_app().window.preview_thread.refreshFrame()
+
+                # Clear selection
+                self.parent.clearSelection()
+
     def value_updated(self, item, interpolation=-1):
         """ Table cell change event - also handles context menu to update interpolation value """
 
@@ -376,6 +525,9 @@ class PropertiesModel(updates.UpdateInterface):
                             col.setText(_("True"))
                         else:
                             col.setText(_("False"))
+                    elif type == "color":
+                        # Don't output a value for colors
+                        col.setText("")
                     else:
                         # Use numeric value
                         col.setText("%0.2f" % value)
@@ -393,7 +545,16 @@ class PropertiesModel(updates.UpdateInterface):
                         else:
                             col.setBackground(QColor(42, 130, 218))  # Highlight interpolated value background
 
+                    if type == "color":
+                        # Color needs to be handled special
+                        red = property[1]["red"]["value"]
+                        green = property[1]["green"]["value"]
+                        blue = property[1]["blue"]["value"]
+                        col.setBackground(QColor(red, green, blue))
+
                     if readonly:
+                        col.setFlags(Qt.ItemIsEnabled)
+                    elif type == "color":
                         col.setFlags(Qt.ItemIsEnabled)
                     else:
                         col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsEditable)
@@ -407,6 +568,8 @@ class PropertiesModel(updates.UpdateInterface):
                     # Get 1st Column
                     col = self.items[name]["row"][0]
                     col.setData(property)
+
+                    # For non-color types, update the background color
                     if keyframe and points > 1:
                         col.setBackground(QColor("green"))  # Highlight keyframe background
                     elif points > 1:
@@ -428,6 +591,9 @@ class PropertiesModel(updates.UpdateInterface):
                             col.setText(_("True"))
                         else:
                             col.setText(_("False"))
+                    elif type == "color":
+                        # Don't output a value for colors
+                        col.setText("")
                     else:
                         # Use numeric value
                         col.setText("%0.2f" % value)
@@ -442,9 +608,22 @@ class PropertiesModel(updates.UpdateInterface):
                             col.setBackground(QColor("green"))  # Highlight keyframe background
                         else:
                             col.setBackground(QColor(42, 130, 218))  # Highlight interpolated value background
+
                     else:
                         # clear background color
                         col.setBackground(QStandardItem("Empty").background())
+
+                        # clear icon
+                        my_icon = QPixmap()
+                        col.setData(my_icon, Qt.DecorationRole)
+
+
+                    if type == "color":
+                        # Update the color based on the color curves
+                        red = property[1]["red"]["value"]
+                        green = property[1]["green"]["value"]
+                        blue = property[1]["blue"]["value"]
+                        col.setBackground(QColor(red, green, blue))
 
                     # Update helper dictionary
                     row.append(col)

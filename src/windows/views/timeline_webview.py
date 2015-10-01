@@ -112,7 +112,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         fps_float = float(fps["num"]) / float(fps["den"])
 
         # Open up QtImageReader for transition Image
-        transition_reader = openshot.QtImageReader(os.path.join(info.PATH, "transitions", "extra", "wipe_diagonal_2.png"))
+        transition_reader = openshot.QtImageReader(
+            os.path.join(info.PATH, "transitions", "extra", "wipe_diagonal_2.png"))
 
         # Generate transition object
         transition_object = openshot.Mask()
@@ -262,7 +263,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
     @pyqtSlot(float, int, str)
     def PlayheadMoved(self, position_seconds, position_frames, time_code):
-        log.info("PlayheadMoved - position_seconds: %s, position_frames: %s, time_code: %s" % (position_seconds, position_frames, time_code))
+        log.info("PlayheadMoved - position_seconds: %s, position_frames: %s, time_code: %s" % (
+        position_seconds, position_frames, time_code))
 
         if self.last_position_frames != position_frames:
             # Update time code (to prevent duplicate previews)
@@ -453,7 +455,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Find the closest track (from javascript)
         closest_track_num = int(self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack(" + str(position.y()) + ");"))
-        closest_layer = closest_track_num + 1 # convert track number to layer position
+        closest_layer = closest_track_num + 1  # convert track number to layer position
 
         # Find position from javascript
         js_position = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition(" + str(position.x()) + ");")
@@ -461,7 +463,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Loop through clips on the closest layer
         possible_clips = Clip.filter(layer=closest_layer)
         for clip in possible_clips:
-            if js_position == 0 or (clip.data["position"] <= js_position <= clip.data["position"] + (clip.data["end"] - clip.data["start"])):
+            if js_position == 0 or (clip.data["position"] <= js_position <= clip.data["position"] + (
+                clip.data["end"] - clip.data["start"])):
                 log.info("Applying effect to clip")
                 log.info(clip)
 
@@ -489,7 +492,6 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
                 # Update clip data for project
                 self.update_clip_data(clip.data, only_basic_props=False)
-
 
     # Without defining this method, the 'copy' action doesn't show with cursor
     def dragMoveEvent(self, event):
