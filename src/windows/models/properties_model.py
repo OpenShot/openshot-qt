@@ -76,6 +76,7 @@ class PropertiesModel(updates.UpdateInterface):
     def update_item(self, item_id, item_type):
         # Clear previous selection
         self.selected = []
+        self.filter_base_properties = []
 
         log.info("Update item: %s" % item_type)
 
@@ -109,6 +110,9 @@ class PropertiesModel(updates.UpdateInterface):
                     if effect.Id() == item_id:
                         e = effect
                         break
+
+            # Filter out basic properties, since this is an effect on a clip
+            self.filter_base_properties = ["position", "layer", "start", "end", "duration"]
 
             # Append to selected items
             self.selected.append((e, item_type))
@@ -209,14 +213,20 @@ class PropertiesModel(updates.UpdateInterface):
 
                     # Keyframe
                     # Loop through points, find a matching points on this frame
+                    closest_point = None
                     point_to_delete = None
                     for point in keyframe["Points"]:
-                        log.info("looping points: co.X = %s" % point["co"]["X"])
                         if point["co"]["X"] == self.frame_number:
                             # Found point, Update value
                             clip_updated = True
                             point_to_delete = point
                             break
+                        if point["co"]["X"] == closest_point_x:
+                            closest_point = point
+
+                    # If no point found, use closest point x
+                    if not point_to_delete:
+                        point_to_delete = closest_point
 
                     # Delete point (if needed)
                     if point_to_delete:
@@ -315,7 +325,7 @@ class PropertiesModel(updates.UpdateInterface):
                 # Clear selection
                 self.parent.clearSelection()
 
-    def value_updated(self, item, interpolation=-1):
+    def value_updated(self, item, interpolation=-1, value=None):
         """ Table cell change event - also handles context menu to update interpolation value """
 
         if self.ignore_update_signal:
@@ -335,7 +345,10 @@ class PropertiesModel(updates.UpdateInterface):
         # Get value (if any)
         if item.text():
             # Set and format value based on property type
-            if property_type == "string":
+            if value != None:
+                # Override value
+                new_value = value
+            elif property_type == "string":
                 # Use string value
                 new_value = item.text()
             elif property_type == "bool":
@@ -491,9 +504,18 @@ class PropertiesModel(updates.UpdateInterface):
                 points = property[1]["points"]
                 interpolation = property[1]["interpolation"]
                 closest_point_x = property[1]["closest_point_x"]
+                choices = property[1]["choices"]
+
+                selected_choice = None
+                if choices:
+                    selected_choice = [c for c in choices if c["selected"] == True][0]["name"]
 
                 # Hide filtered out properties
                 if filter and filter.lower() not in name.lower():
+                    continue
+
+                # Hide unused base properties (if any)
+                if name in self.filter_base_properties:
                     continue
 
                 # Insert new data into model, or update existing values
@@ -516,7 +538,9 @@ class PropertiesModel(updates.UpdateInterface):
 
                     # Append Value
                     col = QStandardItem("Value")
-                    if type == "string":
+                    if selected_choice:
+                        col.setText(selected_choice)
+                    elif type == "string":
                         # Use string value
                         col.setText(memo)
                     elif type == "bool":
@@ -528,6 +552,8 @@ class PropertiesModel(updates.UpdateInterface):
                     elif type == "color":
                         # Don't output a value for colors
                         col.setText("")
+                    elif type == "int":
+                        col.setText("%d" % value)
                     else:
                         # Use numeric value
                         col.setText("%0.2f" % value)
@@ -552,9 +578,7 @@ class PropertiesModel(updates.UpdateInterface):
                         blue = property[1]["blue"]["value"]
                         col.setBackground(QColor(red, green, blue))
 
-                    if readonly:
-                        col.setFlags(Qt.ItemIsEnabled)
-                    elif type == "color":
+                    if readonly or type == "color" or choices:
                         col.setFlags(Qt.ItemIsEnabled)
                     else:
                         col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsEditable)
@@ -582,7 +606,9 @@ class PropertiesModel(updates.UpdateInterface):
 
                     # Get 2nd Column
                     col = self.items[name]["row"][1]
-                    if type == "string":
+                    if selected_choice:
+                        col.setText(selected_choice)
+                    elif type == "string":
                         # Use string value
                         col.setText(memo)
                     elif type == "bool":
@@ -594,6 +620,8 @@ class PropertiesModel(updates.UpdateInterface):
                     elif type == "color":
                         # Don't output a value for colors
                         col.setText("")
+                    elif type == "int":
+                        col.setText("%d" % value)
                     else:
                         # Use numeric value
                         col.setText("%0.2f" % value)
@@ -660,6 +688,7 @@ class PropertiesModel(updates.UpdateInterface):
         self.ignore_update_signal = False
         self.parent = parent
         self.previous_filter = None
+        self.filter_base_properties = []
 
         # Create standard model
         self.model = ClipStandardItemModel()

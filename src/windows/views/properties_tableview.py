@@ -120,6 +120,7 @@ class PropertiesTableView(QTableView):
             property_name = property[1]["name"]
             self.property_type = property[1]["type"]
             points = property[1]["points"]
+            self.choices = property[1]["choices"]
             property_key = property[0]
             clip_id, item_type = selected_value.data()
 
@@ -129,8 +130,9 @@ class PropertiesTableView(QTableView):
             log.info("Property: %s" % str(property))
 
             # Add menu options for keyframes
+            menu = QMenu(self)
             if points > 1:
-                menu = QMenu(self)
+                # Menu for more than 1 point
                 Bezier_Action = menu.addAction(_("Bezier"))
                 Bezier_Action.triggered.connect(self.Bezier_Action_Triggered)
                 Linear_Action = menu.addAction(_("Linear"))
@@ -138,8 +140,22 @@ class PropertiesTableView(QTableView):
                 Constant_Action = menu.addAction(_("Constant"))
                 Constant_Action.triggered.connect(self.Constant_Action_Triggered)
                 menu.addSeparator()
-                Remove_Action = menu.addAction(_("Remove"))
+                Remove_Action = menu.addAction(_("Remove Keyframe"))
                 Remove_Action.triggered.connect(self.Remove_Action_Triggered)
+                menu.popup(QCursor.pos())
+            elif points == 1:
+                # Menu for a single point
+                Remove_Action = menu.addAction(_("Remove Keyframe"))
+                Remove_Action.triggered.connect(self.Remove_Action_Triggered)
+                menu.popup(QCursor.pos())
+
+            if self.choices:
+                # Menu for choices
+                for choice in self.choices:
+                    Choice_Action = menu.addAction(_(choice["name"]))
+                    Choice_Action.setData(choice["value"])
+                    Choice_Action.triggered.connect(self.Choice_Action_Triggered)
+                # Show choice menu
                 menu.popup(QCursor.pos())
 
     def Bezier_Action_Triggered(self, event):
@@ -172,6 +188,14 @@ class PropertiesTableView(QTableView):
     def Remove_Action_Triggered(self, event):
         log.info("Remove_Action_Triggered")
         self.clip_properties_model.remove_keyframe(self.selected_item)
+
+    def Choice_Action_Triggered(self, event):
+        log.info("Choice_Action_Triggered")
+        choice_value = self.sender().data()
+
+        # Update value of dropdown item
+        self.clip_properties_model.value_updated(self.selected_item, value=choice_value)
+
 
     def __init__(self, *args):
         # Invoke parent init
