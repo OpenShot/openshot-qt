@@ -196,7 +196,6 @@ class PropertiesTableView(QTableView):
         # Update value of dropdown item
         self.clip_properties_model.value_updated(self.selected_item, value=choice_value)
 
-
     def __init__(self, *args):
         # Invoke parent init
         QTableView.__init__(self, *args)

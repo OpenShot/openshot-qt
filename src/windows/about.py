@@ -27,12 +27,11 @@
  """
 
 import os
-import sys
+
 from PyQt5.QtCore import *
-from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import *
-from PyQt5 import uic
-from classes import info, ui_util, settings, qt_types, updates
+
+from classes import info, ui_util
 from classes.logger import log
 from classes.app import get_app
 
@@ -56,11 +55,11 @@ class About(QDialog):
         self.app = get_app()
         _ = self.app._tr
 
-        #set events handlers
+        # set events handlers
         self.btncredit.clicked.connect(self.load_credit)
         self.btnlicense.clicked.connect(self.load_license)
 
-        #Init some variables
+        # Init some variables
         self.txtversion.setText(info.VERSION)
         self.txtversion.setAlignment(Qt.AlignCenter)
 
@@ -97,16 +96,17 @@ class License(QDialog):
         _ = self.app._tr
 
         # Init license
-        #license_path = os.path.join(path_xdg, 'COPYING')
-        #license_path = os.path.join(info.PATH, 'COPYING')
-        #my_license = open('license_path', "r")
-        #content = my_license.read()
-        #for text in license_path:
-            #self.textBrowser.append(text)
-        #self.textBrowser.append(content)
+        # license_path = os.path.join(path_xdg, 'COPYING')
+        # license_path = os.path.join(info.PATH, 'COPYING')
+        # my_license = open('license_path', "r")
+        # content = my_license.read()
+        # for text in license_path:
+        # self.textBrowser.append(text)
+        # self.textBrowser.append(content)
         with open("(os.path.join(info.PATH, 'COPYING'))", 'r') as my_license:
             text = my_license.read()
             self.textBrowser.append(text)
+
 
 class Credits(QDialog):
     """ Credits Dialog """
@@ -128,7 +128,7 @@ class Credits(QDialog):
         self.app = get_app()
         _ = self.app._tr
 
-        #Init authors
+        # Init authors
         authors = []
         for person in info.CREDITS['code']:
             name = person['name']
@@ -136,7 +136,7 @@ class Credits(QDialog):
             authors.append("%s <%s>" % (name, email))
         self.textBrowserwritten.append(str(authors))
 
-        #Init documentaters
+        # Init documentaters
         authors = []
         for person in info.CREDITS['documentation']:
             name = person['name']
@@ -144,7 +144,7 @@ class Credits(QDialog):
             authors.append("%s <%s>" % (name, email))
         self.textBrowserdocumented.append(str(authors))
 
-        #Init artwork
+        # Init artwork
         artists = []
         for person in info.CREDITS['artwork']:
             name = person['name']
@@ -152,7 +152,7 @@ class Credits(QDialog):
             artists.append("%s <%s>" % (name, email))
         self.textBrowserartwork.append(str(artists))
 
-        #Init translation authors
+        # Init translation authors
         authors = []
         for person in info.CREDITS['translation']:
             name = person['name']
@@ -160,10 +160,10 @@ class Credits(QDialog):
             authors.append("%s <%s>" % (name, email))
         self.textBrowsertranslated.append(str(authors))
 
-        #Init Kicstarter Backers
-        #backers = []
-        #for person in info.CREDITS['backers']
-        #name = person['name']
-        #email = person['email']
-        #backers.append("%s <%s>" % (name, email))
-        #self.textBrowserkickstarter.append(str(backers))
+        # Init Kicstarter Backers
+        # backers = []
+        # for person in info.CREDITS['backers']
+        # name = person['name']
+        # email = person['email']
+        # backers.append("%s <%s>" % (name, email))
+        # self.textBrowserkickstarter.append(str(backers))

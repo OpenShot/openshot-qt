@@ -263,8 +263,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
     @pyqtSlot(float, int, str)
     def PlayheadMoved(self, position_seconds, position_frames, time_code):
-        log.info("PlayheadMoved - position_seconds: %s, position_frames: %s, time_code: %s" % (
-        position_seconds, position_frames, time_code))
+        log.info("PlayheadMoved - position_seconds: %s, position_frames: %s, time_code: %s" % (position_seconds, position_frames, time_code))
 
         if self.last_position_frames != position_frames:
             # Update time code (to prevent duplicate previews)
@@ -464,7 +463,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         possible_clips = Clip.filter(layer=closest_layer)
         for clip in possible_clips:
             if js_position == 0 or (clip.data["position"] <= js_position <= clip.data["position"] + (
-                clip.data["end"] - clip.data["start"])):
+                        clip.data["end"] - clip.data["start"])):
                 log.info("Applying effect to clip")
                 log.info(clip)
 

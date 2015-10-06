@@ -27,8 +27,11 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+import os
+import sys
+
 import openshot
-import os, sys
+
 
 
 # Write test video to this path
@@ -36,12 +39,12 @@ EXPORT_TESTS = os.path.join(os.path.expanduser("~"), ".openshot_qt", "tests")
 
 # Check for the correct # of arguments
 if len(sys.argv) != 15:
-	print("Error: %s is not the correct # of arguments (15 expected)" % len(sys.argv))
-	exit()
-	
+    print("Error: %s is not the correct # of arguments (15 expected)" % len(sys.argv))
+    exit()
+
 print("Params:")
 print(sys.argv)
-	
+
 # Get video params from the arguments passed to this script
 format = sys.argv[1]
 codec = sys.argv[2]
@@ -76,16 +79,15 @@ w.DisplayInfo()
 w.Open();
 
 for frame_number in range(30):
-	# Create empty frame
-	f = openshot.Frame(frame_number, width, height, "#ffffff")
-	f.AddColor(width, height, "#ffffff")
-	
-	# Write some test frames
-	w.WriteFrame(f)
+    # Create empty frame
+    f = openshot.Frame(frame_number, width, height, "#ffffff")
+    f.AddColor(width, height, "#ffffff")
+
+    # Write some test frames
+    w.WriteFrame(f)
 
 # Close writer
 w.Close()
-	
+
 # Success if we reached this line succesfully
 print("*SUCCESS*")
-

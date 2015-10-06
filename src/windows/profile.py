@@ -26,100 +26,101 @@
  """
 
 import os
-import sys 
+import sys
+import functools
+
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
+import openshot  # Python module for libopenshot (required video editing module installed separately)
+
 from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
 from windows.profile_manager import ProfileManager
-import functools
-import openshot # Python module for libopenshot (required video editing module installed separately)
+
 
 class Profile(QDialog):
-	""" Choose Profile Dialog """
-	
-	#Path to ui file
-	ui_path = os.path.join(info.PATH, 'windows', 'ui', 'profile.ui')
-	
-	def __init__(self):
-		
-		#Create dialog class
-		QDialog.__init__(self)
-		
-		#Load UI from designer
-		ui_util.load_ui(self, self.ui_path)
-		
-		#Init UI
-		ui_util.init_ui(self)
+    """ Choose Profile Dialog """
 
-		#get translations
-		app = get_app()
-		_ = app._tr
-		
-		# Get settings
-		self.s = settings.get_settings()
-		
-		# Loop through profiles
-		self.profile_names = []
-		self.profile_paths = {}
-		for file in os.listdir(info.PROFILES_PATH):
-			# Load Profile
-			profile_path = os.path.join(info.PROFILES_PATH, file)
-			profile = openshot.Profile(profile_path)
-			
-			# Add description of Profile to list
-			self.profile_names.append(profile.info.description)
-			self.profile_paths[profile.info.description] = profile_path
-			
-		# Sort list
-		self.profile_names.sort()
-		
-		# Loop through sorted profiles
-		box_index = 0
-		selected_index = 0
-		for profile_name in self.profile_names:
-			
-			# Add to dropdown
-			self.cboProfile.addItem(profile_name, self.profile_paths[profile_name])
+    # Path to ui file
+    ui_path = os.path.join(info.PATH, 'windows', 'ui', 'profile.ui')
 
-			# Set default (if it matches the project)
-			if app.project.get(['profile']) == profile_name:
-				selected_index = box_index
-			
-			# increment item counter
-			box_index += 1
+    def __init__(self):
 
+        # Create dialog class
+        QDialog.__init__(self)
 
-		# Connect signal
-		self.cboProfile.currentIndexChanged.connect(functools.partial(self.dropdown_index_changed, self.cboProfile))
-		
-		# Set current item (from project)
-		self.cboProfile.setCurrentIndex(selected_index)
+        # Load UI from designer
+        ui_util.load_ui(self, self.ui_path)
+
+        # Init UI
+        ui_util.init_ui(self)
+
+        # get translations
+        app = get_app()
+        _ = app._tr
+
+        # Get settings
+        self.s = settings.get_settings()
+
+        # Loop through profiles
+        self.profile_names = []
+        self.profile_paths = {}
+        for file in os.listdir(info.PROFILES_PATH):
+            # Load Profile
+            profile_path = os.path.join(info.PROFILES_PATH, file)
+            profile = openshot.Profile(profile_path)
+
+            # Add description of Profile to list
+            self.profile_names.append(profile.info.description)
+            self.profile_paths[profile.info.description] = profile_path
+
+        # Sort list
+        self.profile_names.sort()
+
+        # Loop through sorted profiles
+        box_index = 0
+        selected_index = 0
+        for profile_name in self.profile_names:
+
+            # Add to dropdown
+            self.cboProfile.addItem(profile_name, self.profile_paths[profile_name])
+
+            # Set default (if it matches the project)
+            if app.project.get(['profile']) == profile_name:
+                selected_index = box_index
+
+            # increment item counter
+            box_index += 1
 
 
-	def dropdown_index_changed(self, widget, index):
-		# Get profile path
-		value = self.cboProfile.itemData(index)
-		log.info(value)
-		
-		# Load profile
-		profile = openshot.Profile(value)
-		
-		# Set labels
-		self.lblSize.setText("%sx%s" % (profile.info.width, profile.info.height))
-		self.lblFPS.setText("%0.2f" % (profile.info.fps.num / profile.info.fps.den))
-		self.lblOther.setText("DAR: %s/%s, SAR: %s/%s, Interlaced: %s" % (profile.info.display_ratio.num, profile.info.display_ratio.den, profile.info.pixel_ratio.num, profile.info.pixel_ratio.den, profile.info.interlaced_frame))
+        # Connect signal
+        self.cboProfile.currentIndexChanged.connect(functools.partial(self.dropdown_index_changed, self.cboProfile))
 
-		# Update timeline settings
-		get_app().updates.update(["width"], profile.info.width )
-		get_app().updates.update(["height"], profile.info.height )
-		get_app().updates.update(["fps","num"], profile.info.fps.num )
-		get_app().updates.update(["fps","den"], profile.info.fps.den )
-		get_app().updates.update(["profile"], profile.info.description )
+        # Set current item (from project)
+        self.cboProfile.setCurrentIndex(selected_index)
 
-		# Update Window Title
-		get_app().window.SetWindowTitle( profile.info.description )
+    def dropdown_index_changed(self, widget, index):
+        # Get profile path
+        value = self.cboProfile.itemData(index)
+        log.info(value)
 
+        # Load profile
+        profile = openshot.Profile(value)
+
+        # Set labels
+        self.lblSize.setText("%sx%s" % (profile.info.width, profile.info.height))
+        self.lblFPS.setText("%0.2f" % (profile.info.fps.num / profile.info.fps.den))
+        self.lblOther.setText("DAR: %s/%s, SAR: %s/%s, Interlaced: %s" % (profile.info.display_ratio.num, profile.info.display_ratio.den, profile.info.pixel_ratio.num, profile.info.pixel_ratio.den, profile.info.interlaced_frame))
+
+        # Update timeline settings
+        get_app().updates.update(["width"], profile.info.width)
+        get_app().updates.update(["height"], profile.info.height)
+        get_app().updates.update(["fps", "num"], profile.info.fps.num)
+        get_app().updates.update(["fps", "den"], profile.info.fps.den)
+        get_app().updates.update(["profile"], profile.info.description)
+
+        # Update Window Title
+        get_app().window.SetWindowTitle(profile.info.description)

@@ -25,18 +25,10 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import os
-from urllib.parse import urlparse
-
-from PyQt5.QtCore import QMimeData, QSize, Qt, QCoreApplication, QPoint, QFileInfo
+from PyQt5.QtCore import QSize, QPoint
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QListView, QApplication, QMessageBox, QAbstractItemView, QMenu
-import openshot  # Python module for libopenshot (required video editing module installed separately)
+from PyQt5.QtWidgets import QListView, QMenu
 
-from classes import updates
-from classes import info
-from classes.logger import log
-from classes.settings import SettingStore
 from classes.app import get_app
 from windows.models.effects_model import EffectsModel
 

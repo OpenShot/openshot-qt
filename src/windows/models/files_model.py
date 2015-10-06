@@ -141,7 +141,8 @@ class FilesModel(updates.UpdateInterface):
                             overlay_path = os.path.join(info.IMAGES_PATH, "overlay.png")
 
                         # Save thumbnail
-                        reader.GetFrame(0).Thumbnail(thumb_path, 98, 64, os.path.join(info.IMAGES_PATH, "mask.png"), overlay_path, "#000", False)
+                        reader.GetFrame(0).Thumbnail(thumb_path, 98, 64, os.path.join(info.IMAGES_PATH, "mask.png"),
+                                                     overlay_path, "#000", False)
                         reader.Close()
                         clip.Close()
 

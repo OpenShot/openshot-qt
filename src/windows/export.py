@@ -26,17 +26,17 @@
  """
 
 import os
-import sys
-import subprocess
 import locale
+import xml.dom.minidom as xml
+import functools
+
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
+import openshot  # Python module for libopenshot (required video editing module installed separately)
+
 from classes import info, ui_util, settings
 from classes.app import get_app
 from classes.logger import log
-import xml.dom.minidom as xml
-import functools
-import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 
 class Export(QDialog):
@@ -95,11 +95,15 @@ class Export(QDialog):
 
         # Connect signals
         self.btnBrowse.clicked.connect(functools.partial(self.btnBrowse_clicked))
-        self.cboSimpleProjectType.currentIndexChanged.connect(functools.partial(self.cboSimpleProjectType_index_changed, self.cboSimpleProjectType))
+        self.cboSimpleProjectType.currentIndexChanged.connect(
+            functools.partial(self.cboSimpleProjectType_index_changed, self.cboSimpleProjectType))
         self.cboProfile.currentIndexChanged.connect(functools.partial(self.cboProfile_index_changed, self.cboProfile))
-        self.cboSimpleTarget.currentIndexChanged.connect(functools.partial(self.cboSimpleTarget_index_changed, self.cboSimpleTarget))
-        self.cboSimpleVideoProfile.currentIndexChanged.connect(functools.partial(self.cboSimpleVideoProfile_index_changed, self.cboSimpleVideoProfile))
-        self.cboSimpleQuality.currentIndexChanged.connect(functools.partial(self.cboSimpleQuality_index_changed, self.cboSimpleQuality))
+        self.cboSimpleTarget.currentIndexChanged.connect(
+            functools.partial(self.cboSimpleTarget_index_changed, self.cboSimpleTarget))
+        self.cboSimpleVideoProfile.currentIndexChanged.connect(
+            functools.partial(self.cboSimpleVideoProfile_index_changed, self.cboSimpleVideoProfile))
+        self.cboSimpleQuality.currentIndexChanged.connect(
+            functools.partial(self.cboSimpleQuality_index_changed, self.cboSimpleQuality))
 
 
         # ********* Advaned Profile List **********
@@ -399,7 +403,7 @@ class Export(QDialog):
             # Test Succeeded
             # Determine final exported file path
             export_file_path = os.path.join(self.txtExportFolder.text().strip(), "%s.%s" % (
-            self.txtFileName.text().strip(), self.txtVideoFormat.text().strip()))
+                self.txtFileName.text().strip(), self.txtVideoFormat.text().strip()))
             log.info(export_file_path)
 
             # Create FFmpegWriter

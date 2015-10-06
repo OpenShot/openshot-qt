@@ -27,41 +27,37 @@
  """
 
 import os
-import sys
-import shutil
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
+
 from PyQt5.QtWidgets import *
-from PyQt5 import uic
-from classes import info, ui_util, settings, qt_types, updates
+
+from classes import info, ui_util
 from classes.logger import log
 from classes.app import get_app
 from windows.new_preset_name import NewPresetName
 from windows.presets import Presets
-import openshot
+
 
 class CurrentExportingProjects(QDialog):
     """ Current Exporting Projects """
 
-    #Path to ui file
+    # Path to ui file
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'current-exporting-projects.ui')
 
     def __init__(self):
-
-        #Create dialog class
+        # Create dialog class
         QDialog.__init__(self)
 
-        #Load UI from designer
+        # Load UI from designer
         ui_util.load_ui(self, self.ui_path)
 
-        #Init UI
+        # Init UI
         ui_util.init_ui(self)
 
-        #get translations
+        # get translations
         self.app = get_app()
         _ = self.app._tr
 
-        #set events handlers
+        # set events handlers
         self.btnAdd.clicked.connect(self.add_preset)
         self.btnModified.clicked.connect(self.modified_preset)
         self.btnRename.clicked.connect(self.rename_preset)

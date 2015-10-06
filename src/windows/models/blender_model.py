@@ -84,7 +84,9 @@ class BlenderModel():
                             continue  # to next file, didn't match filter
 
                 if win.effectsFilter.text() != "":
-                    if not win.effectsFilter.text().lower() in self.app._tr(title).lower() and not win.effectsFilter.text().lower() in self.app._tr(description).lower():
+                    if not win.effectsFilter.text().lower() in self.app._tr(
+                            title).lower() and not win.effectsFilter.text().lower() in self.app._tr(
+                            description).lower():
                         continue
 
                 # Generate thumbnail for file (if needed)

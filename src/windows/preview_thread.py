@@ -25,22 +25,13 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import os
 import time
-import uuid
-import shutil
-import threading
-import subprocess
-import re
-from _sre import MAXREPEAT
-from urllib.parse import urlparse
-import functools
 import sip
 
 from PyQt5.QtCore import QObject, QThread, pyqtSlot, pyqtSignal
-from classes.logger import log
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
+from classes.logger import log
 
 try:
     import json

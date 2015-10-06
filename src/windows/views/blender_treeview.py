@@ -26,24 +26,18 @@
  """
 
 import os
-import time
 import uuid
 import shutil
-import threading
 import subprocess
 import re
-from _sre import MAXREPEAT
-from urllib.parse import urlparse
 import xml.dom.minidom as xml
 import functools
 
-from PyQt5.QtCore import QMimeData, QSize, Qt, QCoreApplication, QPoint, QFileInfo, QEvent, QObject, QThread, pyqtSlot, \
+from PyQt5.QtCore import QSize, Qt, QEvent, QObject, QThread, pyqtSlot, \
     pyqtSignal, QMetaObject, Q_ARG
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-import openshot  # Python module for libopenshot (required video editing module installed separately)
 
-from classes import updates
 from classes import info
 from classes.logger import log
 from classes import settings

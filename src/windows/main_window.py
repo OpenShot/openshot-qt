@@ -27,13 +27,13 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-
 import os
 import webbrowser
 
 from PyQt5.QtCore import *
-from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import *
+import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 from windows.views.timeline_webview import TimelineWebView
 from classes import info, ui_util, settings, qt_types, updates
@@ -41,7 +41,6 @@ from classes.app import get_app
 from classes.logger import log
 from classes.timeline import TimelineSync
 from classes.query import File, Clip, Transition, Marker, Track
-from images import openshot_rc
 from windows.views.files_treeview import FilesTreeView
 from windows.views.files_listview import FilesListView
 from windows.views.transitions_treeview import TransitionsTreeView
@@ -51,7 +50,6 @@ from windows.views.effects_listview import EffectsListView
 from windows.views.properties_tableview import PropertiesTableView
 from windows.video_widget import VideoWidget
 from windows.preview_thread import PreviewParent
-import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 
 class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
@@ -375,8 +373,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
     def previewFrame(self, position_seconds, position_frames, time_code):
         """Preview a specific frame"""
-        log.info("previewFrame - position_seconds: %s, position_frames: %s, time_code: %s" % (
-        position_seconds, position_frames, time_code))
+        log.info("previewFrame - position_seconds: %s, position_frames: %s, time_code: %s" % (position_seconds, position_frames, time_code))
 
         # Notify preview thread
         self.preview_thread.previewFrame(position_frames)

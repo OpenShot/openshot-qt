@@ -25,8 +25,12 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import glob, os, sys, subprocess
+import glob
+import os
+import sys
+import subprocess
 from distutils.core import setup
+
 from src.classes.logger import log
 from src.classes import info
 
@@ -38,41 +42,46 @@ ROOT = os.geteuid() == 0
 # system update services for Mime and Desktop registrations.
 # The debian/openshot.postinst script must do those.
 if not os.getenv("FAKEROOTKEY") == None:
-	log.info("NOTICE: Detected execution in a FakeRoot so disabling calls to system update services.")
-	ROOT = False
+    log.info("NOTICE: Detected execution in a FakeRoot so disabling calls to system update services.")
+    ROOT = False
 
 os_files = [
-	 # XDG application description
-	 ('share/applications', ['xdg/openshot.desktop']),
-	 # XDG application icon
-	 ('share/pixmaps', ['xdg/openshot.svg']),
-	 # XDG desktop mime types cache
-	 ('share/mime/packages',['xdg/openshot.xml']),
-	 # launcher (mime.types)
-	 ('lib/mime/packages',['xdg/openshot']),
-	 # man-page ("man 1 openshot")
-	 ('share/man/man1',['doc/openshot.1']),
-	 ('share/man/man1',['doc/openshot-render.1']),
+    # XDG application description
+    ('share/applications', ['xdg/openshot.desktop']),
+    # XDG application icon
+    ('share/pixmaps', ['xdg/openshot.svg']),
+    # XDG desktop mime types cache
+    ('share/mime/packages', ['xdg/openshot.xml']),
+    # launcher (mime.types)
+    ('lib/mime/packages', ['xdg/openshot']),
+    # man-page ("man 1 openshot")
+    ('share/man/man1', ['doc/openshot.1']),
+    ('share/man/man1', ['doc/openshot-render.1']),
 ]
 
 # Add all the translations
 locale_files = []
 for filepath in glob.glob("src/locale/*/LC_MESSAGES/*"):
-	filepath = filepath.replace('src/', '')
-	locale_files.append(filepath)
-	
+    filepath = filepath.replace('src/', '')
+    locale_files.append(filepath)
+
 
 # Call the main Distutils setup command
 # -------------------------------------
 dist = setup(
-	 scripts	= ['bin/openshot','bin/openshot-render'],
-	 packages	 = ['src', 'src.classes', 'src.images', 'src.locale', 'src.settings', 'src.timeline', 'src.windows', 'src.windows.ui' ],
-	 package_data = {
-	 				'src' : ['presets/*', 'images/*', 'locale/OpenShot/*', 'locale/README', 'profiles/*', 'transitions/icons/medium/*.png', 'transitions/icons/small/*.png', 'transitions/*.pgm', 'transitions/*.png', 'transitions/*.svg', 'effects/icons/medium/*.png', 'effects/icons/small/*.png', 'effects/*.xml', 'blender/blend/*.blend', 'blender/icons/*.png', 'blender/earth/*.jpg', 'blender/scripts/*.py', 'blender/*.xml'] + locale_files,
-	 				'src.windows' : ['ui/*.ui'],
-	 				},
-	 data_files = os_files,
-	 **info.SETUP
+    scripts=['bin/openshot', 'bin/openshot-render'],
+    packages=['src', 'src.classes', 'src.images', 'src.locale', 'src.settings', 'src.timeline', 'src.windows',
+              'src.windows.ui'],
+    package_data={
+        'src': ['presets/*', 'images/*', 'locale/OpenShot/*', 'locale/README', 'profiles/*',
+                'transitions/icons/medium/*.png', 'transitions/icons/small/*.png', 'transitions/*.pgm',
+                'transitions/*.png', 'transitions/*.svg', 'effects/icons/medium/*.png', 'effects/icons/small/*.png',
+                'effects/*.xml', 'blender/blend/*.blend', 'blender/icons/*.png', 'blender/earth/*.jpg',
+                'blender/scripts/*.py', 'blender/*.xml'] + locale_files,
+        'src.windows': ['ui/*.ui'],
+    },
+    data_files=os_files,
+    **info.SETUP
 )
 # -------------------------------------
 
@@ -80,27 +89,27 @@ dist = setup(
 FAILED = 'Failed to update.\n'
 
 if ROOT and dist != None:
-	#update the XDG Shared MIME-Info database cache
-	try: 
-		sys.stdout.write('Updating the Shared MIME-Info database cache.\n')
-		subprocess.call(["update-mime-database", os.path.join(sys.prefix, "share/mime/")])
-	except:
-		sys.stderr.write(FAILED)
+    # update the XDG Shared MIME-Info database cache
+    try:
+        sys.stdout.write('Updating the Shared MIME-Info database cache.\n')
+        subprocess.call(["update-mime-database", os.path.join(sys.prefix, "share/mime/")])
+    except:
+        sys.stderr.write(FAILED)
 
-	#update the mime.types database
-	try: 
-		sys.stdout.write('Updating the mime.types database\n')
-		subprocess.call("update-mime")
-	except:
-		sys.stderr.write(FAILED)
+    # update the mime.types database
+    try:
+        sys.stdout.write('Updating the mime.types database\n')
+        subprocess.call("update-mime")
+    except:
+        sys.stderr.write(FAILED)
 
-	# update the XDG .desktop file database
-	try:
-		sys.stdout.write('Updating the .desktop file database.\n')
-		subprocess.call(["update-desktop-database"])
-	except:
-		sys.stderr.write(FAILED)
-	sys.stdout.write("\n-----------------------------------------------")
-	sys.stdout.write("\nInstallation Finished!")
-	sys.stdout.write("\nRun OpenShot by typing 'openshot' or through the Applications menu.")
-	sys.stdout.write("\n-----------------------------------------------\n")
+    # update the XDG .desktop file database
+    try:
+        sys.stdout.write('Updating the .desktop file database.\n')
+        subprocess.call(["update-desktop-database"])
+    except:
+        sys.stderr.write(FAILED)
+    sys.stdout.write("\n-----------------------------------------------")
+    sys.stdout.write("\nInstallation Finished!")
+    sys.stdout.write("\nRun OpenShot by typing 'openshot' or through the Applications menu.")
+    sys.stdout.write("\n-----------------------------------------------\n")

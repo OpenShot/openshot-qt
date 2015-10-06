@@ -27,60 +27,55 @@
  """
 
 import os
-import sys
-import shutil
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
+
 from PyQt5.QtWidgets import *
-from PyQt5 import uic
-from classes import info, ui_util, settings, qt_types, updates
+
+from classes import info, ui_util
 from classes.logger import log
 from classes.app import get_app
 
+
 class Squeze(QDialog):
-	""" Squeze Dialog """
-	
-	#Path to ui file
-	ui_path = os.path.join(info.PATH, 'windows', 'ui', 'squeze.ui')
-	
-	def __init__(self):
-		
-		#Create dialog class
-		QDialog.__init__(self)
-		
-		#Load UI from designer
-		ui_util.load_ui(self, self.ui_path)
-		
-		#Init UI
-		ui_util.init_ui(self)
-		
-		#Get translations
-		app = get_app()
-		_ = app._tr
-	
-	
-		#set events handlers
-		self.btncrop.clicked.connect(self.load_crop)
-		self.btnsqueze.clicked.connect(self.load_squeze)
-		self.btnletterbox.clicked.connect(self.load_letter_box)
-		self.btnnone.clicked.connect(self.close_dialog)
-		self.btnnone.pressed.connect(self.reject)
-		
-	def load_crop(self):
-		log.info('crop function is called')
-		pass
-		
-	def load_squeze(self):
-		log.info('squeze function is called')
-		pass
-		
-	def load_letter_box(self):
-		log.info('letter box function is called')
-		pass
-		
-	def close_dialog(self):
-		#QDialog.close()
-		QDialog.rejected()
-		log.info('None screen is closed')
-		
-		
+    """ Squeze Dialog """
+
+    # Path to ui file
+    ui_path = os.path.join(info.PATH, 'windows', 'ui', 'squeze.ui')
+
+    def __init__(self):
+        # Create dialog class
+        QDialog.__init__(self)
+
+        # Load UI from designer
+        ui_util.load_ui(self, self.ui_path)
+
+        # Init UI
+        ui_util.init_ui(self)
+
+        # Get translations
+        app = get_app()
+        _ = app._tr
+
+
+        # set events handlers
+        self.btncrop.clicked.connect(self.load_crop)
+        self.btnsqueze.clicked.connect(self.load_squeze)
+        self.btnletterbox.clicked.connect(self.load_letter_box)
+        self.btnnone.clicked.connect(self.close_dialog)
+        self.btnnone.pressed.connect(self.reject)
+
+    def load_crop(self):
+        log.info('crop function is called')
+        pass
+
+    def load_squeze(self):
+        log.info('squeze function is called')
+        pass
+
+    def load_letter_box(self):
+        log.info('letter box function is called')
+        pass
+
+    def close_dialog(self):
+        # QDialog.close()
+        QDialog.rejected()
+        log.info('None screen is closed')

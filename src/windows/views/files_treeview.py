@@ -30,15 +30,13 @@
 import os
 from urllib.parse import urlparse
 
-from PyQt5.QtCore import QMimeData, QSize, Qt, QCoreApplication, QPoint, QFileInfo
+from PyQt5.QtCore import QSize, Qt, QPoint
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QTreeView, QApplication, QMessageBox, QAbstractItemView, QMenu, QSizePolicy
+from PyQt5.QtWidgets import QTreeView, QMessageBox, QAbstractItemView, QMenu, QSizePolicy
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
-from classes import info
 from classes.query import File
 from classes.logger import log
-from classes.settings import SettingStore
 from classes.app import get_app
 from windows.models.files_model import FilesModel
 

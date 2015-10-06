@@ -281,7 +281,7 @@ class PropertiesModel(updates.UpdateInterface):
                     log.info(c.data)
 
                     # Loop through each keyframe (red, blue, and green)
-                    for color, new_value in [("red", new_color.red()), ("blue", new_color.blue()), ("green", new_color.green())]:
+                    for color, new_value in [("red", new_color.red()), ("blue", new_color.blue()),  ("green", new_color.green())]:
 
                         # Keyframe
                         # Loop through points, find a matching points on this frame
@@ -644,7 +644,6 @@ class PropertiesModel(updates.UpdateInterface):
                         # clear icon
                         my_icon = QPixmap()
                         col.setData(my_icon, Qt.DecorationRole)
-
 
                     if type == "color":
                         # Update the color based on the color curves

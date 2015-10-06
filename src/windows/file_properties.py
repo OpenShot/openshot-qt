@@ -27,29 +27,24 @@
  """
 
 import os
-import sys
-import shutil
-from PyQt5.QtCore import *
-from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
+
 from PyQt5.QtWidgets import *
-from PyQt5 import uic
-from classes import info, ui_util, settings, qt_types, updates
-from classes.logger import log
+
+from classes import info, ui_util
+
 
 class FileProperties(QDialog):
-	""" File Properties Dialog """
+    """ File Properties Dialog """
 
-	# Path to ui file
-	ui_path = os.path.join(info.PATH, 'windows', 'ui', 'file-properties.ui')
-	
-	def __init__(self):
-		
-		# Create dialog class
-		QDialog.__init__(self)
-		
-		# Load UI from designer
-		ui_util.load_ui(self, self.ui_path)
-		
-		# Init UI
-		ui_util.init_ui(self)
-		
+    # Path to ui file
+    ui_path = os.path.join(info.PATH, 'windows', 'ui', 'file-properties.ui')
+
+    def __init__(self):
+        # Create dialog class
+        QDialog.__init__(self)
+
+        # Load UI from designer
+        ui_util.load_ui(self, self.ui_path)
+
+        # Init UI
+        ui_util.init_ui(self)

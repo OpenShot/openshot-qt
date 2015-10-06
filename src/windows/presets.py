@@ -27,53 +27,49 @@
  """
 
 import os
-import sys
-import shutil
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
+
 from PyQt5.QtWidgets import *
-from PyQt5 import uic
-from classes import info, ui_util, settings, qt_types, updates
-from classes.logger import log
+
+from classes import info, ui_util
 from classes.app import get_app
 
-class Presets(QDialog):
-	""" Presets Dialog """
-	
-	# Path to ui file
-	ui_path = os.path.join(info.PATH, 'windows', 'ui', 'presets.ui')
-	
-	def __init__(self):
-		
-		# Create dialog class
-		QDialog.__init__(self)
-		
-		#Load UI from designer
-		ui_util.load_ui(self, self.ui_path)
-		
-		# Init UI
-		ui_util.init_ui(self)
 
-		#get translations
-		app = get_app()
-		_ = app._tr
-		
-		##set even handlers
-		self.cmbpresets.activated.connect(self.load_presets_list)
-		self.btnclearpreset.clicked.connect(self.delete_preset)
-		self.btnsavecurrent.clicked.connect(self.save_current_preset)
-		
-	def load_presets_list(self):
-		""" Display presets list """
-		#log.info('The preset {} has been used'.format(name))
-		pass
-		
-	def delete_preset(self):
-		""" Delete the preset which has been previously created """
-		#log.info('The preset {} has been deleted'.format(name))
-		pass
-		
-	def save_current_preset(self):
-		""" Save this new preset """
-		#log.info('The preset {} has been created'.format(name))
-		pass
+class Presets(QDialog):
+    """ Presets Dialog """
+
+    # Path to ui file
+    ui_path = os.path.join(info.PATH, 'windows', 'ui', 'presets.ui')
+
+    def __init__(self):
+        # Create dialog class
+        QDialog.__init__(self)
+
+        # Load UI from designer
+        ui_util.load_ui(self, self.ui_path)
+
+        # Init UI
+        ui_util.init_ui(self)
+
+        # get translations
+        app = get_app()
+        _ = app._tr
+
+        ##set even handlers
+        self.cmbpresets.activated.connect(self.load_presets_list)
+        self.btnclearpreset.clicked.connect(self.delete_preset)
+        self.btnsavecurrent.clicked.connect(self.save_current_preset)
+
+    def load_presets_list(self):
+        """ Display presets list """
+        # log.info('The preset {} has been used'.format(name))
+        pass
+
+    def delete_preset(self):
+        """ Delete the preset which has been previously created """
+        # log.info('The preset {} has been deleted'.format(name))
+        pass
+
+    def save_current_preset(self):
+        """ Save this new preset """
+        # log.info('The preset {} has been created'.format(name))
+        pass

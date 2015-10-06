@@ -135,7 +135,8 @@ class EffectsModel():
                     reader.Open()
 
                     # Save thumbnail
-                    reader.GetFrame(0).Thumbnail(thumb_path, 98, 64, os.path.join(info.IMAGES_PATH, "mask.png"), "", "#000", True)
+                    reader.GetFrame(0).Thumbnail(thumb_path, 98, 64, os.path.join(info.IMAGES_PATH, "mask.png"), "",
+                                                 "#000", True)
                     reader.Close()
 
                 except:

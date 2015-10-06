@@ -27,28 +27,24 @@
  """
 
 import os
-import sys 
-from PyQt5.QtCore import *
-from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
+
 from PyQt5.QtWidgets import *
-from PyQt5 import uic
-from classes import info, ui_util, settings, qt_types, updates
-from classes.logger import log
+
+from classes import info, ui_util
+
 
 class ClipProperties(QDialog):
-	""" Clip Properties Dialog """
-	
-	#Path to ui file
-	ui_path = os.path.join(info.PATH, 'windows', 'ui', 'clip-properties.ui')
-	
-	def __init__(self):
-		
-		#Create dialog class
-		QDialog.__init__(self)
-		
-		#Load UI from designer
-		ui_util.load_ui(self, self.ui_path)
-		
-		#Init UI
-		ui_util.init_ui(self)
-		
+    """ Clip Properties Dialog """
+
+    # Path to ui file
+    ui_path = os.path.join(info.PATH, 'windows', 'ui', 'clip-properties.ui')
+
+    def __init__(self):
+        # Create dialog class
+        QDialog.__init__(self)
+
+        # Load UI from designer
+        ui_util.load_ui(self, self.ui_path)
+
+        # Init UI
+        ui_util.init_ui(self)
