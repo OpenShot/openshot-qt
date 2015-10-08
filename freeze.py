@@ -37,15 +37,18 @@
 # 2) change Contents/Info.plist to use launch-mac.sh as the Executable name
 # 3) manually fix rsvg executable:
 #    sudo dylibbundler -od -of -b -x ~/apps/rsvg/rsvg-convert -d ./rsvg-libs/ -p @executable_path/rsvg-libs/
+#
+# Windows Syntax to Build MSI Installer
+# 1) python3 freeze.py bdist_msi
+# NOTE: Requires a tweak to cx_freeze: http://stackoverflow.com/questions/24195311/how-to-set-shortcut-working-directory-in-cx-freeze-msi-bundle
 
 
-import glob
 import os
 import sys
-import subprocess
 import fnmatch
 
 from cx_Freeze import setup, Executable
+from src.classes import info
 
 
 # Determine which JSON library is installed
@@ -68,58 +71,100 @@ def find_files(directory, patterns):
     """ Recursively find all files in a folder tree """
     for root, dirs, files in os.walk(directory):
         for basename in files:
-            for pattern in patterns:
-                if fnmatch.fnmatch(basename, pattern):
-                    filename = os.path.join(root, basename)
-                    yield filename
+            if ".pyc" not in basename and "__pycache__" not in basename:
+                for pattern in patterns:
+                    if fnmatch.fnmatch(basename, pattern):
+                        filename = os.path.join(root, basename)
+                        yield filename
 
 
 # GUI applications require a different base on Windows
+iconFile = "openshot"
 base = None
 src_files = []
 external_so_files = []
+build_options = {}
+build_exe_options = {}
 
 if sys.platform == "win32":
     base = "Win32GUI"
     external_so_files = []
+    build_exe_options["include_msvcr"] = True
+
+    # Copy required ImageMagick files
+    for filename in find_files("C:\\Program Files\\ImageMagick-Windows7\\etc\\ImageMagick-6", ["*.xml"]):
+        external_so_files.append(
+            (filename, filename.replace("C:\\Program Files\\ImageMagick-Windows7\\etc\\ImageMagick-6\\",
+                                        "ImageMagick/etc/configuration/")))
+
+    # Append Windows ICON file
+    iconFile += ".ico"
+    src_files.append((os.path.join(PATH, "xdg", iconFile), iconFile))
+
+    # Create environment variable for ImageMagick (on install)
+    environment_table = [
+        ("MAGICK_CONFIGURE_PATH",
+         "*=MAGICK_CONFIGURE_PATH",
+         "[TARGETDIR]ImageMagick\\etc\\configuration",
+         "OpenShot"
+         )
+    ]
+
+    # Now create the table dictionary
+    msi_data = {"Environment": environment_table}
+
+    # Change some default MSI options and specify the use of the above defined tables
+    bdist_msi_options = {"data": msi_data}
+    build_options["bdist_msi"] = bdist_msi_options
 
 elif sys.platform == "linux":
     # Find all related SO files
-    for filename in find_files('/usr/local/lib/', ['*openshot*.so*']):
+    for filename in find_files("/usr/local/lib/", ["*openshot*.so*"]):
         if "python" not in filename:
-            external_so_files.append((filename, filename.replace('/usr/local/lib/', '')))
+            external_so_files.append((filename, filename.replace("/usr/local/lib/", "")))
+
+    # Append Linux ICON file
+    iconFile += ".svg"
+    src_files.append((os.path.join(PATH, "xdg", iconFile), iconFile))
 
 elif sys.platform == "darwin":
     # Copy required ImageMagick files
-    for filename in find_files('/usr/local/Cellar/imagemagick/6.8.9-5/lib/ImageMagick/', ['*']):
-        external_so_files.append((filename, filename.replace('/usr/local/Cellar/imagemagick/6.8.9-5/lib/', '')))
-    for filename in find_files('/usr/local/Cellar/imagemagick/6.8.9-5/etc/ImageMagick-6/', ['*']):
-        external_so_files.append((filename, filename.replace('/usr/local/Cellar/imagemagick/6.8.9-5/etc/ImageMagick-6/',
-                                                             'ImageMagick/etc/configuration/')))
-    for filename in find_files('/Users/jonathan/apps/rsvg/', ['*']):
-        external_so_files.append((filename, filename.replace('/Users/jonathan/apps/rsvg/', '')))
+    for filename in find_files("/usr/local/Cellar/imagemagick/6.8.9-5/lib/ImageMagick/", ["*"]):
+        external_so_files.append((filename, filename.replace("/usr/local/Cellar/imagemagick/6.8.9-5/lib/", "")))
+    for filename in find_files("/usr/local/Cellar/imagemagick/6.8.9-5/etc/ImageMagick-6/", ["*"]):
+        external_so_files.append((filename, filename.replace("/usr/local/Cellar/imagemagick/6.8.9-5/etc/ImageMagick-6/",
+                                                             "ImageMagick/etc/configuration/")))
+    for filename in find_files("/Users/jonathan/apps/rsvg/", ["*"]):
+        external_so_files.append((filename, filename.replace("/Users/jonathan/apps/rsvg/", "")))
 
     # Copy openshot.py Python bindings
     src_files.append(("/usr/local/lib/python3.3/site-packages/openshot.py", "openshot.py"))
-    src_files.append((os.path.join(PATH, 'installer', 'launch-mac.sh'), "launch-mac.sh"))
+    src_files.append((os.path.join(PATH, "installer", "launch-mac.sh"), "launch-mac.sh"))
 
+    # Append Mac ICON file
+    iconFile += ".hqx"
+    src_files.append((os.path.join(PATH, "xdg", iconFile), iconFile))
 
-
-# Get list of all Python files
-for filename in find_files('src',
-                           ['*.py', '*.settings', '*.project', '*.svg', '*.png', '*.ui', '*.blend', '*.html', '*.css',
-                            '*.js', '*.xml']):
-    src_files.append((filename, filename.replace('src/', '').replace('src\\', '')))
+# Append all source files
+for filename in find_files("src", ["*"]):
+    src_files.append((filename, filename.replace("src/", "").replace("src\\", "")))
 
 # Dependencies are automatically detected, but it might need fine tuning.
-build_exe_options = {
-    "packages": ["os", "sys", "PyQt5", "openshot", "time", "uuid", "shutil", "threading", "subprocess", "re", "math",
-                 "subprocess", "xml", "urllib", "webbrowser", json_library],
-    "include_files": src_files + external_so_files}
+build_exe_options["packages"] = ["os", "sys", "PyQt5", "openshot", "time", "uuid", "shutil", "threading", "subprocess",
+                                 "re", "math", "subprocess", "xml", "urllib", "webbrowser", json_library]
+build_exe_options["include_files"] = src_files + external_so_files
+
+# Set options
+build_options["build_exe"] = build_exe_options
 
 # Create distutils setup object
 setup(name="OpenShot Video Editor",
-      version="2.0",
-      description="Non-Linear Video Editor for Linux, Windows, and Mac",
-      options={"build_exe": build_exe_options},
-      executables=[Executable("src/launch.py", base=base)])
+      version=info.VERSION,
+      description=info.DESCRIPTION,
+      author=info.COMPANY_NAME,
+      options=build_options,
+      executables=[Executable("src/launch.py",
+                              base=base,
+                              icon=os.path.join(PATH, "xdg", iconFile),
+                              shortcutName="OpenShot Video Editor %s" % info.VERSION,
+                              shortcutDir="ProgramMenuFolder")])

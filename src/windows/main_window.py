@@ -41,6 +41,7 @@ from classes.app import get_app
 from classes.logger import log
 from classes.timeline import TimelineSync
 from classes.query import File, Clip, Transition, Marker, Track
+from images import openshot_rc
 from windows.views.files_treeview import FilesTreeView
 from windows.views.files_listview import FilesListView
 from windows.views.transitions_treeview import TransitionsTreeView

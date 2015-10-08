@@ -29,9 +29,12 @@ import os
 
 VERSION = "2.0.0"
 DATE = "20130602800000"
-NAME = 'openshot'
-GPL_VERSION = '3'
-SUPPORTED_LANGUAGES = ['English', 'Dutch', 'French', 'German', 'Italian', 'Portuguese', 'Spanish', 'Swedish']
+NAME = "openshot"
+GPL_VERSION = "3"
+DESCRIPTION = "Create and edit videos and movies"
+COMPANY_NAME = "OpenShot Studios, LLC"
+COPYRIGHT = "Copyright (c) 2008-2014 %s" % COMPANY_NAME
+SUPPORTED_LANGUAGES = ["English", "Dutch", "French", "German", "Italian", "Portuguese", "Spanish", "Swedish"]
 CWD = os.getcwd()
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
 HOME_PATH = os.path.join(os.path.expanduser("~"))
@@ -49,37 +52,37 @@ EXPORT_TESTS = os.path.join(USER_PATH, "tests")
 # Create PATHS if they do not exist (this is where temp files are stored... such as cached thumbnails)
 for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH, TITLE_PATH, PROFILES_PATH, IMAGES_PATH,
                TRANSITIONS_PATH, EXPORT_TESTS]:
-    if not os.path.exists(folder.encode('UTF-8')):
+    if not os.path.exists(folder.encode("UTF-8")):
         os.makedirs(folder)
 
-# names of all contributers, using 'u' for unicode encoding
-AF = {'name': u'Andy Finch', 'email': 'andy@openshot.org'}
-NF = {'name': u'Noah Figg', 'email': 'eggmunkee@hotmail.com'}
-JT = {'name': u'Jonathan Thomas', 'email': 'jonathan@openshot.org'}
-OG = {'name': u'Olivier Girard', 'email': 'olivier@openshot.org'}
-CP = {'name': u'Cody Parker', 'email': 'cody@yourcodepro.com'}
-FM = {'name': u'Foster McLane', 'email': 'fmkclane@gmail.com'}
+# names of all contributers, using "u" for unicode encoding
+AF = {"name": u"Andy Finch", "email": "andy@openshot.org"}
+NF = {"name": u"Noah Figg", "email": "eggmunkee@hotmail.com"}
+JT = {"name": u"Jonathan Thomas", "email": "jonathan@openshot.org"}
+OG = {"name": u"Olivier Girard", "email": "olivier@openshot.org"}
+CP = {"name": u"Cody Parker", "email": "cody@yourcodepro.com"}
+FM = {"name": u"Foster McLane", "email": "fmkclane@gmail.com"}
 
 
 # credits
 CREDITS = {
-    'code': [JT, NF, AF, CP, OG, FM],
-    'artwork': [JT],
-    'documentation': [JT],
-    'translation': [OG],
+    "code": [JT, NF, AF, CP, OG, FM],
+    "artwork": [JT],
+    "documentation": [JT],
+    "translation": [OG],
 }
 
 SETUP = {
-    'name': NAME,
-    'version': VERSION,
-    'author': JT['name'] + ' and others',
-    'author_email': JT['email'],
-    'maintainer': JT['name'],
-    'maintainer_email': JT['email'],
-    'url': 'http://www.openshot.org/',
-    'license': 'GNU GPL v.' + GPL_VERSION,
-    'description': 'Create and edit videos and movies',
-    'long_description': "Create and edit videos and movies\n"
+    "name": NAME,
+    "version": VERSION,
+    "author": JT["name"] + " and others",
+    "author_email": JT["email"],
+    "maintainer": JT["name"],
+    "maintainer_email": JT["email"],
+    "url": "http://www.openshot.org/",
+    "license": "GNU GPL v." + GPL_VERSION,
+    "description": DESCRIPTION,
+    "long_description": "Create and edit videos and movies\n"
                         " OpenShot Video Editor is a free, open-source, non-linear video editor. It\n"
                         " can create and edit videos and movies using many popular video, audio, \n"
                         " image formats.  Create videos for YouTube, Flickr, Vimeo, Metacafe, iPod,\n"
@@ -95,16 +98,16 @@ SETUP = {
                         "  * Upload videos (YouTube and Vimeo supported)",
 
     # see http://pypi.python.org/pypi?%3Aaction=list_classifiers
-    'classifiers': [
-                       'Development Status :: 5 - Production/Stable',
-                       'Environment :: X11 Applications',
-                       'Environment :: X11 Applications :: GTK',
-                       'Intended Audience :: End Users/Desktop',
-                       'License :: OSI Approved :: GNU General Public License (GPL)',
-                       'Operating System :: OS Independent',
-                       'Operating System :: POSIX :: Linux',
-                       'Programming Language :: Python',
-                       'Topic :: Artistic Software',
-                       'Topic :: Multimedia :: Video :: Non-Linear Editor', ] +
-                   ['Natural Language :: ' + language for language in SUPPORTED_LANGUAGES],
+    "classifiers": [
+                       "Development Status :: 5 - Production/Stable",
+                       "Environment :: X11 Applications",
+                       "Environment :: X11 Applications :: GTK",
+                       "Intended Audience :: End Users/Desktop",
+                       "License :: OSI Approved :: GNU General Public License (GPL)",
+                       "Operating System :: OS Independent",
+                       "Operating System :: POSIX :: Linux",
+                       "Programming Language :: Python",
+                       "Topic :: Artistic Software",
+                       "Topic :: Multimedia :: Video :: Non-Linear Editor", ] +
+                   ["Natural Language :: " + language for language in SUPPORTED_LANGUAGES],
 }
