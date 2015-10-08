@@ -110,8 +110,26 @@ if sys.platform == "win32":
          )
     ]
 
+    # Create custom action table
+    # TODO: Revisit this idea, to force the environment variables to be updated after the installer runs.
+    # ImageMagick needs an environment variable or it will crash. Forcing a reboot is currently the only
+    # option I can get to work correctly.
+    # custom_action = [
+    #     ("SetVar",
+    #      "242",
+    #      "[SystemFolder]setx.exe",
+    #      "OSVE 1")
+    # ]
+
+    # Install an action into the MSI install sequence (schedule a reboot)
+    execute_sequence = [
+        ("ScheduleReboot",
+         "NOT REMOVE",
+         "8000")
+    ]
+
     # Now create the table dictionary
-    msi_data = {"Environment": environment_table}
+    msi_data = {"Environment": environment_table, "InstallExecuteSequence" : execute_sequence, "InstallUISequence" : execute_sequence}
 
     # Change some default MSI options and specify the use of the above defined tables
     bdist_msi_options = {"data": msi_data}
