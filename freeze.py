@@ -97,15 +97,31 @@ if sys.platform == "win32":
             (filename, filename.replace("C:\\Program Files\\ImageMagick-Windows7\\etc\\ImageMagick-6\\",
                                         "ImageMagick/etc/configuration/")))
 
+    # Copy missing SVG dll
+    # TODO: Determine why cx_Freeze misses this DLL when freezing. Without it, libopenshot cannot open SVG files
+    for filename in find_files("C:\\Qt\\Qt5.4.2\\5.4\\mingw491_32\\bin", ["Qt5Svgd.dll"]):
+        external_so_files.append(
+            (filename, filename.replace("C:\\Qt\\Qt5.4.2\\5.4\\mingw491_32\\bin\\", "")))
+
     # Append Windows ICON file
     iconFile += ".ico"
     src_files.append((os.path.join(PATH, "xdg", iconFile), iconFile))
+
+    # Append some additional files for Windows (this is a debug launcher)
+    src_files.append((os.path.join(PATH, "installer", "launch-win.bat"), "launch-win.bat"))
 
     # Create environment variable for ImageMagick (on install)
     environment_table = [
         ("MAGICK_CONFIGURE_PATH",
          "*=MAGICK_CONFIGURE_PATH",
          "[TARGETDIR]ImageMagick\\etc\\configuration",
+         "OpenShot"
+         ),
+        # TODO: Find a better way to load the qt_plugin_path for libopenshot, which can be imported in
+        # different directories from the .exe, causing the plugins (i.e. svg) to not load in some cases.
+        ("QT_PLUGIN_PATH",
+         "*=QT_PLUGIN_PATH",
+         "[TARGETDIR]",
          "OpenShot"
          )
     ]
