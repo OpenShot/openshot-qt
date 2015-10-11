@@ -41,7 +41,9 @@
 # Windows Syntax to Build MSI Installer
 # 1) python3 freeze.py bdist_msi
 # NOTE: Requires a tweak to cx_freeze: http://stackoverflow.com/questions/24195311/how-to-set-shortcut-working-directory-in-cx-freeze-msi-bundle
-
+# 2) Sign MSI with private code signing key (optional)
+#  NOTE: Install Windows 10 SDK first
+#  signtool sign /v /f OSStudiosSPC.pfx "OpenShot Video Editor-2.0.0-win32.msi"
 
 import os
 import sys
