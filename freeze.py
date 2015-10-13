@@ -33,10 +33,13 @@
 # from the Makefile.
 #
 # Mac Syntax to Build App Bundle:
-# 1) python3 freeze.py bdist_mac --include-frameworks "/usr/local/Cellar/qt5/5.3.1/Frameworks/QtCore.framework,/usr/local/Cellar/qt5/5.3.1/Frameworks/QtGui.framework,/usr/local/Cellar/qt5/5.3.1/Frameworks/QtMultimedia.framework,/usr/local/Cellar/qt5/5.3.1/Frameworks/QtMultimediaWidgets.framework,/usr/local/Cellar/qt5/5.3.1/Frameworks/QtNetwork.framework,/usr/local/Cellar/qt5/5.3.1/Frameworks/QtWidgets.framework" --qt-menu-nib="/usr/local/Cellar/qt5/5.3.1/plugins/platforms/" --iconfile=../openshot.icns --custom-info-plist=installer/Info.plist --bundle-name="OpenShot Video Editor"
+# 1) python3 freeze.py bdist_mac --include-frameworks "/usr/local/Cellar/qt5/5.4.2/Frameworks/QtCore.framework,/usr/local/Cellar/qt5/5.4.2/Frameworks/QtGui.framework,/usr/local/Cellar/qt5/5.4.2/Frameworks/QtMultimedia.framework,/usr/local/Cellar/qt5/5.4.2/Frameworks/QtMultimediaWidgets.framework,/usr/local/Cellar/qt5/5.4.2/Frameworks/QtNetwork.framework,/usr/local/Cellar/qt5/5.4.2/Frameworks/QtWidgets.framework" --qt-menu-nib="/usr/local/Cellar/qt5/5.4.2/plugins/platforms/" --iconfile=installer/openshot.icns --custom-info-plist=installer/Info.plist --bundle-name="OpenShot Video Editor"
 # 2) change Contents/Info.plist to use launch-mac.sh as the Executable name
 # 3) manually fix rsvg executable:
 #    sudo dylibbundler -od -of -b -x ~/apps/rsvg/rsvg-convert -d ./rsvg-libs/ -p @executable_path/rsvg-libs/
+# 4) Use appdmg (open-source app to easily build DMG files)
+#    a) cd ~/apps/openshot-qt-git/
+#    b) appdmg installer/dmg-template.json build/OpenShot-2.0.0.dmg
 #
 # Windows Syntax to Build MSI Installer
 # 1) python3 freeze.py bdist_msi

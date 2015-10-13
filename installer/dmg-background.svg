@@ -10,12 +10,15 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="744.09448819"
-   height="1052.3622047"
+   width="642.11395"
+   height="347.54865"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.5 r10040"
-   sodipodi:docname="dmg_background.svg">
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="dmg-background.svg"
+   inkscape:export-filename="/Users/jonathan/apps/openshot-qt-git/installer/dmg-background.png"
+   inkscape:export-xdpi="72"
+   inkscape:export-ydpi="72">
   <defs
      id="defs4">
     <linearGradient
@@ -39,7 +42,7 @@
        fx="372.77048"
        fy="325.1178"
        r="236.53372"
-       gradientTransform="matrix(1,0,0,0.54141248,0,158.7737)"
+       gradientTransform="matrix(1.3572078,0,0,0.73480924,-48.656525,141.63318)"
        gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
@@ -49,17 +52,21 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.9570562"
-     inkscape:cx="384.64189"
-     inkscape:cy="577.01317"
+     inkscape:zoom="1"
+     inkscape:cx="171.18148"
+     inkscape:cy="158.86022"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1296"
-     inkscape:window-height="942"
-     inkscape:window-x="347"
-     inkscape:window-y="0"
-     inkscape:window-maximized="0" />
+     inkscape:window-width="1644"
+     inkscape:window-height="938"
+     inkscape:window-x="55"
+     inkscape:window-y="5"
+     inkscape:window-maximized="0"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -75,44 +82,46 @@
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1">
+     id="layer1"
+     transform="translate(-136.2135,-206.75842)">
     <rect
-       style="fill:url(#radialGradient3772);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.20117736px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:url(#radialGradient3772);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.63024724px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        id="rect2996"
-       width="471.91278"
-       height="254.87505"
-       x="136.81409"
-       y="207.35901"
+       width="640.4837"
+       height="345.9184"
+       x="137.02863"
+       y="207.57355"
        inkscape:export-filename="/Users/jonathan/apps/openshot_qt/installer/dmg_background.png"
        inkscape:export-xdpi="194.69432"
        inkscape:export-ydpi="194.69432" />
     <g
        id="g3800"
-       transform="matrix(1,0,0,1.2539642,-1.4910278,-81.962271)"
+       transform="matrix(1.3561316,0,0,2.0477592,-50.277375,-324.94436)"
        inkscape:export-filename="/Users/jonathan/apps/openshot_qt/installer/dmg_background.png"
        inkscape:export-xdpi="194.69432"
-       inkscape:export-ydpi="194.69432">
+       inkscape:export-ydpi="194.69432"
+       style="fill:#ffffff;fill-opacity:1">
       <rect
-         ry="30.304577"
-         rx="30.304577"
+         ry="34.281239"
+         rx="34.281239"
          y="322.73157"
          x="169.70563"
          height="80.81221"
          width="409.11176"
          id="rect3774"
-         style="opacity:0.47083333;fill:#3aadff;fill-opacity:1;stroke:#0044b2;stroke-width:3;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+         style="opacity:0.47083333;fill:#ffffff;fill-opacity:1;stroke:#0044b2;stroke-width:2.44330263;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
       <path
          sodipodi:nodetypes="cccccccc"
          inkscape:connector-curvature="0"
          id="path3776"
-         d="m 347.18198,351.13161 0,23.82744 26.22865,0 0,12.19078 27.93041,-25.05702 -28.19163,-22.96727 0.26122,12.00607 z"
-         style="opacity:0.55416667;fill:#98d4ff;fill-opacity:1;stroke:#085abf;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+         d="m 346.12047,354.57487 0,16.9263 26.69456,0 0,8.65996 28.42655,-17.79975 -28.69241,-16.31526 0.26586,8.52875 z"
+         style="opacity:0.55416667;fill:#ffffff;fill-opacity:1;stroke:#085abf;stroke-width:2.44330263;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     </g>
     <text
        xml:space="preserve"
-       style="font-size:44.69532776px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:condensed;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Arial Unicode MS;-inkscape-font-specification:Arial Unicode MS"
-       x="157.89062"
-       y="273.96616"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:condensed;font-size:48.42584991px;line-height:125%;font-family:'Arial Unicode MS';-inkscape-font-specification:'Arial Unicode MS';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none"
+       x="207.94119"
+       y="269.21237"
        id="text3804"
        sodipodi:linespacing="125%"
        inkscape:export-filename="/Users/jonathan/apps/openshot_qt/installer/dmg_background.png"
@@ -120,8 +129,50 @@
        inkscape:export-ydpi="194.69432"><tspan
          sodipodi:role="line"
          id="tspan3806"
-         x="157.89062"
-         y="273.96616"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:condensed;fill:#ffffff;fill-opacity:1;font-family:Arial Unicode MS;-inkscape-font-specification:Arial Unicode MS Bold">OpenShot</tspan></text>
+         x="207.94119"
+         y="269.21237"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:condensed;font-family:'Arial Unicode MS';-inkscape-font-specification:'Arial Unicode MS Bold';fill:#ffffff;fill-opacity:1">OpenShot Video Editor</tspan></text>
+    <rect
+       style="opacity:0;fill:#ff0000;fill-opacity:1;stroke:#140303;stroke-width:3.30493784;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect6219"
+       width="105.27168"
+       height="105.27168"
+       x="258.00415"
+       y="366.03833" />
+    <rect
+       style="opacity:0;fill:#ff0000;fill-opacity:1;stroke:#140303;stroke-width:3.30493784;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect6219-5"
+       width="105.27168"
+       height="105.27168"
+       x="551.26514"
+       y="366.03833" />
+    <g
+       id="g4925"
+       transform="translate(4,2.8416138)">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:15.20080662px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="629.25488"
+         y="544.46545"
+         id="text4928"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan4930"
+           x="629.25488"
+           y="544.46545"
+           style="font-size:15px;fill:#ffffff;fill-opacity:1">www.openshot.org</tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="138.2135"
+       y="547.30707"
+       id="text4953"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4955"
+         x="138.2135"
+         y="547.30707"
+         style="font-size:15px;fill:#ffffff;fill-opacity:1"> Copyright © 2015 OpenShot Studios, LLC</tspan></text>
   </g>
 </svg>

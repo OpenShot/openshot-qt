@@ -1,0 +1,20 @@
+{
+  "title": "OpenShot",
+  "icon": "dmg-icon.icns",
+  "background": "dmg-background.png",
+  "icon-size": 80,
+  "contents": [
+    {
+      "x": 380,
+      "y": 155,
+      "type": "link",
+      "path": "/Applications"
+    },
+    {
+      "x": 140,
+      "y": 155,
+      "type": "file",
+      "path": "../build/OpenShot Video Editor.app"
+    }
+  ]
+}
