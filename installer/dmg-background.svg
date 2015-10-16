@@ -10,8 +10,8 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="642.11395"
-   height="347.54865"
+   width="642.48376"
+   height="380.9184"
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
@@ -42,7 +42,7 @@
        fx="372.77048"
        fy="325.1178"
        r="236.53372"
-       gradientTransform="matrix(1.3572078,0,0,0.73480924,-48.656525,141.63318)"
+       gradientTransform="matrix(1.3570111,0,0,0.80471157,-48.583205,135.40669)"
        gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
@@ -53,8 +53,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="171.18148"
-     inkscape:cy="158.86022"
+     inkscape:cx="240.87667"
+     inkscape:cy="171.04516"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -83,14 +83,14 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-136.2135,-206.75842)">
+     transform="translate(-136.02862,-206.57354)">
     <rect
-       style="fill:url(#radialGradient3772);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.63024724px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:url(#radialGradient3772);fill-opacity:1;fill-rule:evenodd;stroke:#003671;stroke-width:2.09281754;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect2996"
-       width="640.4837"
-       height="345.9184"
-       x="137.02863"
-       y="207.57355"
+       width="640.39093"
+       height="378.82559"
+       x="137.07503"
+       y="207.61995"
        inkscape:export-filename="/Users/jonathan/apps/openshot_qt/installer/dmg_background.png"
        inkscape:export-xdpi="194.69432"
        inkscape:export-ydpi="194.69432" />
@@ -148,7 +148,7 @@
        y="366.03833" />
     <g
        id="g4925"
-       transform="translate(4,2.8416138)">
+       transform="translate(3,0.841614)">
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:15.20080662px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -165,14 +165,14 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="138.2135"
-       y="547.30707"
+       x="137.2135"
+       y="545.30707"
        id="text4953"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4955"
-         x="138.2135"
-         y="547.30707"
+         x="137.2135"
+         y="545.30707"
          style="font-size:15px;fill:#ffffff;fill-opacity:1"> Copyright © 2015 OpenShot Studios, LLC</tspan></text>
   </g>
 </svg>

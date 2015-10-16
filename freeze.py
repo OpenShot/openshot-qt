@@ -167,14 +167,20 @@ elif sys.platform == "linux":
     src_files.append((os.path.join(PATH, "xdg", iconFile), iconFile))
 
 elif sys.platform == "darwin":
-    # Copy required ImageMagick files
+    # Copy Mac specific files that cx_Freeze misses
+    # ImageMagick files
     for filename in find_files("/usr/local/Cellar/imagemagick/6.8.9-5/lib/ImageMagick/", ["*"]):
         external_so_files.append((filename, filename.replace("/usr/local/Cellar/imagemagick/6.8.9-5/lib/", "")))
     for filename in find_files("/usr/local/Cellar/imagemagick/6.8.9-5/etc/ImageMagick-6/", ["*"]):
         external_so_files.append((filename, filename.replace("/usr/local/Cellar/imagemagick/6.8.9-5/etc/ImageMagick-6/",
                                                              "ImageMagick/etc/configuration/")))
+    # SVG executables
     for filename in find_files("/Users/jonathan/apps/rsvg/", ["*"]):
         external_so_files.append((filename, filename.replace("/Users/jonathan/apps/rsvg/", "")))
+
+    # JPEG library
+    for filename in find_files("/usr/local/Cellar/jpeg/8d/lib", ["libjpeg.8.dylib"]):
+        external_so_files.append((filename, filename.replace("/usr/local/Cellar/jpeg/8d/lib/", "")))
 
     # Copy openshot.py Python bindings
     src_files.append(("/usr/local/lib/python3.3/site-packages/openshot.py", "openshot.py"))
