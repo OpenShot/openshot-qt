@@ -25,14 +25,26 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import glob
 import os
 import sys
+import fnmatch
 import subprocess
-from distutils.core import setup
+from setuptools import setup
+from shutil import copytree, rmtree, copy
 
-from src.classes.logger import log
-from src.classes import info
+# Determine absolute PATH of OpenShot folder
+PATH = os.path.dirname(os.path.realpath(__file__))  # Primary openshot folder
+
+# Make a copy of the src tree (temporary for naming reasons only)
+if os.path.exists(os.path.join(PATH, "src")):
+    # Only make a copy if the SRC directory is present (otherwise ignore this)
+    copytree(os.path.join(PATH, "src"), os.path.join(PATH, "openshot_qt"))
+
+    # Make a copy of the launch.py script (to name it more appropriately)
+    copy(os.path.join(PATH, "src", "launch.py"), os.path.join(PATH, "openshot_qt", "launch-openshot"))
+
+from openshot_qt.classes.logger import log
+from openshot_qt.classes import info
 
 log.info("Execution path: %s" % os.path.abspath(__file__))
 
@@ -54,37 +66,43 @@ os_files = [
     ('share/mime/packages', ['xdg/openshot.xml']),
     # launcher (mime.types)
     ('lib/mime/packages', ['xdg/openshot']),
-    # man-page ("man 1 openshot")
-    ('share/man/man1', ['doc/openshot.1']),
-    ('share/man/man1', ['doc/openshot-render.1']),
 ]
 
-# Add all the translations
-locale_files = []
-for filepath in glob.glob("src/locale/*/LC_MESSAGES/*"):
-    filepath = filepath.replace('src/', '')
-    locale_files.append(filepath)
+# Find files matching patterns
+def find_files(directory, patterns):
+    """ Recursively find all files in a folder tree """
+    for root, dirs, files in os.walk(directory):
+        for basename in files:
+            if ".pyc" not in basename and "__pycache__" not in basename:
+                for pattern in patterns:
+                    if fnmatch.fnmatch(basename, pattern):
+                        filename = os.path.join(root, basename)
+                        yield filename
 
+
+package_data = {}
+
+# Find all project files
+src_files = []
+for filename in find_files(os.path.join(PATH, "openshot_qt"), ["*"]):
+    src_files.append(filename.replace(os.path.join(PATH, "openshot_qt"), ""))
+package_data["openshot_qt"] = src_files
 
 # Call the main Distutils setup command
 # -------------------------------------
 dist = setup(
-    scripts=['bin/openshot', 'bin/openshot-render'],
-    packages=['src', 'src.classes', 'src.images', 'src.locale', 'src.settings', 'src.timeline', 'src.windows',
-              'src.windows.ui'],
-    package_data={
-        'src': ['presets/*', 'images/*', 'locale/OpenShot/*', 'locale/README', 'profiles/*',
-                'transitions/icons/medium/*.png', 'transitions/icons/small/*.png', 'transitions/*.pgm',
-                'transitions/*.png', 'transitions/*.svg', 'effects/icons/medium/*.png', 'effects/icons/small/*.png',
-                'effects/*.xml', 'blender/blend/*.blend', 'blender/icons/*.png', 'blender/earth/*.jpg',
-                'blender/scripts/*.py', 'blender/*.xml'] + locale_files,
-        'src.windows': ['ui/*.ui'],
-    },
+    scripts=['openshot_qt/launch-openshot'],
+    packages=[('openshot_qt')],
+    package_data=package_data,
     data_files=os_files,
+    include_package_data=True,
     **info.SETUP
 )
 # -------------------------------------
 
+# Remove temporary folder (if SRC folder present)
+if os.path.exists(os.path.join(PATH, "src")):
+    rmtree(os.path.join(PATH, "openshot_qt"))
 
 FAILED = 'Failed to update.\n'
 

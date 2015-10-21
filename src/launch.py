@@ -42,6 +42,13 @@
 
 import sys
 
+try:
+    # Attempt to load from installed path
+    from openshot_qt import *
+except ImportError:
+    print ("Unable to load openshot_qt from system path")
+
+
 from classes import info
 from classes.app import OpenShotApp
 from classes.logger import log

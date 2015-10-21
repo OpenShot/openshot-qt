@@ -29,7 +29,7 @@ import os
 
 VERSION = "2.0.0"
 DATE = "20130602800000"
-NAME = "openshot"
+NAME = "openshot-qt"
 GPL_VERSION = "3"
 DESCRIPTION = "Create and edit videos and movies"
 COMPANY_NAME = "OpenShot Studios, LLC"
