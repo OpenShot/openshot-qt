@@ -43,13 +43,13 @@
 import sys
 
 try:
-    # Attempt to load from installed path
-    from openshot_qt import *
+    from classes import info
+    print("Loaded modules from current directory: %s" % info.PATH)
 except ImportError:
-    print ("Unable to load openshot_qt from system path")
+    from openshot_qt.classes import info
+    sys.path.append(info.PATH)
+    print("Loaded modules from installed directory: %s" % info.PATH)
 
-
-from classes import info
 from classes.app import OpenShotApp
 from classes.logger import log
 
