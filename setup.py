@@ -37,14 +37,21 @@ PATH = os.path.dirname(os.path.realpath(__file__))  # Primary openshot folder
 
 # Make a copy of the src tree (temporary for naming reasons only)
 if os.path.exists(os.path.join(PATH, "src")):
+    print("Copying modules to openshot_qt directory: %s" % os.path.join(PATH, "openshot_qt"))
     # Only make a copy if the SRC directory is present (otherwise ignore this)
     copytree(os.path.join(PATH, "src"), os.path.join(PATH, "openshot_qt"))
 
     # Make a copy of the launch.py script (to name it more appropriately)
     copy(os.path.join(PATH, "src", "launch.py"), os.path.join(PATH, "openshot_qt", "launch-openshot"))
 
-from openshot_qt.classes.logger import log
-from openshot_qt.classes import info
+if os.path.exists(os.path.join(PATH, "openshot_qt")):
+    # Append path to system path
+    sys.path.append(os.path.join(PATH, "openshot_qt"))
+    print("Loaded modules from openshot_qt directory: %s" % os.path.join(PATH, "openshot_qt"))
+
+
+from classes import info
+from classes.logger import log
 
 log.info("Execution path: %s" % os.path.abspath(__file__))
 
