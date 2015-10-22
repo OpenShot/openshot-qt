@@ -37,9 +37,9 @@
 # 2) change Contents/Info.plist to use launch-mac.sh as the Executable name
 # 3) manually fix rsvg executable:
 #    sudo dylibbundler -od -of -b -x ~/apps/rsvg/rsvg-convert -d ./rsvg-libs/ -p @executable_path/rsvg-libs/
-# 4) Use appdmg (open-source app to easily build DMG files)
+# 4) Code sign and create the DMG (disk image)
 #    a) cd ~/apps/openshot-qt-git/
-#    b) appdmg installer/dmg-template.json build/OpenShot-2.0.0.dmg
+#    b) bash installer/build-mac-dmg.sh
 #
 # Windows Syntax to Build MSI Installer
 # 1) python3 freeze.py bdist_msi
