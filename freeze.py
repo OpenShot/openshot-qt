@@ -33,7 +33,7 @@
 # from the Makefile.
 #
 # Mac Syntax to Build App Bundle:
-# 1) python3 freeze.py bdist_mac --include-frameworks "/usr/local/Cellar/qt5/5.4.2/Frameworks/QtCore.framework,/usr/local/Cellar/qt5/5.4.2/Frameworks/QtGui.framework,/usr/local/Cellar/qt5/5.4.2/Frameworks/QtMultimedia.framework,/usr/local/Cellar/qt5/5.4.2/Frameworks/QtMultimediaWidgets.framework,/usr/local/Cellar/qt5/5.4.2/Frameworks/QtNetwork.framework,/usr/local/Cellar/qt5/5.4.2/Frameworks/QtWidgets.framework" --qt-menu-nib="/usr/local/Cellar/qt5/5.4.2/plugins/platforms/" --iconfile=installer/openshot.icns --custom-info-plist=installer/Info.plist --bundle-name="OpenShot Video Editor"
+# 1) python3 freeze.py bdist_mac --qt-menu-nib="/usr/local/Cellar/qt5/5.4.2/plugins/platforms/" --iconfile=installer/openshot.icns --custom-info-plist=installer/Info.plist --bundle-name="OpenShot Video Editor"
 # 2) change Contents/Info.plist to use launch-mac.sh as the Executable name
 # 3) manually fix rsvg executable:
 #    sudo dylibbundler -od -of -b -x ~/apps/rsvg/rsvg-convert -d ./rsvg-libs/ -p @executable_path/rsvg-libs/
