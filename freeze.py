@@ -51,10 +51,8 @@
 import os
 import sys
 import fnmatch
-
+from shutil import copytree, rmtree, copy
 from cx_Freeze import setup, Executable
-from src.classes import info
-
 
 # Determine which JSON library is installed
 json_library = None
@@ -67,8 +65,29 @@ except ImportError:
 
     json_library = "simplejson"
 
+
 # Determine absolute PATH of OpenShot folder
 PATH = os.path.dirname(os.path.realpath(__file__))  # Primary openshot folder
+
+# Make a copy of the src tree (temporary for naming reasons only)
+if os.path.exists(os.path.join(PATH, "src")):
+    print("Copying modules to openshot_qt directory: %s" % os.path.join(PATH, "openshot_qt"))
+    # Only make a copy if the SRC directory is present (otherwise ignore this)
+    copytree(os.path.join(PATH, "src"), os.path.join(PATH, "openshot_qt"))
+
+    # Make a copy of the launch.py script (to name it more appropriately)
+    copy(os.path.join(PATH, "src", "launch.py"), os.path.join(PATH, "openshot_qt", "launch-openshot"))
+
+if os.path.exists(os.path.join(PATH, "openshot_qt")):
+    # Append path to system path
+    sys.path.append(os.path.join(PATH, "openshot_qt"))
+    print("Loaded modules from openshot_qt directory: %s" % os.path.join(PATH, "openshot_qt"))
+
+
+from classes import info
+from classes.logger import log
+
+log.info("Execution path: %s" % os.path.abspath(__file__))
 
 
 # Find files matching patterns
@@ -90,6 +109,7 @@ src_files = []
 external_so_files = []
 build_options = {}
 build_exe_options = {}
+
 
 if sys.platform == "win32":
     base = "Win32GUI"
@@ -166,6 +186,27 @@ elif sys.platform == "linux":
     iconFile += ".svg"
     src_files.append((os.path.join(PATH, "xdg", iconFile), iconFile))
 
+    # Shorten name (since RPM can't have spaces)
+    info.PRODUCT_NAME = "openshot-qt"
+
+    # Get a list of all openshot.so dependencies
+    import subprocess
+    p = subprocess.Popen(["ldd", "/usr/local/lib/libopenshot.so"], stdout=subprocess.PIPE)
+    out, err = p.communicate()
+    depends = str(out).replace("\\t","").replace("\\n","\n").replace("\'","").split("\n")
+    for line in depends:
+        lineparts = line.split("=>")
+        libname = lineparts[0].strip()
+        if len(lineparts) > 1:
+            libdetails = lineparts[1].strip()
+            libdetailsparts = libdetails.split("(")
+            if len(libdetailsparts) > 1:
+                libpath = libdetailsparts[0].strip()
+                if libpath:
+                    filepath, filename = os.path.split(libpath)
+                    external_so_files.append((libpath, filename))
+
+
 elif sys.platform == "darwin":
     # Copy Mac specific files that cx_Freeze misses
     # ImageMagick files
@@ -191,8 +232,8 @@ elif sys.platform == "darwin":
     src_files.append((os.path.join(PATH, "xdg", iconFile), iconFile))
 
 # Append all source files
-for filename in find_files("src", ["*"]):
-    src_files.append((filename, filename.replace("src/", "").replace("src\\", "")))
+for filename in find_files("openshot_qt", ["*"]):
+    src_files.append((filename, filename.replace("openshot_qt/", "").replace("openshot_qt\\", "")))
 
 # Dependencies are automatically detected, but it might need fine tuning.
 build_exe_options["packages"] = ["os", "sys", "PyQt5", "openshot", "time", "uuid", "shutil", "threading", "subprocess",
@@ -203,13 +244,18 @@ build_exe_options["include_files"] = src_files + external_so_files
 build_options["build_exe"] = build_exe_options
 
 # Create distutils setup object
-setup(name="OpenShot Video Editor",
+setup(name=info.PRODUCT_NAME,
       version=info.VERSION,
       description=info.DESCRIPTION,
       author=info.COMPANY_NAME,
       options=build_options,
-      executables=[Executable("src/launch.py",
+      executables=[Executable("openshot_qt/launch.py",
                               base=base,
                               icon=os.path.join(PATH, "xdg", iconFile),
-                              shortcutName="OpenShot Video Editor %s" % info.VERSION,
+                              shortcutName="%s %s" % (info.PRODUCT_NAME, info.VERSION),
                               shortcutDir="ProgramMenuFolder")])
+
+
+# Remove temporary folder (if SRC folder present)
+if os.path.exists(os.path.join(PATH, "src")):
+    rmtree(os.path.join(PATH, "openshot_qt"))

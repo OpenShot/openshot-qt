@@ -10,4 +10,3 @@ global-exclude *__pycache__*
 global-exclude *pyc
 global-exclude .idea
 global-exclude .git
-global-exclude launch.py

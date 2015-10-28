@@ -32,6 +32,7 @@ import subprocess
 from setuptools import setup
 from shutil import copytree, rmtree, copy
 
+
 # Determine absolute PATH of OpenShot folder
 PATH = os.path.dirname(os.path.realpath(__file__))  # Primary openshot folder
 
