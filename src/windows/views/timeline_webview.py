@@ -469,9 +469,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
                 # Create Effect
                 effect = None
-                if name == "brightness":
+                if name == "blur":
+                    effect = openshot.Blur()
+                elif name == "brightness":
                     effect = openshot.Brightness()
-                if name == "chromakey":
+                elif name == "chromakey":
                     effect = openshot.ChromaKey()
                 elif name == "deinterlace":
                     effect = openshot.Deinterlace()
