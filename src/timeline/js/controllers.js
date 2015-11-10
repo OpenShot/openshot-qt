@@ -613,11 +613,34 @@ App.controller('TimelineCtrl',function($scope) {
 		else if (original_right > clip_left && original_right < clip_right)
 			transition_size = { "position" : clip_left, "layer" : clip.layer, "start" : 0, "end" : (original_right - clip_left) };
 
-		if (transition_size != null)
-			return transition_size;
+		if (transition_size != null && transition_size.end > 0.5)
+			break
 	}
- 	
- 	return null;
+
+	// Search through all existing transitions, and don't overlap an existing one
+	if (transition_size != null)
+		for (var tran_index = 0; tran_index < $scope.project.effects.length; tran_index++) {
+			var tran = $scope.project.effects[tran_index];
+
+			// skip transitions that are not on the same layer
+			if (tran.layer != transition_size.layer)
+				continue;
+
+			var tran_left = tran.position;
+			var tran_right = tran.position + (tran.end - tran.start);
+
+			var new_tran_left = transition_size.position;
+			var new_tran_right = transition_size.position + (transition_size.end - transition_size.start);
+
+			var TOLERANCE = 0.01;
+			// Check for overlapping transitions
+			if (Math.abs(tran_left - new_tran_left) < TOLERANCE || Math.abs(tran_right - new_tran_right) < TOLERANCE) {
+				transition_size = null; // this transition already exists
+				break;
+			}
+		}
+
+ 	return transition_size;
  };
  
  // Search through clips and transitions to find the closest element within a given threashold

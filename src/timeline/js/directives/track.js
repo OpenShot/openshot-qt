@@ -53,6 +53,9 @@ App.directive('tlTrack', function($timeout) {
 		        accept: ".droppable",
 		       	drop:function(event,ui) {
 
+					// Keep track of each dropped clip (to check for missing transitions below, after they have been dropped)
+					var dropped_clips = [];
+
 		       		// with each dragged clip, find out which track they landed on
 		       		// Loop through each selected item, and remove the selection if multiple items are selected
 		       		// If only 1 item is selected, leave it selected
@@ -114,25 +117,35 @@ App.directive('tlTrack', function($timeout) {
 		            			item_data.position =  parseInt(item_left)/scope.pixelsPerSecond;
 		            		});	
 
-					// Resize timeline if it's too small to contain all clips
-					scope.ResizeTimeline();
-		            		
+							// Resize timeline if it's too small to contain all clips
+							scope.ResizeTimeline();
+
+							// Keep track of dropped clips (we'll check for missing transitions in a sec)
+							dropped_clips.push(item_data);
+
 							// update clip in Qt (very important =)
-	            			if (scope.Qt && item_type == 'clip') {
+	            			if (scope.Qt && item_type == 'clip')
 	            				timeline.update_clip_data(JSON.stringify(item_data));
 
-			            		// Look for overlapping clips (and add the missing transition)
-			            		missing_transition_details = scope.GetMissingTransitions(item_data);
-			            		if (missing_transition_details != null)
-		            				timeline.add_missing_transition(JSON.stringify(missing_transition_details));
-
-	            			}
 	            			else if (scope.Qt && item_type == 'transition')
 	            				timeline.update_transition_data(JSON.stringify(item_data));
 							
 
 		            	}
 		            });
+
+					// Add missing transitions (if any)
+					for (var clip_index = 0; clip_index < dropped_clips.length; clip_index++) {
+						var item_data = dropped_clips[clip_index];
+
+						// Check again for missing transitions
+						missing_transition_details = scope.GetMissingTransitions(item_data);
+						if (scope.Qt && missing_transition_details != null)
+							timeline.add_missing_transition(JSON.stringify(missing_transition_details));
+					}
+
+					// Clear dropped clips
+					dropped_clips = [];
 		            
 		            // Re-sort clips
 		            scope.SortItems();

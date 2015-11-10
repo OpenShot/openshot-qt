@@ -287,7 +287,7 @@ function moveBoundingBox(scope, element, previous_x, previous_y, x_offset, y_off
 	});
     
     // Find closest nearby object, if any (for snapping)
-    var results = scope.GetNearbyPosition([bounding_box.left, bounding_box.right], 1.0, selected_ids);
+    var results = scope.GetNearbyPosition([bounding_box.left, bounding_box.right + (scope.border_offset * 2)], 1.0, selected_ids);
     var nearby_offset = results[0] * scope.pixelsPerSecond;
     var snapline_position = results[1];
 

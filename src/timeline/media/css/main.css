@@ -40,8 +40,8 @@ img {
 #track_controls { width: 140px; position: relative; float: left; height: 316px; overflow: hidden;}
 .track_top { background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.20)), color-stop(100%,rgba(255,255,255,0))); border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
 .track_label { padding-top: 2px; padding-left: 2px; padding-left: 4px; }
-.track_name { width: 140px; height: 70px; font-family: Sans; color: #fff; font-size: 9pt; margin-left: 5px; margin-bottom: 8px; background-color: #000; border: 1px solid #4B92AD; border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
-.track { height: 70px; background-color: #000; margin-bottom: 8px; background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(50,50,50,1)), color-stop(100%,rgba(6,6,6,1))); border-top: 1px solid #4b92ad; border-bottom: 1px solid #4b92ad; border-right: 1px solid #4B92AD; border-top-right-radius: 8px; border-bottom-right-radius: 8px; }
+.track_name { width: 140px; height: 64px; font-family: Sans; color: #fff; font-size: 9pt; margin-left: 5px; margin-bottom: 8px; background-color: #000; border: 1px solid #4B92AD; border-top-left-radius: 8px; border-bottom-left-radius: 8px; box-shadow: 0px 0px 10px #000; }
+.track { height: 64px; background-color: #000; margin-bottom: 8px; background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(50,50,50,1)), color-stop(100%,rgba(6,6,6,1))); border-top: 1px solid #4b92ad; border-bottom: 1px solid #4b92ad; border-right: 1px solid #4B92AD; border-top-right-radius: 8px; border-bottom-right-radius: 8px; box-shadow: 0px 0px 10px #000; }
 
 /* Playhead */
 .playhead-line { z-index: 9998; position: absolute; height:316px; top:0px; margin-left: 8px; width:1px; background-color:#ff0024; opacity:1;}
@@ -56,7 +56,7 @@ img {
 .clip_effects { cursor: pointer; border:1px solid #000; text-align:center; min-width:20px; font-size:14px; padding:1px; font-weight:bold; float:left; margin-left:2px; margin-right:2px; margin-top:2px; background: rgba(54, 25, 25, .2); overflow:hidden;line-height:15px;height:15px;border-top-left-radius: 6px; border-bottom-left-radius: 6px;border-top-right-radius: 6px; border-bottom-right-radius: 6px;}
 .effect_icon {margin-left:1px;margin-right:1px;}
 
-.clip { cursor: move; z-index:5000; color: #fff; min-width:0px; height: 64px; position: absolute; margin-top:2px; left: 100px; font-family: Sans; font-size: 9pt; background-color: #ef7f00; background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(82,82,82,1)), color-stop(100%,rgba(34,38,40,1))); border-radius: 8px; border: 1px solid #4b92ad; border-left: 2px solid #4b92ad; border-right: 2px solid #4b92ad; }
+.clip { cursor: move; z-index:5000; color: #fff; min-width:0px; height: 64px; position: absolute; margin-top:0px; left: 100px; font-family: Sans; font-size: 9pt; background-color: #ef7f00; background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(82,82,82,1)), color-stop(100%,rgba(34,38,40,1))); border-radius: 8px; border: 1px solid #4b92ad; border-left: 2px solid #4b92ad; border-right: 2px solid #4b92ad; box-shadow: 0px 0px 10px #000; opacity: 0.95;}
 .left_edge_stop { border-left: 2px solid #4b92ad; }
 .right_edge_stop { border-right: 2px solid #4b92ad; }
 .highlight_clip { border-color: #32b7ea; }
@@ -87,7 +87,7 @@ img {
 
 /* Transitions */
 .transition_top { background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.75)), color-stop(100%,rgba(255,255,255,0))); border-radius: 8px; }
-.transition { cursor: move; z-index:8000; color: #fff; min-width:0px; height: 64px; position: absolute; margin-top:2px; left: 100px; font-family: Sans; font-size: 9pt; background-color: #0192c; background: -webkit-linear-gradient(top, #0192c1 0%,#3fa1bf 100%); border-radius: 8px; border: 1px solid #0192c1; border-left: 2px solid #0192c1; border-right: 2px solid #0192c1; background-image: url(../images/transition.png); background-repeat: no-repeat; background-position: center; background-size: 100% 66px; opacity:0.75; }
+.transition { cursor: move; z-index:8000; color: #fff; min-width:0px; height: 64px; position: absolute; margin-top:0px; left: 100px; font-family: Sans; font-size: 9pt; background-color: #0192c; background: -webkit-linear-gradient(top, #0192c1 0%,#3fa1bf 100%); border-radius: 8px; border: 1px solid #0192c1; border-left: 2px solid #0192c1; border-right: 2px solid #0192c1; background-image: url(../images/transition.png); background-repeat: no-repeat; background-position: center; background-size: 100% 66px; opacity:0.75; box-shadow: 0px 0px 10px #000; }
 .transition_menu { cursor: pointer; float:left;margin-top:4px;margin-left:4px;margin-right:4px;width:12px;height:12px;background-image: url(../images/menu.png);}
 .transition_label { float:left; padding-top: 2px; width:50px; margin-left: 2px; color:#fff;font-weight:bold;}
 .highlight_transition { border-color: #32b7ea; }

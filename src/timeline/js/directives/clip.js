@@ -201,8 +201,8 @@ App.directive('tlClip', function($timeout){
 			element.draggable({
 		        snap: ".track", // snaps to a track
 		        snapMode: "inner", 
-		        snapTolerance: 20, 
-		        stack: ".droppable", 
+		        snapTolerance: 20,
+		        stack: ".droppable",
 		        scroll: true,
 		        revert: 'invalid',
 		        start: function(event, ui) {
