@@ -217,7 +217,6 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.snapline = false;
   $scope.enable_snapping = true;
   $scope.debug = false;
-  $scope.border_offset = 2;
   $scope.min_width = 1024;
   
   // Method to set if Qt is detected (which clears demo data)
@@ -326,6 +325,10 @@ App.controller('TimelineCtrl',function($scope) {
  $scope.SetSnappingMode = function(enable_snapping){
       $scope.$apply(function(){
          $scope.enable_snapping = enable_snapping;
+		 if (enable_snapping)
+		 	$(".droppable").draggable("option", "snapTolerance", 20);
+		 else
+		 	$(".droppable").draggable("option", "snapTolerance", 0);
      });
  };
  
@@ -613,8 +616,13 @@ App.controller('TimelineCtrl',function($scope) {
 		else if (original_right > clip_left && original_right < clip_right)
 			transition_size = { "position" : clip_left, "layer" : clip.layer, "start" : 0, "end" : (original_right - clip_left) };
 
-		if (transition_size != null && transition_size.end > 0.5)
-			break
+		if (transition_size != null && transition_size.end >= 0.5)
+			// Found a possible missing transition
+			break;
+		else if (transition_size != null && transition_size.end < 0.5)
+			// Too small to be a missing transitions, clear and continue looking
+			transition_size = null;
+
 	}
 
 	// Search through all existing transitions, and don't overlap an existing one
@@ -649,7 +657,6 @@ App.controller('TimelineCtrl',function($scope) {
 	var smallest_diff = 900.0;
 	var smallest_abs_diff = 900.0;
 	var snapping_position = 0.0;
-	var end_padding = $scope.project.fps.den / $scope.project.fps.num; // add a frame onto the end of clips
 	var diffs = [];
 	
 	// Loop through each pixel position (supports multiple positions: i.e. left and right side of bounding box)
@@ -666,7 +673,7 @@ App.controller('TimelineCtrl',function($scope) {
 				continue;
 			
 			diffs.push({'diff' : position - clip.position, 'position' : clip.position}, // left side of clip
-			           {'diff' : position - (clip.position + (clip.end - clip.start) + end_padding), 'position' : clip.position + (clip.end - clip.start) + end_padding}); // right side of clip
+			           {'diff' : position - (clip.position + (clip.end - clip.start)), 'position' : clip.position + (clip.end - clip.start)}); // right side of clip
 		}
 		
 		// Add transition positions to array
@@ -678,7 +685,7 @@ App.controller('TimelineCtrl',function($scope) {
 				continue;
 			
 			diffs.push({'diff' : position - transition.position, 'position' : transition.position}, // left side of transition
-			           {'diff' : position - (transition.position + (transition.end - transition.start) + end_padding), 'position' : transition.position + (transition.end - transition.start) + end_padding}); // right side of transition
+			           {'diff' : position - (transition.position + (transition.end - transition.start)), 'position' : transition.position + (transition.end - transition.start)}); // right side of transition
 		}
 
 		// Add marker positions to array
@@ -686,7 +693,7 @@ App.controller('TimelineCtrl',function($scope) {
 			var marker = $scope.project.markers[index];
 
 			diffs.push({'diff' : position - marker.position, 'position' : marker.position}, // left side of marker
-			           {'diff' : position - (marker.position + (marker.end - marker.start) + end_padding), 'position' : marker.position + (marker.end - marker.start) + end_padding}); // right side of marker
+			           {'diff' : position - (marker.position + (marker.end - marker.start)), 'position' : marker.position + (marker.end - marker.start)}); // right side of marker
 		}
 
 		// Add playhead position to array

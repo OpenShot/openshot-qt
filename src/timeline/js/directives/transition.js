@@ -155,7 +155,7 @@ App.directive('tlTransition', function(){
 			element.draggable({
 		        snap: ".track", // snaps to a track
 		        snapMode: "inner", 
-		        snapTolerance: 20, 
+		        snapTolerance: 20,
 		        stack: ".droppable",
 		        scroll: true,
 		        revert: 'invalid',
