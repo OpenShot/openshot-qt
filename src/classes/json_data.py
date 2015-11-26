@@ -138,7 +138,7 @@ class JsonDataStore:
 
     def write_to_file(self, file_path, data):
         """ Save JSON settings to a file """
-        # log.debug("saving", file_path, data)
+        # log.debug(json.dumps(data))
         try:
             with open(file_path.encode('UTF-8'), 'w') as f:
                 f.write(json.dumps(data))

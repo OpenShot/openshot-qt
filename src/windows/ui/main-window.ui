@@ -1221,6 +1221,20 @@
     <string>Remove Effe</string>
    </property>
   </action>
+  <action name="actionSplitClip">
+   <property name="icon">
+    <iconset theme="edit-cut"/>
+   </property>
+   <property name="text">
+    <string>Split Clip...</string>
+   </property>
+   <property name="toolTip">
+    <string>Split Clip</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="../../images/openshot.qrc"/>

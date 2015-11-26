@@ -75,6 +75,7 @@ class FilesTreeView(QTreeView):
         if self.selected:
             # If file selected, show file related options
             menu.addAction(self.win.actionAdd_to_Timeline)
+            menu.addAction(self.win.actionSplitClip)
             menu.addAction(self.win.actionPreview_File)
             menu.addSeparator()
             menu.addAction(self.win.actionFile_Properties)

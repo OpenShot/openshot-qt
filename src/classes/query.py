@@ -60,7 +60,7 @@ class QueryObject:
             self.id = project.generate_id()
 
             # save id in data (if attribute found)
-            self.data["id"] = self.id
+            self.data["id"] = copy.deepcopy(self.id)
 
             # Set key (if needed)
             if not self.key:
@@ -68,7 +68,7 @@ class QueryObject:
                 self.key.append({"id": self.id})
 
             # Insert into project data
-            app.updates.insert(copy.deepcopy(OBJECT_TYPE.object_key), self.data)
+            app.updates.insert(copy.deepcopy(OBJECT_TYPE.object_key), copy.deepcopy(self.data))
 
             # Mark record as 'update' now... so another call to this method won't insert it again
             self.type = "update"

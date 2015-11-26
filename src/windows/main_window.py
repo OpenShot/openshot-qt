@@ -67,6 +67,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Stop threads
         self.preview_thread.kill()
 
+        # Wait for thread
+        self.preview_parent.background.wait(250)
+
     def actionNew_trigger(self, event):
         # clear data and start new project
         get_app().project.load("")
@@ -176,7 +179,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
                 log.info("Loaded project {}".format(file_path))
 
         except Exception as ex:
-            log.error("Couldn't save project {}".format(file_path))
+            log.error("Couldn't open project {}".format(file_path))
 
     def actionOpen_trigger(self, event):
         app = get_app()
@@ -649,6 +652,26 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         if result == QDialog.Accepted:
             log.info('Profile add confirmed')
 
+
+    def actionSplitClip_trigger(self, event):
+        log.info("actionSplitClip_trigger")
+
+        # Loop through selected files (set 1 selected file if more than 1)
+        f = None
+        for file_id in self.selected_files:
+            # Find matching file
+            f = File.get(id=file_id)
+
+        # show dialog
+        from windows.cutting import Cutting
+        win = Cutting(f)
+        # Run the dialog event loop - blocking interaction on this window during that time
+        result = win.exec_()
+        if result == QDialog.Accepted:
+            log.info('Cutting Finished')
+        else:
+            log.info('Cutting Cancelled')
+
     def actionRemove_from_Project_trigger(self, event):
         log.info("actionRemove_from_Project_trigger")
 
@@ -705,6 +728,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
                 if found_effect:
                     # Remove found effect from clip data and save clip
                     c.data["effects"].remove(found_effect)
+
+                    # Remove unneeded attributes from JSON
+                    c.data.pop("reader")
+
+                    # Save clip
                     c.save()
 
                     # Clear selected effects
@@ -1228,5 +1256,5 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Start the preview thread
         self.preview_parent = PreviewParent()
-        self.preview_parent.Init(self, self.timeline_sync.timeline)
+        self.preview_parent.Init(self, self.timeline_sync.timeline, self.videoPreview)
         self.preview_thread = self.preview_parent.worker

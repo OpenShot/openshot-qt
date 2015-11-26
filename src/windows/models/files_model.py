@@ -140,8 +140,15 @@ class FilesModel(updates.UpdateInterface):
                         if file.data["media_type"] == "video":
                             overlay_path = os.path.join(info.IMAGES_PATH, "overlay.png")
 
+                        # Check for start and end attributes (optional)
+                        thumbnail_frame = 1
+                        if 'start' in file.data.keys():
+                            fps = get_app().project.get(["fps"])
+                            fps_float = float(fps["num"]) / float(fps["den"])
+                            thumbnail_frame = round(float(file.data['start']) * fps_float)
+
                         # Save thumbnail
-                        reader.GetFrame(0).Thumbnail(thumb_path, 98, 64, os.path.join(info.IMAGES_PATH, "mask.png"),
+                        reader.GetFrame(thumbnail_frame).Thumbnail(thumb_path, 98, 64, os.path.join(info.IMAGES_PATH, "mask.png"),
                                                      overlay_path, "#000", False)
                         reader.Close()
                         clip.Close()
@@ -160,10 +167,15 @@ class FilesModel(updates.UpdateInterface):
 
             row = []
 
+            # Look for friendly name attribute (optional)
+            name = filename
+            if 'name' in file.data.keys():
+                name = file.data['name']
+
             # Append thumbnail
             col = QStandardItem()
             col.setIcon(QIcon(thumb_path))
-            col.setText((filename[:9] + '...') if len(filename) > 10 else filename)
+            col.setText((name[:9] + '...') if len(name) > 10 else name)
             col.setToolTip(filename)
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
             row.append(col)
@@ -171,7 +183,7 @@ class FilesModel(updates.UpdateInterface):
             # Append Filename
             col = QStandardItem("Name")
             col.setData(filename, Qt.DisplayRole)
-            col.setText((filename[:20] + '...') if len(filename) > 15 else filename)
+            col.setText((name[:20] + '...') if len(name) > 15 else name)
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
             row.append(col)
 

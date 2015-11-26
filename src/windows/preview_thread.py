@@ -28,7 +28,7 @@
 import time
 import sip
 
-from PyQt5.QtCore import QObject, QThread, pyqtSlot, pyqtSignal
+from PyQt5.QtCore import QObject, QThread,  QTimer,  pyqtSlot, pyqtSignal
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 from classes.logger import log
@@ -52,7 +52,7 @@ class PreviewParent(QObject):
         log.info('onModeChanged')
 
     @pyqtSlot(object, object)
-    def Init(self, parent, timeline):
+    def Init(self, parent, timeline, video_widget):
         # Important vars
         self.parent = parent
         self.timeline = timeline
@@ -62,12 +62,13 @@ class PreviewParent(QObject):
         self.worker = PlayerWorker()  # no parent!
 
         # Init worker variables
-        self.worker.Init(parent, timeline)
+        self.worker.Init(parent, timeline, video_widget)
 
         # Hook up signals to Background Worker
         self.worker.position_changed.connect(self.onPositionChanged)
         self.worker.mode_changed.connect(self.onModeChanged)
         self.background.started.connect(self.worker.Start)
+        self.worker.finished.connect(self.background.quit)
 
         # Move Worker to new thread, and Start
         self.worker.moveToThread(self.background)
@@ -79,11 +80,13 @@ class PlayerWorker(QObject):
 
     position_changed = pyqtSignal(int)
     mode_changed = pyqtSignal(object)
+    finished = pyqtSignal()
 
     @pyqtSlot(object, object)
-    def Init(self, parent, timeline):
+    def Init(self, parent, timeline, videoPreview):
         self.parent = parent
         self.timeline = timeline
+        self.videoPreview = videoPreview
 
     @pyqtSlot()
     def Start(self):
@@ -93,7 +96,6 @@ class PlayerWorker(QObject):
         # Flag to run thread
         self.is_running = True
         self.number = None
-        self.videoPreview = self.parent.videoPreview
         self.player = None
         self.current_frame = None
         self.current_mode = None
@@ -121,6 +123,9 @@ class PlayerWorker(QObject):
 
             # wait for a small delay
             time.sleep(0.01)
+
+        self.finished.emit()
+        log.info('exiting thread')
 
     @pyqtSlot()
     def initPlayer(self):
@@ -190,3 +195,19 @@ class PlayerWorker(QObject):
         # Start playback
         log.info("Pause...")
         self.player.Pause()
+
+    @pyqtSlot()
+    def Seek(self, number):
+        """ Seek to a specific frame """
+
+        # Start playback
+        log.info("Seek...")
+        self.player.Seek(number)
+
+    @pyqtSlot()
+    def Speed(self, new_speed):
+        """ Set the speed of the video player """
+
+        # Start playback
+        log.info("Speed...")
+        self.player.Speed(new_speed)

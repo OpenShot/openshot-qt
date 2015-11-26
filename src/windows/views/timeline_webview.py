@@ -388,6 +388,14 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         new_clip["title"] = filename
         new_clip["image"] = thumb_path
 
+        # Check for optional start and end attributes
+        start_frame = 1
+        end_frame = new_clip["reader"]["duration"]
+        if 'start' in file.data.keys():
+            new_clip["start"] = file.data['start']
+        if 'end' in file.data.keys():
+            new_clip["end"] = file.data['end']
+
         # Find the closest track (from javascript)
         top_layer = int(self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack(" + str(position.y()) + ");"))
         new_clip["layer"] = top_layer
@@ -398,9 +406,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Adjust clip duration, start, and end
         new_clip["duration"] = new_clip["reader"]["duration"]
-        if file.data["media_type"] != "image":
-            new_clip["end"] = new_clip["reader"]["duration"]
-        else:
+        if file.data["media_type"] == "image":
             new_clip["end"] = self.settings.get("default-image-length")  # default to 8 seconds
 
         # Add clip to timeline
@@ -490,6 +496,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
                 # Append effect JSON to clip
                 clip.data["effects"].append(effect_json)
+
+                # Remove unneeded JSON attributes
+                clip.data.pop("reader")
 
                 # Update clip data for project
                 self.update_clip_data(clip.data, only_basic_props=False)
