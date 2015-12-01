@@ -205,8 +205,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         log.info('ShowEffectMenu: %s' % effect_id)
 
         # Set the selected clip (if needed)
-        if effect_id not in self.window.selected_effects:
-            self.window.addSelection(effect_id, 'effect')
+        self.window.addSelection(effect_id, 'effect', True)
 
         menu = QMenu(self)
         menu.addAction(self.window.actionRemoveEffect)
@@ -288,11 +287,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         self.eval_js(JS_SCOPE_SELECTOR + ".SetSnappingMode(%s);" % int(enable_snapping))
 
     @pyqtSlot(str, str)
-    def addSelection(self, item_id, item_type):
+    def addSelection(self, item_id, item_type, clear_existing=False):
         """ Add the selected item to the current selection """
 
         # Add to main window
-        self.window.addSelection(item_id, item_type)
+        self.window.addSelection(item_id, item_type, clear_existing)
 
     @pyqtSlot(str, str)
     def removeSelection(self, item_id, item_type):

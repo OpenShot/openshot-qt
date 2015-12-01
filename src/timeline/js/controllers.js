@@ -53,11 +53,11 @@ App.controller('TimelineCtrl',function($scope) {
 	                 position : 0.0,
 	                 title : 'Clip U2V5ENELDY',
 	                 effects : [
-	                           { effect : 'Black and White', icon : 'bw.png'},
-	                           { effect : 'Old Movie',icon : 'om.png'},
-	                           { effect : 'Negative',icon : 'neg.png'},
-	                           { effect : 'Blur', icon: 'blur.png'},
-	                           { effect : 'Cartoon', icon: 'cartoon.png'}
+	                           { type : 'Saturation', icon : 'bw.png'},
+	                           { type : 'ChromaKey',icon : 'om.png'},
+	                           { type : 'Negate',icon : 'neg.png'},
+	                           { type : 'Blur', icon: 'blur.png'},
+	                           { type : 'Brightness', icon: 'cartoon.png'}
 	                           ],
 	                 images :  {start: 1, end: 4},
 	                 show_audio : false,
@@ -129,9 +129,9 @@ App.controller('TimelineCtrl',function($scope) {
 	                 position : 32.0,
 	                 title : 'Clip C',
 	                 effects : [
-	                           { effect : 'Old Movie',icon : 'om.png'},
-	                           { effect : 'Blur', icon: 'blur.png'},
-	                           { effect : 'Cartoon', icon: 'cartoon.png'}
+	                           { type : 'Deinterlace',icon : 'om.png'},
+	                           { type : 'Blur', icon: 'blur.png'},
+	                           { type : 'Mask', icon: 'cartoon.png'}
 	                           ],
 	                 images : { start: 5, end: 10 },
 	                 show_audio : false,
@@ -331,7 +331,30 @@ App.controller('TimelineCtrl',function($scope) {
 		 	$(".droppable").draggable("option", "snapTolerance", 0);
      });
  };
- 
+
+ // Get the color of an effect
+ $scope.GetEffectColor = function(effect_type){
+	switch (effect_type)
+	{
+		case "Blur":
+			return "#0095bf";
+		case "Brightness":
+			return "#5500ff";
+		case "ChromaKey":
+			return "#00ad2d";
+		case "Deinterlace":
+			return "#006001";
+		case "Mask":
+			return "#cb0091";
+		case "Negate":
+			return "#ff9700";
+		case "Saturation":
+			return "#ff3d00";
+	}
+
+	 return "rgba(54, 25, 25, .2)";
+ };
+
  // Add a new clip to the timeline
  $scope.AddClip = function(x, y, clip_json){
 	 $scope.$apply(function(){
@@ -347,7 +370,6 @@ App.controller('TimelineCtrl',function($scope) {
 
 	 });
  };
- 
  
  // Select clip in scope
  $scope.SelectClip = function(clip_id, clear_selections) {
@@ -399,7 +421,7 @@ App.controller('TimelineCtrl',function($scope) {
  $scope.SelectEffect = function(effect_id) {
  	if ($scope.Qt) {
 	 	timeline.qt_log("$scope.SelectEffect");
-	 	timeline.addSelection(effect_id, "effect");
+	 	timeline.addSelection(effect_id, "effect", true);
  	}
  };
 

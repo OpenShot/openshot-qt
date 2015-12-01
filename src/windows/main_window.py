@@ -977,7 +977,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         self.actionRedo.setEnabled(redo_status)
 
     # Add to the selected items
-    def addSelection(self, item_id, item_type):
+    def addSelection(self, item_id, item_type, clear_existing=False):
+        # Clear existing selection (if needed)
+        if clear_existing:
+            if item_type == "clip":
+                self.selected_clips.clear()
+            elif item_type == "transition":
+                self.selected_transitions.clear()
+            elif item_type == "effect":
+                self.selected_effects.clear()
+
         if item_type == "clip" and item_id not in self.selected_clips:
             self.selected_clips.append(item_id)
         elif item_type == "transition" and item_id not in self.selected_transitions:

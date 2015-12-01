@@ -44,20 +44,5 @@
   ],
   "markers": [  ],
   "progress": [
-    [
-      0,
-      30,
-      "rendering"
-    ],
-    [
-      40,
-      50,
-      "complete"
-    ],
-    [
-      100,
-      150,
-      "complete"
-    ]
   ]
 }

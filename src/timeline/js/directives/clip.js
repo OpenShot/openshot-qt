@@ -63,7 +63,7 @@ App.directive('tlClip', function($timeout){
 			//handle resizability of clip
 			element.resizable({ 
 				handles: "e, w",
-				maxWidth: scope.clip.duration * scope.pixelsPerSecond,
+				maxWidth: scope.clip.length * scope.pixelsPerSecond,
 				start: function(e, ui) {
 					dragging = true;
 					
