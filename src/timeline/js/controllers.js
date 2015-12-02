@@ -45,7 +45,7 @@ App.controller('TimelineCtrl',function($scope) {
 	               { 
 	                 id : '1', 
 	                 layer : 1, 
-	                 image : 'track1.png',
+	                 image : './media/images/thumbnail.png',
 	                 locked : false,
 	                 duration : 32, //max length in seconds
 	                 start : 0,
@@ -99,7 +99,7 @@ App.controller('TimelineCtrl',function($scope) {
 	               {
 	                 id : '2', 
 	                 layer : 2, 
-	                 image : 'track2.png',
+	                 image : './media/images/thumbnail.png',
 	                 locked : false,
 	                 duration : 45,
 	                 start : 0,
@@ -121,7 +121,7 @@ App.controller('TimelineCtrl',function($scope) {
 	               {
 	                 id : '3', 
 	                 layer : 3, 
-	                 image : 'track3.png',
+	                 image : './media/images/thumbnail.png',
 	                 locked : false,
 	                 duration : 120,
 	                 start : 0,

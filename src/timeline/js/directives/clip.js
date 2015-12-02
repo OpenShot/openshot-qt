@@ -79,16 +79,12 @@ App.directive('tlClip', function($timeout){
 					//hide audio canvas, as we'll need to redraw it
 					element.find(".audio-container").hide();
 
-					//hide the image container while it resizes
-					//element.find(".thumb-container").hide();
-					//element.find(".clip_top").hide();
-
 				},
 				stop: function(e, ui) {
 					dragging = false;
 					//get amount changed in width
-					var delta_x = ui.originalSize.width - last_resizable.width;
-					var delta_time = Math.round(delta_x/scope.pixelsPerSecond);
+					var delta_x = ui.originalSize.width - ui.size.width;
+					var delta_time = delta_x/scope.pixelsPerSecond;
 
 					//change the clip end/start based on which side was dragged
 					new_left = scope.clip.start;
@@ -139,7 +135,7 @@ App.directive('tlClip', function($timeout){
 					
 					// get amount changed in width
 					var delta_x = ui.originalSize.width - ui.size.width;
-					var delta_time = Math.round(delta_x/scope.pixelsPerSecond);
+					var delta_time = delta_x / scope.pixelsPerSecond;
 
 					// Preview frame during resize
 					if (dragLoc == 'left'){
@@ -158,15 +154,15 @@ App.directive('tlClip', function($timeout){
 						// changing the start of the clip
 						new_left += delta_time;
 						if (new_left < 0) { 
-							ui.element.width(last_resizable.width + (new_left * scope.pixelsPerSecond));
-							ui.element.css("left", last_resizable.left - (new_left * scope.pixelsPerSecond));
+							ui.element.width(ui.size.width + (new_left * scope.pixelsPerSecond));
+							ui.element.css("left", ui.position.left - (new_left * scope.pixelsPerSecond));
 						}
 					} else {
 						// changing the end of the clips
 						new_right -= delta_time;
 						if (new_right > scope.clip.duration) {
 							new_right = scope.clip.duration - new_right;
-							ui.element.width(last_resizable.width + (new_right * scope.pixelsPerSecond));
+							ui.element.width(ui.size.width + (new_right * scope.pixelsPerSecond));
 						}
 					}
 
@@ -205,6 +201,7 @@ App.directive('tlClip', function($timeout){
 		        stack: ".droppable",
 		        scroll: true,
 		        revert: 'invalid',
+				cancel: '.effect-container, .clip_menu',
 		        start: function(event, ui) {
 		        	previous_drag_position = null;
 		        	dragging = true;
@@ -342,6 +339,7 @@ App.directive('tlMultiSelectable', function(){
 			element.selectable({
 				filter: '.droppable',
 				distance: 0,
+				cancel: '.effect-container',
 				selected: function( event, ui ) {
 
 					// Identify the selected ID and TYPE
