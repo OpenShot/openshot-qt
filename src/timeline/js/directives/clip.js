@@ -64,7 +64,7 @@ App.directive('tlClip', function($timeout){
 					}
 
 					// Hide keyframe points
-					$('.point_icon').hide()
+					element.find('.point_icon').hide()
 
 				},
 				stop: function(e, ui) {
@@ -73,7 +73,7 @@ App.directive('tlClip', function($timeout){
 					// Hide keyframe points
 					if (dragLoc == 'right')
 						// Make the keyframe points visible again
-						$('.point_icon').show()
+						element.find('.point_icon').show()
 
 					//get amount changed in width
 					var delta_x = ui.originalSize.width - ui.size.width;
