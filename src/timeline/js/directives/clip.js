@@ -35,9 +35,6 @@ var move_clips = {};
 var out_of_bounds = false;
 var track_container_height = -1;
 
-// Variables for resizing clips
-var last_resizable = { left: 0, width: 0 };
-
 // Treats element as a clip
 // 1: can be dragged
 // 2: can be resized
@@ -49,26 +46,16 @@ App.directive('tlClip', function($timeout){
 		scope: "@",
 		link: function(scope, element, attrs){
 
-			$timeout(function(){
-				//clip_tops["clip_"+scope.clip.id] = element.position().top;
-				//clip_lefts["clip_"+scope.clip.id] = element.position().left;
-			
-				//if clip has audio data, show it instead of images
-				if (scope.clip.show_audio){
-					drawAudio(scope, scope.clip.id);
-				}
-				
-			},0);
-
 			//handle resizability of clip
 			element.resizable({ 
 				handles: "e, w",
+				minWidth: 1,
 				maxWidth: scope.clip.length * scope.pixelsPerSecond,
 				start: function(e, ui) {
 					dragging = true;
-					
+
 					//determine which side is being changed
-					var parentOffset = element.offset(); 
+					var parentOffset = element.offset();
 					var mouseLoc = e.pageX - parentOffset.left;
 					if (mouseLoc < 5) {
 						dragLoc = 'left';
@@ -76,45 +63,59 @@ App.directive('tlClip', function($timeout){
 						dragLoc = 'right';
 					}
 
-					//hide audio canvas, as we'll need to redraw it
-					element.find(".audio-container").hide();
+					// Hide keyframe points
+					$('.point_icon').hide()
 
 				},
 				stop: function(e, ui) {
 					dragging = false;
+
+					// Hide keyframe points
+					if (dragLoc == 'right')
+						// Make the keyframe points visible again
+						$('.point_icon').show()
+
 					//get amount changed in width
 					var delta_x = ui.originalSize.width - ui.size.width;
 					var delta_time = delta_x/scope.pixelsPerSecond;
 
 					//change the clip end/start based on which side was dragged
+					new_position = scope.clip.position;
 					new_left = scope.clip.start;
 					new_right = scope.clip.end;
 
 					if (dragLoc == 'left'){
-						//changing the start of the clip
+						// changing the start of the clip
 						new_left += delta_time;
-						if (new_left < 0) new_left = 0; // prevent less than zero
-
+						if (new_left < 0) {
+							// prevent less than zero
+							new_left = 0.0;
+							new_position -= scope.clip.start
+						} else {
+							new_position += delta_time
+						}
 					} else {
-						//changing the end of the clips
+						// changing the end of the clips
 						new_right -= delta_time;
-						if (new_right > scope.clip.duration) new_right = scope.clip.duration;
+						if (new_right > scope.clip.duration)
+						    // prevent greater than duration
+							new_right = scope.clip.duration;
 					}
 
 					//apply the new start, end and length to the clip's scope
 					scope.$apply(function(){
-	
+
 						if (scope.clip.end != new_right){
 							scope.clip.end = new_right;
 						}
 						if (scope.clip.start != new_left){
 							scope.clip.start = new_left;
-							scope.clip.position += delta_time;
+							scope.clip.position = new_position;
 						}
 
 					// Resize timeline if it's too small to contain all clips
 					scope.ResizeTimeline();
-						
+
 						// update clip in Qt (very important =)
             			if (scope.Qt)
             				timeline.update_clip_data(JSON.stringify(scope.clip));
@@ -127,14 +128,14 @@ App.directive('tlClip', function($timeout){
 						//redraw audio as the resize cleared the canvas
 						drawAudio(scope, scope.clip.id);
 					}
-				
+
 					dragLoc = null;
 
 				},
 				resize: function(e, ui) {
-					
+
 					// get amount changed in width
-					var delta_x = ui.originalSize.width - ui.size.width;
+					var delta_x = parseFloat(ui.originalSize.width) - ui.size.width;
 					var delta_time = delta_x / scope.pixelsPerSecond;
 
 					// Preview frame during resize
@@ -153,9 +154,11 @@ App.directive('tlClip', function($timeout){
 					if (dragLoc == 'left'){
 						// changing the start of the clip
 						new_left += delta_time;
-						if (new_left < 0) { 
+						if (new_left < 0) {
 							ui.element.width(ui.size.width + (new_left * scope.pixelsPerSecond));
 							ui.element.css("left", ui.position.left - (new_left * scope.pixelsPerSecond));
+						} else {
+							ui.element.width(ui.size.width);
 						}
 					} else {
 						// changing the end of the clips
@@ -163,16 +166,10 @@ App.directive('tlClip', function($timeout){
 						if (new_right > scope.clip.duration) {
 							new_right = scope.clip.duration - new_right;
 							ui.element.width(ui.size.width + (new_right * scope.pixelsPerSecond));
+						} else {
+							ui.element.width(ui.size.width);
 						}
 					}
-
-					// Set last_resizable
-					last_resizable.left = ui.position.left;
-					last_resizable.width = ui.size.width;
-					
-					//show or hide elements based on size
-					//drawAudio(scope, scope.clip.id);
-					handleVisibleClipElements(scope, scope.clip.id);
 				},
 
 			});

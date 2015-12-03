@@ -35,9 +35,6 @@ var move_transitions = {};
 var out_of_bounds = false;
 var track_container_height = -1;
 
-// Variables for resizing transitions
-var last_resizable = { left: 0, width: 0 };
-
 // Treats element as a transition
 // 1: can be dragged
 // 2: can be resized
@@ -52,6 +49,7 @@ App.directive('tlTransition', function(){
 			//handle resizability of transition
 			element.resizable({ 
 				handles: "e, w",
+				minWidth: 1,
 				start: function(e, ui) {
 					dragging = true;
 					
@@ -68,8 +66,8 @@ App.directive('tlTransition', function(){
 				stop: function(e, ui) {
 					dragging = false;
 					//get amount changed in width
-					var delta_x = ui.originalSize.width - last_resizable.width;
-					var delta_time = Math.round(delta_x/scope.pixelsPerSecond);
+					var delta_x = ui.originalSize.width - ui.size.width;
+					var delta_time = delta_x/scope.pixelsPerSecond;
 
 					//change the transition end/start based on which side was dragged
 					new_left = scope.transition.position;
@@ -117,18 +115,16 @@ App.directive('tlTransition', function(){
 						// changing the start of the transition
 						new_left += delta_time;
 						if (new_left < 0) { 
-							ui.element.width(last_resizable.width + (new_left * scope.pixelsPerSecond));
-							ui.element.css("left", last_resizable.left - (new_left * scope.pixelsPerSecond));
+							ui.element.width(ui.size.width + (new_left * scope.pixelsPerSecond));
+							ui.element.css("left", ui.position.left - (new_left * scope.pixelsPerSecond));
+						} else {
+							ui.element.width(ui.size.width);
 						}
-						console.log("new_left" + new_left);
 					} else {
 						// changing the end of the transitions
 						new_right -= delta_time;
+						ui.element.width(ui.size.width);
 					}
-
-					// Set last_resizable
-					last_resizable.left = ui.position.left;
-					last_resizable.width = ui.size.width;
 
 				},
 

@@ -68,21 +68,21 @@ App.controller('TimelineCtrl',function($scope) {
 					        "interpolation": 2,
 					        "co": {
 					          "Y": 0,
-					          "X": 1
+					          "X": 0
 					        }
 					      },
 					      {
 					        "interpolation": 1,
 					        "co": {
 					          "Y": 0,
-					          "X": 1057
+					          "X": 250
 					        }
 					      },
 					      {
 					        "interpolation": 1,
 					        "co": {
 					          "Y": 1,
-					          "X": 2809
+					          "X": 500
 					        }
 					      }
 						]
@@ -209,6 +209,7 @@ App.controller('TimelineCtrl',function($scope) {
   // Additional variables used to control the rendering of HTML
   $scope.pixelsPerSecond =  parseFloat($scope.project.tick_pixels) / parseFloat($scope.project.scale);
   $scope.playheadOffset = 0;
+  $scope.keyframePointOffset = 3;
   $scope.playhead_animating = false;
   $scope.playhead_height = 300;
   $scope.playheadTime =  secondsToTime($scope.project.playhead_position, $scope.project.fps.num, $scope.project.fps.den);
@@ -277,18 +278,26 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.getKeyframes = function(object){
   	// List of keyframes
   	keyframes = {};
-  	
+
+    var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
+    var clip_start_x = object.start * frames_per_second;
+    var clip_end_x = object.end * frames_per_second;
+
  	// Loop through properties of an object (clip/transition), looking for keyframe points
 	for (child in object) {
 	    if (!object.hasOwnProperty(child)) {
 	        //The current property is not a direct property of p
 	        continue;
 	    }
-	    
+
 	    // Determine if this property is a Keyframe
 	 	if (typeof object[child] == "object" && "Points" in object[child])
-			for (var point = 0; point < object[child].Points.length; point++)
-				keyframes[object[child].Points[point].co.X] = object[child].Points[point].co.Y;
+			for (var point = 0; point < object[child].Points.length; point++) {
+				var co = object[child].Points[point].co;
+				if (co.X >= clip_start_x && co.X <= clip_end_x)
+					// Only add keyframe coordinates that are within the bounds of the clip
+					keyframes[co.X] = co.Y;
+			}
 	}
 	
 	// Return keyframe array
