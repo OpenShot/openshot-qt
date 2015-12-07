@@ -113,7 +113,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Open up QtImageReader for transition Image
         transition_reader = openshot.QtImageReader(
-            os.path.join(info.PATH, "transitions", "extra", "wipe_diagonal_2.png"))
+            os.path.join(info.PATH, "transitions", "common", "fade.svg"))
 
         # Generate transition object
         transition_object = openshot.Mask()

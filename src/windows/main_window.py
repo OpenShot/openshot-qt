@@ -913,6 +913,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         self.tabifyDockWidget(self.dockTransitions, self.dockEffects)
         self.showDocks([self.dockFiles, self.dockTransitions, self.dockEffects, self.dockVideo])
 
+        # Set initial size of docks
+        simple_state = "AAAA/wAAAAD9AAAAAwAAAAAAAAD8AAABKPwCAAAAAfwAAAHXAAABKAAAAAAA////+gAAAAACAAAAAvsAAAAcAGQAbwBjAGsAUAByAG8AcABlAHIAdABpAGUAcwEAAAAA/////wAAAAAAAAAA+wAAABgAZABvAGMAawBLAGUAeQBmAHIAYQBtAGUBAAAAAP////8AAAAAAAAAAAAAAAEAAAEZAAABKPwCAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAAAAAACAAAEqwAAAZL8AQAAAAL8AAAAAAAAAWwAAAB7AP////oAAAAAAQAAAAP7AAAAEgBkAG8AYwBrAEYAaQBsAGUAcwEAAAAA/////wAAAHAA////+wAAAB4AZABvAGMAawBUAHIAYQBuAHMAaQB0AGkAbwBuAHMBAAAAAP////8AAABwAP////sAAAAWAGQAbwBjAGsARQBmAGYAZQBjAHQAcwEAAAAA/////wAAAHAA////+wAAABIAZABvAGMAawBWAGkAZABlAG8BAAABcgAAAzkAAAA6AP///wAABKsAAAFAAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAHQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAA=="
+        self.restoreState(qt_types.str_to_bytes(simple_state))
+        QCoreApplication.processEvents()
+
+
     def actionAdvanced_View_trigger(self, event):
         """ Switch to an alternative view """
         self.removeDocks()
@@ -926,6 +932,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         self.floatDocks(False)
         self.showDocks([self.dockFiles, self.dockTransitions, self.dockVideo, self.dockEffects, self.dockProperties,
                         self.dockKeyframe])
+
+        # Set initial size of docks
+        advanced_state = "AAAA/wAAAAD9AAAAAwAAAAAAAAD8AAABQPwCAAAAAfwAAAG/AAABQAAAAL4BAAAc+gAAAAACAAAAAvsAAAAcAGQAbwBjAGsAUAByAG8AcABlAHIAdABpAGUAcwEAAAAA/////wAAAKEA////+wAAABgAZABvAGMAawBLAGUAeQBmAHIAYQBtAGUBAAAAAP////8AAAATAP///wAAAAEAAAEbAAABQPwCAAAAAvsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAD7AAAAFgBkAG8AYwBrAEUAZgBmAGUAYwB0AHMBAAABvwAAAUAAAACYAP///wAAAAIAAASrAAABkvwBAAAAA/sAAAASAGQAbwBjAGsARgBpAGwAZQBzAQAAAAAAAAFSAAAAcAD////7AAAAHgBkAG8AYwBrAFQAcgBhAG4AcwBpAHQAaQBvAG4AcwEAAAFYAAAA9wAAAHAA////+wAAABIAZABvAGMAawBWAGkAZABlAG8BAAACVQAAAlYAAAGQAP///wAAAogAAAFAAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAHQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAA=="
+        self.restoreState(qt_types.str_to_bytes(advanced_state))
+        QCoreApplication.processEvents()
 
     def actionFreeze_View_trigger(self, event):
         """ Freeze all dockable widgets on the main screen """

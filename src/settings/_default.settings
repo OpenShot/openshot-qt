@@ -1,144 +1,152 @@
 [
   {
-    "setting": "theme",
+    "value": "Humanity: Dark",
     "title": "Default Theme",
     "category": "General",
+    "setting": "theme",
     "type": "dropdown",
-    "value": "Humanity: Dark",
     "values": [
       {
-        "name": "Humanity",
-        "value": "Humanity"
+        "value": "Humanity",
+        "name": "Humanity"
       },
       {
-        "name": "Humanity: Dark",
-        "value": "Humanity: Dark"
+        "value": "Humanity: Dark",
+        "name": "Humanity: Dark"
       },
       {
-        "name": "No Theme",
-        "value": "No Theme"
+        "value": "No Theme",
+        "name": "No Theme"
       }
     ]
   },
   {
-    "setting": "default-image-length",
+    "max": 10000,
     "title": "Image Length (seconds)",
     "category": "General",
-    "type": "spinner",
     "min": 0,
-    "max": 1000,
-    "value": 7
+    "setting": "default-image-length",
+    "value": 10.0,
+    "type": "spinner"
   },
   {
-    "setting": "volume",
+    "max": 100,
     "title": "Volume",
     "category": "General",
-    "type": "spinner",
     "min": 0,
-    "max": 100,
-    "value": 75
+    "setting": "volume",
+    "value": 75,
+    "type": "spinner"
   },
   {
-    "setting": "blender_command",
+    "value": "blender",
     "title": "Blender Command (path)",
-    "category": "General",
     "type": "text",
-    "value": "/path/to/blender"
+    "category": "General",
+    "setting": "blender_command"
   },
   {
-    "setting": "window_state",
+    "value": "AAAA/wAAAAD9AAAAAwAAAAAAAAD8AAABKPwCAAAAAfwAAAHXAAABKAAAAAAA////+gAAAAACAAAAAvsAAAAcAGQAbwBjAGsAUAByAG8AcABlAHIAdABpAGUAcwEAAAAA/////wAAAAAAAAAA+wAAABgAZABvAGMAawBLAGUAeQBmAHIAYQBtAGUBAAAAAP////8AAAAAAAAAAAAAAAEAAAEZAAABKPwCAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAAAAAACAAAEqwAAAZL8AQAAAAL8AAAAAAAAAWwAAAB7AP////oAAAAAAQAAAAP7AAAAEgBkAG8AYwBrAEYAaQBsAGUAcwEAAAAA/////wAAAHAA////+wAAAB4AZABvAGMAawBUAHIAYQBuAHMAaQB0AGkAbwBuAHMBAAAAAP////8AAABwAP////sAAAAWAGQAbwBjAGsARQBmAGYAZQBjAHQAcwEAAAAA/////wAAAHAA////+wAAABIAZABvAGMAawBWAGkAZABlAG8BAAABcgAAAzkAAAA6AP///wAABKsAAAFAAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAHQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAA==",
     "title": "",
+    "type": "hidden",
     "category": "Qt",
-    "type": "hidden",
-    "value": "AAAA/wAAAAD9AAAAAwAAAAAAAAETAAABS/wCAAAAAfwAAAFYAAABSwAAAAAA////+v////8CAAAAAvsAAAAcAGQAbwBjAGsAUAByAG8AcABlAHIAdABpAGUAcwAAAAAA/////wAAAD4A////+wAAABgAZABvAGMAawBLAGUAeQBmAHIAYQBtAGUAAAAAAP////8AAAATAP///wAAAAEAAAEaAAABS/wCAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAAAAAACAAADhwAAASv8AQAAAAL8AAAAAAAAAd8AAAB7AP////oAAAAAAQAAAAP7AAAAEgBkAG8AYwBrAEYAaQBsAGUAcwEAAAAA/////wAAAHAA////+wAAAB4AZABvAGMAawBUAHIAYQBuAHMAaQB0AGkAbwBuAHMBAAAAAP////8AAABwAP////sAAAAWAGQAbwBjAGsARQBmAGYAZQBjAHQAcwEAAAAA/////wAAAHAA////+wAAABIAZABvAGMAawBWAGkAZABlAG8BAAAB5QAAAaIAAAGiAP///wAAA4cAAAFLAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAHQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAA=="
+    "setting": "window_state"
   },
   {
-    "setting": "window_geometry",
+    "value": "AdnQywABAAAAAAF+AAAAagAABjwAAAOuAAABiAAAAJAAAAYyAAADpAAAAAAAAA==",
     "title": "",
+    "type": "hidden",
     "category": "Qt",
-    "type": "hidden",
-    "value": ""
+    "setting": "window_geometry"
   },
   {
-    "setting": "window_splitter_pos",
+    "value": "",
     "title": "",
+    "type": "hidden",
     "category": "Qt",
-    "type": "hidden",
-    "value": ""
+    "setting": "window_splitter_pos"
   },
   {
-    "setting": "window_splitter_2_pos",
+    "value": "",
     "title": "",
+    "type": "hidden",
     "category": "Qt",
-    "type": "hidden",
-    "value": ""
+    "setting": "window_splitter_2_pos"
   },
   {
-    "setting": "file_view",
+    "value": "thumbnail",
     "title": "",
-    "category": "UI",
     "type": "hidden",
-    "value": "details"
+    "category": "UI",
+    "setting": "file_view"
   },
   {
-    "setting": "transitions_view",
+    "value": "thumbnail",
     "title": "",
-    "category": "UI",
     "type": "hidden",
-    "value": "thumbnail"
+    "category": "UI",
+    "setting": "transitions_view"
   },
   {
-    "setting": "effects_view",
+    "value": "thumbnail",
     "title": "",
-    "category": "UI",
     "type": "hidden",
-    "value": "thumbnail"
+    "category": "UI",
+    "setting": "effects_view"
   },
   {
-    "setting": "recent_projects",
+    "value": [
+      "/home/jonathan/_keyframes.osp",
+      "/home/jonathan/many_keyframes.osp",
+      "/home/jonathan/_transition-project.osp",
+      "/home/jonathan/_rotation.osp",
+      "/home/jonathan/Cat Project.osp",
+      "/home/jonathan/_testproject.osp",
+      "/home/jonathan/test.osp"
+    ],
     "title": "",
-    "category": "UI",
     "type": "hidden",
-    "value": []
+    "category": "UI",
+    "setting": "recent_projects"
   },
   {
-    "setting": "default-profile",
+    "value": "NTSC 720p",
     "title": "Default Profile",
     "category": "Profiles",
+    "setting": "default-profile",
     "type": "dropdown",
-    "value": "NTSC 720p",
     "values": [
       {
-        "name": "NTSC 720p",
-        "value": "NTSC 720p"
+        "value": "NTSC 720p",
+        "name": "NTSC 720p"
       },
       {
-        "name": "NTSC 1080p",
-        "value": "NTSC 1080p"
+        "value": "NTSC 1080p",
+        "name": "NTSC 1080p"
       }
     ]
   },
   {
-    "setting": "enable-auto-save",
+    "value": false,
     "title": "Enable Autosave",
-    "category": "Autosave",
     "type": "bool",
-    "value": false
+    "category": "Autosave",
+    "setting": "enable-auto-save"
   },
   {
-    "setting": "save-before-playback",
+    "value": false,
     "title": "Save Before Playback",
-    "category": "Autosave",
     "type": "bool",
-    "value": false
+    "category": "Autosave",
+    "setting": "save-before-playback"
   },
   {
-    "setting": "autosave-interval",
+    "max": 60,
     "title": "Autosave Interval (minutes)",
     "category": "Autosave",
-    "type": "spinner",
     "min": 0,
-    "max": 60,
-    "value": 5
+    "setting": "autosave-interval",
+    "value": 5,
+    "type": "spinner"
   }
 ]
