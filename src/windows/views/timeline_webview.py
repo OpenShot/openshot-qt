@@ -28,10 +28,11 @@
  """
 
 import os
+from functools import partial
 
 from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication
 from PyQt5.QtGui import QCursor
-from PyQt5.QtWidgets import QMenu
+from PyQt5.QtWidgets import QMenu, QActionGroup
 from PyQt5.QtWebKitWidgets import QWebView
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
@@ -47,7 +48,21 @@ try:
 except ImportError:
     import simplejson as json
 
+# Constants used by this file
 JS_SCOPE_SELECTOR = "$('body').scope()"
+
+MENU_FADE_NONE = 0
+MENU_FADE_IN_FAST = 1
+MENU_FADE_IN_SLOW = 2
+MENU_FADE_OUT_FAST = 3
+MENU_FADE_OUT_SLOW = 4
+MENU_FADE_IN_OUT_FAST = 5
+MENU_FADE_IN_OUT_SLOW = 6
+
+MENU_ROTATE_NONE = 0
+MENU_ROTATE_90_RIGHT = 1
+MENU_ROTATE_90_LEFT = 2
+MENU_ROTATE_180_FLIP = 3
 
 
 class TimelineWebView(QWebView, updates.UpdateInterface):
@@ -215,13 +230,155 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
     def ShowClipMenu(self, clip_id=None):
         log.info('ShowClipMenu: %s' % clip_id)
 
+        # Get translation method
+        _ = get_app()._tr
+
         # Set the selected clip (if needed)
         if clip_id not in self.window.selected_clips:
             self.window.addSelection(clip_id, 'clip')
 
+        # Create blank context menu
         menu = QMenu(self)
+
+        # Fade In Menu
+        Fade_Menu = QMenu(_("Fade"), self)
+        Fade_None = Fade_Menu.addAction(_("No Fade"))
+        Fade_None.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_NONE, clip_id))
+        Fade_Menu.addSeparator()
+        Fade_In_Fast = Fade_Menu.addAction(_("Fade In (Fast)"))
+        Fade_In_Fast.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_IN_FAST, clip_id))
+        Fade_Out_Fast = Fade_Menu.addAction(_("Fade Out (Fast)"))
+        Fade_Out_Fast.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_OUT_FAST, clip_id))
+        Fade_In_Out_Fast = Fade_Menu.addAction(_("Fade In and Out (Fast)"))
+        Fade_In_Out_Fast.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_IN_OUT_FAST, clip_id))
+        Fade_Menu.addSeparator()
+        Fade_In_Slow = Fade_Menu.addAction(_("Fade In (Slow)"))
+        Fade_In_Slow.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_IN_SLOW, clip_id))
+        Fade_Out_Slow = Fade_Menu.addAction(_("Fade Out (Slow)"))
+        Fade_Out_Slow.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_OUT_SLOW, clip_id))
+        Fade_In_Out_Slow = Fade_Menu.addAction(_("Fade In and Out (Slow)"))
+        Fade_In_Out_Slow.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_IN_OUT_SLOW, clip_id))
+        menu.addMenu(Fade_Menu)
+
+        # Rotate Menu
+        menu.addSeparator()
+        Rotation_Menu = QMenu(_("Rotate"), self)
+        Rotation_None = Rotation_Menu.addAction(_("No Rotation"))
+        Rotation_None.triggered.connect(partial(self.Rotate_Triggered, MENU_ROTATE_NONE, clip_id))
+        Rotation_Menu.addSeparator()
+        Rotation_90_Right = Rotation_Menu.addAction(_("Rotate 90 (Right)"))
+        Rotation_90_Right.triggered.connect(partial(self.Rotate_Triggered, MENU_ROTATE_90_RIGHT, clip_id))
+        Rotation_90_Left = Rotation_Menu.addAction(_("Rotate 90 (Left)"))
+        Rotation_90_Left.triggered.connect(partial(self.Rotate_Triggered, MENU_ROTATE_90_LEFT, clip_id))
+        Rotation_180_Flip = Rotation_Menu.addAction(_("Rotate 180 (Flip)"))
+        Rotation_180_Flip.triggered.connect(partial(self.Rotate_Triggered, MENU_ROTATE_180_FLIP, clip_id))
+        menu.addMenu(Rotation_Menu)
+
+        # Remove Clip Menu
+        menu.addSeparator()
         menu.addAction(self.window.actionRemoveClip)
+
+        # Show Context menu
         return menu.popup(QCursor.pos())
+
+
+    def Fade_Triggered(self, action, clip_id):
+        """Callback for fade context menus"""
+        log.info(action)
+        prop_name = "alpha"
+
+        # Get FPS from project
+        fps = get_app().project.get(["fps"])
+        fps_float = float(fps["num"]) / float(fps["den"])
+
+        # Get existing clip object
+        clip = Clip.get(id=clip_id)
+        end_of_clip = float(clip.data["end"]) * fps_float
+
+        if action == MENU_FADE_NONE:
+            # Clear all keyframes
+            p = openshot.Point(1, 0.0, openshot.BEZIER)
+            p_object = json.loads(p.Json())
+            clip.data[prop_name] = { "Points" : [p_object]}
+
+        if action == MENU_FADE_IN_FAST or action == MENU_FADE_IN_OUT_FAST:
+            # Add keyframes
+            start = openshot.Point(1, 1.0, openshot.BEZIER)
+            start_object = json.loads(start.Json())
+            end = openshot.Point(min(1.0 * fps_float, end_of_clip), 0.0, openshot.BEZIER)
+            end_object = json.loads(end.Json())
+            clip.data[prop_name]["Points"].append(start_object)
+            clip.data[prop_name]["Points"].append(end_object)
+
+        if action == MENU_FADE_IN_SLOW or action == MENU_FADE_IN_OUT_SLOW:
+            # Add keyframes
+            start = openshot.Point(1, 1.0, openshot.BEZIER)
+            start_object = json.loads(start.Json())
+            end = openshot.Point(min((3.0 * fps_float), end_of_clip), 0.0, openshot.BEZIER)
+            end_object = json.loads(end.Json())
+            clip.data[prop_name]["Points"].append(start_object)
+            clip.data[prop_name]["Points"].append(end_object)
+
+        if action == MENU_FADE_OUT_FAST or action == MENU_FADE_IN_OUT_FAST:
+            # Add keyframes
+            start = openshot.Point(max(0.0, end_of_clip - (1.0 * fps_float)), 0.0, openshot.BEZIER)
+            start_object = json.loads(start.Json())
+            end = openshot.Point(end_of_clip, 1.0, openshot.BEZIER)
+            end_object = json.loads(end.Json())
+            clip.data[prop_name]["Points"].append(start_object)
+            clip.data[prop_name]["Points"].append(end_object)
+
+        if action == MENU_FADE_OUT_SLOW or action == MENU_FADE_IN_OUT_SLOW:
+            # Add keyframes
+            start = openshot.Point(max(0.0, end_of_clip - (3.0 * fps_float)), 0.0, openshot.BEZIER)
+            start_object = json.loads(start.Json())
+            end = openshot.Point(end_of_clip, 1.0, openshot.BEZIER)
+            end_object = json.loads(end.Json())
+            clip.data[prop_name]["Points"].append(start_object)
+            clip.data[prop_name]["Points"].append(end_object)
+
+        # Save changes
+        self.update_clip_data(clip.data, only_basic_props=False)
+
+    def Rotate_Triggered(self, action, clip_id):
+        """Callback for rotate context menus"""
+        log.info(action)
+        prop_name = "rotation"
+
+        # Get FPS from project
+        fps = get_app().project.get(["fps"])
+        fps_float = float(fps["num"]) / float(fps["den"])
+
+        # Get existing clip object
+        clip = Clip.get(id=clip_id)
+        end_of_clip = float(clip.data["end"]) * fps_float
+
+        if action == MENU_ROTATE_NONE:
+            # Clear all keyframes
+            p = openshot.Point(1, 0.0, openshot.BEZIER)
+            p_object = json.loads(p.Json())
+            clip.data[prop_name] = { "Points" : [p_object]}
+
+        if action == MENU_ROTATE_90_RIGHT:
+            # Add keyframes
+            p = openshot.Point(1, 90.0, openshot.BEZIER)
+            p_object = json.loads(p.Json())
+            clip.data[prop_name] = { "Points" : [p_object]}
+
+        if action == MENU_ROTATE_90_LEFT:
+            # Add keyframes
+            p = openshot.Point(1, -90.0, openshot.BEZIER)
+            p_object = json.loads(p.Json())
+            clip.data[prop_name] = { "Points" : [p_object]}
+
+        if action == MENU_ROTATE_180_FLIP:
+            # Add keyframes
+            p = openshot.Point(1, 180.0, openshot.BEZIER)
+            p_object = json.loads(p.Json())
+            clip.data[prop_name] = { "Points" : [p_object]}
+
+        # Save changes
+        self.update_clip_data(clip.data, only_basic_props=False)
 
     @pyqtSlot(str)
     def ShowTransitionMenu(self, tran_id=None):

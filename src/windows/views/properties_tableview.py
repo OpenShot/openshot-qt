@@ -41,13 +41,6 @@ except ImportError:
 class PropertiesTableView(QTableView):
     """ A Properties Table QWidget used on the main window """
 
-    # def mousePressEvent(self, event):
-    #     """Mouse press handler for the property table"""
-    #     if event.button() == 2:
-    #         # Show context menu
-    #         self.contextMenuEvent(event.pos())
-
-
     def double_click(self, model_index):
         """Double click handler for the property table"""
         # Get data model and selection
