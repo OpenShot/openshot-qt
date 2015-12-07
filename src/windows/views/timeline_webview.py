@@ -29,6 +29,7 @@
 
 import os
 from functools import partial
+from copy import deepcopy
 
 from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication
 from PyQt5.QtGui import QCursor
@@ -380,16 +381,48 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Save changes
         self.update_clip_data(clip.data, only_basic_props=False)
 
+    def Reverse_Transition_Triggered(self, tran_id):
+        """Callback for reversing a transition"""
+        log.info("Reverse_Transition_Triggered")
+
+        # Get existing clip object
+        tran = Transition.get(id=tran_id)
+
+        # Loop through brightness keyframes
+        tran_data_copy = deepcopy(tran.data)
+        new_index = len(tran.data["brightness"]["Points"])
+        for point in tran.data["brightness"]["Points"]:
+            new_index -= 1
+            tran_data_copy["brightness"]["Points"][new_index]["co"]["Y"] = point["co"]["Y"]
+            if "handle_left" in point:
+                tran_data_copy["brightness"]["Points"][new_index]["handle_left"]["Y"] = point["handle_left"]["Y"]
+                tran_data_copy["brightness"]["Points"][new_index]["handle_right"]["Y"] = point["handle_right"]["Y"]
+
+        # Save changes
+        self.update_transition_data(tran_data_copy, only_basic_props=False)
+
     @pyqtSlot(str)
     def ShowTransitionMenu(self, tran_id=None):
         log.info('ShowTransitionMenu: %s' % tran_id)
+
+        # Get translation method
+        _ = get_app()._tr
 
         # Set the selected transition (if needed)
         if tran_id not in self.window.selected_transitions:
             self.window.addSelection(tran_id, 'transition')
 
         menu = QMenu(self)
+
+        # Reverse Transition menu
+        Reverse_Transition = menu.addAction(_("Reverse Transition"))
+        Reverse_Transition.triggered.connect(partial(self.Reverse_Transition_Triggered, tran_id))
+
+        # Remove transition menu
+        menu.addSeparator()
         menu.addAction(self.window.actionRemoveTransition)
+
+        # Show menu
         return menu.popup(QCursor.pos())
 
     @pyqtSlot(str)
