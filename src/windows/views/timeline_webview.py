@@ -28,21 +28,21 @@
  """
 
 import os
-from functools import partial
 from copy import deepcopy
+from functools import partial
 
+import openshot  # Python module for libopenshot (required video editing module installed separately)
 from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication
 from PyQt5.QtGui import QCursor
-from PyQt5.QtWidgets import QMenu, QActionGroup
 from PyQt5.QtWebKitWidgets import QWebView
-import openshot  # Python module for libopenshot (required video editing module installed separately)
+from PyQt5.QtWidgets import QMenu
 
-from classes.query import Transition
-from classes.logger import log
-from classes.app import get_app
 from classes import info, updates
 from classes import settings
+from classes.app import get_app
+from classes.logger import log
 from classes.query import File, Clip
+from classes.query import Transition
 
 try:
     import json
@@ -64,6 +64,15 @@ MENU_ROTATE_NONE = 0
 MENU_ROTATE_90_RIGHT = 1
 MENU_ROTATE_90_LEFT = 2
 MENU_ROTATE_180_FLIP = 3
+
+MENU_LAYOUT_NONE = 0
+MENU_LAYOUT_CENTER = 1
+MENU_LAYOUT_TOP_LEFT = 2
+MENU_LAYOUT_TOP_RIGHT = 3
+MENU_LAYOUT_BOTTOM_LEFT = 4
+MENU_LAYOUT_BOTTOM_RIGHT = 5
+MENU_LAYOUT_ALL_WITH_ASPECT = 6
+MENU_LAYOUT_ALL_WITHOUT_ASPECT = 7
 
 
 class TimelineWebView(QWebView, updates.UpdateInterface):
@@ -261,6 +270,27 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         Fade_In_Out_Slow.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_IN_OUT_SLOW, clip_id))
         menu.addMenu(Fade_Menu)
 
+        # Layout Menu
+        Layout_Menu = QMenu(_("Layout"), self)
+        Layout_None = Layout_Menu.addAction(_("Reset Layout"))
+        Layout_None.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_NONE, clip_id))
+        Layout_Menu.addSeparator()
+        Layout_Center = Layout_Menu.addAction(_("1/4 Size - Center"))
+        Layout_Center.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_CENTER, clip_id))
+        Layout_Top_Left = Layout_Menu.addAction(_("1/4 Size - Top Left"))
+        Layout_Top_Left.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_TOP_LEFT, clip_id))
+        Layout_Top_Right = Layout_Menu.addAction(_("1/4 Size - Top Right"))
+        Layout_Top_Right.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_TOP_RIGHT, clip_id))
+        Layout_Bottom_Left = Layout_Menu.addAction(_("1/4 Size - Bottom Left"))
+        Layout_Bottom_Left.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_BOTTOM_LEFT, clip_id))
+        Layout_Bottom_Right = Layout_Menu.addAction(_("1/4 Size - Bottom Right"))
+        Layout_Bottom_Right.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_BOTTOM_RIGHT, clip_id))
+        Layout_Bottom_All_With_Aspect = Layout_Menu.addAction(_("Show All (Maintain Ratio)"))
+        Layout_Bottom_All_With_Aspect.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_ALL_WITH_ASPECT, clip_id))
+        Layout_Bottom_All_Without_Aspect = Layout_Menu.addAction(_("Show All (Distort)"))
+        Layout_Bottom_All_Without_Aspect.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_ALL_WITHOUT_ASPECT, clip_id))
+        menu.addMenu(Layout_Menu)
+
         # Rotate Menu
         menu.addSeparator()
         Rotation_Menu = QMenu(_("Rotate"), self)
@@ -281,6 +311,149 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Show Context menu
         return menu.popup(QCursor.pos())
+
+    def Layout_Triggered(self, action, clip_id):
+        """Callback for the layout context menus"""
+        log.info(action)
+
+        # Get existing clip object
+        clip = Clip.get(id=clip_id)
+
+        new_gravity = openshot.GRAVITY_CENTER
+        if action == MENU_LAYOUT_CENTER:
+            new_gravity = openshot.GRAVITY_CENTER
+        if action == MENU_LAYOUT_TOP_LEFT:
+            new_gravity = openshot.GRAVITY_TOP_LEFT
+        elif action == MENU_LAYOUT_TOP_RIGHT:
+            new_gravity = openshot.GRAVITY_TOP_RIGHT
+        elif action == MENU_LAYOUT_BOTTOM_LEFT:
+            new_gravity = openshot.GRAVITY_BOTTOM_LEFT
+        elif action == MENU_LAYOUT_BOTTOM_RIGHT:
+            new_gravity = openshot.GRAVITY_BOTTOM_RIGHT
+
+        if action == MENU_LAYOUT_NONE:
+            # Reset scale mode
+            clip.data["scale"] = openshot.SCALE_FIT
+            clip.data["gravity"] = openshot.GRAVITY_CENTER
+
+            # Clear scale keyframes
+            p = openshot.Point(1, 1.0, openshot.BEZIER)
+            p_object = json.loads(p.Json())
+            clip.data["scale_x"] = { "Points" : [p_object]}
+            clip.data["scale_y"] = { "Points" : [p_object]}
+
+            # Clear location keyframes
+            p = openshot.Point(1, 0.0, openshot.BEZIER)
+            p_object = json.loads(p.Json())
+            clip.data["location_x"] = { "Points" : [p_object]}
+            clip.data["location_y"] = { "Points" : [p_object]}
+
+        if action == MENU_LAYOUT_CENTER or \
+               action == MENU_LAYOUT_TOP_LEFT or \
+               action == MENU_LAYOUT_TOP_RIGHT or \
+               action == MENU_LAYOUT_BOTTOM_LEFT or \
+               action == MENU_LAYOUT_BOTTOM_RIGHT:
+            # Reset scale mode
+            clip.data["scale"] = openshot.SCALE_FIT
+            clip.data["gravity"] = new_gravity
+
+            # Add scale keyframes
+            p = openshot.Point(1, 0.5, openshot.BEZIER)
+            p_object = json.loads(p.Json())
+            clip.data["scale_x"] = { "Points" : [p_object]}
+            clip.data["scale_y"] = { "Points" : [p_object]}
+
+            # Add location keyframes
+            p = openshot.Point(1, 0.0, openshot.BEZIER)
+            p_object = json.loads(p.Json())
+            clip.data["location_x"] = { "Points" : [p_object]}
+            clip.data["location_y"] = { "Points" : [p_object]}
+
+
+        if action == MENU_LAYOUT_ALL_WITH_ASPECT:
+            # Update all intersecting clips
+            self.show_all_clips(clip, False)
+
+        elif action == MENU_LAYOUT_ALL_WITHOUT_ASPECT:
+            # Update all intersecting clips
+            self.show_all_clips(clip, True)
+
+        else:
+            # Save changes
+            self.update_clip_data(clip.data, only_basic_props=False)
+
+
+    def show_all_clips(self, clip, stretch=False):
+        """ Show all clips at the same time (arranged col by col, row by row)  """
+        from math import sqrt
+
+        # Get list of nearby clips
+        available_clips = []
+        start_position = float(clip.data["position"])
+        for c in Clip.filter():
+            if float(c.data["position"]) >= (start_position - 0.5) and float(c.data["position"]) <= (start_position + 0.5):
+                # add to list
+                available_clips.append(c)
+
+        # Get the number of rows
+        number_of_clips = len(available_clips)
+        number_of_rows = int(sqrt(number_of_clips))
+        max_clips_on_row = float(number_of_clips) / float(number_of_rows)
+
+        # Determine how many clips per row
+        if max_clips_on_row > float(int(max_clips_on_row)):
+            max_clips_on_row = int(max_clips_on_row + 1)
+        else:
+            max_clips_on_row = int(max_clips_on_row)
+
+        # Calculate Height & Width
+        height = 1.0 / float(number_of_rows)
+        width = 1.0 / float(max_clips_on_row)
+
+        clip_index = 0
+
+        # Loop through each row of clips
+        for row in range(0, number_of_rows):
+
+            # Loop through clips on this row
+            column_string = " - - - "
+            for col in range(0, max_clips_on_row):
+                if clip_index < number_of_clips:
+                    # Calculate X & Y
+                    X = float(col) * width
+                    Y = float(row) * height
+
+                    # Modify clip layout settings
+                    selected_clip = available_clips[clip_index]
+                    selected_clip.data["gravity"] = openshot.GRAVITY_TOP_LEFT
+
+                    if stretch:
+                        selected_clip.data["scale"] = openshot.SCALE_STRETCH
+                    else:
+                        selected_clip.data["scale"] = openshot.SCALE_FIT
+
+                    # Set scale keyframes
+                    w = openshot.Point(1, width, openshot.BEZIER)
+                    w_object = json.loads(w.Json())
+                    selected_clip.data["scale_x"] = { "Points" : [w_object]}
+                    h = openshot.Point(1, height, openshot.BEZIER)
+                    h_object = json.loads(h.Json())
+                    selected_clip.data["scale_y"] = { "Points" : [h_object]}
+                    x_point = openshot.Point(1, X, openshot.BEZIER)
+                    x_object = json.loads(x_point.Json())
+                    selected_clip.data["location_x"] = { "Points" : [x_object]}
+                    y_point = openshot.Point(1, Y, openshot.BEZIER)
+                    y_object = json.loads(y_point.Json())
+                    selected_clip.data["location_y"] = { "Points" : [y_object]}
+
+                    log.info('Updating clip id: %s' % selected_clip.data["id"])
+                    log.info('width: %s, height: %s' % (width, height))
+
+                    # Increment Clip Index
+                    clip_index += 1
+
+                    # Save changes
+                    self.update_clip_data(selected_clip.data, only_basic_props=False)
 
 
     def Fade_Triggered(self, action, clip_id):
