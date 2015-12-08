@@ -126,6 +126,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Save clip
         existing_clip.save()
 
+        # Update the preview
+        get_app().window.preview_thread.refreshFrame()
+
     # Add missing transition
     @pyqtSlot(str)
     def add_missing_transition(self, transition_json):
