@@ -155,7 +155,6 @@ App.directive('tlTransition', function(){
 		        stack: ".droppable",
 		        scroll: true,
 		        revert: 'invalid',
-				cancel: '.transition_menu',
 		        start: function(event, ui) {
 		        	previous_drag_position = null;
 		        	dragging = true;
@@ -202,6 +201,9 @@ App.directive('tlTransition', function(){
 
 		        },
                 stop: function(event, ui) {
+
+					// Ignore transition-menu click
+					$( event.toElement ).one('.transition_menu', function(e){ e.stopImmediatePropagation(); } );
                 	
                 	// Hide snapline (if any)
                 	scope.HideSnapline();

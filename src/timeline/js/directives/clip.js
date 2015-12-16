@@ -198,7 +198,7 @@ App.directive('tlClip', function($timeout){
 		        stack: ".droppable",
 		        scroll: true,
 		        revert: 'invalid',
-				cancel: '.effect-container, .clip_menu',
+				cancel: '.effect-container',
 		        start: function(event, ui) {
 		        	previous_drag_position = null;
 		        	dragging = true;
@@ -245,7 +245,10 @@ App.directive('tlClip', function($timeout){
 		        	
 		        },
                 stop: function(event, ui) {
-                	
+
+					// Ignore clip-menu click
+					$( event.toElement ).one('.clip_menu', function(e){ e.stopImmediatePropagation(); } );
+
                 	// Hide snapline (if any)
                 	scope.HideSnapline();
 
