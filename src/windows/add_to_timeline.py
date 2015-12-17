@@ -29,7 +29,6 @@
 import os
 
 from PyQt5.QtWidgets import *
-
 from classes import info, ui_util
 
 
