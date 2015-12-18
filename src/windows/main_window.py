@@ -219,9 +219,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             log.info("Loaded project {}".format(file_path))
 
     def actionAdd_to_Timeline_trigger(self, event):
+        # Loop through selected files
+        f = None
+        files = []
+        for file_id in self.selected_files:
+            # Find matching file
+            files.append(File.get(id=file_id))
+
         # show window
         from windows.add_to_timeline import AddToTimeline
-        win = AddToTimeline()
+        win = AddToTimeline(files)
         # Run the dialog event loop - blocking interaction on this window during this time
         result = win.exec_()
         if result == QDialog.Accepted:

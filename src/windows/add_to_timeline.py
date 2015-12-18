@@ -30,6 +30,8 @@ import os
 
 from PyQt5.QtWidgets import *
 from classes import info, ui_util
+from classes.logger import log
+from windows.views.add_to_timeline_treeview import TimelineTreeView
 
 
 class AddToTimeline(QDialog):
@@ -37,7 +39,24 @@ class AddToTimeline(QDialog):
 
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'add-to-timeline.ui')
 
-    def __init__(self):
+    def btnMoveUpClicked(self, event):
+        """Callback for move up button click"""
+        log.info("btnMoveUpClicked")
+
+    def btnMoveDownClicked(self, event):
+        """Callback for move up button click"""
+        log.info("btnMoveDownClicked")
+
+    def btnShuffleClicked(self, event):
+        """Callback for move up button click"""
+        log.info("btnShuffleClicked")
+
+    def btnRemoveClicked(self, event):
+        """Callback for move up button click"""
+        log.info("btnRemoveClicked")
+
+
+    def __init__(self, files=None):
         # Create dialog class
         QDialog.__init__(self)
 
@@ -46,3 +65,21 @@ class AddToTimeline(QDialog):
 
         # Init UI
         ui_util.init_ui(self)
+
+        # Add custom treeview to window
+        self.treeFiles = TimelineTreeView(self)
+        self.vboxTreeParent.insertWidget(0, self.treeFiles)
+
+        # Update data in model
+        self.treeFiles.timeline_model.update_model(files)
+
+        # Refresh view
+        self.treeFiles.refresh_view()
+
+        # Connections
+        self.btnMoveUp.clicked.connect(self.btnMoveUpClicked)
+        self.btnMoveDown.clicked.connect(self.btnMoveDownClicked)
+        self.btnShuffle.clicked.connect(self.btnShuffleClicked)
+        self.btnRemove.clicked.connect(self.btnRemoveClicked)
+        self.btnBox.accepted.connect(self.accept)
+        self.btnBox.rejected.connect(self.reject)
