@@ -226,9 +226,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             # Find matching file
             files.append(File.get(id=file_id))
 
+        # Get current position of playhead
+        fps = get_app().project.get(["fps"])
+        fps_float = float(fps["num"]) / float(fps["den"])
+        pos = (self.preview_thread.player.Position() - 1) / fps_float
+
         # show window
         from windows.add_to_timeline import AddToTimeline
-        win = AddToTimeline(files)
+        win = AddToTimeline(files, pos)
         # Run the dialog event loop - blocking interaction on this window during this time
         result = win.exec_()
         if result == QDialog.Accepted:

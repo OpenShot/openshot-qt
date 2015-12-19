@@ -49,10 +49,6 @@ class TimelineTreeView(QTreeView):
         # Get translation object
         _ = self.app._tr
 
-        # Get selected file
-        selected_file = self.timeline_model.files[self.selected.row()]
-        log.info('selected: %s' % selected_file.data["path"])
-
     def contextMenuEvent(self, event):
         # menu = QMenu(self)
         # menu.addAction(self.win.actionDetailsView)

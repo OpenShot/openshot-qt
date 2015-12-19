@@ -83,6 +83,19 @@
                </property>
               </widget>
              </item>
+             <item>
+              <spacer name="horizontalSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
             </layout>
            </item>
           </layout>
@@ -133,6 +146,9 @@
                  <width>150</width>
                  <height>0</height>
                 </size>
+               </property>
+               <property name="maximum">
+                <double>999999999.000000000000000</double>
                </property>
               </widget>
              </item>
@@ -225,6 +241,12 @@
                  <height>0</height>
                 </size>
                </property>
+               <property name="maximum">
+                <double>999999999.000000000000000</double>
+               </property>
+               <property name="value">
+                <double>2.000000000000000</double>
+               </property>
               </widget>
              </item>
             </layout>
@@ -262,6 +284,12 @@
                  <height>0</height>
                 </size>
                </property>
+               <property name="maximumSize">
+                <size>
+                 <width>150</width>
+                 <height>16777215</height>
+                </size>
+               </property>
               </widget>
              </item>
             </layout>
@@ -285,6 +313,12 @@
                  <width>150</width>
                  <height>0</height>
                 </size>
+               </property>
+               <property name="maximum">
+                <double>999999999.000000000000000</double>
+               </property>
+               <property name="value">
+                <double>2.000000000000000</double>
                </property>
               </widget>
              </item>
