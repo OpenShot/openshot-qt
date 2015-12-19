@@ -135,14 +135,16 @@ App.directive('tlTrack', function($timeout) {
 		            });
 
 					// Add missing transitions (if any)
-					for (var clip_index = 0; clip_index < dropped_clips.length; clip_index++) {
-						var item_data = dropped_clips[clip_index];
+					if (dropped_clips.length == 1)
+						// Hack to only add missing transitions if a single clip is being dropped
+						for (var clip_index = 0; clip_index < dropped_clips.length; clip_index++) {
+							var item_data = dropped_clips[clip_index];
 
-						// Check again for missing transitions
-						missing_transition_details = scope.GetMissingTransitions(item_data);
-						if (scope.Qt && missing_transition_details != null)
-							timeline.add_missing_transition(JSON.stringify(missing_transition_details));
-					}
+							// Check again for missing transitions
+							missing_transition_details = scope.GetMissingTransitions(item_data);
+							if (scope.Qt && missing_transition_details != null)
+								timeline.add_missing_transition(JSON.stringify(missing_transition_details));
+						}
 
 					// Clear dropped clips
 					dropped_clips = [];

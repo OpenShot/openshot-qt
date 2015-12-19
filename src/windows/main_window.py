@@ -29,6 +29,7 @@
 
 import os
 import webbrowser
+from copy import deepcopy
 
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QIcon
@@ -719,7 +720,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         log.info('actionRemoveClip_trigger')
 
         # Loop through selected clips
-        for clip_id in self.selected_clips:
+        for clip_id in deepcopy(self.selected_clips):
             # Find matching file
             clips = Clip.filter(id=clip_id)
             for c in clips:
@@ -733,7 +734,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         log.info('actionRemoveEffect_trigger')
 
         # Loop through selected clips
-        for effect_id in self.selected_effects:
+        for effect_id in deepcopy(self.selected_effects):
             log.info("effect id: %s" % effect_id)
 
             # Find matching file
@@ -765,7 +766,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         log.info('actionRemoveTransition_trigger')
 
         # Loop through selected clips
-        for tran_id in self.selected_transitions:
+        for tran_id in deepcopy(self.selected_transitions):
             # Find matching file
             transitions = Transition.filter(id=tran_id)
             for t in transitions:

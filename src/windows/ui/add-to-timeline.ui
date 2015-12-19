@@ -252,6 +252,40 @@
             </layout>
            </item>
            <item>
+            <widget class="QLabel" name="label">
+             <property name="styleSheet">
+              <string notr="true">font-weight: bold; margin-top: 15px;</string>
+             </property>
+             <property name="text">
+              <string>Zoom</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="label_2">
+               <property name="text">
+                <string>Zoom:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="cmbZoom">
+               <property name="minimumSize">
+                <size>
+                 <width>150</width>
+                 <height>0</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
             <widget class="QLabel" name="lblTransition">
              <property name="styleSheet">
               <string notr="true">font-weight: bold; margin-top: 15px;</string>
