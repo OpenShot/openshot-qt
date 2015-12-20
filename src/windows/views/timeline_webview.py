@@ -115,6 +115,17 @@ MENU_VOLUME_LEVEL_20 = 20
 MENU_VOLUME_LEVEL_10 = 10
 MENU_VOLUME_LEVEL_0 = 0
 
+MENU_COPY_CLIP = 0
+MENU_COPY_KEYFRAMES_ALL = 1
+MENU_COPY_KEYFRAMES_ALPHA = 2
+MENU_COPY_KEYFRAMES_SCALE = 3
+MENU_COPY_KEYFRAMES_ROTATE = 4
+MENU_COPY_KEYFRAMES_LOCATION = 5
+MENU_COPY_KEYFRAMES_TIME = 6
+MENU_COPY_KEYFRAMES_VOLUME = 7
+MENU_COPY_EFFECTS = 8
+MENU_PASTE = 9
+
 
 class TimelineWebView(QWebView, updates.UpdateInterface):
     """ A WebView QWidget used to load the Timeline """
@@ -297,6 +308,37 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Create blank context menu
         menu = QMenu(self)
+
+        # Copy Menu
+        Copy_Menu = QMenu(_("Copy"), self)
+        Copy_Clip = Copy_Menu.addAction(_("Clip"))
+        Copy_Clip.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_CLIP, clip_id))
+        Keyframe_Menu = QMenu(_("Keyframes"), self)
+        Copy_Keyframes_All = Keyframe_Menu.addAction(_("All"))
+        Copy_Keyframes_All.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_ALL, clip_id))
+        Keyframe_Menu.addSeparator()
+        Copy_Keyframes_Alpha = Keyframe_Menu.addAction(_("Alpha"))
+        Copy_Keyframes_Alpha.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_ALPHA, clip_id))
+        Copy_Keyframes_Scale = Keyframe_Menu.addAction(_("Scale"))
+        Copy_Keyframes_Scale.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_SCALE, clip_id))
+        Copy_Keyframes_Rotate = Keyframe_Menu.addAction(_("Rotation"))
+        Copy_Keyframes_Rotate.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_ROTATE, clip_id))
+        Copy_Keyframes_Locate = Keyframe_Menu.addAction(_("Location"))
+        Copy_Keyframes_Locate.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_LOCATION, clip_id))
+        Copy_Keyframes_Time = Keyframe_Menu.addAction(_("Time"))
+        Copy_Keyframes_Time.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_TIME, clip_id))
+        Copy_Keyframes_Volume = Keyframe_Menu.addAction(_("Volume"))
+        Copy_Keyframes_Volume.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_VOLUME, clip_id))
+        Copy_Keyframes_Volume = Copy_Menu.addAction(_("Effects"))
+        Copy_Keyframes_Volume.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_EFFECTS, clip_id))
+        Copy_Menu.addMenu(Keyframe_Menu)
+        menu.addMenu(Copy_Menu)
+
+        # Paste Menu
+        Paste_Clip = menu.addAction(_("Paste"))
+        Paste_Clip.triggered.connect(partial(self.Paste_Triggered, MENU_PASTE, clip_id))
+
+        menu.addSeparator()
 
         # Fade In Menu
         Fade_Menu = QMenu(_("Fade"), self)
@@ -739,6 +781,77 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Save changes
         self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+
+    def Copy_Triggered(self, action, clip_id):
+        """Callback for copy context menus"""
+        log.info(action)
+
+        # Get existing clip object
+        clip = Clip.get(id=clip_id)
+
+        # Empty previous clipboard
+        self.copy_clipboard = {}
+
+        if action == MENU_COPY_CLIP:
+            self.copy_clipboard = clip.data
+        elif action == MENU_COPY_KEYFRAMES_ALL:
+            self.copy_clipboard['alpha'] = clip.data['alpha']
+            self.copy_clipboard['gravity'] = clip.data['gravity']
+            self.copy_clipboard['scale_x'] = clip.data['scale_x']
+            self.copy_clipboard['scale_y'] = clip.data['scale_y']
+            self.copy_clipboard['rotation'] = clip.data['rotation']
+            self.copy_clipboard['location_x'] = clip.data['location_x']
+            self.copy_clipboard['location_y'] = clip.data['location_y']
+            self.copy_clipboard['time'] = clip.data['time']
+            self.copy_clipboard['volume'] = clip.data['volume']
+        elif action == MENU_COPY_KEYFRAMES_ALPHA:
+            self.copy_clipboard['alpha'] = clip.data['alpha']
+        elif action == MENU_COPY_KEYFRAMES_SCALE:
+            self.copy_clipboard['gravity'] = clip.data['gravity']
+            self.copy_clipboard['scale_x'] = clip.data['scale_x']
+            self.copy_clipboard['scale_y'] = clip.data['scale_y']
+        elif action == MENU_COPY_KEYFRAMES_ROTATE:
+            self.copy_clipboard['gravity'] = clip.data['gravity']
+            self.copy_clipboard['rotation'] = clip.data['rotation']
+        elif action == MENU_COPY_KEYFRAMES_LOCATION:
+            self.copy_clipboard['gravity'] = clip.data['gravity']
+            self.copy_clipboard['location_x'] = clip.data['location_x']
+            self.copy_clipboard['location_y'] = clip.data['location_y']
+        elif action == MENU_COPY_KEYFRAMES_TIME:
+            self.copy_clipboard['time'] = clip.data['time']
+        elif action == MENU_COPY_KEYFRAMES_VOLUME:
+            self.copy_clipboard['volume'] = clip.data['volume']
+        elif action == MENU_COPY_EFFECTS:
+            self.copy_clipboard['effects'] = clip.data['effects']
+
+    def Paste_Triggered(self, action, clip_id):
+        """Callback for paste context menus"""
+        log.info(action)
+
+        # Get existing clip object
+        clip = Clip.get(id=clip_id)
+        selected_clip_position = clip.data['position']
+        selected_clip_layer = clip.data['layer']
+
+        # Apply clipboard to clip
+        for k,v in self.copy_clipboard.items():
+            # Overwrite clips propeties (which are in the clipboard)
+            clip.data[k] = v
+
+        # Check if 'id' in clipboard (i.e. an entire clip is being copied)
+        if 'id' in self.copy_clipboard.keys():
+            # Remove the ID property from the clip (so it becomes a new one)
+            clip.id = None
+            clip.type = 'insert'
+            clip.data.pop('id')
+            clip.key.pop(1)
+
+            # Adjust the position by a few seconds (so it's visible)
+            clip.data['position'] = selected_clip_position + 2.0
+            clip.data['layer'] = selected_clip_layer
+
+        # Save changes
+        clip.save()
 
     def Fade_Triggered(self, action, clip_id, position="Entire Clip"):
         """Callback for fade context menus"""
@@ -1387,6 +1500,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Connect zoom functionality
         window.sliderZoom.valueChanged.connect(self.update_zoom)
+
+        # Copy clipboard
+        self.copy_clipboard = {}
 
         # Init New clip
         self.new_item = False
