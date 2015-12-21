@@ -75,6 +75,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # clear data and start new project
         get_app().project.load("")
         get_app().updates.reset()
+
+        # Reset selections
+        self.clearSelections()
+
         self.filesTreeView.refresh_view()
         log.info("New Project created.")
 
@@ -170,6 +174,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
                 # Reset undo/redo history
                 app.updates.reset()
+
+                # Reset selections
+                self.clearSelections()
 
                 # Refresh file tree
                 self.filesTreeView.refresh_view()
@@ -1221,6 +1228,15 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Add timeline toolbar to web frame
         self.frameWeb.addWidget(self.timelineToolbar)
 
+    def clearSelections(self):
+        """Clear all selection containers"""
+        self.selected_files = []
+        self.selected_clips = []
+        self.selected_transitions = []
+        self.selected_markers = []
+        self.selected_tracks = []
+        self.selected_effects = []
+
     def __init__(self):
 
         # Create main window base class
@@ -1245,13 +1261,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Add window as watcher to receive undo/redo status updates
         get_app().updates.add_watcher(self)
 
-        # Track the selected file(s)
-        self.selected_files = []
-        self.selected_clips = []
-        self.selected_transitions = []
-        self.selected_markers = []
-        self.selected_tracks = []
-        self.selected_effects = []
+        # Init selection containers
+        self.clearSelections()
 
         # Init fullscreen menu visibility
         self.init_fullscreen_menu()

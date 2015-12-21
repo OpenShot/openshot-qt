@@ -194,17 +194,21 @@ class AddToTimeline(QDialog):
             new_clip["image"] = thumb_path
 
             # Check for optional start and end attributes
-            start_frame = 1
-            end_frame = new_clip["reader"]["duration"]
+            start_time = 0
+            end_time = new_clip["reader"]["duration"]
+
             if 'start' in file.data.keys():
-                new_clip["start"] = file.data['start']
+                start_time = file.data['start']
+                new_clip["start"] = start_time
             if 'end' in file.data.keys():
-                new_clip["end"] = file.data['end']
+                end_time = file.data['end']
+                new_clip["end"] = end_time
 
             # Adjust clip duration, start, and end
             new_clip["duration"] = new_clip["reader"]["duration"]
             if file.data["media_type"] == "image":
-                new_clip["end"] = self.settings.get("default-image-length")  # default to 8 seconds
+                end_time = self.settings.get("default-image-length")  # default to 8 seconds
+                new_clip["end"] = end_time
 
             # Adjust Fade of Clips (if no transition is chosen)
             if not transition_path:
@@ -214,17 +218,17 @@ class AddToTimeline(QDialog):
                     new_clip["position"] = position
 
                 if fade_value == 'Fade In' or fade_value == 'Fade In & Out':
-                    start = openshot.Point(1.0, 1.0, openshot.BEZIER)
+                    start = openshot.Point((start_time * fps_float) + 1, 1.0, openshot.BEZIER)
                     start_object = json.loads(start.Json())
-                    end = openshot.Point(min(fade_length * fps_float, new_clip["end"] * fps_float), 0.0, openshot.BEZIER)
+                    end = openshot.Point(min((start_time + fade_length) * fps_float, end_time * fps_float), 0.0, openshot.BEZIER)
                     end_object = json.loads(end.Json())
                     new_clip['alpha']["Points"].append(start_object)
                     new_clip['alpha']["Points"].append(end_object)
 
                 if fade_value == 'Fade Out' or fade_value == 'Fade In & Out':
-                    start = openshot.Point(max((new_clip["end"] * fps_float) - (fade_length * fps_float), 1.0), 0.0, openshot.BEZIER)
+                    start = openshot.Point(max((end_time * fps_float) - (fade_length * fps_float), start_time * fps_float), 0.0, openshot.BEZIER)
                     start_object = json.loads(start.Json())
-                    end = openshot.Point(new_clip["end"] * fps_float, 1.0, openshot.BEZIER)
+                    end = openshot.Point(end_time * fps_float, 1.0, openshot.BEZIER)
                     end_object = json.loads(end.Json())
                     new_clip['alpha']["Points"].append(start_object)
                     new_clip['alpha']["Points"].append(end_object)
@@ -263,9 +267,9 @@ class AddToTimeline(QDialog):
                     end_scale = 1.0
 
                 # Add keyframes
-                start = openshot.Point(1.0, start_scale, openshot.BEZIER)
+                start = openshot.Point((start_time * fps_float) + 1, start_scale, openshot.BEZIER)
                 start_object = json.loads(start.Json())
-                end = openshot.Point(new_clip["end"] * fps_float, end_scale, openshot.BEZIER)
+                end = openshot.Point(end_time * fps_float, end_scale, openshot.BEZIER)
                 end_object = json.loads(end.Json())
                 new_clip["gravity"] = openshot.GRAVITY_CENTER
                 new_clip["scale_x"]["Points"].append(start_object)
@@ -274,13 +278,13 @@ class AddToTimeline(QDialog):
                 new_clip["scale_y"]["Points"].append(end_object)
 
                 # Add keyframes
-                start_x = openshot.Point(1.0, animate_start_x, openshot.BEZIER)
+                start_x = openshot.Point((start_time * fps_float) + 1, animate_start_x, openshot.BEZIER)
                 start_x_object = json.loads(start_x.Json())
-                end_x = openshot.Point(new_clip["end"] * fps_float, animate_end_x, openshot.BEZIER)
+                end_x = openshot.Point(end_time * fps_float, animate_end_x, openshot.BEZIER)
                 end_x_object = json.loads(end_x.Json())
-                start_y = openshot.Point(1.0, animate_start_y, openshot.BEZIER)
+                start_y = openshot.Point((start_time * fps_float) + 1, animate_start_y, openshot.BEZIER)
                 start_y_object = json.loads(start_y.Json())
-                end_y = openshot.Point(new_clip["end"] * fps_float, animate_end_y, openshot.BEZIER)
+                end_y = openshot.Point(end_time * fps_float, animate_end_y, openshot.BEZIER)
                 end_y_object = json.loads(end_y.Json())
                 new_clip["gravity"] = openshot.GRAVITY_CENTER
                 new_clip["location_x"]["Points"].append(start_x_object)
@@ -300,7 +304,7 @@ class AddToTimeline(QDialog):
 
                 brightness = openshot.Keyframe()
                 brightness.AddPoint(1, 1.0, openshot.BEZIER)
-                brightness.AddPoint(transition_length * fps_float, -1.0, openshot.BEZIER)
+                brightness.AddPoint(min(transition_length, end_time - start_time) * fps_float, -1.0, openshot.BEZIER)
                 contrast = openshot.Keyframe(3.0)
 
                 # Create transition dictionary
@@ -309,7 +313,7 @@ class AddToTimeline(QDialog):
                     "title": "Transition",
                     "type": "Mask",
                     "start": 0,
-                    "end": transition_length,
+                    "end": min(transition_length, end_time - start_time),
                     "brightness": json.loads(brightness.Json()),
                     "contrast": json.loads(contrast.Json()),
                     "reader": json.loads(transition_reader.Json()),
@@ -331,8 +335,8 @@ class AddToTimeline(QDialog):
             clip.data = new_clip
             clip.save()
 
-            # Increment position by length
-            position += clip.data["end"]
+            # Increment position by length of clip
+            position += (end_time - start_time)
 
 
         # Accept dialog
