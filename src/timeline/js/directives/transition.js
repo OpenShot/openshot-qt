@@ -62,9 +62,16 @@ App.directive('tlTransition', function(){
 						dragLoc = 'right';
 					}
 
+					// Hide keyframe points
+					element.find('.point_icon').hide()
+
 				},
 				stop: function(e, ui) {
 					dragging = false;
+
+					// Make the keyframe points visible again
+					element.find('.point_icon').show()
+
 					//get amount changed in width
 					var delta_x = ui.originalSize.width - ui.size.width;
 					var delta_time = delta_x/scope.pixelsPerSecond;

@@ -126,6 +126,10 @@ MENU_COPY_KEYFRAMES_VOLUME = 7
 MENU_COPY_EFFECTS = 8
 MENU_PASTE = 9
 
+MENU_COPY_TRANSITION = 10
+MENU_COPY_KEYFRAMES_BRIGHTNESS = 11
+MENU_COPY_KEYFRAMES_CONTRAST = 12
+
 
 class TimelineWebView(QWebView, updates.UpdateInterface):
     """ A WebView QWidget used to load the Timeline """
@@ -239,21 +243,40 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Search for matching clip in project data (if any)
         existing_item = Transition.get(id=transition_data["id"])
+        needs_resize = True
         if not existing_item:
             # Create a new clip (if not exists)
             existing_item = Transition()
+            needs_resize = False
         existing_item.data = transition_data
-
 
         # Get FPS from project
         fps = get_app().project.get(["fps"])
         fps_float = float(fps["num"]) / float(fps["den"])
+        duration = existing_item.data["end"] - existing_item.data["start"]
 
         # Update the brightness and contrast keyframes to match the duration of the transition
-        duration = existing_item.data["end"] - existing_item.data["start"]
-        brightness = openshot.Keyframe()
-        brightness.AddPoint(1, 1.0, openshot.BEZIER)
-        brightness.AddPoint(duration * fps_float, -1.0, openshot.BEZIER)
+        # This is a hack until I can think of something better
+        brightness = None
+        contrast = None
+        if needs_resize:
+            # Adjust transition's brightness keyframes to match the size of the transition
+            brightness = existing_item.data["brightness"]
+            if len(brightness["Points"]) > 1:
+                # If multiple points, move the final one to the 'new' end
+                brightness["Points"][-1]["co"]["X"] = duration * fps_float
+
+            # Adjust transition's contrast keyframes to match the size of the transition
+            contrast = existing_item.data["contrast"]
+            if len(contrast["Points"]) > 1:
+                # If multiple points, move the final one to the 'new' end
+                contrast["Points"][-1]["co"]["X"] = duration * fps_float
+        else:
+            # Create new brightness and contrast Keyframes
+            b = openshot.Keyframe()
+            b.AddPoint(1, 1.0, openshot.BEZIER)
+            b.AddPoint(duration * fps_float, -1.0, openshot.BEZIER)
+            brightness = json.loads(b.Json())
 
         # Only include the basic properties (performance boost)
         if only_basic_props:
@@ -263,7 +286,14 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             existing_item.data["position"] = transition_data["position"]
             existing_item.data["start"] = transition_data["start"]
             existing_item.data["end"] = transition_data["end"]
-            existing_item.data["brightness"] = json.loads(brightness.Json())
+
+            log.info('transition start: %s' % transition_data["start"])
+            log.info('transition end: %s' % transition_data["end"])
+
+            if brightness:
+                existing_item.data["brightness"] = brightness
+            if contrast:
+                existing_item.data["contrast"] = contrast
 
         # Save transition
         existing_item.save()
@@ -853,6 +883,55 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Save changes
         clip.save()
 
+    def Copy_Tran_Triggered(self, action, tran_id):
+        """Callback for copy transition context menus"""
+        log.info(action)
+
+        # Get existing transition object
+        tran = Transition.get(id=tran_id)
+
+        # Empty previous clipboard
+        self.copy_transition_clipboard = {}
+
+        if action == MENU_COPY_TRANSITION:
+            self.copy_transition_clipboard = tran.data
+        elif action == MENU_COPY_KEYFRAMES_ALL:
+            self.copy_transition_clipboard['brightness'] = tran.data['brightness']
+            self.copy_transition_clipboard['contrast'] = tran.data['contrast']
+        elif action == MENU_COPY_KEYFRAMES_BRIGHTNESS:
+            self.copy_transition_clipboard['brightness'] = tran.data['brightness']
+        elif action == MENU_COPY_KEYFRAMES_CONTRAST:
+            self.copy_transition_clipboard['contrast'] = tran.data['contrast']
+
+    def Paste_Tran_Triggered(self, action, tran_id):
+        """Callback for paste transition context menus"""
+        log.info(action)
+
+        # Get existing transition object
+        tran = Transition.get(id=tran_id)
+        selected_tran_position = tran.data['position']
+        selected_tran_layer = tran.data['layer']
+
+        # Apply clipboard to transition
+        for k,v in self.copy_transition_clipboard.items():
+            # Overwrite transition propeties (which are in the clipboard)
+            tran.data[k] = v
+
+        # Check if 'id' in clipboard (i.e. an entire clip is being copied)
+        if 'id' in self.copy_transition_clipboard.keys():
+            # Remove the ID property from the clip (so it becomes a new one)
+            tran.id = None
+            tran.type = 'insert'
+            tran.data.pop('id')
+            tran.key.pop(1)
+
+            # Adjust the position by a few seconds (so it's visible)
+            tran.data['position'] = selected_tran_position + 2.0
+            tran.data['layer'] = selected_tran_layer
+
+        # Save changes
+        tran.save()
+
     def Fade_Triggered(self, action, clip_id, position="Entire Clip"):
         """Callback for fade context menus"""
         log.info(action)
@@ -1163,6 +1242,27 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             self.window.addSelection(tran_id, 'transition')
 
         menu = QMenu(self)
+
+        # Copy Menu
+        Copy_Menu = QMenu(_("Copy"), self)
+        Copy_Tran = Copy_Menu.addAction(_("Transition"))
+        Copy_Tran.triggered.connect(partial(self.Copy_Tran_Triggered, MENU_COPY_TRANSITION, tran_id))
+        Keyframe_Menu = QMenu(_("Keyframes"), self)
+        Copy_Keyframes_All = Keyframe_Menu.addAction(_("All"))
+        Copy_Keyframes_All.triggered.connect(partial(self.Copy_Tran_Triggered, MENU_COPY_KEYFRAMES_ALL, tran_id))
+        Keyframe_Menu.addSeparator()
+        Copy_Keyframes_Brightness = Keyframe_Menu.addAction(_("Brightness"))
+        Copy_Keyframes_Brightness.triggered.connect(partial(self.Copy_Tran_Triggered, MENU_COPY_KEYFRAMES_BRIGHTNESS, tran_id))
+        Copy_Keyframes_Scale = Keyframe_Menu.addAction(_("Contrast"))
+        Copy_Keyframes_Scale.triggered.connect(partial(self.Copy_Tran_Triggered, MENU_COPY_KEYFRAMES_CONTRAST, tran_id))
+        Copy_Menu.addMenu(Keyframe_Menu)
+        menu.addMenu(Copy_Menu)
+
+        # Paste Menu
+        Paste_Tran = menu.addAction(_("Paste"))
+        Paste_Tran.triggered.connect(partial(self.Paste_Tran_Triggered, MENU_PASTE, tran_id))
+
+        menu.addSeparator()
 
         # Reverse Transition menu
         Reverse_Transition = menu.addAction(_("Reverse Transition"))
@@ -1503,6 +1603,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Copy clipboard
         self.copy_clipboard = {}
+        self.copy_transition_clipboard = {}
 
         # Init New clip
         self.new_item = False
