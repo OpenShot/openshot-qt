@@ -35,8 +35,9 @@ from classes.app import get_app
 class TimelineSync(UpdateInterface):
     """ This class syncs changes from the timeline to libopenshot """
 
-    def __init__(self):
+    def __init__(self, window):
         self.app = get_app()
+        self.window = window
         project = self.app.project
 
         # Append on some project settings
@@ -64,16 +65,28 @@ class TimelineSync(UpdateInterface):
     def changed(self, action):
         """ This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """
 
+        # Get speed of player
+        current_speed = self.window.preview_thread.player.Speed()
+
         # Ignore changes that don't affect libopenshot
         if len(action.key) >= 1 and action.key[0].lower() in ["files", "markers", "layers"]:
             return
         elif len(action.key) >= 1 and action.key[0].lower() in ["profile"]:
+            # Stop preview thread
+            self.window.preview_thread.Speed(0)
+
             # The timeline's profile changed, so update all clips
             self.timeline.ApplyMapperToClips()
+
+            # Resume speed
+            self.window.preview_thread.Speed(current_speed)
             return
 
         # Pass the change to the libopenshot timeline
         try:
+            # Stop preview thread
+            self.window.preview_thread.Speed(0)
+
             if action.type == "load":
                 # This JSON is initially loaded to libopenshot to update the timeline
                 self.timeline.SetJson(action.json(only_value=True))
@@ -81,8 +94,10 @@ class TimelineSync(UpdateInterface):
 
             else:
                 # This JSON DIFF is passed to libopenshot to update the timeline
-                print(action.json(is_array=True))
                 self.timeline.ApplyJsonDiff(action.json(is_array=True))
+
+            # Resume speed
+            self.window.preview_thread.Speed(current_speed)
 
         except:
             log.info("Error applying JSON to timeline object in libopenshot")

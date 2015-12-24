@@ -1300,9 +1300,34 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         menu.addAction(self.window.actionRemoveMarker)
         return menu.popup(QCursor.pos())
 
+    @pyqtSlot(str, int)
+    def PreviewClipFrame(self, clip_id, frame_number):
+        log.info("PreviewClipFrame - frame_number: %s, clip_id: %s" % (frame_number, clip_id))
+
+        # Get existing clip object
+        clip = Clip.get(id=clip_id)
+        path = clip.data['reader']['path']
+
+        # Adjust frame # to valid range
+        frame_number = max(frame_number, 1)
+        frame_number = min(frame_number, int(clip.data['reader']['video_length']))
+
+        # Preview frame
+        log.info("path: %s, frame: %s" % (path, frame_number))
+
+        # Load the clip into the Player (ignored if this has already happened)
+        self.window.preview_thread.LoadFile(path)
+        self.window.preview_thread.Speed(0)
+
+        # Seek to frame
+        self.window.preview_thread.Seek(frame_number)
+
     @pyqtSlot(float, int, str)
     def PlayheadMoved(self, position_seconds, position_frames, time_code):
         log.info("PlayheadMoved - position_seconds: %s, position_frames: %s, time_code: %s" % (position_seconds, position_frames, time_code))
+
+        # Load the timeline into the Player (ignored if this has already happened)
+        self.window.preview_thread.LoadFile(None)
 
         if self.last_position_frames != position_frames:
             # Update time code (to prevent duplicate previews)

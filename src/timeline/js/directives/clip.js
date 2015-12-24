@@ -138,15 +138,6 @@ App.directive('tlClip', function($timeout){
 					var delta_x = parseFloat(ui.originalSize.width) - ui.size.width;
 					var delta_time = delta_x / scope.pixelsPerSecond;
 
-					// Preview frame during resize
-					if (dragLoc == 'left'){
-						// Preview the left side of the clip
-						scope.PreviewFrame(scope.clip.position + delta_time);
-					} else {
-						// Preview the right side of the clip
-						scope.PreviewFrame((scope.clip.position + (scope.clip.end - scope.clip.start)) - delta_time);
-					}
-
 					// change the clip end/start based on which side was dragged
 					new_left = scope.clip.start;
 					new_right = scope.clip.end;
@@ -164,12 +155,26 @@ App.directive('tlClip', function($timeout){
 						// changing the end of the clips
 						new_right -= delta_time;
 						if (new_right > scope.clip.duration) {
-							new_right = scope.clip.duration - new_right;
+							new_right = scope.clip.duration - new_right; // difference from duration
 							ui.element.width(ui.size.width + (new_right * scope.pixelsPerSecond));
+
+							// change back to actual duration (for the preview below)
+							new_right = scope.clip.duration;
 						} else {
 							ui.element.width(ui.size.width);
 						}
 					}
+
+
+					// Preview frame during resize
+					if (dragLoc == 'left'){
+						// Preview the left side of the clip
+						scope.PreviewClipFrame(scope.clip.id, new_left);
+					} else {
+						// Preview the right side of the clip
+						scope.PreviewClipFrame(scope.clip.id, new_right);
+					}
+
 				},
 
 			});

@@ -1307,7 +1307,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         self.load_settings()
 
         # Create the timeline sync object (used for previewing timeline)
-        self.timeline_sync = TimelineSync()
+        self.timeline_sync = TimelineSync(self)
 
         # Start the preview thread
         self.preview_parent = PreviewParent()

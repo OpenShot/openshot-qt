@@ -25,6 +25,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+import os
 import time
 import sip
 
@@ -87,6 +88,12 @@ class PlayerWorker(QObject):
         self.parent = parent
         self.timeline = timeline
         self.videoPreview = videoPreview
+        self.clip_path = None
+        self.clip_reader = None
+        self.original_speed = 0
+        self.original_position = 0
+        self.previous_clip_mappers = []
+        self.previous_clip_readers = []
 
     @pyqtSlot()
     def Start(self):
@@ -114,7 +121,10 @@ class PlayerWorker(QObject):
             # Emit position changed signal (if needed)
             if self.current_frame != self.player.Position():
                 self.current_frame = self.player.Position()
-                self.position_changed.emit(self.current_frame)
+
+                if not self.clip_path:
+                    # Emit position of overall timeline (don't emit this for clip previews)
+                    self.position_changed.emit(self.current_frame)
 
             # Emit mode changed signal (if needed)
             if self.player.Mode() != self.current_mode:
@@ -162,23 +172,102 @@ class PlayerWorker(QObject):
 
         log.info("refreshFrame")
 
+        # Always load back in the timeline reader
+        self.LoadFile(None)
+
         # Mark frame number for processing
         self.player.Seek(self.player.Position())
 
         log.info("self.player.Position(): %s" % self.player.Position())
 
     @pyqtSlot(str)
-    def LoadFile(self, path):
+    def LoadFile(self, path=None):
         """ Load a media file into the video player """
 
-        # Load Reader
-        log.info("loadReader...")
-        self.reader = openshot.Clip(path).Reader()
-        self.reader.Open()
-        self.player.Reader(self.reader)
+        # Check to see if this path is already loaded
+        if path == self.clip_path:
+            return
 
-        # Seek to 1st frame
-        self.player.Seek(1)
+        # Determine the current frame of the timeline (when switching to a clip)
+        seek_position = 1
+        if path and not self.clip_path:
+            # Track the current frame
+            self.original_position = self.player.Position()
+
+        # Stop player (very important to prevent crashing)
+        self.original_speed = self.player.Speed()
+        self.player.Speed(0)
+
+        # If blank path, switch back to self.timeline reader
+        if not path:
+            # Return to self.timeline reader
+            log.info("Set timeline reader again in player: %s" % self.timeline)
+            self.player.Reader(self.timeline)
+
+            # Clear clip reader reference
+            self.clip_reader = None
+            self.clip_path = None
+
+            # Switch back to last timeline position
+            seek_position = self.original_position
+        else:
+            # Get extension of media path
+            ext = os.path.splitext(path)
+
+            # Load Reader based on extension
+            new_reader = None
+            if ext in ['.avi', 'mov', 'mkv', 'mpg', 'mpeg', 'mp3', 'mp4', 'mts', 'ogg', 'wav', 'wmv', 'webm', 'vob']:
+                try:
+                    new_reader = openshot.FFmpegReader(path)
+                    new_reader.Open()
+                except:
+                    try:
+                        new_reader = openshot.QtImageReader(path)
+                        new_reader.Open()
+                    except:
+                        log.error('Failed to load media file into video player: %s' % path)
+                        return
+            else:
+                try:
+                    new_reader = openshot.QtImageReader(path)
+                    new_reader.Open()
+                except:
+                    try:
+                        new_reader = openshot.FFmpegReader(path)
+                        new_reader.Open()
+                    except:
+                        log.error('Failed to load media file into video player: %s' % path)
+                        return
+
+
+
+            # Wrap reader in FrameMapper (to match current settings of timeline)
+            new_mapper = openshot.FrameMapper(new_reader, self.timeline.info.fps, openshot.PULLDOWN_NONE, self.timeline.info.sample_rate,
+                                                    self.timeline.info.channels, self.timeline.info.channel_layout)
+
+            # Keep track of previous clip readers (so we can Close it later)
+            self.previous_clip_mappers.append(new_mapper)
+            self.previous_clip_readers.append(new_reader)
+
+            # Assign new clip_reader
+            self.clip_reader = new_mapper
+            self.clip_path = path
+
+            # Open reader
+            self.clip_reader.Open()
+
+            log.info("Set new FrameMapper reader in player: %s" % self.clip_reader)
+            self.player.Reader(self.clip_reader)
+
+        # Close and destroy old clip readers (leaving the 3 most recent)
+        while len(self.previous_clip_readers) > 3:
+            log.info('Removing old clip reader: %s' % self.previous_clip_readers[0])
+            self.previous_clip_mappers.pop(0)
+            self.previous_clip_readers.pop(0)
+
+        # Seek to frame 1, and resume speed
+        self.player.Seek(seek_position)
+        self.player.Speed(self.original_speed)
 
     @pyqtSlot()
     def Play(self):

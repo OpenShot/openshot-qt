@@ -273,7 +273,22 @@ App.controller('TimelineCtrl',function($scope) {
 	  if ($scope.Qt)
 		  timeline.PlayheadMoved(position_seconds, frame, secondsToTime(position_seconds, $scope.project.fps.num, $scope.project.fps.den));
   };
-  
+
+
+  // Move the playhead to a specific time
+  $scope.PreviewClipFrame = function(clip_id, position_seconds) {
+	  if ($scope.Qt)
+		 	timeline.qt_log("$scope.PreviewClipFrame to seconds " + position_seconds);
+
+	  // Determine frame
+	  var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
+	  var frame = (position_seconds * frames_per_second) + 1;
+
+	  // Update GUI with position (to the preview can be updated)
+	  if ($scope.Qt)
+		  timeline.PreviewClipFrame(clip_id, frame);
+  };
+
   // Get an array of keyframe points for the selected clips
   $scope.getKeyframes = function(object){
   	// List of keyframes
