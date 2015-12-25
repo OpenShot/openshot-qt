@@ -115,6 +115,10 @@ MENU_VOLUME_LEVEL_20 = 20
 MENU_VOLUME_LEVEL_10 = 10
 MENU_VOLUME_LEVEL_0 = 0
 
+MENU_TIME_NONE = 0
+MENU_TIME_FORWARD = 1
+MENU_TIME_BACKWARD = 2
+
 MENU_COPY_CLIP = 0
 MENU_COPY_KEYFRAMES_ALL = 1
 MENU_COPY_KEYFRAMES_ALPHA = 2
@@ -511,6 +515,29 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         Layout_Bottom_All_Without_Aspect.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_ALL_WITHOUT_ASPECT, clip_id))
         menu.addMenu(Layout_Menu)
 
+        # Time Menu
+        Time_Menu = QMenu(_("Time"), self)
+        Time_None = Time_Menu.addAction(_("Reset Time"))
+        Time_None.triggered.connect(partial(self.Time_Triggered, MENU_TIME_NONE, clip_id, '1X'))
+        Time_Menu.addSeparator()
+        for speed, speed_values in [("Normal", ['1X']), ("Fast", ['2X', '4X', '8X', '16X', '32X']), ("Slow", ['1/2X', '1/4X', '1/8X', '1/16X', '1/32X'])]:
+            Speed_Menu = QMenu(_(speed), self)
+
+            for direction, direction_value in [("Forward", MENU_TIME_FORWARD), ("Backward", MENU_TIME_BACKWARD)]:
+                Direction_Menu = QMenu(_(direction), self)
+
+                for actual_speed in speed_values:
+                    # Add menu option
+                    Time_Option = Direction_Menu.addAction(_(actual_speed))
+                    Time_Option.triggered.connect(partial(self.Time_Triggered, direction_value, clip_id, actual_speed))
+
+                # Add menu to parent
+                Speed_Menu.addMenu(Direction_Menu)
+            # Add menu to parent
+            Time_Menu.addMenu(Speed_Menu)
+
+        # Add menu to parent
+        menu.addMenu(Time_Menu)
 
         # Volume Menu
         Volume_Menu = QMenu(_("Volume"), self)
@@ -1134,6 +1161,88 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             p = openshot.Point(1, 180.0, openshot.BEZIER)
             p_object = json.loads(p.Json())
             clip.data[prop_name] = { "Points" : [p_object]}
+
+        # Save changes
+        self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+
+
+    def Time_Triggered(self, action, clip_id, speed="1X"):
+        """Callback for rotate context menus"""
+        log.info(action)
+        prop_name = "time"
+
+        # Get FPS from project
+        fps = get_app().project.get(["fps"])
+        fps_float = float(fps["num"]) / float(fps["den"])
+
+        # Get existing clip object
+        clip = Clip.get(id=clip_id)
+
+        # Determine the beginning and ending of this animation
+        start_animation = 1
+
+        # Calculate speed factor
+        speed_label = speed.replace('X', '')
+        speed_parts = speed_label.split('/')
+        if len(speed_parts) == 2:
+            speed_factor = float(speed_parts[0]) / float(speed_parts[1])
+        else:
+            speed_factor = float(speed_label)
+
+        # Clear all keyframes
+        p = openshot.Point(start_animation, 0.0, openshot.BEZIER)
+        p_object = json.loads(p.Json())
+        clip.data[prop_name] = { "Points" : [p_object]}
+
+        # Reset original end & duration (if available)
+        if "original_data" in clip.data.keys():
+            clip.data["end"] = clip.data["original_data"]["end"]
+            clip.data["duration"] = clip.data["original_data"]["duration"]
+            clip.data["reader"]["video_length"] = clip.data["original_data"]["video_length"]
+            clip.data.pop("original_data")
+
+        # Get the ending frame
+        end_of_clip = float(clip.data["end"]) * fps_float
+
+        # Determine the beginning and ending of this animation
+        start_animation = 1
+        end_animation = end_of_clip
+
+        if action == MENU_TIME_FORWARD:
+            # Add keyframes
+            start = openshot.Point(start_animation, 1.0, openshot.BEZIER)
+            start_object = json.loads(start.Json())
+            clip.data[prop_name] = { "Points" : [start_object]}
+            end = openshot.Point(end_animation / speed_factor, end_of_clip, openshot.BEZIER)
+            end_object = json.loads(end.Json())
+            clip.data[prop_name]["Points"].append(end_object)
+            # Keep original 'end' and 'duration'
+            if "original_data" not in clip.data.keys():
+                clip.data["original_data"] = { "end" : clip.data["end"],
+                                               "duration" : clip.data["duration"],
+                                               "video_length" : clip.data["reader"]["video_length"] }
+            # Adjust end & duration
+            clip.data["end"] = clip.data["end"] / speed_factor
+            clip.data["duration"] = clip.data["duration"] / speed_factor
+            clip.data["reader"]["video_length"] = str(float(clip.data["reader"]["video_length"]) / speed_factor)
+
+        if action == MENU_TIME_BACKWARD:
+            # Add keyframes
+            start = openshot.Point(start_animation, end_of_clip, openshot.BEZIER)
+            start_object = json.loads(start.Json())
+            clip.data[prop_name] = { "Points" : [start_object]}
+            end = openshot.Point(end_animation / speed_factor, 1.0, openshot.BEZIER)
+            end_object = json.loads(end.Json())
+            clip.data[prop_name]["Points"].append(end_object)
+            # Keep original 'end' and 'duration'
+            if "original_data" not in clip.data.keys():
+                clip.data["original_data"] = { "end" : clip.data["end"],
+                                               "duration" : clip.data["duration"],
+                                               "video_length" : clip.data["reader"]["video_length"] }
+            # Adjust end & duration
+            clip.data["end"] = clip.data["end"] / speed_factor
+            clip.data["duration"] = clip.data["duration"] / speed_factor
+            clip.data["reader"]["video_length"] = str(float(clip.data["reader"]["video_length"]) / speed_factor)
 
         # Save changes
         self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
