@@ -1184,13 +1184,16 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Calculate speed factor
         speed_label = speed.replace('X', '')
         speed_parts = speed_label.split('/')
+        even_multiple = 1
         if len(speed_parts) == 2:
             speed_factor = float(speed_parts[0]) / float(speed_parts[1])
+            even_multiple = int(speed_parts[1])
         else:
             speed_factor = float(speed_label)
+            even_multiple = int(speed_factor)
 
         # Clear all keyframes
-        p = openshot.Point(start_animation, 0.0, openshot.BEZIER)
+        p = openshot.Point(start_animation, 0.0, openshot.LINEAR)
         p_object = json.loads(p.Json())
         clip.data[prop_name] = { "Points" : [p_object]}
 
@@ -1202,18 +1205,19 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             clip.data.pop("original_data")
 
         # Get the ending frame
-        end_of_clip = float(clip.data["end"]) * fps_float
+        end_of_clip = (float(clip.data["end"]) * fps_float) + 1
 
         # Determine the beginning and ending of this animation
-        start_animation = 1
-        end_animation = end_of_clip
+        start_animation = (float(clip.data["start"]) * fps_float) + 1
+        duration_animation = self.round_to_multiple(end_of_clip - start_animation, even_multiple)
+        end_animation = start_animation + duration_animation
 
         if action == MENU_TIME_FORWARD:
             # Add keyframes
-            start = openshot.Point(start_animation, 1.0, openshot.BEZIER)
+            start = openshot.Point(start_animation, start_animation, openshot.LINEAR)
             start_object = json.loads(start.Json())
             clip.data[prop_name] = { "Points" : [start_object]}
-            end = openshot.Point(end_animation / speed_factor, end_of_clip, openshot.BEZIER)
+            end = openshot.Point(start_animation + (duration_animation / speed_factor), end_animation, openshot.LINEAR)
             end_object = json.loads(end.Json())
             clip.data[prop_name]["Points"].append(end_object)
             # Keep original 'end' and 'duration'
@@ -1222,16 +1226,16 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                                                "duration" : clip.data["duration"],
                                                "video_length" : clip.data["reader"]["video_length"] }
             # Adjust end & duration
-            clip.data["end"] = clip.data["end"] / speed_factor
-            clip.data["duration"] = clip.data["duration"] / speed_factor
-            clip.data["reader"]["video_length"] = str(float(clip.data["reader"]["video_length"]) / speed_factor)
+            clip.data["end"] = (start_animation + (duration_animation / speed_factor)) / fps_float
+            clip.data["duration"] = self.round_to_multiple(clip.data["duration"] / speed_factor, even_multiple)
+            clip.data["reader"]["video_length"] = str(self.round_to_multiple(float(clip.data["reader"]["video_length"]) / speed_factor, even_multiple))
 
         if action == MENU_TIME_BACKWARD:
             # Add keyframes
-            start = openshot.Point(start_animation, end_of_clip, openshot.BEZIER)
+            start = openshot.Point(start_animation, end_animation, openshot.LINEAR)
             start_object = json.loads(start.Json())
             clip.data[prop_name] = { "Points" : [start_object]}
-            end = openshot.Point(end_animation / speed_factor, 1.0, openshot.BEZIER)
+            end = openshot.Point(start_animation + (duration_animation / speed_factor), start_animation, openshot.LINEAR)
             end_object = json.loads(end.Json())
             clip.data[prop_name]["Points"].append(end_object)
             # Keep original 'end' and 'duration'
@@ -1240,12 +1244,16 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                                                "duration" : clip.data["duration"],
                                                "video_length" : clip.data["reader"]["video_length"] }
             # Adjust end & duration
-            clip.data["end"] = clip.data["end"] / speed_factor
-            clip.data["duration"] = clip.data["duration"] / speed_factor
-            clip.data["reader"]["video_length"] = str(float(clip.data["reader"]["video_length"]) / speed_factor)
+            clip.data["end"] = (start_animation + (duration_animation / speed_factor)) / fps_float
+            clip.data["duration"] = self.round_to_multiple(clip.data["duration"] / speed_factor, even_multiple)
+            clip.data["reader"]["video_length"] = str(self.round_to_multiple(float(clip.data["reader"]["video_length"]) / speed_factor, even_multiple))
 
         # Save changes
         self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+
+    def round_to_multiple(self, number, multiple):
+        """Round this to the closest multiple of a given #"""
+        return number - (number % multiple)
 
     def show_all_clips(self, clip, stretch=False):
         """ Show all clips at the same time (arranged col by col, row by row)  """
