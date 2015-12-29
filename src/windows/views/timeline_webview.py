@@ -172,6 +172,14 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         if not existing_clip:
             # Create a new clip (if not exists)
             existing_clip = Clip()
+
+        # Determine if "start" changed
+        start_changed = False
+        if existing_clip.data and existing_clip.data["start"] != clip_data["start"] and clip_data["reader"]["has_video"] and not clip_data["reader"]["has_single_image"]:
+            # Update thumbnail
+            self.UpdateClipThumbnail(clip_data)
+
+        # Update clip data
         existing_clip.data = clip_data
 
         # Remove unneeded properties (since they don't change here... this is a performance boost)
@@ -180,6 +188,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             existing_clip.data["id"] = clip_data["id"]
             existing_clip.data["layer"] = clip_data["layer"]
             existing_clip.data["position"] = clip_data["position"]
+            existing_clip.data["image"] = clip_data["image"]
             existing_clip.data["start"] = clip_data["start"]
             existing_clip.data["end"] = clip_data["end"]
 
@@ -192,6 +201,51 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Update the preview
         get_app().window.preview_thread.refreshFrame()
+
+    # Update Thumbnails for modified clips
+    def UpdateClipThumbnail(self, clip_data):
+        """Update the thumbnail image for clips"""
+
+        # Get project's frames per second
+        fps = clip_data["reader"]["fps"]
+        fps_float = float(fps["num"]) / float(fps["den"])
+
+        # Get starting time of clip
+        start_frame = round(float(clip_data["start"]) * fps_float) + 1
+
+        # Determine thumb path
+        thumb_path = os.path.join(info.THUMBNAIL_PATH, "{}-{}.png".format(clip_data["id"], start_frame))
+        log.info('Updating thumbnail image: %s' % thumb_path)
+
+        # Check if thumb exists
+        if not os.path.exists(thumb_path):
+
+            # Get file object
+            file = File.get(id=clip_data["file_id"])
+
+            # Convert path to the correct relative path (based on this folder)
+            file_path = file.absolute_path()
+
+            # Reload this reader
+            clip = openshot.Clip(file_path)
+            reader = clip.Reader()
+
+            # Open reader
+            reader.Open()
+
+            # Determine if video overlay should be applied to thumbnail
+            overlay_path = ""
+            if file.data["media_type"] == "video":
+                overlay_path = os.path.join(info.IMAGES_PATH, "overlay.png")
+
+            # Save thumbnail
+            reader.GetFrame(start_frame).Thumbnail(thumb_path, 98, 64, os.path.join(info.IMAGES_PATH, "mask.png"),
+                                         overlay_path, "#000", False)
+            reader.Close()
+            clip.Close()
+
+            # Update clip_data to point to new thumbnail image
+            clip_data["image"] = thumb_path
 
     # Add missing transition
     @pyqtSlot(str)

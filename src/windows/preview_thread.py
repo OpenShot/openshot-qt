@@ -274,7 +274,6 @@ class PlayerWorker(QObject):
         """ Start playing the video player """
 
         # Start playback
-        log.info("Play...")
         self.player.Play()
 
     @pyqtSlot()
@@ -282,7 +281,6 @@ class PlayerWorker(QObject):
         """ Start playing the video player """
 
         # Start playback
-        log.info("Pause...")
         self.player.Pause()
 
     @pyqtSlot()
@@ -290,7 +288,6 @@ class PlayerWorker(QObject):
         """ Seek to a specific frame """
 
         # Start playback
-        log.info("Seek...")
         self.player.Seek(number)
 
     @pyqtSlot()
@@ -298,5 +295,4 @@ class PlayerWorker(QObject):
         """ Set the speed of the video player """
 
         # Start playback
-        log.info("Speed...")
         self.player.Speed(new_speed)

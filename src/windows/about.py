@@ -60,7 +60,7 @@ class About(QDialog):
         self.btnlicense.clicked.connect(self.load_license)
 
         # Init some variables
-        self.txtversion.setText(info.VERSION)
+        self.txtversion.setText(_("Version: %s") % info.VERSION)
         self.txtversion.setAlignment(Qt.AlignCenter)
 
     def load_credit(self):

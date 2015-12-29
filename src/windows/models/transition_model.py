@@ -110,10 +110,15 @@ class TransitionsModel():
                     if not win.transitionsFilter.text().lower() in self.app._tr(trans_name).lower():
                         continue
 
-                # Generate thumbnail for file (if needed)
-                thumb_path = os.path.join(info.CACHE_PATH, "{}.png".format(fileBaseName))
+                # Check for thumbnail path (in build-in cache)
+                thumb_path = os.path.join(info.IMAGES_PATH, "cache",  "{}.png".format(fileBaseName))
 
-                # Check if thumb exists
+                # Check built-in cache (if not found)
+                if not os.path.exists(thumb_path):
+                    # Check user folder cache
+                    thumb_path = os.path.join(info.CACHE_PATH, "{}.png".format(fileBaseName))
+
+                # Generate thumbnail (if needed)
                 if not os.path.exists(thumb_path):
 
                     try:

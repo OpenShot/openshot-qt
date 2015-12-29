@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Choose a Profile</string>
+   <string>Choose Profile</string>
   </property>
   <layout class="QFormLayout" name="formLayout">
    <item row="1" column="0">

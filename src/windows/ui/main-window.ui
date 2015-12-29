@@ -83,15 +83,12 @@
     <addaction name="actionOpen"/>
     <addaction name="actionRecent_Placeholder"/>
     <addaction name="separator"/>
-    <addaction name="actionImportFiles"/>
-    <addaction name="actionImportImageSequence"/>
-    <addaction name="actionImportTransition"/>
-    <addaction name="separator"/>
     <addaction name="actionSave"/>
     <addaction name="actionSaveAs"/>
     <addaction name="separator"/>
+    <addaction name="actionImportFiles"/>
+    <addaction name="actionProfile"/>
     <addaction name="actionExportVideo"/>
-    <addaction name="actionUploadVideo"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
@@ -943,7 +940,7 @@
   </action>
   <action name="actionAbout">
    <property name="icon">
-    <iconset theme="help-about" resource="../../images/openshot.qrc">
+    <iconset theme="gtk-info" resource="../../images/openshot.qrc">
      <normaloff>:/icons/Humanity/actions/16/help-about.svg</normaloff>:/icons/Humanity/actions/16/help-about.svg</iconset>
    </property>
    <property name="text">
@@ -1094,10 +1091,10 @@
      <normaloff>:/icons/Humanity/mimes/16/video-x-generic.svg</normaloff>:/icons/Humanity/mimes/16/video-x-generic.svg</iconset>
    </property>
    <property name="text">
-    <string>Profile</string>
+    <string>Choose Profile</string>
    </property>
    <property name="toolTip">
-    <string>Profile</string>
+    <string>Choose Profile</string>
    </property>
   </action>
   <action name="actionAdd_to_Timeline">
@@ -1223,7 +1220,9 @@
   </action>
   <action name="actionSplitClip">
    <property name="icon">
-    <iconset theme="edit-cut"/>
+    <iconset theme="edit-cut">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Split Clip...</string>
