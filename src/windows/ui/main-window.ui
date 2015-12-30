@@ -289,6 +289,12 @@
    </widget>
   </widget>
   <widget class="QDockWidget" name="dockKeyframe">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <property name="windowTitle">
     <string>Keyframes</string>
    </property>
@@ -516,6 +522,9 @@
    <property name="shortcut">
     <string>Ctrl+Q</string>
    </property>
+   <property name="menuRole">
+    <enum>QAction::QuitRole</enum>
+   </property>
   </action>
   <action name="actionAddTrack">
    <property name="icon">
@@ -542,6 +551,9 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+P</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::PreferencesRole</enum>
    </property>
   </action>
   <action name="actionPlay">
@@ -871,7 +883,7 @@
   </action>
   <action name="actionAnimatedTitle">
    <property name="icon">
-    <iconset theme="font">
+    <iconset theme="video-x-generic">
      <normaloff/>
     </iconset>
    </property>
@@ -951,6 +963,9 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+A</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::AboutRole</enum>
    </property>
   </action>
   <action name="actionThumbnailView">

@@ -99,9 +99,13 @@ class Cutting(QDialog):
         self.sliderVideo.setPageStep(24)
 
         # Determine if a start or end attribute is in this file
+        start_frame = 1
         if 'start' in self.file.data.keys():
-            start_frame = float(self.file.data['start']) * self.fps
-            QTimer.singleShot(500, functools.partial(self.sliderVideo.setValue, start_frame))
+            start_frame = (float(self.file.data['start']) * self.fps) + 1
+
+        # Display start frame (and then the previous frame)
+        QTimer.singleShot(500, functools.partial(self.sliderVideo.setValue, start_frame + 1))
+        QTimer.singleShot(600, functools.partial(self.sliderVideo.setValue, start_frame))
 
         # Connect signals
         self.btnPlay.clicked.connect(self.btnPlay_clicked)
@@ -258,7 +262,6 @@ class Cutting(QDialog):
         self.file.data['end'] = (self.end_frame-1) / self.fps
         if self.txtName.text():
             self.file.data['name'] = self.txtName.text()
-        log.info('self.file.data')
         self.file.save()
 
         # Reset form

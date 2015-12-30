@@ -51,7 +51,6 @@ class FilesTreeView(QTreeView):
     drag_item_size = 48
 
     def updateSelection(self):
-        log.info('updateSelection')
 
         # Track selected items
         self.selected = self.selectionModel().selectedIndexes()
@@ -72,22 +71,29 @@ class FilesTreeView(QTreeView):
 
         menu = QMenu(self)
 
-        if self.selected:
-            # If file selected, show file related options
-            menu.addAction(self.win.actionAdd_to_Timeline)
-            menu.addAction(self.win.actionSplitClip)
-            menu.addAction(self.win.actionPreview_File)
-            menu.addSeparator()
-            menu.addAction(self.win.actionFile_Properties)
-            menu.addAction(self.win.actionRemove_from_Project)
-            menu.addSeparator()
-
         menu.addAction(self.win.actionImportFiles)
         menu.addSeparator()
+        if self.selected:
+            # If file selected, show file related options
+            menu.addAction(self.win.actionPreview_File)
+            menu.addAction(self.win.actionSplitClip)
+            menu.addAction(self.win.actionAdd_to_Timeline)
+            menu.addSeparator()
+            #menu.addAction(self.win.actionFile_Properties)
+            menu.addAction(self.win.actionRemove_from_Project)
+            menu.addSeparator()
         menu.addAction(self.win.actionThumbnailView)
 
         # Show menu
         menu.exec_(QCursor.pos())
+
+    def mouseDoubleClickEvent(self, event):
+        """Handle double click event on a file"""
+        # Update selection
+        self.updateSelection()
+
+        # Preview file
+        self.win.actionPreview_File.trigger()
 
     def dragEnterEvent(self, event):
         # If dragging urls onto widget, accept

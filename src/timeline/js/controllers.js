@@ -441,6 +441,14 @@ App.controller('TimelineCtrl',function($scope) {
 		}
  };
 
+  // Format the thumbnail path
+ $scope.FormatThumbPath = function(image_url) {
+ 	if (image_url.charAt(0) == ".")
+		return image_url;
+	else
+		return "file:///" + image_url;
+ };
+
   // Select transition in scope
  $scope.SelectEffect = function(effect_id) {
  	if ($scope.Qt) {

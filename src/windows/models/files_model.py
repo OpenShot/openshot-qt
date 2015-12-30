@@ -143,7 +143,7 @@ class FilesModel(updates.UpdateInterface):
                         # Check for start and end attributes (optional)
                         thumbnail_frame = 1
                         if 'start' in file.data.keys():
-                            fps = file.data["reader"]["fps"]
+                            fps = file.data["fps"]
                             fps_float = float(fps["num"]) / float(fps["den"])
                             thumbnail_frame = round(float(file.data['start']) * fps_float) + 1
 
