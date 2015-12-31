@@ -27,6 +27,7 @@
  """
 
 import os
+from functools import partial
 
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
@@ -34,6 +35,12 @@ from PyQt5.QtWidgets import *
 from classes import info, ui_util
 from classes.logger import log
 from classes.app import get_app
+from windows.views.credits_treeview import CreditsTreeView
+
+try:
+    import json
+except ImportError:
+    import simplejson as json
 
 
 class About(QDialog):
@@ -96,22 +103,25 @@ class License(QDialog):
         _ = self.app._tr
 
         # Init license
-        # license_path = os.path.join(path_xdg, 'COPYING')
-        # license_path = os.path.join(info.PATH, 'COPYING')
-        # my_license = open('license_path', "r")
-        # content = my_license.read()
-        # for text in license_path:
-        # self.textBrowser.append(text)
-        # self.textBrowser.append(content)
-        with open("(os.path.join(info.PATH, 'COPYING'))", 'r') as my_license:
+        with open(os.path.join(os.path.dirname(info.PATH), 'COPYING'), 'r') as my_license:
             text = my_license.read()
             self.textBrowser.append(text)
+
+        # Scroll to top
+        cursor = self.textBrowser.textCursor()
+        cursor.setPosition(0)
+        self.textBrowser.setTextCursor(cursor)
 
 
 class Credits(QDialog):
     """ Credits Dialog """
 
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'credits.ui')
+
+    def Filter_Triggered(self, textbox, treeview):
+        """Callback for filter being changed"""
+        # Update model for treeview
+        treeview.refresh_view(filter=textbox.text())
 
     def __init__(self):
 
@@ -128,42 +138,23 @@ class Credits(QDialog):
         self.app = get_app()
         _ = self.app._tr
 
-        # Init authors
-        authors = []
-        for person in info.CREDITS['code']:
-            name = person['name']
-            email = person['email']
-            authors.append("%s <%s>" % (name, email))
-        self.textBrowserwritten.append(str(authors))
+        # Add credits listview
+        self.developersListView = CreditsTreeView(credits=info.CREDITS['code'], columns=["email"])
+        self.vboxDevelopers.addWidget(self.developersListView)
+        self.txtDeveloperFilter.textChanged.connect(partial(self.Filter_Triggered, self.txtDeveloperFilter, self.developersListView))
 
-        # Init documentaters
-        authors = []
-        for person in info.CREDITS['documentation']:
-            name = person['name']
-            email = person['email']
-            authors.append("%s <%s>" % (name, email))
-        self.textBrowserdocumented.append(str(authors))
+        # Add translators listview
+        self.translatorsListView = CreditsTreeView(info.CREDITS['translation'], columns=["email"])
+        self.vboxTranslators.addWidget(self.translatorsListView)
+        self.txtTranslatorFilter.textChanged.connect(partial(self.Filter_Triggered, self.txtTranslatorFilter, self.translatorsListView))
 
-        # Init artwork
-        artists = []
-        for person in info.CREDITS['artwork']:
-            name = person['name']
-            email = person['email']
-            artists.append("%s <%s>" % (name, email))
-        self.textBrowserartwork.append(str(artists))
+        # Get list of supporters
+        supporter_list = []
+        with open(os.path.join(info.PATH, 'settings', 'supporters.json'), 'r') as supporter_file:
+            supporter_list = json.loads(supporter_file.read())
 
-        # Init translation authors
-        authors = []
-        for person in info.CREDITS['translation']:
-            name = person['name']
-            email = person['email']
-            authors.append("%s <%s>" % (name, email))
-        self.textBrowsertranslated.append(str(authors))
+        # Add supporters listview
+        self.supportersListView = CreditsTreeView(supporter_list, columns=["website"])
+        self.vboxSupporters.addWidget(self.supportersListView)
+        self.txtSupporterFilter.textChanged.connect(partial(self.Filter_Triggered, self.txtSupporterFilter, self.supportersListView))
 
-        # Init Kicstarter Backers
-        # backers = []
-        # for person in info.CREDITS['backers']
-        # name = person['name']
-        # email = person['email']
-        # backers.append("%s <%s>" % (name, email))
-        # self.textBrowserkickstarter.append(str(backers))

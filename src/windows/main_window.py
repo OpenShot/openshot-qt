@@ -737,6 +737,13 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
                 # Remove clip
                 c.delete()
 
+    def actionProperties_trigger(self, event):
+        log.info('actionProperties_trigger')
+
+        # Show properties dock
+        if not self.dockProperties.isVisible():
+            self.dockProperties.show()
+
     def actionRemoveEffect_trigger(self, event):
         log.info('actionRemoveEffect_trigger')
 

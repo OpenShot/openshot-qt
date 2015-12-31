@@ -26,10 +26,14 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import logging
+import logging, os
+from classes import info
 
 # Initialize logging module, give basic formats and level we want to report
-logging.basicConfig(format="%(module)12s:%(levelname)s %(message)s", datefmt='%H:%M:%S', level=logging.INFO)
+logging.basicConfig(filename=os.path.join(info.USER_PATH, 'openshot-qt.log'),
+                    format="%(module)12s:%(levelname)s %(message)s",
+                    datefmt='%H:%M:%S',
+                    level=logging.INFO)
 
 # Get OpenShot logger and set log level
 # Alternative spaced out format: "%(asctime)s %(levelname)-7s %(module)-12s %(message)s"

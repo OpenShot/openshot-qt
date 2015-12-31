@@ -469,6 +469,11 @@ class PropertiesModel(updates.UpdateInterface):
         if self.selected and self.selected[0]:
             c, item_type = self.selected[0]
 
+            # Skip blank clips
+            # TODO: Determine why c is occasional = None
+            if not c:
+                return
+
             # Get raw unordered JSON properties
             raw_properties = json.loads(c.PropertiesJSON(self.frame_number))
             all_properties = OrderedDict(sorted(raw_properties.items(), key=lambda x: x[1]['name']))

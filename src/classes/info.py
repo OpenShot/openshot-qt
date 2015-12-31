@@ -62,12 +62,11 @@ NF = {"name": u"Noah Figg", "email": "eggmunkee@hotmail.com"}
 JT = {"name": u"Jonathan Thomas", "email": "jonathan@openshot.org"}
 OG = {"name": u"Olivier Girard", "email": "olivier@openshot.org"}
 CP = {"name": u"Cody Parker", "email": "cody@yourcodepro.com"}
-FM = {"name": u"Foster McLane", "email": "fmkclane@gmail.com"}
 
 
 # credits
 CREDITS = {
-    "code": [JT, NF, AF, CP, OG, FM],
+    "code": [JT, NF, AF, CP, OG],
     "artwork": [JT],
     "documentation": [JT],
     "translation": [OG],

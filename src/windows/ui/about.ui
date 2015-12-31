@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>520</width>
-    <height>625</height>
+    <height>455</height>
    </rect>
   </property>
   <property name="maximumSize">
@@ -17,7 +17,7 @@
    </size>
   </property>
   <property name="cursor">
-   <cursorShape>OpenHandCursor</cursorShape>
+   <cursorShape>ArrowCursor</cursorShape>
   </property>
   <property name="windowTitle">
    <string>About OpenShot</string>
@@ -64,7 +64,7 @@
      <item>
       <widget class="QLabel" name="label_4">
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;hr/&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Create &amp;amp; Edit Amazing Videos and Movies&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;OpenShot Video Editor 2.x is the next generation of the award-winning &lt;br/&gt;OpenShot video editing platform.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Copyright (c) 2008-2014 &lt;/span&gt;&lt;a href=&quot;http://www.openshotstudios.com&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; text-decoration: underline; color:#0000ff;&quot;&gt;OpenShot Studios, LLC&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;hr/&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Create &amp;amp; Edit Amazing Videos and Movies&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;OpenShot Video Editor 2.x is the next generation of the award-winning &lt;br/&gt;OpenShot video editing platform. &lt;/span&gt;&lt;a href=&quot;http://www.openshot.org&quot;&gt;&lt;span style=&quot; font-size:10pt; text-decoration: underline; color:#0000ff;&quot;&gt;Learn more&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -75,15 +75,12 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_2">
+      <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;hr/&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;This program is free software: you can redistribute it and/or modify&lt;br/&gt;it under the terms of the GNU General Public License as published by&lt;br/&gt;the Free Software Foundation, either version 3 of the License, or&lt;br/&gt;(at your option) any later version.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;This program is distributed in the hope that it will be useful,&lt;br/&gt;but WITHOUT ANY WARRANTY; without even the implied warranty of&lt;br/&gt;MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the&lt;br/&gt;GNU General Public License for more details.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;You should have received a copy of the GNU General Public License&lt;br/&gt;along with this program. If not, see at: &lt;/span&gt;&lt;a href=&quot;http://www.gnu.org/licenses/&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;http://www.gnu.org/licenses/&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;hr/&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Copyright (c) 2008-2014 &lt;/span&gt;&lt;a href=&quot;http://www.openshotstudios.com&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; text-decoration: underline; color:#0000ff;&quot;&gt;OpenShot Studios, LLC&lt;br/&gt;&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="textFormat">
         <enum>Qt::RichText</enum>
-       </property>
-       <property name="wordWrap">
-        <bool>true</bool>
        </property>
        <property name="openExternalLinks">
         <bool>true</bool>
@@ -95,7 +92,7 @@
        <item>
         <widget class="QPushButton" name="btncredit">
          <property name="text">
-          <string>Credit</string>
+          <string>Credits</string>
          </property>
         </widget>
        </item>

@@ -13,7 +13,7 @@
   "duration": 300,
   "scale": 16,
   "tick_pixels": 100,
-  "playhead_position": 10,
+  "playhead_position": 0,
   "profile": "HDV 720 24p",
   "layers": [
     {

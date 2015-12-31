@@ -85,26 +85,11 @@ class SettingStore(JsonDataStore):
         default_settings = self.read_from_file(self.default_settings_filename)
 
         # Try to find user settings file
-        file_path = QStandardPaths.locate(QStandardPaths.ConfigLocation, self.settings_filename)
+        file_path = os.path.join(info.USER_PATH, self.settings_filename)
 
-        # If user settings file doesn't exist yet, try to create a default settings file
-        if not file_path:
-            writable_path = QStandardPaths.writableLocation(QStandardPaths.ConfigLocation)
+        # Load user settings (if found)
+        if os.path.exists(file_path.encode('UTF-8')):
 
-            # Create folder if not found
-            if not os.path.exists(writable_path.encode('UTF-8')):
-                try:
-                    os.mkdir(writable_path)
-                except Exception as ex:
-                    msg = ("Couldn't create {} folder for openshot:\n{}\n{}".format(self.data_type, writable_path, ex))
-                    log.error(msg)
-                    raise Exception(msg)
-
-            # Set path to user settings file (will be created below)
-            file_path = os.path.join(writable_path, self.settings_filename)
-
-        # File was found, try to load settings
-        else:
             # Will raise exception to caller on failure to read
             user_settings = self.read_from_file(file_path)
 
@@ -118,14 +103,7 @@ class SettingStore(JsonDataStore):
         """ Save user settings file to disk """
 
         # Try to find user settings file
-        file_path = QStandardPaths.locate(QStandardPaths.ConfigLocation, self.settings_filename)
-
-        # If user settings file doesn't exist yet, try to create a default settings file
-        if not file_path:
-            msg = ("Couldn't find {} file on save(). Load must create any missing {} file.".format(self.data_type,
-                                                                                                   self.data_type))
-            log.error(msg)
-            raise Exception(msg)
+        file_path = os.path.join(info.USER_PATH, self.settings_filename)
 
         # try to save data to file, will raise exception on failure
         self.write_to_file(file_path, self._data)

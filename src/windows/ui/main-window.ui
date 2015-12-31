@@ -1249,6 +1249,21 @@
     <string>Ctrl+E</string>
    </property>
   </action>
+  <action name="actionProperties">
+   <property name="icon">
+    <iconset theme="document-properties" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/document-properties.svg</normaloff>:/icons/Humanity/actions/16/document-properties.svg</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Properties</string>
+   </property>
+   <property name="toolTip">
+    <string>Properties</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::PreferencesRole</enum>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="../../images/openshot.qrc"/>

@@ -295,8 +295,8 @@ App.controller('TimelineCtrl',function($scope) {
   	keyframes = {};
 
     var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
-    var clip_start_x = object.start * frames_per_second;
-    var clip_end_x = object.end * frames_per_second;
+    var clip_start_x = Math.round(object.start * frames_per_second) + 1.0;
+    var clip_end_x = Math.round(object.end * frames_per_second) + 1.0;
 
  	// Loop through properties of an object (clip/transition), looking for keyframe points
 	for (child in object) {

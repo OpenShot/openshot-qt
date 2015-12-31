@@ -134,6 +134,10 @@ MENU_COPY_TRANSITION = 10
 MENU_COPY_KEYFRAMES_BRIGHTNESS = 11
 MENU_COPY_KEYFRAMES_CONTRAST = 12
 
+MENU_SLICE_KEEP_BOTH = 0
+MENU_SLICE_KEEP_LEFT = 1
+MENU_SLICE_KEEP_RIGHT = 2
+
 
 class TimelineWebView(QWebView, updates.UpdateInterface):
     """ A WebView QWidget used to load the Timeline """
@@ -394,6 +398,14 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         if clip_id not in self.window.selected_clips:
             self.window.addSelection(clip_id, 'clip')
 
+        # Get framerate
+        fps = get_app().project.get(["fps"])
+        fps_float = float(fps["num"]) / float(fps["den"])
+
+        # Get existing clip object
+        clip = Clip.get(id=clip_id)
+        playhead_position = float(self.window.preview_thread.current_frame) / fps_float
+
         # Create blank context menu
         menu = QMenu(self)
 
@@ -652,6 +664,25 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             Volume_Menu.addMenu(Position_Menu)
         menu.addMenu(Volume_Menu)
 
+        # If Playhead overlapping clip
+        start_of_clip = float(clip.data["start"])
+        end_of_clip = float(clip.data["end"])
+        position_of_clip = float(clip.data["position"])
+        if playhead_position >= position_of_clip and playhead_position <= (position_of_clip + (end_of_clip - start_of_clip)):
+            # Add split clip menu
+            Slice_Menu = QMenu(_("Slice Clip"), self)
+            Slice_Keep_Both = Slice_Menu.addAction(_("Keep Both Sides"))
+            Slice_Keep_Both.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_BOTH, clip_id, playhead_position))
+            Slice_Keep_Left = Slice_Menu.addAction(_("Keep Left Side"))
+            Slice_Keep_Left.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_LEFT, clip_id, playhead_position))
+            Slice_Keep_Right = Slice_Menu.addAction(_("Keep Right Side"))
+            Slice_Keep_Right.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_RIGHT, clip_id, playhead_position))
+            menu.addMenu(Slice_Menu)
+
+        # Properties
+        menu.addSeparator()
+        menu.addAction(self.window.actionProperties)
+
         # Remove Clip Menu
         menu.addSeparator()
         menu.addAction(self.window.actionRemoveClip)
@@ -742,15 +773,16 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Get existing clip object
         clip = Clip.get(id=clip_id)
-        end_of_clip = float(clip.data["end"]) * fps_float
+        start_of_clip = round(float(clip.data["start"]) * fps_float) + 1.0
+        end_of_clip = round(float(clip.data["end"]) * fps_float) + 1.0
 
         # Determine the beginning and ending of this animation
         # ["Start of Clip", "End of Clip", "Entire Clip"]
-        start_animation = 1
+        start_animation = start_of_clip
         end_animation = end_of_clip
         if position == "Start of Clip":
-            start_animation = 1
-            end_animation = min(1.0 * fps_float, end_of_clip)
+            start_animation = start_of_clip
+            end_animation = min(start_of_clip + (1.0 * fps_float), end_of_clip)
         elif position == "End of Clip":
             start_animation = max(1.0, end_of_clip - (1.0 * fps_float))
             end_animation = end_of_clip
@@ -1024,18 +1056,19 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Get existing clip object
         clip = Clip.get(id=clip_id)
-        end_of_clip = float(clip.data["end"]) * fps_float
+        start_of_clip = round(float(clip.data["start"]) * fps_float) + 1.0
+        end_of_clip = round(float(clip.data["end"]) * fps_float) + 1.0
 
         # Determine the beginning and ending of this animation
         # ["Start of Clip", "End of Clip", "Entire Clip"]
-        start_animation = 1
+        start_animation = start_of_clip
         end_animation = end_of_clip
         if position == "Start of Clip" and action in [MENU_FADE_IN_FAST, MENU_FADE_OUT_FAST]:
-            start_animation = 1
-            end_animation = min(1.0 * fps_float, end_of_clip)
+            start_animation = start_of_clip
+            end_animation = min(start_of_clip + (1.0 * fps_float), end_of_clip)
         elif position == "Start of Clip" and action in [MENU_FADE_IN_SLOW, MENU_FADE_OUT_SLOW]:
-            start_animation = 1
-            end_animation = min(3.0 * fps_float, end_of_clip)
+            start_animation = start_of_clip
+            end_animation = min(start_of_clip + (3.0 * fps_float), end_of_clip)
         elif position == "End of Clip" and action in [MENU_FADE_IN_FAST, MENU_FADE_OUT_FAST]:
             start_animation = max(1.0, end_of_clip - (1.0 * fps_float))
             end_animation = end_of_clip
@@ -1082,6 +1115,57 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Save changes
         self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
+    def Slice_Triggered(self, action, clip_id, playhead_position=0):
+        """Callback for slice context menus"""
+        log.info(action)
+
+        # Get existing clip object
+        clip = Clip.get(id=clip_id)
+
+        if action == MENU_SLICE_KEEP_LEFT or action == MENU_SLICE_KEEP_BOTH:
+            # Get details of original clip
+            position_of_clip = float(clip.data["position"])
+            start_of_clip = float(clip.data["start"])
+            end_of_clip = float(clip.data["end"])
+
+            # Set new 'end' of clip
+            clip.data["end"] = start_of_clip + (playhead_position - position_of_clip)
+
+        elif action == MENU_SLICE_KEEP_RIGHT:
+            # Get details of original clip
+            position_of_clip = float(clip.data["position"])
+            start_of_clip = float(clip.data["start"])
+            end_of_clip = float(clip.data["end"])
+
+            # Set new 'end' of clip
+            clip.data["position"] = playhead_position
+            clip.data["start"] = start_of_clip + (playhead_position - position_of_clip)
+
+        if action == MENU_SLICE_KEEP_BOTH:
+            # Add the 2nd clip (the right side, since the left side has already been adjusted above)
+            # Get right side clip object
+            right_clip = Clip.get(id=clip_id)
+
+            # Remove the ID property from the clip (so it becomes a new one)
+            right_clip.id = None
+            right_clip.type = 'insert'
+            right_clip.data.pop('id')
+            right_clip.key.pop(1)
+
+            # Get details of original clip
+            position_of_clip = float(right_clip.data["position"])
+            start_of_clip = float(right_clip.data["start"])
+            end_of_clip = float(right_clip.data["end"])
+
+            # Set new 'end' of right_clip
+            right_clip.data["position"] = playhead_position
+            right_clip.data["start"] = start_of_clip + (playhead_position - position_of_clip)
+
+            # Save changes
+            right_clip.save()
+
+        # Save changes
+        clip.save()
 
     def Volume_Triggered(self, action, clip_id, position="Entire Clip"):
         """Callback for volume context menus"""
@@ -1094,18 +1178,19 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Get existing clip object
         clip = Clip.get(id=clip_id)
-        end_of_clip = float(clip.data["end"]) * fps_float
+        start_of_clip = round(float(clip.data["start"]) * fps_float) + 1.0
+        end_of_clip = round(float(clip.data["end"]) * fps_float) + 1.0
 
         # Determine the beginning and ending of this animation
         # ["Start of Clip", "End of Clip", "Entire Clip"]
-        start_animation = 1
+        start_animation = start_of_clip
         end_animation = end_of_clip
         if position == "Start of Clip" and action in [MENU_VOLUME_FADE_IN_FAST, MENU_VOLUME_FADE_OUT_FAST]:
-            start_animation = 1
-            end_animation = min(1.0 * fps_float, end_of_clip)
+            start_animation = start_of_clip
+            end_animation = min(start_of_clip + (1.0 * fps_float), end_of_clip)
         elif position == "Start of Clip" and action in [MENU_VOLUME_FADE_IN_SLOW, MENU_VOLUME_FADE_OUT_SLOW]:
-            start_animation = 1
-            end_animation = min(3.0 * fps_float, end_of_clip)
+            start_animation = start_of_clip
+            end_animation = min(start_of_clip + (3.0 * fps_float), end_of_clip)
         elif position == "End of Clip" and action in [MENU_VOLUME_FADE_IN_FAST, MENU_VOLUME_FADE_OUT_FAST]:
             start_animation = max(1.0, end_of_clip - (1.0 * fps_float))
             end_animation = end_of_clip
@@ -1114,8 +1199,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             end_animation = end_of_clip
         elif position == "Start of Clip":
             # Only used when setting levels (a single keyframe)
-            start_animation = 1
-            end_animation = 1
+            start_animation = start_of_clip
+            end_animation = start_of_clip
         elif position == "End of Clip":
             # Only used when setting levels (a single keyframe)
             start_animation = end_of_clip
@@ -1179,18 +1264,6 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Get existing clip object
         clip = Clip.get(id=clip_id)
-        end_of_clip = float(clip.data["end"]) * fps_float
-
-        # Determine the beginning and ending of this animation
-        # ["Start of Clip", "End of Clip", "Entire Clip"]
-        start_animation = 1
-        end_animation = end_of_clip
-        if position == "Start of Clip":
-            start_animation = 1
-            end_animation = min(1.0 * fps_float, end_of_clip)
-        elif position == "End of Clip":
-            start_animation = max(1.0, end_of_clip - (1.0 * fps_float))
-            end_animation = end_of_clip
 
         if action == MENU_ROTATE_NONE:
             # Clear all keyframes

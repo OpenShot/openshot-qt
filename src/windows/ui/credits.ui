@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>700</width>
+    <height>480</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Credits</string>
   </property>
   <property name="windowIcon">
    <iconset>
@@ -19,63 +19,98 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QTabWidget" name="tabWidget">
+    <widget class="QTabWidget" name="tabCredits">
      <property name="locale">
       <locale language="English" country="UnitedStates"/>
      </property>
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="tabDevelopers">
       <attribute name="title">
-       <string>Written by</string>
+       <string>Developers</string>
       </attribute>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QTextBrowser" name="textBrowserwritten"/>
+        <layout class="QVBoxLayout" name="vboxDevelopers">
+         <item>
+          <layout class="QHBoxLayout" name="hboxDevelopers">
+           <item>
+            <widget class="QLineEdit" name="txtDeveloperFilter">
+             <property name="frame">
+              <bool>true</bool>
+             </property>
+             <property name="placeholderText">
+              <string>Filter Developers</string>
+             </property>
+             <property name="clearButtonEnabled">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_2">
+     <widget class="QWidget" name="tabTranslators">
       <attribute name="title">
-       <string>Documented by</string>
+       <string>Translators</string>
       </attribute>
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
-        <widget class="QTextBrowser" name="textBrowserdocumented"/>
+        <layout class="QVBoxLayout" name="vboxTranslators">
+         <item>
+          <layout class="QHBoxLayout" name="hboxTranslators">
+           <item>
+            <widget class="QLineEdit" name="txtTranslatorFilter">
+             <property name="placeholderText">
+              <string>Filter Translators</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_4">
+     <widget class="QWidget" name="tabSupporters">
       <attribute name="title">
-       <string>Translated by</string>
-      </attribute>
-      <layout class="QHBoxLayout" name="horizontalLayout_4">
-       <item>
-        <widget class="QTextBrowser" name="textBrowsertranslated"/>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="tab_3">
-      <attribute name="title">
-       <string>Artwork by</string>
-      </attribute>
-      <layout class="QHBoxLayout" name="horizontalLayout_5">
-       <item>
-        <widget class="QTextBrowser" name="textBrowserartwork"/>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="tabkickstarter">
-      <attribute name="title">
-       <string>Kickstarter Bakers</string>
+       <string>Supporters</string>
       </attribute>
       <layout class="QHBoxLayout" name="horizontalLayout_6">
        <item>
-        <widget class="QTextBrowser" name="textBrowserkickstarter"/>
+        <layout class="QVBoxLayout" name="vboxSupporters">
+         <item>
+          <layout class="QHBoxLayout" name="hboxSupporters">
+           <item>
+            <widget class="QLineEdit" name="txtSupporterFilter">
+             <property name="placeholderText">
+              <string>Filter Supporters</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;http://www.openshot.org/donate/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Become a Supporter&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::RichText</enum>
+     </property>
+     <property name="openExternalLinks">
+      <bool>true</bool>
+     </property>
     </widget>
    </item>
    <item>
