@@ -26,7 +26,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import os
+import os, math
 from random import shuffle, randint, uniform
 
 from PyQt5.QtWidgets import *
@@ -139,6 +139,9 @@ class AddToTimeline(QDialog):
         idx = self.treeFiles.timeline_model.model.index(new_index, 0)
         self.treeFiles.setCurrentIndex(idx)
 
+        # Update total
+        self.updateTotal()
+
     def accept(self):
         """ Ok button clicked """
         log.info('accept')
@@ -150,6 +153,7 @@ class AddToTimeline(QDialog):
         fade_length = self.txtFadeLength.value()
         transition_path = self.cmbTransition.currentData()
         transition_length = self.txtTransitionLength.value()
+        image_length = self.txtImageLength.value()
         zoom_value = self.cmbZoom.currentData()
 
         # Init position
@@ -207,7 +211,7 @@ class AddToTimeline(QDialog):
             # Adjust clip duration, start, and end
             new_clip["duration"] = new_clip["reader"]["duration"]
             if file.data["media_type"] == "image":
-                end_time = self.settings.get("default-image-length")  # default to 8 seconds
+                end_time = image_length
                 new_clip["end"] = end_time
 
             # Adjust Fade of Clips (if no transition is chosen)
@@ -342,6 +346,67 @@ class AddToTimeline(QDialog):
         # Accept dialog
         super(AddToTimeline, self).accept()
 
+    def ImageLengthChanged(self, value):
+        """Handle callback for image length being changed"""
+        self.updateTotal()
+
+    def updateTotal(self):
+        """Calculate the total length of what's about to be added to the timeline"""
+        fade_value = self.cmbFade.currentData()
+        fade_length = self.txtFadeLength.value()
+        transition_path = self.cmbTransition.currentData()
+        transition_length = self.txtTransitionLength.value()
+
+        total = 0.0
+        for file in self.treeFiles.timeline_model.files:
+            # Adjust clip duration, start, and end
+            duration = file.data["duration"]
+            if file.data["media_type"] == "image":
+                duration = self.txtImageLength.value()
+
+            if total != 0.0:
+                # Don't subtract time from initial clip
+                if not transition_path:
+                    # No transitions
+                    if fade_value != None:
+                        # Fade clip - subtract the fade length
+                        duration -= fade_length
+                else:
+                    # Transition
+                    duration -= transition_length
+
+            # Append duration to total
+            total += duration
+
+        # Get frames per second
+        fps = get_app().project.get(["fps"])
+
+        # Update label
+        total_parts = self.secondsToTime(total, fps["num"], fps["den"])
+        timestamp = "%s:%s:%s:%s" % (total_parts["hour"], total_parts["min"], total_parts["sec"], total_parts["frame"])
+        self.lblTotalLengthValue.setText(timestamp)
+
+    def padNumber(self, value, pad_length):
+        format_mask = '%%0%sd' % pad_length
+        return format_mask % value
+
+    def secondsToTime(self, secs, fps_num, fps_den):
+        # calculate time of playhead
+        milliseconds = secs * 1000
+        sec = math.floor(milliseconds/1000)
+        milli = milliseconds % 1000
+        min = math.floor(sec/60)
+        sec = sec % 60
+        hour = math.floor(min/60)
+        min = min % 60
+        day = math.floor(hour/24)
+        hour = hour % 24
+        week = math.floor(day/7)
+        day = day % 7
+
+        frame = round((milli / 1000.0) * (fps_num / fps_den)) + 1
+        return { "week":self.padNumber(week,2), "day":self.padNumber(day,2), "hour":self.padNumber(hour,2), "min":self.padNumber(min,2), "sec":self.padNumber(sec,2), "milli":self.padNumber(milli,2), "frame":self.padNumber(frame,2) };
+
     def reject(self):
         """ Cancel button clicked """
         log.info('reject')
@@ -378,6 +443,14 @@ class AddToTimeline(QDialog):
 
         # Init start position
         self.txtStartTime.setValue(position)
+
+        # Init default image length
+        self.txtImageLength.setValue(self.settings.get("default-image-length"))
+        self.txtImageLength.valueChanged.connect(self.updateTotal)
+        self.cmbTransition.currentIndexChanged.connect(self.updateTotal)
+        self.cmbFade.currentIndexChanged.connect(self.updateTotal)
+        self.txtFadeLength.valueChanged.connect(self.updateTotal)
+        self.txtTransitionLength.valueChanged.connect(self.updateTotal)
 
         # Add all tracks to dropdown
         tracks = Track.filter()
@@ -437,3 +510,6 @@ class AddToTimeline(QDialog):
         self.btnRemove.clicked.connect(self.btnRemoveClicked)
         self.btnBox.accepted.connect(self.accept)
         self.btnBox.rejected.connect(self.reject)
+
+        # Update total
+        self.updateTotal()

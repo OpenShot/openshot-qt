@@ -151,6 +151,46 @@ class Export(QDialog):
         for item in sorted(presets):
             self.cboSimpleProjectType.addItem(item, item)
 
+        # Populate all profiles
+        self.populateAllProfiles(app.project.get(['profile']))
+
+        # Connect framerate signals
+        self.txtFrameRateNum.valueChanged.connect(self.updateFrameRate)
+        self.txtFrameRateDen.valueChanged.connect(self.updateFrameRate)
+        self.txtWidth.valueChanged.connect(self.updateFrameRate)
+        self.txtHeight.valueChanged.connect(self.updateFrameRate)
+        self.txtSampleRate.valueChanged.connect(self.updateFrameRate)
+        self.txtChannels.valueChanged.connect(self.updateFrameRate)
+
+        # Determine the length of the timeline (in frames)
+        self.updateFrameRate()
+
+    def updateFrameRate(self):
+        """Callback for changing the frame rate"""
+        log.info('Adjust the framerate of the project')
+
+        # Adjust the main timeline reader
+        get_app().updates.update(["width"], self.txtWidth.value())
+        get_app().updates.update(["height"], self.txtHeight.value())
+        get_app().updates.update(["fps", "num"], self.txtFrameRateNum.value())
+        get_app().updates.update(["fps", "den"], self.txtFrameRateDen.value())
+        get_app().updates.update(["sample_rate"], self.txtSampleRate.value())
+        get_app().updates.update(["channels"], self.txtChannels.value())
+
+        get_app().window.timeline_sync.timeline.info.width = self.txtWidth.value()
+        get_app().window.timeline_sync.timeline.info.height = self.txtHeight.value()
+        get_app().window.timeline_sync.timeline.info.fps.num = self.txtFrameRateNum.value()
+        get_app().window.timeline_sync.timeline.info.fps.den = self.txtFrameRateDen.value()
+        get_app().window.timeline_sync.timeline.info.sample_rate = self.txtSampleRate.value()
+        get_app().window.timeline_sync.timeline.info.channels = self.txtChannels.value()
+
+        # Force ApplyMapperToClips to apply these changes
+        get_app().window.timeline_sync.timeline.ApplyMapperToClips()
+
+        # Update main window title (since we changed the profile), and force ApplyMapperToClips
+        get_app().updates.update(["profile"], self.cboProfile.currentText())
+        get_app().window.SetWindowTitle(self.cboProfile.currentText())
+
         # Determine max frame (based on clips)
         timeline_length = 0.0
         fps = get_app().window.timeline_sync.timeline.info.fps.ToFloat()
@@ -316,6 +356,11 @@ class Export(QDialog):
         selected_profile_path = widget.itemData(index)
         log.info(selected_profile_path)
 
+        # Populate the advanced profile list
+        self.populateAllProfiles(selected_profile_path)
+
+    def populateAllProfiles(self, selected_profile_path):
+        """Populate the full list of profiles"""
         # Look for matching profile in advanced options
         profile_index = 0
         for profile_name in self.profile_names:
@@ -380,6 +425,11 @@ class Export(QDialog):
 
     def accept(self):
         """ Start exporting video, but don't close window """
+        # Disable controls
+        self.txtFileName.setEnabled(False)
+        self.txtExportFolder.setEnabled(False)
+        self.tabWidget.setEnabled(False)
+        self.buttonBox.setEnabled(False)
 
         # Test the export settings before starting, must be executed out of process
         # to ensure we don't crash Python
@@ -439,7 +489,6 @@ class Export(QDialog):
             self.progressExportVideo.setMaximum(self.txtEndFrame.value())
 
             # Write some test frames
-            # w.WriteFrame(get_app().window.timeline_sync.timeline, 1, 100)
             for frame in range(self.txtStartFrame.value(), self.txtEndFrame.value() + 1):
                 # Update progress bar
                 self.progressExportVideo.setValue(frame)

@@ -27,7 +27,7 @@
  */
 
 
-// Handles the playhead dragging 
+// Handles the playhead dragging
 var playhead_y_max = null;
 var playhead_x_min = null;
 
@@ -37,7 +37,7 @@ App.directive('tlPlayhead', function(){
 			// get the default top position so we can lock it in place vertically
 			playhead_y_max = element.position().top;
 
-			// get the size of the playhead and line so we can determine the offset 
+			// get the size of the playhead and line so we can determine the offset
 			var playhead_top_w = parseInt($(".playhead-top").css("width")) - 8.0; // I'm not sure why I need to remove another 8 pixels here
 			scope.playheadOffset = 0.0 - (playhead_top_w / 2.0);
 
@@ -49,7 +49,7 @@ App.directive('tlPlayhead', function(){
 					scope.PreviewFrame(playhead_seconds);
 				}
 			});
-			
+
 		}
 	};
 });

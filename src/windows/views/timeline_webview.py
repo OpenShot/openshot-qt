@@ -1720,6 +1720,12 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Add clip to timeline
         self.update_clip_data(new_clip, only_basic_props=False)
 
+    # Resize timeline
+    @pyqtSlot(float)
+    def resizeTimeline(self, new_duration):
+        """Resize the duration of the timeline"""
+        get_app().updates.update(["duration"], new_duration)
+
     # Add Transition
     def addTransition(self, file_ids, position):
         log.info("addTransition...")

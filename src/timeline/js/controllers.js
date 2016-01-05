@@ -472,7 +472,10 @@ App.controller('TimelineCtrl',function($scope) {
 
 	// Resize timeline
 	if (furthest_right_edge > $scope.project.duration)
-		$scope.project.duration = furthest_right_edge + 10;
+		if ($scope.Qt) {
+			timeline.resizeTimeline(furthest_right_edge + 10)
+			$scope.project.duration = furthest_right_edge + 10;
+		}
  };
  
  // Show clip context menu
@@ -981,18 +984,33 @@ App.controller('TimelineCtrl',function($scope) {
   // Debug method to add clips to the $scope
   $scope.addClips = function(numClips) {
         startNum = $scope.project.clips.length + 1;
-        $.each(numClips, function() {
+	  	positionNum = 0;
+        for (var x = 0; x < parseInt(numClips); x++) {
            $scope.project.clips.push({
-              number: startNum.toString(),
-              track : '4', 
-              image : 'track1.png',
-              locked : false,
-              length : 10, //length in seconds
-              duration : 10, //max length in seconds
-              position : x*11,
-            });
+	                 id : x.toString(),
+	                 layer : 0,
+	                 image : './media/images/thumbnail.png',
+	                 locked : false,
+	                 duration : 5,
+	                 start : 0,
+	                 end : 5,
+	                 position : positionNum,
+	                 title : 'Clip B',
+	                 effects : [],
+	                 images : {start: 3, end: 7},
+	                 show_audio : false,
+	                 alpha: { Points: [] },
+	                 location_x: { Points: [] },
+					 location_y: { Points: [] },
+					 scale_x: { Points: [] },
+					 scale_y: { Points: [] },
+					 rotation: { Points: [] },
+					 time: { Points: [] },
+					 volume: { Points: [] }
+	               });
             startNum++;
-        });
+			positionNum+=5;
+        };
       
         $scope.numClips = "";
 

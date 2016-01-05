@@ -41,9 +41,9 @@ var scroll_left_pixels = 0;
 App.directive('tlScrollableTracks', function () {
 	return {
 		restrict: 'A',
-		
+
 		link: function (scope, element, attrs) {
-			
+
 			// Sync ruler to track scrolling
 			element.on('scroll', function () {
 				//set amount scrolled
@@ -76,12 +76,12 @@ App.directive('tlScrollableTracks', function () {
 					element.scrollTop(starting_scrollbar.y + difference.y);
 				}
 			});
-			
+
 			// Remove move cursor (i.e. dragging has stopped)
 			element.on('mouseup', function(e) {
 				element.removeClass('drag_cursor');
 			});
-			
+
 
 		}
 	};
@@ -113,17 +113,17 @@ App.directive('tlRuler', function ($timeout) {
 				// Get playhead position
 				var playhead_left = e.pageX - element.offset().left;
 				var playhead_seconds = playhead_left / scope.pixelsPerSecond;
-				
+
 				// Immediately preview frame (don't wait for animated playhead)
 				scope.PreviewFrame(playhead_seconds);
-				
+
 				// Animate to new position (and then update scope)
 				scope.playhead_animating = true;
 				$(".playhead-line").animate({left: playhead_left + scope.playheadOffset }, 200);
 				$(".playhead-top").animate({left: playhead_left + scope.playheadOffset }, 200, function() {
 					// Update playhead
 					scope.MovePlayhead(playhead_seconds);
-					
+
 					// Animation complete.
 					scope.$apply(function(){
 						scope.playhead_animating = false;
@@ -131,7 +131,7 @@ App.directive('tlRuler', function ($timeout) {
 				});
 
 			});
-			
+
 			// Move playhead to new position (if it's not currently being animated)
 			element.on('mousemove', function(e){
 				if (e.which == 1 && !scope.playhead_animating) { // left button
@@ -146,7 +146,7 @@ App.directive('tlRuler', function ($timeout) {
 			//otherwise the canvas is just reset to blank
 			scope.$watch('project.scale + markers.length + project.duration', function (val) {
              if (val){
-             	
+
 	            	 $timeout(function(){
 						//get all scope variables we need for the ruler
 						var scale = scope.project.scale;
@@ -164,13 +164,13 @@ App.directive('tlRuler', function ($timeout) {
 						ctx.lineWidth = 1;
 						ctx.strokeStyle = "#c8c8c8";
 						ctx.lineCap = "round";
-				    	
+
 				    	//loop em and draw em
 						for (x=0;x<num_ticks+1;x++){
 							ctx.beginPath();
 
 							//if it's even, make the line longer
-							if (x%2 == 0){ 
+							if (x%2 == 0){
 								line_top = 18;
 								//if it's not the first line, set the time text
 								if (x != 0){
@@ -181,13 +181,13 @@ App.directive('tlRuler', function ($timeout) {
 									//write time on the canvas, centered above long tick
 									ctx.fillStyle = "#c8c8c8";
 									ctx.font = "0.9em Sans";
-									ctx.fillText(time_text["hour"] +":"+ time_text["min"] +":"+ time_text["sec"], x*each_tick-22, 11);	
+									ctx.fillText(time_text["hour"] +":"+ time_text["min"] +":"+ time_text["sec"], x*each_tick-22, 11);
 								}
-							} else { 
+							} else {
 								//shorter line
 								line_top = 28;
 							}
-							
+
 							ctx.moveTo(x*each_tick, 39);
 							ctx.lineTo(x*each_tick, line_top);
 							ctx.stroke();
@@ -195,14 +195,14 @@ App.directive('tlRuler', function ($timeout) {
 
 						//marker images
 						//$.each(scope.project.markers, function() {
-						//	
+						//
 						//	var img = new Image();
 						//	img.src = "media/images/markers/"+this.icon;
 						//	var img_loc = this.location * scope.pixelsPerSecond;
 						//	img.onload = function() {
 						//		ctx.drawImage(img, img_loc-img.width/2, 25);
 						//	};
-						//	
+						//
 						//});
 
 						//redraw audio if needed
@@ -210,10 +210,10 @@ App.directive('tlRuler', function ($timeout) {
 							drawAudio(scope, this.id);
 							handleVisibleClipElements(scope, this.id);
 						});
-						
-						
-						
-				    }, 0);   
+
+
+
+				    }, 0);
 
              }
          });
@@ -237,7 +237,7 @@ App.directive('tlRulertime', function () {
 				scope.PreviewFrame(playhead_seconds);
 
 			});
-			
+
 			// Move playhead to new position (if it's not currently being animated)
 			element.on('mousemove', function(e){
 				if (e.which == 1 && !scope.playhead_animating) { // left button
@@ -247,12 +247,12 @@ App.directive('tlRulertime', function () {
 					scope.PreviewFrame(playhead_seconds);
 				}
 			});
-			
-			
+
+
 		}
 	};
 });
-		
+
 
 
 // Handles the HTML5 canvas progress bar
@@ -264,17 +264,17 @@ App.directive('tlProgress', function($timeout){
              	$timeout(function(){
 				        var progress = scope.project.progress;
 						for(p=0;p<progress.length;p++){
-							
+
 							//get the progress item details
 							var start_second = progress[p][0];
 							var stop_second = progress[p][1];
 							var status = progress[p][2];
-							
+
 							//figure out the actual pixel position
 							var start_pixel = start_second * scope.pixelsPerSecond;
 							var stop_pixel = stop_second * scope.pixelsPerSecond;
 							var rect_length = stop_pixel - start_pixel;
-							
+
 							//get the element and draw the rects
 							var ctx = element[0].getContext('2d');
 							ctx.beginPath();
@@ -288,11 +288,11 @@ App.directive('tlProgress', function($timeout){
 						   	ctx.fill();
 						}
              	}, 0);
-             		
+
              }
          });
 
-			
+
 		}
 	};
 });

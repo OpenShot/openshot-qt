@@ -29,7 +29,7 @@ import os
 import time
 import sip
 
-from PyQt5.QtCore import QObject, QThread,  QTimer,  pyqtSlot, pyqtSignal
+from PyQt5.QtCore import QObject, QThread,  QTimer,  pyqtSlot, pyqtSignal, QCoreApplication
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 from classes.logger import log
@@ -125,6 +125,10 @@ class PlayerWorker(QObject):
                 if not self.clip_path:
                     # Emit position of overall timeline (don't emit this for clip previews)
                     self.position_changed.emit(self.current_frame)
+
+                    # TODO: Remove this hack and really determine what's blocking the main thread
+                    # Try and keep things responsive
+                    QCoreApplication.processEvents()
 
             # Emit mode changed signal (if needed)
             if self.player.Mode() != self.current_mode:

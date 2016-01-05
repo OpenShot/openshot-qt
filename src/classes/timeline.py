@@ -53,6 +53,9 @@ class TimelineSync(UpdateInterface):
         self.timeline.info.has_video = True
         self.timeline.info.video_length = 99999
         self.timeline.info.duration = 999.99
+        self.timeline.info.sample_rate = 44100
+        self.timeline.info.channels = 2
+        self.timeline.info.channel_layout = openshot.LAYOUT_STEREO
         self.timeline.debug = False
 
         # Open the timeline reader

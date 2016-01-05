@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>553</width>
-    <height>497</height>
+    <width>580</width>
+    <height>501</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -40,7 +40,9 @@
                 <string/>
                </property>
                <property name="icon">
-                <iconset theme="go-up"/>
+                <iconset theme="go-up">
+                 <normaloff/>
+                </iconset>
                </property>
               </widget>
              </item>
@@ -53,7 +55,9 @@
                 <string/>
                </property>
                <property name="icon">
-                <iconset theme="go-down"/>
+                <iconset theme="go-down">
+                 <normaloff/>
+                </iconset>
                </property>
               </widget>
              </item>
@@ -66,7 +70,9 @@
                 <string/>
                </property>
                <property name="icon">
-                <iconset theme="view-refresh"/>
+                <iconset theme="view-refresh">
+                 <normaloff/>
+                </iconset>
                </property>
               </widget>
              </item>
@@ -79,7 +85,9 @@
                 <string/>
                </property>
                <property name="icon">
-                <iconset theme="list-remove"/>
+                <iconset theme="list-remove">
+                 <normaloff/>
+                </iconset>
                </property>
               </widget>
              </item>
@@ -179,6 +187,45 @@
                  <width>150</width>
                  <height>0</height>
                 </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_11">
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="label_3">
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Image Length (seconds):</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QDoubleSpinBox" name="txtImageLength">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>150</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximum">
+                <double>999999999.000000000000000</double>
                </property>
               </widget>
              </item>
@@ -336,7 +383,7 @@
                 <string notr="true"/>
                </property>
                <property name="text">
-                <string>Length (seconds):</string>
+                <string>Length:</string>
                </property>
               </widget>
              </item>
@@ -374,6 +421,54 @@
           </layout>
          </item>
         </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_12">
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="lblTotalLength">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Total Length (seconds):</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lblTotalLengthValue">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>75</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font-weight:bold;</string>
+         </property>
+         <property name="text">
+          <string>0.0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
