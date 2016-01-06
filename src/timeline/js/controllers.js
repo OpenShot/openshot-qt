@@ -168,11 +168,11 @@ App.controller('TimelineCtrl',function($scope) {
                     ],
              
 	  layers : [
-	  				{id: 'L0', number:0, y:0},
-					{id: 'L1', number:1, y:0},
-					{id: 'L2', number:2, y:0}, 	  				
-					{id: 'L3', number:3, y:0},
-					{id: 'L4', number:4, y:0}
+	  				{id: 'L0', number:0, y:0, label: ''},
+					{id: 'L1', number:1, y:0, label: ''},
+					{id: 'L2', number:2, y:0, label: ''},
+					{id: 'L3', number:3, y:0, label: ''},
+					{id: 'L4', number:4, y:0, label: ''}
 	  				
              ],
              
@@ -524,6 +524,15 @@ App.controller('TimelineCtrl',function($scope) {
 	 	timeline.qt_log("$scope.ShowPlayheadMenu");
 	 	timeline.ShowPlayheadMenu(position);
 	 }
+ };
+
+ // Get the name of the track
+ $scope.GetTrackName = function(layer_label, layer_number){
+	// Determine custom label or default track name
+	if (layer_label.length > 0)
+		return layer_label;
+	else
+		return "Track " + layer_number;
  };
 
  // Get the width of the timeline in pixels

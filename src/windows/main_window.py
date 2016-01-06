@@ -482,30 +482,58 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Look for existing Marker
         track = Track()
-        track.data = {"number": track_number, "y": 0}
+        track.data = {"number": track_number, "y": 0, "label": ""}
         track.save()
 
     def actionAddTrackAbove_trigger(self, event):
         log.info("actionAddTrackAbove_trigger")
 
         # Get # of tracks
-        track_number = len(get_app().project.get(["layers"]))
+        max_track_number = len(get_app().project.get(["layers"]))
+        selected_layer_id = self.selected_tracks[0]
 
-        # Look for existing Marker
+        # Get selected track data
+        existing_track = Track.get(id=selected_layer_id)
+        selected_layer_number = int(existing_track.data["number"])
+
+        # Create new track
         track = Track()
-        track.data = {"number": track_number, "y": 0}
+        track.data = {"number": max_track_number, "y": 0, "label": ""}
         track.save()
+
+        # Loop through all clips on higher layers, and move to new layer (in reverse order)
+        for existing_layer in list(reversed(range(selected_layer_number + 1, max_track_number))):
+            existing_track.data["label"] = ""
+            existing_track.save()
+
+            for clip in Clip.filter(layer=existing_layer):
+                clip.data["layer"] = int(clip.data["layer"]) + 1
+                clip.save()
 
     def actionAddTrackBelow_trigger(self, event):
         log.info("actionAddTrackAbove_trigger")
 
         # Get # of tracks
-        track_number = len(get_app().project.get(["layers"]))
+        max_track_number = len(get_app().project.get(["layers"]))
+        selected_layer_id = self.selected_tracks[0]
 
-        # Look for existing Marker
+        # Get selected track data
+        existing_track = Track.get(id=selected_layer_id)
+        selected_layer_number = int(existing_track.data["number"])
+
+        # Create new track
         track = Track()
-        track.data = {"number": track_number, "y": 0}
+        track.data = {"number": max_track_number, "y": 0, "label": ""}
         track.save()
+
+        # Loop through all clips on higher layers, and move to new layer (in reverse order)
+        for existing_layer in list(reversed(range(selected_layer_number, max_track_number))):
+            existing_track.data["label"] = ""
+            existing_track.save()
+
+            for clip in Clip.filter(layer=existing_layer):
+                clip.data["layer"] = int(clip.data["layer"]) + 1
+                clip.save()
 
     def actionArrowTool_trigger(self, event):
         log.info("actionArrowTool_trigger")
@@ -793,11 +821,52 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
     def actionRemoveTrack_trigger(self, event):
         log.info('actionRemoveTrack_trigger')
 
-        for track_id in self.selected_tracks:
-            tracks = Track.filter(id=track_id)
-            for t in tracks:
-                # Remove track
-                t.delete()
+        track_id = self.selected_tracks[0]
+        max_track_number = len(get_app().project.get(["layers"]))
+
+        # Get details of selected track
+        selected_track = Track.get(id=track_id)
+        selected_track_number = int(selected_track.data["number"])
+
+        # Revove all clips on this track first
+        for clip in Clip.filter(layer=selected_track_number):
+            clip.delete()
+
+        # Remove track
+        selected_track.delete()
+
+        # Loop through all tracks, and renumber (to keep thing in numerical order)
+        for existing_layer in list(range(selected_track_number + 1, max_track_number)):
+            # Update existing layer #
+            track = Track.get(number=existing_layer)
+            track.data["number"] = existing_layer - 1
+            track.data["label"] = ""
+            track.save()
+
+            for clip in Clip.filter(layer=existing_layer):
+                clip.data["layer"] = int(clip.data["layer"]) - 1
+                clip.save()
+
+        # Clear selected track
+        self.selected_tracks = []
+
+    def actionRenameTrack_trigger(self, event):
+        """Callback for renaming track"""
+        log.info('actionRenameTrack_trigger')
+
+        # Get translation function
+        _ = get_app()._tr
+
+        # Get details of track
+        track_id = self.selected_tracks[0]
+        selected_track = Track.get(id=track_id)
+        track_name = selected_track.data["label"] or _("Track %s") % selected_track.data["number"]
+
+        text, ok = QInputDialog.getText(self, _('Rename Track'), _('Track Name:'), text=track_name)
+        if ok:
+            # Update track
+            selected_track.data["label"] = text
+            selected_track.save()
 
     def actionRemoveMarker_trigger(self, event):
         log.info('actionRemoveMarker_trigger')

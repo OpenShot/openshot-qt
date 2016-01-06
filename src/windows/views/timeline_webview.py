@@ -1529,6 +1529,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         menu = QMenu(self)
         menu.addAction(self.window.actionAddTrackAbove)
         menu.addAction(self.window.actionAddTrackBelow)
+        menu.addAction(self.window.actionRenameTrack)
         menu.addSeparator()
         menu.addAction(self.window.actionRemoveTrack)
         return menu.popup(QCursor.pos())

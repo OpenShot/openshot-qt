@@ -19,26 +19,31 @@
   "layers": [
     {
       "id": "L0",
+      "label" : "",
       "number": 0,
       "y": 0
     },
     {
       "id": "L1",
+      "label" : "",
       "number": 1,
       "y": 0
     },
     {
       "id": "L2",
+      "label" : "",
       "number": 2,
       "y": 0
     },
     {
       "id": "L3",
+      "label" : "",
       "number": 3,
       "y": 0
     },
     {
       "id": "L4",
+      "label" : "",
       "number": 4,
       "y": 0
     }

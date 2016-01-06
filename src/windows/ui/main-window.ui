@@ -1264,6 +1264,18 @@
     <enum>QAction::PreferencesRole</enum>
    </property>
   </action>
+  <action name="actionRenameTrack">
+   <property name="icon">
+    <iconset theme="gtk-edit" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/list-add.svg</normaloff>:/icons/Humanity/actions/16/list-add.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Rename Track</string>
+   </property>
+   <property name="toolTip">
+    <string>Rename Track</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="../../images/openshot.qrc"/>
