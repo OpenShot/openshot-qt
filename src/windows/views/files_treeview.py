@@ -90,14 +90,6 @@ class FilesTreeView(QTreeView):
         # Show menu
         menu.exec_(QCursor.pos())
 
-    def mouseDoubleClickEvent(self, event):
-        """Handle double click event on a file"""
-        # Update selection
-        self.updateSelection()
-
-        # Preview file
-        self.win.actionPreview_File.trigger()
-
     def dragEnterEvent(self, event):
         # If dragging urls onto widget, accept
         if event.mimeData().hasUrls():
@@ -203,10 +195,43 @@ class FilesTreeView(QTreeView):
         self.files_model.update_model()
         self.hideColumn(3)
         self.hideColumn(4)
+        self.hideColumn(5)
         self.resize_contents()
 
     def resize_contents(self):
+        self.resizeColumnToContents(2)
         self.resizeColumnToContents(1)
+
+    def value_updated(self, item):
+        """ Name or tags updated """
+        # Get translation method
+        _ = get_app()._tr
+
+        # Determine what was changed
+        file_id = self.files_model.model.item(item.row(), 5).text()
+        name = self.files_model.model.item(item.row(), 1).text()
+        tags = self.files_model.model.item(item.row(), 2).text()
+
+        # Get file object and update friendly name and tags attribute
+        f = File.get(id=file_id)
+        if name != f.data["path"]:
+            f.data["name"] = name
+        else:
+            f.data["name"] = ""
+        if "tags" in f.data.keys():
+            if tags != f.data["tags"]:
+                f.data["tags"] = tags
+        elif tags:
+            f.data["tags"] = tags
+
+        # Tell file model to ignore updates (since this treeview will already be updated)
+        self.files_model.ignore_update_signal = True
+
+        # Save File
+        f.save()
+
+        # Re-enable updates
+        self.files_model.ignore_update_signal = False
 
     def __init__(self, *args):
         # Invoke parent init
@@ -229,7 +254,6 @@ class FilesTreeView(QTreeView):
         self.setIconSize(QSize(75, 62))
         self.setIndentation(0)
         self.setSelectionBehavior(QTreeView.SelectRows)
-        self.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.setSelectionMode(QAbstractItemView.ExtendedSelection)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.setWordWrap(True)
@@ -242,3 +266,4 @@ class FilesTreeView(QTreeView):
         app = get_app()
         app.window.filesFilter.textChanged.connect(self.filter_changed)
         app.window.actionFilesClear.triggered.connect(self.clear_filter)
+        self.files_model.model.itemChanged.connect(self.value_updated)

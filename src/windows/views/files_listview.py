@@ -90,14 +90,6 @@ class FilesListView(QListView):
         # Show menu
         menu.exec_(QCursor.pos())
 
-    def mouseDoubleClickEvent(self, event):
-        """Handle double click event on a file"""
-        # Update selection
-        self.updateSelection()
-
-        # Preview file
-        self.win.actionPreview_File.trigger()
-
     def dragEnterEvent(self, event):
         # If dragging urls onto widget, accept
         if event.mimeData().hasUrls():

@@ -86,13 +86,17 @@ class FilesModel(updates.UpdateInterface):
         # Get window to check filters
         win = app.window
 
+        # Skip updates (if needed)
+        if self.ignore_update_signal:
+            return
+
         # Clear all items
         if clear:
             self.model_ids = {}
             self.model.clear()
 
         # Add Headers
-        self.model.setHorizontalHeaderLabels(["Thumb", "Name", "Type"])
+        self.model.setHorizontalHeaderLabels(["Thumb", "Name", "Tags", "", "", ""])
 
         # Get list of files in project
         files = File.filter()  # get all files
@@ -100,6 +104,12 @@ class FilesModel(updates.UpdateInterface):
         # add item for each file
         for file in files:
             path, filename = os.path.split(file.data["path"])
+            tags = ""
+            if "tags" in file.data.keys():
+                tags = file.data["tags"]
+            name = filename
+            if "name" in file.data.keys():
+                name = file.data["name"]
 
             if not win.actionFilesShowAll.isChecked():
                 if win.actionFilesShowVideo.isChecked():
@@ -112,8 +122,11 @@ class FilesModel(updates.UpdateInterface):
                     if not file.data["media_type"] == "image":
                         continue  # to next file, didn't match filter
 
+
             if win.filesFilter.text() != "":
-                if not win.filesFilter.text().lower() in filename.lower():
+                if not win.filesFilter.text().lower() in filename.lower() \
+                        and not win.filesFilter.text().lower() in tags.lower() \
+                        and not win.filesFilter.text().lower() in name.lower():
                     continue
 
             # Generate thumbnail for file (if needed)
@@ -167,31 +180,33 @@ class FilesModel(updates.UpdateInterface):
 
             row = []
 
-            # Look for friendly name attribute (optional)
-            name = filename
-            if 'name' in file.data.keys():
-                name = file.data['name']
-
             # Append thumbnail
             col = QStandardItem()
             col.setIcon(QIcon(thumb_path))
             col.setText((name[:9] + '...') if len(name) > 10 else name)
             col.setToolTip(filename)
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
+            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsDragEnabled)
             row.append(col)
 
             # Append Filename
             col = QStandardItem("Name")
             col.setData(filename, Qt.DisplayRole)
             col.setText((name[:20] + '...') if len(name) > 15 else name)
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
+            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsDragEnabled | Qt.ItemIsEditable)
+            row.append(col)
+
+            # Append Tags
+            col = QStandardItem("Tags")
+            col.setData(tags, Qt.DisplayRole)
+            col.setText(tags)
+            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsDragEnabled | Qt.ItemIsEditable)
             row.append(col)
 
             # Append Media Type
             col = QStandardItem("Type")
             col.setData(file.data["media_type"], Qt.DisplayRole)
             col.setText(file.data["media_type"])
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
+            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsDragEnabled | Qt.ItemIsEditable)
             row.append(col)
 
             # Append Path
@@ -227,5 +242,6 @@ class FilesModel(updates.UpdateInterface):
 
         # Create standard model
         self.model = FileStandardItemModel()
-        self.model.setColumnCount(5)
+        self.model.setColumnCount(6)
         self.model_ids = {}
+        self.ignore_update_signal = False
