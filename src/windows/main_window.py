@@ -192,7 +192,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
     def actionOpen_trigger(self, event):
         app = get_app()
         _ = app._tr
-        file_path, file_type = QFileDialog.getOpenFileName(self, _("Open Project..."))
+        file_path, file_type = QFileDialog.getOpenFileName(self, _("Open Project..."), "", _("OpenShot Project (*.osp)"))
 
         # Load project file
         self.open_project(file_path)
@@ -203,7 +203,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Get current filepath if any, otherwise ask user
         file_path = app.project.current_filepath
         if not file_path:
-            file_path, file_type = QFileDialog.getSaveFileName(self, _("Save Project..."))
+            file_path, file_type = QFileDialog.getSaveFileName(self, _("Save Project..."), "", _("OpenShot Project (*.osp)"))
 
         if file_path:
             # Save project
@@ -212,7 +212,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
     def actionSaveAs_trigger(self, event):
         app = get_app()
         _ = app._tr
-        file_path, file_type = QFileDialog.getSaveFileName(self, _("Save Project As..."))
+        file_path, file_type = QFileDialog.getSaveFileName(self, _("Save Project As..."), "", _("OpenShot Project (*.osp)"))
         if file_path:
             # Save project
             self.save_project(file_path)
