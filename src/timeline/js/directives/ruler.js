@@ -152,12 +152,12 @@ App.directive('tlRuler', function ($timeout) {
 						var scale = scope.project.scale;
 						var tick_pixels = scope.project.tick_pixels;
 						var each_tick = tick_pixels / 2;
-						var pixel_length = scope.project.duration * scope.pixelsPerSecond;
+						var pixel_length = scope.GetTimelineWidth(1024);
 
 				    	//draw the ruler
 				    	var ctx = element[0].getContext('2d');
 				    	//clear the canvas first
-				    	ctx.clearRect(0, 0, element.width, element.height);
+				    	ctx.clearRect(0, 0, element.width(), element.height());
 				    	//set number of ticks based 2 for each pixel_length
 				    	num_ticks = pixel_length / 50;
 
@@ -192,18 +192,6 @@ App.directive('tlRuler', function ($timeout) {
 							ctx.lineTo(x*each_tick, line_top);
 							ctx.stroke();
 						}
-
-						//marker images
-						//$.each(scope.project.markers, function() {
-						//
-						//	var img = new Image();
-						//	img.src = "media/images/markers/"+this.icon;
-						//	var img_loc = this.location * scope.pixelsPerSecond;
-						//	img.onload = function() {
-						//		ctx.drawImage(img, img_loc-img.width/2, 25);
-						//	};
-						//
-						//});
 
 						//redraw audio if needed
 						$.each(scope.project.clips, function(){

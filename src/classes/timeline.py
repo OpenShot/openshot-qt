@@ -72,8 +72,9 @@ class TimelineSync(UpdateInterface):
         current_speed = self.window.preview_thread.player.Speed()
 
         # Ignore changes that don't affect libopenshot
-        if len(action.key) >= 1 and action.key[0].lower() in ["files", "markers", "layers"]:
+        if len(action.key) >= 1 and action.key[0].lower() in ["files", "markers", "layers", "export_path"]:
             return
+
         elif len(action.key) >= 1 and action.key[0].lower() in ["profile"]:
             # Stop preview thread
             self.window.preview_thread.Speed(0)

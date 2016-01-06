@@ -48,7 +48,7 @@
 			<div tl-playhead class="playhead playhead-top" ng-right-click="ShowPlayheadMenu(project.playhead_position)" style="left:{{(project.playhead_position * pixelsPerSecond) + playheadOffset}}px;">
 				<div class="playhead-line-small"></div>
 			</div>
-			<canvas tl-ruler id="ruler" width="{{project.duration * pixelsPerSecond}}px" height="39px"></canvas>
+			<canvas tl-ruler id="ruler" width="{{GetTimelineWidth(1024)+7}}" height="39"></canvas>
 			
 			<!-- MARKERS --> 
 			<span class="ruler_marker" id="marker_for_{{marker.id}}">
@@ -72,9 +72,9 @@
 		</div>
 		<!-- TRACKS CONTAINER (right of screen) -->
 		<div tl-scrollable-tracks id="scrolling_tracks">
-			<div id="track-container" tl-track tl-multi-selectable style="min-width: {{ min_width }}px; width: {{project.duration * pixelsPerSecond}}px; padding-bottom: 2px;">
+			<div id="track-container" tl-track tl-multi-selectable style="width: {{GetTimelineWidth(1024)}}px; padding-bottom: 2px;">
 				<!-- TRACKS -->
-				<div ng-repeat="layer in project.layers.slice().reverse()" id="track_{{layer.number}}" class="track" style="min-width: {{ min_width }}px; width:{{(project.duration * pixelsPerSecond) + playheadOffset}}px;">
+				<div ng-repeat="layer in project.layers.slice().reverse()" id="track_{{layer.number}}" class="track" style="width:{{GetTimelineWidth(1024)}}px;">
 				</div>
 				
 				<!-- CLIPS -->

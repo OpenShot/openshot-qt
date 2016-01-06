@@ -525,6 +525,13 @@ App.controller('TimelineCtrl',function($scope) {
 	 	timeline.ShowPlayheadMenu(position);
 	 }
  };
+
+ // Get the width of the timeline in pixels
+ $scope.GetTimelineWidth = function(min_value){
+	// Adjust for minimim length
+	return Math.max(min_value, $scope.project.duration * $scope.pixelsPerSecond);
+ };
+
  
  // Get Position of item (used by Qt)
  $scope.GetJavaScriptPosition = function(x){
