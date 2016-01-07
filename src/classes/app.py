@@ -27,8 +27,9 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+import os
 from PyQt5.QtWidgets import QApplication, QStyleFactory
-from PyQt5.QtGui import QPalette, QColor
+from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont
 from PyQt5.QtCore import Qt
 
 from classes.logger import log
@@ -82,6 +83,12 @@ class OpenShotApp(QApplication):
             # Only set if dark theme selected
             self.setStyle(QStyleFactory.create("Fusion"))
 
+            # Load embedded font
+            font_id = QFontDatabase.addApplicationFont(os.path.join(info.IMAGES_PATH, "fonts", "Ubuntu-L.ttf"))
+            font = QFont("Ubuntu-L")
+            font.setPointSizeF(10.5)
+            QApplication.setFont(font)
+
             darkPalette = self.palette()
             darkPalette.setColor(QPalette.Window, QColor(53, 53, 53))
             darkPalette.setColor(QPalette.WindowText, Qt.white)
@@ -93,11 +100,10 @@ class OpenShotApp(QApplication):
             darkPalette.setColor(QPalette.Button, QColor(53, 53, 53))
             darkPalette.setColor(QPalette.ButtonText, Qt.white)
             darkPalette.setColor(QPalette.BrightText, Qt.red)
-            darkPalette.setColor(QPalette.Link, QColor(42, 130, 218))
             darkPalette.setColor(QPalette.Highlight, QColor(42, 130, 218))
             darkPalette.setColor(QPalette.HighlightedText, Qt.black)
             self.setPalette(darkPalette)
-            self.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }")
+            self.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 0px solid white; }")
 
         # Create main window
         from windows.main_window import MainWindow
