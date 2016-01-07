@@ -522,14 +522,10 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         # Loop through each file
         for file in self._data["files"]:
             path = file["path"]
-
-            print('relative path: %s' % path)
-
             # Find absolute path of file (if needed)
             if not os.path.isabs(path):
                 # Convert path to the correct relative path (based on the existing folder)
                 path = os.path.abspath(os.path.join(existing_project_folder, path))
-                print('absolute path: %s' % path)
 
             # Convert absolute path to relavite
             file["path"] = path
@@ -538,12 +534,10 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         for clip in self._data["clips"]:
             # Update reader path
             path = clip["reader"]["path"]
-            print('relative path: %s' % path)
             # Find absolute path of file (if needed)
             if not os.path.isabs(path):
                 # Convert path to the correct relative path (based on the existing folder)
                 path = os.path.abspath(os.path.join(existing_project_folder, path))
-                print('absolute path: %s' % path)
             # Convert absolute path to relavite
             clip["reader"]["path"] = path
 
