@@ -245,6 +245,27 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         self._data = self.read_from_file(self.default_project_filepath)
         self.current_filepath = None
 
+        # Clear any previous thumbnails
+        if os.path.exists(info.THUMBNAIL_PATH):
+            # Remove thumbnail folder
+            shutil.rmtree(info.THUMBNAIL_PATH)
+            # Create thumbnail folder
+            os.mkdir(info.THUMBNAIL_PATH)
+
+        # Clear any previous titles
+        if os.path.exists(info.TITLE_PATH):
+            # Remove title folder
+            shutil.rmtree(info.TITLE_PATH)
+            # Create title folder
+            os.mkdir(info.TITLE_PATH)
+
+        # Clear any blender animations
+        if os.path.exists(info.BLENDER_PATH):
+            # Remove blender folder
+            shutil.rmtree(info.BLENDER_PATH)
+            # Create blender folder
+            os.mkdir(info.BLENDER_PATH)
+
     def load(self, file_path):
         """ Load project from file """
 
@@ -262,6 +283,23 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
             # On success, save current filepath
             self.current_filepath = file_path
+
+            # Convert all paths back to absolute
+            self.convert_paths_to_absolute()
+
+            # Clear any previous thumbnails
+            if os.path.exists(info.THUMBNAIL_PATH):
+                shutil.rmtree(info.THUMBNAIL_PATH)
+
+            # Copy any project thumbnails to main THUMBNAILS folder
+            loaded_project_folder = os.path.dirname(self.current_filepath)
+            project_thumbnails_folder = os.path.join(loaded_project_folder, "thumbnail")
+            if os.path.exists(project_thumbnails_folder):
+                # Copy project thumbnails folder
+                shutil.copytree(project_thumbnails_folder, info.THUMBNAIL_PATH)
+            else:
+                # Create a blank thumbnail path
+                os.mkdir(info.THUMBNAIL_PATH)
 
             # Add to recent files setting
             self.add_to_recent_files(file_path)
@@ -285,38 +323,133 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         # On success, save current filepath
         self.current_filepath = file_path
 
+        # Convert all paths back to absolute
+        self.convert_paths_to_absolute()
+
         # Add to recent files setting
         self.add_to_recent_files(file_path)
 
     def move_temp_paths_to_project_folder(self, file_path):
-        """ Move all temp files (such as Blender anmiations) to the project folder. """
+        """ Move all temp files (such as Thumbnails, Titles, and Blender animations) to the project folder. """
 
         # Get project folder
         new_project_folder = os.path.dirname(file_path)
+        new_thumbnails_folder = os.path.join(new_project_folder, "thumbnail")
+        new_title_folder = os.path.join(new_project_folder, "title")
 
-        # Get list of files
-        files = self._data["files"]
+        # Delete thumbnails folder for project (if found)
+        if os.path.exists(new_thumbnails_folder):
+            shutil.rmtree(new_thumbnails_folder)
+
+        # Copy any thumbnails to project
+        shutil.copytree(info.THUMBNAIL_PATH, new_thumbnails_folder)
 
         # Loop through each file
-        for file in files:
+        for file in self._data["files"]:
             path = file["path"]
 
-            # Find any temp file paths
+            # Find any temp BLENDER file paths
             if info.BLENDER_PATH in path:
-                log.info("TEMP FOLDER DETECTED")
+                log.info("Temp blender file path detected in file")
 
                 # Get folder of file
                 folder_path, file_name = os.path.split(path)
                 parent_path, folder_name = os.path.split(folder_path)
-
                 # Update path to new folder
                 path = os.path.join(new_project_folder, folder_name)
-
                 # Copy temp folder to project folder
                 shutil.copytree(folder_path, path)
 
                 # Update paths in project to new location
                 file["path"] = os.path.join(path, file_name)
+
+            # Find any temp TITLE file paths
+            if info.TITLE_PATH in path:
+                # Copy each title
+                log.info("Temp title file path detected in file")
+
+                # Create project's title folder (if missing)
+                if not os.path.exists(new_title_folder):
+                    os.mkdir(new_title_folder)
+
+                # Get folder of file
+                folder_path, file_name = os.path.split(path)
+                # Update path to new folder
+                new_path = os.path.join(new_title_folder, file_name)
+                # Copy temp folder to project folder
+                shutil.copy(path, new_path)
+
+                # Update paths in project to new location
+                file["path"] = os.path.join(new_title_folder, file_name)
+
+
+        # Loop through each clip
+        for clip in self._data["clips"]:
+            path = clip["reader"]["path"]
+
+            # Find any temp BLENDER file paths
+            if info.BLENDER_PATH in path:
+                log.info("Temp blender file path detected in clip")
+
+                # Get folder of file
+                folder_path, file_name = os.path.split(path)
+                parent_path, folder_name = os.path.split(folder_path)
+                # Update path to new folder
+                path = os.path.join(new_project_folder, folder_name)
+
+                # Update paths in project to new location
+                clip["reader"]["path"] = os.path.join(path, file_name)
+
+            # Find any temp TITLE file paths
+            if info.TITLE_PATH in path:
+                # Copy each title
+                log.info("Temp title file path detected in clip")
+
+                # Create project's title folder (if missing)
+                if not os.path.exists(new_title_folder):
+                    os.mkdir(new_title_folder)
+
+                # Get folder of file
+                folder_path, file_name = os.path.split(path)
+                # Update path to new folder
+                new_path = os.path.join(new_title_folder, file_name)
+
+                # Update paths in project to new location
+                clip["reader"]["path"] = os.path.join(new_title_folder, file_name)
+
+        # Loop through each file
+        for clip in self._data["clips"]:
+            path = clip["image"]
+
+            # Find any temp BLENDER file paths
+            if info.BLENDER_PATH in path:
+                log.info("Temp blender file path detected in clip thumbnail")
+
+                # Get folder of file
+                folder_path, file_name = os.path.split(path)
+                parent_path, folder_name = os.path.split(folder_path)
+                # Update path to new folder
+                path = os.path.join(new_project_folder, folder_name)
+
+                # Update paths in project to new location
+                clip["image"] = os.path.join(path, file_name)
+
+            # Find any temp TITLE file paths
+            if info.TITLE_PATH in path:
+                # Copy each title
+                log.info("Temp title file path detected in clip thumbnail")
+
+                # Create project's title folder (if missing)
+                if not os.path.exists(new_title_folder):
+                    os.mkdir(new_title_folder)
+
+                # Get folder of file
+                folder_path, file_name = os.path.split(path)
+                # Update path to new folder
+                new_path = os.path.join(new_title_folder, file_name)
+
+                # Update paths in project to new location
+                clip["image"] = os.path.join(new_title_folder, file_name)
 
     def add_to_recent_files(self, file_path):
         """ Add this project to the recent files list """
@@ -347,11 +480,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             existing_project_folder = os.path.dirname(self.current_filepath)
         new_project_folder = os.path.dirname(file_path)
 
-        # Get list of files
-        files = self._data["files"]
-
         # Loop through each file
-        for file in files:
+        for file in self._data["files"]:
             path = file["path"]
             # Find absolute path of file (if needed)
             if not os.path.isabs(path):
@@ -360,6 +490,71 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
             # Convert absolute path to relavite
             file["path"] = os.path.relpath(path, new_project_folder)
+
+        # Loop through each clip
+        for clip in self._data["clips"]:
+            # Update reader path
+            path = clip["reader"]["path"]
+            # Find absolute path of file (if needed)
+            if not os.path.isabs(path):
+                # Convert path to the correct relative path (based on the existing folder)
+                path = os.path.abspath(os.path.join(existing_project_folder, path))
+            # Convert absolute path to relavite
+            clip["reader"]["path"] = os.path.relpath(path, new_project_folder)
+
+            # Update clip image path
+            path = clip["image"]
+            # Find absolute path of file (if needed)
+            if not os.path.isabs(path):
+                # Convert path to the correct relative path (based on the existing folder)
+                path = os.path.abspath(os.path.join(existing_project_folder, path))
+            # Convert absolute path to relavite
+            clip["image"] = os.path.relpath(path, new_project_folder)
+
+    def convert_paths_to_absolute(self):
+        """ Convert all paths to absolute """
+
+        # Get project folder
+        existing_project_folder = None
+        if self.current_filepath:
+            existing_project_folder = os.path.dirname(self.current_filepath)
+
+        # Loop through each file
+        for file in self._data["files"]:
+            path = file["path"]
+
+            print('relative path: %s' % path)
+
+            # Find absolute path of file (if needed)
+            if not os.path.isabs(path):
+                # Convert path to the correct relative path (based on the existing folder)
+                path = os.path.abspath(os.path.join(existing_project_folder, path))
+                print('absolute path: %s' % path)
+
+            # Convert absolute path to relavite
+            file["path"] = path
+
+        # Loop through each clip
+        for clip in self._data["clips"]:
+            # Update reader path
+            path = clip["reader"]["path"]
+            print('relative path: %s' % path)
+            # Find absolute path of file (if needed)
+            if not os.path.isabs(path):
+                # Convert path to the correct relative path (based on the existing folder)
+                path = os.path.abspath(os.path.join(existing_project_folder, path))
+                print('absolute path: %s' % path)
+            # Convert absolute path to relavite
+            clip["reader"]["path"] = path
+
+            # Update clip image path
+            path = clip["image"]
+            # Find absolute path of file (if needed)
+            if not os.path.isabs(path):
+                # Convert path to the correct relative path (based on the existing folder)
+                path = os.path.abspath(os.path.join(existing_project_folder, path))
+            # Convert absolute path to relavite
+            clip["image"] = path
 
     def changed(self, action):
         """ This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """

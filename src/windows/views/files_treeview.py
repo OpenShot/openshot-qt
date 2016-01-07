@@ -61,7 +61,7 @@ class FilesTreeView(QTreeView):
         for selection in self.selected:
             selected_row = self.files_model.model.itemFromIndex(selection).row()
             if selected_row not in rows:
-                self.win.selected_files.append(self.files_model.model.item(selected_row, 4).text())
+                self.win.selected_files.append(self.files_model.model.item(selected_row, 5).text())
                 rows.append(selected_row)
 
     def contextMenuEvent(self, event):
@@ -106,7 +106,6 @@ class FilesTreeView(QTreeView):
         # Start drag operation
         drag = QDrag(self)
         drag.setMimeData(self.files_model.model.mimeData(self.selectionModel().selectedIndexes()))
-        # drag.setPixmap(QIcon.fromTheme('document-new').pixmap(QSize(self.drag_item_size,self.drag_item_size)))
         drag.setPixmap(icon.pixmap(QSize(self.drag_item_size, self.drag_item_size)))
         drag.setHotSpot(QPoint(self.drag_item_size / 2, self.drag_item_size / 2))
         drag.exec_()

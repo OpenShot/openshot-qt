@@ -533,12 +533,23 @@ class TitleEditor(QDialog):
         app = get_app()
         _ = app._tr
 
+        # Get current project folder (if any)
+        project_path = get_app().project.current_filepath
+        default_folder = info.TITLE_PATH
+        if project_path:
+            default_folder = os.path.dirname(project_path)
+
+        # Init file path for new title
+        title_path = os.path.join(default_folder, _("New Title.svg"))
+
         # Get file path for SVG title
-        file_path, file_type = QFileDialog.getSaveFileName(self, _("Save Title As..."))
-        if not file_path.endswith("svg"):
-            file_path = file_path + ".svg"
+        file_path, file_type = QFileDialog.getSaveFileName(self, _("Save Title As..."), title_path, _("Scalable Vector Graphics (*.svg)"))
 
         if file_path:
+            # Append .svg (if not already there)
+            if not file_path.endswith("svg"):
+                file_path = file_path + ".svg"
+
             # Update filename
             self.filename = file_path
 

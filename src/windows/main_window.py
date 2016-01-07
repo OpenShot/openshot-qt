@@ -143,6 +143,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
     def save_project(self, file_path):
         """ Save a project to a file path, and refresh the screen """
         app = get_app()
+        _ = app._tr  # Get translation function
 
         try:
             # Save project to file
@@ -158,11 +159,13 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         except Exception as ex:
             log.error("Couldn't save project {}".format(file_path))
+            QMessageBox.warning(self, _("Error Saving Project"), str(ex))
 
     def open_project(self, file_path):
         """ Open a project from a file path, and refresh the screen """
 
         app = get_app()
+        _ = app._tr  # Get translation function
 
         try:
             if os.path.exists(file_path.encode('UTF-8')):
@@ -188,6 +191,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         except Exception as ex:
             log.error("Couldn't open project {}".format(file_path))
+            QMessageBox.warning(self, _("Error Opening Project"), str(ex))
 
     def actionOpen_trigger(self, event):
         app = get_app()
@@ -200,21 +204,35 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
     def actionSave_trigger(self, event):
         app = get_app()
         _ = app._tr
+
         # Get current filepath if any, otherwise ask user
         file_path = app.project.current_filepath
         if not file_path:
-            file_path, file_type = QFileDialog.getSaveFileName(self, _("Save Project..."), "", _("OpenShot Project (*.osp)"))
+            recommended_path = os.path.join(info.HOME_PATH, _("Untitled Project.osp"))
+            file_path, file_type = QFileDialog.getSaveFileName(self, _("Save Project..."), recommended_path, _("OpenShot Project (*.osp)"))
 
         if file_path:
+            # Append .osp if needed
+            if ".osp" not in file_path:
+                file_path = "%s.osp" % file_path
+
             # Save project
             self.save_project(file_path)
 
     def actionSaveAs_trigger(self, event):
         app = get_app()
         _ = app._tr
-        file_path, file_type = QFileDialog.getSaveFileName(self, _("Save Project As..."), "", _("OpenShot Project (*.osp)"))
+
+        recommended_path = app.project.current_filepath
+        if not recommended_path:
+            recommended_path = os.path.join(info.HOME_PATH, _("Untitled Project.osp"))
+        file_path, file_type = QFileDialog.getSaveFileName(self, _("Save Project As..."), recommended_path, _("OpenShot Project (*.osp)"))
         if file_path:
-            # Save project
+            # Append .osp if needed
+            if ".osp" not in file_path:
+                file_path = "%s.osp" % file_path
+
+            # Save new project
             self.save_project(file_path)
 
     def actionImportFiles_trigger(self, event):

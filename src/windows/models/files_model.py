@@ -57,7 +57,7 @@ class FileStandardItemModel(QStandardItemModel):
         files = []
         for item in indexes:
             selected_row = self.itemFromIndex(item).row()
-            files.append(self.item(selected_row, 4).text())
+            files.append(self.item(selected_row, 5).text())
         data.setText(json.dumps(files))
         data.setHtml("clip")
 

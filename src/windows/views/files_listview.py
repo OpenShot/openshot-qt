@@ -61,7 +61,7 @@ class FilesListView(QListView):
         for selection in self.selected:
             selected_row = self.files_model.model.itemFromIndex(selection).row()
             if selected_row not in rows:
-                self.win.selected_files.append(self.files_model.model.item(selected_row, 4).text())
+                self.win.selected_files.append(self.files_model.model.item(selected_row, 5).text())
                 rows.append(selected_row)
 
     def contextMenuEvent(self, event):
