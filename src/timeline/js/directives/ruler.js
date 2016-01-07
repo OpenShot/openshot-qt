@@ -180,7 +180,7 @@ App.directive('tlRuler', function ($timeout) {
 
 									//write time on the canvas, centered above long tick
 									ctx.fillStyle = "#c8c8c8";
-									ctx.font = "0.9em Sans";
+									ctx.font = "0.9em";
 									ctx.fillText(time_text["hour"] +":"+ time_text["min"] +":"+ time_text["sec"], x*each_tick-22, 11);
 								}
 							} else {

@@ -85,7 +85,9 @@ class OpenShotApp(QApplication):
 
             # Load embedded font
             font_id = QFontDatabase.addApplicationFont(os.path.join(info.IMAGES_PATH, "fonts", "Ubuntu-L.ttf"))
-            font = QFont("Ubuntu-L")
+            font_family = QFontDatabase.applicationFontFamilies(font_id)[0]
+
+            font = QFont(font_family)
             font.setPointSizeF(10.5)
             QApplication.setFont(font)
 
