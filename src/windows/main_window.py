@@ -196,7 +196,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
     def actionOpen_trigger(self, event):
         app = get_app()
         _ = app._tr
-        file_path, file_type = QFileDialog.getOpenFileName(self, _("Open Project..."), "", _("OpenShot Project (*.osp)"))
+        recommended_path = app.project.current_filepath
+        if not recommended_path:
+            recommended_path = info.HOME_PATH
+        file_path, file_type = QFileDialog.getOpenFileName(self, _("Open Project..."), recommended_path, _("OpenShot Project (*.osp)"))
 
         # Load project file
         self.open_project(file_path)

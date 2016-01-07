@@ -380,7 +380,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 shutil.copy(path, new_path)
 
                 # Update paths in project to new location
-                file["path"] = os.path.join(new_title_folder, file_name)
+                file["path"] = new_path
 
 
         # Loop through each clip
@@ -405,14 +405,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 # Copy each title
                 log.info("Temp title file path detected in clip")
 
-                # Create project's title folder (if missing)
-                if not os.path.exists(new_title_folder):
-                    os.mkdir(new_title_folder)
-
                 # Get folder of file
                 folder_path, file_name = os.path.split(path)
-                # Update path to new folder
-                new_path = os.path.join(new_title_folder, file_name)
 
                 # Update paths in project to new location
                 clip["reader"]["path"] = os.path.join(new_title_folder, file_name)
@@ -439,14 +433,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 # Copy each title
                 log.info("Temp title file path detected in clip thumbnail")
 
-                # Create project's title folder (if missing)
-                if not os.path.exists(new_title_folder):
-                    os.mkdir(new_title_folder)
-
                 # Get folder of file
                 folder_path, file_name = os.path.split(path)
-                # Update path to new folder
-                new_path = os.path.join(new_title_folder, file_name)
 
                 # Update paths in project to new location
                 clip["image"] = os.path.join(new_title_folder, file_name)
