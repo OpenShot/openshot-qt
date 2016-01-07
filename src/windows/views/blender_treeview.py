@@ -481,13 +481,13 @@ class BlenderTreeView(QTreeView):
             if type(v) == int or type(v) == float or type(v) == list or type(v) == bool:
                 user_params += "params['{}'] = {}\n".format(k, v)
             if type(v) == str:
-                user_params += "params['{}'] = '{}'\n".format(k, v.replace("'", r"\'"))
+                user_params += "params['{}'] = r'{}'\n".format(k, v.replace("'", r"\'"))
 
         for k, v in self.get_project_params(is_preview).items():
             if type(v) == int or type(v) == float or type(v) == list or type(v) == bool:
                 user_params += "params['{}'] = {}\n".format(k, v)
             if type(v) == str:
-                user_params += "params['{}'] = '{}'\n".format(k, v.replace("'", r"\'"))
+                user_params += "params['{}'] = r'{}'\n".format(k, v.replace("'", r"\'"))
         user_params += "#END INJECTING PARAMS\n"
 
         # Force the Frame to 1 frame (for previewing)
@@ -677,7 +677,7 @@ class Worker(QObject):
         # get the blender executable path
         self.blender_exec_path = s.get("blender_command")
         self.blender_frame_expression = re.compile(r"Fra:([0-9,]*).*Mem:(.*?) .*Part ([0-9,]*)-([0-9,]*)")
-        self.blender_saved_expression = re.compile(r"Saved: (.*?) Time: (.*)")
+        self.blender_saved_expression = re.compile(r"Saved: (.*.png)(.*)")
         self.blender_version = re.compile(r"Blender (.*?) ")
         self.blend_file_path = blend_file_path
         self.target_script = target_script
