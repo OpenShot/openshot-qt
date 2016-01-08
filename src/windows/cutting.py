@@ -133,8 +133,13 @@ class Cutting(QDialog):
         # Update label
         self.lblVideoTime.setText(timestamp)
 
-    def btnPlay_clicked(self):
+    def btnPlay_clicked(self, force=None):
         log.info("btnPlay_clicked")
+
+        if force == "pause":
+            self.btnPlay.setChecked(False)
+        elif force == "play":
+            self.btnPlay.setChecked(True)
 
         if self.btnPlay.isChecked():
             log.info('play (icon to pause)')
@@ -148,20 +153,17 @@ class Cutting(QDialog):
     def sliderVideo_valueChanged(self, new_frame):
         if self.preview_thread and not self.sliderIgnoreSignal:
             log.info('sliderVideo_valueChanged')
-            # Pause the Video and Seek to new frame
-            self.preview_thread.Pause()
 
-            # Set button to paused
-            ui_util.setup_icon(self, self.btnPlay, "actionPlay", "media-playback-start")  # to default
-            self.btnPlay.setChecked(False)
+            # Pause video
+            self.btnPlay_clicked(force="pause")
 
             # Seek to new frame
             self.preview_thread.previewFrame(new_frame)
 
     def btnStart_clicked(self):
         """Start of clip button was clicked"""
-        # Stop video playback
-        self.preview_thread.Pause()
+        # Pause video
+        self.btnPlay_clicked(force="pause")
 
         # Get the current frame
         current_frame = self.sliderVideo.value()
@@ -182,7 +184,7 @@ class Cutting(QDialog):
         self.r.GetFrame(self.start_frame).Thumbnail(self.start_image, 160, 90, '', '', '#000000', True)
 
         # Set CSS on button
-        self.btnStart.setStyleSheet('background-image: url(%s);' % self.start_image)
+        self.btnStart.setStyleSheet('background-image: url(%s);' % self.start_image.replace('\\', '/'))
 
         # Enable end button
         self.btnEnd.setEnabled(True)
@@ -192,8 +194,8 @@ class Cutting(QDialog):
 
     def btnEnd_clicked(self):
         """End of clip button was clicked"""
-        # Stop video playback
-        self.preview_thread.Pause()
+        # Pause video
+        self.btnPlay_clicked(force="pause")
 
         # Get the current frame
         current_frame = self.sliderVideo.value()
@@ -210,11 +212,11 @@ class Cutting(QDialog):
         self.end_frame = current_frame
 
         # Save thumbnail image
-        self.end_image = os.path.join(info.USER_PATH, 'thumbnail', '%s.png' % self.start_frame)
+        self.end_image = os.path.join(info.USER_PATH, 'thumbnail', '%s.png' % self.end_frame)
         self.r.GetFrame(self.end_frame).Thumbnail(self.end_image, 160, 90, '', '', '#000000', True)
 
         # Set CSS on button
-        self.btnEnd.setStyleSheet('background-image: url(%s);' % self.end_image)
+        self.btnEnd.setStyleSheet('background-image: url(%s);' % self.end_image.replace('\\', '/'))
 
         # Enable create button
         self.btnAddClip.setEnabled(True)
