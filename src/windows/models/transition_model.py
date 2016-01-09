@@ -85,6 +85,10 @@ class TransitionsModel():
         transition_groups = [{"type": "common", "dir": common_dir, "files": os.listdir(common_dir)},
                              {"type": "extra", "dir": extra_dir, "files": os.listdir(extra_dir)}]
 
+        # Add optional user-defined transitions folder
+        if (os.path.exists(info.TRANSITIONS_PATH) and os.listdir(info.TRANSITIONS_PATH)):
+            transition_groups.append({"type": "user", "dir": info.TRANSITIONS_PATH, "files": os.listdir(info.TRANSITIONS_PATH)})
+
         for group in transition_groups:
             type = group["type"]
             dir = group["dir"]

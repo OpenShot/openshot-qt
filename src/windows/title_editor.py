@@ -101,14 +101,28 @@ class TitleEditor(QDialog):
         # Hide all textboxes
         self.hide_textboxes()
 
+        # Remove temp file (if found)
+        temp_svg_path = os.path.join(info.TITLE_PATH, "temp.svg")
+        if os.path.exists(temp_svg_path):
+            os.remove(temp_svg_path)
+
         # load the template files
         self.cmbTemplate.addItem("<Select a template>")
+
+        # Add user-defined titles (if any)
+        for file in sorted(os.listdir(info.TITLE_PATH)):
+            # pretty up the filename for display purposes
+            if fnmatch.fnmatch(file, '*.svg'):
+                (fileName, fileExtension) = os.path.splitext(file)
+            self.cmbTemplate.addItem(fileName.replace("_", " "), os.path.join(info.TITLE_PATH, file))
+
+        # Add built-in titles
         self.template_dir = os.path.join(info.PATH, 'titles')
         for file in sorted(os.listdir(self.template_dir)):
             # pretty up the filename for display purposes
             if fnmatch.fnmatch(file, '*.svg'):
                 (fileName, fileExtension) = os.path.splitext(file)
-            self.cmbTemplate.addItem(fileName.replace("_", " "))
+            self.cmbTemplate.addItem(fileName.replace("_", " "), os.path.join(self.template_dir, file))
 
         # set event handlers
         self.cmbTemplate.activated.connect(functools.partial(self.cmbTemplate_activated))
@@ -188,10 +202,10 @@ class TitleEditor(QDialog):
         if self.cmbTemplate.currentIndex() > 0:
             # ignore the 'select a template entry'
             template = self.cmbTemplate.currentText()
-            self.template_name = template.replace(" ", "_") + ".svg"
+            template_path = self.cmbTemplate.itemData(self.cmbTemplate.currentIndex())
 
             # Create temp version of SVG title
-            self.filename = self.create_temp_title(os.path.join(info.PATH, 'titles', self.template_name))
+            self.filename = self.create_temp_title(template_path)
 
             # Load temp title
             self.load_svg_template()
@@ -404,6 +418,8 @@ class TitleEditor(QDialog):
                 opacity = float(txt[8:])
             except ValueError:
                 pass
+            except TypeError:
+                pass
 
             # Default the background color to black if non-existing
             if color == None:
@@ -535,7 +551,7 @@ class TitleEditor(QDialog):
 
         # Get current project folder (if any)
         project_path = get_app().project.current_filepath
-        default_folder = info.TITLE_PATH
+        default_folder = info.HOME_PATH
         if project_path:
             default_folder = os.path.dirname(project_path)
 

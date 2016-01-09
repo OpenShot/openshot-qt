@@ -252,13 +252,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             # Create thumbnail folder
             os.mkdir(info.THUMBNAIL_PATH)
 
-        # Clear any previous titles
-        if os.path.exists(info.TITLE_PATH):
-            # Remove title folder
-            shutil.rmtree(info.TITLE_PATH)
-            # Create title folder
-            os.mkdir(info.TITLE_PATH)
-
         # Clear any blender animations
         if os.path.exists(info.BLENDER_PATH):
             # Remove blender folder
@@ -363,26 +356,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 # Update paths in project to new location
                 file["path"] = os.path.join(path, file_name)
 
-            # Find any temp TITLE file paths
-            if info.TITLE_PATH in path:
-                # Copy each title
-                log.info("Temp title file path detected in file")
-
-                # Create project's title folder (if missing)
-                if not os.path.exists(new_title_folder):
-                    os.mkdir(new_title_folder)
-
-                # Get folder of file
-                folder_path, file_name = os.path.split(path)
-                # Update path to new folder
-                new_path = os.path.join(new_title_folder, file_name)
-                # Copy temp folder to project folder
-                shutil.copy(path, new_path)
-
-                # Update paths in project to new location
-                file["path"] = new_path
-
-
         # Loop through each clip
         for clip in self._data["clips"]:
             path = clip["reader"]["path"]
@@ -400,17 +373,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 # Update paths in project to new location
                 clip["reader"]["path"] = os.path.join(path, file_name)
 
-            # Find any temp TITLE file paths
-            if info.TITLE_PATH in path:
-                # Copy each title
-                log.info("Temp title file path detected in clip")
-
-                # Get folder of file
-                folder_path, file_name = os.path.split(path)
-
-                # Update paths in project to new location
-                clip["reader"]["path"] = os.path.join(new_title_folder, file_name)
-
         # Loop through each file
         for clip in self._data["clips"]:
             path = clip["image"]
@@ -427,17 +389,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
                 # Update paths in project to new location
                 clip["image"] = os.path.join(path, file_name)
-
-            # Find any temp TITLE file paths
-            if info.TITLE_PATH in path:
-                # Copy each title
-                log.info("Temp title file path detected in clip thumbnail")
-
-                # Get folder of file
-                folder_path, file_name = os.path.split(path)
-
-                # Update paths in project to new location
-                clip["image"] = os.path.join(new_title_folder, file_name)
 
     def add_to_recent_files(self, file_path):
         """ Add this project to the recent files list """
