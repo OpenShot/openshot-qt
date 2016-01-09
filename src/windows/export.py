@@ -178,8 +178,7 @@ class Export(QDialog):
         # Adjust the main timeline reader
         get_app().updates.update(["width"], self.txtWidth.value())
         get_app().updates.update(["height"], self.txtHeight.value())
-        get_app().updates.update(["fps", "num"], self.txtFrameRateNum.value())
-        get_app().updates.update(["fps", "den"], self.txtFrameRateDen.value())
+        get_app().updates.update(["fps"], {"num" : self.txtFrameRateNum.value(), "den" : self.txtFrameRateDen.value()})
         get_app().updates.update(["sample_rate"], self.txtSampleRate.value())
         get_app().updates.update(["channels"], self.txtChannels.value())
 

@@ -117,9 +117,17 @@ class Profile(QDialog):
         # Update timeline settings
         get_app().updates.update(["width"], profile.info.width)
         get_app().updates.update(["height"], profile.info.height)
-        get_app().updates.update(["fps", "num"], profile.info.fps.num)
-        get_app().updates.update(["fps", "den"], profile.info.fps.den)
+        get_app().updates.update(["fps"], {"num" : profile.info.fps.num, "den" : profile.info.fps.den})
         get_app().updates.update(["profile"], profile.info.description)
+
+        # Update timeline sync
+        get_app().window.timeline_sync.timeline.info.width = profile.info.width
+        get_app().window.timeline_sync.timeline.info.height = profile.info.height
+        get_app().window.timeline_sync.timeline.info.fps.num = profile.info.fps.num
+        get_app().window.timeline_sync.timeline.info.fps.den = profile.info.fps.den
+
+        # Force ApplyMapperToClips to apply these changes
+        get_app().window.timeline_sync.timeline.ApplyMapperToClips()
 
         # Update Window Title
         get_app().window.SetWindowTitle(profile.info.description)
