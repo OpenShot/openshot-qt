@@ -7,7 +7,7 @@
  
  @section LICENSE
  
- Copyright (c) 2008-2014 OpenShot Studios, LLC
+ Copyright (c) 2008-2016 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -84,7 +84,7 @@ class OpenShotApp(QApplication):
             self.setStyle(QStyleFactory.create("Fusion"))
 
             # Load embedded font
-            font_id = QFontDatabase.addApplicationFont(os.path.join(info.IMAGES_PATH, "fonts", "Ubuntu-L.ttf"))
+            font_id = QFontDatabase.addApplicationFont(os.path.join(info.IMAGES_PATH, "fonts", "Ubuntu-R.ttf"))
             font_family = QFontDatabase.applicationFontFamilies(font_id)[0]
 
             font = QFont(font_family)

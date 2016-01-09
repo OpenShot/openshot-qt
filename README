@@ -2,7 +2,7 @@
     COPYRIGHT
 #################
 
- Copyright (c) 2008-2014 OpenShot Studios, LLC
+ Copyright (c) 2008-2016 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -70,8 +70,8 @@ dependencies in order to run OpenShot successfully:
 To run OpenShot from the command line, use the following syntax:
 (be sure the change the path to match the install location of OpenShot)
 
-$ cd /home/USER/openshot/src
-$ ./openshot   or   $ python openshot.py
+$ cd /home/USER/openshot_qt
+$ python3 src/launch.py
 
 
 #################
@@ -80,7 +80,7 @@ $ ./openshot   or   $ python openshot.py
 
 If you would like to install OpenShot, use this command:
 
-$ sudo python setup.py install
+$ sudo python3 setup.py install
 
 Installing OpenShot using this command does a few extra things that
 the build wizard doesn't do.  It adds MIME Types, adds an icon to your
@@ -111,8 +111,7 @@ Here is a tutorial of the current development features:
 		2) Use the magnet icon to have your clips magically stick to their closest neighbor clips.
 		
 	HOW DO I TRIM / UN-TRIM CLIPS
-		1) Use the toolbar above the timeline (i.e. in the middle of the screen) and select the TRIM button
-		2) Then, move your mouse over the edges of any clips.  Click and drag the edge of the clip to it's new location.
+		1) Click and drag the edge of the clip to it's new location.
 
 	THE AUDIO / VIDEO IS OUT OF SYNC.  WHAT CAN I DO?
 		1) This is usually related to a bug in libopenshot or FFmpeg.  To resolve this, re-encode the video using the 

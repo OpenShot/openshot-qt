@@ -5,7 +5,7 @@
 
  @section LICENSE
 
- Copyright (c) 2008-2014 OpenShot Studios, LLC
+ Copyright (c) 2008-2016 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -383,10 +383,14 @@ class Export(QDialog):
         selected_quality = widget.itemData(index)
         log.info(selected_quality)
 
+        # get translations
+        app = get_app()
+        _ = app._tr
+
         # Set the video and audio bitrates
         if selected_quality:
-            self.txtVideoBitRate.setText(self.vbr[selected_quality])
-            self.txtAudioBitrate.setText(self.abr[selected_quality])
+            self.txtVideoBitRate.setText(_(self.vbr[_(selected_quality)]))
+            self.txtAudioBitrate.setText(_(self.abr[_(selected_quality)]))
 
     def btnBrowse_clicked(self):
         log.info("btnBrowse_clicked")

@@ -235,9 +235,6 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.MovePlayhead = function(position_seconds) {
 	  // Update internal scope (in seconds)
 	  $scope.$apply(function(){
-	  if ($scope.Qt)
-		 	timeline.qt_log("$scope.MovePlayhead to seconds " + position_seconds);
-	  	
 		  $scope.project.playhead_position = position_seconds;
 		  $scope.playheadTime = secondsToTime(position_seconds, $scope.project.fps.num, $scope.project.fps.den);
 	  });
@@ -245,9 +242,6 @@ App.controller('TimelineCtrl',function($scope) {
   
   // Move the playhead to a specific frame
   $scope.MovePlayheadToFrame = function(position_frames) {
-	  if ($scope.Qt)
-		 	timeline.qt_log("$scope.MovePlayheadToFrame to frame " + position_frames);
-	  
 	  // Don't move the playhead if it's currently animating
 	  if ($scope.playhead_animating)
 	  		return;
@@ -262,9 +256,6 @@ App.controller('TimelineCtrl',function($scope) {
 
   // Move the playhead to a specific time
   $scope.PreviewFrame = function(position_seconds) {
-	  if ($scope.Qt)
-		 	timeline.qt_log("$scope.PreviewFrame to seconds " + position_seconds);
-  	
 	  // Determine frame
 	  var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
 	  var frame = (position_seconds * frames_per_second) + 1;
@@ -277,9 +268,6 @@ App.controller('TimelineCtrl',function($scope) {
 
   // Move the playhead to a specific time
   $scope.PreviewClipFrame = function(clip_id, position_seconds) {
-	  if ($scope.Qt)
-		 	timeline.qt_log("$scope.PreviewClipFrame to seconds " + position_seconds);
-
 	  // Determine frame
 	  var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
 	  var frame = (position_seconds * frames_per_second) + 1;
@@ -571,8 +559,7 @@ App.controller('TimelineCtrl',function($scope) {
  
  // Get JSON of most recent item (used by Qt)
  $scope.UpdateRecentItemJSON = function(item_type) {
-	 	timeline.qt_log(item_type);
-	 	
+
 		// update clip in Qt (very important =)
 		if (item_type == 'clip') {
 			var item_data = $scope.project.clips[$scope.project.clips.length - 1];
@@ -917,16 +904,16 @@ App.controller('TimelineCtrl',function($scope) {
 		 		}
 		 		
 		 	} else if (action.type == "update") {
-		 		
-		 		// UPDATE OBJECT
-		 		// Update: If action and current object are Objects
-		 		if (current_object.constructor == Object && action.value.constructor == Object)
-			 		for (var update_key in action.value)
-			 			if (update_key in current_object)
-			 				// Only copy over keys that exist in both action and current_object
-			 				$scope.$apply(function(){
-			 					current_object[update_key] = action.value[update_key];
-			 				});
+				// UPDATE OBJECT
+				// Update: If action and current object are Objects
+				if (current_object.constructor == Object && action.value.constructor == Object) {
+					for (var update_key in action.value)
+						if (update_key in current_object)
+						// Only copy over keys that exist in both action and current_object
+						$scope.$apply(function () {
+							current_object[update_key] = action.value[update_key];
+						});
+				}
 			 	else {
 			 		// replace the entire value
 			 		if (previous_object.constructor == Array) {
@@ -942,7 +929,7 @@ App.controller('TimelineCtrl',function($scope) {
 			 			});
 			 		}
 			 	}
-			 		
+
 		 		
 		 	} else if (action.type == "delete") {
 		 		// DELETE OBJECT

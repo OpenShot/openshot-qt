@@ -6,7 +6,7 @@
 
  @section LICENSE
 
- Copyright (c) 2008-2014 OpenShot Studios, LLC
+ Copyright (c) 2008-2016 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -139,19 +139,37 @@ class Credits(QDialog):
         _ = self.app._tr
 
         # Add credits listview
-        self.developersListView = CreditsTreeView(credits=info.CREDITS['code'], columns=["email"])
+        self.developersListView = CreditsTreeView(credits=info.CREDITS['code'], columns=["email", "website"])
         self.vboxDevelopers.addWidget(self.developersListView)
         self.txtDeveloperFilter.textChanged.connect(partial(self.Filter_Triggered, self.txtDeveloperFilter, self.developersListView))
 
-        # Add translators listview
-        self.translatorsListView = CreditsTreeView(info.CREDITS['translation'], columns=["email"])
-        self.vboxTranslators.addWidget(self.translatorsListView)
-        self.txtTranslatorFilter.textChanged.connect(partial(self.Filter_Triggered, self.txtTranslatorFilter, self.translatorsListView))
+        # Get string of translators for the current language
+        translator_credits = []
+        translator_credits_string = _("translator-credits").replace("Launchpad Contributions:\n", "").replace("translator-credits","")
+        if translator_credits_string:
+            # Parse string into a list of dictionaries
+            translator_rows = translator_credits_string.split("\n")
+            for row in translator_rows:
+                # Split each row into 2 parts (name and username)
+                translator_parts = row.split("https://launchpad.net/")
+                name = translator_parts[0].strip()
+                username = translator_parts[0].strip()
+                translator_credits.append({"name":name, "website":"https://launchpad.net/%s" % username})
+
+            # Add translators listview
+            self.translatorsListView = CreditsTreeView(translator_credits, columns=["website"])
+            self.vboxTranslators.addWidget(self.translatorsListView)
+            self.txtTranslatorFilter.textChanged.connect(partial(self.Filter_Triggered, self.txtTranslatorFilter, self.translatorsListView))
+        else:
+            # No translations for this langauge, hide credits
+            self.tabCredits.removeTab(1)
 
         # Get list of supporters
         supporter_list = []
-        with open(os.path.join(info.PATH, 'settings', 'supporters.json'), 'r') as supporter_file:
-            supporter_list = json.loads(supporter_file.read())
+        import codecs
+        with codecs.open(os.path.join(info.PATH, 'settings', 'supporters.json'), 'r', 'utf-8') as supporter_file:
+            supporter_string = supporter_file.read()
+            supporter_list = json.loads(supporter_string)
 
         # Add supporters listview
         self.supportersListView = CreditsTreeView(supporter_list, columns=["website"])

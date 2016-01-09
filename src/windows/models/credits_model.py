@@ -5,7 +5,7 @@
  
  @section LICENSE
  
- Copyright (c) 2008-2014 OpenShot Studios, LLC
+ Copyright (c) 2008-2016 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -65,11 +65,6 @@ class CreditsModel():
         # Add Headers
         self.model.setHorizontalHeaderLabels(["", "", "", "Name", "Email", "Website"])
 
-        # List of test people
-        # self.credits_list = [{"name":"Jonathan Thomas", "email":"Jonathan@OpenShot.org", "icons":["p", "k"]},
-        #                      {"name":"Andy Finch", "email":"andy@OpenShot.org", "icons":["p", "s"]},
-        #                      {"name":"Olivier Girard", "email":"olivier@OpenShot.org", "icons":[]}]
-
         for person in self.credits_list:
             # Get details of person
             name = ""
@@ -94,8 +89,6 @@ class CreditsModel():
             if len(name) < 2:
                 # Skip blank names
                 continue
-
-            log.info('Adding person %s' % name)
 
             row = []
 

@@ -7,7 +7,7 @@
  
  @section LICENSE
  
- Copyright (c) 2008-2014 OpenShot Studios, LLC
+ Copyright (c) 2008-2016 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -150,7 +150,6 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):
-
         # Send a JSON version of the UpdateAction to the timeline webview method: ApplyJsonDiff()
         if action.type == "load":
             # Load entire project data
@@ -1547,7 +1546,6 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
     @pyqtSlot(str, int)
     def PreviewClipFrame(self, clip_id, frame_number):
-        log.info("PreviewClipFrame - frame_number: %s, clip_id: %s" % (frame_number, clip_id))
 
         # Get existing clip object
         clip = Clip.get(id=clip_id)
@@ -1556,9 +1554,6 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Adjust frame # to valid range
         frame_number = max(frame_number, 1)
         frame_number = min(frame_number, int(clip.data['reader']['video_length']))
-
-        # Preview frame
-        log.info("path: %s, frame: %s" % (path, frame_number))
 
         # Load the clip into the Player (ignored if this has already happened)
         self.window.preview_thread.LoadFile(path)
@@ -1569,7 +1564,6 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
     @pyqtSlot(float, int, str)
     def PlayheadMoved(self, position_seconds, position_frames, time_code):
-        log.info("PlayheadMoved - position_seconds: %s, position_frames: %s, time_code: %s" % (position_seconds, position_frames, time_code))
 
         # Load the timeline into the Player (ignored if this has already happened)
         self.window.preview_thread.LoadFile(None)

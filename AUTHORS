@@ -12,6 +12,13 @@ Olivier Girard <olivier@openshot.org>
 Documentation:
 
 Jonathan Thomas <jonathan@openshot.org>
+Olivier Girard <olivier@openshot.org>
+
+
+Translation:
+See src/locale/ folders for details on translation credits. Each
+translation contains a "translator-credits" key containing the
+details of each translator that contributed to that language.
 
 
 Packaging:
@@ -23,6 +30,13 @@ Foster McLane <fmkclane@gmail.com>
 Artists:
 
 Jonathan Thomas <jonathan@openshot.org>
+The many great artists who contributed Creative Commons & open-source
+licensed images for our transitions and icons.
+
+
+Fonts:
+
+Canonical / Ubuntu (Ubuntu-R.ttf font)
 
 
 Website:
@@ -30,5 +44,12 @@ Website:
 Jonathan Thomas <jonathan@openshot.org>
 
 
-For the full list of authors, please visit:
+Supporters
+
+A big thanks to all the financial backers and supporters from PayPay
+and Kickstarter! Details can be found in src/settings/supporters.json
+
+
+For the full list of developers and technical contributors, please visit:
+http://openshot.org/developers
 https://launchpad.net/~openshot.developers

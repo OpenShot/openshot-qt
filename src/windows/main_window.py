@@ -7,7 +7,7 @@
 
  @section LICENSE
 
- Copyright (c) 2008-2014 OpenShot Studios, LLC
+ Copyright (c) 2008-2016 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -211,7 +211,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Get current filepath if any, otherwise ask user
         file_path = app.project.current_filepath
         if not file_path:
-            recommended_path = os.path.join(info.HOME_PATH, _("Untitled Project.osp"))
+            recommended_path = os.path.join(info.HOME_PATH, "%s.osp" % _("Untitled Project"))
             file_path, file_type = QFileDialog.getSaveFileName(self, _("Save Project..."), recommended_path, _("OpenShot Project (*.osp)"))
 
         if file_path:
@@ -228,7 +228,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         recommended_path = app.project.current_filepath
         if not recommended_path:
-            recommended_path = os.path.join(info.HOME_PATH, _("Untitled Project.osp"))
+            recommended_path = os.path.join(info.HOME_PATH, "%s.osp" % _("Untitled Project"))
         file_path, file_type = QFileDialog.getSaveFileName(self, _("Save Project As..."), recommended_path, _("OpenShot Project (*.osp)"))
         if file_path:
             # Append .osp if needed
@@ -296,13 +296,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         app = get_app()
         app.updates.undo()
 
-    # log.info(app.project._data)
-
     def actionRedo_trigger(self, event):
         app = get_app()
         app.updates.redo()
-
-    # log.info(app.project._data)
 
     def actionPreferences_trigger(self, event):
         # Show dialog
@@ -429,8 +425,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
     def previewFrame(self, position_seconds, position_frames, time_code):
         """Preview a specific frame"""
-        log.info("previewFrame - position_seconds: %s, position_frames: %s, time_code: %s" % (position_seconds, position_frames, time_code))
-
         # Notify preview thread
         self.preview_thread.previewFrame(position_frames)
 
@@ -439,8 +433,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
     def movePlayhead(self, position_frames):
         """Update playhead position"""
-        log.info(position_frames)
-
         # Notify preview thread
         self.timeline.movePlayhead(position_frames)
 

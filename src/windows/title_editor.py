@@ -6,7 +6,7 @@
  
  @section LICENSE
  
- Copyright (c) 2008-2014 OpenShot Studios, LLC
+ Copyright (c) 2008-2016 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -540,7 +540,7 @@ class TitleEditor(QDialog):
             default_folder = os.path.dirname(project_path)
 
         # Init file path for new title
-        title_path = os.path.join(default_folder, _("New Title.svg"))
+        title_path = os.path.join(default_folder, "%s.svg" % _("New Title"))
 
         # Get file path for SVG title
         file_path, file_type = QFileDialog.getSaveFileName(self, _("Save Title As..."), title_path, _("Scalable Vector Graphics (*.svg)"))

@@ -5,7 +5,7 @@
  
  @section LICENSE
  
- Copyright (c) 2008-2014 OpenShot Studios, LLC
+ Copyright (c) 2008-2016 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -34,7 +34,7 @@ PRODUCT_NAME = "OpenShot Video Editor"
 GPL_VERSION = "3"
 DESCRIPTION = "Create and edit videos and movies"
 COMPANY_NAME = "OpenShot Studios, LLC"
-COPYRIGHT = "Copyright (c) 2008-2014 %s" % COMPANY_NAME
+COPYRIGHT = "Copyright (c) 2008-2016 %s" % COMPANY_NAME
 SUPPORTED_LANGUAGES = ["English", "Dutch", "French", "German", "Italian", "Portuguese", "Spanish", "Swedish"]
 CWD = os.getcwd()
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
@@ -57,11 +57,11 @@ for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH, TITLE_PATH, 
         os.makedirs(folder)
 
 # names of all contributers, using "u" for unicode encoding
-AF = {"name": u"Andy Finch", "email": "andy@openshot.org"}
+AF = {"name": u"Andy Finch", "email": "andy@openshot.org", "website":"http://openshot.org/developers/andy"}
 NF = {"name": u"Noah Figg", "email": "eggmunkee@hotmail.com"}
-JT = {"name": u"Jonathan Thomas", "email": "jonathan@openshot.org"}
-OG = {"name": u"Olivier Girard", "email": "olivier@openshot.org"}
-CP = {"name": u"Cody Parker", "email": "cody@yourcodepro.com"}
+JT = {"name": u"Jonathan Thomas", "email": "jonathan@openshot.org", "website":"http://openshot.org/developers/jonathan"}
+OG = {"name": u"Olivier Girard", "email": "olivier@openshot.org", "website":"http://openshot.org/developers/olivier"}
+CP = {"name": u"Cody Parker", "email": "cody@yourcodepro.com", "website":"http://openshot.org/developers/cody_parker"}
 
 
 # credits

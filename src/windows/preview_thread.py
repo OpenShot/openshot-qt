@@ -5,7 +5,7 @@
  
  @section LICENSE
  
- Copyright (c) 2008-2014 OpenShot Studios, LLC
+ Copyright (c) 2008-2016 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -45,7 +45,6 @@ class PreviewParent(QObject):
 
     # Signal when the frame position changes in the preview player
     def onPositionChanged(self, current_frame):
-        log.info('onPositionChanged')
         self.parent.movePlayhead(current_frame)
 
     # Signal when the playback mode changes in the preview player (i.e PLAY, PAUSE, STOP)

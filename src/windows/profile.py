@@ -5,7 +5,7 @@
 
  @section LICENSE
 
- Copyright (c) 2008-2014 OpenShot Studios, LLC
+ Copyright (c) 2008-2016 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -38,7 +38,6 @@ import openshot  # Python module for libopenshot (required video editing module 
 from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
-from windows.profile_manager import ProfileManager
 
 
 class Profile(QDialog):
