@@ -114,6 +114,9 @@ class OpenShotApp(QApplication):
         self.window = MainWindow()
         self.window.show()
 
+        # Load new/blank project (which sets default profile)
+        self.project.load("")
+
         log.info('Process command-line arguments: %s' % args)
         if len(args[0]) == 2:
             path = args[0][1]

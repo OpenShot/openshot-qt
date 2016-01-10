@@ -115,16 +115,10 @@ class Profile(QDialog):
         self.lblOther.setText("DAR: %s/%s, SAR: %s/%s, Interlaced: %s" % (profile.info.display_ratio.num, profile.info.display_ratio.den, profile.info.pixel_ratio.num, profile.info.pixel_ratio.den, profile.info.interlaced_frame))
 
         # Update timeline settings
+        get_app().updates.update(["profile"], profile.info.description)
         get_app().updates.update(["width"], profile.info.width)
         get_app().updates.update(["height"], profile.info.height)
         get_app().updates.update(["fps"], {"num" : profile.info.fps.num, "den" : profile.info.fps.den})
-        get_app().updates.update(["profile"], profile.info.description)
-
-        # Update timeline sync
-        get_app().window.timeline_sync.timeline.info.width = profile.info.width
-        get_app().window.timeline_sync.timeline.info.height = profile.info.height
-        get_app().window.timeline_sync.timeline.info.fps.num = profile.info.fps.num
-        get_app().window.timeline_sync.timeline.info.fps.den = profile.info.fps.den
 
         # Force ApplyMapperToClips to apply these changes
         get_app().window.timeline_sync.timeline.ApplyMapperToClips()

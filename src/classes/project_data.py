@@ -264,7 +264,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 self._data["width"] = profile.info.width
                 self._data["height"] = profile.info.height
                 self._data["fps"] = {"num" : profile.info.fps.num, "den" : profile.info.fps.den}
-                self._data["profile"] = profile.info.description
 
         # Clear any previous thumbnails
         if os.path.exists(info.THUMBNAIL_PATH):

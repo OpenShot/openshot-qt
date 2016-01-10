@@ -186,13 +186,6 @@ class Export(QDialog):
         get_app().updates.update(["sample_rate"], self.txtSampleRate.value())
         get_app().updates.update(["channels"], self.txtChannels.value())
 
-        get_app().window.timeline_sync.timeline.info.width = self.txtWidth.value()
-        get_app().window.timeline_sync.timeline.info.height = self.txtHeight.value()
-        get_app().window.timeline_sync.timeline.info.fps.num = self.txtFrameRateNum.value()
-        get_app().window.timeline_sync.timeline.info.fps.den = self.txtFrameRateDen.value()
-        get_app().window.timeline_sync.timeline.info.sample_rate = self.txtSampleRate.value()
-        get_app().window.timeline_sync.timeline.info.channels = self.txtChannels.value()
-
         # Force ApplyMapperToClips to apply these changes
         get_app().window.timeline_sync.timeline.ApplyMapperToClips()
 
