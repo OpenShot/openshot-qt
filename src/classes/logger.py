@@ -46,6 +46,9 @@ class StreamToLogger(object):
     def flush(self):
         pass
 
+    def errors(self):
+        pass
+
 # Initialize logging module, give basic formats and level we want to report
 logging.basicConfig(format="%(module)12s:%(levelname)s %(message)s",
                     datefmt='%H:%M:%S',
