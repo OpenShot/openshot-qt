@@ -14,7 +14,7 @@
    height="1080"
    id="svg2383"
    sodipodi:version="0.32"
-   inkscape:version="0.47 r22583"
+   inkscape:version="0.48.4 r9939"
    version="1.0"
    sodipodi:docname="Gold_2.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape">
@@ -215,7 +215,7 @@
        fx="922.56451"
        fy="413.05423"
        r="638.25861"
-       gradientTransform="matrix(1,0,0,0.05818239,0,389.02172)"
+       gradientTransform="matrix(1,0,0,0.05818239,-200.15315,389.02172)"
        gradientUnits="userSpaceOnUse" />
     <inkscape:perspective
        id="perspective3664"
@@ -301,6 +301,17 @@
            in="SourceGraphic" />
       </feMerge>
     </filter>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3684"
+       id="radialGradient3039"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1,0,0,0.04078534,-398.1953,493.16635)"
+       cx="959.99805"
+       cy="514.13556"
+       fx="959.99805"
+       fy="514.13556"
+       r="781.3515" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -313,14 +324,14 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.5"
-     inkscape:cx="964.17664"
+     inkscape:cx="726.17664"
      inkscape:cy="458.30763"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1680"
-     inkscape:window-height="936"
-     inkscape:window-x="0"
+     inkscape:window-width="1855"
+     inkscape:window-height="1056"
+     inkscape:window-x="65"
      inkscape:window-y="24"
      inkscape:window-maximized="1" />
   <metadata
@@ -350,27 +361,27 @@
        ry="0" />
     <text
        xml:space="preserve"
-       style="font-size:116.20991516px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:url(#radialGradient3654);fill-opacity:1;stroke:none;filter:url(#filter3998);font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-       x="960.46045"
+       style="font-size:116.20991516px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:url(#radialGradient3654);fill-opacity:1;stroke:none;filter:url(#filter3998);font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       x="961.7674"
        y="438.48804"
        id="text2395"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan2397"
-         x="960.46045"
+         x="961.7674"
          y="438.48804"
          style="font-size:82.35334778px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:url(#radialGradient3654);fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold">The Title</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:116.20991516px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:url(#radialGradient3682);fill-opacity:1;stroke:none;filter:url(#filter3984);font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-       x="959.797"
+       style="font-size:116.20991516px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:url(#radialGradient3039);fill-opacity:1;stroke:none;filter:url(#filter3984);font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       x="959.01288"
        y="544.8371"
        id="text2395-6"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan2397-3"
-         x="959.797"
+         x="959.01288"
          y="544.8371"
-         style="font-size:82.35334778px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:url(#radialGradient3682);fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold">Sub-Title</tspan></text>
+         style="font-size:82.35334778px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:url(#radialGradient3039);fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold">Sub-Title</tspan></text>
   </g>
 </svg>

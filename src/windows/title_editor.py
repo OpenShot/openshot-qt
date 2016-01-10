@@ -134,15 +134,19 @@ class TitleEditor(QDialog):
         self.txtLine2.textChanged.connect(functools.partial(self.txtLine_changed))
         self.txtLine3.textChanged.connect(functools.partial(self.txtLine_changed))
         self.txtLine4.textChanged.connect(functools.partial(self.txtLine_changed))
+        self.txtLine5.textChanged.connect(functools.partial(self.txtLine_changed))
+        self.txtLine6.textChanged.connect(functools.partial(self.txtLine_changed))
 
     def txtLine_changed(self):
 
         # Update text values in the SVG
         text_list = []
-        text_list.append(self.txtLine1.text())
-        text_list.append(self.txtLine2.text())
-        text_list.append(self.txtLine3.text())
-        text_list.append(self.txtLine4.text())
+        text_list.append(self.txtLine1.toPlainText())
+        text_list.append(self.txtLine2.toPlainText())
+        text_list.append(self.txtLine3.toPlainText())
+        text_list.append(self.txtLine4.toPlainText())
+        text_list.append(self.txtLine5.toPlainText())
+        text_list.append(self.txtLine6.toPlainText())
         for i in range(0, self.text_fields):
             if len(self.tspan_node[i].childNodes) > 0 and i <= (len(text_list) - 1):
                 new_text_node = self.xmldoc.createTextNode(text_list[i])
@@ -167,6 +171,10 @@ class TitleEditor(QDialog):
         self.lblLine3.setVisible(False)
         self.txtLine4.setVisible(False)
         self.lblLine4.setVisible(False)
+        self.txtLine5.setVisible(False)
+        self.lblLine5.setVisible(False)
+        self.txtLine6.setVisible(False)
+        self.lblLine6.setVisible(False)
 
     def show_textboxes(self, num_fields):
         """ Only show a certain number of text inputs """
@@ -187,6 +195,14 @@ class TitleEditor(QDialog):
             self.txtLine4.setEnabled(True)
             self.txtLine4.setVisible(True)
             self.lblLine4.setVisible(True)
+        if num_fields >= 5:
+            self.txtLine5.setEnabled(True)
+            self.txtLine5.setVisible(True)
+            self.lblLine5.setVisible(True)
+        if num_fields >= 6:
+            self.txtLine6.setEnabled(True)
+            self.txtLine6.setVisible(True)
+            self.lblLine6.setVisible(True)
 
     def display_svg(self):
         scene = QGraphicsScene(self)
@@ -251,13 +267,23 @@ class TitleEditor(QDialog):
         # Set textbox values
         num_fields = len(title_text)
         if num_fields >= 1:
+            self.txtLine1.setText("")
             self.txtLine1.setText(title_text[0])
         if num_fields >= 2:
+            self.txtLine2.setText("")
             self.txtLine2.setText(title_text[1])
         if num_fields >= 3:
+            self.txtLine3.setText("")
             self.txtLine3.setText(title_text[2])
         if num_fields >= 4:
+            self.txtLine4.setText("")
             self.txtLine4.setText(title_text[3])
+        if num_fields >= 5:
+            self.txtLine5.setText("")
+            self.txtLine5.setText(title_text[4])
+        if num_fields >= 6:
+            self.txtLine6.setText("")
+            self.txtLine6.setText(title_text[5])
 
         # Update color buttons
         self.update_font_color_button()

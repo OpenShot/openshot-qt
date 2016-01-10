@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -13,7 +14,7 @@
    height="1080"
    id="svg2383"
    sodipodi:version="0.32"
-   inkscape:version="0.46"
+   inkscape:version="0.48.4 r9939"
    version="1.0"
    sodipodi:docname="Bar_2.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape">
@@ -238,15 +239,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.5"
-     inkscape:cx="1133.1807"
+     inkscape:cx="895.1807"
      inkscape:cy="474.59181"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g2431"
      showgrid="false"
      inkscape:window-width="1680"
      inkscape:window-height="975"
-     inkscape:window-x="0"
-     inkscape:window-y="24" />
+     inkscape:window-x="75"
+     inkscape:window-y="34"
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata2388">
     <rdf:RDF>
@@ -291,24 +293,24 @@
          sodipodi:linespacing="125%"
          id="text2395"
          y="531.71222"
-         x="962.81787"
-         style="font-size:185.20953369px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#324da7;fill-opacity:1;stroke:#ffffff;stroke-width:3.75001788;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+         x="960.81787"
+         style="font-size:185.20953369px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#324da7;fill-opacity:1;stroke:#ffffff;stroke-width:3.75001788;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
          xml:space="preserve"><tspan
-           style="font-size:131.25064087px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#324da7;fill-opacity:1;stroke:#ffffff;stroke-width:3.75001788;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans Bold"
+           style="font-size:131.25064087px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#324da7;fill-opacity:1;stroke:#ffffff;stroke-width:3.75001788;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans Bold"
            y="531.71222"
-           x="962.81787"
+           x="960.81787"
            id="tspan2397"
-           sodipodi:role="line">The Title</tspan></text>
+           sodipodi:role="line">Title</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text2413"
          y="622.9306"
-         x="959.02905"
-         style="font-size:185.20953369px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#5971bc;fill-opacity:1;stroke:#ffffff;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+         x="957.02905"
+         style="font-size:185.20953369px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#5971bc;fill-opacity:1;stroke:#ffffff;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
          xml:space="preserve"><tspan
-           style="font-size:81px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#5971bc;fill-opacity:1;stroke:#ffffff;stroke-width:2.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans Bold"
+           style="font-size:81px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#5971bc;fill-opacity:1;stroke:#ffffff;stroke-width:2.5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans Bold"
            y="622.9306"
-           x="959.02905"
+           x="957.02905"
            id="tspan2415"
            sodipodi:role="line">Sub-Title</tspan></text>
     </g>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -13,7 +14,7 @@
    height="1080"
    id="svg2383"
    sodipodi:version="0.32"
-   inkscape:version="0.46"
+   inkscape:version="0.48.4 r9939"
    version="1.0"
    sodipodi:docname="Smoke_1.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape">
@@ -141,15 +142,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.25"
-     inkscape:cx="1069.6793"
+     inkscape:cx="593.6793"
      inkscape:cy="212.73729"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1680"
      inkscape:window-height="975"
-     inkscape:window-x="0"
-     inkscape:window-y="24" />
+     inkscape:window-x="65"
+     inkscape:window-y="24"
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata2388">
     <rdf:RDF>
@@ -177,28 +179,28 @@
        ry="0" />
     <text
        xml:space="preserve"
-       style="font-size:185.20953369px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3.75001788;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-       x="963.16443"
+       style="font-size:185.20953369px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3.75001788;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       x="962.81787"
        y="416.01318"
        id="text2395"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan2397"
-         x="963.16443"
+         x="962.81787"
          y="416.01318"
-         style="font-size:131.25064087px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3.75001788;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans Bold">The Title</tspan></text>
+         style="font-size:131.25064087px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3.75001788;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans Bold">The Title</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:81.3274231px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:0.76078431;stroke:#ffffff;stroke-width:2.81251335;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-       x="959.37164"
+       style="font-size:81.3274231px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:0.76078431;stroke:#ffffff;stroke-width:2.81251335;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       x="959.02515"
        y="511.03632"
        id="text3161"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3163"
-         x="959.37164"
+         x="959.02515"
          y="511.03632"
-         style="font-size:81.3274231px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:0.76078431;stroke:#ffffff;stroke-width:2.81251335;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans Bold">Sub-Title</tspan></text>
+         style="font-size:81.3274231px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:0.76078431;stroke:#ffffff;stroke-width:2.81251335;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans Bold">Sub-Title</tspan></text>
     <path
        style="fill:url(#linearGradient5276);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 2.2572173,220.9866 C 57.486196,255.87053 -5.9016174,326.10981 49.327374,360.99375 C -4.2967279,236.97131 232.58446,112.87276 282.79531,380.79272 C 316.68581,324.22418 280.84534,280.9489 273.38127,229.47187 C 267.03809,185.72519 128.14165,140.46951 130.28802,113.50635 C 138.0119,16.477979 313.19035,15.459145 382.58402,68.251519 C 406.79296,86.668857 419.35209,109.54478 393.80992,121.6367 C 358.78387,138.21838 224.03982,125.59044 205.60025,164.41808 C 265.85004,112.56357 510.58172,172.17928 544.50536,124.82006 C 552.06755,114.26283 493.30075,135.48381 480.47369,106.76633 C 469.57398,82.363787 580.23779,60.377978 623.58321,65.423093 C 664.34185,70.167125 713.43264,107.46792 732.78592,136.13377 C 746.39647,156.2936 647.24087,214.51791 648.18428,239.15655 C 666.3432,262.79838 731.85477,164.03104 816.203,195.67287 C 897.37157,348.50467 794.91087,94.810029 875.87912,93.707367 C 904.88117,93.312407 942.26075,79.786647 957.49015,87.563907 C 996.95797,107.71909 1024.1454,148.32084 1052.8629,175.73176 C 1232.3344,347.03751 1338.9121,320.15774 1278.7996,308.66785 C 1201.5013,291.35786 1014.6935,126.81119 1143.2376,107.8495 C 1194.1854,100.33414 1306.0997,74.998905 1361.6432,90.878937 C 1395.7342,100.62564 1390.0576,156.54386 1410.173,185.89077 C 1480.6056,221.1596 1368.4059,253.60001 1438.8384,288.86885 C 1419.8354,247.91925 1524.5948,144.19576 1525.7073,125.41577 C 1526.9073,105.16114 1528.7394,95.037019 1566.1179,96.866763 C 1593.8878,98.22613 1745.5227,260.80612 1755.6629,336.4412 C 1768.8488,355.34924 1691.128,400.06845 1704.314,418.97648 C 1704.314,367.12199 1790.444,253.12 1743.4872,220.413 C 1631.8004,142.61911 1781.9971,151.68543 1798.4541,192.70233 C 1810.3132,222.25894 1881.2975,251.1565 1922.7193,280.38359 C 1921.4642,187.04548 1920.209,93.707377 1918.9538,0.3692712 C 1277.5445,0.3692712 636.13526,0.3692712 -5.274013,0.3692712 C -2.7636024,73.908376 -0.25319194,147.44748 2.2572173,220.9866 z"

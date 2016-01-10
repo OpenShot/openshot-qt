@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>851</width>
-    <height>400</height>
+    <width>760</width>
+    <height>416</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -104,20 +104,17 @@
         </widget>
        </item>
        <item row="3" column="1">
-        <widget class="QLineEdit" name="txtLine1">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
+        <widget class="QTextEdit" name="txtLine1">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
          <property name="minimumSize">
           <size>
-           <width>69</width>
-           <height>0</height>
+           <width>0</width>
+           <height>28</height>
           </size>
          </property>
         </widget>
@@ -130,9 +127,18 @@
         </widget>
        </item>
        <item row="4" column="1">
-        <widget class="QLineEdit" name="txtLine2">
-         <property name="enabled">
-          <bool>false</bool>
+        <widget class="QTextEdit" name="txtLine2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>28</height>
+          </size>
          </property>
         </widget>
        </item>
@@ -144,9 +150,18 @@
         </widget>
        </item>
        <item row="5" column="1">
-        <widget class="QLineEdit" name="txtLine3">
-         <property name="enabled">
-          <bool>false</bool>
+        <widget class="QTextEdit" name="txtLine3">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>28</height>
+          </size>
          </property>
         </widget>
        </item>
@@ -158,13 +173,45 @@
         </widget>
        </item>
        <item row="6" column="1">
-        <widget class="QLineEdit" name="txtLine4">
-         <property name="enabled">
-          <bool>false</bool>
+        <widget class="QTextEdit" name="txtLine4">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>28</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0">
+        <widget class="QLabel" name="lblLine5">
+         <property name="text">
+          <string>Line 5:</string>
          </property>
         </widget>
        </item>
        <item row="7" column="1">
+        <widget class="QTextEdit" name="txtLine5">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>28</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="1">
         <spacer name="verticalSpacer_2">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -177,7 +224,14 @@
          </property>
         </spacer>
        </item>
-       <item row="8" column="1">
+       <item row="10" column="0">
+        <widget class="QLabel" name="lblFont">
+         <property name="text">
+          <string>Font:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="1">
         <widget class="QPushButton" name="btnFont">
          <property name="enabled">
           <bool>false</bool>
@@ -187,7 +241,14 @@
          </property>
         </widget>
        </item>
-       <item row="9" column="1">
+       <item row="11" column="0">
+        <widget class="QLabel" name="lblTextColor">
+         <property name="text">
+          <string>Text:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="1">
         <widget class="QPushButton" name="btnFontColor">
          <property name="enabled">
           <bool>false</bool>
@@ -200,7 +261,14 @@
          </property>
         </widget>
        </item>
-       <item row="10" column="1">
+       <item row="12" column="0">
+        <widget class="QLabel" name="lblBackColor">
+         <property name="text">
+          <string>Background:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="1">
         <widget class="QPushButton" name="btnBackgroundColor">
          <property name="enabled">
           <bool>false</bool>
@@ -213,7 +281,14 @@
          </property>
         </widget>
        </item>
-       <item row="11" column="1">
+       <item row="13" column="0">
+        <widget class="QLabel" name="lblAdvanced">
+         <property name="text">
+          <string>Advanced:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="13" column="1">
         <widget class="QPushButton" name="btnAdvanced">
          <property name="enabled">
           <bool>false</bool>
@@ -223,31 +298,26 @@
          </property>
         </widget>
        </item>
+       <item row="8" column="1">
+        <widget class="QTextEdit" name="txtLine6">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>28</height>
+          </size>
+         </property>
+        </widget>
+       </item>
        <item row="8" column="0">
-        <widget class="QLabel" name="lblFont">
+        <widget class="QLabel" name="lblLine6">
          <property name="text">
-          <string>Font:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="9" column="0">
-        <widget class="QLabel" name="lblTextColor">
-         <property name="text">
-          <string>Text:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="10" column="0">
-        <widget class="QLabel" name="lblBackColor">
-         <property name="text">
-          <string>Background:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="11" column="0">
-        <widget class="QLabel" name="lblAdvanced">
-         <property name="text">
-          <string>Advanced:</string>
+          <string>Line 6:</string>
          </property>
         </widget>
        </item>
@@ -259,8 +329,6 @@
  </widget>
  <tabstops>
   <tabstop>cmbTemplate</tabstop>
-  <tabstop>txtLine1</tabstop>
-  <tabstop>txtLine2</tabstop>
   <tabstop>btnFont</tabstop>
   <tabstop>btnFontColor</tabstop>
   <tabstop>btnBackgroundColor</tabstop>

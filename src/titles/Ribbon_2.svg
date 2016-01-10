@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -13,7 +14,7 @@
    height="1080"
    id="svg2383"
    sodipodi:version="0.32"
-   inkscape:version="0.46"
+   inkscape:version="0.48.4 r9939"
    version="1.0"
    sodipodi:docname="Ribbon_2.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape">
@@ -106,15 +107,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.5"
-     inkscape:cx="981.84677"
+     inkscape:cx="743.84677"
      inkscape:cy="503.96234"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1680"
      inkscape:window-height="975"
-     inkscape:window-x="0"
-     inkscape:window-y="24" />
+     inkscape:window-x="65"
+     inkscape:window-y="24"
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata2388">
     <rdf:RDF>
@@ -147,7 +149,7 @@
        sodipodi:nodetypes="ccccc" />
     <text
        xml:space="preserve"
-       style="font-size:81.3274231px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#6f82c1;fill-opacity:1;stroke:#ffffff;stroke-width:2.81251335;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       style="font-size:81.3274231px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#6f82c1;fill-opacity:1;stroke:#ffffff;stroke-width:2.81251335;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
        x="959.02515"
        y="235.02744"
        id="text3161"
@@ -156,7 +158,7 @@
          id="tspan3163"
          x="959.02515"
          y="235.02744"
-         style="font-size:81.3274231px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#6f82c1;fill-opacity:1;stroke:#ffffff;stroke-width:2.81251335;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans Bold">Sub-Title</tspan></text>
+         style="font-size:81.3274231px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#6f82c1;fill-opacity:1;stroke:#ffffff;stroke-width:2.81251335;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans Bold">Sub-Title</tspan></text>
     <path
        style="opacity:0.76859502;fill:#6f82c1;fill-opacity:1;stroke:none;stroke-width:1.5;stroke-miterlimit:4;stroke-opacity:1"
        d="M -0.050735509,43.999997 C 655.44874,118.60889 1305.1033,129.24364 1945.9981,43.999997 L 1945.9981,224 C 1289.5924,131.01978 641.7467,141.10031 -0.050735509,224 L -0.050735509,43.999997 z"
@@ -164,7 +166,7 @@
        sodipodi:nodetypes="ccccc" />
     <text
        xml:space="preserve"
-       style="font-size:185.20953369px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#324da7;fill-opacity:1;stroke:#ffffff;stroke-width:3.75001788;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       style="font-size:185.20953369px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#324da7;fill-opacity:1;stroke:#ffffff;stroke-width:3.75001788;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
        x="962.81787"
        y="154.0043"
        id="text2395"
@@ -173,6 +175,6 @@
          id="tspan2397"
          x="962.81787"
          y="154.0043"
-         style="font-size:131.25064087px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#324da7;fill-opacity:1;stroke:#ffffff;stroke-width:3.75001788;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans Bold">The Title</tspan></text>
+         style="font-size:131.25064087px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#324da7;fill-opacity:1;stroke:#ffffff;stroke-width:3.75001788;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans Bold">The Title</tspan></text>
   </g>
 </svg>

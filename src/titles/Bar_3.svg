@@ -14,7 +14,7 @@
    height="1080"
    id="svg2383"
    sodipodi:version="0.32"
-   inkscape:version="0.47 r22583"
+   inkscape:version="0.48.4 r9939"
    version="1.0"
    sodipodi:docname="Bar_3.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape">
@@ -227,7 +227,7 @@
        fx="922.56451"
        fy="413.05423"
        r="638.25861"
-       gradientTransform="matrix(1,0,0,0.05818239,1.3069305,977.43371)"
+       gradientTransform="matrix(1,0,0,0.05818239,-200.15323,977.43371)"
        gradientUnits="userSpaceOnUse" />
     <inkscape:perspective
        id="perspective3664"
@@ -335,14 +335,14 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.30925926"
-     inkscape:cx="376.45766"
+     inkscape:cx="-8.3327582"
      inkscape:cy="493.75476"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1680"
-     inkscape:window-height="936"
-     inkscape:window-x="0"
+     inkscape:window-width="1855"
+     inkscape:window-height="1056"
+     inkscape:window-x="65"
      inkscape:window-y="24"
      inkscape:window-maximized="1" />
   <metadata
@@ -379,7 +379,7 @@
        y="908.62274" />
     <text
        xml:space="preserve"
-       style="font-size:116.20991516px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:url(#radialGradient3654);fill-opacity:1;stroke:none;filter:url(#filter3998);font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       style="font-size:116.20991516px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:url(#radialGradient3654);fill-opacity:1;stroke:none;filter:url(#filter3998);font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
        x="961.7674"
        y="1026.9"
        id="text2395"

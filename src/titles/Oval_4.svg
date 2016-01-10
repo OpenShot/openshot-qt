@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -13,9 +14,9 @@
    height="1080"
    id="svg2383"
    sodipodi:version="0.32"
-   inkscape:version="0.46"
+   inkscape:version="0.48.4 r9939"
    version="1.0"
-   sodipodi:docname="title4.svg"
+   sodipodi:docname="Oval_4.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape">
   <defs
      id="defs2385">
@@ -169,6 +170,26 @@
        x2="785.15387"
        y2="-626.11884"
        gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3313"
+       id="linearGradient3022"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-647.56927,-410.57579)"
+       x1="950.34961"
+       y1="-143.79062"
+       x2="950.34961"
+       y2="-217.38409" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3319"
+       id="linearGradient3024"
+       gradientUnits="userSpaceOnUse"
+       x1="785.15387"
+       y1="-540.48767"
+       x2="785.15387"
+       y2="-626.11884"
+       gradientTransform="translate(-645.91083,0)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -181,15 +202,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.35355339"
-     inkscape:cx="381.58832"
+     inkscape:cx="45.005492"
      inkscape:cy="422.8321"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1680"
      inkscape:window-height="975"
-     inkscape:window-x="0"
-     inkscape:window-y="24" />
+     inkscape:window-x="75"
+     inkscape:window-y="34"
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata2388">
     <rdf:RDF>
@@ -247,28 +269,28 @@
        sodipodi:nodetypes="ccccc" />
     <text
        xml:space="preserve"
-       style="font-size:185.20953369000002908px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:url(#linearGradient3309);fill-opacity:1;stroke:url(#linearGradient3325);stroke-width:3.75001788000000014;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-       x="962.82477"
+       style="font-size:185.20953369px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:url(#linearGradient3022);fill-opacity:1;stroke:url(#linearGradient3024);stroke-width:3.75001788;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       x="962.81787"
        y="-544.32312"
        id="text3287"
        sodipodi:linespacing="125%"
        transform="scale(1,-1)"><tspan
          sodipodi:role="line"
          id="tspan3289"
-         x="962.82477"
+         x="962.81787"
          y="-544.32312"
-         style="font-size:131.25064087000001223px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:url(#linearGradient3309);fill-opacity:1;stroke:url(#linearGradient3325);stroke-width:3.75001788000000014;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans Bold">The Title</tspan></text>
+         style="font-size:131.25064087px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:url(#linearGradient3022);fill-opacity:1;stroke:url(#linearGradient3024);stroke-width:3.75001788;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans Bold">The Title</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:185.20953369px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#324da7;fill-opacity:1;stroke:#ffffff;stroke-width:3.75001788;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-       x="962.82477"
+       style="font-size:185.20953369px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#324da7;fill-opacity:1;stroke:#ffffff;stroke-width:3.75001788;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       x="962.81787"
        y="535.29547"
        id="text2395"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan2397"
-         x="962.82477"
+         x="962.81787"
          y="535.29547"
-         style="font-size:131.25064087px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#324da7;fill-opacity:1;stroke:#ffffff;stroke-width:3.75001788;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans Bold">The Title</tspan></text>
+         style="font-size:131.25064087px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#324da7;fill-opacity:1;stroke:#ffffff;stroke-width:3.75001788;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans Bold">The Title</tspan></text>
   </g>
 </svg>

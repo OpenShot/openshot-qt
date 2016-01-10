@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    xmlns:i="http://ns.adobe.com/AdobeIllustrator/10.0/"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -14,9 +15,9 @@
    height="1080"
    id="svg2383"
    sodipodi:version="0.32"
-   inkscape:version="0.46"
+   inkscape:version="0.48.4 r9939"
    version="1.0"
-   sodipodi:docname="Creative_Commons.svg"
+   sodipodi:docname="Creative_Commons_1.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape">
   <defs
      id="defs2385">
@@ -82,15 +83,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.35355339"
-     inkscape:cx="800.91024"
+     inkscape:cx="127.74458"
      inkscape:cy="471.52762"
      inkscape:document-units="px"
-     inkscape:current-layer="Foreground"
+     inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1680"
      inkscape:window-height="975"
-     inkscape:window-x="0"
-     inkscape:window-y="24" />
+     inkscape:window-x="75"
+     inkscape:window-y="34"
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata2388">
     <rdf:RDF>
@@ -107,57 +109,14 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#000000;fill-opacity:1;stroke:none"
        id="rect3160"
        width="1918.3669"
        height="1079.8783"
-       x="1.6596142"
+       x="0.81652832"
        y="0.062805362"
        rx="0"
        ry="0" />
-    <text
-       xml:space="preserve"
-       style="font-size:191.19503784px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3.87120891;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-       x="930.75604"
-       y="483.76422"
-       id="text2395"
-       sodipodi:linespacing="125%"
-       transform="scale(1.0324386,0.9685806)"><tspan
-         sodipodi:role="line"
-         id="tspan2397"
-         x="941.84796"
-         y="483.76422"
-         style="font-size:69.68175507px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3.87120891;stroke-miterlimit:4;stroke-dasharray:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans">This video features the song </tspan><tspan
-         sodipodi:role="line"
-         x="930.75604"
-         y="570.86639"
-         style="font-size:69.68175507px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3.87120891;stroke-miterlimit:4;stroke-dasharray:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-         id="tspan3422" /><tspan
-         sodipodi:role="line"
-         x="930.75604"
-         y="657.96863"
-         style="font-size:69.68175507px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3.87120891;stroke-miterlimit:4;stroke-dasharray:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-         id="tspan3432">“SONG TITLE”</tspan><tspan
-         sodipodi:role="line"
-         x="930.75604"
-         y="745.0708"
-         style="font-size:69.68175507px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3.87120891;stroke-miterlimit:4;stroke-dasharray:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-         id="tspan3426">by AUTHOR_NAME</tspan><tspan
-         sodipodi:role="line"
-         x="930.75604"
-         y="832.17297"
-         style="font-size:69.68175507px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3.87120891;stroke-miterlimit:4;stroke-dasharray:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-         id="tspan3424" /><tspan
-         sodipodi:role="line"
-         x="941.84796"
-         y="919.27521"
-         style="font-size:69.68175507px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3.87120891;stroke-miterlimit:4;stroke-dasharray:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-         id="tspan3430">available under a </tspan><tspan
-         sodipodi:role="line"
-         x="930.75604"
-         y="1006.3774"
-         style="font-size:69.68175507px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3.87120891;stroke-miterlimit:4;stroke-dasharray:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-         id="tspan3428">Creative Commons license</tspan></text>
     <rect
        style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect3420"
@@ -313,5 +272,70 @@
         </g>
       </g>
     </switch>
+    <text
+       xml:space="preserve"
+       style="font-size:191.19503784px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       x="929.93945"
+       y="482.56055"
+       id="text2395-6"
+       sodipodi:linespacing="125%"
+       transform="scale(1.0324386,0.9685806)"><tspan
+         sodipodi:role="line"
+         x="941.03137"
+         y="482.56055"
+         style="font-size:69.68175507px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+         id="tspan3428-2">This video features the song </tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:191.19503784px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       x="929.99048"
+       y="654.85101"
+       id="text2395-1"
+       sodipodi:linespacing="125%"
+       transform="scale(1.0324386,0.9685806)"><tspan
+         sodipodi:role="line"
+         x="929.99048"
+         y="654.85101"
+         style="font-size:69.68175507px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+         id="tspan3428-8">“SONG TITLE”</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:191.19503784px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       x="928.93573"
+       y="743.25464"
+       id="text2395-1-2"
+       sodipodi:linespacing="125%"
+       transform="scale(1.0324386,0.9685806)"><tspan
+         sodipodi:role="line"
+         x="928.93573"
+         y="743.25464"
+         style="font-size:69.68175507px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+         id="tspan3428-8-8">by AUTHOR_NAME</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:191.19503784px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       x="930.92615"
+       y="920.11475"
+       id="text2395-1-2-2"
+       sodipodi:linespacing="125%"
+       transform="scale(1.0324386,0.9685806)"><tspan
+         sodipodi:role="line"
+         x="930.92615"
+         y="920.11475"
+         style="font-size:69.68175507px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+         id="tspan3428-8-8-1">available under a</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:191.19503784px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       x="929.73529"
+       y="1006.683"
+       id="text2395-1-2-2-7"
+       sodipodi:linespacing="125%"
+       transform="scale(1.0324386,0.9685806)"><tspan
+         sodipodi:role="line"
+         x="929.73529"
+         y="1006.683"
+         style="font-size:69.68175507px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+         id="tspan3428-8-8-1-8">Creative Commons license</tspan></text>
   </g>
 </svg>
