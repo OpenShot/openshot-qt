@@ -68,14 +68,14 @@ class TimelineSync(UpdateInterface):
     def changed(self, action):
         """ This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """
 
-        # Get speed of player
-        current_speed = self.window.preview_thread.player.Speed()
-
         # Ignore changes that don't affect libopenshot
         if len(action.key) >= 1 and action.key[0].lower() in ["files", "markers", "layers", "export_path"]:
             return
 
         elif len(action.key) >= 1 and action.key[0].lower() in ["profile"]:
+            # Get speed of player
+            current_speed = self.window.preview_thread.player.Speed()
+
             # Stop preview thread
             self.window.preview_thread.Speed(0)
 
@@ -88,6 +88,9 @@ class TimelineSync(UpdateInterface):
 
         # Pass the change to the libopenshot timeline
         try:
+            # Get speed of player
+            current_speed = self.window.preview_thread.player.Speed()
+
             # Stop preview thread
             self.window.preview_thread.Speed(0)
 

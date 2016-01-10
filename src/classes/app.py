@@ -50,7 +50,6 @@ class OpenShotApp(QApplication):
         # Setup appication
         self.setApplicationName('openshot')
         self.setApplicationVersion(info.SETUP['version'])
-        # self.setWindowIcon(QIcon("xdg/openshot.svg"))
 
         # Init settings
         self.settings = settings.SettingStore()
@@ -78,18 +77,21 @@ class OpenShotApp(QApplication):
         # Track which dockable window received a context menu
         self.context_menu_object = None
 
-        # Set Experimental Dark Theme
-        if self.settings.get("theme") == "Humanity: Dark":
-            # Only set if dark theme selected
-            self.setStyle(QStyleFactory.create("Fusion"))
-
+        # Set Font for any theme
+        if self.settings.get("theme") != "No Theme":
             # Load embedded font
+            log.info("Setting font to %s" % os.path.join(info.IMAGES_PATH, "fonts", "Ubuntu-R.ttf"))
             font_id = QFontDatabase.addApplicationFont(os.path.join(info.IMAGES_PATH, "fonts", "Ubuntu-R.ttf"))
             font_family = QFontDatabase.applicationFontFamilies(font_id)[0]
-
             font = QFont(font_family)
             font.setPointSizeF(10.5)
             QApplication.setFont(font)
+
+        # Set Experimental Dark Theme
+        if self.settings.get("theme") == "Humanity: Dark":
+            # Only set if dark theme selected
+            log.info("Setting custom dark theme")
+            self.setStyle(QStyleFactory.create("Fusion"))
 
             darkPalette = self.palette()
             darkPalette.setColor(QPalette.Window, QColor(53, 53, 53))
@@ -111,6 +113,16 @@ class OpenShotApp(QApplication):
         from windows.main_window import MainWindow
         self.window = MainWindow()
         self.window.show()
+
+        log.info('Process command-line arguments: %s' % args)
+        if len(args[0]) == 2:
+            path = args[0][1]
+            if ".osp" in path:
+                # Auto load project passed as argument
+                self.window.open_project(path)
+            else:
+                # Auto import media file
+                self.window.filesTreeView.add_file(path)
 
     def _tr(self, message):
         return self.translate("", message)

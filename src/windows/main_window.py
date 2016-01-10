@@ -245,7 +245,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         for file_path in files:
             self.filesTreeView.add_file(file_path)
             self.filesTreeView.refresh_view()
-            log.info("Loaded project {}".format(file_path))
+            log.info("Imported media file {}".format(file_path))
 
     def actionAdd_to_Timeline_trigger(self, event):
         # Loop through selected files

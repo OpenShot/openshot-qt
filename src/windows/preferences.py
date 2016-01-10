@@ -27,18 +27,17 @@
  """
 
 import os
-import sys
+import operator
 import functools
 
 from PyQt5.QtCore import *
-from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 
 from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
-from windows.profile_manager import ProfileManager
+import openshot
 
 
 class Preferences(QDialog):
@@ -140,9 +139,23 @@ class Preferences(QDialog):
                     # create spinner
                     widget = QComboBox()
 
+                    # Get values
+                    value_list = param["values"]
+                    # Overwrite value list (for profile dropdown)
+                    if param["setting"] == "default-profile":
+                        value_list = []
+                        # Loop through profiles
+                        for file in os.listdir(info.PROFILES_PATH):
+                            # Load Profile and append description
+                            profile_path = os.path.join(info.PROFILES_PATH, file)
+                            profile = openshot.Profile(profile_path)
+                            value_list.append({"name":profile.info.description, "value":profile.info.description})
+                        # Sort profile list
+                        value_list.sort(key=operator.itemgetter("name"))
+
                     # Add normal values
                     box_index = 0
-                    for value_item in param["values"]:
+                    for value_item in value_list:
                         k = value_item["name"]
                         v = value_item["value"]
                         # add dropdown item

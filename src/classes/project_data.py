@@ -242,8 +242,29 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
     # Load default project data
     def new(self):
         """ Try to load default project settings file, will raise error on failure """
+        import openshot
         self._data = self.read_from_file(self.default_project_filepath)
         self.current_filepath = None
+
+        # Get default profile
+        s = settings.get_settings()
+        default_profile = s.get("default-profile")
+
+        # Loop through profiles
+        for file in os.listdir(info.PROFILES_PATH):
+            # Load Profile and append description
+            profile_path = os.path.join(info.PROFILES_PATH, file)
+            profile = openshot.Profile(profile_path)
+
+            if default_profile == profile.info.description:
+                log.info("Setting default profile to %s" % profile.info.description)
+
+                # Update default profile
+                self._data["profile"] = profile.info.description
+                self._data["width"] = profile.info.width
+                self._data["height"] = profile.info.height
+                self._data["fps"] = {"num" : profile.info.fps.num, "den" : profile.info.fps.den}
+                self._data["profile"] = profile.info.description
 
         # Clear any previous thumbnails
         if os.path.exists(info.THUMBNAIL_PATH):

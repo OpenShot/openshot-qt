@@ -110,33 +110,24 @@
     "setting": "recent_projects"
   },
   {
-    "value": "NTSC 720p",
+    "value": "HDV 720 24p",
     "title": "Default Profile",
     "category": "Profiles",
     "setting": "default-profile",
     "type": "dropdown",
-    "values": [
-      {
-        "value": "NTSC 720p",
-        "name": "NTSC 720p"
-      },
-      {
-        "value": "NTSC 1080p",
-        "name": "NTSC 1080p"
-      }
-    ]
+    "values": []
   },
   {
     "value": false,
     "title": "Enable Autosave",
-    "type": "bool",
+    "type": "hidden",
     "category": "Autosave",
     "setting": "enable-auto-save"
   },
   {
     "value": false,
     "title": "Save Before Playback",
-    "type": "bool",
+    "type": "hidden",
     "category": "Autosave",
     "setting": "save-before-playback"
   },
@@ -147,6 +138,6 @@
     "min": 0,
     "setting": "autosave-interval",
     "value": 5,
-    "type": "spinner"
+    "type": "hidden"
   }
 ]
