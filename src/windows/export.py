@@ -71,13 +71,17 @@ class Export(QDialog):
         self.buttonBox.addButton(QPushButton(_('Cancel')), QDialogButtonBox.RejectRole)
 
         # Default export path
+        recommended_path = recommended_path = os.path.join(info.HOME_PATH)
+        if app.project.current_filepath:
+            recommended_path = os.path.dirname(app.project.current_filepath)
+
         export_path = get_app().project.get(["export_path"])
         if os.path.exists(export_path):
             # Use last selected export path
             self.txtExportFolder.setText(export_path)
         else:
             # Default to home dir
-            self.txtExportFolder.setText(info.HOME_PATH)
+            self.txtExportFolder.setText(recommended_path)
 
         # Is this a saved project?
         if not get_app().project.current_filepath:
@@ -399,11 +403,12 @@ class Export(QDialog):
         _ = app._tr
 
         # update export folder path
-        file_path = QFileDialog.getExistingDirectory(self, _("Choose a Folder..."))
-        self.txtExportFolder.setText(file_path)
+        file_path = QFileDialog.getExistingDirectory(self, _("Choose a Folder..."), self.txtExportFolder.text())
+        if os.path.exists(file_path):
+            self.txtExportFolder.setText(file_path)
 
-        # update export folder path in project file
-        get_app().updates.update(["export_path"], file_path)
+            # update export folder path in project file
+            get_app().updates.update(["export_path"], file_path)
 
     def convert_to_bytes(self, BitRateString):
         bit_rate_bytes = 0

@@ -241,7 +241,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
     def actionImportFiles_trigger(self, event):
         app = get_app()
         _ = app._tr
-        files = QFileDialog.getOpenFileNames(self, _("Import File..."))[0]
+        recommended_path = app.project.current_filepath
+        if not recommended_path:
+            recommended_path = os.path.join(info.HOME_PATH)
+        files = QFileDialog.getOpenFileNames(self, _("Import File..."), recommended_path)[0]
         for file_path in files:
             self.filesTreeView.add_file(file_path)
             self.filesTreeView.refresh_view()
