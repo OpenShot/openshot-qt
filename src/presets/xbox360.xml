@@ -18,4 +18,5 @@
 	<samplerate>44100</samplerate>
 	<projectprofile>DV/DVD Widescreen NTSC</projectprofile>
 	<projectprofile>HD 720p 29.97 fps</projectprofile>
+	<projectprofile>HD 1080p 29.97 fps</projectprofile>
 </export-option>

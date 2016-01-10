@@ -26,16 +26,48 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import logging, os
+import logging
+import os, sys
+from logging.handlers import RotatingFileHandler
 from classes import info
 
-# Initialize logging module, give basic formats and level we want to report
-logging.basicConfig(filename=os.path.join(info.USER_PATH, 'openshot-qt.log'),
-                    format="%(module)12s:%(levelname)s %(message)s",
-                    datefmt='%H:%M:%S',
-                    level=logging.INFO)
 
-# Get OpenShot logger and set log level
-# Alternative spaced out format: "%(asctime)s %(levelname)-7s %(module)-12s %(message)s"
+class StreamToLogger(object):
+    """Custom class to log all stdout and stderr streams (from libopenshot / and other libraries)"""
+    def __init__(self, logger, log_level=logging.INFO):
+        self.logger = logger
+        self.log_level = log_level
+        self.linebuf = ''
+
+    def write(self, buf):
+        for line in buf.rstrip().splitlines():
+            self.logger.log(self.log_level, line.rstrip())
+
+    def flush(self):
+        pass
+
+# Initialize logging module, give basic formats and level we want to report
+logging.basicConfig(format="%(module)12s:%(levelname)s %(message)s",
+                    datefmt='%H:%M:%S',
+                    level=logging.DEBUG)
+
+# Create a formatter
+formatter = logging.Formatter('%(module)12s:%(levelname)s %(message)s')
+
+# Get logger instance & set level
 log = logging.getLogger('OpenShot')
 log.setLevel(logging.DEBUG)
+
+# Add rotation file handler
+fh = RotatingFileHandler(
+    os.path.join(info.USER_PATH, 'openshot-qt.log'), encoding="utf-8", maxBytes=25*1024*1024, backupCount=3)
+fh.setFormatter(formatter)
+log.addHandler(fh)
+
+# Route stdout and stderr to logger (custom handler)
+so = StreamToLogger(log, logging.INFO)
+sys.stdout = so
+
+se = StreamToLogger(log, logging.ERROR)
+sys.stderr = se
+

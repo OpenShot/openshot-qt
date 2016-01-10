@@ -17,4 +17,5 @@
 	 high="320 kb/s"></audiobitrate>
 	<samplerate>44100</samplerate>
 	<projectprofile>VGA NTSC</projectprofile>
+	<projectprofile>VGA Widescreen NTSC</projectprofile>
 </export-option>
