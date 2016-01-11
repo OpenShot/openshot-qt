@@ -67,8 +67,10 @@ class Export(QDialog):
         self.settings_data = settings.get_settings().get_all_settings()
 
         # Add buttons to interface
-        self.buttonBox.addButton(QPushButton(_('Export Video')), QDialogButtonBox.AcceptRole)
+        self.export_button = QPushButton(_('Export Video'))
+        self.buttonBox.addButton(self.export_button, QDialogButtonBox.AcceptRole)
         self.buttonBox.addButton(QPushButton(_('Cancel')), QDialogButtonBox.RejectRole)
+        self.exporting = False
 
         # Default export path
         recommended_path = recommended_path = os.path.join(info.HOME_PATH)
@@ -439,7 +441,8 @@ class Export(QDialog):
         self.txtFileName.setEnabled(False)
         self.txtExportFolder.setEnabled(False)
         self.tabWidget.setEnabled(False)
-        self.buttonBox.setEnabled(False)
+        self.export_button.setEnabled(False)
+        self.exporting = True
 
         # Test the export settings before starting, must be executed out of process
         # to ensure we don't crash Python
@@ -508,6 +511,10 @@ class Export(QDialog):
                 # Write the frame object to the video
                 w.WriteFrame(get_app().window.timeline_sync.timeline.GetFrame(frame))
 
+                # Check if we need to bail out
+                if not self.exporting:
+                    break
+
             # Close writer
             w.Close()
 
@@ -525,6 +532,7 @@ class Export(QDialog):
     def reject(self):
 
         log.info("Start Reject")
+        self.exporting = False
 
         # Cancel dialog
         super(Export, self).reject()
