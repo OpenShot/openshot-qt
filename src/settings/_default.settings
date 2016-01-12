@@ -95,15 +95,7 @@
     "setting": "effects_view"
   },
   {
-    "value": [
-      "/home/jonathan/_keyframes.osp",
-      "/home/jonathan/many_keyframes.osp",
-      "/home/jonathan/_transition-project.osp",
-      "/home/jonathan/_rotation.osp",
-      "/home/jonathan/Cat Project.osp",
-      "/home/jonathan/_testproject.osp",
-      "/home/jonathan/test.osp"
-    ],
+    "value": [],
     "title": "",
     "type": "hidden",
     "category": "UI",
