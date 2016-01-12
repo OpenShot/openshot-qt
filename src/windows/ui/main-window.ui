@@ -169,6 +169,8 @@
    <addaction name="separator"/>
    <addaction name="actionImportFiles"/>
    <addaction name="actionProfile"/>
+   <addaction name="actionFullscreen"/>
+   <addaction name="actionExit_Fullscreen"/>
    <addaction name="separator"/>
    <addaction name="actionExportVideo"/>
   </widget>
