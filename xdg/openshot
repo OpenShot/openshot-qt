@@ -1,1 +1,0 @@
-application/vnd.openshot-project; /usr/bin/openshot '%s'; test=test -n "$DISPLAY"; priority=5

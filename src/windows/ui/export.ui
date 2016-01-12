@@ -21,7 +21,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../../../../../openshot_qt/xdg/openshot.svg</normaloff>../../../../../openshot_qt/xdg/openshot.svg</iconset>
+    <normaloff>../../images/openshot.svg</normaloff>../../images/openshot.svg</iconset>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>

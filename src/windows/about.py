@@ -103,7 +103,7 @@ class License(QDialog):
         _ = self.app._tr
 
         # Init license
-        with open(os.path.join(os.path.dirname(info.PATH), 'COPYING'), 'r') as my_license:
+        with open(os.path.join(info.PATH, 'settings', 'license.txt'), 'r') as my_license:
             text = my_license.read()
             self.textBrowser.append(text)
 

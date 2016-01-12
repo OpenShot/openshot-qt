@@ -67,13 +67,13 @@ if not os.getenv("FAKEROOTKEY") == None:
 
 os_files = [
     # XDG application description
-    ('share/applications', ['xdg/openshot.desktop']),
+    ('share/applications', ['xdg/openshot-qt.desktop']),
     # XDG application icon
-    ('share/pixmaps', ['xdg/openshot.svg']),
+    ('share/pixmaps', ['xdg/openshot-qt.svg']),
     # XDG desktop mime types cache
-    ('share/mime/packages', ['xdg/openshot.xml']),
+    ('share/mime/packages', ['xdg/openshot-qt.xml']),
     # launcher (mime.types)
-    ('lib/mime/packages', ['xdg/openshot']),
+    ('lib/mime/packages', ['xdg/openshot-qt']),
 ]
 
 # Find files matching patterns
