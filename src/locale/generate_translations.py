@@ -230,8 +230,18 @@ for file in os.listdir(transitions_path):
         full_subfile_path = os.path.join(full_file_path, sub_file)
         (fileBaseName, fileExtension) = os.path.splitext(sub_file)
 
+        # split the name into parts (looking for a number)
+        suffix_number = None
+        name_parts = fileBaseName.split("_")
+        if name_parts[-1].isdigit():
+            suffix_number = name_parts[-1]
+
         # get transition name
         name = fileBaseName.replace("_", " ").capitalize()
+
+        # replace suffix number with placeholder (if any)
+        if suffix_number:
+            name = name.replace(suffix_number, "%s")
 
         # add text to list
         transitions_text[name] = full_subfile_path

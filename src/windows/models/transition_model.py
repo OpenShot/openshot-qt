@@ -102,8 +102,21 @@ class TransitionsModel():
                 if filename[0] == "." or "thumbs.db" in filename.lower():
                     continue
 
+                # split the name into parts (looking for a number)
+                suffix_number = None
+                name_parts = fileBaseName.split("_")
+                if name_parts[-1].isdigit():
+                    suffix_number = name_parts[-1]
+
                 # get name of transition
                 trans_name = fileBaseName.replace("_", " ").capitalize()
+
+                # replace suffix number with placeholder (if any)
+                if suffix_number:
+                    trans_name = trans_name.replace(suffix_number, "%s")
+                    trans_name = self.app._tr(trans_name) % suffix_number
+                else:
+                    trans_name = self.app._tr(trans_name)
 
                 if not win.actionTransitionsShowAll.isChecked():
                     if win.actionTransitionsShowCommon.isChecked():
@@ -111,7 +124,7 @@ class TransitionsModel():
                             continue  # to next file, didn't match filter
 
                 if win.transitionsFilter.text() != "":
-                    if not win.transitionsFilter.text().lower() in self.app._tr(trans_name).lower():
+                    if not win.transitionsFilter.text().lower() in trans_name.lower():
                         continue
 
                 # Check for thumbnail path (in build-in cache)
@@ -150,15 +163,15 @@ class TransitionsModel():
                 # Append thumbnail
                 col = QStandardItem()
                 col.setIcon(QIcon(thumb_path))
-                col.setText(self.app._tr(trans_name))
-                col.setToolTip(self.app._tr(trans_name))
+                col.setText(trans_name)
+                col.setToolTip(trans_name)
                 col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
                 row.append(col)
 
                 # Append Filename
                 col = QStandardItem("Name")
-                col.setData(self.app._tr(trans_name), Qt.DisplayRole)
-                col.setText(self.app._tr(trans_name))
+                col.setData(trans_name, Qt.DisplayRole)
+                col.setText(trans_name)
                 col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
                 row.append(col)
 

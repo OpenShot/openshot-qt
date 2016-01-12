@@ -493,11 +493,29 @@ class AddToTimeline(QDialog):
                 if filename[0] == "." or "thumbs.db" in filename.lower():
                     continue
 
+                # split the name into parts (looking for a number)
+                suffix_number = None
+                name_parts = fileBaseName.split("_")
+                if name_parts[-1].isdigit():
+                    suffix_number = name_parts[-1]
+
                 # get name of transition
                 trans_name = fileBaseName.replace("_", " ").capitalize()
 
-                # Generate thumbnail for file (if needed)
-                thumb_path = os.path.join(info.CACHE_PATH, "{}.png".format(fileBaseName))
+                # replace suffix number with placeholder (if any)
+                if suffix_number:
+                    trans_name = trans_name.replace(suffix_number, "%s")
+                    trans_name = self.app._tr(trans_name) % suffix_number
+                else:
+                    trans_name = self.app._tr(trans_name)
+
+                # Check for thumbnail path (in build-in cache)
+                thumb_path = os.path.join(info.IMAGES_PATH, "cache",  "{}.png".format(fileBaseName))
+
+                # Check built-in cache (if not found)
+                if not os.path.exists(thumb_path):
+                    # Check user folder cache
+                    thumb_path = os.path.join(info.CACHE_PATH, "{}.png".format(fileBaseName))
 
                 # Add item
                 self.transitions.append(path)
