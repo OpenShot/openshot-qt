@@ -27,6 +27,7 @@
  """
 
 import os
+import locale
 
 from PyQt5.QtCore import QLocale, QLibraryInfo, QTranslator, QCoreApplication
 
@@ -59,6 +60,9 @@ def init_language():
     log.info("Qt Detected Languages: {}".format(QLocale().system().uiLanguages()))
     log.info("LANG Environment Variable: {}".format(os.environ.get('LANG', QLocale().system().name())))
     log.info("LOCALE Environment Variable: {}".format(os.environ.get('LOCALE', QLocale().system().name())))
+
+    # Default the locale to C, for number formatting
+    locale.setlocale(locale.LC_ALL, 'C')
 
     # Loop through environment variables
     found_language = False
