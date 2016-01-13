@@ -212,11 +212,19 @@ class BlenderTreeView(QTreeView):
 
     def color_button_clicked(self, widget, param, index):
         # Show color dialog
-        currentColor = QColor(self.params[param["name"]])
+        log.info('Animation param being changed: %s' % param["name"])
+        color_value = self.params[param["name"]]
+        log.info('Value of param: %s' % color_value)
+        currentColor = QColor("#FFFFFF")
+        if len(color_value) == 3:
+            log.info('Using previous color: %s' % color_value)
+            #currentColor = QColor(color_value[0], color_value[1], color_value[2])
+            currentColor.setRgbF(color_value[0], color_value[1], color_value[2])
         newColor = QColorDialog.getColor(currentColor)
-        widget.setStyleSheet("background-color: {}".format(newColor.name()))
-        self.params[param["name"]] = [newColor.redF(), newColor.greenF(), newColor.blueF()]
-        log.info(newColor.name())
+        if newColor.isValid():
+            widget.setStyleSheet("background-color: {}".format(newColor.name()))
+            self.params[param["name"]] = [newColor.redF(), newColor.greenF(), newColor.blueF()]
+            log.info(newColor.name())
 
     def generateUniqueFolder(self):
         """ Generate a new, unique folder name to contain Blender frames """
