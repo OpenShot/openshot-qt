@@ -62,6 +62,20 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
     # Save window settings on close
     def closeEvent(self, event):
+
+        # Prompt user to save (if needed)
+        if get_app().project.needs_save():
+            log.info('Prompt user to save project')
+            # Translate object
+            _ = get_app()._tr
+
+            # Handle exception
+            ret = QMessageBox.question(self, _("Unsaved Changes"), _("Save changes to project before closing?"), QMessageBox.No | QMessageBox.Yes)
+            if ret == QMessageBox.Yes:
+                # Save project
+                self.actionSave_trigger(event)
+                event.accept()
+
         # Save settings
         self.save_settings()
 

@@ -49,8 +49,15 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         # Set default filepath to user's home folder
         self.current_filepath = None
 
+        # Track changes after save
+        self.has_unsaved_changes = False
+
         # Load default project data on creation
         self.new()
+
+    def needs_save(self):
+        """Returns if project data Has unsaved changes"""
+        return self.has_unsaved_changes
 
     def get(self, key):
         """ Get copied value of a given key in data store """
@@ -245,6 +252,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         import openshot
         self._data = self.read_from_file(self.default_project_filepath)
         self.current_filepath = None
+        self.has_unsaved_changes = False
 
         # Get default profile
         s = settings.get_settings()
@@ -321,6 +329,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         from classes.app import get_app
         get_app().updates.load(self._data)
 
+        # Clear needs save flag
+        self.has_unsaved_changes = False
+
     def save(self, file_path):
         """ Save project file to disk """
 
@@ -341,6 +352,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Add to recent files setting
         self.add_to_recent_files(file_path)
+
+        # Track unsaved changes
+        self.has_unsaved_changes = False
 
     def move_temp_paths_to_project_folder(self, file_path):
         """ Move all temp files (such as Thumbnails, Titles, and Blender animations) to the project folder. """
@@ -511,6 +525,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
     def changed(self, action):
         """ This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """
+        # Track unsaved changes
+        self.has_unsaved_changes = True
+
         if action.type == "insert":
             # Insert new item
             old_vals = self._set(action.key, action.values, add=True)
