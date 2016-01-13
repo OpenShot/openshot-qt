@@ -30,7 +30,7 @@
 import os
 import xml.etree.ElementTree
 
-from PyQt5.QtCore import QDir
+from PyQt5.QtCore import QDir, QLocale
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
@@ -154,6 +154,8 @@ def init_element(window, elem):
         elem.setWindowTitle(_translate("", elem.windowTitle()))
     if hasattr(elem, 'setTitle') and elem.title() != "":
         elem.setTitle(_translate("", elem.title()))
+    if hasattr(elem, 'setLocale'):
+        elem.setLocale(QLocale().system())
     # Handle tabs differently
     if isinstance(elem, QTabWidget):
         for i in range(elem.count()):
