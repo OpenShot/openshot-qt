@@ -103,7 +103,7 @@ def find_files(directory, patterns):
 
 
 # GUI applications require a different base on Windows
-iconFile = "openshot"
+iconFile = "openshot-qt"
 base = None
 src_files = []
 external_so_files = []
