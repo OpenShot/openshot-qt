@@ -645,25 +645,24 @@ class TitleEditor(QDialog):
         _ = self.app._tr
         # use an external editor to edit the image
         try:
-            prog = "inkscape"
-            # check if inkscape is installed
-            if subprocess.call('which ' + prog + ' 2>/dev/null', shell=True) == 0:
-                # launch Inkscape
-                # debug info
-                log.info("Inkscape command: {} {} ".format(prog, self.filename))
+            # Get settings
+            s = settings.get_settings()
 
-                p = subprocess.Popen([prog, self.filename])
+            # get the title editor executable path
+            prog = s.get("title_editor")
 
-                # wait for process to finish (so we can update the preview)
-                p.communicate()
+            # launch advanced title editor
+            # debug info
+            log.info("Advanced title editor command: {} {} ".format(prog, self.filename))
 
-                # update image preview
-                self.load_svg_template()
-                self.display_svg()
-            else:
-                msg = QMessageBox()
-                msg.setText(_("There was an error trying to open {}.").format(prog.capitalize()))
-                msg.exec_()
+            p = subprocess.Popen([prog, self.filename])
+
+            # wait for process to finish (so we can update the preview)
+            p.communicate()
+
+            # update image preview
+            self.load_svg_template()
+            self.display_svg()
 
         except OSError:
             msg = QMessageBox()
