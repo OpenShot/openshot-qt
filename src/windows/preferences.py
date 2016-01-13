@@ -181,7 +181,6 @@ class Preferences(QDialog):
             self.s.set(param["setting"], True)
         else:
             self.s.set(param["setting"], False)
-        log.info(value)
 
     def spinner_value_changed(self, param, value):
         # Save setting
@@ -205,7 +204,3 @@ class Preferences(QDialog):
         value = widget.itemData(index)
         self.s.set(param["setting"], value)
         log.info(value)
-
-    def load_profile_manager(self):
-        window = ProfileManager()
-        window.exec_()

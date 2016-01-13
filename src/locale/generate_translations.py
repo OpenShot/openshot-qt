@@ -211,6 +211,15 @@ for file in os.listdir(export_path):
         export_text[xmldoc.getElementsByTagName("type")[0].childNodes[0].data] = full_file_path
         export_text[xmldoc.getElementsByTagName("title")[0].childNodes[0].data] = full_file_path
 
+# Loop through Settings
+settings_file = open(os.path.join(info.PATH, 'settings', '_default.settings'), 'r').read()
+settings = json.loads(settings_file)
+for setting in settings:
+    if "type" in setting and setting["type"] != "hidden":
+        # Add visible settings
+        export_text[setting["title"]] = "Settings for %s" % setting["setting"]
+
+
 # Loop through transitions and add to POT file
 transitions_text = {}
 for file in os.listdir(transitions_path):
