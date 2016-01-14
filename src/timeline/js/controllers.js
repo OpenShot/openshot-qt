@@ -384,13 +384,18 @@ App.controller('TimelineCtrl',function($scope) {
  };
  
  // Select clip in scope
- $scope.SelectClip = function(clip_id, clear_selections) {
+ $scope.SelectClip = function(clip_id, clear_selections, event) {
  	// Trim clip_id
  	var id = clip_id.replace("clip_", "");
 
 	// Clear transitions also (if needed)
 	if (id != "" && clear_selections)
 		$scope.SelectTransition("", true);
+
+	// Is CTRL pressed?
+	is_ctrl = false;
+	if (event && event.ctrlKey)
+		is_ctrl = true;
  	
  	// Unselect all clips
 	for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++)
@@ -399,7 +404,7 @@ App.controller('TimelineCtrl',function($scope) {
 			if ($scope.Qt)
 	 			timeline.addSelection(id, "clip");
 		}
-		else if (clear_selections) {
+		else if (clear_selections && !is_ctrl) {
 			$scope.project.clips[clip_index].selected = false;
 			if ($scope.Qt)
 	 			timeline.removeSelection($scope.project.clips[clip_index].id, "clip");
@@ -407,14 +412,19 @@ App.controller('TimelineCtrl',function($scope) {
  };
  
   // Select transition in scope
- $scope.SelectTransition = function(tran_id, clear_selections) {
+ $scope.SelectTransition = function(tran_id, clear_selections, event) {
  	// Trim tran_id
  	var id = tran_id.replace("transition_", "");
 
 	// Clear clips also (if needed)
 	if (id != "" && clear_selections)
 		$scope.SelectClip("", true);
- 	
+
+	// Is CTRL pressed?
+	is_ctrl = false;
+	if (event && event.ctrlKey)
+		is_ctrl = true;
+
  	// Unselect all transitions
 	for (var tran_index = 0; tran_index < $scope.project.effects.length; tran_index++)
 		if ($scope.project.effects[tran_index].id == id) {
@@ -422,7 +432,7 @@ App.controller('TimelineCtrl',function($scope) {
 		 	if ($scope.Qt)
 			 	timeline.addSelection(id, "transition");
 		}
-		else if (clear_selections) {
+		else if (clear_selections && !is_ctrl) {
 			$scope.project.effects[tran_index].selected = false;
 		 	if ($scope.Qt)
 			 	timeline.removeSelection($scope.project.effects[tran_index].id, "transition");
