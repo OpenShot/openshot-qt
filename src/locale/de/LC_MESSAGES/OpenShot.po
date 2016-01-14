@@ -709,13 +709,11 @@ msgstr "Wählen Sie einen Ordner aus..."
 #: libopenshot (Effect Metadata)
 msgid ""
 "Uses a grayscale mask image to gradually wipe / transition between 2 images."
-msgstr ""
-"Verwendet eine Graustufenmaske für den Übergang zwischen zwei Bildern."
+msgstr "Verwendet eine Graustufenmaske für den Übergang zwischen zwei Bildern."
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/blur.xml
 msgid "Blur the image similar to an out-of-focus camera"
-msgstr ""
-"Zeichnet das Bild weich, ähnlich wie eine unscharf eingestellte Kamera"
+msgstr "Zeichnet das Bild weich, ähnlich wie eine unscharf eingestellte Kamera"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
 msgid "Gray color"
@@ -1218,8 +1216,7 @@ msgid "Fly Towards Camera (Two Titles)"
 msgstr "Auf die Kamera zufliegen (Zwei Titel)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml
-msgid ""
-"Display a single color, while using greyscale for the rest of the image"
+msgid "Display a single color, while using greyscale for the rest of the image"
 msgstr ""
 "Eine einzelne Farbe darstellen, für den Rest des Bildes Graustufen verwenden"
 
@@ -2988,9 +2985,9 @@ msgid ""
 "font-weight:600;\">Create &amp; Edit Amazing Videos and Movies</span></p><p "
 "align=\"center\"><span style=\" font-size:10pt;\">OpenShot Video Editor 2.x "
 "is the next generation of the award-winning <br/>OpenShot video editing "
-"platform. </span><a href=\"http://www.openshot.org?r=about-us\"><span "
-"style=\" font-size:10pt; text-decoration: none; color:#55aaff;\">Learn "
-"more</span></a><span style=\" font-size:10pt;\">.</span></p></body></html>"
+"platform. </span><a href=\"http://www.openshot.org?r=about-us\"><span style="
+"\" font-size:10pt; text-decoration: none; color:#55aaff;\">Learn more</"
+"span></a><span style=\" font-size:10pt;\">.</span></p></body></html>"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/about.ui:100
@@ -3045,10 +3042,6 @@ msgstr ""
 msgid "Image Length (seconds):"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:240
-msgid "Fade"
-msgstr ""
-
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:255
 msgid "Fade:"
 msgstr ""
@@ -3057,16 +3050,8 @@ msgstr ""
 msgid "Length (seconds):"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:307
-msgid "Zoom"
-msgstr ""
-
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:319
 msgid "Zoom:"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:341
-msgid "Transition"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:356
@@ -3135,9 +3120,9 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/credits.ui:106
 msgid ""
-"<html><head/><body><p align=\"center\"><a "
-"href=\"http://www.openshot.org/donate/\"><span style=\" text-decoration: "
-"underline; color:#55aaff;\">Become a Supporter</span></a></p></body></html>"
+"<html><head/><body><p align=\"center\"><a href=\"http://www.openshot.org/"
+"donate/\"><span style=\" text-decoration: underline; color:#55aaff;\">Become "
+"a Supporter</span></a></p></body></html>"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:14
@@ -3156,16 +3141,8 @@ msgstr ""
 msgid "Set the start of a clip"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:96
-msgid "Start"
-msgstr ""
-
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:112
 msgid "Set the end of a clip"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:115
-msgid "End"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:130
@@ -3182,10 +3159,6 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:174
 msgid "Create"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:20
-msgid "Export Video"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:56
@@ -3346,9 +3319,9 @@ msgid ""
 "will automatically determine the file pattern.</p><p><br/></p><p>Use a %d "
 "for filenames starting with a number. If the filename is </p><p>padded (i.e. "
 "00001.png, 00002.png), you must indicate the number of</p><p>digits (i.e. "
-"%05d.png)</p><p><br/></p><p>&lt;b&gt;Example "
-"patterns:&lt;/b&gt;</p><p>image1.png = image%d.png</p><p>image01.png = "
-"image%02d.png</p><p>image00001.png = image%05.png</p></body></html>"
+"%05d.png)</p><p><br/></p><p>&lt;b&gt;Example patterns:&lt;/b&gt;</"
+"p><p>image1.png = image%d.png</p><p>image01.png = image%02d.png</"
+"p><p>image00001.png = image%05.png</p></body></html>"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:145
@@ -3371,10 +3344,6 @@ msgstr ""
 msgid "myfile_%d.png"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:222
-msgid "Cancel"
-msgstr ""
-
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:23
 msgid "OpenShot Video Editor"
 msgstr ""
@@ -3385,12 +3354,6 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:97
 msgid "&Edit"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:106
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:862
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:865
-msgid "Title"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:113
@@ -3421,21 +3384,9 @@ msgstr ""
 msgid "Transitions"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:236
-msgid "Effects"
-msgstr ""
-
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:257
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1248
 msgid "Properties"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:273
-msgid "No Selection"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:286
-msgid "Filter"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:299
@@ -3448,10 +3399,6 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:305
 msgid "Ctrl+N"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:314
-msgid "Open Project..."
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:317
@@ -3480,11 +3427,6 @@ msgstr ""
 msgid "Ctrl+Z"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:359
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:362
-msgid "Save Project As..."
-msgstr ""
-
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:365
 msgid "Ctrl+Shift+S"
 msgstr ""
@@ -3503,10 +3445,6 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:389
 msgid "Import Image Sequence..."
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:392
-msgid "Import Image Sequence"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:395
@@ -3551,11 +3489,6 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:464
 msgid "Ctrl+D"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:473
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:476
-msgid "Export Video"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:479
@@ -3685,34 +3618,8 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:740
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:743
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:774
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:777
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:819
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:822
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1157
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1160
-msgid "Clear"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:762
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:765
-msgid "Common"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:831
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:834
-msgid "Zoom In"
-msgstr ""
-
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:837
 msgid "="
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:846
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:849
-msgid "Zoom Out"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:852
@@ -3753,11 +3660,6 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:934
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:937
 msgid "View Toolbar"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:946
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:949
-msgid "About OpenShot"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:952
@@ -3878,21 +3780,8 @@ msgstr ""
 msgid "Split Clip..."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1233
-msgid "Split Clip"
-msgstr ""
-
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1245
 msgid "&Properties"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1260
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1263
-msgid "Rename Track"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/preferences.ui:20
-msgid "Preferences"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/presets.ui:14
@@ -3911,17 +3800,8 @@ msgstr ""
 msgid "Save Current"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/presets.ui:115
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:34
-msgid "Cancel"
-msgstr ""
-
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/presets.ui:122
 msgid "Export"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/profile.ui:14
-msgid "Choose Profile"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/profile.ui:30
@@ -4008,11 +3888,6 @@ msgstr ""
 msgid "Line 6:"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:14
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:168
-msgid "Upload Video"
-msgstr ""
-
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:41
 msgid "<html><head/><body><p>Upload To:</p></body></html>"
 msgstr ""
@@ -4028,8 +3903,8 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:81
 msgid ""
 "<html><head/><body><p><a href=\"http://www.youtube.com\"><span style=\" text-"
-"decoration: underline; "
-"color:#0000ff;\">http://www.youtube.com</span></a></p></body></html>"
+"decoration: underline; color:#0000ff;\">http://www.youtube.com</span></a></"
+"p></body></html>"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:94
@@ -4042,10 +3917,6 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:109
 msgid "Youtube"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:118
-msgid "Vimeo"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:151

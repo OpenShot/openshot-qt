@@ -3762,9 +3762,9 @@ Blender Path:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="14"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1233"/>
         <source>Split Clip</source>
-        <translation type="unfinished">Dividir Clipe</translation>
+        <translation>Dividir Clipe</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="44"/>
@@ -3797,9 +3797,16 @@ Blender Path:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="161"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="740"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="743"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="774"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="777"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="819"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="822"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1157"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1160"/>
         <source>Clear</source>
-        <translation type="unfinished">Limpar</translation>
+        <translation>Limpar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="174"/>
@@ -3975,10 +3982,9 @@ Blender Path:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="17"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="229"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="392"/>
         <source>Import Image Sequence</source>
-        <translation type="unfinished">Importar Sequência de Imagens</translation>
+        <translation>Importar Sequência de Imagens</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="42"/>

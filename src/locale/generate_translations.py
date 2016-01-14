@@ -118,7 +118,7 @@ shutil.copy(os.path.join(langage_folder_path, "clean.po"), os.path.join(langage_
 os.remove(os.path.join(langage_folder_path, "clean.po"))
 
 # Remove duplciates (if any found)
-subprocess.call('msguniq %s -o %s' % (os.path.join(langage_folder_path, 'OpenShot_QtUi.pot'),
+subprocess.call('msguniq %s --use-first -o %s' % (os.path.join(langage_folder_path, 'OpenShot_QtUi.pot'),
                                       os.path.join(langage_folder_path, 'clean.po')), shell=True)
 shutil.copy(os.path.join(langage_folder_path, "clean.po"), os.path.join(langage_folder_path, 'OpenShot_QtUi.pot'))
 os.remove(os.path.join(langage_folder_path, "clean.po"))

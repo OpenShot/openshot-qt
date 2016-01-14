@@ -215,8 +215,8 @@ msgid ""
 "{}{}"
 msgstr ""
 "Για να γίνει αυτή η ενέργεια, είναι απαραίτητο το πρόγραμμα Blender, μια "
-"ελεύθερη και δωρεαν σουίτα δημιουργίας 3D περιεχομένου "
-"(http://www.blender.org)\n"
+"ελεύθερη και δωρεαν σουίτα δημιουργίας 3D περιεχομένου (http://www.blender."
+"org)\n"
 "\n"
 "Παρακαλώ ελέγξτε τις προτιμήσεις του OpenShot και σιγουρευτείτε ότι η "
 "ρύθμιση για το Blender executable είναι σωστή. Αυτή η ρύθμιση πρέπει να "
@@ -1181,8 +1181,7 @@ msgid "Fly Towards Camera (Two Titles)"
 msgstr "Πτήση προς την κάμερα (Δύο Τίτλοι)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml
-msgid ""
-"Display a single color, while using greyscale for the rest of the image"
+msgid "Display a single color, while using greyscale for the rest of the image"
 msgstr ""
 "Προβολή ενός ενιαίου χρώματος, χρησιμοποιώντας γκρι κλίμακα (greyscale) για "
 "την υπόλοιπη εικόνα"
@@ -2954,18 +2953,18 @@ msgid ""
 "font-weight:600;\">Create &amp; Edit Amazing Videos and Movies</span></p><p "
 "align=\"center\"><span style=\" font-size:10pt;\">OpenShot Video Editor 2.x "
 "is the next generation of the award-winning <br/>OpenShot video editing "
-"platform. </span><a href=\"http://www.openshot.org?r=about-us\"><span "
-"style=\" font-size:10pt; text-decoration: none; color:#55aaff;\">Learn "
-"more</span></a><span style=\" font-size:10pt;\">.</span></p></body></html>"
+"platform. </span><a href=\"http://www.openshot.org?r=about-us\"><span style="
+"\" font-size:10pt; text-decoration: none; color:#55aaff;\">Learn more</"
+"span></a><span style=\" font-size:10pt;\">.</span></p></body></html>"
 msgstr ""
 "<html><head/><body><hr/><p align=\"center\"><span style=\" font-size:10pt; "
 "font-weight:600;\">Create &amp; Καταπληκτικά Βίντεο και Ταινίες</span></p><p "
 "align=\"center\"><span style=\" font-size:10pt;\">Ο Επεξεργαστής Βίντεο "
 "OpenShot 2.x είναι η επόμενη γενιά του βραβευμένης πλατφόρμας επεξεργασίας "
-"βίντεο <br/>OpenShot. </span><a href=\"http://www.openshot.org?r=about-"
-"us\"><span style=\" font-size:10pt; text-decoration: none; "
-"color:#55aaff;\">Μάθετε Περισσότερα</span></a><span style=\" font-"
-"size:10pt;\">.</span></p></body></html>"
+"βίντεο <br/>OpenShot. </span><a href=\"http://www.openshot.org?r=about-us"
+"\"><span style=\" font-size:10pt; text-decoration: none; color:#55aaff;"
+"\">Μάθετε Περισσότερα</span></a><span style=\" font-size:10pt;\">.</span></"
+"p></body></html>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/about.ui:100
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/credits.ui:14
@@ -3019,10 +3018,6 @@ msgstr "Ίχνος:"
 msgid "Image Length (seconds):"
 msgstr "Μήκος Εικόνας (δευτερόλεπτα)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:240
-msgid "Fade"
-msgstr "Βαθμιαία εμφάνιση (Fade)"
-
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:255
 msgid "Fade:"
 msgstr "Βαθμιαία εμφάνιση:"
@@ -3031,17 +3026,9 @@ msgstr "Βαθμιαία εμφάνιση:"
 msgid "Length (seconds):"
 msgstr "Μήκος (δευτερόλεπτα)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:307
-msgid "Zoom"
-msgstr "Μεγένθυση"
-
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:319
 msgid "Zoom:"
 msgstr "Μεγέθυνση:"
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:341
-msgid "Transition"
-msgstr "Μετάβαση"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:356
 msgid "Transition:"
@@ -3109,14 +3096,13 @@ msgstr "Φιλτράρισμα Υποστηριχτών"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/credits.ui:106
 msgid ""
-"<html><head/><body><p align=\"center\"><a "
-"href=\"http://www.openshot.org/donate/\"><span style=\" text-decoration: "
-"underline; color:#55aaff;\">Become a Supporter</span></a></p></body></html>"
+"<html><head/><body><p align=\"center\"><a href=\"http://www.openshot.org/"
+"donate/\"><span style=\" text-decoration: underline; color:#55aaff;\">Become "
+"a Supporter</span></a></p></body></html>"
 msgstr ""
-"<html><head/><body><p align=\"center\"><a "
-"href=\"http://www.openshot.org/donate/\"><span style=\" text-decoration: "
-"underline; color:#55aaff;\">Γίνε ένας "
-"Υποστηριχτής</span></a></p></body></html>"
+"<html><head/><body><p align=\"center\"><a href=\"http://www.openshot.org/"
+"donate/\"><span style=\" text-decoration: underline; color:#55aaff;\">Γίνε "
+"ένας Υποστηριχτής</span></a></p></body></html>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:14
 msgid "Split Clip"
@@ -3134,17 +3120,9 @@ msgstr "00:00:00:1"
 msgid "Set the start of a clip"
 msgstr "Επιλογή της αρχής ενός κλιπ"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:96
-msgid "Start"
-msgstr "Αρχή"
-
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:112
 msgid "Set the end of a clip"
 msgstr "Επιλογή του τέλους ενός κλιπ"
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:115
-msgid "End"
-msgstr "Τέλος"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:130
 msgid "Name of clip:"
@@ -3161,10 +3139,6 @@ msgstr "Καθαρισμός"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:174
 msgid "Create"
 msgstr "Δημιουργία"
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:20
-msgid "Export Video"
-msgstr "Εξαγωγή Βίντεο"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:56
 msgid "File Name:"
@@ -3324,21 +3298,21 @@ msgid ""
 "will automatically determine the file pattern.</p><p><br/></p><p>Use a %d "
 "for filenames starting with a number. If the filename is </p><p>padded (i.e. "
 "00001.png, 00002.png), you must indicate the number of</p><p>digits (i.e. "
-"%05d.png)</p><p><br/></p><p>&lt;b&gt;Example "
-"patterns:&lt;/b&gt;</p><p>image1.png = image%d.png</p><p>image01.png = "
-"image%02d.png</p><p>image00001.png = image%05.png</p></body></html>"
+"%05d.png)</p><p><br/></p><p>&lt;b&gt;Example patterns:&lt;/b&gt;</"
+"p><p>image1.png = image%d.png</p><p>image01.png = image%02d.png</"
+"p><p>image00001.png = image%05.png</p></body></html>"
 msgstr ""
 "<html><head/><body><p>Χρησιμοποιείστε αυτή την οθόνη για να εισάγετε μία "
 "ακολουθία αριθμημένων εικόνων ως ένα κλιπ βίντεο.</p><p>Βεβαιωθείτε πως όλες "
-"οι εικόνες είναι στον ίδιο φάκελο, και είναι σειριακά "
-"αριθμημένες.</p><p>&lt;b&gt;TIP: &lt;/b&gt;Εάν σύρετε και εναποθέσετε μία "
-"εικόνα από την ακολουθία μέσα στο </p><p>δέντρο αρχείων του έργου, θα βρεθεί "
-"αυτόματα το πρότυπο του αρχείου.</p><p><br/></p><p>Χρησιμοποιείστε ένα %d "
-"για ονόματα αρχείων που αρχίζουν με αριθμό. Αν το όνομα του αρχείου είναι "
-"</p><p>γεμισμένο (πχ. 00001.png, 00002.png), πρέπει να δώσετε το πλήθος "
-"των</p><p>ψηφίων (πχ. %05d.png)</p><p><br/></p><p>&lt;b&gt;Παράδειγμα "
-"μοτίβου:&lt;/b&gt;</p><p>image1.png = image%d.png</p><p>image01.png = "
-"image%02d.png</p><p>image00001.png = image%05.png</p></body></html>"
+"οι εικόνες είναι στον ίδιο φάκελο, και είναι σειριακά αριθμημένες.</p><p>&lt;"
+"b&gt;TIP: &lt;/b&gt;Εάν σύρετε και εναποθέσετε μία εικόνα από την ακολουθία "
+"μέσα στο </p><p>δέντρο αρχείων του έργου, θα βρεθεί αυτόματα το πρότυπο του "
+"αρχείου.</p><p><br/></p><p>Χρησιμοποιείστε ένα %d για ονόματα αρχείων που "
+"αρχίζουν με αριθμό. Αν το όνομα του αρχείου είναι </p><p>γεμισμένο (πχ. "
+"00001.png, 00002.png), πρέπει να δώσετε το πλήθος των</p><p>ψηφίων (πχ. %05d."
+"png)</p><p><br/></p><p>&lt;b&gt;Παράδειγμα μοτίβου:&lt;/b&gt;</p><p>image1."
+"png = image%d.png</p><p>image01.png = image%02d.png</p><p>image00001.png = "
+"image%05.png</p></body></html>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:145
 msgid "Frames per Image:"
@@ -3360,10 +3334,6 @@ msgstr "Φάκελος Εικόνων:"
 msgid "myfile_%d.png"
 msgstr "το_αρχείο_μου_%d.png"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:222
-msgid "Cancel"
-msgstr "Άκυρο"
-
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:23
 msgid "OpenShot Video Editor"
 msgstr "Επεξεργαστής βίντεο OpenShot"
@@ -3375,12 +3345,6 @@ msgstr "&Αρχείο"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:97
 msgid "&Edit"
 msgstr "Επε&ξεργασία"
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:106
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:862
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:865
-msgid "Title"
-msgstr "Τίτλος"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:113
 msgid "View"
@@ -3410,22 +3374,10 @@ msgstr "Προεπισκόπηση Βίντεο"
 msgid "Transitions"
 msgstr "Μεταβάσεις"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:236
-msgid "Effects"
-msgstr "Εφέ"
-
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:257
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1248
 msgid "Properties"
 msgstr "Ιδιότητες"
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:273
-msgid "No Selection"
-msgstr "Καμία Επιλογή"
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:286
-msgid "Filter"
-msgstr "Φίλτρο"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:299
 msgid "New Project..."
@@ -3438,10 +3390,6 @@ msgstr "Νέο Έργο"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:305
 msgid "Ctrl+N"
 msgstr "Ctrl+N"
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:314
-msgid "Open Project..."
-msgstr "Άνοιγμα Έργου..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:317
 msgid "Open Project"
@@ -3469,11 +3417,6 @@ msgstr "Αναίρεση"
 msgid "Ctrl+Z"
 msgstr "Ctrl+Z"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:359
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:362
-msgid "Save Project As..."
-msgstr "Αποθήκευση Έργου Ως..."
-
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:365
 msgid "Ctrl+Shift+S"
 msgstr "Ctrl+Shift+S"
@@ -3493,10 +3436,6 @@ msgstr "Ctrl+F"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:389
 msgid "Import Image Sequence..."
 msgstr "Εισαγωγή Ακολουθίας Εικόνων..."
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:392
-msgid "Import Image Sequence"
-msgstr "Εισαγωγή Ακολουθίας Εικόνων"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:395
 msgid "Ctrl+I"
@@ -3541,11 +3480,6 @@ msgstr "Λήψη Στιγμιότυπου"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:464
 msgid "Ctrl+D"
 msgstr "Ctrl+D"
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:473
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:476
-msgid "Export Video"
-msgstr "Εξαγωγή Βίντεο"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:479
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1236
@@ -3674,35 +3608,9 @@ msgstr "Ήχος"
 msgid "Image"
 msgstr "Εικόνα"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:740
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:743
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:774
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:777
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:819
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:822
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1157
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1160
-msgid "Clear"
-msgstr "Καθαρισμός"
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:762
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:765
-msgid "Common"
-msgstr "Κοινά"
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:831
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:834
-msgid "Zoom In"
-msgstr "Μεγέθυνση"
-
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:837
 msgid "="
 msgstr "="
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:846
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:849
-msgid "Zoom Out"
-msgstr "Σμίκρυνση"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:852
 msgid "-"
@@ -3743,11 +3651,6 @@ msgstr "Esc"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:937
 msgid "View Toolbar"
 msgstr "Προβολή Γραμμής Εργαλείων"
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:946
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:949
-msgid "About OpenShot"
-msgstr "Περί του OpenShot"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:952
 msgid "Ctrl+A"
@@ -3867,22 +3770,9 @@ msgstr "Αφαίρεση Εφέ"
 msgid "Split Clip..."
 msgstr "Διαίρεση του Κλιπ..."
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1233
-msgid "Split Clip"
-msgstr "Διαίρεση του Κλιπ"
-
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1245
 msgid "&Properties"
 msgstr "&Ιδιότητες"
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1260
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1263
-msgid "Rename Track"
-msgstr "Μετονομασία Ίχνους"
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/preferences.ui:20
-msgid "Preferences"
-msgstr "Επιλογές"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/presets.ui:14
 msgid "Export with FFmpeg Command"
@@ -3900,18 +3790,9 @@ msgstr "Διαγραφή Προεπιλογής"
 msgid "Save Current"
 msgstr "Αποθήκευση Τρέχοντος"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/presets.ui:115
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:34
-msgid "Cancel"
-msgstr "Aκύρωση"
-
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/presets.ui:122
 msgid "Export"
 msgstr "Εξαγωγή"
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/profile.ui:14
-msgid "Choose Profile"
-msgstr "Επιλογή Προφίλ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/profile.ui:30
 msgid "Size:"
@@ -3997,11 +3878,6 @@ msgstr "Χρήση Προχωρημένου Επεξεργαστή"
 msgid "Line 6:"
 msgstr "Γραμμή 6"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:14
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:168
-msgid "Upload Video"
-msgstr "Ανέβασμα Βίντεο"
-
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:41
 msgid "<html><head/><body><p>Upload To:</p></body></html>"
 msgstr "<html><head/><body><p>Ανέβασμα στο:</p></body></html>"
@@ -4017,12 +3893,12 @@ msgstr "<html><head/><body><p>Αρχείο Βίντεο:</p></body></html>"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:81
 msgid ""
 "<html><head/><body><p><a href=\"http://www.youtube.com\"><span style=\" text-"
-"decoration: underline; "
-"color:#0000ff;\">http://www.youtube.com</span></a></p></body></html>"
+"decoration: underline; color:#0000ff;\">http://www.youtube.com</span></a></"
+"p></body></html>"
 msgstr ""
 "<html><head/><body><p><a href=\"http://www.youtube.com\"><span style=\" text-"
-"decoration: underline; "
-"color:#0000ff;\">http://www.youtube.com</span></a></p></body></html>"
+"decoration: underline; color:#0000ff;\">http://www.youtube.com</span></a></"
+"p></body></html>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:94
 msgid "<html><head/><body><p>Username:</p></body></html>"
@@ -4035,10 +3911,6 @@ msgstr "<html><head/><body><p>Περιγραφή:</p></body></html>"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:109
 msgid "Youtube"
 msgstr "Youtube"
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:118
-msgid "Vimeo"
-msgstr "Vimeo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:151
 msgid "<html><head/><body><p>Title:</p></body></html>"
