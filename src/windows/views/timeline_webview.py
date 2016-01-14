@@ -165,10 +165,14 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         """ Create an updateAction and send it to the update manager """
 
         # read clip json
-        if not isinstance(clip_json, dict):
-            clip_data = json.loads(clip_json)
-        else:
-            clip_data = clip_json
+        try:
+            if not isinstance(clip_json, dict):
+                clip_data = json.loads(clip_json)
+            else:
+                clip_data = clip_json
+        except:
+            # Failed to parse json, do nothing
+            return
 
         # Search for matching clip in project data (if any)
         existing_clip = Clip.get(id=clip_data["id"])

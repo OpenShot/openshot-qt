@@ -131,6 +131,10 @@ class PropertiesModel(updates.UpdateInterface):
         if self.selected:
             clip, item_type = self.selected[0]
 
+            if not clip:
+                # Ignore null clip
+                return
+
             # If effect, find the position of the parent clip
             if item_type == "effect":
                 # find parent clip
