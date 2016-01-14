@@ -274,18 +274,21 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 self._data["fps"] = {"num" : profile.info.fps.num, "den" : profile.info.fps.den}
 
         # Clear any previous thumbnails
-        if os.path.exists(info.THUMBNAIL_PATH):
-            # Remove thumbnail folder
-            shutil.rmtree(info.THUMBNAIL_PATH)
-            # Create thumbnail folder
-            os.mkdir(info.THUMBNAIL_PATH)
+        try:
+            if os.path.exists(info.THUMBNAIL_PATH):
+                # Remove thumbnail folder
+                shutil.rmtree(info.THUMBNAIL_PATH)
+                # Create thumbnail folder
+                os.mkdir(info.THUMBNAIL_PATH)
 
-        # Clear any blender animations
-        if os.path.exists(info.BLENDER_PATH):
-            # Remove blender folder
-            shutil.rmtree(info.BLENDER_PATH)
-            # Create blender folder
-            os.mkdir(info.BLENDER_PATH)
+            # Clear any blender animations
+            if os.path.exists(info.BLENDER_PATH):
+                # Remove blender folder
+                shutil.rmtree(info.BLENDER_PATH)
+                # Create blender folder
+                os.mkdir(info.BLENDER_PATH)
+        except:
+            pass
 
     def load(self, file_path):
         """ Load project from file """
@@ -307,10 +310,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
             # Convert all paths back to absolute
             self.convert_paths_to_absolute()
-
-            # Clear any previous thumbnails
-            if os.path.exists(info.THUMBNAIL_PATH):
-                shutil.rmtree(info.THUMBNAIL_PATH)
 
             # Copy any project thumbnails to main THUMBNAILS folder
             loaded_project_folder = os.path.dirname(self.current_filepath)
