@@ -257,10 +257,8 @@ class PropertiesModel(updates.UpdateInterface):
 
         # Determine what was changed
         property = self.model.item(item.row(), 0).data()
-        property_name = property[1]["name"]
         property_type = property[1]["type"]
         closest_point_x = property[1]["closest_point_x"]
-        property_type = property[1]["type"]
         property_key = property[0]
         clip_id, item_type = item.data()
 
@@ -503,7 +501,7 @@ class PropertiesModel(updates.UpdateInterface):
 
             # Loop through properties, and build a model
             for property in all_properties.items():
-                label = property[1]["name"]
+                label = property[1]["name"].replace("Alpha", "Transparency")
                 name = property[0]
                 value = property[1]["value"]
                 type = property[1]["type"]
@@ -514,6 +512,9 @@ class PropertiesModel(updates.UpdateInterface):
                 interpolation = property[1]["interpolation"]
                 closest_point_x = property[1]["closest_point_x"]
                 choices = property[1]["choices"]
+
+                # Adding Transparency to translation file
+                transparency_label = _("Transparency")
 
                 selected_choice = None
                 if choices:
