@@ -252,10 +252,10 @@ setup(name=info.PRODUCT_NAME,
       executables=[Executable("openshot_qt/launch.py",
                               base=base,
                               icon=os.path.join(PATH, "xdg", iconFile),
-                              shortcutName="%s %s" % (info.PRODUCT_NAME, info.VERSION),
+                              shortcutName="%s" % info.PRODUCT_NAME,
                               shortcutDir="ProgramMenuFolder")])
 
 
 # Remove temporary folder (if SRC folder present)
 if os.path.exists(os.path.join(PATH, "src")):
-    rmtree(os.path.join(PATH, "openshot_qt"))
+    rmtree(os.path.join(PATH, "openshot_qt"), True)

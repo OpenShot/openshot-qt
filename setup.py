@@ -110,7 +110,7 @@ dist = setup(
 
 # Remove temporary folder (if SRC folder present)
 if os.path.exists(os.path.join(PATH, "src")):
-    rmtree(os.path.join(PATH, "openshot_qt"))
+    rmtree(os.path.join(PATH, "openshot_qt"), True)
 
 FAILED = 'Failed to update.\n'
 
