@@ -1144,6 +1144,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             clip.data["position"] = playhead_position
             clip.data["start"] = start_of_clip + (playhead_position - position_of_clip)
 
+            # Update thumbnail for right clip (after the clip has been created)
+            self.UpdateClipThumbnail(clip.data)
+
         if action == MENU_SLICE_KEEP_BOTH:
             # Add the 2nd clip (the right side, since the left side has already been adjusted above)
             # Get right side clip object
@@ -1167,8 +1170,14 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             # Save changes
             right_clip.save()
 
+            # Update thumbnail for right clip (after the clip has been created)
+            self.UpdateClipThumbnail(right_clip.data)
+
+            # Save changes again (with new thumbnail)
+            self.update_clip_data(right_clip.data, only_basic_props=False, ignore_reader=True)
+
         # Save changes
-        clip.save()
+        self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
     def Volume_Triggered(self, action, clip_id, position="Entire Clip"):
         """Callback for volume context menus"""
