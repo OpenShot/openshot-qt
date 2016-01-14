@@ -290,21 +290,6 @@
     </layout>
    </widget>
   </widget>
-  <widget class="QDockWidget" name="dockKeyframe">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <property name="windowTitle">
-    <string>Keyframes</string>
-   </property>
-   <attribute name="dockWidgetArea">
-    <number>1</number>
-   </attribute>
-   <widget class="QWidget" name="dockWidgetContents_6"/>
-  </widget>
   <action name="actionNew">
    <property name="icon">
     <iconset theme="document-new" resource="../../images/openshot.qrc">
