@@ -85,6 +85,7 @@ class FilesModel(updates.UpdateInterface):
 
         # Get window to check filters
         win = app.window
+        _ = app._tr
 
         # Skip updates (if needed)
         if self.ignore_update_signal:
@@ -96,7 +97,7 @@ class FilesModel(updates.UpdateInterface):
             self.model.clear()
 
         # Add Headers
-        self.model.setHorizontalHeaderLabels(["Thumb", "Name", "Tags", "", "", ""])
+        self.model.setHorizontalHeaderLabels([_("Thumb"), _("Name"), _("Tags"), "", "", ""])
 
         # Get list of files in project
         files = File.filter()  # get all files

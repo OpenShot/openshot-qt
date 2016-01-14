@@ -53,6 +53,7 @@ class CreditsModel():
     def update_model(self, filter=None, clear=True):
         log.info("updating credits model.")
         app = get_app()
+        _ = app._tr
 
         # Get window to check filters
         win = app.window
@@ -63,7 +64,7 @@ class CreditsModel():
             self.model.clear()
 
         # Add Headers
-        self.model.setHorizontalHeaderLabels(["", "", "", "Name", "Email", "Website"])
+        self.model.setHorizontalHeaderLabels(["", "", "", _("Name"), _("Email"), _("Website")])
 
         for person in self.credits_list:
             # Get details of person

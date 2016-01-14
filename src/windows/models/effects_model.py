@@ -69,6 +69,7 @@ class EffectsModel():
 
         # Get window to check filters
         win = app.window
+        _ = app._tr
 
         # Clear all items
         if clear:
@@ -76,7 +77,7 @@ class EffectsModel():
             self.model.clear()
 
         # Add Headers
-        self.model.setHorizontalHeaderLabels(["Thumb", "Name", "Description"])
+        self.model.setHorizontalHeaderLabels([_("Thumb"), _("Name"), _("Description")])
 
         # Get the folder path of effects
         effects_dir = os.path.join(info.PATH, "effects")

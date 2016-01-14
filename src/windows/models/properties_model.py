@@ -496,7 +496,7 @@ class PropertiesModel(updates.UpdateInterface):
                 self.model.clear()
 
                 # Add Headers
-                self.model.setHorizontalHeaderLabels(["Property", "Value"])
+                self.model.setHorizontalHeaderLabels([_("Property"), _("Value")])
 
 
             # Loop through properties, and build a model
@@ -679,7 +679,7 @@ class PropertiesModel(updates.UpdateInterface):
             self.model.clear()
 
             # Add Headers
-            self.model.setHorizontalHeaderLabels(["Property", "Value"])
+            self.model.setHorizontalHeaderLabels([_("Property"), _("Value")])
 
 
         # Done updating model

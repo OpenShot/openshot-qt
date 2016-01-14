@@ -45,6 +45,7 @@ class BlenderModel():
 
         # Get window to check filters
         win = app.window
+        _ = app._tr
 
         # Clear all items
         if clear:
@@ -52,7 +53,7 @@ class BlenderModel():
             self.model.clear()
 
         # Add Headers
-        self.model.setHorizontalHeaderLabels(["Thumb", "Name"])
+        self.model.setHorizontalHeaderLabels([_("Thumb"), _("Name")])
 
         # get a list of files in the OpenShot /effects directory
         effects_dir = os.path.join(info.PATH, "blender")

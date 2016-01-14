@@ -42,6 +42,7 @@ class TimelineModel():
 
         # Get window to check filters
         win = app.window
+        _ = app._tr
 
         # Set files list (if found)
         if files:
@@ -53,7 +54,7 @@ class TimelineModel():
             self.model.clear()
 
         # Add Headers
-        self.model.setHorizontalHeaderLabels(["Thumb", "Name"])
+        self.model.setHorizontalHeaderLabels([_("Thumb"), _("Name")])
 
         log.info(self.files)
 

@@ -409,6 +409,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         clip = Clip.get(id=clip_id)
         playhead_position = float(self.window.preview_thread.current_frame) / fps_float
 
+        # Mark these strings for translation
+        translations = [_("Start of Clip"), _("End of Clip"), _("Entire Clip"), _("Normal"), _("Fast"), _("Slow"), _("Forward"), _("Backward")]
+
         # Create blank context menu
         menu = QMenu(self)
 

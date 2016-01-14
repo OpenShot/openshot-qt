@@ -48,6 +48,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+import shutil
 import datetime
 import os
 import subprocess
@@ -105,6 +106,23 @@ os.chdir(windows_ui_path)
 subprocess.call('lupdate *.ui -ts %s' % (os.path.join(langage_folder_path, 'OpenShot_QtUi.ts')), shell=True)
 subprocess.call('lupdate *.ui -ts %s' % (os.path.join(langage_folder_path, 'OpenShot_QtUi.pot')), shell=True)
 os.chdir(langage_folder_path)
+
+# Rewrite the UI POT, removing msgctxt
+output = open(os.path.join(langage_folder_path, "clean.po"), 'w')
+for line in open(os.path.join(langage_folder_path, 'OpenShot_QtUi.pot'), 'r'):
+    if not line.startswith('msgctxt'):
+        output.write(line)
+# Overwrite original PO file
+output.close()
+shutil.copy(os.path.join(langage_folder_path, "clean.po"), os.path.join(langage_folder_path, 'OpenShot_QtUi.pot'))
+os.remove(os.path.join(langage_folder_path, "clean.po"))
+
+# Remove duplciates (if any found)
+subprocess.call('msguniq %s -o %s' % (os.path.join(langage_folder_path, 'OpenShot_QtUi.pot'),
+                                      os.path.join(langage_folder_path, 'clean.po')), shell=True)
+shutil.copy(os.path.join(langage_folder_path, "clean.po"), os.path.join(langage_folder_path, 'OpenShot_QtUi.pot'))
+os.remove(os.path.join(langage_folder_path, "clean.po"))
+
 
 log.info("-----------------------------------------------------")
 log.info(" Updating auto created POT files to set CharSet")
