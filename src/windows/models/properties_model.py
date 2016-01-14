@@ -28,7 +28,7 @@
 import os
 from collections import OrderedDict
 
-from PyQt5.QtCore import QMimeData, Qt
+from PyQt5.QtCore import QMimeData, Qt, QLocale
 from PyQt5.QtGui import *
 
 from classes import updates
@@ -359,7 +359,7 @@ class PropertiesModel(updates.UpdateInterface):
                     new_value = True
             else:
                 # Use numeric value
-                new_value = float(item.text())
+                new_value = QLocale().system().toFloat(item.text())[0]
         else:
             new_value = None
 
@@ -433,7 +433,7 @@ class PropertiesModel(updates.UpdateInterface):
                 elif property_type == "float":
                     # Float
                     clip_updated = True
-                    c.data[property_key] = float(new_value)
+                    c.data[property_key] = new_value
 
                 elif property_type == "bool":
                     # Boolean
@@ -561,7 +561,7 @@ class PropertiesModel(updates.UpdateInterface):
                         col.setText("%d" % value)
                     else:
                         # Use numeric value
-                        col.setText("%0.2f" % value)
+                        col.setText(QLocale().system().toString(float(value), "f", precision=2))
                     col.setData((c.Id(), item_type))
                     if points > 1:
                         # Apply icon to cell
@@ -629,7 +629,7 @@ class PropertiesModel(updates.UpdateInterface):
                         col.setText("%d" % value)
                     else:
                         # Use numeric value
-                        col.setText("%0.2f" % value)
+                        col.setText(QLocale().system().toString(float(value), "f", precision=2))
 
                     if points > 1:
                         # Apply icon to cell
