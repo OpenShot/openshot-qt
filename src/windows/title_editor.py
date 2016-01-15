@@ -35,7 +35,7 @@ import subprocess
 from xml.dom import minidom
 
 from PyQt5.QtCore import *
-from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
+from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem, QFont
 from PyQt5.QtWidgets import *
 from PyQt5 import uic, QtSvg, QtGui
 from PyQt5.QtWebKitWidgets import QWebView
@@ -107,7 +107,7 @@ class TitleEditor(QDialog):
             os.remove(temp_svg_path)
 
         # load the template files
-        self.cmbTemplate.addItem("<Select a template>")
+        self.cmbTemplate.addItem(_("<Select a template>"))
 
         # Add user-defined titles (if any)
         for file in sorted(os.listdir(info.TITLE_PATH)):
@@ -350,8 +350,11 @@ class TitleEditor(QDialog):
         self.display_svg()
 
     def btnFont_clicked(self):
+        app = get_app()
+        _ = app._tr
+
         # Get font from user
-        font, ok = QFontDialog.getFont()
+        font, ok = QFontDialog.getFont(QFont(), caption=_("Change Font"))
 
         # Update SVG font
         if ok:

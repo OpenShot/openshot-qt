@@ -1352,6 +1352,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # set window on app for reference during initialization of children
         get_app().window = self
+        _ = get_app()._tr
 
         # Load UI from designer
         ui_util.load_ui(self, self.ui_path)
@@ -1404,6 +1405,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         self.tabEffects.layout().addWidget(self.effectsTreeView)
 
         # Setup properties table
+        self.txtPropertyFilter.setPlaceholderText(_("Filter"))
         self.propertyTableView = PropertiesTableView(self)
         self.dockPropertiesContent.layout().addWidget(self.propertyTableView, 3, 1)
 

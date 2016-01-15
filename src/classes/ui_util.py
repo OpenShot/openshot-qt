@@ -146,14 +146,16 @@ def init_element(window, elem):
         connect_auto_events(window, elem, name)
 
     # Handle generic translatable properties
-    if hasattr(elem, 'setText') and elem.text() != "":
+    if hasattr(elem, 'setText') and hasattr(elem, 'text') and elem.text() != "":
         elem.setText(_translate("", elem.text()))
-    if hasattr(elem, 'setToolTip') and elem.toolTip() != "":
+    if hasattr(elem, 'setToolTip') and hasattr(elem, 'toolTip') and elem.toolTip() != "":
         elem.setToolTip(_translate("", elem.toolTip()))
-    if hasattr(elem, 'setWindowTitle') and elem.windowTitle() != "":
+    if hasattr(elem, 'setWindowTitle') and hasattr(elem, 'windowTitle') and elem.windowTitle() != "":
         elem.setWindowTitle(_translate("", elem.windowTitle()))
-    if hasattr(elem, 'setTitle') and elem.title() != "":
+    if hasattr(elem, 'setTitle') and hasattr(elem, 'title') and  elem.title() != "":
         elem.setTitle(_translate("", elem.title()))
+    if hasattr(elem, 'setPlaceholderText') and hasattr(elem, 'placeholderText') and  elem.placeholderText() != "":
+        elem.setPlaceholderText(_translate("", elem.placeholderText()))
     if hasattr(elem, 'setLocale'):
         elem.setLocale(QLocale().system())
     # Handle tabs differently
@@ -189,6 +191,11 @@ def init_ui(window):
     log.info('Initializing UI for {}'.format(window.objectName()))
 
     try:
+        # Set locale & window title on the window object
+        if hasattr(window, 'setWindowTitle') and window.windowTitle() != "":
+            _translate = QApplication.instance().translate
+            window.setWindowTitle(_translate("", window.windowTitle()))
+
         # Loop through all widgets
         for widget in window.findChildren(QWidget):
             init_element(window, widget)
