@@ -315,11 +315,11 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             loaded_project_folder = os.path.dirname(self.current_filepath)
             project_thumbnails_folder = os.path.join(loaded_project_folder, "thumbnail")
             if os.path.exists(project_thumbnails_folder):
+                # Remove thumbnail path
+                shutil.rmtree(info.THUMBNAIL_PATH)
+
                 # Copy project thumbnails folder
                 shutil.copytree(project_thumbnails_folder, info.THUMBNAIL_PATH)
-            else:
-                # Create a blank thumbnail path
-                os.mkdir(info.THUMBNAIL_PATH)
 
             # Add to recent files setting
             self.add_to_recent_files(file_path)
