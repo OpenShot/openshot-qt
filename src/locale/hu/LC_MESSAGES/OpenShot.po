@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-01-14 02:38+0000\n"
-"PO-Revision-Date: 2016-01-14 08:01+0000\n"
+"POT-Creation-Date: 2016-01-14 12:55+0000\n"
+"PO-Revision-Date: 2016-01-14 19:12+0000\n"
 "Last-Translator: KAMI <kami911@gmail.com>\n"
 "Language-Team: Hungarian <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-01-14 16:13+0000\n"
+"X-Launchpad-Export-Date: 2016-01-15 05:42+0000\n"
 "X-Generator: Launchpad (build 17886)\n"
 "Language: hu\n"
 
@@ -46,25 +46,29 @@ msgstr "Fel- és lekeverés"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:469
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:481
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:543
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:546
 msgid "Random"
 msgstr "Véletlenszerű"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:470
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:831
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:834
 msgid "Zoom In"
 msgstr "Nagyítás"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:471
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:846
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:849
 msgid "Zoom Out"
 msgstr "Kicsinyítés"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:73
 msgid "Unsaved Changes"
-msgstr ""
+msgstr "Nem mentett változtatások"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:73
 msgid "Save changes to project before closing?"
-msgstr ""
+msgstr "Menti a változásokat a projektben mielőtt bezárja?"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:176
 msgid "Error Saving Project"
@@ -75,6 +79,7 @@ msgid "Error Opening Project"
 msgstr "Hiba lépett fel a projekt megnyitása során"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:216
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:314
 msgid "Open Project..."
 msgstr "Projekt megnyitása..."
 
@@ -96,6 +101,8 @@ msgid "Save Project..."
 msgstr "Projekt mentése…"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:246
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:359
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:362
 msgid "Save Project As..."
 msgstr "Projekt mentése másként..."
 
@@ -104,6 +111,8 @@ msgid "Import File..."
 msgstr "Fájl importálása…"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:900
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1260
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1263
 msgid "Rename Track"
 msgstr "Sáv átnevezése"
 
@@ -118,11 +127,12 @@ msgstr "Legutóbbi projektek"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1240
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1257
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1276
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:286
 msgid "Filter"
 msgstr "Szűrő"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1328
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1618
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1630
 msgid "{} seconds"
 msgstr "{} másodperc"
 
@@ -133,11 +143,11 @@ msgstr "Válasszon egy színt"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:585
 msgid "New Title"
-msgstr "Új cím"
+msgstr "Új felirat"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:588
 msgid "Save Title As..."
-msgstr "Cím mentése másként…"
+msgstr "Felirat mentése másként…"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:588
 msgid "Scalable Vector Graphics (*.svg)"
@@ -153,6 +163,7 @@ msgstr "Renderelés"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/animated_title.py:82
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:72
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:222
 msgid "Cancel"
 msgstr "Mégse"
 
@@ -238,350 +249,386 @@ msgstr ""
 msgid "No frame was found in the output from Blender"
 msgstr "A Blender kimenetében nem található képkocka"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:416
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1494
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:413
+msgid "Start of Clip"
+msgstr "Klip kezdete"
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:413
+msgid "End of Clip"
+msgstr "Klip vége"
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:413
+msgid "Entire Clip"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:413
+msgid "Normal"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:413
+msgid "Fast"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:413
+msgid "Slow"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:413
+msgid "Forward"
+msgstr "Előre"
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:413
+msgid "Backward"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:419
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1506
 msgid "Copy"
 msgstr "Másolás"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:420
 msgid "Clip"
 msgstr "Vágás"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:419
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1497
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:422
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1509
 msgid "Keyframes"
 msgstr "Kulcsképek"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:420
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1498
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:423
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1510
 msgid "All"
 msgstr "Összes"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:423
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:426
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "Alpha"
 msgstr "Alfa"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:425
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:428
 #: libopenshot (Clip Properties)
 msgid "Scale"
 msgstr "Méretarány"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:427
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:430
 #: libopenshot (Clip Properties)
 msgid "Rotation"
 msgstr "Forgatás"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:429
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:432
 msgid "Location"
 msgstr "Hely"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:431
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:588
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:434
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:591
 #: libopenshot (Clip Properties)
 msgid "Time"
 msgstr "Idő"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:433
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:612
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:436
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:615
 #: libopenshot (Clip Properties) Settings for volume
 msgid "Volume"
 msgstr "Hangerő"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:435
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:438
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:236
 msgid "Effects"
 msgstr "Effektusok"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:441
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1509
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:444
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1521
 msgid "Paste"
 msgstr "Beillesztés"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:447
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:450
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/common/fade.svg
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:240
 msgid "Fade"
 msgstr "Keverés"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:448
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:451
 msgid "No Fade"
 msgstr "Nincs áttűnés"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:455
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:620
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:458
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:623
 msgid "Fade In (Fast)"
 msgstr "Felkeverés (gyors)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:457
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:622
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:460
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:625
 msgid "Fade In (Slow)"
 msgstr "Felkeverés (lassú)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:461
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:626
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:464
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:629
 msgid "Fade Out (Fast)"
 msgstr "Lekeverés (gyors)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:463
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:628
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:466
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:631
 msgid "Fade Out (Slow)"
 msgstr "Lekeverés (lassú)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:467
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:632
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:470
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:635
 msgid "Fade In and Out (Fast)"
 msgstr "Fel- és lekeverés (gyors)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:469
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:634
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:472
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:637
 msgid "Fade In and Out (Slow)"
 msgstr "Fel- és lekeverés (lassú)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:472
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:637
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:475
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:640
 msgid "Fade In (Entire Clip)"
 msgstr "Felkeverés (egész klip)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:474
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:639
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:477
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:642
 msgid "Fade Out (Entire Clip)"
 msgstr "Lekeverés (egész klip)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:482
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:485
 msgid "Animate"
 msgstr "Animálás"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:483
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:486
 msgid "No Animation"
 msgstr "Nincs animáció"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:490
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:493
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:307
 msgid "Zoom"
 msgstr "Nagyítás"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:491
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:494
 msgid "Zoom In (50% to 100%)"
 msgstr "Nagyítás (50%-ról 100%-ra)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:493
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:496
 msgid "Zoom In (75% to 100%)"
 msgstr "Nagyítás (75% → 100%)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:495
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:498
 msgid "Zoom In (100% to 150%)"
 msgstr "Nagyítás (100%-ról 150%-ra)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:497
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:500
 msgid "Zoom Out (100% to 75%)"
 msgstr "Nagyítás (100% → 75%)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:499
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:502
 msgid "Zoom Out (100% to 50%)"
 msgstr "Kicsinyítés (100%-ról 50%-ra)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:501
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:504
 msgid "Zoom Out (150% to 100%)"
 msgstr "Kicsinyítés (150%-ról 100%-ra)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:506
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:509
 msgid "Center to Edge"
 msgstr "Középről szélre"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:507
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:510
 msgid "Center to Top"
 msgstr "Középről felfele"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:509
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:512
 msgid "Center to Left"
 msgstr "Középről balra"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:511
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:514
 msgid "Center to Right"
 msgstr "Középről jobbra"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:513
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:516
 msgid "Center to Bottom"
 msgstr "Középről lentre"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:518
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:521
 msgid "Edge to Center"
 msgstr "Szélről középre"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:519
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:522
 msgid "Top to Center"
 msgstr "Fentről középre"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:521
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:524
 msgid "Left to Center"
 msgstr "Balról középre"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:523
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:526
 msgid "Right to Center"
 msgstr "Jobbról középre"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:525
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:528
 msgid "Bottom to Center"
 msgstr "Lentről középre"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:530
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:533
 msgid "Edge to Edge"
 msgstr "Szélről szélre"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:531
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:534
 msgid "Top to Bottom"
 msgstr "Fentről le"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:533
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:536
 msgid "Left to Right"
 msgstr "Balról jobbra"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:535
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:538
 msgid "Right to Left"
 msgstr "Jobbról balra"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:537
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:540
 msgid "Bottom to Top"
 msgstr "Lentről fel"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:553
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:556
 #: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
 msgid "Rotate"
 msgstr "Forgatás"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:554
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:557
 msgid "No Rotation"
 msgstr "Nincs elforgatás"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:557
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:560
 msgid "Rotate 90 (Right)"
 msgstr "Forgatás 90° (jobbra)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:559
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:562
 msgid "Rotate 90 (Left)"
 msgstr "Forgatás 90° (Balra)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:561
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:564
 msgid "Rotate 180 (Flip)"
 msgstr "Elforgatás 180°-al (megfordítás)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:566
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:569
 msgid "Layout"
 msgstr "Elrendezés"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:567
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:570
 msgid "Reset Layout"
 msgstr "Elrendezés visszaállítása"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:570
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:573
 msgid "1/4 Size - Center"
 msgstr "1/4 méret - Középen"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:572
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:575
 msgid "1/4 Size - Top Left"
 msgstr "1/4 méret - Bal fent"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:574
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:577
 msgid "1/4 Size - Top Right"
 msgstr "1/4 méret - Jobb fent"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:576
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:579
 msgid "1/4 Size - Bottom Left"
 msgstr "1/4 méret - Bal lent"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:578
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:581
 msgid "1/4 Size - Bottom Right"
 msgstr "1/4 méret - Jobb lent"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:581
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:584
 msgid "Show All (Maintain Ratio)"
 msgstr "Összes megjelenítése (arány megtartásával)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:583
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:586
 msgid "Show All (Distort)"
 msgstr "Összes mutatása (torzítás)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:589
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:592
 msgid "Reset Time"
 msgstr "Idő visszaállítása"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:613
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:616
 msgid "Reset Volume"
 msgstr "Hangerő visszaállítása"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:644
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:647
 msgid "Level 100%"
 msgstr "100%"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:646
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:649
 msgid "Level 90%"
 msgstr "90%"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:648
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:651
 msgid "Level 80%"
 msgstr "80%"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:650
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:653
 msgid "Level 70%"
 msgstr "70%"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:652
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:655
 msgid "Level 60%"
 msgstr "60%"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:654
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:657
 msgid "Level 50%"
 msgstr "50%"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:656
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:659
 msgid "Level 40%"
 msgstr "40%"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:658
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:661
 msgid "Level 30%"
 msgstr "30%"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:660
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:663
 msgid "Level 20%"
 msgstr "20%"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:662
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:665
 msgid "Level 10%"
 msgstr "10%"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:664
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:667
 msgid "Level 0%"
 msgstr "0%"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:676
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:679
 msgid "Slice Clip"
 msgstr "Klip vágása"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:677
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:680
 msgid "Keep Both Sides"
 msgstr "Mindkét oldal megtartása"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:679
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:682
 msgid "Keep Left Side"
 msgstr "Bal oldal megtartása"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:681
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:684
 msgid "Keep Right Side"
 msgstr "Jobb oldal megtartása"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1495
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1507
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:341
 msgid "Transition"
 msgstr "Áttűnés"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1501
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1513
 #: libopenshot (Clip Properties)
 msgid "Brightness"
 msgstr "Fényerő"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1503
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1515
 #: libopenshot (Clip Properties)
 msgid "Contrast"
 msgstr "Kontraszt"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1515
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1527
 msgid "Reverse Transition"
 msgstr "Fordított áttűnés"
 
@@ -591,6 +638,7 @@ msgid "Selection: %s"
 msgstr "Kiválasztás: %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:80
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:273
 msgid "No Selection"
 msgstr "Nincs kiválasztás"
 
@@ -611,11 +659,46 @@ msgstr "Konstans"
 msgid "Remove Keyframe"
 msgstr "Kulcskép eltávolítása"
 
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/add_to_timeline_model.py:57
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/blender_model.py:56
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/files_model.py:100
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/transition_model.py:80
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/effects_model.py:80
+msgid "Thumb"
+msgstr "Előkép"
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/add_to_timeline_model.py:57
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/blender_model.py:56
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:67
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/files_model.py:100
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/transition_model.py:80
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/effects_model.py:80
+msgid "Name"
+msgstr "Név"
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:67
+msgid "Email"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:67
+msgid "Website"
+msgstr ""
+
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:358
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:561
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:629
 msgid "False"
 msgstr "Ki"
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:499
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:682
+msgid "Property"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:499
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:682
+msgid "Value"
+msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:517
 #: /home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml
@@ -627,7 +710,16 @@ msgstr "Átlátszóság"
 msgid "True"
 msgstr "Be"
 
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/files_model.py:100
+msgid "Tags"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/effects_model.py:80
+msgid "Description"
+msgstr ""
+
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:70
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:20
 msgid "Export Video"
 msgstr "Videó exportálása"
 
@@ -672,258 +764,313 @@ msgid "Choose a Folder..."
 msgstr "Mappa választása…"
 
 #: libopenshot (Effect Metadata)
-msgid ""
-"Uses a grayscale mask image to gradually wipe / transition between 2 images."
-msgstr ""
-"Szürkeárnyalatos maszk alkalmazása két kép közötti részleges törléshez vagy "
-"áttűnéshez."
+msgid "Alpha Mask / Wipe Transition"
+msgstr "Alfa maszk / Áttűnés törlése"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/blur.xml
-msgid "Blur the image similar to an out-of-focus camera"
-msgstr "Kép elmosása életlen fókusszal"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
-msgid "Gray color"
-msgstr "Szürke szín"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml
-msgid "Increase the size of pixels to obscure the image"
-msgstr "A pixelméret növelése a kép tompává tételéhez"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Depart Longitude (Prime Meridian)"
-msgstr "Indulási hosszúság (kezdő meridián)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Particles: Gravity"
-msgstr "Részecskék: gravitáció"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
-msgid "Manual Pixel Aspect ratio"
-msgstr "Kézi pixel méretarány"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml
-msgid "Nosync"
-msgstr "Nincs szinkron"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml
-msgid "Lens vignetting"
-msgstr "Lencsekeret"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/halo_zoom_out.xml
+msgid "Halo Zoom Out"
+msgstr "Halo: Kicsinyítés"
 
 #: libopenshot (Clip Properties)
-msgid "Wave Color"
-msgstr "Hullám színe"
+msgid "Anchor"
+msgstr "Horgony"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
+msgid "Levels"
+msgstr "Szintek"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/bass.xml
-msgid "Adjust the low-pitched sound or tone"
-msgstr "Mély hangok szabályozása"
+msgid "Bass"
+msgstr "Mély hangok"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml
-msgid "Color"
-msgstr "Szín"
+#: libopenshot (Clip Properties)
+msgid "Fuzz"
+msgstr "Göndör"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/threshold.xml
-msgid "Reduces and mixes the colors of the image based on a threshold"
-msgstr "Egy küszöbérték alapján csökkenti és keveri a kép színeit"
+#: libopenshot (Clip Properties)
+msgid "Bottom Right"
+msgstr "Jobb lent"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
-msgid "Gain In"
-msgstr "Növekszik"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Depart Longitude (degrees)"
+msgstr "Indulási hosszúság (fok)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml
-msgid "Center size"
-msgstr "Középméret"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
+msgid "Correction near edges"
+msgstr "Javítás a szélek közelében"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml
-msgid "Key"
-msgstr "Kulcs"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
+msgid "Defocus"
+msgstr "Életlen fókusz"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml
-msgid "Dynamic 3 level thresholding"
-msgstr "Dinamikus 3 szintű küszöbérték"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml
+msgid "Adds static and grain to the image"
+msgstr "Zajt és szemcsézettséget ad a képhez"
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Halo: Use Flare"
-msgstr "Halo: Csillogás"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml
+msgid "Max Diameter"
+msgstr "Maximális átmérő"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/distort.xml
-msgid "Distort"
-msgstr "Torzítás"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml
-msgid "Reduce image to primary colors"
-msgstr "Alapszínek használata"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
-msgid "Delay"
-msgstr "Késleltetés"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml
-msgid "Delayed frame blitting mapped on a time bitmap"
-msgstr "Késleltetett képkocka másolás a idő bitkép alapján"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml
-msgid "Use Alpha"
-msgstr "Alfa használata"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "End: Z"
-msgstr "Vége: Z"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
-msgid "Blue"
-msgstr "Kék"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Halo: Line Count"
-msgstr "Halo: Sorok száma"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/bass.xml
-msgid "Frequency"
-msgstr "Frekvencia"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
+msgid "Show histogram"
+msgstr "Hisztogram megjelenítése"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml
 msgid "Filter the image to look like it is drawn with charcoal"
 msgstr ""
 "Szűrő alkalmazása a képen, hogy úgy tűnjön mintha szénnel rajzolták volna"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml
-msgid "Mask"
-msgstr "Maszk"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml
+msgid "Split and mirror the image"
+msgstr "A kép kettévágása és tükrözése"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml
 msgid "Baltan"
 msgstr "Baltan"
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
-msgid "Line 2 Color"
-msgstr "Vonal 2 szín"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
-msgid "Halo: Ending Size"
-msgstr "Halo: Befejező méret"
-
-#: libopenshot (Clip Properties)
-msgid "Horizontal Radius"
-msgstr "Vízszintes sugár"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml
-msgid ""
-"Make a single color transparent.  Also referred to as green screen and blue "
-"screen."
-msgstr "Egy szín áttetszővé tétele (blue-box vagy green-box technika)."
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
-msgid "Allows compensation of lens distortion"
-msgstr "Engedélyezi a lencsetorzítás kompenzálását"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
-msgid "Operation"
-msgstr "Művelet"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Specular Color"
-msgstr "Tükröződési szín"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
-msgid "Adjust luminance or color channel intensity"
-msgstr "Világosság vagy színcsatornák intenzitásának szabályozása"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml
-msgid "Noise"
-msgstr "Zaj"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
-msgid "Sun: Color Threshold"
-msgstr "Nap: Szín küszöb"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
-msgid "Input level white point"
-msgstr "Bemeneti fehér szint"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "End Frame"
-msgstr "Utolsó képkocka"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml
-msgid "Find and glow the edges of objects"
-msgstr "Alakzatok széleinek ragyogóvá tétele"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
-msgid "Darker"
-msgstr "Sötétebb"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Custom Texture (Equirectangular)"
+msgstr "Egyedi textúra (négyzet)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
-msgid "Extrude"
-msgstr "Nyújtás"
+msgid "Bevel Depth"
+msgstr "Bevésés mélység"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml
-msgid "Invert horizontally or vertically"
-msgstr "Függőleges vagy vízszintes invertálás"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "World Map"
+msgstr "Világtérkép"
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml
-msgid "World Map (Realistic)"
-msgstr "Világtérkép (valósághű)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
-msgid "Line 3 Color"
-msgstr "Vonal 3 szín"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/fly_by_1.xml
-msgid "Fly Towards Camera"
-msgstr "Repülés a kamera felé"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml
-msgid "Oversaturate the color in the image, like in old Technicolor movies"
-msgstr "A kép színeinek túltelítése, mint a régi Technicolor filmeknél"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml
-msgid "Sobel"
-msgstr "Sobel"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml
-msgid "Letterbox"
-msgstr "Szövegdoboz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml
-msgid "Factor"
-msgstr "Szorzó"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
-msgid "Max"
-msgstr "Maximum"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
+msgid "Tile 1: Diffuse Color"
+msgstr "Csempe 1: Szórt szín"
 
 #: libopenshot (Clip Properties)
-msgid "Waveform"
-msgstr "Hullámforma"
+msgid "Scale Y"
+msgstr "Y méretezés"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
+msgid "Background: Blend"
+msgstr "Háttér: Összemosás"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml
+msgid "Add small dust shapes randomly on the image"
+msgstr "Véletlenszerű apró porszemcséket ad a képhez"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/glare.xml
+msgid "Glare"
+msgstr "Ragyogás"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml
+msgid "Dynamic 3 level thresholding"
+msgstr "Dinamikus 3 szintű küszöbérték"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Particles: Lifetime"
+msgstr "Részecskék: Életidő"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
+msgid "Z Coordinate"
+msgstr "Z koordináta"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
+msgid "Episode"
+msgstr "Epizód"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Velocity: X"
+msgstr "Sebesség: X"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "Number of Snow Flakes"
+msgstr "Hópelyhek száma"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
+msgid "Text Size"
+msgstr "Szövegméret"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
+msgid "Histogram position"
+msgstr "A hisztogram pozíciója"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
+msgid "Delay"
+msgstr "Késleltetés"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/explode.xml
+msgid "Particle Number"
+msgstr "Részecskeszám"
+
+#: libopenshot (Effect Metadata)
+msgid "Negates the colors, producing a negative of the image."
+msgstr "Invertálja a színeket, így előállítva a kép negatívját."
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml
+msgid "Scan Lines"
+msgstr "Sorok pásztázása"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml
+msgid "v"
+msgstr "v"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
+msgid "Manual Scale"
+msgstr "Kézi méretezés"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml
+msgid "Bottom"
+msgstr "Lent"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Halo: Use Lines"
 msgstr "Halo: Sorok használata"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
-msgid "Green"
-msgstr "Zöld"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml
+msgid "Charcoal"
+msgstr "Rajzszén"
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml
-msgid "Display Clouds"
-msgstr "Felhők mutatása"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Arrival Latitude (minutes)"
+msgstr "Érkezési szélesség (perc)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Start: X"
-msgstr "Kezdés: X"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
+msgid "Manual Pixel Aspect ratio"
+msgstr "Kézi pixel méretarány"
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Velocity: Y"
-msgstr "Sebesség: Y"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml
+msgid "Increase the size of pixels to obscure the image"
+msgstr "A pixelméret növelése a kép tompává tételéhez"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml
-msgid "Variance"
-msgstr "Eltérés"
+msgid "Chroma Key"
+msgstr "Kulcsolás egy színnel"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml
-msgid "Edgeglow"
-msgstr "Élfény"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml
+msgid "Reverse"
+msgstr "Hátra"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Depart Longitude (Prime Meridian)"
+msgstr "Indulási hosszúság (kezdő meridián)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml
+msgid "Sharpness"
+msgstr "Élesség"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
+msgid "Output level white point"
+msgstr "Kimeneti fehérszint"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml
+msgid "Detect and highlight the edges of objects"
+msgstr "Objektumok éleinek keresése és kiemelése"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml
+msgid "Greyscale"
+msgstr "Szürkeárnyalatos"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml
+msgid "Old Dust"
+msgstr "Poros"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "End: Z"
+msgstr "Vége: Z"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
+msgid "Tilt"
+msgstr "Döntés"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/invert.xml
+msgid "Convert colors in the image to the opposite or complementary colors"
+msgstr "A kép színeinek átváltása az ellentétes vagy komplementer színekre"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
+msgid "Title 2"
+msgstr "Cím 2"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
+msgid "Background: Specular Intensity"
+msgstr "Háttér: Tükröződő intenzitás"
+
+#: libopenshot (Clip Properties)
+msgid "Top Left"
+msgstr "Bal felső"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml
+msgid "Make image sharper"
+msgstr "Tedd a képeket élesebbé"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
+msgid "Three point balance"
+msgstr "Hárompontos egyensúly"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
+msgid "Fisheye"
+msgstr "Halszem"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml
+msgid "Top"
+msgstr "Felső"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/bass.xml
+msgid "Adjust the low-pitched sound or tone"
+msgstr "Mély hangok szabályozása"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
+msgid "Old Film"
+msgstr "Régi film"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
+msgid "Action"
+msgstr "Művelet"
+
+#: libopenshot (Clip Properties)
+msgid "Location X"
+msgstr "Helyzet X"
+
+#: libopenshot (Clip Properties)
+msgid "Location Y"
+msgstr "Y helyzet"
+
+#: libopenshot (Clip Properties)
+msgid "Sigma"
+msgstr "Szigma"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/balance.xml
+msgid "Adjust the left/right balance"
+msgstr "Bal-jobb egyensúly szabályozása"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
+msgid "Title Specular Color"
+msgstr "Felirat tükröződési szín"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
+msgid "Tile 3: Diffuse Color"
+msgstr "Csempe 3: Szórt szín"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Arrival Longitude (seconds)"
+msgstr "Érkezési hosszúság (másodperc)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
+msgid "Decay"
+msgstr "Bomlás"
+
+#: libopenshot (Clip Properties)
+msgid "Canvas"
+msgstr "Rajzvászon"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
+msgid "Gain Out"
+msgstr "Csökken"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml
+msgid "Display a single color, while using greyscale for the rest of the image"
+msgstr "Egy szín használata, miközben a kép többi része fekete-fehér"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Halo: Use Stars"
+msgstr "Halo: Csillagok használata"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml
 msgid ""
@@ -933,165 +1080,1002 @@ msgstr ""
 "Kép színeinek szabályozása, hogy olyan fekete-fehér film benyomását keltse, "
 "melyhez szépia pigmentet kevertek"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
-msgid "Tint amount"
-msgstr "Színezés mértéke"
-
 #: libopenshot (Clip Properties)
-msgid "Location Y"
-msgstr "Y helyzet"
+msgid "Waveform"
+msgstr "Hullámforma"
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
-msgid "Bevel Depth"
-msgstr "Bevésés mélység"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "Mirror Color"
+msgstr "Színek megfordítása"
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
-msgid "Text Size"
-msgstr "Szövegméret"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml
-msgid "Neutral Color"
-msgstr "Semleges szín"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/contrast.xml
-msgid "Adjusts the contrast of a source image"
-msgstr "Bemeneti kép kontrasztjának szabályozása"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
+msgid "Aspect type"
+msgstr "Nézőpont típus"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Halo: Hardness"
-msgstr "Halo: Keménység"
+msgid "Halo: Line Count"
+msgstr "Halo: Sorok száma"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
+msgid "Extrude"
+msgstr "Nyújtás"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
+msgid "Lens Flare"
+msgstr "Lencsecsillogás"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml
+msgid "Green Tint"
+msgstr "Zöldes árnyalatú"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Depart Longitude (seconds)"
+msgstr "Indulási hosszúság (másodperc)"
 
 #: libopenshot (Effect Metadata)
-msgid "Alpha Mask / Wipe Transition"
-msgstr "Alfa maszk / Áttűnés törlése"
+msgid "Deinterlace"
+msgstr "Váltottsorosság megszüntetése"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml
-msgid "Adds black borders at the top and bottom"
-msgstr "Fekete sáv hozzáadása fent és lent"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
+msgid "Episode Title"
+msgstr "Fejezetcím"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml
-msgid "Mix"
-msgstr "Keverés"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Particles: Gravity"
+msgstr "Részecskék: gravitáció"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
+msgid "Fills alpha channel with a gradient"
+msgstr "Alfa csatorna kitöltése átmenettel"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml
+msgid "Color Distance"
+msgstr "Színkülönbség"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml
+msgid "Zoom to Clapboard"
+msgstr "Képméretre nagyítás"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/balance.xml
+msgid "Balance"
+msgstr "Egyensúly"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
+msgid "Interpolation"
+msgstr "Interpoláció"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml
+msgid "something videowall-ish"
+msgstr "Videófal szerű"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
+msgid "Line 1 Color"
+msgstr "Vonal 1 szín"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml
+msgid "Freeze After"
+msgstr "Kimerevítés utána"
+
+#: libopenshot (Effect Metadata)
+msgid ""
+"Uses a grayscale mask image to gradually wipe / transition between 2 images."
+msgstr ""
+"Szürkeárnyalatos maszk alkalmazása két kép közötti részleges törléshez vagy "
+"áttűnéshez."
+
+#: libopenshot (Clip Properties)
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:115
+msgid "End"
+msgstr "Vége"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "End: Y"
+msgstr "Vége: Y"
+
+#: libopenshot (Clip Properties)
+msgid "Iterations"
+msgstr "Iterációk"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
 msgid "Black color"
 msgstr "Fekete szín"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/distort.xml
-msgid "Amplitude"
-msgstr "Amplitúdó"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml
+msgid "Freeze the frame of a video"
+msgstr "A videó egy képének kimerevítése"
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/explode.xml
-msgid "Display Ground"
-msgstr "Föld mutatása"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
+msgid "Darker"
+msgstr "Sötétebb"
+
+#: libopenshot (Clip Properties)
+msgid "Top Center"
+msgstr "Felső középső"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
+msgid "Split preview"
+msgstr "Megosztott előnézet"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
+msgid "Echo"
+msgstr "Visszhang"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml
 msgid "Horizontal Sync"
 msgstr "Vízszintes szinkron"
 
-#: libopenshot (Clip Properties)
-msgid "Location X"
-msgstr "Helyzet X"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml
-msgid "Add small dust shapes randomly on the image"
-msgstr "Véletlenszerű apró porszemcséket ad a képhez"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
-msgid "Scaling"
-msgstr "Átméretezés"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Velocity: X"
-msgstr "Sebesség: X"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml
-msgid "End Value"
-msgstr "Végső érték"
-
-#: libopenshot (Effect Metadata)
-msgid "Negative"
-msgstr "Inverz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml
-msgid "Pixelate"
-msgstr "Pixelesítés"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
+msgid "Adds random vertical lines to the image"
+msgstr "Véletlenszerű függőleges vonalakat ad a képhez"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
-msgid "White color"
-msgstr "Fehér szín"
+msgid "Gray color"
+msgstr "Szürke szín"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml
-msgid "Three Layer"
-msgstr "Három réteg"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
-msgid "Delta"
-msgstr "Különbség"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Specular Intensity"
-msgstr "Tükröződő intenzitás"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/hue.xml
-msgid "Hue"
-msgstr "Árnyalat"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
-msgid "Picture 4 Path"
-msgstr "Kép 4 útvonal"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml
-msgid "Make image sharper"
-msgstr "Tedd a képeket élesebbé"
-
-#: libopenshot (Effect Metadata)
-msgid "Adjust the brightness and contrast of the frame's image."
-msgstr "Képkockák fényerejének és kontrasztjának szabályzása."
-
-#: libopenshot (Clip Properties)
-msgid "Duration"
-msgstr "Időtartam"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Snow"
-msgstr "Hó"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml
+msgid "Center size"
+msgstr "Középméret"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Arrival Longitude (seconds)"
-msgstr "Érkezési hosszúság (másodperc)"
+msgid "Arrival Latitude (degrees)"
+msgstr "Érkezési szélesség (fok)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Start: Z"
-msgstr "Kezdés: Z"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
+msgid "Tile 2: Diffuse Color"
+msgstr "Csempe 2: Szórt szín"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
-msgid "Correction near edges"
-msgstr "Javítás a szélek közelében"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
+msgid "Background: Specular Color"
+msgstr "Háttér: Tükröződési szín"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/explode.xml
+msgid "Exploding Text"
+msgstr "Szétrobbanó szöveg"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml
-msgid "Cartoonify the image, using a form of edge detection"
-msgstr "A kép rajzfilmszerűvé alakítása, egyfajta élkeresés használatával"
+msgid "Cartoon"
+msgstr "Rajzfilm"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
-msgid "Y Offset"
-msgstr "Y irányú eltolás"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/treble.xml
+msgid "Adjust the high-pitched sound or tone"
+msgstr "A magas hangok szabályozása"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
+msgid "Y Center"
+msgstr "Y közép"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
+msgid "Operation"
+msgstr "Művelet"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
+msgid "Keep luma"
+msgstr "Világosság megtartása"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml
 msgid "Up Scale"
 msgstr "Nagyítás"
 
 #: libopenshot (Clip Properties)
-msgid "Best Fit"
-msgstr "Legjobb illeszkedés"
+msgid "Vertical Radius"
+msgstr "Függőleges sugár"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml
+msgid "Red Scale"
+msgstr "Vörös skála"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
+msgid "Space Movie Intro"
+msgstr "Űr mozifilm bevezető"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/dissolve.xml
+msgid "Dissolving Text"
+msgstr "Áttűnő szöveg"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml
+msgid "X Scatter"
+msgstr "X szórás"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
+msgid "Spots: Color Threshold"
+msgstr "Foltok: szín küszöb"
+
+#: libopenshot (Clip Properties)
+msgid "Horizontal Radius"
+msgstr "Vízszintes sugár"
+
+#: libopenshot (Clip Properties)
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:96
+msgid "Start"
+msgstr "Indítás"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
+msgid "Add an echo"
+msgstr "Visszhang hozzáadása"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Magic Wand"
+msgstr "Varázspálca"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
+msgid "Brightness Delta Every"
+msgstr "Világossági különbség mindre"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
 msgid "Rotate Y"
 msgstr "Forgatás Y tengely körül"
 
+#: libopenshot (Clip Properties)
+msgid "Center"
+msgstr "Középre"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
+msgid "Allows compensation of lens distortion"
+msgstr "Engedélyezi a lencsetorzítás kompenzálását"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Arrival Longitude (minutes)"
+msgstr "Érkezési hosszúság (perc)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
+msgid "Alphagrad"
+msgstr "Áttetszőségi fokozat"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml
+msgid "Frame Number"
+msgstr "Képkocka száma"
+
+#: libopenshot (Effect Metadata)
+msgid "Remove interlacing from a video (i.e. even or odd horizontal lines)"
+msgstr ""
+"Váltottsorosság eltávolítása a videóból (páros vagy páratlan vízszintes "
+"sorok)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "Gravity: X"
+msgstr "Gravitáció: X"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
+msgid "X Offset"
+msgstr "X irányú eltolás"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
+msgid "Sun: Angle Offset"
+msgstr "Nap: Szögeltolás"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml
+msgid "Sepia"
+msgstr "Szépia"
+
+#: libopenshot (Clip Properties)
+msgid "Position"
+msgstr "Pozíció"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Halo: Star Count"
+msgstr "Halo: Csillagok száma"
+
+#: libopenshot (Clip Properties)
+msgid "Bottom Left"
+msgstr "Bal lent"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
+msgid "Line 3 Color"
+msgstr "Vonal 3 szín"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/fly_by_two_titles.xml
+msgid "Fly Towards Camera (Two Titles)"
+msgstr "Repülés a kamera felé (két felirat)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml
+msgid "Letterbox"
+msgstr "Szövegdoboz"
+
+#: libopenshot (Clip Properties)
+msgid "ID"
+msgstr "AZONOSÍTÓ"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
+msgid "Brightness Delta Up"
+msgstr "Világosság különbség növelése"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
+msgid "Map white to"
+msgstr "Fehér leképezése"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "Gravity: Z"
+msgstr "Gravitáció: Z"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
+msgid ""
+"Adjusts the gamma and brightness randomly to create the illusion of old film"
+msgstr ""
+"Véletlenszerűen változtatja a gamma és világosság értékeket, hogy régi film "
+"benyomását keltse"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml
+msgid "Freeze"
+msgstr "Kimerevítés"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
+msgid "Number"
+msgstr "Szám"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml
+msgid "Gamma"
+msgstr "Gamma"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
+msgid "Scaling"
+msgstr "Átméretezés"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
+msgid "Picture 3 Path"
+msgstr "Kép 3 útvonal"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
+msgid "Sun: Color Threshold"
+msgstr "Nap: Szín küszöb"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/blur.xml
+msgid "Blur the image similar to an out-of-focus camera"
+msgstr "Kép elmosása életlen fókusszal"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml
+msgid "Mix"
+msgstr "Keverés"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
+msgid "Fixed Rotate Y"
+msgstr "Állandó Y forgatás"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
+msgid "First Title"
+msgstr "Első felirat"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml
+msgid "Block Size X"
+msgstr "Blokkméret X"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
+msgid "Title 1"
+msgstr "Cím 1"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
+msgid "Delta"
+msgstr "Különbség"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml
+msgid "Max Count"
+msgstr "Maximális léptetés"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml
+msgid "Blue/Yellow"
+msgstr "Kék és sárga"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
+msgid "Brightness Delta Down"
+msgstr "Világosság különbség csökkentése"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "Diffuse Color"
+msgstr "Szórt szín"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml
+msgid "Creates a square alpha-channel mask"
+msgstr "Alfa-csatorna maszkot hoz létre"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/blur.xml
+msgid "Blur"
+msgstr "Elmosás"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml
+msgid "Edgeglow"
+msgstr "Élfény"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml
+msgid "Oversaturate the color in the image, like in old Technicolor movies"
+msgstr "A kép színeinek túltelítése, mint a régi Technicolor filmeknél"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
+msgid "Background: Shadeless"
+msgstr "Háttér: Árnyék nélkül"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml
+msgid "Three Layer"
+msgstr "Három réteg"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Depart Title"
+msgstr "Indulási felirat"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Particles: Amount"
+msgstr "Részecskék: mennyiség"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml
+msgid "Aspect ratio"
+msgstr "Méretarány"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml
+msgid "Interlaced black lines"
+msgstr "Váltottsoros fekete csíkok"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml
+msgid "Delayed frame blitting mapped on a time bitmap"
+msgstr "Késleltetett képkocka másolás a idő bitkép alapján"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml
+msgid "Use Alpha"
+msgstr "Alfa használata"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
+msgid "Halo: Ending Size"
+msgstr "Halo: Befejező méret"
+
+#: libopenshot (Clip Properties)
+msgid "Left"
+msgstr "Bal"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
+msgid "Picture 4 Path"
+msgstr "Kép 4 útvonal"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml
+msgid "Display Clouds"
+msgstr "Felhők mutatása"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
+msgid "Fixed Rotate X"
+msgstr "Állandó X forgatás"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Halo: Use Rings"
+msgstr "Halo: Gyűrűk használata"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml
+msgid ""
+"Make a single color transparent.  Also referred to as green screen and blue "
+"screen."
+msgstr "Egy szín áttetszővé tétele (blue-box vagy green-box technika)."
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml
+msgid "Midpoint"
+msgstr "Felezőpont"
+
+#: libopenshot (Clip Properties)
+msgid "Stretch"
+msgstr "Nyújtás"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml
+msgid "Adjusts the brightness of the image"
+msgstr "Kép fényességének szabályozása"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml
+msgid "Variance"
+msgstr "Eltérés"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml
+msgid "Neutral Color"
+msgstr "Semleges szín"
+
+#: libopenshot (Effect Metadata)
+msgid "Negative"
+msgstr "Inverz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
+msgid "Color Tiles"
+msgstr "Szín mozaik"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
+msgid "Font Name"
+msgstr "Betűkészlet neve"
+
+#: libopenshot (Clip Properties)
+msgid "Wave Color"
+msgstr "Hullám színe"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "Gravity: Y"
+msgstr "Gravitáció: Y"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml
+msgid "Adjust the white balance and color temperature"
+msgstr "Fehéregyensúly és színhőmérséklet szabályozása"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
+msgid "Rotate Z"
+msgstr "Forgatás Z tengely körül"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/hue.xml
+msgid "Shift the hue of all colors in the image"
+msgstr "A kép minden színárnyalatának eltolása"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/glow.xml
+msgid "Glow"
+msgstr "Ragyogás"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
+msgid "Old Lines"
+msgstr "Idős vonalak"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml
+msgid "u"
+msgstr "u"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Start: Z"
+msgstr "Kezdés: Z"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
+msgid "Text Alignment"
+msgstr "Szöveg igazítás"
+
+#: libopenshot (Clip Properties)
+msgid "Layer"
+msgstr "Réteg"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "Specular Color"
+msgstr "Tükröződési szín"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
+msgid "Tint"
+msgstr "Árnyalat"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
+msgid "Adjust luminance or color channel intensity"
+msgstr "Világosság vagy színcsatornák intenzitásának szabályozása"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
+msgid "X Coordinate"
+msgstr "X koordináta"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml
+msgid "White Balance"
+msgstr "Fehéregyensúly"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml
+msgid "Old Grain"
+msgstr "Idős Búza"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/rotate_360.xml
+msgid "Rotate 360 Degrees"
+msgstr "Elforgatás 360 fokkal"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Arrival Longitude (degrees)"
+msgstr "Érkezési hosszúság (fok)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml
+msgid "World Map (Realistic)"
+msgstr "Világtérkép (valósághű)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/glow.xml
+msgid "Add a glow effect to the image"
+msgstr "Ragyogás effekt hozzáadása a képhez"
+
+#: libopenshot (Clip Properties)
+msgid "Duration"
+msgstr "Időtartam"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Depart Latitude (Equator)"
+msgstr "Indulási szélesség (egyenlítő)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
+msgid "Defish"
+msgstr "Delfish"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
+msgid "Blue"
+msgstr "Kék"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml
+msgid "Convert an image to shades of grey"
+msgstr "Kép szürkeárnyalatossá alakítása"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml
+msgid "Phaser"
+msgstr "Fázisléptető"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
+msgid "Title Diffuse Color"
+msgstr "Felirat átmosási színe"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml
+msgid "Speed"
+msgstr "Sebesség"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml
+msgid "Delay grab"
+msgstr "Késleltetés húzása"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml
+msgid "Red/Green Axis"
+msgstr "Vörös/Zöld keverés"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml
+msgid "Equalizor"
+msgstr "Kiegyenlítő"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
+msgid "Source image on left side"
+msgstr "Forráskép a bal oldalon"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Arrival Latitude (seconds)"
+msgstr "Érkezési szélesség (másodperc)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml
+msgid "Block Size Y"
+msgstr "Blokkméret Y"
+
+#: libopenshot (Clip Properties)
+msgid "Scale X"
+msgstr "X méretezés"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
+msgid "Type"
+msgstr "Típus"
+
+#: libopenshot (Clip Properties)
+msgid "Right"
+msgstr "Jobb"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml
+msgid "Adds black borders at the top and bottom"
+msgstr "Fekete sáv hozzáadása fent és lent"
+
+#: libopenshot (Clip Properties)
+msgid "Bottom Center"
+msgstr "Középen lent"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml
+msgid "Black and White"
+msgstr "Fekete-fehér"
+
+#: libopenshot (Clip Properties)
+msgid "Top Right"
+msgstr "Jobb felső"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
+msgid "Width"
+msgstr "Szélesség"
+
+#: libopenshot (Clip Properties)
+msgid "Saturation"
+msgstr "Telítettség"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml
+msgid "delayed alpha smoothed blit of time"
+msgstr "Időben finomított késleltetett alfa"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
+msgid "Simple color adjustment"
+msgstr "Egyszerű színmódosítás"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml
+msgid "Chroma Hold"
+msgstr "Színinformáció megtartása"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/contrast.xml
+msgid "Adjusts the contrast of a source image"
+msgstr "Bemeneti kép kontrasztjának szabályozása"
+
+#: libopenshot (Clip Properties)
+msgid "Is Odd Frame"
+msgstr "Páratlan képkocka"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
+msgid "Amount"
+msgstr "Mennyisége"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml
+msgid "Y Scatter"
+msgstr "Y szórás"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
+msgid "Title 3"
+msgstr "Cím 3"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml
+msgid "Mirror"
+msgstr "Tükrözés"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
+msgid "Alpha controlled"
+msgstr "Alfa-vezérelt"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/distort.xml
+msgid "Distort"
+msgstr "Torzítás"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml
+msgid "Vignette"
+msgstr "Matrica"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Arrival Longitude (Prime Meridian)"
+msgstr "Érkezési hosszúság (0. hosszúsági kör)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml
+msgid "Softness"
+msgstr "Lágyság"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Halo: Ring Count"
+msgstr "Halo: Gyűrűk száma"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml
+msgid "Adjust the color of the image to black and white based on a threshold"
+msgstr "Kép színeinek fekete-fehérré alakítása küszöbérték használatával"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/bass.xml
+msgid "Frequency"
+msgstr "Frekvencia"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/explode.xml
+msgid "Display Ground"
+msgstr "Föld mutatása"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
+msgid "Flying Title"
+msgstr "Repülő felirat"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml
+msgid ""
+"Adjust the image up and down, with the off-screen portion appearing on the "
+"other side"
+msgstr ""
+"A kép fel-le mozgatása úgy, hogy a kilógó rész visszajön a másik oldalon"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
+msgid "Input level black point"
+msgstr "Bemeneti fekete szint"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml
+msgid "Size"
+msgstr "Méret"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
+msgid "Line 2 Color"
+msgstr "Vonal 2 szín"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
+msgid "Tint a source image with specified color"
+msgstr "A forráskép beszínezése egy megadott színnel"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml
+msgid ""
+"Add a series of peaks and troughs to the audio, creating a sweeping effect"
+msgstr ""
+"Csúcsok és völgyek sorozatának hozzáadása a hanghoz, száguldás effektus"
+
+#: libopenshot (Clip Properties)
+msgid "Best Fit"
+msgstr "Legjobb illeszkedés"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml
+msgid "TehRoxx0r"
+msgstr "TehRoxx0r"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml
+msgid "Param"
+msgstr "Paraméter"
+
+#: libopenshot (Clip Properties)
+msgid "Crop"
+msgstr "Vágás"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml
+msgid "Noise"
+msgstr "Zaj"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
+msgid "Neon Curves"
+msgstr "Neon görbék"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml
+msgid "Pixelate"
+msgstr "Pixelesítés"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Arrival Title"
+msgstr "Érkezési felirat"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/saturation.xml
+msgid "Adjusts the saturation or intensity of the image"
+msgstr "A kép telítettségének vagy intenzitásának szabályozása"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Halo: Use Flare"
+msgstr "Halo: Csillogás"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
+msgid "Channel"
+msgstr "Csatorna"
+
+#: libopenshot (Clip Properties)
+msgid "Replace Image"
+msgstr "Kép kicserélése"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml
+msgid "Reduce image to primary colors"
+msgstr "Alapszínek használata"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/distort.xml
+msgid "Amplitude"
+msgstr "Amplitúdó"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
+msgid "Picture 2 Path"
+msgstr "Kép 2 útvonal"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml
+msgid "Lens vignetting"
+msgstr "Lencsekeret"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Start: Y"
+msgstr "Kezdés: Y"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
+msgid "Red"
+msgstr "Vörös"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
+msgid "Max"
+msgstr "Maximum"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/fly_by_1.xml
+msgid "Fly Towards Camera"
+msgstr "Repülés a kamera felé"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml
+msgid "Equalizes the intensity histograms"
+msgstr "Az intenzitás-hisztogramok kiegyenlítése"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
+msgid "Lens Correction"
+msgstr "Lencse korrekció"
+
+#: libopenshot (Effect Metadata)
+msgid "Color Saturation"
+msgstr "Színtelítettség"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
+msgid "Transition width"
+msgstr "Áttűnés szélessége"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml
+msgid "Primary Colors"
+msgstr "Elsődleges színek"
+
+#: libopenshot (Effect Metadata)
+msgid "Adjust the blur of the frame's image."
+msgstr "Képkockák elmosásának szabályozása."
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Depart Latitude (degrees)"
+msgstr "Indulási szélesség (fok)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Velocity: Z"
+msgstr "Sebesség: Z"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "Start Frame"
+msgstr "Kezdő képkocka"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
+msgid "Rotate X"
+msgstr "Forgatás X tengely körül"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
+msgid "Background: Alpha"
+msgstr "Háttér: Alfa"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
+msgid "Tile 4: Diffuse Color"
+msgstr "Csempe 4: Szórt szín"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
+msgid "Every"
+msgstr "Minden"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
+msgid "Background: Fresnel"
+msgstr "Háttér: Fresnel"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
+msgid "Picture 1 Path"
+msgstr "Kép 1 útvonal"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
+msgid "Tint amount"
+msgstr "Színezés mértéke"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
+msgid "Output level black point"
+msgstr "Kimeneti fekete szint"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "Snow"
+msgstr "Hó"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/threshold.xml
+msgid "Reduces and mixes the colors of the image based on a threshold"
+msgstr "Egy küszöbérték alapján csökkenti és keveri a kép színeit"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml
+msgid "Sobel"
+msgstr "Sobel"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
+msgid "Adjust color balance with 3 color points"
+msgstr "Színegyensúly szabályozása három színponttal"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/slide_left_to_right.xml
+msgid "Slide Left to Right"
+msgstr "Balról jobbra csúszás"
+
 #: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
 msgid "Line 4 Color"
 msgstr "Vonal 4 szín"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Depart Latitude (seconds)"
+msgstr "Indulási szélesség (másodperc)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "End: X"
+msgstr "Vége: X"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Halo: Hardness"
+msgstr "Halo: Keménység"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/balance.xml
+msgid "Left | Right"
+msgstr "Bal | Jobb"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml
+msgid "Trip Level"
+msgstr "Ugrásszint"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml
+msgid "Blinds (Two Titles)"
+msgstr "Redőny (két felirat)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml
+msgid "Cartoonify the image, using a form of edge detection"
+msgstr "A kép rajzfilmszerűvé alakítása, egyfajta élkeresés használatával"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
+msgid "Halo: Starting Size"
+msgstr "Halo: Kezdő méret"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml
+msgid "Color"
+msgstr "Szín"
+
+#: libopenshot (Effect Metadata)
+msgid "Adjust the brightness and contrast of the frame's image."
+msgstr "Képkockák fényerejének és kontrasztjának szabályzása."
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/trees.xml
+msgid "Trees"
+msgstr "Fák"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml
+msgid "Key"
+msgstr "Kulcs"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
+msgid "Sun: Number of Streaks"
+msgstr "Nap: Sugarak száma"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml
 msgid ""
@@ -1101,187 +2085,156 @@ msgstr ""
 "A kiválasztott szín és a jelenlegi pixelérték közötti távolság használata az "
 "új pixelértékhez"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
-msgid "Red"
-msgstr "Vörös"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Start: X"
+msgstr "Kezdés: X"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/balance.xml
-msgid "Adjust the left/right balance"
-msgstr "Bal-jobb egyensúly szabályozása"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:106
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:862
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:865
+msgid "Title"
+msgstr "Felirat"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml
-msgid "something videowall-ish"
-msgstr "Videófal szerű"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml
+msgid "Sub Title"
+msgstr "Alcím"
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
-msgid "Title Diffuse Color"
-msgstr "Cím átmosási színe"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
+msgid "Text Width"
+msgstr "Szövegméret"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
-msgid "Amount"
-msgstr "Mennyisége"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml
+msgid "Adjusts the gamma or luminance value of the image"
+msgstr "A kép gamma vagy világosság értékének szabályozása"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml
+msgid "Find and glow the edges of objects"
+msgstr "Alakzatok széleinek ragyogóvá tétele"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml
+msgid "Y axis"
+msgstr "Y tengely"
+
+#: libopenshot (Effect Metadata)
+msgid "Chroma Key (Greenscreen)"
+msgstr "Kulcsolás egy színnel (Zöld képernyő)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
+msgid "Main Text"
+msgstr "Fő szöveg"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Depart Latitude (minutes)"
+msgstr "Indulási szélesség (perc)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
+msgid "Glass Slider"
+msgstr "Csúszó üveg"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Start Frame"
-msgstr "Kezdő képkocka"
+msgid "Specular Intensity"
+msgstr "Tükröződő intenzitás"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
-msgid "Tint a source image with specified color"
-msgstr "A forráskép beszínezése egy megadott színnel"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Arrival Latitude (Equator)"
+msgstr "Érkezési szélesség (egyenlítő)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
-msgid "Channel"
-msgstr "Csatorna"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml
+msgid "Start Value"
+msgstr "Kezdőérték"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml
-msgid "Equalizor"
-msgstr "Kiegyenlítő"
+#: libopenshot (Effect Metadata)
+msgid "Brightness & Contrast"
+msgstr "Fényerő és kontraszt"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml
-msgid "X Scatter"
-msgstr "X szórás"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml
+msgid "End Value"
+msgstr "Végső érték"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
-msgid "Gain Out"
-msgstr "Csökken"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml
+msgid "Invert horizontally or vertically"
+msgstr "Függőleges vagy vízszintes invertálás"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml
-msgid "Creates a square alpha-channel mask"
-msgstr "Alfa-csatorna maszkot hoz létre"
+msgid "Mask"
+msgstr "Maszk"
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
-msgid "Picture 1 Path"
-msgstr "Kép 1 útvonal"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Depart Longitude (minutes)"
+msgstr "Indulási hosszúság (perc)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml
+msgid "Flippo"
+msgstr "Flippo"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
+msgid "Background: Diffuse Color"
+msgstr "Háttér: Színelmosás"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
+msgid "Input level white point"
+msgstr "Bemeneti fehér szint"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Halo: Size"
+msgstr "Halo: Méret"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml
 msgid "X axis"
 msgstr "X tengely"
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "End: X"
-msgstr "Vége: X"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
-msgid "Title"
-msgstr "Cím"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml
-msgid "Old Dust"
-msgstr "Poros"
+#: libopenshot (Effect Metadata)
+msgid "Adjust the color saturation."
+msgstr "Színtelítettség szabályozása."
 
 #: libopenshot (Clip Properties)
-msgid "Fuzz"
-msgstr "Göndör"
+msgid "Viewport"
+msgstr "Nézőpont"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml
+msgid "Diff Space"
+msgstr "Hely különbség"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
+msgid "White color"
+msgstr "Fehér szín"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml
+msgid "Oversaturate Color"
+msgstr "Szín túltelítése"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
-msgid "Simple color adjustment"
-msgstr "Egyszerű színmódosítás"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/fly_by_two_titles.xml
-msgid "Fly Towards Camera (Two Titles)"
-msgstr "Repülés a kamera felé (két cím)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml
-msgid "Display a single color, while using greyscale for the rest of the image"
-msgstr "Egy szín használata, miközben a kép többi része fekete-fehér"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml
-msgid "Sharpness"
-msgstr "Élesség"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
-msgid "Correction near center"
-msgstr "Javítás a középpont közelében"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
-msgid "Flying Title"
-msgstr "Repülő cím"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
-msgid "Defocus"
-msgstr "Életlen fókusz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Custom Texture (Equirectangular)"
-msgstr "Egyedi textúra (négyzet)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
-msgid "Luma formula"
-msgstr "Világosság formula"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml
-msgid "delayed alpha smoothed blit of time"
-msgstr "Időben finomított késleltetett alfa"
+msgid "Green"
+msgstr "Zöld"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Mirror Color"
-msgstr "Színek megfordítása"
-
-#: libopenshot (Clip Properties)
-msgid "Bottom Left"
-msgstr "Bal lent"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
-msgid "Manual Scale"
-msgstr "Kézi méretezés"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Title 3"
-msgstr "Cím 3"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/slide_left_to_right.xml
-msgid "Slide Left to Right"
-msgstr "Balról jobbra csúszás"
-
-#: libopenshot (Clip Properties)
-msgid "Anchor"
-msgstr "Horgony"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/glow.xml
-msgid "Add a glow effect to the image"
-msgstr "Ragyogás effekt hozzáadása a képhez"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
-msgid "Lens Correction"
-msgstr "Lencse korrekció"
+msgid "End Frame"
+msgstr "Utolsó képkocka"
 
 #: libopenshot (Clip Properties)
 msgid "Key Color"
 msgstr "Kulcs szín"
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml
-msgid "Blinds (Two Titles)"
-msgstr "Redőny (két cím)"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
+msgid "Color adjustment"
+msgstr "Színszabályozás"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml
-msgid "Black and White"
-msgstr "Fekete-fehér"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
+msgid "Rotate an image statically or animated"
+msgstr "Egy kép elforgatása statikusan vagy elmozgatva"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
-msgid "Output level white point"
-msgstr "Kimeneti fehérszint"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
+msgid "Fixed Rotate Z"
+msgstr "Állandó Z forgatás"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
-msgid "Adds random vertical lines to the image"
-msgstr "Véletlenszerű függőleges vonalakat ad a képhez"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
+msgid "Gain In"
+msgstr "Növekszik"
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Arrival Longitude (minutes)"
-msgstr "Érkezési hosszúság (perc)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Halo: Ring Count"
-msgstr "Halo: Gyűrűk száma"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml
-msgid ""
-"Add a series of peaks and troughs to the audio, creating a sweeping effect"
-msgstr ""
-"Csúcsok és völgyek sorozatának hozzáadása a hanghoz, száguldás effektus"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
-msgid "Fisheye"
-msgstr "Halszem"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/bass.xml
+msgid "Gain"
+msgstr "Erősítés"
 
 #: libopenshot (Effect Metadata)
 msgid ""
@@ -1291,1641 +2244,606 @@ msgstr ""
 "Átlátszóságra cseréli a képkocka színt (vagy kulcsolást, például szín "
 "eltávolítására használható)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
-msgid "Transition width"
-msgstr "Áttűnés szélessége"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml
+msgid "Nosync"
+msgstr "Nincs szinkron"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/treble.xml
-msgid "Treble"
-msgstr "Magas"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
-msgid "Episode"
-msgstr "Epizód"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
-msgid "Sun: Angle Offset"
-msgstr "Nap: Szögeltolás"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml
-msgid "Trip Level"
-msgstr "Ugrásszint"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml
-msgid "Primary Colors"
-msgstr "Elsődleges színek"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Halo: Star Count"
-msgstr "Halo: Csillagok száma"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Arrival Latitude (Equator)"
-msgstr "Érkezési szélesség (egyenlítő)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml
-msgid "Sub Title"
-msgstr "Felirat"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
-msgid "Input level black point"
-msgstr "Bemeneti fekete szint"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Depart Longitude (degrees)"
-msgstr "Indulási hosszúság (fok)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml
-msgid "Softness"
-msgstr "Lágyság"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
-msgid "Font Name"
-msgstr "Betűkészlet neve"
-
-#: libopenshot (Clip Properties)
-msgid "End"
-msgstr "Vége"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/distort.xml
-msgid "Distort the source similar to plasma"
-msgstr "A forrás plazmaszerűvé torzítása"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Diffuse Color"
-msgstr "Szórt szín"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
-msgid "Y Center"
-msgstr "Y közép"
-
-#: libopenshot (Clip Properties)
-msgid "Bottom Right"
-msgstr "Jobb lent"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml
-msgid "Frame Number"
-msgstr "Képkocka száma"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
-msgid "X Offset"
-msgstr "X irányú eltolás"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
-msgid "Background: Diffuse Color"
-msgstr "Háttér: Színelmosás"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Tile 1: Diffuse Color"
-msgstr "Csempe 1: Szórt szín"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/glare.xml
-msgid "Glare"
-msgstr "Ragyogás"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml
-msgid "Freeze After"
-msgstr "Kimerevítés utána"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml
-msgid "Greyscale"
-msgstr "Szürkeárnyalatos"
-
-#: libopenshot (Clip Properties)
-msgid "Canvas"
-msgstr "Rajzvászon"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
-msgid "Rotate X"
-msgstr "Forgatás X tengely körül"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
-msgid "Three point balance"
-msgstr "Hárompontos egyensúly"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
-msgid "Keep luma"
-msgstr "Világosság megtartása"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "World Map"
-msgstr "Világtérkép"
-
-#: libopenshot (Clip Properties)
-msgid "Stretch"
-msgstr "Nyújtás"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml
-msgid "Top"
-msgstr "Felső"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml
-msgid "Convert an image to shades of grey"
-msgstr "Kép szürkeárnyalatossá alakítása"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/explode.xml
-msgid "Exploding Text"
-msgstr "Szétrobbanó szöveg"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
-msgid "Text Alignment"
-msgstr "Szöveg igazítás"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
-msgid "Source image on left side"
-msgstr "Forráskép a bal oldalon"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml
-msgid "Y axis"
-msgstr "Y tengely"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "File Name"
-msgstr "Fájlnév"
-
-#: libopenshot (Effect Metadata)
-msgid "Remove interlacing from a video (i.e. even or odd horizontal lines)"
-msgstr ""
-"Váltottsorosság eltávolítása a videóból (páros vagy páratlan vízszintes "
-"sorok)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Magic Wand"
-msgstr "Varázspálca"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml
-msgid "Detect and highlight the edges of objects"
-msgstr "Objektumok éleinek keresése és kiemelése"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
-msgid "Fixed Rotate Y"
-msgstr "Állandó Y forgatás"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml
-msgid "Adjust the color of the image to black and white based on a threshold"
-msgstr "Kép színeinek fekete-fehérré alakítása küszöbérték használatával"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml
-msgid "Old Grain"
-msgstr "Idős Búza"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Background: Specular Color"
-msgstr "Háttér: Tükröződési szín"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
-msgid "Adjust color balance with 3 color points"
-msgstr "Színegyensúly szabályozása három színponttal"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Gravity: Y"
-msgstr "Gravitáció: Y"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml
-msgid "Cartoon"
-msgstr "Rajzfilm"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
-msgid "Neon Curves"
-msgstr "Neon görbék"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml
-msgid "Param"
-msgstr "Paraméter"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml
-msgid "Sepia"
-msgstr "Szépia"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml
-msgid "Phaser"
-msgstr "Fázisléptető"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/blur.xml
-msgid "Blur"
-msgstr "Elmosás"
-
-#: libopenshot (Clip Properties)
-msgid "ID"
-msgstr "AZONOSÍTÓ"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/rotate_360.xml
-msgid "Rotate 360 Degrees"
-msgstr "Elforgatás 360 fokkal"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "End: Y"
-msgstr "Vége: Y"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Title 1"
-msgstr "Cím 1"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/hue.xml
+msgid "Hue"
+msgstr "Árnyalat"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml
 msgid "Interval"
 msgstr "Időtartam"
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
-msgid "Episode Title"
-msgstr "Fejezetcím"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
-msgid "Rotate an image statically or animated"
-msgstr "Egy kép elforgatása statikusan vagy elmozgatva"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml
-msgid "Charcoal"
-msgstr "Rajzszén"
-
-#: libopenshot (Effect Metadata)
-msgid "Negates the colors, producing a negative of the image."
-msgstr "Invertálja a színeket, így előállítva a kép negatívját."
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
-msgid "Sun: Number of Streaks"
-msgstr "Nap: Sugarak száma"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml
-msgid "Oversaturate Color"
-msgstr "Szín túltelítése"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
-msgid "Color adjustment"
-msgstr "Színszabályozás"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
-msgid "Space Movie Intro"
-msgstr "Űr mozifilm bevezető"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
-msgid "Interpolation"
-msgstr "Interpoláció"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml
-msgid "Vignette"
-msgstr "Matrica"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Depart Title"
-msgstr "Cím elhagyása"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml
-msgid "Block Size Y"
-msgstr "Blokkméret Y"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
-msgid "Histogram position"
-msgstr "A hisztogram pozíciója"
-
-#: libopenshot (Effect Metadata)
-msgid "Deinterlace"
-msgstr "Váltottsorosság megszüntetése"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
-msgid "Brightness Delta Down"
-msgstr "Világosság különbség csökkentése"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml
-msgid "Color Distance"
-msgstr "Színkülönbség"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml
-msgid "White Balance"
-msgstr "Fehéregyensúly"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml
-msgid "Gamma"
-msgstr "Gamma"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
-msgid "Brightness Delta Up"
-msgstr "Világosság különbség növelése"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml
-msgid "Speed"
-msgstr "Sebesség"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
-msgid "Defish"
-msgstr "Delfish"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Depart Latitude (degrees)"
-msgstr "Indulási szélesség (fok)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
-msgid "Picture 2 Path"
-msgstr "Kép 2 útvonal"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Depart Longitude (seconds)"
-msgstr "Indulási hosszúság (másodperc)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/balance.xml
-msgid "Left | Right"
-msgstr "Bal | Jobb"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml
-msgid "Green Tint"
-msgstr "Zöldes árnyalatú"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
-msgid "Rotate Z"
-msgstr "Forgatás Z tengely körül"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
-msgid "Lighter"
-msgstr "Világosabb"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
-msgid "Decay"
-msgstr "Bomlás"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml
-msgid "Adds static and grain to the image"
-msgstr "Zajt és szemcsézettséget ad a képhez"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml
-msgid "Freeze the frame of a video"
-msgstr "A videó egy képének kimerevítése"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Arrival Latitude (degrees)"
-msgstr "Érkezési szélesség (fok)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml
-msgid "Reverse"
-msgstr "Hátra"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
-msgid "Background: Blend"
-msgstr "Háttér: Összemosás"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
-msgid "Picture 3 Path"
-msgstr "Kép 3 útvonal"
-
-#: libopenshot (Clip Properties)
-msgid "Iterations"
-msgstr "Iterációk"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml
-msgid "Y Scatter"
-msgstr "Y szórás"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
-msgid "Old Film"
-msgstr "Régi film"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Gravity: Z"
-msgstr "Gravitáció: Z"
-
-#: libopenshot (Effect Metadata)
-msgid "Color Saturation"
-msgstr "Színtelítettség"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml
-msgid "Invert"
-msgstr "Invertálás"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Color Tiles"
-msgstr "Szín mozaik"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
-msgid "Fixed Rotate Z"
-msgstr "Állandó Z forgatás"
-
-#: libopenshot (Clip Properties)
-msgid "Gravity"
-msgstr "Gravitáció"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Particles: Lifetime"
-msgstr "Részecskék: Életidő"
-
-#: libopenshot (Clip Properties)
-msgid "Center"
-msgstr "Középre"
-
-#: libopenshot (Clip Properties)
-msgid "Replace Image"
-msgstr "Kép kicserélése"
-
-#: libopenshot (Clip Properties)
-msgid "Vertical Radius"
-msgstr "Függőleges sugár"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
-msgid "Width"
-msgstr "Szélesség"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml
-msgid "v"
-msgstr "v"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml
-msgid "Midpoint"
-msgstr "Felezőpont"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml
-msgid "Zoom to Clapboard"
-msgstr "Képméretre nagyítás"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Depart Latitude (seconds)"
-msgstr "Indulási szélesség (másodperc)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/hue.xml
-msgid "Shift the hue of all colors in the image"
-msgstr "A kép minden színárnyalatának eltolása"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
-msgid "Map white to"
-msgstr "Fehér leképezése"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
-msgid "X Center"
-msgstr "X középpont"
-
-#: libopenshot (Effect Metadata)
-msgid "Adjust the blur of the frame's image."
-msgstr "Képkockák elmosásának szabályozása."
-
-#: libopenshot (Clip Properties)
-msgid "Viewport"
-msgstr "Nézőpont"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
-msgid "Show histogram"
-msgstr "Hisztogram megjelenítése"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/bass.xml
-msgid "Bass"
-msgstr "Mély hangok"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
-msgid "Action"
-msgstr "Művelet"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
-msgid "Spots: Color Threshold"
-msgstr "Foltok: szín küszöb"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
-msgid "Map black to"
-msgstr "Fekete leképezése"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/dissolve.xml
-msgid "Dissolving Text"
-msgstr "Áttűnő szöveg"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml
-msgid ""
-"Adjust the image up and down, with the off-screen portion appearing on the "
-"other side"
-msgstr ""
-"A kép fel-le mozgatása úgy, hogy a kilógó rész visszajön a másik oldalon"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
-msgid "Background: Fresnel"
-msgstr "Háttér: Fresnel"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
-msgid "Every"
-msgstr "Minden"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
-msgid "Alpha controlled"
-msgstr "Alfa-vezérelt"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml
-msgid "Blue/Yellow"
-msgstr "Kék és sárga"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml
-msgid "Chroma Key"
-msgstr "Kulcsolás egy színnel"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml
-msgid "Border Width"
-msgstr "Keretvastagság"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Start: Y"
-msgstr "Kezdés: Y"
-
-#: libopenshot (Clip Properties)
-msgid "Top Right"
-msgstr "Jobb felső"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml
-msgid "Diff Space"
-msgstr "Hely különbség"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml
-msgid "Adjusts the brightness of the image"
-msgstr "Kép fényességének szabályozása"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml
-msgid "u"
-msgstr "u"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/halo_zoom_out.xml
-msgid "Halo Zoom Out"
-msgstr "Halo: Kicsinyítés"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/treble.xml
-msgid "Adjust the high-pitched sound or tone"
-msgstr "A magas hangok szabályozása"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml
-msgid "Interlaced black lines"
-msgstr "Váltottsoros fekete csíkok"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
-msgid "Echo"
-msgstr "Visszhang"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Background: Shadeless"
-msgstr "Háttér: Árnyék nélkül"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
-msgid "Z Coordinate"
-msgstr "Z koordináta"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
-msgid "Halo: Starting Size"
-msgstr "Halo: Kezdő méret"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml
-msgid "Flippo"
-msgstr "Flippo"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Depart Longitude (minutes)"
-msgstr "Indulási hosszúság (perc)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Arrival Title"
-msgstr "Érkezési cím"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/invert.xml
-msgid "Convert colors in the image to the opposite or complementary colors"
-msgstr "A kép színeinek átváltása az ellentétes vagy komplementer színekre"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Halo: Size"
-msgstr "Halo: Méret"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml
-msgid "Mirror"
-msgstr "Tükrözés"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Halo: Use Rings"
-msgstr "Halo: Gyűrűk használata"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/wireframe_text.xml
-msgid "Wireframe Text"
-msgstr "Drótváz szöveg"
-
-#: libopenshot (Clip Properties)
-msgid "Layer"
-msgstr "Réteg"
-
-#: libopenshot (Clip Properties)
-msgid "Saturation"
-msgstr "Telítettség"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
-msgid "Sun: Type of Glare"
-msgstr "Nap: Ragyogás típusa"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml
-msgid "Start Value"
-msgstr "Kezdőérték"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml
-msgid "Adjusts the gamma or luminance value of the image"
-msgstr "A kép gamma vagy világosság értékének szabályozása"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml
-msgid "Chroma Hold"
-msgstr "Színinformáció megtartása"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Tile 3: Diffuse Color"
-msgstr "Csempe 3: Szórt szín"
-
-#: libopenshot (Effect Metadata)
-msgid "Brightness & Contrast"
-msgstr "Fényerő és kontraszt"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
-msgid "Fixed Rotate X"
-msgstr "Állandó X forgatás"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/trees.xml
-msgid "Trees"
-msgstr "Fák"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml
-msgid "Bottom"
-msgstr "Lent"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml
-msgid "Freeze"
-msgstr "Kimerevítés"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Animation Length"
-msgstr "Animáció hossza"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Gravity: X"
-msgstr "Gravitáció: X"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml
-msgid "Max Diameter"
-msgstr "Maximális átmérő"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Arrival Latitude (minutes)"
-msgstr "Érkezési szélesség (perc)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml
-msgid "Size"
-msgstr "Méret"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
-msgid "Title Specular Color"
-msgstr "Cím tükröződési szín"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Particles: Amount"
-msgstr "Részecskék: mennyiség"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Arrival Longitude (Prime Meridian)"
-msgstr "Érkezési hosszúság (0. hosszúsági kör)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/saturation.xml
-msgid "Adjusts the saturation or intensity of the image"
-msgstr "A kép telítettségének vagy intenzitásának szabályozása"
-
-#: libopenshot (Clip Properties)
-msgid "Scale X"
-msgstr "X méretezés"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
-msgid "Min"
-msgstr "Perc"
-
-#: libopenshot (Clip Properties)
-msgid "Left"
-msgstr "Bal"
-
-#: libopenshot (Clip Properties)
-msgid "Sigma"
-msgstr "Szigma"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
-msgid "Output level black point"
-msgstr "Kimeneti fekete szint"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Tile 4: Diffuse Color"
-msgstr "Csempe 4: Szórt szín"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml
-msgid "Delay grab"
-msgstr "Késleltetés húzása"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml
-msgid "Red Scale"
-msgstr "Vörös skála"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
-msgid "Old Lines"
-msgstr "Idős vonalak"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/distort.xml
+msgid "Distort the source similar to plasma"
+msgstr "A forrás plazmaszerűvé torzítása"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml
 msgid "Freeze Before"
 msgstr "Kimerevítés előtte"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml
-msgid "Adjust the white balance and color temperature"
-msgstr "Fehéregyensúly és színhőmérséklet szabályozása"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
+msgid "Correction near center"
+msgstr "Javítás a középpont közelében"
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
-msgid "Main Text"
-msgstr "Fő szöveg"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/treble.xml
+msgid "Treble"
+msgstr "Magas"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/balance.xml
-msgid "Balance"
-msgstr "Egyensúly"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml
+msgid "Invert"
+msgstr "Invertálás"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml
-msgid "Split and mirror the image"
-msgstr "A kép kettévágása és tükrözése"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/explode.xml
-msgid "Particle Number"
-msgstr "Részecskeszám"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Title 2"
-msgstr "Cím 2"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
-msgid "Text Width"
-msgstr "Szövegméret"
-
-#: libopenshot (Clip Properties)
-msgid "Position"
-msgstr "Pozíció"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml
-msgid "Aspect ratio"
-msgstr "Méretarány"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
-msgid "Tint"
-msgstr "Árnyalat"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
-msgid "First Title"
-msgstr "Első cím"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml
-msgid "Max Count"
-msgstr "Maximális léptetés"
-
-#: libopenshot (Clip Properties)
-msgid "Right"
-msgstr "Jobb"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/glow.xml
-msgid "Glow"
-msgstr "Ragyogás"
-
-#: libopenshot (Clip Properties)
-msgid "Top Left"
-msgstr "Bal felső"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/bass.xml
-msgid "Gain"
-msgstr "Erősítés"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
-msgid "Type"
-msgstr "Típus"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Tile 2: Diffuse Color"
-msgstr "Csempe 2: Szórt szín"
-
-#: libopenshot (Effect Metadata)
-msgid "Chroma Key (Greenscreen)"
-msgstr "Kulcsolás egy színnel (Zöld képernyő)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
-msgid "Lens Flare"
-msgstr "Lencsecsillogás"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
-msgid "Split preview"
-msgstr "Megosztott előnézet"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
-msgid "Brightness Delta Every"
-msgstr "Világossági különbség mindre"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
-msgid "Line 1 Color"
-msgstr "Vonal 1 szín"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
-msgid "Tilt"
-msgstr "Döntés"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
-msgid ""
-"Adjusts the gamma and brightness randomly to create the illusion of old film"
-msgstr ""
-"Véletlenszerűen változtatja a gamma és világosság értékeket, hogy régi film "
-"benyomását keltse"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml
-msgid "Equalizes the intensity histograms"
-msgstr "Az intenzitás-hisztogramok kiegyenlítése"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
-msgid "Aspect type"
-msgstr "Nézőpont típus"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml
-msgid "TehRoxx0r"
-msgstr "TehRoxx0r"
-
-#: libopenshot (Clip Properties)
-msgid "Start"
-msgstr "Indítás"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml
-msgid "Red/Green Axis"
-msgstr "Vörös/Zöld keverés"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Background: Specular Intensity"
-msgstr "Háttér: Tükröződő intenzitás"
-
-#: libopenshot (Clip Properties)
-msgid "Scale Y"
-msgstr "Y méretezés"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Depart Latitude (Equator)"
-msgstr "Indulási szélesség (egyenlítő)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Arrival Latitude (seconds)"
-msgstr "Érkezési szélesség (másodperc)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml
-msgid "Block Size X"
-msgstr "Blokkméret X"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml
-msgid "Scan Lines"
-msgstr "Sorok pásztázása"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
-msgid "X Coordinate"
-msgstr "X koordináta"
-
-#: libopenshot (Clip Properties)
-msgid "Top Center"
-msgstr "Felső középső"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
-msgid "Number"
-msgstr "Szám"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Velocity: Z"
-msgstr "Sebesség: Z"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "File Name"
+msgstr "Fájlnév"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
 msgid "Picture Frames (4 pictures)"
 msgstr "Kép kerektek (4 kép)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
-msgid "Alphagrad"
-msgstr "Áttetszőségi fokozat"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
+msgid "X Center"
+msgstr "X középpont"
 
-#: libopenshot (Effect Metadata)
-msgid "Adjust the color saturation."
-msgstr "Színtelítettség szabályozása."
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
-msgid "Levels"
-msgstr "Szintek"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Depart Latitude (minutes)"
-msgstr "Indulási szélesség (perc)"
-
-#: libopenshot (Clip Properties)
-msgid "Crop"
-msgstr "Vágás"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Arrival Longitude (degrees)"
-msgstr "Érkezési hosszúság (fok)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
-msgid "Glass Slider"
-msgstr "Csúszó üveg"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
-msgid "Fills alpha channel with a gradient"
-msgstr "Alfa csatorna kitöltése átmenettel"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Number of Snow Flakes"
-msgstr "Hópelyhek száma"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
+msgid "Sun: Type of Glare"
+msgstr "Nap: Ragyogás típusa"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Halo: Use Stars"
-msgstr "Halo: Csillagok használata"
+msgid "Velocity: Y"
+msgstr "Sebesség: Y"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml
+msgid "Border Width"
+msgstr "Keretvastagság"
 
 #: libopenshot (Clip Properties)
-msgid "Bottom Center"
-msgstr "Középen lent"
+msgid "Gravity"
+msgstr "Gravitáció"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
-msgid "Add an echo"
-msgstr "Visszhang hozzáadása"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml
+msgid "Factor"
+msgstr "Szorzó"
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
-msgid "Background: Alpha"
-msgstr "Háttér: Alfa"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "Animation Length"
+msgstr "Animáció hossza"
 
-#: libopenshot (Clip Properties)
-msgid "Is Odd Frame"
-msgstr "Páratlan képkocka"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
+msgid "Y Offset"
+msgstr "Y irányú eltolás"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/wireframe_text.xml
+msgid "Wireframe Text"
+msgstr "Drótváz szöveg"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
+msgid "Luma formula"
+msgstr "Világosság formula"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
+msgid "Map black to"
+msgstr "Fekete leképezése"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
+msgid "Min"
+msgstr "Perc"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml
 msgid "Threshold"
 msgstr "Küszöbszint"
 
-#: /home/jonathan/apps/openshot-qt-git/src/presets/nokia_nHD.xml
-msgid "Nokia nHD"
-msgstr "Nokia nHD"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_xvid.xml
-msgid "MP4 (Xvid)"
-msgstr "MP4 (Xvid)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/flickr_HD.xml
-msgid "Flickr-HD"
-msgstr "Flickr-HD"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mpeg2.xml
-msgid "AVI (mpeg2)"
-msgstr "AVI (mpeg2)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_flv_x264.xml
-msgid "FLV (h.264)"
-msgstr "FLV (h.264)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/wikipedia.xml
-msgid "Wikipedia"
-msgstr "Wikipédia"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_flac.xml
-msgid "OGG (theora/flac)"
-msgstr "OGG (theora/flac)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mov_mpeg4.xml
-msgid "MOV (mpeg4)"
-msgstr "MOV (mpeg4)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml
-msgid "Web"
-msgstr "Web"
-
-#: Settings for title_editor
-msgid "Advanced Title Editor (path)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml
-msgid "Apple TV"
-msgstr "Apple TV"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/vimeo.xml
-msgid "Vimeo"
-msgstr "Vimeo"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml
-msgid "WEBM (vpx)"
-msgstr "WEBM (vpx)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/picasa.xml
-msgid "Picasa"
-msgstr "Picasa"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mp4.xml
-msgid "AVI (mpeg4)"
-msgstr "AVI (mpeg4)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_mpeg4.xml
-msgid "MP4 (mpeg4)"
-msgstr "MP4 (mpeg4)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_x264.xml
-msgid "MP4 (h.264)"
-msgstr "MP4 (h.264)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml
-msgid "All Formats"
-msgstr "Minden formátum"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml
-msgid "Blu-Ray/AVCHD"
-msgstr "Blu-Ray és AVCHD"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
+msgid "Lighter"
+msgstr "Világosabb"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml
 msgid "DVD-NTSC"
 msgstr "DVD-NTSC"
 
+#: Settings for default-profile
+msgid "Default Profile"
+msgstr "Alapértelmezett profil"
+
 #: /home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml
 msgid "AVCHD Disks"
 msgstr "AVCHD lemezek"
 
-#: /home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml
-msgid "Metacafe"
-msgstr "Metacafe"
+#: /home/jonathan/apps/openshot-qt-git/src/presets/wikipedia.xml
+msgid "Wikipedia"
+msgstr "Wikipédia"
 
-#: Settings for blender_command
-msgid "Blender Command (path)"
-msgstr ""
+#: Settings for title_editor
+msgid "Advanced Title Editor (path)"
+msgstr "Haladó felirat szerkesztő (mozgatás)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml
-msgid "DVD"
-msgstr "DVD"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_avi_x264.xml
-msgid "AVI (h.264)"
-msgstr "AVI (h.264)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/youtube.xml
-msgid "YouTube"
-msgstr "YouTube"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/youtube_HD.xml
-msgid "YouTube-HD"
-msgstr "YouTube-HD"
-
-#: Settings for default-image-length
-msgid "Image Length (seconds)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mov_x264.xml
-msgid "MOV (h.264)"
-msgstr "MOV (h.264)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/xbox360.xml
-msgid "Xbox 360"
-msgstr "Xbox 360"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_libvorbis.xml
-msgid "OGG (theora/vorbis)"
-msgstr "OGG (theora/vorbis)"
+#: /home/jonathan/apps/openshot-qt-git/src/presets/flickr_HD.xml
+msgid "Flickr-HD"
+msgstr "Flickr-HD"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/vimeo_HD.xml
 msgid "Vimeo-HD"
 msgstr "Vimeo-HD"
 
-#: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_pal.xml
-msgid "DVD-PAL"
-msgstr "DVD-PAL"
+#: /home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml
+msgid "Blu-Ray/AVCHD"
+msgstr "Blu-Ray és AVCHD"
 
-#: /home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml
-msgid "Device"
-msgstr "Eszköz"
+#: /home/jonathan/apps/openshot-qt-git/src/presets/nokia_nHD.xml
+msgid "Nokia nHD"
+msgstr "Nokia nHD"
 
-#: Settings for default-profile
-msgid "Default Profile"
-msgstr ""
-
-#: Settings for theme
-msgid "Default Theme"
-msgstr ""
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mpeg2.xml
+msgid "AVI (mpeg2)"
+msgstr "AVI (mpeg2)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_mpeg_mpeg2.xml
 msgid "MPEG (mpeg2)"
 msgstr "MPEG (mpeg2)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small.jpg
-msgid "Spiral small"
-msgstr "Kicsi spirál"
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_avi_x264.xml
+msgid "AVI (h.264)"
+msgstr "AVI (h.264)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out.jpg
-msgid "Vertical blinds in to out"
-msgstr "Függőleges sötétítés ki"
+#: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_pal.xml
+msgid "DVD-PAL"
+msgstr "DVD-PAL"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/sunlight_2.jpg
-msgid "Sunlight %s"
-msgstr ""
+#: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml
+msgid "DVD"
+msgstr "DVD"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_left_to_right.svg
-msgid "Wipe left to right"
-msgstr "Törlés balról jobbra"
+#: Settings for theme
+msgid "Default Theme"
+msgstr "Alapértelmezett téma"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_1.jpg
-msgid "Spiral %s"
-msgstr ""
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml
+msgid "WEBM (vpx)"
+msgstr "WEBM (vpx)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_left_barr.jpg
-msgid "Small cross left barr"
-msgstr "Barr kis kereszt bal"
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_xvid.xml
+msgid "MP4 (Xvid)"
+msgstr "MP4 (Xvid)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spots.jpg
-msgid "Spots"
-msgstr "Foltok"
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mp4.xml
+msgid "AVI (mpeg4)"
+msgstr "AVI (mpeg4)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_spiral_9.jpg
-msgid "Luminous spiral %s"
-msgstr ""
+#: /home/jonathan/apps/openshot-qt-git/src/presets/youtube.xml
+msgid "YouTube"
+msgstr "YouTube"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_right_barr.jpg
-msgid "Middle cross right barr"
-msgstr "Barr közép kereszt jobb"
+#: /home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml
+msgid "Web"
+msgstr "Web"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_out_to_in.svg
-msgid "Circle out to in"
-msgstr "Kör kívülről befelé"
+#: Settings for blender_command
+msgid "Blender Command (path)"
+msgstr "Blender parancs (elérési úttal)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_flv_x264.xml
+msgid "FLV (h.264)"
+msgstr "FLV (h.264)"
+
+#: Settings for default-image-length
+msgid "Image Length (seconds)"
+msgstr "Kép hossza (másodperc)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml
+msgid "Apple TV"
+msgstr "Apple TV"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/xbox360.xml
+msgid "Xbox 360"
+msgstr "Xbox 360"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mov_x264.xml
+msgid "MOV (h.264)"
+msgstr "MOV (h.264)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_flac.xml
+msgid "OGG (theora/flac)"
+msgstr "OGG (theora/flac)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml
+msgid "All Formats"
+msgstr "Minden formátum"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mov_mpeg4.xml
+msgid "MOV (mpeg4)"
+msgstr "MOV (mpeg4)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/vimeo.xml
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:118
+msgid "Vimeo"
+msgstr "Vimeo"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_libvorbis.xml
+msgid "OGG (theora/vorbis)"
+msgstr "OGG (theora/vorbis)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml
+msgid "Metacafe"
+msgstr "Metacafe"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_x264.xml
+msgid "MP4 (h.264)"
+msgstr "MP4 (h.264)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml
+msgid "Device"
+msgstr "Eszköz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/youtube_HD.xml
+msgid "YouTube-HD"
+msgstr "YouTube-HD"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_mpeg4.xml
+msgid "MP4 (mpeg4)"
+msgstr "MP4 (mpeg4)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/picasa.xml
+msgid "Picasa"
+msgstr "Picasa"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/flower_4.jpg
 msgid "Flower %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_right_to_left.svg
-msgid "Wipe right to left"
-msgstr "Törlés jobbról balra"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_low_arrow.jpg
-msgid "Ripple low arrow"
-msgstr "Fodrozódó alsó nyíl"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out.jpg
-msgid "Blinds in to out"
-msgstr "Redőny belülről kifelé"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_5.jpg
-msgid "Mozaic %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/deform_8.jpg
-msgid "Deform %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_right_barr.jpg
-msgid "Big cross right barr"
-msgstr "Nagy jobb kereszt barr"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_left_barr.jpg
-msgid "Blur left barr"
-msgstr "Barr elmosás balra"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_left.jpg
-msgid "Frame barr left"
-msgstr "Barr bal keret"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_right.jpg
-msgid "Little rippling right"
-msgstr "Kicsi fodrozódás jobb"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_top_arrow.jpg
-msgid "Ripple luminous top arrow"
-msgstr "Fodrozódó fénylő felső nyíl"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_boxes_19.jpg
-msgid "Luminous boxes %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right_2.jpg
-msgid "Ray light right %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_1.jpg
-msgid "Ray %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ondulation_1.jpg
-msgid "Ondulation %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_losange.jpg
-msgid "Big losange"
-msgstr "Nagy rombusz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/openshot_logo.jpg
-msgid "Openshot logo"
-msgstr "Openshot embléma"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/stretched_3.jpg
-msgid "Stretched %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/fogg_3.jpg
-msgid "Fogg %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg
-msgid "Distortion %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right.jpg
-msgid "Ray light right"
-msgstr "Jobb sugárnyaláb"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_18.jpg
-msgid "Ray light %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_left_inspiration.jpg
-msgid "Middle left inspiration"
-msgstr "Közép inspiráció bal"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/triangle_3.jpg
-msgid "Triangle %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/board_10.jpg
-msgid "Board %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/foggy_spiral_1.jpg
-msgid "Foggy spiral %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_sliding.jpg
-msgid "Blinds sliding"
-msgstr "Redőny csúszás"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/fractal_5.jpg
-msgid "Fractal %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg
-msgid "Left arrow"
-msgstr "Bal nyíl"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/hourglass_1.jpg
-msgid "Hourglass %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_bottom_to_top.svg
-msgid "Wipe bottom to top"
-msgstr "Törlés alulról felfelé"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_mozaic.jpg
-msgid "Left mozaic"
-msgstr "Bal mozaik"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_frame_2.jpg
-msgid "Luminous frame %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/crossed_barr.jpg
-msgid "Crossed barr"
-msgstr "Keresztező barr"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_arrow.jpg
-msgid "Right arrow"
-msgstr "Jobb nyíl"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_out_to_in.jpg
-msgid "Rectangle out to in"
-msgstr "Téglalap be"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_low_arrow.jpg
-msgid "Small low arrow"
-msgstr "Kicsi alsó nyíl"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_left_to_right.jpg
-msgid "Clock left to right"
-msgstr "Óra balról jobbra"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_in_to_out.svg
-msgid "Circle in to out"
-msgstr "Kör belülről kifelé"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_right_inspiration.jpg
-msgid "Little right inspiration"
-msgstr "Kicsi inspiráció jobb"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_left_inspiration.jpg
-msgid "Free left inspiration"
-msgstr "Szabad inspiráció bal"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_right.jpg
-msgid "Blur ray right"
-msgstr "Kék sugár jobbra"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_left_barr.jpg
-msgid "Middle cross left barr"
-msgstr "Barr közép kereszt bal"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out_big.jpg
-msgid "Blinds in to out big"
-msgstr "Nagy redőny belülről kifelé"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left.jpg
-msgid "Ray light left"
-msgstr "Sugárnyaláb bal"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/bubbles.jpg
-msgid "Bubbles"
-msgstr "Buborékok"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_right_to_left.jpg
-msgid "Clock right to left"
-msgstr "Óra jobbról balra"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big_2.jpg
-msgid "Spiral big %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_down.jpg
-msgid "Wave right down"
-msgstr "Hullámzás jobb le"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_left.jpg
-msgid "Little rippling left"
-msgstr "Kicsi fodrozódás bal"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic_2.jpg
-msgid "Right mozaic %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_top_to_bottom.svg
-msgid "Wipe top to bottom"
-msgstr "Fentről lefelé eltávolít"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_down.jpg
-msgid "Wave left down"
-msgstr "Hullámzás bal le"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_left_barr.jpg
-msgid "Square left barr"
-msgstr "Barr szögletes bal"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/common
-msgid "Common"
-msgstr "Általános"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/stain_1.jpg
-msgid "Stain %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/sun_shaking.jpg
-msgid "Sun shaking"
-msgstr "Nap mozgás"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking_1.jpg
-msgid "Big barr shaking %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_inspiration_right.jpg
-msgid "Free inspiration right"
-msgstr "Szabad inspiráció jobb"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_left.jpg
-msgid "Mozaic barr left"
-msgstr "Barr mozaik bal"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left_2.jpg
-msgid "Ray light left %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/fish-eyes_5.jpg
-msgid "Fish-eyes %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_low_arrow.jpg
-msgid "Middle low arrow"
-msgstr "Közép alsó nyíl"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_left_triangle.jpg
-msgid "Lateral left triangle"
-msgstr "Bal oldali háromszög"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_right_triangle.jpg
-msgid "Lateral right triangle"
-msgstr "Jobb oldali háromszög"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking2.jpg
-msgid "Big barr shaking2"
-msgstr "Nagy barr rázkódás 2"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra
-msgid "Extra"
-msgstr "Extra"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_barr.jpg
-msgid "Small barr"
-msgstr "Kicsi barr"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_right_inspiration.jpg
-msgid "Middle right inspiration"
-msgstr "Közép inspiráció jobb"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_bars.jpg
-msgid "Vertical bars"
-msgstr "Függőleges vonal"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_2.jpg
-msgid "Frame %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_in_to_out.jpg
-msgid "Rectangle in to out"
-msgstr "Téglalap ki"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wipe_diagonal_3.jpg
-msgid "Wipe diagonal %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_right_barr.jpg
-msgid "4 squares right barr"
-msgstr "4 téglalap jobb oldal"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/star_2.jpg
-msgid "Star %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_leftt_barr.jpg
-msgid "4 squares leftt barr"
-msgstr "4 téglalap bal oldal"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/dissolve.jpg
-msgid "Dissolve"
-msgstr "Áttűnés"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic.jpg
-msgid "Right mozaic"
-msgstr "Jobb mozaik"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/checked_1.jpg
-msgid "Checked %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_abstract_2.jpg
-msgid "Spiral abstract %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_black_barr.jpg
-msgid "Middle black barr"
-msgstr "Barr közép fekete"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr.jpg
-msgid "Big barr"
-msgstr "Nagy barr"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_cross_left_barr.jpg
-msgid "Frame cross left barr"
-msgstr "Barr bal kereszt keret"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mountains.jpg
-msgid "Mountains"
-msgstr "Hegyek"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/puzzle.jpg
-msgid "Puzzle"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr_ripple_2.jpg
-msgid "Middle barr ripple %s"
-msgstr ""
+msgstr "Virág %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_losange.jpg
 msgid "Middle losange"
 msgstr "Közép rombusz"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds.jpg
-msgid "Clouds"
-msgstr "Felhők"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out_big.jpg
+msgid "Vertical blinds in to out big"
+msgstr "Függőleges sötétítés ki (nagy)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mosaic_2.jpg
-msgid "Mosaic %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wandering_12.jpg
-msgid "Wandering %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/whirpool_2.jpg
-msgid "Whirpool %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_right_barr.jpg
-msgid "Blur right barr"
-msgstr "Barr elmosás jobbra"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/boxes_12.jpg
-msgid "Boxes %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere_2.jpg
-msgid "Sphere %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_4.jpg
-msgid "Ripple %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big.jpg
-msgid "Spiral big"
-msgstr "Nagy spirál"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_left.jpg
-msgid "Blur ray left"
-msgstr "Kék sugár balra"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere.jpg
-msgid "Sphere"
-msgstr "Gömb"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_low_arrow.jpg
-msgid "Ripple luminous low arrow"
-msgstr "Fodrozódó fénylő alsó nyíl"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking2.jpg
+msgid "Big barr shaking2"
+msgstr "Nagy barr rázkódás 2"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_up.jpg
 msgid "Wave right up"
 msgstr "Hullámzás jobb fel"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_right.jpg
-msgid "Mozaic barr right"
-msgstr "Barr mozaik jobb"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_right_barr.jpg
+msgid "Small cross right barr"
+msgstr "Barr kis kereszt jobb"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small_2.jpg
-msgid "Spiral small %s"
-msgstr ""
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_5.jpg
+msgid "Mozaic %s"
+msgstr "Mozaik %s"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_top_arrow.jpg
-msgid "Middle top arrow"
-msgstr "Közép felső nyíl"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/cross_15.jpg
-msgid "Cross %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/hatched_1.jpg
-msgid "Hatched %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/horizontal_barr_1.jpg
-msgid "Horizontal barr %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_right.jpg
-msgid "Frame barr right"
-msgstr "Barr jobb keret"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_top_arrow.jpg
-msgid "Small top arrow"
-msgstr "Kicsi felső nyíl"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr.jpg
-msgid "Middle barr"
-msgstr "Közép barr"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/twirl_26.jpg
-msgid "Twirl %s"
-msgstr ""
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_abstract_2.jpg
+msgid "Spiral abstract %s"
+msgstr "Absztrakt spirál %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_medium.jpg
 msgid "Spiral medium"
 msgstr "Közepes spirál"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_left_barr.jpg
-msgid "Square middle left barr"
-msgstr "Barr szögletes közép bal"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_left_barr.jpg
+msgid "Square left barr"
+msgstr "Barr szögletes bal"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_right_barr.jpg
-msgid "Small cross right barr"
-msgstr "Barr kis kereszt jobb"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/stretched_3.jpg
+msgid "Stretched %s"
+msgstr "Nyújtott %s"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_losange.jpg
-msgid "Small losange"
-msgstr "Kis rombusz"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left.jpg
+msgid "Ray light left"
+msgstr "Sugárnyaláb bal"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/future_11.jpg
-msgid "Future %s"
-msgstr ""
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_frame_2.jpg
+msgid "Luminous frame %s"
+msgstr "Fénylő keret %s"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/central_mozaic.jpg
-msgid "Central mozaic"
-msgstr "Középső mozaik"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_right_barr.jpg
+msgid "Big cross right barr"
+msgstr "Nagy jobb kereszt barr"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_left_barr.jpg
-msgid "Big cross left barr"
-msgstr "Nagy bal kereszt barr"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_in_to_out.svg
+msgid "Circle in to out"
+msgstr "Kör belülről kifelé"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/barr_ripple_2.jpg
-msgid "Barr ripple %s"
-msgstr ""
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere_2.jpg
+msgid "Sphere %s"
+msgstr "Gömb %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_out_to_in.svg
+msgid "Circle out to in"
+msgstr "Kör kívülről befelé"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/deform_8.jpg
+msgid "Deform %s"
+msgstr "Eltorzítás %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra
+msgid "Extra"
+msgstr "Extra"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/boxes_12.jpg
+msgid "Boxes %s"
+msgstr "Dobozok %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/puzzle.jpg
+msgid "Puzzle"
+msgstr "Puzzle"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/star_2.jpg
+msgid "Star %s"
+msgstr "Csillag %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_low_arrow.jpg
+msgid "Ripple low arrow"
+msgstr "Fodrozódó alsó nyíl"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_left_inspiration.jpg
+msgid "Middle left inspiration"
+msgstr "Közép inspiráció bal"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out_big.jpg
+msgid "Blinds in to out big"
+msgstr "Nagy redőny belülről kifelé"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_left.jpg
+msgid "Little rippling left"
+msgstr "Kicsi fodrozódás bal"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_right_barr.jpg
+msgid "Blur right barr"
+msgstr "Barr elmosás jobbra"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/bubbles.jpg
+msgid "Bubbles"
+msgstr "Buborékok"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_right_inspiration.jpg
+msgid "Little right inspiration"
+msgstr "Kicsi inspiráció jobb"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_right_inspiration.jpg
+msgid "Middle right inspiration"
+msgstr "Közép inspiráció jobb"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mosaic_2.jpg
+msgid "Mosaic %s"
+msgstr "Mozaik %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_down.jpg
+msgid "Wave right down"
+msgstr "Hullámzás jobb le"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_top_arrow.jpg
+msgid "Small top arrow"
+msgstr "Kicsi felső nyíl"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/board_10.jpg
+msgid "Board %s"
+msgstr "Tábla %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_low_arrow.jpg
+msgid "Middle low arrow"
+msgstr "Közép alsó nyíl"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/whirpool_2.jpg
+msgid "Whirpool %s"
+msgstr "Körkörös %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds_2.jpg
 msgid "Clouds %s"
-msgstr ""
+msgstr "Felhők %s"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_left_inspiration.jpg
-msgid "Little left inspiration"
-msgstr "Kicsi inspiráció bal"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_right.jpg
+msgid "Mozaic barr right"
+msgstr "Barr mozaik jobb"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_right_barr.jpg
-msgid "Square right barr"
-msgstr "Barr szögletes jobb"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_left_to_right.jpg
+msgid "Clock left to right"
+msgstr "Óra balról jobbra"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_1.jpg
+msgid "Ray %s"
+msgstr "Sugár %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/crossed_barr.jpg
+msgid "Crossed barr"
+msgstr "Keresztező barr"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_left_barr.jpg
+msgid "Small cross left barr"
+msgstr "Barr kis kereszt bal"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out.jpg
+msgid "Blinds in to out"
+msgstr "Redőny belülről kifelé"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere.jpg
+msgid "Sphere"
+msgstr "Gömb"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/horizontal_barr_1.jpg
+msgid "Horizontal barr %s"
+msgstr "Vízszintes barr %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_right.jpg
+msgid "Blur ray right"
+msgstr "Kék sugár jobbra"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_up.jpg
 msgid "Wave left up"
 msgstr "Hullámzás bal fel"
 
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_black_barr.jpg
+msgid "Middle black barr"
+msgstr "Barr közép fekete"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_in_to_out.jpg
+msgid "Rectangle in to out"
+msgstr "Téglalap ki"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/cross_15.jpg
+msgid "Cross %s"
+msgstr "Kereszt %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_bottom_to_top.svg
+msgid "Wipe bottom to top"
+msgstr "Törlés alulról felfelé"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/triangle_3.jpg
+msgid "Triangle %s"
+msgstr "Háromszög %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_spiral_9.jpg
+msgid "Luminous spiral %s"
+msgstr "Fénylő spirál %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small.jpg
+msgid "Spiral small"
+msgstr "Kicsi spirál"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_left_barr.jpg
+msgid "Big cross left barr"
+msgstr "Nagy bal kereszt barr"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg
+msgid "Distortion %s"
+msgstr "Torzítás %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr.jpg
+msgid "Middle barr"
+msgstr "Közép barr"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/foggy_spiral_1.jpg
+msgid "Foggy spiral %s"
+msgstr "Homályos spirál %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_2.jpg
+msgid "Frame %s"
+msgstr "Keret %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big_2.jpg
+msgid "Spiral big %s"
+msgstr "Nagy spirál %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_top_to_bottom.svg
+msgid "Wipe top to bottom"
+msgstr "Fentről lefelé eltávolít"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_losange.jpg
+msgid "Big losange"
+msgstr "Nagy rombusz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/postime_1.jpg
+msgid "Postime %s"
+msgstr "Indulás %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big.jpg
+msgid "Spiral big"
+msgstr "Nagy spirál"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_right_barr.jpg
+msgid "Middle cross right barr"
+msgstr "Barr közép kereszt jobb"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_left_barr.jpg
+msgid "Middle cross left barr"
+msgstr "Barr közép kereszt bal"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_18.jpg
+msgid "Ray light %s"
+msgstr "Sugárnyaláb %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_mozaic.jpg
+msgid "Left mozaic"
+msgstr "Bal mozaik"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_left_barr.jpg
+msgid "Square middle left barr"
+msgstr "Barr szögletes közép bal"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_left_barr.jpg
+msgid "Blur left barr"
+msgstr "Barr elmosás balra"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_right_to_left.jpg
+msgid "Clock right to left"
+msgstr "Óra jobbról balra"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg
+msgid "Left arrow"
+msgstr "Bal nyíl"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/fish-eyes_5.jpg
+msgid "Fish-eyes %s"
+msgstr "Halszem %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_top_arrow.jpg
+msgid "Ripple luminous top arrow"
+msgstr "Fodrozódó fénylő felső nyíl"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/checked_1.jpg
+msgid "Checked %s"
+msgstr "Rácsos %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_out_to_in.jpg
+msgid "Rectangle out to in"
+msgstr "Téglalap be"
+
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_right_barr.jpg
 msgid "Square middle right barr"
 msgstr "Barr szögletes közép jobb"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out_big.jpg
-msgid "Vertical blinds in to out big"
-msgstr "Függőleges sötétítés ki (nagy)"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_low_arrow.jpg
+msgid "Ripple luminous low arrow"
+msgstr "Fodrozódó fénylő alsó nyíl"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_bars.jpg
+msgid "Vertical bars"
+msgstr "Függőleges vonal"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/fogg_3.jpg
+msgid "Fogg %s"
+msgstr "Homályos %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spots.jpg
+msgid "Spots"
+msgstr "Foltok"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/central_mozaic.jpg
+msgid "Central mozaic"
+msgstr "Középső mozaik"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_losange.jpg
+msgid "Small losange"
+msgstr "Kis rombusz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/sunlight_2.jpg
+msgid "Sunlight %s"
+msgstr "Napfény %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small_2.jpg
+msgid "Spiral small %s"
+msgstr "Kicsi spirál %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_cross_left_barr.jpg
+msgid "Frame cross left barr"
+msgstr "Barr bal kereszt keret"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_left_to_right.svg
+msgid "Wipe left to right"
+msgstr "Törlés balról jobbra"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wipe_diagonal_3.jpg
+msgid "Wipe diagonal %s"
+msgstr "Törlés átlósan %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left_2.jpg
+msgid "Ray light left %s"
+msgstr "Balról sugárnyaláb %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_top_arrow.jpg
 msgid "Ripple top arrow"
@@ -2933,15 +2851,197 @@ msgstr "Fodrozódó felső nyíl"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/strange_barr_1.jpg
 msgid "Strange barr %s"
-msgstr ""
+msgstr "Különös barr %s"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/postime_1.jpg
-msgid "Postime %s"
-msgstr ""
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_low_arrow.jpg
+msgid "Small low arrow"
+msgstr "Kicsi alsó nyíl"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wandering_12.jpg
+msgid "Wandering %s"
+msgstr "Vándorló %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out.jpg
+msgid "Vertical blinds in to out"
+msgstr "Függőleges sötétítés ki"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic.jpg
+msgid "Right mozaic"
+msgstr "Jobb mozaik"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ondulation_1.jpg
+msgid "Ondulation %s"
+msgstr "Csepp %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mountains.jpg
+msgid "Mountains"
+msgstr "Hegyek"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_right.jpg
+msgid "Frame barr right"
+msgstr "Barr jobb keret"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_arrow.jpg
+msgid "Right arrow"
+msgstr "Jobb nyíl"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr.jpg
+msgid "Big barr"
+msgstr "Nagy barr"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_leftt_barr.jpg
+msgid "4 squares leftt barr"
+msgstr "4 téglalap bal oldal"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_down.jpg
+msgid "Wave left down"
+msgstr "Hullámzás bal le"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/common
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:762
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:765
+msgid "Common"
+msgstr "Általános"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_inspiration_right.jpg
+msgid "Free inspiration right"
+msgstr "Szabad inspiráció jobb"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/twirl_26.jpg
+msgid "Twirl %s"
+msgstr "Forgatás %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_boxes_19.jpg
+msgid "Luminous boxes %s"
+msgstr "Fénylő dobozok %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/hourglass_1.jpg
+msgid "Hourglass %s"
+msgstr "Homokóra %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/barr_ripple_2.jpg
+msgid "Barr ripple %s"
+msgstr "Barr fodrozódás %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_left.jpg
+msgid "Blur ray left"
+msgstr "Kék sugár balra"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_right_barr.jpg
+msgid "4 squares right barr"
+msgstr "4 téglalap jobb oldal"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_right.jpg
+msgid "Little rippling right"
+msgstr "Kicsi fodrozódás jobb"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_top_arrow.jpg
+msgid "Middle top arrow"
+msgstr "Közép felső nyíl"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking_1.jpg
+msgid "Big barr shaking %s"
+msgstr "Nagy barr rázkódás %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_4.jpg
+msgid "Ripple %s"
+msgstr "Fodrozódás %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_left.jpg
+msgid "Frame barr left"
+msgstr "Barr bal keret"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_1.jpg
+msgid "Spiral %s"
+msgstr "Spirál %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_barr.jpg
+msgid "Small barr"
+msgstr "Kicsi barr"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_right_triangle.jpg
+msgid "Lateral right triangle"
+msgstr "Jobb oldali háromszög"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_left_inspiration.jpg
+msgid "Free left inspiration"
+msgstr "Szabad inspiráció bal"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/sun_shaking.jpg
+msgid "Sun shaking"
+msgstr "Nap mozgás"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_right_barr.jpg
+msgid "Square right barr"
+msgstr "Barr szögletes jobb"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_right_to_left.svg
+msgid "Wipe right to left"
+msgstr "Törlés jobbról balra"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/openshot_logo.jpg
+msgid "Openshot logo"
+msgstr "Openshot embléma"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/dissolve.jpg
+msgid "Dissolve"
+msgstr "Áttűnés"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr_ripple_2.jpg
+msgid "Middle barr ripple %s"
+msgstr "Barr közép fodrozódás %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_left_triangle.jpg
+msgid "Lateral left triangle"
+msgstr "Bal oldali háromszög"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right_2.jpg
+msgid "Ray light right %s"
+msgstr "Jobbról sugárnyaláb %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/fractal_5.jpg
+msgid "Fractal %s"
+msgstr "Fraktál %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_left_inspiration.jpg
+msgid "Little left inspiration"
+msgstr "Kicsi inspiráció bal"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/hatched_1.jpg
+msgid "Hatched %s"
+msgstr "Vonalkázva %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds.jpg
+msgid "Clouds"
+msgstr "Felhők"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic_2.jpg
+msgid "Right mozaic %s"
+msgstr "Jobbról mozaik %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_sliding.jpg
+msgid "Blinds sliding"
+msgstr "Redőny csúszás"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right.jpg
+msgid "Ray light right"
+msgstr "Jobb sugárnyaláb"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/stain_1.jpg
+msgid "Stain %s"
+msgstr "Pecsét %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/future_11.jpg
+msgid "Future %s"
+msgstr "Jövő %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_left.jpg
+msgid "Mozaic barr left"
+msgstr "Barr mozaik bal"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/about.ui:23
 msgid "About OpenShot"
-msgstr ""
+msgstr "OpenShot névjegye"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/about.ui:67
 msgid ""
@@ -2976,19 +3076,19 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:37
 msgid "Move Up"
-msgstr ""
+msgstr "Felfelé"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:52
 msgid "Move Down"
-msgstr ""
+msgstr "Lefelé"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:67
 msgid "Shuffle"
-msgstr ""
+msgstr "Véletlenszerűen"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:82
 msgid "Remove"
-msgstr ""
+msgstr "Eltávolítás"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:119
 msgid "Timeline Location"
@@ -2996,7 +3096,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:140
 msgid "Start Time (seconds):"
-msgstr ""
+msgstr "Kezdési idő (másodpercekben)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:179
 msgid "Track:"
@@ -3008,7 +3108,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:255
 msgid "Fade:"
-msgstr ""
+msgstr "Áttünés"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:279
 msgid "Length (seconds):"
@@ -3020,11 +3120,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:356
 msgid "Transition:"
-msgstr ""
+msgstr "Áttűnés:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:386
 msgid "Length:"
-msgstr ""
+msgstr "Hossz:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:441
 msgid "Total Length (seconds):"
@@ -3040,15 +3140,15 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/animated-title.ui:46
 msgid "<b>Choose a Template</b>"
-msgstr ""
+msgstr "<b>Válasszon egy sablont</b>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/animated-title.ui:59
 msgid "Preview"
-msgstr ""
+msgstr "Előnézet"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/animated-title.ui:93
 msgid "Frame:"
-msgstr ""
+msgstr "Képkocka:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/animated-title.ui:107
 msgid "1/1"
@@ -3056,7 +3156,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/animated-title.ui:114
 msgid "Refresh"
-msgstr ""
+msgstr "Frissítés"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/credits.ui:31
 msgid "Developers"
@@ -3127,7 +3227,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:56
 msgid "File Name:"
-msgstr ""
+msgstr "Fájlnév:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:63
 msgid "YourVideoName"
@@ -3143,37 +3243,37 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:148
 msgid "Simple"
-msgstr ""
+msgstr "Egyszerű"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:168
 msgid "Quality:"
-msgstr ""
+msgstr "Minőség:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:189
 msgid "<b>Select a Profile to start:</b>"
-msgstr ""
+msgstr "<b>Válasszon egy profilt a kezdéshez:</b>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:216
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:486
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/profile.ui:20
 msgid "Profile:"
-msgstr ""
+msgstr "Profil:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:237
 msgid "<b>Select from the following options:</b>"
-msgstr ""
+msgstr "<b>Válassz az alábbi lehetőségek közül:</b>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:262
 msgid "Video Profile:"
-msgstr ""
+msgstr "Videó profil:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:305
 msgid "Target:"
-msgstr ""
+msgstr "Cél:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:315
 msgid "Advanced"
-msgstr ""
+msgstr "Haladó"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:348
 msgid "Advanced Options"
@@ -3181,7 +3281,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:367
 msgid "Export To:"
-msgstr ""
+msgstr "Exportálás:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:396
 msgid "End Frame:"
@@ -3197,19 +3297,19 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:513
 msgid "Height:"
-msgstr ""
+msgstr "Magasság:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:546
 msgid "Aspect Ratio:"
-msgstr ""
+msgstr "Méretarány:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:595
 msgid "Pixel Ratio:"
-msgstr ""
+msgstr "Képkocka arány:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:644
 msgid "Frame Rate:"
-msgstr ""
+msgstr "Képkockaráta:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:696
 msgid "Interlaced:"
@@ -3217,7 +3317,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:723
 msgid "Width:"
-msgstr ""
+msgstr "Szélesség:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:757
 msgid "Image Sequence Settings"
@@ -3225,7 +3325,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:774
 msgid "Image Format:"
-msgstr ""
+msgstr "Képformátum:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:795
 msgid "Video Settings"
@@ -3233,16 +3333,16 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:809
 msgid "Video Format:"
-msgstr ""
+msgstr "Videó formátum:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:829
 msgid "Video Codec:"
-msgstr ""
+msgstr "Videó kódoló:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:852
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:940
 msgid "Bit Rate / Quality:"
-msgstr ""
+msgstr "Bitráta / Minőség:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:873
 msgid "Audio Settings"
@@ -3250,24 +3350,24 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:887
 msgid "Sample Rate:"
-msgstr ""
+msgstr "Mintavétel:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:920
 msgid "Audio Codec:"
-msgstr ""
+msgstr "Hang kódoló:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:960
 msgid "# of Channels:"
-msgstr ""
+msgstr "Csatornák száma:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:17
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:229
 msgid "Import Image Sequence"
-msgstr ""
+msgstr "Képsorozat importálása"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:42
 msgid "<b>Import Image Sequence</b> (Click for Instructions)"
-msgstr ""
+msgstr "<b>Képsorozat importálása</b> (Kattintson az útmutatóhoz)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:51
 msgid "..."
@@ -3290,23 +3390,23 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:145
 msgid "Frames per Image:"
-msgstr ""
+msgstr "Képkocka képenként:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:152
 msgid "File Name Pattern:"
-msgstr ""
+msgstr "Fájlnév minta:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:162
 msgid "Repeat Sequence:"
-msgstr ""
+msgstr "Sorozat ismétlése:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:169
 msgid "Image Folder:"
-msgstr ""
+msgstr "Kép mappa:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:176
 msgid "myfile_%d.png"
-msgstr ""
+msgstr "enfajlom_%d.png"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:23
 msgid "OpenShot Video Editor"
@@ -3338,15 +3438,15 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:185
 msgid "Project Files"
-msgstr ""
+msgstr "Projektfájlok"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:206
 msgid "Video Preview"
-msgstr ""
+msgstr "Videó előnézet"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:221
 msgid "Transitions"
-msgstr ""
+msgstr "Átmenet"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:257
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1248
@@ -3355,7 +3455,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:299
 msgid "New Project..."
-msgstr ""
+msgstr "Új projekt..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:302
 msgid "New Project"
@@ -3367,7 +3467,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:317
 msgid "Open Project"
-msgstr ""
+msgstr "Projekt megnyitása"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:320
 msgid "Ctrl+O"
@@ -3376,7 +3476,7 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:329
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:332
 msgid "Save Project"
-msgstr ""
+msgstr "Projekt mentése"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:335
 msgid "Ctrl+S"
@@ -3385,7 +3485,7 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:344
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:347
 msgid "Undo"
-msgstr ""
+msgstr "Vissza"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:350
 msgid "Ctrl+Z"
@@ -3397,11 +3497,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:374
 msgid "Import Files..."
-msgstr ""
+msgstr "Fájlok importálása..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:377
 msgid "Import Files"
-msgstr ""
+msgstr "Fájlok importálása"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:380
 msgid "Ctrl+F"
@@ -3409,7 +3509,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:389
 msgid "Import Image Sequence..."
-msgstr ""
+msgstr "Kép sorozat importálás"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:395
 msgid "Ctrl+I"
@@ -3417,7 +3517,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:404
 msgid "Import New Transition..."
-msgstr ""
+msgstr "Új átmenet importálása..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:407
 msgid "Import New Transition"
@@ -3430,7 +3530,7 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:419
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:422
 msgid "Redo"
-msgstr ""
+msgstr "Újra"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:425
 msgid "Ctrl+Y"
@@ -3439,17 +3539,17 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:434
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:437
 msgid "Remove Clip"
-msgstr ""
+msgstr "Klip eltávolítása"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:446
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:449
 msgid "Remove Transition"
-msgstr ""
+msgstr "Átmenet eltávolítása"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:458
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:461
 msgid "Take Snapshot"
-msgstr ""
+msgstr "Pillanatkép rögzítése"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:464
 msgid "Ctrl+D"
@@ -3463,7 +3563,7 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:488
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:491
 msgid "Upload Video"
-msgstr ""
+msgstr "Videó feltöltése"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:494
 msgid "Ctrl+U"
@@ -3484,7 +3584,7 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:522
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:525
 msgid "Add Track"
-msgstr ""
+msgstr "Sáv hozzáadása"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:534
 msgid "&Preferences"
@@ -3492,7 +3592,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:537
 msgid "Preferences"
-msgstr ""
+msgstr "Beállítások"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:540
 msgid "Ctrl+P"
@@ -3501,7 +3601,7 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:552
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:555
 msgid "Play"
-msgstr ""
+msgstr "Lejátszás"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:564
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:567
@@ -3526,12 +3626,12 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:615
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:618
 msgid "Arrow Tool"
-msgstr ""
+msgstr "Nyíl eszköz"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:630
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:633
 msgid "Razor Tool"
-msgstr ""
+msgstr "Vágó eszköz"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:648
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:651
@@ -3541,17 +3641,17 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:660
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:663
 msgid "Add Marker"
-msgstr ""
+msgstr "Jelölő hozzáadása"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:672
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:675
 msgid "Previous Marker"
-msgstr ""
+msgstr "Előző jelölés"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:684
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:687
 msgid "Next Marker"
-msgstr ""
+msgstr "Következő jelölés"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:695
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:698
@@ -3561,26 +3661,26 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:788
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1076
 msgid "Show All"
-msgstr ""
+msgstr "Minden megjelenítése"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:706
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:709
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:796
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:799
 msgid "Video"
-msgstr ""
+msgstr "Videó"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:717
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:720
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:807
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:810
 msgid "Audio"
-msgstr ""
+msgstr "Hang"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:728
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:731
 msgid "Image"
-msgstr ""
+msgstr "Kép"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:837
 msgid "="
@@ -3606,7 +3706,7 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:897
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:900
 msgid "Fullscreen"
-msgstr ""
+msgstr "Teljes képernyő"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:903
 msgid "F11"
@@ -3658,7 +3758,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1025
 msgid "Contents"
-msgstr ""
+msgstr "Tartalom"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1028
 msgid "Open Help Contents"
@@ -3692,16 +3792,16 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1108
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1111
 msgid "Add to Timeline"
-msgstr ""
+msgstr "Hozzáadás az idősávhoz"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1120
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1123
 msgid "Preview File"
-msgstr ""
+msgstr "Fájl előnézete"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1132
 msgid "Remove from Project"
-msgstr ""
+msgstr "Eltávolítás a projektből"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1135
 msgid "Remove from "
@@ -3710,31 +3810,31 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1144
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1147
 msgid "File Properties"
-msgstr ""
+msgstr "Fájl tulajdonságok"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1169
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1172
 msgid "Remove Track"
-msgstr ""
+msgstr "Sáv eltávolítása"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1181
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1184
 msgid "Remove Marker"
-msgstr ""
+msgstr "Jelölő eltávolítása"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1193
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1196
 msgid "Add Track Above"
-msgstr ""
+msgstr "Sáv hozzáadása fent"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1205
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1208
 msgid "Add Track Below"
-msgstr ""
+msgstr "Sáv hozzáadása lent"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1217
 msgid "Remove Effect"
-msgstr ""
+msgstr "Effekt eltávolítása"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1220
 msgid "Remove Effe"
@@ -3770,7 +3870,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/profile.ui:30
 msgid "Size:"
-msgstr ""
+msgstr "Méret:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/profile.ui:50
 msgid "1920x1080"
@@ -3790,7 +3890,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:14
 msgid "Title Editor"
-msgstr ""
+msgstr "Cím szerkesztő"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:66
 msgid "Template:"
@@ -3971,900 +4071,3 @@ msgstr ""
 
 #~ msgid "Boxes 2"
 #~ msgstr "Dobozok 2"
-
-#~ msgid "There was an error trying to open {}."
-#~ msgstr "Hiba lépett fel a következő megnyitása során: {}."
-
-#~ msgid "Twirl 34"
-#~ msgstr "Forgatás 34"
-
-#~ msgid "Luminous boxes 4"
-#~ msgstr "Fénylő dobozok 4"
-
-#~ msgid "Ray light 6"
-#~ msgstr "Sugárnyaláb 6"
-
-#~ msgid "Distortion 20"
-#~ msgstr "Torzítás 20"
-
-#~ msgid "Luminous boxes 22"
-#~ msgstr "Fénylő dobozok 22"
-
-#~ msgid "Cross 6"
-#~ msgstr "Kereszt 6"
-
-#~ msgid "Future 10"
-#~ msgstr "Jövő 10"
-
-#~ msgid "Spiral 1"
-#~ msgstr "Spirál 1"
-
-#~ msgid "Twirl 5"
-#~ msgstr "Forgatás 5"
-
-#~ msgid "Whirpool 3"
-#~ msgstr "Körkörös 3"
-
-#~ msgid "Flower 4"
-#~ msgstr "Virág 4"
-
-#~ msgid "Foggy spiral 1"
-#~ msgstr "Homályos spirál 1"
-
-#~ msgid "Wandering 8"
-#~ msgstr "Vándorló 8"
-
-#~ msgid "Twirl 22"
-#~ msgstr "Forgatás 22"
-
-#~ msgid "Board 13"
-#~ msgstr "Tábla 13"
-
-#~ msgid "Future 4"
-#~ msgstr "Jövő 4"
-
-#~ msgid "Mosaic 3"
-#~ msgstr "Mozaik 3"
-
-#~ msgid "Ray light 11"
-#~ msgstr "Sugárnyaláb 11"
-
-#~ msgid "Twirl 29"
-#~ msgstr "Forgatás 29"
-
-#~ msgid "Distortion 21"
-#~ msgstr "Torzítás 21"
-
-#~ msgid "Whirpool 4"
-#~ msgstr "Körkörös 4"
-
-#~ msgid "Ripple 3"
-#~ msgstr "Fodrozódás 3"
-
-#~ msgid "Ray light 10"
-#~ msgstr "Sugárnyaláb 10"
-
-#~ msgid "Twirl 39"
-#~ msgstr "Forgatás 39"
-
-#~ msgid "Cross 8"
-#~ msgstr "Kereszt 8"
-
-#~ msgid "Luminous spiral 4"
-#~ msgstr "Fénylő spirál 4"
-
-#~ msgid "Future 7"
-#~ msgstr "Jövő 7"
-
-#~ msgid "Barr ripple 10"
-#~ msgstr "Barr fodrozódás 10"
-
-#~ msgid "Luminous boxes 11"
-#~ msgstr "Fénylő dobozok 11"
-
-#~ msgid "Sunlight 3"
-#~ msgstr "Napfény 3"
-
-#~ msgid "Barr ripple 2"
-#~ msgstr "Barr fodrozódás 2"
-
-#~ msgid "Stretched 5"
-#~ msgstr "Nyújtott 5"
-
-#~ msgid "Distortion 6"
-#~ msgstr "Torzítás 6"
-
-#~ msgid "Barr ripple 4"
-#~ msgstr "Barr fodrozódás 4"
-
-#~ msgid "Boxes 5"
-#~ msgstr "Dobozok 5"
-
-#~ msgid "Flower 2"
-#~ msgstr "Virág 2"
-
-#~ msgid "Barr ripple 7"
-#~ msgstr "Barr fodrozódás 7"
-
-#~ msgid "Twirl 7"
-#~ msgstr "Forgatás 7"
-
-#~ msgid "Strange barr 1"
-#~ msgstr "Különös barr 1"
-
-#~ msgid "Twirl 32"
-#~ msgstr "Forgatás 32"
-
-#~ msgid "Wandering 4"
-#~ msgstr "Vándorló 4"
-
-#~ msgid "Stretched 4"
-#~ msgstr "Nyújtott 4"
-
-#~ msgid "Cross 7"
-#~ msgstr "Kereszt 7"
-
-#~ msgid "Twirl 17"
-#~ msgstr "Forgatás 17"
-
-#~ msgid "Sunlight 2"
-#~ msgstr "Napfény 2"
-
-#~ msgid "Distortion 16"
-#~ msgstr "Torzítás 16"
-
-#~ msgid "Cross 4"
-#~ msgstr "Kereszt 4"
-
-#~ msgid "Cross 1"
-#~ msgstr "Kereszt 1"
-
-#~ msgid "Spiral 2"
-#~ msgstr "Spirál 2"
-
-#~ msgid "Distortion 17"
-#~ msgstr "Torzítás 17"
-
-#~ msgid "Luminous boxes 17"
-#~ msgstr "Fénylő dobozok 17"
-
-#~ msgid "Fogg 2"
-#~ msgstr "Homályos 2"
-
-#~ msgid "Fish-eyes 7"
-#~ msgstr "Halszem 7"
-
-#~ msgid "Postime 5"
-#~ msgstr "Indulás 5"
-
-#~ msgid "Checked 2"
-#~ msgstr "Rácsos 2"
-
-#~ msgid "Triangle 2"
-#~ msgstr "Háromszög 2"
-
-#~ msgid "Twirl 35"
-#~ msgstr "Forgatás 35"
-
-#~ msgid "Future 11"
-#~ msgstr "Jövő 11"
-
-#~ msgid "Twirl 36"
-#~ msgstr "Forgatás 36"
-
-#~ msgid "Flower 6"
-#~ msgstr "Virág 6"
-
-#~ msgid "Wandering 6"
-#~ msgstr "Vándorló 6"
-
-#~ msgid "Luminous boxes 2"
-#~ msgstr "Fénylő dobozok 2"
-
-#~ msgid "Ray light 7"
-#~ msgstr "Sugárnyaláb 7"
-
-#~ msgid "Barr ripple 8"
-#~ msgstr "Barr fodrozódás 8"
-
-#~ msgid "Mosaic 2"
-#~ msgstr "Mozaik 2"
-
-#~ msgid "Barr ripple 9"
-#~ msgstr "Barr fodrozódás 9"
-
-#~ msgid "Deform 2"
-#~ msgstr "Eltorzítás 2"
-
-#~ msgid "Boxes 8"
-#~ msgstr "Dobozok 8"
-
-#~ msgid "Twirl 10"
-#~ msgstr "Forgatás 10"
-
-#~ msgid "Fogg 1"
-#~ msgstr "Homályos 1"
-
-#~ msgid "Twirl 24"
-#~ msgstr "Forgatás 24"
-
-#~ msgid "Luminous boxes 10"
-#~ msgstr "Fénylő dobozok 10"
-
-#~ msgid "Ray light 4"
-#~ msgstr "Sugárnyaláb 4"
-
-#~ msgid "Cross 2"
-#~ msgstr "Kereszt 2"
-
-#~ msgid "Twirl 14"
-#~ msgstr "Forgatás 14"
-
-#~ msgid "Deform 13"
-#~ msgstr "Eltorzítás 13"
-
-#~ msgid "Future 6"
-#~ msgstr "Jövő 6"
-
-#~ msgid "Cross 12"
-#~ msgstr "Kereszt 12"
-
-#~ msgid "Boxes 9"
-#~ msgstr "Dobozok 9"
-
-#~ msgid "Twirl 18"
-#~ msgstr "Forgatás 18"
-
-#~ msgid "Deform 8"
-#~ msgstr "Eltorzítás 8"
-
-#~ msgid "Cross 5"
-#~ msgstr "Kereszt 5"
-
-#~ msgid "Boxes 12"
-#~ msgstr "Dobozok 12"
-
-#~ msgid "Ripple 1"
-#~ msgstr "Fodrozódás 1"
-
-#~ msgid "Ray light 3"
-#~ msgstr "Sugárnyaláb 3"
-
-#~ msgid "Wandering 7"
-#~ msgstr "Vándorló 7"
-
-#~ msgid "Flower 3"
-#~ msgstr "Virág 3"
-
-#~ msgid "Twirl 15"
-#~ msgstr "Forgatás 15"
-
-#~ msgid "Luminous boxes 21"
-#~ msgstr "Fénylő dobozok 21"
-
-#~ msgid "Stretched 2"
-#~ msgstr "Nyújtott 2"
-
-#~ msgid "Wandering 12"
-#~ msgstr "Vándorló 12"
-
-#~ msgid "Twirl 1"
-#~ msgstr "Forgatás 1"
-
-#~ msgid "Twirl 38"
-#~ msgstr "Forgatás 38"
-
-#~ msgid "Flower 1"
-#~ msgstr "Virág 1"
-
-#~ msgid "Ray light 14"
-#~ msgstr "Sugárnyaláb 14"
-
-#~ msgid "Twirl 9"
-#~ msgstr "Forgatás 9"
-
-#~ msgid "Fogg 6"
-#~ msgstr "Homályos 6"
-
-#~ msgid "Ray light 8"
-#~ msgstr "Sugárnyaláb 8"
-
-#~ msgid "Luminous boxes 14"
-#~ msgstr "Fénylő dobozok 14"
-
-#~ msgid "Cross 14"
-#~ msgstr "Kereszt 14"
-
-#~ msgid "Cross 16"
-#~ msgstr "Kereszt 16"
-
-#~ msgid "Luminous spiral 2"
-#~ msgstr "Fénylő spirál 2"
-
-#~ msgid "Board 10"
-#~ msgstr "Tábla 10"
-
-#~ msgid "Fish-eyes 8"
-#~ msgstr "Halszem 8"
-
-#~ msgid "Distortion 3"
-#~ msgstr "Torzítás 3"
-
-#~ msgid "Luminous spiral 1"
-#~ msgstr "Fénylő spirál 1"
-
-#~ msgid "Postime 1"
-#~ msgstr "Indulás 1"
-
-#~ msgid "Luminous spiral 11"
-#~ msgstr "Fénylő spirál 11"
-
-#~ msgid "Ray light 15"
-#~ msgstr "Sugárnyaláb 15"
-
-#~ msgid "Luminous boxes 5"
-#~ msgstr "Fénylő dobozok 5"
-
-#~ msgid "Deform 4"
-#~ msgstr "Eltorzítás 4"
-
-#~ msgid "Luminous spiral 6"
-#~ msgstr "Fénylő spirál 6"
-
-#~ msgid "Middle barr ripple 1"
-#~ msgstr "Barr közép fodrozódás 1"
-
-#~ msgid "Mosaic 4"
-#~ msgstr "Mozaik 4"
-
-#~ msgid "Fish-eyes 5"
-#~ msgstr "Halszem 5"
-
-#~ msgid "Ray light 5"
-#~ msgstr "Sugárnyaláb 5"
-
-#~ msgid "Triangle 3"
-#~ msgstr "Háromszög 3"
-
-#~ msgid "Luminous boxes 9"
-#~ msgstr "Fénylő dobozok 9"
-
-#~ msgid "Stain 2"
-#~ msgstr "Pecsét 2"
-
-#~ msgid "Luminous spiral 9"
-#~ msgstr "Fénylő spirál 9"
-
-#~ msgid "Luminous frame 3"
-#~ msgstr "Fénylő keret 3"
-
-#~ msgid "Luminous boxes 20"
-#~ msgstr "Fénylő dobozok 20"
-
-#~ msgid "Ray light 18"
-#~ msgstr "Sugárnyaláb 18"
-
-#~ msgid "Luminous boxes 13"
-#~ msgstr "Fénylő dobozok 13"
-
-#~ msgid "Board 6"
-#~ msgstr "Tábla 6"
-
-#~ msgid "Deform 11"
-#~ msgstr "Eltorzítás 11"
-
-#~ msgid "Fogg 5"
-#~ msgstr "Homályos 5"
-
-#~ msgid "Twirl 37"
-#~ msgstr "Forgatás 37"
-
-#~ msgid "Distortion 5"
-#~ msgstr "Torzítás 5"
-
-#~ msgid "Strange barr 2"
-#~ msgstr "Különös barr 2"
-
-#~ msgid "Board 9"
-#~ msgstr "Tábla 9"
-
-#~ msgid "Distortion 8"
-#~ msgstr "Torzítás 8"
-
-#~ msgid "Cross 10"
-#~ msgstr "Kereszt 10"
-
-#~ msgid "Deform 6"
-#~ msgstr "Eltorzítás 6"
-
-#~ msgid "Distortion 10"
-#~ msgstr "Torzítás 10"
-
-#~ msgid "Deform 1"
-#~ msgstr "Eltorzítás 1"
-
-#~ msgid "Ondulation 1"
-#~ msgstr "Csepp 1"
-
-#~ msgid "Deform 14"
-#~ msgstr "Eltorzítás 14"
-
-#~ msgid "Ray light 13"
-#~ msgstr "Sugárnyaláb 13"
-
-#~ msgid "Future 8"
-#~ msgstr "Jövő 8"
-
-#~ msgid "Luminous boxes 16"
-#~ msgstr "Fénylő dobozok 16"
-
-#~ msgid "Postime 9"
-#~ msgstr "Indulás 9"
-
-#~ msgid "Frame 2"
-#~ msgstr "Keret 2"
-
-#~ msgid "Board 7"
-#~ msgstr "Tábla 7"
-
-#~ msgid "Flower 5"
-#~ msgstr "Virág 5"
-
-#~ msgid "Sunlight 1"
-#~ msgstr "Napfény 1"
-
-#~ msgid "Spiral big 2"
-#~ msgstr "Nagy spirál 2"
-
-#~ msgid "Mozaic 5"
-#~ msgstr "Mozaik 5"
-
-#~ msgid "Ray 1"
-#~ msgstr "Sugár 1"
-
-#~ msgid "Boxes 6"
-#~ msgstr "Dobozok 6"
-
-#~ msgid "Distortion 13"
-#~ msgstr "Torzítás 13"
-
-#~ msgid "Ray light right 2"
-#~ msgstr "Jobb sugárnyaláb 2"
-
-#~ msgid "Wandering 11"
-#~ msgstr "Vándorló 11"
-
-#~ msgid "Deform 26"
-#~ msgstr "Eltorzítás 26"
-
-#~ msgid "Luminous boxes 18"
-#~ msgstr "Fénylő dobozok 18"
-
-#~ msgid "Future 9"
-#~ msgstr "Jövő 9"
-
-#~ msgid "Luminous frame 2"
-#~ msgstr "Fénylő keret 2"
-
-#~ msgid "Board 14"
-#~ msgstr "Tábla 14"
-
-#~ msgid "Frame 1"
-#~ msgstr "Keret 1"
-
-#~ msgid "Ray light 16"
-#~ msgstr "Sugárnyaláb 16"
-
-#~ msgid "Wandering 9"
-#~ msgstr "Vándorló 9"
-
-#~ msgid "Luminous frame 4"
-#~ msgstr "Fénylő keret 4"
-
-#~ msgid "Luminous boxes 3"
-#~ msgstr "Fénylő dobozok 3"
-
-#~ msgid "Twirl 2"
-#~ msgstr "Forgatás 2"
-
-#~ msgid "Luminous boxes 15"
-#~ msgstr "Fénylő dobozok 15"
-
-#~ msgid "Twirl 6"
-#~ msgstr "Forgatás 6"
-
-#~ msgid "Stretched 1"
-#~ msgstr "Nyújtott 1"
-
-#~ msgid "Boxes 13"
-#~ msgstr "Dobozok 13"
-
-#~ msgid "Stretched 3"
-#~ msgstr "Nyújtott 3"
-
-#~ msgid "Fish-eyes 6"
-#~ msgstr "Halszem 6"
-
-#~ msgid "Ray light 12"
-#~ msgstr "Sugárnyaláb 12"
-
-#~ msgid "Luminous boxes 19"
-#~ msgstr "Fénylő dobozok 19"
-
-#~ msgid "Fish-eyes 4"
-#~ msgstr "Halszem 4"
-
-#~ msgid "Distortion 2"
-#~ msgstr "Torzítás 2"
-
-#~ msgid "Luminous frame 1"
-#~ msgstr "Fénylő keret 1"
-
-#~ msgid "Distortion 19"
-#~ msgstr "Torzítás 19"
-
-#~ msgid "Mosaic 1"
-#~ msgstr "Mozaik 1"
-
-#~ msgid "Board 3"
-#~ msgstr "Tábla 3"
-
-#~ msgid "Twirl 21"
-#~ msgstr "Forgatás 21"
-
-#~ msgid "Boxes 11"
-#~ msgstr "Dobozok 11"
-
-#~ msgid "Fish-eyes 1"
-#~ msgstr "Halszem 1"
-
-#~ msgid "Cross 3"
-#~ msgstr "Kereszt 3"
-
-#~ msgid "Luminous spiral 7"
-#~ msgstr "Fénylő spirál 7"
-
-#~ msgid "Twirl 16"
-#~ msgstr "Forgatás 16"
-
-#~ msgid "Flower 8"
-#~ msgstr "Virág 8"
-
-#~ msgid "Ray light 9"
-#~ msgstr "Sugárnyaláb 9"
-
-#~ msgid "Ray light 1"
-#~ msgstr "Sugárnyaláb 1"
-
-#~ msgid "Luminous boxes 6"
-#~ msgstr "Fénylő dobozok 6"
-
-#~ msgid "Twirl 28"
-#~ msgstr "Forgatás 28"
-
-#~ msgid "Distortion 14"
-#~ msgstr "Torzítás 14"
-
-#~ msgid "Postime 3"
-#~ msgstr "Indulás 3"
-
-#~ msgid "Fogg 7"
-#~ msgstr "Homályos 7"
-
-#~ msgid "Barr ripple 11"
-#~ msgstr "Barr fodrozódás 11"
-
-#~ msgid "Distortion 23"
-#~ msgstr "Torzítás 23"
-
-#~ msgid "Board 12"
-#~ msgstr "Tábla 12"
-
-#~ msgid "Whirpool 1"
-#~ msgstr "Körkörös 1"
-
-#~ msgid "Ray light 20"
-#~ msgstr "Sugárnyaláb 20"
-
-#~ msgid "Ripple 4"
-#~ msgstr "Fodrozódás 4"
-
-#~ msgid "Luminous boxes 12"
-#~ msgstr "Fénylő dobozok 12"
-
-#~ msgid "Right mozaic 2"
-#~ msgstr "Jobb mozaik 2"
-
-#~ msgid "Sunlight 4"
-#~ msgstr "Napfény 4"
-
-#~ msgid "Twirl 12"
-#~ msgstr "Forgatás 12"
-
-#~ msgid "Barr ripple 12"
-#~ msgstr "Barr fodrozódás 12"
-
-#~ msgid "Twirl 8"
-#~ msgstr "Forgatás 8"
-
-#~ msgid "Big barr shaking 1"
-#~ msgstr "Nagy barr rázkódás 1"
-
-#~ msgid "Board 2"
-#~ msgstr "Tábla 2"
-
-#~ msgid "Postime 8"
-#~ msgstr "Indulás 8"
-
-#~ msgid "Postime 6"
-#~ msgstr "Indulás 6"
-
-#~ msgid "Luminous spiral 10"
-#~ msgstr "Fénylő spirál 10"
-
-#~ msgid "Barr ripple 13"
-#~ msgstr "Barr fodrozódás 13"
-
-#~ msgid "Wandering 2"
-#~ msgstr "Vándorló 2"
-
-#~ msgid "Twirl 13"
-#~ msgstr "Forgatás 13"
-
-#~ msgid "Middle barr ripple 2"
-#~ msgstr "Barr közép fodrozódás 2"
-
-#~ msgid "Flower 9"
-#~ msgstr "Virág 9"
-
-#~ msgid "Deform 7"
-#~ msgstr "Eltorzítás 7"
-
-#~ msgid "Postime 7"
-#~ msgstr "Indulás 7"
-
-#~ msgid "Future 1"
-#~ msgstr "Jövő 1"
-
-#~ msgid "Ripple 2"
-#~ msgstr "Fodrozódás 2"
-
-#~ msgid "Horizontal barr 1"
-#~ msgstr "Vízszintes barr 1"
-
-#~ msgid "Barr ripple 5"
-#~ msgstr "Barr fodrozódás 5"
-
-#~ msgid "Twirl 23"
-#~ msgstr "Forgatás 23"
-
-#~ msgid "Ray light 2"
-#~ msgstr "Sugárnyaláb 2"
-
-#~ msgid "Stain 1"
-#~ msgstr "Pecsét 1"
-
-#~ msgid "Flower 10"
-#~ msgstr "Virág 10"
-
-#~ msgid "Deform 10"
-#~ msgstr "Eltorzítás 10"
-
-#~ msgid "Board 4"
-#~ msgstr "Tábla 4"
-
-#~ msgid "Cross 11"
-#~ msgstr "Kereszt 11"
-
-#~ msgid "Board 1"
-#~ msgstr "Tábla 1"
-
-#~ msgid "Board 5"
-#~ msgstr "Tábla 5"
-
-#~ msgid "Twirl 3"
-#~ msgstr "Forgatás 3"
-
-#~ msgid "Distortion 18"
-#~ msgstr "Torzítás 18"
-
-#~ msgid "Twirl 25"
-#~ msgstr "Forgatás 25"
-
-#~ msgid "Postime 2"
-#~ msgstr "Indulás 2"
-
-#~ msgid "Distortion 11"
-#~ msgstr "Torzítás 11"
-
-#~ msgid "Triangle 1"
-#~ msgstr "Háromszög 1"
-
-#~ msgid "Distortion 12"
-#~ msgstr "Torzítás 12"
-
-#~ msgid "Fogg 3"
-#~ msgstr "Homályos 3"
-
-#~ msgid "Twirl 27"
-#~ msgstr "Forgatás 27"
-
-#~ msgid "Twirl 11"
-#~ msgstr "Forgatás 11"
-
-#~ msgid "Mozaic 6"
-#~ msgstr "Mozaik 6"
-
-#~ msgid "Luminous boxes 7"
-#~ msgstr "Fénylő dobozok 7"
-
-#~ msgid "Distortion 22"
-#~ msgstr "Torzítás 22"
-
-#~ msgid "Whirpool 2"
-#~ msgstr "Körkörös 2"
-
-#~ msgid "Spiral small 2"
-#~ msgstr "Kicsi spirál 2"
-
-#~ msgid "Future 2"
-#~ msgstr "Jövő 2"
-
-#~ msgid "Twirl 33"
-#~ msgstr "Forgatás 33"
-
-#~ msgid "Board 8"
-#~ msgstr "Tábla 8"
-
-#~ msgid "Wandering 5"
-#~ msgstr "Vándorló 5"
-
-#~ msgid "Deform 12"
-#~ msgstr "Eltorzítás 12"
-
-#~ msgid "Twirl 19"
-#~ msgstr "Forgatás 19"
-
-#~ msgid "Sphere 2"
-#~ msgstr "Gömb 2"
-
-#~ msgid "Twirl 30"
-#~ msgstr "Forgatás 30"
-
-#~ msgid "Ray light 19"
-#~ msgstr "Sugárnyaláb 19"
-
-#~ msgid "Distortion 9"
-#~ msgstr "Torzítás 9"
-
-#~ msgid "Deform 15"
-#~ msgstr "Eltorzítás 15"
-
-#~ msgid "Luminous boxes 8"
-#~ msgstr "Fénylő dobozok 8"
-
-#~ msgid "Deform 3"
-#~ msgstr "Eltorzítás 3"
-
-#~ msgid "Mozaic 8"
-#~ msgstr "Mozaik 8"
-
-#~ msgid "Ray light left 2"
-#~ msgstr "Sugárnyaláb bal 2"
-
-#~ msgid "Future 5"
-#~ msgstr "Jövő 5"
-
-#~ msgid "Flower 7"
-#~ msgstr "Virág 7"
-
-#~ msgid "Fish-eyes 2"
-#~ msgstr "Halszem 2"
-
-#~ msgid "Fish-eyes 9"
-#~ msgstr "Halszem 9"
-
-#~ msgid "Cross 15"
-#~ msgstr "Kereszt 15"
-
-#~ msgid "Deform 25"
-#~ msgstr "Eltorzítás 25"
-
-#~ msgid "Luminous spiral 8"
-#~ msgstr "Fénylő spirál 8"
-
-#~ msgid "Twirl 26"
-#~ msgstr "Forgatás 26"
-
-#~ msgid "Board 11"
-#~ msgstr "Tábla 11"
-
-#~ msgid "Cross 13"
-#~ msgstr "Kereszt 13"
-
-#~ msgid "Checked 1"
-#~ msgstr "Rácsos 1"
-
-#~ msgid "Twirl 31"
-#~ msgstr "Forgatás 31"
-
-#~ msgid "Boxes 10"
-#~ msgstr "Dobozok 10"
-
-#~ msgid "Luminous spiral 3"
-#~ msgstr "Fénylő spirál 3"
-
-#~ msgid "Twirl 4"
-#~ msgstr "Forgatás 4"
-
-#~ msgid "Fish-eyes 10"
-#~ msgstr "Halszem 10"
-
-#~ msgid "Mozaic 7"
-#~ msgstr "Mozaik 7"
-
-#~ msgid "Luminous boxes 1"
-#~ msgstr "Fénylő dobozok 1"
-
-#~ msgid "Future 3"
-#~ msgstr "Jövő 3"
-
-#~ msgid "Distortion 4"
-#~ msgstr "Torzítás 4"
-
-#~ msgid "Boxes 4"
-#~ msgstr "Dobozok 4"
-
-#~ msgid "Cross 17"
-#~ msgstr "Kereszt 17"
-
-#~ msgid "Barr ripple 1"
-#~ msgstr "Barr fodrozódás 1"
-
-#~ msgid "Distortion 1"
-#~ msgstr "Torzítás 1"
-
-#~ msgid "Wandering 1"
-#~ msgstr "Vándorló 1"
-
-#~ msgid "Deform 9"
-#~ msgstr "Eltorzítás 9"
-
-#~ msgid "Barr ripple 3"
-#~ msgstr "Barr fodrozódás 3"
-
-#~ msgid "Distortion 7"
-#~ msgstr "Torzítás 7"
-
-#~ msgid "Distortion 15"
-#~ msgstr "Torzítás 15"
-
-#~ msgid "Luminous spiral 5"
-#~ msgstr "Fénylő spirál 5"
-
-#~ msgid "Distortion 24"
-#~ msgstr "Torzítás 24"
-
-#~ msgid "Deform 5"
-#~ msgstr "Eltorzítás 5"
-
-#~ msgid "Deform 27"
-#~ msgstr "Eltorzítás 27"
-
-#~ msgid "Wandering 3"
-#~ msgstr "Vándorló 3"
-
-#~ msgid "Cross 9"
-#~ msgstr "Kereszt 9"
-
-#~ msgid "Ray light 17"
-#~ msgstr "Sugárnyaláb 17"
-
-#~ msgid "Fogg 4"
-#~ msgstr "Homályos 4"
-
-#~ msgid "Twirl 20"
-#~ msgstr "Forgatás 20"
-
-#~ msgid "Wandering 10"
-#~ msgstr "Vándorló 10"
