@@ -219,6 +219,7 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.enable_snapping = true;
   $scope.debug = false;
   $scope.min_width = 1024;
+  $scope.track_label = "Track %s";
   
   // Method to set if Qt is detected (which clears demo data)
   $scope.Qt = false;
@@ -530,8 +531,12 @@ App.controller('TimelineCtrl',function($scope) {
 	if (layer_label.length > 0)
 		return layer_label;
 	else
-		return "Track " + layer_number;
+		return $scope.track_label.replace('%s', layer_number.toString());
  };
+
+$scope.SetTrackLabel = function (label){
+	$scope.track_label = label;
+};
 
  // Get the width of the timeline in pixels
  $scope.GetTimelineWidth = function(min_value){

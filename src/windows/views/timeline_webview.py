@@ -152,6 +152,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
     def changed(self, action):
         # Send a JSON version of the UpdateAction to the timeline webview method: ApplyJsonDiff()
         if action.type == "load":
+            # Initialize translated track name
+            _ = get_app()._tr
+            self.eval_js(JS_SCOPE_SELECTOR + ".SetTrackLabel('" + _("Track %s") + "');")
+
             # Load entire project data
             code = JS_SCOPE_SELECTOR + ".LoadJson(" + action.json() + ");"
         else:
