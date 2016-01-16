@@ -1328,9 +1328,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         self.zoomScaleLabel = QLabel(_("{} seconds").format(self.sliderZoom.value()))
 
         # add zoom widgets
-        self.timelineToolbar.addAction(self.actionTimelineZoomIn)
-        self.timelineToolbar.addWidget(self.sliderZoom)
         self.timelineToolbar.addAction(self.actionTimelineZoomOut)
+        self.timelineToolbar.addWidget(self.sliderZoom)
+        self.timelineToolbar.addAction(self.actionTimelineZoomIn)
         self.timelineToolbar.addWidget(self.zoomScaleLabel)
 
         # Add timeline toolbar to web frame
