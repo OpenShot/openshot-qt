@@ -501,7 +501,7 @@ class PropertiesModel(updates.UpdateInterface):
 
             # Loop through properties, and build a model
             for property in all_properties.items():
-                label = property[1]["name"].replace("Alpha", "Transparency")
+                label = property[1]["name"]
                 name = property[0]
                 value = property[1]["value"]
                 type = property[1]["type"]

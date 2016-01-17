@@ -255,11 +255,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         self.current_filepath = None
         self.has_unsaved_changes = False
 
-        # Append version info
-        v = openshot.GetVersion()
-        self._data["version"] = { "openshot-qt" : info.VERSION,
-                                  "libopenshot" : v.ToString() }
-
         # Get default profile
         s = settings.get_settings()
         default_profile = s.get("default-profile")
@@ -322,7 +317,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             project_thumbnails_folder = os.path.join(loaded_project_folder, "thumbnail")
             if os.path.exists(project_thumbnails_folder):
                 # Remove thumbnail path
-                shutil.rmtree(info.THUMBNAIL_PATH)
+                shutil.rmtree(info.THUMBNAIL_PATH, True)
 
                 # Copy project thumbnails folder
                 shutil.copytree(project_thumbnails_folder, info.THUMBNAIL_PATH)
@@ -330,12 +325,37 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             # Add to recent files setting
             self.add_to_recent_files(file_path)
 
+            # Upgrade any data structures
+            self.upgrade_project_data_structures()
+
         # Get app, and distribute all project data through update manager
         from classes.app import get_app
         get_app().updates.load(self._data)
 
         # Clear needs save flag
         self.has_unsaved_changes = False
+
+    def upgrade_project_data_structures(self):
+        """Fix any issues with old project files (if any)"""
+        openshot_version = self._data["version"]["openshot-qt"]
+        libopenshot_version = self._data["version"]["libopenshot"]
+
+        log.info(openshot_version)
+        log.info(libopenshot_version)
+
+        if openshot_version == "0.0.0":
+            # If version = 0.0.0, this is the beta of OpenShot
+            # Fix alpha values (they are now flipped)
+            for clip in self._data["clips"]:
+                # Loop through keyframes for alpha
+                for point in clip["alpha"]["Points"]:
+                    # Flip the alpha value
+                    if "co" in point:
+                        point["co"]["Y"] = 1.0 - point["co"]["Y"]
+                    if "handle_left" in point:
+                        point["handle_left"]["Y"] = 1.0 - point["handle_left"]["Y"]
+                    if "handle_right" in point:
+                        point["handle_right"]["Y"] = 1.0 - point["handle_right"]["Y"]
 
     def save(self, file_path):
         """ Save project file to disk """

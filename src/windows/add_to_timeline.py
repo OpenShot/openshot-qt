@@ -222,17 +222,17 @@ class AddToTimeline(QDialog):
                     new_clip["position"] = position
 
                 if fade_value == 'Fade In' or fade_value == 'Fade In & Out':
-                    start = openshot.Point((start_time * fps_float) + 1, 1.0, openshot.BEZIER)
+                    start = openshot.Point((start_time * fps_float) + 1, 0.0, openshot.BEZIER)
                     start_object = json.loads(start.Json())
-                    end = openshot.Point(min((start_time + fade_length) * fps_float, end_time * fps_float), 0.0, openshot.BEZIER)
+                    end = openshot.Point(min((start_time + fade_length) * fps_float, end_time * fps_float), 1.0, openshot.BEZIER)
                     end_object = json.loads(end.Json())
                     new_clip['alpha']["Points"].append(start_object)
                     new_clip['alpha']["Points"].append(end_object)
 
                 if fade_value == 'Fade Out' or fade_value == 'Fade In & Out':
-                    start = openshot.Point(max((end_time * fps_float) - (fade_length * fps_float), start_time * fps_float), 0.0, openshot.BEZIER)
+                    start = openshot.Point(max((end_time * fps_float) - (fade_length * fps_float), start_time * fps_float), 1.0, openshot.BEZIER)
                     start_object = json.loads(start.Json())
-                    end = openshot.Point(end_time * fps_float, 1.0, openshot.BEZIER)
+                    end = openshot.Point(end_time * fps_float, 0.0, openshot.BEZIER)
                     end_object = json.loads(end.Json())
                     new_clip['alpha']["Points"].append(start_object)
                     new_clip['alpha']["Points"].append(end_object)

@@ -1106,18 +1106,18 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         if action in [MENU_FADE_IN_FAST, MENU_FADE_IN_SLOW]:
             # Add keyframes
-            start = openshot.Point(start_animation, 1.0, openshot.BEZIER)
+            start = openshot.Point(start_animation, 0.0, openshot.BEZIER)
             start_object = json.loads(start.Json())
-            end = openshot.Point(end_animation, 0.0, openshot.BEZIER)
+            end = openshot.Point(end_animation, 1.0, openshot.BEZIER)
             end_object = json.loads(end.Json())
             clip.data[prop_name]["Points"].append(start_object)
             clip.data[prop_name]["Points"].append(end_object)
 
         if action in [MENU_FADE_OUT_FAST, MENU_FADE_OUT_SLOW]:
             # Add keyframes
-            start = openshot.Point(start_animation, 0.0, openshot.BEZIER)
+            start = openshot.Point(start_animation, 1.0, openshot.BEZIER)
             start_object = json.loads(start.Json())
-            end = openshot.Point(end_animation, 1.0, openshot.BEZIER)
+            end = openshot.Point(end_animation, 0.0, openshot.BEZIER)
             end_object = json.loads(end.Json())
             clip.data[prop_name]["Points"].append(start_object)
             clip.data[prop_name]["Points"].append(end_object)
