@@ -254,6 +254,11 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         self.current_filepath = None
         self.has_unsaved_changes = False
 
+        # Append version info
+        v = openshot.GetVersion()
+        self._data["version"] = { "openshot-qt" : info.VERSION,
+                                  "libopenshot" : v.ToString() }
+
         # Get default profile
         s = settings.get_settings()
         default_profile = s.get("default-profile")
@@ -333,12 +338,18 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
     def save(self, file_path):
         """ Save project file to disk """
+        import openshot
 
         # Move all temp files (i.e. Blender animations) to the project folder
         self.move_temp_paths_to_project_folder(file_path)
 
         # Convert all file paths to relative based on this new project file's directory
         self.convert_paths_to_relative(file_path)
+
+        # Append version info
+        v = openshot.GetVersion()
+        self._data["version"] = { "openshot-qt" : info.VERSION,
+                                  "libopenshot" : v.ToString() }
 
         # Try to save project settings file, will raise error on failure
         self.write_to_file(file_path, self._data)

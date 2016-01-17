@@ -49,6 +49,7 @@
     }
   ],
   "markers": [  ],
-  "progress": [
-  ]
+  "progress": [  ],
+  "version" : { "openshot-qt" : "0.0.0",
+                "libopenshot" : "0.0.0" }
 }
