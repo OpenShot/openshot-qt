@@ -31,6 +31,7 @@ import os
 import random
 import copy
 import shutil
+import glob
 
 from classes.json_data import JsonDataStore
 from classes.updates import UpdateInterface
@@ -372,14 +373,14 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         # Get project folder
         new_project_folder = os.path.dirname(file_path)
         new_thumbnails_folder = os.path.join(new_project_folder, "thumbnail")
-        new_title_folder = os.path.join(new_project_folder, "title")
 
-        # Delete thumbnails folder for project (if found)
-        if os.path.exists(new_thumbnails_folder):
-            shutil.rmtree(new_thumbnails_folder)
+        # Create project thumbnails folder
+        if not os.path.exists(new_thumbnails_folder):
+            os.mkdir(new_thumbnails_folder)
 
-        # Copy any thumbnails to project
-        shutil.copytree(info.THUMBNAIL_PATH, new_thumbnails_folder)
+        # Copy all thumbnails to project
+        for filename in glob.glob(os.path.join(info.THUMBNAIL_PATH, '*.*')):
+            shutil.copy(filename, new_thumbnails_folder)
 
         # Loop through each file
         for file in self._data["files"]:
