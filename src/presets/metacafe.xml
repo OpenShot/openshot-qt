@@ -7,6 +7,7 @@
 	<videocodec>mpeg4</videocodec>
 	<audiocodec>libmp3lame</audiocodec>
 	<audiochannels>2</audiochannels>
+	<audiochannellayout>3</audiochannellayout>
 	<videobitrate
 	 low="2 Mb/s"
 	 med="5 Mb/s"
