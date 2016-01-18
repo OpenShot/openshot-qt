@@ -72,6 +72,15 @@ class Export(QDialog):
         self.buttonBox.addButton(QPushButton(_('Cancel')), QDialogButtonBox.RejectRole)
         self.exporting = False
 
+        # Get the original timeline settings
+        self.original_width = get_app().window.timeline_sync.timeline.info.width
+        self.original_height = get_app().window.timeline_sync.timeline.info.height
+        fps = get_app().window.timeline_sync.timeline.info.fps
+        self.original_fps = { "num" : fps.num, "den" : fps.den }
+        self.original_sample_rate = get_app().window.timeline_sync.timeline.info.sample_rate
+        self.original_channels = get_app().window.timeline_sync.timeline.info.channels
+        self.original_channel_layout = get_app().window.timeline_sync.timeline.info.channel_layout
+
         # Default export path
         recommended_path = recommended_path = os.path.join(info.HOME_PATH)
         if app.project.current_filepath:
@@ -105,6 +114,17 @@ class Export(QDialog):
             # append profile to list
             self.cboExportTo.addItem(option)
 
+        # Add channel layouts
+        self.channel_layout_choices = []
+        for layout in [(openshot.LAYOUT_MONO, _("Mono (1 Channel)")),
+                       (openshot.LAYOUT_STEREO, _("Stereo (2 Channel)")),
+                       (openshot.LAYOUT_SURROUND, _("Surround (3 Channel)")),
+                       (openshot.LAYOUT_5POINT1, _("Surround (5.1 Channel)")),
+                       (openshot.LAYOUT_7POINT1, _("Surround (7.1 Channel)"))]:
+            log.info(layout)
+            self.channel_layout_choices.append(layout[0])
+            self.cboChannelLayout.addItem(layout[1], layout[0])
+
         # Connect signals
         self.btnBrowse.clicked.connect(functools.partial(self.btnBrowse_clicked))
         self.cboSimpleProjectType.currentIndexChanged.connect(
@@ -116,6 +136,7 @@ class Export(QDialog):
             functools.partial(self.cboSimpleVideoProfile_index_changed, self.cboSimpleVideoProfile))
         self.cboSimpleQuality.currentIndexChanged.connect(
             functools.partial(self.cboSimpleQuality_index_changed, self.cboSimpleQuality))
+        self.cboChannelLayout.currentIndexChanged.connect(self.updateChannels)
 
 
         # ********* Advaned Profile List **********
@@ -173,9 +194,30 @@ class Export(QDialog):
         self.txtHeight.valueChanged.connect(self.updateFrameRate)
         self.txtSampleRate.valueChanged.connect(self.updateFrameRate)
         self.txtChannels.valueChanged.connect(self.updateFrameRate)
+        self.cboChannelLayout.currentIndexChanged.connect(self.updateFrameRate)
 
         # Determine the length of the timeline (in frames)
         self.updateFrameRate()
+
+    def updateChannels(self):
+        """Update the # of channels to match the channel layout"""
+        log.info("updateChannels")
+        channels = self.txtChannels.value()
+        channel_layout = self.cboChannelLayout.currentData()
+
+        if channel_layout == openshot.LAYOUT_MONO:
+            channels = 1
+        elif channel_layout == openshot.LAYOUT_STEREO:
+            channels = 2
+        elif channel_layout == openshot.LAYOUT_SURROUND:
+            channels = 3
+        elif channel_layout == openshot.LAYOUT_5POINT1:
+            channels = 6
+        elif channel_layout == openshot.LAYOUT_7POINT1:
+            channels = 8
+
+        # Update channels to match layout
+        self.txtChannels.setValue(channels)
 
     def updateFrameRate(self):
         """Callback for changing the frame rate"""
@@ -187,13 +229,10 @@ class Export(QDialog):
         get_app().updates.update(["fps"], {"num" : self.txtFrameRateNum.value(), "den" : self.txtFrameRateDen.value()})
         get_app().updates.update(["sample_rate"], self.txtSampleRate.value())
         get_app().updates.update(["channels"], self.txtChannels.value())
+        get_app().updates.update(["channel_layout"], self.cboChannelLayout.currentData())
 
         # Force ApplyMapperToClips to apply these changes
         get_app().window.timeline_sync.timeline.ApplyMapperToClips()
-
-        # Update main window title (since we changed the profile), and force ApplyMapperToClips
-        get_app().updates.update(["profile"], self.cboProfile.currentText())
-        get_app().window.SetWindowTitle(self.cboProfile.currentText())
 
         # Determine max frame (based on clips)
         timeline_length = 0.0
@@ -335,6 +374,14 @@ class Export(QDialog):
                     self.txtSampleRate.setValue(int(sr[0].childNodes[0].data))
                     c = xmldoc.getElementsByTagName("audiochannels")
                     self.txtChannels.setValue(int(c[0].childNodes[0].data))
+                    c = xmldoc.getElementsByTagName("audiochannellayout")
+
+                    layout_index = 0
+                    for layout in self.channel_layout_choices:
+                        if layout == int(c[0].childNodes[0].data):
+                            self.cboChannelLayout.setCurrentIndex(layout_index)
+                            break
+                        layout_index += 1
 
             # init the profiles combo
             for item in sorted(profiles_list):
@@ -491,7 +538,7 @@ class Export(QDialog):
                               self.txtAudioCodec.text(),
                               self.txtSampleRate.value(),
                               self.txtChannels.value(),
-                              openshot.LAYOUT_STEREO,
+                              self.cboChannelLayout.currentData(),
                               int(self.convert_to_bytes(self.txtAudioBitrate.text())))
 
             # Open the writer
@@ -521,13 +568,28 @@ class Export(QDialog):
         # except:
         #	log.info("Error writing video file")
 
-        # Close dialog
-        self.close()
-
         # Accept dialog
         super(Export, self).accept()
 
+        # Restore timeline settings
+        self.restoreTimeline()
+
         log.info("End Accept")
+
+    def restoreTimeline(self):
+        """Restore timeline setting to original settings"""
+        log.info("restoreTimeline")
+
+        # Adjust the main timeline reader
+        get_app().updates.update(["width"], self.original_width)
+        get_app().updates.update(["height"], self.original_height)
+        get_app().updates.update(["fps"], self.original_fps)
+        get_app().updates.update(["sample_rate"], self.original_sample_rate)
+        get_app().updates.update(["channels"], self.original_channels)
+        get_app().updates.update(["channel_layout"], self.original_channel_layout)
+
+        # Force ApplyMapperToClips to apply these changes
+        get_app().window.timeline_sync.timeline.ApplyMapperToClips()
 
     def reject(self):
 
@@ -536,5 +598,8 @@ class Export(QDialog):
 
         # Cancel dialog
         super(Export, self).reject()
+
+        # Restore timeline settings
+        self.restoreTimeline()
 
         log.info("End Reject")

@@ -110,7 +110,7 @@ class Preferences(QDialog):
                 label.setToolTip(_(param["title"]))
 
                 if param["type"] == "spinner":
-                    # create spinner
+                    # create QDoubleSpinBox
                     widget = QDoubleSpinBox()
                     widget.setMinimum(float(param["min"]))
                     widget.setMaximum(float(param["max"]))
@@ -119,8 +119,18 @@ class Preferences(QDialog):
                     widget.setToolTip(param["title"])
                     widget.valueChanged.connect(functools.partial(self.spinner_value_changed, param))
 
+                if param["type"] == "spinner-int":
+                    # create QDoubleSpinBox
+                    widget = QSpinBox()
+                    widget.setMinimum(int(param["min"]))
+                    widget.setMaximum(int(param["max"]))
+                    widget.setValue(int(param["value"]))
+                    widget.setSingleStep(1.0)
+                    widget.setToolTip(param["title"])
+                    widget.valueChanged.connect(functools.partial(self.spinner_value_changed, param))
+
                 elif param["type"] == "text":
-                    # create spinner
+                    # create QLineEdit
                     widget = QLineEdit()
                     widget.setText(_(param["value"]))
                     widget.textChanged.connect(functools.partial(self.text_value_changed, widget, param))

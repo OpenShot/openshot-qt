@@ -40,22 +40,24 @@ class TimelineSync(UpdateInterface):
         self.window = window
         project = self.app.project
 
-        # Append on some project settings
+        # Get some settings from the project
         fps = project.get(["fps"])
         width = project.get(["width"])
         height = project.get(["height"])
+        sample_rate = project.get(["sample_rate"])
+        channels = project.get(["channels"])
+        channel_layout = project.get(["channel_layout"])
 
         # Create an instance of a libopenshot Timeline object
-        self.timeline = openshot.Timeline(width, height, openshot.Fraction(fps["num"], fps["den"]), 48000, 2,
-                                          openshot.LAYOUT_STEREO)
-        self.timeline.info.channel_layout = openshot.LAYOUT_STEREO
+        self.timeline = openshot.Timeline(width, height, openshot.Fraction(fps["num"], fps["den"]), sample_rate, channels,
+                                          channel_layout)
+        self.timeline.info.channel_layout = channel_layout
         self.timeline.info.has_audio = True
         self.timeline.info.has_video = True
         self.timeline.info.video_length = 99999
         self.timeline.info.duration = 999.99
-        self.timeline.info.sample_rate = 44100
-        self.timeline.info.channels = 2
-        self.timeline.info.channel_layout = openshot.LAYOUT_STEREO
+        self.timeline.info.sample_rate = sample_rate
+        self.timeline.info.channels = channels
         self.timeline.debug = False
 
         # Open the timeline reader

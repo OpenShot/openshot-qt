@@ -1100,7 +1100,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         if action == MENU_FADE_NONE:
             # Clear all keyframes
-            p = openshot.Point(1, 0.0, openshot.BEZIER)
+            p = openshot.Point(1, 1.0, openshot.BEZIER)
             p_object = json.loads(p.Json())
             clip.data[prop_name] = { "Points" : [p_object]}
 

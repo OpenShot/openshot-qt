@@ -117,6 +117,68 @@
     "values": []
   },
   {
+    "max": 128000,
+    "title": "Default Audio Sample Rate",
+    "category": "Profiles",
+    "min": 22050,
+    "setting": "default-samplerate",
+    "value": 44100,
+    "values": [
+      {
+        "value": 22050,
+        "name": "22050"
+      },
+      {
+        "value": 44100,
+        "name": "44100"
+      },
+      {
+        "value": 48000,
+        "name": "48000"
+      },
+      {
+        "value": 96000,
+        "name": "96000"
+      },
+      {
+        "value": 192000,
+        "name": "192000"
+      }
+    ],
+    "type": "dropdown"
+  },
+  {
+    "max": 10,
+    "title": "Default Audio Channels",
+    "category": "Profiles",
+    "min": 1,
+    "setting": "default-channellayout",
+    "type": "dropdown",
+    "value": "LAYOUT_STEREO",
+    "values": [
+      {
+        "value": "LAYOUT_MONO",
+        "name": "Mono (1 Channel)"
+      },
+      {
+        "value": "LAYOUT_STEREO",
+        "name": "Stereo (2 Channel)"
+      },
+      {
+        "value": "LAYOUT_SURROUND",
+        "name": "Surround (3 Channel)"
+      },
+      {
+        "value": "LAYOUT_5POINT1",
+        "name": "Surround (5.1 Channel)"
+      },
+      {
+        "value": "LAYOUT_7POINT1",
+        "name": "Surround (7.1 Channel)"
+      }
+    ]
+  },
+  {
     "value": false,
     "title": "Enable Autosave",
     "type": "hidden",
