@@ -60,6 +60,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
     # Path to ui file
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'main-window.ui')
 
+    previewFrameSignal = pyqtSignal(int)
+    refreshFrameSignal = pyqtSignal()
+    LoadFileSignal = pyqtSignal(str)
+    PlaySignal = pyqtSignal()
+    PauseSignal = pyqtSignal()
+    SeekSignal = pyqtSignal(int)
+    SpeedSignal = pyqtSignal(float)
+
     # Save window settings on close
     def closeEvent(self, event):
 
@@ -131,28 +139,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             log.info('Import image sequence add confirmed')
         else:
             log.info('Import image sequence add cancelled')
-
-    def actionImportTransition_trigger(self, event):
-        # show dialog
-        from windows.Import_transitions import ImportTransition
-        win = ImportTransition()
-        # Run the dialog event loop -blocking interaction on this window during that time
-        result = win.exec_()
-        if result == QDialog.Accepted:
-            log.info('Import transition add confirmed')
-        else:
-            log.info('Import transition add cancelled')
-
-    def actionImportTitle_trigger(self, event):
-        # show dialog
-        from windows.Import_titles import ImportTitles
-        win = ImportTitles()
-        # Run the dialog event loop - blocking interaction on this window during that time
-        result = win.exec_()
-        if result == QDialog.Accepted:
-            log.info('Import title add confirmed')
-        else:
-            log.info('Import title add cancelled')
 
     def save_project(self, file_path):
         """ Save a project to a file path, and refresh the screen """
@@ -416,11 +402,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         if self.actionPlay.isChecked():
             ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
-            self.preview_thread.Play()
+            self.PlaySignal.emit()
 
         else:
             ui_util.setup_icon(self, self.actionPlay, "actionPlay")  # to default
-            self.preview_thread.Pause()
+            self.PauseSignal.emit()
 
     def actionPreview_File_trigger(self, event):
         """ Preview the selected media file """
@@ -434,7 +420,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
                 previewPath = f.data["path"]
 
                 # Load file into player
-                self.preview_thread.LoadFile(previewPath)
+                self.LoadFileSignal.emit(previewPath)
 
                 # Trigger play button
                 self.actionPlay.setChecked(False)
@@ -443,7 +429,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
     def previewFrame(self, position_seconds, position_frames, time_code):
         """Preview a specific frame"""
         # Notify preview thread
-        self.preview_thread.previewFrame(position_frames)
+        self.previewFrameSignal.emit(position_frames)
 
         # Notify properties dialog
         self.propertyTableView.select_frame(position_frames)
@@ -459,9 +445,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         player = self.preview_thread.player
 
         if player.Speed() + 1 != 0:
-            player.Speed(player.Speed() + 1)
+            self.SpeedSignal.emit(player.Speed() + 1)
         else:
-            player.Speed(player.Speed() + 2)
+            self.SpeedSignal.emit(player.Speed() + 2)
 
         if player.Mode() == openshot.PLAYBACK_PAUSED:
             self.actionPlay.trigger()
@@ -472,9 +458,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         player = self.preview_thread.player
 
         if player.Speed() - 1 != 0:
-            player.Speed(player.Speed() - 1)
+            self.SpeedSignal.emit(player.Speed() - 1)
         else:
-            player.Speed(player.Speed() - 2)
+            self.SpeedSignal.emit(player.Speed() - 2)
 
         if player.Mode() == openshot.PLAYBACK_PAUSED:
             self.actionPlay.trigger()
@@ -483,7 +469,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         log.info("actionJumpStart_trigger")
 
         # Seek to the 1st frame
-        self.preview_thread.player.Seek(1)
+        self.SeekSignal.emit(1)
 
     def actionJumpEnd_trigger(self, event):
         log.info("actionJumpEnd_trigger")
@@ -502,7 +488,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         timeline_length_int = round(timeline_length * fps) + 1
 
         # Seek to the 1st frame
-        self.preview_thread.player.Seek(timeline_length_int)
+        self.SeekSignal.emit(timeline_length_int)
 
     def actionAddTrack_trigger(self, event):
         log.info("actionAddTrack_trigger")
@@ -620,7 +606,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         if closest_position:
             # Seek
             frame_to_seek = int(closest_position * fps_float)
-            self.preview_thread.player.Seek(frame_to_seek)
+            self.SeekSignal.emit(frame_to_seek)
 
     def actionNextMarker_trigger(self, event):
         log.info("actionNextMarker_trigger")
@@ -650,7 +636,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         if closest_position:
             # Seek
             frame_to_seek = int(closest_position * fps_float)
-            self.preview_thread.player.Seek(frame_to_seek)
+            self.SeekSignal.emit(frame_to_seek)
 
     def keyPressEvent(self, event):
         """ Add some shortkey for Player """
@@ -667,9 +653,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             self.actionPlay_trigger(event, force="pause")
             # Set speed to 0
             if player.Speed() != 0:
-                player.Speed(0)
+                self.SpeedSignal.emit(0)
             # Seek to previous frame
-            player.Seek(player.Position() - 1)
+            self.SeekSignal.emit(player.Position() - 1)
 
             # Notify properties dialog
             self.propertyTableView.select_frame(player.Position())
@@ -679,9 +665,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             self.actionPlay_trigger(event, force="pause")
             # Set speed to 0
             if player.Speed() != 0:
-                player.Speed(0)
+                self.SpeedSignal.emit(0)
             # Seek to next frame
-            player.Seek(player.Position() + 1)
+            self.SeekSignal.emit(player.Position() + 1)
 
             # Notify properties dialog
             self.propertyTableView.select_frame(player.Position())

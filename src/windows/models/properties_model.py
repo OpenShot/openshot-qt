@@ -247,7 +247,7 @@ class PropertiesModel(updates.UpdateInterface):
                     c.save()
 
                     # Update the preview
-                    get_app().window.preview_thread.refreshFrame()
+                    get_app().window.refreshFrameSignal.emit()
 
                 # Clear selection
                 self.parent.clearSelection()
@@ -322,7 +322,7 @@ class PropertiesModel(updates.UpdateInterface):
                     c.save()
 
                     # Update the preview
-                    get_app().window.preview_thread.refreshFrame()
+                    get_app().window.refreshFrameSignal.emit()
 
                 # Clear selection
                 self.parent.clearSelection()
@@ -457,7 +457,7 @@ class PropertiesModel(updates.UpdateInterface):
                 c.save()
 
                 # Update the preview
-                get_app().window.preview_thread.refreshFrame()
+                get_app().window.refreshFrameSignal.emit()
 
             # Clear selection
             self.parent.clearSelection()

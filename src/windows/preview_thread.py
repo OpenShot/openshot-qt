@@ -70,6 +70,15 @@ class PreviewParent(QObject):
         self.background.started.connect(self.worker.Start)
         self.worker.finished.connect(self.background.quit)
 
+        # Connect preview thread to main UI signals
+        self.parent.previewFrameSignal.connect(self.worker.previewFrame)
+        self.parent.refreshFrameSignal.connect(self.worker.refreshFrame)
+        self.parent.LoadFileSignal.connect(self.worker.LoadFile)
+        self.parent.PlaySignal.connect(self.worker.Play)
+        self.parent.PauseSignal.connect(self.worker.Pause)
+        self.parent.SeekSignal.connect(self.worker.Seek)
+        self.parent.SpeedSignal.connect(self.worker.Speed)
+
         # Move Worker to new thread, and Start
         self.worker.moveToThread(self.background)
         self.background.start()
@@ -153,12 +162,10 @@ class PlayerWorker(QObject):
         self.renderer = sip.wrapinstance(self.renderer_address, QObject)
         self.videoPreview.connectSignals(self.renderer)
 
-    @pyqtSlot()
     def kill(self):
         """ Kill this thread """
         self.is_running = False
 
-    @pyqtSlot(int)
     def previewFrame(self, number):
         """ Preview a certain frame """
 
@@ -169,7 +176,6 @@ class PlayerWorker(QObject):
 
         log.info("self.player.Position(): %s" % self.player.Position())
 
-    @pyqtSlot(int)
     def refreshFrame(self):
         """ Refresh a certain frame """
 
@@ -183,7 +189,6 @@ class PlayerWorker(QObject):
 
         log.info("self.player.Position(): %s" % self.player.Position())
 
-    @pyqtSlot(str)
     def LoadFile(self, path=None):
         """ Load a media file into the video player """
 
@@ -272,28 +277,24 @@ class PlayerWorker(QObject):
         self.player.Seek(seek_position)
         self.player.Speed(self.original_speed)
 
-    @pyqtSlot()
     def Play(self):
         """ Start playing the video player """
 
         # Start playback
         self.player.Play()
 
-    @pyqtSlot()
     def Pause(self):
         """ Start playing the video player """
 
         # Start playback
         self.player.Pause()
 
-    @pyqtSlot()
     def Seek(self, number):
         """ Seek to a specific frame """
 
         # Start playback
         self.player.Seek(number)
 
-    @pyqtSlot()
     def Speed(self, new_speed):
         """ Set the speed of the video player """
 

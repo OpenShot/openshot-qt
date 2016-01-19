@@ -211,7 +211,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         existing_clip.save()
 
         # Update the preview
-        get_app().window.preview_thread.refreshFrame()
+        get_app().window.refreshFrameSignal.emit()
 
     # Update Thumbnails for modified clips
     def UpdateClipThumbnail(self, clip_data):
@@ -1576,17 +1576,17 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         frame_number = min(frame_number, int(clip.data['reader']['video_length']))
 
         # Load the clip into the Player (ignored if this has already happened)
-        self.window.preview_thread.LoadFile(path)
-        self.window.preview_thread.Speed(0)
+        self.window.LoadFileSignal.emit(path)
+        self.window.SpeedSignal.emit(0)
 
         # Seek to frame
-        self.window.preview_thread.Seek(frame_number)
+        self.window.SeekSignal.emit(frame_number)
 
     @pyqtSlot(float, int, str)
     def PlayheadMoved(self, position_seconds, position_frames, time_code):
 
         # Load the timeline into the Player (ignored if this has already happened)
-        self.window.preview_thread.LoadFile(None)
+        self.window.LoadFileSignal.emit(None)
 
         if self.last_position_frames != position_frames:
             # Update time code (to prevent duplicate previews)
