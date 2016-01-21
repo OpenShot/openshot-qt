@@ -43,7 +43,7 @@ if os.path.exists(os.path.join(PATH, "src")):
     copytree(os.path.join(PATH, "src"), os.path.join(PATH, "openshot_qt"))
 
     # Make a copy of the launch.py script (to name it more appropriately)
-    copy(os.path.join(PATH, "src", "launch.py"), os.path.join(PATH, "openshot_qt", "launch-openshot"))
+    copy(os.path.join(PATH, "src", "launch.py"), os.path.join(PATH, "openshot_qt", "openshot-qt"))
 
 if os.path.exists(os.path.join(PATH, "openshot_qt")):
     # Append path to system path
@@ -99,7 +99,7 @@ package_data["openshot_qt"] = src_files
 # Call the main Distutils setup command
 # -------------------------------------
 dist = setup(
-    scripts=['openshot_qt/launch-openshot'],
+    scripts=['openshot_qt/openshot-qt'],
     packages=[('openshot_qt')],
     package_data=package_data,
     data_files=os_files,
