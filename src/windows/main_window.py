@@ -97,6 +97,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # clear data and start new project
         get_app().project.load("")
         get_app().updates.reset()
+        self.updateStatusChanged(False, False)
 
         # Reset selections
         self.clearSelections()
@@ -177,6 +178,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
                 # Reset undo/redo history
                 app.updates.reset()
+                self.updateStatusChanged(False, False)
 
                 # Reset selections
                 self.clearSelections()
@@ -1109,6 +1111,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
     # Update undo and redo buttons enabled/disabled to available changes
     def updateStatusChanged(self, undo_status, redo_status):
+        log.info('updateStatusChanged')
         self.actionUndo.setEnabled(undo_status)
         self.actionRedo.setEnabled(redo_status)
 

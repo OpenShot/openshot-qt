@@ -127,6 +127,10 @@ class OpenShotApp(QApplication):
                 # Auto import media file
                 self.window.filesTreeView.add_file(path)
 
+        # Reset undo/redo history
+        self.updates.reset()
+        self.window.updateStatusChanged(False, False)
+
     def _tr(self, message):
         return self.translate("", message)
 
