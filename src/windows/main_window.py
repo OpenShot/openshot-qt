@@ -378,15 +378,15 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
     def actionReportBug_trigger(self, event):
         try:
             webbrowser.open("https://github.com/OpenShot/openshot-qt/issues")
-            log.info("Open the Report Bug Github web page with success")
+            log.info("Open the Report Bug github web page with success")
         except:
             QMessageBox.information(self, "Error !", "Unable to open the github web page")
             log.info("Unable to open the Report Bug github web page")
 
     def actionAskQuestion_trigger(self, event):
         try:
-            webbrowser.open("https://answers.launchpad.net/openshot/+addquestion")
-            log.info("Open the Question launchpad web page with success")
+            webbrowser.open("https://github.com/OpenShot/openshot-qt/issues")
+            log.info("Open the Question github web page with success")
         except:
             QMessageBox.information(self, "Error !", "Unable to open the Question web page")
             log.info("Unable to open the Question web page")
