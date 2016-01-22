@@ -72,7 +72,7 @@
      <x>0</x>
      <y>0</y>
      <width>808</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -497,8 +497,7 @@
   <action name="actionQuit">
    <property name="icon">
     <iconset theme="gtk-quit">
-     <normaloff/>
-    </iconset>
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>&amp;Quit</string>
@@ -855,8 +854,7 @@
   <action name="actionTitle">
    <property name="icon">
     <iconset theme="font">
-     <normaloff/>
-    </iconset>
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>Title</string>
@@ -871,8 +869,7 @@
   <action name="actionAnimatedTitle">
    <property name="icon">
     <iconset theme="video-x-generic">
-     <normaloff/>
-    </iconset>
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>Animated Title</string>
@@ -890,8 +887,7 @@
    </property>
    <property name="icon">
     <iconset theme="view-fullscreen">
-     <normaloff/>
-    </iconset>
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>Fullscreen</string>
@@ -906,8 +902,7 @@
   <action name="actionExit_Fullscreen">
    <property name="icon">
     <iconset theme="view-restore">
-     <normaloff/>
-    </iconset>
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>Exit Fullscreen</string>
@@ -1018,8 +1013,7 @@
   <action name="actionHelpContents">
    <property name="icon">
     <iconset theme="help">
-     <normaloff/>
-    </iconset>
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>Contents</string>
@@ -1150,8 +1144,7 @@
   <action name="actionPropertyClear">
    <property name="icon">
     <iconset theme="edit-clear">
-     <normaloff/>
-    </iconset>
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>Clear</string>
@@ -1223,8 +1216,7 @@
   <action name="actionSplitClip">
    <property name="icon">
     <iconset theme="edit-cut">
-     <normaloff/>
-    </iconset>
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>Split Clip...</string>
@@ -1233,7 +1225,7 @@
     <string>Split Clip</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+E</string>
+    <string>Ctrl+C</string>
    </property>
   </action>
   <action name="actionProperties">
