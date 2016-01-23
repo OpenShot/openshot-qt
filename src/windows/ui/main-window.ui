@@ -1225,7 +1225,7 @@
     <string>Split Clip</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+C</string>
+    <string>Ctrl+X</string>
    </property>
   </action>
   <action name="actionProperties">
