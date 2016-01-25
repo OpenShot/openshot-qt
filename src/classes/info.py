@@ -110,4 +110,11 @@ SETUP = {
                        "Topic :: Artistic Software",
                        "Topic :: Multimedia :: Video :: Non-Linear Editor", ] +
                    ["Natural Language :: " + language for language in SUPPORTED_LANGUAGES],
+
+    # Automatic launch script creation
+    "entry_points": {
+        "gui_scripts": [
+            "openshot-qt = openshot_qt.launch:main"
+        ]
+    }
 }
