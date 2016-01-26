@@ -192,6 +192,13 @@ class Preferences(QDialog):
         else:
             self.s.set(param["setting"], False)
 
+        # Trigger specific actions
+        if param["setting"] == "debug-mode":
+            # Update debug setting of timeline
+            log.info("Setting debug-mode to %s" % (state == Qt.Checked))
+            get_app().window.timeline_sync.timeline.debug = (state == Qt.Checked)
+
+
     def spinner_value_changed(self, param, value):
         # Save setting
         self.s.set(param["setting"], value)

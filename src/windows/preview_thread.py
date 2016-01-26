@@ -33,6 +33,7 @@ from PyQt5.QtCore import QObject, QThread,  QTimer,  pyqtSlot, pyqtSignal, QCore
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 from classes.logger import log
+from classes import settings
 
 try:
     import json
@@ -191,6 +192,7 @@ class PlayerWorker(QObject):
 
     def LoadFile(self, path=None):
         """ Load a media file into the video player """
+        s = settings.get_settings()
 
         # Check to see if this path is already loaded
         if path == self.clip_path:
@@ -211,6 +213,9 @@ class PlayerWorker(QObject):
             # Return to self.timeline reader
             log.info("Set timeline reader again in player: %s" % self.timeline)
             self.player.Reader(self.timeline)
+
+            # Set debug mode
+            self.timeline.debug = s.get("debug-mode")
 
             # Clear clip reader reference
             self.clip_reader = None
@@ -259,6 +264,7 @@ class PlayerWorker(QObject):
 
             # Assign new clip_reader
             self.clip_reader = new_mapper
+            self.clip_reader.debug = s.get("debug-mode")
             self.clip_path = path
 
             # Open reader

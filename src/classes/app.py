@@ -28,12 +28,16 @@
  """
 
 import os
+import platform
 from PyQt5.QtWidgets import QApplication, QStyleFactory
 from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont
 from PyQt5.QtCore import Qt
+from PyQt5.QtCore import QT_VERSION_STR
+from PyQt5.Qt import PYQT_VERSION_STR
 
 from classes.logger import log
 from classes import info, settings, project_data, updates, language, ui_util
+import openshot
 
 
 def get_app():
@@ -46,6 +50,20 @@ class OpenShotApp(QApplication):
 
     def __init__(self, *args):
         QApplication.__init__(self, *args)
+
+        # Log some basic system info
+        try:
+            v = openshot.GetVersion()
+            log.info("openshot-qt version: %s" % info.VERSION)
+            log.info("libopenshot version: %s" % v.ToString())
+            log.info("platform: %s" % platform.platform())
+            log.info("processor: %s" % platform.processor())
+            log.info("machine: %s" % platform.machine())
+            log.info("python version: %s" % platform.python_version())
+            log.info("qt5 version: %s" % QT_VERSION_STR)
+            log.info("pyqt5 version: %s" % PYQT_VERSION_STR)
+        except:
+            pass
 
         # Setup appication
         self.setApplicationName('openshot')

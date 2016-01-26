@@ -30,6 +30,7 @@ import openshot  # Python module for libopenshot (required video editing module 
 from classes.updates import UpdateInterface
 from classes.logger import log
 from classes.app import get_app
+from classes import settings
 
 
 class TimelineSync(UpdateInterface):
@@ -39,6 +40,7 @@ class TimelineSync(UpdateInterface):
         self.app = get_app()
         self.window = window
         project = self.app.project
+        s = settings.get_settings()
 
         # Get some settings from the project
         fps = project.get(["fps"])
@@ -58,7 +60,7 @@ class TimelineSync(UpdateInterface):
         self.timeline.info.duration = 999.99
         self.timeline.info.sample_rate = sample_rate
         self.timeline.info.channels = channels
-        self.timeline.debug = False
+        self.timeline.debug = s.get("debug-mode")
 
         # Open the timeline reader
         self.timeline.Open()

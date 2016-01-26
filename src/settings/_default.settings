@@ -180,6 +180,13 @@
   },
   {
     "value": false,
+    "title": "Debug Mode (Verbose)",
+    "type": "bool",
+    "category": "Debug",
+    "setting": "debug-mode"
+  },
+  {
+    "value": false,
     "title": "Enable Autosave",
     "type": "hidden",
     "category": "Autosave",
