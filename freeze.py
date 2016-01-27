@@ -30,7 +30,9 @@
 # Troubleshooting: If you encounter an error while attempting to freeze
 # the PyQt5/uic/port_v2, remove the __init__.py in that folder. And if
 # you are manually compiling PyQt5 on Windows, remove the -strip line
-# from the Makefile.
+# from the Makefile. On Mac, just delete the port_v2 folder. Also, you
+# might need to remove the QtTest.so from /usr/local/lib/python3.3/site-packages/PyQt5,
+# if you get errors while freezing.
 #
 # Mac Syntax to Build App Bundle:
 # 1) python3 freeze.py bdist_mac --qt-menu-nib="/usr/local/Cellar/qt5/5.4.2/plugins/platforms/" --iconfile=installer/openshot.icns --custom-info-plist=installer/Info.plist --bundle-name="OpenShot Video Editor"

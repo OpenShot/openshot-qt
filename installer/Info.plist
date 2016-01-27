@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleVersion</key>
-	<string>2.0.0</string>
+	<string>VERSION</string>
 	<key>CFBundleName</key>
 	<string>OpenShot Video Editor</string>
 	<key>CFBundleDevelopmentRegion</key>

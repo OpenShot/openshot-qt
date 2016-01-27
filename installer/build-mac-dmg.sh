@@ -1,11 +1,17 @@
+# Get Version
+VERSION=$(grep -E '^VERSION = "(.*)"' src/classes/info.py | awk '{print $3}' | tr -d '"')
+echo "Found Version $VERSION"
+
 # Set path to app bundle
 OS_APP_NAME="OpenShot Video Editor.app"
-OS_DMG_NAME="OpenShot-2.0.0.dmg"
+OS_DMG_NAME="OpenShot-$VERSION.dmg"
 OS_PATH="build/$OS_APP_NAME/Contents"
 echo "Fixing App Bundle ($OS_PATH)"
 
 echo "Replacing Info.plist"
 cp installer/Info.plist "$OS_PATH"
+sed -e "s/VERSION/$VERSION/g" "$OS_PATH/Info.plist" > "$OS_PATH/Info.plist_version"
+mv  "$OS_PATH/Info.plist_version" "$OS_PATH/Info.plist"
 
 echo "Symlink Non-Code Files to Resources"
 mv "$OS_PATH/MacOS/blender" "$OS_PATH/Resources/blender"; ln -s "../Resources/blender" "$OS_PATH/MacOS/blender";
