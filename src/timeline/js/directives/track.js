@@ -55,6 +55,7 @@ App.directive('tlTrack', function($timeout) {
 
 					// Keep track of each dropped clip (to check for missing transitions below, after they have been dropped)
 					var dropped_clips = [];
+					var position_diff = 0; // the time diff to apply to multiple selections (if any)
 
 		       		// with each dragged clip, find out which track they landed on
 		       		// Loop through each selected item, and remove the selection if multiple items are selected
@@ -108,13 +109,17 @@ App.directive('tlTrack', function($timeout) {
 		            			item_data = findElement(scope.project.clips, "id", item_num);
 		            		else if (item_type == 'transition')
 		            			item_data = findElement(scope.project.effects, "id", item_num);
-		            			
+
+							// set time diff (if not already determined)
+							if (position_diff == 0.0)
+								// once calculated, we want to apply the exact same time diff to each clip/trans
+		            			position_diff = (item_left / scope.pixelsPerSecond) - item_data.position;
 
 		            		// change the clip's track and position in the json data
 		            		scope.$apply(function(){
 		            			//set track
 		            			item_data.layer = drop_track_num;
-		            			item_data.position =  parseInt(item_left)/scope.pixelsPerSecond;
+		            			item_data.position += position_diff;
 		            		});	
 
 							// Resize timeline if it's too small to contain all clips
