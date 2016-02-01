@@ -52,6 +52,15 @@ class Cutting(QDialog):
     # Path to ui file
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'cutting.ui')
 
+    # Signals for preview thread
+    previewFrameSignal = pyqtSignal(int)
+    refreshFrameSignal = pyqtSignal()
+    LoadFileSignal = pyqtSignal(str)
+    PlaySignal = pyqtSignal()
+    PauseSignal = pyqtSignal()
+    SeekSignal = pyqtSignal(int)
+    SpeedSignal = pyqtSignal(float)
+
     def __init__(self, file=None):
 
         # Create dialog class
