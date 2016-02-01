@@ -38,6 +38,7 @@ import openshot  # Python module for libopenshot (required video editing module 
 from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
+from classes.metrics import *
 
 
 class Profile(QDialog):
@@ -63,6 +64,9 @@ class Profile(QDialog):
 
         # Get settings
         self.s = settings.get_settings()
+
+        # Track metrics
+        track_metric_screen("profile-screen")
 
         # Loop through profiles
         self.profile_names = []

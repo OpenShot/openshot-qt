@@ -37,6 +37,7 @@ from classes import info, ui_util
 from classes.logger import log
 from classes.query import Track, Clip, Transition
 from classes.app import get_app
+from classes.metrics import *
 from windows.views.add_to_timeline_treeview import TimelineTreeView
 
 import openshot
@@ -430,6 +431,9 @@ class AddToTimeline(QDialog):
         # Get translation object
         self.app = get_app()
         _ = self.app._tr
+
+        # Track metrics
+        track_metric_screen("add-to-timeline-screen")
 
         # Add custom treeview to window
         self.treeFiles = TimelineTreeView(self)

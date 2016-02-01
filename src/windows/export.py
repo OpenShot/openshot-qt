@@ -37,6 +37,7 @@ import openshot  # Python module for libopenshot (required video editing module 
 from classes import info, ui_util, settings
 from classes.app import get_app
 from classes.logger import log
+from classes.metrics import *
 
 
 class Export(QDialog):
@@ -62,6 +63,9 @@ class Export(QDialog):
 
         # Get settings
         self.s = settings.get_settings()
+
+        # Track metrics
+        track_metric_screen("export-screen")
 
         # Dynamically load tabs from settings data
         self.settings_data = settings.get_settings().get_all_settings()

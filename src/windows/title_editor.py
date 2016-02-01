@@ -45,6 +45,7 @@ from classes import info, ui_util, settings, qt_types, updates
 from classes.logger import log
 from classes.app import get_app
 from classes.query import File
+from classes.metrics import *
 
 try:
     import json
@@ -74,6 +75,9 @@ class TitleEditor(QDialog):
 
         # Init UI
         ui_util.init_ui(self)
+
+        # Track metrics
+        track_metric_screen("title-screen")
 
         # Initialize variables
         self.template_name = ""

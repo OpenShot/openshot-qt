@@ -37,6 +37,7 @@ from PyQt5 import uic
 from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
+from classes.metrics import *
 import openshot
 
 
@@ -66,6 +67,9 @@ class Preferences(QDialog):
 
         # Dynamically load tabs from settings data
         self.settings_data = settings.get_settings().get_all_settings()
+
+        # Track metrics
+        track_metric_screen("preferences-screen")
 
         # Load all user values
         self.params = {}

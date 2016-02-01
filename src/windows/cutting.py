@@ -36,6 +36,7 @@ import openshot  # Python module for libopenshot (required video editing module 
 from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
+from classes.metrics import *
 from windows.preview_thread import PreviewParent
 from windows.video_widget import VideoWidget
 
@@ -61,6 +62,9 @@ class Cutting(QDialog):
 
         # Init UI
         ui_util.init_ui(self)
+
+        # Track metrics
+        track_metric_screen("cutting-screen")
 
         self.start_frame = 1
         self.start_image = None

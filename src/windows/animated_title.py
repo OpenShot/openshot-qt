@@ -46,6 +46,7 @@ from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
 from classes.query import File
+from classes.metrics import *
 from windows.views.blender_treeview import BlenderTreeView
 
 try:
@@ -70,6 +71,9 @@ class AnimatedTitle(QDialog):
 
         # Init UI
         ui_util.init_ui(self)
+
+        # Track metrics
+        track_metric_screen("animated-title-screen")
 
         # Add blender treeview
         self.blenderTreeView = BlenderTreeView(self)
