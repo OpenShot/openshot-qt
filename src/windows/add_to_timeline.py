@@ -509,9 +509,9 @@ class AddToTimeline(QDialog):
                 # replace suffix number with placeholder (if any)
                 if suffix_number:
                     trans_name = trans_name.replace(suffix_number, "%s")
-                    trans_name = self.app._tr(trans_name) % suffix_number
+                    trans_name = _(trans_name) % suffix_number
                 else:
-                    trans_name = self.app._tr(trans_name)
+                    trans_name = _(trans_name)
 
                 # Check for thumbnail path (in build-in cache)
                 thumb_path = os.path.join(info.IMAGES_PATH, "cache",  "{}.png".format(fileBaseName))

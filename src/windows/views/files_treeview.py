@@ -127,6 +127,7 @@ class FilesTreeView(QTreeView):
 
         # Add file into project
         app = get_app()
+        _ = get_app()._tr
 
         # Check for this path in our existing project data
         file = File.get(path=filepath)
@@ -160,7 +161,7 @@ class FilesTreeView(QTreeView):
         except:
             # Handle exception
             msg = QMessageBox()
-            msg.setText(app._tr("{} is not a valid video, audio, or image file.".format(filename)))
+            msg.setText(_("{} is not a valid video, audio, or image file.".format(filename)))
             msg.exec_()
             return False
 

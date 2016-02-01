@@ -117,8 +117,7 @@ class EffectsModel():
                         continue  # to next file, didn't match filter
 
             if win.effectsFilter.text() != "":
-                if not win.effectsFilter.text().lower() in self.app._tr(
-                        title).lower() and not win.effectsFilter.text().lower() in self.app._tr(description).lower():
+                if not win.effectsFilter.text().lower() in self.app._tr(title).lower() and not win.effectsFilter.text().lower() in self.app._tr(description).lower():
                     continue
 
             # Check for thumbnail path (in build-in cache)
@@ -148,7 +147,7 @@ class EffectsModel():
                 except:
                     # Handle exception
                     msg = QMessageBox()
-                    msg.setText(app._tr("{} is not a valid image file.".format(icon_path)))
+                    msg.setText(_("{} is not a valid image file.".format(icon_path)))
                     msg.exec_()
                     continue
 

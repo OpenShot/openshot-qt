@@ -170,7 +170,7 @@ class FilesModel(updates.UpdateInterface):
                     except:
                         # Handle exception
                         msg = QMessageBox()
-                        msg.setText(app._tr("{} is not a valid video, audio, or image file.".format(filename)))
+                        msg.setText(_("{} is not a valid video, audio, or image file.".format(filename)))
                         msg.exec_()
                         continue
 

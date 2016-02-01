@@ -175,6 +175,8 @@ class Cutting(QDialog):
 
     def btnStart_clicked(self):
         """Start of clip button was clicked"""
+        _ = get_app()._tr
+
         # Pause video
         self.btnPlay_clicked(force="pause")
 
@@ -185,7 +187,7 @@ class Cutting(QDialog):
         if self.btnEnd.isEnabled() and current_frame >= self.end_frame:
             # Handle exception
             msg = QMessageBox()
-            msg.setText(get_app()._tr("Please choose valid 'start' and 'end' values for your clip."))
+            msg.setText(_("Please choose valid 'start' and 'end' values for your clip."))
             msg.exec_()
             return
 
@@ -207,6 +209,8 @@ class Cutting(QDialog):
 
     def btnEnd_clicked(self):
         """End of clip button was clicked"""
+        _ = get_app()._tr
+
         # Pause video
         self.btnPlay_clicked(force="pause")
 
@@ -217,7 +221,7 @@ class Cutting(QDialog):
         if current_frame <= self.start_frame:
             # Handle exception
             msg = QMessageBox()
-            msg.setText(get_app()._tr("Please choose valid 'start' and 'end' values for your clip."))
+            msg.setText(_("Please choose valid 'start' and 'end' values for your clip."))
             msg.exec_()
             return
 

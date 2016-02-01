@@ -97,7 +97,7 @@ class CreditsModel():
             col = QStandardItem()
             if "p" in icons:
                 col.setIcon(QIcon(self.paypal_icon))
-                col.setToolTip(self.app._tr("PayPal Supporter!"))
+                col.setToolTip(_("PayPal Supporter!"))
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
             row.append(col)
 
@@ -105,7 +105,7 @@ class CreditsModel():
             col = QStandardItem()
             if "k" in icons:
                 col.setIcon(QIcon(self.kickstarter_icon))
-                col.setToolTip(self.app._tr("Kickstarter Supporter!"))
+                col.setToolTip(_("Kickstarter Supporter!"))
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
             row.append(col)
 
@@ -113,7 +113,7 @@ class CreditsModel():
             col = QStandardItem()
             if "s" in icons:
                 col.setIcon(QIcon(self.star_icon))
-                col.setToolTip(self.app._tr("Multiple Contributions!"))
+                col.setToolTip(_("Multiple Contributions!"))
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
             row.append(col)
 

@@ -77,6 +77,7 @@ class Preferences(QDialog):
             if "setting" in item and "value" in item:
                 self.params[item["setting"]] = item
 
+        self.requires_restart = False
         self.category_names = {}
         self.category_tabs = {}
         # Loop through settings and find all unique categories
@@ -189,6 +190,11 @@ class Preferences(QDialog):
                 elif (label):
                     tabWidget.layout().addRow(label)
 
+    def check_for_restart(self, param):
+        """Check if the app needs to restart"""
+        if "restart" in param and param["restart"]:
+            self.requires_restart = True
+
     def bool_value_changed(self, widget, param, state):
         # Save setting
         if state == Qt.Checked:
@@ -202,11 +208,16 @@ class Preferences(QDialog):
             log.info("Setting debug-mode to %s" % (state == Qt.Checked))
             get_app().window.timeline_sync.timeline.debug = (state == Qt.Checked)
 
+        # Check for restart
+        self.check_for_restart(param)
 
     def spinner_value_changed(self, param, value):
         # Save setting
         self.s.set(param["setting"], value)
         log.info(value)
+
+        # Check for restart
+        self.check_for_restart(param)
 
     def text_value_changed(self, widget, param, value=None):
         try:
@@ -220,8 +231,31 @@ class Preferences(QDialog):
         self.s.set(param["setting"], value)
         log.info(value)
 
+        # Check for restart
+        self.check_for_restart(param)
+
     def dropdown_index_changed(self, widget, param, index):
         # Save setting
         value = widget.itemData(index)
         self.s.set(param["setting"], value)
         log.info(value)
+
+        # Check for restart
+        self.check_for_restart(param)
+
+    def closeEvent(self, event):
+        """Signal for closing Preferences window"""
+        # Invoke the close button
+        self.reject()
+
+    def reject(self):
+        # Prompt user to restart openshot (if needed)
+        if self.requires_restart:
+            msg = QMessageBox()
+            _ = get_app()._tr
+            msg.setWindowTitle(_("Restart Required"))
+            msg.setText(_("Please restart OpenShot for all preferences to take effect."))
+            msg.exec_()
+
+        # Close dialog
+        super(Preferences, self).reject()

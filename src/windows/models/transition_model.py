@@ -155,7 +155,7 @@ class TransitionsModel():
                     except:
                         # Handle exception
                         msg = QMessageBox()
-                        msg.setText(app._tr("{} is not a valid image file.".format(filename)))
+                        msg.setText(_("{} is not a valid image file.".format(filename)))
                         msg.exec_()
                         continue
 

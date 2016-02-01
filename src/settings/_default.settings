@@ -18,7 +18,8 @@
         "value": "No Theme",
         "name": "No Theme"
       }
-    ]
+    ],
+    "restart": true
   },
   {
     "value": "",
@@ -152,7 +153,8 @@
         "name": "192000"
       }
     ],
-    "type": "dropdown"
+    "type": "dropdown",
+    "restart": true
   },
   {
     "max": 10,
@@ -183,7 +185,8 @@
         "value": "LAYOUT_7POINT1",
         "name": "Surround (7.1 Channel)"
       }
-    ]
+    ],
+    "restart": true
   },
   {
     "value": false,
