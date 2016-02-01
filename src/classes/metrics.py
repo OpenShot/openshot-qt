@@ -41,14 +41,28 @@ from PyQt5.Qt import PYQT_VERSION_STR
 
 
 # Get libopenshot version
-v = openshot.GetVersion()
+libopenshot_version = openshot.GetVersion()
 
 # Get settings
 s = settings.get_settings()
 
+# Determine OS version
+os_version = "X11; Linux %s" % platform.machine()
+try:
+    if platform.system() == "Darwin":
+        v = platform.mac_ver()
+        os_version = "Macintosh; Intel Mac OS X %s" % v[0].replace(".", "_")
+
+    elif platform.system() == "Windows":
+        v = platform.win32_ver()
+        # TODO: Upgrade windows python (on build server) version to 3.5, so it correctly identifies Windows 10
+        os_version = "Windows NT %s; %s" % (v[0], v[1])
+
+except Exception as Ex:
+    log.error("Error determing OS version in metrics.py")
+
 # Build user-agent
-user_agent = "Mozilla/5.0 (%s %s) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36" % \
-             (platform.system(), platform.processor())
+user_agent = "Mozilla/5.0 (%s) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36" % os_version
 
 params = {
     "cid" : s.get("unique_install_id"),     # Unique install ID
@@ -60,7 +74,7 @@ params = {
     "av" : info.VERSION,                    # App Version
     "ul" : language.get_current_locale().replace('_','-').lower(),   # Current Locale
     "ua" : user_agent,                      # Custom User Agent (for OS, Processor, and OS version)
-    "cd1" : v.ToString(),                   # Dimension 1: libopenshot version
+    "cd1" : libopenshot_version.ToString(),                   # Dimension 1: libopenshot version
     "cd2" : platform.python_version(),      # Dimension 2: python version (i.e. 3.4.3)
     "cd3" : QT_VERSION_STR,                 # Dimension 3: qt5 version (i.e. 5.2.1)
     "cd4" : PYQT_VERSION_STR                # Dimension 4: pyqt5 version (i.e. 5.2.1)
