@@ -29,6 +29,7 @@
 
 import os
 import platform
+from uuid import uuid4
 from PyQt5.QtWidgets import QApplication, QStyleFactory
 from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont
 from PyQt5.QtCore import Qt
@@ -94,6 +95,10 @@ class OpenShotApp(QApplication):
 
         # Track which dockable window received a context menu
         self.context_menu_object = None
+
+        # Set unique install id (if blank)
+        if not self.settings.get("unique_install_id"):
+            self.settings.set("unique_install_id", str(uuid4()))
 
         # Set Font for any theme
         if self.settings.get("theme") != "No Theme":

@@ -87,6 +87,48 @@ def init_language():
             break
 
 
+def get_current_locale():
+    """Get the current locale name from the current system"""
+
+    # Get app instance
+    app = QCoreApplication.instance()
+
+    # Setup of our list of translators and paths
+    translator_types = (
+        {"type": 'QT',
+         "pattern": 'qt_%s',
+         "path": QLibraryInfo.location(QLibraryInfo.TranslationsPath)},
+        {"type": 'OpenShot',
+         "pattern": os.path.join('%s', 'LC_MESSAGES', 'OpenShot'),
+         "path": os.path.join(info.PATH, 'locale')},
+    )
+
+    # Determine the environment locale, or default to system locale name
+    locale_names = [os.environ.get('LANG', QLocale().system().name()),
+                    os.environ.get('LOCALE', QLocale().system().name())
+                    ]
+
+    # Loop through environment variables
+    found_language = False
+    for locale_name in locale_names:
+
+        # Don't try on default locale, since it fails to load what is the default language
+        if 'en_US' in locale_name:
+            continue
+
+        # Go through each translator and try to add for current locale
+        for type in translator_types:
+            trans = QTranslator(app)
+            if find_language_match(type["pattern"], type["path"], trans, locale_name):
+                found_language = True
+
+        # Exit if found language
+        if found_language:
+            return locale_name.replace(".UTF8", "").replace(".UTF-8", "")
+
+    # default locale
+    return "en"
+
 # Try the full locale and base locale trying to find a valid path
 #  returns True when a match was found.
 #  pattern - a string expected to have one pipe to be filled by locale strings

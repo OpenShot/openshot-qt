@@ -103,7 +103,7 @@ class JsonDataStore:
             # Update default values to match user values
             for item in default:
                 user_value = user_values.get(item["setting"], None)
-                if user_value:
+                if user_value != None:
                     item["value"] = user_value
 
             # Return merged list

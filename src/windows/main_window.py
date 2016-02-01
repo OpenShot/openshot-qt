@@ -42,6 +42,7 @@ from classes.app import get_app
 from classes.logger import log
 from classes.timeline import TimelineSync
 from classes.query import File, Clip, Transition, Marker, Track
+from classes.metrics import *
 from images import openshot_rc
 from windows.views.files_treeview import FilesTreeView
 from windows.views.files_listview import FilesListView
@@ -86,6 +87,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Save settings
         self.save_settings()
+
+        # Track end of session
+        track_metric_session(False)
 
         # Stop threads
         self.preview_thread.kill()
@@ -1342,6 +1346,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # set window on app for reference during initialization of children
         get_app().window = self
         _ = get_app()._tr
+
+        # Track metrics
+        track_metric_session()  # start session
+        track_metric_screen("main-screen")
 
         # Load UI from designer
         ui_util.load_ui(self, self.ui_path)

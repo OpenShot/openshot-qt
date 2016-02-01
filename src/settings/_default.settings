@@ -21,6 +21,13 @@
     ]
   },
   {
+    "value": "",
+    "title": "",
+    "type": "hidden",
+    "category": "General",
+    "setting": "unique_install_id"
+  },
+  {
     "max": 10000,
     "title": "Image Length (seconds)",
     "category": "General",
@@ -180,13 +187,6 @@
   },
   {
     "value": false,
-    "title": "Debug Mode (Verbose)",
-    "type": "bool",
-    "category": "Debug",
-    "setting": "debug-mode"
-  },
-  {
-    "value": false,
     "title": "Enable Autosave",
     "type": "hidden",
     "category": "Autosave",
@@ -207,5 +207,19 @@
     "setting": "autosave-interval",
     "value": 5,
     "type": "hidden"
+  },
+  {
+    "value": false,
+    "title": "Debug Mode (Verbose)",
+    "type": "bool",
+    "category": "Debug",
+    "setting": "debug-mode"
+  },
+  {
+    "value": true,
+    "title": "Send Anonymous Metrics and Errors",
+    "type": "bool",
+    "category": "Debug",
+    "setting": "send_metrics"
   }
 ]
