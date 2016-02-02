@@ -542,6 +542,17 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             # Convert absolute path to relavite
             clip["image"] = os.path.relpath(path, new_project_folder)
 
+        # Loop through each transition
+        for effect in self._data["effects"]:
+            # Update reader path
+            path = effect["reader"]["path"]
+            # Find absolute path of file (if needed)
+            if not os.path.isabs(path):
+                # Convert path to the correct relative path (based on the existing folder)
+                path = os.path.abspath(os.path.join(existing_project_folder, path))
+            # Convert absolute path to relavite
+            effect["reader"]["path"] = os.path.relpath(path, new_project_folder)
+
     def convert_paths_to_absolute(self):
         """ Convert all paths to absolute """
 
@@ -580,6 +591,17 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 path = os.path.abspath(os.path.join(existing_project_folder, path))
             # Convert absolute path to relavite
             clip["image"] = path
+
+        # Loop through each transition
+        for effect in self._data["effects"]:
+            # Update reader path
+            path = effect["reader"]["path"]
+            # Find absolute path of file (if needed)
+            if not os.path.isabs(path):
+                # Convert path to the correct relative path (based on the existing folder)
+                path = os.path.abspath(os.path.join(existing_project_folder, path))
+            # Convert absolute path to relavite
+            effect["reader"]["path"] = path
 
     def changed(self, action):
         """ This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """
