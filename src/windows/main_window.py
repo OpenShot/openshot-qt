@@ -29,6 +29,7 @@
 
 import os
 import webbrowser
+from uuid import uuid4
 from copy import deepcopy
 
 from PyQt5.QtCore import *
@@ -96,6 +97,35 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Wait for thread
         self.preview_parent.background.wait(250)
+
+        # Destroy lock file
+        self.destroy_lock_file()
+
+    def create_lock_file(self):
+        """Create a lock file"""
+        lock_path = os.path.join(info.USER_PATH, ".lock")
+        lock_value = str(uuid4())
+
+        # Check if it already exists
+        if os.path.exists(lock_path):
+            # Throw exception
+            track_metric_error("unhandled-crash", True)
+
+            # Remove file
+            os.remove(lock_path)
+
+        # Create lock file
+        with open(lock_path, 'w') as f:
+            f.write(lock_value)
+
+    def destroy_lock_file(self):
+        """Destroy the lock file"""
+        lock_path = os.path.join(info.USER_PATH, ".lock")
+
+        # Check if it already exists
+        if os.path.exists(lock_path):
+            # Remove file
+            os.remove(lock_path)
 
     def actionNew_trigger(self, event):
         # clear data and start new project
@@ -1415,6 +1445,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Create the timeline sync object (used for previewing timeline)
         self.timeline_sync = TimelineSync(self)
+
+        # Create lock file
+        self.create_lock_file()
 
         # Start the preview thread
         self.preview_parent = PreviewParent()

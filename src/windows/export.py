@@ -521,56 +521,91 @@ class Export(QDialog):
             log.info(export_file_path)
 
             # Create FFmpegWriter
-            # try:
-            w = openshot.FFmpegWriter(export_file_path)
+            try:
+                w = openshot.FFmpegWriter(export_file_path)
 
-            # Set video options
-            w.SetVideoOptions(True,
-                              self.txtVideoCodec.text(),
-                              openshot.Fraction(self.txtFrameRateNum.value(),
-                                                self.txtFrameRateDen.value()),
-                              self.txtWidth.value(),
-                              self.txtHeight.value(),
-                              openshot.Fraction(self.txtPixelRatioNum.value(),
-                                                self.txtPixelRatioDen.value()),
-                              False,
-                              False,
-                              int(self.convert_to_bytes(self.txtVideoBitRate.text())))
+                # Set video options
+                w.SetVideoOptions(True,
+                                  self.txtVideoCodec.text(),
+                                  openshot.Fraction(self.txtFrameRateNum.value(),
+                                                    self.txtFrameRateDen.value()),
+                                  self.txtWidth.value(),
+                                  self.txtHeight.value(),
+                                  openshot.Fraction(self.txtPixelRatioNum.value(),
+                                                    self.txtPixelRatioDen.value()),
+                                  False,
+                                  False,
+                                  int(self.convert_to_bytes(self.txtVideoBitRate.text())))
 
-            # Set audio options
-            w.SetAudioOptions(True,
-                              self.txtAudioCodec.text(),
-                              self.txtSampleRate.value(),
-                              self.txtChannels.value(),
-                              self.cboChannelLayout.currentData(),
-                              int(self.convert_to_bytes(self.txtAudioBitrate.text())))
+                # Set audio options
+                w.SetAudioOptions(True,
+                                  self.txtAudioCodec.text(),
+                                  self.txtSampleRate.value(),
+                                  self.txtChannels.value(),
+                                  self.cboChannelLayout.currentData(),
+                                  int(self.convert_to_bytes(self.txtAudioBitrate.text())))
 
-            # Open the writer
-            w.Open()
+                # Open the writer
+                w.Open()
 
-            # Init progress bar
-            self.progressExportVideo.setMinimum(self.txtStartFrame.value())
-            self.progressExportVideo.setMaximum(self.txtEndFrame.value())
+                # Init progress bar
+                self.progressExportVideo.setMinimum(self.txtStartFrame.value())
+                self.progressExportVideo.setMaximum(self.txtEndFrame.value())
 
-            # Write some test frames
-            for frame in range(self.txtStartFrame.value(), self.txtEndFrame.value() + 1):
-                # Update progress bar
-                self.progressExportVideo.setValue(frame)
-                # Process events (to show the progress bar moving)
-                QCoreApplication.processEvents()
+                # Write some test frames
+                for frame in range(self.txtStartFrame.value(), self.txtEndFrame.value() + 1):
+                    # Update progress bar
+                    self.progressExportVideo.setValue(frame)
+                    # Process events (to show the progress bar moving)
+                    QCoreApplication.processEvents()
 
-                # Write the frame object to the video
-                w.WriteFrame(get_app().window.timeline_sync.timeline.GetFrame(frame))
+                    # Write the frame object to the video
+                    w.WriteFrame(get_app().window.timeline_sync.timeline.GetFrame(frame))
 
-                # Check if we need to bail out
-                if not self.exporting:
-                    break
+                    # Check if we need to bail out
+                    if not self.exporting:
+                        break
 
-            # Close writer
-            w.Close()
+                # Close writer
+                w.Close()
 
-        # except:
-        #	log.info("Error writing video file")
+
+            except Exception as e:
+                # TODO: Find a better way to catch the error. This is the only way I have found that
+                # does not throw an error
+                error_type_str = str(e)
+                log.info("Error type string: %s" % error_type_str)
+
+                if "InvalidChannels" in error_type_str:
+                    log.info("Error setting invalid # of channels (%s)" % (self.txtChannels.value()))
+                    track_metric_error("invalid-channels-%s-%s-%s-%s" % (self.txtVideoFormat.text(), self.txtVideoCodec.text(), self.txtAudioCodec.text(), self.txtChannels.value()))
+
+                elif "InvalidSampleRate" in error_type_str:
+                    log.info("Error setting invalid sample rate (%s)" % (self.txtSampleRate.value()))
+                    track_metric_error("invalid-sample-rate-%s-%s-%s-%s" % (self.txtVideoFormat.text(), self.txtVideoCodec.text(), self.txtAudioCodec.text(), self.txtSampleRate.value()))
+
+                elif "InvalidFormat" in error_type_str:
+                    log.info("Error setting invalid format (%s)" % (self.txtVideoFormat.text()))
+                    track_metric_error("invalid-format-%s" % (self.txtVideoFormat.text()))
+
+                elif "InvalidCodec" in error_type_str:
+                    log.info("Error setting invalid codec (%s/%s/%s)" % (self.txtVideoFormat.text(), self.txtVideoCodec.text(), self.txtAudioCodec.text()))
+                    track_metric_error("invalid-codec-%s-%s-%s" % (self.txtVideoFormat.text(), self.txtVideoCodec.text(), self.txtAudioCodec.text()))
+
+                elif "ErrorEncodingVideo" in error_type_str:
+                    log.info("Error encoding video frame (%s/%s/%s)" % (self.txtVideoFormat.text(), self.txtVideoCodec.text(), self.txtAudioCodec.text()))
+                    track_metric_error("video-encode-%s-%s-%s" % (self.txtVideoFormat.text(), self.txtVideoCodec.text(), self.txtAudioCodec.text()))
+
+                # Show friendly error
+                friendly_error = error_type_str.split("> ")[0].replace("<", "")
+
+                # Prompt error message
+                msg = QMessageBox()
+                _ = get_app()._tr
+                msg.setWindowTitle(_("Export Error"))
+                msg.setText(_("Sorry, there was an error exporting your video: \n%s") % friendly_error)
+                msg.exec_()
+
 
         # Accept dialog
         super(Export, self).accept()
