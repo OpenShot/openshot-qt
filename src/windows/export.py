@@ -184,9 +184,18 @@ class Export(QDialog):
             presets.append(_(type[0].childNodes[0].data))
 
         # Exclude duplicates
+        type_index = 0
+        selected_type = 0
         presets = list(set(presets))
         for item in sorted(presets):
             self.cboSimpleProjectType.addItem(item, item)
+            if item == _("All Formats"):
+                selected_type = type_index
+            type_index += 1
+
+        # Always select 'All Formats' option
+        self.cboSimpleProjectType.setCurrentIndex(selected_type)
+
 
         # Populate all profiles
         self.populateAllProfiles(app.project.get(['profile']))
