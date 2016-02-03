@@ -189,18 +189,11 @@
     "restart": true
   },
   {
-    "value": false,
+    "value": true,
     "title": "Enable Autosave",
-    "type": "hidden",
+    "type": "bool",
     "category": "Autosave",
     "setting": "enable-auto-save"
-  },
-  {
-    "value": false,
-    "title": "Save Before Playback",
-    "type": "hidden",
-    "category": "Autosave",
-    "setting": "save-before-playback"
   },
   {
     "max": 60,
@@ -208,8 +201,8 @@
     "category": "Autosave",
     "min": 0,
     "setting": "autosave-interval",
-    "value": 5,
-    "type": "hidden"
+    "value": 3.0,
+    "type": "spinner"
   },
   {
     "value": false,

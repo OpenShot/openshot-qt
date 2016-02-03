@@ -258,6 +258,21 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             # Save project
             self.save_project(file_path)
 
+    def auto_save_project(self):
+        """Auto save the project"""
+        log.info("auto_save_project")
+
+        # Get current filepath (if any)
+        file_path = get_app().project.current_filepath
+        if file_path and get_app().project.needs_save():
+            # Append .osp if needed
+            if ".osp" not in file_path:
+                file_path = "%s.osp" % file_path
+
+            # Save project
+            log.info("Auto save project file: %s" % file_path)
+            self.save_project(file_path)
+
     def actionSaveAs_trigger(self, event):
         app = get_app()
         _ = app._tr
@@ -1448,6 +1463,13 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Create lock file
         self.create_lock_file()
+
+        # QTimer for Autosave
+        self.auto_save_timer = QTimer(self)
+        self.auto_save_timer.setInterval(s.get("autosave-interval") * 1000 * 60)
+        self.auto_save_timer.timeout.connect(self.auto_save_project)
+        if s.get("enable-auto-save"):
+            self.auto_save_timer.start()
 
         # Start the preview thread
         self.preview_parent = PreviewParent()

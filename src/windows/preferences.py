@@ -208,6 +208,15 @@ class Preferences(QDialog):
             log.info("Setting debug-mode to %s" % (state == Qt.Checked))
             get_app().window.timeline_sync.timeline.debug = (state == Qt.Checked)
 
+        elif param["setting"] == "enable-auto-save":
+            # Toggle autosave
+            if (state == Qt.Checked):
+                # Start/Restart autosave timer
+                get_app().window.auto_save_timer.start()
+            else:
+                # Stop autosave timer
+                get_app().window.auto_save_timer.stop()
+
         # Check for restart
         self.check_for_restart(param)
 
@@ -215,6 +224,10 @@ class Preferences(QDialog):
         # Save setting
         self.s.set(param["setting"], value)
         log.info(value)
+
+        if param["setting"] == "autosave-interval":
+            # Update autosave interval (# of minutes)
+            get_app().window.auto_save_timer.setInterval(value * 1000 * 60)
 
         # Check for restart
         self.check_for_restart(param)
