@@ -289,8 +289,19 @@ class Export(QDialog):
                     project_types.append(_(title.childNodes[0].data))
 
         # Add all targets for selected project type
+        preset_index = 0
+        selected_preset = 0
         for item in sorted(project_types):
             self.cboSimpleTarget.addItem(item, item)
+
+            # Find index of MP4/H.264
+            if item == _("MP4 (h.264)"):
+                selected_preset = preset_index
+
+            preset_index += 1
+
+        # Select MP4/H.264 as default
+        self.cboSimpleTarget.setCurrentIndex(selected_preset)
 
     def cboProfile_index_changed(self, widget, index):
         selected_profile_path = widget.itemData(index)
