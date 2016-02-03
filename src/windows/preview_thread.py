@@ -195,7 +195,8 @@ class PlayerWorker(QObject):
         s = settings.get_settings()
 
         # Check to see if this path is already loaded
-        if path == self.clip_path:
+        # TODO: Determine why path is passed in as an empty string instead of None
+        if path == self.clip_path or (not path and not self.clip_path):
             return
 
         # Determine the current frame of the timeline (when switching to a clip)
