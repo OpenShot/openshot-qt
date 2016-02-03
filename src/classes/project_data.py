@@ -546,6 +546,17 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         for effect in self._data["effects"]:
             # Update reader path
             path = effect["reader"]["path"]
+
+            # Determine if this path is the official transition path
+            folder_path, file_path = os.path.split(path)
+            if os.path.join(info.PATH, "transitions") in folder_path:
+                # Yes, this is an OpenShot transitions
+                folder_path, category_path = os.path.split(folder_path)
+
+                # Convert path to @transitions/ path
+                effect["reader"]["path"] = os.path.join("@transitions", category_path, file_path)
+                continue
+
             # Find absolute path of file (if needed)
             if not os.path.isabs(path):
                 # Convert path to the correct relative path (based on the existing folder)
@@ -596,6 +607,11 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         for effect in self._data["effects"]:
             # Update reader path
             path = effect["reader"]["path"]
+
+            # Determine if @transitions path is found
+            if "@transitions" in path:
+                path = path.replace("@transitions", os.path.join(info.PATH, "transitions"))
+
             # Find absolute path of file (if needed)
             if not os.path.isabs(path):
                 # Convert path to the correct relative path (based on the existing folder)
