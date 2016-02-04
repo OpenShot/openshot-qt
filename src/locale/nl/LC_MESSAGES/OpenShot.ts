@@ -4,11 +4,11 @@
     <extra-po-header-language_team>Dutch &lt;nl@li.org&gt;</extra-po-header-language_team>
     <extra-po-header-last_translator>Wout Huygens &lt;wout.huygens@telenet.be&gt;</extra-po-header-last_translator>
     <extra-po-header-po_revision_date>2016-01-19 21:28+0000</extra-po-header-po_revision_date>
-    <extra-po-header-pot_creation_date>2016-01-18 20:44+0000</extra-po-header-pot_creation_date>
+    <extra-po-header-pot_creation_date>2016-02-02 01:00+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 17886)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-01-21 05:56+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 17908)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2016-02-03 06:00+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Dutch translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -18,204 +18,229 @@
 <context>
     <name></name>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="459"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="886"/>
+        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="463"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="920"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="157"/>
         <source>Track %s</source>
         <translation>Spoor %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="462"/>
-        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="468"/>
-        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="480"/>
+        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="466"/>
+        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="472"/>
+        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="484"/>
         <source>None</source>
         <translation>geen</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="463"/>
+        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="467"/>
         <source>Fade In</source>
         <translation>Infaden</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="464"/>
+        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="468"/>
         <source>Fade Out</source>
         <translation>Uitfaden</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="465"/>
+        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="469"/>
         <source>Fade In &amp; Out</source>
         <translation>In- en uitfaden</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="469"/>
-        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="481"/>
+        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="473"/>
+        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="485"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="550"/>
         <source>Random</source>
         <translation>Willekeurig</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="470"/>
+        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="474"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="831"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="834"/>
         <source>Zoom In</source>
         <translation>Inzoomen</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="471"/>
+        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="475"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="846"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="849"/>
         <source>Zoom Out</source>
         <translation>Uitzoomen</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="81"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="83"/>
         <source>Unsaved Changes</source>
         <translation>Niet opgeslagen wijzigingen</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="81"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="83"/>
         <source>Save changes to project before closing?</source>
         <translation>Bewaar wijzigingen voordat project is afgesloten?</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="162"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="197"/>
         <source>Error Saving Project</source>
         <translation>Fout bij Bewaren Project</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="194"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="230"/>
         <source>Error Opening Project</source>
         <translation>Bij bij Openen Project</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="202"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="238"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="314"/>
         <source>Open Project...</source>
         <translation>Project openen...</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="202"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="215"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="232"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="238"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="251"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="268"/>
         <source>OpenShot Project (*.osp)</source>
         <translation>OpenShot-project (*.osp)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="214"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="231"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1103"/>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="100"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="250"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="267"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1137"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="104"/>
         <source>Untitled Project</source>
         <translation>Project zonder naam</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="215"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="251"/>
         <source>Save Project...</source>
         <translation>Bewaar Project</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="232"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="268"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="359"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="362"/>
         <source>Save Project As...</source>
         <translation>Sla project op als...</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="247"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="283"/>
         <source>Import File...</source>
         <translation>Importeer Bestand</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="888"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="922"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1260"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1263"/>
         <source>Rename Track</source>
         <translation>Spoor hernoemen</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="888"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="922"/>
         <source>Track Name:</source>
         <translation>Spoor Naam</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1189"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1224"/>
         <source>Recent Projects</source>
         <translation>Recente projecten</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1228"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1245"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1264"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1396"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1263"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1280"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1299"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1435"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="286"/>
         <source>Filter</source>
         <translation>Filter</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1316"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1351"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1634"/>
         <source>{} seconds</source>
         <translation>{} Seconden</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="110"/>
+        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="114"/>
         <source>&lt;Select a template&gt;</source>
         <translation>S</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="319"/>
-        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="338"/>
+        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="323"/>
+        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="342"/>
         <source>Select a Color</source>
         <translation>Kleur selecteren</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="357"/>
+        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="361"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="240"/>
         <source>Change Font</source>
         <translation>Lettertype wijzigen</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="588"/>
+        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="592"/>
         <source>New Title</source>
         <translation>Nieuwe titel</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="591"/>
+        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="595"/>
         <source>Save Title As...</source>
         <translation>Bewaar titel als...</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="591"/>
+        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="595"/>
         <source>Scalable Vector Graphics (*.svg)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="672"/>
+        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="648"/>
+        <location filename="../../../../openshot-qt-git/src/windows/animated_title.py" line="165"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/files_treeview.py" line="164"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/files_listview.py" line="165"/>
+        <location filename="../../../../openshot-qt-git/src/windows/models/files_model.py" line="173"/>
+        <source>{} is not a valid video, audio, or image file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="677"/>
         <source>Please install {} to use this function</source>
         <translation>Installeer {} om deze functie te gebruiken</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/animated_title.py" line="81"/>
+        <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="256"/>
+        <source>Restart Required</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="257"/>
+        <source>Please restart OpenShot for all preferences to take effect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/cutting.py" line="190"/>
+        <location filename="../../../../openshot-qt-git/src/windows/cutting.py" line="224"/>
+        <source>Please choose valid &apos;start&apos; and &apos;end&apos; values for your clip.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/animated_title.py" line="85"/>
         <source>Render</source>
         <translation>Renderen</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/animated_title.py" line="82"/>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="72"/>
+        <location filename="../../../../openshot-qt-git/src/windows/animated_title.py" line="86"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="76"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="222"/>
         <source>Cancel</source>
         <translation>Annuleren</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/about.py" line="70"/>
+        <location filename="../../../../openshot-qt-git/src/windows/about.py" line="71"/>
         <source>Version: %s</source>
         <translation>Versie: %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/about.py" line="148"/>
+        <location filename="../../../../openshot-qt-git/src/windows/about.py" line="152"/>
         <source>translator-credits</source>
         <translation>Launchpad Contributions:
   CBnation https://launchpad.net/~cedric-baelemans
@@ -801,6 +826,13 @@ Blender Path:
         <translation>Naam</translation>
     </message>
     <message>
+        <location filename="../../../../openshot-qt-git/src/windows/models/blender_model.py" line="117"/>
+        <location filename="../../../../openshot-qt-git/src/windows/models/transition_model.py" line="158"/>
+        <location filename="../../../../openshot-qt-git/src/windows/models/effects_model.py" line="150"/>
+        <source>{} is not a valid image file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="67"/>
         <source>Email</source>
         <translation>E-mail</translation>
@@ -809,6 +841,21 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="67"/>
         <source>Website</source>
         <translation>Website</translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="100"/>
+        <source>PayPal Supporter!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="108"/>
+        <source>Kickstarter Supporter!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="116"/>
+        <source>Multiple Contributions!</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="358"/>
@@ -852,108 +899,140 @@ Blender Path:
         <translation>Omschrijving</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="70"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="74"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="20"/>
         <source>Export Video</source>
         <translation>Video exporteren</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="112"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="116"/>
         <source>Video &amp; Audio</source>
         <translation>Video &amp; audio</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="112"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="116"/>
         <source>Image Sequence</source>
         <translation>Afbeeldingsreeks</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="119"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="123"/>
         <source>Mono (1 Channel)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="120"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="124"/>
         <source>Stereo (2 Channel)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="121"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="125"/>
         <source>Surround (3 Channel)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="122"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="126"/>
         <source>Surround (5.1 Channel)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="123"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="127"/>
         <source>Surround (7.1 Channel)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="305"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="309"/>
         <source>Yes</source>
         <translation>Ja</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="306"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="310"/>
         <source>No</source>
         <translation>Nee</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="356"/>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="364"/>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="397"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="360"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="368"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="401"/>
         <source>Low</source>
         <translation>Laag</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="356"/>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="364"/>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="399"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="360"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="368"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="403"/>
         <source>Med</source>
         <translation>Gemiddeld</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="356"/>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="364"/>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="401"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="360"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="368"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="405"/>
         <source>High</source>
         <translation>Hoog</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="448"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="452"/>
         <source>Choose a Folder...</source>
         <translation>Kies een map...</translation>
     </message>
     <message>
-        <source>Oversaturate the color in the image, like in old Technicolor movies</source>
-        <translation>Pas de kleurverzadiging aan van het beeld, zoals in oude Technicolor-films</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="605"/>
+        <source>Export Error</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Halo: Use Stars</source>
-        <translation>Halo: gebruik sterren</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="606"/>
+        <source>Sorry, there was an error exporting your video: 
+%s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
-        <source>Duration</source>
-        <translation>Tijdsduur</translation>
+        <source>ID</source>
+        <translation>ID</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Distort</source>
-        <translation>Vervormen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
+        <source>Arrival Longitude (degrees)</source>
+        <translation>Lengtegraad aankomst (graden)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
-        <source>Top Right</source>
-        <translation>Rechtsboven</translation>
+        <source>Title 2</source>
+        <translation>Titel 2</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Blue</source>
+        <translation>Blauw</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Latitude (seconds)</source>
+        <translation>Breedtegraad aankomst  (seconden)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Color Tiles</source>
+        <translation>Kleurtegels</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the low-pitched sound or tone</source>
+        <translation>Pas de lage tonen aan</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Bottom Left</source>
+        <translation>Linksonder</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Start Frame</source>
+        <translation>Beginframe</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
         <source>Red</source>
@@ -961,49 +1040,44 @@ Blender Path:
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
-        <source>Sub Title</source>
-        <translation>Ondertitel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml</extra-po-references>
+        <source>Blue/Yellow</source>
+        <translation>Blauw/geel</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
     </message>
     <message>
-        <source>Adjust the blur of the frame&apos;s image.</source>
-        <translation>Pas de vervaging van het beeld van de foto aan.</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+        <source>Decay</source>
+        <translation>Verval</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
     </message>
     <message>
-        <source>Gravity: X</source>
-        <translation>Zwaartekracht: X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+        <source>Min</source>
+        <translation>Min</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
     </message>
     <message>
-        <source>Defish</source>
-        <translation>Visoog type</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+        <source>Y axis</source>
+        <translation>Y as</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
     </message>
     <message>
-        <source>Title 1</source>
-        <translation>Titel 1</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+        <source>Gray color</source>
+        <translation>Grijze kleur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
     </message>
     <message>
-        <source>Darker</source>
-        <translation>Donkerder</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+        <source>Halo: Use Flare</source>
+        <translation>Halo: gebruik lichtfakkel</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
-        <source>Output level white point</source>
-        <translation>Uitvoerniveau witpunt</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+        <source>Magic Wand</source>
+        <translation>Toverstok</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
-        <source>Saturation</source>
-        <translation>Kleurverzadiging</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Block Size Y</source>
-        <translation>Blokgrootte Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
+        <source>Sepia</source>
+        <translation>Sepia</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
     </message>
     <message>
         <source>Hue</source>
@@ -1012,36 +1086,54 @@ verschuiving</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/hue.xml</extra-po-references>
     </message>
     <message>
-        <source>Gain Out</source>
-        <translation>Uitgangs-
-versterking</translation>
+        <source>Bass</source>
+        <translation>Lage tonen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Left | Right</source>
+        <translation>Links | Rechts</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Width</source>
+        <translation>Breedte</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Diffuse Color</source>
+        <translation>Achtergrond: diffusiekleur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Delay</source>
+        <translation>Vertraging</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
     </message>
     <message>
-        <source>Reduce image to primary colors</source>
-        <translation>Beperk het beeld tot de primaire kleuren</translation>
+        <source>Primary Colors</source>
+        <translation>Basiskleuren</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
     </message>
     <message>
-        <source>Detect and highlight the edges of objects</source>
-        <translation>Detecteer de randen van objecten en laat deze oplichten</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Star Count</source>
-        <translation>Halo: aantal sterren</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Canvas</source>
-        <translation>Canvas</translation>
+        <source>Bottom Center</source>
+        <translation>Middenonder</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Brightness Delta Up</source>
-        <translation>Hoge helder-
-heidsvariatie</translation>
+        <source>Every</source>
+        <translation>Elke</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>v</source>
+        <translation>V-chrominantie (Cr)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Latitude (degrees)</source>
+        <translation>Breedtegraad vertrek (graden)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Top</source>
@@ -1049,14 +1141,164 @@ heidsvariatie</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
     </message>
     <message>
+        <source>World Map (Realistic)</source>
+        <translation>Wereldkaart (realistisch)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Delayed frame blitting mapped on a time bitmap</source>
+        <translation>Vertraagde frame-blitting afgebeeld op een tijdsbitmap</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Font Name</source>
+        <translation>Lettertype</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Convert colors in the image to the opposite or complementary colors</source>
+        <translation>Kleuren omzetten naar tegenovergestelde of complementaire kleuren (dia-negatief)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/invert.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Make image sharper</source>
+        <translation>Afbeelding scherper maken</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Variance</source>
+        <translation>Spreiding</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tint a source image with specified color</source>
+        <translation>Geef het beeld een tint met een gekozen kleur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
+    </message>
+    <message>
         <source>Episode Title</source>
         <translation>Episodetitel</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
     </message>
     <message>
-        <source>Correction near edges</source>
-        <translation>Correctie aan de randen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
+        <source>Line 2 Color</source>
+        <translation>Kleur lijn 2</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Bottom Right</source>
+        <translation>Rechtsonder</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Manual Scale</source>
+        <translation>Handmatig schalen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Invert</source>
+        <translation>Inverteren</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Histogram position</source>
+        <translation>Histogram positie</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Zoom to Clapboard</source>
+        <translation>Inzoomen naar klapbord</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Aspect ratio</source>
+        <translation>Beeldverhouding</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gravity: Z</source>
+        <translation>Zwaartekracht: Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Y Scatter</source>
+        <translation>Y-verstrooiing</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Shadeless</source>
+        <translation>Achtergrond: schaduwloos</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Old Film</source>
+        <translation>Oude film</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Particles: Gravity</source>
+        <translation>Deeltjes: zwaartekracht</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Extrude</source>
+        <translation>Uittrekken</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Longitude (Prime Meridian)</source>
+        <translation>Lengtegraad aankomst (nulmeridiaan)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Title Specular Color</source>
+        <translation>Lichtreflectiekleur titel</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+    </message>
+    <message>
+        <source>X Coordinate</source>
+        <translation>X-coördinaat</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
+    </message>
+    <message>
+        <source>World Map</source>
+        <translation>Wereldkaart</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Find and glow the edges of objects</source>
+        <translation>De randen van objecten laten glimmen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tilt</source>
+        <translation>Kantelen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Oversaturate the color in the image, like in old Technicolor movies</source>
+        <translation>Pas de kleurverzadiging aan van het beeld, zoals in oude Technicolor-films</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Cartoon</source>
+        <translation>Tekenfilm</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Letterbox</source>
+        <translation>Brievenbus</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Mirror</source>
+        <translation>Spiegelen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Blur the image similar to an out-of-focus camera</source>
+        <translation>Vervaag het beeld zoals bij een niet scherpgestelde camera</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/blur.xml</extra-po-references>
     </message>
     <message>
         <source>Brightness Delta Down</source>
@@ -1065,126 +1307,19 @@ heidsvariatie</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
     </message>
     <message>
-        <source>Old Dust</source>
-        <translation>Oud en stoffig</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Velocity: Y</source>
-        <translation>Snelheid: Y</translation>
+        <source>Start: Z</source>
+        <translation>Begin: Z</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
-        <source>Y Scatter</source>
-        <translation>Y-verstrooiing</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+        <source>Velocity: X</source>
+        <translation>Snelheid: X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
-        <source>Text Alignment</source>
-        <translation>Tekstuitlijning</translation>
+        <source>Defocus</source>
+        <translation>Onscherp zetten</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Color adjustment</source>
-        <translation>Kleuraanpassing</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>First Title</source>
-        <translation>Eerste titel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Title 3</source>
-        <translation>Titel 3</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Chroma Key (Greenscreen)</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Mirror Color</source>
-        <translation>Spiegelkleur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Interval</source>
-        <translation>Interval</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Simple color adjustment</source>
-        <translation>Eenvoudige kleuraanpassing</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Nosync</source>
-        <translation>Synchronisatie</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Y Center</source>
-        <translation>Y-midden</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Reverse</source>
-        <translation>Achteruit</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="96"/>
-        <source>Start</source>
-        <translation>Begin</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Tile 3: Diffuse Color</source>
-        <translation>Tegel 3: diffusiekleur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Wireframe Text</source>
-        <translation>Draadwerktekst</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/wireframe_text.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Picture 3 Path</source>
-        <translation>Locatie foto 3</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Brightness Delta Every</source>
-        <translation>Totale helder-
-heidsvariatie</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Shift the hue of all colors in the image</source>
-        <translation>De tint van alle kleuren in het beeld aanpassen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/hue.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust luminance or color channel intensity</source>
-        <translation>De helderheid of de intensiteit van het kleurkanaal aanpassen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Specular Color</source>
-        <translation>Achtergrond: lichtreflectiekleur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Spots: Color Threshold</source>
-        <translation>Vlekken: kleurdrempel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sun: Color Threshold</source>
-        <translation>Zon: kleurdrempel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
         <source>Allows compensation of lens distortion</source>
@@ -1192,49 +1327,168 @@ heidsvariatie</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
     </message>
     <message>
-        <source>Picture Frames (4 pictures)</source>
-        <translation>Fotolijsten (4 foto&apos;s)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+        <source>Color Distance</source>
+        <translation>Kleurverschil</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
     </message>
     <message>
-        <source>End: X</source>
-        <translation>Einde: X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+        <source>Lens Correction</source>
+        <translation>Lenscorrectie</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
     </message>
     <message>
-        <source>Diff Space</source>
-        <translation>Pixelafstand</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
+        <source>Glow</source>
+        <translation>Gloed</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/glow.xml</extra-po-references>
     </message>
     <message>
-        <source>Center size</source>
-        <translation>Grootte van de opening</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+        <source>Midpoint</source>
+        <translation>Middelpunt</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
     </message>
     <message>
-        <source>Delayed frame blitting mapped on a time bitmap</source>
-        <translation>Vertraagde frame-blitting afgebeeld op een tijdsbitmap</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml</extra-po-references>
+        <source>White Balance</source>
+        <translation>Witbalans</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
     </message>
     <message>
-        <source>Arrival Longitude (minutes)</source>
-        <translation>Lengtegraad aankomst (minuten)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+        <source>Flippo</source>
+        <translation>Omdraaien</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
     </message>
     <message>
-        <source>Halo: Hardness</source>
-        <translation>Halo: hardheid</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Top Left</source>
-        <translation>Linksboven</translation>
+        <source>Anchor</source>
+        <translation>Anker</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Adjust the low-pitched sound or tone</source>
-        <translation>Pas de lage tonen aan</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
+        <source>Key Color</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Ring Count</source>
+        <translation>Halo: aantal ringen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Vignette</source>
+        <translation>Vignettering</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Convert an image to shades of grey</source>
+        <translation>Het beeld omzetten naar grijstinten</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Charcoal</source>
+        <translation>Houtskool</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Lens Flare</source>
+        <translation>Lens lichtreflectie</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Brightness Delta Up</source>
+        <translation>Hoge helder-
+heidsvariatie</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Neon Curves</source>
+        <translation>Neonrondingen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Custom Texture (Equirectangular)</source>
+        <translation>Aangepaste textuur (kaartprojectie)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Best Fit</source>
+        <translation>Best passend</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>X Offset</source>
+        <translation>X-verschuiving</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Mask</source>
+        <translation>Masker</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Freeze After</source>
+        <translation>Bevriezen na</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Title</source>
+        <translation>Titel vertrek</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Remove interlacing from a video (i.e. even or odd horizontal lines)</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Source image on left side</source>
+        <translation>Orgineel aan de linkerzijde</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjusts the brightness of the image</source>
+        <translation>Past de helderheid van het beeld aan</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Up Scale</source>
+        <translation>Rand-
+intensiteit</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Phaser</source>
+        <translation>Phaser</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Number of Snow Flakes</source>
+        <translation>Aantal sneeuwvlokken</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Param</source>
+        <translation>Optie
+s=sinus
+t=driehoek</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the color of the image to emulate black-and-white film that has had sepia pigment added</source>
+        <translation>Pas de kleur van het beeld aan om een zwart-wit film na te bootsen waaraan een sepia pigment is toegevoegd</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Use Rings</source>
+        <translation>Halo: gebruik ringen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Replaces the color (or chroma) of the frame with transparency (i.e. keys out the color).</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Space Movie Intro</source>
+        <translation>Ruimtefilmintro</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
     </message>
     <message>
         <source>Dissolving Text</source>
@@ -1242,19 +1496,104 @@ heidsvariatie</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/dissolve.xml</extra-po-references>
     </message>
     <message>
-        <source>Replace Image</source>
-        <translation>Vervang afbeelding</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+        <source>Background: Fresnel</source>
+        <translation>Achtergrond: fresnel</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
     </message>
     <message>
-        <source>Fills alpha channel with a gradient</source>
-        <translation>Vult het alfa-kanaal met een gradiënt</translation>
+        <source>Operation</source>
+        <translation>Bewerking</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
     </message>
     <message>
-        <source>Diffuse Color</source>
-        <translation>Diffusiekleur</translation>
+        <source>Red/Green Axis</source>
+        <translation>Rood/groen-as</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Location X</source>
+        <translation>X-locatie</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Picture 1 Path</source>
+        <translation>Locatie foto 1</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Projectiemethode</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Edgeglow</source>
+        <translation>Randgloed</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Alpha controlled</source>
+        <translation>Alpha gecontroleerd</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Latitude (degrees)</source>
+        <translation>Breedtegraad aankomst (graden)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Title 3</source>
+        <translation>Titel 3</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fixed Rotate Y</source>
+        <translation>Vaste rotatie y-as</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Picture 3 Path</source>
+        <translation>Locatie foto 3</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Border Width</source>
+        <translation>Randdikte</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sun: Number of Streaks</source>
+        <translation>Zon: aantal strepen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Alpha Mask / Wipe Transition</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Scaling</source>
+        <translation>Schalen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>End Frame</source>
+        <translation>Eindframe</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Input level white point</source>
+        <translation>Invoerniveau witpunt</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adds random vertical lines to the image</source>
+        <translation>Voeg willekeurige verticale lijnen toe aan het beeld</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Stretch</source>
+        <translation>Uitrekken</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Rotate 360 Degrees</source>
@@ -1262,14 +1601,19 @@ heidsvariatie</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/rotate_360.xml</extra-po-references>
     </message>
     <message>
-        <source>Filter the image to look like it is drawn with charcoal</source>
-        <translation>Filter de afbeelding zodat het lijkt alsof het met houtskool is getekend</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+        <source>Pixelate</source>
+        <translation>Blokkerig maken</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
     </message>
     <message>
-        <source>Frame Number</source>
-        <translation>Framenummer</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+        <source>Center size</source>
+        <translation>Grootte van de opening</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+    </message>
+    <message>
+        <source>White color</source>
+        <translation>Witte kleur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
     </message>
     <message>
         <source>Oversaturate Color</source>
@@ -1282,284 +1626,9 @@ heidsvariatie</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
-        <source>Negative</source>
-        <translation>Negatief</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Adds random vertical lines to the image</source>
-        <translation>Voeg willekeurige verticale lijnen toe aan het beeld</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjusts the gamma and brightness randomly to create the illusion of old film</source>
-        <translation>Pas de gammawaarde en de helderheid willekeurig aan, om de illusie van een oude film te maken</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Longitude (minutes)</source>
-        <translation>Lengtegraad vertrek (minuten)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>X axis</source>
-        <translation>X as</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>End: Y</source>
-        <translation>Einde: Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Interlaced black lines</source>
-        <translation>Geïnterlinieerde zwarte lijnen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Channel</source>
-        <translation>Kanaal</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Deinterlace</source>
-        <translation>De-interlace</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Extrude</source>
-        <translation>Uittrekken</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the white balance and color temperature</source>
-        <translation>Pas de witbalans en kleurtemperatuur aan</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Cartoon</source>
-        <translation>Tekenfilm</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Exploding Text</source>
-        <translation>Exploderende tekst</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Three Layer</source>
-        <translation>Drie lagen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Blend</source>
-        <translation>Achtergrond: gemengd</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Bottom Right</source>
-        <translation>Rechtsonder</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Convert colors in the image to the opposite or complementary colors</source>
-        <translation>Kleuren omzetten naar tegenovergestelde of complementaire kleuren (dia-negatief)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/invert.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Distort the source similar to plasma</source>
-        <translation>Vervorm het beeld met een plasma-effect</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Border Width</source>
-        <translation>Randdikte</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Starting Size</source>
-        <translation>Halo: begingrootte</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Key Color</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Iterations</source>
-        <translation>Herhalingen</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Greyscale</source>
-        <translation>Grijstinten</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Longitude (degrees)</source>
-        <translation>Lengtegraad vertrek (graden)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gray color</source>
-        <translation>Grijze kleur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Scale Y</source>
-        <translation>Y-schaal</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Horizontal Sync</source>
-        <translation>Horizontaal synchroniseren</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Amplitude</source>
-        <translation>Amplitude</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Latitude (degrees)</source>
-        <translation>Breedtegraad aankomst (graden)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Old Lines</source>
-        <translation>Oud en gekrast</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Add a series of peaks and troughs to the audio, creating a sweeping effect</source>
-        <translation>Voeg een reeks van pieken en dalen toe op de audio om een golvend effect te verkrijgen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Title 2</source>
-        <translation>Titel 2</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Calculates the distance between the selected color and the current pixel and uses that value as new pixel value</source>
-        <translation>Berekent het verschil tussen de geselecteerde kleur en de huidige pixels en gebruikt deze waarde als nieuwe pixelwaarde</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Picture 4 Path</source>
-        <translation>Locatie foto 4</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>White Balance</source>
-        <translation>Witbalans</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Scaling</source>
-        <translation>Schalen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Line Count</source>
-        <translation>Halo: aantal lijnen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Latitude (Equator)</source>
-        <translation>Breedtegraad aankomst (evenaar)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Tile 4: Diffuse Color</source>
-        <translation>Tegel 4: diffusiekleur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Increase the size of pixels to obscure the image</source>
-        <translation>Vergroot pixels om het beeld te verdoezelen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Title</source>
-        <translation>Titel aankomst</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Waveform</source>
-        <translation>Golfvorm</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Cartoonify the image, using a form of edge detection</source>
-        <translation>Maak een soort van striptekening, met behulp van rand-detectie</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Display Clouds</source>
-        <translation>Wolken weergeven</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Rotate an image statically or animated</source>
-        <translation>Het videobeeld roteren - onder een vaste hoek, of als animatie</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Left</source>
-        <translation>Links</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Freeze After</source>
-        <translation>Bevriezen na</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Add a glow effect to the image</source>
-        <translation>Dit effect geeft de video een zachte gloed</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/glow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Chroma Hold</source>
-        <translation>Chroma behouden</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gravity: Y</source>
-        <translation>Zwaartekracht: Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Custom Texture (Equirectangular)</source>
-        <translation>Aangepaste textuur (kaartprojectie)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Stretch</source>
-        <translation>Uitrekken</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>TehRoxx0r</source>
-        <translation>TehRoxx0r</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Neon Curves</source>
-        <translation>Neonrondingen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Red Scale</source>
-        <translation>Contrast</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Balance</source>
-        <translation>Balans</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
+        <source>Halo Zoom Out</source>
+        <translation>Lichtkrans uitzoomen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/halo_zoom_out.xml</extra-po-references>
     </message>
     <message>
         <source>Aspect type</source>
@@ -1567,145 +1636,30 @@ heidsvariatie</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
     </message>
     <message>
-        <source>Color Distance</source>
-        <translation>Kleurverschil</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Longitude (degrees)</source>
-        <translation>Lengtegraad aankomst (graden)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Min</source>
-        <translation>Min</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
         <source>Blur</source>
         <translation>Vervaging</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blur.xml</extra-po-references>
     </message>
     <message>
-        <source>Letterbox</source>
-        <translation>Brievenbus</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
+        <source>Balance</source>
+        <translation>Balans</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
     </message>
     <message>
-        <source>Tile 2: Diffuse Color</source>
-        <translation>Tegel 2: diffusiekleur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+        <source>Scan Lines</source>
+        <translation>Scan-lijnen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml</extra-po-references>
     </message>
     <message>
-        <source>Black and White</source>
-        <translation>Zwart-wit</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the brightness and contrast of the frame&apos;s image.</source>
-        <translation>Pas de helderheid en het contrast van de afbeelding aan.</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Line 1 Color</source>
-        <translation>Kleur lijn 1</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Color</source>
-        <translation>Kleur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Correction near center</source>
-        <translation>Correctie nabij het midden</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Max</source>
-        <translation>Max</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Blue</source>
-        <translation>Blauw</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Up Scale</source>
-        <translation>Rand-
-intensiteit</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjusts the gamma or luminance value of the image</source>
-        <translation>Pas de gamma- of luminantiewaarde van het beeld aan</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Zoom to Clapboard</source>
-        <translation>Inzoomen naar klapbord</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sun: Type of Glare</source>
-        <translation>Zon: soort schittering</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Frequency</source>
-        <translation>Frequentie</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Rotate Z</source>
-        <translation>Roteren om z-as</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Top Center</source>
-        <translation>Middenboven</translation>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="96"/>
+        <source>Start</source>
+        <translation>Begin</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>End Value</source>
-        <translation>Eindwaarde</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Lens Flare</source>
-        <translation>Lens lichtreflectie</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Flippo</source>
-        <translation>Omdraaien</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Softness</source>
-        <translation>Zachtheid</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Find and glow the edges of objects</source>
-        <translation>De randen van objecten laten glimmen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Alpha Mask / Wipe Transition</source>
+        <source>Fuzz</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Velocity: X</source>
-        <translation>Snelheid: X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Alphagrad</source>
-        <translation>Alphagrad</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Key</source>
@@ -1713,75 +1667,80 @@ intensiteit</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
     </message>
     <message>
-        <source>Chroma Key</source>
-        <translation>Chroma Key</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
+        <source>Baltan</source>
+        <translation>Baltan</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml</extra-po-references>
     </message>
     <message>
-        <source>Map white to</source>
-        <translation>Wijzig wit naar</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Negates the colors, producing a negative of the image.</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Episode</source>
-        <translation>Episode</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Start Value</source>
-        <translation>Beginwaarde</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Glass Slider</source>
-        <translation>Glazen schuifbalk</translation>
+        <source>Background: Alpha</source>
+        <translation>Achtergrond: alfa</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
     </message>
     <message>
-        <source>Background: Specular Intensity</source>
-        <translation>Achtergrond: lichtreflectie-intensiteit</translation>
+        <source>Brightness &amp; Contrast</source>
+        <translation>Helderheid &amp; Contrast</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Particle Number</source>
+        <translation>Aantal deeltjes</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Interlaced black lines</source>
+        <translation>Geïnterlinieerde zwarte lijnen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Deinterlace</source>
+        <translation>De-interlace</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Tile 1: Diffuse Color</source>
+        <translation>Tegel 1: diffusiekleur</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
-        <source>Sharpness</source>
-        <translation>Scherpte</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
+        <source>Z Coordinate</source>
+        <translation>Z-coördinaat</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="115"/>
-        <source>End</source>
-        <translation>Einde</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+        <source>X Scatter</source>
+        <translation>X-verstrooiing</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
     </message>
     <message>
-        <source>Wave Color</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+        <source>Distort</source>
+        <translation>Vervormen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
     </message>
     <message>
-        <source>Number of Snow Flakes</source>
-        <translation>Aantal sneeuwvlokken</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+        <source>Gain Out</source>
+        <translation>Uitgangs-
+versterking</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
     </message>
     <message>
-        <source>Mask</source>
-        <translation>Masker</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
+        <source>Line 3 Color</source>
+        <translation>Kleur lijn 3</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
     </message>
     <message>
-        <source>Neutral Color</source>
-        <translation>Neutrale kleur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
+        <source>Output level white point</source>
+        <translation>Uitvoerniveau witpunt</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
-        <source>Picture 2 Path</source>
-        <translation>Locatie foto 2</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+        <source>something videowall-ish</source>
+        <translation>Iets videoscherm-achtigs</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fixed Rotate Z</source>
+        <translation>Vaste rotatie z-as</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
         <source>Specular Color</source>
@@ -1789,14 +1748,226 @@ intensiteit</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
-        <source>Replaces the color (or chroma) of the frame with transparency (i.e. keys out the color).</source>
+        <source>Adjust the white balance and color temperature</source>
+        <translation>Pas de witbalans en kleurtemperatuur aan</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjusts the gamma and brightness randomly to create the illusion of old film</source>
+        <translation>Pas de gammawaarde en de helderheid willekeurig aan, om de illusie van een oude film te maken</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Star Count</source>
+        <translation>Halo: aantal sterren</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Chroma Key</source>
+        <translation>Chroma Key</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Picture Frames (4 pictures)</source>
+        <translation>Fotolijsten (4 foto&apos;s)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Display Ground</source>
+        <translation>Grond weergeven</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Echo</source>
+        <translation>Echo</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fly Towards Camera</source>
+        <translation>Naar camera toe vliegen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/fly_by_1.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Equalizor</source>
+        <translation>Equalizor</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Episode</source>
+        <translation>Episode</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Layer</source>
+        <translation>Laag</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>End: Z</source>
+        <translation>Einde: Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gravity</source>
+        <translation>Zwaartekracht</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Brightness Delta Every</source>
+        <translation>Totale helder-
+heidsvariatie</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Latitude (seconds)</source>
+        <translation>Breedtegraad vertrek (seconden)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Iterations</source>
+        <translation>Herhalingen</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Text Alignment</source>
+        <translation>Tekstuitlijning</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Three Layer</source>
+        <translation>Drie lagen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Vertical Radius</source>
+        <translation>Verticale straal</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Treble</source>
+        <translation>Hoge tonen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/treble.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust color balance with 3 color points</source>
+        <translation>Kleurbalans aanpassen via 3 kleurpunten</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Top Left</source>
+        <translation>Linksboven</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Longitude (degrees)</source>
+        <translation>Lengtegraad vertrek (graden)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>delayed alpha smoothed blit of time</source>
+        <translation>Na-ijl effect, maakt spookbeelden van bewegende objecten</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Chroma Key (Greenscreen)</source>
         <translation type="unfinished"></translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
-        <source>Adjust the color of the image to black and white based on a threshold</source>
-        <translation>Maak het beeld zwart-wit, gebaseerd op een drempelwaarde</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
+        <source>Show histogram</source>
+        <translation>Laat histogram zien</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Rotate X</source>
+        <translation>Roteren om x-as</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Input level black point</source>
+        <translation>Invoerniveau zwart punt</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Saturation</source>
+        <translation>Kleurverzadiging</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Color adjustment</source>
+        <translation>Kleuraanpassing</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust luminance or color channel intensity</source>
+        <translation>De helderheid of de intensiteit van het kleurkanaal aanpassen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Picture 2 Path</source>
+        <translation>Locatie foto 2</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Reduces and mixes the colors of the image based on a threshold</source>
+        <translation>Kleuren verminderen en vervolgens combineren, op basis van een drempelwaarde</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threshold.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Rotate Y</source>
+        <translation>Roteren om y-as</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Max Diameter</source>
+        <translation>Maximale
+diameter</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Output level black point</source>
+        <translation>Uitvoerniveau zwart punt</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Block Size X</source>
+        <translation>Blokgrootte X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gain</source>
+        <translation>Versterking (dB)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Add small dust shapes randomly on the image</source>
+        <translation>Voeg kleine, willekeurige stofdeeltjes toe aan het beeld</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Detect and highlight the edges of objects</source>
+        <translation>Detecteer de randen van objecten en laat deze oplichten</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Center</source>
+        <translation>Midden</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>File Name</source>
+        <translation>Bestandsnaam</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Lens vignetting</source>
+        <translation>Lensvignettering</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tint amount</source>
+        <translation>Tint hoeveelheid</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
     </message>
     <message>
         <source>Levels</source>
@@ -1804,14 +1975,360 @@ intensiteit</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
-        <source>Adjust the color saturation.</source>
+        <source>Negative</source>
+        <translation>Negatief</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Specular Intensity</source>
+        <translation>Lichtreflectie-intensiteit</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Scale X</source>
+        <translation>X-schaal</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Top Center</source>
+        <translation>Middenboven</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Starting Size</source>
+        <translation>Halo: begingrootte</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Crop</source>
+        <translation>Bijsnijden</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Neutral Color</source>
+        <translation>Neutrale kleur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation>Rechts</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Blend</source>
+        <translation>Achtergrond: gemengd</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Rotate an image statically or animated</source>
+        <translation>Het videobeeld roteren - onder een vaste hoek, of als animatie</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Add a glow effect to the image</source>
+        <translation>Dit effect geeft de video een zachte gloed</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/glow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Speed</source>
+        <translation>Snelheid</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Shift the hue of all colors in the image</source>
+        <translation>De tint van alle kleuren in het beeld aanpassen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/hue.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Specular Intensity</source>
+        <translation>Achtergrond: lichtreflectie-intensiteit</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Hardness</source>
+        <translation>Halo: hardheid</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adds static and grain to the image</source>
+        <translation>Voeg ruis toe en maak het beeld korrelig</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Cartoonify the image, using a form of edge detection</source>
+        <translation>Maak een soort van striptekening, met behulp van rand-detectie</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gain In</source>
+        <translation>Ingangs-
+versterking</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Horizontal Sync</source>
+        <translation>Horizontaal synchroniseren</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Use Lines</source>
+        <translation>Halo: gebruik lijnen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Duration</source>
+        <translation>Tijdsduur</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>First Title</source>
+        <translation>Eerste titel</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Mix</source>
+        <translation>Mix</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Old Lines</source>
+        <translation>Oud en gekrast</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Longitude (Prime Meridian)</source>
+        <translation>Lengtegraad vertrek (nulmeridiaan)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Title 1</source>
+        <translation>Titel 1</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the color of the image to black and white based on a threshold</source>
+        <translation>Maak het beeld zwart-wit, gebaseerd op een drempelwaarde</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Display Clouds</source>
+        <translation>Wolken weergeven</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Reverse</source>
+        <translation>Achteruit</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Color Saturation</source>
+        <translation>Kleurverzadiging</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Lighter</source>
+        <translation>Lichter</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Waveform</source>
+        <translation>Golfvorm</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Glass Slider</source>
+        <translation>Glazen schuifbalk</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Display a single color, while using greyscale for the rest of the image</source>
+        <translation>Filter één enkele kleur eruit en gebruik grijstinten voor de rest van het beeld</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Main Text</source>
+        <translation>Hoofdtekst</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Delta</source>
+        <translation>Delta</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>TehRoxx0r</source>
+        <translation>TehRoxx0r</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Invert horizontally or vertically</source>
+        <translation>Horizontaal of verticaal inverteren</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Longitude (seconds)</source>
+        <translation>Lengtegraad aankomst (seconden)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Negates the colors, producing a negative of the image.</source>
         <translation type="unfinished"></translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Particles: Amount</source>
+        <translation>Deeltjes: aantal</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gamma</source>
+        <translation>Gamma</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Mirror Color</source>
+        <translation>Spiegelkleur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tile 4: Diffuse Color</source>
+        <translation>Tegel 4: diffusiekleur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Green</source>
+        <translation>Groen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fly Towards Camera (Two Titles)</source>
+        <translation>Naar camera toe vliegen (twee titels)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/fly_by_two_titles.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sobel</source>
+        <translation>Sobel</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Action</source>
+        <translation>Bewerking</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjusts the contrast of a source image</source>
+        <translation>Past het contrast aan van het beeld</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/contrast.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation>Links</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Replace Image</source>
+        <translation>Vervang afbeelding</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Adjusts the saturation or intensity of the image</source>
+        <translation>Verzadigingsniveau of de intensiteit van het beeld aanpassen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/saturation.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Three point balance</source>
+        <translation>Drie-punts kleurenbalans</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Reduce image to primary colors</source>
+        <translation>Beperk het beeld tot de primaire kleuren</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Start: X</source>
+        <translation>Begin: X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Slide Left to Right</source>
+        <translation>Van links naar rechts glijden</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/slide_left_to_right.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Diff Space</source>
+        <translation>Pixelafstand</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Diffuse Color</source>
+        <translation>Diffusiekleur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Flying Title</source>
+        <translation>Vliegende titel</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Picture 4 Path</source>
+        <translation>Locatie foto 4</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Size</source>
+        <translation>Halo: grootte</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Old Grain</source>
+        <translation>Oud en korrelig</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Chroma Hold</source>
+        <translation>Chroma behouden</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Frame Number</source>
+        <translation>Framenummer</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Darker</source>
+        <translation>Donkerder</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sharpness</source>
+        <translation>Scherpte</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
     </message>
     <message>
         <source>Creates a square alpha-channel mask</source>
         <translation>Maakt een vierkant alfa-kanaalmasker aan</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Black color</source>
+        <translation>Zwarte kleur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjusts the gamma or luminance value of the image</source>
+        <translation>Pas de gamma- of luminantiewaarde van het beeld aan</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Luma formula</source>
+        <translation>Luma-formule</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Uses a grayscale mask image to gradually wipe / transition between 2 images.</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="106"/>
@@ -1822,14 +2339,9 @@ intensiteit</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
-        <source>Freeze Before</source>
-        <translation>Bevriezen voor</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Longitude (Prime Meridian)</source>
-        <translation>Lengtegraad vertrek (nulmeridiaan)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+        <source>Old Dust</source>
+        <translation>Oud en stoffig</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
     </message>
     <message>
         <source>Glare</source>
@@ -1837,54 +2349,14 @@ intensiteit</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glare.xml</extra-po-references>
     </message>
     <message>
-        <source>Adjusts the brightness of the image</source>
-        <translation>Past de helderheid van het beeld aan</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
+        <source>Adjust the image up and down, with the off-screen portion appearing on the other side</source>
+        <translation>Verschuif het beeld naar boven of beneden, waarbij het buiten-beeld gedeelte op de andere zijde verschijnt</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
     </message>
     <message>
-        <source>Rotate X</source>
-        <translation>Roteren om x-as</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Uses a grayscale mask image to gradually wipe / transition between 2 images.</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Velocity: Z</source>
-        <translation>Snelheid: Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>v</source>
-        <translation>V-chrominantie (Cr)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fisheye</source>
-        <translation>Visoog</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Glow</source>
-        <translation>Gloed</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/glow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>something videowall-ish</source>
-        <translation>Iets videoscherm-achtigs</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Green</source>
-        <translation>Groen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Latitude (seconds)</source>
-        <translation>Breedtegraad vertrek (seconden)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+        <source>Green Tint</source>
+        <translation>Groene tint</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
     </message>
     <message>
         <source>Make a single color transparent.  Also referred to as green screen and blue screen.</source>
@@ -1898,297 +2370,14 @@ aantal</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
     </message>
     <message>
-        <source>Best Fit</source>
-        <translation>Best passend</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Echo</source>
-        <translation>Echo</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Picture 1 Path</source>
-        <translation>Locatie foto 1</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Particles: Lifetime</source>
-        <translation>Deeltjes: levensduur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation>Projectiemethode</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>World Map (Realistic)</source>
-        <translation>Wereldkaart (realistisch)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Delta</source>
-        <translation>Delta</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Tile 1: Diffuse Color</source>
-        <translation>Tegel 1: diffusiekleur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Old Film</source>
-        <translation>Oude film</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Decay</source>
-        <translation>Verval</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the color of the image to emulate black-and-white film that has had sepia pigment added</source>
-        <translation>Pas de kleur van het beeld aan om een zwart-wit film na te bootsen waaraan een sepia pigment is toegevoegd</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Crop</source>
-        <translation>Bijsnijden</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Luma formula</source>
-        <translation>Luma-formule</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>X Offset</source>
-        <translation>X-verschuiving</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Display Ground</source>
-        <translation>Grond weergeven</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Map black to</source>
-        <translation>Wijzig zwart naar</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Z Coordinate</source>
-        <translation>Z-coördinaat</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Blur the image similar to an out-of-focus camera</source>
-        <translation>Vervaag het beeld zoals bij een niet scherpgestelde camera</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/blur.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Lens Correction</source>
-        <translation>Lenscorrectie</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Vertical Radius</source>
-        <translation>Verticale straal</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Delay grab</source>
-        <translation>Vertraagde opname</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Y Offset</source>
-        <translation>Y-verschuiving</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Line 4 Color</source>
-        <translation>Kleur lijn 4</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Transition width</source>
-        <translation>Overgangsbreedte</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Color Tiles</source>
-        <translation>Kleurtegels</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Invert horizontally or vertically</source>
-        <translation>Horizontaal of verticaal inverteren</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Magic Wand</source>
-        <translation>Toverstok</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Latitude (minutes)</source>
-        <translation>Breedtegraad vertrek (minuten)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Operation</source>
-        <translation>Bewerking</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Center</source>
-        <translation>Midden</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Tint a source image with specified color</source>
-        <translation>Geef het beeld een tint met een gekozen kleur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Start: Z</source>
-        <translation>Begin: Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Bottom</source>
-        <translation>Onder</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Animation Length</source>
-        <translation>Lengte animatie</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Equalizor</source>
-        <translation>Equalizor</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Line 3 Color</source>
-        <translation>Kleur lijn 3</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Start Frame</source>
-        <translation>Beginframe</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Lighter</source>
-        <translation>Lichter</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Longitude (seconds)</source>
-        <translation>Lengtegraad vertrek (seconden)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Freeze</source>
-        <translation>Freeze frame</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Particles: Amount</source>
-        <translation>Deeltjes: aantal</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fixed Rotate Z</source>
-        <translation>Vaste rotatie z-as</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Tilt</source>
-        <translation>Kantelen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Reduces and mixes the colors of the image based on a threshold</source>
-        <translation>Kleuren verminderen en vervolgens combineren, op basis van een drempelwaarde</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threshold.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Text Width</source>
-        <translation>Tekstbreedte</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Tint</source>
-        <translation>Tint</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Param</source>
-        <translation>Optie
-s=sinus
-t=driehoek</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sun: Number of Streaks</source>
-        <translation>Zon: aantal strepen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Aspect ratio</source>
-        <translation>Beeldverhouding</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Max Diameter</source>
-        <translation>Maximale
-diameter</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Bottom Left</source>
-        <translation>Linksonder</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Edgeglow</source>
-        <translation>Randgloed</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Text Size</source>
-        <translation>Tekstgrootte</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
         <source>Depart Latitude (Equator)</source>
         <translation>Breedtegraad vertrek (evenaar)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
-        <source>Bass</source>
-        <translation>Lage tonen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Vignette</source>
-        <translation>Vignettering</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Size</source>
-        <translation>Halo: grootte</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Black color</source>
-        <translation>Zwarte kleur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+        <source>Correction near center</source>
+        <translation>Correctie nabij het midden</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
     </message>
     <message>
         <source>Noise</source>
@@ -2196,366 +2385,14 @@ diameter</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
     </message>
     <message>
-        <source>Location Y</source>
-        <translation>Y-locatie</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+        <source>Add a series of peaks and troughs to the audio, creating a sweeping effect</source>
+        <translation>Voeg een reeks van pieken en dalen toe op de audio om een golvend effect te verkrijgen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
     </message>
     <message>
-        <source>Green Tint</source>
-        <translation>Groene tint</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Manual Scale</source>
-        <translation>Handmatig schalen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gain In</source>
-        <translation>Ingangs-
-versterking</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Blue/Yellow</source>
-        <translation>Blauw/geel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Display a single color, while using greyscale for the rest of the image</source>
-        <translation>Filter één enkele kleur eruit en gebruik grijstinten voor de rest van het beeld</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Start: X</source>
-        <translation>Begin: X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Primary Colors</source>
-        <translation>Basiskleuren</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Shadeless</source>
-        <translation>Achtergrond: schaduwloos</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Mix</source>
-        <translation>Mix</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Horizontal Radius</source>
-        <translation>Horizontale straal</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Sepia</source>
-        <translation>Sepia</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Slide Left to Right</source>
-        <translation>Van links naar rechts glijden</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/slide_left_to_right.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Input level white point</source>
-        <translation>Invoerniveau witpunt</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Histogram position</source>
-        <translation>Histogram positie</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Amount</source>
-        <translation>Hoeveelheid</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Three point balance</source>
-        <translation>Drie-punts kleurenbalans</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Snow</source>
-        <translation>Sneeuw</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Longitude (Prime Meridian)</source>
-        <translation>Lengtegraad aankomst (nulmeridiaan)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Latitude (minutes)</source>
-        <translation>Breedtegraad aankomst (minuten)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Viewport</source>
-        <translation>Viewpoort</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Tint amount</source>
-        <translation>Tint hoeveelheid</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Right</source>
-        <translation>Rechts</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Baltan</source>
-        <translation>Baltan</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Diffuse Color</source>
-        <translation>Achtergrond: diffusiekleur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Start: Y</source>
-        <translation>Begin: Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Scale X</source>
-        <translation>X-schaal</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Gravity</source>
-        <translation>Zwaartekracht</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the image up and down, with the off-screen portion appearing on the other side</source>
-        <translation>Verschuif het beeld naar boven of beneden, waarbij het buiten-beeld gedeelte op de andere zijde verschijnt</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Charcoal</source>
-        <translation>Houtskool</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Make image sharper</source>
-        <translation>Afbeelding scherper maken</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
-    </message>
-    <message>
-        <source>White color</source>
-        <translation>Witte kleur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Show histogram</source>
-        <translation>Laat histogram zien</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Ring Count</source>
-        <translation>Halo: aantal ringen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>X Center</source>
-        <translation>X-midden</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Add an echo</source>
-        <translation>Echo toevoegen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Specular Intensity</source>
-        <translation>Lichtreflectie-intensiteit</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Location X</source>
-        <translation>X-locatie</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Gravity: Z</source>
-        <translation>Zwaartekracht: Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Bottom Center</source>
-        <translation>Middenonder</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Number</source>
-        <translation>Aantal</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sobel</source>
-        <translation>Sobel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Threshold</source>
-        <translation>Drempel-
-waarde</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Use Flare</source>
-        <translation>Halo: gebruik lichtfakkel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Manual Pixel Aspect ratio</source>
-        <translation>Handmatige pixelverhoudingen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Split preview</source>
-        <translation>Gesplitst voorbeeld</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Latitude (degrees)</source>
-        <translation>Breedtegraad vertrek (graden)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Alpha controlled</source>
-        <translation>Alpha gecontroleerd</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>ID</source>
-        <translation>ID</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>End Frame</source>
-        <translation>Eindframe</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the high-pitched sound or tone</source>
-        <translation>Pas de hoge tonen aan</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/treble.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Split and mirror the image</source>
-        <translation>Splits en spiegel het beeld</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Remove interlacing from a video (i.e. even or odd horizontal lines)</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Is Odd Frame</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the left/right balance</source>
-        <translation>Links-/rechtsbalans aanpassen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Brightness &amp; Contrast</source>
-        <translation>Helderheid &amp; Contrast</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>delayed alpha smoothed blit of time</source>
-        <translation>Na-ijl effect, maakt spookbeelden van bewegende objecten</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Output level black point</source>
-        <translation>Uitvoerniveau zwart punt</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Lens vignetting</source>
-        <translation>Lensvignettering</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Title Specular Color</source>
-        <translation>Lichtreflectiekleur titel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Midpoint</source>
-        <translation>Middelpunt</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sun: Angle Offset</source>
-        <translation>Zon: offset hoek</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Latitude (seconds)</source>
-        <translation>Breedtegraad aankomst  (seconden)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>X Scatter</source>
-        <translation>X-verstrooiing</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Particles: Gravity</source>
-        <translation>Deeltjes: zwaartekracht</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Old Grain</source>
-        <translation>Oud en korrelig</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fly Towards Camera</source>
-        <translation>Naar camera toe vliegen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/fly_by_1.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo Zoom Out</source>
-        <translation>Lichtkrans uitzoomen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/halo_zoom_out.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Factor</source>
-        <translation>Factor</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
-    </message>
-    <message>
-        <source>X Coordinate</source>
-        <translation>X-coördinaat</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Fresnel</source>
-        <translation>Achtergrond: fresnel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Title Diffuse Color</source>
-        <translation>Diffusiekleur titel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+        <source>Interval</source>
+        <translation>Interval</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
     </message>
     <message>
         <source>Fixed Rotate X</source>
@@ -2563,108 +2400,48 @@ waarde</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
-        <source>Flying Title</source>
-        <translation>Vliegende titel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+        <source>Snow</source>
+        <translation>Sneeuw</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
-        <source>Add small dust shapes randomly on the image</source>
-        <translation>Voeg kleine, willekeurige stofdeeltjes toe aan het beeld</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Defocus</source>
-        <translation>Onscherp zetten</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Block Size X</source>
-        <translation>Blokgrootte X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation>Grootte</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Variance</source>
-        <translation>Spreiding</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
-    </message>
-    <message>
-        <source>End: Z</source>
-        <translation>Einde: Z</translation>
+        <source>Halo: Use Stars</source>
+        <translation>Halo: gebruik sterren</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
-        <source>Halo: Ending Size</source>
-        <translation>Halo: eindgrootte</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+        <source>Red Scale</source>
+        <translation>Contrast</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
     </message>
     <message>
-        <source>Adds black borders at the top and bottom</source>
-        <translation>Voegt zwarte randen aan de boven- en onderkant</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
+        <source>Title Diffuse Color</source>
+        <translation>Diffusiekleur titel</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
     </message>
     <message>
-        <source>Gamma</source>
-        <translation>Gamma</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml</extra-po-references>
+        <source>Manual Pixel Aspect ratio</source>
+        <translation>Handmatige pixelverhoudingen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
     </message>
     <message>
-        <source>Red/Green Axis</source>
-        <translation>Rood/groen-as</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Every</source>
-        <translation>Elke</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Trees</source>
-        <translation>Bomen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/trees.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Action</source>
-        <translation>Bewerking</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Alpha</source>
-        <translation>Achtergrond: alfa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adds static and grain to the image</source>
-        <translation>Voeg ruis toe en maak het beeld korrelig</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Title</source>
-        <translation>Titel vertrek</translation>
+        <source>Arrival Latitude (Equator)</source>
+        <translation>Breedtegraad aankomst (evenaar)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
-        <source>Use Alpha</source>
-        <translation>Alfa gebruiken</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml</extra-po-references>
+        <source>Sun: Color Threshold</source>
+        <translation>Zon: kleurdrempel</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
-        <source>Input level black point</source>
-        <translation>Invoerniveau zwart punt</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+        <source>Fisheye</source>
+        <translation>Visoog</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
     </message>
     <message>
-        <source>Particle Number</source>
-        <translation>Aantal deeltjes</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Position</source>
-        <translation>Positie</translation>
+        <source>Horizontal Radius</source>
+        <translation>Horizontale straal</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2673,174 +2450,95 @@ waarde</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
     </message>
     <message>
-        <source>Sigma</source>
-        <translation>Sigma</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+        <source>Size</source>
+        <translation>Grootte</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
     </message>
     <message>
-        <source>Equalizes the intensity histograms</source>
-        <translation>Maakt de intensiteit van de histogrammen gelijk</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml</extra-po-references>
+        <source>Delay grab</source>
+        <translation>Vertraagde opname</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml</extra-po-references>
     </message>
     <message>
-        <source>Source image on left side</source>
-        <translation>Orgineel aan de linkerzijde</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Space Movie Intro</source>
-        <translation>Ruimtefilmintro</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Use Lines</source>
-        <translation>Halo: gebruik lijnen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gain</source>
-        <translation>Versterking (dB)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Y axis</source>
-        <translation>Y as</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Invert</source>
-        <translation>Inverteren</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Rotate Y</source>
-        <translation>Roteren om y-as</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Use Rings</source>
-        <translation>Halo: gebruik ringen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Speed</source>
-        <translation>Snelheid</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
-    </message>
-    <message>
-        <source>World Map</source>
-        <translation>Wereldkaart</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Color Saturation</source>
-        <translation>Kleurverzadiging</translation>
+        <source>Adjust the color saturation.</source>
+        <translation type="unfinished"></translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
-        <source>Main Text</source>
-        <translation>Hoofdtekst</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Layer</source>
-        <translation>Laag</translation>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="115"/>
+        <source>End</source>
+        <translation>Einde</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Adjusts the saturation or intensity of the image</source>
-        <translation>Verzadigingsniveau of de intensiteit van het beeld aanpassen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/saturation.xml</extra-po-references>
+        <source>Sun: Angle Offset</source>
+        <translation>Zon: offset hoek</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
-        <source>File Name</source>
-        <translation>Bestandsnaam</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+        <source>Velocity: Y</source>
+        <translation>Snelheid: Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
-        <source>Arrival Longitude (seconds)</source>
-        <translation>Lengtegraad aankomst (seconden)</translation>
+        <source>Background: Specular Color</source>
+        <translation>Achtergrond: lichtreflectiekleur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Max</source>
+        <translation>Max</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation>Onder</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tint</source>
+        <translation>Tint</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the high-pitched sound or tone</source>
+        <translation>Pas de hoge tonen aan</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/treble.xml</extra-po-references>
+    </message>
+    <message>
+        <source>End: X</source>
+        <translation>Einde: X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Simple color adjustment</source>
+        <translation>Eenvoudige kleuraanpassing</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Longitude (minutes)</source>
+        <translation>Lengtegraad vertrek (minuten)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
-        <source>Freeze the frame of a video</source>
-        <translation>Bevries het beeld van het hele fragment of vanaf een bepaald frame.</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Delay</source>
-        <translation>Vertraging</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Font Name</source>
-        <translation>Lettertype</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Trip Level</source>
-        <translation>Overgangsniveau</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust color balance with 3 color points</source>
-        <translation>Kleurbalans aanpassen via 3 kleurpunten</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fly Towards Camera (Two Titles)</source>
-        <translation>Naar camera toe vliegen (twee titels)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/fly_by_two_titles.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Scan Lines</source>
-        <translation>Scan-lijnen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Mirror</source>
-        <translation>Spiegelen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjusts the contrast of a source image</source>
-        <translation>Past het contrast aan van het beeld</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/contrast.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Convert an image to shades of grey</source>
-        <translation>Het beeld omzetten naar grijstinten</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Phaser</source>
-        <translation>Phaser</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fuzz</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Anchor</source>
-        <translation>Anker</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Line 2 Color</source>
-        <translation>Kleur lijn 2</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Pixelate</source>
-        <translation>Blokkerig maken</translation>
+        <source>Block Size Y</source>
+        <translation>Blokgrootte Y</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
     </message>
     <message>
-        <source>Left | Right</source>
-        <translation>Links | Rechts</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
+        <source>Rotate Z</source>
+        <translation>Roteren om z-as</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Y Offset</source>
+        <translation>Y-verschuiving</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Particles: Lifetime</source>
+        <translation>Deeltjes: levensduur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Interpolation</source>
@@ -2848,9 +2546,139 @@ waarde</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
     </message>
     <message>
-        <source>Dynamic 3 level thresholding</source>
-        <translation>Dynamische 3-niveaudrempel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml</extra-po-references>
+        <source>Depart Latitude (minutes)</source>
+        <translation>Breedtegraad vertrek (minuten)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Line Count</source>
+        <translation>Halo: aantal lijnen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Calculates the distance between the selected color and the current pixel and uses that value as new pixel value</source>
+        <translation>Berekent het verschil tussen de geselecteerde kleur en de huidige pixels en gebruikt deze waarde als nieuwe pixelwaarde</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Longitude (seconds)</source>
+        <translation>Lengtegraad vertrek (seconden)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Latitude (minutes)</source>
+        <translation>Breedtegraad aankomst (minuten)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Freeze</source>
+        <translation>Freeze frame</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Start Value</source>
+        <translation>Beginwaarde</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Nosync</source>
+        <translation>Synchronisatie</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Position</source>
+        <translation>Positie</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Gravity: X</source>
+        <translation>Zwaartekracht: X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Trees</source>
+        <translation>Bomen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/trees.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Frequency</source>
+        <translation>Frequentie</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Filter the image to look like it is drawn with charcoal</source>
+        <translation>Filter de afbeelding zodat het lijkt alsof het met houtskool is getekend</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Kleur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Exploding Text</source>
+        <translation>Exploderende tekst</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Location Y</source>
+        <translation>Y-locatie</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Animation Length</source>
+        <translation>Lengte animatie</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Scale Y</source>
+        <translation>Y-schaal</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Channel</source>
+        <translation>Kanaal</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tile 3: Diffuse Color</source>
+        <translation>Tegel 3: diffusiekleur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gravity: Y</source>
+        <translation>Zwaartekracht: Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Amplitude</source>
+        <translation>Amplitude</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Distort the source similar to plasma</source>
+        <translation>Vervorm het beeld met een plasma-effect</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Transition width</source>
+        <translation>Overgangsbreedte</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>End Value</source>
+        <translation>Eindwaarde</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Spots: Color Threshold</source>
+        <translation>Vlekken: kleurdrempel</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sigma</source>
+        <translation>Sigma</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Blinds (Two Titles)</source>
@@ -2858,119 +2686,255 @@ waarde</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml</extra-po-references>
     </message>
     <message>
+        <source>Y Center</source>
+        <translation>Y-midden</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the blur of the frame&apos;s image.</source>
+        <translation>Pas de vervaging van het beeld van de foto aan.</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Ending Size</source>
+        <translation>Halo: eindgrootte</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Use Alpha</source>
+        <translation>Alfa gebruiken</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Correction near edges</source>
+        <translation>Correctie aan de randen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Softness</source>
+        <translation>Zachtheid</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Number</source>
+        <translation>Aantal</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Add an echo</source>
+        <translation>Echo toevoegen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Wave Color</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Start: Y</source>
+        <translation>Begin: Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Split and mirror the image</source>
+        <translation>Splits en spiegel het beeld</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
+    </message>
+    <message>
         <source>Keep luma</source>
         <translation>Luma behouden</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
-        <source>Treble</source>
-        <translation>Hoge tonen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/treble.xml</extra-po-references>
+        <source>Viewport</source>
+        <translation>Viewpoort</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Fixed Rotate Y</source>
-        <translation>Vaste rotatie y-as</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+        <source>Velocity: Z</source>
+        <translation>Snelheid: Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
-        <source>Width</source>
-        <translation>Breedte</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+        <source>Text Size</source>
+        <translation>Tekstgrootte</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
-        <source>Default Theme</source>
-        <translation>Standaardthema</translation>
-        <extra-po-references>Settings for theme</extra-po-references>
+        <source>Line 1 Color</source>
+        <translation>Kleur lijn 1</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
     </message>
     <message>
-        <source>Xbox 360</source>
-        <translation>Xbox 360</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/xbox360.xml</extra-po-references>
+        <source>Black and White</source>
+        <translation>Zwart-wit</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
     </message>
     <message>
-        <source>Wikipedia</source>
-        <translation>Wikipedia</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/wikipedia.xml</extra-po-references>
+        <source>Sub Title</source>
+        <translation>Ondertitel</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml</extra-po-references>
     </message>
     <message>
-        <source>MPEG (mpeg2)</source>
-        <translation>MPEG (mpeg2)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mpeg_mpeg2.xml</extra-po-references>
+        <source>End: Y</source>
+        <translation>Einde: Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
-        <source>DVD-PAL</source>
-        <translation>DVD-PAL</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_pal.xml</extra-po-references>
+        <source>Tile 2: Diffuse Color</source>
+        <translation>Tegel 2: diffusiekleur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
-        <source>Advanced Title Editor (path)</source>
-        <translation>Geavanceerde  titelbewerker (path)</translation>
-        <extra-po-references>Settings for title_editor</extra-po-references>
+        <source>Equalizes the intensity histograms</source>
+        <translation>Maakt de intensiteit van de histogrammen gelijk</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml</extra-po-references>
     </message>
     <message>
-        <source>Default Profile</source>
-        <translation>Standaardprofiel</translation>
-        <extra-po-references>Settings for default-profile</extra-po-references>
+        <source>Adjust the left/right balance</source>
+        <translation>Links-/rechtsbalans aanpassen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
     </message>
     <message>
-        <source>Vimeo-HD</source>
-        <translation>Vimeo-HD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/vimeo_HD.xml</extra-po-references>
+        <source>Freeze Before</source>
+        <translation>Bevriezen voor</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
     </message>
     <message>
-        <source>All Formats</source>
-        <translation>Alle formaten</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml</extra-po-references>
+        <source>Arrival Longitude (minutes)</source>
+        <translation>Lengtegraad aankomst (minuten)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
-        <source>Apple TV</source>
-        <translation>Apple TV</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml</extra-po-references>
+        <source>Wireframe Text</source>
+        <translation>Draadwerktekst</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/wireframe_text.xml</extra-po-references>
     </message>
     <message>
-        <source>AVCHD Disks</source>
-        <translation>AVCHD Schijven</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml</extra-po-references>
+        <source>Threshold</source>
+        <translation>Drempel-
+waarde</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
     </message>
     <message>
-        <source>AVI (mpeg2)</source>
-        <translation>AVI (mpeg2)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mpeg2.xml</extra-po-references>
+        <source>X axis</source>
+        <translation>X as</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
     </message>
     <message>
-        <source>Blu-Ray/AVCHD</source>
-        <translation>Blu-Ray/AVCHD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml</extra-po-references>
+        <source>Line 4 Color</source>
+        <translation>Kleur lijn 4</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
     </message>
     <message>
-        <source>Flickr-HD</source>
-        <translation>Flickr-HD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/flickr_HD.xml</extra-po-references>
+        <source>Adjust the brightness and contrast of the frame&apos;s image.</source>
+        <translation>Pas de helderheid en het contrast van de afbeelding aan.</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
-        <source>DVD-NTSC</source>
-        <translation>DVD-NTSC</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml</extra-po-references>
+        <source>Is Odd Frame</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Nokia nHD</source>
-        <translation>Nokia nHD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/nokia_nHD.xml</extra-po-references>
+        <source>Map black to</source>
+        <translation>Wijzig zwart naar</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
     </message>
     <message>
-        <source>MP4 (Xvid)</source>
-        <translation>MP4 (Xvid)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_xvid.xml</extra-po-references>
+        <source>Map white to</source>
+        <translation>Wijzig wit naar</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
     </message>
     <message>
-        <source>AVI (mpeg4)</source>
-        <translation>AVI (mpeg4)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mp4.xml</extra-po-references>
+        <source>Text Width</source>
+        <translation>Tekstbreedte</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
-        <source>WEBM (vpx)</source>
-        <translation>WEBM (vpx)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml</extra-po-references>
+        <source>Increase the size of pixels to obscure the image</source>
+        <translation>Vergroot pixels om het beeld te verdoezelen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Top Right</source>
+        <translation>Rechtsboven</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Dynamic 3 level thresholding</source>
+        <translation>Dynamische 3-niveaudrempel</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Alphagrad</source>
+        <translation>Alphagrad</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Trip Level</source>
+        <translation>Overgangsniveau</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>Hoeveelheid</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Canvas</source>
+        <translation>Canvas</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Freeze the frame of a video</source>
+        <translation>Bevries het beeld van het hele fragment of vanaf een bepaald frame.</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Title</source>
+        <translation>Titel aankomst</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Factor</source>
+        <translation>Factor</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Defish</source>
+        <translation>Visoog type</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>X Center</source>
+        <translation>X-midden</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sun: Type of Glare</source>
+        <translation>Zon: soort schittering</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adds black borders at the top and bottom</source>
+        <translation>Voegt zwarte randen aan de boven- en onderkant</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fills alpha channel with a gradient</source>
+        <translation>Vult het alfa-kanaal met een gradiënt</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Greyscale</source>
+        <translation>Grijstinten</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Split preview</source>
+        <translation>Gesplitst voorbeeld</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
     </message>
     <message>
         <source>MP4 (h.264)</source>
@@ -2983,39 +2947,24 @@ waarde</translation>
         <extra-po-references>Settings for blender_command</extra-po-references>
     </message>
     <message>
-        <source>Default Audio Sample Rate</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for default-samplerate</extra-po-references>
-    </message>
-    <message>
-        <source>YouTube</source>
-        <translation>YouTube</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/youtube.xml</extra-po-references>
-    </message>
-    <message>
-        <source>MP4 (mpeg4)</source>
-        <translation>MP4 (mpeg4)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_mpeg4.xml</extra-po-references>
-    </message>
-    <message>
         <source>AVI (h.264)</source>
         <translation>AVI (h.264)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_x264.xml</extra-po-references>
     </message>
     <message>
-        <source>OGG (theora/vorbis)</source>
-        <translation>Ogg (Theora/Vorbis)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_libvorbis.xml</extra-po-references>
+        <source>Wikipedia</source>
+        <translation>Wikipedia</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/wikipedia.xml</extra-po-references>
     </message>
     <message>
-        <source>MOV (mpeg4)</source>
-        <translation>MOV (mpeg4)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mov_mpeg4.xml</extra-po-references>
+        <source>Default Profile</source>
+        <translation>Standaardprofiel</translation>
+        <extra-po-references>Settings for default-profile</extra-po-references>
     </message>
     <message>
-        <source>YouTube-HD</source>
-        <translation>YouTube-HD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/youtube_HD.xml</extra-po-references>
+        <source>AVI (mpeg4)</source>
+        <translation>AVI (mpeg4)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mp4.xml</extra-po-references>
     </message>
     <message>
         <source>OGG (theora/flac)</source>
@@ -3023,14 +2972,64 @@ waarde</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_flac.xml</extra-po-references>
     </message>
     <message>
-        <source>FLV (h.264)</source>
-        <translation>FLV (h.264)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_flv_x264.xml</extra-po-references>
-    </message>
-    <message>
         <source>Picasa</source>
         <translation>Picasa</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/picasa.xml</extra-po-references>
+    </message>
+    <message>
+        <source>DVD-PAL</source>
+        <translation>DVD-PAL</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_pal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>DVD</source>
+        <translation>DVD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Flickr-HD</source>
+        <translation>Flickr-HD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/flickr_HD.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Apple TV</source>
+        <translation>Apple TV</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Default Theme</source>
+        <translation>Standaardthema</translation>
+        <extra-po-references>Settings for theme</extra-po-references>
+    </message>
+    <message>
+        <source>YouTube-HD</source>
+        <translation>YouTube-HD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/youtube_HD.xml</extra-po-references>
+    </message>
+    <message>
+        <source>WEBM (vpx)</source>
+        <translation>WEBM (vpx)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Xbox 360</source>
+        <translation>Xbox 360</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/xbox360.xml</extra-po-references>
+    </message>
+    <message>
+        <source>YouTube</source>
+        <translation>YouTube</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/youtube.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Send Anonymous Metrics and Errors</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for send_metrics</extra-po-references>
+    </message>
+    <message>
+        <source>Metacafe</source>
+        <translation>Metacafe</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="118"/>
@@ -3039,24 +3038,34 @@ waarde</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/vimeo.xml</extra-po-references>
     </message>
     <message>
-        <source>Device</source>
-        <translation>Apparaat</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml</extra-po-references>
+        <source>AVI (mpeg2)</source>
+        <translation>AVI (mpeg2)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mpeg2.xml</extra-po-references>
+    </message>
+    <message>
+        <source>MP4 (Xvid)</source>
+        <translation>MP4 (Xvid)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_xvid.xml</extra-po-references>
+    </message>
+    <message>
+        <source>OGG (theora/vorbis)</source>
+        <translation>Ogg (Theora/Vorbis)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_libvorbis.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Debug Mode (Verbose)</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for debug-mode</extra-po-references>
+    </message>
+    <message>
+        <source>Advanced Title Editor (path)</source>
+        <translation>Geavanceerde  titelbewerker (path)</translation>
+        <extra-po-references>Settings for title_editor</extra-po-references>
     </message>
     <message>
         <source>Default Audio Channels</source>
         <translation type="unfinished"></translation>
         <extra-po-references>Settings for default-channellayout</extra-po-references>
-    </message>
-    <message>
-        <source>Web</source>
-        <translation>Internet</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Metacafe</source>
-        <translation>Metacafe</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml</extra-po-references>
     </message>
     <message>
         <source>MOV (h.264)</source>
@@ -3069,34 +3078,184 @@ waarde</translation>
         <extra-po-references>Settings for default-image-length</extra-po-references>
     </message>
     <message>
-        <source>DVD</source>
-        <translation>DVD</translation>
+        <source>MP4 (mpeg4)</source>
+        <translation>MP4 (mpeg4)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_mpeg4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Nokia nHD</source>
+        <translation>Nokia nHD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/nokia_nHD.xml</extra-po-references>
+    </message>
+    <message>
+        <source>AVCHD Disks</source>
+        <translation>AVCHD Schijven</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Blu-Ray/AVCHD</source>
+        <translation>Blu-Ray/AVCHD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml</extra-po-references>
+    </message>
+    <message>
+        <source>MOV (mpeg4)</source>
+        <translation>MOV (mpeg4)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mov_mpeg4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Device</source>
+        <translation>Apparaat</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml</extra-po-references>
+    </message>
+    <message>
+        <source>MPEG (mpeg2)</source>
+        <translation>MPEG (mpeg2)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mpeg_mpeg2.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Web</source>
+        <translation>Internet</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml</extra-po-references>
+    </message>
+    <message>
+        <source>All Formats</source>
+        <translation>Alle formaten</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Vimeo-HD</source>
+        <translation>Vimeo-HD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/vimeo_HD.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Default Audio Sample Rate</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for default-samplerate</extra-po-references>
+    </message>
+    <message>
+        <source>DVD-NTSC</source>
+        <translation>DVD-NTSC</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml</extra-po-references>
     </message>
     <message>
-        <source>Right arrow</source>
-        <translation>Pijl naar rechts</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_arrow.jpg</extra-po-references>
+        <source>FLV (h.264)</source>
+        <translation>FLV (h.264)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_flv_x264.xml</extra-po-references>
     </message>
     <message>
-        <source>Mountains</source>
-        <translation>Bergen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mountains.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle right inspiration</source>
+        <source>Sunlight %s</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_right_inspiration.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sunlight_2.jpg</extra-po-references>
     </message>
     <message>
-        <source>Hourglass %s</source>
-        <translation>Zandloper %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/hourglass_1.jpg</extra-po-references>
+        <source>Ray %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Vertical blinds in to out big</source>
+        <translation>Verticale lamellen, breed</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out_big.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Dissolve</source>
+        <translation>Overvloeien</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/dissolve.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wave left up</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_up.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ripple low arrow</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_low_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Clock right to left</source>
+        <translation>Klok, rechtsom</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_right_to_left.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Twirl %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/twirl_26.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral small</source>
+        <translation>Spiraal, klein</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wipe left to right</source>
+        <translation>Uitvegen, naar rechts</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_left_to_right.svg</extra-po-references>
     </message>
     <message>
         <source>Ray light right %s</source>
         <translation type="unfinished"></translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle cross right barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Flower %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/flower_4.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Small low arrow</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_low_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spots</source>
+        <translation>Punten</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spots.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Checked %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/checked_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle top arrow</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_top_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Frame %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Small cross left barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_left_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Clouds %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Horizontal barr %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/horizontal_barr_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Free inspiration right</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_inspiration_right.jpg</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="762"/>
@@ -3106,284 +3265,9 @@ waarde</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common</extra-po-references>
     </message>
     <message>
-        <source>Cross %s</source>
-        <translation>Kruis %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/cross_15.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral small %s</source>
+        <source>Board %s</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle cross left barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_left_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Stain %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/stain_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle left inspiration</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_left_inspiration.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ray %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Mozaic barr right</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Boxes %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/boxes_12.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Vertical blinds in to out big</source>
-        <translation>Verticale lamellen, breed</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out_big.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wave left down</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_down.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle losange</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_losange.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Mozaic barr left</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_left.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Dissolve</source>
-        <translation>Overvloeien</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/dissolve.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Sphere</source>
-        <translation>Bol</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Sun shaking</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sun_shaking.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Big losange</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_losange.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Little rippling right</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wipe bottom to top</source>
-        <translation>Uitvegen, naar boven</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_bottom_to_top.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Small low arrow</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_low_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Flower %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/flower_4.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Twirl %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/twirl_26.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Fish-eyes %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fish-eyes_5.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spots</source>
-        <translation>Punten</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spots.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral abstract %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_abstract_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Checked %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/checked_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Little right inspiration</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_right_inspiration.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral small</source>
-        <translation>Spiraal, klein</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Future %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/future_11.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Hatched %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/hatched_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Openshot logo</source>
-        <translation>Openshot-logo</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/openshot_logo.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Small cross right barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_right_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Big barr shaking %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Frame %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Stretched %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/stretched_3.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Blur left barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_left_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wave left up</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_up.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>4 squares right barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_right_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle black barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_black_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Mosaic %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mosaic_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wipe left to right</source>
-        <translation>Uitvegen, naar rechts</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_left_to_right.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Postime %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/postime_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Vertical blinds in to out</source>
-        <translation>Verticale lamellen, smal</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Clouds</source>
-        <translation>Wolken</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Luminous frame %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_frame_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>4 squares leftt barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_leftt_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Blinds sliding</source>
-        <translation>Glijdend verduisteren</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_sliding.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Fogg %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fogg_3.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Blur ray right</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wandering %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wandering_12.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Star %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/star_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ondulation %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ondulation_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Rectangle out to in</source>
-        <translation>Rechthoek, naar binnen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_out_to_in.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle barr ripple %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr_ripple_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Blur right barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_right_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Frame barr right</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral big</source>
-        <translation>Spiraal, groot</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/board_10.jpg</extra-po-references>
     </message>
     <message>
         <source>Big cross left barr</source>
@@ -3391,129 +3275,24 @@ waarde</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_left_barr.jpg</extra-po-references>
     </message>
     <message>
-        <source>Wave right up</source>
+        <source>Square middle left barr</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_up.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_left_barr.jpg</extra-po-references>
     </message>
     <message>
-        <source>Ray light %s</source>
+        <source>Fish-eyes %s</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_18.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fish-eyes_5.jpg</extra-po-references>
     </message>
     <message>
-        <source>Small cross left barr</source>
+        <source>Free left inspiration</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_left_barr.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_left_inspiration.jpg</extra-po-references>
     </message>
     <message>
-        <source>Whirpool %s</source>
+        <source>Extra</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/whirpool_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Distortion %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Blinds in to out</source>
-        <translation>Lamellen, smal</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Lateral left triangle</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_left_triangle.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Vertical bars</source>
-        <translation>Verticale balken</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_bars.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral big %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Free inspiration right</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_inspiration_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Left arrow</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Board %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/board_10.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Deform %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/deform_8.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Central mozaic</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/central_mozaic.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Puzzle</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/puzzle.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Small losange</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_losange.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Sunlight %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sunlight_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Square middle right barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_right_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ray light left %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ray light right</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Luminous spiral %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_spiral_9.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Clock left to right</source>
-        <translation>Klok, linksom</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_left_to_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Clock right to left</source>
-        <translation>Klok, rechtsom</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_right_to_left.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_1.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra</extra-po-references>
     </message>
     <message>
         <source>Barr ripple %s</source>
@@ -3521,109 +3300,19 @@ waarde</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/barr_ripple_2.jpg</extra-po-references>
     </message>
     <message>
-        <source>Clouds %s</source>
+        <source>Ray light left %s</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds_2.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left_2.jpg</extra-po-references>
     </message>
     <message>
-        <source>Mozaic %s</source>
+        <source>Square middle right barr</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_5.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_right_barr.jpg</extra-po-references>
     </message>
     <message>
-        <source>Sphere %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral medium</source>
-        <translation>Spiraal, middelgroot</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_medium.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ripple top arrow</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_top_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ripple luminous top arrow</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_top_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Triangle %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/triangle_3.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Square right barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_right_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wipe right to left</source>
-        <translation>Uitvegen, naar links</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_right_to_left.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Ripple low arrow</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_low_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Fractal %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fractal_5.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Big barr shaking2</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Blinds in to out big</source>
-        <translation>Lamellen, breed</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out_big.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Small top arrow</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_top_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Circle in to out</source>
-        <translation>Cirkel, naar buiten</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_in_to_out.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle top arrow</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_top_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Lateral right triangle</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_right_triangle.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Little left inspiration</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_left_inspiration.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Square left barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_left_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Square middle left barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_left_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Small barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_barr.jpg</extra-po-references>
+        <source>Right arrow</source>
+        <translation>Pijl naar rechts</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_arrow.jpg</extra-po-references>
     </message>
     <message>
         <source>Circle out to in</source>
@@ -3631,54 +3320,39 @@ waarde</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_out_to_in.svg</extra-po-references>
     </message>
     <message>
-        <source>Foggy spiral %s</source>
+        <source>Wave right down</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/foggy_spiral_1.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_down.jpg</extra-po-references>
     </message>
     <message>
-        <source>Wipe top to bottom</source>
-        <translation>Uitvegen, naar beneden</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_top_to_bottom.svg</extra-po-references>
+        <source>Wipe diagonal %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wipe_diagonal_3.jpg</extra-po-references>
     </message>
     <message>
-        <source>Horizontal barr %s</source>
+        <source>Little right inspiration</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/horizontal_barr_1.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_right_inspiration.jpg</extra-po-references>
     </message>
     <message>
-        <source>Blur ray left</source>
+        <source>Frame barr right</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_left.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_right.jpg</extra-po-references>
     </message>
     <message>
-        <source>Crossed barr</source>
+        <source>Mosaic %s</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/crossed_barr.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mosaic_2.jpg</extra-po-references>
     </message>
     <message>
-        <source>Frame cross left barr</source>
+        <source>Future %s</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_cross_left_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Right mozaic %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Little rippling left</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_left.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/future_11.jpg</extra-po-references>
     </message>
     <message>
         <source>Bubbles</source>
         <translation>Bubbels</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/bubbles.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ripple luminous low arrow</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_low_arrow.jpg</extra-po-references>
     </message>
     <message>
         <source>Luminous boxes %s</source>
@@ -3691,9 +3365,29 @@ waarde</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_right_barr.jpg</extra-po-references>
     </message>
     <message>
-        <source>Wipe diagonal %s</source>
+        <source>Rectangle out to in</source>
+        <translation>Rechthoek, naar binnen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_out_to_in.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral big %s</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wipe_diagonal_3.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ripple luminous top arrow</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_top_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Vertical blinds in to out</source>
+        <translation>Verticale lamellen, smal</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Distortion %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg</extra-po-references>
     </message>
     <message>
         <source>Rectangle in to out</source>
@@ -3701,29 +3395,74 @@ waarde</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_in_to_out.jpg</extra-po-references>
     </message>
     <message>
-        <source>Wave right down</source>
+        <source>Square left barr</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_down.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_left_barr.jpg</extra-po-references>
     </message>
     <message>
-        <source>Left mozaic</source>
+        <source>Ripple top arrow</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_mozaic.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_top_arrow.jpg</extra-po-references>
     </message>
     <message>
-        <source>Ripple %s</source>
+        <source>Small losange</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_4.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_losange.jpg</extra-po-references>
     </message>
     <message>
-        <source>Ray light left</source>
+        <source>Wandering %s</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wandering_12.jpg</extra-po-references>
     </message>
     <message>
-        <source>Big barr</source>
+        <source>Small barr</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ray light %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_18.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Sphere</source>
+        <translation>Bol</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Mozaic %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_5.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Triangle %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/triangle_3.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Lateral right triangle</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_right_triangle.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Star %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/star_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Blur left barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_left_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Deform %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/deform_8.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Sphere %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere_2.jpg</extra-po-references>
     </message>
     <message>
         <source>Strange barr %s</source>
@@ -3731,24 +3470,334 @@ waarde</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/strange_barr_1.jpg</extra-po-references>
     </message>
     <message>
-        <source>Extra</source>
+        <source>Blur ray right</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_right.jpg</extra-po-references>
     </message>
     <message>
-        <source>Free left inspiration</source>
+        <source>Luminous spiral %s</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_left_inspiration.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_spiral_9.jpg</extra-po-references>
     </message>
     <message>
-        <source>Middle cross right barr</source>
+        <source>Big barr shaking2</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_right_barr.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking2.jpg</extra-po-references>
     </message>
     <message>
-        <source>Right mozaic</source>
+        <source>Spiral abstract %s</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_abstract_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle black barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_black_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Blinds sliding</source>
+        <translation>Glijdend verduisteren</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_sliding.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Stretched %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/stretched_3.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ray light right</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Big barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Cross %s</source>
+        <translation>Kruis %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/cross_15.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle low arrow</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_low_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ripple %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_4.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Foggy spiral %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/foggy_spiral_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Central mozaic</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/central_mozaic.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Circle in to out</source>
+        <translation>Cirkel, naar buiten</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_in_to_out.svg</extra-po-references>
+    </message>
+    <message>
+        <source>Frame cross left barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_cross_left_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Square right barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Blinds in to out</source>
+        <translation>Lamellen, smal</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Big losange</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_losange.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Little rippling right</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Postime %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/postime_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Hatched %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/hatched_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle barr ripple %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr_ripple_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wave left down</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_down.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Small top arrow</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_top_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Mountains</source>
+        <translation>Bergen</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mountains.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Left mozaic</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_mozaic.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Big barr shaking %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Little rippling left</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_left.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Stain %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/stain_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Lateral left triangle</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_left_triangle.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle right inspiration</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_right_inspiration.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Vertical bars</source>
+        <translation>Verticale balken</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_bars.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Clouds</source>
+        <translation>Wolken</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wipe right to left</source>
+        <translation>Uitvegen, naar links</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_right_to_left.svg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral big</source>
+        <translation>Spiraal, groot</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Hourglass %s</source>
+        <translation>Zandloper %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/hourglass_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Blinds in to out big</source>
+        <translation>Lamellen, breed</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out_big.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral small %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wave right up</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_up.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wipe top to bottom</source>
+        <translation>Uitvegen, naar beneden</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_top_to_bottom.svg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle cross left barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_left_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Luminous frame %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_frame_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Whirpool %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/whirpool_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>4 squares leftt barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_leftt_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Openshot logo</source>
+        <translation>Openshot-logo</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/openshot_logo.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ripple luminous low arrow</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_low_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Right mozaic %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Crossed barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/crossed_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Sun shaking</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sun_shaking.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Small cross right barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Boxes %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/boxes_12.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Mozaic barr right</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ray light left</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Blur ray left</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_left.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Puzzle</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/puzzle.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ondulation %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ondulation_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Clock left to right</source>
+        <translation>Klok, linksom</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_left_to_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Little left inspiration</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_left_inspiration.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle losange</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_losange.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>4 squares right barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Mozaic barr left</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_left.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Blur right barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral medium</source>
+        <translation>Spiraal, middelgroot</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_medium.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wipe bottom to top</source>
+        <translation>Uitvegen, naar boven</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_bottom_to_top.svg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr.jpg</extra-po-references>
     </message>
     <message>
         <source>Frame barr left</source>
@@ -3756,9 +3805,29 @@ waarde</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_left.jpg</extra-po-references>
     </message>
     <message>
-        <source>Middle low arrow</source>
+        <source>Fractal %s</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_low_arrow.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fractal_5.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Fogg %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fogg_3.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Left arrow</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Right mozaic</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle left inspiration</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_left_inspiration.jpg</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/about.ui" line="23"/>

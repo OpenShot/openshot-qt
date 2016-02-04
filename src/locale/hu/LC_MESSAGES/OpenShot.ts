@@ -4,12 +4,12 @@
     <extra-po-header-language>hu</extra-po-header-language>
     <extra-po-header-language_team>Hungarian &lt;kde-i18n-doc@kde.org&gt;</extra-po-header-language_team>
     <extra-po-header-last_translator>KAMI &lt;kami911@gmail.com&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-01-19 05:54+0000</extra-po-header-po_revision_date>
-    <extra-po-header-pot_creation_date>2016-01-18 20:44+0000</extra-po-header-pot_creation_date>
+    <extra-po-header-po_revision_date>2016-01-24 21:41+0000</extra-po-header-po_revision_date>
+    <extra-po-header-pot_creation_date>2016-02-02 01:00+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 17886)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-01-21 05:56+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 17908)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2016-02-03 06:01+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Hungarian translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -20,204 +20,229 @@
 <context>
     <name></name>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="459"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="886"/>
+        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="463"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="920"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="157"/>
         <source>Track %s</source>
         <translation>Sáv %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="462"/>
-        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="468"/>
-        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="480"/>
+        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="466"/>
+        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="472"/>
+        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="484"/>
         <source>None</source>
         <translation>Egyik sem</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="463"/>
+        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="467"/>
         <source>Fade In</source>
         <translation>Felkeverés</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="464"/>
+        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="468"/>
         <source>Fade Out</source>
         <translation>Lekeverés</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="465"/>
+        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="469"/>
         <source>Fade In &amp; Out</source>
         <translation>Fel- és lekeverés</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="469"/>
-        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="481"/>
+        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="473"/>
+        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="485"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="550"/>
         <source>Random</source>
         <translation>Véletlenszerű</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="470"/>
+        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="474"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="831"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="834"/>
         <source>Zoom In</source>
         <translation>Nagyítás</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="471"/>
+        <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="475"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="846"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="849"/>
         <source>Zoom Out</source>
         <translation>Kicsinyítés</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="81"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="83"/>
         <source>Unsaved Changes</source>
         <translation>Nem mentett változtatások</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="81"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="83"/>
         <source>Save changes to project before closing?</source>
         <translation>Menti a változásokat a projektben mielőtt bezárja?</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="162"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="197"/>
         <source>Error Saving Project</source>
         <translation>Hiba lépett fel a projekt mentése során</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="194"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="230"/>
         <source>Error Opening Project</source>
         <translation>Hiba lépett fel a projekt megnyitása során</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="202"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="238"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="314"/>
         <source>Open Project...</source>
         <translation>Projekt megnyitása...</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="202"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="215"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="232"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="238"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="251"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="268"/>
         <source>OpenShot Project (*.osp)</source>
-        <translation>Openshot projektfájl (*.osp)</translation>
+        <translation>OpenShot projektfájl (*.osp)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="214"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="231"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1103"/>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="100"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="250"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="267"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1137"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="104"/>
         <source>Untitled Project</source>
         <translation>Névtelen projekt</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="215"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="251"/>
         <source>Save Project...</source>
         <translation>Projekt mentése…</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="232"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="268"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="359"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="362"/>
         <source>Save Project As...</source>
         <translation>Projekt mentése másként...</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="247"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="283"/>
         <source>Import File...</source>
         <translation>Fájl importálása…</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="888"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="922"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1260"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1263"/>
         <source>Rename Track</source>
         <translation>Sáv átnevezése</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="888"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="922"/>
         <source>Track Name:</source>
         <translation>Sáv neve:</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1189"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1224"/>
         <source>Recent Projects</source>
         <translation>Legutóbbi projektek</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1228"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1245"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1264"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1396"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1263"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1280"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1299"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1435"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="286"/>
         <source>Filter</source>
         <translation>Szűrő</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1316"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1351"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1634"/>
         <source>{} seconds</source>
         <translation>{} másodperc</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="110"/>
+        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="114"/>
         <source>&lt;Select a template&gt;</source>
         <translation>&lt;Sablon választása&gt;</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="319"/>
-        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="338"/>
+        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="323"/>
+        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="342"/>
         <source>Select a Color</source>
         <translation>Válasszon egy színt</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="357"/>
+        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="361"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="240"/>
         <source>Change Font</source>
         <translation>Betűkészlet megváltoztatása</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="588"/>
+        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="592"/>
         <source>New Title</source>
         <translation>Új felirat</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="591"/>
+        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="595"/>
         <source>Save Title As...</source>
         <translation>Felirat mentése másként…</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="591"/>
+        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="595"/>
         <source>Scalable Vector Graphics (*.svg)</source>
         <translation>Scalable Vector Graphics (*.svg)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="672"/>
+        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="648"/>
+        <location filename="../../../../openshot-qt-git/src/windows/animated_title.py" line="165"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/files_treeview.py" line="164"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/files_listview.py" line="165"/>
+        <location filename="../../../../openshot-qt-git/src/windows/models/files_model.py" line="173"/>
+        <source>{} is not a valid video, audio, or image file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="677"/>
         <source>Please install {} to use this function</source>
         <translation>Ezen funkció használatához telepítse a következőt: {}</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/animated_title.py" line="81"/>
+        <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="256"/>
+        <source>Restart Required</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="257"/>
+        <source>Please restart OpenShot for all preferences to take effect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/cutting.py" line="190"/>
+        <location filename="../../../../openshot-qt-git/src/windows/cutting.py" line="224"/>
+        <source>Please choose valid &apos;start&apos; and &apos;end&apos; values for your clip.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/animated_title.py" line="85"/>
         <source>Render</source>
         <translation>Renderelés</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/animated_title.py" line="82"/>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="72"/>
+        <location filename="../../../../openshot-qt-git/src/windows/animated_title.py" line="86"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="76"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="222"/>
         <source>Cancel</source>
         <translation>Mégse</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/about.py" line="70"/>
+        <location filename="../../../../openshot-qt-git/src/windows/about.py" line="71"/>
         <source>Version: %s</source>
         <translation>Verzió: %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/about.py" line="148"/>
+        <location filename="../../../../openshot-qt-git/src/windows/about.py" line="152"/>
         <source>translator-credits</source>
         <translation>Launchpad Contributions:
   Balazs Oveges https://launchpad.net/~ovegesb
@@ -407,7 +432,7 @@ Blender elérési útja:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="455"/>
         <source>No Fade</source>
-        <translation>Nincs áttűnés</translation>
+        <translation>Nincs keverés</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="462"/>
@@ -476,7 +501,7 @@ Blender elérési útja:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="498"/>
         <source>Zoom In (50% to 100%)</source>
-        <translation>Nagyítás (50%-ról 100%-ra)</translation>
+        <translation>Nagyítás (50% → 100%)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="500"/>
@@ -486,7 +511,7 @@ Blender elérési útja:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="502"/>
         <source>Zoom In (100% to 150%)</source>
-        <translation>Nagyítás (100%-ról 150%-ra)</translation>
+        <translation>Nagyítás (100% → 150%)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="504"/>
@@ -496,12 +521,12 @@ Blender elérési útja:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="506"/>
         <source>Zoom Out (100% to 50%)</source>
-        <translation>Kicsinyítés (100%-ról 50%-ra)</translation>
+        <translation>Kicsinyítés (100% → 50%)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="508"/>
         <source>Zoom Out (150% to 100%)</source>
-        <translation>Kicsinyítés (150%-ról 100%-ra)</translation>
+        <translation>Kicsinyítés (150% → 100%)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="513"/>
@@ -810,6 +835,13 @@ Blender elérési útja:
         <translation>Név</translation>
     </message>
     <message>
+        <location filename="../../../../openshot-qt-git/src/windows/models/blender_model.py" line="117"/>
+        <location filename="../../../../openshot-qt-git/src/windows/models/transition_model.py" line="158"/>
+        <location filename="../../../../openshot-qt-git/src/windows/models/effects_model.py" line="150"/>
+        <source>{} is not a valid image file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="67"/>
         <source>Email</source>
         <translation>Email</translation>
@@ -818,6 +850,21 @@ Blender elérési útja:
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="67"/>
         <source>Website</source>
         <translation>Honlap</translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="100"/>
+        <source>PayPal Supporter!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="108"/>
+        <source>Kickstarter Supporter!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="116"/>
+        <source>Multiple Contributions!</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="358"/>
@@ -861,379 +908,125 @@ Blender elérési útja:
         <translation>Leírás</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="70"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="74"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="20"/>
         <source>Export Video</source>
         <translation>Videó exportálása</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="112"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="116"/>
         <source>Video &amp; Audio</source>
-        <translation>Videó és audió</translation>
+        <translation>Videó és hang</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="112"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="116"/>
         <source>Image Sequence</source>
         <translation>Képsorozat</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="119"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="123"/>
         <source>Mono (1 Channel)</source>
         <translation>Mono (1 csatorna)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="120"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="124"/>
         <source>Stereo (2 Channel)</source>
         <translation>Stereo (2 csatorna)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="121"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="125"/>
         <source>Surround (3 Channel)</source>
         <translation>Térhatású (3 csatorna)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="122"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="126"/>
         <source>Surround (5.1 Channel)</source>
         <translation>Térhatású (5.1 csatorna)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="123"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="127"/>
         <source>Surround (7.1 Channel)</source>
         <translation>Térhatású (7.1 csatorna)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="305"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="309"/>
         <source>Yes</source>
         <translation>Igen</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="306"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="310"/>
         <source>No</source>
         <translation>Nem</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="356"/>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="364"/>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="397"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="360"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="368"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="401"/>
         <source>Low</source>
         <translation>Alacsony</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="356"/>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="364"/>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="399"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="360"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="368"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="403"/>
         <source>Med</source>
-        <translation>Közép</translation>
+        <translation>Közepes</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="356"/>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="364"/>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="401"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="360"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="368"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="405"/>
         <source>High</source>
-        <translation>Nagy</translation>
+        <translation>Magas</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="448"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="452"/>
         <source>Choose a Folder...</source>
         <translation>Mappa választása…</translation>
     </message>
     <message>
-        <source>Oversaturate the color in the image, like in old Technicolor movies</source>
-        <translation>A kép színeinek túltelítése, mint a régi Technicolor filmeknél</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="605"/>
+        <source>Export Error</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Halo: Use Stars</source>
-        <translation>Halo: Csillagok használata</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="606"/>
+        <source>Sorry, there was an error exporting your video: 
+%s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
-        <source>Duration</source>
-        <translation>Időtartam</translation>
+        <source>ID</source>
+        <translation>AZONOSÍTÓ</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Distort</source>
-        <translation>Torzítás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Top Right</source>
-        <translation>Jobb felső</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Red</source>
-        <translation>Vörös</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sub Title</source>
-        <translation>Alcím</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the blur of the frame&apos;s image.</source>
-        <translation>Képkockák elmosásának szabályozása.</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Gravity: X</source>
-        <translation>Gravitáció: X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Defish</source>
-        <translation>Delfish</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Title 1</source>
-        <translation>Cím 1</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Darker</source>
-        <translation>Sötétebb</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Output level white point</source>
-        <translation>Kimeneti fehérszint</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Saturation</source>
-        <translation>Telítettség</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Block Size Y</source>
-        <translation>Blokkméret Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Hue</source>
-        <translation>Árnyalat</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/hue.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gain Out</source>
-        <translation>Csökken</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Reduce image to primary colors</source>
-        <translation>Alapszínek használata</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Detect and highlight the edges of objects</source>
-        <translation>Objektumok éleinek keresése és kiemelése</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Star Count</source>
-        <translation>Halo: Csillagok száma</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Canvas</source>
-        <translation>Rajzvászon</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Brightness Delta Up</source>
-        <translation>Világosság különbség növelése</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Top</source>
-        <translation>Felső</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Episode Title</source>
-        <translation>Fejezetcím</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Correction near edges</source>
-        <translation>Javítás a szélek közelében</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Brightness Delta Down</source>
-        <translation>Világosság különbség csökkentése</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Old Dust</source>
-        <translation>Poros</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Velocity: Y</source>
-        <translation>Sebesség: Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Y Scatter</source>
-        <translation>Y szórás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Text Alignment</source>
-        <translation>Szöveg igazítás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Color adjustment</source>
-        <translation>Színszabályozás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>First Title</source>
-        <translation>Első felirat</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Title 3</source>
-        <translation>Cím 3</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Chroma Key (Greenscreen)</source>
-        <translation>Kulcsolás egy színnel (Zöld képernyő)</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Mirror Color</source>
-        <translation>Színek megfordítása</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Interval</source>
-        <translation>Időtartam</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Simple color adjustment</source>
-        <translation>Egyszerű színmódosítás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Nosync</source>
-        <translation>Nincs szinkron</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Y Center</source>
-        <translation>Y közép</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Reverse</source>
-        <translation>Hátra</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="96"/>
-        <source>Start</source>
-        <translation>Indítás</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Tile 3: Diffuse Color</source>
-        <translation>Csempe 3: Szórt szín</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Wireframe Text</source>
-        <translation>Drótváz szöveg</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/wireframe_text.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Picture 3 Path</source>
-        <translation>Kép 3 útvonal</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Brightness Delta Every</source>
-        <translation>Világossági különbség mindre</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Shift the hue of all colors in the image</source>
-        <translation>A kép minden színárnyalatának eltolása</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/hue.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust luminance or color channel intensity</source>
-        <translation>Világosság vagy színcsatornák intenzitásának szabályozása</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Specular Color</source>
-        <translation>Háttér: Tükröződési szín</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Spots: Color Threshold</source>
-        <translation>Foltok: szín küszöb</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sun: Color Threshold</source>
-        <translation>Nap: Szín küszöb</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Allows compensation of lens distortion</source>
-        <translation>Engedélyezi a lencsetorzítás kompenzálását</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Picture Frames (4 pictures)</source>
-        <translation>Kép kerektek (4 kép)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>End: X</source>
-        <translation>Vége: X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Diff Space</source>
-        <translation>Hely különbség</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Center size</source>
-        <translation>Középméret</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Delayed frame blitting mapped on a time bitmap</source>
-        <translation>Késleltetett képkocka másolás a idő bitkép alapján</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Longitude (minutes)</source>
-        <translation>Érkezési hosszúság (perc)</translation>
+        <source>Arrival Longitude (degrees)</source>
+        <translation>Érkezési hosszúság (fok)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
-        <source>Halo: Hardness</source>
-        <translation>Halo: Keménység</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+        <source>Title 2</source>
+        <translation>Cím 2</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
-        <source>Top Left</source>
-        <translation>Bal felső</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+        <source>Blue</source>
+        <translation>Kék</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Latitude (seconds)</source>
+        <translation>Érkezési szélesség (másodperc)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Color Tiles</source>
+        <translation>Szín mozaik</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
         <source>Adjust the low-pitched sound or tone</source>
@@ -1241,24 +1034,569 @@ Blender elérési útja:
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
     </message>
     <message>
+        <source>Bottom Left</source>
+        <translation>Bal lent</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Start Frame</source>
+        <translation>Kezdő képkocka</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Red</source>
+        <translation>Vörös</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Blue/Yellow</source>
+        <translation>Kék és sárga</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Decay</source>
+        <translation>Bomlás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Min</source>
+        <translation>Perc</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Y axis</source>
+        <translation>Y tengely</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gray color</source>
+        <translation>Szürke szín</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Use Flare</source>
+        <translation>Halo: Csillogás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Magic Wand</source>
+        <translation>Varázspálca</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sepia</source>
+        <translation>Szépia</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Hue</source>
+        <translation>Árnyalat</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/hue.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Bass</source>
+        <translation>Mély hangok</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Left | Right</source>
+        <translation>Bal | Jobb</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Width</source>
+        <translation>Szélesség</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Diffuse Color</source>
+        <translation>Háttér: Színelmosás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Delay</source>
+        <translation>Késleltetés</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Primary Colors</source>
+        <translation>Elsődleges színek</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Bottom Center</source>
+        <translation>Középen lent</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Every</source>
+        <translation>Minden</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>v</source>
+        <translation>v</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Latitude (degrees)</source>
+        <translation>Indulási szélesség (fok)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Top</source>
+        <translation>Felső</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>World Map (Realistic)</source>
+        <translation>Világtérkép (valósághű)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Delayed frame blitting mapped on a time bitmap</source>
+        <translation>Késleltetett képkocka másolás a idő bitkép alapján</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Font Name</source>
+        <translation>Betűkészlet neve</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Convert colors in the image to the opposite or complementary colors</source>
+        <translation>A kép színeinek átváltása az ellentétes vagy komplementer színekre</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/invert.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Make image sharper</source>
+        <translation>Tedd a képeket élesebbé</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Variance</source>
+        <translation>Eltérés</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tint a source image with specified color</source>
+        <translation>A forráskép beszínezése egy megadott színnel</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Episode Title</source>
+        <translation>Fejezetcím</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Line 2 Color</source>
+        <translation>Vonal 2 szín</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Bottom Right</source>
+        <translation>Jobb lent</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Manual Scale</source>
+        <translation>Kézi méretezés</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Invert</source>
+        <translation>Invertálás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Histogram position</source>
+        <translation>A hisztogram pozíciója</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Zoom to Clapboard</source>
+        <translation>Képméretre nagyítás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Aspect ratio</source>
+        <translation>Méretarány</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gravity: Z</source>
+        <translation>Gravitáció: Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Y Scatter</source>
+        <translation>Y szórás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Shadeless</source>
+        <translation>Háttér: Árnyék nélkül</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Old Film</source>
+        <translation>Régi film</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Particles: Gravity</source>
+        <translation>Részecskék: gravitáció</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Extrude</source>
+        <translation>Nyújtás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Longitude (Prime Meridian)</source>
+        <translation>Érkezési hosszúság (0. hosszúsági kör)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Title Specular Color</source>
+        <translation>Felirat tükröződési szín</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+    </message>
+    <message>
+        <source>X Coordinate</source>
+        <translation>X koordináta</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
+    </message>
+    <message>
+        <source>World Map</source>
+        <translation>Világtérkép</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Find and glow the edges of objects</source>
+        <translation>Alakzatok széleinek ragyogóvá tétele</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tilt</source>
+        <translation>Döntés</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Oversaturate the color in the image, like in old Technicolor movies</source>
+        <translation>A kép színeinek túltelítése, mint a régi Technicolor filmeknél</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Cartoon</source>
+        <translation>Rajzfilm</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Letterbox</source>
+        <translation>Szövegdoboz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Mirror</source>
+        <translation>Tükrözés</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Blur the image similar to an out-of-focus camera</source>
+        <translation>Kép elmosása életlen fókusszal</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/blur.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Brightness Delta Down</source>
+        <translation>Világosság különbség csökkentése</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Start: Z</source>
+        <translation>Kezdés: Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Velocity: X</source>
+        <translation>Sebesség: X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Defocus</source>
+        <translation>Életlen fókusz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Allows compensation of lens distortion</source>
+        <translation>Engedélyezi a lencsetorzítás kompenzálását</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Color Distance</source>
+        <translation>Színkülönbség</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Lens Correction</source>
+        <translation>Lencse korrekció</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Glow</source>
+        <translation>Ragyogás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/glow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Midpoint</source>
+        <translation>Felezőpont</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
+    </message>
+    <message>
+        <source>White Balance</source>
+        <translation>Fehéregyensúly</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Flippo</source>
+        <translation>Flippo</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Anchor</source>
+        <translation>Horgony</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Key Color</source>
+        <translation>Kulcs szín</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Ring Count</source>
+        <translation>Halo: Gyűrűk száma</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Vignette</source>
+        <translation>Matrica</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Convert an image to shades of grey</source>
+        <translation>Kép szürkeárnyalatossá alakítása</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Charcoal</source>
+        <translation>Rajzszén</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Lens Flare</source>
+        <translation>Lencsecsillogás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Brightness Delta Up</source>
+        <translation>Világosság különbség növelése</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Neon Curves</source>
+        <translation>Neon görbék</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Custom Texture (Equirectangular)</source>
+        <translation>Egyedi textúra (négyzet)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Best Fit</source>
+        <translation>Legjobb illeszkedés</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>X Offset</source>
+        <translation>X irányú eltolás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Mask</source>
+        <translation>Maszk</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Freeze After</source>
+        <translation>Kimerevítés utána</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Title</source>
+        <translation>Indulási felirat</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Remove interlacing from a video (i.e. even or odd horizontal lines)</source>
+        <translation>Váltottsorosság eltávolítása a videóból (páros vagy páratlan vízszintes sorok)</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Source image on left side</source>
+        <translation>Forráskép a bal oldalon</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjusts the brightness of the image</source>
+        <translation>Kép fényességének szabályozása</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Up Scale</source>
+        <translation>Nagyítás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Phaser</source>
+        <translation>Fázisléptető</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Number of Snow Flakes</source>
+        <translation>Hópelyhek száma</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Param</source>
+        <translation>Paraméter</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the color of the image to emulate black-and-white film that has had sepia pigment added</source>
+        <translation>Kép színeinek szabályozása, hogy olyan fekete-fehér film benyomását keltse, melyhez szépia pigmentet kevertek</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Use Rings</source>
+        <translation>Halo: Gyűrűk használata</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Replaces the color (or chroma) of the frame with transparency (i.e. keys out the color).</source>
+        <translation>Átlátszóságra cseréli a képkocka színt (vagy kulcsolást, például szín eltávolítására használható)</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Space Movie Intro</source>
+        <translation>Űr mozifilm bevezető</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
         <source>Dissolving Text</source>
         <translation>Áttűnő szöveg</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/dissolve.xml</extra-po-references>
     </message>
     <message>
-        <source>Replace Image</source>
-        <translation>Kép kicserélése</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+        <source>Background: Fresnel</source>
+        <translation>Háttér: Fresnel</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
     </message>
     <message>
-        <source>Fills alpha channel with a gradient</source>
-        <translation>Alfa csatorna kitöltése átmenettel</translation>
+        <source>Operation</source>
+        <translation>Művelet</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
     </message>
     <message>
-        <source>Diffuse Color</source>
-        <translation>Szórt szín</translation>
+        <source>Red/Green Axis</source>
+        <translation>Vörös/Zöld keverés</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Location X</source>
+        <translation>Helyzet X</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Picture 1 Path</source>
+        <translation>Kép 1 útvonal</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Típus</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Edgeglow</source>
+        <translation>Élfény</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Alpha controlled</source>
+        <translation>Alfa-vezérelt</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Latitude (degrees)</source>
+        <translation>Érkezési szélesség (fok)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Title 3</source>
+        <translation>Cím 3</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fixed Rotate Y</source>
+        <translation>Állandó Y forgatás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Picture 3 Path</source>
+        <translation>Kép 3 útvonal</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Border Width</source>
+        <translation>Keretvastagság</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sun: Number of Streaks</source>
+        <translation>Nap: Sugarak száma</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Alpha Mask / Wipe Transition</source>
+        <translation>Alfa maszk / Áttűnés törlése</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Scaling</source>
+        <translation>Átméretezés</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>End Frame</source>
+        <translation>Utolsó képkocka</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Input level white point</source>
+        <translation>Bemeneti fehér szint</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adds random vertical lines to the image</source>
+        <translation>Véletlenszerű függőleges vonalakat ad a képhez</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Stretch</source>
+        <translation>Nyújtás</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Rotate 360 Degrees</source>
@@ -1266,14 +1604,19 @@ Blender elérési útja:
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/rotate_360.xml</extra-po-references>
     </message>
     <message>
-        <source>Filter the image to look like it is drawn with charcoal</source>
-        <translation>Szűrő alkalmazása a képen, hogy úgy tűnjön mintha szénnel rajzolták volna</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+        <source>Pixelate</source>
+        <translation>Pixelesítés</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
     </message>
     <message>
-        <source>Frame Number</source>
-        <translation>Képkocka száma</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+        <source>Center size</source>
+        <translation>Középméret</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+    </message>
+    <message>
+        <source>White color</source>
+        <translation>Fehér szín</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
     </message>
     <message>
         <source>Oversaturate Color</source>
@@ -1286,284 +1629,9 @@ Blender elérési útja:
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
-        <source>Negative</source>
-        <translation>Inverz</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Adds random vertical lines to the image</source>
-        <translation>Véletlenszerű függőleges vonalakat ad a képhez</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjusts the gamma and brightness randomly to create the illusion of old film</source>
-        <translation>Véletlenszerűen változtatja a gamma és világosság értékeket, hogy régi film benyomását keltse</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Longitude (minutes)</source>
-        <translation>Indulási hosszúság (perc)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>X axis</source>
-        <translation>X tengely</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>End: Y</source>
-        <translation>Vége: Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Interlaced black lines</source>
-        <translation>Váltottsoros fekete csíkok</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Channel</source>
-        <translation>Csatorna</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Deinterlace</source>
-        <translation>Váltottsorosság megszüntetése</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Extrude</source>
-        <translation>Nyújtás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the white balance and color temperature</source>
-        <translation>Fehéregyensúly és színhőmérséklet szabályozása</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Cartoon</source>
-        <translation>Rajzfilm</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Exploding Text</source>
-        <translation>Szétrobbanó szöveg</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Three Layer</source>
-        <translation>Három réteg</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Blend</source>
-        <translation>Háttér: Összemosás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Bottom Right</source>
-        <translation>Jobb lent</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Convert colors in the image to the opposite or complementary colors</source>
-        <translation>A kép színeinek átváltása az ellentétes vagy komplementer színekre</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/invert.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Distort the source similar to plasma</source>
-        <translation>A forrás plazmaszerűvé torzítása</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Border Width</source>
-        <translation>Keretvastagság</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Starting Size</source>
-        <translation>Halo: Kezdő méret</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Key Color</source>
-        <translation>Kulcs szín</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Iterations</source>
-        <translation>Iterációk</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Greyscale</source>
-        <translation>Szürkeárnyalatos</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Longitude (degrees)</source>
-        <translation>Indulási hosszúság (fok)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gray color</source>
-        <translation>Szürke szín</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Scale Y</source>
-        <translation>Y méretezés</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Horizontal Sync</source>
-        <translation>Vízszintes szinkron</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Amplitude</source>
-        <translation>Amplitúdó</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Latitude (degrees)</source>
-        <translation>Érkezési szélesség (fok)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Old Lines</source>
-        <translation>Idős vonalak</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Add a series of peaks and troughs to the audio, creating a sweeping effect</source>
-        <translation>Csúcsok és völgyek sorozatának hozzáadása a hanghoz, száguldás effektus</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Title 2</source>
-        <translation>Cím 2</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Calculates the distance between the selected color and the current pixel and uses that value as new pixel value</source>
-        <translation>A kiválasztott szín és a jelenlegi pixelérték közötti távolság használata az új pixelértékhez</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Picture 4 Path</source>
-        <translation>Kép 4 útvonal</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>White Balance</source>
-        <translation>Fehéregyensúly</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Scaling</source>
-        <translation>Átméretezés</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Line Count</source>
-        <translation>Halo: Sorok száma</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Latitude (Equator)</source>
-        <translation>Érkezési szélesség (egyenlítő)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Tile 4: Diffuse Color</source>
-        <translation>Csempe 4: Szórt szín</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Increase the size of pixels to obscure the image</source>
-        <translation>A pixelméret növelése a kép tompává tételéhez</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Title</source>
-        <translation>Érkezési felirat</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Waveform</source>
-        <translation>Hullámforma</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Cartoonify the image, using a form of edge detection</source>
-        <translation>A kép rajzfilmszerűvé alakítása, egyfajta élkeresés használatával</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Display Clouds</source>
-        <translation>Felhők mutatása</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Rotate an image statically or animated</source>
-        <translation>Egy kép elforgatása statikusan vagy elmozgatva</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Left</source>
-        <translation>Bal</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Freeze After</source>
-        <translation>Kimerevítés utána</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Add a glow effect to the image</source>
-        <translation>Ragyogás effekt hozzáadása a képhez</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/glow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Chroma Hold</source>
-        <translation>Színinformáció megtartása</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gravity: Y</source>
-        <translation>Gravitáció: Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Custom Texture (Equirectangular)</source>
-        <translation>Egyedi textúra (négyzet)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Stretch</source>
-        <translation>Nyújtás</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>TehRoxx0r</source>
-        <translation>TehRoxx0r</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Neon Curves</source>
-        <translation>Neon görbék</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Red Scale</source>
-        <translation>Vörös skála</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Balance</source>
-        <translation>Egyensúly</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
+        <source>Halo Zoom Out</source>
+        <translation>Halo: Kicsinyítés</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/halo_zoom_out.xml</extra-po-references>
     </message>
     <message>
         <source>Aspect type</source>
@@ -1571,144 +1639,30 @@ Blender elérési útja:
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
     </message>
     <message>
-        <source>Color Distance</source>
-        <translation>Színkülönbség</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Longitude (degrees)</source>
-        <translation>Érkezési hosszúság (fok)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Min</source>
-        <translation>Perc</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
         <source>Blur</source>
         <translation>Elmosás</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blur.xml</extra-po-references>
     </message>
     <message>
-        <source>Letterbox</source>
-        <translation>Szövegdoboz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
+        <source>Balance</source>
+        <translation>Egyensúly</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
     </message>
     <message>
-        <source>Tile 2: Diffuse Color</source>
-        <translation>Csempe 2: Szórt szín</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+        <source>Scan Lines</source>
+        <translation>Sorok pásztázása</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml</extra-po-references>
     </message>
     <message>
-        <source>Black and White</source>
-        <translation>Fekete-fehér</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the brightness and contrast of the frame&apos;s image.</source>
-        <translation>Képkockák fényerejének és kontrasztjának szabályzása.</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Line 1 Color</source>
-        <translation>Vonal 1 szín</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Color</source>
-        <translation>Szín</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Correction near center</source>
-        <translation>Javítás a középpont közelében</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Max</source>
-        <translation>Maximum</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Blue</source>
-        <translation>Kék</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Up Scale</source>
-        <translation>Nagyítás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjusts the gamma or luminance value of the image</source>
-        <translation>A kép gamma vagy világosság értékének szabályozása</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Zoom to Clapboard</source>
-        <translation>Képméretre nagyítás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sun: Type of Glare</source>
-        <translation>Nap: Ragyogás típusa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Frequency</source>
-        <translation>Frekvencia</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Rotate Z</source>
-        <translation>Forgatás Z tengely körül</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Top Center</source>
-        <translation>Felső középső</translation>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="96"/>
+        <source>Start</source>
+        <translation>Indítás</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>End Value</source>
-        <translation>Végső érték</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Lens Flare</source>
-        <translation>Lencsecsillogás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Flippo</source>
-        <translation>Flippo</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Softness</source>
-        <translation>Lágyság</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Find and glow the edges of objects</source>
-        <translation>Alakzatok széleinek ragyogóvá tétele</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Alpha Mask / Wipe Transition</source>
-        <translation>Alfa maszk / Áttűnés törlése</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Velocity: X</source>
-        <translation>Sebesség: X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Alphagrad</source>
-        <translation>Áttetszőségi fokozat</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+        <source>Fuzz</source>
+        <translation>Göndör</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Key</source>
@@ -1716,75 +1670,79 @@ Blender elérési útja:
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
     </message>
     <message>
-        <source>Chroma Key</source>
-        <translation>Kulcsolás egy színnel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
+        <source>Baltan</source>
+        <translation>Baltan</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml</extra-po-references>
     </message>
     <message>
-        <source>Map white to</source>
-        <translation>Fehér leképezése</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Negates the colors, producing a negative of the image.</source>
-        <translation>Invertálja a színeket, így előállítva a kép negatívját.</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Episode</source>
-        <translation>Epizód</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Start Value</source>
-        <translation>Kezdőérték</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Glass Slider</source>
-        <translation>Csúszó üveg</translation>
+        <source>Background: Alpha</source>
+        <translation>Háttér: Alfa</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
     </message>
     <message>
-        <source>Background: Specular Intensity</source>
-        <translation>Háttér: Tükröződő intenzitás</translation>
+        <source>Brightness &amp; Contrast</source>
+        <translation>Fényerő és kontraszt</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Particle Number</source>
+        <translation>Részecskeszám</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Interlaced black lines</source>
+        <translation>Váltottsoros fekete csíkok</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Deinterlace</source>
+        <translation>Váltottsorosság megszüntetése</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Tile 1: Diffuse Color</source>
+        <translation>Csempe 1: Szórt szín</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
-        <source>Sharpness</source>
-        <translation>Élesség</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
+        <source>Z Coordinate</source>
+        <translation>Z koordináta</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="115"/>
-        <source>End</source>
-        <translation>Vége</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+        <source>X Scatter</source>
+        <translation>X szórás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
     </message>
     <message>
-        <source>Wave Color</source>
-        <translation>Hullám színe</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+        <source>Distort</source>
+        <translation>Torzítás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
     </message>
     <message>
-        <source>Number of Snow Flakes</source>
-        <translation>Hópelyhek száma</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+        <source>Gain Out</source>
+        <translation>Csökken</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
     </message>
     <message>
-        <source>Mask</source>
-        <translation>Maszk</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
+        <source>Line 3 Color</source>
+        <translation>Vonal 3 szín</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
     </message>
     <message>
-        <source>Neutral Color</source>
-        <translation>Semleges szín</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
+        <source>Output level white point</source>
+        <translation>Kimeneti fehérszint</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
-        <source>Picture 2 Path</source>
-        <translation>Kép 2 útvonal</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+        <source>something videowall-ish</source>
+        <translation>Videófal szerű</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fixed Rotate Z</source>
+        <translation>Állandó Z forgatás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
         <source>Specular Color</source>
@@ -1792,14 +1750,224 @@ Blender elérési útja:
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
-        <source>Replaces the color (or chroma) of the frame with transparency (i.e. keys out the color).</source>
-        <translation>Átlátszóságra cseréli a képkocka színt (vagy kulcsolást, például szín eltávolítására használható)</translation>
+        <source>Adjust the white balance and color temperature</source>
+        <translation>Fehéregyensúly és színhőmérséklet szabályozása</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjusts the gamma and brightness randomly to create the illusion of old film</source>
+        <translation>Véletlenszerűen változtatja a gamma és világosság értékeket, hogy régi film benyomását keltse</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Star Count</source>
+        <translation>Halo: Csillagok száma</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Chroma Key</source>
+        <translation>Kulcsolás egy színnel</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Picture Frames (4 pictures)</source>
+        <translation>Kép keretek (4 kép)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Display Ground</source>
+        <translation>Föld mutatása</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Echo</source>
+        <translation>Visszhang</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fly Towards Camera</source>
+        <translation>Repülés a kamera felé</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/fly_by_1.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Equalizor</source>
+        <translation>Kiegyenlítő</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Episode</source>
+        <translation>Epizód</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Layer</source>
+        <translation>Réteg</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>End: Z</source>
+        <translation>Vége: Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gravity</source>
+        <translation>Gravitáció</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Brightness Delta Every</source>
+        <translation>Világossági különbség mindre</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Latitude (seconds)</source>
+        <translation>Indulási szélesség (másodperc)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Iterations</source>
+        <translation>Iterációk</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Text Alignment</source>
+        <translation>Szöveg igazítás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Three Layer</source>
+        <translation>Három réteg</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Vertical Radius</source>
+        <translation>Függőleges sugár</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Treble</source>
+        <translation>Magas hangok</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/treble.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust color balance with 3 color points</source>
+        <translation>Színegyensúly szabályozása három színponttal</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Top Left</source>
+        <translation>Bal felső</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Longitude (degrees)</source>
+        <translation>Indulási hosszúság (fok)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>delayed alpha smoothed blit of time</source>
+        <translation>Időben finomított késleltetett alfa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Chroma Key (Greenscreen)</source>
+        <translation>Kulcsolás egy színnel (zöld képernyő)</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
-        <source>Adjust the color of the image to black and white based on a threshold</source>
-        <translation>Kép színeinek fekete-fehérré alakítása küszöbérték használatával</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
+        <source>Show histogram</source>
+        <translation>Hisztogram megjelenítése</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Rotate X</source>
+        <translation>Forgatás X tengely körül</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Input level black point</source>
+        <translation>Bemeneti fekete szint</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Saturation</source>
+        <translation>Telítettség</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Color adjustment</source>
+        <translation>Színszabályozás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust luminance or color channel intensity</source>
+        <translation>Világosság vagy színcsatornák intenzitásának szabályozása</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Picture 2 Path</source>
+        <translation>Kép 2 útvonal</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Reduces and mixes the colors of the image based on a threshold</source>
+        <translation>Egy küszöbérték alapján csökkenti és keveri a kép színeit</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threshold.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Rotate Y</source>
+        <translation>Forgatás Y tengely körül</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Max Diameter</source>
+        <translation>Maximális átmérő</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Output level black point</source>
+        <translation>Kimeneti fekete szint</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Block Size X</source>
+        <translation>Blokkméret X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gain</source>
+        <translation>Erősítés</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Add small dust shapes randomly on the image</source>
+        <translation>Véletlenszerű apró porszemcséket ad a képhez</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Detect and highlight the edges of objects</source>
+        <translation>Objektumok éleinek keresése és kiemelése</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Center</source>
+        <translation>Középre</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>File Name</source>
+        <translation>Fájlnév</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Lens vignetting</source>
+        <translation>Lencsekeret</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tint amount</source>
+        <translation>Színezés mértéke</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
     </message>
     <message>
         <source>Levels</source>
@@ -1807,14 +1975,359 @@ Blender elérési útja:
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
-        <source>Adjust the color saturation.</source>
-        <translation>Színtelítettség szabályozása.</translation>
+        <source>Negative</source>
+        <translation>Inverz</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Specular Intensity</source>
+        <translation>Tükröződő intenzitás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Scale X</source>
+        <translation>X méretezés</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Top Center</source>
+        <translation>Felső középső</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Starting Size</source>
+        <translation>Halo: Kezdő méret</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Crop</source>
+        <translation>Vágás</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Neutral Color</source>
+        <translation>Semleges szín</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation>Jobb</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Blend</source>
+        <translation>Háttér: Összemosás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Rotate an image statically or animated</source>
+        <translation>Egy kép elforgatása statikusan vagy elmozgatva</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Add a glow effect to the image</source>
+        <translation>Ragyogás effekt hozzáadása a képhez</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/glow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Speed</source>
+        <translation>Sebesség</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Shift the hue of all colors in the image</source>
+        <translation>A kép minden színárnyalatának eltolása</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/hue.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Specular Intensity</source>
+        <translation>Háttér: Tükröződő intenzitás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Hardness</source>
+        <translation>Halo: Keménység</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adds static and grain to the image</source>
+        <translation>Zajt és szemcsézettséget ad a képhez</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Cartoonify the image, using a form of edge detection</source>
+        <translation>A kép rajzfilmszerűvé alakítása, egyfajta élkeresés használatával</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gain In</source>
+        <translation>Növekszik</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Horizontal Sync</source>
+        <translation>Vízszintes szinkron</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Use Lines</source>
+        <translation>Halo: Sorok használata</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Duration</source>
+        <translation>Időtartam</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>First Title</source>
+        <translation>Első felirat</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Mix</source>
+        <translation>Keverés</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Old Lines</source>
+        <translation>Idős vonalak</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Longitude (Prime Meridian)</source>
+        <translation>Indulási hosszúság (kezdő meridián)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Title 1</source>
+        <translation>Cím 1</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the color of the image to black and white based on a threshold</source>
+        <translation>Kép színeinek fekete-fehérré alakítása küszöbérték használatával</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Display Clouds</source>
+        <translation>Felhők megjelenítése</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Reverse</source>
+        <translation>Hátra</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Color Saturation</source>
+        <translation>Színtelítettség</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Lighter</source>
+        <translation>Világosabb</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Waveform</source>
+        <translation>Hullámforma</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Glass Slider</source>
+        <translation>Csúszó üveg</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Display a single color, while using greyscale for the rest of the image</source>
+        <translation>Egy szín használata, miközben a kép többi része fekete-fehér</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Main Text</source>
+        <translation>Fő szöveg</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Delta</source>
+        <translation>Különbség</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>TehRoxx0r</source>
+        <translation>TehRoxx0r</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Invert horizontally or vertically</source>
+        <translation>Függőleges vagy vízszintes invertálás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Longitude (seconds)</source>
+        <translation>Érkezési hosszúság (másodperc)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Negates the colors, producing a negative of the image.</source>
+        <translation>Invertálja a színeket, így előállítva a kép negatívját.</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Particles: Amount</source>
+        <translation>Részecskék: mennyiség</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gamma</source>
+        <translation>Gamma</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Mirror Color</source>
+        <translation>Színek megfordítása</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tile 4: Diffuse Color</source>
+        <translation>Csempe 4: Szórt szín</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Green</source>
+        <translation>Zöld</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fly Towards Camera (Two Titles)</source>
+        <translation>Repülés a kamera felé (két felirat)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/fly_by_two_titles.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sobel</source>
+        <translation>Sobel</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Action</source>
+        <translation>Művelet</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjusts the contrast of a source image</source>
+        <translation>Bemeneti kép kontrasztjának szabályozása</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/contrast.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation>Bal</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Replace Image</source>
+        <translation>Kép kicserélése</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Adjusts the saturation or intensity of the image</source>
+        <translation>A kép telítettségének vagy intenzitásának szabályozása</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/saturation.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Three point balance</source>
+        <translation>Hárompontos egyensúly</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Reduce image to primary colors</source>
+        <translation>Alapszínek használata</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Start: X</source>
+        <translation>Kezdés: X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Slide Left to Right</source>
+        <translation>Balról jobbra csúszás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/slide_left_to_right.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Diff Space</source>
+        <translation>Hely különbség</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Diffuse Color</source>
+        <translation>Szórt szín</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Flying Title</source>
+        <translation>Repülő felirat</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Picture 4 Path</source>
+        <translation>Kép 4 útvonal</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Size</source>
+        <translation>Halo: Méret</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Old Grain</source>
+        <translation>Idős porszemcsék</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Chroma Hold</source>
+        <translation>Színinformáció megtartása</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Frame Number</source>
+        <translation>Képkocka száma</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Darker</source>
+        <translation>Sötétebb</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sharpness</source>
+        <translation>Élesség</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
     </message>
     <message>
         <source>Creates a square alpha-channel mask</source>
         <translation>Alfa-csatorna maszkot hoz létre</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Black color</source>
+        <translation>Fekete szín</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjusts the gamma or luminance value of the image</source>
+        <translation>A kép gamma vagy világosság értékének szabályozása</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Luma formula</source>
+        <translation>Világosság formula</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Uses a grayscale mask image to gradually wipe / transition between 2 images.</source>
+        <translation>Szürkeárnyalatos maszk alkalmazása két kép közötti részleges törléshez vagy áttűnéshez.</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="106"/>
@@ -1825,14 +2338,9 @@ Blender elérési útja:
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
-        <source>Freeze Before</source>
-        <translation>Kimerevítés előtte</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Longitude (Prime Meridian)</source>
-        <translation>Indulási hosszúság (kezdő meridián)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+        <source>Old Dust</source>
+        <translation>Poros</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
     </message>
     <message>
         <source>Glare</source>
@@ -1840,54 +2348,14 @@ Blender elérési útja:
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glare.xml</extra-po-references>
     </message>
     <message>
-        <source>Adjusts the brightness of the image</source>
-        <translation>Kép fényességének szabályozása</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
+        <source>Adjust the image up and down, with the off-screen portion appearing on the other side</source>
+        <translation>A kép fel-le mozgatása úgy, hogy a kilógó rész visszajön a másik oldalon</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
     </message>
     <message>
-        <source>Rotate X</source>
-        <translation>Forgatás X tengely körül</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Uses a grayscale mask image to gradually wipe / transition between 2 images.</source>
-        <translation>Szürkeárnyalatos maszk alkalmazása két kép közötti részleges törléshez vagy áttűnéshez.</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Velocity: Z</source>
-        <translation>Sebesség: Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>v</source>
-        <translation>v</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fisheye</source>
-        <translation>Halszem</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Glow</source>
-        <translation>Ragyogás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/glow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>something videowall-ish</source>
-        <translation>Videófal szerű</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Green</source>
-        <translation>Zöld</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Latitude (seconds)</source>
-        <translation>Indulási szélesség (másodperc)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+        <source>Green Tint</source>
+        <translation>Zöldes árnyalatú</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
     </message>
     <message>
         <source>Make a single color transparent.  Also referred to as green screen and blue screen.</source>
@@ -1900,294 +2368,14 @@ Blender elérési útja:
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
     </message>
     <message>
-        <source>Best Fit</source>
-        <translation>Legjobb illeszkedés</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Echo</source>
-        <translation>Visszhang</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Picture 1 Path</source>
-        <translation>Kép 1 útvonal</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Particles: Lifetime</source>
-        <translation>Részecskék: Életidő</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation>Típus</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>World Map (Realistic)</source>
-        <translation>Világtérkép (valósághű)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Delta</source>
-        <translation>Különbség</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Tile 1: Diffuse Color</source>
-        <translation>Csempe 1: Szórt szín</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Old Film</source>
-        <translation>Régi film</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Decay</source>
-        <translation>Bomlás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the color of the image to emulate black-and-white film that has had sepia pigment added</source>
-        <translation>Kép színeinek szabályozása, hogy olyan fekete-fehér film benyomását keltse, melyhez szépia pigmentet kevertek</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Crop</source>
-        <translation>Vágás</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Luma formula</source>
-        <translation>Világosság formula</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>X Offset</source>
-        <translation>X irányú eltolás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Display Ground</source>
-        <translation>Föld mutatása</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Map black to</source>
-        <translation>Fekete leképezése</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Z Coordinate</source>
-        <translation>Z koordináta</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Blur the image similar to an out-of-focus camera</source>
-        <translation>Kép elmosása életlen fókusszal</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/blur.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Lens Correction</source>
-        <translation>Lencse korrekció</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Vertical Radius</source>
-        <translation>Függőleges sugár</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Delay grab</source>
-        <translation>Késleltetés húzása</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Y Offset</source>
-        <translation>Y irányú eltolás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Line 4 Color</source>
-        <translation>Vonal 4 szín</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Transition width</source>
-        <translation>Áttűnés szélessége</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Color Tiles</source>
-        <translation>Szín mozaik</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Invert horizontally or vertically</source>
-        <translation>Függőleges vagy vízszintes invertálás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Magic Wand</source>
-        <translation>Varázspálca</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Latitude (minutes)</source>
-        <translation>Indulási szélesség (perc)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Operation</source>
-        <translation>Művelet</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Center</source>
-        <translation>Középre</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Tint a source image with specified color</source>
-        <translation>A forráskép beszínezése egy megadott színnel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Start: Z</source>
-        <translation>Kezdés: Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Bottom</source>
-        <translation>Lent</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Animation Length</source>
-        <translation>Animáció hossza</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Equalizor</source>
-        <translation>Kiegyenlítő</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Line 3 Color</source>
-        <translation>Vonal 3 szín</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Start Frame</source>
-        <translation>Kezdő képkocka</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Lighter</source>
-        <translation>Világosabb</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Longitude (seconds)</source>
-        <translation>Indulási hosszúság (másodperc)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Freeze</source>
-        <translation>Kimerevítés</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Particles: Amount</source>
-        <translation>Részecskék: mennyiség</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fixed Rotate Z</source>
-        <translation>Állandó Z forgatás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Tilt</source>
-        <translation>Döntés</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Reduces and mixes the colors of the image based on a threshold</source>
-        <translation>Egy küszöbérték alapján csökkenti és keveri a kép színeit</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threshold.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Text Width</source>
-        <translation>Szövegméret</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Tint</source>
-        <translation>Árnyalat</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Param</source>
-        <translation>Paraméter</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sun: Number of Streaks</source>
-        <translation>Nap: Sugarak száma</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Aspect ratio</source>
-        <translation>Méretarány</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Max Diameter</source>
-        <translation>Maximális átmérő</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Bottom Left</source>
-        <translation>Bal lent</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Edgeglow</source>
-        <translation>Élfény</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Text Size</source>
-        <translation>Szövegméret</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
         <source>Depart Latitude (Equator)</source>
         <translation>Indulási szélesség (egyenlítő)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
-        <source>Bass</source>
-        <translation>Mély hangok</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Vignette</source>
-        <translation>Matrica</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Size</source>
-        <translation>Halo: Méret</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Black color</source>
-        <translation>Fekete szín</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+        <source>Correction near center</source>
+        <translation>Javítás a középpont közelében</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
     </message>
     <message>
         <source>Noise</source>
@@ -2195,364 +2383,14 @@ Blender elérési útja:
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
     </message>
     <message>
-        <source>Location Y</source>
-        <translation>Y helyzet</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+        <source>Add a series of peaks and troughs to the audio, creating a sweeping effect</source>
+        <translation>Csúcsok és völgyek sorozatának hozzáadása a hanghoz, száguldás effektus</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
     </message>
     <message>
-        <source>Green Tint</source>
-        <translation>Zöldes árnyalatú</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Manual Scale</source>
-        <translation>Kézi méretezés</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gain In</source>
-        <translation>Növekszik</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Blue/Yellow</source>
-        <translation>Kék és sárga</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Display a single color, while using greyscale for the rest of the image</source>
-        <translation>Egy szín használata, miközben a kép többi része fekete-fehér</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Start: X</source>
-        <translation>Kezdés: X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Primary Colors</source>
-        <translation>Elsődleges színek</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Shadeless</source>
-        <translation>Háttér: Árnyék nélkül</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Mix</source>
-        <translation>Keverés</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Horizontal Radius</source>
-        <translation>Vízszintes sugár</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Sepia</source>
-        <translation>Szépia</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Slide Left to Right</source>
-        <translation>Balról jobbra csúszás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/slide_left_to_right.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Input level white point</source>
-        <translation>Bemeneti fehér szint</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Histogram position</source>
-        <translation>A hisztogram pozíciója</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Amount</source>
-        <translation>Mennyisége</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Three point balance</source>
-        <translation>Hárompontos egyensúly</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Snow</source>
-        <translation>Hó</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Longitude (Prime Meridian)</source>
-        <translation>Érkezési hosszúság (0. hosszúsági kör)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Latitude (minutes)</source>
-        <translation>Érkezési szélesség (perc)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Viewport</source>
-        <translation>Nézőpont</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Tint amount</source>
-        <translation>Színezés mértéke</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Right</source>
-        <translation>Jobb</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Baltan</source>
-        <translation>Baltan</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Diffuse Color</source>
-        <translation>Háttér: Színelmosás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Start: Y</source>
-        <translation>Kezdés: Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Scale X</source>
-        <translation>X méretezés</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Gravity</source>
-        <translation>Gravitáció</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the image up and down, with the off-screen portion appearing on the other side</source>
-        <translation>A kép fel-le mozgatása úgy, hogy a kilógó rész visszajön a másik oldalon</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Charcoal</source>
-        <translation>Rajzszén</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Make image sharper</source>
-        <translation>Tedd a képeket élesebbé</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
-    </message>
-    <message>
-        <source>White color</source>
-        <translation>Fehér szín</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Show histogram</source>
-        <translation>Hisztogram megjelenítése</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Ring Count</source>
-        <translation>Halo: Gyűrűk száma</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>X Center</source>
-        <translation>X középpont</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Add an echo</source>
-        <translation>Visszhang hozzáadása</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Specular Intensity</source>
-        <translation>Tükröződő intenzitás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Location X</source>
-        <translation>Helyzet X</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Gravity: Z</source>
-        <translation>Gravitáció: Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Bottom Center</source>
-        <translation>Középen lent</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Number</source>
-        <translation>Szám</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sobel</source>
-        <translation>Sobel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Threshold</source>
-        <translation>Küszöbszint</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Use Flare</source>
-        <translation>Halo: Csillogás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Manual Pixel Aspect ratio</source>
-        <translation>Kézi pixel méretarány</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Split preview</source>
-        <translation>Megosztott előnézet</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Latitude (degrees)</source>
-        <translation>Indulási szélesség (fok)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Alpha controlled</source>
-        <translation>Alfa-vezérelt</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>ID</source>
-        <translation>AZONOSÍTÓ</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>End Frame</source>
-        <translation>Utolsó képkocka</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the high-pitched sound or tone</source>
-        <translation>A magas hangok szabályozása</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/treble.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Split and mirror the image</source>
-        <translation>A kép kettévágása és tükrözése</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Remove interlacing from a video (i.e. even or odd horizontal lines)</source>
-        <translation>Váltottsorosság eltávolítása a videóból (páros vagy páratlan vízszintes sorok)</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Is Odd Frame</source>
-        <translation>Páratlan képkocka</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the left/right balance</source>
-        <translation>Bal-jobb egyensúly szabályozása</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Brightness &amp; Contrast</source>
-        <translation>Fényerő és kontraszt</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>delayed alpha smoothed blit of time</source>
-        <translation>Időben finomított késleltetett alfa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Output level black point</source>
-        <translation>Kimeneti fekete szint</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Lens vignetting</source>
-        <translation>Lencsekeret</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Title Specular Color</source>
-        <translation>Felirat tükröződési szín</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Midpoint</source>
-        <translation>Felezőpont</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sun: Angle Offset</source>
-        <translation>Nap: Szögeltolás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Latitude (seconds)</source>
-        <translation>Érkezési szélesség (másodperc)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>X Scatter</source>
-        <translation>X szórás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Particles: Gravity</source>
-        <translation>Részecskék: gravitáció</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Old Grain</source>
-        <translation>Idős Búza</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fly Towards Camera</source>
-        <translation>Repülés a kamera felé</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/fly_by_1.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo Zoom Out</source>
-        <translation>Halo: Kicsinyítés</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/halo_zoom_out.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Factor</source>
-        <translation>Szorzó</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
-    </message>
-    <message>
-        <source>X Coordinate</source>
-        <translation>X koordináta</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Fresnel</source>
-        <translation>Háttér: Fresnel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Title Diffuse Color</source>
-        <translation>Felirat átmosási színe</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+        <source>Interval</source>
+        <translation>Időtartam</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
     </message>
     <message>
         <source>Fixed Rotate X</source>
@@ -2560,108 +2398,48 @@ Blender elérési útja:
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
-        <source>Flying Title</source>
-        <translation>Repülő felirat</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+        <source>Snow</source>
+        <translation>Hó</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
-        <source>Add small dust shapes randomly on the image</source>
-        <translation>Véletlenszerű apró porszemcséket ad a képhez</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Defocus</source>
-        <translation>Életlen fókusz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Block Size X</source>
-        <translation>Blokkméret X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation>Méret</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Variance</source>
-        <translation>Eltérés</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
-    </message>
-    <message>
-        <source>End: Z</source>
-        <translation>Vége: Z</translation>
+        <source>Halo: Use Stars</source>
+        <translation>Halo: Csillagok használata</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
-        <source>Halo: Ending Size</source>
-        <translation>Halo: Befejező méret</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+        <source>Red Scale</source>
+        <translation>Vörös skála</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
     </message>
     <message>
-        <source>Adds black borders at the top and bottom</source>
-        <translation>Fekete sáv hozzáadása fent és lent</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
+        <source>Title Diffuse Color</source>
+        <translation>Felirat átmosási színe</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
     </message>
     <message>
-        <source>Gamma</source>
-        <translation>Gamma</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml</extra-po-references>
+        <source>Manual Pixel Aspect ratio</source>
+        <translation>Kézi pixel méretarány</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
     </message>
     <message>
-        <source>Red/Green Axis</source>
-        <translation>Vörös/Zöld keverés</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Every</source>
-        <translation>Minden</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Trees</source>
-        <translation>Fák</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/trees.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Action</source>
-        <translation>Művelet</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Alpha</source>
-        <translation>Háttér: Alfa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adds static and grain to the image</source>
-        <translation>Zajt és szemcsézettséget ad a képhez</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Title</source>
-        <translation>Indulási felirat</translation>
+        <source>Arrival Latitude (Equator)</source>
+        <translation>Érkezési szélesség (egyenlítő)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
-        <source>Use Alpha</source>
-        <translation>Alfa használata</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml</extra-po-references>
+        <source>Sun: Color Threshold</source>
+        <translation>Nap: Szín küszöb</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
-        <source>Input level black point</source>
-        <translation>Bemeneti fekete szint</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+        <source>Fisheye</source>
+        <translation>Halszem</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
     </message>
     <message>
-        <source>Particle Number</source>
-        <translation>Részecskeszám</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Position</source>
-        <translation>Pozíció</translation>
+        <source>Horizontal Radius</source>
+        <translation>Vízszintes sugár</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2670,174 +2448,95 @@ Blender elérési útja:
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
     </message>
     <message>
-        <source>Sigma</source>
-        <translation>Szigma</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+        <source>Size</source>
+        <translation>Méret</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
     </message>
     <message>
-        <source>Equalizes the intensity histograms</source>
-        <translation>Az intenzitás-hisztogramok kiegyenlítése</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml</extra-po-references>
+        <source>Delay grab</source>
+        <translation>Késleltetés húzása</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml</extra-po-references>
     </message>
     <message>
-        <source>Source image on left side</source>
-        <translation>Forráskép a bal oldalon</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Space Movie Intro</source>
-        <translation>Űr mozifilm bevezető</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Use Lines</source>
-        <translation>Halo: Sorok használata</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gain</source>
-        <translation>Erősítés</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Y axis</source>
-        <translation>Y tengely</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Invert</source>
-        <translation>Invertálás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Rotate Y</source>
-        <translation>Forgatás Y tengely körül</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Use Rings</source>
-        <translation>Halo: Gyűrűk használata</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Speed</source>
-        <translation>Sebesség</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
-    </message>
-    <message>
-        <source>World Map</source>
-        <translation>Világtérkép</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Color Saturation</source>
-        <translation>Színtelítettség</translation>
+        <source>Adjust the color saturation.</source>
+        <translation>Színtelítettség szabályozása.</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
-        <source>Main Text</source>
-        <translation>Fő szöveg</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Layer</source>
-        <translation>Réteg</translation>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="115"/>
+        <source>End</source>
+        <translation>Vége</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Adjusts the saturation or intensity of the image</source>
-        <translation>A kép telítettségének vagy intenzitásának szabályozása</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/saturation.xml</extra-po-references>
+        <source>Sun: Angle Offset</source>
+        <translation>Nap: Szögeltolás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
-        <source>File Name</source>
-        <translation>Fájlnév</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+        <source>Velocity: Y</source>
+        <translation>Sebesség: Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
-        <source>Arrival Longitude (seconds)</source>
-        <translation>Érkezési hosszúság (másodperc)</translation>
+        <source>Background: Specular Color</source>
+        <translation>Háttér: Tükröződési szín</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Max</source>
+        <translation>Maximum</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation>Lent</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tint</source>
+        <translation>Árnyalat</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the high-pitched sound or tone</source>
+        <translation>A magas hangok szabályozása</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/treble.xml</extra-po-references>
+    </message>
+    <message>
+        <source>End: X</source>
+        <translation>Vége: X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Simple color adjustment</source>
+        <translation>Egyszerű színmódosítás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Longitude (minutes)</source>
+        <translation>Indulási hosszúság (perc)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
-        <source>Freeze the frame of a video</source>
-        <translation>A videó egy képének kimerevítése</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Delay</source>
-        <translation>Késleltetés</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Font Name</source>
-        <translation>Betűkészlet neve</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Trip Level</source>
-        <translation>Ugrásszint</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust color balance with 3 color points</source>
-        <translation>Színegyensúly szabályozása három színponttal</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fly Towards Camera (Two Titles)</source>
-        <translation>Repülés a kamera felé (két felirat)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/fly_by_two_titles.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Scan Lines</source>
-        <translation>Sorok pásztázása</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Mirror</source>
-        <translation>Tükrözés</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjusts the contrast of a source image</source>
-        <translation>Bemeneti kép kontrasztjának szabályozása</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/contrast.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Convert an image to shades of grey</source>
-        <translation>Kép szürkeárnyalatossá alakítása</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Phaser</source>
-        <translation>Fázisléptető</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fuzz</source>
-        <translation>Göndör</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Anchor</source>
-        <translation>Horgony</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Line 2 Color</source>
-        <translation>Vonal 2 szín</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Pixelate</source>
-        <translation>Pixelesítés</translation>
+        <source>Block Size Y</source>
+        <translation>Blokkméret Y</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
     </message>
     <message>
-        <source>Left | Right</source>
-        <translation>Bal | Jobb</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
+        <source>Rotate Z</source>
+        <translation>Forgatás Z tengely körül</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Y Offset</source>
+        <translation>Y irányú eltolás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Particles: Lifetime</source>
+        <translation>Részecskék: Életidő</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Interpolation</source>
@@ -2845,9 +2544,139 @@ Blender elérési útja:
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
     </message>
     <message>
-        <source>Dynamic 3 level thresholding</source>
-        <translation>Dinamikus 3 szintű küszöbérték</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml</extra-po-references>
+        <source>Depart Latitude (minutes)</source>
+        <translation>Indulási szélesség (perc)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Line Count</source>
+        <translation>Halo: Sorok száma</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Calculates the distance between the selected color and the current pixel and uses that value as new pixel value</source>
+        <translation>A kiválasztott szín és a jelenlegi pixelérték közötti távolság használata az új pixelértékhez</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Longitude (seconds)</source>
+        <translation>Indulási hosszúság (másodperc)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Latitude (minutes)</source>
+        <translation>Érkezési szélesség (perc)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Freeze</source>
+        <translation>Kimerevítés</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Start Value</source>
+        <translation>Kezdőérték</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Nosync</source>
+        <translation>Nincs szinkron</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Position</source>
+        <translation>Pozíció</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Gravity: X</source>
+        <translation>Gravitáció: X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Trees</source>
+        <translation>Fák</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/trees.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Frequency</source>
+        <translation>Frekvencia</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Filter the image to look like it is drawn with charcoal</source>
+        <translation>Szűrő alkalmazása a képen, hogy úgy tűnjön mintha szénnel rajzolták volna</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Szín</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Exploding Text</source>
+        <translation>Szétrobbanó szöveg</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Location Y</source>
+        <translation>Y helyzet</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Animation Length</source>
+        <translation>Animáció hossza</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Scale Y</source>
+        <translation>Y méretezés</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Channel</source>
+        <translation>Csatorna</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tile 3: Diffuse Color</source>
+        <translation>Csempe 3: Szórt szín</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gravity: Y</source>
+        <translation>Gravitáció: Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Amplitude</source>
+        <translation>Amplitúdó</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Distort the source similar to plasma</source>
+        <translation>A forrás plazmaszerűvé torzítása</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Transition width</source>
+        <translation>Áttűnés szélessége</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>End Value</source>
+        <translation>Végső érték</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Spots: Color Threshold</source>
+        <translation>Foltok: szín küszöb</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sigma</source>
+        <translation>Szigma</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Blinds (Two Titles)</source>
@@ -2855,119 +2684,254 @@ Blender elérési útja:
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml</extra-po-references>
     </message>
     <message>
+        <source>Y Center</source>
+        <translation>Y közép</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the blur of the frame&apos;s image.</source>
+        <translation>Képkockák elmosásának szabályozása.</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Ending Size</source>
+        <translation>Halo: Befejező méret</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Use Alpha</source>
+        <translation>Alfa használata</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Correction near edges</source>
+        <translation>Javítás a szélek közelében</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Softness</source>
+        <translation>Lágyság</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Number</source>
+        <translation>Szám</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Add an echo</source>
+        <translation>Visszhang hozzáadása</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Wave Color</source>
+        <translation>Hullám színe</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Start: Y</source>
+        <translation>Kezdés: Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Split and mirror the image</source>
+        <translation>A kép kettévágása és tükrözése</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
+    </message>
+    <message>
         <source>Keep luma</source>
         <translation>Világosság megtartása</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
-        <source>Treble</source>
-        <translation>Magas</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/treble.xml</extra-po-references>
+        <source>Viewport</source>
+        <translation>Nézőpont</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Fixed Rotate Y</source>
-        <translation>Állandó Y forgatás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+        <source>Velocity: Z</source>
+        <translation>Sebesség: Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
-        <source>Width</source>
-        <translation>Szélesség</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+        <source>Text Size</source>
+        <translation>Szövegméret</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
-        <source>Default Theme</source>
-        <translation>Alapértelmezett téma</translation>
-        <extra-po-references>Settings for theme</extra-po-references>
+        <source>Line 1 Color</source>
+        <translation>Vonal 1 szín</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
     </message>
     <message>
-        <source>Xbox 360</source>
-        <translation>Xbox 360</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/xbox360.xml</extra-po-references>
+        <source>Black and White</source>
+        <translation>Fekete-fehér</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
     </message>
     <message>
-        <source>Wikipedia</source>
-        <translation>Wikipédia</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/wikipedia.xml</extra-po-references>
+        <source>Sub Title</source>
+        <translation>Alcím</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml</extra-po-references>
     </message>
     <message>
-        <source>MPEG (mpeg2)</source>
-        <translation>MPEG (mpeg2)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mpeg_mpeg2.xml</extra-po-references>
+        <source>End: Y</source>
+        <translation>Vége: Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
-        <source>DVD-PAL</source>
-        <translation>DVD-PAL</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_pal.xml</extra-po-references>
+        <source>Tile 2: Diffuse Color</source>
+        <translation>Csempe 2: Szórt szín</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
-        <source>Advanced Title Editor (path)</source>
-        <translation>Haladó felirat szerkesztő (mozgatás)</translation>
-        <extra-po-references>Settings for title_editor</extra-po-references>
+        <source>Equalizes the intensity histograms</source>
+        <translation>Az intenzitás-hisztogramok kiegyenlítése</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml</extra-po-references>
     </message>
     <message>
-        <source>Default Profile</source>
-        <translation>Alapértelmezett profil</translation>
-        <extra-po-references>Settings for default-profile</extra-po-references>
+        <source>Adjust the left/right balance</source>
+        <translation>Bal-jobb egyensúly szabályozása</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
     </message>
     <message>
-        <source>Vimeo-HD</source>
-        <translation>Vimeo-HD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/vimeo_HD.xml</extra-po-references>
+        <source>Freeze Before</source>
+        <translation>Kimerevítés előtte</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
     </message>
     <message>
-        <source>All Formats</source>
-        <translation>Minden formátum</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml</extra-po-references>
+        <source>Arrival Longitude (minutes)</source>
+        <translation>Érkezési hosszúság (perc)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
-        <source>Apple TV</source>
-        <translation>Apple TV</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml</extra-po-references>
+        <source>Wireframe Text</source>
+        <translation>Drótváz szöveg</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/wireframe_text.xml</extra-po-references>
     </message>
     <message>
-        <source>AVCHD Disks</source>
-        <translation>AVCHD lemezek</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml</extra-po-references>
+        <source>Threshold</source>
+        <translation>Küszöbszint</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
     </message>
     <message>
-        <source>AVI (mpeg2)</source>
-        <translation>AVI (mpeg2)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mpeg2.xml</extra-po-references>
+        <source>X axis</source>
+        <translation>X tengely</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
     </message>
     <message>
-        <source>Blu-Ray/AVCHD</source>
-        <translation>Blu-Ray és AVCHD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml</extra-po-references>
+        <source>Line 4 Color</source>
+        <translation>Vonal 4 szín</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
     </message>
     <message>
-        <source>Flickr-HD</source>
-        <translation>Flickr-HD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/flickr_HD.xml</extra-po-references>
+        <source>Adjust the brightness and contrast of the frame&apos;s image.</source>
+        <translation>Képkockák fényerejének és kontrasztjának szabályzása.</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
-        <source>DVD-NTSC</source>
-        <translation>DVD-NTSC</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml</extra-po-references>
+        <source>Is Odd Frame</source>
+        <translation>Páratlan képkocka</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Nokia nHD</source>
-        <translation>Nokia nHD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/nokia_nHD.xml</extra-po-references>
+        <source>Map black to</source>
+        <translation>Fekete leképezése</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
     </message>
     <message>
-        <source>MP4 (Xvid)</source>
-        <translation>MP4 (Xvid)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_xvid.xml</extra-po-references>
+        <source>Map white to</source>
+        <translation>Fehér leképezése</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
     </message>
     <message>
-        <source>AVI (mpeg4)</source>
-        <translation>AVI (mpeg4)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mp4.xml</extra-po-references>
+        <source>Text Width</source>
+        <translation>Szövegméret</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
-        <source>WEBM (vpx)</source>
-        <translation>WEBM (vpx)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml</extra-po-references>
+        <source>Increase the size of pixels to obscure the image</source>
+        <translation>A pixelméret növelése a kép tompává tételéhez</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Top Right</source>
+        <translation>Jobb felső</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Dynamic 3 level thresholding</source>
+        <translation>Dinamikus 3 szintű küszöbérték</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Alphagrad</source>
+        <translation>Áttetszőségi fokozat</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Trip Level</source>
+        <translation>Ugrásszint</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>Mennyisége</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Canvas</source>
+        <translation>Rajzvászon</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Freeze the frame of a video</source>
+        <translation>A videó egy képének kimerevítése</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Title</source>
+        <translation>Érkezési felirat</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Factor</source>
+        <translation>Szorzó</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Defish</source>
+        <translation>Defish</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>X Center</source>
+        <translation>X középpont</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sun: Type of Glare</source>
+        <translation>Nap: Ragyogás típusa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adds black borders at the top and bottom</source>
+        <translation>Fekete sáv hozzáadása fent és lent</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fills alpha channel with a gradient</source>
+        <translation>Alfa csatorna kitöltése átmenettel</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Greyscale</source>
+        <translation>Szürkeárnyalatos</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Split preview</source>
+        <translation>Megosztott előnézet</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
     </message>
     <message>
         <source>MP4 (h.264)</source>
@@ -2980,39 +2944,24 @@ Blender elérési útja:
         <extra-po-references>Settings for blender_command</extra-po-references>
     </message>
     <message>
-        <source>Default Audio Sample Rate</source>
-        <translation>Alapértelmezett hang mintavételi-frekvencia</translation>
-        <extra-po-references>Settings for default-samplerate</extra-po-references>
-    </message>
-    <message>
-        <source>YouTube</source>
-        <translation>YouTube</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/youtube.xml</extra-po-references>
-    </message>
-    <message>
-        <source>MP4 (mpeg4)</source>
-        <translation>MP4 (mpeg4)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_mpeg4.xml</extra-po-references>
-    </message>
-    <message>
         <source>AVI (h.264)</source>
         <translation>AVI (h.264)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_x264.xml</extra-po-references>
     </message>
     <message>
-        <source>OGG (theora/vorbis)</source>
-        <translation>OGG (theora/vorbis)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_libvorbis.xml</extra-po-references>
+        <source>Wikipedia</source>
+        <translation>Wikipédia</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/wikipedia.xml</extra-po-references>
     </message>
     <message>
-        <source>MOV (mpeg4)</source>
-        <translation>MOV (mpeg4)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mov_mpeg4.xml</extra-po-references>
+        <source>Default Profile</source>
+        <translation>Alapértelmezett profil</translation>
+        <extra-po-references>Settings for default-profile</extra-po-references>
     </message>
     <message>
-        <source>YouTube-HD</source>
-        <translation>YouTube-HD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/youtube_HD.xml</extra-po-references>
+        <source>AVI (mpeg4)</source>
+        <translation>AVI (mpeg4)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mp4.xml</extra-po-references>
     </message>
     <message>
         <source>OGG (theora/flac)</source>
@@ -3020,14 +2969,64 @@ Blender elérési útja:
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_flac.xml</extra-po-references>
     </message>
     <message>
-        <source>FLV (h.264)</source>
-        <translation>FLV (h.264)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_flv_x264.xml</extra-po-references>
-    </message>
-    <message>
         <source>Picasa</source>
         <translation>Picasa</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/picasa.xml</extra-po-references>
+    </message>
+    <message>
+        <source>DVD-PAL</source>
+        <translation>DVD-PAL</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_pal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>DVD</source>
+        <translation>DVD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Flickr-HD</source>
+        <translation>Flickr-HD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/flickr_HD.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Apple TV</source>
+        <translation>Apple TV</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Default Theme</source>
+        <translation>Alapértelmezett téma</translation>
+        <extra-po-references>Settings for theme</extra-po-references>
+    </message>
+    <message>
+        <source>YouTube-HD</source>
+        <translation>YouTube-HD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/youtube_HD.xml</extra-po-references>
+    </message>
+    <message>
+        <source>WEBM (vpx)</source>
+        <translation>WEBM (vpx)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Xbox 360</source>
+        <translation>Xbox 360</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/xbox360.xml</extra-po-references>
+    </message>
+    <message>
+        <source>YouTube</source>
+        <translation>YouTube</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/youtube.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Send Anonymous Metrics and Errors</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for send_metrics</extra-po-references>
+    </message>
+    <message>
+        <source>Metacafe</source>
+        <translation>Metacafe</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="118"/>
@@ -3036,24 +3035,34 @@ Blender elérési útja:
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/vimeo.xml</extra-po-references>
     </message>
     <message>
-        <source>Device</source>
-        <translation>Eszköz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml</extra-po-references>
+        <source>AVI (mpeg2)</source>
+        <translation>AVI (mpeg2)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mpeg2.xml</extra-po-references>
+    </message>
+    <message>
+        <source>MP4 (Xvid)</source>
+        <translation>MP4 (Xvid)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_xvid.xml</extra-po-references>
+    </message>
+    <message>
+        <source>OGG (theora/vorbis)</source>
+        <translation>OGG (theora/vorbis)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_libvorbis.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Debug Mode (Verbose)</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for debug-mode</extra-po-references>
+    </message>
+    <message>
+        <source>Advanced Title Editor (path)</source>
+        <translation>Haladó felirat szerkesztő (mozgatás)</translation>
+        <extra-po-references>Settings for title_editor</extra-po-references>
     </message>
     <message>
         <source>Default Audio Channels</source>
         <translation>Alapértelmezet hangcsatornák</translation>
         <extra-po-references>Settings for default-channellayout</extra-po-references>
-    </message>
-    <message>
-        <source>Web</source>
-        <translation>Web</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Metacafe</source>
-        <translation>Metacafe</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml</extra-po-references>
     </message>
     <message>
         <source>MOV (h.264)</source>
@@ -3066,34 +3075,184 @@ Blender elérési útja:
         <extra-po-references>Settings for default-image-length</extra-po-references>
     </message>
     <message>
-        <source>DVD</source>
-        <translation>DVD</translation>
+        <source>MP4 (mpeg4)</source>
+        <translation>MP4 (mpeg4)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_mpeg4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Nokia nHD</source>
+        <translation>Nokia nHD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/nokia_nHD.xml</extra-po-references>
+    </message>
+    <message>
+        <source>AVCHD Disks</source>
+        <translation>AVCHD lemezek</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Blu-Ray/AVCHD</source>
+        <translation>Blu-Ray és AVCHD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml</extra-po-references>
+    </message>
+    <message>
+        <source>MOV (mpeg4)</source>
+        <translation>MOV (mpeg4)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mov_mpeg4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Device</source>
+        <translation>Eszköz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml</extra-po-references>
+    </message>
+    <message>
+        <source>MPEG (mpeg2)</source>
+        <translation>MPEG (mpeg2)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mpeg_mpeg2.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Web</source>
+        <translation>Web</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml</extra-po-references>
+    </message>
+    <message>
+        <source>All Formats</source>
+        <translation>Minden formátum</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Vimeo-HD</source>
+        <translation>Vimeo-HD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/vimeo_HD.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Default Audio Sample Rate</source>
+        <translation>Alapértelmezett hang mintavételi-frekvencia</translation>
+        <extra-po-references>Settings for default-samplerate</extra-po-references>
+    </message>
+    <message>
+        <source>DVD-NTSC</source>
+        <translation>DVD-NTSC</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml</extra-po-references>
     </message>
     <message>
-        <source>Right arrow</source>
-        <translation>Jobb nyíl</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_arrow.jpg</extra-po-references>
+        <source>FLV (h.264)</source>
+        <translation>FLV (h.264)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_flv_x264.xml</extra-po-references>
     </message>
     <message>
-        <source>Mountains</source>
-        <translation>Hegyek</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mountains.jpg</extra-po-references>
+        <source>Sunlight %s</source>
+        <translation>Napfény %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sunlight_2.jpg</extra-po-references>
     </message>
     <message>
-        <source>Middle right inspiration</source>
-        <translation>Közép inspiráció jobb</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_right_inspiration.jpg</extra-po-references>
+        <source>Ray %s</source>
+        <translation>Sugár %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_1.jpg</extra-po-references>
     </message>
     <message>
-        <source>Hourglass %s</source>
-        <translation>Homokóra %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/hourglass_1.jpg</extra-po-references>
+        <source>Vertical blinds in to out big</source>
+        <translation>Függőleges sötétítés ki (nagy)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out_big.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Dissolve</source>
+        <translation>Áttűnés</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/dissolve.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wave left up</source>
+        <translation>Hullámzás bal fel</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_up.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ripple low arrow</source>
+        <translation>Fodrozódó alsó nyíl</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_low_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Clock right to left</source>
+        <translation>Óra jobbról balra</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_right_to_left.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Twirl %s</source>
+        <translation>Forgatás %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/twirl_26.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral small</source>
+        <translation>Kicsi spirál</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wipe left to right</source>
+        <translation>Törlés balról jobbra</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_left_to_right.svg</extra-po-references>
     </message>
     <message>
         <source>Ray light right %s</source>
         <translation>Jobbról sugárnyaláb %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle cross right barr</source>
+        <translation>Sáv közép kereszt jobb</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Flower %s</source>
+        <translation>Virág %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/flower_4.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Small low arrow</source>
+        <translation>Kicsi alsó nyíl</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_low_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spots</source>
+        <translation>Foltok</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spots.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral %s</source>
+        <translation>Spirál %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Checked %s</source>
+        <translation>Rácsos %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/checked_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle top arrow</source>
+        <translation>Közép felső nyíl</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_top_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Frame %s</source>
+        <translation>Keret %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Small cross left barr</source>
+        <translation>Sáv kis kereszt bal</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_left_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Clouds %s</source>
+        <translation>Felhők %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Horizontal barr %s</source>
+        <translation>Vízszintes sáv %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/horizontal_barr_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Free inspiration right</source>
+        <translation>Szabad inspiráció jobb</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_inspiration_right.jpg</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="762"/>
@@ -3103,69 +3262,164 @@ Blender elérési útja:
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common</extra-po-references>
     </message>
     <message>
-        <source>Cross %s</source>
-        <translation>Kereszt %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/cross_15.jpg</extra-po-references>
+        <source>Board %s</source>
+        <translation>Rács %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/board_10.jpg</extra-po-references>
     </message>
     <message>
-        <source>Spiral small %s</source>
-        <translation>Kicsi spirál %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small_2.jpg</extra-po-references>
+        <source>Big cross left barr</source>
+        <translation>Nagy bal kereszt sáv</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_left_barr.jpg</extra-po-references>
     </message>
     <message>
-        <source>Middle cross left barr</source>
-        <translation>Barr közép kereszt bal</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_left_barr.jpg</extra-po-references>
+        <source>Square middle left barr</source>
+        <translation>Sáv szögletes közép bal</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_left_barr.jpg</extra-po-references>
     </message>
     <message>
-        <source>Stain %s</source>
-        <translation>Pecsét %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/stain_1.jpg</extra-po-references>
+        <source>Fish-eyes %s</source>
+        <translation>Halszem %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fish-eyes_5.jpg</extra-po-references>
     </message>
     <message>
-        <source>Middle left inspiration</source>
-        <translation>Közép inspiráció bal</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_left_inspiration.jpg</extra-po-references>
+        <source>Free left inspiration</source>
+        <translation>Szabad inspiráció bal</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_left_inspiration.jpg</extra-po-references>
     </message>
     <message>
-        <source>Ray %s</source>
-        <translation>Sugár %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_1.jpg</extra-po-references>
+        <source>Extra</source>
+        <translation>Extra</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra</extra-po-references>
     </message>
     <message>
-        <source>Mozaic barr right</source>
-        <translation>Barr mozaik jobb</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_right.jpg</extra-po-references>
+        <source>Barr ripple %s</source>
+        <translation>Sáv fodrozódás %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/barr_ripple_2.jpg</extra-po-references>
     </message>
     <message>
-        <source>Boxes %s</source>
-        <translation>Dobozok %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/boxes_12.jpg</extra-po-references>
+        <source>Ray light left %s</source>
+        <translation>Balról sugárnyaláb %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left_2.jpg</extra-po-references>
     </message>
     <message>
-        <source>Vertical blinds in to out big</source>
-        <translation>Függőleges sötétítés ki (nagy)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out_big.jpg</extra-po-references>
+        <source>Square middle right barr</source>
+        <translation>Sáv szögletes közép jobb</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_right_barr.jpg</extra-po-references>
     </message>
     <message>
-        <source>Wave left down</source>
-        <translation>Hullámzás bal le</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_down.jpg</extra-po-references>
+        <source>Right arrow</source>
+        <translation>Jobb nyíl</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_arrow.jpg</extra-po-references>
     </message>
     <message>
-        <source>Middle losange</source>
-        <translation>Közép rombusz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_losange.jpg</extra-po-references>
+        <source>Circle out to in</source>
+        <translation>Kör kívülről befelé</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_out_to_in.svg</extra-po-references>
     </message>
     <message>
-        <source>Mozaic barr left</source>
-        <translation>Barr mozaik bal</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_left.jpg</extra-po-references>
+        <source>Wave right down</source>
+        <translation>Hullámzás jobb le</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_down.jpg</extra-po-references>
     </message>
     <message>
-        <source>Dissolve</source>
-        <translation>Áttűnés</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/dissolve.jpg</extra-po-references>
+        <source>Wipe diagonal %s</source>
+        <translation>Törlés átlósan %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wipe_diagonal_3.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Little right inspiration</source>
+        <translation>Kicsi inspiráció jobb</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_right_inspiration.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Frame barr right</source>
+        <translation>Jobb keret sáv</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Mosaic %s</source>
+        <translation>Mozaik %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mosaic_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Future %s</source>
+        <translation>Jövő %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/future_11.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Bubbles</source>
+        <translation>Buborékok</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/bubbles.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Luminous boxes %s</source>
+        <translation>Fénylő dobozok %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_boxes_19.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Big cross right barr</source>
+        <translation>Nagy jobb kereszt sáv</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Rectangle out to in</source>
+        <translation>Téglalap be</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_out_to_in.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral big %s</source>
+        <translation>Nagy spirál %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ripple luminous top arrow</source>
+        <translation>Fodrozódó fénylő felső nyíl</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_top_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Vertical blinds in to out</source>
+        <translation>Függőleges sötétítés ki</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Distortion %s</source>
+        <translation>Torzítás %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Rectangle in to out</source>
+        <translation>Téglalap ki</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_in_to_out.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Square left barr</source>
+        <translation>Sáv szögletes bal</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_left_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ripple top arrow</source>
+        <translation>Fodrozódó felső nyíl</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_top_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Small losange</source>
+        <translation>Kis rombusz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_losange.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wandering %s</source>
+        <translation>Vándorló %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wandering_12.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Small barr</source>
+        <translation>Kicsi sáv</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ray light %s</source>
+        <translation>Sugárnyaláb %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_18.jpg</extra-po-references>
     </message>
     <message>
         <source>Sphere</source>
@@ -3173,9 +3427,134 @@ Blender elérési útja:
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere.jpg</extra-po-references>
     </message>
     <message>
-        <source>Sun shaking</source>
-        <translation>Nap mozgás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sun_shaking.jpg</extra-po-references>
+        <source>Mozaic %s</source>
+        <translation>Mozaik %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_5.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Triangle %s</source>
+        <translation>Háromszög %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/triangle_3.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Lateral right triangle</source>
+        <translation>Jobb oldali háromszög</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_right_triangle.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Star %s</source>
+        <translation>Csillag %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/star_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Blur left barr</source>
+        <translation>Sáv elmosás balra</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_left_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Deform %s</source>
+        <translation>Eltorzítás %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/deform_8.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Sphere %s</source>
+        <translation>Gömb %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Strange barr %s</source>
+        <translation>Különös sáv %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/strange_barr_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Blur ray right</source>
+        <translation>Sugár elmosás jobbra</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Luminous spiral %s</source>
+        <translation>Fénylő spirál %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_spiral_9.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Big barr shaking2</source>
+        <translation>Nagy sáv rázkódás 2</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral abstract %s</source>
+        <translation>Absztrakt spirál %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_abstract_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle black barr</source>
+        <translation>Barr közép fekete</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_black_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Blinds sliding</source>
+        <translation>Redőny csúszás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_sliding.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Stretched %s</source>
+        <translation>Nyújtott %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/stretched_3.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ray light right</source>
+        <translation>Jobb sugárnyaláb</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Big barr</source>
+        <translation>Nagy sáv</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Cross %s</source>
+        <translation>Kereszt %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/cross_15.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle low arrow</source>
+        <translation>Közép alsó nyíl</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_low_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ripple %s</source>
+        <translation>Fodrozódás %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_4.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Foggy spiral %s</source>
+        <translation>Homályos spirál %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/foggy_spiral_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Central mozaic</source>
+        <translation>Középső mozaik</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/central_mozaic.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Circle in to out</source>
+        <translation>Kör belülről kifelé</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_in_to_out.svg</extra-po-references>
+    </message>
+    <message>
+        <source>Frame cross left barr</source>
+        <translation>Sáv bal kereszt keret</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_cross_left_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Square right barr</source>
+        <translation>Sáv szögletes jobb</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Blinds in to out</source>
+        <translation>Redőny belülről kifelé</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out.jpg</extra-po-references>
     </message>
     <message>
         <source>Big losange</source>
@@ -3188,59 +3567,9 @@ Blender elérési útja:
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_right.jpg</extra-po-references>
     </message>
     <message>
-        <source>Wipe bottom to top</source>
-        <translation>Törlés alulról felfelé</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_bottom_to_top.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Small low arrow</source>
-        <translation>Kicsi alsó nyíl</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_low_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Flower %s</source>
-        <translation>Virág %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/flower_4.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Twirl %s</source>
-        <translation>Forgatás %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/twirl_26.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Fish-eyes %s</source>
-        <translation>Halszem %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fish-eyes_5.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spots</source>
-        <translation>Foltok</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spots.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral abstract %s</source>
-        <translation>Absztrakt spirál %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_abstract_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Checked %s</source>
-        <translation>Rácsos %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/checked_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Little right inspiration</source>
-        <translation>Kicsi inspiráció jobb</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_right_inspiration.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral small</source>
-        <translation>Kicsi spirál</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Future %s</source>
-        <translation>Jövő %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/future_11.jpg</extra-po-references>
+        <source>Postime %s</source>
+        <translation>Indulás %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/postime_1.jpg</extra-po-references>
     </message>
     <message>
         <source>Hatched %s</source>
@@ -3248,339 +3577,14 @@ Blender elérési útja:
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/hatched_1.jpg</extra-po-references>
     </message>
     <message>
-        <source>Openshot logo</source>
-        <translation>Openshot embléma</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/openshot_logo.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Small cross right barr</source>
-        <translation>Barr kis kereszt jobb</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_right_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Big barr shaking %s</source>
-        <translation>Nagy barr rázkódás %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Frame %s</source>
-        <translation>Keret %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Stretched %s</source>
-        <translation>Nyújtott %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/stretched_3.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Blur left barr</source>
-        <translation>Barr elmosás balra</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_left_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wave left up</source>
-        <translation>Hullámzás bal fel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_up.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>4 squares right barr</source>
-        <translation>4 téglalap jobb oldal</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_right_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle black barr</source>
-        <translation>Barr közép fekete</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_black_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Mosaic %s</source>
-        <translation>Mozaik %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mosaic_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wipe left to right</source>
-        <translation>Törlés balról jobbra</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_left_to_right.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Postime %s</source>
-        <translation>Indulás %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/postime_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Vertical blinds in to out</source>
-        <translation>Függőleges sötétítés ki</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Clouds</source>
-        <translation>Felhők</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Luminous frame %s</source>
-        <translation>Fénylő keret %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_frame_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>4 squares leftt barr</source>
-        <translation>4 téglalap bal oldal</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_leftt_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Blinds sliding</source>
-        <translation>Redőny csúszás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_sliding.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Fogg %s</source>
-        <translation>Homályos %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fogg_3.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Blur ray right</source>
-        <translation>Kék sugár jobbra</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wandering %s</source>
-        <translation>Vándorló %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wandering_12.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Star %s</source>
-        <translation>Csillag %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/star_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ondulation %s</source>
-        <translation>Csepp %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ondulation_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Rectangle out to in</source>
-        <translation>Téglalap be</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_out_to_in.jpg</extra-po-references>
-    </message>
-    <message>
         <source>Middle barr ripple %s</source>
-        <translation>Barr közép fodrozódás %s</translation>
+        <translation>Sáv közép fodrozódás %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr_ripple_2.jpg</extra-po-references>
     </message>
     <message>
-        <source>Blur right barr</source>
-        <translation>Barr elmosás jobbra</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_right_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Frame barr right</source>
-        <translation>Barr jobb keret</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral big</source>
-        <translation>Nagy spirál</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Big cross left barr</source>
-        <translation>Nagy bal kereszt barr</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_left_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wave right up</source>
-        <translation>Hullámzás jobb fel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_up.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ray light %s</source>
-        <translation>Sugárnyaláb %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_18.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Small cross left barr</source>
-        <translation>Barr kis kereszt bal</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_left_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Whirpool %s</source>
-        <translation>Körkörös %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/whirpool_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Distortion %s</source>
-        <translation>Torzítás %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Blinds in to out</source>
-        <translation>Redőny belülről kifelé</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Lateral left triangle</source>
-        <translation>Bal oldali háromszög</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_left_triangle.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Vertical bars</source>
-        <translation>Függőleges vonal</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_bars.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral big %s</source>
-        <translation>Nagy spirál %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Free inspiration right</source>
-        <translation>Szabad inspiráció jobb</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_inspiration_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Left arrow</source>
-        <translation>Bal nyíl</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Board %s</source>
-        <translation>Tábla %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/board_10.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Deform %s</source>
-        <translation>Eltorzítás %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/deform_8.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle barr</source>
-        <translation>Közép barr</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Central mozaic</source>
-        <translation>Középső mozaik</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/central_mozaic.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Puzzle</source>
-        <translation>Puzzle</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/puzzle.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Small losange</source>
-        <translation>Kis rombusz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_losange.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Sunlight %s</source>
-        <translation>Napfény %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sunlight_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Square middle right barr</source>
-        <translation>Barr szögletes közép jobb</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_right_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ray light left %s</source>
-        <translation>Balról sugárnyaláb %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ray light right</source>
-        <translation>Jobb sugárnyaláb</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Luminous spiral %s</source>
-        <translation>Fénylő spirál %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_spiral_9.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Clock left to right</source>
-        <translation>Óra balról jobbra</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_left_to_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Clock right to left</source>
-        <translation>Óra jobbról balra</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_right_to_left.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral %s</source>
-        <translation>Spirál %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Barr ripple %s</source>
-        <translation>Barr fodrozódás %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/barr_ripple_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Clouds %s</source>
-        <translation>Felhők %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Mozaic %s</source>
-        <translation>Mozaik %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_5.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Sphere %s</source>
-        <translation>Gömb %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral medium</source>
-        <translation>Közepes spirál</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_medium.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ripple top arrow</source>
-        <translation>Fodrozódó felső nyíl</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_top_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ripple luminous top arrow</source>
-        <translation>Fodrozódó fénylő felső nyíl</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_top_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Triangle %s</source>
-        <translation>Háromszög %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/triangle_3.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Square right barr</source>
-        <translation>Barr szögletes jobb</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_right_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wipe right to left</source>
-        <translation>Törlés jobbról balra</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_right_to_left.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Ripple low arrow</source>
-        <translation>Fodrozódó alsó nyíl</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_low_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Fractal %s</source>
-        <translation>Fraktál %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fractal_5.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Big barr shaking2</source>
-        <translation>Nagy barr rázkódás 2</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Blinds in to out big</source>
-        <translation>Nagy redőny belülről kifelé</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out_big.jpg</extra-po-references>
+        <source>Wave left down</source>
+        <translation>Hullámzás bal le</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_down.jpg</extra-po-references>
     </message>
     <message>
         <source>Small top arrow</source>
@@ -3588,119 +3592,9 @@ Blender elérési útja:
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_top_arrow.jpg</extra-po-references>
     </message>
     <message>
-        <source>Circle in to out</source>
-        <translation>Kör belülről kifelé</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_in_to_out.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle top arrow</source>
-        <translation>Közép felső nyíl</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_top_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Lateral right triangle</source>
-        <translation>Jobb oldali háromszög</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_right_triangle.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Little left inspiration</source>
-        <translation>Kicsi inspiráció bal</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_left_inspiration.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Square left barr</source>
-        <translation>Barr szögletes bal</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_left_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Square middle left barr</source>
-        <translation>Barr szögletes közép bal</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_left_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Small barr</source>
-        <translation>Kicsi barr</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Circle out to in</source>
-        <translation>Kör kívülről befelé</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_out_to_in.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Foggy spiral %s</source>
-        <translation>Homályos spirál %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/foggy_spiral_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wipe top to bottom</source>
-        <translation>Fentről lefelé eltávolít</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_top_to_bottom.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Horizontal barr %s</source>
-        <translation>Vízszintes barr %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/horizontal_barr_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Blur ray left</source>
-        <translation>Kék sugár balra</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_left.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Crossed barr</source>
-        <translation>Keresztező barr</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/crossed_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Frame cross left barr</source>
-        <translation>Barr bal kereszt keret</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_cross_left_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Right mozaic %s</source>
-        <translation>Jobbról mozaik %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Little rippling left</source>
-        <translation>Kicsi fodrozódás bal</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_left.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Bubbles</source>
-        <translation>Buborékok</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/bubbles.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ripple luminous low arrow</source>
-        <translation>Fodrozódó fénylő alsó nyíl</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_low_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Luminous boxes %s</source>
-        <translation>Fénylő dobozok %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_boxes_19.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Big cross right barr</source>
-        <translation>Nagy jobb kereszt barr</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_right_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wipe diagonal %s</source>
-        <translation>Törlés átlósan %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wipe_diagonal_3.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Rectangle in to out</source>
-        <translation>Téglalap ki</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_in_to_out.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wave right down</source>
-        <translation>Hullámzás jobb le</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_down.jpg</extra-po-references>
+        <source>Mountains</source>
+        <translation>Hegyek</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mountains.jpg</extra-po-references>
     </message>
     <message>
         <source>Left mozaic</source>
@@ -3708,9 +3602,134 @@ Blender elérési útja:
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_mozaic.jpg</extra-po-references>
     </message>
     <message>
-        <source>Ripple %s</source>
-        <translation>Fodrozódás %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_4.jpg</extra-po-references>
+        <source>Big barr shaking %s</source>
+        <translation>Nagy sáv rázkódás %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Little rippling left</source>
+        <translation>Kicsi fodrozódás bal</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_left.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Stain %s</source>
+        <translation>Pecsét %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/stain_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Lateral left triangle</source>
+        <translation>Bal oldali háromszög</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_left_triangle.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle right inspiration</source>
+        <translation>Közép inspiráció jobb</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_right_inspiration.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Vertical bars</source>
+        <translation>Függőleges vonal</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_bars.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Clouds</source>
+        <translation>Felhők</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wipe right to left</source>
+        <translation>Törlés jobbról balra</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_right_to_left.svg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral big</source>
+        <translation>Nagy spirál</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Hourglass %s</source>
+        <translation>Homokóra %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/hourglass_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Blinds in to out big</source>
+        <translation>Nagy redőny belülről kifelé</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out_big.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral small %s</source>
+        <translation>Kicsi spirál %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wave right up</source>
+        <translation>Hullámzás jobb fel</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_up.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wipe top to bottom</source>
+        <translation>Törlés fentről lefelé</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_top_to_bottom.svg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle cross left barr</source>
+        <translation>Sáv közép kereszt bal</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_left_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Luminous frame %s</source>
+        <translation>Fénylő keret %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_frame_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Whirpool %s</source>
+        <translation>Körkörös %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/whirpool_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>4 squares leftt barr</source>
+        <translation>4 téglalap bal oldal</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_leftt_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Openshot logo</source>
+        <translation>Openshot embléma</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/openshot_logo.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ripple luminous low arrow</source>
+        <translation>Fodrozódó fénylő alsó nyíl</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_low_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Right mozaic %s</source>
+        <translation>Jobbról mozaik %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Crossed barr</source>
+        <translation>Keresztező sáv</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/crossed_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Sun shaking</source>
+        <translation>Nap mozgás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sun_shaking.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Small cross right barr</source>
+        <translation>Sáv kis kereszt jobb</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Boxes %s</source>
+        <translation>Dobozok %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/boxes_12.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Mozaic barr right</source>
+        <translation>Sáv mozaik jobb</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_right.jpg</extra-po-references>
     </message>
     <message>
         <source>Ray light left</source>
@@ -3718,29 +3737,84 @@ Blender elérési útja:
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left.jpg</extra-po-references>
     </message>
     <message>
-        <source>Big barr</source>
-        <translation>Nagy barr</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr.jpg</extra-po-references>
+        <source>Blur ray left</source>
+        <translation>Sugár elmosás balra</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_left.jpg</extra-po-references>
     </message>
     <message>
-        <source>Strange barr %s</source>
-        <translation>Különös barr %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/strange_barr_1.jpg</extra-po-references>
+        <source>Puzzle</source>
+        <translation>Puzzle</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/puzzle.jpg</extra-po-references>
     </message>
     <message>
-        <source>Extra</source>
-        <translation>Extra</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra</extra-po-references>
+        <source>Ondulation %s</source>
+        <translation>Csepp %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ondulation_1.jpg</extra-po-references>
     </message>
     <message>
-        <source>Free left inspiration</source>
-        <translation>Szabad inspiráció bal</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_left_inspiration.jpg</extra-po-references>
+        <source>Clock left to right</source>
+        <translation>Óra balról jobbra</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_left_to_right.jpg</extra-po-references>
     </message>
     <message>
-        <source>Middle cross right barr</source>
-        <translation>Barr közép kereszt jobb</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_right_barr.jpg</extra-po-references>
+        <source>Little left inspiration</source>
+        <translation>Kicsi inspiráció bal</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_left_inspiration.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle losange</source>
+        <translation>Közép rombusz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_losange.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>4 squares right barr</source>
+        <translation>4 téglalap jobb oldal</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Mozaic barr left</source>
+        <translation>Sáv mozaik bal</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_left.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Blur right barr</source>
+        <translation>Sáv elmosás jobbra</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral medium</source>
+        <translation>Közepes spirál</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_medium.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wipe bottom to top</source>
+        <translation>Törlés alulról felfelé</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_bottom_to_top.svg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle barr</source>
+        <translation>Közép sáv</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Frame barr left</source>
+        <translation>Sáv bal keret</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_left.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Fractal %s</source>
+        <translation>Fraktál %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fractal_5.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Fogg %s</source>
+        <translation>Homályos %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fogg_3.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Left arrow</source>
+        <translation>Bal nyíl</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg</extra-po-references>
     </message>
     <message>
         <source>Right mozaic</source>
@@ -3748,14 +3822,9 @@ Blender elérési útja:
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic.jpg</extra-po-references>
     </message>
     <message>
-        <source>Frame barr left</source>
-        <translation>Barr bal keret</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_left.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle low arrow</source>
-        <translation>Közép alsó nyíl</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_low_arrow.jpg</extra-po-references>
+        <source>Middle left inspiration</source>
+        <translation>Közép inspiráció bal</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_left_inspiration.jpg</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/about.ui" line="23"/>
@@ -3765,7 +3834,7 @@ Blender elérési útja:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/about.ui" line="67"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;hr/&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Create &amp;amp; Edit Amazing Videos and Movies&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;OpenShot Video Editor 2.x is the next generation of the award-winning &lt;br/&gt;OpenShot video editing platform. &lt;/span&gt;&lt;a href=&quot;http://www.openshot.org?r=about-us&quot;&gt;&lt;span style=&quot; font-size:10pt; text-decoration: none; color:#55aaff;&quot;&gt;Learn more&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;hr/&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Készítsen és szerkesszen lenyűgöző videókat és filmeket&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Az OpenShot Video Editor 2.x a következő generációja a díjnyertes &lt;br/&gt;OpenShot videószerkesztő platformnak. &lt;/span&gt;&lt;a href=&quot;http://www.openshot.org?r=about-us&quot;&gt;&lt;span style=&quot; font-size:10pt; text-decoration: none; color:#55aaff;&quot;&gt;Ismerje meg&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;hr/&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Készítsen és szerkesszen lenyűgöző videókat és filmeket&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Az OpenShot Video Editor 2.x a díjnyertes&lt;br/&gt;OpenShot videószerkesztő platform következő generációja. &lt;/span&gt;&lt;a href=&quot;http://www.openshot.org?r=about-us&quot;&gt;&lt;span style=&quot; font-size:10pt; text-decoration: none; color:#55aaff;&quot;&gt;Ismerje meg&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/about.ui" line="100"/>
