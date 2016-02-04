@@ -40,6 +40,7 @@ CWD = os.getcwd()
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
 HOME_PATH = os.path.join(os.path.expanduser("~"))
 USER_PATH = os.path.join(HOME_PATH, ".openshot_qt")
+BACKUP_PATH = os.path.join(USER_PATH, "backup")
 BLENDER_PATH = os.path.join(USER_PATH, "blender")
 THUMBNAIL_PATH = os.path.join(USER_PATH, "thumbnail")
 CACHE_PATH = os.path.join(USER_PATH, "cache")
@@ -52,7 +53,7 @@ EXPORT_TESTS = os.path.join(USER_PATH, "tests")
 
 # Create PATHS if they do not exist (this is where temp files are stored... such as cached thumbnails)
 for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH, TITLE_PATH, PROFILES_PATH, IMAGES_PATH,
-               TRANSITIONS_PATH, EXPORT_TESTS]:
+               TRANSITIONS_PATH, EXPORT_TESTS, BACKUP_PATH]:
     if not os.path.exists(folder.encode("UTF-8")):
         os.makedirs(folder)
 

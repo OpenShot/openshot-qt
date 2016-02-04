@@ -103,6 +103,9 @@ class TimelineSync(UpdateInterface):
                 self.timeline.SetJson(action.json(only_value=True))
                 self.timeline.Open()  # Re-Open the Timeline reader
 
+                # Refresh current frame (since the entire timeline was updated)
+                self.window.refreshFrameSignal.emit()
+
             else:
                 # This JSON DIFF is passed to libopenshot to update the timeline
                 self.timeline.ApplyJsonDiff(action.json(is_array=True))
@@ -110,5 +113,5 @@ class TimelineSync(UpdateInterface):
             # Resume speed
             self.window.SpeedSignal.emit(current_speed)
 
-        except:
-            log.info("Error applying JSON to timeline object in libopenshot")
+        except Exception as e:
+            log.info("Error applying JSON to timeline object in libopenshot: %s" % e)

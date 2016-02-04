@@ -103,18 +103,18 @@ class PlayerWorker(QObject):
         self.original_position = 0
         self.previous_clip_mappers = []
         self.previous_clip_readers = []
+        self.is_running = True
+        self.number = None
+        self.current_frame = None
+        self.current_mode = None
+
+        # Create QtPlayer class from libopenshot
+        self.player = openshot.QtPlayer()
 
     @pyqtSlot()
     def Start(self):
         """ This method starts the video player """
         log.info("QThread Start Method Invoked")
-
-        # Flag to run thread
-        self.is_running = True
-        self.number = None
-        self.player = None
-        self.current_frame = None
-        self.current_mode = None
 
         # Init new player
         self.initPlayer()
@@ -153,9 +153,6 @@ class PlayerWorker(QObject):
     @pyqtSlot()
     def initPlayer(self):
         log.info("initPlayer")
-
-        # Create QtPlayer class from libopenshot
-        self.player = openshot.QtPlayer()
 
         # Get the address of the player's renderer (a QObject that emits signals when frames are ready)
         self.renderer_address = self.player.GetRendererQObject()

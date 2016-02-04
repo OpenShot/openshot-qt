@@ -28,6 +28,7 @@
  """
 
 import os
+import shutil
 import webbrowser
 from uuid import uuid4
 from copy import deepcopy
@@ -69,6 +70,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
     PauseSignal = pyqtSignal()
     SeekSignal = pyqtSignal(int)
     SpeedSignal = pyqtSignal(float)
+    RecoverBackup = pyqtSignal()
 
     # Save window settings on close
     def closeEvent(self, event):
@@ -101,6 +103,34 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Destroy lock file
         self.destroy_lock_file()
 
+    def recover_backup(self):
+        """Recover the backup file (if any)"""
+        log.info("recover_backup")
+        # Check for backup.osp file
+        recovery_path = os.path.join(info.BACKUP_PATH, "backup.osp")
+
+        # Load recovery project
+        if os.path.exists(recovery_path):
+            log.info("Recovering backup file: %s" % recovery_path)
+            self.open_project(recovery_path, clear_thumbnails=False)
+
+            # Clear the file_path (which is set by saving the project)
+            get_app().project.current_filepath = None
+            get_app().project.has_unsaved_changes = True
+
+            # Set Window title
+            self.SetWindowTitle()
+
+            # Show message to user
+            msg = QMessageBox()
+            _ = get_app()._tr
+            msg.setWindowTitle(_("Backup Recovered"))
+            msg.setText(_("Your most recent unsaved project has been recovered."))
+            msg.exec_()
+        else:
+            # Load a blank project (to propagate the default settings)
+            get_app().project.load("")
+
     def create_lock_file(self):
         """Create a lock file"""
         lock_path = os.path.join(info.USER_PATH, ".lock")
@@ -109,10 +139,21 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Check if it already exists
         if os.path.exists(lock_path):
             # Throw exception
+            log.error("Unhandled crash detected... will attempt to recover backup project: %s" % info.BACKUP_PATH)
             track_metric_error("unhandled-crash", True)
 
             # Remove file
             os.remove(lock_path)
+
+            # Recover backup file (this can't happen until after the Main Window has completely loaded)
+            QTimer.singleShot(0, self.RecoverBackup.emit)
+
+        else:
+            # Normal startup, clear thumbnails
+            self.clear_all_thumbnails()
+
+            # Load a blank project (to propagate the default settings)
+            get_app().project.load("")
 
         # Create lock file
         with open(lock_path, 'w') as f:
@@ -128,6 +169,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             os.remove(lock_path)
 
     def actionNew_trigger(self, event):
+        # Clear any previous thumbnails
+        self.clear_all_thumbnails()
+
         # clear data and start new project
         get_app().project.load("")
         get_app().updates.reset()
@@ -196,7 +240,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             log.error("Couldn't save project {}".format(file_path))
             QMessageBox.warning(self, _("Error Saving Project"), str(ex))
 
-    def open_project(self, file_path):
+    def open_project(self, file_path, clear_thumbnails=True):
         """ Open a project from a file path, and refresh the screen """
 
         app = get_app()
@@ -204,6 +248,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         try:
             if os.path.exists(file_path.encode('UTF-8')):
+                # Clear any previous thumbnails
+                if clear_thumbnails:
+                    self.clear_all_thumbnails()
+
                 # Load project file
                 app.project.load(file_path)
 
@@ -228,6 +276,34 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         except Exception as ex:
             log.error("Couldn't open project {}".format(file_path))
             QMessageBox.warning(self, _("Error Opening Project"), str(ex))
+
+    def clear_all_thumbnails(self):
+        """Clear all user thumbnails"""
+        try:
+            if os.path.exists(info.THUMBNAIL_PATH):
+                log.info("Clear all thumbnails: %s" % info.THUMBNAIL_PATH)
+                # Remove thumbnail folder
+                shutil.rmtree(info.THUMBNAIL_PATH)
+                # Create thumbnail folder
+                os.mkdir(info.THUMBNAIL_PATH)
+
+            # Clear any blender animations
+            if os.path.exists(info.BLENDER_PATH):
+                log.info("Clear all animations: %s" % info.BLENDER_PATH)
+                # Remove blender folder
+                shutil.rmtree(info.BLENDER_PATH)
+                # Create blender folder
+                os.mkdir(info.BLENDER_PATH)
+
+            # Clear any blender animations
+            if os.path.exists(info.BACKUP_PATH):
+                log.info("Clear all backups: %s" % info.BACKUP_PATH)
+                # Remove backup folder
+                shutil.rmtree(info.BACKUP_PATH)
+                # Create backup folder
+                os.mkdir(info.BACKUP_PATH)
+        except:
+            log.info("Failed to clear thumbnails: %s" % info.THUMBNAIL_PATH)
 
     def actionOpen_trigger(self, event):
         app = get_app()
@@ -264,14 +340,26 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Get current filepath (if any)
         file_path = get_app().project.current_filepath
-        if file_path and get_app().project.needs_save():
-            # Append .osp if needed
-            if ".osp" not in file_path:
-                file_path = "%s.osp" % file_path
+        if get_app().project.needs_save():
+            if file_path:
+                # A Real project file exists
+                # Append .osp if needed
+                if ".osp" not in file_path:
+                    file_path = "%s.osp" % file_path
 
-            # Save project
-            log.info("Auto save project file: %s" % file_path)
-            self.save_project(file_path)
+                # Save project
+                log.info("Auto save project file: %s" % file_path)
+                self.save_project(file_path)
+
+            else:
+                # No saved project found
+                recovery_path = os.path.join(info.BACKUP_PATH, "backup.osp")
+                log.info("Creating backup of project file: %s" % recovery_path)
+                get_app().project.save(recovery_path)
+
+                # Clear the file_path (which is set by saving the project)
+                get_app().project.current_filepath = None
+                get_app().project.has_unsaved_changes = True
 
     def actionSaveAs_trigger(self, event):
         app = get_app()
@@ -1412,6 +1500,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Add window as watcher to receive undo/redo status updates
         get_app().updates.add_watcher(self)
 
+        # Connect signals
+        self.RecoverBackup.connect(self.recover_backup)
+
         # Init selection containers
         self.clearSelections()
 
@@ -1461,8 +1552,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Create the timeline sync object (used for previewing timeline)
         self.timeline_sync = TimelineSync(self)
 
-        # Create lock file
-        self.create_lock_file()
+        # Start the preview thread
+        self.preview_parent = PreviewParent()
+        self.preview_parent.Init(self, self.timeline_sync.timeline, self.videoPreview)
+        self.preview_thread = self.preview_parent.worker
 
         # QTimer for Autosave
         self.auto_save_timer = QTimer(self)
@@ -1471,7 +1564,5 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         if s.get("enable-auto-save"):
             self.auto_save_timer.start()
 
-        # Start the preview thread
-        self.preview_parent = PreviewParent()
-        self.preview_parent.Init(self, self.timeline_sync.timeline, self.videoPreview)
-        self.preview_thread = self.preview_parent.worker
+        # Create lock file
+        self.create_lock_file()

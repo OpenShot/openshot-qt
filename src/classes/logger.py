@@ -52,14 +52,14 @@ class StreamToLogger(object):
 # Initialize logging module, give basic formats and level we want to report
 logging.basicConfig(format="%(module)12s:%(levelname)s %(message)s",
                     datefmt='%H:%M:%S',
-                    level=logging.DEBUG)
+                    level=logging.INFO)
 
 # Create a formatter
 formatter = logging.Formatter('%(module)12s:%(levelname)s %(message)s')
 
 # Get logger instance & set level
 log = logging.getLogger('OpenShot')
-log.setLevel(logging.DEBUG)
+log.setLevel(logging.INFO)
 
 # Add rotation file handler
 fh = RotatingFileHandler(

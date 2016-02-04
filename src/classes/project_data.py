@@ -301,23 +301,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         self._data["channels"] = channels
         self._data["channel_layout"] = channel_layout
 
-        # Clear any previous thumbnails
-        try:
-            if os.path.exists(info.THUMBNAIL_PATH):
-                # Remove thumbnail folder
-                shutil.rmtree(info.THUMBNAIL_PATH)
-                # Create thumbnail folder
-                os.mkdir(info.THUMBNAIL_PATH)
-
-            # Clear any blender animations
-            if os.path.exists(info.BLENDER_PATH):
-                # Remove blender folder
-                shutil.rmtree(info.BLENDER_PATH)
-                # Create blender folder
-                os.mkdir(info.BLENDER_PATH)
-        except:
-            pass
-
     def load(self, file_path):
         """ Load project from file """
 
