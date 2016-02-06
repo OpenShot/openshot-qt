@@ -53,13 +53,13 @@ try:
     if platform.system() == "Darwin":
         v = platform.mac_ver()
         os_version = "Macintosh; Intel Mac OS X %s" % v[0].replace(".", "_")
-        linux_distro = "Macintosh"
+        linux_distro = "OS X %s" % v[0]
 
     elif platform.system() == "Windows":
         v = platform.win32_ver()
         # TODO: Upgrade windows python (on build server) version to 3.5, so it correctly identifies Windows 10
         os_version = "Windows NT %s; %s" % (v[0], v[1])
-        linux_distro = "Windows"
+        linux_distro = "Windows %s" % v[0]
 
     elif platform.system() == "Linux":
         # Get the distro name and version (if any)
