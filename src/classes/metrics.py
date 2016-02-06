@@ -59,7 +59,7 @@ try:
         v = platform.win32_ver()
         # TODO: Upgrade windows python (on build server) version to 3.5, so it correctly identifies Windows 10
         os_version = "Windows NT %s; %s" % (v[0], v[1])
-        linux_distro = "Windows %s" % v[0]
+        linux_distro = "Windows %s" % "-".join(platform.win32_ver())
 
     elif platform.system() == "Linux":
         # Get the distro name and version (if any)
