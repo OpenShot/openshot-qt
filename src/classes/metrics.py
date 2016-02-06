@@ -48,15 +48,22 @@ s = settings.get_settings()
 
 # Determine OS version
 os_version = "X11; Linux %s" % platform.machine()
+linux_distro = "None"
 try:
     if platform.system() == "Darwin":
         v = platform.mac_ver()
         os_version = "Macintosh; Intel Mac OS X %s" % v[0].replace(".", "_")
+        linux_distro = "Macintosh"
 
     elif platform.system() == "Windows":
         v = platform.win32_ver()
         # TODO: Upgrade windows python (on build server) version to 3.5, so it correctly identifies Windows 10
         os_version = "Windows NT %s; %s" % (v[0], v[1])
+        linux_distro = "Windows"
+
+    elif platform.system() == "Linux":
+        # Get the distro name and version (if any)
+        linux_distro = "-".join(platform.linux_distribution())
 
 except Exception as Ex:
     log.error("Error determing OS version in metrics.py")
@@ -74,30 +81,30 @@ params = {
     "av" : info.VERSION,                    # App Version
     "ul" : language.get_current_locale().replace('_','-').lower(),   # Current Locale
     "ua" : user_agent,                      # Custom User Agent (for OS, Processor, and OS version)
-    "cd1" : libopenshot_version.ToString(),                   # Dimension 1: libopenshot version
+    "cd1" : libopenshot_version.ToString(), # Dimension 1: libopenshot version
     "cd2" : platform.python_version(),      # Dimension 2: python version (i.e. 3.4.3)
     "cd3" : QT_VERSION_STR,                 # Dimension 3: qt5 version (i.e. 5.2.1)
-    "cd4" : PYQT_VERSION_STR                # Dimension 4: pyqt5 version (i.e. 5.2.1)
+    "cd4" : PYQT_VERSION_STR,               # Dimension 4: pyqt5 version (i.e. 5.2.1)
+    "cd5" : linux_distro
 }
-
-def track_metric_session(is_start=True):
-    """Track a GUI screen being shown"""
-    metric_params = deepcopy(params)
-    metric_params["t"] = "screenview"
-    metric_params["sc"] = "start"
-    metric_params["cd"] = "launch-app"
-    if not is_start:
-        metric_params["sc"] = "end"
-        metric_params["cd"] = "close-app"
-
-    t = threading.Thread(target=send_metric, args=[metric_params])
-    t.start()
 
 def track_metric_screen(screen_name):
     """Track a GUI screen being shown"""
     metric_params = deepcopy(params)
     metric_params["t"] = "screenview"
     metric_params["cd"] = screen_name
+
+    t = threading.Thread(target=send_metric, args=[metric_params])
+    t.start()
+
+def track_metric_event(event_action, event_label, event_category="General", event_value=0):
+    """Track a GUI screen being shown"""
+    metric_params = deepcopy(params)
+    metric_params["t"] = "event"
+    metric_params["ec"] = event_category
+    metric_params["ea"] = event_action
+    metric_params["el"] = event_label
+    metric_params["ev"] = event_value
 
     t = threading.Thread(target=send_metric, args=[metric_params])
     t.start()
@@ -110,6 +117,19 @@ def track_metric_error(error_name, is_fatal=False):
     metric_params["exf"] = 0
     if is_fatal:
         metric_params["exf"] = 1
+
+    t = threading.Thread(target=send_metric, args=[metric_params])
+    t.start()
+
+def track_metric_session(is_start=True):
+    """Track a GUI screen being shown"""
+    metric_params = deepcopy(params)
+    metric_params["t"] = "screenview"
+    metric_params["sc"] = "start"
+    metric_params["cd"] = "launch-app"
+    if not is_start:
+        metric_params["sc"] = "end"
+        metric_params["cd"] = "close-app"
 
     t = threading.Thread(target=send_metric, args=[metric_params])
     t.start()
