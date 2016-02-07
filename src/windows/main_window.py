@@ -45,6 +45,7 @@ from classes.logger import log
 from classes.timeline import TimelineSync
 from classes.query import File, Clip, Transition, Marker, Track
 from classes.metrics import *
+from classes.version import *
 from images import openshot_rc
 from windows.views.files_treeview import FilesTreeView
 from windows.views.files_listview import FilesListView
@@ -71,6 +72,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
     SeekSignal = pyqtSignal(int)
     SpeedSignal = pyqtSignal(float)
     RecoverBackup = pyqtSignal()
+    FoundVersionSignal = pyqtSignal(str)
 
     # Save window settings on close
     def closeEvent(self, event):
@@ -1471,6 +1473,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         self.selected_tracks = []
         self.selected_effects = []
 
+    def foundCurrentVersion(self, version):
+        """Handle the callback for detecting the current version on openshot.org"""
+        log.info('foundCurrentVersion: Found the latest version: %s' % version)
+
     def __init__(self):
 
         # Create main window base class
@@ -1499,6 +1505,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Add window as watcher to receive undo/redo status updates
         get_app().updates.add_watcher(self)
+
+        # Get current version of OpenShot via HTTP
+        self.FoundVersionSignal.connect(self.foundCurrentVersion)
+        get_current_Version()
 
         # Connect signals
         self.RecoverBackup.connect(self.recover_backup)
