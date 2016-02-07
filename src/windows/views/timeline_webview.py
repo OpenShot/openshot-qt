@@ -1636,6 +1636,12 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         cmd = JS_SCOPE_SELECTOR + ".setScale(" + str(newValue) + ");"
         self.page().mainFrame().evaluateJavaScript(cmd)
 
+    def keyPressEvent(self, event):
+        """ Keypress callback for timeline """
+
+        # Ignore keypresses on the timeline, bubble events up
+        event.ignore()
+
     # Capture wheel event to alter zoom slider control
     def wheelEvent(self, event):
         if int(QCoreApplication.instance().keyboardModifiers() & Qt.ControlModifier) > 0:

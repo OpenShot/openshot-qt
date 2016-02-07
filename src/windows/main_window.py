@@ -864,7 +864,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             if event.modifiers() & Qt.ControlModifier:
                 self.actionFastForward.trigger()
 
-        elif event.key() == Qt.Key_Delete:
+        elif event.key() == Qt.Key_Delete or event.key() == Qt.Key_Backspace:
             # Delete selected clip / transition
             self.actionRemoveClip.trigger()
             self.actionRemoveTransition.trigger()
