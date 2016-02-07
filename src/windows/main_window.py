@@ -534,6 +534,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             QMessageBox.information(self, "Error !", "Unable to open the Donate web page")
             log.info("Unable to open the Donate web page")
 
+    def actionUpdate_trigger(self, event):
+        try:
+            webbrowser.open("http://openshot.org/download/")
+            log.info("Open the Download web page with success")
+        except:
+            QMessageBox.information(self, "Error !", "Unable to open the Download web page")
+            log.info("Unable to open the Download web page")
+
     def actionPlay_trigger(self, event, force=None):
 
         if force == "pause":
@@ -1464,6 +1472,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Add timeline toolbar to web frame
         self.frameWeb.addWidget(self.timelineToolbar)
 
+        # Add spacer and 'New Version Available' toolbar button (default hidden)
+        spacer = QWidget(self)
+        spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+        self.toolBar.addWidget(spacer)
+        self.toolBar.addAction(self.actionUpdate)
+
     def clearSelections(self):
         """Clear all selection containers"""
         self.selected_files = []
@@ -1476,6 +1490,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
     def foundCurrentVersion(self, version):
         """Handle the callback for detecting the current version on openshot.org"""
         log.info('foundCurrentVersion: Found the latest version: %s' % version)
+        _ = get_app()._tr
+
+        # Compare versions (alphabetical compare of version strings should work fine)
+        if info.VERSION < version:
+            # Display upgrade toolbar button
+            self.actionUpdate.setVisible(True)
+            self.actionUpdate.setText(_("New Version Available: %s") % version)
+            self.actionUpdate.setToolTip(_("New Version Available: %s") % version)
 
     def __init__(self):
 

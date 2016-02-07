@@ -1263,6 +1263,24 @@
     <string>Rename Track</string>
    </property>
   </action>
+  <action name="actionUpdate">
+   <property name="icon">
+    <iconset resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/package-upgrade.svg</normaloff>:/icons/Humanity/actions/16/package-upgrade.svg</iconset>
+   </property>
+   <property name="text">
+    <string>New Version Available</string>
+   </property>
+   <property name="toolTip">
+    <string>New Version Available</string>
+   </property>
+   <property name="visible">
+    <bool>false</bool>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="../../images/openshot.qrc"/>
