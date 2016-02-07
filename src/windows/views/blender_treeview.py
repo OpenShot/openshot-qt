@@ -312,6 +312,9 @@ class BlenderTreeView(QTreeView):
         # update label and preview slider
         self.win.sliderPreview.setValue(current_frame)
 
+        length = int(self.params["end_frame"])
+        self.win.lblFrame.setText("{}/{}".format(current_frame, length))
+
     def sliderPreview_released(self):
         log.info('sliderPreview_released')
 
