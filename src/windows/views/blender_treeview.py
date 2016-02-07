@@ -25,6 +25,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+import codecs
 import os
 import uuid
 import shutil
@@ -128,7 +129,7 @@ class BlenderTreeView(QTreeView):
 
                 # create spinner
                 widget = QTextEdit()
-                widget.setText(_(param["default"]))
+                widget.setText(_(param["default"]).replace("\\n", "\n"))
                 widget.textChanged.connect(functools.partial(self.text_value_changed, widget, param))
 
             elif param["type"] == "dropdown":
@@ -202,7 +203,7 @@ class BlenderTreeView(QTreeView):
                 value = widget.toPlainText()
         except:
             pass
-        self.params[param["name"]] = value
+        self.params[param["name"]] = value.replace("\n", "\\n")
         log.info(value)
 
     def dropdown_index_changed(self, widget, param, index):
@@ -492,13 +493,13 @@ class BlenderTreeView(QTreeView):
             if type(v) == int or type(v) == float or type(v) == list or type(v) == bool:
                 user_params += "params['{}'] = {}\n".format(k, v)
             if type(v) == str:
-                user_params += "params['{}'] = r'{}'\n".format(k, v.replace("'", r"\'"))
+                user_params += "params['{}'] = u'{}'\n".format(k, v.replace("'", r"\'"))
 
         for k, v in self.get_project_params(is_preview).items():
             if type(v) == int or type(v) == float or type(v) == list or type(v) == bool:
                 user_params += "params['{}'] = {}\n".format(k, v)
             if type(v) == str:
-                user_params += "params['{}'] = r'{}'\n".format(k, v.replace("'", r"\'"))
+                user_params += "params['{}'] = u'{}'\n".format(k, v.replace("'", r"\'"))
         user_params += "#END INJECTING PARAMS\n"
 
         # Force the Frame to 1 frame (for previewing)
@@ -509,17 +510,15 @@ class BlenderTreeView(QTreeView):
             user_params += "\n\n#END ONLY RENDER 1 FRAME FOR PREVIEW\n"
 
         # Open new temp .py file, and inject the user parameters
-        f = open(path, 'r')
-        script_body = f.read()
-        f.close()
+        with open(path, 'r') as f:
+            script_body = f.read()
 
         # modify script variable
         script_body = script_body.replace("#INJECT_PARAMS_HERE", user_params)
 
         # Write update script
-        f = open(path, 'w')
-        f.write(script_body)
-        f.close()
+        with codecs.open(path, "w", encoding="UTF-8") as f:
+            f.write(script_body)
 
     def update_image(self, image_path):
 
