@@ -449,21 +449,6 @@
     <string>Remove Transition</string>
    </property>
   </action>
-  <action name="actionTakeSnapshot">
-   <property name="icon">
-    <iconset resource="../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/custom/snapshot.png</normaloff>:/icons/Humanity/actions/custom/snapshot.png</iconset>
-   </property>
-   <property name="text">
-    <string>Take Snapshot</string>
-   </property>
-   <property name="toolTip">
-    <string>Take Snapshot</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+D</string>
-   </property>
-  </action>
   <action name="actionExportVideo">
    <property name="icon">
     <iconset theme="media-record" resource="../../images/openshot.qrc">
@@ -537,7 +522,7 @@
     <string>Preferences</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+P</string>
+    <string>Ctrl+Shift+P</string>
    </property>
    <property name="menuRole">
     <enum>QAction::PreferencesRole</enum>
@@ -661,6 +646,9 @@
    </property>
    <property name="toolTip">
     <string>Add Marker</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+M</string>
    </property>
   </action>
   <action name="actionPreviousMarker">
@@ -949,13 +937,13 @@
     <string>About OpenShot</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+A</string>
+    <string>Ctrl+H</string>
    </property>
    <property name="menuRole">
     <enum>QAction::AboutRole</enum>
    </property>
   </action>
-  <action name="actionThumbnailView">
+  <action name="actionIcon_View">
    <property name="icon">
     <iconset theme="view-preview" resource="../../images/openshot.qrc">
      <normaloff>:/icons/Humanity/actions/16/view-preview.png</normaloff>:/icons/Humanity/actions/16/view-preview.png</iconset>
@@ -965,6 +953,9 @@
    </property>
    <property name="toolTip">
     <string>Icon View</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
    </property>
   </action>
   <action name="actionDetailsView">
@@ -977,6 +968,9 @@
    </property>
    <property name="toolTip">
     <string>Details View</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
    </property>
   </action>
   <action name="actionReportBug">
@@ -1098,6 +1092,9 @@
    <property name="toolTip">
     <string>Choose Profile</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
+   </property>
   </action>
   <action name="actionAdd_to_Timeline">
    <property name="icon">
@@ -1109,6 +1106,9 @@
    </property>
    <property name="toolTip">
     <string>Add to Timeline</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
    </property>
   </action>
   <action name="actionPreview_File">
@@ -1217,7 +1217,7 @@
     <string>Remove Effect</string>
    </property>
    <property name="toolTip">
-    <string>Remove Effe</string>
+    <string>Remove Effect</string>
    </property>
   </action>
   <action name="actionSplitClip">
@@ -1233,7 +1233,7 @@
     <string>Split Clip</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+E</string>
+    <string>Ctrl+C</string>
    </property>
   </action>
   <action name="actionProperties">
