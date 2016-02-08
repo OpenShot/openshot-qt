@@ -367,15 +367,17 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     if "handle_right" in point:
                         point["handle_right"]["Y"] = 1.0 - point["handle_right"]["Y"]
 
-    def save(self, file_path):
+    def save(self, file_path, move_temp_files=True, make_paths_relative=True):
         """ Save project file to disk """
         import openshot
 
         # Move all temp files (i.e. Blender animations) to the project folder
-        self.move_temp_paths_to_project_folder(file_path)
+        if move_temp_files:
+            self.move_temp_paths_to_project_folder(file_path)
 
         # Convert all file paths to relative based on this new project file's directory
-        self.convert_paths_to_relative(file_path)
+        if make_paths_relative:
+            self.convert_paths_to_relative(file_path)
 
         # Append version info
         v = openshot.GetVersion()
@@ -389,7 +391,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         self.current_filepath = file_path
 
         # Convert all paths back to absolute
-        self.convert_paths_to_absolute()
+        if make_paths_relative:
+            self.convert_paths_to_absolute()
 
         # Add to recent files setting
         self.add_to_recent_files(file_path)

@@ -357,7 +357,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
                 # No saved project found
                 recovery_path = os.path.join(info.BACKUP_PATH, "backup.osp")
                 log.info("Creating backup of project file: %s" % recovery_path)
-                get_app().project.save(recovery_path)
+                get_app().project.save(recovery_path, move_temp_files=False, make_paths_relative=False)
 
                 # Clear the file_path (which is set by saving the project)
                 get_app().project.current_filepath = None
