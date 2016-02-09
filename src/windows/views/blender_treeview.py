@@ -499,7 +499,7 @@ class BlenderTreeView(QTreeView):
             if type(v) == int or type(v) == float or type(v) == list or type(v) == bool:
                 user_params += "params['{}'] = {}\n".format(k, v)
             if type(v) == str:
-                user_params += "params['{}'] = u'{}'\n".format(k, v.replace("'", r"\'"))
+                user_params += "params['{}'] = u'{}'\n".format(k, v.replace("'", r"\'").replace("\\", "\\\\"))
         user_params += "#END INJECTING PARAMS\n"
 
         # Force the Frame to 1 frame (for previewing)
