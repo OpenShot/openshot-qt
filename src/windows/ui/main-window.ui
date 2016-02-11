@@ -943,16 +943,16 @@
     <enum>QAction::AboutRole</enum>
    </property>
   </action>
-  <action name="actionIcon_View">
+  <action name="actionThumbnailView">
    <property name="icon">
     <iconset theme="view-preview" resource="../../images/openshot.qrc">
      <normaloff>:/icons/Humanity/actions/16/view-preview.png</normaloff>:/icons/Humanity/actions/16/view-preview.png</iconset>
    </property>
    <property name="text">
-    <string>Icon View</string>
+    <string>Thumbnail View</string>
    </property>
    <property name="toolTip">
-    <string>Icon View</string>
+    <string>Thumbnail View</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+I</string>
