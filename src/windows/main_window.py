@@ -239,7 +239,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             log.info("Saved project {}".format(file_path))
 
         except Exception as ex:
-            log.error("Couldn't save project {}".format(file_path))
+            log.error("Couldn't save project %s. %s" % (file_path, str(ex)))
             QMessageBox.warning(self, _("Error Saving Project"), str(ex))
 
     def open_project(self, file_path, clear_thumbnails=True):

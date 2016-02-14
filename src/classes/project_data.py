@@ -402,71 +402,74 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
     def move_temp_paths_to_project_folder(self, file_path):
         """ Move all temp files (such as Thumbnails, Titles, and Blender animations) to the project folder. """
+        try:
+            # Get project folder
+            new_project_folder = os.path.dirname(file_path)
+            new_thumbnails_folder = os.path.join(new_project_folder, "thumbnail")
 
-        # Get project folder
-        new_project_folder = os.path.dirname(file_path)
-        new_thumbnails_folder = os.path.join(new_project_folder, "thumbnail")
+            # Create project thumbnails folder
+            if not os.path.exists(new_thumbnails_folder):
+                os.mkdir(new_thumbnails_folder)
 
-        # Create project thumbnails folder
-        if not os.path.exists(new_thumbnails_folder):
-            os.mkdir(new_thumbnails_folder)
+            # Copy all thumbnails to project
+            for filename in glob.glob(os.path.join(info.THUMBNAIL_PATH, '*.*')):
+                shutil.copy(filename, new_thumbnails_folder)
 
-        # Copy all thumbnails to project
-        for filename in glob.glob(os.path.join(info.THUMBNAIL_PATH, '*.*')):
-            shutil.copy(filename, new_thumbnails_folder)
+            # Loop through each file
+            for file in self._data["files"]:
+                path = file["path"]
 
-        # Loop through each file
-        for file in self._data["files"]:
-            path = file["path"]
+                # Find any temp BLENDER file paths
+                if info.BLENDER_PATH in path:
+                    log.info("Temp blender file path detected in file")
 
-            # Find any temp BLENDER file paths
-            if info.BLENDER_PATH in path:
-                log.info("Temp blender file path detected in file")
+                    # Get folder of file
+                    folder_path, file_name = os.path.split(path)
+                    parent_path, folder_name = os.path.split(folder_path)
+                    # Update path to new folder
+                    path = os.path.join(new_project_folder, folder_name)
+                    # Copy temp folder to project folder
+                    shutil.copytree(folder_path, path)
 
-                # Get folder of file
-                folder_path, file_name = os.path.split(path)
-                parent_path, folder_name = os.path.split(folder_path)
-                # Update path to new folder
-                path = os.path.join(new_project_folder, folder_name)
-                # Copy temp folder to project folder
-                shutil.copytree(folder_path, path)
+                    # Update paths in project to new location
+                    file["path"] = os.path.join(path, file_name)
 
-                # Update paths in project to new location
-                file["path"] = os.path.join(path, file_name)
+            # Loop through each clip
+            for clip in self._data["clips"]:
+                path = clip["reader"]["path"]
 
-        # Loop through each clip
-        for clip in self._data["clips"]:
-            path = clip["reader"]["path"]
+                # Find any temp BLENDER file paths
+                if info.BLENDER_PATH in path:
+                    log.info("Temp blender file path detected in clip")
 
-            # Find any temp BLENDER file paths
-            if info.BLENDER_PATH in path:
-                log.info("Temp blender file path detected in clip")
+                    # Get folder of file
+                    folder_path, file_name = os.path.split(path)
+                    parent_path, folder_name = os.path.split(folder_path)
+                    # Update path to new folder
+                    path = os.path.join(new_project_folder, folder_name)
 
-                # Get folder of file
-                folder_path, file_name = os.path.split(path)
-                parent_path, folder_name = os.path.split(folder_path)
-                # Update path to new folder
-                path = os.path.join(new_project_folder, folder_name)
+                    # Update paths in project to new location
+                    clip["reader"]["path"] = os.path.join(path, file_name)
 
-                # Update paths in project to new location
-                clip["reader"]["path"] = os.path.join(path, file_name)
+            # Loop through each file
+            for clip in self._data["clips"]:
+                path = clip["image"]
 
-        # Loop through each file
-        for clip in self._data["clips"]:
-            path = clip["image"]
+                # Find any temp BLENDER file paths
+                if info.BLENDER_PATH in path:
+                    log.info("Temp blender file path detected in clip thumbnail")
 
-            # Find any temp BLENDER file paths
-            if info.BLENDER_PATH in path:
-                log.info("Temp blender file path detected in clip thumbnail")
+                    # Get folder of file
+                    folder_path, file_name = os.path.split(path)
+                    parent_path, folder_name = os.path.split(folder_path)
+                    # Update path to new folder
+                    path = os.path.join(new_project_folder, folder_name)
 
-                # Get folder of file
-                folder_path, file_name = os.path.split(path)
-                parent_path, folder_name = os.path.split(folder_path)
-                # Update path to new folder
-                path = os.path.join(new_project_folder, folder_name)
+                    # Update paths in project to new location
+                    clip["image"] = os.path.join(path, file_name)
 
-                # Update paths in project to new location
-                clip["image"] = os.path.join(path, file_name)
+        except Exception as ex:
+            log.error("Error while moving temp files into project folder: %s" % str(ex))
 
     def add_to_recent_files(self, file_path):
         """ Add this project to the recent files list """
@@ -490,120 +493,127 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
     def convert_paths_to_relative(self, file_path):
         """ Convert all paths relative to this filepath """
+        try:
+            # Get project folder
+            existing_project_folder = None
+            if self.current_filepath:
+                existing_project_folder = os.path.dirname(self.current_filepath)
+            new_project_folder = os.path.dirname(file_path)
 
-        # Get project folder
-        existing_project_folder = None
-        if self.current_filepath:
-            existing_project_folder = os.path.dirname(self.current_filepath)
-        new_project_folder = os.path.dirname(file_path)
+            # Loop through each file
+            for file in self._data["files"]:
+                path = file["path"]
+                # Find absolute path of file (if needed)
+                if not os.path.isabs(path):
+                    # Convert path to the correct relative path (based on the existing folder)
+                    path = os.path.abspath(os.path.join(existing_project_folder, path))
 
-        # Loop through each file
-        for file in self._data["files"]:
-            path = file["path"]
-            # Find absolute path of file (if needed)
-            if not os.path.isabs(path):
-                # Convert path to the correct relative path (based on the existing folder)
-                path = os.path.abspath(os.path.join(existing_project_folder, path))
+                # Convert absolute path to relavite
+                file["path"] = os.path.relpath(path, new_project_folder)
 
-            # Convert absolute path to relavite
-            file["path"] = os.path.relpath(path, new_project_folder)
+            # Loop through each clip
+            for clip in self._data["clips"]:
+                # Update reader path
+                path = clip["reader"]["path"]
+                # Find absolute path of file (if needed)
+                if not os.path.isabs(path):
+                    # Convert path to the correct relative path (based on the existing folder)
+                    path = os.path.abspath(os.path.join(existing_project_folder, path))
+                # Convert absolute path to relavite
+                clip["reader"]["path"] = os.path.relpath(path, new_project_folder)
 
-        # Loop through each clip
-        for clip in self._data["clips"]:
-            # Update reader path
-            path = clip["reader"]["path"]
-            # Find absolute path of file (if needed)
-            if not os.path.isabs(path):
-                # Convert path to the correct relative path (based on the existing folder)
-                path = os.path.abspath(os.path.join(existing_project_folder, path))
-            # Convert absolute path to relavite
-            clip["reader"]["path"] = os.path.relpath(path, new_project_folder)
+                # Update clip image path
+                path = clip["image"]
+                # Find absolute path of file (if needed)
+                if not os.path.isabs(path):
+                    # Convert path to the correct relative path (based on the existing folder)
+                    path = os.path.abspath(os.path.join(existing_project_folder, path))
+                # Convert absolute path to relavite
+                clip["image"] = os.path.relpath(path, new_project_folder)
 
-            # Update clip image path
-            path = clip["image"]
-            # Find absolute path of file (if needed)
-            if not os.path.isabs(path):
-                # Convert path to the correct relative path (based on the existing folder)
-                path = os.path.abspath(os.path.join(existing_project_folder, path))
-            # Convert absolute path to relavite
-            clip["image"] = os.path.relpath(path, new_project_folder)
+            # Loop through each transition
+            for effect in self._data["effects"]:
+                # Update reader path
+                path = effect["reader"]["path"]
 
-        # Loop through each transition
-        for effect in self._data["effects"]:
-            # Update reader path
-            path = effect["reader"]["path"]
+                # Determine if this path is the official transition path
+                folder_path, file_path = os.path.split(path)
+                if os.path.join(info.PATH, "transitions") in folder_path:
+                    # Yes, this is an OpenShot transitions
+                    folder_path, category_path = os.path.split(folder_path)
 
-            # Determine if this path is the official transition path
-            folder_path, file_path = os.path.split(path)
-            if os.path.join(info.PATH, "transitions") in folder_path:
-                # Yes, this is an OpenShot transitions
-                folder_path, category_path = os.path.split(folder_path)
+                    # Convert path to @transitions/ path
+                    effect["reader"]["path"] = os.path.join("@transitions", category_path, file_path)
+                    continue
 
-                # Convert path to @transitions/ path
-                effect["reader"]["path"] = os.path.join("@transitions", category_path, file_path)
-                continue
+                # Find absolute path of file (if needed)
+                if not os.path.isabs(path):
+                    # Convert path to the correct relative path (based on the existing folder)
+                    path = os.path.abspath(os.path.join(existing_project_folder, path))
+                # Convert absolute path to relavite
+                effect["reader"]["path"] = os.path.relpath(path, new_project_folder)
 
-            # Find absolute path of file (if needed)
-            if not os.path.isabs(path):
-                # Convert path to the correct relative path (based on the existing folder)
-                path = os.path.abspath(os.path.join(existing_project_folder, path))
-            # Convert absolute path to relavite
-            effect["reader"]["path"] = os.path.relpath(path, new_project_folder)
+        except Exception as ex:
+            log.error("Error while converting absolute paths to relative paths: %s" % str(ex))
+
 
     def convert_paths_to_absolute(self):
         """ Convert all paths to absolute """
+        try:
+            # Get project folder
+            existing_project_folder = None
+            if self.current_filepath:
+                existing_project_folder = os.path.dirname(self.current_filepath)
 
-        # Get project folder
-        existing_project_folder = None
-        if self.current_filepath:
-            existing_project_folder = os.path.dirname(self.current_filepath)
+            # Loop through each file
+            for file in self._data["files"]:
+                path = file["path"]
+                # Find absolute path of file (if needed)
+                if not os.path.isabs(path):
+                    # Convert path to the correct relative path (based on the existing folder)
+                    path = os.path.abspath(os.path.join(existing_project_folder, path))
 
-        # Loop through each file
-        for file in self._data["files"]:
-            path = file["path"]
-            # Find absolute path of file (if needed)
-            if not os.path.isabs(path):
-                # Convert path to the correct relative path (based on the existing folder)
-                path = os.path.abspath(os.path.join(existing_project_folder, path))
+                # Convert absolute path to relavite
+                file["path"] = path
 
-            # Convert absolute path to relavite
-            file["path"] = path
+            # Loop through each clip
+            for clip in self._data["clips"]:
+                # Update reader path
+                path = clip["reader"]["path"]
+                # Find absolute path of file (if needed)
+                if not os.path.isabs(path):
+                    # Convert path to the correct relative path (based on the existing folder)
+                    path = os.path.abspath(os.path.join(existing_project_folder, path))
+                # Convert absolute path to relavite
+                clip["reader"]["path"] = path
 
-        # Loop through each clip
-        for clip in self._data["clips"]:
-            # Update reader path
-            path = clip["reader"]["path"]
-            # Find absolute path of file (if needed)
-            if not os.path.isabs(path):
-                # Convert path to the correct relative path (based on the existing folder)
-                path = os.path.abspath(os.path.join(existing_project_folder, path))
-            # Convert absolute path to relavite
-            clip["reader"]["path"] = path
+                # Update clip image path
+                path = clip["image"]
+                # Find absolute path of file (if needed)
+                if not os.path.isabs(path):
+                    # Convert path to the correct relative path (based on the existing folder)
+                    path = os.path.abspath(os.path.join(existing_project_folder, path))
+                # Convert absolute path to relavite
+                clip["image"] = path
 
-            # Update clip image path
-            path = clip["image"]
-            # Find absolute path of file (if needed)
-            if not os.path.isabs(path):
-                # Convert path to the correct relative path (based on the existing folder)
-                path = os.path.abspath(os.path.join(existing_project_folder, path))
-            # Convert absolute path to relavite
-            clip["image"] = path
+            # Loop through each transition
+            for effect in self._data["effects"]:
+                # Update reader path
+                path = effect["reader"]["path"]
 
-        # Loop through each transition
-        for effect in self._data["effects"]:
-            # Update reader path
-            path = effect["reader"]["path"]
+                # Determine if @transitions path is found
+                if "@transitions" in path:
+                    path = path.replace("@transitions", os.path.join(info.PATH, "transitions"))
 
-            # Determine if @transitions path is found
-            if "@transitions" in path:
-                path = path.replace("@transitions", os.path.join(info.PATH, "transitions"))
+                # Find absolute path of file (if needed)
+                if not os.path.isabs(path):
+                    # Convert path to the correct relative path (based on the existing folder)
+                    path = os.path.abspath(os.path.join(existing_project_folder, path))
+                # Convert absolute path to relavite
+                effect["reader"]["path"] = path
 
-            # Find absolute path of file (if needed)
-            if not os.path.isabs(path):
-                # Convert path to the correct relative path (based on the existing folder)
-                path = os.path.abspath(os.path.join(existing_project_folder, path))
-            # Convert absolute path to relavite
-            effect["reader"]["path"] = path
+        except Exception as ex:
+            log.error("Error while converting relative paths to absolute paths: %s" % str(ex))
 
     def changed(self, action):
         """ This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """
