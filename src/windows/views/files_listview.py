@@ -27,16 +27,18 @@
  """
 
 import os
+import glob
+import re
 from urllib.parse import urlparse
 
+import openshot  # Python module for libopenshot (required video editing module installed separately)
 from PyQt5.QtCore import QSize, Qt, QPoint
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QListView, QMessageBox, QAbstractItemView, QMenu
-import openshot  # Python module for libopenshot (required video editing module installed separately)
 
+from classes.app import get_app
 from classes.logger import log
 from classes.query import File
-from classes.app import get_app
 from windows.models.files_model import FilesModel
 
 try:
@@ -156,6 +158,37 @@ class FilesListView(QListView):
             # Save new file to the project data
             file = File()
             file.data = file_data
+
+            # Is this file an image sequence / animation?
+            image_seq_details = self.get_image_sequence_details(filepath)
+            if image_seq_details:
+                # Update file with correct path
+                folder_path = image_seq_details["folder_path"]
+                file_name = image_seq_details["file_path"]
+                base_name = image_seq_details["base_name"]
+                fixlen = image_seq_details["fixlen"]
+                digits = image_seq_details["digits"]
+                extension = image_seq_details["extension"]
+
+                if not fixlen:
+                    zero_pattern = "%d"
+                else:
+                    zero_pattern = "%%0%sd" % digits
+
+                # Generate the regex pattern for this image sequence
+                pattern = "%s%s.%s" % (base_name, zero_pattern, extension)
+
+                # Split folder name
+                (parentPath, folderName) = os.path.split(folder_path)
+                if not base_name:
+                    # Give alternate name
+                    file.data["name"] = "%s (%s)" % (folderName, pattern)
+
+                # Update file details
+                file.data["path"] = os.path.join(folder_path, pattern)
+                file_data["media_type"] = "video"
+
+            # Save file
             file.save()
             return True
 
@@ -166,8 +199,65 @@ class FilesListView(QListView):
             msg.exec_()
             return False
 
+    def get_image_sequence_details(self, file_path):
+        """Inspect a file path and determine if this is an image sequence"""
+
+        # Get just the file name
+        (dirName, fileName) = os.path.split(file_path)
+        extensions = ["png", "jpg", "jpeg", "gif", "tif"]
+        match = re.findall(r"(.*[^\d])?(0*)(\d+)\.(%s)" % "|".join(extensions), fileName, re.I)
+
+        if not match:
+            # File name does not match an image sequence
+            return None
+        else:
+            # Get the parts of image name
+            base_name = match[0][0]
+            fixlen = match[0][1] > ""
+            number = int(match[0][2])
+            digits = len(match[0][1] + match[0][2])
+            extension = match[0][3]
+
+            full_base_name = os.path.join(dirName, base_name)
+
+            # Check for images which the file names have the different length
+            fixlen = fixlen or not (glob.glob("%s%s.%s" % (full_base_name, "[0-9]" * (digits + 1), extension))
+                                    or glob.glob(
+                "%s%s.%s" % (full_base_name, "[0-9]" * ((digits - 1) if digits > 1 else 3), extension)))
+
+            # Check for previous or next image
+            for x in range(max(0, number - 100), min(number + 101, 50000)):
+                if x != number and os.path.exists("%s%s.%s" % (
+                full_base_name, str(x).rjust(digits, "0") if fixlen else str(x), extension)):
+                    is_sequence = True
+                    break
+            else:
+                is_sequence = False
+
+            if is_sequence and dirName not in self.ignore_image_sequence_paths:
+                log.info('Prompt user to import image sequence')
+                # Ignore this path (temporarily)
+                self.ignore_image_sequence_paths.append(dirName)
+
+                # Translate object
+                _ = get_app()._tr
+
+                # Handle exception
+                ret = QMessageBox.question(self, _("Import Image Sequence"), _("Would you like to import %s as an image sequence?") % fileName, QMessageBox.No | QMessageBox.Yes)
+                if ret == QMessageBox.Yes:
+                    # Yes, import image sequence
+                    parameters = {"file_path":file_path, "folder_path":dirName, "base_name":base_name, "fixlen":fixlen, "digits":digits, "extension":extension}
+                    return parameters
+                else:
+                    return None
+            else:
+                return None
+
     # Handle a drag and drop being dropped on widget
     def dropEvent(self, event):
+        # Reset list of ignored image sequences paths
+        self.ignore_image_sequence_paths = []
+
         # log.info('Dropping file(s) on files tree.')
         for uri in event.mimeData().urls():
             file_url = urlparse(uri.toString())
@@ -211,6 +301,7 @@ class FilesListView(QListView):
         self.setDragEnabled(True)
         self.setDropIndicatorShown(True)
         self.selected = []
+        self.ignore_image_sequence_paths = []
 
         # Setup header columns
         self.setModel(self.files_model.model)
