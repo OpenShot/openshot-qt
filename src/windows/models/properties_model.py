@@ -511,7 +511,10 @@ class PropertiesModel(updates.UpdateInterface):
                 points = property[1]["points"]
                 interpolation = property[1]["interpolation"]
                 closest_point_x = property[1]["closest_point_x"]
-                choices = property[1]["choices"]
+                if 'choices' in property[1]:
+                    choices = property[1]["choices"]
+                else:
+                    choices = None
 
                 # Adding Transparency to translation file
                 transparency_label = _("Transparency")
