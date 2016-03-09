@@ -2,13 +2,13 @@
 <!DOCTYPE TS>
 <TS version="2.1">
     <extra-po-header-language_team>Chinese (Simplified) &lt;zh_CN@li.org&gt;</extra-po-header-language_team>
-    <extra-po-header-last_translator>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-01-11 05:40+0000</extra-po-header-po_revision_date>
+    <extra-po-header-last_translator>zoron &lt;zoronlivingston@gmail.com&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2016-03-04 06:05+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2016-02-03 22:58+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 17908)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-02-05 06:34+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 17936)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2016-03-05 06:22+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Chinese (Simplified) translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -53,7 +53,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="485"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="550"/>
         <source>Random</source>
-        <translation type="unfinished"></translation>
+        <translation>随机</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="474"/>
@@ -72,32 +72,32 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="85"/>
         <source>Unsaved Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>未保存的更改</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="85"/>
         <source>Save changes to project before closing?</source>
-        <translation type="unfinished"></translation>
+        <translation>关闭前保存变更？</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="127"/>
         <source>Backup Recovered</source>
-        <translation type="unfinished"></translation>
+        <translation>备份已恢复</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="128"/>
         <source>Your most recent unsaved project has been recovered.</source>
-        <translation type="unfinished"></translation>
+        <translation>最近的未保存项目已恢复</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="241"/>
         <source>Error Saving Project</source>
-        <translation type="unfinished"></translation>
+        <translation>保存时出错</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="278"/>
         <source>Error Opening Project</source>
-        <translation type="unfinished"></translation>
+        <translation>打开时出错</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="314"/>
@@ -118,12 +118,12 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1240"/>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="104"/>
         <source>Untitled Project</source>
-        <translation type="unfinished"></translation>
+        <translation>未命名项目</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="327"/>
         <source>Save Project...</source>
-        <translation type="unfinished"></translation>
+        <translation>保存项目</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="371"/>
@@ -135,7 +135,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="386"/>
         <source>Import File...</source>
-        <translation type="unfinished"></translation>
+        <translation>导出文件</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1025"/>
@@ -147,7 +147,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1025"/>
         <source>Track Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>轨迹名称:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1327"/>
@@ -161,30 +161,30 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1541"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="286"/>
         <source>Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>筛选</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1454"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1634"/>
         <source>{} seconds</source>
-        <translation type="unfinished"></translation>
+        <translation>{}秒</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="114"/>
         <source>&lt;Select a template&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;选择一个模板&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="323"/>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="342"/>
         <source>Select a Color</source>
-        <translation type="unfinished"></translation>
+        <translation>选择颜色</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="361"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="240"/>
         <source>Change Font</source>
-        <translation type="unfinished"></translation>
+        <translation>更改字体</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="592"/>
@@ -194,12 +194,12 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="595"/>
         <source>Save Title As...</source>
-        <translation type="unfinished"></translation>
+        <translation>保存标题</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="595"/>
         <source>Scalable Vector Graphics (*.svg)</source>
-        <translation type="unfinished"></translation>
+        <translation>可缩放矢量图形 (*.svg)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="648"/>
@@ -208,28 +208,28 @@
         <location filename="../../../../openshot-qt-git/src/windows/views/files_listview.py" line="165"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/files_model.py" line="173"/>
         <source>{} is not a valid video, audio, or image file.</source>
-        <translation type="unfinished"></translation>
+        <translation>{}是无效的视频、音频、图像文件</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="677"/>
         <source>Please install {} to use this function</source>
-        <translation type="unfinished"></translation>
+        <translation>请安装{}以使用该功能</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="269"/>
         <source>Restart Required</source>
-        <translation type="unfinished"></translation>
+        <translation>需要重启</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="270"/>
         <source>Please restart OpenShot for all preferences to take effect.</source>
-        <translation type="unfinished"></translation>
+        <translation>请重启 OpenShot 使变动生效</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/cutting.py" line="190"/>
         <location filename="../../../../openshot-qt-git/src/windows/cutting.py" line="224"/>
         <source>Please choose valid &apos;start&apos; and &apos;end&apos; values for your clip.</source>
-        <translation type="unfinished"></translation>
+        <translation>请选择</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/animated_title.py" line="85"/>
@@ -246,7 +246,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/about.py" line="71"/>
         <source>Version: %s</source>
-        <translation type="unfinished"></translation>
+        <translation>版本：%s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -263,12 +263,13 @@
   deepfang https://launchpad.net/~deepfang
   wings https://launchpad.net/~wangshuo1987
   zhangmiao https://launchpad.net/~mymzhang
-  zhanshime https://launchpad.net/~zhanshime</translation>
+  zhanshime https://launchpad.net/~zhanshime
+  zoron https://launchpad.net/~zoronlivingston</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/blender_treeview.py" line="169"/>
         <source>No Files Found</source>
-        <translation type="unfinished"></translation>
+        <translation>未找到文件</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/blender_treeview.py" line="461"/>
@@ -276,7 +277,10 @@
 
 Version Detected:
 {}</source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+检测到版本：
+{}</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/blender_treeview.py" line="464"/>
@@ -284,7 +288,10 @@ Version Detected:
 
 Error Output:
 {}</source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+错误输出：
+{}</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/blender_treeview.py" line="471"/>
@@ -294,7 +301,8 @@ Please check the preferences in OpenShot and be sure the Blender executable is c
 
 Blender Path:
 {}{}</source>
-        <translation type="unfinished"></translation>
+        <translation>此操作需要开源3D软件 Blender (http://www.blender.org)。
+请检查 OpenShot 首选项，确保 Blender 可执行文件的路径设定正确，同时 Blender 版本大于等于 {} 。</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/blender_treeview.py" line="775"/>
@@ -314,55 +322,55 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Entire Clip</source>
-        <translation type="unfinished"></translation>
+        <translation>完整剪辑</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>正常</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Fast</source>
-        <translation type="unfinished"></translation>
+        <translation>快</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Slow</source>
-        <translation type="unfinished"></translation>
+        <translation>慢</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Forward</source>
-        <translation>前进</translation>
+        <translation>快进</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Backward</source>
-        <translation type="unfinished"></translation>
+        <translation>快退</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="423"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1510"/>
         <source>Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>复制</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="424"/>
         <source>Clip</source>
-        <translation type="unfinished"></translation>
+        <translation>剪辑</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="426"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1513"/>
         <source>Keyframes</source>
-        <translation type="unfinished"></translation>
+        <translation>关键帧</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="427"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1514"/>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation>全部</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="430"/>
@@ -379,26 +387,26 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="434"/>
         <source>Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>旋转</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="436"/>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>位置</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="438"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="595"/>
         <source>Time</source>
-        <translation type="unfinished"></translation>
+        <translation>时间</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="440"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="619"/>
         <source>Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>音量</translation>
         <extra-po-references>libopenshot (Clip Properties) Settings for volume</extra-po-references>
     </message>
     <message>
@@ -411,7 +419,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="448"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1525"/>
         <source>Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>粘贴</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="454"/>
@@ -465,13 +473,13 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="479"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="644"/>
         <source>Fade In (Entire Clip)</source>
-        <translation type="unfinished"></translation>
+        <translation>淡入(完整剪辑)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="481"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="646"/>
         <source>Fade Out (Entire Clip)</source>
-        <translation type="unfinished"></translation>
+        <translation>淡出(完整剪辑)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="489"/>
@@ -487,7 +495,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="497"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="307"/>
         <source>Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>缩放</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="498"/>
@@ -522,7 +530,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="513"/>
         <source>Center to Edge</source>
-        <translation type="unfinished"></translation>
+        <translation>中心到边缘</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="514"/>
@@ -537,7 +545,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="518"/>
         <source>Center to Right</source>
-        <translation type="unfinished"></translation>
+        <translation>由中到右</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="520"/>
@@ -547,7 +555,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="525"/>
         <source>Edge to Center</source>
-        <translation type="unfinished"></translation>
+        <translation>边缘到中心</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="526"/>
@@ -572,7 +580,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="537"/>
         <source>Edge to Edge</source>
-        <translation type="unfinished"></translation>
+        <translation>边缘到边缘</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="538"/>
@@ -603,7 +611,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="561"/>
         <source>No Rotation</source>
-        <translation>无旋转</translation>
+        <translation>不旋转</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="564"/>
@@ -668,87 +676,87 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="596"/>
         <source>Reset Time</source>
-        <translation type="unfinished"></translation>
+        <translation>重设时间</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="620"/>
         <source>Reset Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>重设音量</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="651"/>
         <source>Level 100%</source>
-        <translation type="unfinished"></translation>
+        <translation>Level 100%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="653"/>
         <source>Level 90%</source>
-        <translation type="unfinished"></translation>
+        <translation>Level 90%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="655"/>
         <source>Level 80%</source>
-        <translation type="unfinished"></translation>
+        <translation>Level 80%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="657"/>
         <source>Level 70%</source>
-        <translation type="unfinished"></translation>
+        <translation>Level 70%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="659"/>
         <source>Level 60%</source>
-        <translation type="unfinished"></translation>
+        <translation>Level 60%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="661"/>
         <source>Level 50%</source>
-        <translation type="unfinished"></translation>
+        <translation>Level 50%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="663"/>
         <source>Level 40%</source>
-        <translation type="unfinished"></translation>
+        <translation>Level 40%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="665"/>
         <source>Level 30%</source>
-        <translation type="unfinished"></translation>
+        <translation>Level 30%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="667"/>
         <source>Level 20%</source>
-        <translation type="unfinished"></translation>
+        <translation>Level 20%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="669"/>
         <source>Level 10%</source>
-        <translation type="unfinished"></translation>
+        <translation>Level 10%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="671"/>
         <source>Level 0%</source>
-        <translation type="unfinished"></translation>
+        <translation>Level 0%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="683"/>
         <source>Slice Clip</source>
-        <translation type="unfinished"></translation>
+        <translation>分割剪辑</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="684"/>
         <source>Keep Both Sides</source>
-        <translation type="unfinished"></translation>
+        <translation>保持两侧</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="686"/>
         <source>Keep Left Side</source>
-        <translation type="unfinished"></translation>
+        <translation>保持左侧</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="688"/>
         <source>Keep Right Side</source>
-        <translation type="unfinished"></translation>
+        <translation>保持右侧</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1511"/>
@@ -776,35 +784,35 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="78"/>
         <source>Selection: %s</source>
-        <translation type="unfinished"></translation>
+        <translation>选择：%s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="80"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="273"/>
         <source>No Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>无选择</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="129"/>
         <source>Bezier</source>
-        <translation type="unfinished"></translation>
+        <translation>贝塞尔</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="131"/>
         <source>Linear</source>
-        <translation type="unfinished"></translation>
+        <translation>线性</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="133"/>
         <source>Constant</source>
-        <translation type="unfinished"></translation>
+        <translation>常数</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="136"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="141"/>
         <source>Remove Keyframe</source>
-        <translation type="unfinished"></translation>
+        <translation>移除关键帧</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/add_to_timeline_model.py" line="57"/>
@@ -830,27 +838,27 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/models/transition_model.py" line="158"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/effects_model.py" line="150"/>
         <source>{} is not a valid image file.</source>
-        <translation type="unfinished"></translation>
+        <translation>{} 不是有效的图像文件</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="67"/>
         <source>Email</source>
-        <translation type="unfinished"></translation>
+        <translation>邮件</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="67"/>
         <source>Website</source>
-        <translation type="unfinished"></translation>
+        <translation>网站</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="100"/>
         <source>PayPal Supporter!</source>
-        <translation type="unfinished"></translation>
+        <translation>PayPal 捐助者！</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="108"/>
         <source>Kickstarter Supporter!</source>
-        <translation type="unfinished"></translation>
+        <translation>Kickstarter 捐助者！</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="116"/>
@@ -891,12 +899,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/files_model.py" line="100"/>
         <source>Tags</source>
-        <translation type="unfinished"></translation>
+        <translation>标签</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/effects_model.py" line="80"/>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>描述</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="74"/>
@@ -987,18 +995,19 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="472"/>
         <source>Choose a Folder...</source>
-        <translation type="unfinished"></translation>
+        <translation>选择文件夹</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="625"/>
         <source>Export Error</source>
-        <translation type="unfinished"></translation>
+        <translation>导出错误</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="626"/>
         <source>Sorry, there was an error exporting your video: 
 %s</source>
-        <translation type="unfinished"></translation>
+        <translation>抱歉，导出视频时发生错误： 
+%s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -1008,7 +1017,7 @@ Blender Path:
     </message>
     <message>
         <source>Iterations</source>
-        <translation type="unfinished"></translation>
+        <translation>迭代</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1098,7 +1107,7 @@ Blender Path:
     </message>
     <message>
         <source>Vertical Radius</source>
-        <translation type="unfinished"></translation>
+        <translation>垂直半径</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1138,7 +1147,7 @@ Blender Path:
     </message>
     <message>
         <source>Gravity</source>
-        <translation type="unfinished"></translation>
+        <translation>重力</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1223,7 +1232,7 @@ Blender Path:
     </message>
     <message>
         <source>Color Saturation</source>
-        <translation type="unfinished"></translation>
+        <translation>色彩饱和度</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -1273,12 +1282,12 @@ Blender Path:
     </message>
     <message>
         <source>Bottom Left</source>
-        <translation type="unfinished"></translation>
+        <translation>底部左侧</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Duration</source>
-        <translation type="unfinished"></translation>
+        <translation>持续时间</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1406,12 +1415,12 @@ Blender Path:
     </message>
     <message>
         <source>Horizontal Radius</source>
-        <translation type="unfinished"></translation>
+        <translation>水平半径</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Location X</source>
-        <translation type="unfinished"></translation>
+        <translation>横向坐标</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1526,7 +1535,7 @@ Blender Path:
     </message>
     <message>
         <source>Bottom Right</source>
-        <translation type="unfinished"></translation>
+        <translation>底部右侧</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1551,7 +1560,7 @@ Blender Path:
     </message>
     <message>
         <source>Fuzz</source>
-        <translation type="unfinished"></translation>
+        <translation>模糊</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1561,7 +1570,7 @@ Blender Path:
     </message>
     <message>
         <source>ID</source>
-        <translation type="unfinished"></translation>
+        <translation>ID</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1646,12 +1655,12 @@ Blender Path:
     </message>
     <message>
         <source>Crop</source>
-        <translation type="unfinished"></translation>
+        <translation>裁剪</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Deinterlace</source>
-        <translation type="unfinished"></translation>
+        <translation>反交错</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -1681,7 +1690,7 @@ Blender Path:
     </message>
     <message>
         <source>Scale X</source>
-        <translation type="unfinished"></translation>
+        <translation>横向缩放</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1746,12 +1755,12 @@ Blender Path:
     </message>
     <message>
         <source>Sigma</source>
-        <translation type="unfinished"></translation>
+        <translation>Sigma</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Top Left</source>
-        <translation type="unfinished"></translation>
+        <translation>顶部左侧</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1761,7 +1770,7 @@ Blender Path:
     </message>
     <message>
         <source>Scale Y</source>
-        <translation type="unfinished"></translation>
+        <translation>纵向缩放</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1816,7 +1825,7 @@ Blender Path:
     </message>
     <message>
         <source>Replace Image</source>
-        <translation type="unfinished"></translation>
+        <translation>替代图像</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1836,7 +1845,7 @@ Blender Path:
     </message>
     <message>
         <source>Location Y</source>
-        <translation type="unfinished"></translation>
+        <translation>纵坐标</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1901,7 +1910,7 @@ Blender Path:
     </message>
     <message>
         <source>Viewport</source>
-        <translation type="unfinished"></translation>
+        <translation>观察窗</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1921,7 +1930,7 @@ Blender Path:
     </message>
     <message>
         <source>Stretch</source>
-        <translation type="unfinished"></translation>
+        <translation>拉伸</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1971,7 +1980,7 @@ Blender Path:
     </message>
     <message>
         <source>Brightness &amp; Contrast</source>
-        <translation type="unfinished"></translation>
+        <translation>亮度 &amp; 对比度</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -2026,7 +2035,7 @@ Blender Path:
     </message>
     <message>
         <source>Bottom Center</source>
-        <translation type="unfinished"></translation>
+        <translation>底端居中</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2202,7 +2211,7 @@ Blender Path:
     </message>
     <message>
         <source>Anchor</source>
-        <translation type="unfinished"></translation>
+        <translation>锁定</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2267,7 +2276,7 @@ Blender Path:
     </message>
     <message>
         <source>Top Center</source>
-        <translation type="unfinished"></translation>
+        <translation>顶端居中</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2317,12 +2326,12 @@ Blender Path:
     </message>
     <message>
         <source>Top Right</source>
-        <translation type="unfinished"></translation>
+        <translation>顶部右侧</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Layer</source>
-        <translation type="unfinished"></translation>
+        <translation>图层</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2422,7 +2431,7 @@ Blender Path:
     </message>
     <message>
         <source>Center</source>
-        <translation type="unfinished"></translation>
+        <translation>居中</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2617,7 +2626,7 @@ Blender Path:
     </message>
     <message>
         <source>Canvas</source>
-        <translation type="unfinished"></translation>
+        <translation>画布</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2727,7 +2736,7 @@ Blender Path:
     </message>
     <message>
         <source>Waveform</source>
-        <translation type="unfinished"></translation>
+        <translation>波形</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2742,7 +2751,7 @@ Blender Path:
     </message>
     <message>
         <source>Best Fit</source>
-        <translation type="unfinished"></translation>
+        <translation>最佳匹配</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2938,7 +2947,7 @@ Blender Path:
     </message>
     <message>
         <source>Default Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>默认资料</translation>
         <extra-po-references>Settings for default-profile</extra-po-references>
     </message>
     <message>
@@ -3034,7 +3043,7 @@ Blender Path:
     </message>
     <message>
         <source>Image Length (seconds)</source>
-        <translation type="unfinished"></translation>
+        <translation>图像长度（秒）</translation>
         <extra-po-references>Settings for default-image-length</extra-po-references>
     </message>
     <message>
@@ -3044,7 +3053,7 @@ Blender Path:
     </message>
     <message>
         <source>Default Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>默认主题</translation>
         <extra-po-references>Settings for theme</extra-po-references>
     </message>
     <message>
@@ -3064,7 +3073,7 @@ Blender Path:
     </message>
     <message>
         <source>Autosave Interval (minutes)</source>
-        <translation type="unfinished"></translation>
+        <translation>自动保存间隔（分）</translation>
         <extra-po-references>Settings for autosave-interval</extra-po-references>
     </message>
     <message>
@@ -3104,12 +3113,12 @@ Blender Path:
     </message>
     <message>
         <source>Default Audio Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>默认声道</translation>
         <extra-po-references>Settings for default-channellayout</extra-po-references>
     </message>
     <message>
         <source>Advanced Title Editor (path)</source>
-        <translation type="unfinished"></translation>
+        <translation>高级标题编辑器（路径）</translation>
         <extra-po-references>Settings for title_editor</extra-po-references>
     </message>
     <message>
@@ -3124,7 +3133,7 @@ Blender Path:
     </message>
     <message>
         <source>Debug Mode (Verbose)</source>
-        <translation type="unfinished"></translation>
+        <translation>调试模式（详细）</translation>
         <extra-po-references>Settings for debug-mode</extra-po-references>
     </message>
     <message>
@@ -3134,7 +3143,7 @@ Blender Path:
     </message>
     <message>
         <source>Blender Command (path)</source>
-        <translation type="unfinished"></translation>
+        <translation>Blender 命令（路径）</translation>
         <extra-po-references>Settings for blender_command</extra-po-references>
     </message>
     <message>
@@ -3164,7 +3173,7 @@ Blender Path:
     </message>
     <message>
         <source>Fractal %s</source>
-        <translation type="unfinished"></translation>
+        <translation>分形 %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fractal_5.jpg</extra-po-references>
     </message>
     <message>
@@ -3266,7 +3275,7 @@ Blender Path:
     </message>
     <message>
         <source>Left arrow</source>
-        <translation type="unfinished"></translation>
+        <translation>左箭头</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg</extra-po-references>
     </message>
     <message>
@@ -3466,7 +3475,7 @@ Blender Path:
     </message>
     <message>
         <source>Right arrow</source>
-        <translation type="unfinished"></translation>
+        <translation>右箭头</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_arrow.jpg</extra-po-references>
     </message>
     <message>

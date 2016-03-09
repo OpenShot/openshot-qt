@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-03 22:58+0000\n"
-"PO-Revision-Date: 2016-02-01 06:37+0000\n"
+"PO-Revision-Date: 2016-02-20 03:29+0000\n"
 "Last-Translator: Nagaraja <naga2raja@gmail.com>\n"
 "Language-Team: Tamil <ta@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-05 06:33+0000\n"
-"X-Generator: Launchpad (build 17908)\n"
+"X-Launchpad-Export-Date: 2016-02-21 05:36+0000\n"
+"X-Generator: Launchpad (build 17925)\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:463
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1023
@@ -37,17 +37,17 @@ msgstr "தேய்ந்து மறைய"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:468
 msgid "Fade Out"
-msgstr "வெளியே மங்கயச்செய்"
+msgstr "வெளியே மங்கச் செய்"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:469
 msgid "Fade In & Out"
-msgstr "உள்ளே & வெளியே மங்கயச்செய்"
+msgstr "உள்ளே வெளியே மங்கச் செய்"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:473
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:485
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:550
 msgid "Random"
-msgstr ""
+msgstr "குறிப்பில்லாத"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:474
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:831
@@ -67,7 +67,7 @@ msgstr "சேமிக்கப்படாத மாற்றங்கள்"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:85
 msgid "Save changes to project before closing?"
-msgstr ""
+msgstr "மூடுவதற்கு முன் மாற்றங்களை சேமிக்க வேண்டுமா?"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:127
 msgid "Backup Recovered"
@@ -219,6 +219,7 @@ msgstr ""
 "  Nagaraja https://launchpad.net/~naga2raja\n"
 "  Ramesh https://launchpad.net/~rame20002007\n"
 "  Vivek Ganesan https://launchpad.net/~vivganes\n"
+"  mohamed usman https://launchpad.net/~mdus92\n"
 "  shirdi.saidasan@gmail.com https://launchpad.net/~shirdi-saidasan\n"
 "  swamytk https://launchpad.net/~swamytk\n"
 "  அவினாஷ் Avinash https://launchpad.net/~avinashachu007\n"

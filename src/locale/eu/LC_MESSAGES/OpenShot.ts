@@ -2,13 +2,13 @@
 <!DOCTYPE TS>
 <TS version="2.1">
     <extra-po-header-language_team>Basque &lt;eu@li.org&gt;</extra-po-header-language_team>
-    <extra-po-header-last_translator>Alexander Gabilondo &lt;alexgabi@irakasle.net&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-01-20 23:36+0000</extra-po-header-po_revision_date>
+    <extra-po-header-last_translator>Asier Sarasua Garmendia &lt;Unknown&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2016-02-11 17:53+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2016-02-03 22:58+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 17908)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-02-05 06:30+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 17923)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2016-02-12 05:39+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Basque translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -82,12 +82,12 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="127"/>
         <source>Backup Recovered</source>
-        <translation type="unfinished"></translation>
+        <translation>Babeskopia berreskuratu da</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="128"/>
         <source>Your most recent unsaved project has been recovered.</source>
-        <translation type="unfinished"></translation>
+        <translation>Gorde gabeko zure azken proiektua berreskuratu da.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="241"/>
@@ -208,7 +208,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/views/files_listview.py" line="165"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/files_model.py" line="173"/>
         <source>{} is not a valid video, audio, or image file.</source>
-        <translation type="unfinished"></translation>
+        <translation>{} ez da baliozko bideoa, audioa edo irudia.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="677"/>
@@ -218,12 +218,12 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="269"/>
         <source>Restart Required</source>
-        <translation type="unfinished"></translation>
+        <translation>Berrabiarazi behar da</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="270"/>
         <source>Please restart OpenShot for all preferences to take effect.</source>
-        <translation type="unfinished"></translation>
+        <translation>Berrabiarazi OpenShot hobespen guztiak aplika daitezen.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/cutting.py" line="190"/>
@@ -838,7 +838,7 @@ Blender bide-izena:
         <location filename="../../../../openshot-qt-git/src/windows/models/transition_model.py" line="158"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/effects_model.py" line="150"/>
         <source>{} is not a valid image file.</source>
-        <translation type="unfinished"></translation>
+        <translation>{} ez da baliozko irudi-fitxategia.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="67"/>
@@ -853,17 +853,17 @@ Blender bide-izena:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="100"/>
         <source>PayPal Supporter!</source>
-        <translation type="unfinished"></translation>
+        <translation>PayPal bidezko laguntza!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="108"/>
         <source>Kickstarter Supporter!</source>
-        <translation type="unfinished"></translation>
+        <translation>Kickstarter bidezko laguntza!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="116"/>
         <source>Multiple Contributions!</source>
-        <translation type="unfinished"></translation>
+        <translation>Ekarpen anitz!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="358"/>
@@ -1000,13 +1000,14 @@ Blender bide-izena:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="625"/>
         <source>Export Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Errorea esportazioan</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="626"/>
         <source>Sorry, there was an error exporting your video: 
 %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Errorea gertatu da zure bideoa esportatzean: 
+%s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -1909,7 +1910,7 @@ Blender bide-izena:
     </message>
     <message>
         <source>Viewport</source>
-        <translation type="unfinished"></translation>
+        <translation>Leihatila</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1939,7 +1940,7 @@ Blender bide-izena:
     </message>
     <message>
         <source>Remove interlacing from a video (i.e. even or odd horizontal lines)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kendu gurutzelarkaketa bideotik (hau da, lerro horizontal bakoitiak edo bikoitiak)</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -3072,7 +3073,7 @@ Blender bide-izena:
     </message>
     <message>
         <source>Autosave Interval (minutes)</source>
-        <translation type="unfinished"></translation>
+        <translation>Gordetze automatikoko tartea (minutuak)</translation>
         <extra-po-references>Settings for autosave-interval</extra-po-references>
     </message>
     <message>
@@ -3082,7 +3083,7 @@ Blender bide-izena:
     </message>
     <message>
         <source>Send Anonymous Metrics and Errors</source>
-        <translation type="unfinished"></translation>
+        <translation>Bidali metrikak eta erroreak anonimoki</translation>
         <extra-po-references>Settings for send_metrics</extra-po-references>
     </message>
     <message>
@@ -3112,12 +3113,12 @@ Blender bide-izena:
     </message>
     <message>
         <source>Default Audio Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio-kanal lehenetsiak</translation>
         <extra-po-references>Settings for default-channellayout</extra-po-references>
     </message>
     <message>
         <source>Advanced Title Editor (path)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tituluen editore aurreratua (bidea)</translation>
         <extra-po-references>Settings for title_editor</extra-po-references>
     </message>
     <message>
@@ -3132,7 +3133,7 @@ Blender bide-izena:
     </message>
     <message>
         <source>Debug Mode (Verbose)</source>
-        <translation type="unfinished"></translation>
+        <translation>Arazketa modua (xehatua)</translation>
         <extra-po-references>Settings for debug-mode</extra-po-references>
     </message>
     <message>

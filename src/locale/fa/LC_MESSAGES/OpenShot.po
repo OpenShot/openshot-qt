@@ -8,128 +8,128 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-03 22:58+0000\n"
-"PO-Revision-Date: 2016-01-11 05:40+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2016-03-01 13:16+0000\n"
+"Last-Translator: RaymondDragon <swordart2050@gmail.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-05 06:33+0000\n"
-"X-Generator: Launchpad (build 17908)\n"
+"X-Launchpad-Export-Date: 2016-03-02 05:48+0000\n"
+"X-Generator: Launchpad (build 17925)\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:463
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1023
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:157
 #, python-format
 msgid "Track %s"
-msgstr ""
+msgstr "مسیر %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:466
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:472
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:484
 #: libopenshot (Clip Properties)
 msgid "None"
-msgstr ""
+msgstr "هيچ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:467
 msgid "Fade In"
-msgstr ""
+msgstr "محو شدن در"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:468
 msgid "Fade Out"
-msgstr ""
+msgstr "به تدریج محو شدن"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:469
 msgid "Fade In & Out"
-msgstr ""
+msgstr "محو شدن در داخل و خارج"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:473
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:485
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:550
 msgid "Random"
-msgstr ""
+msgstr "تصادفی"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:474
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:831
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:834
 msgid "Zoom In"
-msgstr ""
+msgstr "زوم به داخل"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:475
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:846
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:849
 msgid "Zoom Out"
-msgstr ""
+msgstr "زوم به خارج"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:85
 msgid "Unsaved Changes"
-msgstr ""
+msgstr "تغییرات ذخیره‌نشده"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:85
 msgid "Save changes to project before closing?"
-msgstr ""
+msgstr "ذخیره تغییرات به پروژه قبل از بسته شدن ؟"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:127
 msgid "Backup Recovered"
-msgstr ""
+msgstr "پشتیبان گیری بازیافت"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:128
 msgid "Your most recent unsaved project has been recovered."
-msgstr ""
+msgstr "پروژه ذخیره نشده اخیر خود را بازیافت شده است."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:241
 msgid "Error Saving Project"
-msgstr ""
+msgstr "خطا در ذخیره پروژه"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:278
 msgid "Error Opening Project"
-msgstr ""
+msgstr "خطا در باز کردن پروژه"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:314
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:314
 msgid "Open Project..."
-msgstr ""
+msgstr "بازکردن پروژه"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:314
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:327
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:371
 msgid "OpenShot Project (*.osp)"
-msgstr ""
+msgstr "پروژه با قالب (* .osp )"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:326
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:370
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1240
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:104
 msgid "Untitled Project"
-msgstr ""
+msgstr "پروژه بدون عنوان"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:327
 msgid "Save Project..."
-msgstr ""
+msgstr "ذخیره پروژه"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:371
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:359
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:362
 msgid "Save Project As..."
-msgstr ""
+msgstr "ذخیره پروژه به عنوان ..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:386
 msgid "Import File..."
-msgstr ""
+msgstr "واردکردن فایل ..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1025
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1260
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1263
 msgid "Rename Track"
-msgstr ""
+msgstr "تغییر نام آهنگ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1025
 msgid "Track Name:"
-msgstr ""
+msgstr "نام آهنگ:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1327
 msgid "Recent Projects"
-msgstr ""
+msgstr "پروژه های اخیر"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1366
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1383
@@ -137,38 +137,38 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1541
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:286
 msgid "Filter"
-msgstr ""
+msgstr "فیلتر"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1454
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1634
 msgid "{} seconds"
-msgstr ""
+msgstr "ثانیه {}"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:114
 msgid "<Select a template>"
-msgstr ""
+msgstr "< انتخاب یک الگو >"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:323
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:342
 msgid "Select a Color"
-msgstr ""
+msgstr "یک رنگ انتخاب کنید"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:361
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:240
 msgid "Change Font"
-msgstr ""
+msgstr "تغییر قلم"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:592
 msgid "New Title"
-msgstr ""
+msgstr "عنوان جدید"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:595
 msgid "Save Title As..."
-msgstr ""
+msgstr "ذخیره به عنوان ..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:595
 msgid "Scalable Vector Graphics (*.svg)"
-msgstr ""
+msgstr "گرافیک برداری مقیاس پذیر (svg.*)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:648
 #: /home/jonathan/apps/openshot-qt-git/src/windows/animated_title.py:165
@@ -176,49 +176,50 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/files_listview.py:165
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/files_model.py:173
 msgid "{} is not a valid video, audio, or image file."
-msgstr ""
+msgstr "{} فایل تصویری، صوتی، و یا فایل تصویر معتبر نیست."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:677
 msgid "Please install {} to use this function"
-msgstr ""
+msgstr "لطفا نصب {} استفاده از این تابع"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:269
 msgid "Restart Required"
-msgstr ""
+msgstr "نیاز به راه‌اندازی مجدّد"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:270
 msgid "Please restart OpenShot for all preferences to take effect."
-msgstr ""
+msgstr "لطفا نرم افزار برای تمام تنظیمات راه اندازی مجدد کنید."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/cutting.py:190
 #: /home/jonathan/apps/openshot-qt-git/src/windows/cutting.py:224
 msgid "Please choose valid 'start' and 'end' values for your clip."
-msgstr ""
+msgstr "لطفا 'شروع' و «پایان» برای کلیپ خود را انتخاب کنید ."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/animated_title.py:85
 msgid "Render"
-msgstr ""
+msgstr "رندر"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/animated_title.py:86
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:76
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:222
 msgid "Cancel"
-msgstr ""
+msgstr "لغو"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/about.py:71
 #, python-format
 msgid "Version: %s"
-msgstr ""
+msgstr "نسخه: %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/about.py:152
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
+"  RaymondDragon https://launchpad.net/~swordart2050\n"
 "  Youhanna Parvizinejad https://launchpad.net/~parvizinejad"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/blender_treeview.py:169
 msgid "No Files Found"
-msgstr ""
+msgstr "هیچ فایلی پیدا نشد"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/blender_treeview.py:461
 msgid ""
@@ -227,6 +228,10 @@ msgid ""
 "Version Detected:\n"
 "{}"
 msgstr ""
+"\n"
+"\n"
+"نسخه شناسایی شده :\n"
+"{}"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/blender_treeview.py:464
 msgid ""
@@ -235,6 +240,10 @@ msgid ""
 "Error Output:\n"
 "{}"
 msgstr ""
+"\n"
+"\n"
+"خروجی خطا:\n"
+"{}"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/blender_treeview.py:471
 msgid ""
@@ -249,254 +258,263 @@ msgid ""
 "Blender Path:\n"
 "{}{}"
 msgstr ""
+"بلندر، منبع باز 3D برای ایجاد محتوا رایگان برای این عمل مورد نیاز است "
+"( http://www.blender.org ).\n"
+"\n"
+"لطفا تنظیمات در OpenShot را چک کنید و مطمئن شوید که اجرایی بلندر درست است. "
+"این تنظیم باید مسیر از « blender » اجرا بر روی کامپیوتر شما می شود . همچنین، "
+"لطفا مطمئن باشید که آن است با اشاره به بلندر نسخه { } یا بیشتر است.\n"
+"\n"
+"راه بلندر :\n"
+"{} {}"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/blender_treeview.py:775
 msgid "No frame was found in the output from Blender"
-msgstr ""
+msgstr "بدون چارچوب در خروجی از بلندر"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Start of Clip"
-msgstr ""
+msgstr "شروع ویدیو"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "End of Clip"
-msgstr ""
+msgstr "پایان ویدپو"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Entire Clip"
-msgstr ""
+msgstr "کل ویدیو"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Normal"
-msgstr ""
+msgstr "عادی"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Fast"
-msgstr ""
+msgstr "تند"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Slow"
-msgstr ""
+msgstr "آهسته"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Forward"
-msgstr ""
+msgstr "رو به جلو"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Backward"
-msgstr ""
+msgstr "عقب"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:423
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1510
 msgid "Copy"
-msgstr ""
+msgstr "رونوشت"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:424
 msgid "Clip"
-msgstr ""
+msgstr "ویدیو"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:426
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1513
 msgid "Keyframes"
-msgstr ""
+msgstr "Keyframes"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:427
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1514
 msgid "All"
-msgstr ""
+msgstr "همه"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:430
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "Alpha"
-msgstr ""
+msgstr "آلفا"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:432
 #: libopenshot (Clip Properties)
 msgid "Scale"
-msgstr ""
+msgstr "مقیاس"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:434
 #: libopenshot (Clip Properties)
 msgid "Rotation"
-msgstr ""
+msgstr "چرخش"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:436
 msgid "Location"
-msgstr ""
+msgstr "مکان"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:438
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:595
 #: libopenshot (Clip Properties)
 msgid "Time"
-msgstr ""
+msgstr "زمان"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:440
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:619
 #: libopenshot (Clip Properties) Settings for volume
 msgid "Volume"
-msgstr ""
+msgstr "حجم"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:442
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:236
 msgid "Effects"
-msgstr ""
+msgstr "افکت‌ها"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:448
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1525
 msgid "Paste"
-msgstr ""
+msgstr "جاگذاری"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:454
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/common/fade.svg
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:240
 msgid "Fade"
-msgstr ""
+msgstr "محو کن"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:455
 msgid "No Fade"
-msgstr ""
+msgstr "بدون محو شدن"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:462
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:627
 msgid "Fade In (Fast)"
-msgstr ""
+msgstr "محو شدن در (سریع)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:464
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:629
 msgid "Fade In (Slow)"
-msgstr ""
+msgstr "محو شدن در (آهسته)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:468
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:633
 msgid "Fade Out (Fast)"
-msgstr ""
+msgstr "محو شدن در خارج (سریع)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:470
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:635
 msgid "Fade Out (Slow)"
-msgstr ""
+msgstr "محو شدن در خارج (کند)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:474
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:639
 msgid "Fade In and Out (Fast)"
-msgstr ""
+msgstr "محو شدن در داخل و خارج (سریع)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:476
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:641
 msgid "Fade In and Out (Slow)"
-msgstr ""
+msgstr "محو شدن در داخل و خارج (آهسته)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:479
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:644
 msgid "Fade In (Entire Clip)"
-msgstr ""
+msgstr "محو شدن در ( کل ویدیو )"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:481
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:646
 msgid "Fade Out (Entire Clip)"
-msgstr ""
+msgstr "محو شدن در خارج ( کل ویدیو )"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:489
 msgid "Animate"
-msgstr ""
+msgstr "پویانماسازی"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:490
 msgid "No Animation"
-msgstr ""
+msgstr "بدون پویانمایی"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:497
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:307
 msgid "Zoom"
-msgstr ""
+msgstr "بزرگ‌نمایی"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:498
 msgid "Zoom In (50% to 100%)"
-msgstr ""
+msgstr "بزرگنمایی (50 ٪ تا 100٪ )"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:500
 msgid "Zoom In (75% to 100%)"
-msgstr ""
+msgstr "بزرگنمایی (75 ٪ تا 100٪ )"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:502
 msgid "Zoom In (100% to 150%)"
-msgstr ""
+msgstr "بزرگنمایی ( 100٪ به 150 ٪)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:504
 msgid "Zoom Out (100% to 75%)"
-msgstr ""
+msgstr "کوچک نمایی (100 ٪ تا 75٪ )"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:506
 msgid "Zoom Out (100% to 50%)"
-msgstr ""
+msgstr "کوچک نمایی (100 ٪ تا 50٪ )"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:508
 msgid "Zoom Out (150% to 100%)"
-msgstr ""
+msgstr "کوچک نمایی (100 ٪ تا 150٪ )"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:513
 msgid "Center to Edge"
-msgstr ""
+msgstr "وسط در لبه"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:514
 msgid "Center to Top"
-msgstr ""
+msgstr "وسط در بالا"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:516
 msgid "Center to Left"
-msgstr ""
+msgstr "وسط در چپ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:518
 msgid "Center to Right"
-msgstr ""
+msgstr "وسط در راست"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:520
 msgid "Center to Bottom"
-msgstr ""
+msgstr "وسط در پایین"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:525
 msgid "Edge to Center"
-msgstr ""
+msgstr "لبه در وسط"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:526
 msgid "Top to Center"
-msgstr ""
+msgstr "بالا به وسط"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:528
 msgid "Left to Center"
-msgstr ""
+msgstr "چپ به وسط"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:530
 msgid "Right to Center"
-msgstr ""
+msgstr "راست به وسط"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:532
 msgid "Bottom to Center"
-msgstr ""
+msgstr "پایین به وسط"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:537
 msgid "Edge to Edge"
-msgstr ""
+msgstr "لبه به لبه"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:538
 msgid "Top to Bottom"
-msgstr ""
+msgstr "بالا به پایین"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:540
 msgid "Left to Right"
-msgstr ""
+msgstr "چپ به راست"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:542
 msgid "Right to Left"
-msgstr ""
+msgstr "راست به چپ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:544
 msgid "Bottom to Top"
-msgstr ""
+msgstr "پایین به بالا"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:560
 #: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
 msgid "Rotate"
-msgstr ""
+msgstr "چرخاندن"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:561
 msgid "No Rotation"

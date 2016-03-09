@@ -3,12 +3,12 @@
 <TS version="2.1">
     <extra-po-header-language_team>German &lt;de@li.org&gt;</extra-po-header-language_team>
     <extra-po-header-last_translator>schuko24 &lt;gerdsaenger@t-online.de&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-02-04 19:05+0000</extra-po-header-po_revision_date>
+    <extra-po-header-po_revision_date>2016-02-18 19:22+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2016-02-03 22:58+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 17908)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-02-05 06:31+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 17925)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2016-02-19 05:44+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># German translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -461,7 +461,7 @@ Blender Pfad:
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="438"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="595"/>
         <source>Time</source>
-        <translation>Uhrzeit</translation>
+        <translation>Dauer</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -3797,7 +3797,7 @@ Blender Pfad:
     </message>
     <message>
         <source>Checked %s</source>
-        <translation>%s überprüft</translation>
+        <translation>Schachbrett %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/checked_1.jpg</extra-po-references>
     </message>
     <message>

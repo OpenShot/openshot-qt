@@ -3,12 +3,12 @@
 <TS version="2.1">
     <extra-po-header-language_team>Japanese &lt;ja@li.org&gt;</extra-po-header-language_team>
     <extra-po-header-last_translator>Masaki Tamakoshi &lt;Unknown&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-01-16 14:56+0000</extra-po-header-po_revision_date>
+    <extra-po-header-po_revision_date>2016-03-02 11:28+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2016-02-03 22:58+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 17908)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-02-05 06:32+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 17925)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2016-03-03 06:14+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Japanese translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -53,7 +53,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="485"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="550"/>
         <source>Random</source>
-        <translation type="unfinished"></translation>
+        <translation>ランダム</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="474"/>
@@ -72,7 +72,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="85"/>
         <source>Unsaved Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>未保存の変更</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="85"/>
@@ -82,12 +82,12 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="127"/>
         <source>Backup Recovered</source>
-        <translation type="unfinished"></translation>
+        <translation>回復済バックアップ</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="128"/>
         <source>Your most recent unsaved project has been recovered.</source>
-        <translation type="unfinished"></translation>
+        <translation>最新の未保存プロジェクトが回復しました。</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="241"/>
@@ -208,28 +208,28 @@
         <location filename="../../../../openshot-qt-git/src/windows/views/files_listview.py" line="165"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/files_model.py" line="173"/>
         <source>{} is not a valid video, audio, or image file.</source>
-        <translation type="unfinished"></translation>
+        <translation>{} は、有効なビデオ、オーディオ、または画像ではありません。</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="677"/>
         <source>Please install {} to use this function</source>
-        <translation type="unfinished"></translation>
+        <translation>この機能を有効にするには{}をインストールしてください。</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="269"/>
         <source>Restart Required</source>
-        <translation type="unfinished"></translation>
+        <translation>再起動が必要です</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="270"/>
         <source>Please restart OpenShot for all preferences to take effect.</source>
-        <translation type="unfinished"></translation>
+        <translation>全ての設定を有効にするためにOpenShotを再起動してください。</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/cutting.py" line="190"/>
         <location filename="../../../../openshot-qt-git/src/windows/cutting.py" line="224"/>
         <source>Please choose valid &apos;start&apos; and &apos;end&apos; values for your clip.</source>
-        <translation type="unfinished"></translation>
+        <translation>クリップの最初と終わりの有効な値を選択してください。</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/animated_title.py" line="85"/>
@@ -272,7 +272,10 @@
 
 Version Detected:
 {}</source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+検出されたバージョン:
+{}</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/blender_treeview.py" line="464"/>
@@ -318,7 +321,7 @@ Blender パス:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Entire Clip</source>
-        <translation type="unfinished"></translation>
+        <translation>クリップ全体</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
@@ -389,7 +392,7 @@ Blender パス:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="436"/>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>座標</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="438"/>
@@ -469,13 +472,13 @@ Blender パス:
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="479"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="644"/>
         <source>Fade In (Entire Clip)</source>
-        <translation type="unfinished"></translation>
+        <translation>フェードイン（クリップ全体）</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="481"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="646"/>
         <source>Fade Out (Entire Clip)</source>
-        <translation type="unfinished"></translation>
+        <translation>フェードアウト（クリップ全体）</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="489"/>
@@ -526,7 +529,7 @@ Blender パス:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="513"/>
         <source>Center to Edge</source>
-        <translation type="unfinished"></translation>
+        <translation>中央から端へ</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="514"/>
@@ -541,7 +544,7 @@ Blender パス:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="518"/>
         <source>Center to Right</source>
-        <translation type="unfinished"></translation>
+        <translation>中央から右へ</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="520"/>
@@ -551,7 +554,7 @@ Blender パス:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="525"/>
         <source>Edge to Center</source>
-        <translation type="unfinished"></translation>
+        <translation>端から中央へ</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="526"/>
@@ -576,7 +579,7 @@ Blender パス:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="537"/>
         <source>Edge to Edge</source>
-        <translation type="unfinished"></translation>
+        <translation>端から端へ</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="538"/>
@@ -672,87 +675,87 @@ Blender パス:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="596"/>
         <source>Reset Time</source>
-        <translation type="unfinished"></translation>
+        <translation>タイムリセット</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="620"/>
         <source>Reset Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>ボリュームリセット</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="651"/>
         <source>Level 100%</source>
-        <translation type="unfinished"></translation>
+        <translation>レベル 100%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="653"/>
         <source>Level 90%</source>
-        <translation type="unfinished"></translation>
+        <translation>レベル 90%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="655"/>
         <source>Level 80%</source>
-        <translation type="unfinished"></translation>
+        <translation>レベル 80%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="657"/>
         <source>Level 70%</source>
-        <translation type="unfinished"></translation>
+        <translation>レベル 70%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="659"/>
         <source>Level 60%</source>
-        <translation type="unfinished"></translation>
+        <translation>レベル 60%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="661"/>
         <source>Level 50%</source>
-        <translation type="unfinished"></translation>
+        <translation>レベル 50%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="663"/>
         <source>Level 40%</source>
-        <translation type="unfinished"></translation>
+        <translation>レベル 40%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="665"/>
         <source>Level 30%</source>
-        <translation type="unfinished"></translation>
+        <translation>レベル 30%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="667"/>
         <source>Level 20%</source>
-        <translation type="unfinished"></translation>
+        <translation>レベル 20%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="669"/>
         <source>Level 10%</source>
-        <translation type="unfinished"></translation>
+        <translation>レベル 10%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="671"/>
         <source>Level 0%</source>
-        <translation type="unfinished"></translation>
+        <translation>レベル 0%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="683"/>
         <source>Slice Clip</source>
-        <translation type="unfinished"></translation>
+        <translation>クリップを切り取る</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="684"/>
         <source>Keep Both Sides</source>
-        <translation type="unfinished"></translation>
+        <translation>両側を保持</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="686"/>
         <source>Keep Left Side</source>
-        <translation type="unfinished"></translation>
+        <translation>左側を保持</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="688"/>
         <source>Keep Right Side</source>
-        <translation type="unfinished"></translation>
+        <translation>右側を保持</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1511"/>
@@ -775,29 +778,29 @@ Blender パス:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1531"/>
         <source>Reverse Transition</source>
-        <translation type="unfinished"></translation>
+        <translation>トランジションの反転</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="78"/>
         <source>Selection: %s</source>
-        <translation type="unfinished"></translation>
+        <translation>選択: %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="80"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="273"/>
         <source>No Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>選択なし</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="129"/>
         <source>Bezier</source>
-        <translation type="unfinished"></translation>
+        <translation>ベジェ</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="131"/>
         <source>Linear</source>
-        <translation type="unfinished"></translation>
+        <translation>リニア</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="133"/>
@@ -808,7 +811,7 @@ Blender パス:
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="136"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="141"/>
         <source>Remove Keyframe</source>
-        <translation type="unfinished"></translation>
+        <translation>キーフレームの削除</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/add_to_timeline_model.py" line="57"/>
@@ -834,32 +837,32 @@ Blender パス:
         <location filename="../../../../openshot-qt-git/src/windows/models/transition_model.py" line="158"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/effects_model.py" line="150"/>
         <source>{} is not a valid image file.</source>
-        <translation type="unfinished"></translation>
+        <translation>{} は有効な画像ではありません。</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="67"/>
         <source>Email</source>
-        <translation type="unfinished"></translation>
+        <translation>Eメール</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="67"/>
         <source>Website</source>
-        <translation type="unfinished"></translation>
+        <translation>Webサイト</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="100"/>
         <source>PayPal Supporter!</source>
-        <translation type="unfinished"></translation>
+        <translation>ペイパルによる支援者！</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="108"/>
         <source>Kickstarter Supporter!</source>
-        <translation type="unfinished"></translation>
+        <translation>キックスターターによる支援者！</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="116"/>
         <source>Multiple Contributions!</source>
-        <translation type="unfinished"></translation>
+        <translation>複数の寄付！</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="358"/>
@@ -872,13 +875,13 @@ Blender パス:
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="499"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="682"/>
         <source>Property</source>
-        <translation type="unfinished"></translation>
+        <translation>設定項目</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="499"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="682"/>
         <source>Value</source>
-        <translation type="unfinished"></translation>
+        <translation>設定値</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="517"/>
@@ -890,17 +893,17 @@ Blender パス:
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="559"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="627"/>
         <source>True</source>
-        <translation type="unfinished"></translation>
+        <translation>はい</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/files_model.py" line="100"/>
         <source>Tags</source>
-        <translation type="unfinished"></translation>
+        <translation>タグ</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/effects_model.py" line="80"/>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>詳細</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="74"/>
@@ -921,27 +924,27 @@ Blender パス:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="123"/>
         <source>Mono (1 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>モノラル (1 チャンネル)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="124"/>
         <source>Stereo (2 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>ステレオ (2 チャンネル)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="125"/>
         <source>Surround (3 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>サラウンド (3 チャンネル)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="126"/>
         <source>Surround (5.1 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>サラウンド (5.1 チャンネル)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="127"/>
         <source>Surround (7.1 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>サラウンド (7.1 チャンネル)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="192"/>
@@ -991,18 +994,19 @@ Blender パス:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="472"/>
         <source>Choose a Folder...</source>
-        <translation type="unfinished"></translation>
+        <translation>フォルダを選択...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="625"/>
         <source>Export Error</source>
-        <translation type="unfinished"></translation>
+        <translation>書き出しトエラー</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="626"/>
         <source>Sorry, there was an error exporting your video: 
 %s</source>
-        <translation type="unfinished"></translation>
+        <translation>申し訳ありませんが、ビデオの書き出しでエラーがありました: 
+%s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -1012,7 +1016,7 @@ Blender パス:
     </message>
     <message>
         <source>Iterations</source>
-        <translation type="unfinished"></translation>
+        <translation>反復</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1102,7 +1106,7 @@ Blender パス:
     </message>
     <message>
         <source>Vertical Radius</source>
-        <translation type="unfinished"></translation>
+        <translation>垂直半径</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1142,7 +1146,7 @@ Blender パス:
     </message>
     <message>
         <source>Gravity</source>
-        <translation type="unfinished"></translation>
+        <translation>重力</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1227,7 +1231,7 @@ Blender パス:
     </message>
     <message>
         <source>Color Saturation</source>
-        <translation type="unfinished"></translation>
+        <translation>彩度</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -1277,12 +1281,12 @@ Blender パス:
     </message>
     <message>
         <source>Bottom Left</source>
-        <translation type="unfinished"></translation>
+        <translation>左下</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Duration</source>
-        <translation type="unfinished"></translation>
+        <translation>再生時間</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1340,7 +1344,7 @@ Blender パス:
     </message>
     <message>
         <source>Adjust the blur of the frame&apos;s image.</source>
-        <translation type="unfinished"></translation>
+        <translation>フレーム画像のブラー調整</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -1410,12 +1414,12 @@ Blender パス:
     </message>
     <message>
         <source>Horizontal Radius</source>
-        <translation type="unfinished"></translation>
+        <translation>水平半径</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Location X</source>
-        <translation type="unfinished"></translation>
+        <translation>X座標</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1530,7 +1534,7 @@ Blender パス:
     </message>
     <message>
         <source>Bottom Right</source>
-        <translation type="unfinished"></translation>
+        <translation>右下</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1555,7 +1559,7 @@ Blender パス:
     </message>
     <message>
         <source>Fuzz</source>
-        <translation type="unfinished"></translation>
+        <translation>遊び量</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1565,7 +1569,7 @@ Blender パス:
     </message>
     <message>
         <source>ID</source>
-        <translation type="unfinished"></translation>
+        <translation>ID</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1650,12 +1654,12 @@ Blender パス:
     </message>
     <message>
         <source>Crop</source>
-        <translation type="unfinished"></translation>
+        <translation>トリミング</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Deinterlace</source>
-        <translation type="unfinished"></translation>
+        <translation>インターレース解除</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -1665,7 +1669,7 @@ Blender パス:
     </message>
     <message>
         <source>Adjust the color saturation.</source>
-        <translation type="unfinished"></translation>
+        <translation>彩度調整</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -1685,7 +1689,7 @@ Blender パス:
     </message>
     <message>
         <source>Scale X</source>
-        <translation type="unfinished"></translation>
+        <translation>拡縮X</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1750,12 +1754,12 @@ Blender パス:
     </message>
     <message>
         <source>Sigma</source>
-        <translation type="unfinished"></translation>
+        <translation>シグマ値</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Top Left</source>
-        <translation type="unfinished"></translation>
+        <translation>左上</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1765,7 +1769,7 @@ Blender パス:
     </message>
     <message>
         <source>Scale Y</source>
-        <translation type="unfinished"></translation>
+        <translation>拡縮Y</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1820,7 +1824,7 @@ Blender パス:
     </message>
     <message>
         <source>Replace Image</source>
-        <translation type="unfinished"></translation>
+        <translation>画像の置換</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1840,7 +1844,7 @@ Blender パス:
     </message>
     <message>
         <source>Location Y</source>
-        <translation type="unfinished"></translation>
+        <translation>Y座標</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1900,12 +1904,12 @@ Blender パス:
     </message>
     <message>
         <source>Chroma Key (Greenscreen)</source>
-        <translation type="unfinished"></translation>
+        <translation>クロマキー (グリーンバック合成)</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Viewport</source>
-        <translation type="unfinished"></translation>
+        <translation>ビューポート</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1925,7 +1929,7 @@ Blender パス:
     </message>
     <message>
         <source>Stretch</source>
-        <translation type="unfinished"></translation>
+        <translation>ストレッチ</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1935,7 +1939,7 @@ Blender パス:
     </message>
     <message>
         <source>Remove interlacing from a video (i.e. even or odd horizontal lines)</source>
-        <translation type="unfinished"></translation>
+        <translation>ビデオのインターレース解除（奇数と偶数フィールドの再結合）</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -1975,12 +1979,12 @@ Blender パス:
     </message>
     <message>
         <source>Brightness &amp; Contrast</source>
-        <translation type="unfinished"></translation>
+        <translation>輝度とコントラスト</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Is Odd Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>奇数フレーム</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2030,7 +2034,7 @@ Blender パス:
     </message>
     <message>
         <source>Bottom Center</source>
-        <translation type="unfinished"></translation>
+        <translation>下中央</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2206,7 +2210,7 @@ Blender パス:
     </message>
     <message>
         <source>Anchor</source>
-        <translation type="unfinished"></translation>
+        <translation>アンカー</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2271,7 +2275,7 @@ Blender パス:
     </message>
     <message>
         <source>Top Center</source>
-        <translation type="unfinished"></translation>
+        <translation>上中央</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2281,7 +2285,7 @@ Blender パス:
     </message>
     <message>
         <source>Adjust the brightness and contrast of the frame&apos;s image.</source>
-        <translation type="unfinished"></translation>
+        <translation>フレーム画像の明度・コントラスト調整</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -2321,12 +2325,12 @@ Blender パス:
     </message>
     <message>
         <source>Top Right</source>
-        <translation type="unfinished"></translation>
+        <translation>上右</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Layer</source>
-        <translation type="unfinished"></translation>
+        <translation>レイヤー</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2411,7 +2415,7 @@ Blender パス:
     </message>
     <message>
         <source>Negative</source>
-        <translation type="unfinished"></translation>
+        <translation>ネガフィルム</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -2426,7 +2430,7 @@ Blender パス:
     </message>
     <message>
         <source>Center</source>
-        <translation type="unfinished"></translation>
+        <translation>中央</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2436,7 +2440,7 @@ Blender パス:
     </message>
     <message>
         <source>Key Color</source>
-        <translation type="unfinished"></translation>
+        <translation>キーカラー</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2621,7 +2625,7 @@ Blender パス:
     </message>
     <message>
         <source>Canvas</source>
-        <translation type="unfinished"></translation>
+        <translation>キャンバス</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2731,7 +2735,7 @@ Blender パス:
     </message>
     <message>
         <source>Waveform</source>
-        <translation type="unfinished"></translation>
+        <translation>波形</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2746,7 +2750,7 @@ Blender パス:
     </message>
     <message>
         <source>Best Fit</source>
-        <translation type="unfinished"></translation>
+        <translation>全体に合わせる</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2891,7 +2895,7 @@ Blender パス:
     </message>
     <message>
         <source>Alpha Mask / Wipe Transition</source>
-        <translation type="unfinished"></translation>
+        <translation>アルファマスク / ワイプトランジション</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -2942,7 +2946,7 @@ Blender パス:
     </message>
     <message>
         <source>Default Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>初期設定</translation>
         <extra-po-references>Settings for default-profile</extra-po-references>
     </message>
     <message>
@@ -2998,7 +3002,7 @@ Blender パス:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="118"/>
         <source>Vimeo</source>
-        <translation type="unfinished"></translation>
+        <translation>Vimeo</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/vimeo.xml</extra-po-references>
     </message>
     <message>
@@ -3038,7 +3042,7 @@ Blender パス:
     </message>
     <message>
         <source>Image Length (seconds)</source>
-        <translation type="unfinished"></translation>
+        <translation>画像の長さ (秒)</translation>
         <extra-po-references>Settings for default-image-length</extra-po-references>
     </message>
     <message>
@@ -3048,7 +3052,7 @@ Blender パス:
     </message>
     <message>
         <source>Default Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>標準のテーマ</translation>
         <extra-po-references>Settings for theme</extra-po-references>
     </message>
     <message>
@@ -3068,7 +3072,7 @@ Blender パス:
     </message>
     <message>
         <source>Autosave Interval (minutes)</source>
-        <translation type="unfinished"></translation>
+        <translation>自動保存の間隔 (分)</translation>
         <extra-po-references>Settings for autosave-interval</extra-po-references>
     </message>
     <message>
@@ -3078,7 +3082,7 @@ Blender パス:
     </message>
     <message>
         <source>Send Anonymous Metrics and Errors</source>
-        <translation type="unfinished"></translation>
+        <translation>匿名でエラーと評価の計測値を送る</translation>
         <extra-po-references>Settings for send_metrics</extra-po-references>
     </message>
     <message>
@@ -3093,7 +3097,7 @@ Blender パス:
     </message>
     <message>
         <source>Default Audio Sample Rate</source>
-        <translation type="unfinished"></translation>
+        <translation>標準の音声サンプリング・レート</translation>
         <extra-po-references>Settings for default-samplerate</extra-po-references>
     </message>
     <message>
@@ -3108,12 +3112,12 @@ Blender パス:
     </message>
     <message>
         <source>Default Audio Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>標準の音声チャンネル</translation>
         <extra-po-references>Settings for default-channellayout</extra-po-references>
     </message>
     <message>
         <source>Advanced Title Editor (path)</source>
-        <translation type="unfinished"></translation>
+        <translation>外部のタイトルエディタ（パス）</translation>
         <extra-po-references>Settings for title_editor</extra-po-references>
     </message>
     <message>
@@ -3128,7 +3132,7 @@ Blender パス:
     </message>
     <message>
         <source>Debug Mode (Verbose)</source>
-        <translation type="unfinished"></translation>
+        <translation>デバッグモード（冗長な）</translation>
         <extra-po-references>Settings for debug-mode</extra-po-references>
     </message>
     <message>
@@ -3138,7 +3142,7 @@ Blender パス:
     </message>
     <message>
         <source>Blender Command (path)</source>
-        <translation type="unfinished"></translation>
+        <translation>Blenderの実行ファイル(パス)</translation>
         <extra-po-references>Settings for blender_command</extra-po-references>
     </message>
     <message>
@@ -3168,7 +3172,7 @@ Blender パス:
     </message>
     <message>
         <source>Fractal %s</source>
-        <translation type="unfinished"></translation>
+        <translation>フラクタル %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fractal_5.jpg</extra-po-references>
     </message>
     <message>
@@ -3188,7 +3192,7 @@ Blender パス:
     </message>
     <message>
         <source>Future %s</source>
-        <translation type="unfinished"></translation>
+        <translation>フューチャー %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/future_11.jpg</extra-po-references>
     </message>
     <message>
@@ -3213,7 +3217,7 @@ Blender パス:
     </message>
     <message>
         <source>Big barr</source>
-        <translation type="unfinished"></translation>
+        <translation>大きなバー</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr.jpg</extra-po-references>
     </message>
     <message>
@@ -3228,7 +3232,7 @@ Blender パス:
     </message>
     <message>
         <source>Flower %s</source>
-        <translation type="unfinished"></translation>
+        <translation>フラワー %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/flower_4.jpg</extra-po-references>
     </message>
     <message>
@@ -3238,12 +3242,12 @@ Blender パス:
     </message>
     <message>
         <source>Sunlight %s</source>
-        <translation type="unfinished"></translation>
+        <translation>サンライト %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sunlight_2.jpg</extra-po-references>
     </message>
     <message>
         <source>Crossed barr</source>
-        <translation type="unfinished"></translation>
+        <translation>交差するバー</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/crossed_barr.jpg</extra-po-references>
     </message>
     <message>
@@ -3265,12 +3269,12 @@ Blender パス:
     </message>
     <message>
         <source>Luminous spiral %s</source>
-        <translation type="unfinished"></translation>
+        <translation>輝く螺旋 %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_spiral_9.jpg</extra-po-references>
     </message>
     <message>
         <source>Left arrow</source>
-        <translation type="unfinished"></translation>
+        <translation>左向きの矢印</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg</extra-po-references>
     </message>
     <message>
@@ -3285,7 +3289,7 @@ Blender パス:
     </message>
     <message>
         <source>Luminous frame %s</source>
-        <translation type="unfinished"></translation>
+        <translation>輝く額縁 %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_frame_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3300,7 +3304,7 @@ Blender パス:
     </message>
     <message>
         <source>Ray %s</source>
-        <translation type="unfinished"></translation>
+        <translation>輝き %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_1.jpg</extra-po-references>
     </message>
     <message>
@@ -3310,7 +3314,7 @@ Blender パス:
     </message>
     <message>
         <source>Foggy spiral %s</source>
-        <translation type="unfinished"></translation>
+        <translation>霧の螺旋 %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/foggy_spiral_1.jpg</extra-po-references>
     </message>
     <message>
@@ -3330,7 +3334,7 @@ Blender パス:
     </message>
     <message>
         <source>Ray light %s</source>
-        <translation type="unfinished"></translation>
+        <translation>筋状の光 %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_18.jpg</extra-po-references>
     </message>
     <message>
@@ -3340,7 +3344,7 @@ Blender パス:
     </message>
     <message>
         <source>Strange barr %s</source>
-        <translation type="unfinished"></translation>
+        <translation>奇妙なバー %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/strange_barr_1.jpg</extra-po-references>
     </message>
     <message>
@@ -3385,7 +3389,7 @@ Blender パス:
     </message>
     <message>
         <source>Puzzle</source>
-        <translation type="unfinished"></translation>
+        <translation>パズル</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/puzzle.jpg</extra-po-references>
     </message>
     <message>
@@ -3410,7 +3414,7 @@ Blender パス:
     </message>
     <message>
         <source>Small barr</source>
-        <translation type="unfinished"></translation>
+        <translation>小さなバー</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_barr.jpg</extra-po-references>
     </message>
     <message>
@@ -3445,7 +3449,7 @@ Blender パス:
     </message>
     <message>
         <source>Fish-eyes %s</source>
-        <translation type="unfinished"></translation>
+        <translation>魚眼効果 %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fish-eyes_5.jpg</extra-po-references>
     </message>
     <message>
@@ -3455,7 +3459,7 @@ Blender パス:
     </message>
     <message>
         <source>Mozaic %s</source>
-        <translation type="unfinished"></translation>
+        <translation>モザイク %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_5.jpg</extra-po-references>
     </message>
     <message>
@@ -3465,12 +3469,12 @@ Blender パス:
     </message>
     <message>
         <source>Barr ripple %s</source>
-        <translation type="unfinished"></translation>
+        <translation>さざ波バー %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/barr_ripple_2.jpg</extra-po-references>
     </message>
     <message>
         <source>Right arrow</source>
-        <translation type="unfinished"></translation>
+        <translation>右向きの矢印</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_arrow.jpg</extra-po-references>
     </message>
     <message>
@@ -3500,7 +3504,7 @@ Blender パス:
     </message>
     <message>
         <source>Star %s</source>
-        <translation type="unfinished"></translation>
+        <translation>スター %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/star_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3540,7 +3544,7 @@ Blender パス:
     </message>
     <message>
         <source>Spiral big %s</source>
-        <translation type="unfinished"></translation>
+        <translation>大きな螺旋 %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3610,7 +3614,7 @@ Blender パス:
     </message>
     <message>
         <source>Ripple %s</source>
-        <translation type="unfinished"></translation>
+        <translation>さざ波 %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_4.jpg</extra-po-references>
     </message>
     <message>
@@ -3635,7 +3639,7 @@ Blender パス:
     </message>
     <message>
         <source>Fogg %s</source>
-        <translation type="unfinished"></translation>
+        <translation>霧 %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fogg_3.jpg</extra-po-references>
     </message>
     <message>
@@ -3650,7 +3654,7 @@ Blender パス:
     </message>
     <message>
         <source>Distortion %s</source>
-        <translation type="unfinished"></translation>
+        <translation>ディストーション %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg</extra-po-references>
     </message>
     <message>
@@ -3665,7 +3669,7 @@ Blender パス:
     </message>
     <message>
         <source>Clouds %s</source>
-        <translation type="unfinished"></translation>
+        <translation>雲 %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3675,7 +3679,7 @@ Blender パス:
     </message>
     <message>
         <source>Spiral small %s</source>
-        <translation type="unfinished"></translation>
+        <translation>小さな螺旋 %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3690,7 +3694,7 @@ Blender パス:
     </message>
     <message>
         <source>Deform %s</source>
-        <translation type="unfinished"></translation>
+        <translation>歪み %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/deform_8.jpg</extra-po-references>
     </message>
     <message>
@@ -3710,12 +3714,12 @@ Blender パス:
     </message>
     <message>
         <source>Frame %s</source>
-        <translation type="unfinished"></translation>
+        <translation>額縁 %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_2.jpg</extra-po-references>
     </message>
     <message>
         <source>Sphere %s</source>
-        <translation type="unfinished"></translation>
+        <translation>球状 %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3730,7 +3734,7 @@ Blender パス:
     </message>
     <message>
         <source>Checked %s</source>
-        <translation type="unfinished"></translation>
+        <translation>チェック %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/checked_1.jpg</extra-po-references>
     </message>
     <message>
@@ -3785,7 +3789,7 @@ Blender パス:
     </message>
     <message>
         <source>Cross %s</source>
-        <translation type="unfinished"></translation>
+        <translation>交差 %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/cross_15.jpg</extra-po-references>
     </message>
     <message>
@@ -3795,7 +3799,7 @@ Blender パス:
     </message>
     <message>
         <source>Spiral %s</source>
-        <translation type="unfinished"></translation>
+        <translation>螺旋 %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_1.jpg</extra-po-references>
     </message>
     <message>
@@ -3805,7 +3809,7 @@ Blender パス:
     </message>
     <message>
         <source>Stain %s</source>
-        <translation type="unfinished"></translation>
+        <translation>汚れ %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/stain_1.jpg</extra-po-references>
     </message>
     <message>
@@ -3815,7 +3819,7 @@ Blender パス:
     </message>
     <message>
         <source>Extra</source>
-        <translation type="unfinished"></translation>
+        <translation>拡張</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra</extra-po-references>
     </message>
     <message>
@@ -3825,12 +3829,12 @@ Blender パス:
     </message>
     <message>
         <source>Boxes %s</source>
-        <translation type="unfinished"></translation>
+        <translation>ボックス %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/boxes_12.jpg</extra-po-references>
     </message>
     <message>
         <source>Triangle %s</source>
-        <translation type="unfinished"></translation>
+        <translation>三角形 %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/triangle_3.jpg</extra-po-references>
     </message>
     <message>
@@ -3841,31 +3845,31 @@ Blender パス:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/about.ui" line="67"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;hr/&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Create &amp;amp; Edit Amazing Videos and Movies&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;OpenShot Video Editor 2.x is the next generation of the award-winning &lt;br/&gt;OpenShot video editing platform. &lt;/span&gt;&lt;a href=&quot;http://www.openshot.org?r=about-us&quot;&gt;&lt;span style=&quot; font-size:10pt; text-decoration: none; color:#55aaff;&quot;&gt;Learn more&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;hr/&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Create &amp;amp; Edit Amazing Videos and Movies&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;OpenShot Video Editor 2.x is the next generation of the award-winning &lt;br/&gt;OpenShot video editing platform. &lt;/span&gt;&lt;a href=&quot;http://www.openshot.org?r=about-us&quot;&gt;&lt;span style=&quot; font-size:10pt; text-decoration: none; color:#55aaff;&quot;&gt;Learn more&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/about.ui" line="100"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="14"/>
         <source>Credits</source>
-        <translation type="unfinished"></translation>
+        <translation>クレジット</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/about.ui" line="107"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/license.ui" line="14"/>
         <source>License</source>
-        <translation type="unfinished"></translation>
+        <translation>ライセンス</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/about.ui" line="114"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="134"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/license.ui" line="45"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>閉じる</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="14"/>
         <source>Add To Timeline</source>
-        <translation type="unfinished"></translation>
+        <translation>タイムラインの追加</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="37"/>
@@ -3900,7 +3904,7 @@ Blender パス:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="179"/>
         <source>Track:</source>
-        <translation type="unfinished"></translation>
+        <translation>トラック:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="209"/>
@@ -3920,7 +3924,7 @@ Blender パス:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="319"/>
         <source>Zoom:</source>
-        <translation type="unfinished"></translation>
+        <translation>ズーム:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="356"/>
@@ -3945,7 +3949,7 @@ Blender パス:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/animated-title.ui" line="14"/>
         <source>Animated Titles</source>
-        <translation type="unfinished"></translation>
+        <translation>動画タイトル</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/animated-title.ui" line="46"/>
@@ -3975,37 +3979,37 @@ Blender パス:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="31"/>
         <source>Developers</source>
-        <translation type="unfinished"></translation>
+        <translation>開発者</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="44"/>
         <source>Filter Developers</source>
-        <translation type="unfinished"></translation>
+        <translation>開発者で表示</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="59"/>
         <source>Translators</source>
-        <translation type="unfinished"></translation>
+        <translation>翻訳者</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="69"/>
         <source>Filter Translators</source>
-        <translation type="unfinished"></translation>
+        <translation>翻訳者で表示</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="81"/>
         <source>Supporters</source>
-        <translation type="unfinished"></translation>
+        <translation>支援者</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="91"/>
         <source>Filter Supporters</source>
-        <translation type="unfinished"></translation>
+        <translation>支援者で表示</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="106"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;http://www.openshot.org/donate/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#55aaff;&quot;&gt;Become a Supporter&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;http://www.openshot.org/donate/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#55aaff;&quot;&gt;支援者になる&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="14"/>
@@ -4117,7 +4121,7 @@ Blender パス:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="348"/>
         <source>Advanced Options</source>
-        <translation type="unfinished"></translation>
+        <translation>高度なオプション</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="367"/>
@@ -4137,7 +4141,7 @@ Blender パス:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="469"/>
         <source>Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>プロファイル</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="513"/>
@@ -4274,32 +4278,32 @@ Blender パス:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="23"/>
         <source>OpenShot Video Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenShot Video Editor</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="80"/>
         <source>&amp;File</source>
-        <translation type="unfinished"></translation>
+        <translation>ファイル(&amp;F)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="97"/>
         <source>&amp;Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>編集(&amp;E)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="113"/>
         <source>View</source>
-        <translation type="unfinished"></translation>
+        <translation>表示</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="117"/>
         <source>Views</source>
-        <translation type="unfinished"></translation>
+        <translation>表示方式</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="135"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>ヘルプ</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="155"/>
@@ -4473,12 +4477,12 @@ Blender パス:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="504"/>
         <source>&amp;Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>終了(&amp;Q)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="507"/>
         <source>Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>終了</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="510"/>
@@ -4516,25 +4520,25 @@ Blender パス:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="564"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="567"/>
         <source>Jump To Start</source>
-        <translation type="unfinished"></translation>
+        <translation>先頭に戻る</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="576"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="579"/>
         <source>Rewind</source>
-        <translation type="unfinished"></translation>
+        <translation>巻き戻し</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="588"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="591"/>
         <source>Fast Forward</source>
-        <translation type="unfinished"></translation>
+        <translation>早送り</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="600"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="603"/>
         <source>Jump To End</source>
-        <translation type="unfinished"></translation>
+        <translation>最後尾に跳ぶ</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="615"/>
@@ -4624,7 +4628,7 @@ Blender パス:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="878"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="881"/>
         <source>Animated Title</source>
-        <translation type="unfinished"></translation>
+        <translation>動画タイトル</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="884"/>
@@ -4657,7 +4661,7 @@ Blender パス:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="934"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="937"/>
         <source>View Toolbar</source>
-        <translation type="unfinished"></translation>
+        <translation>ツールバーを表示</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="952"/>
@@ -4668,7 +4672,7 @@ Blender パス:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="964"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="967"/>
         <source>Icon View</source>
-        <translation type="unfinished"></translation>
+        <translation>アイコン表示</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="976"/>
@@ -4679,7 +4683,7 @@ Blender パス:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="988"/>
         <source>Report a Bug...</source>
-        <translation type="unfinished"></translation>
+        <translation>バグを報告...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="997"/>
@@ -4689,12 +4693,12 @@ Blender パス:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1006"/>
         <source>Translate this Application...</source>
-        <translation type="unfinished"></translation>
+        <translation>このソフトを翻訳する...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1015"/>
         <source>Donate</source>
-        <translation type="unfinished"></translation>
+        <translation>寄付する</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1025"/>
@@ -4704,27 +4708,27 @@ Blender パス:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1028"/>
         <source>Open Help Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>ヘルプ内容を開く</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1037"/>
         <source>Simple View</source>
-        <translation type="unfinished"></translation>
+        <translation>簡単表示</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1046"/>
         <source>Advanced View</source>
-        <translation type="unfinished"></translation>
+        <translation>拡張表示</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1055"/>
         <source>Freeze View</source>
-        <translation type="unfinished"></translation>
+        <translation>表示を固定</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1064"/>
         <source>Un-Freeze View</source>
-        <translation type="unfinished"></translation>
+        <translation>固定表示の解除</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1084"/>
@@ -4735,7 +4739,7 @@ Blender パス:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1096"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1099"/>
         <source>Choose Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>ビデオ形式の選択</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1108"/>
@@ -4827,7 +4831,7 @@ Blender パス:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/presets.ui" line="75"/>
         <source>Save Current</source>
-        <translation type="unfinished"></translation>
+        <translation>現在の作業を保存</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/presets.ui" line="122"/>
@@ -4867,7 +4871,7 @@ Blender パス:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="66"/>
         <source>Template:</source>
-        <translation type="unfinished"></translation>
+        <translation>テンプレート:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="102"/>
@@ -4897,37 +4901,37 @@ Blender パス:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="230"/>
         <source>Font:</source>
-        <translation type="unfinished"></translation>
+        <translation>フォント:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="247"/>
         <source>Text:</source>
-        <translation type="unfinished"></translation>
+        <translation>文字:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="260"/>
         <source>Text Color</source>
-        <translation type="unfinished"></translation>
+        <translation>文字色</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="267"/>
         <source>Background:</source>
-        <translation type="unfinished"></translation>
+        <translation>背景:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="280"/>
         <source>Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>背景色</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="287"/>
         <source>Advanced:</source>
-        <translation type="unfinished"></translation>
+        <translation>高度な設定:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="297"/>
         <source>Use Advanced Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>外部ソフトで編集</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="320"/>
@@ -4952,7 +4956,7 @@ Blender パス:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="81"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.youtube.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://www.youtube.com&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.youtube.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://www.youtube.com&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="94"/>

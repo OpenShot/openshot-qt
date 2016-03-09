@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.1">
+    <extra-po-header-language>gl</extra-po-header-language>
     <extra-po-header-language_team>Galician &lt;gl@li.org&gt;</extra-po-header-language_team>
     <extra-po-header-last_translator>Xosé &lt;Unknown&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-01-29 17:09+0000</extra-po-header-po_revision_date>
+    <extra-po-header-po_revision_date>2016-03-07 16:04+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2016-02-03 22:58+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 17908)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-02-05 06:31+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 17936)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2016-03-08 05:55+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Galician translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
+#
 # FIRST AUTHOR &lt;EMAIL@ADDRESS&gt;, 2016.
-#</extra-po-header_comment>
-    <extra-po-headers>Project-Id-Version,Report-Msgid-Bugs-To,POT-Creation-Date,PO-Revision-Date,Last-Translator,Language-Team,MIME-Version,Content-Type,Content-Transfer-Encoding,X-Launchpad-Export-Date,X-Generator</extra-po-headers>
+# Xosé &lt;xosecalvo@gmail.com&gt;, 2016.</extra-po-header_comment>
+    <extra-po-headers>Project-Id-Version,Report-Msgid-Bugs-To,POT-Creation-Date,PO-Revision-Date,Last-Translator,Language-Team,MIME-Version,Content-Type,Content-Transfer-Encoding,X-Launchpad-Export-Date,X-Generator,Language</extra-po-headers>
 <context>
     <name></name>
     <message>
@@ -41,7 +43,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="468"/>
         <source>Fade Out</source>
-        <translation>Esvaer</translation>
+        <translation>Esvaecemento de saída</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="469"/>
@@ -53,7 +55,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="485"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="550"/>
         <source>Random</source>
-        <translation type="unfinished"></translation>
+        <translation>Ao chou</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="474"/>
@@ -72,7 +74,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="85"/>
         <source>Unsaved Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambios sen gardar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="85"/>
@@ -316,17 +318,17 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Fast</source>
-        <translation type="unfinished"></translation>
+        <translation>Rápido</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Slow</source>
-        <translation type="unfinished"></translation>
+        <translation>Amodo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
@@ -336,7 +338,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Backward</source>
-        <translation type="unfinished"></translation>
+        <translation>Cara a atrás</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="423"/>
@@ -382,13 +384,13 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="436"/>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Lugar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="438"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="595"/>
         <source>Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Hora</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -484,7 +486,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="497"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="307"/>
         <source>Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>Ampliación</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="498"/>
@@ -832,7 +834,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="67"/>
         <source>Email</source>
-        <translation type="unfinished"></translation>
+        <translation>Correo electrónico</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="67"/>
@@ -871,7 +873,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="499"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="682"/>
         <source>Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="517"/>
@@ -888,12 +890,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/files_model.py" line="100"/>
         <source>Tags</source>
-        <translation type="unfinished"></translation>
+        <translation>Etiquetas</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/effects_model.py" line="80"/>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>Descrición</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="74"/>
@@ -1275,7 +1277,7 @@ Blender Path:
     </message>
     <message>
         <source>Duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Duración</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2419,7 +2421,7 @@ Blender Path:
     </message>
     <message>
         <source>Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Centrar</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -3263,7 +3265,7 @@ Blender Path:
     </message>
     <message>
         <source>Left arrow</source>
-        <translation type="unfinished"></translation>
+        <translation>Frecha á esquerda</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg</extra-po-references>
     </message>
     <message>
@@ -3463,7 +3465,7 @@ Blender Path:
     </message>
     <message>
         <source>Right arrow</source>
-        <translation type="unfinished"></translation>
+        <translation>Frecha á dereita</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_arrow.jpg</extra-po-references>
     </message>
     <message>
@@ -3808,7 +3810,7 @@ Blender Path:
     </message>
     <message>
         <source>Extra</source>
-        <translation type="unfinished"></translation>
+        <translation>Extra</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra</extra-po-references>
     </message>
     <message>
@@ -3853,7 +3855,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="134"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/license.ui" line="45"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Fechar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="14"/>
@@ -3913,7 +3915,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="319"/>
         <source>Zoom:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ampliación:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="356"/>
@@ -4038,12 +4040,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="161"/>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>Limpar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="174"/>
         <source>Create</source>
-        <translation type="unfinished"></translation>
+        <translation>Crear</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="56"/>
@@ -4063,7 +4065,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="93"/>
         <source>Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation>Navegar...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="148"/>
@@ -4130,7 +4132,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="469"/>
         <source>Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Perfil</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="513"/>
@@ -4272,17 +4274,17 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="80"/>
         <source>&amp;File</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ficheiro</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="97"/>
         <source>&amp;Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Editar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="113"/>
         <source>View</source>
-        <translation type="unfinished"></translation>
+        <translation>Ver</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="117"/>
@@ -4292,7 +4294,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="135"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Axuda</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="155"/>
@@ -4466,12 +4468,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="504"/>
         <source>&amp;Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Saír</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="507"/>
         <source>Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>Saír</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="510"/>
@@ -4487,7 +4489,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="534"/>
         <source>&amp;Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Preferencias</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="537"/>
@@ -4633,7 +4635,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="903"/>
         <source>F11</source>
-        <translation type="unfinished"></translation>
+        <translation>F11</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="913"/>
@@ -4644,7 +4646,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="919"/>
         <source>Esc</source>
-        <translation type="unfinished"></translation>
+        <translation>Esc</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="934"/>
@@ -4825,7 +4827,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/presets.ui" line="122"/>
         <source>Export</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/profile.ui" line="30"/>
@@ -4835,7 +4837,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/profile.ui" line="50"/>
         <source>1920x1080</source>
-        <translation type="unfinished"></translation>
+        <translation>1920x1080</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/profile.ui" line="60"/>
@@ -4850,7 +4852,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/profile.ui" line="84"/>
         <source>Other:</source>
-        <translation type="unfinished"></translation>
+        <translation>Outro:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="14"/>
@@ -4860,32 +4862,32 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="66"/>
         <source>Template:</source>
-        <translation type="unfinished"></translation>
+        <translation>Modelo:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="102"/>
         <source>Line 1:</source>
-        <translation type="unfinished"></translation>
+        <translation>Liña 1:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="125"/>
         <source>Line 2:</source>
-        <translation type="unfinished"></translation>
+        <translation>Liña 2:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="148"/>
         <source>Line 3:</source>
-        <translation type="unfinished"></translation>
+        <translation>Liña 3:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="171"/>
         <source>Line 4:</source>
-        <translation type="unfinished"></translation>
+        <translation>Liña 4:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="194"/>
         <source>Line 5:</source>
-        <translation type="unfinished"></translation>
+        <translation>Liña 5:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="230"/>
@@ -4895,7 +4897,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="247"/>
         <source>Text:</source>
-        <translation type="unfinished"></translation>
+        <translation>Texto:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="260"/>
@@ -4915,7 +4917,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="287"/>
         <source>Advanced:</source>
-        <translation type="unfinished"></translation>
+        <translation>Avanzado:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="297"/>
@@ -4925,7 +4927,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="320"/>
         <source>Line 6:</source>
-        <translation type="unfinished"></translation>
+        <translation>Liña 6:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="41"/>
@@ -4950,12 +4952,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="94"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Username:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Nome de usuario:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="101"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Description:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Descrición:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="109"/>
@@ -4965,12 +4967,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="151"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Title:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Título:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="185"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Password:&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Contrasinal:&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Fractal 1</source>

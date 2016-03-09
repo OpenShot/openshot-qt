@@ -2,13 +2,13 @@
 <!DOCTYPE TS>
 <TS version="2.1">
     <extra-po-header-language_team>Spanish &lt;es@li.org&gt;</extra-po-header-language_team>
-    <extra-po-header-last_translator>Jonathan Thomas &lt;jonathan@openshot.org&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-02-04 15:07+0000</extra-po-header-po_revision_date>
+    <extra-po-header-last_translator>Walls &lt;paredeso@gmail.com&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2016-03-03 03:39+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2016-02-03 22:58+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 17908)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-02-05 06:33+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 17936)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2016-03-04 06:12+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Spanish translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -36,12 +36,12 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="467"/>
         <source>Fade In</source>
-        <translation>Fundido fade de entrada</translation>
+        <translation>Atenuación de entrada</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="468"/>
         <source>Fade Out</source>
-        <translation>Fundido de salida</translation>
+        <translation>Atenuación de salida</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="469"/>
@@ -60,14 +60,14 @@
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="831"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="834"/>
         <source>Zoom In</source>
-        <translation>Aumentar zoom</translation>
+        <translation>Ampliar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="475"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="846"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="849"/>
         <source>Zoom Out</source>
-        <translation>Disminuir zoom</translation>
+        <translation>Reducir</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="85"/>
@@ -82,12 +82,12 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="127"/>
         <source>Backup Recovered</source>
-        <translation type="unfinished"></translation>
+        <translation>Copia de seguridad recuperada</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="128"/>
         <source>Your most recent unsaved project has been recovered.</source>
-        <translation type="unfinished"></translation>
+        <translation>Se ha recuperado el proyecto sin guardar más reciente.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="241"/>
@@ -268,9 +268,10 @@
   DiegoJ https://launchpad.net/~diegojromerolopez
   Eduardo Rivas https://launchpad.net/~jerivasmelgar
   Especiales https://launchpad.net/~rmorales-sanjuan
+  Felix Moreno https://launchpad.net/~info-justdust
   Fernando Conesa https://launchpad.net/~brobollon
   Gabriel Retana https://launchpad.net/~gabretana
-  Gaspar Fernández https://launchpad.net/~blakeyed
+  Gaspar Fernández https://launchpad.net/~gasparfm
   Gaspar Fernández https://launchpad.net/~gaspy
   GpoNsU https://launchpad.net/~simpons
   Hector A. Mantellini https://launchpad.net/~xombra
@@ -281,17 +282,20 @@
   Juan Cesar Jover https://launchpad.net/~medyrs
   Juan Manuel García Molina https://launchpad.net/~juanma
   LinuxNerdo https://launchpad.net/~catastro1
+  Luis Armando Medina Avitia https://launchpad.net/~lamedina
   Monkey https://launchpad.net/~monkey-libre
   Nacho Perea https://launchpad.net/~nacho.perea
   Pablo Marchant https://launchpad.net/~pamarca
   Patricio Carreño Mancilla https://launchpad.net/~patriciologico
   Punxsu https://launchpad.net/~punxsu
   Roberto Ariel Estivill https://launchpad.net/~robertoestivill
+  Roberto Clemente https://launchpad.net/~beats
   Sergio Venegas https://launchpad.net/~chukiesavh
   Siz https://launchpad.net/~siz
   Tiziano Di Rauso https://launchpad.net/~tiziano-dirauso
   Victor Herrero https://launchpad.net/~victorhera
   Víctor Fernández https://launchpad.net/~vfrico
+  Walls https://launchpad.net/~paredeso
   Walter Alvarado https://launchpad.net/~walvd
   Ximo Duarte https://launchpad.net/~ximo-duarte
   airampo https://launchpad.net/~andresymer
@@ -338,7 +342,7 @@ Error Output:
 {}</source>
         <translation>
 
-Salida del Error:
+El error indicó:
 {}</translation>
     </message>
     <message>
@@ -349,13 +353,11 @@ Please check the preferences in OpenShot and be sure the Blender executable is c
 
 Blender Path:
 {}{}</source>
-        <translation>Se requiere Blender, la herramienta libre de creación de contenidos 3D, para realizar esta acción (http://www.blender.org).
+        <translation>Se necesita Blender, el paquete libre de creación de contenidos en 3D, para realizar esta acción (http://www.blender.org).
 
-Por favor, revise las preferencias en OpenShot, para asegurarse de que el ejecutable de Blender está bien configurado.
+Revise las preferencias de OpenShot para asegurarse de que el ejecutable de Blender indicado es correcto. Esta preferencia debe indicar la ruta de acceso del ejecutable «blender» en el equipo. También compruebe que se usa la versión de Blender {} o superior.
 
-Debe estar configurado el camino (path) correcto de &apos;Blender&apos; en su computadora. Además, asegurese de que esté apuntando a una versión de Blender {} o superior.
-
-Ruta actual de Blender:
+Ruta de Blender:
 {}{}</translation>
     </message>
     <message>
@@ -559,32 +561,32 @@ Ruta actual de Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="500"/>
         <source>Zoom In (75% to 100%)</source>
-        <translation>Acercar (75% a 100%)</translation>
+        <translation>Acercar (75 a 100 %)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="502"/>
         <source>Zoom In (100% to 150%)</source>
-        <translation>Acercamiento (100% a 150%)</translation>
+        <translation>Acercamiento (100 a 150 %)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="504"/>
         <source>Zoom Out (100% to 75%)</source>
-        <translation>Alejar (100% a 75%)</translation>
+        <translation>Alejar (100 a 75 %)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="506"/>
         <source>Zoom Out (100% to 50%)</source>
-        <translation>Alejamiento (100% a 50%)</translation>
+        <translation>Alejamiento (100 a 50 %)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="508"/>
         <source>Zoom Out (150% to 100%)</source>
-        <translation>Alejamiento (150% a 100%)</translation>
+        <translation>Alejamiento (150 a 100 %)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="513"/>
         <source>Center to Edge</source>
-        <translation>Centro al Borde</translation>
+        <translation>Del centro al borde</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="514"/>
@@ -609,7 +611,7 @@ Ruta actual de Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="525"/>
         <source>Edge to Center</source>
-        <translation>Borde al Centro</translation>
+        <translation>Del borde al centro</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="526"/>
@@ -634,7 +636,7 @@ Ruta actual de Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="537"/>
         <source>Edge to Edge</source>
-        <translation>Borde a Borde</translation>
+        <translation>De borde a borde</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="538"/>
@@ -685,12 +687,12 @@ Ruta actual de Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="573"/>
         <source>Layout</source>
-        <translation>Diseño</translation>
+        <translation>Disposición</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="574"/>
         <source>Reset Layout</source>
-        <translation>Restablecer diseño</translation>
+        <translation>Restablecer disposición</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="577"/>
@@ -730,12 +732,12 @@ Ruta actual de Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="596"/>
         <source>Reset Time</source>
-        <translation>Reinicializar Tiempo</translation>
+        <translation>Restablecer tiempo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="620"/>
         <source>Reset Volume</source>
-        <translation>Reinicializar Volumen</translation>
+        <translation>Restablecer volumen</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="651"/>
@@ -907,17 +909,17 @@ Ruta actual de Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="100"/>
         <source>PayPal Supporter!</source>
-        <translation type="unfinished"></translation>
+        <translation>Donantes de Paypal!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="108"/>
         <source>Kickstarter Supporter!</source>
-        <translation type="unfinished"></translation>
+        <translation>Donantes de Kickstarter!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="116"/>
         <source>Multiple Contributions!</source>
-        <translation type="unfinished"></translation>
+        <translation>Contribuciones múltiples!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="358"/>
@@ -979,27 +981,27 @@ Ruta actual de Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="123"/>
         <source>Mono (1 Channel)</source>
-        <translation>Mono (1 Canal)</translation>
+        <translation>Monoaural (1 canal)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="124"/>
         <source>Stereo (2 Channel)</source>
-        <translation>Estéreo (2 Canales)</translation>
+        <translation>Estéreo (2 canales)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="125"/>
         <source>Surround (3 Channel)</source>
-        <translation>Surround (3 Canales)</translation>
+        <translation>Envolvente (3 canales)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="126"/>
         <source>Surround (5.1 Channel)</source>
-        <translation>Surround (5.1 Canales)</translation>
+        <translation>Envolvente (5,1 canales)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="127"/>
         <source>Surround (7.1 Channel)</source>
-        <translation>Surround (7.1 Canales)</translation>
+        <translation>Envolvente (7,1 canales)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="192"/>
@@ -1176,7 +1178,7 @@ Ruta actual de Blender:
     </message>
     <message>
         <source>World Map</source>
-        <translation>Mapa mundial</translation>
+        <translation>Mapamundi</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
@@ -1574,7 +1576,7 @@ Ruta actual de Blender:
     </message>
     <message>
         <source>Font Name</source>
-        <translation>Nombre de la tipografía</translation>
+        <translation>Nombre del tipo de letra</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
@@ -1619,12 +1621,12 @@ Ruta actual de Blender:
     </message>
     <message>
         <source>Wireframe Text</source>
-        <translation>Texto de wireframe</translation>
+        <translation>Texto de estructura alámbrica</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/wireframe_text.xml</extra-po-references>
     </message>
     <message>
         <source>ID</source>
-        <translation>ID</translation>
+        <translation>Id.</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1814,7 +1816,7 @@ Ruta actual de Blender:
     </message>
     <message>
         <source>Top Left</source>
-        <translation>Arriba a la Izquierda</translation>
+        <translation>De arriba a la izquierda</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -3127,7 +3129,7 @@ Ruta actual de Blender:
     </message>
     <message>
         <source>Autosave Interval (minutes)</source>
-        <translation type="unfinished"></translation>
+        <translation>Intervalo de guardado automático (min)</translation>
         <extra-po-references>Settings for autosave-interval</extra-po-references>
     </message>
     <message>
@@ -3152,7 +3154,7 @@ Ruta actual de Blender:
     </message>
     <message>
         <source>Default Audio Sample Rate</source>
-        <translation>Frecuencia de Muestreo de Audio por Defecto</translation>
+        <translation>Frecuencia de muestreo de audio predeterminada</translation>
         <extra-po-references>Settings for default-samplerate</extra-po-references>
     </message>
     <message>
@@ -3167,12 +3169,12 @@ Ruta actual de Blender:
     </message>
     <message>
         <source>Default Audio Channels</source>
-        <translation>Canales de Audio por Defecto</translation>
+        <translation>Canales de audio predeterminados</translation>
         <extra-po-references>Settings for default-channellayout</extra-po-references>
     </message>
     <message>
         <source>Advanced Title Editor (path)</source>
-        <translation>Editor Avanzado de Títulos</translation>
+        <translation>Editor de títulos avanzado (ruta)</translation>
         <extra-po-references>Settings for title_editor</extra-po-references>
     </message>
     <message>
@@ -3212,7 +3214,7 @@ Ruta actual de Blender:
     </message>
     <message>
         <source>Square right barr</source>
-        <translation type="unfinished"></translation>
+        <translation>Barra cuadrada derecha</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_right_barr.jpg</extra-po-references>
     </message>
     <message>
@@ -3227,7 +3229,7 @@ Ruta actual de Blender:
     </message>
     <message>
         <source>Fractal %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Fractal %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fractal_5.jpg</extra-po-references>
     </message>
     <message>
@@ -3237,7 +3239,7 @@ Ruta actual de Blender:
     </message>
     <message>
         <source>Wave left up</source>
-        <translation type="unfinished"></translation>
+        <translation>Onda izquierda arriba</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_up.jpg</extra-po-references>
     </message>
     <message>
@@ -3267,7 +3269,7 @@ Ruta actual de Blender:
     </message>
     <message>
         <source>Lateral left triangle</source>
-        <translation type="unfinished"></translation>
+        <translation>Triángulo lateral izquierda</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_left_triangle.jpg</extra-po-references>
     </message>
     <message>
@@ -3319,7 +3321,7 @@ Ruta actual de Blender:
     </message>
     <message>
         <source>Right mozaic %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Mosaico derecha %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3444,7 +3446,7 @@ Ruta actual de Blender:
     </message>
     <message>
         <source>Puzzle</source>
-        <translation type="unfinished"></translation>
+        <translation>Rompecabezas</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/puzzle.jpg</extra-po-references>
     </message>
     <message>
@@ -3464,7 +3466,7 @@ Ruta actual de Blender:
     </message>
     <message>
         <source>Mosaic %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Mosaico %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mosaic_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3624,7 +3626,7 @@ Ruta actual de Blender:
     </message>
     <message>
         <source>Board %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Efecto Tablero %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/board_10.jpg</extra-po-references>
     </message>
     <message>
@@ -3684,7 +3686,7 @@ Ruta actual de Blender:
     </message>
     <message>
         <source>Spiral abstract %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Espiral abstracto %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_abstract_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3694,7 +3696,7 @@ Ruta actual de Blender:
     </message>
     <message>
         <source>Fogg %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Niebla %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fogg_3.jpg</extra-po-references>
     </message>
     <message>
@@ -3709,7 +3711,7 @@ Ruta actual de Blender:
     </message>
     <message>
         <source>Distortion %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Distorsión %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg</extra-po-references>
     </message>
     <message>
@@ -3734,7 +3736,7 @@ Ruta actual de Blender:
     </message>
     <message>
         <source>Spiral small %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Espiral pequeña %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3774,7 +3776,7 @@ Ruta actual de Blender:
     </message>
     <message>
         <source>Sphere %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Esfera %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3924,7 +3926,7 @@ Ruta actual de Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="14"/>
         <source>Add To Timeline</source>
-        <translation>Agregar a la Linea de Tiempo</translation>
+        <translation>Añadir a la línea de tiempo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="37"/>
@@ -3949,7 +3951,7 @@ Ruta actual de Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="119"/>
         <source>Timeline Location</source>
-        <translation>Ubicación Linea de Tiempo</translation>
+        <translation>Ubicación de la línea de tiempo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="140"/>
@@ -3964,7 +3966,7 @@ Ruta actual de Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="209"/>
         <source>Image Length (seconds):</source>
-        <translation>Duración de la Imagen (en segundos):</translation>
+        <translation>Duración de la imagen (s):</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="255"/>
@@ -3974,12 +3976,12 @@ Ruta actual de Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="279"/>
         <source>Length (seconds):</source>
-        <translation>Duración (en segundos):</translation>
+        <translation>Duración (s):</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="319"/>
         <source>Zoom:</source>
-        <translation>Ampliar:</translation>
+        <translation>Ampliación:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="356"/>
@@ -3994,17 +3996,17 @@ Ruta actual de Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="441"/>
         <source>Total Length (seconds):</source>
-        <translation>Duración Total</translation>
+        <translation>Duración total (s):</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="466"/>
         <source>0.0</source>
-        <translation>0.0</translation>
+        <translation>0,0</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/animated-title.ui" line="14"/>
         <source>Animated Titles</source>
-        <translation>Titulos Animados</translation>
+        <translation>Títulos animados</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/animated-title.ui" line="46"/>
@@ -4054,17 +4056,17 @@ Ruta actual de Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="81"/>
         <source>Supporters</source>
-        <translation>Colaboradores</translation>
+        <translation>Simpatizantes</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="91"/>
         <source>Filter Supporters</source>
-        <translation>Filtrar Colaboradores</translation>
+        <translation>Filtrar simpatizantes</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="106"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;http://www.openshot.org/donate/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#55aaff;&quot;&gt;Become a Supporter&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;http://www.openshot.org/donate/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#55aaff;&quot;&gt;Conviértase en simpatizante&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="14"/>
@@ -4104,7 +4106,7 @@ Ruta actual de Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="161"/>
         <source>Clear</source>
-        <translation>Borrar/Limpiar</translation>
+        <translation>Vaciar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="174"/>
@@ -4124,12 +4126,12 @@ Ruta actual de Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="83"/>
         <source>Folder Path:</source>
-        <translation>Ruta de la Carpeta</translation>
+        <translation>Ruta de la carpeta:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="93"/>
         <source>Browse...</source>
-        <translation>Examinar...</translation>
+        <translation>Examinar…</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="148"/>
@@ -4186,12 +4188,12 @@ Ruta actual de Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="396"/>
         <source>End Frame:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fotograma final:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="429"/>
         <source>Start Frame:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fotograma inicial:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="469"/>
@@ -4389,12 +4391,12 @@ Ruta actual de Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="299"/>
         <source>New Project...</source>
-        <translation>Nuevo proyecto…</translation>
+        <translation>Proyecto nuevo…</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="302"/>
         <source>New Project</source>
-        <translation>Nuevo proyecto</translation>
+        <translation>Proyecto nuevo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="305"/>
@@ -4466,12 +4468,12 @@ Ruta actual de Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="404"/>
         <source>Import New Transition...</source>
-        <translation>Importar nueva transición…</translation>
+        <translation>Importar transición nueva…</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="407"/>
         <source>Import New Transition</source>
-        <translation type="unfinished"></translation>
+        <translation>Importar transición nueva</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="410"/>
@@ -4575,7 +4577,7 @@ Ruta actual de Blender:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="564"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="567"/>
         <source>Jump To Start</source>
-        <translation type="unfinished"></translation>
+        <translation>Ir al Principio</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="576"/>
@@ -4593,7 +4595,7 @@ Ruta actual de Blender:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="600"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="603"/>
         <source>Jump To End</source>
-        <translation type="unfinished"></translation>
+        <translation>Ir al Final</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="615"/>
@@ -4667,7 +4669,7 @@ Ruta actual de Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="837"/>
         <source>=</source>
-        <translation type="unfinished"></translation>
+        <translation>=</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="852"/>
@@ -5006,7 +5008,7 @@ Ruta actual de Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="74"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Video File:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Archivo de Video:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="81"/>

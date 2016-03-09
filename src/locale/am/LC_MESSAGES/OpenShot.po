@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-03 22:58+0000\n"
-"PO-Revision-Date: 2016-02-07 17:19+0000\n"
+"PO-Revision-Date: 2016-02-28 16:03+0000\n"
 "Last-Translator: samson <Unknown>\n"
 "Language-Team: Amharic <am@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-08 05:35+0000\n"
-"X-Generator: Launchpad (build 17908)\n"
+"X-Launchpad-Export-Date: 2016-02-29 05:59+0000\n"
+"X-Generator: Launchpad (build 17925)\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:463
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1023
@@ -71,11 +71,11 @@ msgstr "ላስቀምጣቸው ለውጦቹን እቅዱ ከ መዘጋቱ በፊ�
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:127
 msgid "Backup Recovered"
-msgstr ""
+msgstr "ተተኪ ተገኝቷል"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:128
 msgid "Your most recent unsaved project has been recovered."
-msgstr ""
+msgstr "የ እርስዎ በጣም የ ቅርብ ጊዜ እቅድ ተገኝቷል"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:241
 msgid "Error Saving Project"
@@ -188,7 +188,7 @@ msgstr "እንደገና ማስነሳት ያስፈልጋል"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:270
 msgid "Please restart OpenShot for all preferences to take effect."
-msgstr ""
+msgstr "እባክዎን ኦፕን ሾትን እንደገና ያስነሱ ሁሉንም ምርጫዎች በ ስራ ላይ ለማዋል"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/cutting.py:190
 #: /home/jonathan/apps/openshot-qt-git/src/windows/cutting.py:224
@@ -197,7 +197,7 @@ msgstr "እባክዎን ዋጋ ያለው 'መጀመሪያ' እና 'መጨረሻ'
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/animated_title.py:85
 msgid "Render"
-msgstr ""
+msgstr "ማቅረቢያ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/animated_title.py:86
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:76
@@ -556,7 +556,7 @@ msgstr "ሁሉንም ማሳያ (መጠን መጠበቂያ)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:590
 msgid "Show All (Distort)"
-msgstr ""
+msgstr "ሁሉንም ማሳያ (የተጣመሙ)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:596
 msgid "Reset Time"
@@ -616,15 +616,15 @@ msgstr "ናሙና መቁረጫ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:684
 msgid "Keep Both Sides"
-msgstr ""
+msgstr "ሁለቱንም ጎኖች መጠበቂያ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:686
 msgid "Keep Left Side"
-msgstr ""
+msgstr "የ ግራ ጎን መጠበቂያ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:688
 msgid "Keep Right Side"
-msgstr ""
+msgstr "የ ቀኝ ጎን መጠበቂያ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1511
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:341
@@ -643,7 +643,7 @@ msgstr "ማነፃፀሪያ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1531
 msgid "Reverse Transition"
-msgstr ""
+msgstr "እንደ ነበር መመለሻ መሸጋገሪያውን"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:78
 #, python-format
@@ -665,7 +665,7 @@ msgstr "ቀጥተኛ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:133
 msgid "Constant"
-msgstr ""
+msgstr "የማያቋርጥ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:136
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:141
@@ -678,7 +678,7 @@ msgstr "ቁልፍ ክፈፍ ማስወገጃ"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/transition_model.py:80
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/effects_model.py:80
 msgid "Thumb"
-msgstr ""
+msgstr "የ አውራ ጥፍር"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/add_to_timeline_model.py:57
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/blender_model.py:56
@@ -693,7 +693,7 @@ msgstr "ስም"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/transition_model.py:158
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/effects_model.py:150
 msgid "{} is not a valid image file."
-msgstr ""
+msgstr "{} ዋጋ ያለው የምስል ፋይል አይደለም"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:67
 msgid "Email"
@@ -713,7 +713,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:116
 msgid "Multiple Contributions!"
-msgstr ""
+msgstr "በርካታ አበርካቾች!"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:358
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:561
@@ -734,7 +734,7 @@ msgstr "ዋጋ"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:517
 #: /home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml
 msgid "Transparency"
-msgstr ""
+msgstr "ግልጽነት"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:559
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:627
@@ -760,37 +760,37 @@ msgstr "ቪዲዮ & ድምፅ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:116
 msgid "Image Sequence"
-msgstr ""
+msgstr "ተከታታይ ምስል"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:123
 msgid "Mono (1 Channel)"
-msgstr ""
+msgstr "አንድ (1 ጣቢያ)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:124
 msgid "Stereo (2 Channel)"
-msgstr ""
+msgstr "ስቴሪዮ (2 ጣቢያ)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:125
 msgid "Surround (3 Channel)"
-msgstr ""
+msgstr "የ ተከበበ (3 ጣቢያ)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:126
 msgid "Surround (5.1 Channel)"
-msgstr ""
+msgstr "የ ተከበበ (5.1 ጣቢያ)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:127
 msgid "Surround (7.1 Channel)"
-msgstr ""
+msgstr "የ ተከበበ (7.1 ጣቢያ)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:192
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml
 msgid "All Formats"
-msgstr ""
+msgstr "ሁሉም አቀራረብ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:298
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_x264.xml
 msgid "MP4 (h.264)"
-msgstr ""
+msgstr "MP4 (h.264)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:329 libopenshot
 #: (Clip Properties)
@@ -834,14 +834,16 @@ msgid ""
 "Sorry, there was an error exporting your video: \n"
 "%s"
 msgstr ""
+"አዝናለሁ: የ እርስዎ ቪዲዮ በሚላክ ጊዜ ችግር ተፈጥሯል: \n"
+"%s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml
 msgid "Convert an image to shades of grey"
-msgstr ""
+msgstr "ምስል ወደ ግራጫ ጥላ መቀየሪያ"
 
 #: libopenshot (Clip Properties)
 msgid "Iterations"
-msgstr ""
+msgstr "ድግግሞሽ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml
 msgid "Split and mirror the image"
@@ -861,7 +863,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
 msgid "Adjust color balance with 3 color points"
-msgstr ""
+msgstr "ቀለም ማስተካከያ በ 3 ቀለም ነጥቦች"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Depart Latitude (Equator)"
@@ -873,11 +875,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/fly_by_two_titles.xml
 msgid "Fly Towards Camera (Two Titles)"
-msgstr ""
+msgstr "ወደ ካሜራው መብረሪያ (ሁለት አርእስቶች)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/explode.xml
 msgid "Display Ground"
-msgstr ""
+msgstr "መሬት ማሳያ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/bass.xml
 msgid "Adjust the low-pitched sound or tone"
@@ -889,11 +891,11 @@ msgstr "ክፍተት"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
 msgid "Correction near edges"
-msgstr ""
+msgstr "ጠርዝ አጠገብ ማረሚያ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
 msgid "X Offset"
-msgstr ""
+msgstr "X ማካካሻ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
 msgid "Neon Curves"
@@ -905,7 +907,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml
 msgid "Greyscale"
-msgstr ""
+msgstr "ጥቁር እና ነጭ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Arrival Longitude (minutes)"
@@ -917,7 +919,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml
 msgid "Old Dust"
-msgstr ""
+msgstr "አሮጌ አቧራ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml
 msgid "Invert"
@@ -929,7 +931,7 @@ msgstr "የ አለም ካርታ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/distort.xml
 msgid "Distort"
-msgstr ""
+msgstr "ማጣመሚያ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "File Name"
@@ -945,7 +947,7 @@ msgstr "ጋማ"
 
 #: libopenshot (Clip Properties)
 msgid "Gravity"
-msgstr ""
+msgstr "ስበት"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
 msgid "Tile 1: Diffuse Color"
@@ -953,7 +955,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml
 msgid "Horizontal Sync"
-msgstr ""
+msgstr "በ አግድም ማስማሚያ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
 msgid "Extrude"
@@ -993,11 +995,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
 msgid "Black color"
-msgstr ""
+msgstr "ጥቁር ቀለም"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
 msgid "Delta"
-msgstr ""
+msgstr "ዴልታ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml
 msgid "Display a single color, while using greyscale for the rest of the image"
@@ -1018,7 +1020,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
 msgid "X Center"
-msgstr ""
+msgstr "X መሀከል"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
 msgid "Defocus"
@@ -1030,7 +1032,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
 msgid "Title 3"
-msgstr ""
+msgstr "አርእስት 3"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml
 msgid "Mask"
@@ -1042,19 +1044,19 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
 msgid "Picture Frames (4 pictures)"
-msgstr ""
+msgstr "የ ስእል ክፈፎች (4 ስእሎች)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
 msgid "Simple color adjustment"
-msgstr ""
+msgstr "ቀላል ቀለም ማስተካከያ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml
 msgid "v"
-msgstr ""
+msgstr "v"
 
 #: libopenshot (Clip Properties)
 msgid "Bottom Left"
-msgstr ""
+msgstr "ከ ታች በ ግራ በኩል"
 
 #: libopenshot (Clip Properties)
 msgid "Duration"
@@ -1069,23 +1071,23 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:862
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:865
 msgid "Title"
-msgstr ""
+msgstr "አርእስት"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
 msgid "Scaling"
-msgstr ""
+msgstr "መመጠኛ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/balance.xml
 msgid "Left | Right"
-msgstr ""
+msgstr "በ ግራ | በ ቀኝ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml
 msgid "Make image sharper"
-msgstr ""
+msgstr "ምስል ማጥሪያ"
 
 #: libopenshot (Clip Properties)
 msgid "Left"
-msgstr ""
+msgstr "በ ግራ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml
 msgid "Diff Space"
@@ -1093,7 +1095,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
 msgid "Y Center"
-msgstr ""
+msgstr "Y መሀከል"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
 msgid "Fixed Rotate Y"
@@ -1137,15 +1139,15 @@ msgstr ""
 
 #: libopenshot (Clip Properties)
 msgid "Position"
-msgstr ""
+msgstr "አካባቢ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/hue.xml
 msgid "Hue"
-msgstr ""
+msgstr "ቀለሞች"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
 msgid "Background: Blend"
-msgstr ""
+msgstr "መደብ: ማዋሀጃ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml
 msgid "Max Count"
@@ -1181,15 +1183,15 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml
 msgid "Primary Colors"
-msgstr ""
+msgstr "ቀዳሚ ቀለሞች"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
 msgid "Every"
-msgstr ""
+msgstr "ሁሉም"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml
 msgid "White Balance"
-msgstr ""
+msgstr "ነጭ ማስተካከያ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml
 msgid "Use Alpha"
@@ -1197,23 +1199,23 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/bass.xml
 msgid "Frequency"
-msgstr ""
+msgstr "ድግግሞሽ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
 msgid "White color"
-msgstr ""
+msgstr "ነጭ ቀለም"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
 msgid "Main Text"
-msgstr ""
+msgstr "ዋናው ጽሁፍ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml
 msgid "Reverse"
-msgstr ""
+msgstr "መገልበጫ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml
 msgid "Equalizor"
-msgstr ""
+msgstr "እኩል ማድረጊያ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml
 msgid "Red Scale"
@@ -1221,7 +1223,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
 msgid "Number"
-msgstr ""
+msgstr "ቁጥር"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml
 msgid "delayed alpha smoothed blit of time"
@@ -1235,7 +1237,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
 msgid "Title 2"
-msgstr ""
+msgstr "አርእስት 2"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Start: X"
@@ -1247,11 +1249,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
 msgid "Font Name"
-msgstr ""
+msgstr "የ ፊደል ስም"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
 msgid "Source image on left side"
-msgstr ""
+msgstr "የ ምስል ምንጭ በ ግራ በኩል"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml
 msgid "Up Scale"
@@ -1259,7 +1261,7 @@ msgstr ""
 
 #: libopenshot (Clip Properties)
 msgid "Bottom Right"
-msgstr ""
+msgstr "ከ ታች በቀኝ በኩል"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
 msgid "Input level black point"
@@ -1271,7 +1273,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
 msgid "Line 2 Color"
-msgstr ""
+msgstr "የ መስመር 2 ቀለም"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
 msgid "Tint amount"
@@ -1297,7 +1299,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml
 msgid "End Value"
-msgstr ""
+msgstr "መጨረሻ ዋጋ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml
 msgid "Dynamic 3 level thresholding"
@@ -1305,11 +1307,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml
 msgid "Border Width"
-msgstr ""
+msgstr "የ ድንበር ስፋት"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
 msgid "Rotate Z"
-msgstr ""
+msgstr "ማዞሪያ Z"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml
 msgid "Detect and highlight the edges of objects"
@@ -1323,7 +1325,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
 msgid "Line 3 Color"
-msgstr ""
+msgstr "የ መስመር 3 ቀለም"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml
 msgid "Delayed frame blitting mapped on a time bitmap"
@@ -1335,19 +1337,19 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml
 msgid "Key"
-msgstr ""
+msgstr "ቁልፍ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
 msgid "Min"
-msgstr ""
+msgstr "አነስተኛ"
 
 #: libopenshot (Clip Properties)
 msgid "Right"
-msgstr ""
+msgstr "በ ቀኝ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
 msgid "Flying Title"
-msgstr ""
+msgstr "የሚበር አርእስት"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Arrival Latitude (degrees)"
@@ -1359,7 +1361,7 @@ msgstr ""
 
 #: libopenshot (Clip Properties)
 msgid "Crop"
-msgstr ""
+msgstr "መከርከሚያ"
 
 #: libopenshot (Effect Metadata)
 msgid "Deinterlace"
@@ -1379,7 +1381,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/rotate_360.xml
 msgid "Rotate 360 Degrees"
-msgstr ""
+msgstr "ማዞሪያ 360 ዲግሪዎች"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml
 msgid "Adjusts the gamma or luminance value of the image"
@@ -1399,7 +1401,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
 msgid "Channel"
-msgstr ""
+msgstr "ጣቢያ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Particles: Lifetime"
@@ -1407,11 +1409,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml
 msgid "Cartoon"
-msgstr ""
+msgstr "ካርቱን"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml
 msgid "u"
-msgstr ""
+msgstr "u"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml
 msgid "Blinds (Two Titles)"
@@ -1419,11 +1421,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml
 msgid "Three Layer"
-msgstr ""
+msgstr "ሶስት ደረጃ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml
 msgid "Speed"
-msgstr ""
+msgstr "ፍጥነት"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml
 msgid "Adds black borders at the top and bottom"
@@ -1443,7 +1445,7 @@ msgstr ""
 
 #: libopenshot (Clip Properties)
 msgid "Top Left"
-msgstr ""
+msgstr "ከ ላይ በ ግራ በኩል"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml
 msgid "Red/Green Axis"
@@ -1455,7 +1457,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml
 msgid "Scan Lines"
-msgstr ""
+msgstr "ማሰሻ መስመሮች"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
 msgid "Bevel Depth"
@@ -1483,19 +1485,19 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
 msgid "Amount"
-msgstr ""
+msgstr "መጠን"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
 msgid "Red"
-msgstr ""
+msgstr "ቀይ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "End Frame"
-msgstr ""
+msgstr "መጨረሻ ክፈፍ"
 
 #: libopenshot (Clip Properties)
 msgid "Replace Image"
-msgstr ""
+msgstr "ምስል መቀየሪያ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
 msgid "Alphagrad"
@@ -1515,7 +1517,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml
 msgid "Color"
-msgstr ""
+msgstr "ቀለም"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml
 msgid "Adds static and grain to the image"
@@ -1527,7 +1529,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml
 msgid "Filter the image to look like it is drawn with charcoal"
-msgstr ""
+msgstr "ምስል ማጣሪያ በ ከሰል የ ተሳለ እንዲመስል"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "Specular Color"
@@ -1567,7 +1569,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
 msgid "Line 1 Color"
-msgstr ""
+msgstr "የ መስመር 1 ቀለም"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
 msgid "Luma formula"
@@ -1599,11 +1601,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
 msgid "Action"
-msgstr ""
+msgstr "ተግባር"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml
 msgid "Bottom"
-msgstr ""
+msgstr "ከ ታች"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml
 msgid "Invert horizontally or vertically"
@@ -1619,11 +1621,11 @@ msgstr ""
 
 #: libopenshot (Effect Metadata)
 msgid "Brightness & Contrast"
-msgstr ""
+msgstr "ብሩህነት & ማነፃፀሪያ"
 
 #: libopenshot (Clip Properties)
 msgid "Is Odd Frame"
-msgstr ""
+msgstr "ጎዶሎ ክፈፍ ነው"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Halo: Use Rings"
@@ -1651,7 +1653,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
 msgid "Gray color"
-msgstr ""
+msgstr "ግራጫ ቀለም"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml
 msgid "Delay grab"
@@ -1663,7 +1665,7 @@ msgstr ""
 
 #: libopenshot (Clip Properties)
 msgid "Bottom Center"
-msgstr ""
+msgstr "ከ ታች  መሀከል"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/contrast.xml
 msgid "Adjusts the contrast of a source image"
@@ -1671,7 +1673,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
 msgid "First Title"
-msgstr ""
+msgstr "የ መጀመሪያ አርእስት"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml
 msgid "Old Grain"
@@ -1711,16 +1713,16 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml
 msgid "Sub Title"
-msgstr ""
+msgstr "ንዑስ አርእስት"
 
 #: libopenshot (Clip Properties)
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:115
 msgid "End"
-msgstr ""
+msgstr "መጨረሻ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
 msgid "Y Offset"
-msgstr ""
+msgstr "Y ማካካሻ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "Specular Intensity"
@@ -1744,19 +1746,19 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "Snow"
-msgstr ""
+msgstr "በረዶ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml
 msgid "Black and White"
-msgstr ""
+msgstr "ጥቁር እና ነጭ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/trees.xml
 msgid "Trees"
-msgstr ""
+msgstr "ዛፎች"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
 msgid "Max"
-msgstr ""
+msgstr "ከፍተኛ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml
 msgid "Chroma Hold"
@@ -1772,11 +1774,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
 msgid "Delay"
-msgstr ""
+msgstr "ማዘግያ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml
 msgid "Blue/Yellow"
-msgstr ""
+msgstr "ሰማያዊ/ቢጫ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml
 msgid "Add small dust shapes randomly on the image"
@@ -1806,7 +1808,7 @@ msgstr ""
 
 #: libopenshot (Clip Properties)
 msgid "Anchor"
-msgstr ""
+msgstr "ማስቆሚያ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml
 msgid "Increase the size of pixels to obscure the image"
@@ -1854,11 +1856,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
 msgid "Old Film"
-msgstr ""
+msgstr "አሮጌ ፊልም"
 
 #: libopenshot (Clip Properties)
 msgid "Top Center"
-msgstr ""
+msgstr "ከ ላይ መሀከል"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "Gravity: Z"
@@ -1870,7 +1872,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml
 msgid "Display Clouds"
-msgstr ""
+msgstr "ደመናዎች ማሳያ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
 msgid "Map black to"
@@ -1895,19 +1897,19 @@ msgstr ""
 
 #: libopenshot (Clip Properties)
 msgid "Wave Color"
-msgstr ""
+msgstr "የ ማእበል ቀለም"
 
 #: libopenshot (Clip Properties)
 msgid "Top Right"
-msgstr ""
+msgstr "ከ ላይ በ ቀኝ በኩል"
 
 #: libopenshot (Clip Properties)
 msgid "Layer"
-msgstr ""
+msgstr "ደረጃ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml
 msgid "Color Distance"
-msgstr ""
+msgstr "የ ቀለም እርቀት"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
 msgid "Correction near center"
@@ -1920,7 +1922,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml
 msgid "Letterbox"
-msgstr ""
+msgstr "የ ደብዳቤ ሳጥን"
 
 #: libopenshot (Effect Metadata)
 msgid "Negates the colors, producing a negative of the image."
@@ -1968,11 +1970,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml
 msgid "Size"
-msgstr ""
+msgstr "መጠን"
 
 #: libopenshot (Effect Metadata)
 msgid "Negative"
-msgstr ""
+msgstr "አሉታዊ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/fly_by_1.xml
 msgid "Fly Towards Camera"
@@ -1984,7 +1986,7 @@ msgstr ""
 
 #: libopenshot (Clip Properties)
 msgid "Center"
-msgstr ""
+msgstr "መሀከል"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Halo: Use Lines"
@@ -1992,15 +1994,15 @@ msgstr ""
 
 #: libopenshot (Clip Properties)
 msgid "Key Color"
-msgstr ""
+msgstr "ቁልፍ ቀለም"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "Start Frame"
-msgstr ""
+msgstr "ክፈፍ ማስጀመሪያ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml
 msgid "Noise"
-msgstr ""
+msgstr "ረብሻ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
 msgid "Halo: Ending Size"
@@ -2008,7 +2010,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
 msgid "Green"
-msgstr ""
+msgstr "አረንጓዴ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Halo: Line Count"
@@ -2020,11 +2022,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml
 msgid "Charcoal"
-msgstr ""
+msgstr "ከሰል"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml
 msgid "Frame Number"
-msgstr ""
+msgstr "የ ክፈፍ ቁጥር"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/explode.xml
 msgid "Particle Number"
@@ -2032,15 +2034,15 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
 msgid "Blue"
-msgstr ""
+msgstr "ሰማያዊ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
 msgid "Old Lines"
-msgstr ""
+msgstr "አሮጌ መስመሮች"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
 msgid "Title 1"
-msgstr ""
+msgstr "አርእስት 1"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
 msgid "Picture 3 Path"
@@ -2048,7 +2050,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
 msgid "Width"
-msgstr ""
+msgstr "ስፋት"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml
 msgid "Block Size X"
@@ -2080,7 +2082,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
 msgid "Type"
-msgstr ""
+msgstr "አይነት"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Halo: Use Stars"
@@ -2088,7 +2090,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/blur.xml
 msgid "Blur"
-msgstr ""
+msgstr "ማደብዘዣ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Particles: Gravity"
@@ -2152,11 +2154,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
 msgid "Text Width"
-msgstr ""
+msgstr "የ ጽሁፍ ስፋት"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml
 msgid "Reduce image to primary colors"
-msgstr ""
+msgstr "ምስል ወደ ቀዳሚ ቀለሞች መቀነሻ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/balance.xml
 msgid "Adjust the left/right balance"
@@ -2168,11 +2170,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
 msgid "Text Alignment"
-msgstr ""
+msgstr "ጽሁፍ ማሰለፊያ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml
 msgid "Aspect ratio"
-msgstr ""
+msgstr "የ ማነፃፀሪያ መጠን"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
 msgid "Add an echo"
@@ -2220,7 +2222,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
 msgid "Line 4 Color"
-msgstr ""
+msgstr "የ መስመር 4 ቀለም"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
 msgid "Background: Fresnel"
@@ -2240,7 +2242,7 @@ msgstr ""
 
 #: libopenshot (Clip Properties)
 msgid "Best Fit"
-msgstr ""
+msgstr "በ ጥሩ ልክ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/balance.xml
 msgid "Balance"
@@ -2268,11 +2270,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml
 msgid "Threshold"
-msgstr ""
+msgstr "መግቢያ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml
 msgid "Softness"
-msgstr ""
+msgstr "ለስላሳነት"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "Gravity: X"
@@ -2308,7 +2310,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml
 msgid "Top"
-msgstr ""
+msgstr "ከ ላይ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Halo: Ring Count"
@@ -2328,7 +2330,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
 msgid "Color adjustment"
-msgstr ""
+msgstr "ቀለም ማስተካከያ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Halo: Hardness"
@@ -2367,7 +2369,7 @@ msgstr ""
 #: libopenshot (Clip Properties)
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:96
 msgid "Start"
-msgstr ""
+msgstr "ማስጀመሪያ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml
 msgid "Freeze After"
@@ -2379,7 +2381,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
 msgid "Levels"
-msgstr ""
+msgstr "ደረጃዎች"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml
 msgid "Freeze the frame of a video"
@@ -2387,7 +2389,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
 msgid "Text Size"
-msgstr ""
+msgstr "የ ጽሁፍ መጠን"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
 msgid "Tint a source image with specified color"
@@ -2395,11 +2397,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml
 msgid "Mirror"
-msgstr ""
+msgstr "አንፀባራቂ"
 
 #: Settings for default-profile
 msgid "Default Profile"
-msgstr ""
+msgstr "ነባር መገለጫ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_mov_mpeg4.xml
 msgid "MOV (mpeg4)"
@@ -2415,7 +2417,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/wikipedia.xml
 msgid "Wikipedia"
-msgstr ""
+msgstr "ዊኪፒዲያ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mp4.xml
 msgid "AVI (mpeg4)"
@@ -2431,7 +2433,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml
 msgid "DVD"
-msgstr ""
+msgstr "ዲቪዲ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/xbox360.xml
 msgid "Xbox 360"
@@ -2452,7 +2454,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml
 msgid "Web"
-msgstr ""
+msgstr "ዌብ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/nokia_nHD.xml
 msgid "Nokia nHD"
@@ -2484,7 +2486,7 @@ msgstr ""
 
 #: Settings for theme
 msgid "Default Theme"
-msgstr ""
+msgstr "ነባር ገጽታ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_xvid.xml
 msgid "MP4 (Xvid)"
@@ -2500,7 +2502,7 @@ msgstr ""
 
 #: Settings for autosave-interval
 msgid "Autosave Interval (minutes)"
-msgstr ""
+msgstr "በራሱ ማስቀመጫ በየ (ደቂቃዎች)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/youtube_HD.xml
 msgid "YouTube-HD"
@@ -2524,7 +2526,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_mpeg4.xml
 msgid "MP4 (mpeg4)"
-msgstr ""
+msgstr "MP4 (mpeg4)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml
 msgid "AVCHD Disks"
@@ -2532,7 +2534,7 @@ msgstr ""
 
 #: Settings for default-channellayout
 msgid "Default Audio Channels"
-msgstr ""
+msgstr "ነባር የ ድምፅ ጣቢያዎች"
 
 #: Settings for title_editor
 msgid "Advanced Title Editor (path)"
@@ -2540,7 +2542,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml
 msgid "Device"
-msgstr ""
+msgstr "አካል"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml
 msgid "DVD-NTSC"
@@ -2560,7 +2562,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/picasa.xml
 msgid "Picasa"
-msgstr ""
+msgstr "ፒካሳ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_right_barr.jpg
 msgid "Middle cross right barr"

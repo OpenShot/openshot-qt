@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-03 22:58+0000\n"
-"PO-Revision-Date: 2016-02-06 16:04+0000\n"
-"Last-Translator: Jiwon Kang <jiwon7258@gmail.com>\n"
+"PO-Revision-Date: 2016-03-02 13:05+0000\n"
+"Last-Translator: Sangmin Lee <sangminlee7648@gmail.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-07 05:51+0000\n"
-"X-Generator: Launchpad (build 17908)\n"
+"X-Launchpad-Export-Date: 2016-03-03 06:14+0000\n"
+"X-Generator: Launchpad (build 17925)\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:463
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1023
@@ -47,7 +47,7 @@ msgstr "페이드 인 & 아웃"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:485
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:550
 msgid "Random"
-msgstr ""
+msgstr "무작위"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:474
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:831
@@ -71,7 +71,7 @@ msgstr "닫기 전에 변경사항을 저장할까요?"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:127
 msgid "Backup Recovered"
-msgstr ""
+msgstr "백업이 복구되었습니다"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:128
 msgid "Your most recent unsaved project has been recovered."
@@ -125,7 +125,7 @@ msgstr "트랙 이름 바꾸기"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1025
 msgid "Track Name:"
-msgstr ""
+msgstr "트랙 이름:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1327
 msgid "Recent Projects"
@@ -137,26 +137,26 @@ msgstr "최근 프로젝트"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1541
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:286
 msgid "Filter"
-msgstr ""
+msgstr "필터"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1454
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1634
 msgid "{} seconds"
-msgstr ""
+msgstr "{}초"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:114
 msgid "<Select a template>"
-msgstr ""
+msgstr "<서식을 선택하세요>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:323
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:342
 msgid "Select a Color"
-msgstr ""
+msgstr "색을 선택하세요"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:361
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:240
 msgid "Change Font"
-msgstr ""
+msgstr "글꼴 변경"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:592
 msgid "New Title"
@@ -176,19 +176,19 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/files_listview.py:165
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/files_model.py:173
 msgid "{} is not a valid video, audio, or image file."
-msgstr ""
+msgstr "{}은/는 올바른 영상, 음성 혹은 사진 파일이 아닙니다."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:677
 msgid "Please install {} to use this function"
-msgstr ""
+msgstr "이 기능을 사용하기 위해선 {}를 설치해주세요"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:269
 msgid "Restart Required"
-msgstr ""
+msgstr "다시 시작해야합니다."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:270
 msgid "Please restart OpenShot for all preferences to take effect."
-msgstr ""
+msgstr "모든 설정이 적용되기 위해 OpenShot을 다시 시작해주세요."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/cutting.py:190
 #: /home/jonathan/apps/openshot-qt-git/src/windows/cutting.py:224
@@ -197,7 +197,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/animated_title.py:85
 msgid "Render"
-msgstr "렌더"
+msgstr "렌더링"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/animated_title.py:86
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:76
@@ -208,7 +208,7 @@ msgstr "취소"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/about.py:71
 #, python-format
 msgid "Version: %s"
-msgstr ""
+msgstr "버전: %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/about.py:152
 msgid "translator-credits"
@@ -222,6 +222,7 @@ msgstr ""
 "  KimSuryeon https://launchpad.net/~rus1031\n"
 "  Litty https://launchpad.net/~litty\n"
 "  Lyuso https://launchpad.net/~lutinaroa\n"
+"  Sangmin Lee https://launchpad.net/~sangminlee7648\n"
 "  SeungCheol Han https://launchpad.net/~sfeone"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/blender_treeview.py:169

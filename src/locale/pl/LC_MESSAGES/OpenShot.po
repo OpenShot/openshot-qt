@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-03 22:58+0000\n"
-"PO-Revision-Date: 2016-02-04 15:07+0000\n"
-"Last-Translator: Mateusz Stawecki <mateuszovb@op.pl>\n"
+"PO-Revision-Date: 2016-02-14 21:33+0000\n"
+"Last-Translator: Mateusz Łącki <mateusz.lacki@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-05 06:33+0000\n"
-"X-Generator: Launchpad (build 17908)\n"
+"X-Launchpad-Export-Date: 2016-02-15 05:37+0000\n"
+"X-Generator: Launchpad (build 17925)\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:463
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1023
@@ -71,11 +71,11 @@ msgstr "Zapisać zmiany w projekcie przed jego zamknięciem ?"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:127
 msgid "Backup Recovered"
-msgstr ""
+msgstr "Odtworzono kopię zapasową"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:128
 msgid "Your most recent unsaved project has been recovered."
-msgstr ""
+msgstr "Najświeższy niezapisany projekt został odtworzony"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:241
 msgid "Error Saving Project"
@@ -231,6 +231,7 @@ msgstr ""
 "  Mariusz Kujawski https://launchpad.net/~marines\n"
 "  Mateusz K. https://launchpad.net/~pecet-full\n"
 "  Mateusz Stawecki https://launchpad.net/~mateuszovb\n"
+"  Mateusz Łącki https://launchpad.net/~mateusz-lacki\n"
 "  Michał Nieznański https://launchpad.net/~katsu229\n"
 "  Pawouek https://launchpad.net/~pawouek\n"
 "  Piotr Strębski https://launchpad.net/~strebski\n"
@@ -2718,7 +2719,7 @@ msgstr "Spirala świetlna %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg
 msgid "Left arrow"
-msgstr ""
+msgstr "Strzałka w lewo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/hatched_1.jpg
 msgid "Hatched %s"
@@ -2766,7 +2767,7 @@ msgstr "Mozaika barr lewa"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_18.jpg
 msgid "Ray light %s"
-msgstr ""
+msgstr "Promień światła %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_top_arrow.jpg
 msgid "Ripple top arrow"
@@ -4090,11 +4091,11 @@ msgstr "<html><head/><body><p>Załaduj na(Upload To):</p></body></html>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:48
 msgid "(None)"
-msgstr ""
+msgstr "(Brak)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:74
 msgid "<html><head/><body><p>Video File:</p></body></html>"
-msgstr ""
+msgstr "<html><head/><body><p>Plik Wideo:</p></body></html>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:81
 msgid ""
@@ -4105,7 +4106,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:94
 msgid "<html><head/><body><p>Username:</p></body></html>"
-msgstr ""
+msgstr "<html><head/><body><p>Nazwa Użytkownika:</p></body></html>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:101
 msgid "<html><head/><body><p>Description:</p></body></html>"
@@ -4113,15 +4114,15 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:109
 msgid "Youtube"
-msgstr ""
+msgstr "Youtube"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:151
 msgid "<html><head/><body><p>Title:</p></body></html>"
-msgstr ""
+msgstr "<html><head/><body><p>Tytuł:</p></body></html>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:185
 msgid "<html><head/><body><p>Password:</p><p><br/></p></body></html>"
-msgstr ""
+msgstr "<html><head/><body><p>Hasło:</p><p><br/></p></body></html>"
 
 #~ msgid "Fractal 1"
 #~ msgstr "Fraktal 1"

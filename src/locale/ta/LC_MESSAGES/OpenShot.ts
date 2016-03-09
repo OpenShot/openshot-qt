@@ -3,12 +3,12 @@
 <TS version="2.1">
     <extra-po-header-language_team>Tamil &lt;ta@li.org&gt;</extra-po-header-language_team>
     <extra-po-header-last_translator>Nagaraja &lt;naga2raja@gmail.com&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-02-01 06:37+0000</extra-po-header-po_revision_date>
+    <extra-po-header-po_revision_date>2016-02-20 03:29+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2016-02-03 22:58+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 17908)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-02-05 06:33+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 17925)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2016-02-21 05:36+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Tamil translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -41,19 +41,19 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="468"/>
         <source>Fade Out</source>
-        <translation>வெளியே மங்கயச்செய்</translation>
+        <translation>வெளியே மங்கச் செய்</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="469"/>
         <source>Fade In &amp; Out</source>
-        <translation>உள்ளே &amp; வெளியே மங்கயச்செய்</translation>
+        <translation>உள்ளே வெளியே மங்கச் செய்</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="473"/>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="485"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="550"/>
         <source>Random</source>
-        <translation type="unfinished"></translation>
+        <translation>குறிப்பில்லாத</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="474"/>
@@ -77,7 +77,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="85"/>
         <source>Save changes to project before closing?</source>
-        <translation type="unfinished"></translation>
+        <translation>மூடுவதற்கு முன் மாற்றங்களை சேமிக்க வேண்டுமா?</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="127"/>
@@ -258,6 +258,7 @@
   Nagaraja https://launchpad.net/~naga2raja
   Ramesh https://launchpad.net/~rame20002007
   Vivek Ganesan https://launchpad.net/~vivganes
+  mohamed usman https://launchpad.net/~mdus92
   shirdi.saidasan@gmail.com https://launchpad.net/~shirdi-saidasan
   swamytk https://launchpad.net/~swamytk
   அவினாஷ் Avinash https://launchpad.net/~avinashachu007

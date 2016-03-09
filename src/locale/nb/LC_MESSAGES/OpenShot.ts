@@ -2,13 +2,13 @@
 <!DOCTYPE TS>
 <TS version="2.1">
     <extra-po-header-language_team>Norwegian Bokmal &lt;nb@li.org&gt;</extra-po-header-language_team>
-    <extra-po-header-last_translator>kingu &lt;comradekingu@gmail.com&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-01-15 22:35+0000</extra-po-header-po_revision_date>
+    <extra-po-header-last_translator>Hans Petter Birkeland &lt;hpbirkeland@gmail.com&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2016-02-10 12:42+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2016-02-03 22:58+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 17908)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-02-05 06:33+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 17923)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2016-02-11 06:17+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Norwegian Bokmal translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -82,12 +82,12 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="127"/>
         <source>Backup Recovered</source>
-        <translation type="unfinished"></translation>
+        <translation>Sikkerhetskopi gjenopprettet</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="128"/>
         <source>Your most recent unsaved project has been recovered.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ditt seneste ulagrede prosjekt er gjenopprettet.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="241"/>
@@ -208,7 +208,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/views/files_listview.py" line="165"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/files_model.py" line="173"/>
         <source>{} is not a valid video, audio, or image file.</source>
-        <translation type="unfinished"></translation>
+        <translation>{} er ikke en gyldig video-, lyd- eller bildefil.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="677"/>
@@ -218,18 +218,18 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="269"/>
         <source>Restart Required</source>
-        <translation type="unfinished"></translation>
+        <translation>Omstart kreves</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="270"/>
         <source>Please restart OpenShot for all preferences to take effect.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vennligst start OpenShot på nytt for å ta i bruk alle brukervalg.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/cutting.py" line="190"/>
         <location filename="../../../../openshot-qt-git/src/windows/cutting.py" line="224"/>
         <source>Please choose valid &apos;start&apos; and &apos;end&apos; values for your clip.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vennligst velg gyldige verdier for &apos;start&apos; og &apos;slutt&apos; for klippet.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/animated_title.py" line="85"/>
@@ -536,7 +536,7 @@ Sti til Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="513"/>
         <source>Center to Edge</source>
-        <translation type="unfinished"></translation>
+        <translation>Senter til kant</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="514"/>
@@ -551,7 +551,7 @@ Sti til Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="518"/>
         <source>Center to Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Senter til høyre</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="520"/>
@@ -561,7 +561,7 @@ Sti til Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="525"/>
         <source>Edge to Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Kant til senter</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="526"/>
@@ -586,7 +586,7 @@ Sti til Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="537"/>
         <source>Edge to Edge</source>
-        <translation type="unfinished"></translation>
+        <translation>Ytterant til ytterkant</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="538"/>
@@ -844,7 +844,7 @@ Sti til Blender:
         <location filename="../../../../openshot-qt-git/src/windows/models/transition_model.py" line="158"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/effects_model.py" line="150"/>
         <source>{} is not a valid image file.</source>
-        <translation type="unfinished"></translation>
+        <translation>{} er ikke en gyldig bildefil.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="67"/>
@@ -859,17 +859,17 @@ Sti til Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="100"/>
         <source>PayPal Supporter!</source>
-        <translation type="unfinished"></translation>
+        <translation>PayPal-supporter!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="108"/>
         <source>Kickstarter Supporter!</source>
-        <translation type="unfinished"></translation>
+        <translation>Kickstarter-supporter!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="116"/>
         <source>Multiple Contributions!</source>
-        <translation type="unfinished"></translation>
+        <translation>Flere bidrag!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="358"/>
@@ -905,7 +905,7 @@ Sti til Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/files_model.py" line="100"/>
         <source>Tags</source>
-        <translation type="unfinished"></translation>
+        <translation>Stikkord</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/effects_model.py" line="80"/>
@@ -931,27 +931,27 @@ Sti til Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="123"/>
         <source>Mono (1 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mono (1 kanal)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="124"/>
         <source>Stereo (2 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Stereo (2 kanaler)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="125"/>
         <source>Surround (3 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Surround (3 kanaler)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="126"/>
         <source>Surround (5.1 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Surround (5.1 kanaler)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="127"/>
         <source>Surround (7.1 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Surround (7.1 kanaler)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="192"/>
@@ -1006,13 +1006,14 @@ Sti til Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="625"/>
         <source>Export Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksportfeil</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="626"/>
         <source>Sorry, there was an error exporting your video: 
 %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Beklager, det oppsto en feil under eksport av videoen: 
+%s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -1022,7 +1023,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Iterations</source>
-        <translation type="unfinished"></translation>
+        <translation>Gjentakelser</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1112,7 +1113,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Vertical Radius</source>
-        <translation type="unfinished"></translation>
+        <translation>Loddrett radius</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1152,7 +1153,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Gravity</source>
-        <translation type="unfinished"></translation>
+        <translation>Gravitasjon</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1237,7 +1238,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Color Saturation</source>
-        <translation type="unfinished"></translation>
+        <translation>Fargemetning</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -1287,12 +1288,12 @@ Sti til Blender:
     </message>
     <message>
         <source>Bottom Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Nedre venstre</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Varighet</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1420,12 +1421,12 @@ Sti til Blender:
     </message>
     <message>
         <source>Horizontal Radius</source>
-        <translation type="unfinished"></translation>
+        <translation>Vannrett radius</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Location X</source>
-        <translation type="unfinished"></translation>
+        <translation>Posisjon X</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1540,7 +1541,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Bottom Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Nedre høyre</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1565,7 +1566,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Fuzz</source>
-        <translation type="unfinished"></translation>
+        <translation>Uskarp</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1575,7 +1576,7 @@ Sti til Blender:
     </message>
     <message>
         <source>ID</source>
-        <translation type="unfinished"></translation>
+        <translation>ID</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1660,12 +1661,12 @@ Sti til Blender:
     </message>
     <message>
         <source>Crop</source>
-        <translation type="unfinished"></translation>
+        <translation>Beskjær</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Deinterlace</source>
-        <translation type="unfinished"></translation>
+        <translation>Flett av</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -1675,7 +1676,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Adjust the color saturation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Juster fargemetningen.</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -1695,7 +1696,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Scale X</source>
-        <translation type="unfinished"></translation>
+        <translation>Skala X</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1760,12 +1761,12 @@ Sti til Blender:
     </message>
     <message>
         <source>Sigma</source>
-        <translation type="unfinished"></translation>
+        <translation>Sigma</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Top Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Øvre venstre</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1775,7 +1776,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Scale Y</source>
-        <translation type="unfinished"></translation>
+        <translation>Skala Y</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1830,7 +1831,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Replace Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Erstatt bilde</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1850,7 +1851,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Location Y</source>
-        <translation type="unfinished"></translation>
+        <translation>Posisjon Y</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1910,12 +1911,12 @@ Sti til Blender:
     </message>
     <message>
         <source>Chroma Key (Greenscreen)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fargenøkling (grønnskjerm)</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Viewport</source>
-        <translation type="unfinished"></translation>
+        <translation>Visningsområde</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1935,7 +1936,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Stretch</source>
-        <translation type="unfinished"></translation>
+        <translation>Strekk</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1945,7 +1946,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Remove interlacing from a video (i.e. even or odd horizontal lines)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjern linjefletting fra en video (like eller ulike horisontale linjer)</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -1985,12 +1986,12 @@ Sti til Blender:
     </message>
     <message>
         <source>Brightness &amp; Contrast</source>
-        <translation type="unfinished"></translation>
+        <translation>Lysstyrke og kontrast</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Is Odd Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Er ulik rute</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2040,7 +2041,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Bottom Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Midt på nederst</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2216,7 +2217,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Anchor</source>
-        <translation type="unfinished"></translation>
+        <translation>Anker</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2281,7 +2282,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Top Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Midt på øverst</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2291,7 +2292,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Adjust the brightness and contrast of the frame&apos;s image.</source>
-        <translation type="unfinished"></translation>
+        <translation>Juster bildets lysstyrke og kontrast</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -2316,7 +2317,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Uses a grayscale mask image to gradually wipe / transition between 2 images.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bruker en gråskalamaske for å gi en gradvis overgang mellom to bilder.</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -2326,17 +2327,17 @@ Sti til Blender:
     </message>
     <message>
         <source>Wave Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Bølgefarge</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Top Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Øvre høyre</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Lag</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2361,7 +2362,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Negates the colors, producing a negative of the image.</source>
-        <translation type="unfinished"></translation>
+        <translation>Inverterer fargene og gir et negativt bilde.</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -2421,7 +2422,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Negative</source>
-        <translation type="unfinished"></translation>
+        <translation>Negativ</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -2436,7 +2437,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Midtstilt</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2446,7 +2447,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Key Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Nøklingsfarge</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2631,7 +2632,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Canvas</source>
-        <translation type="unfinished"></translation>
+        <translation>Lerret</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2741,7 +2742,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Waveform</source>
-        <translation type="unfinished"></translation>
+        <translation>Bølgeform</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2756,7 +2757,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Best Fit</source>
-        <translation type="unfinished"></translation>
+        <translation>Beste tilpasning</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2906,7 +2907,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Replaces the color (or chroma) of the frame with transparency (i.e. keys out the color).</source>
-        <translation type="unfinished"></translation>
+        <translation>Erstatter bildets farge (eller kroma) med gjennomsiktighet (nøkler ut fargen).</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -2952,7 +2953,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Default Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Standardprofil</translation>
         <extra-po-references>Settings for default-profile</extra-po-references>
     </message>
     <message>
@@ -3008,7 +3009,7 @@ Sti til Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="118"/>
         <source>Vimeo</source>
-        <translation type="unfinished"></translation>
+        <translation>Vimeo</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/vimeo.xml</extra-po-references>
     </message>
     <message>
@@ -3048,7 +3049,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Image Length (seconds)</source>
-        <translation type="unfinished"></translation>
+        <translation>Bildelengde (sekunder)</translation>
         <extra-po-references>Settings for default-image-length</extra-po-references>
     </message>
     <message>
@@ -3058,7 +3059,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Default Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Standardtema</translation>
         <extra-po-references>Settings for theme</extra-po-references>
     </message>
     <message>
@@ -3078,7 +3079,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Autosave Interval (minutes)</source>
-        <translation type="unfinished"></translation>
+        <translation>Intervall for autolagring (minutter)</translation>
         <extra-po-references>Settings for autosave-interval</extra-po-references>
     </message>
     <message>
@@ -3103,7 +3104,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Default Audio Sample Rate</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard samplingsfrekvens for lyd</translation>
         <extra-po-references>Settings for default-samplerate</extra-po-references>
     </message>
     <message>
@@ -3118,12 +3119,12 @@ Sti til Blender:
     </message>
     <message>
         <source>Default Audio Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard lydkanaler</translation>
         <extra-po-references>Settings for default-channellayout</extra-po-references>
     </message>
     <message>
         <source>Advanced Title Editor (path)</source>
-        <translation type="unfinished"></translation>
+        <translation>Avansert teksteditor (sti)</translation>
         <extra-po-references>Settings for title_editor</extra-po-references>
     </message>
     <message>
@@ -3138,7 +3139,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Debug Mode (Verbose)</source>
-        <translation type="unfinished"></translation>
+        <translation>Feilrettingsmodus (ordrik)</translation>
         <extra-po-references>Settings for debug-mode</extra-po-references>
     </message>
     <message>
@@ -3148,7 +3149,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Blender Command (path)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kommando for Blender (sti)</translation>
         <extra-po-references>Settings for blender_command</extra-po-references>
     </message>
     <message>
@@ -3178,7 +3179,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Fractal %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Fraktal %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fractal_5.jpg</extra-po-references>
     </message>
     <message>
@@ -3188,7 +3189,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Wave left up</source>
-        <translation type="unfinished"></translation>
+        <translation>Bølge venstre opp</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_up.jpg</extra-po-references>
     </message>
     <message>
@@ -3198,7 +3199,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Future %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Fremtid %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/future_11.jpg</extra-po-references>
     </message>
     <message>
@@ -3238,7 +3239,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Flower %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Blomst %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/flower_4.jpg</extra-po-references>
     </message>
     <message>
@@ -3248,7 +3249,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Sunlight %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Sollys %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sunlight_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3270,7 +3271,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Right mozaic %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Høyre mosaikk %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3280,7 +3281,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Left arrow</source>
-        <translation type="unfinished"></translation>
+        <translation>Pil til venstre</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg</extra-po-references>
     </message>
     <message>
@@ -3315,17 +3316,17 @@ Sti til Blender:
     </message>
     <message>
         <source>Small top arrow</source>
-        <translation type="unfinished"></translation>
+        <translation>Liten pil til topp</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_top_arrow.jpg</extra-po-references>
     </message>
     <message>
         <source>Foggy spiral %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Tåkespiral %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/foggy_spiral_1.jpg</extra-po-references>
     </message>
     <message>
         <source>Right mozaic</source>
-        <translation type="unfinished"></translation>
+        <translation>Høyre mosaikk</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic.jpg</extra-po-references>
     </message>
     <message>
@@ -3415,7 +3416,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Mosaic %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Mosaikk %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mosaic_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3455,7 +3456,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Fish-eyes %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Fiskeøne %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fish-eyes_5.jpg</extra-po-references>
     </message>
     <message>
@@ -3480,12 +3481,12 @@ Sti til Blender:
     </message>
     <message>
         <source>Right arrow</source>
-        <translation type="unfinished"></translation>
+        <translation>Pil til høyre</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_arrow.jpg</extra-po-references>
     </message>
     <message>
         <source>Stretched %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Strukket %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/stretched_3.jpg</extra-po-references>
     </message>
     <message>
@@ -3650,7 +3651,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Hourglass %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Timeglass %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/hourglass_1.jpg</extra-po-references>
     </message>
     <message>
@@ -3660,7 +3661,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Distortion %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Forvrengning %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg</extra-po-references>
     </message>
     <message>
@@ -3675,7 +3676,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Clouds %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Skyer %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3685,7 +3686,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Spiral small %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Spiral liten %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3720,12 +3721,12 @@ Sti til Blender:
     </message>
     <message>
         <source>Frame %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Ramme %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_2.jpg</extra-po-references>
     </message>
     <message>
         <source>Sphere %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Kule %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3825,7 +3826,7 @@ Sti til Blender:
     </message>
     <message>
         <source>Extra</source>
-        <translation type="unfinished"></translation>
+        <translation>Ekstra</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra</extra-po-references>
     </message>
     <message>
@@ -3857,7 +3858,7 @@ Sti til Blender:
         <location filename="../../../../openshot-qt-git/src/windows/ui/about.ui" line="100"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="14"/>
         <source>Credits</source>
-        <translation type="unfinished"></translation>
+        <translation>Takkeliste</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/about.ui" line="107"/>
@@ -3870,7 +3871,7 @@ Sti til Blender:
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="134"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/license.ui" line="45"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Lukk</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="14"/>

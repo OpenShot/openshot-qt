@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.1">
+    <extra-po-header-language>is</extra-po-header-language>
     <extra-po-header-language_team>Icelandic &lt;is@li.org&gt;</extra-po-header-language_team>
-    <extra-po-header-last_translator>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-01-11 05:40+0000</extra-po-header-po_revision_date>
+    <extra-po-header-last_translator>Sveinn í Felli &lt;sv1@fellsnet.is&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2016-02-23 20:26+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2016-02-03 22:58+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 17908)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-02-05 06:32+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 17925)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2016-02-24 05:50+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Icelandic translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
+#
 # FIRST AUTHOR &lt;EMAIL@ADDRESS&gt;, 2016.
-#</extra-po-header_comment>
-    <extra-po-headers>Project-Id-Version,Report-Msgid-Bugs-To,POT-Creation-Date,PO-Revision-Date,Last-Translator,Language-Team,MIME-Version,Content-Type,Content-Transfer-Encoding,X-Launchpad-Export-Date,X-Generator</extra-po-headers>
+# Sveinn í Felli &lt;sv1@fellsnet.is&gt;, 2016.</extra-po-header_comment>
+    <extra-po-headers>Project-Id-Version,Report-Msgid-Bugs-To,POT-Creation-Date,PO-Revision-Date,Last-Translator,Language-Team,MIME-Version,Content-Type,Content-Transfer-Encoding,X-Launchpad-Export-Date,X-Generator,Language</extra-po-headers>
 <context>
     <name></name>
     <message>
@@ -53,7 +55,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="485"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="550"/>
         <source>Random</source>
-        <translation type="unfinished"></translation>
+        <translation>Handahófskennt</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="474"/>
@@ -72,32 +74,32 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="85"/>
         <source>Unsaved Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Óvistaðar breytingar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="85"/>
         <source>Save changes to project before closing?</source>
-        <translation type="unfinished"></translation>
+        <translation>Vista breytingar á verkefninu áður en forritinu er lokað?</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="127"/>
         <source>Backup Recovered</source>
-        <translation type="unfinished"></translation>
+        <translation>Endurheimti öryggisafrit</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="128"/>
         <source>Your most recent unsaved project has been recovered.</source>
-        <translation type="unfinished"></translation>
+        <translation>Endurheimti síðasta óvistaða verkefnið þitt.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="241"/>
         <source>Error Saving Project</source>
-        <translation type="unfinished"></translation>
+        <translation>Villa við að vista verkefni</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="278"/>
         <source>Error Opening Project</source>
-        <translation type="unfinished"></translation>
+        <translation>Villa við að opna verkefni</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="314"/>
@@ -118,12 +120,12 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1240"/>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="104"/>
         <source>Untitled Project</source>
-        <translation type="unfinished"></translation>
+        <translation>Ónefnt verkefni</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="327"/>
         <source>Save Project...</source>
-        <translation type="unfinished"></translation>
+        <translation>Vista verkefni...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="371"/>
@@ -135,7 +137,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="386"/>
         <source>Import File...</source>
-        <translation type="unfinished"></translation>
+        <translation>Flytja inn skrá...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1025"/>
@@ -147,7 +149,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1025"/>
         <source>Track Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Heiti á spori:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1327"/>
@@ -161,24 +163,24 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1541"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="286"/>
         <source>Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Sía</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1454"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1634"/>
         <source>{} seconds</source>
-        <translation type="unfinished"></translation>
+        <translation>{} sekúndur</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="114"/>
         <source>&lt;Select a template&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;Veldu sniðmát&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="323"/>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="342"/>
         <source>Select a Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Veldu lit</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="361"/>
@@ -194,12 +196,12 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="595"/>
         <source>Save Title As...</source>
-        <translation type="unfinished"></translation>
+        <translation>Vista titil sem...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="595"/>
         <source>Scalable Vector Graphics (*.svg)</source>
-        <translation type="unfinished"></translation>
+        <translation>SVG vigurteikningar (Scalable Vector Graphics - *.svg)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="648"/>
@@ -208,28 +210,28 @@
         <location filename="../../../../openshot-qt-git/src/windows/views/files_listview.py" line="165"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/files_model.py" line="173"/>
         <source>{} is not a valid video, audio, or image file.</source>
-        <translation type="unfinished"></translation>
+        <translation>{} er ekki gild myndskeiðsskrá, hljóðskrá eða myndskrá.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="677"/>
         <source>Please install {} to use this function</source>
-        <translation type="unfinished"></translation>
+        <translation>Settu upp {} til að geta notað þessa aðgerð</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="269"/>
         <source>Restart Required</source>
-        <translation type="unfinished"></translation>
+        <translation>Það þarf að endurræsa tölvuna</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="270"/>
         <source>Please restart OpenShot for all preferences to take effect.</source>
-        <translation type="unfinished"></translation>
+        <translation>Þú þarft að endurræsa OpenShot til að breytingar á kjörstillingum taki gildi.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/cutting.py" line="190"/>
         <location filename="../../../../openshot-qt-git/src/windows/cutting.py" line="224"/>
         <source>Please choose valid &apos;start&apos; and &apos;end&apos; values for your clip.</source>
-        <translation type="unfinished"></translation>
+        <translation>Veldu gildar stærðir á &apos;upphaf&apos; og &apos;endir&apos; í myndskeiðinu.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/animated_title.py" line="85"/>
@@ -246,7 +248,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/about.py" line="71"/>
         <source>Version: %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Útgáfa: %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -258,7 +260,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/blender_treeview.py" line="169"/>
         <source>No Files Found</source>
-        <translation type="unfinished"></translation>
+        <translation>Engar skrár fundust</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/blender_treeview.py" line="461"/>
@@ -266,7 +268,10 @@
 
 Version Detected:
 {}</source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+Útgáfa sem fannst:
+{}</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/blender_treeview.py" line="464"/>
@@ -274,7 +279,10 @@ Version Detected:
 
 Error Output:
 {}</source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+Villuúttak:
+{}</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/blender_treeview.py" line="471"/>
@@ -284,7 +292,12 @@ Please check the preferences in OpenShot and be sure the Blender executable is c
 
 Blender Path:
 {}{}</source>
-        <translation type="unfinished"></translation>
+        <translation>Til þess að nota þessa aðgerð verður Blender að vera til staðar. Blender er frjáls og opinn 3D þrívíddarhugbúnaður (http://www.blender.org).
+
+Athugaðu stillingar OpenShot og skoðaðu hvort slóðin á Blender forritið sé rétt.  Hún ætti að vísa til &apos;blender&apos; keyrsluskrárinnar á tölvunni þinni.  Gakktu einnig úr skugga um að þetta sé útgáfa Blender {} eða nýrri.
+
+Slóð á Blender forritið:
+{}{}</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/blender_treeview.py" line="775"/>
@@ -304,22 +317,22 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Entire Clip</source>
-        <translation type="unfinished"></translation>
+        <translation>Allt myndskeiðið</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Venjulegt</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Fast</source>
-        <translation type="unfinished"></translation>
+        <translation>Hratt</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Slow</source>
-        <translation type="unfinished"></translation>
+        <translation>Hægt</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
@@ -329,13 +342,13 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Backward</source>
-        <translation type="unfinished"></translation>
+        <translation>Afturábak</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="423"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1510"/>
         <source>Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>Afrita</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="424"/>
@@ -346,13 +359,13 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="426"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1513"/>
         <source>Keyframes</source>
-        <translation type="unfinished"></translation>
+        <translation>Lykilrammar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="427"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1514"/>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation>Allt</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="430"/>
@@ -369,19 +382,19 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="434"/>
         <source>Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Snúningur</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="436"/>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Staðsetning</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="438"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="595"/>
         <source>Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Tími</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -401,7 +414,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="448"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1525"/>
         <source>Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>Líma</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="454"/>
@@ -455,13 +468,13 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="479"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="644"/>
         <source>Fade In (Entire Clip)</source>
-        <translation type="unfinished"></translation>
+        <translation>Deyfa inn (allt myndskeiðið)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="481"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="646"/>
         <source>Fade Out (Entire Clip)</source>
-        <translation type="unfinished"></translation>
+        <translation>Deyfa út (allt myndskeiðið)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="489"/>
@@ -477,7 +490,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="497"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="307"/>
         <source>Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>Aðdráttur</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="498"/>
@@ -512,7 +525,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="513"/>
         <source>Center to Edge</source>
-        <translation type="unfinished"></translation>
+        <translation>Miðja að jaðri</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="514"/>
@@ -527,7 +540,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="518"/>
         <source>Center to Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Miðja til hægri</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="520"/>
@@ -537,7 +550,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="525"/>
         <source>Edge to Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Jaðar að miðju</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="526"/>
@@ -562,7 +575,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="537"/>
         <source>Edge to Edge</source>
-        <translation type="unfinished"></translation>
+        <translation>Jaðar að jaðri</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="538"/>
@@ -658,87 +671,87 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="596"/>
         <source>Reset Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Endurstilla tíma</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="620"/>
         <source>Reset Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Endurstilla hljóðstyrk</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="651"/>
         <source>Level 100%</source>
-        <translation type="unfinished"></translation>
+        <translation>Styrkur 100%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="653"/>
         <source>Level 90%</source>
-        <translation type="unfinished"></translation>
+        <translation>Styrkur 90%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="655"/>
         <source>Level 80%</source>
-        <translation type="unfinished"></translation>
+        <translation>Styrkur 80%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="657"/>
         <source>Level 70%</source>
-        <translation type="unfinished"></translation>
+        <translation>Styrkur 70%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="659"/>
         <source>Level 60%</source>
-        <translation type="unfinished"></translation>
+        <translation>Styrkur 60%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="661"/>
         <source>Level 50%</source>
-        <translation type="unfinished"></translation>
+        <translation>Styrkur 50%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="663"/>
         <source>Level 40%</source>
-        <translation type="unfinished"></translation>
+        <translation>Styrkur 40%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="665"/>
         <source>Level 30%</source>
-        <translation type="unfinished"></translation>
+        <translation>Styrkur 30%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="667"/>
         <source>Level 20%</source>
-        <translation type="unfinished"></translation>
+        <translation>Styrkur 20%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="669"/>
         <source>Level 10%</source>
-        <translation type="unfinished"></translation>
+        <translation>Styrkur 10%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="671"/>
         <source>Level 0%</source>
-        <translation type="unfinished"></translation>
+        <translation>Styrkur 0%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="683"/>
         <source>Slice Clip</source>
-        <translation type="unfinished"></translation>
+        <translation>Sneiða myndskeið</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="684"/>
         <source>Keep Both Sides</source>
-        <translation type="unfinished"></translation>
+        <translation>Halda báðum hliðum</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="686"/>
         <source>Keep Left Side</source>
-        <translation type="unfinished"></translation>
+        <translation>Halda vinstri hlið</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="688"/>
         <source>Keep Right Side</source>
-        <translation type="unfinished"></translation>
+        <translation>Halda hægri hlið</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1511"/>
@@ -761,40 +774,40 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1531"/>
         <source>Reverse Transition</source>
-        <translation type="unfinished"></translation>
+        <translation>Snúa við millifærslu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="78"/>
         <source>Selection: %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Val: %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="80"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="273"/>
         <source>No Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Ekkert valið</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="129"/>
         <source>Bezier</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezier</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="131"/>
         <source>Linear</source>
-        <translation type="unfinished"></translation>
+        <translation>Línulegt</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="133"/>
         <source>Constant</source>
-        <translation type="unfinished"></translation>
+        <translation>Fast</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="136"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="141"/>
         <source>Remove Keyframe</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjarlægja lykilramma</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/add_to_timeline_model.py" line="57"/>
@@ -820,51 +833,51 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/models/transition_model.py" line="158"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/effects_model.py" line="150"/>
         <source>{} is not a valid image file.</source>
-        <translation type="unfinished"></translation>
+        <translation>{} er ekki gild myndskrá.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="67"/>
         <source>Email</source>
-        <translation type="unfinished"></translation>
+        <translation>Tölvupóstur</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="67"/>
         <source>Website</source>
-        <translation type="unfinished"></translation>
+        <translation>Vefsvæði</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="100"/>
         <source>PayPal Supporter!</source>
-        <translation type="unfinished"></translation>
+        <translation>Stuðningsaðili í gegnum PayPal!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="108"/>
         <source>Kickstarter Supporter!</source>
-        <translation type="unfinished"></translation>
+        <translation>Stuðningsaðili í gegnum Kickstarter!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="116"/>
         <source>Multiple Contributions!</source>
-        <translation type="unfinished"></translation>
+        <translation>Margháttuð framlög!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="358"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="561"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="629"/>
         <source>False</source>
-        <translation type="unfinished"></translation>
+        <translation>Ósatt</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="499"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="682"/>
         <source>Property</source>
-        <translation type="unfinished"></translation>
+        <translation>Eiginleiki</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="499"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="682"/>
         <source>Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Gildi</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="517"/>
@@ -876,17 +889,17 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="559"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="627"/>
         <source>True</source>
-        <translation type="unfinished"></translation>
+        <translation>Satt</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/files_model.py" line="100"/>
         <source>Tags</source>
-        <translation type="unfinished"></translation>
+        <translation>Merki</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/effects_model.py" line="80"/>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>Lýsing</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="74"/>
@@ -897,7 +910,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="116"/>
         <source>Video &amp; Audio</source>
-        <translation>Vídeó &amp; hljóð</translation>
+        <translation>Myndmerki &amp; hljóð</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="116"/>
@@ -907,27 +920,27 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="123"/>
         <source>Mono (1 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Einóma (1 hljóðrás)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="124"/>
         <source>Stereo (2 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Víðóma (2 hljóðrásir)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="125"/>
         <source>Surround (3 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Hljóðumhverfi (3 hljóðrásir)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="126"/>
         <source>Surround (5.1 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Hljóðumhverfi (5.1 hljóðrásir)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="127"/>
         <source>Surround (7.1 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Hljóðumhverfi (7.1 hljóðrásir)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="192"/>
@@ -977,18 +990,19 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="472"/>
         <source>Choose a Folder...</source>
-        <translation type="unfinished"></translation>
+        <translation>Veldu möppu...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="625"/>
         <source>Export Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Villa við útflutning</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="626"/>
         <source>Sorry, there was an error exporting your video: 
 %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Því miður, það kom upp villa þegar reynt var að flytja út myndskeiðið þitt: 
+%s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -998,7 +1012,7 @@ Blender Path:
     </message>
     <message>
         <source>Iterations</source>
-        <translation type="unfinished"></translation>
+        <translation>Ítranir</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1088,7 +1102,7 @@ Blender Path:
     </message>
     <message>
         <source>Vertical Radius</source>
-        <translation type="unfinished"></translation>
+        <translation>Lóðréttur radíus</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1128,7 +1142,7 @@ Blender Path:
     </message>
     <message>
         <source>Gravity</source>
-        <translation type="unfinished"></translation>
+        <translation>Þyngdarafl</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1213,7 +1227,7 @@ Blender Path:
     </message>
     <message>
         <source>Color Saturation</source>
-        <translation type="unfinished"></translation>
+        <translation>Litmettun</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -1233,7 +1247,7 @@ Blender Path:
     </message>
     <message>
         <source>Title 3</source>
-        <translation>Titill 3</translation>
+        <translation>Skjátitill 3</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
@@ -1263,12 +1277,12 @@ Blender Path:
     </message>
     <message>
         <source>Bottom Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Neðst til vinstri</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Tímalengd</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1281,7 +1295,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="862"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="865"/>
         <source>Title</source>
-        <translation>Titill</translation>
+        <translation>Skjátitill</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
@@ -1326,7 +1340,7 @@ Blender Path:
     </message>
     <message>
         <source>Adjust the blur of the frame&apos;s image.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aðlaga afskerpingu myndar í ramma.</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -1336,7 +1350,7 @@ Blender Path:
     </message>
     <message>
         <source>Alpha controlled</source>
-        <translation>Stýrt af Alfa</translation>
+        <translation>Stýrt af alfa</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
@@ -1396,12 +1410,12 @@ Blender Path:
     </message>
     <message>
         <source>Horizontal Radius</source>
-        <translation type="unfinished"></translation>
+        <translation>Láréttur radíus</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Location X</source>
-        <translation type="unfinished"></translation>
+        <translation>Staðsetning X</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1486,7 +1500,7 @@ Blender Path:
     </message>
     <message>
         <source>Title 2</source>
-        <translation>Titill 2</translation>
+        <translation>Skjátitill 2</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
@@ -1516,7 +1530,7 @@ Blender Path:
     </message>
     <message>
         <source>Bottom Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Neðst til hægri</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1551,7 +1565,7 @@ Blender Path:
     </message>
     <message>
         <source>ID</source>
-        <translation type="unfinished"></translation>
+        <translation>Auðkenni (ID)</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1621,7 +1635,7 @@ Blender Path:
     </message>
     <message>
         <source>Flying Title</source>
-        <translation>Fljúgandi titill</translation>
+        <translation>Fljúgandi skjátitill</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
     </message>
     <message>
@@ -1636,12 +1650,12 @@ Blender Path:
     </message>
     <message>
         <source>Crop</source>
-        <translation type="unfinished"></translation>
+        <translation>Utansníða</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Deinterlace</source>
-        <translation type="unfinished"></translation>
+        <translation>Afflétta</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -1651,7 +1665,7 @@ Blender Path:
     </message>
     <message>
         <source>Adjust the color saturation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Breyta mettun litarins.</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -1671,7 +1685,7 @@ Blender Path:
     </message>
     <message>
         <source>Scale X</source>
-        <translation type="unfinished"></translation>
+        <translation>X-kvarði</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1736,12 +1750,12 @@ Blender Path:
     </message>
     <message>
         <source>Sigma</source>
-        <translation type="unfinished"></translation>
+        <translation>Sigma</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Top Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Efst til vinstri</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1751,7 +1765,7 @@ Blender Path:
     </message>
     <message>
         <source>Scale Y</source>
-        <translation type="unfinished"></translation>
+        <translation>Y-kvarði</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1806,7 +1820,7 @@ Blender Path:
     </message>
     <message>
         <source>Replace Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Skipta út mynd</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1826,7 +1840,7 @@ Blender Path:
     </message>
     <message>
         <source>Location Y</source>
-        <translation type="unfinished"></translation>
+        <translation>Staðsetning Y</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1886,12 +1900,12 @@ Blender Path:
     </message>
     <message>
         <source>Chroma Key (Greenscreen)</source>
-        <translation type="unfinished"></translation>
+        <translation>Bakgrunnsútskipti (Chroma Key - Grænskjár)</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Viewport</source>
-        <translation type="unfinished"></translation>
+        <translation>Skjágluggi</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1911,7 +1925,7 @@ Blender Path:
     </message>
     <message>
         <source>Stretch</source>
-        <translation type="unfinished"></translation>
+        <translation>Teygja</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1921,7 +1935,7 @@ Blender Path:
     </message>
     <message>
         <source>Remove interlacing from a video (i.e. even or odd horizontal lines)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjarlægja brúun úr myndskeiði (þ.e.a.s. viðbættar láréttar oddatölu- eða slétttölulínur)</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -1961,12 +1975,12 @@ Blender Path:
     </message>
     <message>
         <source>Brightness &amp; Contrast</source>
-        <translation type="unfinished"></translation>
+        <translation>Birtustig og birtuskil</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Is Odd Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Er oddatölurammi</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2016,7 +2030,7 @@ Blender Path:
     </message>
     <message>
         <source>Bottom Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Neðst fyrir miðju</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2192,7 +2206,7 @@ Blender Path:
     </message>
     <message>
         <source>Anchor</source>
-        <translation type="unfinished"></translation>
+        <translation>Festipunktur</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2257,7 +2271,7 @@ Blender Path:
     </message>
     <message>
         <source>Top Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Efst fyrir miðju</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2267,7 +2281,7 @@ Blender Path:
     </message>
     <message>
         <source>Adjust the brightness and contrast of the frame&apos;s image.</source>
-        <translation type="unfinished"></translation>
+        <translation>Breyta ljósmagni og birtumun í mynd rammans.</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -2302,17 +2316,17 @@ Blender Path:
     </message>
     <message>
         <source>Wave Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Litur bylgju</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Top Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Efst til hægri</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Lag</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2397,7 +2411,7 @@ Blender Path:
     </message>
     <message>
         <source>Negative</source>
-        <translation type="unfinished"></translation>
+        <translation>Negatíva</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -2412,7 +2426,7 @@ Blender Path:
     </message>
     <message>
         <source>Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Miðja</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2422,7 +2436,7 @@ Blender Path:
     </message>
     <message>
         <source>Key Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Lykillitur</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2482,7 +2496,7 @@ Blender Path:
     </message>
     <message>
         <source>Title 1</source>
-        <translation>Titill 1</translation>
+        <translation>Skjátitill 1</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
@@ -2607,7 +2621,7 @@ Blender Path:
     </message>
     <message>
         <source>Canvas</source>
-        <translation type="unfinished"></translation>
+        <translation>Myndflötur</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2717,7 +2731,7 @@ Blender Path:
     </message>
     <message>
         <source>Waveform</source>
-        <translation type="unfinished"></translation>
+        <translation>Bylgjuform</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2732,7 +2746,7 @@ Blender Path:
     </message>
     <message>
         <source>Best Fit</source>
-        <translation type="unfinished"></translation>
+        <translation>Besta lögun</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2877,12 +2891,12 @@ Blender Path:
     </message>
     <message>
         <source>Alpha Mask / Wipe Transition</source>
-        <translation type="unfinished"></translation>
+        <translation>Gegnsæismaski / Stroka millifærslu</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Replaces the color (or chroma) of the frame with transparency (i.e. keys out the color).</source>
-        <translation type="unfinished"></translation>
+        <translation>Skiptir út litnum (eða chroma) í rammanum fyrir gegnsæi (þ.e.a.s. setur annan lykil fyrir litinn).</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -2928,7 +2942,7 @@ Blender Path:
     </message>
     <message>
         <source>Default Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Sjálfgefið snið</translation>
         <extra-po-references>Settings for default-profile</extra-po-references>
     </message>
     <message>
@@ -2984,7 +2998,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="118"/>
         <source>Vimeo</source>
-        <translation type="unfinished"></translation>
+        <translation>Vimeo</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/vimeo.xml</extra-po-references>
     </message>
     <message>
@@ -3024,7 +3038,7 @@ Blender Path:
     </message>
     <message>
         <source>Image Length (seconds)</source>
-        <translation type="unfinished"></translation>
+        <translation>Lengd myndar (sekúndur)</translation>
         <extra-po-references>Settings for default-image-length</extra-po-references>
     </message>
     <message>
@@ -3034,7 +3048,7 @@ Blender Path:
     </message>
     <message>
         <source>Default Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Sjálfgefið þema</translation>
         <extra-po-references>Settings for theme</extra-po-references>
     </message>
     <message>
@@ -3054,7 +3068,7 @@ Blender Path:
     </message>
     <message>
         <source>Autosave Interval (minutes)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tíðni sjálfvirkrar vistunar (í mínútum)</translation>
         <extra-po-references>Settings for autosave-interval</extra-po-references>
     </message>
     <message>
@@ -3064,7 +3078,7 @@ Blender Path:
     </message>
     <message>
         <source>Send Anonymous Metrics and Errors</source>
-        <translation type="unfinished"></translation>
+        <translation>Senda nafnlausar upplýsingar um villur og notkun</translation>
         <extra-po-references>Settings for send_metrics</extra-po-references>
     </message>
     <message>
@@ -3079,7 +3093,7 @@ Blender Path:
     </message>
     <message>
         <source>Default Audio Sample Rate</source>
-        <translation type="unfinished"></translation>
+        <translation>Sjálfgefin safntíðni hljóðs</translation>
         <extra-po-references>Settings for default-samplerate</extra-po-references>
     </message>
     <message>
@@ -3094,12 +3108,12 @@ Blender Path:
     </message>
     <message>
         <source>Default Audio Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Sjálfgefnar hljóðrásir</translation>
         <extra-po-references>Settings for default-channellayout</extra-po-references>
     </message>
     <message>
         <source>Advanced Title Editor (path)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ítarlegri skjátitlaritill (slóð)</translation>
         <extra-po-references>Settings for title_editor</extra-po-references>
     </message>
     <message>
@@ -3114,7 +3128,7 @@ Blender Path:
     </message>
     <message>
         <source>Debug Mode (Verbose)</source>
-        <translation type="unfinished"></translation>
+        <translation>Villuleitarhamur (ítarlegt)</translation>
         <extra-po-references>Settings for debug-mode</extra-po-references>
     </message>
     <message>
@@ -3124,7 +3138,7 @@ Blender Path:
     </message>
     <message>
         <source>Blender Command (path)</source>
-        <translation type="unfinished"></translation>
+        <translation>Blender skipun (slóð)</translation>
         <extra-po-references>Settings for blender_command</extra-po-references>
     </message>
     <message>
@@ -3154,7 +3168,7 @@ Blender Path:
     </message>
     <message>
         <source>Fractal %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Brotamynd %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fractal_5.jpg</extra-po-references>
     </message>
     <message>
@@ -3214,7 +3228,7 @@ Blender Path:
     </message>
     <message>
         <source>Flower %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Blóm %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/flower_4.jpg</extra-po-references>
     </message>
     <message>
@@ -3224,7 +3238,7 @@ Blender Path:
     </message>
     <message>
         <source>Sunlight %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Sólarljós %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sunlight_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3256,12 +3270,12 @@ Blender Path:
     </message>
     <message>
         <source>Left arrow</source>
-        <translation type="unfinished"></translation>
+        <translation>Vinstri ör</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg</extra-po-references>
     </message>
     <message>
         <source>Hatched %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Strikað %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/hatched_1.jpg</extra-po-references>
     </message>
     <message>
@@ -3286,7 +3300,7 @@ Blender Path:
     </message>
     <message>
         <source>Ray %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Geisli %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_1.jpg</extra-po-references>
     </message>
     <message>
@@ -3371,7 +3385,7 @@ Blender Path:
     </message>
     <message>
         <source>Puzzle</source>
-        <translation type="unfinished"></translation>
+        <translation>Púsl</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/puzzle.jpg</extra-po-references>
     </message>
     <message>
@@ -3486,7 +3500,7 @@ Blender Path:
     </message>
     <message>
         <source>Star %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Stjarna %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/star_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3531,7 +3545,7 @@ Blender Path:
     </message>
     <message>
         <source>Wipe diagonal %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Stroka á ská %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wipe_diagonal_3.jpg</extra-po-references>
     </message>
     <message>
@@ -3596,7 +3610,7 @@ Blender Path:
     </message>
     <message>
         <source>Ripple %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Gárur %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_4.jpg</extra-po-references>
     </message>
     <message>
@@ -3636,7 +3650,7 @@ Blender Path:
     </message>
     <message>
         <source>Distortion %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Aflögun %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg</extra-po-references>
     </message>
     <message>
@@ -3651,7 +3665,7 @@ Blender Path:
     </message>
     <message>
         <source>Clouds %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Ský %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3696,12 +3710,12 @@ Blender Path:
     </message>
     <message>
         <source>Frame %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Rammi %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_2.jpg</extra-po-references>
     </message>
     <message>
         <source>Sphere %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Kúla %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3771,7 +3785,7 @@ Blender Path:
     </message>
     <message>
         <source>Cross %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Kross %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/cross_15.jpg</extra-po-references>
     </message>
     <message>
@@ -3781,7 +3795,7 @@ Blender Path:
     </message>
     <message>
         <source>Spiral %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Spírall %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_1.jpg</extra-po-references>
     </message>
     <message>
@@ -3796,12 +3810,12 @@ Blender Path:
     </message>
     <message>
         <source>Ondulation %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Bylgjun %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ondulation_1.jpg</extra-po-references>
     </message>
     <message>
         <source>Extra</source>
-        <translation type="unfinished"></translation>
+        <translation>Auka</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra</extra-po-references>
     </message>
     <message>
@@ -3811,12 +3825,12 @@ Blender Path:
     </message>
     <message>
         <source>Boxes %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Kassar %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/boxes_12.jpg</extra-po-references>
     </message>
     <message>
         <source>Triangle %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Þríhyrningur %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/triangle_3.jpg</extra-po-references>
     </message>
     <message>
@@ -3827,13 +3841,13 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/about.ui" line="67"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;hr/&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Create &amp;amp; Edit Amazing Videos and Movies&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;OpenShot Video Editor 2.x is the next generation of the award-winning &lt;br/&gt;OpenShot video editing platform. &lt;/span&gt;&lt;a href=&quot;http://www.openshot.org?r=about-us&quot;&gt;&lt;span style=&quot; font-size:10pt; text-decoration: none; color:#55aaff;&quot;&gt;Learn more&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;hr/&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Breyttu og búðu til frábær myndskeið og jafnvel heilar kvikmyndir&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;OpenShot þutgáfa 2.x myndskeiðaritillinn er næsta kynslóð af margverðlaunaða &lt;br/&gt;OpenShot umhverfinu fyrir vinnslu myndkeiða. &lt;/span&gt;&lt;a href=&quot;http://www.openshot.org?r=about-us&quot;&gt;&lt;span style=&quot; font-size:10pt; text-decoration: none; color:#55aaff;&quot;&gt;Kynntu þér málið&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/about.ui" line="100"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="14"/>
         <source>Credits</source>
-        <translation type="unfinished"></translation>
+        <translation>Framlög</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/about.ui" line="107"/>
@@ -3846,12 +3860,12 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="134"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/license.ui" line="45"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Loka</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="14"/>
         <source>Add To Timeline</source>
-        <translation type="unfinished"></translation>
+        <translation>Bæta á tímalínu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="37"/>
@@ -3876,7 +3890,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="119"/>
         <source>Timeline Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Staðsetning á tímalínu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="140"/>
@@ -3886,12 +3900,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="179"/>
         <source>Track:</source>
-        <translation type="unfinished"></translation>
+        <translation>Spor:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="209"/>
         <source>Image Length (seconds):</source>
-        <translation type="unfinished"></translation>
+        <translation>Lengd myndar (sekúndur):</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="255"/>
@@ -3901,12 +3915,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="279"/>
         <source>Length (seconds):</source>
-        <translation type="unfinished"></translation>
+        <translation>Lengd (sekúndur):</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="319"/>
         <source>Zoom:</source>
-        <translation type="unfinished"></translation>
+        <translation>Aðdráttur:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="356"/>
@@ -3921,17 +3935,17 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="441"/>
         <source>Total Length (seconds):</source>
-        <translation type="unfinished"></translation>
+        <translation>Heildarlengd (sekúndur):</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="466"/>
         <source>0.0</source>
-        <translation type="unfinished"></translation>
+        <translation>0.0</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/animated-title.ui" line="14"/>
         <source>Animated Titles</source>
-        <translation type="unfinished"></translation>
+        <translation>Skjátitlar með hreyfingu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/animated-title.ui" line="46"/>
@@ -3951,7 +3965,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/animated-title.ui" line="107"/>
         <source>1/1</source>
-        <translation type="unfinished"></translation>
+        <translation>1/1</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/animated-title.ui" line="114"/>
@@ -3961,82 +3975,82 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="31"/>
         <source>Developers</source>
-        <translation type="unfinished"></translation>
+        <translation>Forritarar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="44"/>
         <source>Filter Developers</source>
-        <translation type="unfinished"></translation>
+        <translation>Sía forritara</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="59"/>
         <source>Translators</source>
-        <translation type="unfinished"></translation>
+        <translation>Þýðendur</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="69"/>
         <source>Filter Translators</source>
-        <translation type="unfinished"></translation>
+        <translation>Sía þýðendur</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="81"/>
         <source>Supporters</source>
-        <translation type="unfinished"></translation>
+        <translation>Stuðningsaðilar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="91"/>
         <source>Filter Supporters</source>
-        <translation type="unfinished"></translation>
+        <translation>Sía stuðningsaðila</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="106"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;http://www.openshot.org/donate/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#55aaff;&quot;&gt;Become a Supporter&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;http://www.openshot.org/donate/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#55aaff;&quot;&gt;Vertu stuðningsaðili&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="14"/>
         <source>Split Clip</source>
-        <translation type="unfinished"></translation>
+        <translation>Kljúfa myndskeið</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="44"/>
         <source>Choose the &lt;b&gt;start&lt;/b&gt; and &lt;b&gt;end&lt;/b&gt; of each clip</source>
-        <translation type="unfinished"></translation>
+        <translation>Veldu &lt;b&gt;upphaf&lt;/b&gt; og &lt;b&gt;endir&lt;/b&gt; hvers myndskeiðs</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="76"/>
         <source>00:00:00:1</source>
-        <translation type="unfinished"></translation>
+        <translation>00:00:00:1</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="93"/>
         <source>Set the start of a clip</source>
-        <translation type="unfinished"></translation>
+        <translation>Settu upphaf myndskeiðs</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="112"/>
         <source>Set the end of a clip</source>
-        <translation type="unfinished"></translation>
+        <translation>Settu endi myndskeiðs</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="130"/>
         <source>Name of clip:</source>
-        <translation type="unfinished"></translation>
+        <translation>Heiti myndskeiðs:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="149"/>
         <source>Optional</source>
-        <translation type="unfinished"></translation>
+        <translation>Valkvætt</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="161"/>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>Hreinsa</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="174"/>
         <source>Create</source>
-        <translation type="unfinished"></translation>
+        <translation>Búa til</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="56"/>
@@ -4046,17 +4060,17 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="63"/>
         <source>YourVideoName</source>
-        <translation type="unfinished"></translation>
+        <translation>HeitiMyndskeiðsinsÞíns</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="83"/>
         <source>Folder Path:</source>
-        <translation type="unfinished"></translation>
+        <translation>Slóð möppu:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="93"/>
         <source>Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation>Velja...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="148"/>
@@ -4088,12 +4102,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="262"/>
         <source>Video Profile:</source>
-        <translation>Vídeó sniðskrá:</translation>
+        <translation>Sniðskrá myndskeiðs:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="305"/>
         <source>Target:</source>
-        <translation>Áfangastaður:</translation>
+        <translation>Úttak:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="315"/>
@@ -4103,7 +4117,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="348"/>
         <source>Advanced Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Ítarlegir valkostir</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="367"/>
@@ -4113,17 +4127,17 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="396"/>
         <source>End Frame:</source>
-        <translation type="unfinished"></translation>
+        <translation>Endarammi:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="429"/>
         <source>Start Frame:</source>
-        <translation type="unfinished"></translation>
+        <translation>Upphafsrammi:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="469"/>
         <source>Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Snið</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="513"/>
@@ -4148,7 +4162,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="696"/>
         <source>Interlaced:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fléttað:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="723"/>
@@ -4158,7 +4172,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="757"/>
         <source>Image Sequence Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Stillingar myndarunu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="774"/>
@@ -4168,17 +4182,17 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="795"/>
         <source>Video Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Myndstillingar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="809"/>
         <source>Video Format:</source>
-        <translation>Vídeósnið:</translation>
+        <translation>Snið myndmerkis:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="829"/>
         <source>Video Codec:</source>
-        <translation>Vídeókóðun:</translation>
+        <translation>Myndkóðunarlykill:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="852"/>
@@ -4189,7 +4203,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="873"/>
         <source>Audio Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Hjóðstillingar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="887"/>
@@ -4209,7 +4223,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="996"/>
         <source>Channel Layout:</source>
-        <translation type="unfinished"></translation>
+        <translation>Uppsetning hljóðrása:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="17"/>
@@ -4225,12 +4239,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="51"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="88"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use this screen to import a sequence of numbered images as a video clip.&lt;/p&gt;&lt;p&gt;Be sure all pictures are in the same folder, and are sequencially numbered.&lt;/p&gt;&lt;p&gt;&amp;lt;b&amp;gt;TIP: &amp;lt;/b&amp;gt;If you drag and drop a single image from the sequence into the &lt;/p&gt;&lt;p&gt;project files tree, it will automatically determine the file pattern.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Use a %d for filenames starting with a number. If the filename is &lt;/p&gt;&lt;p&gt;padded (i.e. 00001.png, 00002.png), you must indicate the number of&lt;/p&gt;&lt;p&gt;digits (i.e. %05d.png)&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&amp;lt;b&amp;gt;Example patterns:&amp;lt;/b&amp;gt;&lt;/p&gt;&lt;p&gt;image1.png = image%d.png&lt;/p&gt;&lt;p&gt;image01.png = image%02d.png&lt;/p&gt;&lt;p&gt;image00001.png = image%05.png&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Notaðu þennan skjá til að flytja runu af númeruðum myndum inn sem myndskeið.&lt;/p&gt;&lt;p&gt;Gakktu úr skugga um að allar myndirnar séu í sömu möppu, og að þær séu númeraðar í réttri röð&lt;/p&gt;&lt;p&gt;&amp;lt;b&amp;gt;ÁBENDING: &amp;lt;/b&amp;gt;Ef þú dregur eina mynd úr rununni inn í greinar verkefnisins, mun það greina sjálfkrafa skráamynstrið.&lt;/p&gt;&lt;p&gt;&lt;/br&gt;&lt;/p&gt;&lt;p&gt;Notaðu %d fyrir skráaheiti sem byrja með raðnúmeri. Ef skráaheitið er &lt;/p&gt;&lt;p&gt;með aukastöfum (t.d. 00001.png, 00002.png), verðurðu að tilgreina fjölda&lt;/p&gt;&lt;p&gt;aukastafa (t.d. %05d.png)&lt;/p&gt;&lt;p&gt;&lt;/br&gt;&lt;/p&gt;&lt;p&gt;&amp;lt;b&amp;gt;Dæmi um mynstur:&amp;lt;/b&amp;gt;&lt;/p&gt;&lt;p&gt;mynd1.png = mynd%d.png&lt;/p&gt;&lt;p&gt;mynd01.png = mynd%02d.png&lt;/p&gt;&lt;p&gt;mynd00001.png = mynd%05d.png&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="145"/>
@@ -4260,37 +4274,37 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="23"/>
         <source>OpenShot Video Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenShot myndskeiðaritill</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="80"/>
         <source>&amp;File</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Skrá</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="97"/>
         <source>&amp;Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Br&amp;eyta</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="113"/>
         <source>View</source>
-        <translation type="unfinished"></translation>
+        <translation>Skoða</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="117"/>
         <source>Views</source>
-        <translation type="unfinished"></translation>
+        <translation>Skoðun</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="135"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Hjálp</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="155"/>
         <source>toolBar</source>
-        <translation type="unfinished"></translation>
+        <translation>toolBar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="185"/>
@@ -4300,7 +4314,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="206"/>
         <source>Video Preview</source>
-        <translation>Sýnishorn af vídeói</translation>
+        <translation>Sýnishorn af myndskeiði</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="221"/>
@@ -4311,7 +4325,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="257"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1248"/>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Eiginleikar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="299"/>
@@ -4321,12 +4335,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="302"/>
         <source>New Project</source>
-        <translation type="unfinished"></translation>
+        <translation>Nýtt verkefni</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="305"/>
         <source>Ctrl+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+N</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="317"/>
@@ -4336,7 +4350,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="320"/>
         <source>Ctrl+O</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+O</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="329"/>
@@ -4347,7 +4361,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="335"/>
         <source>Ctrl+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+S</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="344"/>
@@ -4358,12 +4372,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="350"/>
         <source>Ctrl+Z</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Z</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="365"/>
         <source>Ctrl+Shift+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+S</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="374"/>
@@ -4378,7 +4392,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="380"/>
         <source>Ctrl+F</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+F</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="389"/>
@@ -4388,7 +4402,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="395"/>
         <source>Ctrl+I</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+I</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="404"/>
@@ -4398,12 +4412,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="407"/>
         <source>Import New Transition</source>
-        <translation type="unfinished"></translation>
+        <translation>Flytja inn nýja millifærslu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="410"/>
         <source>Ctrl+W</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+W</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="419"/>
@@ -4414,7 +4428,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="425"/>
         <source>Ctrl+Y</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Y</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="434"/>
@@ -4437,39 +4451,39 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="464"/>
         <source>Ctrl+D</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+D</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="479"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1236"/>
         <source>Ctrl+E</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+E</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="488"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="491"/>
         <source>Upload Video</source>
-        <translation>Senda vídeó</translation>
+        <translation>Senda myndskeið</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="494"/>
         <source>Ctrl+U</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+U</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="504"/>
         <source>&amp;Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Hætta</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="507"/>
         <source>Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>Hætta</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="510"/>
         <source>Ctrl+Q</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Q</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="522"/>
@@ -4480,7 +4494,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="534"/>
         <source>&amp;Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kjörstillingar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="537"/>
@@ -4490,7 +4504,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="540"/>
         <source>Ctrl+P</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+P</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="552"/>
@@ -4502,7 +4516,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="564"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="567"/>
         <source>Jump To Start</source>
-        <translation type="unfinished"></translation>
+        <translation>Hoppa á byrjun</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="576"/>
@@ -4520,7 +4534,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="600"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="603"/>
         <source>Jump To End</source>
-        <translation type="unfinished"></translation>
+        <translation>Hoppa á enda</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="615"/>
@@ -4538,7 +4552,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="648"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="651"/>
         <source>Snapping Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Grip virkjað</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="660"/>
@@ -4575,7 +4589,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="796"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="799"/>
         <source>Video</source>
-        <translation>Vídeó</translation>
+        <translation>Myndskeið</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="717"/>
@@ -4594,28 +4608,28 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="837"/>
         <source>=</source>
-        <translation type="unfinished"></translation>
+        <translation>=</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="852"/>
         <source>-</source>
-        <translation type="unfinished"></translation>
+        <translation>-</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="868"/>
         <source>Ctrl+T</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+T</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="878"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="881"/>
         <source>Animated Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Skjátitill með hreyfingum</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="884"/>
         <source>Ctrl+B</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+B</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="897"/>
@@ -4626,61 +4640,61 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="903"/>
         <source>F11</source>
-        <translation type="unfinished"></translation>
+        <translation>F11</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="913"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="916"/>
         <source>Exit Fullscreen</source>
-        <translation type="unfinished"></translation>
+        <translation>Hætta skjáfylli</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="919"/>
         <source>Esc</source>
-        <translation type="unfinished"></translation>
+        <translation>Hætta / Esc</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="934"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="937"/>
         <source>View Toolbar</source>
-        <translation type="unfinished"></translation>
+        <translation>Skoðunarstika</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="952"/>
         <source>Ctrl+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+A</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="964"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="967"/>
         <source>Icon View</source>
-        <translation type="unfinished"></translation>
+        <translation>Táknmyndasýn</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="976"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="979"/>
         <source>Details View</source>
-        <translation type="unfinished"></translation>
+        <translation>Ítarleg sýn</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="988"/>
         <source>Report a Bug...</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilkynna um villu...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="997"/>
         <source>Ask a Question...</source>
-        <translation type="unfinished"></translation>
+        <translation>Spyrja spurninga...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1006"/>
         <source>Translate this Application...</source>
-        <translation type="unfinished"></translation>
+        <translation>Þýða þetta forrit...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1015"/>
         <source>Donate</source>
-        <translation type="unfinished"></translation>
+        <translation>Styrkja</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1025"/>
@@ -4690,38 +4704,38 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1028"/>
         <source>Open Help Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Opna hjálparyfirlit</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1037"/>
         <source>Simple View</source>
-        <translation type="unfinished"></translation>
+        <translation>Einföld sýn</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1046"/>
         <source>Advanced View</source>
-        <translation type="unfinished"></translation>
+        <translation>Þróuð sýn</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1055"/>
         <source>Freeze View</source>
-        <translation type="unfinished"></translation>
+        <translation>Frysta sýn</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1064"/>
         <source>Un-Freeze View</source>
-        <translation type="unfinished"></translation>
+        <translation>Af-frysta sýn</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1084"/>
         <source>Recent Placeholder</source>
-        <translation type="unfinished"></translation>
+        <translation>Nýlegt frátökutákn</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1096"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1099"/>
         <source>Choose Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Veldu snið</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1108"/>
@@ -4743,7 +4757,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1135"/>
         <source>Remove from </source>
-        <translation type="unfinished"></translation>
+        <translation>Fjarlægja úr </translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1144"/>
@@ -4783,42 +4797,42 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1220"/>
         <source>Remove Effe</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjarlægja sjónhverfingu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1230"/>
         <source>Split Clip...</source>
-        <translation type="unfinished"></translation>
+        <translation>Kljúfa myndskeið...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1245"/>
         <source>&amp;Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Eiginleikar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/presets.ui" line="14"/>
         <source>Export with FFmpeg Command</source>
-        <translation type="unfinished"></translation>
+        <translation>Flytja út með FFmpeg-skipun</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/presets.ui" line="28"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Presets:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Forstillingar:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/presets.ui" line="55"/>
         <source>Delete Preset</source>
-        <translation type="unfinished"></translation>
+        <translation>Eyða forstillingu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/presets.ui" line="75"/>
         <source>Save Current</source>
-        <translation type="unfinished"></translation>
+        <translation>Vista núverandi</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/presets.ui" line="122"/>
         <source>Export</source>
-        <translation type="unfinished"></translation>
+        <translation>Flytja út</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/profile.ui" line="30"/>
@@ -4828,22 +4842,22 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/profile.ui" line="50"/>
         <source>1920x1080</source>
-        <translation type="unfinished"></translation>
+        <translation>1920x1080</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/profile.ui" line="60"/>
         <source>24</source>
-        <translation type="unfinished"></translation>
+        <translation>24</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/profile.ui" line="67"/>
         <source>FPS:</source>
-        <translation type="unfinished"></translation>
+        <translation>r/sek:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/profile.ui" line="84"/>
         <source>Other:</source>
-        <translation type="unfinished"></translation>
+        <translation>Annað:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="14"/>
@@ -4855,52 +4869,52 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="66"/>
         <source>Template:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sniðmát:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="102"/>
         <source>Line 1:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lína 1:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="125"/>
         <source>Line 2:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lína 2:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="148"/>
         <source>Line 3:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lína 3:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="171"/>
         <source>Line 4:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lína 4:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="194"/>
         <source>Line 5:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lína 5:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="230"/>
         <source>Font:</source>
-        <translation type="unfinished"></translation>
+        <translation>Letur:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="247"/>
         <source>Text:</source>
-        <translation type="unfinished"></translation>
+        <translation>Texti:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="260"/>
         <source>Text Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Textalitur</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="267"/>
         <source>Background:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bakgrunnur:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="280"/>
@@ -4910,62 +4924,62 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="287"/>
         <source>Advanced:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ítarlegra:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="297"/>
         <source>Use Advanced Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Nota öflugri ritil</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="320"/>
         <source>Line 6:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lína 6:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="41"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Upload To:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Senda inn á:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="48"/>
         <source>(None)</source>
-        <translation type="unfinished"></translation>
+        <translation>(Ekkert)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="74"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Video File:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Myndskeiðsskrá:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="81"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.youtube.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://www.youtube.com&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.youtube.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://www.youtube.com&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="94"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Username:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Notandanafn:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="101"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Description:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Lýsing:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="109"/>
         <source>Youtube</source>
-        <translation type="unfinished"></translation>
+        <translation>Youtube</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="151"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Title:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Titill:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="185"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Password:&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Lykilorð:&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Fractal 6</source>

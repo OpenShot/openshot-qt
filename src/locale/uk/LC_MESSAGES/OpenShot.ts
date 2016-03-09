@@ -2,13 +2,13 @@
 <!DOCTYPE TS>
 <TS version="2.1">
     <extra-po-header-language_team>Ukrainian &lt;uk@li.org&gt;</extra-po-header-language_team>
-    <extra-po-header-last_translator>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-01-11 05:40+0000</extra-po-header-po_revision_date>
+    <extra-po-header-last_translator>Sergiy Lagoda &lt;student.laser@gmail.com&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2016-02-18 07:00+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2016-02-03 22:58+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 17908)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-02-05 06:34+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 17925)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2016-02-19 05:44+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Ukrainian translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -53,7 +53,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="485"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="550"/>
         <source>Random</source>
-        <translation type="unfinished"></translation>
+        <translation>Випадково</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="474"/>
@@ -72,17 +72,17 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="85"/>
         <source>Unsaved Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Незбережені зміни</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="85"/>
         <source>Save changes to project before closing?</source>
-        <translation type="unfinished"></translation>
+        <translation>Зберегти зміни до проекту перед закриттям?</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="127"/>
         <source>Backup Recovered</source>
-        <translation type="unfinished"></translation>
+        <translation>Резевна копія відновлена</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="128"/>
@@ -92,12 +92,12 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="241"/>
         <source>Error Saving Project</source>
-        <translation type="unfinished"></translation>
+        <translation>Помилка збереження проекту</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="278"/>
         <source>Error Opening Project</source>
-        <translation type="unfinished"></translation>
+        <translation>Помилка відкриття проекту</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="314"/>
@@ -118,12 +118,12 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1240"/>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="104"/>
         <source>Untitled Project</source>
-        <translation type="unfinished"></translation>
+        <translation>Проект без назви</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="327"/>
         <source>Save Project...</source>
-        <translation type="unfinished"></translation>
+        <translation>Зберегти проект...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="371"/>
@@ -135,7 +135,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="386"/>
         <source>Import File...</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпорт файлу...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1025"/>
@@ -147,7 +147,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1025"/>
         <source>Track Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Назва доріжки:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1327"/>
@@ -161,30 +161,30 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1541"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="286"/>
         <source>Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Фільтр</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1454"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1634"/>
         <source>{} seconds</source>
-        <translation type="unfinished"></translation>
+        <translation>{} секунд</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="114"/>
         <source>&lt;Select a template&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;Оберіть шаблон&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="323"/>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="342"/>
         <source>Select a Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть колір</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="361"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="240"/>
         <source>Change Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Змінити шрифт</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="592"/>
@@ -194,7 +194,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="595"/>
         <source>Save Title As...</source>
-        <translation type="unfinished"></translation>
+        <translation>Зберегти напис як...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="595"/>
@@ -218,7 +218,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="269"/>
         <source>Restart Required</source>
-        <translation type="unfinished"></translation>
+        <translation>Потрібен перезапуск</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="270"/>
@@ -246,7 +246,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/about.py" line="71"/>
         <source>Version: %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Версія: %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -261,6 +261,7 @@
   Max_ym https://launchpad.net/~kontact-cat
   Maxim Nosovets https://launchpad.net/~molny
   Roman Koshkin https://launchpad.net/~mar2008m
+  Sergiy Lagoda https://launchpad.net/~student-laser
   Vasiliy Meshko https://launchpad.net/~vasiliymeshko
   Vlad Golubev https://launchpad.net/~golubev-vld
   Yaroslav https://launchpad.net/~naker-ua
@@ -272,7 +273,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/blender_treeview.py" line="169"/>
         <source>No Files Found</source>
-        <translation type="unfinished"></translation>
+        <translation>Файлів не знайдено</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/blender_treeview.py" line="461"/>
@@ -323,17 +324,17 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Нормальний</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Fast</source>
-        <translation type="unfinished"></translation>
+        <translation>Швидко</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Slow</source>
-        <translation type="unfinished"></translation>
+        <translation>Повільно</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
@@ -343,30 +344,30 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Backward</source>
-        <translation type="unfinished"></translation>
+        <translation>Назад</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="423"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1510"/>
         <source>Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>Копіювати</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="424"/>
         <source>Clip</source>
-        <translation type="unfinished"></translation>
+        <translation>Кліп</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="426"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1513"/>
         <source>Keyframes</source>
-        <translation type="unfinished"></translation>
+        <translation>Ключові кадри</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="427"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1514"/>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation>Усе</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="430"/>
@@ -383,26 +384,26 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="434"/>
         <source>Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Поворот</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="436"/>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Розташування</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="438"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="595"/>
         <source>Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Час</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="440"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="619"/>
         <source>Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Гучність</translation>
         <extra-po-references>libopenshot (Clip Properties) Settings for volume</extra-po-references>
     </message>
     <message>
@@ -415,7 +416,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="448"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1525"/>
         <source>Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставити</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="454"/>
@@ -491,7 +492,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="497"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="307"/>
         <source>Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>Масштабувати</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="498"/>
@@ -672,72 +673,72 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="596"/>
         <source>Reset Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Скинути час</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="620"/>
         <source>Reset Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Скинути гучність</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="651"/>
         <source>Level 100%</source>
-        <translation type="unfinished"></translation>
+        <translation>Рівень 100%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="653"/>
         <source>Level 90%</source>
-        <translation type="unfinished"></translation>
+        <translation>Рівень 90%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="655"/>
         <source>Level 80%</source>
-        <translation type="unfinished"></translation>
+        <translation>Рівень 80%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="657"/>
         <source>Level 70%</source>
-        <translation type="unfinished"></translation>
+        <translation>Рівень 70%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="659"/>
         <source>Level 60%</source>
-        <translation type="unfinished"></translation>
+        <translation>Рівень 60%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="661"/>
         <source>Level 50%</source>
-        <translation type="unfinished"></translation>
+        <translation>Рівень 50%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="663"/>
         <source>Level 40%</source>
-        <translation type="unfinished"></translation>
+        <translation>Рівень 40%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="665"/>
         <source>Level 30%</source>
-        <translation type="unfinished"></translation>
+        <translation>Рівень 30%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="667"/>
         <source>Level 20%</source>
-        <translation type="unfinished"></translation>
+        <translation>Рівень 20%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="669"/>
         <source>Level 10%</source>
-        <translation type="unfinished"></translation>
+        <translation>Рівень 10%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="671"/>
         <source>Level 0%</source>
-        <translation type="unfinished"></translation>
+        <translation>Рівень 0%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="683"/>
         <source>Slice Clip</source>
-        <translation type="unfinished"></translation>
+        <translation>Зріз кліпа</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="684"/>
@@ -780,35 +781,35 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="78"/>
         <source>Selection: %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Вибір: %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="80"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="273"/>
         <source>No Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Нема вибраного</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="129"/>
         <source>Bezier</source>
-        <translation type="unfinished"></translation>
+        <translation>Безьє</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="131"/>
         <source>Linear</source>
-        <translation type="unfinished"></translation>
+        <translation>Лінійно</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="133"/>
         <source>Constant</source>
-        <translation type="unfinished"></translation>
+        <translation>Постійно</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="136"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="141"/>
         <source>Remove Keyframe</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити ключовий кадр</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/add_to_timeline_model.py" line="57"/>
@@ -839,12 +840,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="67"/>
         <source>Email</source>
-        <translation type="unfinished"></translation>
+        <translation>Email</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="67"/>
         <source>Website</source>
-        <translation type="unfinished"></translation>
+        <translation>Веб-сайт</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="100"/>
@@ -866,19 +867,19 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="561"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="629"/>
         <source>False</source>
-        <translation type="unfinished"></translation>
+        <translation>Хибність</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="499"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="682"/>
         <source>Property</source>
-        <translation type="unfinished"></translation>
+        <translation>Властивість</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="499"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="682"/>
         <source>Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Значення</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="517"/>
@@ -890,17 +891,17 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="559"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="627"/>
         <source>True</source>
-        <translation type="unfinished"></translation>
+        <translation>Істина</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/files_model.py" line="100"/>
         <source>Tags</source>
-        <translation type="unfinished"></translation>
+        <translation>Теги</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/effects_model.py" line="80"/>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>Опис</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="74"/>
@@ -921,27 +922,27 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="123"/>
         <source>Mono (1 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Моно (1 канал)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="124"/>
         <source>Stereo (2 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Стерео (2 канали)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="125"/>
         <source>Surround (3 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Оточуючий звук (3 канали)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="126"/>
         <source>Surround (5.1 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Оточуючий звук (5.1 каналів)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="127"/>
         <source>Surround (7.1 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Оточуючий звук (7.1 каналів)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="192"/>
@@ -991,12 +992,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="472"/>
         <source>Choose a Folder...</source>
-        <translation type="unfinished"></translation>
+        <translation>Оберіть папку...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="625"/>
         <source>Export Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Помилка експортування</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="626"/>
@@ -1012,7 +1013,7 @@ Blender Path:
     </message>
     <message>
         <source>Iterations</source>
-        <translation type="unfinished"></translation>
+        <translation>Ітерації</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1102,7 +1103,7 @@ Blender Path:
     </message>
     <message>
         <source>Vertical Radius</source>
-        <translation type="unfinished"></translation>
+        <translation>Вертикальний радіус</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1142,7 +1143,7 @@ Blender Path:
     </message>
     <message>
         <source>Gravity</source>
-        <translation type="unfinished"></translation>
+        <translation>Гравітація</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1227,7 +1228,7 @@ Blender Path:
     </message>
     <message>
         <source>Color Saturation</source>
-        <translation type="unfinished"></translation>
+        <translation>Насиченість кольору</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -1277,12 +1278,12 @@ Blender Path:
     </message>
     <message>
         <source>Bottom Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Внизу ліворуч</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Тривалість</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1410,12 +1411,12 @@ Blender Path:
     </message>
     <message>
         <source>Horizontal Radius</source>
-        <translation type="unfinished"></translation>
+        <translation>Горизонтальний радіус</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Location X</source>
-        <translation type="unfinished"></translation>
+        <translation>Положення X</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1530,7 +1531,7 @@ Blender Path:
     </message>
     <message>
         <source>Bottom Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Внизу праворуч</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1565,7 +1566,7 @@ Blender Path:
     </message>
     <message>
         <source>ID</source>
-        <translation type="unfinished"></translation>
+        <translation>ID</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1650,12 +1651,12 @@ Blender Path:
     </message>
     <message>
         <source>Crop</source>
-        <translation type="unfinished"></translation>
+        <translation>Обрізати</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Deinterlace</source>
-        <translation type="unfinished"></translation>
+        <translation>Деінтерлейс</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -1665,7 +1666,7 @@ Blender Path:
     </message>
     <message>
         <source>Adjust the color saturation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Підлаштувати насиченість кольору</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -1685,7 +1686,7 @@ Blender Path:
     </message>
     <message>
         <source>Scale X</source>
-        <translation type="unfinished"></translation>
+        <translation>Масштаб X</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1755,7 +1756,7 @@ Blender Path:
     </message>
     <message>
         <source>Top Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Вгорі ліворуч</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1765,7 +1766,7 @@ Blender Path:
     </message>
     <message>
         <source>Scale Y</source>
-        <translation type="unfinished"></translation>
+        <translation>Масштаб Y</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1820,7 +1821,7 @@ Blender Path:
     </message>
     <message>
         <source>Replace Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Замінити зображення</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1840,7 +1841,7 @@ Blender Path:
     </message>
     <message>
         <source>Location Y</source>
-        <translation type="unfinished"></translation>
+        <translation>Положення Y</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1900,7 +1901,7 @@ Blender Path:
     </message>
     <message>
         <source>Chroma Key (Greenscreen)</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір заміни фону (Зелений екран)</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -1925,7 +1926,7 @@ Blender Path:
     </message>
     <message>
         <source>Stretch</source>
-        <translation type="unfinished"></translation>
+        <translation>Розтягнути</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1975,7 +1976,7 @@ Blender Path:
     </message>
     <message>
         <source>Brightness &amp; Contrast</source>
-        <translation type="unfinished"></translation>
+        <translation>Яскравість і контраст</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -2030,7 +2031,7 @@ Blender Path:
     </message>
     <message>
         <source>Bottom Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Внизу по центру</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2206,7 +2207,7 @@ Blender Path:
     </message>
     <message>
         <source>Anchor</source>
-        <translation type="unfinished"></translation>
+        <translation>Якір</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2271,7 +2272,7 @@ Blender Path:
     </message>
     <message>
         <source>Top Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Згори по центру</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2321,12 +2322,12 @@ Blender Path:
     </message>
     <message>
         <source>Top Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Вгорі праворуч</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Шар</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2411,7 +2412,7 @@ Blender Path:
     </message>
     <message>
         <source>Negative</source>
-        <translation type="unfinished"></translation>
+        <translation>Негативний</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -2426,7 +2427,7 @@ Blender Path:
     </message>
     <message>
         <source>Center</source>
-        <translation type="unfinished"></translation>
+        <translation>По центру</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2621,7 +2622,7 @@ Blender Path:
     </message>
     <message>
         <source>Canvas</source>
-        <translation type="unfinished"></translation>
+        <translation>Полотно</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2731,7 +2732,7 @@ Blender Path:
     </message>
     <message>
         <source>Waveform</source>
-        <translation type="unfinished"></translation>
+        <translation>Форма хвилі</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2746,7 +2747,7 @@ Blender Path:
     </message>
     <message>
         <source>Best Fit</source>
-        <translation type="unfinished"></translation>
+        <translation>Найкраще заповнення</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2942,7 +2943,7 @@ Blender Path:
     </message>
     <message>
         <source>Default Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Профіль за умовчанням</translation>
         <extra-po-references>Settings for default-profile</extra-po-references>
     </message>
     <message>
@@ -2998,7 +2999,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="118"/>
         <source>Vimeo</source>
-        <translation type="unfinished"></translation>
+        <translation>Vimeo</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/vimeo.xml</extra-po-references>
     </message>
     <message>
@@ -3038,7 +3039,7 @@ Blender Path:
     </message>
     <message>
         <source>Image Length (seconds)</source>
-        <translation type="unfinished"></translation>
+        <translation>Тривалість зображення (секунд)</translation>
         <extra-po-references>Settings for default-image-length</extra-po-references>
     </message>
     <message>
@@ -3048,7 +3049,7 @@ Blender Path:
     </message>
     <message>
         <source>Default Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Типова тема</translation>
         <extra-po-references>Settings for theme</extra-po-references>
     </message>
     <message>
@@ -3068,7 +3069,7 @@ Blender Path:
     </message>
     <message>
         <source>Autosave Interval (minutes)</source>
-        <translation type="unfinished"></translation>
+        <translation>Інтервал автозбереження (хвилин)</translation>
         <extra-po-references>Settings for autosave-interval</extra-po-references>
     </message>
     <message>
@@ -3093,7 +3094,7 @@ Blender Path:
     </message>
     <message>
         <source>Default Audio Sample Rate</source>
-        <translation type="unfinished"></translation>
+        <translation>Частота аудіо усталено</translation>
         <extra-po-references>Settings for default-samplerate</extra-po-references>
     </message>
     <message>
@@ -3108,12 +3109,12 @@ Blender Path:
     </message>
     <message>
         <source>Default Audio Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Кількість каналів аудіо усталено</translation>
         <extra-po-references>Settings for default-channellayout</extra-po-references>
     </message>
     <message>
         <source>Advanced Title Editor (path)</source>
-        <translation type="unfinished"></translation>
+        <translation>Розширений редактор титрів (шлях)</translation>
         <extra-po-references>Settings for title_editor</extra-po-references>
     </message>
     <message>
@@ -3270,7 +3271,7 @@ Blender Path:
     </message>
     <message>
         <source>Left arrow</source>
-        <translation type="unfinished"></translation>
+        <translation>Стрілка вліво</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg</extra-po-references>
     </message>
     <message>
@@ -3385,7 +3386,7 @@ Blender Path:
     </message>
     <message>
         <source>Puzzle</source>
-        <translation type="unfinished"></translation>
+        <translation>Пазли</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/puzzle.jpg</extra-po-references>
     </message>
     <message>
@@ -3445,7 +3446,7 @@ Blender Path:
     </message>
     <message>
         <source>Fish-eyes %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Риб&apos;ячі очі %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fish-eyes_5.jpg</extra-po-references>
     </message>
     <message>
@@ -3470,7 +3471,7 @@ Blender Path:
     </message>
     <message>
         <source>Right arrow</source>
-        <translation type="unfinished"></translation>
+        <translation>Стрілка вправо</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_arrow.jpg</extra-po-references>
     </message>
     <message>
@@ -3500,7 +3501,7 @@ Blender Path:
     </message>
     <message>
         <source>Star %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Зірка %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/star_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3650,7 +3651,7 @@ Blender Path:
     </message>
     <message>
         <source>Distortion %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Спотворення %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg</extra-po-references>
     </message>
     <message>
@@ -3665,7 +3666,7 @@ Blender Path:
     </message>
     <message>
         <source>Clouds %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Хмари %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3690,7 +3691,7 @@ Blender Path:
     </message>
     <message>
         <source>Deform %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Деформація %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/deform_8.jpg</extra-po-references>
     </message>
     <message>
@@ -3710,12 +3711,12 @@ Blender Path:
     </message>
     <message>
         <source>Frame %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Рамка %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_2.jpg</extra-po-references>
     </message>
     <message>
         <source>Sphere %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Сфера %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3795,7 +3796,7 @@ Blender Path:
     </message>
     <message>
         <source>Spiral %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Спіраль %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_1.jpg</extra-po-references>
     </message>
     <message>
@@ -3815,7 +3816,7 @@ Blender Path:
     </message>
     <message>
         <source>Extra</source>
-        <translation type="unfinished"></translation>
+        <translation>Додатково</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra</extra-po-references>
     </message>
     <message>
@@ -3830,7 +3831,7 @@ Blender Path:
     </message>
     <message>
         <source>Triangle %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Трикутник %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/triangle_3.jpg</extra-po-references>
     </message>
     <message>
@@ -3847,7 +3848,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/about.ui" line="100"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="14"/>
         <source>Credits</source>
-        <translation type="unfinished"></translation>
+        <translation>Автори</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/about.ui" line="107"/>
@@ -3860,7 +3861,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="134"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/license.ui" line="45"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрити</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="14"/>
@@ -3900,12 +3901,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="179"/>
         <source>Track:</source>
-        <translation type="unfinished"></translation>
+        <translation>Доріжка:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="209"/>
         <source>Image Length (seconds):</source>
-        <translation type="unfinished"></translation>
+        <translation>Довжина зображення (секунд)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="255"/>
@@ -3915,12 +3916,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="279"/>
         <source>Length (seconds):</source>
-        <translation type="unfinished"></translation>
+        <translation>Довжина (секунд):</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="319"/>
         <source>Zoom:</source>
-        <translation type="unfinished"></translation>
+        <translation>Масштаб:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="356"/>
@@ -3935,17 +3936,17 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="441"/>
         <source>Total Length (seconds):</source>
-        <translation type="unfinished"></translation>
+        <translation>Загальна довжина (секунд):</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="466"/>
         <source>0.0</source>
-        <translation type="unfinished"></translation>
+        <translation>0,0</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/animated-title.ui" line="14"/>
         <source>Animated Titles</source>
-        <translation type="unfinished"></translation>
+        <translation>Анімовані титри</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/animated-title.ui" line="46"/>
@@ -3965,7 +3966,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/animated-title.ui" line="107"/>
         <source>1/1</source>
-        <translation type="unfinished"></translation>
+        <translation>1/1</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/animated-title.ui" line="114"/>
@@ -3975,7 +3976,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="31"/>
         <source>Developers</source>
-        <translation type="unfinished"></translation>
+        <translation>Розробники</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="44"/>
@@ -3985,7 +3986,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="59"/>
         <source>Translators</source>
-        <translation type="unfinished"></translation>
+        <translation>Перекладачі</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="69"/>
@@ -4010,7 +4011,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="14"/>
         <source>Split Clip</source>
-        <translation type="unfinished"></translation>
+        <translation>Розділити кліп</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="44"/>
@@ -4020,37 +4021,37 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="76"/>
         <source>00:00:00:1</source>
-        <translation type="unfinished"></translation>
+        <translation>00:00:00:1</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="93"/>
         <source>Set the start of a clip</source>
-        <translation type="unfinished"></translation>
+        <translation>Встановити початок кліпу</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="112"/>
         <source>Set the end of a clip</source>
-        <translation type="unfinished"></translation>
+        <translation>Встановити кінець кліпу</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="130"/>
         <source>Name of clip:</source>
-        <translation type="unfinished"></translation>
+        <translation>Назва кліпу:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="149"/>
         <source>Optional</source>
-        <translation type="unfinished"></translation>
+        <translation>Необов&apos;язково</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="161"/>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>Очистити</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="174"/>
         <source>Create</source>
-        <translation type="unfinished"></translation>
+        <translation>Створити</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="56"/>
@@ -4060,17 +4061,17 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="63"/>
         <source>YourVideoName</source>
-        <translation type="unfinished"></translation>
+        <translation>Назва_відео</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="83"/>
         <source>Folder Path:</source>
-        <translation type="unfinished"></translation>
+        <translation>Шлях папки:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="93"/>
         <source>Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation>Огляд...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="148"/>
@@ -4117,7 +4118,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="348"/>
         <source>Advanced Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Розширені опції</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="367"/>
@@ -4127,17 +4128,17 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="396"/>
         <source>End Frame:</source>
-        <translation type="unfinished"></translation>
+        <translation>Кадр кінця:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="429"/>
         <source>Start Frame:</source>
-        <translation type="unfinished"></translation>
+        <translation>Кадр початку:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="469"/>
         <source>Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Профіль</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="513"/>
@@ -4162,7 +4163,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="696"/>
         <source>Interlaced:</source>
-        <translation type="unfinished"></translation>
+        <translation>Черезрядкова розгортка:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="723"/>
@@ -4172,7 +4173,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="757"/>
         <source>Image Sequence Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Налаштування послідовності зображень</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="774"/>
@@ -4182,7 +4183,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="795"/>
         <source>Video Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Параметри відео</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="809"/>
@@ -4203,7 +4204,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="873"/>
         <source>Audio Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Параметри звуку</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="887"/>
@@ -4223,7 +4224,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="996"/>
         <source>Channel Layout:</source>
-        <translation type="unfinished"></translation>
+        <translation>Схема каналів:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="17"/>
@@ -4239,7 +4240,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="51"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="88"/>
@@ -4274,37 +4275,37 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="23"/>
         <source>OpenShot Video Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Редактор відео OpenShot</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="80"/>
         <source>&amp;File</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Файл</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="97"/>
         <source>&amp;Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Редагувати</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="113"/>
         <source>View</source>
-        <translation type="unfinished"></translation>
+        <translation>Вигляд</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="117"/>
         <source>Views</source>
-        <translation type="unfinished"></translation>
+        <translation>Перегляди</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="135"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Довідка</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="155"/>
         <source>toolBar</source>
-        <translation type="unfinished"></translation>
+        <translation>Панель  інструментів</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="185"/>
@@ -4325,7 +4326,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="257"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1248"/>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Властивості</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="299"/>
@@ -4335,12 +4336,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="302"/>
         <source>New Project</source>
-        <translation type="unfinished"></translation>
+        <translation>Новий проект</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="305"/>
         <source>Ctrl+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+N</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="317"/>
@@ -4350,7 +4351,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="320"/>
         <source>Ctrl+O</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+O</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="329"/>
@@ -4361,7 +4362,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="335"/>
         <source>Ctrl+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+S</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="344"/>
@@ -4372,12 +4373,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="350"/>
         <source>Ctrl+Z</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Z</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="365"/>
         <source>Ctrl+Shift+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+S</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="374"/>
@@ -4392,7 +4393,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="380"/>
         <source>Ctrl+F</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+F</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="389"/>
@@ -4402,7 +4403,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="395"/>
         <source>Ctrl+I</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+I</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="404"/>
@@ -4417,7 +4418,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="410"/>
         <source>Ctrl+W</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+W</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="419"/>
@@ -4428,7 +4429,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="425"/>
         <source>Ctrl+Y</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Y</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="434"/>
@@ -4451,13 +4452,13 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="464"/>
         <source>Ctrl+D</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+D</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="479"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1236"/>
         <source>Ctrl+E</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+E</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="488"/>
@@ -4468,22 +4469,22 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="494"/>
         <source>Ctrl+U</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+U</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="504"/>
         <source>&amp;Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>В&amp;ийти</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="507"/>
         <source>Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>Вийти</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="510"/>
         <source>Ctrl+Q</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Q</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="522"/>
@@ -4494,7 +4495,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="534"/>
         <source>&amp;Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Параметри</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="537"/>
@@ -4504,7 +4505,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="540"/>
         <source>Ctrl+P</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+P</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="552"/>
@@ -4516,25 +4517,25 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="564"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="567"/>
         <source>Jump To Start</source>
-        <translation type="unfinished"></translation>
+        <translation>Перейти на старт</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="576"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="579"/>
         <source>Rewind</source>
-        <translation type="unfinished"></translation>
+        <translation>Назад</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="588"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="591"/>
         <source>Fast Forward</source>
-        <translation type="unfinished"></translation>
+        <translation>Прокрутити вперед</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="600"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="603"/>
         <source>Jump To End</source>
-        <translation type="unfinished"></translation>
+        <translation>Перейти в кінець</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="615"/>
@@ -4552,7 +4553,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="648"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="651"/>
         <source>Snapping Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Прилипання увімкнено</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="660"/>
@@ -4608,28 +4609,28 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="837"/>
         <source>=</source>
-        <translation type="unfinished"></translation>
+        <translation>=</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="852"/>
         <source>-</source>
-        <translation type="unfinished"></translation>
+        <translation>-</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="868"/>
         <source>Ctrl+T</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+T</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="878"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="881"/>
         <source>Animated Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Анімований напис</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="884"/>
         <source>Ctrl+B</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+B</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="897"/>
@@ -4640,61 +4641,61 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="903"/>
         <source>F11</source>
-        <translation type="unfinished"></translation>
+        <translation>F11</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="913"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="916"/>
         <source>Exit Fullscreen</source>
-        <translation type="unfinished"></translation>
+        <translation>Вийти з повноекранного режиму</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="919"/>
         <source>Esc</source>
-        <translation type="unfinished"></translation>
+        <translation>Esc</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="934"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="937"/>
         <source>View Toolbar</source>
-        <translation type="unfinished"></translation>
+        <translation>Панель перегляду</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="952"/>
         <source>Ctrl+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+A</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="964"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="967"/>
         <source>Icon View</source>
-        <translation type="unfinished"></translation>
+        <translation>У вигляді значків</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="976"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="979"/>
         <source>Details View</source>
-        <translation type="unfinished"></translation>
+        <translation>Подання в деталях</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="988"/>
         <source>Report a Bug...</source>
-        <translation type="unfinished"></translation>
+        <translation>Повідомити про помилку...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="997"/>
         <source>Ask a Question...</source>
-        <translation type="unfinished"></translation>
+        <translation>Задати питання...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1006"/>
         <source>Translate this Application...</source>
-        <translation type="unfinished"></translation>
+        <translation>Перекласти цю програму</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1015"/>
         <source>Donate</source>
-        <translation type="unfinished"></translation>
+        <translation>Пожертвувати</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1025"/>
@@ -4704,17 +4705,17 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1028"/>
         <source>Open Help Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Відкрити розділи довідки</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1037"/>
         <source>Simple View</source>
-        <translation type="unfinished"></translation>
+        <translation>Просте подання</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1046"/>
         <source>Advanced View</source>
-        <translation type="unfinished"></translation>
+        <translation>Розширення подання</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1055"/>
@@ -4757,7 +4758,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1135"/>
         <source>Remove from </source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити з </translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1144"/>
@@ -4802,12 +4803,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1230"/>
         <source>Split Clip...</source>
-        <translation type="unfinished"></translation>
+        <translation>Розділити кліп...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1245"/>
         <source>&amp;Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Властивості</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/presets.ui" line="14"/>
@@ -4822,17 +4823,17 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/presets.ui" line="55"/>
         <source>Delete Preset</source>
-        <translation type="unfinished"></translation>
+        <translation>Вилучити набір</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/presets.ui" line="75"/>
         <source>Save Current</source>
-        <translation type="unfinished"></translation>
+        <translation>Зберегти поточний</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/presets.ui" line="122"/>
         <source>Export</source>
-        <translation type="unfinished"></translation>
+        <translation>Експорт</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/profile.ui" line="30"/>
@@ -4842,22 +4843,22 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/profile.ui" line="50"/>
         <source>1920x1080</source>
-        <translation type="unfinished"></translation>
+        <translation>1920x1080</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/profile.ui" line="60"/>
         <source>24</source>
-        <translation type="unfinished"></translation>
+        <translation>24</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/profile.ui" line="67"/>
         <source>FPS:</source>
-        <translation type="unfinished"></translation>
+        <translation>кадр/с:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/profile.ui" line="84"/>
         <source>Other:</source>
-        <translation type="unfinished"></translation>
+        <translation>Інше:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="14"/>
@@ -4867,72 +4868,72 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="66"/>
         <source>Template:</source>
-        <translation type="unfinished"></translation>
+        <translation>Шаблон:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="102"/>
         <source>Line 1:</source>
-        <translation type="unfinished"></translation>
+        <translation>Рядок 1:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="125"/>
         <source>Line 2:</source>
-        <translation type="unfinished"></translation>
+        <translation>Рядок 2:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="148"/>
         <source>Line 3:</source>
-        <translation type="unfinished"></translation>
+        <translation>Рядок 3:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="171"/>
         <source>Line 4:</source>
-        <translation type="unfinished"></translation>
+        <translation>Рядок 4:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="194"/>
         <source>Line 5:</source>
-        <translation type="unfinished"></translation>
+        <translation>Рядок 5:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="230"/>
         <source>Font:</source>
-        <translation type="unfinished"></translation>
+        <translation>Шрифт:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="247"/>
         <source>Text:</source>
-        <translation type="unfinished"></translation>
+        <translation>Текст:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="260"/>
         <source>Text Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір тексту</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="267"/>
         <source>Background:</source>
-        <translation type="unfinished"></translation>
+        <translation>Фон:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="280"/>
         <source>Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір фону</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="287"/>
         <source>Advanced:</source>
-        <translation type="unfinished"></translation>
+        <translation>Додатково:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="297"/>
         <source>Use Advanced Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовувати розширений редактор</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="320"/>
         <source>Line 6:</source>
-        <translation type="unfinished"></translation>
+        <translation>Рядок 6:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="41"/>
@@ -4942,7 +4943,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="48"/>
         <source>(None)</source>
-        <translation type="unfinished"></translation>
+        <translation>(Немає)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="74"/>
@@ -4967,7 +4968,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="109"/>
         <source>Youtube</source>
-        <translation type="unfinished"></translation>
+        <translation>Youtube</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="151"/>

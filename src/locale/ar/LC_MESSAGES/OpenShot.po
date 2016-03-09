@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-03 22:58+0000\n"
-"PO-Revision-Date: 2016-01-22 18:45+0000\n"
+"PO-Revision-Date: 2016-02-18 22:13+0000\n"
 "Last-Translator: U-Sama <usamah.philips@gmail.com>\n"
 "Language-Team: Arabic <ar@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-05 06:30+0000\n"
-"X-Generator: Launchpad (build 17908)\n"
+"X-Launchpad-Export-Date: 2016-02-19 05:44+0000\n"
+"X-Generator: Launchpad (build 17925)\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:463
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1023
@@ -71,11 +71,11 @@ msgstr "حفظ التغييرات للمشروع قبل الإغلاق"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:127
 msgid "Backup Recovered"
-msgstr ""
+msgstr "تمت استعادة النسخة الاحتياطية"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:128
 msgid "Your most recent unsaved project has been recovered."
-msgstr ""
+msgstr "تمت استعادة المشروع الاخير الذي لم يحفظ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:241
 msgid "Error Saving Project"
@@ -176,7 +176,7 @@ msgstr "رسومات متجهة قابلة لتغيير القياس (*.svg)"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/files_listview.py:165
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/files_model.py:173
 msgid "{} is not a valid video, audio, or image file."
-msgstr ""
+msgstr "{} غير صالح كملف فيديو أو صوت أو صورة."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:677
 msgid "Please install {} to use this function"
@@ -184,16 +184,16 @@ msgstr "يرجى إثبات {} لاستخدام هذه المهمة"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:269
 msgid "Restart Required"
-msgstr ""
+msgstr "إعادة التشغيل مطلوبة"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:270
 msgid "Please restart OpenShot for all preferences to take effect."
-msgstr ""
+msgstr "أرجو إعادة تشغيل التطبيق لتفعيل جميع الإعدادات"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/cutting.py:190
 #: /home/jonathan/apps/openshot-qt-git/src/windows/cutting.py:224
 msgid "Please choose valid 'start' and 'end' values for your clip."
-msgstr ""
+msgstr "أرجو اختيار قيم 'بداية' و 'نهاية' للمقطع."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/animated_title.py:85
 msgid "Render"
@@ -719,7 +719,7 @@ msgstr "اﻹسم"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/transition_model.py:158
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/effects_model.py:150
 msgid "{} is not a valid image file."
-msgstr ""
+msgstr "{} ليس ملف صورة."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:67
 msgid "Email"
@@ -852,7 +852,7 @@ msgstr "اختر ملف..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:625
 msgid "Export Error"
-msgstr ""
+msgstr "خطأ في التصدير"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:626
 #, python-format
@@ -860,6 +860,8 @@ msgid ""
 "Sorry, there was an error exporting your video: \n"
 "%s"
 msgstr ""
+"عذراً، حدث خطأ عند محاولة تصدير الفيديو: \n"
+"%s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml
 msgid "Convert an image to shades of grey"
@@ -1917,7 +1919,7 @@ msgstr "سرعة: X"
 #: libopenshot (Effect Metadata)
 msgid ""
 "Uses a grayscale mask image to gradually wipe / transition between 2 images."
-msgstr ""
+msgstr "يستخدم صورة كقناع رمادي للانتقال تدرجيا بين صورتين."
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml
 msgid "Green Tint"

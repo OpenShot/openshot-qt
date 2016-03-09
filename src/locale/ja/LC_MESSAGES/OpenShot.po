@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-03 22:58+0000\n"
-"PO-Revision-Date: 2016-01-16 14:56+0000\n"
+"PO-Revision-Date: 2016-03-02 11:28+0000\n"
 "Last-Translator: Masaki Tamakoshi <Unknown>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-05 06:32+0000\n"
-"X-Generator: Launchpad (build 17908)\n"
+"X-Launchpad-Export-Date: 2016-03-03 06:14+0000\n"
+"X-Generator: Launchpad (build 17925)\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:463
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1023
@@ -47,7 +47,7 @@ msgstr "フェードイン & フェードアウト"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:485
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:550
 msgid "Random"
-msgstr ""
+msgstr "ランダム"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:474
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:831
@@ -63,7 +63,7 @@ msgstr "ズームアウト"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:85
 msgid "Unsaved Changes"
-msgstr ""
+msgstr "未保存の変更"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:85
 msgid "Save changes to project before closing?"
@@ -71,11 +71,11 @@ msgstr "終了前に変更されたプロジェクトを保存しますか？"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:127
 msgid "Backup Recovered"
-msgstr ""
+msgstr "回復済バックアップ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:128
 msgid "Your most recent unsaved project has been recovered."
-msgstr ""
+msgstr "最新の未保存プロジェクトが回復しました。"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:241
 msgid "Error Saving Project"
@@ -176,24 +176,24 @@ msgstr "スケーラブル・ベクター・グラフィックス (*.svg)"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/files_listview.py:165
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/files_model.py:173
 msgid "{} is not a valid video, audio, or image file."
-msgstr ""
+msgstr "{} は、有効なビデオ、オーディオ、または画像ではありません。"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:677
 msgid "Please install {} to use this function"
-msgstr ""
+msgstr "この機能を有効にするには{}をインストールしてください。"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:269
 msgid "Restart Required"
-msgstr ""
+msgstr "再起動が必要です"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:270
 msgid "Please restart OpenShot for all preferences to take effect."
-msgstr ""
+msgstr "全ての設定を有効にするためにOpenShotを再起動してください。"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/cutting.py:190
 #: /home/jonathan/apps/openshot-qt-git/src/windows/cutting.py:224
 msgid "Please choose valid 'start' and 'end' values for your clip."
-msgstr ""
+msgstr "クリップの最初と終わりの有効な値を選択してください。"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/animated_title.py:85
 msgid "Render"
@@ -233,6 +233,10 @@ msgid ""
 "Version Detected:\n"
 "{}"
 msgstr ""
+"\n"
+"\n"
+"検出されたバージョン:\n"
+"{}"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/blender_treeview.py:464
 msgid ""
@@ -283,7 +287,7 @@ msgstr "クリップ終端"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Entire Clip"
-msgstr ""
+msgstr "クリップ全体"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Normal"
@@ -341,7 +345,7 @@ msgstr "回転"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:436
 msgid "Location"
-msgstr ""
+msgstr "座標"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:438
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:595
@@ -408,12 +412,12 @@ msgstr "フェードイン/アウト (低速)"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:479
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:644
 msgid "Fade In (Entire Clip)"
-msgstr ""
+msgstr "フェードイン（クリップ全体）"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:481
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:646
 msgid "Fade Out (Entire Clip)"
-msgstr ""
+msgstr "フェードアウト（クリップ全体）"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:489
 msgid "Animate"
@@ -454,7 +458,7 @@ msgstr "ズームアウト (150% から 100%)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:513
 msgid "Center to Edge"
-msgstr ""
+msgstr "中央から端へ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:514
 msgid "Center to Top"
@@ -466,7 +470,7 @@ msgstr "中央から左へ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:518
 msgid "Center to Right"
-msgstr ""
+msgstr "中央から右へ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:520
 msgid "Center to Bottom"
@@ -474,7 +478,7 @@ msgstr "中央から下へ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:525
 msgid "Edge to Center"
-msgstr ""
+msgstr "端から中央へ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:526
 msgid "Top to Center"
@@ -494,7 +498,7 @@ msgstr "下から中央へ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:537
 msgid "Edge to Edge"
-msgstr ""
+msgstr "端から端へ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:538
 msgid "Top to Bottom"
@@ -571,71 +575,71 @@ msgstr "全体表示 (引き伸ばし)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:596
 msgid "Reset Time"
-msgstr ""
+msgstr "タイムリセット"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:620
 msgid "Reset Volume"
-msgstr ""
+msgstr "ボリュームリセット"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:651
 msgid "Level 100%"
-msgstr ""
+msgstr "レベル 100%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:653
 msgid "Level 90%"
-msgstr ""
+msgstr "レベル 90%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:655
 msgid "Level 80%"
-msgstr ""
+msgstr "レベル 80%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:657
 msgid "Level 70%"
-msgstr ""
+msgstr "レベル 70%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:659
 msgid "Level 60%"
-msgstr ""
+msgstr "レベル 60%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:661
 msgid "Level 50%"
-msgstr ""
+msgstr "レベル 50%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:663
 msgid "Level 40%"
-msgstr ""
+msgstr "レベル 40%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:665
 msgid "Level 30%"
-msgstr ""
+msgstr "レベル 30%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:667
 msgid "Level 20%"
-msgstr ""
+msgstr "レベル 20%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:669
 msgid "Level 10%"
-msgstr ""
+msgstr "レベル 10%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:671
 msgid "Level 0%"
-msgstr ""
+msgstr "レベル 0%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:683
 msgid "Slice Clip"
-msgstr ""
+msgstr "クリップを切り取る"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:684
 msgid "Keep Both Sides"
-msgstr ""
+msgstr "両側を保持"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:686
 msgid "Keep Left Side"
-msgstr ""
+msgstr "左側を保持"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:688
 msgid "Keep Right Side"
-msgstr ""
+msgstr "右側を保持"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1511
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:341
@@ -654,25 +658,25 @@ msgstr "コントラスト"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1531
 msgid "Reverse Transition"
-msgstr ""
+msgstr "トランジションの反転"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:78
 #, python-format
 msgid "Selection: %s"
-msgstr ""
+msgstr "選択: %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:80
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:273
 msgid "No Selection"
-msgstr ""
+msgstr "選択なし"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:129
 msgid "Bezier"
-msgstr ""
+msgstr "ベジェ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:131
 msgid "Linear"
-msgstr ""
+msgstr "リニア"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:133
 msgid "Constant"
@@ -681,7 +685,7 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:136
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:141
 msgid "Remove Keyframe"
-msgstr ""
+msgstr "キーフレームの削除"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/add_to_timeline_model.py:57
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/blender_model.py:56
@@ -704,27 +708,27 @@ msgstr "名前"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/transition_model.py:158
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/effects_model.py:150
 msgid "{} is not a valid image file."
-msgstr ""
+msgstr "{} は有効な画像ではありません。"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:67
 msgid "Email"
-msgstr ""
+msgstr "Eメール"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:67
 msgid "Website"
-msgstr ""
+msgstr "Webサイト"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:100
 msgid "PayPal Supporter!"
-msgstr ""
+msgstr "ペイパルによる支援者！"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:108
 msgid "Kickstarter Supporter!"
-msgstr ""
+msgstr "キックスターターによる支援者！"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:116
 msgid "Multiple Contributions!"
-msgstr ""
+msgstr "複数の寄付！"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:358
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:561
@@ -735,12 +739,12 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:499
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:682
 msgid "Property"
-msgstr ""
+msgstr "設定項目"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:499
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:682
 msgid "Value"
-msgstr ""
+msgstr "設定値"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:517
 #: /home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml
@@ -750,15 +754,15 @@ msgstr "透明"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:559
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:627
 msgid "True"
-msgstr ""
+msgstr "はい"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/files_model.py:100
 msgid "Tags"
-msgstr ""
+msgstr "タグ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/effects_model.py:80
 msgid "Description"
-msgstr ""
+msgstr "詳細"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:74
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:20
@@ -775,23 +779,23 @@ msgstr "連番画像"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:123
 msgid "Mono (1 Channel)"
-msgstr ""
+msgstr "モノラル (1 チャンネル)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:124
 msgid "Stereo (2 Channel)"
-msgstr ""
+msgstr "ステレオ (2 チャンネル)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:125
 msgid "Surround (3 Channel)"
-msgstr ""
+msgstr "サラウンド (3 チャンネル)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:126
 msgid "Surround (5.1 Channel)"
-msgstr ""
+msgstr "サラウンド (5.1 チャンネル)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:127
 msgid "Surround (7.1 Channel)"
-msgstr ""
+msgstr "サラウンド (7.1 チャンネル)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:192
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml
@@ -833,11 +837,11 @@ msgstr "高"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:472
 msgid "Choose a Folder..."
-msgstr ""
+msgstr "フォルダを選択..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:625
 msgid "Export Error"
-msgstr ""
+msgstr "書き出しトエラー"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:626
 #, python-format
@@ -845,6 +849,8 @@ msgid ""
 "Sorry, there was an error exporting your video: \n"
 "%s"
 msgstr ""
+"申し訳ありませんが、ビデオの書き出しでエラーがありました: \n"
+"%s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml
 msgid "Convert an image to shades of grey"
@@ -852,7 +858,7 @@ msgstr "画像を陰の灰色に変換します"
 
 #: libopenshot (Clip Properties)
 msgid "Iterations"
-msgstr ""
+msgstr "反復"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml
 msgid "Split and mirror the image"
@@ -924,7 +930,7 @@ msgstr "到着地の経度 (分)"
 
 #: libopenshot (Clip Properties)
 msgid "Vertical Radius"
-msgstr ""
+msgstr "垂直半径"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml
 msgid "Old Dust"
@@ -956,7 +962,7 @@ msgstr "ガンマ"
 
 #: libopenshot (Clip Properties)
 msgid "Gravity"
-msgstr ""
+msgstr "重力"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
 msgid "Tile 1: Diffuse Color"
@@ -1025,7 +1031,7 @@ msgstr "ガンマと明るさを調整して古いフィルム風にします"
 
 #: libopenshot (Effect Metadata)
 msgid "Color Saturation"
-msgstr ""
+msgstr "彩度"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
 msgid "X Center"
@@ -1065,11 +1071,11 @@ msgstr "v"
 
 #: libopenshot (Clip Properties)
 msgid "Bottom Left"
-msgstr ""
+msgstr "左下"
 
 #: libopenshot (Clip Properties)
 msgid "Duration"
-msgstr ""
+msgstr "再生時間"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
 msgid "Brightness Delta Down"
@@ -1116,7 +1122,7 @@ msgstr "エッジ検出を用いて画像をマンガのようにします"
 
 #: libopenshot (Effect Metadata)
 msgid "Adjust the blur of the frame's image."
-msgstr ""
+msgstr "フレーム画像のブラー調整"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml
 msgid "Sharpness"
@@ -1172,11 +1178,11 @@ msgstr "静止"
 
 #: libopenshot (Clip Properties)
 msgid "Horizontal Radius"
-msgstr ""
+msgstr "水平半径"
 
 #: libopenshot (Clip Properties)
 msgid "Location X"
-msgstr ""
+msgstr "X座標"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
 msgid "Defish"
@@ -1270,7 +1276,7 @@ msgstr "アップスケール"
 
 #: libopenshot (Clip Properties)
 msgid "Bottom Right"
-msgstr ""
+msgstr "右下"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
 msgid "Input level black point"
@@ -1290,7 +1296,7 @@ msgstr "色を付ける量"
 
 #: libopenshot (Clip Properties)
 msgid "Fuzz"
-msgstr ""
+msgstr "遊び量"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/wireframe_text.xml
 msgid "Wireframe Text"
@@ -1298,7 +1304,7 @@ msgstr "ワイヤフレームテキスト"
 
 #: libopenshot (Clip Properties)
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml
 msgid ""
@@ -1373,11 +1379,11 @@ msgstr "タイトルの反射色"
 
 #: libopenshot (Clip Properties)
 msgid "Crop"
-msgstr ""
+msgstr "トリミング"
 
 #: libopenshot (Effect Metadata)
 msgid "Deinterlace"
-msgstr ""
+msgstr "インターレース解除"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Depart Latitude (degrees)"
@@ -1385,7 +1391,7 @@ msgstr "出発地の緯度 (度)"
 
 #: libopenshot (Effect Metadata)
 msgid "Adjust the color saturation."
-msgstr ""
+msgstr "彩度調整"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml
 msgid "Oversaturate Color"
@@ -1401,7 +1407,7 @@ msgstr "画像のガンマと輝度の値を調整します"
 
 #: libopenshot (Clip Properties)
 msgid "Scale X"
-msgstr ""
+msgstr "拡縮X"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
 msgid "Tile 3: Diffuse Color"
@@ -1453,11 +1459,11 @@ msgstr "拡散色"
 
 #: libopenshot (Clip Properties)
 msgid "Sigma"
-msgstr ""
+msgstr "シグマ値"
 
 #: libopenshot (Clip Properties)
 msgid "Top Left"
-msgstr ""
+msgstr "左上"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml
 msgid "Red/Green Axis"
@@ -1465,7 +1471,7 @@ msgstr "赤/緑 軸"
 
 #: libopenshot (Clip Properties)
 msgid "Scale Y"
-msgstr ""
+msgstr "拡縮Y"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml
 msgid "Scan Lines"
@@ -1509,7 +1515,7 @@ msgstr "終了フレーム"
 
 #: libopenshot (Clip Properties)
 msgid "Replace Image"
-msgstr ""
+msgstr "画像の置換"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
 msgid "Alphagrad"
@@ -1525,7 +1531,7 @@ msgstr "輝度の保持"
 
 #: libopenshot (Clip Properties)
 msgid "Location Y"
-msgstr ""
+msgstr "Y座標"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml
 msgid "Color"
@@ -1573,11 +1579,11 @@ msgstr "明るい線"
 
 #: libopenshot (Effect Metadata)
 msgid "Chroma Key (Greenscreen)"
-msgstr ""
+msgstr "クロマキー (グリーンバック合成)"
 
 #: libopenshot (Clip Properties)
 msgid "Viewport"
-msgstr ""
+msgstr "ビューポート"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
 msgid "Line 1 Color"
@@ -1593,7 +1599,7 @@ msgstr "ハロー: 炎を使用"
 
 #: libopenshot (Clip Properties)
 msgid "Stretch"
-msgstr ""
+msgstr "ストレッチ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "End: Z"
@@ -1601,7 +1607,7 @@ msgstr "終了位置: Z"
 
 #: libopenshot (Effect Metadata)
 msgid "Remove interlacing from a video (i.e. even or odd horizontal lines)"
-msgstr ""
+msgstr "ビデオのインターレース解除（奇数と偶数フィールドの再結合）"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Velocity: Z"
@@ -1633,11 +1639,11 @@ msgstr "タイトルの拡散色"
 
 #: libopenshot (Effect Metadata)
 msgid "Brightness & Contrast"
-msgstr ""
+msgstr "輝度とコントラスト"
 
 #: libopenshot (Clip Properties)
 msgid "Is Odd Frame"
-msgstr ""
+msgstr "奇数フレーム"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Halo: Use Rings"
@@ -1677,7 +1683,7 @@ msgstr "エッジ発光"
 
 #: libopenshot (Clip Properties)
 msgid "Bottom Center"
-msgstr ""
+msgstr "下中央"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/contrast.xml
 msgid "Adjusts the contrast of a source image"
@@ -1820,7 +1826,7 @@ msgstr "手動スケール調整"
 
 #: libopenshot (Clip Properties)
 msgid "Anchor"
-msgstr ""
+msgstr "アンカー"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml
 msgid "Increase the size of pixels to obscure the image"
@@ -1872,7 +1878,7 @@ msgstr "古いフィルム"
 
 #: libopenshot (Clip Properties)
 msgid "Top Center"
-msgstr ""
+msgstr "上中央"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "Gravity: Z"
@@ -1880,7 +1886,7 @@ msgstr "重力: Z"
 
 #: libopenshot (Effect Metadata)
 msgid "Adjust the brightness and contrast of the frame's image."
-msgstr ""
+msgstr "フレーム画像の明度・コントラスト調整"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml
 msgid "Display Clouds"
@@ -1913,11 +1919,11 @@ msgstr ""
 
 #: libopenshot (Clip Properties)
 msgid "Top Right"
-msgstr ""
+msgstr "上右"
 
 #: libopenshot (Clip Properties)
 msgid "Layer"
-msgstr ""
+msgstr "レイヤー"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml
 msgid "Color Distance"
@@ -1986,7 +1992,7 @@ msgstr "サイズ"
 
 #: libopenshot (Effect Metadata)
 msgid "Negative"
-msgstr ""
+msgstr "ネガフィルム"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/fly_by_1.xml
 msgid "Fly Towards Camera"
@@ -1998,7 +2004,7 @@ msgstr "多画面"
 
 #: libopenshot (Clip Properties)
 msgid "Center"
-msgstr ""
+msgstr "中央"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Halo: Use Lines"
@@ -2006,7 +2012,7 @@ msgstr "ハロー: 線を使用"
 
 #: libopenshot (Clip Properties)
 msgid "Key Color"
-msgstr ""
+msgstr "キーカラー"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "Start Frame"
@@ -2154,7 +2160,7 @@ msgstr "暗い線"
 
 #: libopenshot (Clip Properties)
 msgid "Canvas"
-msgstr ""
+msgstr "キャンバス"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Particles: Amount"
@@ -2242,7 +2248,7 @@ msgstr "背景: フレネル"
 
 #: libopenshot (Clip Properties)
 msgid "Waveform"
-msgstr ""
+msgstr "波形"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Depart Latitude (seconds)"
@@ -2254,7 +2260,7 @@ msgstr "画像に白熱光のエフェクトを追加します"
 
 #: libopenshot (Clip Properties)
 msgid "Best Fit"
-msgstr ""
+msgstr "全体に合わせる"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/balance.xml
 msgid "Balance"
@@ -2370,7 +2376,7 @@ msgstr "ソーベル"
 
 #: libopenshot (Effect Metadata)
 msgid "Alpha Mask / Wipe Transition"
-msgstr ""
+msgstr "アルファマスク / ワイプトランジション"
 
 #: libopenshot (Effect Metadata)
 msgid ""
@@ -2413,7 +2419,7 @@ msgstr "鏡"
 
 #: Settings for default-profile
 msgid "Default Profile"
-msgstr ""
+msgstr "初期設定"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_mov_mpeg4.xml
 msgid "MOV (mpeg4)"
@@ -2458,7 +2464,7 @@ msgstr "WEBM (vpx)"
 #: /home/jonathan/apps/openshot-qt-git/src/presets/vimeo.xml
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:118
 msgid "Vimeo"
-msgstr ""
+msgstr "Vimeo"
 
 #: Settings for enable-auto-save
 msgid "Enable Autosave"
@@ -2490,7 +2496,7 @@ msgstr "Vimeo-HD"
 
 #: Settings for default-image-length
 msgid "Image Length (seconds)"
-msgstr ""
+msgstr "画像の長さ (秒)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_libvorbis.xml
 msgid "OGG (theora/vorbis)"
@@ -2498,7 +2504,7 @@ msgstr "OGG (theora/vorbis)"
 
 #: Settings for theme
 msgid "Default Theme"
-msgstr ""
+msgstr "標準のテーマ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_xvid.xml
 msgid "MP4 (Xvid)"
@@ -2514,7 +2520,7 @@ msgstr "MOV (h.264)"
 
 #: Settings for autosave-interval
 msgid "Autosave Interval (minutes)"
-msgstr ""
+msgstr "自動保存の間隔 (分)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/youtube_HD.xml
 msgid "YouTube-HD"
@@ -2522,7 +2528,7 @@ msgstr "YouTube-HD"
 
 #: Settings for send_metrics
 msgid "Send Anonymous Metrics and Errors"
-msgstr ""
+msgstr "匿名でエラーと評価の計測値を送る"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml
 msgid "Apple TV"
@@ -2534,7 +2540,7 @@ msgstr "OGG (theora/flac)"
 
 #: Settings for default-samplerate
 msgid "Default Audio Sample Rate"
-msgstr ""
+msgstr "標準の音声サンプリング・レート"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_mpeg4.xml
 msgid "MP4 (mpeg4)"
@@ -2546,11 +2552,11 @@ msgstr "AVCHDディスク"
 
 #: Settings for default-channellayout
 msgid "Default Audio Channels"
-msgstr ""
+msgstr "標準の音声チャンネル"
 
 #: Settings for title_editor
 msgid "Advanced Title Editor (path)"
-msgstr ""
+msgstr "外部のタイトルエディタ（パス）"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml
 msgid "Device"
@@ -2562,7 +2568,7 @@ msgstr "DVD-NTSC"
 
 #: Settings for debug-mode
 msgid "Debug Mode (Verbose)"
-msgstr ""
+msgstr "デバッグモード（冗長な）"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_pal.xml
 msgid "DVD-PAL"
@@ -2570,7 +2576,7 @@ msgstr "DVD-PAL"
 
 #: Settings for blender_command
 msgid "Blender Command (path)"
-msgstr ""
+msgstr "Blenderの実行ファイル(パス)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/picasa.xml
 msgid "Picasa"
@@ -2594,7 +2600,7 @@ msgstr "ワイプ 右から左"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/fractal_5.jpg
 msgid "Fractal %s"
-msgstr ""
+msgstr "フラクタル %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_left_inspiration.jpg
 msgid "Middle left inspiration"
@@ -2610,7 +2616,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/future_11.jpg
 msgid "Future %s"
-msgstr ""
+msgstr "フューチャー %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out_big.jpg
 msgid "Vertical blinds in to out big"
@@ -2630,7 +2636,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr.jpg
 msgid "Big barr"
-msgstr ""
+msgstr "大きなバー"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_right_inspiration.jpg
 msgid "Little right inspiration"
@@ -2642,7 +2648,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/flower_4.jpg
 msgid "Flower %s"
-msgstr ""
+msgstr "フラワー %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_left_to_right.jpg
 msgid "Clock left to right"
@@ -2650,11 +2656,11 @@ msgstr "時計 左から右"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/sunlight_2.jpg
 msgid "Sunlight %s"
-msgstr ""
+msgstr "サンライト %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/crossed_barr.jpg
 msgid "Crossed barr"
-msgstr ""
+msgstr "交差するバー"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/common
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:762
@@ -2672,11 +2678,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_spiral_9.jpg
 msgid "Luminous spiral %s"
-msgstr ""
+msgstr "輝く螺旋 %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg
 msgid "Left arrow"
-msgstr ""
+msgstr "左向きの矢印"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/hatched_1.jpg
 msgid "Hatched %s"
@@ -2688,7 +2694,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_frame_2.jpg
 msgid "Luminous frame %s"
-msgstr ""
+msgstr "輝く額縁 %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_left_barr.jpg
 msgid "Blur left barr"
@@ -2700,7 +2706,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_1.jpg
 msgid "Ray %s"
-msgstr ""
+msgstr "輝き %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_top_arrow.jpg
 msgid "Small top arrow"
@@ -2708,7 +2714,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/foggy_spiral_1.jpg
 msgid "Foggy spiral %s"
-msgstr ""
+msgstr "霧の螺旋 %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic.jpg
 msgid "Right mozaic"
@@ -2724,7 +2730,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_18.jpg
 msgid "Ray light %s"
-msgstr ""
+msgstr "筋状の光 %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_top_arrow.jpg
 msgid "Ripple top arrow"
@@ -2732,7 +2738,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/strange_barr_1.jpg
 msgid "Strange barr %s"
-msgstr ""
+msgstr "奇妙なバー %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right.jpg
 msgid "Ray light right"
@@ -2768,7 +2774,7 @@ msgstr "矩形 中から外"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/puzzle.jpg
 msgid "Puzzle"
-msgstr ""
+msgstr "パズル"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds.jpg
 msgid "Clouds"
@@ -2788,7 +2794,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_barr.jpg
 msgid "Small barr"
-msgstr ""
+msgstr "小さなバー"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_left_barr.jpg
 msgid "Small cross left barr"
@@ -2816,7 +2822,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/fish-eyes_5.jpg
 msgid "Fish-eyes %s"
-msgstr ""
+msgstr "魚眼効果 %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_left_barr.jpg
 msgid "Square middle left barr"
@@ -2824,7 +2830,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_5.jpg
 msgid "Mozaic %s"
-msgstr ""
+msgstr "モザイク %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_left_inspiration.jpg
 msgid "Little left inspiration"
@@ -2832,11 +2838,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/barr_ripple_2.jpg
 msgid "Barr ripple %s"
-msgstr ""
+msgstr "さざ波バー %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_arrow.jpg
 msgid "Right arrow"
-msgstr ""
+msgstr "右向きの矢印"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/stretched_3.jpg
 msgid "Stretched %s"
@@ -2860,7 +2866,7 @@ msgstr "OpenShot ロゴ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/star_2.jpg
 msgid "Star %s"
-msgstr ""
+msgstr "スター %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking2.jpg
 msgid "Big barr shaking2"
@@ -2892,7 +2898,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big_2.jpg
 msgid "Spiral big %s"
-msgstr ""
+msgstr "大きな螺旋 %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wipe_diagonal_3.jpg
 msgid "Wipe diagonal %s"
@@ -2948,7 +2954,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_4.jpg
 msgid "Ripple %s"
-msgstr ""
+msgstr "さざ波 %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_right_barr.jpg
 msgid "Big cross right barr"
@@ -2968,7 +2974,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/fogg_3.jpg
 msgid "Fogg %s"
-msgstr ""
+msgstr "霧 %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/hourglass_1.jpg
 msgid "Hourglass %s"
@@ -2980,7 +2986,7 @@ msgstr "円 外から中"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg
 msgid "Distortion %s"
-msgstr ""
+msgstr "ディストーション %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_top_arrow.jpg
 msgid "Ripple luminous top arrow"
@@ -2992,7 +2998,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds_2.jpg
 msgid "Clouds %s"
-msgstr ""
+msgstr "雲 %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_inspiration_right.jpg
 msgid "Free inspiration right"
@@ -3000,7 +3006,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small_2.jpg
 msgid "Spiral small %s"
-msgstr ""
+msgstr "小さな螺旋 %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out.jpg
 msgid "Vertical blinds in to out"
@@ -3012,7 +3018,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/deform_8.jpg
 msgid "Deform %s"
-msgstr ""
+msgstr "歪み %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out_big.jpg
 msgid "Blinds in to out big"
@@ -3028,11 +3034,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_2.jpg
 msgid "Frame %s"
-msgstr ""
+msgstr "額縁 %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere_2.jpg
 msgid "Sphere %s"
-msgstr ""
+msgstr "球状 %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small.jpg
 msgid "Spiral small"
@@ -3044,7 +3050,7 @@ msgstr "ブラインド 中から外"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/checked_1.jpg
 msgid "Checked %s"
-msgstr ""
+msgstr "チェック %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/dissolve.jpg
 msgid "Dissolve"
@@ -3088,7 +3094,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/cross_15.jpg
 msgid "Cross %s"
-msgstr ""
+msgstr "交差 %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left.jpg
 msgid "Ray light left"
@@ -3096,7 +3102,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_1.jpg
 msgid "Spiral %s"
-msgstr ""
+msgstr "螺旋 %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_top_to_bottom.svg
 msgid "Wipe top to bottom"
@@ -3104,7 +3110,7 @@ msgstr "ワイプ 上から下"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/stain_1.jpg
 msgid "Stain %s"
-msgstr ""
+msgstr "汚れ %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ondulation_1.jpg
 msgid "Ondulation %s"
@@ -3112,7 +3118,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra
 msgid "Extra"
-msgstr ""
+msgstr "拡張"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/bubbles.jpg
 msgid "Bubbles"
@@ -3120,11 +3126,11 @@ msgstr "泡"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/boxes_12.jpg
 msgid "Boxes %s"
-msgstr ""
+msgstr "ボックス %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/triangle_3.jpg
 msgid "Triangle %s"
-msgstr ""
+msgstr "三角形 %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/about.ui:23
 msgid "About OpenShot"
@@ -3140,26 +3146,33 @@ msgid ""
 "\" font-size:10pt; text-decoration: none; color:#55aaff;\">Learn more</"
 "span></a><span style=\" font-size:10pt;\">.</span></p></body></html>"
 msgstr ""
+"<html><head/><body><hr/><p align=\"center\"><span style=\" font-size:10pt; "
+"font-weight:600;\">Create &amp; Edit Amazing Videos and Movies</span></p><p "
+"align=\"center\"><span style=\" font-size:10pt;\">OpenShot Video Editor 2.x "
+"is the next generation of the award-winning <br/>OpenShot video editing "
+"platform. </span><a href=\"http://www.openshot.org?r=about-us\"><span style="
+"\" font-size:10pt; text-decoration: none; color:#55aaff;\">Learn more</"
+"span></a><span style=\" font-size:10pt;\">.</span></p></body></html>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/about.ui:100
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/credits.ui:14
 msgid "Credits"
-msgstr ""
+msgstr "クレジット"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/about.ui:107
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/license.ui:14
 msgid "License"
-msgstr ""
+msgstr "ライセンス"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/about.ui:114
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/credits.ui:134
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/license.ui:45
 msgid "Close"
-msgstr ""
+msgstr "閉じる"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:14
 msgid "Add To Timeline"
-msgstr ""
+msgstr "タイムラインの追加"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:37
 msgid "Move Up"
@@ -3187,7 +3200,7 @@ msgstr "開始時間 (秒):"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:179
 msgid "Track:"
-msgstr ""
+msgstr "トラック:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:209
 msgid "Image Length (seconds):"
@@ -3203,7 +3216,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:319
 msgid "Zoom:"
-msgstr ""
+msgstr "ズーム:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:356
 msgid "Transition:"
@@ -3223,7 +3236,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/animated-title.ui:14
 msgid "Animated Titles"
-msgstr ""
+msgstr "動画タイトル"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/animated-title.ui:46
 msgid "<b>Choose a Template</b>"
@@ -3247,27 +3260,27 @@ msgstr "更新"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/credits.ui:31
 msgid "Developers"
-msgstr ""
+msgstr "開発者"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/credits.ui:44
 msgid "Filter Developers"
-msgstr ""
+msgstr "開発者で表示"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/credits.ui:59
 msgid "Translators"
-msgstr ""
+msgstr "翻訳者"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/credits.ui:69
 msgid "Filter Translators"
-msgstr ""
+msgstr "翻訳者で表示"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/credits.ui:81
 msgid "Supporters"
-msgstr ""
+msgstr "支援者"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/credits.ui:91
 msgid "Filter Supporters"
-msgstr ""
+msgstr "支援者で表示"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/credits.ui:106
 msgid ""
@@ -3275,6 +3288,9 @@ msgid ""
 "donate/\"><span style=\" text-decoration: underline; color:#55aaff;\">Become "
 "a Supporter</span></a></p></body></html>"
 msgstr ""
+"<html><head/><body><p align=\"center\"><a href=\"http://www.openshot.org/"
+"donate/\"><span style=\" text-decoration: underline; color:#55aaff;\">支援者"
+"になる</span></a></p></body></html>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:14
 msgid "Split Clip"
@@ -3364,7 +3380,7 @@ msgstr "詳細"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:348
 msgid "Advanced Options"
-msgstr ""
+msgstr "高度なオプション"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:367
 msgid "Export To:"
@@ -3380,7 +3396,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:469
 msgid "Profile"
-msgstr ""
+msgstr "プロファイル"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:513
 msgid "Height:"
@@ -3501,27 +3517,27 @@ msgstr "myfile_%d.png"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:23
 msgid "OpenShot Video Editor"
-msgstr ""
+msgstr "OpenShot Video Editor"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:80
 msgid "&File"
-msgstr ""
+msgstr "ファイル(&F)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:97
 msgid "&Edit"
-msgstr ""
+msgstr "編集(&E)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:113
 msgid "View"
-msgstr ""
+msgstr "表示"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:117
 msgid "Views"
-msgstr ""
+msgstr "表示方式"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:135
 msgid "Help"
-msgstr ""
+msgstr "ヘルプ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:155
 msgid "toolBar"
@@ -3662,11 +3678,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:504
 msgid "&Quit"
-msgstr ""
+msgstr "終了(&Q)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:507
 msgid "Quit"
-msgstr ""
+msgstr "終了"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:510
 msgid "Ctrl+Q"
@@ -3697,22 +3713,22 @@ msgstr "再生"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:564
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:567
 msgid "Jump To Start"
-msgstr ""
+msgstr "先頭に戻る"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:576
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:579
 msgid "Rewind"
-msgstr ""
+msgstr "巻き戻し"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:588
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:591
 msgid "Fast Forward"
-msgstr ""
+msgstr "早送り"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:600
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:603
 msgid "Jump To End"
-msgstr ""
+msgstr "最後尾に跳ぶ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:615
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:618
@@ -3788,7 +3804,7 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:878
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:881
 msgid "Animated Title"
-msgstr ""
+msgstr "動画タイトル"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:884
 msgid "Ctrl+B"
@@ -3815,7 +3831,7 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:934
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:937
 msgid "View Toolbar"
-msgstr ""
+msgstr "ツールバーを表示"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:952
 msgid "Ctrl+A"
@@ -3824,7 +3840,7 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:964
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:967
 msgid "Icon View"
-msgstr ""
+msgstr "アイコン表示"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:976
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:979
@@ -3833,7 +3849,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:988
 msgid "Report a Bug..."
-msgstr ""
+msgstr "バグを報告..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:997
 msgid "Ask a Question..."
@@ -3841,11 +3857,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1006
 msgid "Translate this Application..."
-msgstr ""
+msgstr "このソフトを翻訳する..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1015
 msgid "Donate"
-msgstr ""
+msgstr "寄付する"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1025
 msgid "Contents"
@@ -3853,23 +3869,23 @@ msgstr "ヘルプの内容を表示"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1028
 msgid "Open Help Contents"
-msgstr ""
+msgstr "ヘルプ内容を開く"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1037
 msgid "Simple View"
-msgstr ""
+msgstr "簡単表示"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1046
 msgid "Advanced View"
-msgstr ""
+msgstr "拡張表示"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1055
 msgid "Freeze View"
-msgstr ""
+msgstr "表示を固定"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1064
 msgid "Un-Freeze View"
-msgstr ""
+msgstr "固定表示の解除"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1084
 msgid "Recent Placeholder"
@@ -3878,7 +3894,7 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1096
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1099
 msgid "Choose Profile"
-msgstr ""
+msgstr "ビデオ形式の選択"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1108
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1111
@@ -3953,7 +3969,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/presets.ui:75
 msgid "Save Current"
-msgstr ""
+msgstr "現在の作業を保存"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/presets.ui:122
 msgid "Export"
@@ -3985,7 +4001,7 @@ msgstr "タイトルエディタ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:66
 msgid "Template:"
-msgstr ""
+msgstr "テンプレート:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:102
 msgid "Line 1:"
@@ -4009,31 +4025,31 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:230
 msgid "Font:"
-msgstr ""
+msgstr "フォント:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:247
 msgid "Text:"
-msgstr ""
+msgstr "文字:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:260
 msgid "Text Color"
-msgstr ""
+msgstr "文字色"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:267
 msgid "Background:"
-msgstr ""
+msgstr "背景:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:280
 msgid "Background Color"
-msgstr ""
+msgstr "背景色"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:287
 msgid "Advanced:"
-msgstr ""
+msgstr "高度な設定:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:297
 msgid "Use Advanced Editor"
-msgstr ""
+msgstr "外部ソフトで編集"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:320
 msgid "Line 6:"
@@ -4057,6 +4073,9 @@ msgid ""
 "decoration: underline; color:#0000ff;\">http://www.youtube.com</span></a></"
 "p></body></html>"
 msgstr ""
+"<html><head/><body><p><a href=\"http://www.youtube.com\"><span style=\" text-"
+"decoration: underline; color:#0000ff;\">http://www.youtube.com</span></a></"
+"p></body></html>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:94
 msgid "<html><head/><body><p>Username:</p></body></html>"

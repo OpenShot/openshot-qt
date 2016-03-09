@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-03 22:58+0000\n"
-"PO-Revision-Date: 2016-02-02 07:37+0000\n"
+"PO-Revision-Date: 2016-02-09 07:27+0000\n"
 "Last-Translator: Michele Locati <michele@locati.it>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-05 06:32+0000\n"
-"X-Generator: Launchpad (build 17908)\n"
+"X-Launchpad-Export-Date: 2016-02-10 05:43+0000\n"
+"X-Generator: Launchpad (build 17923)\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:424
 msgid "Clip"
@@ -80,11 +80,11 @@ msgstr "Salvare le modifiche al progetto prima di chiudere?"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:127
 msgid "Backup Recovered"
-msgstr ""
+msgstr "Backup ripristinato"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:128
 msgid "Your most recent unsaved project has been recovered."
-msgstr ""
+msgstr "Il progetto più recente non salvato è stato ripristinato."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:241
 msgid "Error Saving Project"
@@ -2576,7 +2576,7 @@ msgstr "MOV (h.264)"
 
 #: Settings for autosave-interval
 msgid "Autosave Interval (minutes)"
-msgstr ""
+msgstr "Intervallo salvataggio automatico (minuti)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/youtube_HD.xml
 msgid "YouTube-HD"

@@ -3,12 +3,12 @@
 <TS version="2.1">
     <extra-po-header-language_team>Amharic &lt;am@li.org&gt;</extra-po-header-language_team>
     <extra-po-header-last_translator>samson &lt;Unknown&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-02-07 17:19+0000</extra-po-header-po_revision_date>
+    <extra-po-header-po_revision_date>2016-02-28 16:03+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2016-02-03 22:58+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 17908)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-02-08 05:35+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 17925)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2016-02-29 05:59+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Amharic translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -82,12 +82,12 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="127"/>
         <source>Backup Recovered</source>
-        <translation type="unfinished"></translation>
+        <translation>ተተኪ ተገኝቷል</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="128"/>
         <source>Your most recent unsaved project has been recovered.</source>
-        <translation type="unfinished"></translation>
+        <translation>የ እርስዎ በጣም የ ቅርብ ጊዜ እቅድ ተገኝቷል</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="241"/>
@@ -223,7 +223,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="270"/>
         <source>Please restart OpenShot for all preferences to take effect.</source>
-        <translation type="unfinished"></translation>
+        <translation>እባክዎን ኦፕን ሾትን እንደገና ያስነሱ ሁሉንም ምርጫዎች በ ስራ ላይ ለማዋል</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/cutting.py" line="190"/>
@@ -234,7 +234,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/animated_title.py" line="85"/>
         <source>Render</source>
-        <translation type="unfinished"></translation>
+        <translation>ማቅረቢያ</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/animated_title.py" line="86"/>
@@ -659,7 +659,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="590"/>
         <source>Show All (Distort)</source>
-        <translation type="unfinished"></translation>
+        <translation>ሁሉንም ማሳያ (የተጣመሙ)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="596"/>
@@ -734,17 +734,17 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="684"/>
         <source>Keep Both Sides</source>
-        <translation type="unfinished"></translation>
+        <translation>ሁለቱንም ጎኖች መጠበቂያ</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="686"/>
         <source>Keep Left Side</source>
-        <translation type="unfinished"></translation>
+        <translation>የ ግራ ጎን መጠበቂያ</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="688"/>
         <source>Keep Right Side</source>
-        <translation type="unfinished"></translation>
+        <translation>የ ቀኝ ጎን መጠበቂያ</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1511"/>
@@ -767,7 +767,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1531"/>
         <source>Reverse Transition</source>
-        <translation type="unfinished"></translation>
+        <translation>እንደ ነበር መመለሻ መሸጋገሪያውን</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="78"/>
@@ -794,7 +794,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="133"/>
         <source>Constant</source>
-        <translation type="unfinished"></translation>
+        <translation>የማያቋርጥ</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="136"/>
@@ -809,7 +809,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/models/transition_model.py" line="80"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/effects_model.py" line="80"/>
         <source>Thumb</source>
-        <translation type="unfinished"></translation>
+        <translation>የ አውራ ጥፍር</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/add_to_timeline_model.py" line="57"/>
@@ -826,7 +826,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/models/transition_model.py" line="158"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/effects_model.py" line="150"/>
         <source>{} is not a valid image file.</source>
-        <translation type="unfinished"></translation>
+        <translation>{} ዋጋ ያለው የምስል ፋይል አይደለም</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="67"/>
@@ -851,7 +851,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="116"/>
         <source>Multiple Contributions!</source>
-        <translation type="unfinished"></translation>
+        <translation>በርካታ አበርካቾች!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="358"/>
@@ -875,7 +875,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="517"/>
         <source>Transparency</source>
-        <translation type="unfinished"></translation>
+        <translation>ግልጽነት</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
     </message>
     <message>
@@ -908,43 +908,43 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="116"/>
         <source>Image Sequence</source>
-        <translation type="unfinished"></translation>
+        <translation>ተከታታይ ምስል</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="123"/>
         <source>Mono (1 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>አንድ (1 ጣቢያ)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="124"/>
         <source>Stereo (2 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>ስቴሪዮ (2 ጣቢያ)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="125"/>
         <source>Surround (3 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>የ ተከበበ (3 ጣቢያ)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="126"/>
         <source>Surround (5.1 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>የ ተከበበ (5.1 ጣቢያ)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="127"/>
         <source>Surround (7.1 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>የ ተከበበ (7.1 ጣቢያ)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="192"/>
         <source>All Formats</source>
-        <translation type="unfinished"></translation>
+        <translation>ሁሉም አቀራረብ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="298"/>
         <source>MP4 (h.264)</source>
-        <translation type="unfinished"></translation>
+        <translation>MP4 (h.264)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_x264.xml</extra-po-references>
     </message>
     <message>
@@ -994,17 +994,18 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="626"/>
         <source>Sorry, there was an error exporting your video: 
 %s</source>
-        <translation type="unfinished"></translation>
+        <translation>አዝናለሁ: የ እርስዎ ቪዲዮ በሚላክ ጊዜ ችግር ተፈጥሯል: 
+%s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <source>Convert an image to shades of grey</source>
-        <translation type="unfinished"></translation>
+        <translation>ምስል ወደ ግራጫ ጥላ መቀየሪያ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml</extra-po-references>
     </message>
     <message>
         <source>Iterations</source>
-        <translation type="unfinished"></translation>
+        <translation>ድግግሞሽ</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1029,7 +1030,7 @@ Blender Path:
     </message>
     <message>
         <source>Adjust color balance with 3 color points</source>
-        <translation type="unfinished"></translation>
+        <translation>ቀለም ማስተካከያ በ 3 ቀለም ነጥቦች</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
     </message>
     <message>
@@ -1044,12 +1045,12 @@ Blender Path:
     </message>
     <message>
         <source>Fly Towards Camera (Two Titles)</source>
-        <translation type="unfinished"></translation>
+        <translation>ወደ ካሜራው መብረሪያ (ሁለት አርእስቶች)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/fly_by_two_titles.xml</extra-po-references>
     </message>
     <message>
         <source>Display Ground</source>
-        <translation type="unfinished"></translation>
+        <translation>መሬት ማሳያ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
     </message>
     <message>
@@ -1064,12 +1065,12 @@ Blender Path:
     </message>
     <message>
         <source>Correction near edges</source>
-        <translation type="unfinished"></translation>
+        <translation>ጠርዝ አጠገብ ማረሚያ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
     </message>
     <message>
         <source>X Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>X ማካካሻ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
@@ -1084,7 +1085,7 @@ Blender Path:
     </message>
     <message>
         <source>Greyscale</source>
-        <translation type="unfinished"></translation>
+        <translation>ጥቁር እና ነጭ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml</extra-po-references>
     </message>
     <message>
@@ -1099,7 +1100,7 @@ Blender Path:
     </message>
     <message>
         <source>Old Dust</source>
-        <translation type="unfinished"></translation>
+        <translation>አሮጌ አቧራ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
     </message>
     <message>
@@ -1114,7 +1115,7 @@ Blender Path:
     </message>
     <message>
         <source>Distort</source>
-        <translation type="unfinished"></translation>
+        <translation>ማጣመሚያ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
     </message>
     <message>
@@ -1134,7 +1135,7 @@ Blender Path:
     </message>
     <message>
         <source>Gravity</source>
-        <translation type="unfinished"></translation>
+        <translation>ስበት</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1144,7 +1145,7 @@ Blender Path:
     </message>
     <message>
         <source>Horizontal Sync</source>
-        <translation type="unfinished"></translation>
+        <translation>በ አግድም ማስማሚያ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
     </message>
     <message>
@@ -1194,12 +1195,12 @@ Blender Path:
     </message>
     <message>
         <source>Black color</source>
-        <translation type="unfinished"></translation>
+        <translation>ጥቁር ቀለም</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
     </message>
     <message>
         <source>Delta</source>
-        <translation type="unfinished"></translation>
+        <translation>ዴልታ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
     </message>
     <message>
@@ -1224,7 +1225,7 @@ Blender Path:
     </message>
     <message>
         <source>X Center</source>
-        <translation type="unfinished"></translation>
+        <translation>X መሀከል</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
     </message>
     <message>
@@ -1239,7 +1240,7 @@ Blender Path:
     </message>
     <message>
         <source>Title 3</source>
-        <translation type="unfinished"></translation>
+        <translation>አርእስት 3</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
@@ -1254,22 +1255,22 @@ Blender Path:
     </message>
     <message>
         <source>Picture Frames (4 pictures)</source>
-        <translation type="unfinished"></translation>
+        <translation>የ ስእል ክፈፎች (4 ስእሎች)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
     </message>
     <message>
         <source>Simple color adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>ቀላል ቀለም ማስተካከያ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
         <source>v</source>
-        <translation type="unfinished"></translation>
+        <translation>v</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
     </message>
     <message>
         <source>Bottom Left</source>
-        <translation type="unfinished"></translation>
+        <translation>ከ ታች በ ግራ በኩል</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1287,27 +1288,27 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="862"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="865"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation>አርእስት</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
         <source>Scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>መመጠኛ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
     </message>
     <message>
         <source>Left | Right</source>
-        <translation type="unfinished"></translation>
+        <translation>በ ግራ | በ ቀኝ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
     </message>
     <message>
         <source>Make image sharper</source>
-        <translation type="unfinished"></translation>
+        <translation>ምስል ማጥሪያ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
     </message>
     <message>
         <source>Left</source>
-        <translation type="unfinished"></translation>
+        <translation>በ ግራ</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1317,7 +1318,7 @@ Blender Path:
     </message>
     <message>
         <source>Y Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Y መሀከል</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
     </message>
     <message>
@@ -1372,17 +1373,17 @@ Blender Path:
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished"></translation>
+        <translation>አካባቢ</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Hue</source>
-        <translation type="unfinished"></translation>
+        <translation>ቀለሞች</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/hue.xml</extra-po-references>
     </message>
     <message>
         <source>Background: Blend</source>
-        <translation type="unfinished"></translation>
+        <translation>መደብ: ማዋሀጃ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
     </message>
     <message>
@@ -1427,17 +1428,17 @@ Blender Path:
     </message>
     <message>
         <source>Primary Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>ቀዳሚ ቀለሞች</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
     </message>
     <message>
         <source>Every</source>
-        <translation type="unfinished"></translation>
+        <translation>ሁሉም</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
     </message>
     <message>
         <source>White Balance</source>
-        <translation type="unfinished"></translation>
+        <translation>ነጭ ማስተካከያ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
     </message>
     <message>
@@ -1447,27 +1448,27 @@ Blender Path:
     </message>
     <message>
         <source>Frequency</source>
-        <translation type="unfinished"></translation>
+        <translation>ድግግሞሽ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
     </message>
     <message>
         <source>White color</source>
-        <translation type="unfinished"></translation>
+        <translation>ነጭ ቀለም</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
     </message>
     <message>
         <source>Main Text</source>
-        <translation type="unfinished"></translation>
+        <translation>ዋናው ጽሁፍ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
     </message>
     <message>
         <source>Reverse</source>
-        <translation type="unfinished"></translation>
+        <translation>መገልበጫ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
     </message>
     <message>
         <source>Equalizor</source>
-        <translation type="unfinished"></translation>
+        <translation>እኩል ማድረጊያ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml</extra-po-references>
     </message>
     <message>
@@ -1477,7 +1478,7 @@ Blender Path:
     </message>
     <message>
         <source>Number</source>
-        <translation type="unfinished"></translation>
+        <translation>ቁጥር</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
     </message>
     <message>
@@ -1492,7 +1493,7 @@ Blender Path:
     </message>
     <message>
         <source>Title 2</source>
-        <translation type="unfinished"></translation>
+        <translation>አርእስት 2</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
@@ -1507,12 +1508,12 @@ Blender Path:
     </message>
     <message>
         <source>Font Name</source>
-        <translation type="unfinished"></translation>
+        <translation>የ ፊደል ስም</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
         <source>Source image on left side</source>
-        <translation type="unfinished"></translation>
+        <translation>የ ምስል ምንጭ በ ግራ በኩል</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
     </message>
     <message>
@@ -1522,7 +1523,7 @@ Blender Path:
     </message>
     <message>
         <source>Bottom Right</source>
-        <translation type="unfinished"></translation>
+        <translation>ከ ታች በቀኝ በኩል</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1537,7 +1538,7 @@ Blender Path:
     </message>
     <message>
         <source>Line 2 Color</source>
-        <translation type="unfinished"></translation>
+        <translation>የ መስመር 2 ቀለም</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
     </message>
     <message>
@@ -1567,7 +1568,7 @@ Blender Path:
     </message>
     <message>
         <source>End Value</source>
-        <translation type="unfinished"></translation>
+        <translation>መጨረሻ ዋጋ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
     </message>
     <message>
@@ -1577,12 +1578,12 @@ Blender Path:
     </message>
     <message>
         <source>Border Width</source>
-        <translation type="unfinished"></translation>
+        <translation>የ ድንበር ስፋት</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
     </message>
     <message>
         <source>Rotate Z</source>
-        <translation type="unfinished"></translation>
+        <translation>ማዞሪያ Z</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
@@ -1597,7 +1598,7 @@ Blender Path:
     </message>
     <message>
         <source>Line 3 Color</source>
-        <translation type="unfinished"></translation>
+        <translation>የ መስመር 3 ቀለም</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
     </message>
     <message>
@@ -1612,22 +1613,22 @@ Blender Path:
     </message>
     <message>
         <source>Key</source>
-        <translation type="unfinished"></translation>
+        <translation>ቁልፍ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
     </message>
     <message>
         <source>Min</source>
-        <translation type="unfinished"></translation>
+        <translation>አነስተኛ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
     </message>
     <message>
         <source>Right</source>
-        <translation type="unfinished"></translation>
+        <translation>በ ቀኝ</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Flying Title</source>
-        <translation type="unfinished"></translation>
+        <translation>የሚበር አርእስት</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
     </message>
     <message>
@@ -1642,7 +1643,7 @@ Blender Path:
     </message>
     <message>
         <source>Crop</source>
-        <translation type="unfinished"></translation>
+        <translation>መከርከሚያ</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1667,7 +1668,7 @@ Blender Path:
     </message>
     <message>
         <source>Rotate 360 Degrees</source>
-        <translation type="unfinished"></translation>
+        <translation>ማዞሪያ 360 ዲግሪዎች</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/rotate_360.xml</extra-po-references>
     </message>
     <message>
@@ -1692,7 +1693,7 @@ Blender Path:
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>ጣቢያ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
@@ -1702,12 +1703,12 @@ Blender Path:
     </message>
     <message>
         <source>Cartoon</source>
-        <translation type="unfinished"></translation>
+        <translation>ካርቱን</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
     </message>
     <message>
         <source>u</source>
-        <translation type="unfinished"></translation>
+        <translation>u</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
     </message>
     <message>
@@ -1717,12 +1718,12 @@ Blender Path:
     </message>
     <message>
         <source>Three Layer</source>
-        <translation type="unfinished"></translation>
+        <translation>ሶስት ደረጃ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml</extra-po-references>
     </message>
     <message>
         <source>Speed</source>
-        <translation type="unfinished"></translation>
+        <translation>ፍጥነት</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
     </message>
     <message>
@@ -1747,7 +1748,7 @@ Blender Path:
     </message>
     <message>
         <source>Top Left</source>
-        <translation type="unfinished"></translation>
+        <translation>ከ ላይ በ ግራ በኩል</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1762,7 +1763,7 @@ Blender Path:
     </message>
     <message>
         <source>Scan Lines</source>
-        <translation type="unfinished"></translation>
+        <translation>ማሰሻ መስመሮች</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml</extra-po-references>
     </message>
     <message>
@@ -1797,22 +1798,22 @@ Blender Path:
     </message>
     <message>
         <source>Amount</source>
-        <translation type="unfinished"></translation>
+        <translation>መጠን</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
     </message>
     <message>
         <source>Red</source>
-        <translation type="unfinished"></translation>
+        <translation>ቀይ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
         <source>End Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>መጨረሻ ክፈፍ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
         <source>Replace Image</source>
-        <translation type="unfinished"></translation>
+        <translation>ምስል መቀየሪያ</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1837,7 +1838,7 @@ Blender Path:
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>ቀለም</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
     </message>
     <message>
@@ -1852,7 +1853,7 @@ Blender Path:
     </message>
     <message>
         <source>Filter the image to look like it is drawn with charcoal</source>
-        <translation type="unfinished"></translation>
+        <translation>ምስል ማጣሪያ በ ከሰል የ ተሳለ እንዲመስል</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
     </message>
     <message>
@@ -1902,7 +1903,7 @@ Blender Path:
     </message>
     <message>
         <source>Line 1 Color</source>
-        <translation type="unfinished"></translation>
+        <translation>የ መስመር 1 ቀለም</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
     </message>
     <message>
@@ -1942,12 +1943,12 @@ Blender Path:
     </message>
     <message>
         <source>Action</source>
-        <translation type="unfinished"></translation>
+        <translation>ተግባር</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
         <source>Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>ከ ታች</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
     </message>
     <message>
@@ -1967,12 +1968,12 @@ Blender Path:
     </message>
     <message>
         <source>Brightness &amp; Contrast</source>
-        <translation type="unfinished"></translation>
+        <translation>ብሩህነት &amp; ማነፃፀሪያ</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Is Odd Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>ጎዶሎ ክፈፍ ነው</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2007,7 +2008,7 @@ Blender Path:
     </message>
     <message>
         <source>Gray color</source>
-        <translation type="unfinished"></translation>
+        <translation>ግራጫ ቀለም</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
     </message>
     <message>
@@ -2022,7 +2023,7 @@ Blender Path:
     </message>
     <message>
         <source>Bottom Center</source>
-        <translation type="unfinished"></translation>
+        <translation>ከ ታች  መሀከል</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2032,7 +2033,7 @@ Blender Path:
     </message>
     <message>
         <source>First Title</source>
-        <translation type="unfinished"></translation>
+        <translation>የ መጀመሪያ አርእስት</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
     </message>
     <message>
@@ -2082,18 +2083,18 @@ Blender Path:
     </message>
     <message>
         <source>Sub Title</source>
-        <translation type="unfinished"></translation>
+        <translation>ንዑስ አርእስት</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="115"/>
         <source>End</source>
-        <translation type="unfinished"></translation>
+        <translation>መጨረሻ</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Y Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Y ማካካሻ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
@@ -2123,22 +2124,22 @@ Blender Path:
     </message>
     <message>
         <source>Snow</source>
-        <translation type="unfinished"></translation>
+        <translation>በረዶ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
         <source>Black and White</source>
-        <translation type="unfinished"></translation>
+        <translation>ጥቁር እና ነጭ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
     </message>
     <message>
         <source>Trees</source>
-        <translation type="unfinished"></translation>
+        <translation>ዛፎች</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/trees.xml</extra-po-references>
     </message>
     <message>
         <source>Max</source>
-        <translation type="unfinished"></translation>
+        <translation>ከፍተኛ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
     </message>
     <message>
@@ -2158,12 +2159,12 @@ Blender Path:
     </message>
     <message>
         <source>Delay</source>
-        <translation type="unfinished"></translation>
+        <translation>ማዘግያ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
     </message>
     <message>
         <source>Blue/Yellow</source>
-        <translation type="unfinished"></translation>
+        <translation>ሰማያዊ/ቢጫ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
     </message>
     <message>
@@ -2198,7 +2199,7 @@ Blender Path:
     </message>
     <message>
         <source>Anchor</source>
-        <translation type="unfinished"></translation>
+        <translation>ማስቆሚያ</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2258,12 +2259,12 @@ Blender Path:
     </message>
     <message>
         <source>Old Film</source>
-        <translation type="unfinished"></translation>
+        <translation>አሮጌ ፊልም</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
     </message>
     <message>
         <source>Top Center</source>
-        <translation type="unfinished"></translation>
+        <translation>ከ ላይ መሀከል</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2278,7 +2279,7 @@ Blender Path:
     </message>
     <message>
         <source>Display Clouds</source>
-        <translation type="unfinished"></translation>
+        <translation>ደመናዎች ማሳያ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml</extra-po-references>
     </message>
     <message>
@@ -2308,22 +2309,22 @@ Blender Path:
     </message>
     <message>
         <source>Wave Color</source>
-        <translation type="unfinished"></translation>
+        <translation>የ ማእበል ቀለም</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Top Right</source>
-        <translation type="unfinished"></translation>
+        <translation>ከ ላይ በ ቀኝ በኩል</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Layer</source>
-        <translation type="unfinished"></translation>
+        <translation>ደረጃ</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Color Distance</source>
-        <translation type="unfinished"></translation>
+        <translation>የ ቀለም እርቀት</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
     </message>
     <message>
@@ -2338,7 +2339,7 @@ Blender Path:
     </message>
     <message>
         <source>Letterbox</source>
-        <translation type="unfinished"></translation>
+        <translation>የ ደብዳቤ ሳጥን</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
     </message>
     <message>
@@ -2398,12 +2399,12 @@ Blender Path:
     </message>
     <message>
         <source>Size</source>
-        <translation type="unfinished"></translation>
+        <translation>መጠን</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
     </message>
     <message>
         <source>Negative</source>
-        <translation type="unfinished"></translation>
+        <translation>አሉታዊ</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -2418,7 +2419,7 @@ Blender Path:
     </message>
     <message>
         <source>Center</source>
-        <translation type="unfinished"></translation>
+        <translation>መሀከል</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2428,17 +2429,17 @@ Blender Path:
     </message>
     <message>
         <source>Key Color</source>
-        <translation type="unfinished"></translation>
+        <translation>ቁልፍ ቀለም</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Start Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>ክፈፍ ማስጀመሪያ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
         <source>Noise</source>
-        <translation type="unfinished"></translation>
+        <translation>ረብሻ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
     </message>
     <message>
@@ -2448,7 +2449,7 @@ Blender Path:
     </message>
     <message>
         <source>Green</source>
-        <translation type="unfinished"></translation>
+        <translation>አረንጓዴ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
@@ -2463,12 +2464,12 @@ Blender Path:
     </message>
     <message>
         <source>Charcoal</source>
-        <translation type="unfinished"></translation>
+        <translation>ከሰል</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
     </message>
     <message>
         <source>Frame Number</source>
-        <translation type="unfinished"></translation>
+        <translation>የ ክፈፍ ቁጥር</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
     </message>
     <message>
@@ -2478,17 +2479,17 @@ Blender Path:
     </message>
     <message>
         <source>Blue</source>
-        <translation type="unfinished"></translation>
+        <translation>ሰማያዊ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
         <source>Old Lines</source>
-        <translation type="unfinished"></translation>
+        <translation>አሮጌ መስመሮች</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
     </message>
     <message>
         <source>Title 1</source>
-        <translation type="unfinished"></translation>
+        <translation>አርእስት 1</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
@@ -2498,7 +2499,7 @@ Blender Path:
     </message>
     <message>
         <source>Width</source>
-        <translation type="unfinished"></translation>
+        <translation>ስፋት</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
     </message>
     <message>
@@ -2538,7 +2539,7 @@ Blender Path:
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>አይነት</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
     </message>
     <message>
@@ -2548,7 +2549,7 @@ Blender Path:
     </message>
     <message>
         <source>Blur</source>
-        <translation type="unfinished"></translation>
+        <translation>ማደብዘዣ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blur.xml</extra-po-references>
     </message>
     <message>
@@ -2628,12 +2629,12 @@ Blender Path:
     </message>
     <message>
         <source>Text Width</source>
-        <translation type="unfinished"></translation>
+        <translation>የ ጽሁፍ ስፋት</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
         <source>Reduce image to primary colors</source>
-        <translation type="unfinished"></translation>
+        <translation>ምስል ወደ ቀዳሚ ቀለሞች መቀነሻ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
     </message>
     <message>
@@ -2648,12 +2649,12 @@ Blender Path:
     </message>
     <message>
         <source>Text Alignment</source>
-        <translation type="unfinished"></translation>
+        <translation>ጽሁፍ ማሰለፊያ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
         <source>Aspect ratio</source>
-        <translation type="unfinished"></translation>
+        <translation>የ ማነፃፀሪያ መጠን</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
     </message>
     <message>
@@ -2713,7 +2714,7 @@ Blender Path:
     </message>
     <message>
         <source>Line 4 Color</source>
-        <translation type="unfinished"></translation>
+        <translation>የ መስመር 4 ቀለም</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
     </message>
     <message>
@@ -2738,7 +2739,7 @@ Blender Path:
     </message>
     <message>
         <source>Best Fit</source>
-        <translation type="unfinished"></translation>
+        <translation>በ ጥሩ ልክ</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2773,12 +2774,12 @@ Blender Path:
     </message>
     <message>
         <source>Threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>መግቢያ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
     </message>
     <message>
         <source>Softness</source>
-        <translation type="unfinished"></translation>
+        <translation>ለስላሳነት</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
     </message>
     <message>
@@ -2823,7 +2824,7 @@ Blender Path:
     </message>
     <message>
         <source>Top</source>
-        <translation type="unfinished"></translation>
+        <translation>ከ ላይ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
     </message>
     <message>
@@ -2848,7 +2849,7 @@ Blender Path:
     </message>
     <message>
         <source>Color adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>ቀለም ማስተካከያ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
@@ -2894,7 +2895,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="96"/>
         <source>Start</source>
-        <translation type="unfinished"></translation>
+        <translation>ማስጀመሪያ</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2909,7 +2910,7 @@ Blender Path:
     </message>
     <message>
         <source>Levels</source>
-        <translation type="unfinished"></translation>
+        <translation>ደረጃዎች</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
@@ -2919,7 +2920,7 @@ Blender Path:
     </message>
     <message>
         <source>Text Size</source>
-        <translation type="unfinished"></translation>
+        <translation>የ ጽሁፍ መጠን</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
@@ -2929,12 +2930,12 @@ Blender Path:
     </message>
     <message>
         <source>Mirror</source>
-        <translation type="unfinished"></translation>
+        <translation>አንፀባራቂ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
     </message>
     <message>
         <source>Default Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>ነባር መገለጫ</translation>
         <extra-po-references>Settings for default-profile</extra-po-references>
     </message>
     <message>
@@ -2954,7 +2955,7 @@ Blender Path:
     </message>
     <message>
         <source>Wikipedia</source>
-        <translation type="unfinished"></translation>
+        <translation>ዊኪፒዲያ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/wikipedia.xml</extra-po-references>
     </message>
     <message>
@@ -2974,7 +2975,7 @@ Blender Path:
     </message>
     <message>
         <source>DVD</source>
-        <translation type="unfinished"></translation>
+        <translation>ዲቪዲ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml</extra-po-references>
     </message>
     <message>
@@ -3000,7 +3001,7 @@ Blender Path:
     </message>
     <message>
         <source>Web</source>
-        <translation type="unfinished"></translation>
+        <translation>ዌብ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml</extra-po-references>
     </message>
     <message>
@@ -3040,7 +3041,7 @@ Blender Path:
     </message>
     <message>
         <source>Default Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>ነባር ገጽታ</translation>
         <extra-po-references>Settings for theme</extra-po-references>
     </message>
     <message>
@@ -3060,7 +3061,7 @@ Blender Path:
     </message>
     <message>
         <source>Autosave Interval (minutes)</source>
-        <translation type="unfinished"></translation>
+        <translation>በራሱ ማስቀመጫ በየ (ደቂቃዎች)</translation>
         <extra-po-references>Settings for autosave-interval</extra-po-references>
     </message>
     <message>
@@ -3090,7 +3091,7 @@ Blender Path:
     </message>
     <message>
         <source>MP4 (mpeg4)</source>
-        <translation type="unfinished"></translation>
+        <translation>MP4 (mpeg4)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_mpeg4.xml</extra-po-references>
     </message>
     <message>
@@ -3100,7 +3101,7 @@ Blender Path:
     </message>
     <message>
         <source>Default Audio Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>ነባር የ ድምፅ ጣቢያዎች</translation>
         <extra-po-references>Settings for default-channellayout</extra-po-references>
     </message>
     <message>
@@ -3110,7 +3111,7 @@ Blender Path:
     </message>
     <message>
         <source>Device</source>
-        <translation type="unfinished"></translation>
+        <translation>አካል</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml</extra-po-references>
     </message>
     <message>
@@ -3135,7 +3136,7 @@ Blender Path:
     </message>
     <message>
         <source>Picasa</source>
-        <translation type="unfinished"></translation>
+        <translation>ፒካሳ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/picasa.xml</extra-po-references>
     </message>
     <message>

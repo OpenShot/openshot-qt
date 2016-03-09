@@ -1,21 +1,23 @@
 # Galician translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
 #
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
+# Xosé <xosecalvo@gmail.com>, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-03 22:58+0000\n"
-"PO-Revision-Date: 2016-01-29 17:09+0000\n"
+"PO-Revision-Date: 2016-03-07 16:04+0000\n"
 "Last-Translator: Xosé <Unknown>\n"
 "Language-Team: Galician <gl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-05 06:31+0000\n"
-"X-Generator: Launchpad (build 17908)\n"
+"X-Launchpad-Export-Date: 2016-03-08 05:55+0000\n"
+"X-Generator: Launchpad (build 17936)\n"
+"Language: gl\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:463
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1023
@@ -37,7 +39,7 @@ msgstr "Esvaecemento de entrada"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:468
 msgid "Fade Out"
-msgstr "Esvaer"
+msgstr "Esvaecemento de saída"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:469
 msgid "Fade In & Out"
@@ -47,7 +49,7 @@ msgstr "Esvaecemento de entrada e saída"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:485
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:550
 msgid "Random"
-msgstr ""
+msgstr "Ao chou"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:474
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:831
@@ -63,7 +65,7 @@ msgstr "Reducir"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:85
 msgid "Unsaved Changes"
-msgstr ""
+msgstr "Cambios sen gardar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:85
 msgid "Save changes to project before closing?"
@@ -276,15 +278,15 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Fast"
-msgstr ""
+msgstr "Rápido"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Slow"
-msgstr ""
+msgstr "Amodo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Forward"
@@ -292,7 +294,7 @@ msgstr "Avanzar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Backward"
-msgstr ""
+msgstr "Cara a atrás"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:423
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1510
@@ -330,13 +332,13 @@ msgstr "Rotación"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:436
 msgid "Location"
-msgstr ""
+msgstr "Lugar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:438
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:595
 #: libopenshot (Clip Properties)
 msgid "Time"
-msgstr ""
+msgstr "Hora"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:440
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:619
@@ -415,7 +417,7 @@ msgstr "Sen animación"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:497
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:307
 msgid "Zoom"
-msgstr ""
+msgstr "Ampliación"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:498
 msgid "Zoom In (50% to 100%)"
@@ -697,7 +699,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:67
 msgid "Email"
-msgstr ""
+msgstr "Correo electrónico"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:67
 msgid "Website"
@@ -729,7 +731,7 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:499
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:682
 msgid "Value"
-msgstr ""
+msgstr "Valor"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:517
 #: /home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml
@@ -743,11 +745,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/files_model.py:100
 msgid "Tags"
-msgstr ""
+msgstr "Etiquetas"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/effects_model.py:80
 msgid "Description"
-msgstr ""
+msgstr "Descrición"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:74
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:20
@@ -1059,7 +1061,7 @@ msgstr ""
 
 #: libopenshot (Clip Properties)
 msgid "Duration"
-msgstr ""
+msgstr "Duración"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
 msgid "Brightness Delta Down"
@@ -1994,7 +1996,7 @@ msgstr "TehRoxx0r"
 
 #: libopenshot (Clip Properties)
 msgid "Center"
-msgstr ""
+msgstr "Centrar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Halo: Use Lines"
@@ -2672,7 +2674,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg
 msgid "Left arrow"
-msgstr ""
+msgstr "Frecha á esquerda"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/hatched_1.jpg
 msgid "Hatched %s"
@@ -2832,7 +2834,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_arrow.jpg
 msgid "Right arrow"
-msgstr ""
+msgstr "Frecha á dereita"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/stretched_3.jpg
 msgid "Stretched %s"
@@ -3108,7 +3110,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra
 msgid "Extra"
-msgstr ""
+msgstr "Extra"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/bubbles.jpg
 msgid "Bubbles"
@@ -3151,7 +3153,7 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/credits.ui:134
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/license.ui:45
 msgid "Close"
-msgstr ""
+msgstr "Fechar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:14
 msgid "Add To Timeline"
@@ -3199,7 +3201,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:319
 msgid "Zoom:"
-msgstr ""
+msgstr "Ampliación:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:356
 msgid "Transition:"
@@ -3302,11 +3304,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:161
 msgid "Clear"
-msgstr ""
+msgstr "Limpar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:174
 msgid "Create"
-msgstr ""
+msgstr "Crear"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:56
 msgid "File Name:"
@@ -3322,7 +3324,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:93
 msgid "Browse..."
-msgstr ""
+msgstr "Navegar..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:148
 msgid "Simple"
@@ -3376,7 +3378,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:469
 msgid "Profile"
-msgstr ""
+msgstr "Perfil"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:513
 msgid "Height:"
@@ -3501,15 +3503,15 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:80
 msgid "&File"
-msgstr ""
+msgstr "&Ficheiro"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:97
 msgid "&Edit"
-msgstr ""
+msgstr "&Editar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:113
 msgid "View"
-msgstr ""
+msgstr "Ver"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:117
 msgid "Views"
@@ -3517,7 +3519,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:135
 msgid "Help"
-msgstr ""
+msgstr "Axuda"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:155
 msgid "toolBar"
@@ -3658,11 +3660,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:504
 msgid "&Quit"
-msgstr ""
+msgstr "&Saír"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:507
 msgid "Quit"
-msgstr ""
+msgstr "Saír"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:510
 msgid "Ctrl+Q"
@@ -3675,7 +3677,7 @@ msgstr "Engadir unha pista"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:534
 msgid "&Preferences"
-msgstr ""
+msgstr "&Preferencias"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:537
 msgid "Preferences"
@@ -3797,7 +3799,7 @@ msgstr "Pantalla completa"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:903
 msgid "F11"
-msgstr ""
+msgstr "F11"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:913
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:916
@@ -3806,7 +3808,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:919
 msgid "Esc"
-msgstr ""
+msgstr "Esc"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:934
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:937
@@ -3953,7 +3955,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/presets.ui:122
 msgid "Export"
-msgstr ""
+msgstr "Exportar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/profile.ui:30
 msgid "Size:"
@@ -3961,7 +3963,7 @@ msgstr "Tamaño:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/profile.ui:50
 msgid "1920x1080"
-msgstr ""
+msgstr "1920x1080"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/profile.ui:60
 msgid "24"
@@ -3973,7 +3975,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/profile.ui:84
 msgid "Other:"
-msgstr ""
+msgstr "Outro:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:14
 msgid "Title Editor"
@@ -3981,27 +3983,27 @@ msgstr "Editor do título"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:66
 msgid "Template:"
-msgstr ""
+msgstr "Modelo:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:102
 msgid "Line 1:"
-msgstr ""
+msgstr "Liña 1:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:125
 msgid "Line 2:"
-msgstr ""
+msgstr "Liña 2:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:148
 msgid "Line 3:"
-msgstr ""
+msgstr "Liña 3:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:171
 msgid "Line 4:"
-msgstr ""
+msgstr "Liña 4:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:194
 msgid "Line 5:"
-msgstr ""
+msgstr "Liña 5:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:230
 msgid "Font:"
@@ -4009,7 +4011,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:247
 msgid "Text:"
-msgstr ""
+msgstr "Texto:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:260
 msgid "Text Color"
@@ -4025,7 +4027,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:287
 msgid "Advanced:"
-msgstr ""
+msgstr "Avanzado:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:297
 msgid "Use Advanced Editor"
@@ -4033,7 +4035,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:320
 msgid "Line 6:"
-msgstr ""
+msgstr "Liña 6:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:41
 msgid "<html><head/><body><p>Upload To:</p></body></html>"
@@ -4056,11 +4058,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:94
 msgid "<html><head/><body><p>Username:</p></body></html>"
-msgstr ""
+msgstr "<html><head/><body><p>Nome de usuario:</p></body></html>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:101
 msgid "<html><head/><body><p>Description:</p></body></html>"
-msgstr ""
+msgstr "<html><head/><body><p>Descrición:</p></body></html>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:109
 msgid "Youtube"
@@ -4068,11 +4070,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:151
 msgid "<html><head/><body><p>Title:</p></body></html>"
-msgstr ""
+msgstr "<html><head/><body><p>Título:</p></body></html>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:185
 msgid "<html><head/><body><p>Password:</p><p><br/></p></body></html>"
-msgstr ""
+msgstr "<html><head/><body><p>Contrasinal:</p><p><br/></p></body></html>"
 
 #~ msgid "Fractal 1"
 #~ msgstr "Fractal 1"

@@ -2,13 +2,13 @@
 <!DOCTYPE TS>
 <TS version="2.1">
     <extra-po-header-language_team>Persian &lt;fa@li.org&gt;</extra-po-header-language_team>
-    <extra-po-header-last_translator>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-01-11 05:40+0000</extra-po-header-po_revision_date>
+    <extra-po-header-last_translator>RaymondDragon &lt;swordart2050@gmail.com&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2016-03-01 13:16+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2016-02-03 22:58+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 17908)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-02-05 06:33+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 17925)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2016-03-02 05:48+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Persian translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -22,7 +22,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1023"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="157"/>
         <source>Track %s</source>
-        <translation type="unfinished"></translation>
+        <translation>مسیر %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -30,87 +30,87 @@
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="472"/>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="484"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>هيچ</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="467"/>
         <source>Fade In</source>
-        <translation type="unfinished"></translation>
+        <translation>محو شدن در</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="468"/>
         <source>Fade Out</source>
-        <translation type="unfinished"></translation>
+        <translation>به تدریج محو شدن</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="469"/>
         <source>Fade In &amp; Out</source>
-        <translation type="unfinished"></translation>
+        <translation>محو شدن در داخل و خارج</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="473"/>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="485"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="550"/>
         <source>Random</source>
-        <translation type="unfinished"></translation>
+        <translation>تصادفی</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="474"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="831"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="834"/>
         <source>Zoom In</source>
-        <translation type="unfinished"></translation>
+        <translation>زوم به داخل</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="475"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="846"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="849"/>
         <source>Zoom Out</source>
-        <translation type="unfinished"></translation>
+        <translation>زوم به خارج</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="85"/>
         <source>Unsaved Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>تغییرات ذخیره‌نشده</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="85"/>
         <source>Save changes to project before closing?</source>
-        <translation type="unfinished"></translation>
+        <translation>ذخیره تغییرات به پروژه قبل از بسته شدن ؟</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="127"/>
         <source>Backup Recovered</source>
-        <translation type="unfinished"></translation>
+        <translation>پشتیبان گیری بازیافت</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="128"/>
         <source>Your most recent unsaved project has been recovered.</source>
-        <translation type="unfinished"></translation>
+        <translation>پروژه ذخیره نشده اخیر خود را بازیافت شده است.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="241"/>
         <source>Error Saving Project</source>
-        <translation type="unfinished"></translation>
+        <translation>خطا در ذخیره پروژه</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="278"/>
         <source>Error Opening Project</source>
-        <translation type="unfinished"></translation>
+        <translation>خطا در باز کردن پروژه</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="314"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="314"/>
         <source>Open Project...</source>
-        <translation type="unfinished"></translation>
+        <translation>بازکردن پروژه</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="314"/>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="327"/>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="371"/>
         <source>OpenShot Project (*.osp)</source>
-        <translation type="unfinished"></translation>
+        <translation>پروژه با قالب (* .osp )</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="326"/>
@@ -118,41 +118,41 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1240"/>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="104"/>
         <source>Untitled Project</source>
-        <translation type="unfinished"></translation>
+        <translation>پروژه بدون عنوان</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="327"/>
         <source>Save Project...</source>
-        <translation type="unfinished"></translation>
+        <translation>ذخیره پروژه</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="371"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="359"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="362"/>
         <source>Save Project As...</source>
-        <translation type="unfinished"></translation>
+        <translation>ذخیره پروژه به عنوان ...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="386"/>
         <source>Import File...</source>
-        <translation type="unfinished"></translation>
+        <translation>واردکردن فایل ...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1025"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1260"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1263"/>
         <source>Rename Track</source>
-        <translation type="unfinished"></translation>
+        <translation>تغییر نام آهنگ</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1025"/>
         <source>Track Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>نام آهنگ:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1327"/>
         <source>Recent Projects</source>
-        <translation type="unfinished"></translation>
+        <translation>پروژه های اخیر</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1366"/>
@@ -161,45 +161,45 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1541"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="286"/>
         <source>Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>فیلتر</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1454"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1634"/>
         <source>{} seconds</source>
-        <translation type="unfinished"></translation>
+        <translation>ثانیه {}</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="114"/>
         <source>&lt;Select a template&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt; انتخاب یک الگو &gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="323"/>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="342"/>
         <source>Select a Color</source>
-        <translation type="unfinished"></translation>
+        <translation>یک رنگ انتخاب کنید</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="361"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="240"/>
         <source>Change Font</source>
-        <translation type="unfinished"></translation>
+        <translation>تغییر قلم</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="592"/>
         <source>New Title</source>
-        <translation type="unfinished"></translation>
+        <translation>عنوان جدید</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="595"/>
         <source>Save Title As...</source>
-        <translation type="unfinished"></translation>
+        <translation>ذخیره به عنوان ...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="595"/>
         <source>Scalable Vector Graphics (*.svg)</source>
-        <translation type="unfinished"></translation>
+        <translation>گرافیک برداری مقیاس پذیر (svg.*)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="648"/>
@@ -208,57 +208,58 @@
         <location filename="../../../../openshot-qt-git/src/windows/views/files_listview.py" line="165"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/files_model.py" line="173"/>
         <source>{} is not a valid video, audio, or image file.</source>
-        <translation type="unfinished"></translation>
+        <translation>{} فایل تصویری، صوتی، و یا فایل تصویر معتبر نیست.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="677"/>
         <source>Please install {} to use this function</source>
-        <translation type="unfinished"></translation>
+        <translation>لطفا نصب {} استفاده از این تابع</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="269"/>
         <source>Restart Required</source>
-        <translation type="unfinished"></translation>
+        <translation>نیاز به راه‌اندازی مجدّد</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="270"/>
         <source>Please restart OpenShot for all preferences to take effect.</source>
-        <translation type="unfinished"></translation>
+        <translation>لطفا نرم افزار برای تمام تنظیمات راه اندازی مجدد کنید.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/cutting.py" line="190"/>
         <location filename="../../../../openshot-qt-git/src/windows/cutting.py" line="224"/>
         <source>Please choose valid &apos;start&apos; and &apos;end&apos; values for your clip.</source>
-        <translation type="unfinished"></translation>
+        <translation>لطفا &apos;شروع&apos; و «پایان» برای کلیپ خود را انتخاب کنید .</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/animated_title.py" line="85"/>
         <source>Render</source>
-        <translation type="unfinished"></translation>
+        <translation>رندر</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/animated_title.py" line="86"/>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="76"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="222"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>لغو</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/about.py" line="71"/>
         <source>Version: %s</source>
-        <translation type="unfinished"></translation>
+        <translation>نسخه: %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/about.py" line="152"/>
         <source>translator-credits</source>
         <translation>Launchpad Contributions:
+  RaymondDragon https://launchpad.net/~swordart2050
   Youhanna Parvizinejad https://launchpad.net/~parvizinejad</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/blender_treeview.py" line="169"/>
         <source>No Files Found</source>
-        <translation type="unfinished"></translation>
+        <translation>هیچ فایلی پیدا نشد</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/blender_treeview.py" line="461"/>
@@ -266,7 +267,10 @@
 
 Version Detected:
 {}</source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+نسخه شناسایی شده :
+{}</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/blender_treeview.py" line="464"/>
@@ -274,7 +278,10 @@ Version Detected:
 
 Error Output:
 {}</source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+خروجی خطا:
+{}</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/blender_treeview.py" line="471"/>
@@ -284,310 +291,315 @@ Please check the preferences in OpenShot and be sure the Blender executable is c
 
 Blender Path:
 {}{}</source>
-        <translation type="unfinished"></translation>
+        <translation>بلندر، منبع باز 3D برای ایجاد محتوا رایگان برای این عمل مورد نیاز است ( http://www.blender.org ).
+
+لطفا تنظیمات در OpenShot را چک کنید و مطمئن شوید که اجرایی بلندر درست است. این تنظیم باید مسیر از « blender » اجرا بر روی کامپیوتر شما می شود . همچنین، لطفا مطمئن باشید که آن است با اشاره به بلندر نسخه { } یا بیشتر است.
+
+راه بلندر :
+{} {}</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/blender_treeview.py" line="775"/>
         <source>No frame was found in the output from Blender</source>
-        <translation type="unfinished"></translation>
+        <translation>بدون چارچوب در خروجی از بلندر</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Start of Clip</source>
-        <translation type="unfinished"></translation>
+        <translation>شروع ویدیو</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>End of Clip</source>
-        <translation type="unfinished"></translation>
+        <translation>پایان ویدپو</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Entire Clip</source>
-        <translation type="unfinished"></translation>
+        <translation>کل ویدیو</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>عادی</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Fast</source>
-        <translation type="unfinished"></translation>
+        <translation>تند</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Slow</source>
-        <translation type="unfinished"></translation>
+        <translation>آهسته</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Forward</source>
-        <translation type="unfinished"></translation>
+        <translation>رو به جلو</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Backward</source>
-        <translation type="unfinished"></translation>
+        <translation>عقب</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="423"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1510"/>
         <source>Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>رونوشت</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="424"/>
         <source>Clip</source>
-        <translation type="unfinished"></translation>
+        <translation>ویدیو</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="426"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1513"/>
         <source>Keyframes</source>
-        <translation type="unfinished"></translation>
+        <translation>Keyframes</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="427"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1514"/>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation>همه</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="430"/>
         <source>Alpha</source>
-        <translation type="unfinished"></translation>
+        <translation>آلفا</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="432"/>
         <source>Scale</source>
-        <translation type="unfinished"></translation>
+        <translation>مقیاس</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="434"/>
         <source>Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>چرخش</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="436"/>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>مکان</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="438"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="595"/>
         <source>Time</source>
-        <translation type="unfinished"></translation>
+        <translation>زمان</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="440"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="619"/>
         <source>Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>حجم</translation>
         <extra-po-references>libopenshot (Clip Properties) Settings for volume</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="442"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="236"/>
         <source>Effects</source>
-        <translation type="unfinished"></translation>
+        <translation>افکت‌ها</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="448"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1525"/>
         <source>Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>جاگذاری</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="454"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="240"/>
         <source>Fade</source>
-        <translation type="unfinished"></translation>
+        <translation>محو کن</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/fade.svg</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="455"/>
         <source>No Fade</source>
-        <translation type="unfinished"></translation>
+        <translation>بدون محو شدن</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="462"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="627"/>
         <source>Fade In (Fast)</source>
-        <translation type="unfinished"></translation>
+        <translation>محو شدن در (سریع)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="464"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="629"/>
         <source>Fade In (Slow)</source>
-        <translation type="unfinished"></translation>
+        <translation>محو شدن در (آهسته)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="468"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="633"/>
         <source>Fade Out (Fast)</source>
-        <translation type="unfinished"></translation>
+        <translation>محو شدن در خارج (سریع)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="470"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="635"/>
         <source>Fade Out (Slow)</source>
-        <translation type="unfinished"></translation>
+        <translation>محو شدن در خارج (کند)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="474"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="639"/>
         <source>Fade In and Out (Fast)</source>
-        <translation type="unfinished"></translation>
+        <translation>محو شدن در داخل و خارج (سریع)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="476"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="641"/>
         <source>Fade In and Out (Slow)</source>
-        <translation type="unfinished"></translation>
+        <translation>محو شدن در داخل و خارج (آهسته)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="479"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="644"/>
         <source>Fade In (Entire Clip)</source>
-        <translation type="unfinished"></translation>
+        <translation>محو شدن در ( کل ویدیو )</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="481"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="646"/>
         <source>Fade Out (Entire Clip)</source>
-        <translation type="unfinished"></translation>
+        <translation>محو شدن در خارج ( کل ویدیو )</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="489"/>
         <source>Animate</source>
-        <translation type="unfinished"></translation>
+        <translation>پویانماسازی</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="490"/>
         <source>No Animation</source>
-        <translation type="unfinished"></translation>
+        <translation>بدون پویانمایی</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="497"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="307"/>
         <source>Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>بزرگ‌نمایی</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="498"/>
         <source>Zoom In (50% to 100%)</source>
-        <translation type="unfinished"></translation>
+        <translation>بزرگنمایی (50 ٪ تا 100٪ )</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="500"/>
         <source>Zoom In (75% to 100%)</source>
-        <translation type="unfinished"></translation>
+        <translation>بزرگنمایی (75 ٪ تا 100٪ )</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="502"/>
         <source>Zoom In (100% to 150%)</source>
-        <translation type="unfinished"></translation>
+        <translation>بزرگنمایی ( 100٪ به 150 ٪)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="504"/>
         <source>Zoom Out (100% to 75%)</source>
-        <translation type="unfinished"></translation>
+        <translation>کوچک نمایی (100 ٪ تا 75٪ )</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="506"/>
         <source>Zoom Out (100% to 50%)</source>
-        <translation type="unfinished"></translation>
+        <translation>کوچک نمایی (100 ٪ تا 50٪ )</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="508"/>
         <source>Zoom Out (150% to 100%)</source>
-        <translation type="unfinished"></translation>
+        <translation>کوچک نمایی (100 ٪ تا 150٪ )</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="513"/>
         <source>Center to Edge</source>
-        <translation type="unfinished"></translation>
+        <translation>وسط در لبه</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="514"/>
         <source>Center to Top</source>
-        <translation type="unfinished"></translation>
+        <translation>وسط در بالا</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="516"/>
         <source>Center to Left</source>
-        <translation type="unfinished"></translation>
+        <translation>وسط در چپ</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="518"/>
         <source>Center to Right</source>
-        <translation type="unfinished"></translation>
+        <translation>وسط در راست</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="520"/>
         <source>Center to Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>وسط در پایین</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="525"/>
         <source>Edge to Center</source>
-        <translation type="unfinished"></translation>
+        <translation>لبه در وسط</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="526"/>
         <source>Top to Center</source>
-        <translation type="unfinished"></translation>
+        <translation>بالا به وسط</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="528"/>
         <source>Left to Center</source>
-        <translation type="unfinished"></translation>
+        <translation>چپ به وسط</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="530"/>
         <source>Right to Center</source>
-        <translation type="unfinished"></translation>
+        <translation>راست به وسط</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="532"/>
         <source>Bottom to Center</source>
-        <translation type="unfinished"></translation>
+        <translation>پایین به وسط</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="537"/>
         <source>Edge to Edge</source>
-        <translation type="unfinished"></translation>
+        <translation>لبه به لبه</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="538"/>
         <source>Top to Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>بالا به پایین</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="540"/>
         <source>Left to Right</source>
-        <translation type="unfinished"></translation>
+        <translation>چپ به راست</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="542"/>
         <source>Right to Left</source>
-        <translation type="unfinished"></translation>
+        <translation>راست به چپ</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="544"/>
         <source>Bottom to Top</source>
-        <translation type="unfinished"></translation>
+        <translation>پایین به بالا</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="560"/>
         <source>Rotate</source>
-        <translation type="unfinished"></translation>
+        <translation>چرخاندن</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>

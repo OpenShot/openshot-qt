@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-03 22:58+0000\n"
-"PO-Revision-Date: 2016-01-19 21:28+0000\n"
-"Last-Translator: Wout Huygens <wout.huygens@telenet.be>\n"
+"PO-Revision-Date: 2016-02-23 14:54+0000\n"
+"Last-Translator: brent <Unknown>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-05 06:31+0000\n"
-"X-Generator: Launchpad (build 17908)\n"
+"X-Launchpad-Export-Date: 2016-02-24 05:50+0000\n"
+"X-Generator: Launchpad (build 17925)\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:463
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1023
@@ -184,7 +184,7 @@ msgstr "Installeer {} om deze functie te gebruiken"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:269
 msgid "Restart Required"
-msgstr ""
+msgstr "Herstart vereist"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:270
 msgid "Please restart OpenShot for all preferences to take effect."
@@ -227,6 +227,7 @@ msgstr ""
 "  Ward Muylaert https://launchpad.net/~ward-muylaert\n"
 "  Wout Huygens https://launchpad.net/~wout-huygens\n"
 "  Zittergie https://launchpad.net/~bart-dezitter\n"
+"  brent https://launchpad.net/~brentheijden9\n"
 "  hans van boven https://launchpad.net/~hvanboven\n"
 "  hvdwolf https://launchpad.net/~hvdwolf\n"
 "  mauder https://launchpad.net/~mauder\n"
@@ -256,6 +257,9 @@ msgid ""
 "Error Output:\n"
 "{}"
 msgstr ""
+"\n"
+"\n"
+"Fout"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/blender_treeview.py:471
 msgid ""
@@ -706,7 +710,7 @@ msgstr "Naam"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/transition_model.py:158
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/effects_model.py:150
 msgid "{} is not a valid image file."
-msgstr ""
+msgstr "Is geen geldig afbeelding bestand."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:67
 msgid "Email"
@@ -777,23 +781,23 @@ msgstr "Afbeeldingsreeks"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:123
 msgid "Mono (1 Channel)"
-msgstr ""
+msgstr "Mono (1 kanaal)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:124
 msgid "Stereo (2 Channel)"
-msgstr ""
+msgstr "Stereo (2 kanalen)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:125
 msgid "Surround (3 Channel)"
-msgstr ""
+msgstr "Surround (3 kanalen)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:126
 msgid "Surround (5.1 Channel)"
-msgstr ""
+msgstr "Surround (5.1 kanalen)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:127
 msgid "Surround (7.1 Channel)"
-msgstr ""
+msgstr "Surround (7.1 kanalen)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:192
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml
@@ -839,7 +843,7 @@ msgstr "Kies een map..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:625
 msgid "Export Error"
-msgstr ""
+msgstr "Exportfout"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:626
 #, python-format
@@ -1601,7 +1605,7 @@ msgstr "Lichter"
 
 #: libopenshot (Effect Metadata)
 msgid "Chroma Key (Greenscreen)"
-msgstr ""
+msgstr "Chroma Key (groen scherm)"
 
 #: libopenshot (Clip Properties)
 msgid "Viewport"
@@ -4109,7 +4113,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:109
 msgid "Youtube"
-msgstr ""
+msgstr "Youtube"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:151
 msgid "<html><head/><body><p>Title:</p></body></html>"

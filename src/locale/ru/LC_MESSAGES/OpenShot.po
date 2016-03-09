@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-03 22:58+0000\n"
-"PO-Revision-Date: 2016-01-11 12:43+0000\n"
-"Last-Translator: adem <adem4ik@gmail.com>\n"
+"PO-Revision-Date: 2016-02-13 09:20+0000\n"
+"Last-Translator: Stasia <scani@ukr.net>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-05 06:33+0000\n"
-"X-Generator: Launchpad (build 17908)\n"
+"X-Launchpad-Export-Date: 2016-02-14 06:12+0000\n"
+"X-Generator: Launchpad (build 17925)\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:463
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1023
@@ -63,19 +63,19 @@ msgstr "Уменьшить"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:85
 msgid "Unsaved Changes"
-msgstr ""
+msgstr "Несохраненные изменения"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:85
 msgid "Save changes to project before closing?"
-msgstr ""
+msgstr "Сохранить изменения в проект OpenShot (*.osp)?"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:127
 msgid "Backup Recovered"
-msgstr ""
+msgstr "Резервная копия восстановлена"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:128
 msgid "Your most recent unsaved project has been recovered."
-msgstr ""
+msgstr "Ваш последний несохраненный проект был восстановлен."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:241
 msgid "Error Saving Project"
@@ -146,7 +146,7 @@ msgstr "{} секунд"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:114
 msgid "<Select a template>"
-msgstr ""
+msgstr "<Выберите шаблон>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:323
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:342
@@ -156,7 +156,7 @@ msgstr "Выберите цвет"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:361
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:240
 msgid "Change Font"
-msgstr ""
+msgstr "Изменить шрифт"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:592
 msgid "New Title"
@@ -176,7 +176,7 @@ msgstr "Scalable Vector Graphics (*.svg)"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/files_listview.py:165
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/files_model.py:173
 msgid "{} is not a valid video, audio, or image file."
-msgstr ""
+msgstr "{} не является корректным видео, аудио или графическим файлом."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:677
 msgid "Please install {} to use this function"
@@ -184,11 +184,13 @@ msgstr "Пожалуйста, установите {}, чтобы восполь
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:269
 msgid "Restart Required"
-msgstr ""
+msgstr "Требуется перезапуск"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:270
 msgid "Please restart OpenShot for all preferences to take effect."
 msgstr ""
+"Пожалуйста, перезапустите OpenShot, чтобы сделанные настройки вступили в "
+"силу."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/cutting.py:190
 #: /home/jonathan/apps/openshot-qt-git/src/windows/cutting.py:224
@@ -241,6 +243,7 @@ msgstr ""
 "  Roman Yagodin https://launchpad.net/~roman-yagodin\n"
 "  Sergey Sedov https://launchpad.net/~serg-sedov\n"
 "  Sergiy Matrunchyk https://launchpad.net/~sergiy.matrunchyk\n"
+"  Stasia https://launchpad.net/~scani\n"
 "  Stepovanyi Ivan https://launchpad.net/~ivanamp-deactivatedaccount\n"
 "  Vadim Peretokin https://launchpad.net/~vperetokin\n"
 "  Vassili Minaev https://launchpad.net/~vminaev\n"
@@ -315,19 +318,19 @@ msgstr "Конец клипа"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Entire Clip"
-msgstr ""
+msgstr "Весь клип"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Normal"
-msgstr ""
+msgstr "Как обычно"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Fast"
-msgstr ""
+msgstr "Быстро"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Slow"
-msgstr ""
+msgstr "Медленно"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Forward"
@@ -335,7 +338,7 @@ msgstr "Вперёд"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Backward"
-msgstr ""
+msgstr "Перемотать назад"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:423
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1510
@@ -440,12 +443,12 @@ msgstr "Постепенное появление и исчезновение и
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:479
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:644
 msgid "Fade In (Entire Clip)"
-msgstr ""
+msgstr "Постепенное появление (всего клипа)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:481
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:646
 msgid "Fade Out (Entire Clip)"
-msgstr ""
+msgstr "Постепенное затемнение (всего клипа)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:489
 msgid "Animate"
@@ -486,7 +489,7 @@ msgstr "Уменьшить (от 150% до 100%)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:513
 msgid "Center to Edge"
-msgstr ""
+msgstr "От центра к краю"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:514
 msgid "Center to Top"
@@ -498,7 +501,7 @@ msgstr "Влево от центра"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:518
 msgid "Center to Right"
-msgstr ""
+msgstr "От центра направо"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:520
 msgid "Center to Bottom"
@@ -506,7 +509,7 @@ msgstr "Вниз от центра"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:525
 msgid "Edge to Center"
-msgstr ""
+msgstr "От края к центру"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:526
 msgid "Top to Center"
@@ -526,7 +529,7 @@ msgstr "От низа к центру"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:537
 msgid "Edge to Edge"
-msgstr ""
+msgstr "От края до края"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:538
 msgid "Top to Bottom"
@@ -736,7 +739,7 @@ msgstr "Название"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/transition_model.py:158
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/effects_model.py:150
 msgid "{} is not a valid image file."
-msgstr ""
+msgstr "{} не является корректным изображением."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:67
 msgid "Email"
@@ -744,7 +747,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:67
 msgid "Website"
-msgstr ""
+msgstr "Сайт"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:100
 msgid "PayPal Supporter!"
@@ -786,7 +789,7 @@ msgstr "Истина"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/files_model.py:100
 msgid "Tags"
-msgstr ""
+msgstr "Теги"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/effects_model.py:80
 msgid "Description"
@@ -807,11 +810,11 @@ msgstr "Последовательность изображений"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:123
 msgid "Mono (1 Channel)"
-msgstr ""
+msgstr "Моно"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:124
 msgid "Stereo (2 Channel)"
-msgstr ""
+msgstr "Стерео (2 канал)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:125
 msgid "Surround (3 Channel)"
@@ -869,7 +872,7 @@ msgstr "Выберите папку..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:625
 msgid "Export Error"
-msgstr ""
+msgstr "Ошибка экспорта"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:626
 #, python-format
@@ -1422,7 +1425,7 @@ msgstr "Уменьшить широту (градусы)"
 
 #: libopenshot (Effect Metadata)
 msgid "Adjust the color saturation."
-msgstr ""
+msgstr "Отрегулировать насыщенность цвета."
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml
 msgid "Oversaturate Color"
@@ -3583,7 +3586,7 @@ msgstr "Переходы"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:257
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1248
 msgid "Properties"
-msgstr ""
+msgstr "Свойства"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:299
 msgid "New Project..."
@@ -3595,7 +3598,7 @@ msgstr "Новый проект"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:305
 msgid "Ctrl+N"
-msgstr ""
+msgstr "Ctrl+N"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:317
 msgid "Open Project"
@@ -3603,7 +3606,7 @@ msgstr "Открыть проект"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:320
 msgid "Ctrl+O"
-msgstr ""
+msgstr "Ctrl+O"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:329
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:332
@@ -3612,7 +3615,7 @@ msgstr "Сохранить проект"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:335
 msgid "Ctrl+S"
-msgstr ""
+msgstr "Ctrl+S"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:344
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:347
@@ -3621,11 +3624,11 @@ msgstr "Отмена"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:350
 msgid "Ctrl+Z"
-msgstr ""
+msgstr "Ctrl+Z"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:365
 msgid "Ctrl+Shift+S"
-msgstr ""
+msgstr "Ctrl+Shift+S"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:374
 msgid "Import Files..."
@@ -3637,7 +3640,7 @@ msgstr "Импортировать файлы"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:380
 msgid "Ctrl+F"
-msgstr ""
+msgstr "Ctrl+F"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:389
 msgid "Import Image Sequence..."
@@ -3645,7 +3648,7 @@ msgstr "Импортировать набор изображений..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:395
 msgid "Ctrl+I"
-msgstr ""
+msgstr "Ctrl+I"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:404
 msgid "Import New Transition..."
@@ -3657,7 +3660,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:410
 msgid "Ctrl+W"
-msgstr ""
+msgstr "Ctrl+W"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:419
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:422
@@ -3666,7 +3669,7 @@ msgstr "Вернуть"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:425
 msgid "Ctrl+Y"
-msgstr ""
+msgstr "Ctrl+Y"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:434
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:437
@@ -3685,12 +3688,12 @@ msgstr "Сделать снимок"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:464
 msgid "Ctrl+D"
-msgstr ""
+msgstr "Ctrl+D"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:479
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1236
 msgid "Ctrl+E"
-msgstr ""
+msgstr "Ctrl+E"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:488
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:491
@@ -3699,7 +3702,7 @@ msgstr "Загрузить видео"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:494
 msgid "Ctrl+U"
-msgstr ""
+msgstr "Ctrl+U"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:504
 msgid "&Quit"
@@ -3711,7 +3714,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:510
 msgid "Ctrl+Q"
-msgstr ""
+msgstr "Ctrl+Q"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:522
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:525
@@ -3720,7 +3723,7 @@ msgstr "Добавить дорожку"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:534
 msgid "&Preferences"
-msgstr ""
+msgstr "&Параметры"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:537
 msgid "Preferences"
@@ -3728,7 +3731,7 @@ msgstr "Параметры"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:540
 msgid "Ctrl+P"
-msgstr ""
+msgstr "Ctrl+P"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:552
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:555
@@ -3824,7 +3827,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:868
 msgid "Ctrl+T"
-msgstr ""
+msgstr "Ctrl+T"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:878
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:881
@@ -3833,7 +3836,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:884
 msgid "Ctrl+B"
-msgstr ""
+msgstr "Ctrl+B"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:897
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:900
@@ -3847,25 +3850,25 @@ msgstr "F11"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:913
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:916
 msgid "Exit Fullscreen"
-msgstr ""
+msgstr "Выйти из полноэкранного режима"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:919
 msgid "Esc"
-msgstr ""
+msgstr "Выход"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:934
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:937
 msgid "View Toolbar"
-msgstr ""
+msgstr "Показать панель инструментов"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:952
 msgid "Ctrl+A"
-msgstr ""
+msgstr "Ctrl+A"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:964
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:967
 msgid "Icon View"
-msgstr ""
+msgstr "Просмотр в виде значков"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:976
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:979
@@ -3874,15 +3877,15 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:988
 msgid "Report a Bug..."
-msgstr ""
+msgstr "Сообщить об ошибке..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:997
 msgid "Ask a Question..."
-msgstr ""
+msgstr "Задать вопрос..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1006
 msgid "Translate this Application..."
-msgstr ""
+msgstr "Перевести это приложение…"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1015
 msgid "Donate"
@@ -3978,7 +3981,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1245
 msgid "&Properties"
-msgstr ""
+msgstr "&Свойства"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/presets.ui:14
 msgid "Export with FFmpeg Command"
@@ -4074,7 +4077,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:297
 msgid "Use Advanced Editor"
-msgstr ""
+msgstr "Использовать продвинутый редактор"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:320
 msgid "Line 6:"
@@ -4109,7 +4112,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:109
 msgid "Youtube"
-msgstr ""
+msgstr "Youtube"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:151
 msgid "<html><head/><body><p>Title:</p></body></html>"

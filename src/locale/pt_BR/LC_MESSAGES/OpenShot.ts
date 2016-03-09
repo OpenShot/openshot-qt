@@ -2,13 +2,13 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="br_FR">
     <extra-po-header-language_team>Brazilian Portuguese &lt;pt_BR@li.org&gt;</extra-po-header-language_team>
-    <extra-po-header-last_translator>RoDoLFo TX &lt;Unknown&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-01-27 22:10+0000</extra-po-header-po_revision_date>
+    <extra-po-header-last_translator>Alexandre Sapata Carbonell &lt;alexandrenescau@gmail.com&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2016-03-02 16:43+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2016-02-03 22:58+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 17908)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-02-05 06:34+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 17925)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2016-03-03 06:14+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Brazilian Portuguese translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -87,12 +87,12 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="127"/>
         <source>Backup Recovered</source>
-        <translation type="unfinished"></translation>
+        <translation>Cópia de segurança restaurada</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="128"/>
         <source>Your most recent unsaved project has been recovered.</source>
-        <translation type="unfinished"></translation>
+        <translation>Seu projeto mais recente não salvo foi recuperado</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="241"/>
@@ -213,7 +213,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/views/files_listview.py" line="165"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/files_model.py" line="173"/>
         <source>{} is not a valid video, audio, or image file.</source>
-        <translation type="unfinished"></translation>
+        <translation>{} não é um arquivo de vídeo, aúdio, ou imagem válido.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="677"/>
@@ -223,18 +223,18 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="269"/>
         <source>Restart Required</source>
-        <translation type="unfinished"></translation>
+        <translation>Reinicialização necessária</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="270"/>
         <source>Please restart OpenShot for all preferences to take effect.</source>
-        <translation type="unfinished"></translation>
+        <translation>Por favor reinicie o Openshot para todas as preferências ter efeito.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/cutting.py" line="190"/>
         <location filename="../../../../openshot-qt-git/src/windows/cutting.py" line="224"/>
         <source>Please choose valid &apos;start&apos; and &apos;end&apos; values for your clip.</source>
-        <translation type="unfinished"></translation>
+        <translation>Por favor escolha um valor válido de &apos;início&apos; e  &apos;fim&apos; para seu clipe.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/animated_title.py" line="85"/>
@@ -259,6 +259,7 @@
         <source>translator-credits</source>
         <translation>Launchpad Contributions:
   Adriano Steffler https://launchpad.net/~adrianosteffler
+  Alexandre Sapata Carbonell https://launchpad.net/~alexandre-sapata-carbonell
   Andre Noel https://launchpad.net/~andrenoel
   André Gondim https://launchpad.net/~andregondim
   Arthur Henrique Guimarães de Oliveira https://launchpad.net/~warthur2
@@ -276,6 +277,7 @@
   Itamar Carvalho https://launchpad.net/~itamarc
   JdSolucoes https://launchpad.net/~jd-solucoes
   John Norum https://launchpad.net/~john-norum4
+  Jonathan Thomas https://launchpad.net/~jonoomph
   Kenzo Martins Matuzawa https://launchpad.net/~kenzo-matuzawa
   Laete Meireles do Nascimento https://launchpad.net/~laetemn
   Leonardo Bruno Lopes https://launchpad.net/~leobruno
@@ -304,6 +306,7 @@
   Vitor da Silva Gonçalves https://launchpad.net/~vitorsgoncalves
   Waldir Leoncio https://launchpad.net/~wleoncio
   Wille https://launchpad.net/~wille-riseup
+  amilton cavalcante https://launchpad.net/~amiltonpc
   hosios https://launchpad.net/~paulg-janzen
   ian57 https://launchpad.net/~ian-morere
   lukinhas64bits https://launchpad.net/~vargas-lucas
@@ -885,7 +888,7 @@ Caminho do Blander:
         <location filename="../../../../openshot-qt-git/src/windows/models/transition_model.py" line="158"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/effects_model.py" line="150"/>
         <source>{} is not a valid image file.</source>
-        <translation type="unfinished"></translation>
+        <translation>{} não é um arquivo de imagem válido.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="67"/>
@@ -900,17 +903,17 @@ Caminho do Blander:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="100"/>
         <source>PayPal Supporter!</source>
-        <translation type="unfinished"></translation>
+        <translation>Patrocinador PayPal!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="108"/>
         <source>Kickstarter Supporter!</source>
-        <translation type="unfinished"></translation>
+        <translation>Patrocinador Kickstarter!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="116"/>
         <source>Multiple Contributions!</source>
-        <translation type="unfinished"></translation>
+        <translation>Contribuições Múltiplas</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="358"/>
@@ -1047,13 +1050,14 @@ Caminho do Blander:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="625"/>
         <source>Export Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erro de Exportação</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="626"/>
         <source>Sorry, there was an error exporting your video: 
 %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Desculpe, ocorreu um erro durante a exportação do seu vídeo: 
+%s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -3119,7 +3123,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Autosave Interval (minutes)</source>
-        <translation type="unfinished"></translation>
+        <translation>Intervalo de salvamento automático  (minutos)</translation>
         <extra-po-references>Settings for autosave-interval</extra-po-references>
     </message>
     <message>
@@ -3179,7 +3183,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Debug Mode (Verbose)</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo depuração (Verbose)</translation>
         <extra-po-references>Settings for debug-mode</extra-po-references>
     </message>
     <message>
@@ -3219,7 +3223,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Fractal %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Fractal %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fractal_5.jpg</extra-po-references>
     </message>
     <message>
@@ -3446,7 +3450,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Central mozaic</source>
-        <translation type="unfinished"></translation>
+        <translation>Mosaico central</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/central_mozaic.jpg</extra-po-references>
     </message>
     <message>
@@ -3471,7 +3475,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Postime %s</source>
-        <translation>Pós tempo %s</translation>
+        <translation>Pós tempo  %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/postime_1.jpg</extra-po-references>
     </message>
     <message>
@@ -3496,7 +3500,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Fish-eyes %s</source>
-        <translation>Oho de peixe %s</translation>
+        <translation>Olho de peixe %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fish-eyes_5.jpg</extra-po-references>
     </message>
     <message>
@@ -3506,7 +3510,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Mozaic %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Mosaico %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_5.jpg</extra-po-references>
     </message>
     <message>

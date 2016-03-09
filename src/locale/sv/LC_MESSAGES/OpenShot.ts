@@ -2,13 +2,13 @@
 <!DOCTYPE TS>
 <TS version="2.1">
     <extra-po-header-language_team>Swedish &lt;sv@li.org&gt;</extra-po-header-language_team>
-    <extra-po-header-last_translator>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-01-11 05:40+0000</extra-po-header-po_revision_date>
+    <extra-po-header-last_translator>Kristoffer Grundström &lt;kristoffer.grundstrom1983@gmail.com&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2016-02-28 22:50+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2016-02-03 22:58+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 17908)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-02-05 06:33+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 17925)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2016-02-29 05:59+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Swedish translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -72,7 +72,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="85"/>
         <source>Unsaved Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Osparade ändringar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="85"/>
@@ -82,7 +82,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="127"/>
         <source>Backup Recovered</source>
-        <translation type="unfinished"></translation>
+        <translation>Återhämtade säkerhetskopian</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="128"/>
@@ -118,7 +118,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1240"/>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="104"/>
         <source>Untitled Project</source>
-        <translation type="unfinished"></translation>
+        <translation>Projekt utan titel</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="327"/>
@@ -167,7 +167,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1454"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1634"/>
         <source>{} seconds</source>
-        <translation type="unfinished"></translation>
+        <translation>{} sekunder</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="114"/>
@@ -199,7 +199,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="595"/>
         <source>Scalable Vector Graphics (*.svg)</source>
-        <translation type="unfinished"></translation>
+        <translation>Skalbar vektorgrafik (*.svg)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="648"/>
@@ -260,6 +260,7 @@
   Henrik Hoff https://launchpad.net/~henrikhoff
   Henrik Tjäder https://launchpad.net/~henrik-tjader
   John Rüdén https://launchpad.net/~john-ruden
+  Kristoffer Grundström https://launchpad.net/~umeaboy
   Magnus Sandin https://launchpad.net/~muk
   Martin Lindhe https://launchpad.net/~martinlindhe
   Mattias Ohlsson https://launchpad.net/~mattias-oh

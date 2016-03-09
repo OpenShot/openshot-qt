@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-03 22:58+0000\n"
-"PO-Revision-Date: 2016-01-27 22:10+0000\n"
-"Last-Translator: RoDoLFo TX <Unknown>\n"
+"PO-Revision-Date: 2016-03-02 16:43+0000\n"
+"Last-Translator: Alexandre Sapata Carbonell <alexandrenescau@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-05 06:34+0000\n"
-"X-Generator: Launchpad (build 17908)\n"
+"X-Launchpad-Export-Date: 2016-03-03 06:14+0000\n"
+"X-Generator: Launchpad (build 17925)\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1028
 msgid "Open Help Contents"
@@ -75,11 +75,11 @@ msgstr "Salvar alterações no Projeto antes de Fechar?"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:127
 msgid "Backup Recovered"
-msgstr ""
+msgstr "Cópia de segurança restaurada"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:128
 msgid "Your most recent unsaved project has been recovered."
-msgstr ""
+msgstr "Seu projeto mais recente não salvo foi recuperado"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:241
 msgid "Error Saving Project"
@@ -180,7 +180,7 @@ msgstr "Gráficos vetoriais escaláveis"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/files_listview.py:165
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/files_model.py:173
 msgid "{} is not a valid video, audio, or image file."
-msgstr ""
+msgstr "{} não é um arquivo de vídeo, aúdio, ou imagem válido."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:677
 msgid "Please install {} to use this function"
@@ -188,16 +188,16 @@ msgstr "Favor instalar {} para usar esta funcionalidade"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:269
 msgid "Restart Required"
-msgstr ""
+msgstr "Reinicialização necessária"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:270
 msgid "Please restart OpenShot for all preferences to take effect."
-msgstr ""
+msgstr "Por favor reinicie o Openshot para todas as preferências ter efeito."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/cutting.py:190
 #: /home/jonathan/apps/openshot-qt-git/src/windows/cutting.py:224
 msgid "Please choose valid 'start' and 'end' values for your clip."
-msgstr ""
+msgstr "Por favor escolha um valor válido de 'início' e  'fim' para seu clipe."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/animated_title.py:85
 msgid "Render"
@@ -219,6 +219,8 @@ msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Adriano Steffler https://launchpad.net/~adrianosteffler\n"
+"  Alexandre Sapata Carbonell https://launchpad.net/~alexandre-sapata-"
+"carbonell\n"
 "  Andre Noel https://launchpad.net/~andrenoel\n"
 "  André Gondim https://launchpad.net/~andregondim\n"
 "  Arthur Henrique Guimarães de Oliveira https://launchpad.net/~warthur2\n"
@@ -236,6 +238,7 @@ msgstr ""
 "  Itamar Carvalho https://launchpad.net/~itamarc\n"
 "  JdSolucoes https://launchpad.net/~jd-solucoes\n"
 "  John Norum https://launchpad.net/~john-norum4\n"
+"  Jonathan Thomas https://launchpad.net/~jonoomph\n"
 "  Kenzo Martins Matuzawa https://launchpad.net/~kenzo-matuzawa\n"
 "  Laete Meireles do Nascimento https://launchpad.net/~laetemn\n"
 "  Leonardo Bruno Lopes https://launchpad.net/~leobruno\n"
@@ -264,6 +267,7 @@ msgstr ""
 "  Vitor da Silva Gonçalves https://launchpad.net/~vitorsgoncalves\n"
 "  Waldir Leoncio https://launchpad.net/~wleoncio\n"
 "  Wille https://launchpad.net/~wille-riseup\n"
+"  amilton cavalcante https://launchpad.net/~amiltonpc\n"
 "  hosios https://launchpad.net/~paulg-janzen\n"
 "  ian57 https://launchpad.net/~ian-morere\n"
 "  lukinhas64bits https://launchpad.net/~vargas-lucas\n"
@@ -756,7 +760,7 @@ msgstr "Nome"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/transition_model.py:158
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/effects_model.py:150
 msgid "{} is not a valid image file."
-msgstr ""
+msgstr "{} não é um arquivo de imagem válido."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:67
 msgid "Email"
@@ -768,15 +772,15 @@ msgstr "Página web"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:100
 msgid "PayPal Supporter!"
-msgstr ""
+msgstr "Patrocinador PayPal!"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:108
 msgid "Kickstarter Supporter!"
-msgstr ""
+msgstr "Patrocinador Kickstarter!"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:116
 msgid "Multiple Contributions!"
-msgstr ""
+msgstr "Contribuições Múltiplas"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:358
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:561
@@ -889,7 +893,7 @@ msgstr "Escolha uma Pasta..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:625
 msgid "Export Error"
-msgstr ""
+msgstr "Erro de Exportação"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:626
 #, python-format
@@ -897,6 +901,8 @@ msgid ""
 "Sorry, there was an error exporting your video: \n"
 "%s"
 msgstr ""
+"Desculpe, ocorreu um erro durante a exportação do seu vídeo: \n"
+"%s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml
 msgid "Convert an image to shades of grey"
@@ -2580,7 +2586,7 @@ msgstr "MOV (h.264)"
 
 #: Settings for autosave-interval
 msgid "Autosave Interval (minutes)"
-msgstr ""
+msgstr "Intervalo de salvamento automático  (minutos)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/youtube_HD.xml
 msgid "YouTube-HD"
@@ -2628,7 +2634,7 @@ msgstr "DVD-NTSC"
 
 #: Settings for debug-mode
 msgid "Debug Mode (Verbose)"
-msgstr ""
+msgstr "Modo depuração (Verbose)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_pal.xml
 msgid "DVD-PAL"
@@ -2660,7 +2666,7 @@ msgstr "Limpar da direita para a esquerda"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/fractal_5.jpg
 msgid "Fractal %s"
-msgstr ""
+msgstr "Fractal %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_left_inspiration.jpg
 msgid "Middle left inspiration"
@@ -2842,7 +2848,7 @@ msgstr "Nuvens"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/central_mozaic.jpg
 msgid "Central mozaic"
-msgstr ""
+msgstr "Mosaico central"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_top_arrow.jpg
 msgid "Middle top arrow"
@@ -2862,7 +2868,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/postime_1.jpg
 msgid "Postime %s"
-msgstr "Pós tempo %s"
+msgstr "Pós tempo  %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/horizontal_barr_1.jpg
 msgid "Horizontal barr %s"
@@ -2882,7 +2888,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/fish-eyes_5.jpg
 msgid "Fish-eyes %s"
-msgstr "Oho de peixe %s"
+msgstr "Olho de peixe %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_left_barr.jpg
 msgid "Square middle left barr"
@@ -2890,7 +2896,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_5.jpg
 msgid "Mozaic %s"
-msgstr ""
+msgstr "Mosaico %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_left_inspiration.jpg
 msgid "Little left inspiration"

@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.1">
+    <extra-po-header-language>pt</extra-po-header-language>
     <extra-po-header-language_team>Portuguese &lt;pt@li.org&gt;</extra-po-header-language_team>
-    <extra-po-header-last_translator>Jonathan Thomas &lt;jonathan@openshot.org&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-01-22 07:16+0000</extra-po-header-po_revision_date>
+    <extra-po-header-last_translator>manu &lt;manu.fg@gmail.com&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2016-03-07 19:42+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2016-02-03 22:58+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 17908)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-02-05 06:33+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 17936)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2016-03-08 05:55+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Portuguese translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
 # FIRST AUTHOR &lt;EMAIL@ADDRESS&gt;, 2016.
 #</extra-po-header_comment>
-    <extra-po-headers>Project-Id-Version,Report-Msgid-Bugs-To,POT-Creation-Date,PO-Revision-Date,Last-Translator,Language-Team,MIME-Version,Content-Type,Content-Transfer-Encoding,X-Launchpad-Export-Date,X-Generator</extra-po-headers>
+    <extra-po-headers>Project-Id-Version,Report-Msgid-Bugs-To,POT-Creation-Date,PO-Revision-Date,Last-Translator,Language-Team,MIME-Version,Content-Type,Content-Transfer-Encoding,X-Launchpad-Export-Date,X-Generator,Language</extra-po-headers>
 <context>
     <name></name>
     <message>
@@ -22,7 +23,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1023"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="157"/>
         <source>Track %s</source>
-        <translation>Ίχνος %s</translation>
+        <translation>Faixa %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -30,87 +31,87 @@
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="472"/>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="484"/>
         <source>None</source>
-        <translation>Κανένα</translation>
+        <translation>Nenhum</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="467"/>
         <source>Fade In</source>
-        <translation>Βαθμιαία είσοδος (fade in)</translation>
+        <translation>Avivar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="468"/>
         <source>Fade Out</source>
-        <translation>Βαθμιαία έξοδος (fade out)</translation>
+        <translation>Desvanecer</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="469"/>
         <source>Fade In &amp; Out</source>
-        <translation>Βαθμιαία είσοδος &amp; έξοδος</translation>
+        <translation>Surgir e Desvanecer</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="473"/>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="485"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="550"/>
         <source>Random</source>
-        <translation>Τυχαία</translation>
+        <translation>Aleatório</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="474"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="831"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="834"/>
         <source>Zoom In</source>
-        <translation>Μεγέθυνση</translation>
+        <translation>Mais Zoom</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="475"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="846"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="849"/>
         <source>Zoom Out</source>
-        <translation>Σμίκρυνση</translation>
+        <translation>Menos Zoom</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="85"/>
         <source>Unsaved Changes</source>
-        <translation>Μη αποθηκευμένες αλλαγές</translation>
+        <translation>Alterações Não Gravadas</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="85"/>
         <source>Save changes to project before closing?</source>
-        <translation>Αποθήκευση αλλαγών στο έργο πριν το κλείσιμο;</translation>
+        <translation>Guardar alterações antes de fechar?</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="127"/>
         <source>Backup Recovered</source>
-        <translation type="unfinished"></translation>
+        <translation>Cópia de segurança recuperada</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="128"/>
         <source>Your most recent unsaved project has been recovered.</source>
-        <translation type="unfinished"></translation>
+        <translation>O seu projecto mais recente não guardado foi recuperado.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="241"/>
         <source>Error Saving Project</source>
-        <translation>Σφάλμα Αποθήκευσης Έργου</translation>
+        <translation>Erro a Salvar o Projeto</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="278"/>
         <source>Error Opening Project</source>
-        <translation>Σφάλμα Ανοίγματος Έργου</translation>
+        <translation>Erro a abrir o Projeto</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="314"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="314"/>
         <source>Open Project...</source>
-        <translation>Άνοιγμα έργου...</translation>
+        <translation>Abrir Projecto...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="314"/>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="327"/>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="371"/>
         <source>OpenShot Project (*.osp)</source>
-        <translation>Έργο OpenShot (*.osp)</translation>
+        <translation>Projecto OpenShot (*.osp)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="326"/>
@@ -118,41 +119,41 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1240"/>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="104"/>
         <source>Untitled Project</source>
-        <translation>Έργο Χωρίς Τίτλο</translation>
+        <translation>Projecto sem nome</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="327"/>
         <source>Save Project...</source>
-        <translation>Αποθήκευση Έργου...</translation>
+        <translation>Salvar projecto...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="371"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="359"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="362"/>
         <source>Save Project As...</source>
-        <translation>Αποθήκευση έργου ως...</translation>
+        <translation>Salvar projecto como...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="386"/>
         <source>Import File...</source>
-        <translation>Εισαγωγή Αρχείου</translation>
+        <translation>Importar Ficheiro...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1025"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1260"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1263"/>
         <source>Rename Track</source>
-        <translation>Μετονομασία κομματιού</translation>
+        <translation>Renomear Faixa</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1025"/>
         <source>Track Name:</source>
-        <translation>Όνομα Ίχνους:</translation>
+        <translation>Nome da Faixa:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1327"/>
         <source>Recent Projects</source>
-        <translation>Πρόσφατα έργα</translation>
+        <translation>Projectos Recentes</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1366"/>
@@ -161,45 +162,45 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1541"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="286"/>
         <source>Filter</source>
-        <translation>Φίλτρο</translation>
+        <translation>Filtro</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1454"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1634"/>
         <source>{} seconds</source>
-        <translation>{} δευτερόλεπτα</translation>
+        <translation>{} segundos</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="114"/>
         <source>&lt;Select a template&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;Selecionar modelo&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="323"/>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="342"/>
         <source>Select a Color</source>
-        <translation>Επιλέξτε ένα Χρώμα</translation>
+        <translation>Selecionar uma Cor</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="361"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="240"/>
         <source>Change Font</source>
-        <translation>Αλλαγή Γραμματοσειράς</translation>
+        <translation>Alterar Tipo de Letra</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="592"/>
         <source>New Title</source>
-        <translation>Νέος τίτλος</translation>
+        <translation>Novo Título</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="595"/>
         <source>Save Title As...</source>
-        <translation>Αποθήκευση Τίτλου Ως...</translation>
+        <translation>Salvar Título como...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="595"/>
         <source>Scalable Vector Graphics (*.svg)</source>
-        <translation>Επιλογή Vector Graphics (*.svg)</translation>
+        <translation>Gráficos Vectorias escaláveis (*.svg)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="648"/>
@@ -208,45 +209,45 @@
         <location filename="../../../../openshot-qt-git/src/windows/views/files_listview.py" line="165"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/files_model.py" line="173"/>
         <source>{} is not a valid video, audio, or image file.</source>
-        <translation type="unfinished"></translation>
+        <translation>{} não é um ficheiro de video, áudio ou imagem válido.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="677"/>
         <source>Please install {} to use this function</source>
-        <translation>Παρακαλώ εγκαταστήστε το {} για να χρησιμοποιήσετε αυτή την λειτουργία.</translation>
+        <translation>Por favor instale {} para usar esta função</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="269"/>
         <source>Restart Required</source>
-        <translation type="unfinished"></translation>
+        <translation>É necessário reiniciar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="270"/>
         <source>Please restart OpenShot for all preferences to take effect.</source>
-        <translation type="unfinished"></translation>
+        <translation>Por favor reinicie o Openshot para aplicar todas as preferências.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/cutting.py" line="190"/>
         <location filename="../../../../openshot-qt-git/src/windows/cutting.py" line="224"/>
         <source>Please choose valid &apos;start&apos; and &apos;end&apos; values for your clip.</source>
-        <translation type="unfinished"></translation>
+        <translation>Por favor escolha um valor correcto para o &apos;início&apos; e o &apos;fim&apos; do seu clip.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/animated_title.py" line="85"/>
         <source>Render</source>
-        <translation>Απόδοση</translation>
+        <translation>Processar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/animated_title.py" line="86"/>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="76"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="222"/>
         <source>Cancel</source>
-        <translation>Ακύρωση</translation>
+        <translation>Cancelar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/about.py" line="71"/>
         <source>Version: %s</source>
-        <translation>Έκδοση: %s</translation>
+        <translation>Versão: %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -258,6 +259,7 @@
   Francois Thunus https://launchpad.net/~thunus
   Gilberto Ribeiro Conde https://launchpad.net/~gilbertorconde
   Helder Meneses https://launchpad.net/~geneiros
+  JP https://launchpad.net/~caldas-lopes
   Jonathan Thomas https://launchpad.net/~jonoomph
   Leor Flor https://launchpad.net/~leor-bi-otti-flor
   Luis Fernandes https://launchpad.net/~luis-m-r-fernandes
@@ -269,15 +271,18 @@
   Tiago Belo https://launchpad.net/~tiagombelo
   Tiago S. https://launchpad.net/~tiagosdot
   Victor Cardoso https://launchpad.net/~victor-gscardoso
+  cirix https://launchpad.net/~cirix81
   daniel brenha https://launchpad.net/~dbrenha
   eSkiSo https://launchpad.net/~wise-gdr
+  manu https://launchpad.net/~manu-fg
   mrbueno https://launchpad.net/~dougb888
-  rogper https://launchpad.net/~rogpertoons</translation>
+  rogper https://launchpad.net/~rogpertoons
+  romeu ferreira https://launchpad.net/~romeu-pereira</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/blender_treeview.py" line="169"/>
         <source>No Files Found</source>
-        <translation>Δε Βρέθηκαν Αρχεία</translation>
+        <translation>Nenhum Ficheiro Encontrado</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/blender_treeview.py" line="461"/>
@@ -287,7 +292,7 @@ Version Detected:
 {}</source>
         <translation>
 
-Βρέθηκε Έκδοση:
+Versão detectada:
 {}</translation>
     </message>
     <message>
@@ -298,7 +303,7 @@ Error Output:
 {}</source>
         <translation>
 
-Σφάλμα Εξόδου:
+Erro de saída:
 {}</translation>
     </message>
     <message>
@@ -309,29 +314,32 @@ Please check the preferences in OpenShot and be sure the Blender executable is c
 
 Blender Path:
 {}{}</source>
-        <translation>Για να γίνει αυτή η ενέργεια, είναι απαραίτητο το πρόγραμμα Blender, μια ελεύθερη και δωρεαν σουίτα δημιουργίας 3D περιεχομένου (http://www.blender.org)
+        <translation>Blender, a suite open source de criação de conteúdo 3D é necessária para esta ação  (http://www.blender.org).
 
-Παρακαλώ ελέγξτε τις προτιμήσεις του OpenShot και σιγουρευτείτε ότι η ρύθμιση για το Blender executable είναι σωστή. Αυτή η ρύθμιση πρέπει να αντιστοιχεί στο μονοπάτι (path) του εκτελέσιμου &apos;blender&apos; στον υπολογιστή σας. Επίσης, σιγουρευτείτε ότι η έκδοση Blender στην οποία δείχνει το μονοπάτι είναι η {} ή ανώτερη.</translation>
+Por favor verifique as configurações do OpenShot e certifique-se que o executável do Blender é o correto. Esta definição deve ser o caminho para o executável do &apos;blender&apos; no seu computador. Verifique também que este se refere à  versão {} do Blender ou maior.
+
+Caminho do Blender:
+{}{}</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/blender_treeview.py" line="775"/>
         <source>No frame was found in the output from Blender</source>
-        <translation>Δεν βρέθηκε κάποιο πλαίσιο από την έξοδο του Blender</translation>
+        <translation>Nenhuma quadro foi encontrado na saida do Blender</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Start of Clip</source>
-        <translation>Αρχή του κλιπ</translation>
+        <translation>Início do Clip</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>End of Clip</source>
-        <translation>Τέλος του κλιπ</translation>
+        <translation>Fim do Clip</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Entire Clip</source>
-        <translation>Clipe Inteiro</translation>
+        <translation>Clip inteiro</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
@@ -351,7 +359,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Forward</source>
-        <translation>Μπροστά</translation>
+        <translation>Avançar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
@@ -362,466 +370,466 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="423"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1510"/>
         <source>Copy</source>
-        <translation>Αντιγραφή</translation>
+        <translation>Copiar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="424"/>
         <source>Clip</source>
-        <translation>Κλιπ</translation>
+        <translation>Clip</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="426"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1513"/>
         <source>Keyframes</source>
-        <translation>Βασικά καρέ (keyframes)</translation>
+        <translation>Quadros-chave</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="427"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1514"/>
         <source>All</source>
-        <translation>Όλα</translation>
+        <translation>Todos</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="430"/>
         <source>Alpha</source>
-        <translation>Διαφάνεια (Alpha)</translation>
+        <translation>Alfa</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="432"/>
         <source>Scale</source>
-        <translation>Κλίμακα</translation>
+        <translation>Ajustar</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="434"/>
         <source>Rotation</source>
-        <translation>Περιστροφή</translation>
+        <translation>Rotação</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="436"/>
         <source>Location</source>
-        <translation>Τοποθεσία</translation>
+        <translation>Localização</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="438"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="595"/>
         <source>Time</source>
-        <translation>Χρόνος</translation>
+        <translation>Tempo</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="440"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="619"/>
         <source>Volume</source>
-        <translation>Ένταση</translation>
+        <translation>Volume</translation>
         <extra-po-references>libopenshot (Clip Properties) Settings for volume</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="442"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="236"/>
         <source>Effects</source>
-        <translation>Εφέ</translation>
+        <translation>Efeitos</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="448"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1525"/>
         <source>Paste</source>
-        <translation>Επικόλληση</translation>
+        <translation>Colar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="454"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="240"/>
         <source>Fade</source>
-        <translation>Βαθμιαία εμφάνιση (Fade)</translation>
+        <translation>Desvanecer</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/fade.svg</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="455"/>
         <source>No Fade</source>
-        <translation>Χωρίς Βαθμιαία εμφάνιση</translation>
+        <translation>Sem desvanecer</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="462"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="627"/>
         <source>Fade In (Fast)</source>
-        <translation>Βαθμιαία είσοδος (γρήγορα)</translation>
+        <translation>Avivar(Rápido)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="464"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="629"/>
         <source>Fade In (Slow)</source>
-        <translation>Βαθμιαία είσοδος (αργά)</translation>
+        <translation>Avivar(Lento)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="468"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="633"/>
         <source>Fade Out (Fast)</source>
-        <translation>Βαθμιαία έξοδος (γρήγορα)</translation>
+        <translation>Desvanecer(Rápido)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="470"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="635"/>
         <source>Fade Out (Slow)</source>
-        <translation>Βαθμιαία έξοδος (αργά)</translation>
+        <translation>Desvanecer(Lento)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="474"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="639"/>
         <source>Fade In and Out (Fast)</source>
-        <translation>Βαθμιαία είσοδος και έξοδος (γρήγορα)</translation>
+        <translation>Avivar e Desvanecer(Rápido)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="476"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="641"/>
         <source>Fade In and Out (Slow)</source>
-        <translation>Βαθμιαία είσοδος και έξοδος (αργά)</translation>
+        <translation>Avivar e Desvanecer(Lento)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="479"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="644"/>
         <source>Fade In (Entire Clip)</source>
-        <translation>Βαθμιαία Eίσοδος (Όλο το Κλιπ)</translation>
+        <translation>Avivar(Totalidade do clip)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="481"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="646"/>
         <source>Fade Out (Entire Clip)</source>
-        <translation>Βαθμιαία Έξοδος (Όλο το Κλιπ)</translation>
+        <translation>Desvanecer(Totalidade do clip)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="489"/>
         <source>Animate</source>
-        <translation>Εφέ κίνησης</translation>
+        <translation>Animar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="490"/>
         <source>No Animation</source>
-        <translation>Χωρίς εφέ κίνησης</translation>
+        <translation>Sem Animação</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="497"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="307"/>
         <source>Zoom</source>
-        <translation>Μεγένθυση</translation>
+        <translation>Zoom</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="498"/>
         <source>Zoom In (50% to 100%)</source>
-        <translation>Μεγέθυνση (από 50% σε 100%)</translation>
+        <translation>Ampliar Zoom (50% a 100%)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="500"/>
         <source>Zoom In (75% to 100%)</source>
-        <translation>μεγέθυνση (75% σε 100%)</translation>
+        <translation>Ampliar Zoom (75% a 100%)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="502"/>
         <source>Zoom In (100% to 150%)</source>
-        <translation>Μεγέθυνση (από 100% σε 150%)</translation>
+        <translation>Ampliar Zoom (100% a 150%)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="504"/>
         <source>Zoom Out (100% to 75%)</source>
-        <translation>σμίκρυνση (100% σε 75%)</translation>
+        <translation>Reduzir Zoom (100% a 75%)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="506"/>
         <source>Zoom Out (100% to 50%)</source>
-        <translation>Σμίκρυνση (από 100% σε 50%)</translation>
+        <translation>Reduzir Zoom (100% a 50%)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="508"/>
         <source>Zoom Out (150% to 100%)</source>
-        <translation>Σμίκρυνση (από 150% σε 100%)</translation>
+        <translation>Reduzir Zoom(150% a 100%)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="513"/>
         <source>Center to Edge</source>
-        <translation>Κεντράρισμα στην Άκρη</translation>
+        <translation>Do Centro para a Borda</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="514"/>
         <source>Center to Top</source>
-        <translation>Από το κέντρο προς τα πάνω</translation>
+        <translation>Do Centro para Cima</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="516"/>
         <source>Center to Left</source>
-        <translation>Από το κέντρο προς τα αριστερά</translation>
+        <translation>Do Centro para a Esquerda</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="518"/>
         <source>Center to Right</source>
-        <translation>Κεντράρισμα Δεξιά</translation>
+        <translation>Do Centro para a Direita</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="520"/>
         <source>Center to Bottom</source>
-        <translation>Από το κέντρο προς τα κάτω</translation>
+        <translation>Do Centro Para Baixo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="525"/>
         <source>Edge to Center</source>
-        <translation>Άκρη στο Κέντρο</translation>
+        <translation>Da Borda Para o Centro</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="526"/>
         <source>Top to Center</source>
-        <translation>Από πάνω προς το κέντρο</translation>
+        <translation>De Cima para o Meio</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="528"/>
         <source>Left to Center</source>
-        <translation>Από αριστερά προς το κέντρο</translation>
+        <translation>Da Esquerda para o Meio</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="530"/>
         <source>Right to Center</source>
-        <translation>Από δεξιά προς το κέντρο</translation>
+        <translation>Da Direita para o Centro</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="532"/>
         <source>Bottom to Center</source>
-        <translation>Από κάτω προς το κέντρο</translation>
+        <translation>De Baixo para o Centro</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="537"/>
         <source>Edge to Edge</source>
-        <translation>Άκρη σε Άκρη</translation>
+        <translation>De Borda a Borda</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="538"/>
         <source>Top to Bottom</source>
-        <translation>Απο πάνω προς τα κάτω</translation>
+        <translation>De Cima para Baixo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="540"/>
         <source>Left to Right</source>
-        <translation>Απο αριστερά προς τα δεξιά</translation>
+        <translation>Da esquerda para a direita</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="542"/>
         <source>Right to Left</source>
-        <translation>Από δεξιά προς τα αριστερά</translation>
+        <translation>Da direita para a esquerda</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="544"/>
         <source>Bottom to Top</source>
-        <translation>Από κάτω προς τα πάνω</translation>
+        <translation>De baixo para cima</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="560"/>
         <source>Rotate</source>
-        <translation>Περιστροφή</translation>
+        <translation>Rodar</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="561"/>
         <source>No Rotation</source>
-        <translation>Χωρίς περιστροφή</translation>
+        <translation>Sem Rotação</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="564"/>
         <source>Rotate 90 (Right)</source>
-        <translation>Περιστροφή 90° (δεξιά)</translation>
+        <translation>Rodar 90º (Direita)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="566"/>
         <source>Rotate 90 (Left)</source>
-        <translation>Περιστροφή 90° (αριστερά)</translation>
+        <translation>Rodar 90º (Esquerda)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="568"/>
         <source>Rotate 180 (Flip)</source>
-        <translation>Περιστροφή 180° (αναποδογύρισμα)</translation>
+        <translation>Rodar 180 (inverter)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="573"/>
         <source>Layout</source>
-        <translation>Διάταξη</translation>
+        <translation>Esquema</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="574"/>
         <source>Reset Layout</source>
-        <translation>Επαναφορά αρχικής διάταξης</translation>
+        <translation>Redefinir Esquema</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="577"/>
         <source>1/4 Size - Center</source>
-        <translation>1/4 του μεγέθους - κέντρο</translation>
+        <translation>1/4 Tamanho - Centro</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="579"/>
         <source>1/4 Size - Top Left</source>
-        <translation>1/4 του μεγέθους - πάνω αριστερά</translation>
+        <translation>1/4 Tamanho - Topo esquerda</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="581"/>
         <source>1/4 Size - Top Right</source>
-        <translation>1/4 του μεγέθους - πάνω δεξιά</translation>
+        <translation>1/4 Tamanho - Topo Direita</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="583"/>
         <source>1/4 Size - Bottom Left</source>
-        <translation>1/4 του μεγέθους - κάτω αριστερά</translation>
+        <translation>1/4 Tamanho - Inferior Esquerdo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="585"/>
         <source>1/4 Size - Bottom Right</source>
-        <translation>1/4 του μεγέθους - κάτω δεξιά</translation>
+        <translation>1/4 Tamanho - Inferior Direito</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="588"/>
         <source>Show All (Maintain Ratio)</source>
-        <translation>Προβολή όλων (διατήρηση αναλογιών)</translation>
+        <translation>Mostrar tudo (Manter Rácio)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="590"/>
         <source>Show All (Distort)</source>
-        <translation>Προβολή όλων (παραμόρφωση)</translation>
+        <translation>Mostrar tudo (Distorcer)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="596"/>
         <source>Reset Time</source>
-        <translation>Χρόνος Επαναφοράς</translation>
+        <translation>Restaurar Tempo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="620"/>
         <source>Reset Volume</source>
-        <translation>Επαναφορά Ήχου</translation>
+        <translation>Restaurar Volume</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="651"/>
         <source>Level 100%</source>
-        <translation>Στάθμη 100%</translation>
+        <translation>Volume 100%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="653"/>
         <source>Level 90%</source>
-        <translation>Στάθμη 90%</translation>
+        <translation>Volume 90%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="655"/>
         <source>Level 80%</source>
-        <translation>Στάθμη 80%</translation>
+        <translation>Volume 80%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="657"/>
         <source>Level 70%</source>
-        <translation>Στάθμη 70%</translation>
+        <translation>Volume 70%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="659"/>
         <source>Level 60%</source>
-        <translation>Στάθμη 60%</translation>
+        <translation>Volume 60%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="661"/>
         <source>Level 50%</source>
-        <translation>Στάθμη 50%</translation>
+        <translation>Volume 50%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="663"/>
         <source>Level 40%</source>
-        <translation>Στάθμη 40%</translation>
+        <translation>Volume 40%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="665"/>
         <source>Level 30%</source>
-        <translation>Στάθμη 30%</translation>
+        <translation>Volume 30%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="667"/>
         <source>Level 20%</source>
-        <translation>Στάθμη 20%</translation>
+        <translation>Volume 20%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="669"/>
         <source>Level 10%</source>
-        <translation>Στάθμη 10%</translation>
+        <translation>Volume 10%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="671"/>
         <source>Level 0%</source>
-        <translation>Στάθμη 0%</translation>
+        <translation>Volume 0%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="683"/>
         <source>Slice Clip</source>
-        <translation>Κόψτε κομμάτι απο το κλιπ</translation>
+        <translation>Cortar Clip</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="684"/>
         <source>Keep Both Sides</source>
-        <translation>Διατήρηση και των δύο Πλευρών</translation>
+        <translation>Manter Ambos os Lados</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="686"/>
         <source>Keep Left Side</source>
-        <translation>Διατήρηση Αριστερής Πλευράς</translation>
+        <translation>Manter o Lado Esquerdo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="688"/>
         <source>Keep Right Side</source>
-        <translation>Διατήρηση Δεξιάς Πλευράς</translation>
+        <translation>Manter o Lado Direito</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1511"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="341"/>
         <source>Transition</source>
-        <translation>Μετάβαση</translation>
+        <translation>Transição</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1517"/>
         <source>Brightness</source>
-        <translation>Φωτεινότητα</translation>
+        <translation>Brilho</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1519"/>
         <source>Contrast</source>
-        <translation>Αντίθεση</translation>
+        <translation>Contraste</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1531"/>
         <source>Reverse Transition</source>
-        <translation>Αντίστροφη Μετάβαση</translation>
+        <translation>Inverter Transição</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="78"/>
         <source>Selection: %s</source>
-        <translation>Επιλογή: %s</translation>
+        <translation>Selecção: %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="80"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="273"/>
         <source>No Selection</source>
-        <translation>Καμία επιλογή</translation>
+        <translation>Nenhuma seleção</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="129"/>
         <source>Bezier</source>
-        <translation>Μπεζιέ</translation>
+        <translation>Bezier</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="131"/>
         <source>Linear</source>
-        <translation>Γραμμική</translation>
+        <translation>Linear</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="133"/>
         <source>Constant</source>
-        <translation>Σταθερή</translation>
+        <translation>Constante</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="136"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="141"/>
         <source>Remove Keyframe</source>
-        <translation>Αφαίρεση βασικού καρέ (keyframe)</translation>
+        <translation>Remover Quadro Chave</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/add_to_timeline_model.py" line="57"/>
@@ -830,7 +838,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/models/transition_model.py" line="80"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/effects_model.py" line="80"/>
         <source>Thumb</source>
-        <translation>Μικρογραφία</translation>
+        <translation>Miniatura</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/add_to_timeline_model.py" line="57"/>
@@ -840,19 +848,19 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/models/transition_model.py" line="80"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/effects_model.py" line="80"/>
         <source>Name</source>
-        <translation>Όνομα</translation>
+        <translation>Nome</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/blender_model.py" line="117"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/transition_model.py" line="158"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/effects_model.py" line="150"/>
         <source>{} is not a valid image file.</source>
-        <translation type="unfinished"></translation>
+        <translation>{} não é um ficheiro de imagem válido.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="67"/>
         <source>Email</source>
-        <translation>Email</translation>
+        <translation>Correio eletrónico</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="67"/>
@@ -862,24 +870,24 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="100"/>
         <source>PayPal Supporter!</source>
-        <translation type="unfinished"></translation>
+        <translation>Apoiante PayPal!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="108"/>
         <source>Kickstarter Supporter!</source>
-        <translation type="unfinished"></translation>
+        <translation>Apoiante Kickstarter!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="116"/>
         <source>Multiple Contributions!</source>
-        <translation type="unfinished"></translation>
+        <translation>Multiplas Contribuições!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="358"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="561"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="629"/>
         <source>False</source>
-        <translation>Ψευδές</translation>
+        <translation>Falso</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="499"/>
@@ -896,14 +904,14 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="517"/>
         <source>Transparency</source>
-        <translation>Διαφάνεια</translation>
+        <translation>Transparência</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="559"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="627"/>
         <source>True</source>
-        <translation>Αληθές</translation>
+        <translation>Verdadeiro</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/files_model.py" line="100"/>
@@ -913,53 +921,53 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/effects_model.py" line="80"/>
         <source>Description</source>
-        <translation>Περιγραφή</translation>
+        <translation>Descrição</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="74"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="20"/>
         <source>Export Video</source>
-        <translation>Εξαγωγή βίντεο</translation>
+        <translation>Exportar vídeo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="116"/>
         <source>Video &amp; Audio</source>
-        <translation>Βίντεο &amp; Ήχος</translation>
+        <translation>Vídeo e Áudio</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="116"/>
         <source>Image Sequence</source>
-        <translation>Ακολουθία εικόνων</translation>
+        <translation>Sequência de Imagem</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="123"/>
         <source>Mono (1 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mono (1 Canal)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="124"/>
         <source>Stereo (2 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Stereo (2 Canais)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="125"/>
         <source>Surround (3 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Surround (3 Canais)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="126"/>
         <source>Surround (5.1 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Surround (5.1)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="127"/>
         <source>Surround (7.1 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Surround (7.1)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="192"/>
         <source>All Formats</source>
-        <translation>Όλοι οι τύποι</translation>
+        <translation>Todos os Formatos</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml</extra-po-references>
     </message>
     <message>
@@ -971,13 +979,13 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="329"/>
         <source>Yes</source>
-        <translation>Ναι</translation>
+        <translation>Sim</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="330"/>
         <source>No</source>
-        <translation>Όχι</translation>
+        <translation>Não</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -985,52 +993,53 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="388"/>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="421"/>
         <source>Low</source>
-        <translation>Χαμηλή</translation>
+        <translation>Baixo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="380"/>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="388"/>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="423"/>
         <source>Med</source>
-        <translation>Μεσαία</translation>
+        <translation>Med</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="380"/>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="388"/>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="425"/>
         <source>High</source>
-        <translation>Υψηλή</translation>
+        <translation>Alto</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="472"/>
         <source>Choose a Folder...</source>
-        <translation>Επιλέξτε έναν Φάκελο...</translation>
+        <translation>Escolha uma Pasta...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="625"/>
         <source>Export Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erro de exportação</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="626"/>
         <source>Sorry, there was an error exporting your video: 
 %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Lamentamos, foi encontrado um erro ao exportar o seu vídeo: 
+%s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <source>Convert an image to shades of grey</source>
-        <translation>Μετατροπή μιας εικόνας σε αποχρώσεις του γκρι</translation>
+        <translation>Converter uma imagem para tons de cinza</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml</extra-po-references>
     </message>
     <message>
         <source>Iterations</source>
-        <translation>Επαναλήψεις</translation>
+        <translation>Iterações</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Split and mirror the image</source>
-        <translation>Διαιρεί και αντικατοπτρίζει την εικόνα</translation>
+        <translation>Dividir e espelhar a imagem</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
     </message>
     <message>
@@ -1040,207 +1049,207 @@ Blender Path:
     </message>
     <message>
         <source>Echo</source>
-        <translation>Αντήχηση</translation>
+        <translation>Eco</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
     </message>
     <message>
         <source>Exploding Text</source>
-        <translation>Κείμενο που Εκρήγνυται</translation>
+        <translation>Texto explodindo</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
     </message>
     <message>
         <source>Adjust color balance with 3 color points</source>
-        <translation>Ρύθμιση ισορροπίας χρώματος με 3 σημεία χρώματος</translation>
+        <translation>Ajustar o equilíbrio de cor com 3 pontos de cor</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
     </message>
     <message>
         <source>Depart Latitude (Equator)</source>
-        <translation>Γεωγραφικό πλάτος αφετηρίας (ισημερινός)</translation>
+        <translation>Latitude de Partida (Equador)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Depart Title</source>
-        <translation>Τίτλος αφετηρίας</translation>
+        <translation>Titulo de Partida</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Fly Towards Camera (Two Titles)</source>
-        <translation>Πτήση προς την κάμερα (Δύο Τίτλοι)</translation>
+        <translation>Voa para a câmera (Duas Peças)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/fly_by_two_titles.xml</extra-po-references>
     </message>
     <message>
         <source>Display Ground</source>
-        <translation>Απεικόνιση Εδάφους</translation>
+        <translation>Visulalização do Terreno</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
     </message>
     <message>
         <source>Adjust the low-pitched sound or tone</source>
-        <translation>Ρύθμιση του χαμηλού σε συχνότητα ήχου ή τόνου</translation>
+        <translation>Ajuste o som de baixa frequência ou tom</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
     </message>
     <message>
         <source>Interval</source>
-        <translation>Χρόνος ανανέωσης</translation>
+        <translation>Intervalo</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
     </message>
     <message>
         <source>Correction near edges</source>
-        <translation>Διόρθωση κοντά στα άκρα</translation>
+        <translation>Correcção próxima da margem</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
     </message>
     <message>
         <source>X Offset</source>
-        <translation>Μετατόπιση Χ</translation>
+        <translation>Deslocamento X</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
         <source>Neon Curves</source>
-        <translation>Καμπύλες Νέον</translation>
+        <translation>Curvas de Neon</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
     </message>
     <message>
         <source>Arrival Longitude (Prime Meridian)</source>
-        <translation>Γεωγραφικό μήκος προορισμού (πρώτος μεσημβρινός)</translation>
+        <translation>Latitude de Chegada (Meridiano de Greenwich)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Greyscale</source>
-        <translation>Διαβαθμίσεις του γκρι</translation>
+        <translation>Tons de cinzento</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml</extra-po-references>
     </message>
     <message>
         <source>Arrival Longitude (minutes)</source>
-        <translation>Γεωγραφικό πλάτος προορισμού (λεπτά)</translation>
+        <translation>Latitude de Chegada (minutos)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Vertical Radius</source>
-        <translation>Κάθετη Ακτίνα</translation>
+        <translation>Raio Vertical</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Old Dust</source>
-        <translation>Παλιό σκονισμένο</translation>
+        <translation>Poeira Velha</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
     </message>
     <message>
         <source>Invert</source>
-        <translation>Αρνητικό</translation>
+        <translation>Inverter</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
     </message>
     <message>
         <source>World Map</source>
-        <translation>Παγκόσμιος χάρτης</translation>
+        <translation>Mapa Mundo</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Distort</source>
-        <translation>Παραμόρφωση</translation>
+        <translation>Distorcer</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
     </message>
     <message>
         <source>File Name</source>
-        <translation>Όνομα Αρχείου</translation>
+        <translation>Nome do ficheiro</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
         <source>X axis</source>
-        <translation>Άξονας X</translation>
+        <translation>Eixo X</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
     </message>
     <message>
         <source>Gamma</source>
-        <translation>Γάμμα</translation>
+        <translation>Gama</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml</extra-po-references>
     </message>
     <message>
         <source>Gravity</source>
-        <translation>Βαρύτητα</translation>
+        <translation>Gravidade</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Tile 1: Diffuse Color</source>
-        <translation>Πλακίδιο 1: Διάχυση Χρώματος</translation>
+        <translation>Mosaico 1: Cor difusa</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
         <source>Horizontal Sync</source>
-        <translation>Επίπεδος Συγχρονισμός</translation>
+        <translation>Syncronismo Horizontal</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
     </message>
     <message>
         <source>Extrude</source>
-        <translation>Εξωχή</translation>
+        <translation>Extrudir</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
         <source>Lens vignetting</source>
-        <translation>&quot;Vignetting&quot; φακών</translation>
+        <translation>Lentes de Vinheta</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
     </message>
     <message>
         <source>Param</source>
-        <translation>Παράμετρος</translation>
+        <translation>Parâmetro</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
     </message>
     <message>
         <source>Lens Correction</source>
-        <translation>Διόρθωση οπτικών φακών</translation>
+        <translation>Correcção de Lente</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
     </message>
     <message>
         <source>Halo: Starting Size</source>
-        <translation>Φωτοστέφανο: αρχικό μέγεθος</translation>
+        <translation>Aura: Tamanho Inicial</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
         <source>Arrival Latitude (minutes)</source>
-        <translation>Γεωγραφικό πλάτος προορισμού (λεπτά)</translation>
+        <translation>Latitude de Chegada (minutos)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Gain In</source>
-        <translation>Ενίσχυση εισόδου</translation>
+        <translation>Ganho de Entrada</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
     </message>
     <message>
         <source>Sun: Angle Offset</source>
-        <translation>Ήλιος: μετατόπιση γωνίας</translation>
+        <translation>Sol: Ângulo de Deslocamento</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
         <source>Glass Slider</source>
-        <translation>Γυάλινη Ολίσθηση</translation>
+        <translation>Vidro Deslizante</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
     </message>
     <message>
         <source>Black color</source>
-        <translation>Μαύρο χρώμα</translation>
+        <translation>Cor Preta</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
     </message>
     <message>
         <source>Delta</source>
-        <translation>Δέλτα</translation>
+        <translation>Delta</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
     </message>
     <message>
         <source>Display a single color, while using greyscale for the rest of the image</source>
-        <translation>Προβολή ενός ενιαίου χρώματος, χρησιμοποιώντας γκρι κλίμακα (greyscale) για την υπόλοιπη εικόνα</translation>
+        <translation>Exibir uma única cor, ao usar escala de cinza para o resto da imagem</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml</extra-po-references>
     </message>
     <message>
         <source>Spots: Color Threshold</source>
-        <translation>Κυλίδες: κατώφλι χρώματος</translation>
+        <translation>Spots: limite de cor</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
         <source>Adjusts the gamma and brightness randomly to create the illusion of old film</source>
-        <translation>Τυχαία ρύθμιση του γάμμα και της φωτεινότητας για την δημιουργία της ψευδαίσθησης παλιάς ταινίας</translation>
+        <translation>Ajusta a gama e brilho aleatoriamente para criar a ilusão de filme antigo</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
     </message>
     <message>
         <source>Color Saturation</source>
-        <translation>Κορεσμός Χρώματος</translation>
+        <translation>Saturação de cor</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -1250,37 +1259,37 @@ Blender Path:
     </message>
     <message>
         <source>Defocus</source>
-        <translation>Από-εστίαση</translation>
+        <translation>Desfocar</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
         <source>Histogram position</source>
-        <translation>Θέση του Ιστογράμματος</translation>
+        <translation>Posição Histograma</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
         <source>Title 3</source>
-        <translation>Τίτλος 3</translation>
+        <translation>Título 3</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
         <source>Mask</source>
-        <translation>Μάσκα</translation>
+        <translation>Máscara</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
     </message>
     <message>
         <source>Number of Snow Flakes</source>
-        <translation>Αριθμός Νιφάδων Χιονιού</translation>
+        <translation>Número de Flocos de Neve</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
         <source>Picture Frames (4 pictures)</source>
-        <translation>Πλαίσια εικόνας (4 εικόνες)</translation>
+        <translation>Molduras (4 Fotos)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
     </message>
     <message>
         <source>Simple color adjustment</source>
-        <translation>Απλή ρύθμιση χρώματος</translation>
+        <translation>Ajustamento simples de cor</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
@@ -1290,17 +1299,17 @@ Blender Path:
     </message>
     <message>
         <source>Bottom Left</source>
-        <translation>Κάτω Αριστερά</translation>
+        <translation>Inferior esquerdo</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Duration</source>
-        <translation>Διάρκεια</translation>
+        <translation>Duração</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Brightness Delta Down</source>
-        <translation>Φωτεινότητα δέλτα (κάτω)</translation>
+        <translation>Reduzir Brilho Delta</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
     </message>
     <message>
@@ -1308,77 +1317,77 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="862"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="865"/>
         <source>Title</source>
-        <translation>Τίτλος</translation>
+        <translation>Título</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
         <source>Scaling</source>
-        <translation>Κλιμάκωση</translation>
+        <translation>A redimensionar</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
     </message>
     <message>
         <source>Left | Right</source>
-        <translation>Αριστερά | Δεξιά</translation>
+        <translation>Esquerda | Direita</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
     </message>
     <message>
         <source>Make image sharper</source>
-        <translation>Όξυνση εικόνας</translation>
+        <translation>Aumentar nitidez da imagem</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
     </message>
     <message>
         <source>Left</source>
-        <translation>Αριστερά</translation>
+        <translation>Esquerda</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Diff Space</source>
-        <translation>Διάστημα Διαφοράς</translation>
+        <translation>Diferença de Espaço</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
     </message>
     <message>
         <source>Y Center</source>
-        <translation>Y Κέντρο</translation>
+        <translation>Centro Y</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
     </message>
     <message>
         <source>Fixed Rotate Y</source>
-        <translation>Σταθερή περιστροφή Y</translation>
+        <translation>Rotação Y Fixa</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
         <source>Cartoonify the image, using a form of edge detection</source>
-        <translation>Μετατροπή της εικόνας σε σκίτσο, χρησιμοποιώντας μία μορφή ανίχνευση ορίων</translation>
+        <translation>Converter em Banda desenhada, usando detecção de borda</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
     </message>
     <message>
         <source>Adjust the blur of the frame&apos;s image.</source>
-        <translation>Ρύθμιση της θαμπάδας της εικόνας του πλαισίου.</translation>
+        <translation>Ajustar o desfoque da imagem do quadro.</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Sharpness</source>
-        <translation>Οξύτητα</translation>
+        <translation>Nitidez</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
     </message>
     <message>
         <source>Alpha controlled</source>
-        <translation>Ελεγχόμενο απο Άλφα</translation>
+        <translation>Controlado pelo Alpha</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
         <source>Rotate an image statically or animated</source>
-        <translation>Περιστρέφει μια εικόνα στατικά ή με εφέ κίνησης</translation>
+        <translation>Rodar uma imagem estática ou animada</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
         <source>Bass</source>
-        <translation>Μπάσα</translation>
+        <translation>Graves</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
     </message>
     <message>
         <source>Tile 2: Diffuse Color</source>
-        <translation>Πλακίδιο 2: Διάχυση Χρώματος</translation>
+        <translation>Mosaico 2: Cor difusa</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
@@ -1388,47 +1397,47 @@ Blender Path:
     </message>
     <message>
         <source>Mix</source>
-        <translation>Μίξη</translation>
+        <translation>Misturar</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
     </message>
     <message>
         <source>Position</source>
-        <translation>Θέση</translation>
+        <translation>Posição</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Hue</source>
-        <translation>Απόχρωση</translation>
+        <translation>Matiz</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/hue.xml</extra-po-references>
     </message>
     <message>
         <source>Background: Blend</source>
-        <translation>Φόντο: Μίξη</translation>
+        <translation>Fundo: Mistura</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
     </message>
     <message>
         <source>Max Count</source>
-        <translation>Μέγιστο πλήθος</translation>
+        <translation>Contagem Máxima</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
     </message>
     <message>
         <source>Output level black point</source>
-        <translation>Επίπεδο εξόδου μαύρου</translation>
+        <translation>Nível de saída preto</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
         <source>Freeze</source>
-        <translation>Πάγωμα</translation>
+        <translation>Fixar</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
     </message>
     <message>
         <source>Horizontal Radius</source>
-        <translation>Οριζόντια Ακτίνα</translation>
+        <translation>Raio Horizontal</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Location X</source>
-        <translation>Τοποθεσία Χ</translation>
+        <translation>Localização X</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1438,52 +1447,52 @@ Blender Path:
     </message>
     <message>
         <source>Adjust the white balance and color temperature</source>
-        <translation>Ρυθμίζει την ισοστάθμιση λευκού και την θερμοκρασία χρώματος</translation>
+        <translation>Ajustar o equilíbrio e temperatura de cor branca</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
     </message>
     <message>
         <source>Sun: Type of Glare</source>
-        <translation>Ήλιος: είδος λάμψης</translation>
+        <translation>Sol: Tipo de brilho intenso</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
         <source>Primary Colors</source>
-        <translation>Βασικά Χρώματα</translation>
+        <translation>Cores primárias</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
     </message>
     <message>
         <source>Every</source>
-        <translation>Κάθε</translation>
+        <translation>Cada</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
     </message>
     <message>
         <source>White Balance</source>
-        <translation>Ισοστάθμιση λευκού</translation>
+        <translation>Equilíbrio de brancos</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
     </message>
     <message>
         <source>Use Alpha</source>
-        <translation>Χρήση του Alpha</translation>
+        <translation>Utilizar Alfa</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml</extra-po-references>
     </message>
     <message>
         <source>Frequency</source>
-        <translation>Συχνότητα</translation>
+        <translation>Frequência</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
     </message>
     <message>
         <source>White color</source>
-        <translation>Λευκό χρώμα</translation>
+        <translation>Cor Branca</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
     </message>
     <message>
         <source>Main Text</source>
-        <translation>Κυρίως Κείμενο</translation>
+        <translation>Texto Principal</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
     </message>
     <message>
         <source>Reverse</source>
-        <translation>Αντίστροφα</translation>
+        <translation>Inverter</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
     </message>
     <message>
@@ -1493,117 +1502,117 @@ Blender Path:
     </message>
     <message>
         <source>Red Scale</source>
-        <translation>Κλίμακα Κόκκινου</translation>
+        <translation>Escala Vermelha</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
     </message>
     <message>
         <source>Number</source>
-        <translation>Πλήθος</translation>
+        <translation>Número</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
     </message>
     <message>
         <source>delayed alpha smoothed blit of time</source>
-        <translation>&quot;blit&quot; χρόνου ομαλοποιημένα κατά καθυστερημένο άλφα</translation>
+        <translation>delayed alpha smoothed blit of time</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml</extra-po-references>
     </message>
     <message>
         <source>Adjust the color of the image to emulate black-and-white film that has had sepia pigment added</source>
-        <translation>Ρύθμιση του χρώματος της εικόνας για την προσομοίωση ασπρόμαυρου φιλμ που έχει προστεθεί καστανή χρωστική (sepia pigment)</translation>
+        <translation>Ajustar a cor da imagem para emular filme preto-e-branco com pigmento sepia adicionada</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
     </message>
     <message>
         <source>Title 2</source>
-        <translation>Τίτλος 2</translation>
+        <translation>Titulo 2</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
         <source>Start: X</source>
-        <translation>Αρχή: Z</translation>
+        <translation>Início: X</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Show histogram</source>
-        <translation>Προβολή ιστογράμματος</translation>
+        <translation>Mostrar histograma</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
         <source>Font Name</source>
-        <translation>Όνομα Γραμματοσειράς</translation>
+        <translation>Nome da Fonte</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
         <source>Source image on left side</source>
-        <translation>Εικόνα στην αριστερή πλευρά</translation>
+        <translation>Imagem de origem no lado esquerdo</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
     </message>
     <message>
         <source>Up Scale</source>
-        <translation>Κλιμάκωση επάνω</translation>
+        <translation>Ampliar</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
     </message>
     <message>
         <source>Bottom Right</source>
-        <translation>Κάτω Δεξία</translation>
+        <translation>Inferior Direita</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Input level black point</source>
-        <translation>Επίπεδό εισαγωγής μαύρου</translation>
+        <translation>Nível de entrada preto</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
         <source>Oversaturate the color in the image, like in old Technicolor movies</source>
-        <translation>Υπερκορεσμός του χρώματος στην εικόνα, σαν τις παλιές ταινίες Technicolor</translation>
+        <translation>Saturar a cor na imagem, como em filmes Technicolor velhos</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
     </message>
     <message>
         <source>Line 2 Color</source>
-        <translation>Χρώμα Γραμμής 2</translation>
+        <translation>Cor da Lina 2</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
     </message>
     <message>
         <source>Tint amount</source>
-        <translation>Ποσό απόχρωσης</translation>
+        <translation>Quantidade de tonalidade</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
     </message>
     <message>
         <source>Fuzz</source>
-        <translation>Ασάφεια</translation>
+        <translation>Penugem</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Wireframe Text</source>
-        <translation>συρματόμορφο κείμενο</translation>
+        <translation>Estrutura de Arame do Texto</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/wireframe_text.xml</extra-po-references>
     </message>
     <message>
         <source>ID</source>
-        <translation>Ταυτότητα</translation>
+        <translation>ID</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Calculates the distance between the selected color and the current pixel and uses that value as new pixel value</source>
-        <translation>Υπολογίζει την απόσταση μεταξύ του επιλεγμένου χρώματος και του τρέχον εικονοστοιχείου (pixel) και χρησιμοποιεί την τιμή αυτή σαν την νέα τιμή του εικονοστοιχείου</translation>
+        <translation>Calcula a distância entre a cor selecionada e o píxel atual e usa o valor como o novo valor de píxel</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
     </message>
     <message>
         <source>End Value</source>
-        <translation>Τελική τιμή</translation>
+        <translation>Valor Final</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
     </message>
     <message>
         <source>Dynamic 3 level thresholding</source>
-        <translation>Δυναμικό όριο 3 επιπέδων</translation>
+        <translation>Limitação dinâmica de 3 níveis</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml</extra-po-references>
     </message>
     <message>
         <source>Border Width</source>
-        <translation>Πλάτος Περιγράμματος</translation>
+        <translation>Espessura do Contorno</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
     </message>
     <message>
         <source>Rotate Z</source>
-        <translation>Περιστροφή Z</translation>
+        <translation>Rodar Z</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
@@ -1633,77 +1642,77 @@ Blender Path:
     </message>
     <message>
         <source>Key</source>
-        <translation>Κλειδί</translation>
+        <translation>Chave</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
     </message>
     <message>
         <source>Min</source>
-        <translation>Ελάχιστο</translation>
+        <translation>Mín</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
     </message>
     <message>
         <source>Right</source>
-        <translation>Δεξιά</translation>
+        <translation>Direita</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Flying Title</source>
-        <translation>Ιπτάμενος Τίτλος</translation>
+        <translation>Título Voador</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
     </message>
     <message>
         <source>Arrival Latitude (degrees)</source>
-        <translation>Γεωγραφικό πλάτος αφετηρίας (μοίρες)</translation>
+        <translation>Chegada Latitude (graus)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Title Specular Color</source>
-        <translation>Τίτλος Χρώματος Αντανάκλασης</translation>
+        <translation>Título Cor Especular</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
     </message>
     <message>
         <source>Crop</source>
-        <translation>Περικοπή</translation>
+        <translation>Recortar</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Deinterlace</source>
-        <translation>Απόπλεξη</translation>
+        <translation>Desinterlaçar</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Depart Latitude (degrees)</source>
-        <translation>Γεωγραφικό μήκος αφετηρίας (μοίρες)</translation>
+        <translation>Latitude da Partida (graus)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Adjust the color saturation.</source>
-        <translation>Ρύθμιση του κορεμού χρώματος</translation>
+        <translation>Ajuste da saturação de cor.</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Oversaturate Color</source>
-        <translation>Υπερκορεσμός χρώματος</translation>
+        <translation>Sobressaturado de Cor</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
     </message>
     <message>
         <source>Rotate 360 Degrees</source>
-        <translation>Περιστροφή 360 Μοιρών</translation>
+        <translation>Rodar 360 Graus</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/rotate_360.xml</extra-po-references>
     </message>
     <message>
         <source>Adjusts the gamma or luminance value of the image</source>
-        <translation>Ρυθμίζει την τιμή γάμμα ή την φωτεινότητα (luminance) της εικόνας</translation>
+        <translation>Ajusta o valor de gama ou de luminosidade da imagem</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml</extra-po-references>
     </message>
     <message>
         <source>Scale X</source>
-        <translation>Κλίμακα Χ</translation>
+        <translation>Escala X</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Tile 3: Diffuse Color</source>
-        <translation>Πλακίδιο 3: Διάχυση Χρώματος</translation>
+        <translation>Mosaico 3: Cor difusa</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
@@ -1713,7 +1722,7 @@ Blender Path:
     </message>
     <message>
         <source>Channel</source>
-        <translation>Κανάλι</translation>
+        <translation>Canal</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
@@ -1723,7 +1732,7 @@ Blender Path:
     </message>
     <message>
         <source>Cartoon</source>
-        <translation>Σκίτσο</translation>
+        <translation>Banda Desenhada</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
     </message>
     <message>
@@ -1738,357 +1747,357 @@ Blender Path:
     </message>
     <message>
         <source>Three Layer</source>
-        <translation>Τρία Επίπεδα</translation>
+        <translation>Três Camadas</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml</extra-po-references>
     </message>
     <message>
         <source>Speed</source>
-        <translation>Ταχύτητα</translation>
+        <translation>Velocidade</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
     </message>
     <message>
         <source>Adds black borders at the top and bottom</source>
-        <translation>Προσθέτει μαύρα όρια στο πάνω και κάτω μέρος</translation>
+        <translation>Adiciona limite superior e inferior preto</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
     </message>
     <message>
         <source>Fixed Rotate X</source>
-        <translation>Σταθερή περιστροφή X</translation>
+        <translation>Rotação Fixa X</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
         <source>Diffuse Color</source>
-        <translation>Διάχυση Χρώματος</translation>
+        <translation>Cor Difusa</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
         <source>Sigma</source>
-        <translation>Σίγμα</translation>
+        <translation>Sigma</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Top Left</source>
-        <translation>Πάνω Αριστερά</translation>
+        <translation>Superior Esquerdo</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Red/Green Axis</source>
-        <translation>Άξονας κόκκινου/πράσινου</translation>
+        <translation>Eixo Vermelho/Verde</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
     </message>
     <message>
         <source>Scale Y</source>
-        <translation>Κλίμακα Υ</translation>
+        <translation>Escala Y</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Scan Lines</source>
-        <translation>Σάρωση Γραμμών</translation>
+        <translation>Linhas de Varrimento</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml</extra-po-references>
     </message>
     <message>
         <source>Bevel Depth</source>
-        <translation>Βάθος Bevel</translation>
+        <translation>Profundidade do Chanfro</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
         <source>Midpoint</source>
-        <translation>Μέσο</translation>
+        <translation>Ponto Médio</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
     </message>
     <message>
         <source>Variance</source>
-        <translation>Διακύμανση</translation>
+        <translation>Variação</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
     </message>
     <message>
         <source>Factor</source>
-        <translation>Συντελεστής</translation>
+        <translation>Fator</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
     </message>
     <message>
         <source>Saturation</source>
-        <translation>Κορεσμός</translation>
+        <translation>Saturação</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Tilt</source>
-        <translation>Κλίση</translation>
+        <translation>Inclinação</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
     </message>
     <message>
         <source>Amount</source>
-        <translation>Ποσό</translation>
+        <translation>Quantidade</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
     </message>
     <message>
         <source>Red</source>
-        <translation>Κόκκινο</translation>
+        <translation>Vermelho</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
         <source>End Frame</source>
-        <translation>Τέλος Πλαισίου</translation>
+        <translation>Quadro Final</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
         <source>Replace Image</source>
-        <translation>Αντικατάσταση Εικόνας</translation>
+        <translation>Substituir Imagem</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Alphagrad</source>
-        <translation>Alphagrad</translation>
+        <translation>Gradiente Alfa</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
     </message>
     <message>
         <source>Slide Left to Right</source>
-        <translation>Ολίσθηση Αριστερά προς Δεξιά</translation>
+        <translation>Deslize da esquerda para a direita</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/slide_left_to_right.xml</extra-po-references>
     </message>
     <message>
         <source>Keep luma</source>
-        <translation>Διατήρηση του luma</translation>
+        <translation>Manter luminância</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
         <source>Location Y</source>
-        <translation>Τοποθεσία Y</translation>
+        <translation>Localização Y</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Color</source>
-        <translation>Χρώμα</translation>
+        <translation>Cor</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
     </message>
     <message>
         <source>Adds static and grain to the image</source>
-        <translation>Προσθέτει παράσιτα και κόκκους στην εικόνα</translation>
+        <translation>Adiciona estática e grão à imagem</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
     </message>
     <message>
         <source>Halo: Star Count</source>
-        <translation>Φωτοστέφανο: αριθμός αστεριού</translation>
+        <translation>Aura: Quantidade de estrelas</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Filter the image to look like it is drawn with charcoal</source>
-        <translation>Φιλτράρισμα της εικόνας ώστε να μοιάζει σαν να σχεδιάστηκε με &quot;κάρβουνο&quot;</translation>
+        <translation>Filtrar a imagem para parecer que foi desenhado com carvão</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
     </message>
     <message>
         <source>Specular Color</source>
-        <translation>Χρώμα Αντανάκλασης</translation>
+        <translation>Cor Especular</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
         <source>Convert colors in the image to the opposite or complementary colors</source>
-        <translation>Μετατροπή των χρωμάτων στην εικόνα στα αντίθετα ή συμπληρωματικά χρώματα</translation>
+        <translation>Converter as cores da imagem nas cores opostas ou complementares</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/invert.xml</extra-po-references>
     </message>
     <message>
         <source>Start: Y</source>
-        <translation>Αρχή: Z</translation>
+        <translation>Início: Y</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Halo: Size</source>
-        <translation>Φωτοστέφανο: Μέγεθος</translation>
+        <translation>Aura: Tamanho</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Max Diameter</source>
-        <translation>Μέγιστη διάμετρος</translation>
+        <translation>Dimametro Max</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
     </message>
     <message>
         <source>Equalizes the intensity histograms</source>
-        <translation>Εξισορρόπηση της έντασης των ιστογραμμάτων</translation>
+        <translation>Equilibra os histogramas de intensidade</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml</extra-po-references>
     </message>
     <message>
         <source>Lighter</source>
-        <translation>Φωτεινότερο</translation>
+        <translation>Clarear</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
     </message>
     <message>
         <source>Chroma Key (Greenscreen)</source>
-        <translation>Κλειδί Χρώμα (Πράσινο πανί)</translation>
+        <translation>Cromático Chave (Ecrã Verde)</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Viewport</source>
-        <translation>Παράθυρο προβολής</translation>
+        <translation>Janela de Visualização</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Line 1 Color</source>
-        <translation>Χρώμα Γραμμής 1</translation>
+        <translation>Linha 1 Cor</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
     </message>
     <message>
         <source>Luma formula</source>
-        <translation>Τύπος luma</translation>
+        <translation>Luminância Fórmula</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
         <source>Halo: Use Flare</source>
-        <translation>Φωτοστέφανο: χρήση αναλαμπής</translation>
+        <translation>Aura: Usar Chama</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Stretch</source>
-        <translation>Τέντωμα</translation>
+        <translation>Esticar</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>End: Z</source>
-        <translation>Τέλος: Z</translation>
+        <translation>Fim: Z</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Remove interlacing from a video (i.e. even or odd horizontal lines)</source>
-        <translation>Αφαιρέστε την πεπλεγμένη σάρωση (interlace) απο το βίντεο (δηλ. ζυγές και μονές γραμμές)</translation>
+        <translation>Remover entrelaçamento de um vídeo (i.e. linhas horizontais pares ou ímpares)</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Velocity: Z</source>
-        <translation>Ταχύτητα: Z</translation>
+        <translation>Velocidade: Z</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>X Coordinate</source>
-        <translation>X συντεταγμένη</translation>
+        <translation>Coordenada X</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
     </message>
     <message>
         <source>Action</source>
-        <translation>Ενέργεια</translation>
+        <translation>Ação</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
         <source>Bottom</source>
-        <translation>Κάτω</translation>
+        <translation>Base</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
     </message>
     <message>
         <source>Invert horizontally or vertically</source>
-        <translation>Οριζόντια ή κάθετη αντιστροφή</translation>
+        <translation>Inverter horizontal ou verticalmente</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
     </message>
     <message>
         <source>Episode Title</source>
-        <translation>Τίτλος Επεισοδίου</translation>
+        <translation>Título do Episódio</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
     </message>
     <message>
         <source>Title Diffuse Color</source>
-        <translation>Χρώμα Διάχυσης Τίτλου</translation>
+        <translation>Título de Cor Difusa</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
     </message>
     <message>
         <source>Brightness &amp; Contrast</source>
-        <translation>Φωτεινότητα &amp; Αντίθεση</translation>
+        <translation>Brilho &amp; Contraste</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Is Odd Frame</source>
-        <translation>Είναι μονό καρέ</translation>
+        <translation>É Quadro Impar</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Halo: Use Rings</source>
-        <translation>Φωτοστέφανο: Χρήση Δακτυλίων</translation>
+        <translation>Aura: Usar Aneis</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Velocity: Y</source>
-        <translation>Ταχύτητα: Y</translation>
+        <translation>Velocidade: Y</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Amplitude</source>
-        <translation>Εύρος</translation>
+        <translation>Amplitude</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
     </message>
     <message>
         <source>Adjusts the saturation or intensity of the image</source>
-        <translation>Ρύθμιση του κορεσμού και της έντασης της εικόνας</translation>
+        <translation>Ajusta a saturação ou intensidade da imagem</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/saturation.xml</extra-po-references>
     </message>
     <message>
         <source>Arrival Latitude (seconds)</source>
-        <translation>Γεωγραφικό πλάτος προορισμού (δευτερόλεπτα)</translation>
+        <translation>Latitude de Chegada (segundos)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Shift the hue of all colors in the image</source>
-        <translation>Μετακίνηση της απόχρωσης όλων των χρωμάτων στην εικόνα</translation>
+        <translation>Mudar o tom de todas as cores na imagem</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/hue.xml</extra-po-references>
     </message>
     <message>
         <source>Gray color</source>
-        <translation>Γκρι χρώμα</translation>
+        <translation>Cor Cinza</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
     </message>
     <message>
         <source>Delay grab</source>
-        <translation>Καθυστερημένο άρπαγμα</translation>
+        <translation>Atraso no agarrar</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml</extra-po-references>
     </message>
     <message>
         <source>Edgeglow</source>
-        <translation>Λάμψη άκρων</translation>
+        <translation>Brilho de Limite</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
     </message>
     <message>
         <source>Bottom Center</source>
-        <translation>Κάτω Κεντρικά</translation>
+        <translation>Centro Base</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Adjusts the contrast of a source image</source>
-        <translation>Ρυθμίζει την αντίθεση μίας εικόνας</translation>
+        <translation>Ajusta o contraste da imagem de origem</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/contrast.xml</extra-po-references>
     </message>
     <message>
         <source>First Title</source>
-        <translation>Πρώτος Τίτλος</translation>
+        <translation>Primeiro Título</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
     </message>
     <message>
         <source>Old Grain</source>
-        <translation>Παλιό με κόκκους</translation>
+        <translation>Grão Antigo</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
     </message>
     <message>
         <source>Freeze Before</source>
-        <translation>Πάγωμα Πριν</translation>
+        <translation>Fixar Antes</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
     </message>
     <message>
         <source>X Scatter</source>
-        <translation>Διασπορά X</translation>
+        <translation>Dispersão X</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
     </message>
     <message>
         <source>Depart Longitude (Prime Meridian)</source>
-        <translation>Γεωγραφικό μήκος αφετηρίας (πρωτός μεσημβρινός)</translation>
+        <translation>Longitude de Partida (Meridiano de Greenwich)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Space Movie Intro</source>
-        <translation>Εισαγωγή Διαστημικής Ταινίας</translation>
+        <translation>Espaço de Introdução do Filme</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
     </message>
     <message>
         <source>Tile 4: Diffuse Color</source>
-        <translation>Πλακίδιο 4: Διάχυση Χρώματος</translation>
+        <translation>Mosaico 4: Cor difusa</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
         <source>Center size</source>
-        <translation>Μέγεθος κέντρου</translation>
+        <translation>Tamanho Centro</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
     </message>
     <message>
@@ -2098,313 +2107,313 @@ Blender Path:
     </message>
     <message>
         <source>Decay</source>
-        <translation>Εξασθένηση</translation>
+        <translation>Decair</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
     </message>
     <message>
         <source>Sub Title</source>
-        <translation>Υπό Τίτλος</translation>
+        <translation>Subtítulo</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="115"/>
         <source>End</source>
-        <translation>Τέλος</translation>
+        <translation>Fim</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Y Offset</source>
-        <translation>Μετατόπιση Y</translation>
+        <translation>Deslocamento Y</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
         <source>Specular Intensity</source>
-        <translation>Ένταση Αντανάκλασης</translation>
+        <translation>Intensidade Especular</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
         <source>Start: Z</source>
-        <translation>Αρχή: Z</translation>
+        <translation>Início: Z</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Distort the source similar to plasma</source>
-        <translation>Παραμόρφωση της πηγής (source) όμοια με το πλάσμα (plasma)</translation>
+        <translation>Distorcer a fonte semelhante ao plasma</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
     </message>
     <message>
         <source>Map white to</source>
-        <translation>Καθορισμός λευκού σε</translation>
+        <translation>Mapear branco para</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
     </message>
     <message>
         <source>Depart Longitude (degrees)</source>
-        <translation>Γεωγραφικό μήκος αφετηρίας (μοίρες)</translation>
+        <translation>Longitude de Partida (graus)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Snow</source>
-        <translation>Χιόνι</translation>
+        <translation>Neve</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
         <source>Black and White</source>
-        <translation>Ασπρόμαυρο</translation>
+        <translation>Preto e Branco</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
     </message>
     <message>
         <source>Trees</source>
-        <translation>Δέντρα</translation>
+        <translation>Árvores</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/trees.xml</extra-po-references>
     </message>
     <message>
         <source>Max</source>
-        <translation>Μέγιστο</translation>
+        <translation>Máx.</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
     </message>
     <message>
         <source>Chroma Hold</source>
-        <translation>Κράτημα Xρώμα (Chroma Hold)</translation>
+        <translation>Manter Cromático</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml</extra-po-references>
     </message>
     <message>
         <source>Sun: Color Threshold</source>
-        <translation>Ήλιος: κατώφλι χρώματος</translation>
+        <translation>Sol: Limiar de Cores</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
         <source>Sun: Number of Streaks</source>
-        <translation>Ήλιος: πλήθος ακτίνων</translation>
+        <translation>Sol: Número de raios</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
         <source>Delay</source>
-        <translation>Καθυστέρηση</translation>
+        <translation>Atraso</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
     </message>
     <message>
         <source>Blue/Yellow</source>
-        <translation>Μπλε/κίτρινο</translation>
+        <translation>Azul/Amarelo</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
     </message>
     <message>
         <source>Add small dust shapes randomly on the image</source>
-        <translation>Προσθήκη μικρών σχημάτων σκόνης τυχαία στην εικόνα</translation>
+        <translation>Adicione formas de poeira pequenas aleatoriamente à imagem</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
     </message>
     <message>
         <source>Fixed Rotate Z</source>
-        <translation>Σταθερή περιστροφή Z</translation>
+        <translation>Rotação Fixa Z</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
         <source>Y Scatter</source>
-        <translation>Διασπορά Y</translation>
+        <translation>Dispersão Y</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
     </message>
     <message>
         <source>Adjust the image up and down, with the off-screen portion appearing on the other side</source>
-        <translation>Ρυθμίστε την εικόνα πάνω και κάτω, με το τμήμα εκτός οθόνης να εμφανίζεται στην άλλη πλευρά</translation>
+        <translation>Ajusta a imagem para cima e para baixo, com a parte de fora do ecrã que aparece do outro lado</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
     </message>
     <message>
         <source>Gravity: Y</source>
-        <translation>Βαρύτητα: Y</translation>
+        <translation>Gravidade: Y</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
         <source>Manual Scale</source>
-        <translation>Χειροκίνητη κλίμακα</translation>
+        <translation>Escala Manual</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
     </message>
     <message>
         <source>Anchor</source>
-        <translation>Αγκύρωση</translation>
+        <translation>Âncora</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Increase the size of pixels to obscure the image</source>
-        <translation>Αύξηση του μεγέθους των εικονοστοιχείων (pixel) για την ελάττωση της σαφήνειας της εικόνας</translation>
+        <translation>Aumentar o tamanho do píxel para obscurecer a imagem</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
     </message>
     <message>
         <source>Tint</source>
-        <translation>Απόχρωση</translation>
+        <translation>Tom</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
     </message>
     <message>
         <source>Brightness Delta Every</source>
-        <translation>Φωτεινότητα δέλτα (παντού)</translation>
+        <translation>Brilho Delta Cada</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
     </message>
     <message>
         <source>Picture 4 Path</source>
-        <translation>Διαδρομή εικόνας 4</translation>
+        <translation>Imagem 4 Caminho</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
     </message>
     <message>
         <source>Adjust luminance or color channel intensity</source>
-        <translation>Ρύθμιση της φωτεινότητας ή την ένταση του καναλιού χρώματος</translation>
+        <translation>Ajusta a luminosidade ou o canal de intensidade da  cor</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
         <source>Magic Wand</source>
-        <translation>Μαγικό Ραβδί</translation>
+        <translation>Mão Mágica</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Color Tiles</source>
-        <translation>Πλακίδια Χρώματος</translation>
+        <translation>Mosaico de Cores</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
         <source>Allows compensation of lens distortion</source>
-        <translation>Επιτρέπεται η αντιστάθμιση της παραμόρφωση φακών</translation>
+        <translation>Permite a compensação da distorção da lente</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
     </message>
     <message>
         <source>Depart Latitude (minutes)</source>
-        <translation>Γεωγραφικό πλάτος αφετηρίας (λεπτά)</translation>
+        <translation>Latitude de Partida (minutos)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Episode</source>
-        <translation>Επεισόδιο</translation>
+        <translation>Episódio</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
     </message>
     <message>
         <source>Z Coordinate</source>
-        <translation>Z Συντεταγμένη</translation>
+        <translation>Coordenada Z</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
     </message>
     <message>
         <source>Old Film</source>
-        <translation>Παλιά ταινία</translation>
+        <translation>Filme Antigo</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
     </message>
     <message>
         <source>Top Center</source>
-        <translation>Επάνω Κεντρικά</translation>
+        <translation>Topo Centro</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Gravity: Z</source>
-        <translation>Βαρύτητα: Z</translation>
+        <translation>Gravidade: Z</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
         <source>Adjust the brightness and contrast of the frame&apos;s image.</source>
-        <translation>Προσαρμόστε τη φωτεινότητα και την αντίθεση (contrast) της εικόνας του καρέ</translation>
+        <translation>Ajustar o brilho e o contraste do quadro da imagem.</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Display Clouds</source>
-        <translation>Απεικόνιση  Σύννεφων</translation>
+        <translation>Exibir Nuvens</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml</extra-po-references>
     </message>
     <message>
         <source>Map black to</source>
-        <translation>Καθορισμός μαύρου σε</translation>
+        <translation>Mapear preto para</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
     </message>
     <message>
         <source>Glare</source>
-        <translation>Αίγλη</translation>
+        <translation>Brilho Intenso</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glare.xml</extra-po-references>
     </message>
     <message>
         <source>Velocity: X</source>
-        <translation>Ταχύτητα: X</translation>
+        <translation>Velocidade: X</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Uses a grayscale mask image to gradually wipe / transition between 2 images.</source>
-        <translation>Χρήση μίας εικόνας κλίμακας του γκρι για βαθμιαία εξάλειψη / μετάβαση μεταξύ 2 εικόνων.</translation>
+        <translation>Usa uma imagem máscara de tons de cinza  para gradualmente limpar  / transição entre 2 imagens.</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Green Tint</source>
-        <translation>Πρασίνισμα</translation>
+        <translation>Tom Verde</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
     </message>
     <message>
         <source>Wave Color</source>
-        <translation>Χρώμα Κυματομορφής</translation>
+        <translation>Cor da Onda</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Top Right</source>
-        <translation>Πάνω Δεξιά</translation>
+        <translation>Superior Direito</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Layer</source>
-        <translation>Επίπεδο</translation>
+        <translation>Camada</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Color Distance</source>
-        <translation>Απόσταση Χρώματος</translation>
+        <translation>Ditância da Cor</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
     </message>
     <message>
         <source>Correction near center</source>
-        <translation>Διόρθωση κοντά στο κέντρο</translation>
+        <translation>Correção perto do centro</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
     </message>
     <message>
         <source>Add a series of peaks and troughs to the audio, creating a sweeping effect</source>
-        <translation>Προσθήκη μία σειράς κορυφών και βυθισμάτων στον ήχο, για την δημιουργία ενός εφέ σάρωσης (sweeping)</translation>
+        <translation>Adicionar uma série de picos e depressões ao áudio, criando um efeito de varrimento</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
     </message>
     <message>
         <source>Letterbox</source>
-        <translation>Γράμμα</translation>
+        <translation>Caixa de letras</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
     </message>
     <message>
         <source>Negates the colors, producing a negative of the image.</source>
-        <translation>Καταργεί τα χρώματα, παράγωντας ένα αρνητικό της εικόνας.</translation>
+        <translation>Nega as cores, produzindo um negativo da imagem.</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Background: Shadeless</source>
-        <translation>Φόντο: Χωρίς Σκιά</translation>
+        <translation>Fundo: Sem Sombras</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
         <source>Picture 2 Path</source>
-        <translation>Διαδρομή εικόνας 2</translation>
+        <translation>Imagem 2 Caminho</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
     </message>
     <message>
         <source>Three point balance</source>
-        <translation>Ισορροπία τριών σημείων</translation>
+        <translation>Equilíbrio de três pontos</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
     </message>
     <message>
         <source>End: X</source>
-        <translation>Τέλος: X</translation>
+        <translation>Fim: X</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>End: Y</source>
-        <translation>Τέλος: Y</translation>
+        <translation>Fim: Y</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Zoom to Clapboard</source>
-        <translation>Ζουμ στην κλακέτα</translation>
+        <translation>Zoom para Tábua</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml</extra-po-references>
     </message>
     <message>
         <source>Output level white point</source>
-        <translation>Επίπεδο εξόδου λευκού</translation>
+        <translation>Apresenta o nível do ponto branco</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
         <source>Rotate X</source>
-        <translation>Περιστροφή X</translation>
+        <translation>Rodar X</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
@@ -2414,22 +2423,22 @@ Blender Path:
     </message>
     <message>
         <source>Glow</source>
-        <translation>Λάμψη</translation>
+        <translation>Brilho</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/glow.xml</extra-po-references>
     </message>
     <message>
         <source>Size</source>
-        <translation>Μέγεθος</translation>
+        <translation>Tamanho</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
     </message>
     <message>
         <source>Negative</source>
-        <translation>Αρνητικό</translation>
+        <translation>Negativo</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Fly Towards Camera</source>
-        <translation>Πτήση Προς την Κάμερα</translation>
+        <translation>Voar para a câmara</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/fly_by_1.xml</extra-po-references>
     </message>
     <message>
@@ -2439,427 +2448,427 @@ Blender Path:
     </message>
     <message>
         <source>Center</source>
-        <translation>Κέντρο</translation>
+        <translation>Centro</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Halo: Use Lines</source>
-        <translation>Φωτοστέφανο: Χρήση Γραμμών</translation>
+        <translation>Aura: Usar Linhas</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Key Color</source>
-        <translation>Κλειδί Χρώματος</translation>
+        <translation>Cores Chave</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Start Frame</source>
-        <translation>Έναρξη Πλαισίου</translation>
+        <translation>Quadro Inicial</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
         <source>Noise</source>
-        <translation>Θόρυβος</translation>
+        <translation>Ruído</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
     </message>
     <message>
         <source>Halo: Ending Size</source>
-        <translation>Φωτοστέφανο: τελικό μέγεθος</translation>
+        <translation>Aura: Tamanho Final</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
         <source>Green</source>
-        <translation>Πράσινο</translation>
+        <translation>Verde</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
         <source>Halo: Line Count</source>
-        <translation>Φωτοστέφανο: αριθμός γραμμής</translation>
+        <translation>Aura: Quantidade de Linhas</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Background: Alpha</source>
-        <translation>Φόντο: Άλφα</translation>
+        <translation>Fundo: Alfa</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
     </message>
     <message>
         <source>Charcoal</source>
-        <translation>Σκίτσο με κάρβουνο</translation>
+        <translation>Carvão</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
     </message>
     <message>
         <source>Frame Number</source>
-        <translation>Αριθμός Πλαισίου</translation>
+        <translation>Número do Quadro</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
     </message>
     <message>
         <source>Particle Number</source>
-        <translation>Αριθμός Σωματιδίων</translation>
+        <translation>Número de partícula</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
     </message>
     <message>
         <source>Blue</source>
-        <translation>Μπλε</translation>
+        <translation>Azul</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
         <source>Old Lines</source>
-        <translation>Παλιό με γραμμές</translation>
+        <translation>Linhas Antigas</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
     </message>
     <message>
         <source>Title 1</source>
-        <translation>Τίτλος 1</translation>
+        <translation>Título 1</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
         <source>Picture 3 Path</source>
-        <translation>Διαδρομή εικόνας 3</translation>
+        <translation>Imagem 3 Caminho</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
     </message>
     <message>
         <source>Width</source>
-        <translation>Πλάτος</translation>
+        <translation>Largura</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
     </message>
     <message>
         <source>Block Size X</source>
-        <translation>Μέγεθος στοιχείου X</translation>
+        <translation>Tamanho do Bloco X</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
     </message>
     <message>
         <source>Lens Flare</source>
-        <translation>Αναλαμπή φακού</translation>
+        <translation>Cintilação da Lente</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
         <source>Adds random vertical lines to the image</source>
-        <translation>Προσθέτει τυχαίες κάθετες γραμμές στην εικόνα</translation>
+        <translation>Adiciona linhas verticais aleatórias à imagem</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
     </message>
     <message>
         <source>Background: Diffuse Color</source>
-        <translation>Φόντο: Διάχυση Χρώματος</translation>
+        <translation>Fundo: Cor Difusa</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
     </message>
     <message>
         <source>Find and glow the edges of objects</source>
-        <translation>Εύρεση και φώτισμα των ορίων των αντικειμένων</translation>
+        <translation>Encontra e faz brilhar a estremidade dos objectos</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
     </message>
     <message>
         <source>World Map (Realistic)</source>
-        <translation>Παγκόσμιος Χάρτης (Ρεαλιστικό)</translation>
+        <translation>Mapa Mundi (realista)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml</extra-po-references>
     </message>
     <message>
         <source>Adjust the color of the image to black and white based on a threshold</source>
-        <translation>Ρυθμίζει το χρώμα της εικόνας σε ασπρόμαυρο με βάση ένα όριο (threshold)</translation>
+        <translation>Ajusta a cor da imagem para preto e branco baseado no limite</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
     </message>
     <message>
         <source>Type</source>
-        <translation>Είδος</translation>
+        <translation>Digite</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
     </message>
     <message>
         <source>Halo: Use Stars</source>
-        <translation>Φωτοστέφανο: Χρήση Αστεριών</translation>
+        <translation>Aura: Usar Estrelas</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Blur</source>
-        <translation>Θόλωμα</translation>
+        <translation>Desfocar</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blur.xml</extra-po-references>
     </message>
     <message>
         <source>Particles: Gravity</source>
-        <translation>Σωματίδια: Βαρύτητα</translation>
+        <translation>Particulas: Gravidade</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Nosync</source>
-        <translation>Ασυγχρόνιστο</translation>
+        <translation>Sem sincronização</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
     </message>
     <message>
         <source>Background: Specular Intensity</source>
-        <translation>Φόντο: Κατοπτρική Ένταση</translation>
+        <translation>Fundo: Intensidade Especular</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
         <source>Gain Out</source>
-        <translation>Ενίσχυση εξόδου</translation>
+        <translation>Melhoramento de Saída</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
     </message>
     <message>
         <source>Transition width</source>
-        <translation>Μήκος μετάβασης</translation>
+        <translation>Largura de transição</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
     </message>
     <message>
         <source>Aspect type</source>
-        <translation>Τύπος Όψης</translation>
+        <translation>Tipo de aspecto</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
     </message>
     <message>
         <source>Brightness Delta Up</source>
-        <translation>Φωτεινότητα δέλτα (πάνω)</translation>
+        <translation>Brilho Delta Para Cima</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
     </message>
     <message>
         <source>Split preview</source>
-        <translation>Χωρισμένη προεπισκόπηση</translation>
+        <translation>Dividir pré-visualização</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
     </message>
     <message>
         <source>Adjusts the brightness of the image</source>
-        <translation>Ρύθμιση της φωτεινότητας της εικόνας</translation>
+        <translation>Ajusta o brilho da imagem</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
     </message>
     <message>
         <source>Block Size Y</source>
-        <translation>Μέγεθος στοιχείου Y</translation>
+        <translation>Tamanho do Bloco Y</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
     </message>
     <message>
         <source>Interlaced black lines</source>
-        <translation>Πεπλεγμένες μαύρες γραμμές (interlaced)</translation>
+        <translation>Linhas pretas entrelaçadas</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml</extra-po-references>
     </message>
     <message>
         <source>Darker</source>
-        <translation>Σκοτεινότερο</translation>
+        <translation>Mais escuro</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
     </message>
     <message>
         <source>Canvas</source>
-        <translation>Καμβάς</translation>
+        <translation>Área de Desenho</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Particles: Amount</source>
-        <translation>Σωματίδια: Ποσότητα</translation>
+        <translation>Partículas: Quantidade</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Reduces and mixes the colors of the image based on a threshold</source>
-        <translation>Μειώνει και αναμιγνύει τα χρώματα της εικόνας με βάση ένα όριο (threshold)</translation>
+        <translation>Reduz e mistura as cores da imagem com base num limite</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threshold.xml</extra-po-references>
     </message>
     <message>
         <source>Text Width</source>
-        <translation>Πλάτος Κειμένου</translation>
+        <translation>Largura do Texto</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
         <source>Reduce image to primary colors</source>
-        <translation>Υποβάθμιση εικόνας στα βασικά χρώματα</translation>
+        <translation>Reduzir imagem às cores primárias</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
     </message>
     <message>
         <source>Adjust the left/right balance</source>
-        <translation>Ρύθμιση της ισορροπίας του αριστερά/δεξιά</translation>
+        <translation>Ajusta o equilíbrio esquerda/direita</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
     </message>
     <message>
         <source>Gain</source>
-        <translation>Κέρδος</translation>
+        <translation>Ganho</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
     </message>
     <message>
         <source>Text Alignment</source>
-        <translation>Στοίχιση Κειμένου</translation>
+        <translation>Alinhamento do texto</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
         <source>Aspect ratio</source>
-        <translation>Λόγος θέασης</translation>
+        <translation>Proporção de Aspecto</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
     </message>
     <message>
         <source>Add an echo</source>
-        <translation>Προσθήκη αντήχησης</translation>
+        <translation>Adicionar um eco</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
     </message>
     <message>
         <source>Sepia</source>
-        <translation>Σέπια</translation>
+        <translation>Sépsia</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
     </message>
     <message>
         <source>Interpolation</source>
-        <translation>Παρεμβολή</translation>
+        <translation>Interpolação</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
     </message>
     <message>
         <source>Manual Pixel Aspect ratio</source>
-        <translation>Χειροκίνητος λόγος διαστάσεων εικονοστοιχείων</translation>
+        <translation>Manual Proporção de Aspecto do Pixel</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
     </message>
     <message>
         <source>Dissolving Text</source>
-        <translation>Κείμενο  που Διαλύεται</translation>
+        <translation>Texto Dissolvendo</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/dissolve.xml</extra-po-references>
     </message>
     <message>
         <source>Halo Zoom Out</source>
-        <translation>Σμίκρυνση Halo</translation>
+        <translation>Aura Reduzir Zoom</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/halo_zoom_out.xml</extra-po-references>
     </message>
     <message>
         <source>Mirror Color</source>
-        <translation>Χρώμα καθρεπτισμού</translation>
+        <translation>Cor Espelhada</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
         <source>Operation</source>
-        <translation>Λειτουργία</translation>
+        <translation>Operação</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
     </message>
     <message>
         <source>Chroma Key</source>
-        <translation>Κλειδί chroma</translation>
+        <translation>Cromático Chave</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
     </message>
     <message>
         <source>Picture 1 Path</source>
-        <translation>Διαδρομή εικόνας 1</translation>
+        <translation>Imagem 1 Caminho</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
     </message>
     <message>
         <source>Creates a square alpha-channel mask</source>
-        <translation>Δημιουργεί μία τετράγωνη μάσκα καναλιού άλφα</translation>
+        <translation>Cria uma máscara quadrada de canal alfa</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
     </message>
     <message>
         <source>Line 4 Color</source>
-        <translation>Χρώμα Γραμμής 4</translation>
+        <translation>Linha 4 Cor</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
     </message>
     <message>
         <source>Background: Fresnel</source>
-        <translation>Φόντο: Fresnel</translation>
+        <translation>Fundo: Fresnel</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
     </message>
     <message>
         <source>Waveform</source>
-        <translation>Κυματομορφή</translation>
+        <translation>Forma de onda</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Depart Latitude (seconds)</source>
-        <translation>Γεογραφικό πλάτος (δευτερόλεπτα)</translation>
+        <translation>Latitude de Partida (segundos)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Add a glow effect to the image</source>
-        <translation>Προσθήκη ενός εφέ λάμψης στην εικόνα</translation>
+        <translation>Adicionar um efeito de brilho à imagem</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/glow.xml</extra-po-references>
     </message>
     <message>
         <source>Best Fit</source>
-        <translation>Καλύτερο Ταίριασμα</translation>
+        <translation>Melhor Ajuste</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Balance</source>
-        <translation>Ισοστάθμιση</translation>
+        <translation>Equilíbrio</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
     </message>
     <message>
         <source>Input level white point</source>
-        <translation>Επίπεδο εισαγωγής λευκού</translation>
+        <translation>Introduzir nível ponto branco</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
         <source>Depart Longitude (minutes)</source>
-        <translation>Γεωγραφικό μήκος (λεπτά)</translation>
+        <translation>Longitude de Partida (minutos)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Arrival Latitude (Equator)</source>
-        <translation>Γεωγραφικό πλάτος προορισμού (ισημερινός)</translation>
+        <translation>Latitude de Chegada (Equador)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Pixelate</source>
-        <translation>Εικονοστοιχειοποίηση</translation>
+        <translation>Pixelizar</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
     </message>
     <message>
         <source>Arrival Longitude (seconds)</source>
-        <translation>Γεωγραφικό μήκος προορισμού (δευτερόλεπτα)</translation>
+        <translation>Longitude de Chegada (segundos)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Threshold</source>
-        <translation>Κατώφλι</translation>
+        <translation>Limite</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
     </message>
     <message>
         <source>Softness</source>
-        <translation>Απαλότητα</translation>
+        <translation>Suavidade</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
     </message>
     <message>
         <source>Gravity: X</source>
-        <translation>Βαρύτητα: X</translation>
+        <translation>Gravidade: X</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
         <source>Arrival Title</source>
-        <translation>Τίτλος προορισμού</translation>
+        <translation>Título de Chegada</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Background: Specular Color</source>
-        <translation>Φόντο: Κατοπτρικό Χρώμα</translation>
+        <translation>Fundo: Cor Especular</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
         <source>Fisheye</source>
-        <translation>Μάτι ψαριού</translation>
+        <translation>Olho de Peixe</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
     </message>
     <message>
         <source>Adjust the high-pitched sound or tone</source>
-        <translation>Ρύθμιση του υψηλού σε συχνότητα ήχου ή τόνου</translation>
+        <translation>Ajuste o som estridente ou o tom</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/treble.xml</extra-po-references>
     </message>
     <message>
         <source>Rotate Y</source>
-        <translation>Περιστροφή Y</translation>
+        <translation>Rodar Y</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
         <source>Fills alpha channel with a gradient</source>
-        <translation>Γεμίζει το κανάλι άλφα με μία διαβάθμιση</translation>
+        <translation>Preencher canal alfa com um gradiente</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
     </message>
     <message>
         <source>Y axis</source>
-        <translation>Άξονα Y</translation>
+        <translation>Eixo Y</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
     </message>
     <message>
         <source>Top</source>
-        <translation>Κορυφή</translation>
+        <translation>Topo</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
     </message>
     <message>
         <source>Halo: Ring Count</source>
-        <translation>Φωτοστέφανο: αριθμός δακτύλιου</translation>
+        <translation>Aura: Quantidade de Aneis</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Treble</source>
-        <translation>Πρίμα</translation>
+        <translation>Agudos</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/treble.xml</extra-po-references>
     </message>
     <message>
         <source>Start Value</source>
-        <translation>Αρχική τιμή</translation>
+        <translation>Valor de Início</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
     </message>
     <message>
@@ -2869,12 +2878,12 @@ Blender Path:
     </message>
     <message>
         <source>Color adjustment</source>
-        <translation>Ρύθμιση χρώματος</translation>
+        <translation>Ajustamento de Cor</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
         <source>Halo: Hardness</source>
-        <translation>Φωτοστέφανο: σκληρότητα</translation>
+        <translation>Aura: Dureza</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
@@ -2884,7 +2893,7 @@ Blender Path:
     </message>
     <message>
         <source>Animation Length</source>
-        <translation>Μήκος Εφέ Κίνησης</translation>
+        <translation>Duração da Animação</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
@@ -2894,7 +2903,7 @@ Blender Path:
     </message>
     <message>
         <source>Neutral Color</source>
-        <translation>Ουδέτερο χρώμα</translation>
+        <translation>Cor Neutra</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
     </message>
     <message>
@@ -2904,58 +2913,58 @@ Blender Path:
     </message>
     <message>
         <source>Alpha Mask / Wipe Transition</source>
-        <translation>Μάσκα Άλφα / Εξάλειψη Μετάβασης</translation>
+        <translation>Máscara Alpha / Limpar Transição</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Replaces the color (or chroma) of the frame with transparency (i.e. keys out the color).</source>
-        <translation>Αντικαθιστά το χρώμα (chroma) του καρέ με διαφάνεια (δηλ. αφαιρεί το χρώμα)</translation>
+        <translation>Substitui a cor (ou cromático) do quadro com transparência (i. e. remover a cor).</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="96"/>
         <source>Start</source>
-        <translation>Αρχή</translation>
+        <translation>Início</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Freeze After</source>
-        <translation>Πάγωμα Μετά</translation>
+        <translation>Fixar Depois</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
     </message>
     <message>
         <source>Arrival Longitude (degrees)</source>
-        <translation>Γεωγραφικό μήκος προορισμού (μοίρες)</translation>
+        <translation>Longitude de Chegada (graus)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Levels</source>
-        <translation>Επίπεδα</translation>
+        <translation>Níveis</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
         <source>Freeze the frame of a video</source>
-        <translation>Πάγωμα του καρέ ενός βίντεο</translation>
+        <translation>Fixar um quadro de um vídeo</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
     </message>
     <message>
         <source>Text Size</source>
-        <translation>Μέγεθος κειμένου</translation>
+        <translation>Tamanho do texto</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
         <source>Tint a source image with specified color</source>
-        <translation>Απόχρωση μιας εικόνας στο επιλεγμένο χρώμα</translation>
+        <translation>Tingir a imagem de origem com a cor especificada</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
     </message>
     <message>
         <source>Mirror</source>
-        <translation>Κατοπτρισμός</translation>
+        <translation>Espelho</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
     </message>
     <message>
         <source>Default Profile</source>
-        <translation>Προεπιλεγμένο Προφίλ</translation>
+        <translation>Perfil Padrão</translation>
         <extra-po-references>Settings for default-profile</extra-po-references>
     </message>
     <message>
@@ -2975,7 +2984,7 @@ Blender Path:
     </message>
     <message>
         <source>Wikipedia</source>
-        <translation>Βικιπαίδεια</translation>
+        <translation>Wikipédia</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/wikipedia.xml</extra-po-references>
     </message>
     <message>
@@ -3021,7 +3030,7 @@ Blender Path:
     </message>
     <message>
         <source>Web</source>
-        <translation>Διαδίκτυο</translation>
+        <translation>Web</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml</extra-po-references>
     </message>
     <message>
@@ -3051,7 +3060,7 @@ Blender Path:
     </message>
     <message>
         <source>Image Length (seconds)</source>
-        <translation>Μήκος Εικόνας (δευτερόλεπτα)</translation>
+        <translation>Duração da Imagem (segundos)</translation>
         <extra-po-references>Settings for default-image-length</extra-po-references>
     </message>
     <message>
@@ -3061,7 +3070,7 @@ Blender Path:
     </message>
     <message>
         <source>Default Theme</source>
-        <translation>Προκαθορισμένο θέμα</translation>
+        <translation>Modelo Padrão</translation>
         <extra-po-references>Settings for theme</extra-po-references>
     </message>
     <message>
@@ -3081,7 +3090,7 @@ Blender Path:
     </message>
     <message>
         <source>Autosave Interval (minutes)</source>
-        <translation type="unfinished"></translation>
+        <translation>Gravação Automática (minutos)</translation>
         <extra-po-references>Settings for autosave-interval</extra-po-references>
     </message>
     <message>
@@ -3091,7 +3100,7 @@ Blender Path:
     </message>
     <message>
         <source>Send Anonymous Metrics and Errors</source>
-        <translation type="unfinished"></translation>
+        <translation>Envio Anónimo de Métrica e Erros</translation>
         <extra-po-references>Settings for send_metrics</extra-po-references>
     </message>
     <message>
@@ -3106,7 +3115,7 @@ Blender Path:
     </message>
     <message>
         <source>Default Audio Sample Rate</source>
-        <translation type="unfinished"></translation>
+        <translation>Taxa de Amostragem Áudio Padrão</translation>
         <extra-po-references>Settings for default-samplerate</extra-po-references>
     </message>
     <message>
@@ -3116,22 +3125,22 @@ Blender Path:
     </message>
     <message>
         <source>AVCHD Disks</source>
-        <translation>Δίσκοι AVCHD</translation>
+        <translation>Discos AVCHD</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml</extra-po-references>
     </message>
     <message>
         <source>Default Audio Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Canais Áudio Padrão</translation>
         <extra-po-references>Settings for default-channellayout</extra-po-references>
     </message>
     <message>
         <source>Advanced Title Editor (path)</source>
-        <translation>Προηγμένος Επεξεργαστής Τίτλων (διαδρομή)</translation>
+        <translation>Editor de Título Avançado (caminho)</translation>
         <extra-po-references>Settings for title_editor</extra-po-references>
     </message>
     <message>
         <source>Device</source>
-        <translation>Συσκευή</translation>
+        <translation>Dispositivo</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml</extra-po-references>
     </message>
     <message>
@@ -3141,7 +3150,7 @@ Blender Path:
     </message>
     <message>
         <source>Debug Mode (Verbose)</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de Depuração (Detalhado)</translation>
         <extra-po-references>Settings for debug-mode</extra-po-references>
     </message>
     <message>
@@ -3151,7 +3160,7 @@ Blender Path:
     </message>
     <message>
         <source>Blender Command (path)</source>
-        <translation>Εντολή (διαδρομή) του Blender</translation>
+        <translation>Comando do Blender (cominho)</translation>
         <extra-po-references>Settings for blender_command</extra-po-references>
     </message>
     <message>
@@ -3283,7 +3292,7 @@ Blender Path:
     </message>
     <message>
         <source>Left arrow</source>
-        <translation>Αριστερό βέλος</translation>
+        <translation>Seta esquerda</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg</extra-po-references>
     </message>
     <message>
@@ -3398,17 +3407,17 @@ Blender Path:
     </message>
     <message>
         <source>Puzzle</source>
-        <translation>Παζλ</translation>
+        <translation>Puzzle</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/puzzle.jpg</extra-po-references>
     </message>
     <message>
         <source>Clouds</source>
-        <translation>Σύννεφα</translation>
+        <translation>Nuvens</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds.jpg</extra-po-references>
     </message>
     <message>
         <source>Central mozaic</source>
-        <translation>Κεντρικό Ψηφιδωτό</translation>
+        <translation>Mosaico Central</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/central_mozaic.jpg</extra-po-references>
     </message>
     <message>
@@ -3418,7 +3427,7 @@ Blender Path:
     </message>
     <message>
         <source>Mosaic %s</source>
-        <translation>Μωσαικό %s</translation>
+        <translation>Mosaico %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mosaic_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3508,7 +3517,7 @@ Blender Path:
     </message>
     <message>
         <source>Openshot logo</source>
-        <translation>Σήμα του Openshot</translation>
+        <translation>Logótipo Openshot</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/openshot_logo.jpg</extra-po-references>
     </message>
     <message>
@@ -3878,7 +3887,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="14"/>
         <source>Add To Timeline</source>
-        <translation>Προσθήκη στο Χρονολόγιο</translation>
+        <translation>Adicionar à Linha do Tempo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="37"/>
@@ -3903,7 +3912,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="119"/>
         <source>Timeline Location</source>
-        <translation>Θέση Χρονολογίου</translation>
+        <translation>Localização da Linha do Tempo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="140"/>
@@ -3933,7 +3942,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="319"/>
         <source>Zoom:</source>
-        <translation>Μεγέθυνση:</translation>
+        <translation>Zoom:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="356"/>
@@ -4068,186 +4077,186 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="56"/>
         <source>File Name:</source>
-        <translation>Όνομα Αρχείου:</translation>
+        <translation>Nome do Ficheiro:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="63"/>
         <source>YourVideoName</source>
-        <translation>ΤοΌνομαΒίντεο</translation>
+        <translation>NomeDoSeuVídeo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="83"/>
         <source>Folder Path:</source>
-        <translation>Διαδρομή Φακέλου:</translation>
+        <translation>Caminho da Pasta:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="93"/>
         <source>Browse...</source>
-        <translation>Αναζήτηση...</translation>
+        <translation>Explorar...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="148"/>
         <source>Simple</source>
-        <translation>Απλό</translation>
+        <translation>Simples</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="168"/>
         <source>Quality:</source>
-        <translation>Ποιότητα:</translation>
+        <translation>Qualidade:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="189"/>
         <source>&lt;b&gt;Select a Profile to start:&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Επιλέξτε ένα προφίλ για να ξεκινήσετε:&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Seleccione um Perfil para iniciar:&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="216"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="486"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/profile.ui" line="20"/>
         <source>Profile:</source>
-        <translation>Προφίλ:</translation>
+        <translation>Perfil:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="237"/>
         <source>&lt;b&gt;Select from the following options:&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Επιλέξτε μεταξύ των παρακάτω δυνατοτήτων:&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Seleccione das opções seguintes:&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="262"/>
         <source>Video Profile:</source>
-        <translation>Προφίλ βίντεο:</translation>
+        <translation>Perfil de Vídeo:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="305"/>
         <source>Target:</source>
-        <translation>Προορισμός:</translation>
+        <translation>Destino:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="315"/>
         <source>Advanced</source>
-        <translation>Προχωρημένο</translation>
+        <translation>Avançadas</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="348"/>
         <source>Advanced Options</source>
-        <translation>Προχωρημένες Επιλογές</translation>
+        <translation>Opções Avançadas</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="367"/>
         <source>Export To:</source>
-        <translation>Εξαγωγή σε:</translation>
+        <translation>Exportar Para:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="396"/>
         <source>End Frame:</source>
-        <translation>Καρέ Τέλους:</translation>
+        <translation>Quadro Final:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="429"/>
         <source>Start Frame:</source>
-        <translation>Καρέ Αρχής:</translation>
+        <translation>Quadro Incicial:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="469"/>
         <source>Profile</source>
-        <translation>Προφίλ</translation>
+        <translation>Perfil</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="513"/>
         <source>Height:</source>
-        <translation>Ύψος:</translation>
+        <translation>Altura:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="546"/>
         <source>Aspect Ratio:</source>
-        <translation>Αναλογία Διαστάσεων:</translation>
+        <translation>Proporção de Aspecto:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="595"/>
         <source>Pixel Ratio:</source>
-        <translation>Αναλογία Εικονοστοιχείων:</translation>
+        <translation>Proporção de Píxel:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="644"/>
         <source>Frame Rate:</source>
-        <translation>Ρυθμός Καρέ:</translation>
+        <translation>Taxa de Quadros:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="696"/>
         <source>Interlaced:</source>
-        <translation>Διαπλεκόμενο:</translation>
+        <translation>Entrelaçado:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="723"/>
         <source>Width:</source>
-        <translation>Πλάτος:</translation>
+        <translation>Largura:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="757"/>
         <source>Image Sequence Settings</source>
-        <translation>Ρυθμίσεις Ακολουθίας Εικόνων</translation>
+        <translation>Definições da Sequência de Imagens</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="774"/>
         <source>Image Format:</source>
-        <translation>Τύπος εικόνας:</translation>
+        <translation>Formato de Imagem:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="795"/>
         <source>Video Settings</source>
-        <translation>Ρυθμίσεις Βίντεο</translation>
+        <translation>Definições Vídeo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="809"/>
         <source>Video Format:</source>
-        <translation>Μορφή Βίντεο:</translation>
+        <translation>Formato do Vídeo:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="829"/>
         <source>Video Codec:</source>
-        <translation>Κωδικοποίητης Βίντεο:</translation>
+        <translation>Codificador do Vídeo:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="852"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="940"/>
         <source>Bit Rate / Quality:</source>
-        <translation>Ρυθμός Bit / Ποιότητα:</translation>
+        <translation>Taxa de Bits / Qualidade:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="873"/>
         <source>Audio Settings</source>
-        <translation>Ρυθμίσεις Ήχου</translation>
+        <translation>Definições de Áudio</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="887"/>
         <source>Sample Rate:</source>
-        <translation>Ρυθμός Δειγματοληψίας:</translation>
+        <translation>Taxa de Amostra</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="920"/>
         <source>Audio Codec:</source>
-        <translation>Κωδικοποιητής Ήχου:</translation>
+        <translation>Codificador de Áudio:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="960"/>
         <source># of Channels:</source>
-        <translation># πλήθος Καναλιών:</translation>
+        <translation># de Canais:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="996"/>
         <source>Channel Layout:</source>
-        <translation type="unfinished"></translation>
+        <translation>Layout de Canais</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="17"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="229"/>
         <source>Import Image Sequence</source>
-        <translation>Εισαγωγή Ακολουθίας Εικόνων</translation>
+        <translation>Importar Sequência de Imagens</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="42"/>
         <source>&lt;b&gt;Import Image Sequence&lt;/b&gt; (Click for Instructions)</source>
-        <translation>&lt;b&gt;Εισαγωγή Ακολουθίας Εικόνων&lt;/b&gt; (Κλικ για οδηγίες)</translation>
+        <translation>&lt;b&gt;Importar Sequência de Imagens&lt;/b&gt; (Clique para Instruções)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="51"/>
@@ -4257,98 +4266,99 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="88"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use this screen to import a sequence of numbered images as a video clip.&lt;/p&gt;&lt;p&gt;Be sure all pictures are in the same folder, and are sequencially numbered.&lt;/p&gt;&lt;p&gt;&amp;lt;b&amp;gt;TIP: &amp;lt;/b&amp;gt;If you drag and drop a single image from the sequence into the &lt;/p&gt;&lt;p&gt;project files tree, it will automatically determine the file pattern.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Use a %d for filenames starting with a number. If the filename is &lt;/p&gt;&lt;p&gt;padded (i.e. 00001.png, 00002.png), you must indicate the number of&lt;/p&gt;&lt;p&gt;digits (i.e. %05d.png)&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&amp;lt;b&amp;gt;Example patterns:&amp;lt;/b&amp;gt;&lt;/p&gt;&lt;p&gt;image1.png = image%d.png&lt;/p&gt;&lt;p&gt;image01.png = image%02d.png&lt;/p&gt;&lt;p&gt;image00001.png = image%05.png&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Χρησιμοποιείστε αυτή την οθόνη για να εισάγετε μία ακολουθία αριθμημένων εικόνων ως ένα κλιπ βίντεο.&lt;/p&gt;&lt;p&gt;Βεβαιωθείτε πως όλες οι εικόνες είναι στον ίδιο φάκελο, και είναι σειριακά αριθμημένες.&lt;/p&gt;&lt;p&gt;&amp;lt;b&amp;gt;TIP: &amp;lt;/b&amp;gt;Εάν σύρετε και εναποθέσετε μία εικόνα από την ακολουθία μέσα στο &lt;/p&gt;&lt;p&gt;δέντρο αρχείων του έργου, θα βρεθεί αυτόματα το πρότυπο του αρχείου.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Χρησιμοποιείστε ένα %d για ονόματα αρχείων που αρχίζουν με αριθμό. Αν το όνομα του αρχείου είναι &lt;/p&gt;&lt;p&gt;γεμισμένο (πχ. 00001.png, 00002.png), πρέπει να δώσετε το πλήθος των&lt;/p&gt;&lt;p&gt;ψηφίων (πχ. %05d.png)&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&amp;lt;b&amp;gt;Παράδειγμα μοτίβου:&amp;lt;/b&amp;gt;&lt;/p&gt;&lt;p&gt;image1.png = image%d.png&lt;/p&gt;&lt;p&gt;image01.png = image%02d.png&lt;/p&gt;&lt;p&gt;image00001.png = image%05.png&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Utilize este ecrã para importar uma sequência numerada de imagens como um clipe de vídeo.&lt;/p&gt;&lt;p&gt;
+Certifique-se de que todas as imagens estão na mesma pasta e estão numeradas sequencialmente.&lt;/p&gt;&lt;p&gt;&amp;lt;b&amp;gt;DICA: &amp;lt;/b&amp;gt;Se arrastar e largar um só imagem da sequência no &lt;/p&gt;&lt;p&gt;explorador de ficheiros do projeto, ele irá automaticamente determinar o padrão de ficheiros .&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Use um %d para nomes de ficheiros começados com um númeor. se o nome do ficheiro é &lt;/p&gt;&lt;p&gt;formado com zeros à esquerda (i.e. 00001.png, 00002.png), terá de indicar o número de&lt;/p&gt;&lt;p&gt;dígitos (i.e. %05d.png)&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&amp;lt;b&amp;gt;Exemplo de Padrões:&amp;lt;/b&amp;gt;&lt;/p&gt;&lt;p&gt;image1.png = image%d.png&lt;/p&gt;&lt;p&gt;image01.png = image%02d.png&lt;/p&gt;&lt;p&gt;image00001.png = image%05.png&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="145"/>
         <source>Frames per Image:</source>
-        <translation>Καρέ ανά Εικόνα:</translation>
+        <translation>Quadros por Imagem:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="152"/>
         <source>File Name Pattern:</source>
-        <translation>Πρότυπο Ονόματος Αρχείων:</translation>
+        <translation>Nome Padrão de Ficheiro:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="162"/>
         <source>Repeat Sequence:</source>
-        <translation>Επανάληψη Ακολουθίας:</translation>
+        <translation>Repetir Sequência:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="169"/>
         <source>Image Folder:</source>
-        <translation>Φάκελος Εικόνων:</translation>
+        <translation>Pasta de Imagens:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="176"/>
         <source>myfile_%d.png</source>
-        <translation>το_αρχείο_μου_%d.png</translation>
+        <translation>meuficehiro_%d.png</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="23"/>
         <source>OpenShot Video Editor</source>
-        <translation>Επεξεργαστής βίντεο OpenShot</translation>
+        <translation>Editor de Vídeo OpenShot</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="80"/>
         <source>&amp;File</source>
-        <translation>&amp;Αρχείο</translation>
+        <translation>&amp;Ficheiro</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="97"/>
         <source>&amp;Edit</source>
-        <translation>Επε&amp;ξεργασία</translation>
+        <translation>&amp;Editar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="113"/>
         <source>View</source>
-        <translation>Προβολή</translation>
+        <translation>Vista</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="117"/>
         <source>Views</source>
-        <translation>Προβολές</translation>
+        <translation>Vistas</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="135"/>
         <source>Help</source>
-        <translation>Βοήθεια</translation>
+        <translation>Ajuda</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="155"/>
         <source>toolBar</source>
-        <translation>Γραμμή εργαλείων</translation>
+        <translation>Barra de Ferramentas</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="185"/>
         <source>Project Files</source>
-        <translation>Αρχεία Έργου</translation>
+        <translation>Ficheiros do Projecto</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="206"/>
         <source>Video Preview</source>
-        <translation>Προεπισκόπηση Βίντεο</translation>
+        <translation>Pré-visualizar vídeo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="221"/>
         <source>Transitions</source>
-        <translation>Μεταβάσεις</translation>
+        <translation>Transições</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="257"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1248"/>
         <source>Properties</source>
-        <translation>Ιδιότητες</translation>
+        <translation>Propriedades</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="299"/>
         <source>New Project...</source>
-        <translation>Νέο Έργο...</translation>
+        <translation>Novo Projecto...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="302"/>
         <source>New Project</source>
-        <translation>Νέο Έργο</translation>
+        <translation>Novo Projecto</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="305"/>
@@ -4358,7 +4368,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="317"/>
         <source>Open Project</source>
-        <translation>Άνοιγμα Έργου</translation>
+        <translation>Abrir Projecto</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="320"/>
@@ -4369,7 +4379,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="329"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="332"/>
         <source>Save Project</source>
-        <translation>Αποθήκευση Έργου</translation>
+        <translation>Guardar Projecto</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="335"/>
@@ -4380,7 +4390,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="344"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="347"/>
         <source>Undo</source>
-        <translation>Αναίρεση</translation>
+        <translation>Anular</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="350"/>
@@ -4395,12 +4405,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="374"/>
         <source>Import Files...</source>
-        <translation>Εισαγωγή Αρχείων...</translation>
+        <translation>Importar Ficheiros...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="377"/>
         <source>Import Files</source>
-        <translation>Εισαγωγή Αρχείων</translation>
+        <translation>Importar Ficheiros</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="380"/>
@@ -4410,7 +4420,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="389"/>
         <source>Import Image Sequence...</source>
-        <translation>Εισαγωγή Ακολουθίας Εικόνων...</translation>
+        <translation>Importar Sequência de Imagens</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="395"/>
@@ -4420,12 +4430,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="404"/>
         <source>Import New Transition...</source>
-        <translation>Εισαγωγή Νέας Μετάβασης...</translation>
+        <translation>Importar Nova Transição...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="407"/>
         <source>Import New Transition</source>
-        <translation>Εισαγωγή Νέας Μετάβασης</translation>
+        <translation>Importar Nova Transição</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="410"/>
@@ -4436,7 +4446,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="419"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="422"/>
         <source>Redo</source>
-        <translation>Επανάληψη</translation>
+        <translation>Refazer</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="425"/>
@@ -4447,19 +4457,19 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="434"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="437"/>
         <source>Remove Clip</source>
-        <translation>Αφαίρεση Κλιπ</translation>
+        <translation>Remover Clipe</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="446"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="449"/>
         <source>Remove Transition</source>
-        <translation>Αφαίρεση Μετάβασης</translation>
+        <translation>Remover Transição</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="458"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="461"/>
         <source>Take Snapshot</source>
-        <translation>Λήψη Στιγμιότυπου</translation>
+        <translation>Capturar Ecrã</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="464"/>
@@ -4476,7 +4486,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="488"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="491"/>
         <source>Upload Video</source>
-        <translation>Ανέβασμα Βίντεο</translation>
+        <translation>Enviar Vídeo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="494"/>
@@ -4486,12 +4496,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="504"/>
         <source>&amp;Quit</source>
-        <translation>&amp;Έξοδος</translation>
+        <translation>&amp;Sair</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="507"/>
         <source>Quit</source>
-        <translation>Έξοδος</translation>
+        <translation>Sair</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="510"/>
@@ -4502,17 +4512,17 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="522"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="525"/>
         <source>Add Track</source>
-        <translation>Προσθήκη Ίχνους</translation>
+        <translation>Adicionar Faixa</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="534"/>
         <source>&amp;Preferences</source>
-        <translation>&amp;Προτιμήσεις</translation>
+        <translation>&amp;Preferências</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="537"/>
         <source>Preferences</source>
-        <translation>Προτιμήσεις</translation>
+        <translation>Preferências</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="540"/>
@@ -4523,31 +4533,31 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="552"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="555"/>
         <source>Play</source>
-        <translation>Αναπαραγωγή</translation>
+        <translation>Reproduzir</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="564"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="567"/>
         <source>Jump To Start</source>
-        <translation>Μετάβαση στην Αρχή</translation>
+        <translation>Saltar Para Início</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="576"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="579"/>
         <source>Rewind</source>
-        <translation>Κίνηση πίσω</translation>
+        <translation>Rebobinar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="588"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="591"/>
         <source>Fast Forward</source>
-        <translation>Γρήγορα εμπρός</translation>
+        <translation>Avanço Rápido</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="600"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="603"/>
         <source>Jump To End</source>
-        <translation>Μετάβαση στο Τέλος</translation>
+        <translation>Saltar Para o Fim</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="615"/>
@@ -4565,25 +4575,25 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="648"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="651"/>
         <source>Snapping Enabled</source>
-        <translation>Ενεργοποιημένη Προσκόλληση</translation>
+        <translation>Agarrar Activado</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="660"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="663"/>
         <source>Add Marker</source>
-        <translation>Προσθήκη Δείκτη</translation>
+        <translation>Adicionar Marcador</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="672"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="675"/>
         <source>Previous Marker</source>
-        <translation>Προηγούμενος Δείκτης</translation>
+        <translation>Marcador Anterior</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="684"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="687"/>
         <source>Next Marker</source>
-        <translation>Επόμενος Δείκτης</translation>
+        <translation>Marcador Seguinte</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="695"/>
@@ -4594,7 +4604,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="788"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1076"/>
         <source>Show All</source>
-        <translation>Εμφάνιση Όλων</translation>
+        <translation>Mostrar Todos</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="706"/>
@@ -4602,7 +4612,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="796"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="799"/>
         <source>Video</source>
-        <translation>Βίντεο</translation>
+        <translation>Vídeo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="717"/>
@@ -4610,13 +4620,13 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="807"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="810"/>
         <source>Audio</source>
-        <translation>Ήχος</translation>
+        <translation>Áudio</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="728"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="731"/>
         <source>Image</source>
-        <translation>Εικόνα</translation>
+        <translation>Imagem</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="837"/>
@@ -4637,7 +4647,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="878"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="881"/>
         <source>Animated Title</source>
-        <translation>Κινούμενος Τίτλος</translation>
+        <translation>Título Animado</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="884"/>
@@ -4648,7 +4658,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="897"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="900"/>
         <source>Fullscreen</source>
-        <translation>Πλήρης Οθόνη</translation>
+        <translation>Ecrã Completo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="903"/>
@@ -4659,7 +4669,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="913"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="916"/>
         <source>Exit Fullscreen</source>
-        <translation>Έξοδος Πλήρης Οθόνης</translation>
+        <translation>Sair de ecrã completo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="919"/>
@@ -4670,7 +4680,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="934"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="937"/>
         <source>View Toolbar</source>
-        <translation>Προβολή Γραμμής Εργαλείων</translation>
+        <translation>Ver a Barra de Ferramentas</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="952"/>
@@ -4681,176 +4691,176 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="964"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="967"/>
         <source>Icon View</source>
-        <translation>Προβολή Εικονιδίων</translation>
+        <translation>Vista de Ícones</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="976"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="979"/>
         <source>Details View</source>
-        <translation>Προβολή Λεπτομερειών</translation>
+        <translation>Vista de Detalhes</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="988"/>
         <source>Report a Bug...</source>
-        <translation>Αναφορά ενός Σφάλματος...</translation>
+        <translation>Reportar Erro...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="997"/>
         <source>Ask a Question...</source>
-        <translation>Κάντε μία Ερώτηση...</translation>
+        <translation>Fazer uma pergunta...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1006"/>
         <source>Translate this Application...</source>
-        <translation>Μετάφραση της Εφαρμογής...</translation>
+        <translation>Traduzir esta Aplicação...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1015"/>
         <source>Donate</source>
-        <translation>Δωρεά</translation>
+        <translation>Doar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1025"/>
         <source>Contents</source>
-        <translation>Περιεχόμενα</translation>
+        <translation>Conteúdos</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1028"/>
         <source>Open Help Contents</source>
-        <translation>Άνοιγμα Περιεχομένων Βοήθειας</translation>
+        <translation>Abrir Ajuda de Conteúdos</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1037"/>
         <source>Simple View</source>
-        <translation>Απλή Προβολή</translation>
+        <translation>Vista Simples</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1046"/>
         <source>Advanced View</source>
-        <translation>Προχωρημένη Προβολή</translation>
+        <translation>Vista Avançada</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1055"/>
         <source>Freeze View</source>
-        <translation>Πάγωμα Προβολής</translation>
+        <translation>Fixar Vista</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1064"/>
         <source>Un-Freeze View</source>
-        <translation>Ξεπάγωμα Προβολής</translation>
+        <translation>Anular Fixação da Vista</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1084"/>
         <source>Recent Placeholder</source>
-        <translation>Πρόσφατη Κράτηση Θέσης</translation>
+        <translation>Recente Espaço Reservado</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1096"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1099"/>
         <source>Choose Profile</source>
-        <translation>Επιλογή Προφίλ</translation>
+        <translation>Escolher Perfil</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1108"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1111"/>
         <source>Add to Timeline</source>
-        <translation>Προσθήκη στο Χρονοδιάγραμμα</translation>
+        <translation>Adicionar à Linha do Tempo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1120"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1123"/>
         <source>Preview File</source>
-        <translation>Προεπισκόπηση Αρχείου</translation>
+        <translation>Pré-visualizar Ficheiro</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1132"/>
         <source>Remove from Project</source>
-        <translation>Αφαίρεση από το Έργο</translation>
+        <translation>Remover do Projecto</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1135"/>
         <source>Remove from </source>
-        <translation>Αφαίρεση από το </translation>
+        <translation>Remover de </translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1144"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1147"/>
         <source>File Properties</source>
-        <translation>Ιδιότητες Αρχείου</translation>
+        <translation>Propriedades do ficheiro</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1169"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1172"/>
         <source>Remove Track</source>
-        <translation>Αφαίρεση Ίχνους</translation>
+        <translation>Remover Faixa</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1181"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1184"/>
         <source>Remove Marker</source>
-        <translation>Αφαίρεση Δείκτη</translation>
+        <translation>Remover Marcador</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1193"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1196"/>
         <source>Add Track Above</source>
-        <translation>Προσθήκη Ίχνους Πάνω</translation>
+        <translation>Adicionar Faixa Acima</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1205"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1208"/>
         <source>Add Track Below</source>
-        <translation>Προσθήκη Ίχνους Κάτω</translation>
+        <translation>Adicionar Faixa Abaixo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1217"/>
         <source>Remove Effect</source>
-        <translation>Αφαίρεση Εφέ</translation>
+        <translation>Remover Efeito</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1220"/>
         <source>Remove Effe</source>
-        <translation>Αφαίρεση Εφέ</translation>
+        <translation>Remover Efei</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1230"/>
         <source>Split Clip...</source>
-        <translation>Διαίρεση του Κλιπ...</translation>
+        <translation>Dividir Clipe...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1245"/>
         <source>&amp;Properties</source>
-        <translation>&amp;Ιδιότητες</translation>
+        <translation>&amp;Propriedades</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/presets.ui" line="14"/>
         <source>Export with FFmpeg Command</source>
-        <translation>Εξαγωγή με Εντολή FFmpeg</translation>
+        <translation>Exportar com o comando FFmpeg</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/presets.ui" line="28"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Presets:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Προεπιλογές:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Predefinições:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/presets.ui" line="55"/>
         <source>Delete Preset</source>
-        <translation>Διαγραφή Προεπιλογής</translation>
+        <translation>Apagar a Predefinição</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/presets.ui" line="75"/>
         <source>Save Current</source>
-        <translation>Αποθήκευση Τρέχοντος</translation>
+        <translation>Guardar Actual</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/presets.ui" line="122"/>
         <source>Export</source>
-        <translation>Εξαγωγή</translation>
+        <translation>Exportar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/profile.ui" line="30"/>
         <source>Size:</source>
-        <translation>Μέγεθος:</translation>
+        <translation>Tamanho:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/profile.ui" line="50"/>
@@ -4870,42 +4880,42 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/profile.ui" line="84"/>
         <source>Other:</source>
-        <translation>Άλλο:</translation>
+        <translation>Outro:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="14"/>
         <source>Title Editor</source>
-        <translation>Επεξεργασία Τίτλων</translation>
+        <translation>Editor de Títulos</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="66"/>
         <source>Template:</source>
-        <translation>Πρότυπο:</translation>
+        <translation>Modelo:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="102"/>
         <source>Line 1:</source>
-        <translation>Γραμμή 1</translation>
+        <translation>Linha 1:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="125"/>
         <source>Line 2:</source>
-        <translation>Γραμμή 2:</translation>
+        <translation>Linha 2:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="148"/>
         <source>Line 3:</source>
-        <translation>Γραμμή 3</translation>
+        <translation>Linha 3:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="171"/>
         <source>Line 4:</source>
-        <translation>Γραμμή 4</translation>
+        <translation>Linha 4:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="194"/>
         <source>Line 5:</source>
-        <translation>Γραμμή 5</translation>
+        <translation>Linha 5:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="230"/>
@@ -4915,52 +4925,52 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="247"/>
         <source>Text:</source>
-        <translation>Κείμενο:</translation>
+        <translation>Texto:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="260"/>
         <source>Text Color</source>
-        <translation>Χρώμα Κειμένου</translation>
+        <translation>Cor do Texto</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="267"/>
         <source>Background:</source>
-        <translation>Φόντο:</translation>
+        <translation>Fundo:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="280"/>
         <source>Background Color</source>
-        <translation>Χρώμα Φόντου</translation>
+        <translation>Cor de Fundo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="287"/>
         <source>Advanced:</source>
-        <translation>Προχωρημένο:</translation>
+        <translation>Avançada:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="297"/>
         <source>Use Advanced Editor</source>
-        <translation>Χρήση Προχωρημένου Επεξεργαστή</translation>
+        <translation>Usar Editor Avançado</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="320"/>
         <source>Line 6:</source>
-        <translation>Γραμμή 6</translation>
+        <translation>Linha 6:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="41"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Upload To:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ανέβασμα στο:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enviar Para:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="48"/>
         <source>(None)</source>
-        <translation>(Κανένα)</translation>
+        <translation>(Nenhum)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="74"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Video File:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Αρχείο Βίντεο:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ficheiro de Vídeo:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="81"/>
@@ -4970,12 +4980,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="94"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Username:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Όνομα Χρήστη:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Utilizador:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="101"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Description:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Περιγραφή:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Descrição:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="109"/>
@@ -4985,12 +4995,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="151"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Title:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Τίτλος:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Título:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="185"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Password:&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Συνθηματικό:&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Senha:&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Fractal 1</source>

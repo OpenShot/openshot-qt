@@ -2,13 +2,13 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="ca_ES">
     <extra-po-header-language_team>French (Canada) &lt;fr_CA@li.org&gt;</extra-po-header-language_team>
-    <extra-po-header-last_translator>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-01-11 05:40+0000</extra-po-header-po_revision_date>
+    <extra-po-header-last_translator>Benjamin Ross &lt;benjamin.ross393@gmail.com&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2016-03-05 15:24+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2016-02-03 22:58+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 17908)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-02-05 06:34+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 17936)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2016-03-06 05:43+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># French (Canada) translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -22,7 +22,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1023"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="157"/>
         <source>Track %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Piste %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -30,23 +30,23 @@
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="472"/>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="484"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>aucune</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="467"/>
         <source>Fade In</source>
-        <translation type="unfinished"></translation>
+        <translation>Flou à l&apos;entrée</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="468"/>
         <source>Fade Out</source>
-        <translation type="unfinished"></translation>
+        <translation>Flou à la sortie</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="469"/>
         <source>Fade In &amp; Out</source>
-        <translation type="unfinished"></translation>
+        <translation>Flou à l&apos;entrée et à la sortie</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="473"/>
@@ -72,17 +72,17 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="85"/>
         <source>Unsaved Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Changement non-sauvegardés</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="85"/>
         <source>Save changes to project before closing?</source>
-        <translation type="unfinished"></translation>
+        <translation>Voulez-vous sauvegarder les changements avant de quitter?</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="127"/>
         <source>Backup Recovered</source>
-        <translation type="unfinished"></translation>
+        <translation>Copie de sauvegarde chargée</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="128"/>
@@ -252,7 +252,8 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/about.py" line="152"/>
         <source>translator-credits</source>
-        <translation type="unfinished"></translation>
+        <translation>Launchpad Contributions:
+  Benjamin Ross https://launchpad.net/~benjamin-ross</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/blender_treeview.py" line="169"/>

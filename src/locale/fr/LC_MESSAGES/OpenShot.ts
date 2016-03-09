@@ -3,12 +3,12 @@
 <TS version="2.1">
     <extra-po-header-language_team>French &lt;fr@li.org&gt;</extra-po-header-language_team>
     <extra-po-header-last_translator>Dave &lt;david.trois14@gmail.com&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-02-04 05:16+0000</extra-po-header-po_revision_date>
+    <extra-po-header-po_revision_date>2016-02-09 00:16+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2016-02-03 22:58+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 17908)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-02-05 06:31+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 17923)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2016-02-10 05:43+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># French translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -1198,7 +1198,7 @@ Chemin vers l&apos;exécutable de Blender :
     </message>
     <message>
         <source>Horizontal Sync</source>
-        <translation>Synchro Horizontale</translation>
+        <translation>Synchronisation horizontale</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
     </message>
     <message>
@@ -1781,7 +1781,7 @@ Chemin vers l&apos;exécutable de Blender :
     </message>
     <message>
         <source>Adds black borders at the top and bottom</source>
-        <translation>Ajout de bordures noires en haut et en bas</translation>
+        <translation>Ajoute des bordures noires en haut et en bas</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
     </message>
     <message>

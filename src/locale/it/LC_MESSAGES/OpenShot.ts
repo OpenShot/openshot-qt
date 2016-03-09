@@ -3,12 +3,12 @@
 <TS version="2.1">
     <extra-po-header-language_team>Italian &lt;it@li.org&gt;</extra-po-header-language_team>
     <extra-po-header-last_translator>Michele Locati &lt;michele@locati.it&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-02-02 07:37+0000</extra-po-header-po_revision_date>
+    <extra-po-header-po_revision_date>2016-02-09 07:27+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2016-02-03 22:58+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 17908)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-02-05 06:32+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 17923)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2016-02-10 05:43+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Italian translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -93,12 +93,12 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="127"/>
         <source>Backup Recovered</source>
-        <translation type="unfinished"></translation>
+        <translation>Backup ripristinato</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="128"/>
         <source>Your most recent unsaved project has been recovered.</source>
-        <translation type="unfinished"></translation>
+        <translation>Il progetto più recente non salvato è stato ripristinato.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="241"/>
@@ -3107,7 +3107,7 @@ Percorso di Blender:
     </message>
     <message>
         <source>Autosave Interval (minutes)</source>
-        <translation type="unfinished"></translation>
+        <translation>Intervallo salvataggio automatico (minuti)</translation>
         <extra-po-references>Settings for autosave-interval</extra-po-references>
     </message>
     <message>

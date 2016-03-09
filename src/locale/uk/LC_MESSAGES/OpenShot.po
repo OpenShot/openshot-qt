@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-03 22:58+0000\n"
-"PO-Revision-Date: 2016-01-11 05:40+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2016-02-18 07:00+0000\n"
+"Last-Translator: Sergiy Lagoda <student.laser@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-05 06:34+0000\n"
-"X-Generator: Launchpad (build 17908)\n"
+"X-Launchpad-Export-Date: 2016-02-19 05:44+0000\n"
+"X-Generator: Launchpad (build 17925)\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:463
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1023
@@ -47,7 +47,7 @@ msgstr "Наростання і згасання"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:485
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:550
 msgid "Random"
-msgstr ""
+msgstr "Випадково"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:474
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:831
@@ -63,15 +63,15 @@ msgstr "Зменшити"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:85
 msgid "Unsaved Changes"
-msgstr ""
+msgstr "Незбережені зміни"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:85
 msgid "Save changes to project before closing?"
-msgstr ""
+msgstr "Зберегти зміни до проекту перед закриттям?"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:127
 msgid "Backup Recovered"
-msgstr ""
+msgstr "Резевна копія відновлена"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:128
 msgid "Your most recent unsaved project has been recovered."
@@ -79,11 +79,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:241
 msgid "Error Saving Project"
-msgstr ""
+msgstr "Помилка збереження проекту"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:278
 msgid "Error Opening Project"
-msgstr ""
+msgstr "Помилка відкриття проекту"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:314
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:314
@@ -101,11 +101,11 @@ msgstr "проект OpenShot (*.osp)"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1240
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:104
 msgid "Untitled Project"
-msgstr ""
+msgstr "Проект без назви"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:327
 msgid "Save Project..."
-msgstr ""
+msgstr "Зберегти проект..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:371
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:359
@@ -115,7 +115,7 @@ msgstr "Зберегти проект як..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:386
 msgid "Import File..."
-msgstr ""
+msgstr "Імпорт файлу..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1025
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1260
@@ -125,7 +125,7 @@ msgstr "Змінити назву доріжки"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1025
 msgid "Track Name:"
-msgstr ""
+msgstr "Назва доріжки:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1327
 msgid "Recent Projects"
@@ -137,26 +137,26 @@ msgstr "Недавні проекти"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1541
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:286
 msgid "Filter"
-msgstr ""
+msgstr "Фільтр"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1454
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1634
 msgid "{} seconds"
-msgstr ""
+msgstr "{} секунд"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:114
 msgid "<Select a template>"
-msgstr ""
+msgstr "<Оберіть шаблон>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:323
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:342
 msgid "Select a Color"
-msgstr ""
+msgstr "Виберіть колір"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:361
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:240
 msgid "Change Font"
-msgstr ""
+msgstr "Змінити шрифт"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:592
 msgid "New Title"
@@ -164,7 +164,7 @@ msgstr "Новий заголовок"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:595
 msgid "Save Title As..."
-msgstr ""
+msgstr "Зберегти напис як..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:595
 msgid "Scalable Vector Graphics (*.svg)"
@@ -184,7 +184,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:269
 msgid "Restart Required"
-msgstr ""
+msgstr "Потрібен перезапуск"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:270
 msgid "Please restart OpenShot for all preferences to take effect."
@@ -208,7 +208,7 @@ msgstr "Скасувати"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/about.py:71
 #, python-format
 msgid "Version: %s"
-msgstr ""
+msgstr "Версія: %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/about.py:152
 msgid "translator-credits"
@@ -222,6 +222,7 @@ msgstr ""
 "  Max_ym https://launchpad.net/~kontact-cat\n"
 "  Maxim Nosovets https://launchpad.net/~molny\n"
 "  Roman Koshkin https://launchpad.net/~mar2008m\n"
+"  Sergiy Lagoda https://launchpad.net/~student-laser\n"
 "  Vasiliy Meshko https://launchpad.net/~vasiliymeshko\n"
 "  Vlad Golubev https://launchpad.net/~golubev-vld\n"
 "  Yaroslav https://launchpad.net/~naker-ua\n"
@@ -232,7 +233,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/blender_treeview.py:169
 msgid "No Files Found"
-msgstr ""
+msgstr "Файлів не знайдено"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/blender_treeview.py:461
 msgid ""
@@ -282,15 +283,15 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Normal"
-msgstr ""
+msgstr "Нормальний"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Fast"
-msgstr ""
+msgstr "Швидко"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Slow"
-msgstr ""
+msgstr "Повільно"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Forward"
@@ -298,26 +299,26 @@ msgstr "Вперед"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Backward"
-msgstr ""
+msgstr "Назад"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:423
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1510
 msgid "Copy"
-msgstr ""
+msgstr "Копіювати"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:424
 msgid "Clip"
-msgstr ""
+msgstr "Кліп"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:426
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1513
 msgid "Keyframes"
-msgstr ""
+msgstr "Ключові кадри"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:427
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1514
 msgid "All"
-msgstr ""
+msgstr "Усе"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:430
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
@@ -332,23 +333,23 @@ msgstr "Масштаб"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:434
 #: libopenshot (Clip Properties)
 msgid "Rotation"
-msgstr ""
+msgstr "Поворот"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:436
 msgid "Location"
-msgstr ""
+msgstr "Розташування"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:438
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:595
 #: libopenshot (Clip Properties)
 msgid "Time"
-msgstr ""
+msgstr "Час"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:440
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:619
 #: libopenshot (Clip Properties) Settings for volume
 msgid "Volume"
-msgstr ""
+msgstr "Гучність"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:442
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:236
@@ -358,7 +359,7 @@ msgstr "Ефекти"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:448
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1525
 msgid "Paste"
-msgstr ""
+msgstr "Вставити"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:454
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/common/fade.svg
@@ -421,7 +422,7 @@ msgstr "Без анімації"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:497
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:307
 msgid "Zoom"
-msgstr ""
+msgstr "Масштабувати"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:498
 msgid "Zoom In (50% to 100%)"
@@ -566,59 +567,59 @@ msgstr "Показати все (Розтягнути)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:596
 msgid "Reset Time"
-msgstr ""
+msgstr "Скинути час"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:620
 msgid "Reset Volume"
-msgstr ""
+msgstr "Скинути гучність"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:651
 msgid "Level 100%"
-msgstr ""
+msgstr "Рівень 100%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:653
 msgid "Level 90%"
-msgstr ""
+msgstr "Рівень 90%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:655
 msgid "Level 80%"
-msgstr ""
+msgstr "Рівень 80%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:657
 msgid "Level 70%"
-msgstr ""
+msgstr "Рівень 70%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:659
 msgid "Level 60%"
-msgstr ""
+msgstr "Рівень 60%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:661
 msgid "Level 50%"
-msgstr ""
+msgstr "Рівень 50%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:663
 msgid "Level 40%"
-msgstr ""
+msgstr "Рівень 40%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:665
 msgid "Level 30%"
-msgstr ""
+msgstr "Рівень 30%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:667
 msgid "Level 20%"
-msgstr ""
+msgstr "Рівень 20%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:669
 msgid "Level 10%"
-msgstr ""
+msgstr "Рівень 10%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:671
 msgid "Level 0%"
-msgstr ""
+msgstr "Рівень 0%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:683
 msgid "Slice Clip"
-msgstr ""
+msgstr "Зріз кліпа"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:684
 msgid "Keep Both Sides"
@@ -654,29 +655,29 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:78
 #, python-format
 msgid "Selection: %s"
-msgstr ""
+msgstr "Вибір: %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:80
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:273
 msgid "No Selection"
-msgstr ""
+msgstr "Нема вибраного"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:129
 msgid "Bezier"
-msgstr ""
+msgstr "Безьє"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:131
 msgid "Linear"
-msgstr ""
+msgstr "Лінійно"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:133
 msgid "Constant"
-msgstr ""
+msgstr "Постійно"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:136
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:141
 msgid "Remove Keyframe"
-msgstr ""
+msgstr "Видалити ключовий кадр"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/add_to_timeline_model.py:57
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/blender_model.py:56
@@ -703,11 +704,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:67
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:67
 msgid "Website"
-msgstr ""
+msgstr "Веб-сайт"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:100
 msgid "PayPal Supporter!"
@@ -725,17 +726,17 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:561
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:629
 msgid "False"
-msgstr ""
+msgstr "Хибність"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:499
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:682
 msgid "Property"
-msgstr ""
+msgstr "Властивість"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:499
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:682
 msgid "Value"
-msgstr ""
+msgstr "Значення"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:517
 #: /home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml
@@ -745,15 +746,15 @@ msgstr "Прозорість"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:559
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:627
 msgid "True"
-msgstr ""
+msgstr "Істина"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/files_model.py:100
 msgid "Tags"
-msgstr ""
+msgstr "Теги"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/effects_model.py:80
 msgid "Description"
-msgstr ""
+msgstr "Опис"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:74
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:20
@@ -770,23 +771,23 @@ msgstr "Послідовність зображень"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:123
 msgid "Mono (1 Channel)"
-msgstr ""
+msgstr "Моно (1 канал)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:124
 msgid "Stereo (2 Channel)"
-msgstr ""
+msgstr "Стерео (2 канали)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:125
 msgid "Surround (3 Channel)"
-msgstr ""
+msgstr "Оточуючий звук (3 канали)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:126
 msgid "Surround (5.1 Channel)"
-msgstr ""
+msgstr "Оточуючий звук (5.1 каналів)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:127
 msgid "Surround (7.1 Channel)"
-msgstr ""
+msgstr "Оточуючий звук (7.1 каналів)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:192
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml
@@ -828,11 +829,11 @@ msgstr "Висока"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:472
 msgid "Choose a Folder..."
-msgstr ""
+msgstr "Оберіть папку..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:625
 msgid "Export Error"
-msgstr ""
+msgstr "Помилка експортування"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:626
 #, python-format
@@ -847,7 +848,7 @@ msgstr "Перетворити зображення у відтінки сіро
 
 #: libopenshot (Clip Properties)
 msgid "Iterations"
-msgstr ""
+msgstr "Ітерації"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml
 msgid "Split and mirror the image"
@@ -919,7 +920,7 @@ msgstr "Збільшення довготи (хвилини)"
 
 #: libopenshot (Clip Properties)
 msgid "Vertical Radius"
-msgstr ""
+msgstr "Вертикальний радіус"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml
 msgid "Old Dust"
@@ -951,7 +952,7 @@ msgstr "Гама"
 
 #: libopenshot (Clip Properties)
 msgid "Gravity"
-msgstr ""
+msgstr "Гравітація"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
 msgid "Tile 1: Diffuse Color"
@@ -1021,7 +1022,7 @@ msgstr ""
 
 #: libopenshot (Effect Metadata)
 msgid "Color Saturation"
-msgstr ""
+msgstr "Насиченість кольору"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
 msgid "X Center"
@@ -1061,11 +1062,11 @@ msgstr "v"
 
 #: libopenshot (Clip Properties)
 msgid "Bottom Left"
-msgstr ""
+msgstr "Внизу ліворуч"
 
 #: libopenshot (Clip Properties)
 msgid "Duration"
-msgstr ""
+msgstr "Тривалість"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
 msgid "Brightness Delta Down"
@@ -1168,11 +1169,11 @@ msgstr "Заморозити"
 
 #: libopenshot (Clip Properties)
 msgid "Horizontal Radius"
-msgstr ""
+msgstr "Горизонтальний радіус"
 
 #: libopenshot (Clip Properties)
 msgid "Location X"
-msgstr ""
+msgstr "Положення X"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
 msgid "Defish"
@@ -1268,7 +1269,7 @@ msgstr "Масштаб"
 
 #: libopenshot (Clip Properties)
 msgid "Bottom Right"
-msgstr ""
+msgstr "Внизу праворуч"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
 msgid "Input level black point"
@@ -1296,7 +1297,7 @@ msgstr "Каркасний Текст"
 
 #: libopenshot (Clip Properties)
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml
 msgid ""
@@ -1372,11 +1373,11 @@ msgstr "Колір відображення"
 
 #: libopenshot (Clip Properties)
 msgid "Crop"
-msgstr ""
+msgstr "Обрізати"
 
 #: libopenshot (Effect Metadata)
 msgid "Deinterlace"
-msgstr ""
+msgstr "Деінтерлейс"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Depart Latitude (degrees)"
@@ -1384,7 +1385,7 @@ msgstr "Зменшити широту (градуси)"
 
 #: libopenshot (Effect Metadata)
 msgid "Adjust the color saturation."
-msgstr ""
+msgstr "Підлаштувати насиченість кольору"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml
 msgid "Oversaturate Color"
@@ -1400,7 +1401,7 @@ msgstr "Налаштувати гамму чи освітленість зобр
 
 #: libopenshot (Clip Properties)
 msgid "Scale X"
-msgstr ""
+msgstr "Масштаб X"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
 msgid "Tile 3: Diffuse Color"
@@ -1456,7 +1457,7 @@ msgstr ""
 
 #: libopenshot (Clip Properties)
 msgid "Top Left"
-msgstr ""
+msgstr "Вгорі ліворуч"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml
 msgid "Red/Green Axis"
@@ -1464,7 +1465,7 @@ msgstr "Червона/зелена осі"
 
 #: libopenshot (Clip Properties)
 msgid "Scale Y"
-msgstr ""
+msgstr "Масштаб Y"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml
 msgid "Scan Lines"
@@ -1508,7 +1509,7 @@ msgstr "Кінцевий кадр"
 
 #: libopenshot (Clip Properties)
 msgid "Replace Image"
-msgstr ""
+msgstr "Замінити зображення"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
 msgid "Alphagrad"
@@ -1524,7 +1525,7 @@ msgstr "Зберегти яскравість"
 
 #: libopenshot (Clip Properties)
 msgid "Location Y"
-msgstr ""
+msgstr "Положення Y"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml
 msgid "Color"
@@ -1572,7 +1573,7 @@ msgstr "Світліше"
 
 #: libopenshot (Effect Metadata)
 msgid "Chroma Key (Greenscreen)"
-msgstr ""
+msgstr "Колір заміни фону (Зелений екран)"
 
 #: libopenshot (Clip Properties)
 msgid "Viewport"
@@ -1592,7 +1593,7 @@ msgstr "Ореол: використовувати блік"
 
 #: libopenshot (Clip Properties)
 msgid "Stretch"
-msgstr ""
+msgstr "Розтягнути"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "End: Z"
@@ -1632,7 +1633,7 @@ msgstr "Колір розсіювання заголовку"
 
 #: libopenshot (Effect Metadata)
 msgid "Brightness & Contrast"
-msgstr ""
+msgstr "Яскравість і контраст"
 
 #: libopenshot (Clip Properties)
 msgid "Is Odd Frame"
@@ -1676,7 +1677,7 @@ msgstr "Сяйво країв"
 
 #: libopenshot (Clip Properties)
 msgid "Bottom Center"
-msgstr ""
+msgstr "Внизу по центру"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/contrast.xml
 msgid "Adjusts the contrast of a source image"
@@ -1821,7 +1822,7 @@ msgstr "Правити шкалу вручну"
 
 #: libopenshot (Clip Properties)
 msgid "Anchor"
-msgstr ""
+msgstr "Якір"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml
 msgid "Increase the size of pixels to obscure the image"
@@ -1873,7 +1874,7 @@ msgstr "Старий фільм"
 
 #: libopenshot (Clip Properties)
 msgid "Top Center"
-msgstr ""
+msgstr "Згори по центру"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "Gravity: Z"
@@ -1914,11 +1915,11 @@ msgstr ""
 
 #: libopenshot (Clip Properties)
 msgid "Top Right"
-msgstr ""
+msgstr "Вгорі праворуч"
 
 #: libopenshot (Clip Properties)
 msgid "Layer"
-msgstr ""
+msgstr "Шар"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml
 msgid "Color Distance"
@@ -1989,7 +1990,7 @@ msgstr "Розмір"
 
 #: libopenshot (Effect Metadata)
 msgid "Negative"
-msgstr ""
+msgstr "Негативний"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/fly_by_1.xml
 msgid "Fly Towards Camera"
@@ -2001,7 +2002,7 @@ msgstr "TehRoxx0r"
 
 #: libopenshot (Clip Properties)
 msgid "Center"
-msgstr ""
+msgstr "По центру"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Halo: Use Lines"
@@ -2157,7 +2158,7 @@ msgstr "Темніше"
 
 #: libopenshot (Clip Properties)
 msgid "Canvas"
-msgstr ""
+msgstr "Полотно"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Particles: Amount"
@@ -2246,7 +2247,7 @@ msgstr "Колірна гамма Френеля для заднього тла"
 
 #: libopenshot (Clip Properties)
 msgid "Waveform"
-msgstr ""
+msgstr "Форма хвилі"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Depart Latitude (seconds)"
@@ -2258,7 +2259,7 @@ msgstr "Додати на зображення ефект світіння"
 
 #: libopenshot (Clip Properties)
 msgid "Best Fit"
-msgstr ""
+msgstr "Найкраще заповнення"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/balance.xml
 msgid "Balance"
@@ -2417,7 +2418,7 @@ msgstr "Віддзеркалити"
 
 #: Settings for default-profile
 msgid "Default Profile"
-msgstr ""
+msgstr "Профіль за умовчанням"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_mov_mpeg4.xml
 msgid "MOV (mpeg4)"
@@ -2462,7 +2463,7 @@ msgstr "WEBM (vpx)"
 #: /home/jonathan/apps/openshot-qt-git/src/presets/vimeo.xml
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:118
 msgid "Vimeo"
-msgstr ""
+msgstr "Vimeo"
 
 #: Settings for enable-auto-save
 msgid "Enable Autosave"
@@ -2494,7 +2495,7 @@ msgstr "Vimeo-HD"
 
 #: Settings for default-image-length
 msgid "Image Length (seconds)"
-msgstr ""
+msgstr "Тривалість зображення (секунд)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_libvorbis.xml
 msgid "OGG (theora/vorbis)"
@@ -2502,7 +2503,7 @@ msgstr "OGG (theora/vorbis)"
 
 #: Settings for theme
 msgid "Default Theme"
-msgstr ""
+msgstr "Типова тема"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_xvid.xml
 msgid "MP4 (Xvid)"
@@ -2518,7 +2519,7 @@ msgstr "MOV (h.264)"
 
 #: Settings for autosave-interval
 msgid "Autosave Interval (minutes)"
-msgstr ""
+msgstr "Інтервал автозбереження (хвилин)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/youtube_HD.xml
 msgid "YouTube-HD"
@@ -2538,7 +2539,7 @@ msgstr "OGG (theora/flac)"
 
 #: Settings for default-samplerate
 msgid "Default Audio Sample Rate"
-msgstr ""
+msgstr "Частота аудіо усталено"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_mpeg4.xml
 msgid "MP4 (mpeg4)"
@@ -2550,11 +2551,11 @@ msgstr "AVCHD диски"
 
 #: Settings for default-channellayout
 msgid "Default Audio Channels"
-msgstr ""
+msgstr "Кількість каналів аудіо усталено"
 
 #: Settings for title_editor
 msgid "Advanced Title Editor (path)"
-msgstr ""
+msgstr "Розширений редактор титрів (шлях)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml
 msgid "Device"
@@ -2680,7 +2681,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg
 msgid "Left arrow"
-msgstr ""
+msgstr "Стрілка вліво"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/hatched_1.jpg
 msgid "Hatched %s"
@@ -2772,7 +2773,7 @@ msgstr "Прямокутник назовні"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/puzzle.jpg
 msgid "Puzzle"
-msgstr ""
+msgstr "Пазли"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds.jpg
 msgid "Clouds"
@@ -2820,7 +2821,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/fish-eyes_5.jpg
 msgid "Fish-eyes %s"
-msgstr ""
+msgstr "Риб'ячі очі %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_left_barr.jpg
 msgid "Square middle left barr"
@@ -2840,7 +2841,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_arrow.jpg
 msgid "Right arrow"
-msgstr ""
+msgstr "Стрілка вправо"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/stretched_3.jpg
 msgid "Stretched %s"
@@ -2864,7 +2865,7 @@ msgstr "Логотип Openshot"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/star_2.jpg
 msgid "Star %s"
-msgstr ""
+msgstr "Зірка %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking2.jpg
 msgid "Big barr shaking2"
@@ -2984,7 +2985,7 @@ msgstr "Коло всередину"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg
 msgid "Distortion %s"
-msgstr ""
+msgstr "Спотворення %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_top_arrow.jpg
 msgid "Ripple luminous top arrow"
@@ -2996,7 +2997,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds_2.jpg
 msgid "Clouds %s"
-msgstr ""
+msgstr "Хмари %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_inspiration_right.jpg
 msgid "Free inspiration right"
@@ -3016,7 +3017,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/deform_8.jpg
 msgid "Deform %s"
-msgstr ""
+msgstr "Деформація %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out_big.jpg
 msgid "Blinds in to out big"
@@ -3032,11 +3033,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_2.jpg
 msgid "Frame %s"
-msgstr ""
+msgstr "Рамка %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere_2.jpg
 msgid "Sphere %s"
-msgstr ""
+msgstr "Сфера %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small.jpg
 msgid "Spiral small"
@@ -3100,7 +3101,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_1.jpg
 msgid "Spiral %s"
-msgstr ""
+msgstr "Спіраль %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_top_to_bottom.svg
 msgid "Wipe top to bottom"
@@ -3116,7 +3117,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra
 msgid "Extra"
-msgstr ""
+msgstr "Додатково"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/bubbles.jpg
 msgid "Bubbles"
@@ -3128,7 +3129,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/triangle_3.jpg
 msgid "Triangle %s"
-msgstr ""
+msgstr "Трикутник %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/about.ui:23
 msgid "About OpenShot"
@@ -3148,7 +3149,7 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/about.ui:100
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/credits.ui:14
 msgid "Credits"
-msgstr ""
+msgstr "Автори"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/about.ui:107
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/license.ui:14
@@ -3159,7 +3160,7 @@ msgstr "Ліцензія"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/credits.ui:134
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/license.ui:45
 msgid "Close"
-msgstr ""
+msgstr "Закрити"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:14
 msgid "Add To Timeline"
@@ -3191,11 +3192,11 @@ msgstr "Початковий час (секунди):"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:179
 msgid "Track:"
-msgstr ""
+msgstr "Доріжка:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:209
 msgid "Image Length (seconds):"
-msgstr ""
+msgstr "Довжина зображення (секунд)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:255
 msgid "Fade:"
@@ -3203,11 +3204,11 @@ msgstr "Згасання:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:279
 msgid "Length (seconds):"
-msgstr ""
+msgstr "Довжина (секунд):"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:319
 msgid "Zoom:"
-msgstr ""
+msgstr "Масштаб:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:356
 msgid "Transition:"
@@ -3219,15 +3220,15 @@ msgstr "Тривалість:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:441
 msgid "Total Length (seconds):"
-msgstr ""
+msgstr "Загальна довжина (секунд):"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:466
 msgid "0.0"
-msgstr ""
+msgstr "0,0"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/animated-title.ui:14
 msgid "Animated Titles"
-msgstr ""
+msgstr "Анімовані титри"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/animated-title.ui:46
 msgid "<b>Choose a Template</b>"
@@ -3243,7 +3244,7 @@ msgstr "Кадр:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/animated-title.ui:107
 msgid "1/1"
-msgstr ""
+msgstr "1/1"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/animated-title.ui:114
 msgid "Refresh"
@@ -3251,7 +3252,7 @@ msgstr "Оновити"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/credits.ui:31
 msgid "Developers"
-msgstr ""
+msgstr "Розробники"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/credits.ui:44
 msgid "Filter Developers"
@@ -3259,7 +3260,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/credits.ui:59
 msgid "Translators"
-msgstr ""
+msgstr "Перекладачі"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/credits.ui:69
 msgid "Filter Translators"
@@ -3282,7 +3283,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:14
 msgid "Split Clip"
-msgstr ""
+msgstr "Розділити кліп"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:44
 msgid "Choose the <b>start</b> and <b>end</b> of each clip"
@@ -3290,31 +3291,31 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:76
 msgid "00:00:00:1"
-msgstr ""
+msgstr "00:00:00:1"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:93
 msgid "Set the start of a clip"
-msgstr ""
+msgstr "Встановити початок кліпу"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:112
 msgid "Set the end of a clip"
-msgstr ""
+msgstr "Встановити кінець кліпу"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:130
 msgid "Name of clip:"
-msgstr ""
+msgstr "Назва кліпу:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:149
 msgid "Optional"
-msgstr ""
+msgstr "Необов'язково"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:161
 msgid "Clear"
-msgstr ""
+msgstr "Очистити"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:174
 msgid "Create"
-msgstr ""
+msgstr "Створити"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:56
 msgid "File Name:"
@@ -3322,15 +3323,15 @@ msgstr "Ім'я Файлу:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:63
 msgid "YourVideoName"
-msgstr ""
+msgstr "Назва_відео"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:83
 msgid "Folder Path:"
-msgstr ""
+msgstr "Шлях папки:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:93
 msgid "Browse..."
-msgstr ""
+msgstr "Огляд..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:148
 msgid "Simple"
@@ -3368,7 +3369,7 @@ msgstr "Розширений"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:348
 msgid "Advanced Options"
-msgstr ""
+msgstr "Розширені опції"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:367
 msgid "Export To:"
@@ -3376,15 +3377,15 @@ msgstr "Експортувати до:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:396
 msgid "End Frame:"
-msgstr ""
+msgstr "Кадр кінця:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:429
 msgid "Start Frame:"
-msgstr ""
+msgstr "Кадр початку:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:469
 msgid "Profile"
-msgstr ""
+msgstr "Профіль"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:513
 msgid "Height:"
@@ -3404,7 +3405,7 @@ msgstr "Частота кадрів"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:696
 msgid "Interlaced:"
-msgstr ""
+msgstr "Черезрядкова розгортка:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:723
 msgid "Width:"
@@ -3412,7 +3413,7 @@ msgstr "Ширина:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:757
 msgid "Image Sequence Settings"
-msgstr ""
+msgstr "Налаштування послідовності зображень"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:774
 msgid "Image Format:"
@@ -3420,7 +3421,7 @@ msgstr "Формат зображення"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:795
 msgid "Video Settings"
-msgstr ""
+msgstr "Параметри відео"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:809
 msgid "Video Format:"
@@ -3437,7 +3438,7 @@ msgstr "Бітрейт / Якість"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:873
 msgid "Audio Settings"
-msgstr ""
+msgstr "Параметри звуку"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:887
 msgid "Sample Rate:"
@@ -3453,7 +3454,7 @@ msgstr "Кількість каналів"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:996
 msgid "Channel Layout:"
-msgstr ""
+msgstr "Схема каналів:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:17
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:229
@@ -3466,7 +3467,7 @@ msgstr "<b>Імпортувати послідовність зображень<
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:51
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:88
 #, qt-format
@@ -3505,31 +3506,31 @@ msgstr "МійФайл_%d.png"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:23
 msgid "OpenShot Video Editor"
-msgstr ""
+msgstr "Редактор відео OpenShot"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:80
 msgid "&File"
-msgstr ""
+msgstr "&Файл"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:97
 msgid "&Edit"
-msgstr ""
+msgstr "&Редагувати"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:113
 msgid "View"
-msgstr ""
+msgstr "Вигляд"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:117
 msgid "Views"
-msgstr ""
+msgstr "Перегляди"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:135
 msgid "Help"
-msgstr ""
+msgstr "Довідка"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:155
 msgid "toolBar"
-msgstr ""
+msgstr "Панель  інструментів"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:185
 msgid "Project Files"
@@ -3546,7 +3547,7 @@ msgstr "Переходи"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:257
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1248
 msgid "Properties"
-msgstr ""
+msgstr "Властивості"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:299
 msgid "New Project..."
@@ -3554,11 +3555,11 @@ msgstr "Новий проект..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:302
 msgid "New Project"
-msgstr ""
+msgstr "Новий проект"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:305
 msgid "Ctrl+N"
-msgstr ""
+msgstr "Ctrl+N"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:317
 msgid "Open Project"
@@ -3566,7 +3567,7 @@ msgstr "Відкрити проект"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:320
 msgid "Ctrl+O"
-msgstr ""
+msgstr "Ctrl+O"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:329
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:332
@@ -3575,7 +3576,7 @@ msgstr "Зберегти проект"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:335
 msgid "Ctrl+S"
-msgstr ""
+msgstr "Ctrl+S"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:344
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:347
@@ -3584,11 +3585,11 @@ msgstr "Скасувати"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:350
 msgid "Ctrl+Z"
-msgstr ""
+msgstr "Ctrl+Z"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:365
 msgid "Ctrl+Shift+S"
-msgstr ""
+msgstr "Ctrl+Shift+S"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:374
 msgid "Import Files..."
@@ -3600,7 +3601,7 @@ msgstr "Імпортувати файли"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:380
 msgid "Ctrl+F"
-msgstr ""
+msgstr "Ctrl+F"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:389
 msgid "Import Image Sequence..."
@@ -3608,7 +3609,7 @@ msgstr "Імпортувати послідовність зображень..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:395
 msgid "Ctrl+I"
-msgstr ""
+msgstr "Ctrl+I"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:404
 msgid "Import New Transition..."
@@ -3620,7 +3621,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:410
 msgid "Ctrl+W"
-msgstr ""
+msgstr "Ctrl+W"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:419
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:422
@@ -3629,7 +3630,7 @@ msgstr "Повторити"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:425
 msgid "Ctrl+Y"
-msgstr ""
+msgstr "Ctrl+Y"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:434
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:437
@@ -3648,12 +3649,12 @@ msgstr "Зробити знімок"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:464
 msgid "Ctrl+D"
-msgstr ""
+msgstr "Ctrl+D"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:479
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1236
 msgid "Ctrl+E"
-msgstr ""
+msgstr "Ctrl+E"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:488
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:491
@@ -3662,19 +3663,19 @@ msgstr "Завантажити відео"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:494
 msgid "Ctrl+U"
-msgstr ""
+msgstr "Ctrl+U"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:504
 msgid "&Quit"
-msgstr ""
+msgstr "В&ийти"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:507
 msgid "Quit"
-msgstr ""
+msgstr "Вийти"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:510
 msgid "Ctrl+Q"
-msgstr ""
+msgstr "Ctrl+Q"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:522
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:525
@@ -3683,7 +3684,7 @@ msgstr "Додати доріжку"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:534
 msgid "&Preferences"
-msgstr ""
+msgstr "&Параметри"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:537
 msgid "Preferences"
@@ -3691,7 +3692,7 @@ msgstr "Налаштування"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:540
 msgid "Ctrl+P"
-msgstr ""
+msgstr "Ctrl+P"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:552
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:555
@@ -3701,22 +3702,22 @@ msgstr "Відтворити"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:564
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:567
 msgid "Jump To Start"
-msgstr ""
+msgstr "Перейти на старт"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:576
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:579
 msgid "Rewind"
-msgstr ""
+msgstr "Назад"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:588
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:591
 msgid "Fast Forward"
-msgstr ""
+msgstr "Прокрутити вперед"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:600
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:603
 msgid "Jump To End"
-msgstr ""
+msgstr "Перейти в кінець"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:615
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:618
@@ -3731,7 +3732,7 @@ msgstr "Інструмент \"Лезо\""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:648
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:651
 msgid "Snapping Enabled"
-msgstr ""
+msgstr "Прилипання увімкнено"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:660
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:663
@@ -3779,24 +3780,24 @@ msgstr "Зображення"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:837
 msgid "="
-msgstr ""
+msgstr "="
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:852
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:868
 msgid "Ctrl+T"
-msgstr ""
+msgstr "Ctrl+T"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:878
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:881
 msgid "Animated Title"
-msgstr ""
+msgstr "Анімований напис"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:884
 msgid "Ctrl+B"
-msgstr ""
+msgstr "Ctrl+B"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:897
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:900
@@ -3805,51 +3806,51 @@ msgstr "На весь екран"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:903
 msgid "F11"
-msgstr ""
+msgstr "F11"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:913
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:916
 msgid "Exit Fullscreen"
-msgstr ""
+msgstr "Вийти з повноекранного режиму"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:919
 msgid "Esc"
-msgstr ""
+msgstr "Esc"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:934
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:937
 msgid "View Toolbar"
-msgstr ""
+msgstr "Панель перегляду"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:952
 msgid "Ctrl+A"
-msgstr ""
+msgstr "Ctrl+A"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:964
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:967
 msgid "Icon View"
-msgstr ""
+msgstr "У вигляді значків"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:976
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:979
 msgid "Details View"
-msgstr ""
+msgstr "Подання в деталях"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:988
 msgid "Report a Bug..."
-msgstr ""
+msgstr "Повідомити про помилку..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:997
 msgid "Ask a Question..."
-msgstr ""
+msgstr "Задати питання..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1006
 msgid "Translate this Application..."
-msgstr ""
+msgstr "Перекласти цю програму"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1015
 msgid "Donate"
-msgstr ""
+msgstr "Пожертвувати"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1025
 msgid "Contents"
@@ -3857,15 +3858,15 @@ msgstr "Вміст"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1028
 msgid "Open Help Contents"
-msgstr ""
+msgstr "Відкрити розділи довідки"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1037
 msgid "Simple View"
-msgstr ""
+msgstr "Просте подання"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1046
 msgid "Advanced View"
-msgstr ""
+msgstr "Розширення подання"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1055
 msgid "Freeze View"
@@ -3900,7 +3901,7 @@ msgstr "Вилучити з проекту"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1135
 msgid "Remove from "
-msgstr ""
+msgstr "Видалити з "
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1144
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1147
@@ -3937,11 +3938,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1230
 msgid "Split Clip..."
-msgstr ""
+msgstr "Розділити кліп..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1245
 msgid "&Properties"
-msgstr ""
+msgstr "&Властивості"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/presets.ui:14
 msgid "Export with FFmpeg Command"
@@ -3953,15 +3954,15 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/presets.ui:55
 msgid "Delete Preset"
-msgstr ""
+msgstr "Вилучити набір"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/presets.ui:75
 msgid "Save Current"
-msgstr ""
+msgstr "Зберегти поточний"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/presets.ui:122
 msgid "Export"
-msgstr ""
+msgstr "Експорт"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/profile.ui:30
 msgid "Size:"
@@ -3969,19 +3970,19 @@ msgstr "Розмір:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/profile.ui:50
 msgid "1920x1080"
-msgstr ""
+msgstr "1920x1080"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/profile.ui:60
 msgid "24"
-msgstr ""
+msgstr "24"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/profile.ui:67
 msgid "FPS:"
-msgstr ""
+msgstr "кадр/с:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/profile.ui:84
 msgid "Other:"
-msgstr ""
+msgstr "Інше:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:14
 msgid "Title Editor"
@@ -3989,59 +3990,59 @@ msgstr "Редактор заголовку"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:66
 msgid "Template:"
-msgstr ""
+msgstr "Шаблон:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:102
 msgid "Line 1:"
-msgstr ""
+msgstr "Рядок 1:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:125
 msgid "Line 2:"
-msgstr ""
+msgstr "Рядок 2:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:148
 msgid "Line 3:"
-msgstr ""
+msgstr "Рядок 3:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:171
 msgid "Line 4:"
-msgstr ""
+msgstr "Рядок 4:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:194
 msgid "Line 5:"
-msgstr ""
+msgstr "Рядок 5:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:230
 msgid "Font:"
-msgstr ""
+msgstr "Шрифт:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:247
 msgid "Text:"
-msgstr ""
+msgstr "Текст:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:260
 msgid "Text Color"
-msgstr ""
+msgstr "Колір тексту"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:267
 msgid "Background:"
-msgstr ""
+msgstr "Фон:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:280
 msgid "Background Color"
-msgstr ""
+msgstr "Колір фону"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:287
 msgid "Advanced:"
-msgstr ""
+msgstr "Додатково:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:297
 msgid "Use Advanced Editor"
-msgstr ""
+msgstr "Використовувати розширений редактор"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:320
 msgid "Line 6:"
-msgstr ""
+msgstr "Рядок 6:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:41
 msgid "<html><head/><body><p>Upload To:</p></body></html>"
@@ -4049,7 +4050,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:48
 msgid "(None)"
-msgstr ""
+msgstr "(Немає)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:74
 msgid "<html><head/><body><p>Video File:</p></body></html>"
@@ -4072,7 +4073,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:109
 msgid "Youtube"
-msgstr ""
+msgstr "Youtube"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:151
 msgid "<html><head/><body><p>Title:</p></body></html>"

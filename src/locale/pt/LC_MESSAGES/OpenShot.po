@@ -8,128 +8,129 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-03 22:58+0000\n"
-"PO-Revision-Date: 2016-01-22 07:16+0000\n"
-"Last-Translator: Jonathan Thomas <jonathan@openshot.org>\n"
+"PO-Revision-Date: 2016-03-07 19:42+0000\n"
+"Last-Translator: manu <manu.fg@gmail.com>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-05 06:33+0000\n"
-"X-Generator: Launchpad (build 17908)\n"
+"X-Launchpad-Export-Date: 2016-03-08 05:55+0000\n"
+"X-Generator: Launchpad (build 17936)\n"
+"Language: pt\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:463
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1023
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:157
 #, python-format
 msgid "Track %s"
-msgstr "Ίχνος %s"
+msgstr "Faixa %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:466
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:472
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:484
 #: libopenshot (Clip Properties)
 msgid "None"
-msgstr "Κανένα"
+msgstr "Nenhum"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:467
 msgid "Fade In"
-msgstr "Βαθμιαία είσοδος (fade in)"
+msgstr "Avivar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:468
 msgid "Fade Out"
-msgstr "Βαθμιαία έξοδος (fade out)"
+msgstr "Desvanecer"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:469
 msgid "Fade In & Out"
-msgstr "Βαθμιαία είσοδος & έξοδος"
+msgstr "Surgir e Desvanecer"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:473
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:485
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:550
 msgid "Random"
-msgstr "Τυχαία"
+msgstr "Aleatório"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:474
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:831
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:834
 msgid "Zoom In"
-msgstr "Μεγέθυνση"
+msgstr "Mais Zoom"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:475
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:846
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:849
 msgid "Zoom Out"
-msgstr "Σμίκρυνση"
+msgstr "Menos Zoom"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:85
 msgid "Unsaved Changes"
-msgstr "Μη αποθηκευμένες αλλαγές"
+msgstr "Alterações Não Gravadas"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:85
 msgid "Save changes to project before closing?"
-msgstr "Αποθήκευση αλλαγών στο έργο πριν το κλείσιμο;"
+msgstr "Guardar alterações antes de fechar?"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:127
 msgid "Backup Recovered"
-msgstr ""
+msgstr "Cópia de segurança recuperada"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:128
 msgid "Your most recent unsaved project has been recovered."
-msgstr ""
+msgstr "O seu projecto mais recente não guardado foi recuperado."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:241
 msgid "Error Saving Project"
-msgstr "Σφάλμα Αποθήκευσης Έργου"
+msgstr "Erro a Salvar o Projeto"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:278
 msgid "Error Opening Project"
-msgstr "Σφάλμα Ανοίγματος Έργου"
+msgstr "Erro a abrir o Projeto"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:314
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:314
 msgid "Open Project..."
-msgstr "Άνοιγμα έργου..."
+msgstr "Abrir Projecto..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:314
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:327
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:371
 msgid "OpenShot Project (*.osp)"
-msgstr "Έργο OpenShot (*.osp)"
+msgstr "Projecto OpenShot (*.osp)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:326
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:370
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1240
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:104
 msgid "Untitled Project"
-msgstr "Έργο Χωρίς Τίτλο"
+msgstr "Projecto sem nome"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:327
 msgid "Save Project..."
-msgstr "Αποθήκευση Έργου..."
+msgstr "Salvar projecto..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:371
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:359
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:362
 msgid "Save Project As..."
-msgstr "Αποθήκευση έργου ως..."
+msgstr "Salvar projecto como..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:386
 msgid "Import File..."
-msgstr "Εισαγωγή Αρχείου"
+msgstr "Importar Ficheiro..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1025
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1260
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1263
 msgid "Rename Track"
-msgstr "Μετονομασία κομματιού"
+msgstr "Renomear Faixa"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1025
 msgid "Track Name:"
-msgstr "Όνομα Ίχνους:"
+msgstr "Nome da Faixa:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1327
 msgid "Recent Projects"
-msgstr "Πρόσφατα έργα"
+msgstr "Projectos Recentes"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1366
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1383
@@ -137,38 +138,38 @@ msgstr "Πρόσφατα έργα"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1541
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:286
 msgid "Filter"
-msgstr "Φίλτρο"
+msgstr "Filtro"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1454
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1634
 msgid "{} seconds"
-msgstr "{} δευτερόλεπτα"
+msgstr "{} segundos"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:114
 msgid "<Select a template>"
-msgstr ""
+msgstr "<Selecionar modelo>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:323
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:342
 msgid "Select a Color"
-msgstr "Επιλέξτε ένα Χρώμα"
+msgstr "Selecionar uma Cor"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:361
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:240
 msgid "Change Font"
-msgstr "Αλλαγή Γραμματοσειράς"
+msgstr "Alterar Tipo de Letra"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:592
 msgid "New Title"
-msgstr "Νέος τίτλος"
+msgstr "Novo Título"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:595
 msgid "Save Title As..."
-msgstr "Αποθήκευση Τίτλου Ως..."
+msgstr "Salvar Título como..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:595
 msgid "Scalable Vector Graphics (*.svg)"
-msgstr "Επιλογή Vector Graphics (*.svg)"
+msgstr "Gráficos Vectorias escaláveis (*.svg)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:648
 #: /home/jonathan/apps/openshot-qt-git/src/windows/animated_title.py:165
@@ -176,40 +177,40 @@ msgstr "Επιλογή Vector Graphics (*.svg)"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/files_listview.py:165
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/files_model.py:173
 msgid "{} is not a valid video, audio, or image file."
-msgstr ""
+msgstr "{} não é um ficheiro de video, áudio ou imagem válido."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:677
 msgid "Please install {} to use this function"
-msgstr ""
-"Παρακαλώ εγκαταστήστε το {} για να χρησιμοποιήσετε αυτή την λειτουργία."
+msgstr "Por favor instale {} para usar esta função"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:269
 msgid "Restart Required"
-msgstr ""
+msgstr "É necessário reiniciar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:270
 msgid "Please restart OpenShot for all preferences to take effect."
-msgstr ""
+msgstr "Por favor reinicie o Openshot para aplicar todas as preferências."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/cutting.py:190
 #: /home/jonathan/apps/openshot-qt-git/src/windows/cutting.py:224
 msgid "Please choose valid 'start' and 'end' values for your clip."
 msgstr ""
+"Por favor escolha um valor correcto para o 'início' e o 'fim' do seu clip."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/animated_title.py:85
 msgid "Render"
-msgstr "Απόδοση"
+msgstr "Processar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/animated_title.py:86
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:76
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:222
 msgid "Cancel"
-msgstr "Ακύρωση"
+msgstr "Cancelar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/about.py:71
 #, python-format
 msgid "Version: %s"
-msgstr "Έκδοση: %s"
+msgstr "Versão: %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/about.py:152
 msgid "translator-credits"
@@ -220,6 +221,7 @@ msgstr ""
 "  Francois Thunus https://launchpad.net/~thunus\n"
 "  Gilberto Ribeiro Conde https://launchpad.net/~gilbertorconde\n"
 "  Helder Meneses https://launchpad.net/~geneiros\n"
+"  JP https://launchpad.net/~caldas-lopes\n"
 "  Jonathan Thomas https://launchpad.net/~jonoomph\n"
 "  Leor Flor https://launchpad.net/~leor-bi-otti-flor\n"
 "  Luis Fernandes https://launchpad.net/~luis-m-r-fernandes\n"
@@ -231,14 +233,17 @@ msgstr ""
 "  Tiago Belo https://launchpad.net/~tiagombelo\n"
 "  Tiago S. https://launchpad.net/~tiagosdot\n"
 "  Victor Cardoso https://launchpad.net/~victor-gscardoso\n"
+"  cirix https://launchpad.net/~cirix81\n"
 "  daniel brenha https://launchpad.net/~dbrenha\n"
 "  eSkiSo https://launchpad.net/~wise-gdr\n"
+"  manu https://launchpad.net/~manu-fg\n"
 "  mrbueno https://launchpad.net/~dougb888\n"
-"  rogper https://launchpad.net/~rogpertoons"
+"  rogper https://launchpad.net/~rogpertoons\n"
+"  romeu ferreira https://launchpad.net/~romeu-pereira"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/blender_treeview.py:169
 msgid "No Files Found"
-msgstr "Δε Βρέθηκαν Αρχεία"
+msgstr "Nenhum Ficheiro Encontrado"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/blender_treeview.py:461
 msgid ""
@@ -249,7 +254,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Βρέθηκε Έκδοση:\n"
+"Versão detectada:\n"
 "{}"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/blender_treeview.py:464
@@ -261,7 +266,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Σφάλμα Εξόδου:\n"
+"Erro de saída:\n"
 "{}"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/blender_treeview.py:471
@@ -277,31 +282,32 @@ msgid ""
 "Blender Path:\n"
 "{}{}"
 msgstr ""
-"Για να γίνει αυτή η ενέργεια, είναι απαραίτητο το πρόγραμμα Blender, μια "
-"ελεύθερη και δωρεαν σουίτα δημιουργίας 3D περιεχομένου (http://www.blender."
-"org)\n"
+"Blender, a suite open source de criação de conteúdo 3D é necessária para "
+"esta ação  (http://www.blender.org).\n"
 "\n"
-"Παρακαλώ ελέγξτε τις προτιμήσεις του OpenShot και σιγουρευτείτε ότι η "
-"ρύθμιση για το Blender executable είναι σωστή. Αυτή η ρύθμιση πρέπει να "
-"αντιστοιχεί στο μονοπάτι (path) του εκτελέσιμου 'blender' στον υπολογιστή "
-"σας. Επίσης, σιγουρευτείτε ότι η έκδοση Blender στην οποία δείχνει το "
-"μονοπάτι είναι η {} ή ανώτερη."
+"Por favor verifique as configurações do OpenShot e certifique-se que o "
+"executável do Blender é o correto. Esta definição deve ser o caminho para o "
+"executável do 'blender' no seu computador. Verifique também que este se "
+"refere à  versão {} do Blender ou maior.\n"
+"\n"
+"Caminho do Blender:\n"
+"{}{}"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/blender_treeview.py:775
 msgid "No frame was found in the output from Blender"
-msgstr "Δεν βρέθηκε κάποιο πλαίσιο από την έξοδο του Blender"
+msgstr "Nenhuma quadro foi encontrado na saida do Blender"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Start of Clip"
-msgstr "Αρχή του κλιπ"
+msgstr "Início do Clip"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "End of Clip"
-msgstr "Τέλος του κλιπ"
+msgstr "Fim do Clip"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Entire Clip"
-msgstr "Clipe Inteiro"
+msgstr "Clip inteiro"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Normal"
@@ -317,7 +323,7 @@ msgstr "Lento"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Forward"
-msgstr "Μπροστά"
+msgstr "Avançar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Backward"
@@ -326,380 +332,380 @@ msgstr "Recuar"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:423
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1510
 msgid "Copy"
-msgstr "Αντιγραφή"
+msgstr "Copiar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:424
 msgid "Clip"
-msgstr "Κλιπ"
+msgstr "Clip"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:426
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1513
 msgid "Keyframes"
-msgstr "Βασικά καρέ (keyframes)"
+msgstr "Quadros-chave"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:427
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1514
 msgid "All"
-msgstr "Όλα"
+msgstr "Todos"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:430
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "Alpha"
-msgstr "Διαφάνεια (Alpha)"
+msgstr "Alfa"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:432
 #: libopenshot (Clip Properties)
 msgid "Scale"
-msgstr "Κλίμακα"
+msgstr "Ajustar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:434
 #: libopenshot (Clip Properties)
 msgid "Rotation"
-msgstr "Περιστροφή"
+msgstr "Rotação"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:436
 msgid "Location"
-msgstr "Τοποθεσία"
+msgstr "Localização"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:438
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:595
 #: libopenshot (Clip Properties)
 msgid "Time"
-msgstr "Χρόνος"
+msgstr "Tempo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:440
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:619
 #: libopenshot (Clip Properties) Settings for volume
 msgid "Volume"
-msgstr "Ένταση"
+msgstr "Volume"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:442
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:236
 msgid "Effects"
-msgstr "Εφέ"
+msgstr "Efeitos"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:448
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1525
 msgid "Paste"
-msgstr "Επικόλληση"
+msgstr "Colar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:454
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/common/fade.svg
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:240
 msgid "Fade"
-msgstr "Βαθμιαία εμφάνιση (Fade)"
+msgstr "Desvanecer"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:455
 msgid "No Fade"
-msgstr "Χωρίς Βαθμιαία εμφάνιση"
+msgstr "Sem desvanecer"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:462
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:627
 msgid "Fade In (Fast)"
-msgstr "Βαθμιαία είσοδος (γρήγορα)"
+msgstr "Avivar(Rápido)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:464
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:629
 msgid "Fade In (Slow)"
-msgstr "Βαθμιαία είσοδος (αργά)"
+msgstr "Avivar(Lento)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:468
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:633
 msgid "Fade Out (Fast)"
-msgstr "Βαθμιαία έξοδος (γρήγορα)"
+msgstr "Desvanecer(Rápido)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:470
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:635
 msgid "Fade Out (Slow)"
-msgstr "Βαθμιαία έξοδος (αργά)"
+msgstr "Desvanecer(Lento)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:474
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:639
 msgid "Fade In and Out (Fast)"
-msgstr "Βαθμιαία είσοδος και έξοδος (γρήγορα)"
+msgstr "Avivar e Desvanecer(Rápido)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:476
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:641
 msgid "Fade In and Out (Slow)"
-msgstr "Βαθμιαία είσοδος και έξοδος (αργά)"
+msgstr "Avivar e Desvanecer(Lento)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:479
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:644
 msgid "Fade In (Entire Clip)"
-msgstr "Βαθμιαία Eίσοδος (Όλο το Κλιπ)"
+msgstr "Avivar(Totalidade do clip)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:481
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:646
 msgid "Fade Out (Entire Clip)"
-msgstr "Βαθμιαία Έξοδος (Όλο το Κλιπ)"
+msgstr "Desvanecer(Totalidade do clip)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:489
 msgid "Animate"
-msgstr "Εφέ κίνησης"
+msgstr "Animar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:490
 msgid "No Animation"
-msgstr "Χωρίς εφέ κίνησης"
+msgstr "Sem Animação"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:497
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:307
 msgid "Zoom"
-msgstr "Μεγένθυση"
+msgstr "Zoom"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:498
 msgid "Zoom In (50% to 100%)"
-msgstr "Μεγέθυνση (από 50% σε 100%)"
+msgstr "Ampliar Zoom (50% a 100%)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:500
 msgid "Zoom In (75% to 100%)"
-msgstr "μεγέθυνση (75% σε 100%)"
+msgstr "Ampliar Zoom (75% a 100%)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:502
 msgid "Zoom In (100% to 150%)"
-msgstr "Μεγέθυνση (από 100% σε 150%)"
+msgstr "Ampliar Zoom (100% a 150%)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:504
 msgid "Zoom Out (100% to 75%)"
-msgstr "σμίκρυνση (100% σε 75%)"
+msgstr "Reduzir Zoom (100% a 75%)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:506
 msgid "Zoom Out (100% to 50%)"
-msgstr "Σμίκρυνση (από 100% σε 50%)"
+msgstr "Reduzir Zoom (100% a 50%)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:508
 msgid "Zoom Out (150% to 100%)"
-msgstr "Σμίκρυνση (από 150% σε 100%)"
+msgstr "Reduzir Zoom(150% a 100%)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:513
 msgid "Center to Edge"
-msgstr "Κεντράρισμα στην Άκρη"
+msgstr "Do Centro para a Borda"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:514
 msgid "Center to Top"
-msgstr "Από το κέντρο προς τα πάνω"
+msgstr "Do Centro para Cima"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:516
 msgid "Center to Left"
-msgstr "Από το κέντρο προς τα αριστερά"
+msgstr "Do Centro para a Esquerda"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:518
 msgid "Center to Right"
-msgstr "Κεντράρισμα Δεξιά"
+msgstr "Do Centro para a Direita"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:520
 msgid "Center to Bottom"
-msgstr "Από το κέντρο προς τα κάτω"
+msgstr "Do Centro Para Baixo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:525
 msgid "Edge to Center"
-msgstr "Άκρη στο Κέντρο"
+msgstr "Da Borda Para o Centro"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:526
 msgid "Top to Center"
-msgstr "Από πάνω προς το κέντρο"
+msgstr "De Cima para o Meio"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:528
 msgid "Left to Center"
-msgstr "Από αριστερά προς το κέντρο"
+msgstr "Da Esquerda para o Meio"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:530
 msgid "Right to Center"
-msgstr "Από δεξιά προς το κέντρο"
+msgstr "Da Direita para o Centro"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:532
 msgid "Bottom to Center"
-msgstr "Από κάτω προς το κέντρο"
+msgstr "De Baixo para o Centro"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:537
 msgid "Edge to Edge"
-msgstr "Άκρη σε Άκρη"
+msgstr "De Borda a Borda"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:538
 msgid "Top to Bottom"
-msgstr "Απο πάνω προς τα κάτω"
+msgstr "De Cima para Baixo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:540
 msgid "Left to Right"
-msgstr "Απο αριστερά προς τα δεξιά"
+msgstr "Da esquerda para a direita"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:542
 msgid "Right to Left"
-msgstr "Από δεξιά προς τα αριστερά"
+msgstr "Da direita para a esquerda"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:544
 msgid "Bottom to Top"
-msgstr "Από κάτω προς τα πάνω"
+msgstr "De baixo para cima"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:560
 #: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
 msgid "Rotate"
-msgstr "Περιστροφή"
+msgstr "Rodar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:561
 msgid "No Rotation"
-msgstr "Χωρίς περιστροφή"
+msgstr "Sem Rotação"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:564
 msgid "Rotate 90 (Right)"
-msgstr "Περιστροφή 90° (δεξιά)"
+msgstr "Rodar 90º (Direita)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:566
 msgid "Rotate 90 (Left)"
-msgstr "Περιστροφή 90° (αριστερά)"
+msgstr "Rodar 90º (Esquerda)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:568
 msgid "Rotate 180 (Flip)"
-msgstr "Περιστροφή 180° (αναποδογύρισμα)"
+msgstr "Rodar 180 (inverter)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:573
 msgid "Layout"
-msgstr "Διάταξη"
+msgstr "Esquema"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:574
 msgid "Reset Layout"
-msgstr "Επαναφορά αρχικής διάταξης"
+msgstr "Redefinir Esquema"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:577
 msgid "1/4 Size - Center"
-msgstr "1/4 του μεγέθους - κέντρο"
+msgstr "1/4 Tamanho - Centro"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:579
 msgid "1/4 Size - Top Left"
-msgstr "1/4 του μεγέθους - πάνω αριστερά"
+msgstr "1/4 Tamanho - Topo esquerda"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:581
 msgid "1/4 Size - Top Right"
-msgstr "1/4 του μεγέθους - πάνω δεξιά"
+msgstr "1/4 Tamanho - Topo Direita"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:583
 msgid "1/4 Size - Bottom Left"
-msgstr "1/4 του μεγέθους - κάτω αριστερά"
+msgstr "1/4 Tamanho - Inferior Esquerdo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:585
 msgid "1/4 Size - Bottom Right"
-msgstr "1/4 του μεγέθους - κάτω δεξιά"
+msgstr "1/4 Tamanho - Inferior Direito"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:588
 msgid "Show All (Maintain Ratio)"
-msgstr "Προβολή όλων (διατήρηση αναλογιών)"
+msgstr "Mostrar tudo (Manter Rácio)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:590
 msgid "Show All (Distort)"
-msgstr "Προβολή όλων (παραμόρφωση)"
+msgstr "Mostrar tudo (Distorcer)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:596
 msgid "Reset Time"
-msgstr "Χρόνος Επαναφοράς"
+msgstr "Restaurar Tempo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:620
 msgid "Reset Volume"
-msgstr "Επαναφορά Ήχου"
+msgstr "Restaurar Volume"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:651
 msgid "Level 100%"
-msgstr "Στάθμη 100%"
+msgstr "Volume 100%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:653
 msgid "Level 90%"
-msgstr "Στάθμη 90%"
+msgstr "Volume 90%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:655
 msgid "Level 80%"
-msgstr "Στάθμη 80%"
+msgstr "Volume 80%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:657
 msgid "Level 70%"
-msgstr "Στάθμη 70%"
+msgstr "Volume 70%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:659
 msgid "Level 60%"
-msgstr "Στάθμη 60%"
+msgstr "Volume 60%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:661
 msgid "Level 50%"
-msgstr "Στάθμη 50%"
+msgstr "Volume 50%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:663
 msgid "Level 40%"
-msgstr "Στάθμη 40%"
+msgstr "Volume 40%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:665
 msgid "Level 30%"
-msgstr "Στάθμη 30%"
+msgstr "Volume 30%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:667
 msgid "Level 20%"
-msgstr "Στάθμη 20%"
+msgstr "Volume 20%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:669
 msgid "Level 10%"
-msgstr "Στάθμη 10%"
+msgstr "Volume 10%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:671
 msgid "Level 0%"
-msgstr "Στάθμη 0%"
+msgstr "Volume 0%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:683
 msgid "Slice Clip"
-msgstr "Κόψτε κομμάτι απο το κλιπ"
+msgstr "Cortar Clip"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:684
 msgid "Keep Both Sides"
-msgstr "Διατήρηση και των δύο Πλευρών"
+msgstr "Manter Ambos os Lados"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:686
 msgid "Keep Left Side"
-msgstr "Διατήρηση Αριστερής Πλευράς"
+msgstr "Manter o Lado Esquerdo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:688
 msgid "Keep Right Side"
-msgstr "Διατήρηση Δεξιάς Πλευράς"
+msgstr "Manter o Lado Direito"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1511
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:341
 msgid "Transition"
-msgstr "Μετάβαση"
+msgstr "Transição"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1517
 #: libopenshot (Clip Properties)
 msgid "Brightness"
-msgstr "Φωτεινότητα"
+msgstr "Brilho"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1519
 #: libopenshot (Clip Properties)
 msgid "Contrast"
-msgstr "Αντίθεση"
+msgstr "Contraste"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1531
 msgid "Reverse Transition"
-msgstr "Αντίστροφη Μετάβαση"
+msgstr "Inverter Transição"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:78
 #, python-format
 msgid "Selection: %s"
-msgstr "Επιλογή: %s"
+msgstr "Selecção: %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:80
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:273
 msgid "No Selection"
-msgstr "Καμία επιλογή"
+msgstr "Nenhuma seleção"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:129
 msgid "Bezier"
-msgstr "Μπεζιέ"
+msgstr "Bezier"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:131
 msgid "Linear"
-msgstr "Γραμμική"
+msgstr "Linear"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:133
 msgid "Constant"
-msgstr "Σταθερή"
+msgstr "Constante"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:136
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:141
 msgid "Remove Keyframe"
-msgstr "Αφαίρεση βασικού καρέ (keyframe)"
+msgstr "Remover Quadro Chave"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/add_to_timeline_model.py:57
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/blender_model.py:56
@@ -707,7 +713,7 @@ msgstr "Αφαίρεση βασικού καρέ (keyframe)"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/transition_model.py:80
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/effects_model.py:80
 msgid "Thumb"
-msgstr "Μικρογραφία"
+msgstr "Miniatura"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/add_to_timeline_model.py:57
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/blender_model.py:56
@@ -716,17 +722,17 @@ msgstr "Μικρογραφία"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/transition_model.py:80
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/effects_model.py:80
 msgid "Name"
-msgstr "Όνομα"
+msgstr "Nome"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/blender_model.py:117
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/transition_model.py:158
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/effects_model.py:150
 msgid "{} is not a valid image file."
-msgstr ""
+msgstr "{} não é um ficheiro de imagem válido."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:67
 msgid "Email"
-msgstr "Email"
+msgstr "Correio eletrónico"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:67
 msgid "Website"
@@ -734,21 +740,21 @@ msgstr "Página Web"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:100
 msgid "PayPal Supporter!"
-msgstr ""
+msgstr "Apoiante PayPal!"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:108
 msgid "Kickstarter Supporter!"
-msgstr ""
+msgstr "Apoiante Kickstarter!"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:116
 msgid "Multiple Contributions!"
-msgstr ""
+msgstr "Multiplas Contribuições!"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:358
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:561
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:629
 msgid "False"
-msgstr "Ψευδές"
+msgstr "Falso"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:499
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:682
@@ -763,12 +769,12 @@ msgstr "Valor"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:517
 #: /home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml
 msgid "Transparency"
-msgstr "Διαφάνεια"
+msgstr "Transparência"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:559
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:627
 msgid "True"
-msgstr "Αληθές"
+msgstr "Verdadeiro"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/files_model.py:100
 msgid "Tags"
@@ -776,45 +782,45 @@ msgstr "Etiquetas"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/effects_model.py:80
 msgid "Description"
-msgstr "Περιγραφή"
+msgstr "Descrição"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:74
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:20
 msgid "Export Video"
-msgstr "Εξαγωγή βίντεο"
+msgstr "Exportar vídeo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:116
 msgid "Video & Audio"
-msgstr "Βίντεο & Ήχος"
+msgstr "Vídeo e Áudio"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:116
 msgid "Image Sequence"
-msgstr "Ακολουθία εικόνων"
+msgstr "Sequência de Imagem"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:123
 msgid "Mono (1 Channel)"
-msgstr ""
+msgstr "Mono (1 Canal)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:124
 msgid "Stereo (2 Channel)"
-msgstr ""
+msgstr "Stereo (2 Canais)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:125
 msgid "Surround (3 Channel)"
-msgstr ""
+msgstr "Surround (3 Canais)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:126
 msgid "Surround (5.1 Channel)"
-msgstr ""
+msgstr "Surround (5.1)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:127
 msgid "Surround (7.1 Channel)"
-msgstr ""
+msgstr "Surround (7.1)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:192
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml
 msgid "All Formats"
-msgstr "Όλοι οι τύποι"
+msgstr "Todos os Formatos"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:298
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_x264.xml
@@ -824,38 +830,38 @@ msgstr "MP4 (h.264)"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:329 libopenshot
 #: (Clip Properties)
 msgid "Yes"
-msgstr "Ναι"
+msgstr "Sim"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:330 libopenshot
 #: (Clip Properties)
 msgid "No"
-msgstr "Όχι"
+msgstr "Não"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:380
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:388
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:421
 msgid "Low"
-msgstr "Χαμηλή"
+msgstr "Baixo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:380
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:388
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:423
 msgid "Med"
-msgstr "Μεσαία"
+msgstr "Med"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:380
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:388
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:425
 msgid "High"
-msgstr "Υψηλή"
+msgstr "Alto"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:472
 msgid "Choose a Folder..."
-msgstr "Επιλέξτε έναν Φάκελο..."
+msgstr "Escolha uma Pasta..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:625
 msgid "Export Error"
-msgstr ""
+msgstr "Erro de exportação"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:626
 #, python-format
@@ -863,18 +869,20 @@ msgid ""
 "Sorry, there was an error exporting your video: \n"
 "%s"
 msgstr ""
+"Lamentamos, foi encontrado um erro ao exportar o seu vídeo: \n"
+"%s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml
 msgid "Convert an image to shades of grey"
-msgstr "Μετατροπή μιας εικόνας σε αποχρώσεις του γκρι"
+msgstr "Converter uma imagem para tons de cinza"
 
 #: libopenshot (Clip Properties)
 msgid "Iterations"
-msgstr "Επαναλήψεις"
+msgstr "Iterações"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml
 msgid "Split and mirror the image"
-msgstr "Διαιρεί και αντικατοπτρίζει την εικόνα"
+msgstr "Dividir e espelhar a imagem"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml
 msgid "Baltan"
@@ -882,172 +890,169 @@ msgstr "Baltan"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
 msgid "Echo"
-msgstr "Αντήχηση"
+msgstr "Eco"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/explode.xml
 msgid "Exploding Text"
-msgstr "Κείμενο που Εκρήγνυται"
+msgstr "Texto explodindo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
 msgid "Adjust color balance with 3 color points"
-msgstr "Ρύθμιση ισορροπίας χρώματος με 3 σημεία χρώματος"
+msgstr "Ajustar o equilíbrio de cor com 3 pontos de cor"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Depart Latitude (Equator)"
-msgstr "Γεωγραφικό πλάτος αφετηρίας (ισημερινός)"
+msgstr "Latitude de Partida (Equador)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Depart Title"
-msgstr "Τίτλος αφετηρίας"
+msgstr "Titulo de Partida"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/fly_by_two_titles.xml
 msgid "Fly Towards Camera (Two Titles)"
-msgstr "Πτήση προς την κάμερα (Δύο Τίτλοι)"
+msgstr "Voa para a câmera (Duas Peças)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/explode.xml
 msgid "Display Ground"
-msgstr "Απεικόνιση Εδάφους"
+msgstr "Visulalização do Terreno"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/bass.xml
 msgid "Adjust the low-pitched sound or tone"
-msgstr "Ρύθμιση του χαμηλού σε συχνότητα ήχου ή τόνου"
+msgstr "Ajuste o som de baixa frequência ou tom"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml
 msgid "Interval"
-msgstr "Χρόνος ανανέωσης"
+msgstr "Intervalo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
 msgid "Correction near edges"
-msgstr "Διόρθωση κοντά στα άκρα"
+msgstr "Correcção próxima da margem"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
 msgid "X Offset"
-msgstr "Μετατόπιση Χ"
+msgstr "Deslocamento X"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
 msgid "Neon Curves"
-msgstr "Καμπύλες Νέον"
+msgstr "Curvas de Neon"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Arrival Longitude (Prime Meridian)"
-msgstr "Γεωγραφικό μήκος προορισμού (πρώτος μεσημβρινός)"
+msgstr "Latitude de Chegada (Meridiano de Greenwich)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml
 msgid "Greyscale"
-msgstr "Διαβαθμίσεις του γκρι"
+msgstr "Tons de cinzento"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Arrival Longitude (minutes)"
-msgstr "Γεωγραφικό πλάτος προορισμού (λεπτά)"
+msgstr "Latitude de Chegada (minutos)"
 
 #: libopenshot (Clip Properties)
 msgid "Vertical Radius"
-msgstr "Κάθετη Ακτίνα"
+msgstr "Raio Vertical"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml
 msgid "Old Dust"
-msgstr "Παλιό σκονισμένο"
+msgstr "Poeira Velha"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml
 msgid "Invert"
-msgstr "Αρνητικό"
+msgstr "Inverter"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "World Map"
-msgstr "Παγκόσμιος χάρτης"
+msgstr "Mapa Mundo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/distort.xml
 msgid "Distort"
-msgstr "Παραμόρφωση"
+msgstr "Distorcer"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "File Name"
-msgstr "Όνομα Αρχείου"
+msgstr "Nome do ficheiro"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml
 msgid "X axis"
-msgstr "Άξονας X"
+msgstr "Eixo X"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml
 msgid "Gamma"
-msgstr "Γάμμα"
+msgstr "Gama"
 
 #: libopenshot (Clip Properties)
 msgid "Gravity"
-msgstr "Βαρύτητα"
+msgstr "Gravidade"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
 msgid "Tile 1: Diffuse Color"
-msgstr "Πλακίδιο 1: Διάχυση Χρώματος"
+msgstr "Mosaico 1: Cor difusa"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml
 msgid "Horizontal Sync"
-msgstr "Επίπεδος Συγχρονισμός"
+msgstr "Syncronismo Horizontal"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
 msgid "Extrude"
-msgstr "Εξωχή"
+msgstr "Extrudir"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml
 msgid "Lens vignetting"
-msgstr "\"Vignetting\" φακών"
+msgstr "Lentes de Vinheta"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml
 msgid "Param"
-msgstr "Παράμετρος"
+msgstr "Parâmetro"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
 msgid "Lens Correction"
-msgstr "Διόρθωση οπτικών φακών"
+msgstr "Correcção de Lente"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
 msgid "Halo: Starting Size"
-msgstr "Φωτοστέφανο: αρχικό μέγεθος"
+msgstr "Aura: Tamanho Inicial"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Arrival Latitude (minutes)"
-msgstr "Γεωγραφικό πλάτος προορισμού (λεπτά)"
+msgstr "Latitude de Chegada (minutos)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
 msgid "Gain In"
-msgstr "Ενίσχυση εισόδου"
+msgstr "Ganho de Entrada"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
 msgid "Sun: Angle Offset"
-msgstr "Ήλιος: μετατόπιση γωνίας"
+msgstr "Sol: Ângulo de Deslocamento"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
 msgid "Glass Slider"
-msgstr "Γυάλινη Ολίσθηση"
+msgstr "Vidro Deslizante"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
 msgid "Black color"
-msgstr "Μαύρο χρώμα"
+msgstr "Cor Preta"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
 msgid "Delta"
-msgstr "Δέλτα"
+msgstr "Delta"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml
 msgid "Display a single color, while using greyscale for the rest of the image"
-msgstr ""
-"Προβολή ενός ενιαίου χρώματος, χρησιμοποιώντας γκρι κλίμακα (greyscale) για "
-"την υπόλοιπη εικόνα"
+msgstr "Exibir uma única cor, ao usar escala de cinza para o resto da imagem"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
 msgid "Spots: Color Threshold"
-msgstr "Κυλίδες: κατώφλι χρώματος"
+msgstr "Spots: limite de cor"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
 msgid ""
 "Adjusts the gamma and brightness randomly to create the illusion of old film"
 msgstr ""
-"Τυχαία ρύθμιση του γάμμα και της φωτεινότητας για την δημιουργία της "
-"ψευδαίσθησης παλιάς ταινίας"
+"Ajusta a gama e brilho aleatoriamente para criar a ilusão de filme antigo"
 
 #: libopenshot (Effect Metadata)
 msgid "Color Saturation"
-msgstr "Κορεσμός Χρώματος"
+msgstr "Saturação de cor"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
 msgid "X Center"
@@ -1055,31 +1060,31 @@ msgstr "X Center"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
 msgid "Defocus"
-msgstr "Από-εστίαση"
+msgstr "Desfocar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
 msgid "Histogram position"
-msgstr "Θέση του Ιστογράμματος"
+msgstr "Posição Histograma"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
 msgid "Title 3"
-msgstr "Τίτλος 3"
+msgstr "Título 3"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml
 msgid "Mask"
-msgstr "Μάσκα"
+msgstr "Máscara"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "Number of Snow Flakes"
-msgstr "Αριθμός Νιφάδων Χιονιού"
+msgstr "Número de Flocos de Neve"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
 msgid "Picture Frames (4 pictures)"
-msgstr "Πλαίσια εικόνας (4 εικόνες)"
+msgstr "Molduras (4 Fotos)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
 msgid "Simple color adjustment"
-msgstr "Απλή ρύθμιση χρώματος"
+msgstr "Ajustamento simples de cor"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml
 msgid "v"
@@ -1087,79 +1092,78 @@ msgstr "v"
 
 #: libopenshot (Clip Properties)
 msgid "Bottom Left"
-msgstr "Κάτω Αριστερά"
+msgstr "Inferior esquerdo"
 
 #: libopenshot (Clip Properties)
 msgid "Duration"
-msgstr "Διάρκεια"
+msgstr "Duração"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
 msgid "Brightness Delta Down"
-msgstr "Φωτεινότητα δέλτα (κάτω)"
+msgstr "Reduzir Brilho Delta"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:106
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:862
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:865
 msgid "Title"
-msgstr "Τίτλος"
+msgstr "Título"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
 msgid "Scaling"
-msgstr "Κλιμάκωση"
+msgstr "A redimensionar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/balance.xml
 msgid "Left | Right"
-msgstr "Αριστερά | Δεξιά"
+msgstr "Esquerda | Direita"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml
 msgid "Make image sharper"
-msgstr "Όξυνση εικόνας"
+msgstr "Aumentar nitidez da imagem"
 
 #: libopenshot (Clip Properties)
 msgid "Left"
-msgstr "Αριστερά"
+msgstr "Esquerda"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml
 msgid "Diff Space"
-msgstr "Διάστημα Διαφοράς"
+msgstr "Diferença de Espaço"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
 msgid "Y Center"
-msgstr "Y Κέντρο"
+msgstr "Centro Y"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
 msgid "Fixed Rotate Y"
-msgstr "Σταθερή περιστροφή Y"
+msgstr "Rotação Y Fixa"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml
 msgid "Cartoonify the image, using a form of edge detection"
-msgstr ""
-"Μετατροπή της εικόνας σε σκίτσο, χρησιμοποιώντας μία μορφή ανίχνευση ορίων"
+msgstr "Converter em Banda desenhada, usando detecção de borda"
 
 #: libopenshot (Effect Metadata)
 msgid "Adjust the blur of the frame's image."
-msgstr "Ρύθμιση της θαμπάδας της εικόνας του πλαισίου."
+msgstr "Ajustar o desfoque da imagem do quadro."
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml
 msgid "Sharpness"
-msgstr "Οξύτητα"
+msgstr "Nitidez"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
 msgid "Alpha controlled"
-msgstr "Ελεγχόμενο απο Άλφα"
+msgstr "Controlado pelo Alpha"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
 msgid "Rotate an image statically or animated"
-msgstr "Περιστρέφει μια εικόνα στατικά ή με εφέ κίνησης"
+msgstr "Rodar uma imagem estática ou animada"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/bass.xml
 msgid "Bass"
-msgstr "Μπάσα"
+msgstr "Graves"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
 msgid "Tile 2: Diffuse Color"
-msgstr "Πλακίδιο 2: Διάχυση Χρώματος"
+msgstr "Mosaico 2: Cor difusa"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml
 msgid "Flippo"
@@ -1167,39 +1171,39 @@ msgstr "Flippo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml
 msgid "Mix"
-msgstr "Μίξη"
+msgstr "Misturar"
 
 #: libopenshot (Clip Properties)
 msgid "Position"
-msgstr "Θέση"
+msgstr "Posição"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/hue.xml
 msgid "Hue"
-msgstr "Απόχρωση"
+msgstr "Matiz"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
 msgid "Background: Blend"
-msgstr "Φόντο: Μίξη"
+msgstr "Fundo: Mistura"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml
 msgid "Max Count"
-msgstr "Μέγιστο πλήθος"
+msgstr "Contagem Máxima"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
 msgid "Output level black point"
-msgstr "Επίπεδο εξόδου μαύρου"
+msgstr "Nível de saída preto"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml
 msgid "Freeze"
-msgstr "Πάγωμα"
+msgstr "Fixar"
 
 #: libopenshot (Clip Properties)
 msgid "Horizontal Radius"
-msgstr "Οριζόντια Ακτίνα"
+msgstr "Raio Horizontal"
 
 #: libopenshot (Clip Properties)
 msgid "Location X"
-msgstr "Τοποθεσία Χ"
+msgstr "Localização X"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
 msgid "Defish"
@@ -1207,43 +1211,43 @@ msgstr "Defish"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml
 msgid "Adjust the white balance and color temperature"
-msgstr "Ρυθμίζει την ισοστάθμιση λευκού και την θερμοκρασία χρώματος"
+msgstr "Ajustar o equilíbrio e temperatura de cor branca"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
 msgid "Sun: Type of Glare"
-msgstr "Ήλιος: είδος λάμψης"
+msgstr "Sol: Tipo de brilho intenso"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml
 msgid "Primary Colors"
-msgstr "Βασικά Χρώματα"
+msgstr "Cores primárias"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
 msgid "Every"
-msgstr "Κάθε"
+msgstr "Cada"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml
 msgid "White Balance"
-msgstr "Ισοστάθμιση λευκού"
+msgstr "Equilíbrio de brancos"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml
 msgid "Use Alpha"
-msgstr "Χρήση του Alpha"
+msgstr "Utilizar Alfa"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/bass.xml
 msgid "Frequency"
-msgstr "Συχνότητα"
+msgstr "Frequência"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
 msgid "White color"
-msgstr "Λευκό χρώμα"
+msgstr "Cor Branca"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
 msgid "Main Text"
-msgstr "Κυρίως Κείμενο"
+msgstr "Texto Principal"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml
 msgid "Reverse"
-msgstr "Αντίστροφα"
+msgstr "Inverter"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml
 msgid "Equalizor"
@@ -1251,105 +1255,103 @@ msgstr "Equalizor"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml
 msgid "Red Scale"
-msgstr "Κλίμακα Κόκκινου"
+msgstr "Escala Vermelha"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
 msgid "Number"
-msgstr "Πλήθος"
+msgstr "Número"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml
 msgid "delayed alpha smoothed blit of time"
-msgstr "\"blit\" χρόνου ομαλοποιημένα κατά καθυστερημένο άλφα"
+msgstr "delayed alpha smoothed blit of time"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml
 msgid ""
 "Adjust the color of the image to emulate black-and-white film that has had "
 "sepia pigment added"
 msgstr ""
-"Ρύθμιση του χρώματος της εικόνας για την προσομοίωση ασπρόμαυρου φιλμ που "
-"έχει προστεθεί καστανή χρωστική (sepia pigment)"
+"Ajustar a cor da imagem para emular filme preto-e-branco com pigmento sepia "
+"adicionada"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
 msgid "Title 2"
-msgstr "Τίτλος 2"
+msgstr "Titulo 2"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Start: X"
-msgstr "Αρχή: Z"
+msgstr "Início: X"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
 msgid "Show histogram"
-msgstr "Προβολή ιστογράμματος"
+msgstr "Mostrar histograma"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
 msgid "Font Name"
-msgstr "Όνομα Γραμματοσειράς"
+msgstr "Nome da Fonte"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
 msgid "Source image on left side"
-msgstr "Εικόνα στην αριστερή πλευρά"
+msgstr "Imagem de origem no lado esquerdo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml
 msgid "Up Scale"
-msgstr "Κλιμάκωση επάνω"
+msgstr "Ampliar"
 
 #: libopenshot (Clip Properties)
 msgid "Bottom Right"
-msgstr "Κάτω Δεξία"
+msgstr "Inferior Direita"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
 msgid "Input level black point"
-msgstr "Επίπεδό εισαγωγής μαύρου"
+msgstr "Nível de entrada preto"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml
 msgid "Oversaturate the color in the image, like in old Technicolor movies"
-msgstr ""
-"Υπερκορεσμός του χρώματος στην εικόνα, σαν τις παλιές ταινίες Technicolor"
+msgstr "Saturar a cor na imagem, como em filmes Technicolor velhos"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
 msgid "Line 2 Color"
-msgstr "Χρώμα Γραμμής 2"
+msgstr "Cor da Lina 2"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
 msgid "Tint amount"
-msgstr "Ποσό απόχρωσης"
+msgstr "Quantidade de tonalidade"
 
 #: libopenshot (Clip Properties)
 msgid "Fuzz"
-msgstr "Ασάφεια"
+msgstr "Penugem"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/wireframe_text.xml
 msgid "Wireframe Text"
-msgstr "συρματόμορφο κείμενο"
+msgstr "Estrutura de Arame do Texto"
 
 #: libopenshot (Clip Properties)
 msgid "ID"
-msgstr "Ταυτότητα"
+msgstr "ID"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml
 msgid ""
 "Calculates the distance between the selected color and the current pixel and "
 "uses that value as new pixel value"
 msgstr ""
-"Υπολογίζει την απόσταση μεταξύ του επιλεγμένου χρώματος και του τρέχον "
-"εικονοστοιχείου (pixel) και χρησιμοποιεί την τιμή αυτή σαν την νέα τιμή του "
-"εικονοστοιχείου"
+"Calcula a distância entre a cor selecionada e o píxel atual e usa o valor "
+"como o novo valor de píxel"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml
 msgid "End Value"
-msgstr "Τελική τιμή"
+msgstr "Valor Final"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml
 msgid "Dynamic 3 level thresholding"
-msgstr "Δυναμικό όριο 3 επιπέδων"
+msgstr "Limitação dinâmica de 3 níveis"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml
 msgid "Border Width"
-msgstr "Πλάτος Περιγράμματος"
+msgstr "Espessura do Contorno"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
 msgid "Rotate Z"
-msgstr "Περιστροφή Z"
+msgstr "Rodar Z"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml
 msgid "Detect and highlight the edges of objects"
@@ -1377,63 +1379,63 @@ msgstr "Γεωγραφικό μήκος αφετηρίας (δευτερόλεπ
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml
 msgid "Key"
-msgstr "Κλειδί"
+msgstr "Chave"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
 msgid "Min"
-msgstr "Ελάχιστο"
+msgstr "Mín"
 
 #: libopenshot (Clip Properties)
 msgid "Right"
-msgstr "Δεξιά"
+msgstr "Direita"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
 msgid "Flying Title"
-msgstr "Ιπτάμενος Τίτλος"
+msgstr "Título Voador"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Arrival Latitude (degrees)"
-msgstr "Γεωγραφικό πλάτος αφετηρίας (μοίρες)"
+msgstr "Chegada Latitude (graus)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
 msgid "Title Specular Color"
-msgstr "Τίτλος Χρώματος Αντανάκλασης"
+msgstr "Título Cor Especular"
 
 #: libopenshot (Clip Properties)
 msgid "Crop"
-msgstr "Περικοπή"
+msgstr "Recortar"
 
 #: libopenshot (Effect Metadata)
 msgid "Deinterlace"
-msgstr "Απόπλεξη"
+msgstr "Desinterlaçar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Depart Latitude (degrees)"
-msgstr "Γεωγραφικό μήκος αφετηρίας (μοίρες)"
+msgstr "Latitude da Partida (graus)"
 
 #: libopenshot (Effect Metadata)
 msgid "Adjust the color saturation."
-msgstr "Ρύθμιση του κορεμού χρώματος"
+msgstr "Ajuste da saturação de cor."
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml
 msgid "Oversaturate Color"
-msgstr "Υπερκορεσμός χρώματος"
+msgstr "Sobressaturado de Cor"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/rotate_360.xml
 msgid "Rotate 360 Degrees"
-msgstr "Περιστροφή 360 Μοιρών"
+msgstr "Rodar 360 Graus"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml
 msgid "Adjusts the gamma or luminance value of the image"
-msgstr "Ρυθμίζει την τιμή γάμμα ή την φωτεινότητα (luminance) της εικόνας"
+msgstr "Ajusta o valor de gama ou de luminosidade da imagem"
 
 #: libopenshot (Clip Properties)
 msgid "Scale X"
-msgstr "Κλίμακα Χ"
+msgstr "Escala X"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
 msgid "Tile 3: Diffuse Color"
-msgstr "Πλακίδιο 3: Διάχυση Χρώματος"
+msgstr "Mosaico 3: Cor difusa"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml
 msgid "something videowall-ish"
@@ -1441,7 +1443,7 @@ msgstr "κάτι σαν \"videowall\""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
 msgid "Channel"
-msgstr "Κανάλι"
+msgstr "Canal"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Particles: Lifetime"
@@ -1449,7 +1451,7 @@ msgstr "Σωματίδια: διάρκεια ζωής"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml
 msgid "Cartoon"
-msgstr "Σκίτσο"
+msgstr "Banda Desenhada"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml
 msgid "u"
@@ -1461,291 +1463,288 @@ msgstr "Περσίδες (Δύο Τίτλοι)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml
 msgid "Three Layer"
-msgstr "Τρία Επίπεδα"
+msgstr "Três Camadas"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml
 msgid "Speed"
-msgstr "Ταχύτητα"
+msgstr "Velocidade"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml
 msgid "Adds black borders at the top and bottom"
-msgstr "Προσθέτει μαύρα όρια στο πάνω και κάτω μέρος"
+msgstr "Adiciona limite superior e inferior preto"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
 msgid "Fixed Rotate X"
-msgstr "Σταθερή περιστροφή X"
+msgstr "Rotação Fixa X"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "Diffuse Color"
-msgstr "Διάχυση Χρώματος"
+msgstr "Cor Difusa"
 
 #: libopenshot (Clip Properties)
 msgid "Sigma"
-msgstr "Σίγμα"
+msgstr "Sigma"
 
 #: libopenshot (Clip Properties)
 msgid "Top Left"
-msgstr "Πάνω Αριστερά"
+msgstr "Superior Esquerdo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml
 msgid "Red/Green Axis"
-msgstr "Άξονας κόκκινου/πράσινου"
+msgstr "Eixo Vermelho/Verde"
 
 #: libopenshot (Clip Properties)
 msgid "Scale Y"
-msgstr "Κλίμακα Υ"
+msgstr "Escala Y"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml
 msgid "Scan Lines"
-msgstr "Σάρωση Γραμμών"
+msgstr "Linhas de Varrimento"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
 msgid "Bevel Depth"
-msgstr "Βάθος Bevel"
+msgstr "Profundidade do Chanfro"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml
 msgid "Midpoint"
-msgstr "Μέσο"
+msgstr "Ponto Médio"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml
 msgid "Variance"
-msgstr "Διακύμανση"
+msgstr "Variação"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml
 msgid "Factor"
-msgstr "Συντελεστής"
+msgstr "Fator"
 
 #: libopenshot (Clip Properties)
 msgid "Saturation"
-msgstr "Κορεσμός"
+msgstr "Saturação"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
 msgid "Tilt"
-msgstr "Κλίση"
+msgstr "Inclinação"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
 msgid "Amount"
-msgstr "Ποσό"
+msgstr "Quantidade"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
 msgid "Red"
-msgstr "Κόκκινο"
+msgstr "Vermelho"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "End Frame"
-msgstr "Τέλος Πλαισίου"
+msgstr "Quadro Final"
 
 #: libopenshot (Clip Properties)
 msgid "Replace Image"
-msgstr "Αντικατάσταση Εικόνας"
+msgstr "Substituir Imagem"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
 msgid "Alphagrad"
-msgstr "Alphagrad"
+msgstr "Gradiente Alfa"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/slide_left_to_right.xml
 msgid "Slide Left to Right"
-msgstr "Ολίσθηση Αριστερά προς Δεξιά"
+msgstr "Deslize da esquerda para a direita"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
 msgid "Keep luma"
-msgstr "Διατήρηση του luma"
+msgstr "Manter luminância"
 
 #: libopenshot (Clip Properties)
 msgid "Location Y"
-msgstr "Τοποθεσία Y"
+msgstr "Localização Y"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml
 msgid "Color"
-msgstr "Χρώμα"
+msgstr "Cor"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml
 msgid "Adds static and grain to the image"
-msgstr "Προσθέτει παράσιτα και κόκκους στην εικόνα"
+msgstr "Adiciona estática e grão à imagem"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Halo: Star Count"
-msgstr "Φωτοστέφανο: αριθμός αστεριού"
+msgstr "Aura: Quantidade de estrelas"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml
 msgid "Filter the image to look like it is drawn with charcoal"
-msgstr ""
-"Φιλτράρισμα της εικόνας ώστε να μοιάζει σαν να σχεδιάστηκε με \"κάρβουνο\""
+msgstr "Filtrar a imagem para parecer que foi desenhado com carvão"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "Specular Color"
-msgstr "Χρώμα Αντανάκλασης"
+msgstr "Cor Especular"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/invert.xml
 msgid "Convert colors in the image to the opposite or complementary colors"
-msgstr ""
-"Μετατροπή των χρωμάτων στην εικόνα στα αντίθετα ή συμπληρωματικά χρώματα"
+msgstr "Converter as cores da imagem nas cores opostas ou complementares"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Start: Y"
-msgstr "Αρχή: Z"
+msgstr "Início: Y"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Halo: Size"
-msgstr "Φωτοστέφανο: Μέγεθος"
+msgstr "Aura: Tamanho"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml
 msgid "Max Diameter"
-msgstr "Μέγιστη διάμετρος"
+msgstr "Dimametro Max"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml
 msgid "Equalizes the intensity histograms"
-msgstr "Εξισορρόπηση της έντασης των ιστογραμμάτων"
+msgstr "Equilibra os histogramas de intensidade"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
 msgid "Lighter"
-msgstr "Φωτεινότερο"
+msgstr "Clarear"
 
 #: libopenshot (Effect Metadata)
 msgid "Chroma Key (Greenscreen)"
-msgstr "Κλειδί Χρώμα (Πράσινο πανί)"
+msgstr "Cromático Chave (Ecrã Verde)"
 
 #: libopenshot (Clip Properties)
 msgid "Viewport"
-msgstr "Παράθυρο προβολής"
+msgstr "Janela de Visualização"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
 msgid "Line 1 Color"
-msgstr "Χρώμα Γραμμής 1"
+msgstr "Linha 1 Cor"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
 msgid "Luma formula"
-msgstr "Τύπος luma"
+msgstr "Luminância Fórmula"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Halo: Use Flare"
-msgstr "Φωτοστέφανο: χρήση αναλαμπής"
+msgstr "Aura: Usar Chama"
 
 #: libopenshot (Clip Properties)
 msgid "Stretch"
-msgstr "Τέντωμα"
+msgstr "Esticar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "End: Z"
-msgstr "Τέλος: Z"
+msgstr "Fim: Z"
 
 #: libopenshot (Effect Metadata)
 msgid "Remove interlacing from a video (i.e. even or odd horizontal lines)"
 msgstr ""
-"Αφαιρέστε την πεπλεγμένη σάρωση (interlace) απο το βίντεο (δηλ. ζυγές και "
-"μονές γραμμές)"
+"Remover entrelaçamento de um vídeo (i.e. linhas horizontais pares ou ímpares)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Velocity: Z"
-msgstr "Ταχύτητα: Z"
+msgstr "Velocidade: Z"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
 msgid "X Coordinate"
-msgstr "X συντεταγμένη"
+msgstr "Coordenada X"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
 msgid "Action"
-msgstr "Ενέργεια"
+msgstr "Ação"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml
 msgid "Bottom"
-msgstr "Κάτω"
+msgstr "Base"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml
 msgid "Invert horizontally or vertically"
-msgstr "Οριζόντια ή κάθετη αντιστροφή"
+msgstr "Inverter horizontal ou verticalmente"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
 msgid "Episode Title"
-msgstr "Τίτλος Επεισοδίου"
+msgstr "Título do Episódio"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
 msgid "Title Diffuse Color"
-msgstr "Χρώμα Διάχυσης Τίτλου"
+msgstr "Título de Cor Difusa"
 
 #: libopenshot (Effect Metadata)
 msgid "Brightness & Contrast"
-msgstr "Φωτεινότητα & Αντίθεση"
+msgstr "Brilho & Contraste"
 
 #: libopenshot (Clip Properties)
 msgid "Is Odd Frame"
-msgstr "Είναι μονό καρέ"
+msgstr "É Quadro Impar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Halo: Use Rings"
-msgstr "Φωτοστέφανο: Χρήση Δακτυλίων"
+msgstr "Aura: Usar Aneis"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Velocity: Y"
-msgstr "Ταχύτητα: Y"
+msgstr "Velocidade: Y"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/distort.xml
 msgid "Amplitude"
-msgstr "Εύρος"
+msgstr "Amplitude"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/saturation.xml
 msgid "Adjusts the saturation or intensity of the image"
-msgstr "Ρύθμιση του κορεσμού και της έντασης της εικόνας"
+msgstr "Ajusta a saturação ou intensidade da imagem"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Arrival Latitude (seconds)"
-msgstr "Γεωγραφικό πλάτος προορισμού (δευτερόλεπτα)"
+msgstr "Latitude de Chegada (segundos)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/hue.xml
 msgid "Shift the hue of all colors in the image"
-msgstr "Μετακίνηση της απόχρωσης όλων των χρωμάτων στην εικόνα"
+msgstr "Mudar o tom de todas as cores na imagem"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
 msgid "Gray color"
-msgstr "Γκρι χρώμα"
+msgstr "Cor Cinza"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml
 msgid "Delay grab"
-msgstr "Καθυστερημένο άρπαγμα"
+msgstr "Atraso no agarrar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml
 msgid "Edgeglow"
-msgstr "Λάμψη άκρων"
+msgstr "Brilho de Limite"
 
 #: libopenshot (Clip Properties)
 msgid "Bottom Center"
-msgstr "Κάτω Κεντρικά"
+msgstr "Centro Base"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/contrast.xml
 msgid "Adjusts the contrast of a source image"
-msgstr "Ρυθμίζει την αντίθεση μίας εικόνας"
+msgstr "Ajusta o contraste da imagem de origem"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
 msgid "First Title"
-msgstr "Πρώτος Τίτλος"
+msgstr "Primeiro Título"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml
 msgid "Old Grain"
-msgstr "Παλιό με κόκκους"
+msgstr "Grão Antigo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml
 msgid "Freeze Before"
-msgstr "Πάγωμα Πριν"
+msgstr "Fixar Antes"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml
 msgid "X Scatter"
-msgstr "Διασπορά X"
+msgstr "Dispersão X"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Depart Longitude (Prime Meridian)"
-msgstr "Γεωγραφικό μήκος αφετηρίας (πρωτός μεσημβρινός)"
+msgstr "Longitude de Partida (Meridiano de Greenwich)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
 msgid "Space Movie Intro"
-msgstr "Εισαγωγή Διαστημικής Ταινίας"
+msgstr "Espaço de Introdução do Filme"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
 msgid "Tile 4: Diffuse Color"
-msgstr "Πλακίδιο 4: Διάχυση Χρώματος"
+msgstr "Mosaico 4: Cor difusa"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml
 msgid "Center size"
-msgstr "Μέγεθος κέντρου"
+msgstr "Tamanho Centro"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml
 msgid "Phaser"
@@ -1753,265 +1752,262 @@ msgstr "Phaser"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
 msgid "Decay"
-msgstr "Εξασθένηση"
+msgstr "Decair"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml
 msgid "Sub Title"
-msgstr "Υπό Τίτλος"
+msgstr "Subtítulo"
 
 #: libopenshot (Clip Properties)
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:115
 msgid "End"
-msgstr "Τέλος"
+msgstr "Fim"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
 msgid "Y Offset"
-msgstr "Μετατόπιση Y"
+msgstr "Deslocamento Y"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "Specular Intensity"
-msgstr "Ένταση Αντανάκλασης"
+msgstr "Intensidade Especular"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Start: Z"
-msgstr "Αρχή: Z"
+msgstr "Início: Z"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/distort.xml
 msgid "Distort the source similar to plasma"
-msgstr "Παραμόρφωση της πηγής (source) όμοια με το πλάσμα (plasma)"
+msgstr "Distorcer a fonte semelhante ao plasma"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
 msgid "Map white to"
-msgstr "Καθορισμός λευκού σε"
+msgstr "Mapear branco para"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Depart Longitude (degrees)"
-msgstr "Γεωγραφικό μήκος αφετηρίας (μοίρες)"
+msgstr "Longitude de Partida (graus)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "Snow"
-msgstr "Χιόνι"
+msgstr "Neve"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml
 msgid "Black and White"
-msgstr "Ασπρόμαυρο"
+msgstr "Preto e Branco"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/trees.xml
 msgid "Trees"
-msgstr "Δέντρα"
+msgstr "Árvores"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
 msgid "Max"
-msgstr "Μέγιστο"
+msgstr "Máx."
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml
 msgid "Chroma Hold"
-msgstr "Κράτημα Xρώμα (Chroma Hold)"
+msgstr "Manter Cromático"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
 msgid "Sun: Color Threshold"
-msgstr "Ήλιος: κατώφλι χρώματος"
+msgstr "Sol: Limiar de Cores"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
 msgid "Sun: Number of Streaks"
-msgstr "Ήλιος: πλήθος ακτίνων"
+msgstr "Sol: Número de raios"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
 msgid "Delay"
-msgstr "Καθυστέρηση"
+msgstr "Atraso"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml
 msgid "Blue/Yellow"
-msgstr "Μπλε/κίτρινο"
+msgstr "Azul/Amarelo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml
 msgid "Add small dust shapes randomly on the image"
-msgstr "Προσθήκη μικρών σχημάτων σκόνης τυχαία στην εικόνα"
+msgstr "Adicione formas de poeira pequenas aleatoriamente à imagem"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
 msgid "Fixed Rotate Z"
-msgstr "Σταθερή περιστροφή Z"
+msgstr "Rotação Fixa Z"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml
 msgid "Y Scatter"
-msgstr "Διασπορά Y"
+msgstr "Dispersão Y"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml
 msgid ""
 "Adjust the image up and down, with the off-screen portion appearing on the "
 "other side"
 msgstr ""
-"Ρυθμίστε την εικόνα πάνω και κάτω, με το τμήμα εκτός οθόνης να εμφανίζεται "
-"στην άλλη πλευρά"
+"Ajusta a imagem para cima e para baixo, com a parte de fora do ecrã que "
+"aparece do outro lado"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "Gravity: Y"
-msgstr "Βαρύτητα: Y"
+msgstr "Gravidade: Y"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
 msgid "Manual Scale"
-msgstr "Χειροκίνητη κλίμακα"
+msgstr "Escala Manual"
 
 #: libopenshot (Clip Properties)
 msgid "Anchor"
-msgstr "Αγκύρωση"
+msgstr "Âncora"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml
 msgid "Increase the size of pixels to obscure the image"
-msgstr ""
-"Αύξηση του μεγέθους των εικονοστοιχείων (pixel) για την ελάττωση της "
-"σαφήνειας της εικόνας"
+msgstr "Aumentar o tamanho do píxel para obscurecer a imagem"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
 msgid "Tint"
-msgstr "Απόχρωση"
+msgstr "Tom"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
 msgid "Brightness Delta Every"
-msgstr "Φωτεινότητα δέλτα (παντού)"
+msgstr "Brilho Delta Cada"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
 msgid "Picture 4 Path"
-msgstr "Διαδρομή εικόνας 4"
+msgstr "Imagem 4 Caminho"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
 msgid "Adjust luminance or color channel intensity"
-msgstr "Ρύθμιση της φωτεινότητας ή την ένταση του καναλιού χρώματος"
+msgstr "Ajusta a luminosidade ou o canal de intensidade da  cor"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Magic Wand"
-msgstr "Μαγικό Ραβδί"
+msgstr "Mão Mágica"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
 msgid "Color Tiles"
-msgstr "Πλακίδια Χρώματος"
+msgstr "Mosaico de Cores"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
 msgid "Allows compensation of lens distortion"
-msgstr "Επιτρέπεται η αντιστάθμιση της παραμόρφωση φακών"
+msgstr "Permite a compensação da distorção da lente"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Depart Latitude (minutes)"
-msgstr "Γεωγραφικό πλάτος αφετηρίας (λεπτά)"
+msgstr "Latitude de Partida (minutos)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
 msgid "Episode"
-msgstr "Επεισόδιο"
+msgstr "Episódio"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
 msgid "Z Coordinate"
-msgstr "Z Συντεταγμένη"
+msgstr "Coordenada Z"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
 msgid "Old Film"
-msgstr "Παλιά ταινία"
+msgstr "Filme Antigo"
 
 #: libopenshot (Clip Properties)
 msgid "Top Center"
-msgstr "Επάνω Κεντρικά"
+msgstr "Topo Centro"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "Gravity: Z"
-msgstr "Βαρύτητα: Z"
+msgstr "Gravidade: Z"
 
 #: libopenshot (Effect Metadata)
 msgid "Adjust the brightness and contrast of the frame's image."
-msgstr ""
-"Προσαρμόστε τη φωτεινότητα και την αντίθεση (contrast) της εικόνας του καρέ"
+msgstr "Ajustar o brilho e o contraste do quadro da imagem."
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml
 msgid "Display Clouds"
-msgstr "Απεικόνιση  Σύννεφων"
+msgstr "Exibir Nuvens"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
 msgid "Map black to"
-msgstr "Καθορισμός μαύρου σε"
+msgstr "Mapear preto para"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/glare.xml
 msgid "Glare"
-msgstr "Αίγλη"
+msgstr "Brilho Intenso"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Velocity: X"
-msgstr "Ταχύτητα: X"
+msgstr "Velocidade: X"
 
 #: libopenshot (Effect Metadata)
 msgid ""
 "Uses a grayscale mask image to gradually wipe / transition between 2 images."
 msgstr ""
-"Χρήση μίας εικόνας κλίμακας του γκρι για βαθμιαία εξάλειψη / μετάβαση μεταξύ "
-"2 εικόνων."
+"Usa uma imagem máscara de tons de cinza  para gradualmente limpar  / "
+"transição entre 2 imagens."
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml
 msgid "Green Tint"
-msgstr "Πρασίνισμα"
+msgstr "Tom Verde"
 
 #: libopenshot (Clip Properties)
 msgid "Wave Color"
-msgstr "Χρώμα Κυματομορφής"
+msgstr "Cor da Onda"
 
 #: libopenshot (Clip Properties)
 msgid "Top Right"
-msgstr "Πάνω Δεξιά"
+msgstr "Superior Direito"
 
 #: libopenshot (Clip Properties)
 msgid "Layer"
-msgstr "Επίπεδο"
+msgstr "Camada"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml
 msgid "Color Distance"
-msgstr "Απόσταση Χρώματος"
+msgstr "Ditância da Cor"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
 msgid "Correction near center"
-msgstr "Διόρθωση κοντά στο κέντρο"
+msgstr "Correção perto do centro"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml
 msgid ""
 "Add a series of peaks and troughs to the audio, creating a sweeping effect"
 msgstr ""
-"Προσθήκη μία σειράς κορυφών και βυθισμάτων στον ήχο, για την δημιουργία ενός "
-"εφέ σάρωσης (sweeping)"
+"Adicionar uma série de picos e depressões ao áudio, criando um efeito de "
+"varrimento"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml
 msgid "Letterbox"
-msgstr "Γράμμα"
+msgstr "Caixa de letras"
 
 #: libopenshot (Effect Metadata)
 msgid "Negates the colors, producing a negative of the image."
-msgstr "Καταργεί τα χρώματα, παράγωντας ένα αρνητικό της εικόνας."
+msgstr "Nega as cores, produzindo um negativo da imagem."
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
 msgid "Background: Shadeless"
-msgstr "Φόντο: Χωρίς Σκιά"
+msgstr "Fundo: Sem Sombras"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
 msgid "Picture 2 Path"
-msgstr "Διαδρομή εικόνας 2"
+msgstr "Imagem 2 Caminho"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
 msgid "Three point balance"
-msgstr "Ισορροπία τριών σημείων"
+msgstr "Equilíbrio de três pontos"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "End: X"
-msgstr "Τέλος: X"
+msgstr "Fim: X"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "End: Y"
-msgstr "Τέλος: Y"
+msgstr "Fim: Y"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml
 msgid "Zoom to Clapboard"
-msgstr "Ζουμ στην κλακέτα"
+msgstr "Zoom para Tábua"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
 msgid "Output level white point"
-msgstr "Επίπεδο εξόδου λευκού"
+msgstr "Apresenta o nível do ponto branco"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
 msgid "Rotate X"
-msgstr "Περιστροφή X"
+msgstr "Rodar X"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml
 msgid "Vignette"
@@ -2019,19 +2015,19 @@ msgstr "Vignette"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/glow.xml
 msgid "Glow"
-msgstr "Λάμψη"
+msgstr "Brilho"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml
 msgid "Size"
-msgstr "Μέγεθος"
+msgstr "Tamanho"
 
 #: libopenshot (Effect Metadata)
 msgid "Negative"
-msgstr "Αρνητικό"
+msgstr "Negativo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/fly_by_1.xml
 msgid "Fly Towards Camera"
-msgstr "Πτήση Προς την Κάμερα"
+msgstr "Voar para a câmara"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml
 msgid "TehRoxx0r"
@@ -2039,345 +2035,343 @@ msgstr "TehRoxx0r"
 
 #: libopenshot (Clip Properties)
 msgid "Center"
-msgstr "Κέντρο"
+msgstr "Centro"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Halo: Use Lines"
-msgstr "Φωτοστέφανο: Χρήση Γραμμών"
+msgstr "Aura: Usar Linhas"
 
 #: libopenshot (Clip Properties)
 msgid "Key Color"
-msgstr "Κλειδί Χρώματος"
+msgstr "Cores Chave"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "Start Frame"
-msgstr "Έναρξη Πλαισίου"
+msgstr "Quadro Inicial"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml
 msgid "Noise"
-msgstr "Θόρυβος"
+msgstr "Ruído"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
 msgid "Halo: Ending Size"
-msgstr "Φωτοστέφανο: τελικό μέγεθος"
+msgstr "Aura: Tamanho Final"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
 msgid "Green"
-msgstr "Πράσινο"
+msgstr "Verde"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Halo: Line Count"
-msgstr "Φωτοστέφανο: αριθμός γραμμής"
+msgstr "Aura: Quantidade de Linhas"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
 msgid "Background: Alpha"
-msgstr "Φόντο: Άλφα"
+msgstr "Fundo: Alfa"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml
 msgid "Charcoal"
-msgstr "Σκίτσο με κάρβουνο"
+msgstr "Carvão"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml
 msgid "Frame Number"
-msgstr "Αριθμός Πλαισίου"
+msgstr "Número do Quadro"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/explode.xml
 msgid "Particle Number"
-msgstr "Αριθμός Σωματιδίων"
+msgstr "Número de partícula"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
 msgid "Blue"
-msgstr "Μπλε"
+msgstr "Azul"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
 msgid "Old Lines"
-msgstr "Παλιό με γραμμές"
+msgstr "Linhas Antigas"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
 msgid "Title 1"
-msgstr "Τίτλος 1"
+msgstr "Título 1"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
 msgid "Picture 3 Path"
-msgstr "Διαδρομή εικόνας 3"
+msgstr "Imagem 3 Caminho"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
 msgid "Width"
-msgstr "Πλάτος"
+msgstr "Largura"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml
 msgid "Block Size X"
-msgstr "Μέγεθος στοιχείου X"
+msgstr "Tamanho do Bloco X"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
 msgid "Lens Flare"
-msgstr "Αναλαμπή φακού"
+msgstr "Cintilação da Lente"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
 msgid "Adds random vertical lines to the image"
-msgstr "Προσθέτει τυχαίες κάθετες γραμμές στην εικόνα"
+msgstr "Adiciona linhas verticais aleatórias à imagem"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
 msgid "Background: Diffuse Color"
-msgstr "Φόντο: Διάχυση Χρώματος"
+msgstr "Fundo: Cor Difusa"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml
 msgid "Find and glow the edges of objects"
-msgstr "Εύρεση και φώτισμα των ορίων των αντικειμένων"
+msgstr "Encontra e faz brilhar a estremidade dos objectos"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml
 msgid "World Map (Realistic)"
-msgstr "Παγκόσμιος Χάρτης (Ρεαλιστικό)"
+msgstr "Mapa Mundi (realista)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml
 msgid "Adjust the color of the image to black and white based on a threshold"
-msgstr ""
-"Ρυθμίζει το χρώμα της εικόνας σε ασπρόμαυρο με βάση ένα όριο (threshold)"
+msgstr "Ajusta a cor da imagem para preto e branco baseado no limite"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
 msgid "Type"
-msgstr "Είδος"
+msgstr "Digite"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Halo: Use Stars"
-msgstr "Φωτοστέφανο: Χρήση Αστεριών"
+msgstr "Aura: Usar Estrelas"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/blur.xml
 msgid "Blur"
-msgstr "Θόλωμα"
+msgstr "Desfocar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Particles: Gravity"
-msgstr "Σωματίδια: Βαρύτητα"
+msgstr "Particulas: Gravidade"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml
 msgid "Nosync"
-msgstr "Ασυγχρόνιστο"
+msgstr "Sem sincronização"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
 msgid "Background: Specular Intensity"
-msgstr "Φόντο: Κατοπτρική Ένταση"
+msgstr "Fundo: Intensidade Especular"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
 msgid "Gain Out"
-msgstr "Ενίσχυση εξόδου"
+msgstr "Melhoramento de Saída"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
 msgid "Transition width"
-msgstr "Μήκος μετάβασης"
+msgstr "Largura de transição"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
 msgid "Aspect type"
-msgstr "Τύπος Όψης"
+msgstr "Tipo de aspecto"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
 msgid "Brightness Delta Up"
-msgstr "Φωτεινότητα δέλτα (πάνω)"
+msgstr "Brilho Delta Para Cima"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
 msgid "Split preview"
-msgstr "Χωρισμένη προεπισκόπηση"
+msgstr "Dividir pré-visualização"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml
 msgid "Adjusts the brightness of the image"
-msgstr "Ρύθμιση της φωτεινότητας της εικόνας"
+msgstr "Ajusta o brilho da imagem"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml
 msgid "Block Size Y"
-msgstr "Μέγεθος στοιχείου Y"
+msgstr "Tamanho do Bloco Y"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml
 msgid "Interlaced black lines"
-msgstr "Πεπλεγμένες μαύρες γραμμές (interlaced)"
+msgstr "Linhas pretas entrelaçadas"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
 msgid "Darker"
-msgstr "Σκοτεινότερο"
+msgstr "Mais escuro"
 
 #: libopenshot (Clip Properties)
 msgid "Canvas"
-msgstr "Καμβάς"
+msgstr "Área de Desenho"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Particles: Amount"
-msgstr "Σωματίδια: Ποσότητα"
+msgstr "Partículas: Quantidade"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/threshold.xml
 msgid "Reduces and mixes the colors of the image based on a threshold"
-msgstr ""
-"Μειώνει και αναμιγνύει τα χρώματα της εικόνας με βάση ένα όριο (threshold)"
+msgstr "Reduz e mistura as cores da imagem com base num limite"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
 msgid "Text Width"
-msgstr "Πλάτος Κειμένου"
+msgstr "Largura do Texto"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml
 msgid "Reduce image to primary colors"
-msgstr "Υποβάθμιση εικόνας στα βασικά χρώματα"
+msgstr "Reduzir imagem às cores primárias"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/balance.xml
 msgid "Adjust the left/right balance"
-msgstr "Ρύθμιση της ισορροπίας του αριστερά/δεξιά"
+msgstr "Ajusta o equilíbrio esquerda/direita"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/bass.xml
 msgid "Gain"
-msgstr "Κέρδος"
+msgstr "Ganho"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
 msgid "Text Alignment"
-msgstr "Στοίχιση Κειμένου"
+msgstr "Alinhamento do texto"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml
 msgid "Aspect ratio"
-msgstr "Λόγος θέασης"
+msgstr "Proporção de Aspecto"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
 msgid "Add an echo"
-msgstr "Προσθήκη αντήχησης"
+msgstr "Adicionar um eco"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml
 msgid "Sepia"
-msgstr "Σέπια"
+msgstr "Sépsia"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
 msgid "Interpolation"
-msgstr "Παρεμβολή"
+msgstr "Interpolação"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
 msgid "Manual Pixel Aspect ratio"
-msgstr "Χειροκίνητος λόγος διαστάσεων εικονοστοιχείων"
+msgstr "Manual Proporção de Aspecto do Pixel"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/dissolve.xml
 msgid "Dissolving Text"
-msgstr "Κείμενο  που Διαλύεται"
+msgstr "Texto Dissolvendo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/halo_zoom_out.xml
 msgid "Halo Zoom Out"
-msgstr "Σμίκρυνση Halo"
+msgstr "Aura Reduzir Zoom"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "Mirror Color"
-msgstr "Χρώμα καθρεπτισμού"
+msgstr "Cor Espelhada"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
 msgid "Operation"
-msgstr "Λειτουργία"
+msgstr "Operação"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml
 msgid "Chroma Key"
-msgstr "Κλειδί chroma"
+msgstr "Cromático Chave"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
 msgid "Picture 1 Path"
-msgstr "Διαδρομή εικόνας 1"
+msgstr "Imagem 1 Caminho"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml
 msgid "Creates a square alpha-channel mask"
-msgstr "Δημιουργεί μία τετράγωνη μάσκα καναλιού άλφα"
+msgstr "Cria uma máscara quadrada de canal alfa"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
 msgid "Line 4 Color"
-msgstr "Χρώμα Γραμμής 4"
+msgstr "Linha 4 Cor"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
 msgid "Background: Fresnel"
-msgstr "Φόντο: Fresnel"
+msgstr "Fundo: Fresnel"
 
 #: libopenshot (Clip Properties)
 msgid "Waveform"
-msgstr "Κυματομορφή"
+msgstr "Forma de onda"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Depart Latitude (seconds)"
-msgstr "Γεογραφικό πλάτος (δευτερόλεπτα)"
+msgstr "Latitude de Partida (segundos)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/glow.xml
 msgid "Add a glow effect to the image"
-msgstr "Προσθήκη ενός εφέ λάμψης στην εικόνα"
+msgstr "Adicionar um efeito de brilho à imagem"
 
 #: libopenshot (Clip Properties)
 msgid "Best Fit"
-msgstr "Καλύτερο Ταίριασμα"
+msgstr "Melhor Ajuste"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/balance.xml
 msgid "Balance"
-msgstr "Ισοστάθμιση"
+msgstr "Equilíbrio"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
 msgid "Input level white point"
-msgstr "Επίπεδο εισαγωγής λευκού"
+msgstr "Introduzir nível ponto branco"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Depart Longitude (minutes)"
-msgstr "Γεωγραφικό μήκος (λεπτά)"
+msgstr "Longitude de Partida (minutos)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Arrival Latitude (Equator)"
-msgstr "Γεωγραφικό πλάτος προορισμού (ισημερινός)"
+msgstr "Latitude de Chegada (Equador)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml
 msgid "Pixelate"
-msgstr "Εικονοστοιχειοποίηση"
+msgstr "Pixelizar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Arrival Longitude (seconds)"
-msgstr "Γεωγραφικό μήκος προορισμού (δευτερόλεπτα)"
+msgstr "Longitude de Chegada (segundos)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml
 msgid "Threshold"
-msgstr "Κατώφλι"
+msgstr "Limite"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml
 msgid "Softness"
-msgstr "Απαλότητα"
+msgstr "Suavidade"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "Gravity: X"
-msgstr "Βαρύτητα: X"
+msgstr "Gravidade: X"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Arrival Title"
-msgstr "Τίτλος προορισμού"
+msgstr "Título de Chegada"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
 msgid "Background: Specular Color"
-msgstr "Φόντο: Κατοπτρικό Χρώμα"
+msgstr "Fundo: Cor Especular"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
 msgid "Fisheye"
-msgstr "Μάτι ψαριού"
+msgstr "Olho de Peixe"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/treble.xml
 msgid "Adjust the high-pitched sound or tone"
-msgstr "Ρύθμιση του υψηλού σε συχνότητα ήχου ή τόνου"
+msgstr "Ajuste o som estridente ou o tom"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
 msgid "Rotate Y"
-msgstr "Περιστροφή Y"
+msgstr "Rodar Y"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
 msgid "Fills alpha channel with a gradient"
-msgstr "Γεμίζει το κανάλι άλφα με μία διαβάθμιση"
+msgstr "Preencher canal alfa com um gradiente"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml
 msgid "Y axis"
-msgstr "Άξονα Y"
+msgstr "Eixo Y"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml
 msgid "Top"
-msgstr "Κορυφή"
+msgstr "Topo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Halo: Ring Count"
-msgstr "Φωτοστέφανο: αριθμός δακτύλιου"
+msgstr "Aura: Quantidade de Aneis"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/treble.xml
 msgid "Treble"
-msgstr "Πρίμα"
+msgstr "Agudos"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml
 msgid "Start Value"
-msgstr "Αρχική τιμή"
+msgstr "Valor de Início"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Custom Texture (Equirectangular)"
@@ -2385,11 +2379,11 @@ msgstr "Προσαρμοσμένη υφή (γεωγραφική προβολή)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
 msgid "Color adjustment"
-msgstr "Ρύθμιση χρώματος"
+msgstr "Ajustamento de Cor"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Halo: Hardness"
-msgstr "Φωτοστέφανο: σκληρότητα"
+msgstr "Aura: Dureza"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml
 msgid "Trip Level"
@@ -2397,7 +2391,7 @@ msgstr "Επίπεδο Διαδρομής"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "Animation Length"
-msgstr "Μήκος Εφέ Κίνησης"
+msgstr "Duração da Animação"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/blur.xml
 msgid "Blur the image similar to an out-of-focus camera"
@@ -2405,7 +2399,7 @@ msgstr "Θολώνει την εικόνα με όμοιο τρόπο μιας �
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml
 msgid "Neutral Color"
-msgstr "Ουδέτερο χρώμα"
+msgstr "Cor Neutra"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml
 msgid "Sobel"
@@ -2413,51 +2407,52 @@ msgstr "Sobel"
 
 #: libopenshot (Effect Metadata)
 msgid "Alpha Mask / Wipe Transition"
-msgstr "Μάσκα Άλφα / Εξάλειψη Μετάβασης"
+msgstr "Máscara Alpha / Limpar Transição"
 
 #: libopenshot (Effect Metadata)
 msgid ""
 "Replaces the color (or chroma) of the frame with transparency (i.e. keys out "
 "the color)."
 msgstr ""
-"Αντικαθιστά το χρώμα (chroma) του καρέ με διαφάνεια (δηλ. αφαιρεί το χρώμα)"
+"Substitui a cor (ou cromático) do quadro com transparência (i. e. remover a "
+"cor)."
 
 #: libopenshot (Clip Properties)
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:96
 msgid "Start"
-msgstr "Αρχή"
+msgstr "Início"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml
 msgid "Freeze After"
-msgstr "Πάγωμα Μετά"
+msgstr "Fixar Depois"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Arrival Longitude (degrees)"
-msgstr "Γεωγραφικό μήκος προορισμού (μοίρες)"
+msgstr "Longitude de Chegada (graus)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
 msgid "Levels"
-msgstr "Επίπεδα"
+msgstr "Níveis"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml
 msgid "Freeze the frame of a video"
-msgstr "Πάγωμα του καρέ ενός βίντεο"
+msgstr "Fixar um quadro de um vídeo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
 msgid "Text Size"
-msgstr "Μέγεθος κειμένου"
+msgstr "Tamanho do texto"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
 msgid "Tint a source image with specified color"
-msgstr "Απόχρωση μιας εικόνας στο επιλεγμένο χρώμα"
+msgstr "Tingir a imagem de origem com a cor especificada"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml
 msgid "Mirror"
-msgstr "Κατοπτρισμός"
+msgstr "Espelho"
 
 #: Settings for default-profile
 msgid "Default Profile"
-msgstr "Προεπιλεγμένο Προφίλ"
+msgstr "Perfil Padrão"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_mov_mpeg4.xml
 msgid "MOV (mpeg4)"
@@ -2473,7 +2468,7 @@ msgstr "Blu-Ray/AVCHD"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/wikipedia.xml
 msgid "Wikipedia"
-msgstr "Βικιπαίδεια"
+msgstr "Wikipédia"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mp4.xml
 msgid "AVI (mpeg4)"
@@ -2510,7 +2505,7 @@ msgstr "Ativar gravação automática"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml
 msgid "Web"
-msgstr "Διαδίκτυο"
+msgstr "Web"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/nokia_nHD.xml
 msgid "Nokia nHD"
@@ -2534,7 +2529,7 @@ msgstr "Vimeo-HD"
 
 #: Settings for default-image-length
 msgid "Image Length (seconds)"
-msgstr "Μήκος Εικόνας (δευτερόλεπτα)"
+msgstr "Duração da Imagem (segundos)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_libvorbis.xml
 msgid "OGG (theora/vorbis)"
@@ -2542,7 +2537,7 @@ msgstr "OGG (theora/vorbis)"
 
 #: Settings for theme
 msgid "Default Theme"
-msgstr "Προκαθορισμένο θέμα"
+msgstr "Modelo Padrão"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_xvid.xml
 msgid "MP4 (Xvid)"
@@ -2558,7 +2553,7 @@ msgstr "MOV (h.264)"
 
 #: Settings for autosave-interval
 msgid "Autosave Interval (minutes)"
-msgstr ""
+msgstr "Gravação Automática (minutos)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/youtube_HD.xml
 msgid "YouTube-HD"
@@ -2566,7 +2561,7 @@ msgstr "YouTube-HD"
 
 #: Settings for send_metrics
 msgid "Send Anonymous Metrics and Errors"
-msgstr ""
+msgstr "Envio Anónimo de Métrica e Erros"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml
 msgid "Apple TV"
@@ -2578,7 +2573,7 @@ msgstr "OGG (theora/flac)"
 
 #: Settings for default-samplerate
 msgid "Default Audio Sample Rate"
-msgstr ""
+msgstr "Taxa de Amostragem Áudio Padrão"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_mpeg4.xml
 msgid "MP4 (mpeg4)"
@@ -2586,19 +2581,19 @@ msgstr "MP4 (mpeg4)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml
 msgid "AVCHD Disks"
-msgstr "Δίσκοι AVCHD"
+msgstr "Discos AVCHD"
 
 #: Settings for default-channellayout
 msgid "Default Audio Channels"
-msgstr ""
+msgstr "Canais Áudio Padrão"
 
 #: Settings for title_editor
 msgid "Advanced Title Editor (path)"
-msgstr "Προηγμένος Επεξεργαστής Τίτλων (διαδρομή)"
+msgstr "Editor de Título Avançado (caminho)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml
 msgid "Device"
-msgstr "Συσκευή"
+msgstr "Dispositivo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml
 msgid "DVD-NTSC"
@@ -2606,7 +2601,7 @@ msgstr "DVD-NTSC"
 
 #: Settings for debug-mode
 msgid "Debug Mode (Verbose)"
-msgstr ""
+msgstr "Modo de Depuração (Detalhado)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_pal.xml
 msgid "DVD-PAL"
@@ -2614,7 +2609,7 @@ msgstr "DVD-PAL"
 
 #: Settings for blender_command
 msgid "Blender Command (path)"
-msgstr "Εντολή (διαδρομή) του Blender"
+msgstr "Comando do Blender (cominho)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/picasa.xml
 msgid "Picasa"
@@ -2720,7 +2715,7 @@ msgstr "Φωτεινή σπείρα %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg
 msgid "Left arrow"
-msgstr "Αριστερό βέλος"
+msgstr "Seta esquerda"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/hatched_1.jpg
 msgid "Hatched %s"
@@ -2812,15 +2807,15 @@ msgstr "Πλαίσιο από μέσα προς τα έξω"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/puzzle.jpg
 msgid "Puzzle"
-msgstr "Παζλ"
+msgstr "Puzzle"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds.jpg
 msgid "Clouds"
-msgstr "Σύννεφα"
+msgstr "Nuvens"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/central_mozaic.jpg
 msgid "Central mozaic"
-msgstr "Κεντρικό Ψηφιδωτό"
+msgstr "Mosaico Central"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_top_arrow.jpg
 msgid "Middle top arrow"
@@ -2828,7 +2823,7 @@ msgstr "Μεσαίο βέλος προς επάνω"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mosaic_2.jpg
 msgid "Mosaic %s"
-msgstr "Μωσαικό %s"
+msgstr "Mosaico %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_barr.jpg
 msgid "Small barr"
@@ -2900,7 +2895,7 @@ msgstr "Ακτίνα φωτός αριστερά %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/openshot_logo.jpg
 msgid "Openshot logo"
-msgstr "Σήμα του Openshot"
+msgstr "Logótipo Openshot"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/star_2.jpg
 msgid "Star %s"
@@ -3211,7 +3206,7 @@ msgstr "Κλείσιμο"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:14
 msgid "Add To Timeline"
-msgstr "Προσθήκη στο Χρονολόγιο"
+msgstr "Adicionar à Linha do Tempo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:37
 msgid "Move Up"
@@ -3231,7 +3226,7 @@ msgstr "Αφαίρεση"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:119
 msgid "Timeline Location"
-msgstr "Θέση Χρονολογίου"
+msgstr "Localização da Linha do Tempo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:140
 msgid "Start Time (seconds):"
@@ -3255,7 +3250,7 @@ msgstr "Μήκος (δευτερόλεπτα)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:319
 msgid "Zoom:"
-msgstr "Μεγέθυνση:"
+msgstr "Zoom:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:356
 msgid "Transition:"
@@ -3369,151 +3364,151 @@ msgstr "Δημιουργία"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:56
 msgid "File Name:"
-msgstr "Όνομα Αρχείου:"
+msgstr "Nome do Ficheiro:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:63
 msgid "YourVideoName"
-msgstr "ΤοΌνομαΒίντεο"
+msgstr "NomeDoSeuVídeo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:83
 msgid "Folder Path:"
-msgstr "Διαδρομή Φακέλου:"
+msgstr "Caminho da Pasta:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:93
 msgid "Browse..."
-msgstr "Αναζήτηση..."
+msgstr "Explorar..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:148
 msgid "Simple"
-msgstr "Απλό"
+msgstr "Simples"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:168
 msgid "Quality:"
-msgstr "Ποιότητα:"
+msgstr "Qualidade:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:189
 msgid "<b>Select a Profile to start:</b>"
-msgstr "<b>Επιλέξτε ένα προφίλ για να ξεκινήσετε:</b>"
+msgstr "<b>Seleccione um Perfil para iniciar:</b>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:216
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:486
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/profile.ui:20
 msgid "Profile:"
-msgstr "Προφίλ:"
+msgstr "Perfil:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:237
 msgid "<b>Select from the following options:</b>"
-msgstr "<b>Επιλέξτε μεταξύ των παρακάτω δυνατοτήτων:</b>"
+msgstr "<b>Seleccione das opções seguintes:</b>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:262
 msgid "Video Profile:"
-msgstr "Προφίλ βίντεο:"
+msgstr "Perfil de Vídeo:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:305
 msgid "Target:"
-msgstr "Προορισμός:"
+msgstr "Destino:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:315
 msgid "Advanced"
-msgstr "Προχωρημένο"
+msgstr "Avançadas"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:348
 msgid "Advanced Options"
-msgstr "Προχωρημένες Επιλογές"
+msgstr "Opções Avançadas"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:367
 msgid "Export To:"
-msgstr "Εξαγωγή σε:"
+msgstr "Exportar Para:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:396
 msgid "End Frame:"
-msgstr "Καρέ Τέλους:"
+msgstr "Quadro Final:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:429
 msgid "Start Frame:"
-msgstr "Καρέ Αρχής:"
+msgstr "Quadro Incicial:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:469
 msgid "Profile"
-msgstr "Προφίλ"
+msgstr "Perfil"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:513
 msgid "Height:"
-msgstr "Ύψος:"
+msgstr "Altura:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:546
 msgid "Aspect Ratio:"
-msgstr "Αναλογία Διαστάσεων:"
+msgstr "Proporção de Aspecto:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:595
 msgid "Pixel Ratio:"
-msgstr "Αναλογία Εικονοστοιχείων:"
+msgstr "Proporção de Píxel:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:644
 msgid "Frame Rate:"
-msgstr "Ρυθμός Καρέ:"
+msgstr "Taxa de Quadros:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:696
 msgid "Interlaced:"
-msgstr "Διαπλεκόμενο:"
+msgstr "Entrelaçado:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:723
 msgid "Width:"
-msgstr "Πλάτος:"
+msgstr "Largura:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:757
 msgid "Image Sequence Settings"
-msgstr "Ρυθμίσεις Ακολουθίας Εικόνων"
+msgstr "Definições da Sequência de Imagens"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:774
 msgid "Image Format:"
-msgstr "Τύπος εικόνας:"
+msgstr "Formato de Imagem:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:795
 msgid "Video Settings"
-msgstr "Ρυθμίσεις Βίντεο"
+msgstr "Definições Vídeo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:809
 msgid "Video Format:"
-msgstr "Μορφή Βίντεο:"
+msgstr "Formato do Vídeo:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:829
 msgid "Video Codec:"
-msgstr "Κωδικοποίητης Βίντεο:"
+msgstr "Codificador do Vídeo:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:852
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:940
 msgid "Bit Rate / Quality:"
-msgstr "Ρυθμός Bit / Ποιότητα:"
+msgstr "Taxa de Bits / Qualidade:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:873
 msgid "Audio Settings"
-msgstr "Ρυθμίσεις Ήχου"
+msgstr "Definições de Áudio"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:887
 msgid "Sample Rate:"
-msgstr "Ρυθμός Δειγματοληψίας:"
+msgstr "Taxa de Amostra"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:920
 msgid "Audio Codec:"
-msgstr "Κωδικοποιητής Ήχου:"
+msgstr "Codificador de Áudio:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:960
 msgid "# of Channels:"
-msgstr "# πλήθος Καναλιών:"
+msgstr "# de Canais:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:996
 msgid "Channel Layout:"
-msgstr ""
+msgstr "Layout de Canais"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:17
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:229
 msgid "Import Image Sequence"
-msgstr "Εισαγωγή Ακολουθίας Εικόνων"
+msgstr "Importar Sequência de Imagens"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:42
 msgid "<b>Import Image Sequence</b> (Click for Instructions)"
-msgstr "<b>Εισαγωγή Ακολουθίας Εικόνων</b> (Κλικ για οδηγίες)"
+msgstr "<b>Importar Sequência de Imagens</b> (Clique para Instruções)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:51
 msgid "..."
@@ -3533,90 +3528,90 @@ msgid ""
 "p><p>image1.png = image%d.png</p><p>image01.png = image%02d.png</"
 "p><p>image00001.png = image%05.png</p></body></html>"
 msgstr ""
-"<html><head/><body><p>Χρησιμοποιείστε αυτή την οθόνη για να εισάγετε μία "
-"ακολουθία αριθμημένων εικόνων ως ένα κλιπ βίντεο.</p><p>Βεβαιωθείτε πως όλες "
-"οι εικόνες είναι στον ίδιο φάκελο, και είναι σειριακά αριθμημένες.</p><p>&lt;"
-"b&gt;TIP: &lt;/b&gt;Εάν σύρετε και εναποθέσετε μία εικόνα από την ακολουθία "
-"μέσα στο </p><p>δέντρο αρχείων του έργου, θα βρεθεί αυτόματα το πρότυπο του "
-"αρχείου.</p><p><br/></p><p>Χρησιμοποιείστε ένα %d για ονόματα αρχείων που "
-"αρχίζουν με αριθμό. Αν το όνομα του αρχείου είναι </p><p>γεμισμένο (πχ. "
-"00001.png, 00002.png), πρέπει να δώσετε το πλήθος των</p><p>ψηφίων (πχ. %05d."
-"png)</p><p><br/></p><p>&lt;b&gt;Παράδειγμα μοτίβου:&lt;/b&gt;</p><p>image1."
-"png = image%d.png</p><p>image01.png = image%02d.png</p><p>image00001.png = "
-"image%05.png</p></body></html>"
+"<html><head/><body><p>Utilize este ecrã para importar uma sequência numerada "
+"de imagens como um clipe de vídeo.</p><p>\r\n"
+"Certifique-se de que todas as imagens estão na mesma pasta e estão numeradas "
+"sequencialmente.</p><p>&lt;b&gt;DICA: &lt;/b&gt;Se arrastar e largar um só "
+"imagem da sequência no </p><p>explorador de ficheiros do projeto, ele irá "
+"automaticamente determinar o padrão de ficheiros .</p><p><br/></p><p>Use um "
+"%d para nomes de ficheiros começados com um númeor. se o nome do ficheiro é "
+"</p><p>formado com zeros à esquerda (i.e. 00001.png, 00002.png), terá de "
+"indicar o número de</p><p>dígitos (i.e. %05d.png)</p><p><br/></p><p>&lt;b&gt;"
+"Exemplo de Padrões:&lt;/b&gt;</p><p>image1.png = image%d.png</p><p>image01."
+"png = image%02d.png</p><p>image00001.png = image%05.png</p></body></html>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:145
 msgid "Frames per Image:"
-msgstr "Καρέ ανά Εικόνα:"
+msgstr "Quadros por Imagem:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:152
 msgid "File Name Pattern:"
-msgstr "Πρότυπο Ονόματος Αρχείων:"
+msgstr "Nome Padrão de Ficheiro:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:162
 msgid "Repeat Sequence:"
-msgstr "Επανάληψη Ακολουθίας:"
+msgstr "Repetir Sequência:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:169
 msgid "Image Folder:"
-msgstr "Φάκελος Εικόνων:"
+msgstr "Pasta de Imagens:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:176
 msgid "myfile_%d.png"
-msgstr "το_αρχείο_μου_%d.png"
+msgstr "meuficehiro_%d.png"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:23
 msgid "OpenShot Video Editor"
-msgstr "Επεξεργαστής βίντεο OpenShot"
+msgstr "Editor de Vídeo OpenShot"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:80
 msgid "&File"
-msgstr "&Αρχείο"
+msgstr "&Ficheiro"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:97
 msgid "&Edit"
-msgstr "Επε&ξεργασία"
+msgstr "&Editar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:113
 msgid "View"
-msgstr "Προβολή"
+msgstr "Vista"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:117
 msgid "Views"
-msgstr "Προβολές"
+msgstr "Vistas"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:135
 msgid "Help"
-msgstr "Βοήθεια"
+msgstr "Ajuda"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:155
 msgid "toolBar"
-msgstr "Γραμμή εργαλείων"
+msgstr "Barra de Ferramentas"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:185
 msgid "Project Files"
-msgstr "Αρχεία Έργου"
+msgstr "Ficheiros do Projecto"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:206
 msgid "Video Preview"
-msgstr "Προεπισκόπηση Βίντεο"
+msgstr "Pré-visualizar vídeo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:221
 msgid "Transitions"
-msgstr "Μεταβάσεις"
+msgstr "Transições"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:257
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1248
 msgid "Properties"
-msgstr "Ιδιότητες"
+msgstr "Propriedades"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:299
 msgid "New Project..."
-msgstr "Νέο Έργο..."
+msgstr "Novo Projecto..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:302
 msgid "New Project"
-msgstr "Νέο Έργο"
+msgstr "Novo Projecto"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:305
 msgid "Ctrl+N"
@@ -3624,7 +3619,7 @@ msgstr "Ctrl+N"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:317
 msgid "Open Project"
-msgstr "Άνοιγμα Έργου"
+msgstr "Abrir Projecto"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:320
 msgid "Ctrl+O"
@@ -3633,7 +3628,7 @@ msgstr "Ctrl+O"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:329
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:332
 msgid "Save Project"
-msgstr "Αποθήκευση Έργου"
+msgstr "Guardar Projecto"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:335
 msgid "Ctrl+S"
@@ -3642,7 +3637,7 @@ msgstr "Ctrl+S"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:344
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:347
 msgid "Undo"
-msgstr "Αναίρεση"
+msgstr "Anular"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:350
 msgid "Ctrl+Z"
@@ -3654,11 +3649,11 @@ msgstr "Ctrl+Shift+S"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:374
 msgid "Import Files..."
-msgstr "Εισαγωγή Αρχείων..."
+msgstr "Importar Ficheiros..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:377
 msgid "Import Files"
-msgstr "Εισαγωγή Αρχείων"
+msgstr "Importar Ficheiros"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:380
 msgid "Ctrl+F"
@@ -3666,7 +3661,7 @@ msgstr "Ctrl+F"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:389
 msgid "Import Image Sequence..."
-msgstr "Εισαγωγή Ακολουθίας Εικόνων..."
+msgstr "Importar Sequência de Imagens"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:395
 msgid "Ctrl+I"
@@ -3674,11 +3669,11 @@ msgstr "Ctrl+I"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:404
 msgid "Import New Transition..."
-msgstr "Εισαγωγή Νέας Μετάβασης..."
+msgstr "Importar Nova Transição..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:407
 msgid "Import New Transition"
-msgstr "Εισαγωγή Νέας Μετάβασης"
+msgstr "Importar Nova Transição"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:410
 msgid "Ctrl+W"
@@ -3687,7 +3682,7 @@ msgstr "Ctrl+W"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:419
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:422
 msgid "Redo"
-msgstr "Επανάληψη"
+msgstr "Refazer"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:425
 msgid "Ctrl+Y"
@@ -3696,17 +3691,17 @@ msgstr "Ctrl+Y"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:434
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:437
 msgid "Remove Clip"
-msgstr "Αφαίρεση Κλιπ"
+msgstr "Remover Clipe"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:446
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:449
 msgid "Remove Transition"
-msgstr "Αφαίρεση Μετάβασης"
+msgstr "Remover Transição"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:458
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:461
 msgid "Take Snapshot"
-msgstr "Λήψη Στιγμιότυπου"
+msgstr "Capturar Ecrã"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:464
 msgid "Ctrl+D"
@@ -3720,7 +3715,7 @@ msgstr "Ctrl+E"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:488
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:491
 msgid "Upload Video"
-msgstr "Ανέβασμα Βίντεο"
+msgstr "Enviar Vídeo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:494
 msgid "Ctrl+U"
@@ -3728,11 +3723,11 @@ msgstr "Ctrl+U"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:504
 msgid "&Quit"
-msgstr "&Έξοδος"
+msgstr "&Sair"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:507
 msgid "Quit"
-msgstr "Έξοδος"
+msgstr "Sair"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:510
 msgid "Ctrl+Q"
@@ -3741,15 +3736,15 @@ msgstr "Ctrl+Q"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:522
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:525
 msgid "Add Track"
-msgstr "Προσθήκη Ίχνους"
+msgstr "Adicionar Faixa"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:534
 msgid "&Preferences"
-msgstr "&Προτιμήσεις"
+msgstr "&Preferências"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:537
 msgid "Preferences"
-msgstr "Προτιμήσεις"
+msgstr "Preferências"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:540
 msgid "Ctrl+P"
@@ -3758,27 +3753,27 @@ msgstr "Ctrl+P"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:552
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:555
 msgid "Play"
-msgstr "Αναπαραγωγή"
+msgstr "Reproduzir"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:564
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:567
 msgid "Jump To Start"
-msgstr "Μετάβαση στην Αρχή"
+msgstr "Saltar Para Início"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:576
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:579
 msgid "Rewind"
-msgstr "Κίνηση πίσω"
+msgstr "Rebobinar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:588
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:591
 msgid "Fast Forward"
-msgstr "Γρήγορα εμπρός"
+msgstr "Avanço Rápido"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:600
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:603
 msgid "Jump To End"
-msgstr "Μετάβαση στο Τέλος"
+msgstr "Saltar Para o Fim"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:615
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:618
@@ -3793,22 +3788,22 @@ msgstr "Εργαλείο Κοψίματος"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:648
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:651
 msgid "Snapping Enabled"
-msgstr "Ενεργοποιημένη Προσκόλληση"
+msgstr "Agarrar Activado"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:660
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:663
 msgid "Add Marker"
-msgstr "Προσθήκη Δείκτη"
+msgstr "Adicionar Marcador"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:672
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:675
 msgid "Previous Marker"
-msgstr "Προηγούμενος Δείκτης"
+msgstr "Marcador Anterior"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:684
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:687
 msgid "Next Marker"
-msgstr "Επόμενος Δείκτης"
+msgstr "Marcador Seguinte"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:695
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:698
@@ -3818,26 +3813,26 @@ msgstr "Επόμενος Δείκτης"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:788
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1076
 msgid "Show All"
-msgstr "Εμφάνιση Όλων"
+msgstr "Mostrar Todos"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:706
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:709
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:796
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:799
 msgid "Video"
-msgstr "Βίντεο"
+msgstr "Vídeo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:717
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:720
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:807
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:810
 msgid "Audio"
-msgstr "Ήχος"
+msgstr "Áudio"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:728
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:731
 msgid "Image"
-msgstr "Εικόνα"
+msgstr "Imagem"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:837
 msgid "="
@@ -3854,7 +3849,7 @@ msgstr "Ctrl+T"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:878
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:881
 msgid "Animated Title"
-msgstr "Κινούμενος Τίτλος"
+msgstr "Título Animado"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:884
 msgid "Ctrl+B"
@@ -3863,7 +3858,7 @@ msgstr "Ctrl+B"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:897
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:900
 msgid "Fullscreen"
-msgstr "Πλήρης Οθόνη"
+msgstr "Ecrã Completo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:903
 msgid "F11"
@@ -3872,7 +3867,7 @@ msgstr "F11"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:913
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:916
 msgid "Exit Fullscreen"
-msgstr "Έξοδος Πλήρης Οθόνης"
+msgstr "Sair de ecrã completo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:919
 msgid "Esc"
@@ -3881,7 +3876,7 @@ msgstr "Esc"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:934
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:937
 msgid "View Toolbar"
-msgstr "Προβολή Γραμμής Εργαλείων"
+msgstr "Ver a Barra de Ferramentas"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:952
 msgid "Ctrl+A"
@@ -3890,144 +3885,144 @@ msgstr "Ctrl+A"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:964
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:967
 msgid "Icon View"
-msgstr "Προβολή Εικονιδίων"
+msgstr "Vista de Ícones"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:976
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:979
 msgid "Details View"
-msgstr "Προβολή Λεπτομερειών"
+msgstr "Vista de Detalhes"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:988
 msgid "Report a Bug..."
-msgstr "Αναφορά ενός Σφάλματος..."
+msgstr "Reportar Erro..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:997
 msgid "Ask a Question..."
-msgstr "Κάντε μία Ερώτηση..."
+msgstr "Fazer uma pergunta..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1006
 msgid "Translate this Application..."
-msgstr "Μετάφραση της Εφαρμογής..."
+msgstr "Traduzir esta Aplicação..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1015
 msgid "Donate"
-msgstr "Δωρεά"
+msgstr "Doar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1025
 msgid "Contents"
-msgstr "Περιεχόμενα"
+msgstr "Conteúdos"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1028
 msgid "Open Help Contents"
-msgstr "Άνοιγμα Περιεχομένων Βοήθειας"
+msgstr "Abrir Ajuda de Conteúdos"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1037
 msgid "Simple View"
-msgstr "Απλή Προβολή"
+msgstr "Vista Simples"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1046
 msgid "Advanced View"
-msgstr "Προχωρημένη Προβολή"
+msgstr "Vista Avançada"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1055
 msgid "Freeze View"
-msgstr "Πάγωμα Προβολής"
+msgstr "Fixar Vista"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1064
 msgid "Un-Freeze View"
-msgstr "Ξεπάγωμα Προβολής"
+msgstr "Anular Fixação da Vista"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1084
 msgid "Recent Placeholder"
-msgstr "Πρόσφατη Κράτηση Θέσης"
+msgstr "Recente Espaço Reservado"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1096
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1099
 msgid "Choose Profile"
-msgstr "Επιλογή Προφίλ"
+msgstr "Escolher Perfil"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1108
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1111
 msgid "Add to Timeline"
-msgstr "Προσθήκη στο Χρονοδιάγραμμα"
+msgstr "Adicionar à Linha do Tempo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1120
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1123
 msgid "Preview File"
-msgstr "Προεπισκόπηση Αρχείου"
+msgstr "Pré-visualizar Ficheiro"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1132
 msgid "Remove from Project"
-msgstr "Αφαίρεση από το Έργο"
+msgstr "Remover do Projecto"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1135
 msgid "Remove from "
-msgstr "Αφαίρεση από το "
+msgstr "Remover de "
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1144
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1147
 msgid "File Properties"
-msgstr "Ιδιότητες Αρχείου"
+msgstr "Propriedades do ficheiro"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1169
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1172
 msgid "Remove Track"
-msgstr "Αφαίρεση Ίχνους"
+msgstr "Remover Faixa"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1181
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1184
 msgid "Remove Marker"
-msgstr "Αφαίρεση Δείκτη"
+msgstr "Remover Marcador"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1193
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1196
 msgid "Add Track Above"
-msgstr "Προσθήκη Ίχνους Πάνω"
+msgstr "Adicionar Faixa Acima"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1205
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1208
 msgid "Add Track Below"
-msgstr "Προσθήκη Ίχνους Κάτω"
+msgstr "Adicionar Faixa Abaixo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1217
 msgid "Remove Effect"
-msgstr "Αφαίρεση Εφέ"
+msgstr "Remover Efeito"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1220
 msgid "Remove Effe"
-msgstr "Αφαίρεση Εφέ"
+msgstr "Remover Efei"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1230
 msgid "Split Clip..."
-msgstr "Διαίρεση του Κλιπ..."
+msgstr "Dividir Clipe..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1245
 msgid "&Properties"
-msgstr "&Ιδιότητες"
+msgstr "&Propriedades"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/presets.ui:14
 msgid "Export with FFmpeg Command"
-msgstr "Εξαγωγή με Εντολή FFmpeg"
+msgstr "Exportar com o comando FFmpeg"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/presets.ui:28
 msgid "<html><head/><body><p>Presets:</p></body></html>"
-msgstr "<html><head/><body><p>Προεπιλογές:</p></body></html>"
+msgstr "<html><head/><body><p>Predefinições:</p></body></html>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/presets.ui:55
 msgid "Delete Preset"
-msgstr "Διαγραφή Προεπιλογής"
+msgstr "Apagar a Predefinição"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/presets.ui:75
 msgid "Save Current"
-msgstr "Αποθήκευση Τρέχοντος"
+msgstr "Guardar Actual"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/presets.ui:122
 msgid "Export"
-msgstr "Εξαγωγή"
+msgstr "Exportar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/profile.ui:30
 msgid "Size:"
-msgstr "Μέγεθος:"
+msgstr "Tamanho:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/profile.ui:50
 msgid "1920x1080"
@@ -4043,35 +4038,35 @@ msgstr "FPS:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/profile.ui:84
 msgid "Other:"
-msgstr "Άλλο:"
+msgstr "Outro:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:14
 msgid "Title Editor"
-msgstr "Επεξεργασία Τίτλων"
+msgstr "Editor de Títulos"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:66
 msgid "Template:"
-msgstr "Πρότυπο:"
+msgstr "Modelo:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:102
 msgid "Line 1:"
-msgstr "Γραμμή 1"
+msgstr "Linha 1:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:125
 msgid "Line 2:"
-msgstr "Γραμμή 2:"
+msgstr "Linha 2:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:148
 msgid "Line 3:"
-msgstr "Γραμμή 3"
+msgstr "Linha 3:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:171
 msgid "Line 4:"
-msgstr "Γραμμή 4"
+msgstr "Linha 4:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:194
 msgid "Line 5:"
-msgstr "Γραμμή 5"
+msgstr "Linha 5:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:230
 msgid "Font:"
@@ -4079,43 +4074,43 @@ msgstr "Tipo de letra:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:247
 msgid "Text:"
-msgstr "Κείμενο:"
+msgstr "Texto:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:260
 msgid "Text Color"
-msgstr "Χρώμα Κειμένου"
+msgstr "Cor do Texto"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:267
 msgid "Background:"
-msgstr "Φόντο:"
+msgstr "Fundo:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:280
 msgid "Background Color"
-msgstr "Χρώμα Φόντου"
+msgstr "Cor de Fundo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:287
 msgid "Advanced:"
-msgstr "Προχωρημένο:"
+msgstr "Avançada:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:297
 msgid "Use Advanced Editor"
-msgstr "Χρήση Προχωρημένου Επεξεργαστή"
+msgstr "Usar Editor Avançado"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:320
 msgid "Line 6:"
-msgstr "Γραμμή 6"
+msgstr "Linha 6:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:41
 msgid "<html><head/><body><p>Upload To:</p></body></html>"
-msgstr "<html><head/><body><p>Ανέβασμα στο:</p></body></html>"
+msgstr "<html><head/><body><p>Enviar Para:</p></body></html>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:48
 msgid "(None)"
-msgstr "(Κανένα)"
+msgstr "(Nenhum)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:74
 msgid "<html><head/><body><p>Video File:</p></body></html>"
-msgstr "<html><head/><body><p>Αρχείο Βίντεο:</p></body></html>"
+msgstr "<html><head/><body><p>Ficheiro de Vídeo:</p></body></html>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:81
 msgid ""
@@ -4129,11 +4124,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:94
 msgid "<html><head/><body><p>Username:</p></body></html>"
-msgstr "<html><head/><body><p>Όνομα Χρήστη:</p></body></html>"
+msgstr "<html><head/><body><p>Utilizador:</p></body></html>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:101
 msgid "<html><head/><body><p>Description:</p></body></html>"
-msgstr "<html><head/><body><p>Περιγραφή:</p></body></html>"
+msgstr "<html><head/><body><p>Descrição:</p></body></html>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:109
 msgid "Youtube"
@@ -4141,11 +4136,11 @@ msgstr "Youtube"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:151
 msgid "<html><head/><body><p>Title:</p></body></html>"
-msgstr "<html><head/><body><p>Τίτλος:</p></body></html>"
+msgstr "<html><head/><body><p>Título:</p></body></html>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:185
 msgid "<html><head/><body><p>Password:</p><p><br/></p></body></html>"
-msgstr "<html><head/><body><p>Συνθηματικό:</p><p><br/></p></body></html>"
+msgstr "<html><head/><body><p>Senha:</p><p><br/></p></body></html>"
 
 #~ msgid "Fractal 1"
 #~ msgstr "Φράκταλ 1"

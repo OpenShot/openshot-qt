@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-03 22:58+0000\n"
-"PO-Revision-Date: 2016-02-02 10:07+0000\n"
-"Last-Translator: Andy Finch <Unknown>\n"
+"PO-Revision-Date: 2016-02-11 11:20+0000\n"
+"Last-Translator: Andi Chandler <Unknown>\n"
 "Language-Team: English (United Kingdom) <en_GB@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-05 06:34+0000\n"
-"X-Generator: Launchpad (build 17908)\n"
+"X-Launchpad-Export-Date: 2016-02-12 05:39+0000\n"
+"X-Generator: Launchpad (build 17923)\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:463
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1023
@@ -71,11 +71,11 @@ msgstr "Save changes to project before closing?"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:127
 msgid "Backup Recovered"
-msgstr ""
+msgstr "Backup Recovered"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:128
 msgid "Your most recent unsaved project has been recovered."
-msgstr ""
+msgstr "Your most recent unsaved project has been recovered."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:241
 msgid "Error Saving Project"
@@ -214,6 +214,7 @@ msgstr "Version: %s"
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
+"  Andi Chandler https://launchpad.net/~bing\n"
 "  Andy Finch https://launchpad.net/~fincha\n"
 "  Helen McCall https://launchpad.net/~wildnfree\n"
 "  Jonathan Thomas https://launchpad.net/~jonoomph\n"
@@ -2530,7 +2531,7 @@ msgstr "MOV (h.264)"
 
 #: Settings for autosave-interval
 msgid "Autosave Interval (minutes)"
-msgstr ""
+msgstr "Autosave Interval (minutes)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/youtube_HD.xml
 msgid "YouTube-HD"
@@ -3156,6 +3157,13 @@ msgid ""
 "\" font-size:10pt; text-decoration: none; color:#55aaff;\">Learn more</"
 "span></a><span style=\" font-size:10pt;\">.</span></p></body></html>"
 msgstr ""
+"<html><head/><body><hr/><p align=\"center\"><span style=\" font-size:10pt; "
+"font-weight:600;\">Create &amp; Edit Amazing Videos and Movies</span></p><p "
+"align=\"center\"><span style=\" font-size:10pt;\">OpenShot Video Editor 2.x "
+"is the next generation of the award-winning <br/>OpenShot video editing "
+"platform. </span><a href=\"http://www.openshot.org?r=about-us\"><span style="
+"\" font-size:10pt; text-decoration: none; color:#55aaff;\">Learn more</"
+"span></a><span style=\" font-size:10pt;\">.</span></p></body></html>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/about.ui:100
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/credits.ui:14
@@ -3291,6 +3299,9 @@ msgid ""
 "donate/\"><span style=\" text-decoration: underline; color:#55aaff;\">Become "
 "a Supporter</span></a></p></body></html>"
 msgstr ""
+"<html><head/><body><p align=\"center\"><a href=\"http://www.openshot.org/"
+"donate/\"><span style=\" text-decoration: underline; color:#55aaff;\">Become "
+"a Supporter</span></a></p></body></html>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:14
 msgid "Split Clip"
@@ -3494,6 +3505,16 @@ msgid ""
 "p><p>image1.png = image%d.png</p><p>image01.png = image%02d.png</"
 "p><p>image00001.png = image%05.png</p></body></html>"
 msgstr ""
+"<html><head/><body><p>Use this screen to import a sequence of numbered "
+"images as a video clip.</p><p>Be sure all pictures are in the same folder, "
+"and are sequencially numbered.</p><p>&lt;b&gt;TIP: &lt;/b&gt;If you drag and "
+"drop a single image from the sequence into the </p><p>project files tree, it "
+"will automatically determine the file pattern.</p><p><br/></p><p>Use a %d "
+"for filenames starting with a number. If the filename is </p><p>padded (i.e. "
+"00001.png, 00002.png), you must indicate the number of</p><p>digits (i.e. "
+"%05d.png)</p><p><br/></p><p>&lt;b&gt;Example patterns:&lt;/b&gt;</"
+"p><p>image1.png = image%d.png</p><p>image01.png = image%02d.png</"
+"p><p>image00001.png = image%05.png</p></body></html>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:145
 msgid "Frames per Image:"
@@ -3945,7 +3966,7 @@ msgstr "Remove Effect"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1220
 msgid "Remove Effe"
-msgstr ""
+msgstr "Remove Effect"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1230
 msgid "Split Clip..."
@@ -4065,7 +4086,7 @@ msgstr "(None)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:74
 msgid "<html><head/><body><p>Video File:</p></body></html>"
-msgstr ""
+msgstr "<html><head/><body><p>Video File:</p></body></html>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:81
 msgid ""
@@ -4073,14 +4094,17 @@ msgid ""
 "decoration: underline; color:#0000ff;\">http://www.youtube.com</span></a></"
 "p></body></html>"
 msgstr ""
+"<html><head/><body><p><a href=\"http://www.youtube.com\"><span style=\" text-"
+"decoration: underline; color:#0000ff;\">http://www.youtube.com</span></a></"
+"p></body></html>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:94
 msgid "<html><head/><body><p>Username:</p></body></html>"
-msgstr ""
+msgstr "<html><head/><body><p>Username:</p></body></html>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:101
 msgid "<html><head/><body><p>Description:</p></body></html>"
-msgstr ""
+msgstr "<html><head/><body><p>Description:</p></body></html>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:109
 msgid "Youtube"
@@ -4088,11 +4112,11 @@ msgstr "Youtube"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:151
 msgid "<html><head/><body><p>Title:</p></body></html>"
-msgstr ""
+msgstr "<html><head/><body><p>Title:</p></body></html>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:185
 msgid "<html><head/><body><p>Password:</p><p><br/></p></body></html>"
-msgstr ""
+msgstr "<html><head/><body><p>Password:</p><p><br/></p></body></html>"
 
 #~ msgid "Fractal 6"
 #~ msgstr "Fractal 6"

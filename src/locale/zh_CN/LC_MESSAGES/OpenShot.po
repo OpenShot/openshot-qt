@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-03 22:58+0000\n"
-"PO-Revision-Date: 2016-01-11 05:40+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2016-03-04 06:05+0000\n"
+"Last-Translator: zoron <zoronlivingston@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-05 06:34+0000\n"
-"X-Generator: Launchpad (build 17908)\n"
+"X-Launchpad-Export-Date: 2016-03-05 06:22+0000\n"
+"X-Generator: Launchpad (build 17936)\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:463
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1023
@@ -47,7 +47,7 @@ msgstr "淡入/淡出"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:485
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:550
 msgid "Random"
-msgstr ""
+msgstr "随机"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:474
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:831
@@ -63,27 +63,27 @@ msgstr "缩小"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:85
 msgid "Unsaved Changes"
-msgstr ""
+msgstr "未保存的更改"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:85
 msgid "Save changes to project before closing?"
-msgstr ""
+msgstr "关闭前保存变更？"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:127
 msgid "Backup Recovered"
-msgstr ""
+msgstr "备份已恢复"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:128
 msgid "Your most recent unsaved project has been recovered."
-msgstr ""
+msgstr "最近的未保存项目已恢复"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:241
 msgid "Error Saving Project"
-msgstr ""
+msgstr "保存时出错"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:278
 msgid "Error Opening Project"
-msgstr ""
+msgstr "打开时出错"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:314
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:314
@@ -101,11 +101,11 @@ msgstr "OpenShot 工程 (*.osp)"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1240
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:104
 msgid "Untitled Project"
-msgstr ""
+msgstr "未命名项目"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:327
 msgid "Save Project..."
-msgstr ""
+msgstr "保存项目"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:371
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:359
@@ -115,7 +115,7 @@ msgstr "另存工程为..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:386
 msgid "Import File..."
-msgstr ""
+msgstr "导出文件"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1025
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1260
@@ -125,7 +125,7 @@ msgstr "重命名轨道"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1025
 msgid "Track Name:"
-msgstr ""
+msgstr "轨迹名称:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1327
 msgid "Recent Projects"
@@ -137,26 +137,26 @@ msgstr "最近的工程"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1541
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:286
 msgid "Filter"
-msgstr ""
+msgstr "筛选"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1454
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1634
 msgid "{} seconds"
-msgstr ""
+msgstr "{}秒"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:114
 msgid "<Select a template>"
-msgstr ""
+msgstr "<选择一个模板>"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:323
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:342
 msgid "Select a Color"
-msgstr ""
+msgstr "选择颜色"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:361
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:240
 msgid "Change Font"
-msgstr ""
+msgstr "更改字体"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:592
 msgid "New Title"
@@ -164,11 +164,11 @@ msgstr "新建标题"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:595
 msgid "Save Title As..."
-msgstr ""
+msgstr "保存标题"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:595
 msgid "Scalable Vector Graphics (*.svg)"
-msgstr ""
+msgstr "可缩放矢量图形 (*.svg)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:648
 #: /home/jonathan/apps/openshot-qt-git/src/windows/animated_title.py:165
@@ -176,24 +176,24 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/files_listview.py:165
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/files_model.py:173
 msgid "{} is not a valid video, audio, or image file."
-msgstr ""
+msgstr "{}是无效的视频、音频、图像文件"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:677
 msgid "Please install {} to use this function"
-msgstr ""
+msgstr "请安装{}以使用该功能"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:269
 msgid "Restart Required"
-msgstr ""
+msgstr "需要重启"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:270
 msgid "Please restart OpenShot for all preferences to take effect."
-msgstr ""
+msgstr "请重启 OpenShot 使变动生效"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/cutting.py:190
 #: /home/jonathan/apps/openshot-qt-git/src/windows/cutting.py:224
 msgid "Please choose valid 'start' and 'end' values for your clip."
-msgstr ""
+msgstr "请选择"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/animated_title.py:85
 msgid "Render"
@@ -208,7 +208,7 @@ msgstr "取消"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/about.py:71
 #, python-format
 msgid "Version: %s"
-msgstr ""
+msgstr "版本：%s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/about.py:152
 msgid "translator-credits"
@@ -224,11 +224,12 @@ msgstr ""
 "  deepfang https://launchpad.net/~deepfang\n"
 "  wings https://launchpad.net/~wangshuo1987\n"
 "  zhangmiao https://launchpad.net/~mymzhang\n"
-"  zhanshime https://launchpad.net/~zhanshime"
+"  zhanshime https://launchpad.net/~zhanshime\n"
+"  zoron https://launchpad.net/~zoronlivingston"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/blender_treeview.py:169
 msgid "No Files Found"
-msgstr ""
+msgstr "未找到文件"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/blender_treeview.py:461
 msgid ""
@@ -237,6 +238,10 @@ msgid ""
 "Version Detected:\n"
 "{}"
 msgstr ""
+"\n"
+"\n"
+"检测到版本：\n"
+"{}"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/blender_treeview.py:464
 msgid ""
@@ -245,6 +250,10 @@ msgid ""
 "Error Output:\n"
 "{}"
 msgstr ""
+"\n"
+"\n"
+"错误输出：\n"
+"{}"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/blender_treeview.py:471
 msgid ""
@@ -259,6 +268,9 @@ msgid ""
 "Blender Path:\n"
 "{}{}"
 msgstr ""
+"此操作需要开源3D软件 Blender (http://www.blender.org)。\n"
+"请检查 OpenShot 首选项，确保 Blender 可执行文件的路径设定正确，同时 Blender "
+"版本大于等于 {} 。"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/blender_treeview.py:775
 msgid "No frame was found in the output from Blender"
@@ -274,46 +286,46 @@ msgstr "剪辑结尾"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Entire Clip"
-msgstr ""
+msgstr "完整剪辑"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Normal"
-msgstr ""
+msgstr "正常"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Fast"
-msgstr ""
+msgstr "快"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Slow"
-msgstr ""
+msgstr "慢"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Forward"
-msgstr "前进"
+msgstr "快进"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:417
 msgid "Backward"
-msgstr ""
+msgstr "快退"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:423
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1510
 msgid "Copy"
-msgstr ""
+msgstr "复制"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:424
 msgid "Clip"
-msgstr ""
+msgstr "剪辑"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:426
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1513
 msgid "Keyframes"
-msgstr ""
+msgstr "关键帧"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:427
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1514
 msgid "All"
-msgstr ""
+msgstr "全部"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:430
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
@@ -328,23 +340,23 @@ msgstr "尺寸"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:434
 #: libopenshot (Clip Properties)
 msgid "Rotation"
-msgstr ""
+msgstr "旋转"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:436
 msgid "Location"
-msgstr ""
+msgstr "位置"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:438
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:595
 #: libopenshot (Clip Properties)
 msgid "Time"
-msgstr ""
+msgstr "时间"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:440
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:619
 #: libopenshot (Clip Properties) Settings for volume
 msgid "Volume"
-msgstr ""
+msgstr "音量"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:442
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:236
@@ -354,7 +366,7 @@ msgstr "效果"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:448
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1525
 msgid "Paste"
-msgstr ""
+msgstr "粘贴"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:454
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/common/fade.svg
@@ -399,12 +411,12 @@ msgstr "淡入淡出(慢)"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:479
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:644
 msgid "Fade In (Entire Clip)"
-msgstr ""
+msgstr "淡入(完整剪辑)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:481
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:646
 msgid "Fade Out (Entire Clip)"
-msgstr ""
+msgstr "淡出(完整剪辑)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:489
 msgid "Animate"
@@ -417,7 +429,7 @@ msgstr "无动画"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:497
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:307
 msgid "Zoom"
-msgstr ""
+msgstr "缩放"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:498
 msgid "Zoom In (50% to 100%)"
@@ -445,7 +457,7 @@ msgstr "缩小 (150% 到 100%)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:513
 msgid "Center to Edge"
-msgstr ""
+msgstr "中心到边缘"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:514
 msgid "Center to Top"
@@ -457,7 +469,7 @@ msgstr "由中到左"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:518
 msgid "Center to Right"
-msgstr ""
+msgstr "由中到右"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:520
 msgid "Center to Bottom"
@@ -465,7 +477,7 @@ msgstr "由中到下"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:525
 msgid "Edge to Center"
-msgstr ""
+msgstr "边缘到中心"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:526
 msgid "Top to Center"
@@ -485,7 +497,7 @@ msgstr "由下到中"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:537
 msgid "Edge to Edge"
-msgstr ""
+msgstr "边缘到边缘"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:538
 msgid "Top to Bottom"
@@ -510,7 +522,7 @@ msgstr "旋转"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:561
 msgid "No Rotation"
-msgstr "无旋转"
+msgstr "不旋转"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:564
 msgid "Rotate 90 (Right)"
@@ -562,71 +574,71 @@ msgstr "显示全部(扭曲)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:596
 msgid "Reset Time"
-msgstr ""
+msgstr "重设时间"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:620
 msgid "Reset Volume"
-msgstr ""
+msgstr "重设音量"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:651
 msgid "Level 100%"
-msgstr ""
+msgstr "Level 100%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:653
 msgid "Level 90%"
-msgstr ""
+msgstr "Level 90%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:655
 msgid "Level 80%"
-msgstr ""
+msgstr "Level 80%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:657
 msgid "Level 70%"
-msgstr ""
+msgstr "Level 70%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:659
 msgid "Level 60%"
-msgstr ""
+msgstr "Level 60%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:661
 msgid "Level 50%"
-msgstr ""
+msgstr "Level 50%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:663
 msgid "Level 40%"
-msgstr ""
+msgstr "Level 40%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:665
 msgid "Level 30%"
-msgstr ""
+msgstr "Level 30%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:667
 msgid "Level 20%"
-msgstr ""
+msgstr "Level 20%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:669
 msgid "Level 10%"
-msgstr ""
+msgstr "Level 10%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:671
 msgid "Level 0%"
-msgstr ""
+msgstr "Level 0%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:683
 msgid "Slice Clip"
-msgstr ""
+msgstr "分割剪辑"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:684
 msgid "Keep Both Sides"
-msgstr ""
+msgstr "保持两侧"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:686
 msgid "Keep Left Side"
-msgstr ""
+msgstr "保持左侧"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:688
 msgid "Keep Right Side"
-msgstr ""
+msgstr "保持右侧"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1511
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:341
@@ -650,29 +662,29 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:78
 #, python-format
 msgid "Selection: %s"
-msgstr ""
+msgstr "选择：%s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:80
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:273
 msgid "No Selection"
-msgstr ""
+msgstr "无选择"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:129
 msgid "Bezier"
-msgstr ""
+msgstr "贝塞尔"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:131
 msgid "Linear"
-msgstr ""
+msgstr "线性"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:133
 msgid "Constant"
-msgstr ""
+msgstr "常数"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:136
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:141
 msgid "Remove Keyframe"
-msgstr ""
+msgstr "移除关键帧"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/add_to_timeline_model.py:57
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/blender_model.py:56
@@ -695,23 +707,23 @@ msgstr "名称"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/transition_model.py:158
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/effects_model.py:150
 msgid "{} is not a valid image file."
-msgstr ""
+msgstr "{} 不是有效的图像文件"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:67
 msgid "Email"
-msgstr ""
+msgstr "邮件"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:67
 msgid "Website"
-msgstr ""
+msgstr "网站"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:100
 msgid "PayPal Supporter!"
-msgstr ""
+msgstr "PayPal 捐助者！"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:108
 msgid "Kickstarter Supporter!"
-msgstr ""
+msgstr "Kickstarter 捐助者！"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:116
 msgid "Multiple Contributions!"
@@ -745,11 +757,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/files_model.py:100
 msgid "Tags"
-msgstr ""
+msgstr "标签"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/effects_model.py:80
 msgid "Description"
-msgstr ""
+msgstr "描述"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:74
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:20
@@ -824,11 +836,11 @@ msgstr "高"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:472
 msgid "Choose a Folder..."
-msgstr ""
+msgstr "选择文件夹"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:625
 msgid "Export Error"
-msgstr ""
+msgstr "导出错误"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:626
 #, python-format
@@ -836,6 +848,8 @@ msgid ""
 "Sorry, there was an error exporting your video: \n"
 "%s"
 msgstr ""
+"抱歉，导出视频时发生错误： \n"
+"%s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml
 msgid "Convert an image to shades of grey"
@@ -843,7 +857,7 @@ msgstr "将影像转换为灰阶"
 
 #: libopenshot (Clip Properties)
 msgid "Iterations"
-msgstr ""
+msgstr "迭代"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml
 msgid "Split and mirror the image"
@@ -915,7 +929,7 @@ msgstr "到达经度(分钟)"
 
 #: libopenshot (Clip Properties)
 msgid "Vertical Radius"
-msgstr ""
+msgstr "垂直半径"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml
 msgid "Old Dust"
@@ -947,7 +961,7 @@ msgstr "伽玛"
 
 #: libopenshot (Clip Properties)
 msgid "Gravity"
-msgstr ""
+msgstr "重力"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
 msgid "Tile 1: Diffuse Color"
@@ -1016,7 +1030,7 @@ msgstr "随机调整 gamma 值和亮度，以模仿老电影"
 
 #: libopenshot (Effect Metadata)
 msgid "Color Saturation"
-msgstr ""
+msgstr "色彩饱和度"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
 msgid "X Center"
@@ -1056,11 +1070,11 @@ msgstr "v"
 
 #: libopenshot (Clip Properties)
 msgid "Bottom Left"
-msgstr ""
+msgstr "底部左侧"
 
 #: libopenshot (Clip Properties)
 msgid "Duration"
-msgstr ""
+msgstr "持续时间"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
 msgid "Brightness Delta Down"
@@ -1163,11 +1177,11 @@ msgstr "冻结"
 
 #: libopenshot (Clip Properties)
 msgid "Horizontal Radius"
-msgstr ""
+msgstr "水平半径"
 
 #: libopenshot (Clip Properties)
 msgid "Location X"
-msgstr ""
+msgstr "横向坐标"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
 msgid "Defish"
@@ -1261,7 +1275,7 @@ msgstr "向上扩展"
 
 #: libopenshot (Clip Properties)
 msgid "Bottom Right"
-msgstr ""
+msgstr "底部右侧"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
 msgid "Input level black point"
@@ -1281,7 +1295,7 @@ msgstr "色彩数量"
 
 #: libopenshot (Clip Properties)
 msgid "Fuzz"
-msgstr ""
+msgstr "模糊"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/wireframe_text.xml
 msgid "Wireframe Text"
@@ -1289,7 +1303,7 @@ msgstr "网格化文本"
 
 #: libopenshot (Clip Properties)
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml
 msgid ""
@@ -1361,11 +1375,11 @@ msgstr "标题颜色高光"
 
 #: libopenshot (Clip Properties)
 msgid "Crop"
-msgstr ""
+msgstr "裁剪"
 
 #: libopenshot (Effect Metadata)
 msgid "Deinterlace"
-msgstr ""
+msgstr "反交错"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Depart Latitude (degrees)"
@@ -1389,7 +1403,7 @@ msgstr "调整影像的 gamma 值和亮度值"
 
 #: libopenshot (Clip Properties)
 msgid "Scale X"
-msgstr ""
+msgstr "横向缩放"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
 msgid "Tile 3: Diffuse Color"
@@ -1441,11 +1455,11 @@ msgstr "散射颜色"
 
 #: libopenshot (Clip Properties)
 msgid "Sigma"
-msgstr ""
+msgstr "Sigma"
 
 #: libopenshot (Clip Properties)
 msgid "Top Left"
-msgstr ""
+msgstr "顶部左侧"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml
 msgid "Red/Green Axis"
@@ -1453,7 +1467,7 @@ msgstr "红/绿 轴"
 
 #: libopenshot (Clip Properties)
 msgid "Scale Y"
-msgstr ""
+msgstr "纵向缩放"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml
 msgid "Scan Lines"
@@ -1497,7 +1511,7 @@ msgstr "结束帧"
 
 #: libopenshot (Clip Properties)
 msgid "Replace Image"
-msgstr ""
+msgstr "替代图像"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
 msgid "Alphagrad"
@@ -1513,7 +1527,7 @@ msgstr "保持亮度"
 
 #: libopenshot (Clip Properties)
 msgid "Location Y"
-msgstr ""
+msgstr "纵坐标"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml
 msgid "Color"
@@ -1565,7 +1579,7 @@ msgstr ""
 
 #: libopenshot (Clip Properties)
 msgid "Viewport"
-msgstr ""
+msgstr "观察窗"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
 msgid "Line 1 Color"
@@ -1581,7 +1595,7 @@ msgstr "光晕：使用闪光"
 
 #: libopenshot (Clip Properties)
 msgid "Stretch"
-msgstr ""
+msgstr "拉伸"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "End: Z"
@@ -1621,7 +1635,7 @@ msgstr "标题漫反射颜色"
 
 #: libopenshot (Effect Metadata)
 msgid "Brightness & Contrast"
-msgstr ""
+msgstr "亮度 & 对比度"
 
 #: libopenshot (Clip Properties)
 msgid "Is Odd Frame"
@@ -1665,7 +1679,7 @@ msgstr "亮边"
 
 #: libopenshot (Clip Properties)
 msgid "Bottom Center"
-msgstr ""
+msgstr "底端居中"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/contrast.xml
 msgid "Adjusts the contrast of a source image"
@@ -1808,7 +1822,7 @@ msgstr "手动缩放"
 
 #: libopenshot (Clip Properties)
 msgid "Anchor"
-msgstr ""
+msgstr "锁定"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml
 msgid "Increase the size of pixels to obscure the image"
@@ -1860,7 +1874,7 @@ msgstr "老电影"
 
 #: libopenshot (Clip Properties)
 msgid "Top Center"
-msgstr ""
+msgstr "顶端居中"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "Gravity: Z"
@@ -1901,11 +1915,11 @@ msgstr ""
 
 #: libopenshot (Clip Properties)
 msgid "Top Right"
-msgstr ""
+msgstr "顶部右侧"
 
 #: libopenshot (Clip Properties)
 msgid "Layer"
-msgstr ""
+msgstr "图层"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml
 msgid "Color Distance"
@@ -1986,7 +2000,7 @@ msgstr "TehRoxx0r"
 
 #: libopenshot (Clip Properties)
 msgid "Center"
-msgstr ""
+msgstr "居中"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Halo: Use Lines"
@@ -2142,7 +2156,7 @@ msgstr "较暗"
 
 #: libopenshot (Clip Properties)
 msgid "Canvas"
-msgstr ""
+msgstr "画布"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Particles: Amount"
@@ -2230,7 +2244,7 @@ msgstr "背景： Fresnel"
 
 #: libopenshot (Clip Properties)
 msgid "Waveform"
-msgstr ""
+msgstr "波形"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Depart Latitude (seconds)"
@@ -2242,7 +2256,7 @@ msgstr "在影像中加入发光效果"
 
 #: libopenshot (Clip Properties)
 msgid "Best Fit"
-msgstr ""
+msgstr "最佳匹配"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/balance.xml
 msgid "Balance"
@@ -2401,7 +2415,7 @@ msgstr "镜像"
 
 #: Settings for default-profile
 msgid "Default Profile"
-msgstr ""
+msgstr "默认资料"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_mov_mpeg4.xml
 msgid "MOV (mpeg4)"
@@ -2478,7 +2492,7 @@ msgstr "Vimeo-HD"
 
 #: Settings for default-image-length
 msgid "Image Length (seconds)"
-msgstr ""
+msgstr "图像长度（秒）"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_libvorbis.xml
 msgid "OGG (theora/vorbis)"
@@ -2486,7 +2500,7 @@ msgstr "OGG (theora/vorbis)"
 
 #: Settings for theme
 msgid "Default Theme"
-msgstr ""
+msgstr "默认主题"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_xvid.xml
 msgid "MP4 (Xvid)"
@@ -2502,7 +2516,7 @@ msgstr "MOV (h.264)"
 
 #: Settings for autosave-interval
 msgid "Autosave Interval (minutes)"
-msgstr ""
+msgstr "自动保存间隔（分）"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/youtube_HD.xml
 msgid "YouTube-HD"
@@ -2534,11 +2548,11 @@ msgstr "AVCHD 碟片"
 
 #: Settings for default-channellayout
 msgid "Default Audio Channels"
-msgstr ""
+msgstr "默认声道"
 
 #: Settings for title_editor
 msgid "Advanced Title Editor (path)"
-msgstr ""
+msgstr "高级标题编辑器（路径）"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml
 msgid "Device"
@@ -2550,7 +2564,7 @@ msgstr "DVD-NTSC"
 
 #: Settings for debug-mode
 msgid "Debug Mode (Verbose)"
-msgstr ""
+msgstr "调试模式（详细）"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_pal.xml
 msgid "DVD-PAL"
@@ -2558,7 +2572,7 @@ msgstr "DVD-PAL"
 
 #: Settings for blender_command
 msgid "Blender Command (path)"
-msgstr ""
+msgstr "Blender 命令（路径）"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/picasa.xml
 msgid "Picasa"
@@ -2582,7 +2596,7 @@ msgstr "从右到左擦除"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/fractal_5.jpg
 msgid "Fractal %s"
-msgstr ""
+msgstr "分形 %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_left_inspiration.jpg
 msgid "Middle left inspiration"
@@ -2664,7 +2678,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg
 msgid "Left arrow"
-msgstr ""
+msgstr "左箭头"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/hatched_1.jpg
 msgid "Hatched %s"
@@ -2824,7 +2838,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_arrow.jpg
 msgid "Right arrow"
-msgstr ""
+msgstr "右箭头"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/stretched_3.jpg
 msgid "Stretched %s"

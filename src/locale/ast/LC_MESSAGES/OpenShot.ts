@@ -2,13 +2,13 @@
 <!DOCTYPE TS>
 <TS version="2.1">
     <extra-po-header-language_team>Asturian &lt;ast@li.org&gt;</extra-po-header-language_team>
-    <extra-po-header-last_translator>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-01-11 05:40+0000</extra-po-header-po_revision_date>
+    <extra-po-header-last_translator>riel.lu &lt;riel.lu@softastur.org&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2016-02-18 19:19+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2016-02-03 22:58+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 17908)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-02-05 06:30+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 17925)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2016-02-19 05:44+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Asturian translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -30,7 +30,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="472"/>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="484"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Dengún</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -53,14 +53,14 @@
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="485"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="550"/>
         <source>Random</source>
-        <translation type="unfinished"></translation>
+        <translation>Al debalu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="474"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="831"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="834"/>
         <source>Zoom In</source>
-        <translation type="unfinished"></translation>
+        <translation>Averar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="475"/>
@@ -72,38 +72,38 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="85"/>
         <source>Unsaved Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambeos ensin guardar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="85"/>
         <source>Save changes to project before closing?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Guardar cambeos nel proyeutu enantes de zarrar?</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="127"/>
         <source>Backup Recovered</source>
-        <translation type="unfinished"></translation>
+        <translation>Copia de Seguridá Recuperada</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="128"/>
         <source>Your most recent unsaved project has been recovered.</source>
-        <translation type="unfinished"></translation>
+        <translation>El so proyeutu ensin guardar más recién foi recuperáu.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="241"/>
         <source>Error Saving Project</source>
-        <translation type="unfinished"></translation>
+        <translation>Fallu Guardando&apos;l Proyeutu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="278"/>
         <source>Error Opening Project</source>
-        <translation type="unfinished"></translation>
+        <translation>Fallu Abriendo&apos;l Proyeutu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="314"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="314"/>
         <source>Open Project...</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir Proyeutu...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="314"/>
@@ -118,12 +118,12 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1240"/>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="104"/>
         <source>Untitled Project</source>
-        <translation type="unfinished"></translation>
+        <translation>Proyeutu ensin Títulu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="327"/>
         <source>Save Project...</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar Proyeutu...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="371"/>
@@ -135,24 +135,24 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="386"/>
         <source>Import File...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importar Archivu...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1025"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1260"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1263"/>
         <source>Rename Track</source>
-        <translation type="unfinished"></translation>
+        <translation>Renomar Pista</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1025"/>
         <source>Track Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome de la Pista</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1327"/>
         <source>Recent Projects</source>
-        <translation type="unfinished"></translation>
+        <translation>Caberos Proyeutos</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1366"/>
@@ -161,30 +161,30 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1541"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="286"/>
         <source>Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Peñera</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1454"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1634"/>
         <source>{} seconds</source>
-        <translation type="unfinished"></translation>
+        <translation>{} segundos</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="114"/>
         <source>&lt;Select a template&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;Esbillar un modelu&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="323"/>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="342"/>
         <source>Select a Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Esbillar un color</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="361"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="240"/>
         <source>Change Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Camudar Fonte</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="592"/>
@@ -194,12 +194,12 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="595"/>
         <source>Save Title As...</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar Títulu Como...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="595"/>
         <source>Scalable Vector Graphics (*.svg)</source>
-        <translation type="unfinished"></translation>
+        <translation>Gráficos Vectoriales Escalables (*.svg)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="648"/>
@@ -208,33 +208,33 @@
         <location filename="../../../../openshot-qt-git/src/windows/views/files_listview.py" line="165"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/files_model.py" line="173"/>
         <source>{} is not a valid video, audio, or image file.</source>
-        <translation type="unfinished"></translation>
+        <translation>{} nun ye un videu, audiu o ficheru d&apos;imaxe válidu.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="677"/>
         <source>Please install {} to use this function</source>
-        <translation type="unfinished"></translation>
+        <translation>Por favor, instala {} pa usar esta función</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="269"/>
         <source>Restart Required</source>
-        <translation type="unfinished"></translation>
+        <translation>Requierse reaniciar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="270"/>
         <source>Please restart OpenShot for all preferences to take effect.</source>
-        <translation type="unfinished"></translation>
+        <translation>Por favor, reanicia OpenShot pa que toles preferencies tengan efeutu.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/cutting.py" line="190"/>
         <location filename="../../../../openshot-qt-git/src/windows/cutting.py" line="224"/>
         <source>Please choose valid &apos;start&apos; and &apos;end&apos; values for your clip.</source>
-        <translation type="unfinished"></translation>
+        <translation>Por favor, escueyi valores afayadizos de &apos;aniciu&apos; y &apos;fin&apos; pal so clip.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/animated_title.py" line="85"/>
         <source>Render</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderizar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/animated_title.py" line="86"/>
@@ -246,7 +246,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/about.py" line="71"/>
         <source>Version: %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Versión: %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -261,7 +261,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/blender_treeview.py" line="169"/>
         <source>No Files Found</source>
-        <translation type="unfinished"></translation>
+        <translation>Nun s&apos;alcontraron ficheros</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/blender_treeview.py" line="461"/>
@@ -269,7 +269,10 @@
 
 Version Detected:
 {}</source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+Versión Detectada:
+{}</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/blender_treeview.py" line="464"/>
@@ -277,7 +280,10 @@ Version Detected:
 
 Error Output:
 {}</source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+Salida del Fallu:
+{}</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/blender_treeview.py" line="471"/>
@@ -287,7 +293,12 @@ Please check the preferences in OpenShot and be sure the Blender executable is c
 
 Blender Path:
 {}{}</source>
-        <translation type="unfinished"></translation>
+        <translation>Blender, la ferramienta llibre de creación de conteníos 3D, requierse pa esta aición (http://www.blender.org).
+
+Por favor, revisa les preferencies n&apos;OpenShot y asegúrate de que l&apos;executable de Blender ye correutu. Esti axuste debe ser la ruta del executable de &apos;blender&apos; nel so ordenador. Amás, por favor asegúrate de que tá indicando a una versión de Blender {} o cimera.
+
+Ruta de Blender:
+{}{}</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/blender_treeview.py" line="775"/>
@@ -302,27 +313,27 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>End of Clip</source>
-        <translation type="unfinished"></translation>
+        <translation>Final del Clip</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Entire Clip</source>
-        <translation type="unfinished"></translation>
+        <translation>Clip Completu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Fast</source>
-        <translation type="unfinished"></translation>
+        <translation>Rápidu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Slow</source>
-        <translation type="unfinished"></translation>
+        <translation>Lentu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
@@ -332,30 +343,30 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="417"/>
         <source>Backward</source>
-        <translation type="unfinished"></translation>
+        <translation>Escontra atrás</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="423"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1510"/>
         <source>Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>Copiar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="424"/>
         <source>Clip</source>
-        <translation type="unfinished"></translation>
+        <translation>Clip</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="426"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1513"/>
         <source>Keyframes</source>
-        <translation type="unfinished"></translation>
+        <translation>Fotogrames Clave</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="427"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1514"/>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation>Too</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="430"/>
@@ -366,32 +377,32 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="432"/>
         <source>Scale</source>
-        <translation type="unfinished"></translation>
+        <translation>Redimensionar</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="434"/>
         <source>Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Xiru</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="436"/>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Allugamientu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="438"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="595"/>
         <source>Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiempu</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="440"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="619"/>
         <source>Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Volume</translation>
         <extra-po-references>libopenshot (Clip Properties) Settings for volume</extra-po-references>
     </message>
     <message>
@@ -404,7 +415,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="448"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1525"/>
         <source>Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>Apegar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="454"/>
@@ -422,49 +433,49 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="462"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="627"/>
         <source>Fade In (Fast)</source>
-        <translation type="unfinished"></translation>
+        <translation>Intensificar (Rápidu)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="464"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="629"/>
         <source>Fade In (Slow)</source>
-        <translation type="unfinished"></translation>
+        <translation>Intensificar (Lentu)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="468"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="633"/>
         <source>Fade Out (Fast)</source>
-        <translation type="unfinished"></translation>
+        <translation>Esvanecer (Rápidu)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="470"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="635"/>
         <source>Fade Out (Slow)</source>
-        <translation type="unfinished"></translation>
+        <translation>Esvanecer (Lentu)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="474"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="639"/>
         <source>Fade In and Out (Fast)</source>
-        <translation type="unfinished"></translation>
+        <translation>Esvanecer ya Intensificar (Rápidu)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="476"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="641"/>
         <source>Fade In and Out (Slow)</source>
-        <translation type="unfinished"></translation>
+        <translation>Esvanecer ya Intensificar (Lentu)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="479"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="644"/>
         <source>Fade In (Entire Clip)</source>
-        <translation type="unfinished"></translation>
+        <translation>Intensificar (Clip Completu)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="481"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="646"/>
         <source>Fade Out (Entire Clip)</source>
-        <translation type="unfinished"></translation>
+        <translation>Esvanecer (Clip Completu)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="489"/>
@@ -480,7 +491,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="497"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="307"/>
         <source>Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>Aumentu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="498"/>
@@ -490,7 +501,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="500"/>
         <source>Zoom In (75% to 100%)</source>
-        <translation type="unfinished"></translation>
+        <translation>Averar (75% a 100%)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="502"/>
@@ -500,7 +511,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="504"/>
         <source>Zoom Out (100% to 75%)</source>
-        <translation type="unfinished"></translation>
+        <translation>Alloñar (100% a 75%)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="506"/>
@@ -515,32 +526,32 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="513"/>
         <source>Center to Edge</source>
-        <translation type="unfinished"></translation>
+        <translation>Centru escontra&apos;l Borde</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="514"/>
         <source>Center to Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Centru escontra Arriba</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="516"/>
         <source>Center to Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Centru escontra Esquierda</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="518"/>
         <source>Center to Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Centru escontra Drecha</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="520"/>
         <source>Center to Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>Centru escontra Baxu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="525"/>
         <source>Edge to Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Borde escontra&apos;l Centru</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="526"/>
@@ -550,12 +561,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="528"/>
         <source>Left to Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Esquierda escontra&apos;l Centru</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="530"/>
         <source>Right to Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Drecha escontra&apos;l Centru</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="532"/>
@@ -565,7 +576,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="537"/>
         <source>Edge to Edge</source>
-        <translation type="unfinished"></translation>
+        <translation>Borde escontra Borde</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="538"/>
@@ -575,12 +586,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="540"/>
         <source>Left to Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Esquierda escontra Drecha</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="542"/>
         <source>Right to Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Drecha escontra Esquierda</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="544"/>
@@ -590,158 +601,158 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="560"/>
         <source>Rotate</source>
-        <translation type="unfinished"></translation>
+        <translation>Voltiar</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="561"/>
         <source>No Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Ensin Voltiar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="564"/>
         <source>Rotate 90 (Right)</source>
-        <translation type="unfinished"></translation>
+        <translation>Voltiar 90 (Drecha)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="566"/>
         <source>Rotate 90 (Left)</source>
-        <translation type="unfinished"></translation>
+        <translation>Voltiar 90 (Esquierda)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="568"/>
         <source>Rotate 180 (Flip)</source>
-        <translation type="unfinished"></translation>
+        <translation>Voltiar 180 (Dar vuelta)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="573"/>
         <source>Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Diseñu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="574"/>
         <source>Reset Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Reafitar Diseñu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="577"/>
         <source>1/4 Size - Center</source>
-        <translation type="unfinished"></translation>
+        <translation>1/4 de Tamañu - Centráu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="579"/>
         <source>1/4 Size - Top Left</source>
-        <translation type="unfinished"></translation>
+        <translation>1/4 de Tamañu - Arriba a la Esquierda</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="581"/>
         <source>1/4 Size - Top Right</source>
-        <translation type="unfinished"></translation>
+        <translation>1/4 de Tamañu - Arriba a la Drecha</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="583"/>
         <source>1/4 Size - Bottom Left</source>
-        <translation type="unfinished"></translation>
+        <translation>1/4 de Tamañu - Abaxu a Esquierda</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="585"/>
         <source>1/4 Size - Bottom Right</source>
-        <translation type="unfinished"></translation>
+        <translation>1/4 de Tamañu - Abaxu a Drecha</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="588"/>
         <source>Show All (Maintain Ratio)</source>
-        <translation type="unfinished"></translation>
+        <translation>Amosar Too (Mantener Rellación)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="590"/>
         <source>Show All (Distort)</source>
-        <translation type="unfinished"></translation>
+        <translation>Amosar Too (Distorsionar)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="596"/>
         <source>Reset Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Reaniciar Tiempu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="620"/>
         <source>Reset Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Reaniciar Volume</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="651"/>
         <source>Level 100%</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel 100%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="653"/>
         <source>Level 90%</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel 90%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="655"/>
         <source>Level 80%</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel 80%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="657"/>
         <source>Level 70%</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel 70%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="659"/>
         <source>Level 60%</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel 60%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="661"/>
         <source>Level 50%</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel 50%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="663"/>
         <source>Level 40%</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel 40%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="665"/>
         <source>Level 30%</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel 30%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="667"/>
         <source>Level 20%</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel 20%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="669"/>
         <source>Level 10%</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel 10%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="671"/>
         <source>Level 0%</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel 0%</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="683"/>
         <source>Slice Clip</source>
-        <translation type="unfinished"></translation>
+        <translation>Cortar Fragmentu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="684"/>
         <source>Keep Both Sides</source>
-        <translation type="unfinished"></translation>
+        <translation>Caltener Dambos Llaos</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="686"/>
         <source>Keep Left Side</source>
-        <translation type="unfinished"></translation>
+        <translation>Caltener Llau Esquierdu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="688"/>
         <source>Keep Right Side</source>
-        <translation type="unfinished"></translation>
+        <translation>Caltener Llau Drechu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1511"/>
@@ -764,40 +775,40 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1531"/>
         <source>Reverse Transition</source>
-        <translation type="unfinished"></translation>
+        <translation>Invertir Transición</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="78"/>
         <source>Selection: %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleición: %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="80"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="273"/>
         <source>No Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Ensin Seleición</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="129"/>
         <source>Bezier</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezier</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="131"/>
         <source>Linear</source>
-        <translation type="unfinished"></translation>
+        <translation>Llinial</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="133"/>
         <source>Constant</source>
-        <translation type="unfinished"></translation>
+        <translation>Constante</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="136"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="141"/>
         <source>Remove Keyframe</source>
-        <translation type="unfinished"></translation>
+        <translation>Desaniciar Fotograma Clave</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/add_to_timeline_model.py" line="57"/>
@@ -823,51 +834,51 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/models/transition_model.py" line="158"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/effects_model.py" line="150"/>
         <source>{} is not a valid image file.</source>
-        <translation type="unfinished"></translation>
+        <translation>{} nun ye un ficheru d&apos;imaxe válidu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="67"/>
         <source>Email</source>
-        <translation type="unfinished"></translation>
+        <translation>Corréu Electrónicu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="67"/>
         <source>Website</source>
-        <translation type="unfinished"></translation>
+        <translation>Sitiu Web</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="100"/>
         <source>PayPal Supporter!</source>
-        <translation type="unfinished"></translation>
+        <translation>Sofitador de Paypal!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="108"/>
         <source>Kickstarter Supporter!</source>
-        <translation type="unfinished"></translation>
+        <translation>Sofitador de Kickstarter!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="116"/>
         <source>Multiple Contributions!</source>
-        <translation type="unfinished"></translation>
+        <translation>Múltiple Contribuciones!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="358"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="561"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="629"/>
         <source>False</source>
-        <translation type="unfinished"></translation>
+        <translation>Falsu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="499"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="682"/>
         <source>Property</source>
-        <translation type="unfinished"></translation>
+        <translation>Propiedá</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="499"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="682"/>
         <source>Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="517"/>
@@ -879,17 +890,17 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="559"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="627"/>
         <source>True</source>
-        <translation type="unfinished"></translation>
+        <translation>Verdaderu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/files_model.py" line="100"/>
         <source>Tags</source>
-        <translation type="unfinished"></translation>
+        <translation>Etiquetes</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/effects_model.py" line="80"/>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>Descripción</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="74"/>
@@ -900,7 +911,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="116"/>
         <source>Video &amp; Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Videu &amp; Soníu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="116"/>
@@ -910,27 +921,27 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="123"/>
         <source>Mono (1 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mono (1 Canal)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="124"/>
         <source>Stereo (2 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Estéreo (2 Canales)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="125"/>
         <source>Surround (3 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Envolvente (3 Canales)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="126"/>
         <source>Surround (5.1 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Envolvente (5.1 Canales)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="127"/>
         <source>Surround (7.1 Channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Envolvente (7.1 Canales)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="192"/>
@@ -961,57 +972,58 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="388"/>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="421"/>
         <source>Low</source>
-        <translation type="unfinished"></translation>
+        <translation>Baxu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="380"/>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="388"/>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="423"/>
         <source>Med</source>
-        <translation type="unfinished"></translation>
+        <translation>Mediu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="380"/>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="388"/>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="425"/>
         <source>High</source>
-        <translation type="unfinished"></translation>
+        <translation>Altu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="472"/>
         <source>Choose a Folder...</source>
-        <translation type="unfinished"></translation>
+        <translation>Escueyi un Direutoriu...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="625"/>
         <source>Export Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Fallu al Esportar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="626"/>
         <source>Sorry, there was an error exporting your video: 
 %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Sentímoslo, hebo un fallu esportando&apos;l to videu: 
+%s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <source>Convert an image to shades of grey</source>
-        <translation type="unfinished"></translation>
+        <translation>Camudar una imaxe a tonos de gris</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml</extra-po-references>
     </message>
     <message>
         <source>Iterations</source>
-        <translation type="unfinished"></translation>
+        <translation>Repeticiones</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Split and mirror the image</source>
-        <translation type="unfinished"></translation>
+        <translation>Cortar y espeyar la imaxe</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
     </message>
     <message>
         <source>Baltan</source>
-        <translation type="unfinished"></translation>
+        <translation>Baltan</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml</extra-po-references>
     </message>
     <message>
@@ -1021,37 +1033,37 @@ Blender Path:
     </message>
     <message>
         <source>Exploding Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Testu Esplosivu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
     </message>
     <message>
         <source>Adjust color balance with 3 color points</source>
-        <translation type="unfinished"></translation>
+        <translation>Axustar el balance de color con 3 puntos de color</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
     </message>
     <message>
         <source>Depart Latitude (Equator)</source>
-        <translation type="unfinished"></translation>
+        <translation>Llatitú de Partida (Ecuador)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Depart Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Título de Partida</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Fly Towards Camera (Two Titles)</source>
-        <translation type="unfinished"></translation>
+        <translation>Volar Escontra la Cámara (Dos Títulos)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/fly_by_two_titles.xml</extra-po-references>
     </message>
     <message>
         <source>Display Ground</source>
-        <translation type="unfinished"></translation>
+        <translation>Amosar la Base</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
     </message>
     <message>
         <source>Adjust the low-pitched sound or tone</source>
-        <translation type="unfinished"></translation>
+        <translation>Axustar los sonios o tonos baxos</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
     </message>
     <message>
@@ -1061,7 +1073,7 @@ Blender Path:
     </message>
     <message>
         <source>Correction near edges</source>
-        <translation type="unfinished"></translation>
+        <translation>Correición xunto a la llende</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
     </message>
     <message>
@@ -1071,12 +1083,12 @@ Blender Path:
     </message>
     <message>
         <source>Neon Curves</source>
-        <translation type="unfinished"></translation>
+        <translation>Curves de Neón</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
     </message>
     <message>
         <source>Arrival Longitude (Prime Meridian)</source>
-        <translation type="unfinished"></translation>
+        <translation>Llonxitú de Llegada (Meridianu de Greenwich)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
@@ -1086,17 +1098,17 @@ Blender Path:
     </message>
     <message>
         <source>Arrival Longitude (minutes)</source>
-        <translation type="unfinished"></translation>
+        <translation>Llonxitú de Llegada (minutos)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Vertical Radius</source>
-        <translation type="unfinished"></translation>
+        <translation>Radiu Vertical</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Old Dust</source>
-        <translation type="unfinished"></translation>
+        <translation>Povisa Vieyo</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
     </message>
     <message>
@@ -1131,27 +1143,27 @@ Blender Path:
     </message>
     <message>
         <source>Gravity</source>
-        <translation type="unfinished"></translation>
+        <translation>Gravedá</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Tile 1: Diffuse Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Mosaicu 1: Color Difusu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
         <source>Horizontal Sync</source>
-        <translation type="unfinished"></translation>
+        <translation>Sincronización Horizontal</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
     </message>
     <message>
         <source>Extrude</source>
-        <translation type="unfinished"></translation>
+        <translation>Llanzar</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
         <source>Lens vignetting</source>
-        <translation type="unfinished"></translation>
+        <translation>Viñetes de lente</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
     </message>
     <message>
@@ -1161,32 +1173,32 @@ Blender Path:
     </message>
     <message>
         <source>Lens Correction</source>
-        <translation type="unfinished"></translation>
+        <translation>Correición de Lente</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
     </message>
     <message>
         <source>Halo: Starting Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Círculu: Tamañu d&apos;Aniciu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
         <source>Arrival Latitude (minutes)</source>
-        <translation type="unfinished"></translation>
+        <translation>Llatitú de Llegada (minutos)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Gain In</source>
-        <translation type="unfinished"></translation>
+        <translation>Enantar en</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
     </message>
     <message>
         <source>Sun: Angle Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Sol: Ángulu de Compensación</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
         <source>Glass Slider</source>
-        <translation type="unfinished"></translation>
+        <translation>Cristal Eslizante</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
     </message>
     <message>
@@ -1201,22 +1213,22 @@ Blender Path:
     </message>
     <message>
         <source>Display a single color, while using greyscale for the rest of the image</source>
-        <translation type="unfinished"></translation>
+        <translation>Amosar namás un color, demientres s&apos;usa la escala de grises pal restu la imaxe</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml</extra-po-references>
     </message>
     <message>
         <source>Spots: Color Threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Manches: Umbral del color</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
         <source>Adjusts the gamma and brightness randomly to create the illusion of old film</source>
-        <translation type="unfinished"></translation>
+        <translation>Axusta&apos;l gamma y el rellume al debalu pa facer la ilusión d&apos;una película antigua</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
     </message>
     <message>
         <source>Color Saturation</source>
-        <translation type="unfinished"></translation>
+        <translation>Saturación de Color</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -1231,7 +1243,7 @@ Blender Path:
     </message>
     <message>
         <source>Histogram position</source>
-        <translation type="unfinished"></translation>
+        <translation>Allugamientu del histograma</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
@@ -1246,17 +1258,17 @@ Blender Path:
     </message>
     <message>
         <source>Number of Snow Flakes</source>
-        <translation type="unfinished"></translation>
+        <translation>Númberu de Copos de Nieve</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
         <source>Picture Frames (4 pictures)</source>
-        <translation type="unfinished"></translation>
+        <translation>Marcos de fotos (4 fotos)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
     </message>
     <message>
         <source>Simple color adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Axuste cenciellu de color</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
@@ -1266,17 +1278,17 @@ Blender Path:
     </message>
     <message>
         <source>Bottom Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Abaxo a la Esquierda</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Duración</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Brightness Delta Down</source>
-        <translation type="unfinished"></translation>
+        <translation>Baxar Brillu Delta</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
     </message>
     <message>
@@ -1299,7 +1311,7 @@ Blender Path:
     </message>
     <message>
         <source>Make image sharper</source>
-        <translation type="unfinished"></translation>
+        <translation>Facer la imaxe más nídia</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
     </message>
     <message>
@@ -1309,17 +1321,17 @@ Blender Path:
     </message>
     <message>
         <source>Diff Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Diferencia d&apos;Espaciu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
     </message>
     <message>
         <source>Y Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Centru Y</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
     </message>
     <message>
         <source>Fixed Rotate Y</source>
-        <translation type="unfinished"></translation>
+        <translation>Voltiar Fixu Y</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
@@ -1329,37 +1341,37 @@ Blender Path:
     </message>
     <message>
         <source>Adjust the blur of the frame&apos;s image.</source>
-        <translation type="unfinished"></translation>
+        <translation>Axustar el desenfoque del marco de la imaxe.</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Sharpness</source>
-        <translation type="unfinished"></translation>
+        <translation>Enfoque</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
     </message>
     <message>
         <source>Alpha controlled</source>
-        <translation type="unfinished"></translation>
+        <translation>Controláu por alfa</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
         <source>Rotate an image statically or animated</source>
-        <translation type="unfinished"></translation>
+        <translation>Voltiar una imaxe estática o animada</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
         <source>Bass</source>
-        <translation type="unfinished"></translation>
+        <translation>Baxu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
     </message>
     <message>
         <source>Tile 2: Diffuse Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Mosaicu 2: Color Difusu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
         <source>Flippo</source>
-        <translation type="unfinished"></translation>
+        <translation>Flippo</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
     </message>
     <message>
@@ -1369,17 +1381,17 @@ Blender Path:
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished"></translation>
+        <translation>Allugamientu</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Hue</source>
-        <translation type="unfinished"></translation>
+        <translation>Tonu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/hue.xml</extra-po-references>
     </message>
     <message>
         <source>Background: Blend</source>
-        <translation type="unfinished"></translation>
+        <translation>Fondu: Mecedura</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
     </message>
     <message>
@@ -1389,7 +1401,7 @@ Blender Path:
     </message>
     <message>
         <source>Output level black point</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel de salida del puntu prietu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
@@ -1399,27 +1411,27 @@ Blender Path:
     </message>
     <message>
         <source>Horizontal Radius</source>
-        <translation type="unfinished"></translation>
+        <translation>Radiu Horizontal</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Location X</source>
-        <translation type="unfinished"></translation>
+        <translation>Allugamientu en X</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Defish</source>
-        <translation type="unfinished"></translation>
+        <translation>Güeyu de Pexe</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
     </message>
     <message>
         <source>Adjust the white balance and color temperature</source>
-        <translation type="unfinished"></translation>
+        <translation>Axustar el balance de blancos y la temperatura de color</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
     </message>
     <message>
         <source>Sun: Type of Glare</source>
-        <translation type="unfinished"></translation>
+        <translation>Sol: Triba d&apos;Esllume</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
@@ -1429,7 +1441,7 @@ Blender Path:
     </message>
     <message>
         <source>Every</source>
-        <translation type="unfinished"></translation>
+        <translation>Todos</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
     </message>
     <message>
@@ -1469,7 +1481,7 @@ Blender Path:
     </message>
     <message>
         <source>Red Scale</source>
-        <translation type="unfinished"></translation>
+        <translation>Escala en Colloráu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
     </message>
     <message>
@@ -1479,12 +1491,12 @@ Blender Path:
     </message>
     <message>
         <source>delayed alpha smoothed blit of time</source>
-        <translation type="unfinished"></translation>
+        <translation>retardu alfa sele nel tiempu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml</extra-po-references>
     </message>
     <message>
         <source>Adjust the color of the image to emulate black-and-white film that has had sepia pigment added</source>
-        <translation type="unfinished"></translation>
+        <translation>Axustar el color de la imaxe p&apos;asemeyar el cine en blancu y prietu con tonalidá sepia</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
     </message>
     <message>
@@ -1494,12 +1506,12 @@ Blender Path:
     </message>
     <message>
         <source>Start: X</source>
-        <translation type="unfinished"></translation>
+        <translation>Aniciar: X</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Show histogram</source>
-        <translation type="unfinished"></translation>
+        <translation>Amosar Histograma</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
@@ -1509,7 +1521,7 @@ Blender Path:
     </message>
     <message>
         <source>Source image on left side</source>
-        <translation type="unfinished"></translation>
+        <translation>Imaxe orixinal nel llau esquierdu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
     </message>
     <message>
@@ -1519,17 +1531,17 @@ Blender Path:
     </message>
     <message>
         <source>Bottom Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Abaxo a la Drecha</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Input level black point</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel d&apos;entrada del puntu prietu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
         <source>Oversaturate the color in the image, like in old Technicolor movies</source>
-        <translation type="unfinished"></translation>
+        <translation>Sobresaturar el color na imaxe, como nes películes vieyes en Technicolor</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
     </message>
     <message>
@@ -1539,57 +1551,57 @@ Blender Path:
     </message>
     <message>
         <source>Tint amount</source>
-        <translation type="unfinished"></translation>
+        <translation>Cantidá de tinte</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
     </message>
     <message>
         <source>Fuzz</source>
-        <translation type="unfinished"></translation>
+        <translation>Aborronar</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Wireframe Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Testu Trazáu de Llínies</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/wireframe_text.xml</extra-po-references>
     </message>
     <message>
         <source>ID</source>
-        <translation type="unfinished"></translation>
+        <translation>ID</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Calculates the distance between the selected color and the current pixel and uses that value as new pixel value</source>
-        <translation type="unfinished"></translation>
+        <translation>Calcula la distancia ente&apos;l color esbilláu y el píxel d&apos;anguañu y usa esi valor como nuevu valor del píxel</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
     </message>
     <message>
         <source>End Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor Caberu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
     </message>
     <message>
         <source>Dynamic 3 level thresholding</source>
-        <translation type="unfinished"></translation>
+        <translation>Umbralización dinámica de 3 niveles</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml</extra-po-references>
     </message>
     <message>
         <source>Border Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Anchor del Berbesu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
     </message>
     <message>
         <source>Rotate Z</source>
-        <translation type="unfinished"></translation>
+        <translation>Voltiar Z</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
         <source>Detect and highlight the edges of objects</source>
-        <translation type="unfinished"></translation>
+        <translation>Detectar y resaltar los berbesos de los oxetos</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml</extra-po-references>
     </message>
     <message>
         <source>Make a single color transparent.  Also referred to as green screen and blue screen.</source>
-        <translation type="unfinished"></translation>
+        <translation>Facer tresparente un solo color. Conozse tamién como pantalla verde y pantalla azul.</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
     </message>
     <message>
@@ -1599,12 +1611,12 @@ Blender Path:
     </message>
     <message>
         <source>Delayed frame blitting mapped on a time bitmap</source>
-        <translation type="unfinished"></translation>
+        <translation>Retrasu nel estáu del fotograma nel mapa de bits</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml</extra-po-references>
     </message>
     <message>
         <source>Depart Longitude (seconds)</source>
-        <translation type="unfinished"></translation>
+        <translation>Llonxitú de Partida (en segundos)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
@@ -1624,57 +1636,57 @@ Blender Path:
     </message>
     <message>
         <source>Flying Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Títulu Esnalador</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
     </message>
     <message>
         <source>Arrival Latitude (degrees)</source>
-        <translation type="unfinished"></translation>
+        <translation>Llatitú de Llegada (en graos)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Title Specular Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Color d&apos;Espeyu del Títulu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
     </message>
     <message>
         <source>Crop</source>
-        <translation type="unfinished"></translation>
+        <translation>Cortar</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Deinterlace</source>
-        <translation type="unfinished"></translation>
+        <translation>_Desenguedeyar</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Depart Latitude (degrees)</source>
-        <translation type="unfinished"></translation>
+        <translation>Llatitú de Partida (en graos)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Adjust the color saturation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Axustar la saturación de color</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Oversaturate Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Sobresaturar Color</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
     </message>
     <message>
         <source>Rotate 360 Degrees</source>
-        <translation type="unfinished"></translation>
+        <translation>Voltiar 360 graos</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/rotate_360.xml</extra-po-references>
     </message>
     <message>
         <source>Adjusts the gamma or luminance value of the image</source>
-        <translation type="unfinished"></translation>
+        <translation>Axusta&apos;l valor del gamma o luminancia de la imaxe</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml</extra-po-references>
     </message>
     <message>
         <source>Scale X</source>
-        <translation type="unfinished"></translation>
+        <translation>Escala en X</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1684,7 +1696,7 @@ Blender Path:
     </message>
     <message>
         <source>something videowall-ish</source>
-        <translation type="unfinished"></translation>
+        <translation>daqué asemeyáu a una paré de videu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
     </message>
     <message>
@@ -1694,17 +1706,17 @@ Blender Path:
     </message>
     <message>
         <source>Particles: Lifetime</source>
-        <translation type="unfinished"></translation>
+        <translation>Partícules: Duración</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Cartoon</source>
-        <translation type="unfinished"></translation>
+        <translation>Dibuxu animáu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
     </message>
     <message>
         <source>u</source>
-        <translation type="unfinished"></translation>
+        <translation>u</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
     </message>
     <message>
@@ -1724,27 +1736,27 @@ Blender Path:
     </message>
     <message>
         <source>Adds black borders at the top and bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>Amestar berbesos prietos arriba y abaxo</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
     </message>
     <message>
         <source>Fixed Rotate X</source>
-        <translation type="unfinished"></translation>
+        <translation>Voltiar Fixu X</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
         <source>Diffuse Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Color difusu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
         <source>Sigma</source>
-        <translation type="unfinished"></translation>
+        <translation>Sigma</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Top Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Enriba a la Esquierda</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1754,7 +1766,7 @@ Blender Path:
     </message>
     <message>
         <source>Scale Y</source>
-        <translation type="unfinished"></translation>
+        <translation>Escala en Y</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1764,7 +1776,7 @@ Blender Path:
     </message>
     <message>
         <source>Bevel Depth</source>
-        <translation type="unfinished"></translation>
+        <translation>Profundidá d&apos;Ángulu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
@@ -1799,37 +1811,37 @@ Blender Path:
     </message>
     <message>
         <source>Red</source>
-        <translation type="unfinished"></translation>
+        <translation>Coloráu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
         <source>End Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Fotograma Caberu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
         <source>Replace Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Sustituyir Imaxe</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Alphagrad</source>
-        <translation type="unfinished"></translation>
+        <translation>Alphagrad</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
     </message>
     <message>
         <source>Slide Left to Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Eslizar d&apos;Esquierda a Drecha</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/slide_left_to_right.xml</extra-po-references>
     </message>
     <message>
         <source>Keep luma</source>
-        <translation type="unfinished"></translation>
+        <translation>Caltener luma</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
         <source>Location Y</source>
-        <translation type="unfinished"></translation>
+        <translation>Allugamientu en Y</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1839,47 +1851,47 @@ Blender Path:
     </message>
     <message>
         <source>Adds static and grain to the image</source>
-        <translation type="unfinished"></translation>
+        <translation>Amesta ruíu estáticu y granu na imaxe</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
     </message>
     <message>
         <source>Halo: Star Count</source>
-        <translation type="unfinished"></translation>
+        <translation>Halo: Contéu d&apos;Estrelles</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Filter the image to look like it is drawn with charcoal</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtrar la imaxe p&apos;asemeyar que ta dibuxada con carbón vexetal</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
     </message>
     <message>
         <source>Specular Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Color d&apos;Espeyu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
         <source>Convert colors in the image to the opposite or complementary colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Camudar colores na imaxe a los colores opuestos o complementarios</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/invert.xml</extra-po-references>
     </message>
     <message>
         <source>Start: Y</source>
-        <translation type="unfinished"></translation>
+        <translation>Aniciar: Y</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Halo: Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Halo: Tamañu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Max Diameter</source>
-        <translation type="unfinished"></translation>
+        <translation>Diámetru Máximu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
     </message>
     <message>
         <source>Equalizes the intensity histograms</source>
-        <translation type="unfinished"></translation>
+        <translation>Ecualiza los histogramas d&apos;intensidá</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml</extra-po-references>
     </message>
     <message>
@@ -1889,12 +1901,12 @@ Blender Path:
     </message>
     <message>
         <source>Chroma Key (Greenscreen)</source>
-        <translation type="unfinished"></translation>
+        <translation>Chroma Key (Pantalla verde)</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Viewport</source>
-        <translation type="unfinished"></translation>
+        <translation>Área de visualización</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1904,17 +1916,17 @@ Blender Path:
     </message>
     <message>
         <source>Luma formula</source>
-        <translation type="unfinished"></translation>
+        <translation>Fórmula Luma</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
         <source>Halo: Use Flare</source>
-        <translation type="unfinished"></translation>
+        <translation>Halo: Usar Llaparada</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Stretch</source>
-        <translation type="unfinished"></translation>
+        <translation>Estirar p&apos;Axustar</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1924,7 +1936,7 @@ Blender Path:
     </message>
     <message>
         <source>Remove interlacing from a video (i.e. even or odd horizontal lines)</source>
-        <translation type="unfinished"></translation>
+        <translation>Desanicia l&apos;enguedeyu d&apos;un videu (por exemplu, les llinies pares o impares horizontales)</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -1949,7 +1961,7 @@ Blender Path:
     </message>
     <message>
         <source>Invert horizontally or vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Voltiar vertical u horizontalmente</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
     </message>
     <message>
@@ -1959,22 +1971,22 @@ Blender Path:
     </message>
     <message>
         <source>Title Diffuse Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Color Del Títulu Difusu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
     </message>
     <message>
         <source>Brightness &amp; Contrast</source>
-        <translation type="unfinished"></translation>
+        <translation>Brillu y Contraste</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Is Odd Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Ye Marcu Impar</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Halo: Use Rings</source>
-        <translation type="unfinished"></translation>
+        <translation>Halo: Usu d&apos;Aniellos</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
@@ -1984,22 +1996,22 @@ Blender Path:
     </message>
     <message>
         <source>Amplitude</source>
-        <translation type="unfinished"></translation>
+        <translation>Amplitú</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
     </message>
     <message>
         <source>Adjusts the saturation or intensity of the image</source>
-        <translation type="unfinished"></translation>
+        <translation>Axusta la saturación o intensidá de la imaxe</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/saturation.xml</extra-po-references>
     </message>
     <message>
         <source>Arrival Latitude (seconds)</source>
-        <translation type="unfinished"></translation>
+        <translation>Llatitú de Llegada (segundos)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Shift the hue of all colors in the image</source>
-        <translation type="unfinished"></translation>
+        <translation>Camudar la tonalidá de tolos colores de la imaxe</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/hue.xml</extra-po-references>
     </message>
     <message>
@@ -2014,27 +2026,27 @@ Blender Path:
     </message>
     <message>
         <source>Edgeglow</source>
-        <translation type="unfinished"></translation>
+        <translation>Brillu de Berbesu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
     </message>
     <message>
         <source>Bottom Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Abaxo Centru</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Adjusts the contrast of a source image</source>
-        <translation type="unfinished"></translation>
+        <translation>Axustar el contraste de la imaxe d&apos;orixe</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/contrast.xml</extra-po-references>
     </message>
     <message>
         <source>First Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Primer Títulu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
     </message>
     <message>
         <source>Old Grain</source>
-        <translation type="unfinished"></translation>
+        <translation>Granu Vieyu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
     </message>
     <message>
@@ -2049,17 +2061,17 @@ Blender Path:
     </message>
     <message>
         <source>Depart Longitude (Prime Meridian)</source>
-        <translation type="unfinished"></translation>
+        <translation>Llonxitú de Partida (Meridianu de Greenwich)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Space Movie Intro</source>
-        <translation type="unfinished"></translation>
+        <translation>Introdicción de Película del Espaciu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
     </message>
     <message>
         <source>Tile 4: Diffuse Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Mosaicu 4: Color Dilíu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
@@ -2074,7 +2086,7 @@ Blender Path:
     </message>
     <message>
         <source>Decay</source>
-        <translation type="unfinished"></translation>
+        <translation>Descomposición</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
     </message>
     <message>
@@ -2085,7 +2097,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="115"/>
         <source>End</source>
-        <translation type="unfinished"></translation>
+        <translation>Finar</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2095,27 +2107,27 @@ Blender Path:
     </message>
     <message>
         <source>Specular Intensity</source>
-        <translation type="unfinished"></translation>
+        <translation>Intensidá d&apos;Espeyu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
         <source>Start: Z</source>
-        <translation type="unfinished"></translation>
+        <translation>Aniciar: Z</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Distort the source similar to plasma</source>
-        <translation type="unfinished"></translation>
+        <translation>Distorsionar l&apos;orixe de mou asemeyáu al plasma</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
     </message>
     <message>
         <source>Map white to</source>
-        <translation type="unfinished"></translation>
+        <translation>Mapear blancu a</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
     </message>
     <message>
         <source>Depart Longitude (degrees)</source>
-        <translation type="unfinished"></translation>
+        <translation>Llonxitú de Partida (en graos)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
@@ -2130,22 +2142,22 @@ Blender Path:
     </message>
     <message>
         <source>Trees</source>
-        <translation type="unfinished"></translation>
+        <translation>Árboles</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/trees.xml</extra-po-references>
     </message>
     <message>
         <source>Max</source>
-        <translation type="unfinished"></translation>
+        <translation>Máximu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
     </message>
     <message>
         <source>Chroma Hold</source>
-        <translation type="unfinished"></translation>
+        <translation>Caltener Chroma</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml</extra-po-references>
     </message>
     <message>
         <source>Sun: Color Threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Sol: Umbral de Color</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
@@ -2165,22 +2177,22 @@ Blender Path:
     </message>
     <message>
         <source>Add small dust shapes randomly on the image</source>
-        <translation type="unfinished"></translation>
+        <translation>Amesta a la imaxe posisa pequeña al debalu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
     </message>
     <message>
         <source>Fixed Rotate Z</source>
-        <translation type="unfinished"></translation>
+        <translation>Voltiar Fixu Z</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
         <source>Y Scatter</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispersión Y</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
     </message>
     <message>
         <source>Adjust the image up and down, with the off-screen portion appearing on the other side</source>
-        <translation type="unfinished"></translation>
+        <translation>Axustar la imaxe arriba y abaxo, cola porción que sal de pantalla apaeciendo pel otru llau</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
     </message>
     <message>
@@ -2195,12 +2207,12 @@ Blender Path:
     </message>
     <message>
         <source>Anchor</source>
-        <translation type="unfinished"></translation>
+        <translation>Ancla</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Increase the size of pixels to obscure the image</source>
-        <translation type="unfinished"></translation>
+        <translation>Enannta&apos;l tamañu de los píxeles pa escurecer la imaxe</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
     </message>
     <message>
@@ -2210,7 +2222,7 @@ Blender Path:
     </message>
     <message>
         <source>Brightness Delta Every</source>
-        <translation type="unfinished"></translation>
+        <translation>Rellume Delta Cada</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
     </message>
     <message>
@@ -2220,7 +2232,7 @@ Blender Path:
     </message>
     <message>
         <source>Adjust luminance or color channel intensity</source>
-        <translation type="unfinished"></translation>
+        <translation>Axustar la lluminancia o intensidá del canal de color</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
@@ -2235,12 +2247,12 @@ Blender Path:
     </message>
     <message>
         <source>Allows compensation of lens distortion</source>
-        <translation type="unfinished"></translation>
+        <translation>Permite la compensación de la distorsión de la lente</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
     </message>
     <message>
         <source>Depart Latitude (minutes)</source>
-        <translation type="unfinished"></translation>
+        <translation>Llatitú de Partida (minutos)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
@@ -2255,12 +2267,12 @@ Blender Path:
     </message>
     <message>
         <source>Old Film</source>
-        <translation type="unfinished"></translation>
+        <translation>Película Vieya</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
     </message>
     <message>
         <source>Top Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Superior Centru</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2270,7 +2282,7 @@ Blender Path:
     </message>
     <message>
         <source>Adjust the brightness and contrast of the frame&apos;s image.</source>
-        <translation type="unfinished"></translation>
+        <translation>Axusta&apos;l rellumu y el contraste de la imaxe del fotograma</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -2280,12 +2292,12 @@ Blender Path:
     </message>
     <message>
         <source>Map black to</source>
-        <translation type="unfinished"></translation>
+        <translation>Mapear prietu a</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
     </message>
     <message>
         <source>Glare</source>
-        <translation type="unfinished"></translation>
+        <translation>Esllume</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glare.xml</extra-po-references>
     </message>
     <message>
@@ -2295,7 +2307,7 @@ Blender Path:
     </message>
     <message>
         <source>Uses a grayscale mask image to gradually wipe / transition between 2 images.</source>
-        <translation type="unfinished"></translation>
+        <translation>Usa una mázcara d&apos;imaxe en escala de grises pa llimpiar progresivamente / transición ente dos imaxes.</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -2305,17 +2317,17 @@ Blender Path:
     </message>
     <message>
         <source>Wave Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Colo de la Onda</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Top Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Arriba a la Drecha</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Capa</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2325,27 +2337,27 @@ Blender Path:
     </message>
     <message>
         <source>Correction near center</source>
-        <translation type="unfinished"></translation>
+        <translation>Correición xunto al centru</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
     </message>
     <message>
         <source>Add a series of peaks and troughs to the audio, creating a sweeping effect</source>
-        <translation>Añadir una serie de picos y valles al audio, creando un efecto dramático</translation>
+        <translation>Amestar dellos de picos y valles al soníu, creando un efeutu dramáticu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
     </message>
     <message>
         <source>Letterbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Formatu cine</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
     </message>
     <message>
         <source>Negates the colors, producing a negative of the image.</source>
-        <translation type="unfinished"></translation>
+        <translation>Invierte los colores, creando un negativu de la imaxe.</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Background: Shadeless</source>
-        <translation type="unfinished"></translation>
+        <translation>Fondu: Ensin Solombra</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
@@ -2370,22 +2382,22 @@ Blender Path:
     </message>
     <message>
         <source>Zoom to Clapboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Enantar a la Claqueta</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml</extra-po-references>
     </message>
     <message>
         <source>Output level white point</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel de salida del puntu blancu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
         <source>Rotate X</source>
-        <translation type="unfinished"></translation>
+        <translation>Voltiar X</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
         <source>Vignette</source>
-        <translation type="unfinished"></translation>
+        <translation>Viñeta</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
     </message>
     <message>
@@ -2400,7 +2412,7 @@ Blender Path:
     </message>
     <message>
         <source>Negative</source>
-        <translation type="unfinished"></translation>
+        <translation>Negativu</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -2415,17 +2427,17 @@ Blender Path:
     </message>
     <message>
         <source>Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Centru</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Halo: Use Lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Halo: Usu de Llinies</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Key Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Color Clave</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2440,7 +2452,7 @@ Blender Path:
     </message>
     <message>
         <source>Halo: Ending Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Halo: Tamañu Final</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
@@ -2450,7 +2462,7 @@ Blender Path:
     </message>
     <message>
         <source>Halo: Line Count</source>
-        <translation type="unfinished"></translation>
+        <translation>Halo: Contéu de Llínies</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
@@ -2460,17 +2472,17 @@ Blender Path:
     </message>
     <message>
         <source>Charcoal</source>
-        <translation type="unfinished"></translation>
+        <translation>Carbonciyu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
     </message>
     <message>
         <source>Frame Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Númberu de Fotograma</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
     </message>
     <message>
         <source>Particle Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Númberu de Partícula</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
     </message>
     <message>
@@ -2480,7 +2492,7 @@ Blender Path:
     </message>
     <message>
         <source>Old Lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Llínies Vieyes</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
     </message>
     <message>
@@ -2490,7 +2502,7 @@ Blender Path:
     </message>
     <message>
         <source>Picture 3 Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Ruta d&apos;Imaxe 3</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
     </message>
     <message>
@@ -2500,7 +2512,7 @@ Blender Path:
     </message>
     <message>
         <source>Block Size X</source>
-        <translation type="unfinished"></translation>
+        <translation>Bloquiar Tamañu X</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
     </message>
     <message>
@@ -2510,37 +2522,37 @@ Blender Path:
     </message>
     <message>
         <source>Adds random vertical lines to the image</source>
-        <translation type="unfinished"></translation>
+        <translation>Amestar a la imaxe llínies verticales al debalu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
     </message>
     <message>
         <source>Background: Diffuse Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Fondu: Color Difusu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
     </message>
     <message>
         <source>Find and glow the edges of objects</source>
-        <translation type="unfinished"></translation>
+        <translation>Guetar y allumar los berbesos de los oxetos</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
     </message>
     <message>
         <source>World Map (Realistic)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mapa&apos;l Mundiu (Realista)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml</extra-po-references>
     </message>
     <message>
         <source>Adjust the color of the image to black and white based on a threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Axustar el color de la imaxe a blancu y prietu en base a un umbral</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Triba</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
     </message>
     <message>
         <source>Halo: Use Stars</source>
-        <translation type="unfinished"></translation>
+        <translation>Halo: Usar Estrelles</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
@@ -2555,17 +2567,17 @@ Blender Path:
     </message>
     <message>
         <source>Nosync</source>
-        <translation type="unfinished"></translation>
+        <translation>Nosync</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
     </message>
     <message>
         <source>Background: Specular Intensity</source>
-        <translation type="unfinished"></translation>
+        <translation>Fondu: Intensidá d&apos;Espeyu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
         <source>Gain Out</source>
-        <translation type="unfinished"></translation>
+        <translation>Amenorgar</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
     </message>
     <message>
@@ -2575,22 +2587,22 @@ Blender Path:
     </message>
     <message>
         <source>Aspect type</source>
-        <translation type="unfinished"></translation>
+        <translation>Triba d&apos;aspeutu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
     </message>
     <message>
         <source>Brightness Delta Up</source>
-        <translation type="unfinished"></translation>
+        <translation>Enantar Rellume Delta</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
     </message>
     <message>
         <source>Split preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Vista Previa dividida</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
     </message>
     <message>
         <source>Adjusts the brightness of the image</source>
-        <translation type="unfinished"></translation>
+        <translation>Axusta&apos;l rellume de la imaxe</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
     </message>
     <message>
@@ -2600,17 +2612,17 @@ Blender Path:
     </message>
     <message>
         <source>Interlaced black lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Llínies prietes entellaciaes</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml</extra-po-references>
     </message>
     <message>
         <source>Darker</source>
-        <translation type="unfinished"></translation>
+        <translation>Escurecer</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
     </message>
     <message>
         <source>Canvas</source>
-        <translation type="unfinished"></translation>
+        <translation>Llenzu</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2620,7 +2632,7 @@ Blender Path:
     </message>
     <message>
         <source>Reduces and mixes the colors of the image based on a threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Reducz y entemez los colores de la imaxe en base a un umbral</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threshold.xml</extra-po-references>
     </message>
     <message>
@@ -2630,17 +2642,17 @@ Blender Path:
     </message>
     <message>
         <source>Reduce image to primary colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Reduz la imaxe a colores primarios</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
     </message>
     <message>
         <source>Adjust the left/right balance</source>
-        <translation type="unfinished"></translation>
+        <translation>Axustar el balance esquierdu/drechu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
     </message>
     <message>
         <source>Gain</source>
-        <translation>Ganancia</translation>
+        <translation>Enantar</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
     </message>
     <message>
@@ -2670,7 +2682,7 @@ Blender Path:
     </message>
     <message>
         <source>Manual Pixel Aspect ratio</source>
-        <translation type="unfinished"></translation>
+        <translation>Rellación d&apos;Aspeutu de Pixel Manual</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
     </message>
     <message>
@@ -2680,12 +2692,12 @@ Blender Path:
     </message>
     <message>
         <source>Halo Zoom Out</source>
-        <translation type="unfinished"></translation>
+        <translation>Amenorgar l&apos;Halo</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/halo_zoom_out.xml</extra-po-references>
     </message>
     <message>
         <source>Mirror Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Color d&apos;Espeyu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
@@ -2705,7 +2717,7 @@ Blender Path:
     </message>
     <message>
         <source>Creates a square alpha-channel mask</source>
-        <translation type="unfinished"></translation>
+        <translation>Crea una mázcara de canal alfa cuadrada</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
     </message>
     <message>
@@ -2715,12 +2727,12 @@ Blender Path:
     </message>
     <message>
         <source>Background: Fresnel</source>
-        <translation type="unfinished"></translation>
+        <translation>Fondu: Fresnel</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
     </message>
     <message>
         <source>Waveform</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma d&apos;Onda</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2730,32 +2742,32 @@ Blender Path:
     </message>
     <message>
         <source>Add a glow effect to the image</source>
-        <translation type="unfinished"></translation>
+        <translation>Amestar un efeutu de rellume a la imaxe</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/glow.xml</extra-po-references>
     </message>
     <message>
         <source>Best Fit</source>
-        <translation type="unfinished"></translation>
+        <translation>Meyor Axuste</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Balance</source>
-        <translation type="unfinished"></translation>
+        <translation>Balance</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
     </message>
     <message>
         <source>Input level white point</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel d&apos;entrada del puntu blancu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
         <source>Depart Longitude (minutes)</source>
-        <translation type="unfinished"></translation>
+        <translation>Llonxitú de Partida (minutos)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Arrival Latitude (Equator)</source>
-        <translation type="unfinished"></translation>
+        <translation>Llatitú de Llegada (Ecuador)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
@@ -2765,7 +2777,7 @@ Blender Path:
     </message>
     <message>
         <source>Arrival Longitude (seconds)</source>
-        <translation type="unfinished"></translation>
+        <translation>Llonxitú de Llegada (segundos)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
@@ -2785,12 +2797,12 @@ Blender Path:
     </message>
     <message>
         <source>Arrival Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Títulu de Llegada</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Background: Specular Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Fondu: Color d&apos;Espeyu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
@@ -2800,17 +2812,17 @@ Blender Path:
     </message>
     <message>
         <source>Adjust the high-pitched sound or tone</source>
-        <translation type="unfinished"></translation>
+        <translation>Axustar el soníu o tonu agudu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/treble.xml</extra-po-references>
     </message>
     <message>
         <source>Rotate Y</source>
-        <translation type="unfinished"></translation>
+        <translation>Voltiar Y</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
         <source>Fills alpha channel with a gradient</source>
-        <translation type="unfinished"></translation>
+        <translation>Rellena&apos;l canal alfa con un gradiente</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
     </message>
     <message>
@@ -2820,12 +2832,12 @@ Blender Path:
     </message>
     <message>
         <source>Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Cimeru</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
     </message>
     <message>
         <source>Halo: Ring Count</source>
-        <translation type="unfinished"></translation>
+        <translation>Halo: Contéu d&apos;Aniellos</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
@@ -2850,42 +2862,42 @@ Blender Path:
     </message>
     <message>
         <source>Halo: Hardness</source>
-        <translation type="unfinished"></translation>
+        <translation>Halo: Dureza</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Trip Level</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel de Viaxe</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
     </message>
     <message>
         <source>Animation Length</source>
-        <translation type="unfinished"></translation>
+        <translation>Duración de l&apos;Animación</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
         <source>Blur the image similar to an out-of-focus camera</source>
-        <translation type="unfinished"></translation>
+        <translation>Desenfoca la imaxe como si la cámara tuviere fuera de focu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/blur.xml</extra-po-references>
     </message>
     <message>
         <source>Neutral Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Color Neutru</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
     </message>
     <message>
         <source>Sobel</source>
-        <translation type="unfinished"></translation>
+        <translation>Berbesos Sobel</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml</extra-po-references>
     </message>
     <message>
         <source>Alpha Mask / Wipe Transition</source>
-        <translation type="unfinished"></translation>
+        <translation>Mázcara Alpha / Transición Llimpia</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Replaces the color (or chroma) of the frame with transparency (i.e. keys out the color).</source>
-        <translation type="unfinished"></translation>
+        <translation>Trocar el color (o chroma) del fotograma con tresparencia (por exemplu, claves fuera del color).</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -2901,7 +2913,7 @@ Blender Path:
     </message>
     <message>
         <source>Arrival Longitude (degrees)</source>
-        <translation type="unfinished"></translation>
+        <translation>Llonxitú de Llegada (graos)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
@@ -2911,7 +2923,7 @@ Blender Path:
     </message>
     <message>
         <source>Freeze the frame of a video</source>
-        <translation type="unfinished"></translation>
+        <translation>Conxelar el fotograma d&apos;un videu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
     </message>
     <message>
@@ -2921,7 +2933,7 @@ Blender Path:
     </message>
     <message>
         <source>Tint a source image with specified color</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiñe una imaxe d&apos;orixe del color especificáu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
     </message>
     <message>
@@ -2931,7 +2943,7 @@ Blender Path:
     </message>
     <message>
         <source>Default Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Perfil Predetermináu</translation>
         <extra-po-references>Settings for default-profile</extra-po-references>
     </message>
     <message>
@@ -2987,7 +2999,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="118"/>
         <source>Vimeo</source>
-        <translation type="unfinished"></translation>
+        <translation>Vimeo</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/vimeo.xml</extra-po-references>
     </message>
     <message>
@@ -3027,7 +3039,7 @@ Blender Path:
     </message>
     <message>
         <source>Image Length (seconds)</source>
-        <translation type="unfinished"></translation>
+        <translation>Duración de la Imaxe (segundos)</translation>
         <extra-po-references>Settings for default-image-length</extra-po-references>
     </message>
     <message>
@@ -3037,7 +3049,7 @@ Blender Path:
     </message>
     <message>
         <source>Default Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Tema Predetermináu</translation>
         <extra-po-references>Settings for theme</extra-po-references>
     </message>
     <message>
@@ -3057,7 +3069,7 @@ Blender Path:
     </message>
     <message>
         <source>Autosave Interval (minutes)</source>
-        <translation type="unfinished"></translation>
+        <translation>Intervalu d&apos;Autoguardáu (minutos)</translation>
         <extra-po-references>Settings for autosave-interval</extra-po-references>
     </message>
     <message>
@@ -3067,7 +3079,7 @@ Blender Path:
     </message>
     <message>
         <source>Send Anonymous Metrics and Errors</source>
-        <translation type="unfinished"></translation>
+        <translation>Unviar Midíes y Fallos Anónimos</translation>
         <extra-po-references>Settings for send_metrics</extra-po-references>
     </message>
     <message>
@@ -3082,7 +3094,7 @@ Blender Path:
     </message>
     <message>
         <source>Default Audio Sample Rate</source>
-        <translation type="unfinished"></translation>
+        <translation>Frecuencia de Muestréu d&apos;Audiu por Defeutu</translation>
         <extra-po-references>Settings for default-samplerate</extra-po-references>
     </message>
     <message>
@@ -3097,12 +3109,12 @@ Blender Path:
     </message>
     <message>
         <source>Default Audio Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Canales d&apos;Audiu por Defeutu</translation>
         <extra-po-references>Settings for default-channellayout</extra-po-references>
     </message>
     <message>
         <source>Advanced Title Editor (path)</source>
-        <translation type="unfinished"></translation>
+        <translation>Editor Avanzáu de Títulos (ruta)</translation>
         <extra-po-references>Settings for title_editor</extra-po-references>
     </message>
     <message>
@@ -3117,7 +3129,7 @@ Blender Path:
     </message>
     <message>
         <source>Debug Mode (Verbose)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mou de Depuración (detalláu)</translation>
         <extra-po-references>Settings for debug-mode</extra-po-references>
     </message>
     <message>
@@ -3127,7 +3139,7 @@ Blender Path:
     </message>
     <message>
         <source>Blender Command (path)</source>
-        <translation type="unfinished"></translation>
+        <translation>Comandu de Blender (ruta)</translation>
         <extra-po-references>Settings for blender_command</extra-po-references>
     </message>
     <message>
@@ -3137,7 +3149,7 @@ Blender Path:
     </message>
     <message>
         <source>Middle cross right barr</source>
-        <translation type="unfinished"></translation>
+        <translation>Barra drecha cruciada al mediu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_right_barr.jpg</extra-po-references>
     </message>
     <message>
@@ -3147,12 +3159,12 @@ Blender Path:
     </message>
     <message>
         <source>Spiral medium</source>
-        <translation type="unfinished"></translation>
+        <translation>Espiral media</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_medium.jpg</extra-po-references>
     </message>
     <message>
         <source>Wipe right to left</source>
-        <translation type="unfinished"></translation>
+        <translation>Llimpiar de drecha a esquierda</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_right_to_left.svg</extra-po-references>
     </message>
     <message>
@@ -3167,7 +3179,7 @@ Blender Path:
     </message>
     <message>
         <source>Wave left up</source>
-        <translation type="unfinished"></translation>
+        <translation>Onda esquierda arriba</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_up.jpg</extra-po-references>
     </message>
     <message>
@@ -3177,27 +3189,27 @@ Blender Path:
     </message>
     <message>
         <source>Future %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Futuru %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/future_11.jpg</extra-po-references>
     </message>
     <message>
         <source>Vertical blinds in to out big</source>
-        <translation type="unfinished"></translation>
+        <translation>Persianes verticales grandes de dientro escontra afuera</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out_big.jpg</extra-po-references>
     </message>
     <message>
         <source>Blur ray right</source>
-        <translation type="unfinished"></translation>
+        <translation>Rayu desenfocáu drecha</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_right.jpg</extra-po-references>
     </message>
     <message>
         <source>Ripple low arrow</source>
-        <translation type="unfinished"></translation>
+        <translation>Flecha ondulante abaxo</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_low_arrow.jpg</extra-po-references>
     </message>
     <message>
         <source>Lateral left triangle</source>
-        <translation type="unfinished"></translation>
+        <translation>Triángulu lateral esquierdu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_left_triangle.jpg</extra-po-references>
     </message>
     <message>
@@ -3212,22 +3224,22 @@ Blender Path:
     </message>
     <message>
         <source>Little rippling right</source>
-        <translation type="unfinished"></translation>
+        <translation>Pequeña onda drecha</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_right.jpg</extra-po-references>
     </message>
     <message>
         <source>Flower %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Flor %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/flower_4.jpg</extra-po-references>
     </message>
     <message>
         <source>Clock left to right</source>
-        <translation type="unfinished"></translation>
+        <translation>Reló d&apos;esquierda a drecha</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_left_to_right.jpg</extra-po-references>
     </message>
     <message>
         <source>Sunlight %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Lluz del Sol %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sunlight_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3244,27 +3256,27 @@ Blender Path:
     </message>
     <message>
         <source>Middle losange</source>
-        <translation type="unfinished"></translation>
+        <translation>Rombu medianu (losange)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_losange.jpg</extra-po-references>
     </message>
     <message>
         <source>Right mozaic %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Mosaicu drecha %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic_2.jpg</extra-po-references>
     </message>
     <message>
         <source>Luminous spiral %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Espiral rellumante %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_spiral_9.jpg</extra-po-references>
     </message>
     <message>
         <source>Left arrow</source>
-        <translation type="unfinished"></translation>
+        <translation>Flecha esquierda</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg</extra-po-references>
     </message>
     <message>
         <source>Hatched %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Eclosión %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/hatched_1.jpg</extra-po-references>
     </message>
     <message>
@@ -3274,7 +3286,7 @@ Blender Path:
     </message>
     <message>
         <source>Luminous frame %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Fotograma rellumante %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_frame_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3284,32 +3296,32 @@ Blender Path:
     </message>
     <message>
         <source>Ray light right %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Rayu de lluz drecha %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right_2.jpg</extra-po-references>
     </message>
     <message>
         <source>Ray %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Rayu %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_1.jpg</extra-po-references>
     </message>
     <message>
         <source>Small top arrow</source>
-        <translation type="unfinished"></translation>
+        <translation>Flecha pequeña arriba</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_top_arrow.jpg</extra-po-references>
     </message>
     <message>
         <source>Foggy spiral %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Espiral nublinera %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/foggy_spiral_1.jpg</extra-po-references>
     </message>
     <message>
         <source>Right mozaic</source>
-        <translation type="unfinished"></translation>
+        <translation>Mosaicu Drecha</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic.jpg</extra-po-references>
     </message>
     <message>
         <source>Blinds sliding</source>
-        <translation type="unfinished"></translation>
+        <translation>Persianes correderes</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_sliding.jpg</extra-po-references>
     </message>
     <message>
@@ -3319,12 +3331,12 @@ Blender Path:
     </message>
     <message>
         <source>Ray light %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Rayu de lluz %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_18.jpg</extra-po-references>
     </message>
     <message>
         <source>Ripple top arrow</source>
-        <translation type="unfinished"></translation>
+        <translation>Flecha ondulante arriba</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_top_arrow.jpg</extra-po-references>
     </message>
     <message>
@@ -3334,7 +3346,7 @@ Blender Path:
     </message>
     <message>
         <source>Ray light right</source>
-        <translation type="unfinished"></translation>
+        <translation>Rayu lluz drecha</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right.jpg</extra-po-references>
     </message>
     <message>
@@ -3344,7 +3356,7 @@ Blender Path:
     </message>
     <message>
         <source>Twirl %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Torcer %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/twirl_26.jpg</extra-po-references>
     </message>
     <message>
@@ -3369,12 +3381,12 @@ Blender Path:
     </message>
     <message>
         <source>Rectangle in to out</source>
-        <translation type="unfinished"></translation>
+        <translation>Rectángulu de dientro escontra afuera</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_in_to_out.jpg</extra-po-references>
     </message>
     <message>
         <source>Puzzle</source>
-        <translation type="unfinished"></translation>
+        <translation>Puzzle</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/puzzle.jpg</extra-po-references>
     </message>
     <message>
@@ -3384,17 +3396,17 @@ Blender Path:
     </message>
     <message>
         <source>Central mozaic</source>
-        <translation type="unfinished"></translation>
+        <translation>Mosaicu central</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/central_mozaic.jpg</extra-po-references>
     </message>
     <message>
         <source>Middle top arrow</source>
-        <translation type="unfinished"></translation>
+        <translation>Flecha cimera mediu</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_top_arrow.jpg</extra-po-references>
     </message>
     <message>
         <source>Mosaic %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Mosaicu %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mosaic_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3434,7 +3446,7 @@ Blender Path:
     </message>
     <message>
         <source>Fish-eyes %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Güeyos de pexe %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fish-eyes_5.jpg</extra-po-references>
     </message>
     <message>
@@ -3444,7 +3456,7 @@ Blender Path:
     </message>
     <message>
         <source>Mozaic %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Mosaicu %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_5.jpg</extra-po-references>
     </message>
     <message>
@@ -3459,17 +3471,17 @@ Blender Path:
     </message>
     <message>
         <source>Right arrow</source>
-        <translation type="unfinished"></translation>
+        <translation>Flecha drecha</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_arrow.jpg</extra-po-references>
     </message>
     <message>
         <source>Stretched %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Estiráu %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/stretched_3.jpg</extra-po-references>
     </message>
     <message>
         <source>Big losange</source>
-        <translation type="unfinished"></translation>
+        <translation>Rombu grande (losange)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_losange.jpg</extra-po-references>
     </message>
     <message>
@@ -3479,7 +3491,7 @@ Blender Path:
     </message>
     <message>
         <source>Ray light left %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Rayu lluz esquierda %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3489,7 +3501,7 @@ Blender Path:
     </message>
     <message>
         <source>Star %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Estrella %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/star_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3499,7 +3511,7 @@ Blender Path:
     </message>
     <message>
         <source>Small low arrow</source>
-        <translation type="unfinished"></translation>
+        <translation>Flecha pequeña abaxo</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_low_arrow.jpg</extra-po-references>
     </message>
     <message>
@@ -3514,27 +3526,27 @@ Blender Path:
     </message>
     <message>
         <source>Wave right up</source>
-        <translation type="unfinished"></translation>
+        <translation>Onda drecha arriba</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_up.jpg</extra-po-references>
     </message>
     <message>
         <source>Luminous boxes %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Caxes rellumantes %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_boxes_19.jpg</extra-po-references>
     </message>
     <message>
         <source>Wave left down</source>
-        <translation type="unfinished"></translation>
+        <translation>Onda esquierda abaxo</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_down.jpg</extra-po-references>
     </message>
     <message>
         <source>Spiral big %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Espiral grande %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big_2.jpg</extra-po-references>
     </message>
     <message>
         <source>Wipe diagonal %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Llimpiar diagonal %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wipe_diagonal_3.jpg</extra-po-references>
     </message>
     <message>
@@ -3544,17 +3556,17 @@ Blender Path:
     </message>
     <message>
         <source>Ripple luminous low arrow</source>
-        <translation type="unfinished"></translation>
+        <translation>Flecha ondulante rellumante abaxo</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_low_arrow.jpg</extra-po-references>
     </message>
     <message>
         <source>Lateral right triangle</source>
-        <translation type="unfinished"></translation>
+        <translation>Triángulu rectángulu llateral</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_right_triangle.jpg</extra-po-references>
     </message>
     <message>
         <source>Board %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Tableru %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/board_10.jpg</extra-po-references>
     </message>
     <message>
@@ -3574,12 +3586,12 @@ Blender Path:
     </message>
     <message>
         <source>Small losange</source>
-        <translation type="unfinished"></translation>
+        <translation>Rombu pequeñu (losange)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_losange.jpg</extra-po-references>
     </message>
     <message>
         <source>Circle in to out</source>
-        <translation type="unfinished"></translation>
+        <translation>Círculu dende dientro escontra afuera</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_in_to_out.svg</extra-po-references>
     </message>
     <message>
@@ -3599,7 +3611,7 @@ Blender Path:
     </message>
     <message>
         <source>Ripple %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Onda %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_4.jpg</extra-po-references>
     </message>
     <message>
@@ -3614,7 +3626,7 @@ Blender Path:
     </message>
     <message>
         <source>Spiral abstract %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Espiral astrauta %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_abstract_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3624,17 +3636,17 @@ Blender Path:
     </message>
     <message>
         <source>Fogg %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Nublina %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fogg_3.jpg</extra-po-references>
     </message>
     <message>
         <source>Hourglass %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Reló de sable %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/hourglass_1.jpg</extra-po-references>
     </message>
     <message>
         <source>Circle out to in</source>
-        <translation type="unfinished"></translation>
+        <translation>Círculu de fuera a dientro</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_out_to_in.svg</extra-po-references>
     </message>
     <message>
@@ -3644,7 +3656,7 @@ Blender Path:
     </message>
     <message>
         <source>Ripple luminous top arrow</source>
-        <translation type="unfinished"></translation>
+        <translation>Flecha ondulante rellumante arriba</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_top_arrow.jpg</extra-po-references>
     </message>
     <message>
@@ -3669,7 +3681,7 @@ Blender Path:
     </message>
     <message>
         <source>Vertical blinds in to out</source>
-        <translation type="unfinished"></translation>
+        <translation>Persianes verticales de dientro escontra afuera</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out.jpg</extra-po-references>
     </message>
     <message>
@@ -3684,7 +3696,7 @@ Blender Path:
     </message>
     <message>
         <source>Blinds in to out big</source>
-        <translation type="unfinished"></translation>
+        <translation>Persianes grandes de dientro escontra afuera</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out_big.jpg</extra-po-references>
     </message>
     <message>
@@ -3709,12 +3721,12 @@ Blender Path:
     </message>
     <message>
         <source>Spiral small</source>
-        <translation type="unfinished"></translation>
+        <translation>Espiral pequeña</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small.jpg</extra-po-references>
     </message>
     <message>
         <source>Blinds in to out</source>
-        <translation type="unfinished"></translation>
+        <translation>Persianes de dientro escontra afuera</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out.jpg</extra-po-references>
     </message>
     <message>
@@ -3739,7 +3751,7 @@ Blender Path:
     </message>
     <message>
         <source>Wipe bottom to top</source>
-        <translation type="unfinished"></translation>
+        <translation>Llimpiar d&apos;abaxo escontra arriba</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_bottom_to_top.svg</extra-po-references>
     </message>
     <message>
@@ -3749,7 +3761,7 @@ Blender Path:
     </message>
     <message>
         <source>Rectangle out to in</source>
-        <translation type="unfinished"></translation>
+        <translation>Rectángulu de fuera escontra dientro</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_out_to_in.jpg</extra-po-references>
     </message>
     <message>
@@ -3869,7 +3881,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="67"/>
         <source>Shuffle</source>
-        <translation type="unfinished"></translation>
+        <translation>Al debalu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="82"/>
@@ -3899,7 +3911,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="255"/>
         <source>Fade:</source>
-        <translation type="unfinished"></translation>
+        <translation>Esvanecer:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="279"/>
@@ -3919,7 +3931,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="386"/>
         <source>Length:</source>
-        <translation type="unfinished"></translation>
+        <translation>Duración:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="441"/>
@@ -3949,7 +3961,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/animated-title.ui" line="93"/>
         <source>Frame:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fotograma:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/animated-title.ui" line="107"/>
@@ -4064,7 +4076,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="148"/>
         <source>Simple</source>
-        <translation type="unfinished"></translation>
+        <translation>Cenciellu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="168"/>
@@ -4074,7 +4086,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="189"/>
         <source>&lt;b&gt;Select a Profile to start:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Esbilla un Perfil p&apos;Aniciar:&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="216"/>
@@ -4086,17 +4098,17 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="237"/>
         <source>&lt;b&gt;Select from the following options:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Esbilla una de les opciones darréu:&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="262"/>
         <source>Video Profile:</source>
-        <translation type="unfinished"></translation>
+        <translation>Perfil de Videu:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="305"/>
         <source>Target:</source>
-        <translation type="unfinished"></translation>
+        <translation>Oxetivu:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="315"/>
@@ -4111,7 +4123,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="367"/>
         <source>Export To:</source>
-        <translation type="unfinished"></translation>
+        <translation>Esportar A:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="396"/>
@@ -4136,17 +4148,17 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="546"/>
         <source>Aspect Ratio:</source>
-        <translation type="unfinished"></translation>
+        <translation>Rellación d&apos;Aspeutu:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="595"/>
         <source>Pixel Ratio:</source>
-        <translation type="unfinished"></translation>
+        <translation>Rellación de Píxel:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="644"/>
         <source>Frame Rate:</source>
-        <translation type="unfinished"></translation>
+        <translation>Frecuencia de Fotogrames:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="696"/>
@@ -4176,7 +4188,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="809"/>
         <source>Video Format:</source>
-        <translation type="unfinished"></translation>
+        <translation>Formatu de Videu:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="829"/>
@@ -4187,7 +4199,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="852"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="940"/>
         <source>Bit Rate / Quality:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tasa de Bits / Calidá:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="873"/>
@@ -4197,17 +4209,17 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="887"/>
         <source>Sample Rate:</source>
-        <translation type="unfinished"></translation>
+        <translation>Frecuencia de Muestréu:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="920"/>
         <source>Audio Codec:</source>
-        <translation type="unfinished"></translation>
+        <translation>Códec de Soníu:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="960"/>
         <source># of Channels:</source>
-        <translation type="unfinished"></translation>
+        <translation># de Canales:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="996"/>
@@ -4218,12 +4230,12 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="17"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="229"/>
         <source>Import Image Sequence</source>
-        <translation type="unfinished"></translation>
+        <translation>Importar Secuencia d&apos;Imaxes</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="42"/>
         <source>&lt;b&gt;Import Image Sequence&lt;/b&gt; (Click for Instructions)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Importar Secuencies d&apos;Imaxes&lt;/b&gt; (calca para ver instrucciones)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="51"/>
@@ -4238,12 +4250,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="145"/>
         <source>Frames per Image:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fotogrames per Imaxe:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="152"/>
         <source>File Name Pattern:</source>
-        <translation type="unfinished"></translation>
+        <translation>Patrón del Nome de Ficheru:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="162"/>
@@ -4258,7 +4270,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="176"/>
         <source>myfile_%d.png</source>
-        <translation type="unfinished"></translation>
+        <translation>elmioficheru_%d.png</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="23"/>
@@ -4298,7 +4310,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="185"/>
         <source>Project Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Ficheros de Proyeutu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="206"/>
@@ -4308,7 +4320,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="221"/>
         <source>Transitions</source>
-        <translation type="unfinished"></translation>
+        <translation>Transiciones</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="257"/>
@@ -4319,7 +4331,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="299"/>
         <source>New Project...</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuevu Proyeutu...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="302"/>
@@ -4345,7 +4357,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="329"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="332"/>
         <source>Save Project</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar Proyeutu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="335"/>
@@ -4386,7 +4398,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="389"/>
         <source>Import Image Sequence...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importar Secuencia d&apos;Imaxes...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="395"/>
@@ -4396,7 +4408,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="404"/>
         <source>Import New Transition...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importar Nueva Transición...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="407"/>
@@ -4423,7 +4435,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="434"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="437"/>
         <source>Remove Clip</source>
-        <translation type="unfinished"></translation>
+        <translation>Desaniciar Videu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="446"/>
@@ -4435,7 +4447,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="458"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="461"/>
         <source>Take Snapshot</source>
-        <translation type="unfinished"></translation>
+        <translation>Facer una Instantánea</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="464"/>
@@ -4452,7 +4464,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="488"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="491"/>
         <source>Upload Video</source>
-        <translation type="unfinished"></translation>
+        <translation>Xubir Videu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="494"/>
@@ -4553,13 +4565,13 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="672"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="675"/>
         <source>Previous Marker</source>
-        <translation type="unfinished"></translation>
+        <translation>Marcador Anterior</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="684"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="687"/>
         <source>Next Marker</source>
-        <translation type="unfinished"></translation>
+        <translation>Siguiente Marcador</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="695"/>
@@ -4586,7 +4598,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="807"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="810"/>
         <source>Audio</source>
-        <translation>Audiu</translation>
+        <translation>Soníu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="728"/>
@@ -4736,7 +4748,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1120"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1123"/>
         <source>Preview File</source>
-        <translation type="unfinished"></translation>
+        <translation>Vista Previa del Ficheru</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1132"/>
@@ -4770,18 +4782,18 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1193"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1196"/>
         <source>Add Track Above</source>
-        <translation type="unfinished"></translation>
+        <translation>Amestar Pista Arriba</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1205"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1208"/>
         <source>Add Track Below</source>
-        <translation type="unfinished"></translation>
+        <translation>Amestar Pista Abaxu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1217"/>
         <source>Remove Effect</source>
-        <translation type="unfinished"></translation>
+        <translation>Desaniciar Efeutu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1220"/>
