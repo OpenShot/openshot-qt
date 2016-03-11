@@ -1063,6 +1063,25 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         self.actionExit_Fullscreen.setVisible(False)
         self.actionFullscreen.setVisible(True)
 
+    def actionFile_Properties_trigger(self, event):
+        log.info("Show file properties")
+
+        # Loop through selected files (set 1 selected file if more than 1)
+        f = None
+        for file_id in self.selected_files:
+            # Find matching file
+            f = File.get(id=file_id)
+
+        # show dialog
+        from windows.file_properties import FileProperties
+        win = FileProperties(f)
+        # Run the dialog event loop - blocking interaction on this window during that time
+        result = win.exec_()
+        if result == QDialog.Accepted:
+            log.info('File Properties Finished')
+        else:
+            log.info('File Properties Cancelled')
+
     def actionDetailsView_trigger(self, event):
         log.info("Switch to Details View")
 

@@ -28,7 +28,7 @@
 
 import os
 
-from PyQt5.QtCore import QMimeData, Qt
+from PyQt5.QtCore import QMimeData, Qt, pyqtSignal
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QMessageBox
 import openshot  # Python module for libopenshot (required video editing module installed separately)
@@ -46,6 +46,8 @@ except ImportError:
 
 
 class FileStandardItemModel(QStandardItemModel):
+    ModelRefreshed = pyqtSignal()
+
     def __init__(self, parent=None):
         QStandardItemModel.__init__(self)
 
@@ -234,6 +236,9 @@ class FilesModel(updates.UpdateInterface):
 
             # Refresh view and filters (to hide or show this new item)
             get_app().window.resize_contents()
+
+        # Emit signal
+        self.model.ModelRefreshed.emit()
 
     def __init__(self, *args):
 

@@ -136,6 +136,7 @@ class OpenShotApp(QApplication):
             darkPalette.setColor(QPalette.BrightText, Qt.red)
             darkPalette.setColor(QPalette.Highlight, QColor(42, 130, 218))
             darkPalette.setColor(QPalette.HighlightedText, Qt.black)
+            darkPalette.setColor(QPalette.Disabled, QPalette.Text, QColor(104, 104, 104))
             self.setPalette(darkPalette)
             self.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 0px solid white; }")
 

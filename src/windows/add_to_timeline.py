@@ -198,6 +198,17 @@ class AddToTimeline(QDialog):
             new_clip["title"] = filename
             new_clip["image"] = thumb_path
 
+            # Overwrite frame rate (incase the user changed it in the File Properties)
+            file_properties_fps = float(file.data["fps"]["num"]) / float(file.data["fps"]["den"])
+            file_fps = float(new_clip["reader"]["fps"]["num"]) / float(new_clip["reader"]["fps"]["den"])
+            fps_diff = file_fps / file_properties_fps
+            new_clip["reader"]["fps"]["num"] = file.data["fps"]["num"]
+            new_clip["reader"]["fps"]["den"] = file.data["fps"]["den"]
+            # Scale duration / length / and end properties
+            new_clip["reader"]["duration"] *= fps_diff
+            new_clip["end"] *= fps_diff
+            new_clip["duration"] *= fps_diff
+
             # Check for optional start and end attributes
             start_time = 0
             end_time = new_clip["reader"]["duration"]

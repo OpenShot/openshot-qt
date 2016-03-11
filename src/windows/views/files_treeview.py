@@ -80,6 +80,7 @@ class FilesTreeView(QTreeView):
         menu.addSeparator()
         if self.selected:
             # If file selected, show file related options
+            menu.addAction(self.win.actionFile_Properties)
             menu.addAction(self.win.actionPreview_File)
             menu.addAction(self.win.actionSplitClip)
             menu.addAction(self.win.actionAdd_to_Timeline)
@@ -183,9 +184,14 @@ class FilesTreeView(QTreeView):
                     # Give alternate name
                     file.data["name"] = "%s (%s)" % (folderName, pattern)
 
+                # Load image sequence (to determine duration and video_length)
+                image_seq = openshot.Clip(os.path.join(folder_path, pattern))
+
                 # Update file details
                 file.data["path"] = os.path.join(folder_path, pattern)
-                file_data["media_type"] = "video"
+                file.data["media_type"] = "video"
+                file.data["duration"] = image_seq.Reader().info.duration
+                file.data["video_length"] = image_seq.Reader().info.video_length
 
             # Save file
             file.save()
@@ -283,10 +289,15 @@ class FilesTreeView(QTreeView):
 
     def refresh_view(self):
         self.files_model.update_model()
-        self.hideColumn(3)
-        self.hideColumn(4)
-        self.hideColumn(5)
-        self.resize_contents()
+
+    def refresh_columns(self):
+        """Resize and hide certain columns"""
+        if type(self) == FilesTreeView:
+            # Only execute when the treeview is active
+            self.hideColumn(3)
+            self.hideColumn(4)
+            self.hideColumn(5)
+            self.resize_contents()
 
     def resize_contents(self):
         self.resizeColumnToContents(2)
@@ -348,9 +359,11 @@ class FilesTreeView(QTreeView):
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.setWordWrap(True)
         self.setStyleSheet('QTreeView::item { padding-top: 2px; }')
+        self.files_model.model.ModelRefreshed.connect(self.refresh_columns)
 
         # Refresh view
         self.refresh_view()
+        self.refresh_columns()
 
         # setup filter events
         app = get_app()

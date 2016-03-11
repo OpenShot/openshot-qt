@@ -80,6 +80,7 @@ class FilesListView(QListView):
         menu.addSeparator()
         if self.selected:
             # If file selected, show file related options
+            menu.addAction(self.win.actionFile_Properties)
             menu.addAction(self.win.actionPreview_File)
             menu.addAction(self.win.actionSplitClip)
             menu.addAction(self.win.actionAdd_to_Timeline)
@@ -184,9 +185,14 @@ class FilesListView(QListView):
                     # Give alternate name
                     file.data["name"] = "%s (%s)" % (folderName, pattern)
 
+                # Load image sequence (to determine duration and video_length)
+                image_seq = openshot.Clip(os.path.join(folder_path, pattern))
+
                 # Update file details
                 file.data["path"] = os.path.join(folder_path, pattern)
-                file_data["media_type"] = "video"
+                file.data["media_type"] = "video"
+                file.data["duration"] = image_seq.Reader().info.duration
+                file.data["video_length"] = image_seq.Reader().info.video_length
 
             # Save file
             file.save()
