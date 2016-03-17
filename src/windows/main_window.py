@@ -1058,14 +1058,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         self.sliderZoom.setValue(self.sliderZoom.value() + self.sliderZoom.singleStep())
 
     def actionFullscreen_trigger(self, event):
-        # Hide fullscreen button, and display exit fullscreen button
-        self.actionFullscreen.setVisible(False)
-        self.actionExit_Fullscreen.setVisible(True)
-
-    def actionExit_Fullscreen_trigger(self, event):
-        # Hide exit fullscreen button, and display fullscreen button
-        self.actionExit_Fullscreen.setVisible(False)
-        self.actionFullscreen.setVisible(True)
+        # Toggle fullscreen mode
+        if not self.isFullScreen():
+            self.showFullScreen()
+        else:
+            self.showNormal()
 
     def actionFile_Properties_trigger(self, event):
         log.info("Show file properties")
@@ -1250,13 +1247,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
     def actionShow_All_trigger(self, event):
         """ Show all dockable widgets """
         self.showDocks(self.getDocks())
-
-    # Init fullscreen menu visibility
-    def init_fullscreen_menu(self):
-        if self.isFullScreen():
-            self.actionFullscreen_trigger(None)
-        else:
-            self.actionExit_Fullscreen_trigger(None)
 
     def SetWindowTitle(self, profile=None):
         """ Set the window title based on a variety of factors """
@@ -1560,9 +1550,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Init selection containers
         self.clearSelections()
-
-        # Init fullscreen menu visibility
-        self.init_fullscreen_menu()
 
         # Setup timeline
         self.timeline = TimelineWebView(self)

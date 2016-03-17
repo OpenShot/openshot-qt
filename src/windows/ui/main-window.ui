@@ -126,7 +126,6 @@
     </widget>
     <addaction name="actionView_Toolbar"/>
     <addaction name="actionFullscreen"/>
-    <addaction name="actionExit_Fullscreen"/>
     <addaction name="separator"/>
     <addaction name="menuViews"/>
    </widget>
@@ -170,7 +169,6 @@
    <addaction name="actionImportFiles"/>
    <addaction name="actionProfile"/>
    <addaction name="actionFullscreen"/>
-   <addaction name="actionExit_Fullscreen"/>
    <addaction name="separator"/>
    <addaction name="actionExportVideo"/>
   </widget>
@@ -891,25 +889,6 @@
     <string>F11</string>
    </property>
   </action>
-  <action name="actionExit_Fullscreen">
-   <property name="icon">
-    <iconset theme="view-restore">
-     <normaloff/>
-    </iconset>
-   </property>
-   <property name="text">
-    <string>Exit Fullscreen</string>
-   </property>
-   <property name="toolTip">
-    <string>Exit Fullscreen</string>
-   </property>
-   <property name="shortcut">
-    <string>Esc</string>
-   </property>
-   <property name="visible">
-    <bool>true</bool>
-   </property>
-  </action>
   <action name="actionView_Toolbar">
    <property name="checkable">
     <bool>true</bool>
@@ -1291,38 +1270,6 @@
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
    <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>403</x>
-     <y>314</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionFullscreen</sender>
-   <signal>triggered(bool)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>showFullScreen()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>403</x>
-     <y>314</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionExit_Fullscreen</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>showNormal()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
