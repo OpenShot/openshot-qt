@@ -84,11 +84,15 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             _ = get_app()._tr
 
             # Handle exception
-            ret = QMessageBox.question(self, _("Unsaved Changes"), _("Save changes to project before closing?"), QMessageBox.No | QMessageBox.Yes)
+            ret = QMessageBox.question(self, _("Unsaved Changes"), _("Save changes to project before closing?"), QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
             if ret == QMessageBox.Yes:
                 # Save project
                 self.actionSave_trigger(event)
                 event.accept()
+            elif ret == QMessageBox.Cancel:
+                # User canceled prompt - don't quit
+                event.ignore()
+                return
 
         # Save settings
         self.save_settings()
