@@ -55,7 +55,7 @@ EXPORT_TESTS = os.path.join(USER_PATH, "tests")
 for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH, TITLE_PATH, PROFILES_PATH, IMAGES_PATH,
                TRANSITIONS_PATH, EXPORT_TESTS, BACKUP_PATH]:
     if not os.path.exists(folder.encode("UTF-8")):
-        os.makedirs(folder)
+        os.makedirs(folder, exist_ok=True)
 
 # names of all contributers, using "u" for unicode encoding
 AF = {"name": u"Andy Finch", "email": "andy@openshot.org", "website":"http://openshot.org/developers/andy"}
