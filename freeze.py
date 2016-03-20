@@ -191,36 +191,56 @@ elif sys.platform == "linux":
     # Shorten name (since RPM can't have spaces)
     info.PRODUCT_NAME = "openshot-qt"
 
-    # Get a list of all openshot.so dependencies
-    import subprocess
-    p = subprocess.Popen(["ldd", "/usr/local/lib/libopenshot.so"], stdout=subprocess.PIPE)
-    out, err = p.communicate()
-    depends = str(out).replace("\\t","").replace("\\n","\n").replace("\'","").split("\n")
-    for line in depends:
-        lineparts = line.split("=>")
-        libname = lineparts[0].strip()
-        if len(lineparts) > 1:
-            libdetails = lineparts[1].strip()
-            libdetailsparts = libdetails.split("(")
-            if len(libdetailsparts) > 1:
-                libpath = libdetailsparts[0].strip()
-                if libpath:
-                    filepath, filename = os.path.split(libpath)
-                    external_so_files.append((libpath, filename))
+    # Add custom launcher script for frozen linux version
+    src_files.append((os.path.join(PATH, "installer", "launch-linux.sh"), "launch-linux.sh"))
 
+    # Get a list of all openshot.so dependencies (scan these libraries for their dependencies)
+    import subprocess
+    for library in ["/usr/local/lib/libopenshot.so",
+                    "/usr/lib/python3/dist-packages/PyQt5/QtWebKit.cpython-34m-x86_64-linux-gnu.so",
+                    "/usr/lib/python3/dist-packages/PyQt5/QtSvg.cpython-34m-x86_64-linux-gnu.so",
+                    "/usr/lib/python3/dist-packages/PyQt5/QtWebKitWidgets.cpython-34m-x86_64-linux-gnu.so",
+                    "/usr/lib/python3/dist-packages/PyQt5/QtWidgets.cpython-34m-x86_64-linux-gnu.so",
+                    "/usr/lib/python3/dist-packages/PyQt5/QtCore.cpython-34m-x86_64-linux-gnu.so",
+                    "/usr/lib/python3/dist-packages/PyQt5/QtGui.cpython-34dm-x86_64-linux-gnu.so",
+                    "/usr/lib/python3/dist-packages/PyQt5/QtDBus.cpython-34dm-x86_64-linux-gnu.so",
+                    "/usr/lib/x86_64-linux-gnu/qt5/plugins/platforms/libqxcb.so"]:
+        p = subprocess.Popen(["ldd", library], stdout=subprocess.PIPE)
+        out, err = p.communicate()
+        depends = str(out).replace("\\t","").replace("\\n","\n").replace("\'","").split("\n")
+
+        # Loop through each line of output (which outputs dependencies - one per line)
+        for line in depends:
+            lineparts = line.split("=>")
+            libname = lineparts[0].strip()
+
+            if len(lineparts) > 1:
+                libdetails = lineparts[1].strip()
+                libdetailsparts = libdetails.split("(")
+
+                if len(libdetailsparts) > 1:
+                    # Determine if dependency is usr installed (or system installed)
+                    # Or if the dependency matches one of the following exceptions
+                    libpath = libdetailsparts[0].strip()
+                    if (libpath and not libpath.startswith("/lib")) \
+                            or "libgcrypt" in libpath \
+                            or "libgcc_s" in libpath \
+                            or "libQt5DBus" in libpath \
+                            or "libpng12" in libpath \
+                            or "libbz2" in libpath \
+                            or "libqxcb" in libpath:
+
+                        # Ignore paths that start with /lib
+                        filepath, filename = os.path.split(libpath)
+                        external_so_files.append((libpath, filename))
+
+    # Manually add missing files (that were missed in the above step). These files are required
+    # for certain distros (like Fedora, openSUSE, Debian, etc...)
+    external_so_files.append(("/lib/x86_64-linux-gnu/libssl.so.1.0.0", "libssl.so.1.0.0"))
+    external_so_files.append(("/lib/x86_64-linux-gnu/libcrypto.so.1.0.0", "libcrypto.so.1.0.0"))
 
 elif sys.platform == "darwin":
     # Copy Mac specific files that cx_Freeze misses
-    # ImageMagick files
-    # for filename in find_files("/usr/local/Cellar/imagemagick/6.8.9-5/lib/ImageMagick/", ["*"]):
-    #     external_so_files.append((filename, filename.replace("/usr/local/Cellar/imagemagick/6.8.9-5/lib/", "")))
-    # for filename in find_files("/usr/local/Cellar/imagemagick/6.8.9-5/etc/ImageMagick-6/", ["*"]):
-    #     external_so_files.append((filename, filename.replace("/usr/local/Cellar/imagemagick/6.8.9-5/etc/ImageMagick-6/",
-    #                                                          "ImageMagick/etc/configuration/")))
-    # SVG executables
-    # for filename in find_files("/Users/jonathan/apps/rsvg/", ["*"]):
-    #     external_so_files.append((filename, filename.replace("/Users/jonathan/apps/rsvg/", "")))
-
     # JPEG library
     for filename in find_files("/usr/local/Cellar/jpeg/8d/lib", ["libjpeg.8.dylib"]):
         external_so_files.append((filename, filename.replace("/usr/local/Cellar/jpeg/8d/lib/", "")))
