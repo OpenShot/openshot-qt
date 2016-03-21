@@ -26,6 +26,11 @@
  """
 
 import os
+import sys
+
+PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
+sys.path.append(os.path.join(PATH, 'src'))
+
 import datetime
 import platform
 import shutil
@@ -59,10 +64,10 @@ if platform.system() == "Linux":
                      ("/home/jonathan/apps/openshot-qt-git", "", "https://github.com/OpenShot/openshot-qt.git")]
 
 elif platform.system() == "Darwin":
-    freeze_command = "python3 /home/jonathan/apps/openshot-qt-git/freeze.py build-dmg"
-    project_paths = [("/users/jonathan/apps/libopenshot-audio-git", "../", "https://github.com/OpenShot/libopenshot-audio.git"),
-                     ("/users/jonathan/apps/libopenshot-git", "../", "https://github.com/OpenShot/libopenshot.git"),
-                     ("/users/jonathan/apps/openshot-qt-git", "", "https://github.com/OpenShot/openshot-qt.git")]
+    freeze_command = 'python3 /Users/jonathan/apps/openshot-qt-git/freeze.py bdist_mac --iconfile=installer/openshot.icns --custom-info-plist=installer/Info.plist --bundle-name="OpenShot Video Editor"'
+    project_paths = [("/Users/jonathan/apps/libopenshot-audio-git", '-DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -D"CMAKE_BUILD_TYPE:STRING=Release" -D"CMAKE_OSX_DEPLOYMENT_TARGET=10.9" ../', "https://github.com/OpenShot/libopenshot-audio.git"),
+                     ("/Users/jonathan/apps/libopenshot-git", '-DCMAKE_CXX_COMPILER=/usr/local/opt/gcc48/bin/g++-4.8 -DCMAKE_C_COMPILER=/usr/local/opt/gcc48/bin/gcc-4.8 -DCMAKE_PREFIX_PATH=/usr/local/qt5/5.5/clang_64 -DPYTHON_INCLUDE_DIR=/Library/Frameworks/Python.framework/Versions/3.5/include/python3.5m -DPYTHON_LIBRARY=/Library/Frameworks/Python.framework/Versions/3.5/lib/libpython3.5.dylib -DPython_FRAMEWORKS=/Library/Frameworks/Python.framework/ -D"CMAKE_BUILD_TYPE:STRING=Release" -D"CMAKE_OSX_SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk" -D"CMAKE_OSX_DEPLOYMENT_TARGET=10.9" ../ -D”CMAKE_INSTALL_RPATH_USE_LINK_PATH=1” -D"ENABLE_RUBY=0"', "https://github.com/OpenShot/libopenshot.git"),
+                     ("/Users/jonathan/apps/openshot-qt-git", "", "https://github.com/OpenShot/openshot-qt.git")]
 
 elif platform.system() == "Windows":
     make_command = "mingw32-make"
@@ -183,13 +188,14 @@ try:
         if os.path.exists(os.path.join(project_path, "build")):
             shutil.rmtree(os.path.join(project_path, "build"))
 
+        # Freeze it
+        for line in run_command(freeze_command):
+            output(line)
+            if "logger:ERROR".encode("UTF-8") in line and not "importlib/__init__.pyc".encode("UTF-8") in line and not "zinfo".encode("UTF-8") in line:
+                error("Freeze Error: %s" % line)
+
         # Successfully compiled - Time to create installers
         if platform.system() == "Linux":
-            # Freeze it
-            for line in run_command(freeze_command):
-                output(line)
-                if "logger:ERROR".encode("UTF-8") in line and not "importlib/__init__.pyc".encode("UTF-8") in line and not "zinfo".encode("UTF-8") in line:
-                    error("Freeze Error: %s" % line)
 
             # Find exe folder
             exe_dirs = os.listdir(os.path.join(project_path, "build"))
@@ -268,10 +274,45 @@ try:
 
 
         if platform.system() == "Darwin":
-            pass
+
+            # Create DMG (OpenShot-%s-x86_64.DMG)
+            app_image_success = False
+            app_name = "OpenShot-%s-%s-x86_64.dmg" % (info.VERSION, datetime.datetime.now().strftime("%Y-%m-%d"))
+            app_image_path = os.path.join(project_path, "build", app_name)
+
+            # Build app.bundle and create DMG
+            for line in run_command("bash installer/build-mac-dmg.sh"):
+                output(line)
+                if "error".encode("UTF-8") in line:
+                    error("Build-Mac-DMG Error: %s" % line)
+                if "Your image is ready".encode("UTF-8") in line:
+                    app_image_success = True
+
+            # Was the DMG creation successful
+            if app_image_success:
+                # Rename DMG (to be consistent with other OS installers)
+                os.rename(os.path.join(project_path, "build", "OpenShot-%s.dmg" % info.VERSION), app_image_path)
+
+                # Check if DMG exists
+                if os.path.exists(app_image_path):
+                    # Upload file to S3
+                    output("S3: Uploading %s to Amazon S3" % app_image_path)
+                    upload(app_image_path, "releases.openshot.org/mac")
+
+                    # Notify Slack
+                    slack("%s: Successful build: http://releases.openshot.org/mac/%s" % (platform.system(), app_name))
+
+                else:
+                    # DMG doesn't exist
+                    error("Build-Mac-DMG Error: %s does not exist" % app_image_path)
+            else:
+                # DMG failed
+                error("Build-Mac-DMG Error: Did not output 'Your image is ready'")
+
 
         if platform.system() == "Windows":
             pass
+
 
 except Exception as ex:
     tb = traceback.format_exc()
