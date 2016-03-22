@@ -1471,7 +1471,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         self.sliderZoom.setRange(8, 200)
         self.sliderZoom.setValue(20)
         self.sliderZoom.setInvertedControls(True)
-        # self.sliderZoom.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
         self.sliderZoom.resize(100, 16)
 
         self.zoomScaleLabel = QLabel(_("{} seconds").format(self.sliderZoom.value()))

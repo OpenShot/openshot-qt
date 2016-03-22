@@ -163,6 +163,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             code = JS_SCOPE_SELECTOR + ".ApplyJsonDiff([" + action.json() + "]);"
         self.eval_js(code)
 
+        # Reset the scale when loading new JSON
+        if action.type == "load":
+            # Set the scale again
+            self.update_zoom(self.window.sliderZoom.value())
+
     # Javascript callable function to update the project data when a clip changes
     @pyqtSlot(str)
     def update_clip_data(self, clip_json, only_basic_props=True, ignore_reader=False):
