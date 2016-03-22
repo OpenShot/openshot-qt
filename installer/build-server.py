@@ -103,11 +103,23 @@ def slack(message):
         slack_object.chat.post_message("#build-server", message)
 
 def upload(file_path, s3_bucket):
-    """Upload a file to S3"""
+    """Upload a file to S3 (retry 3 times)"""
     if s3_connection:
         folder_path, file_name = os.path.split(file_path)
-        with open(file_path, "rb") as f:
-            s3_connection.upload(file_name, f, s3_bucket)
+        for attempt in range(3):
+            try:
+                # Attempt the upload
+                with open(file_path, "rb") as f:
+                    s3_connection.upload(file_name, f, s3_bucket)
+                # Successfully uploaded!
+                break
+            except Exception as ex:
+                # Quietly fail, and try again
+                if attempt < 2:
+                    output("Amazon S3 upload failed... tring again")
+                else:
+                    # Throw loud exception
+                    raise ex
 
 
 try:
