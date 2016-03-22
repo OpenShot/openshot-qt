@@ -43,7 +43,6 @@ import tinys3
 import traceback
 
 
-needs_build = False
 freeze_command = None
 output_lines = []
 errors_detected = []
@@ -158,11 +157,12 @@ try:
                 break
 
         if needs_update:
-            # Since something needs updating, we need to build the entire app again
-            needs_build = True
-
             # Get latest from git
             for line in run_command("git pull"):
+                output(line)
+
+            # Sync these changes to bzr
+            for line in run_command("git bzr push"):
                 output(line)
 
             # Remove build folder & re-create it
