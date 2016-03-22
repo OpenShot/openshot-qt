@@ -54,27 +54,29 @@ slack_object = None
 s3_access_key = None
 s3_secret_key = None
 s3_connection = None
+windows_key = None
+windows_key_password = None
 
 
 # Determine the paths and cmake args for each platform
 if platform.system() == "Linux":
     freeze_command = "python3 /home/jonathan/apps/openshot-qt-git/freeze.py build"
-    project_paths = [("/home/jonathan/apps/libopenshot-audio-git", "../", "https://github.com/OpenShot/libopenshot-audio.git"),
-                     ("/home/jonathan/apps/libopenshot-git", "../", "https://github.com/OpenShot/libopenshot.git"),
-                     ("/home/jonathan/apps/openshot-qt-git", "", "https://github.com/OpenShot/openshot-qt.git")]
+    project_paths = [("/home/jonathan/apps/libopenshot-audio-git", "../"),
+                     ("/home/jonathan/apps/libopenshot-git", "../"),
+                     ("/home/jonathan/apps/openshot-qt-git", "")]
 
 elif platform.system() == "Darwin":
     freeze_command = 'python3 /Users/jonathan/apps/openshot-qt-git/freeze.py bdist_mac --iconfile=installer/openshot.icns --custom-info-plist=installer/Info.plist --bundle-name="OpenShot Video Editor"'
-    project_paths = [("/Users/jonathan/apps/libopenshot-audio-git", '-DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -D"CMAKE_BUILD_TYPE:STRING=Release" -D"CMAKE_OSX_DEPLOYMENT_TARGET=10.9" ../', "https://github.com/OpenShot/libopenshot-audio.git"),
-                     ("/Users/jonathan/apps/libopenshot-git", '-DCMAKE_CXX_COMPILER=/usr/local/opt/gcc48/bin/g++-4.8 -DCMAKE_C_COMPILER=/usr/local/opt/gcc48/bin/gcc-4.8 -DCMAKE_PREFIX_PATH=/usr/local/qt5/5.5/clang_64 -DPYTHON_INCLUDE_DIR=/Library/Frameworks/Python.framework/Versions/3.5/include/python3.5m -DPYTHON_LIBRARY=/Library/Frameworks/Python.framework/Versions/3.5/lib/libpython3.5.dylib -DPython_FRAMEWORKS=/Library/Frameworks/Python.framework/ -D"CMAKE_BUILD_TYPE:STRING=Release" -D"CMAKE_OSX_SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk" -D"CMAKE_OSX_DEPLOYMENT_TARGET=10.9" ../ -D”CMAKE_INSTALL_RPATH_USE_LINK_PATH=1” -D"ENABLE_RUBY=0"', "https://github.com/OpenShot/libopenshot.git"),
-                     ("/Users/jonathan/apps/openshot-qt-git", "", "https://github.com/OpenShot/openshot-qt.git")]
+    project_paths = [("/Users/jonathan/apps/libopenshot-audio-git", '-DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -D"CMAKE_BUILD_TYPE:STRING=Release" -D"CMAKE_OSX_DEPLOYMENT_TARGET=10.9" ../'),
+                     ("/Users/jonathan/apps/libopenshot-git", '-DCMAKE_CXX_COMPILER=/usr/local/opt/gcc48/bin/g++-4.8 -DCMAKE_C_COMPILER=/usr/local/opt/gcc48/bin/gcc-4.8 -DCMAKE_PREFIX_PATH=/usr/local/qt5/5.5/clang_64 -DPYTHON_INCLUDE_DIR=/Library/Frameworks/Python.framework/Versions/3.5/include/python3.5m -DPYTHON_LIBRARY=/Library/Frameworks/Python.framework/Versions/3.5/lib/libpython3.5.dylib -DPython_FRAMEWORKS=/Library/Frameworks/Python.framework/ -D"CMAKE_BUILD_TYPE:STRING=Release" -D"CMAKE_OSX_SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk" -D"CMAKE_OSX_DEPLOYMENT_TARGET=10.9" ../ -D”CMAKE_INSTALL_RPATH_USE_LINK_PATH=1” -D"ENABLE_RUBY=0"'),
+                     ("/Users/jonathan/apps/openshot-qt-git", "")]
 
 elif platform.system() == "Windows":
     make_command = "mingw32-make"
-    freeze_command = "python C:\\Users\\Jonathan\\apps\\openshot-qt-gitfreeze.py build"
-    project_paths = [("C:\\Users\\Jonathan\\apps\\libopenshot-audio-git", "../", "https://github.com/OpenShot/libopenshot-audio.git"),
-                     ("C:\\Users\\Jonathan\\apps\\libopenshot-git", "../", "https://github.com/OpenShot/libopenshot.git"),
-                     ("C:\\Users\\Jonathan\\apps\\openshot-qt-git", "", "https://github.com/OpenShot/openshot-qt.git")]
+    freeze_command = "python C:\\Users\\Jonathan\\apps\\openshot-qt-git\\freeze.py bdist_msi"
+    project_paths = [("C:\\Users\\Jonathan\\apps\\libopenshot-audio-git", '-G "MinGW Makefiles" ../ -D"CMAKE_BUILD_TYPE:STRING=Release"'),
+                     ("C:\\Users\\Jonathan\\apps\\libopenshot-git", '-G "MinGW Makefiles" ../ -D"CMAKE_BUILD_TYPE:STRING=Release"'),
+                     ("C:\\Users\\Jonathan\\apps\\openshot-qt-git", "")]
 
 
 def run_command(command):
@@ -120,10 +122,12 @@ try:
         s3_access_key = sys.argv[2]
         s3_secret_key = sys.argv[3]
         s3_connection = tinys3.Connection(s3_access_key, s3_secret_key, tls=True)
-
+    if len(sys.argv) >= 6:
+        windows_key = sys.argv[4]
+        windows_key_password = sys.argv[5]
 
     # Loop through projects
-    for project_path, cmake_args, git_origin in project_paths:
+    for project_path, cmake_args in project_paths:
         # Change os directory
         os.chdir(project_path)
 
@@ -140,7 +144,7 @@ try:
             needs_build = True
 
             # Get latest from git
-            for line in run_command("git pull %s" % git_origin):
+            for line in run_command("git pull"):
                 output(line)
 
             # Remove build folder & re-create it
@@ -177,7 +181,7 @@ try:
 
 
     # Now that everything is compiled, let's create the installers
-    if not errors_detected: # and needs_build:
+    if not errors_detected and needs_build:
         # Change to openshot-qt dir
         project_path = project_paths[2][0]
         os.chdir(project_path)
@@ -187,6 +191,8 @@ try:
             shutil.rmtree(os.path.join(project_path, "openshot_qt"))
         if os.path.exists(os.path.join(project_path, "build")):
             shutil.rmtree(os.path.join(project_path, "build"))
+        if os.path.exists(os.path.join(project_path, "dist")):
+            shutil.rmtree(os.path.join(project_path, "dist"))
 
         # Freeze it
         for line in run_command(freeze_command):
@@ -311,7 +317,39 @@ try:
 
 
         if platform.system() == "Windows":
-            pass
+
+            # Create MSI (OpenShot-%s-x86_32.MSI)
+            app_image_success = True
+            app_name = "OpenShot-%s-%s-x86_32.msi" % (info.VERSION, datetime.datetime.now().strftime("%Y-%m-%d"))
+            app_image_path = os.path.join(project_path, "dist", app_name)
+
+            # Rename MSI (to be consistent with other OS installers)
+            os.rename(os.path.join(project_path, "dist", "OpenShot Video Editor-%s-win32.msi" % info.VERSION), app_image_path)
+
+            key_sign_command = '"C:\\Program Files (x86)\\kSign\\kSignCMD.exe" /f "%s" /p "%s" /d "OpenShot Video Editor" /du "http://www.openshot.org" "%s"' % (windows_key, windows_key_password, app_image_path)
+            # Sign MSI
+            for line in run_command(key_sign_command):
+                output(line)
+                if line:
+                    app_image_success = False
+
+            # Was the MSI creation successful
+            if app_image_success:
+                # Check if MSI exists
+                if os.path.exists(app_image_path):
+                    # Upload file to S3
+                    output("S3: Uploading %s to Amazon S3" % app_image_path)
+                    upload(app_image_path, "releases.openshot.org/windows")
+
+                    # Notify Slack
+                    slack("%s: Successful build: http://releases.openshot.org/windows/%s" % (platform.system(), app_name))
+
+                else:
+                    # MSI doesn't exist
+                    error("MSI Error: %s does not exist" % app_image_path)
+            else:
+                # MSI failed
+                error("Key Sign Error: Had output when none was expected")
 
 
 except Exception as ex:
