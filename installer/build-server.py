@@ -161,9 +161,10 @@ try:
             for line in run_command("git pull"):
                 output(line)
 
-            # Sync these changes to bzr
-            for line in run_command("git bzr push"):
-                output(line)
+            # Sync these changes to bzr (if build-server running on linux)
+            if platform.system() == "Linux":
+                for line in run_command("git bzr push"):
+                    output(line)
 
             # Remove build folder & re-create it
             build_folder = os.path.join(project_path, "build")
@@ -207,7 +208,7 @@ try:
         # Get GIT description of openshot-qt-git branch (i.e. v2.0.6-18-ga01a98c)
         openshot_qt_git_desc = ""
         for line in run_command("git describe --tags"):
-            openshot_qt_git_desc = line.decode("utf-8").replace("\n","")
+            openshot_qt_git_desc = "OpenShot-%s" % line.decode("utf-8").replace("\n","")
             output("git description of openshot-qt-git: %s" % openshot_qt_git_desc)
 
             # Add num of commits from libopenshot and libopenshot-audio (for naming purposes)
@@ -335,7 +336,7 @@ try:
                 # Build app.bundle and create DMG
                 for line in run_command("bash installer/build-mac-dmg.sh"):
                     output(line)
-                    if "error".encode("UTF-8") in line:
+                    if "error".encode("UTF-8") in line or "rejected".encode("UTF-8") in line:
                         error("Build-Mac-DMG Error: %s" % line)
                     if "Your image is ready".encode("UTF-8") in line:
                         app_image_success = True
