@@ -93,12 +93,12 @@ def output(line):
     """Append output to list and print it"""
     print(line)
     if isinstance(line, bytes):
-        log.write(line.decode('UTF-8'))
-    else:
-        if line[-1] != "\n":
-            # Append missing line return (if needed)
-            line += "\n"
-        log.write(line)
+        line = line.decode('UTF-8').strip()
+
+    if not line.endswith(os.linesep):
+        # Append missing line return (if needed)
+        line += "\n"
+    log.write(line)
 
 def error(line):
     """Append error output to list and print it"""
@@ -243,11 +243,11 @@ try:
         # Get GIT description of openshot-qt-git branch (i.e. v2.0.6-18-ga01a98c)
         openshot_qt_git_desc = ""
         for line in run_command("git describe --tags"):
-            openshot_qt_git_desc = "OpenShot-%s" % line.decode("utf-8").replace("\n","")
-            output("git description of openshot-qt-git: %s" % openshot_qt_git_desc)
+            openshot_qt_git_desc = "OpenShot-%s" % line.decode("utf-8").strip()
 
             # Add num of commits from libopenshot and libopenshot-audio (for naming purposes)
             openshot_qt_git_desc = "%s-%s-%s" % (openshot_qt_git_desc, commit_data[project_paths[0][0]], commit_data[project_paths[1][0]])
+            output("git description of openshot-qt-git: %s" % openshot_qt_git_desc)
 
         # Check for left over openshot-qt dupe folder
         if os.path.exists(os.path.join(project_path, "openshot_qt")):
@@ -396,16 +396,18 @@ try:
                 os.rename(os.path.join(project_path, "dist", "OpenShot Video Editor-%s-win32.msi" % info.VERSION), app_build_path)
 
                 key_sign_command = '"C:\\Program Files (x86)\\kSign\\kSignCMD.exe" /f "%s" /p "%s" /d "OpenShot Video Editor" /du "http://www.openshot.org" "%s"' % (windows_key, windows_key_password, app_build_path)
+                key_sign_output = ""
                 # Sign MSI
                 for line in run_command(key_sign_command):
                     output(line)
                     if line:
                         app_image_success = False
+                        key_sign_output = line
 
                 # Was the MSI creation successful
                 if not app_image_success:
                     # MSI failed
-                    error("Key Sign Error: Had output when none was expected")
+                    error("Key Sign Error: Had output when none was expected (%s)" % key_sign_output)
                     needs_upload = False
 
 
