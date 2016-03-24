@@ -44,7 +44,6 @@ import traceback
 
 
 freeze_command = None
-output_lines = []
 errors_detected = []
 make_command = "make"
 project_paths = []
@@ -93,10 +92,12 @@ def run_command(command):
 def output(line):
     """Append output to list and print it"""
     print(line)
-    output_lines.append(line)
     if isinstance(line, bytes):
         log.write(line.decode('UTF-8'))
     else:
+        if line[-1] != "\n":
+            # Append missing line return (if needed)
+            line += "\n"
         log.write(line)
 
 def error(line):
@@ -108,12 +109,12 @@ def error(line):
     else:
         log.write(line)
 
-def truncate(message):
+def truncate(message, max=256):
     """Truncate the message with ellipses"""
-    if len(message) < 256:
+    if len(message) < max:
         return message
     else:
-        return "%s..." % message[:256]
+        return "%s..." % message[:max]
 
 def slack(message):
     """Append a message to slack #build-server channel"""
@@ -121,14 +122,14 @@ def slack(message):
     if slack_object:
         slack_object.chat.post_message("#build-server", truncate(message[:256]))
 
-def slack_upload_log(log, title):
+def slack_upload_log(log, title, comment=None):
     """Upload a file to slack and notify a slack channel"""
     # Close log file
     log.close()
 
     print("Slack Upload: %s" % log_path)
     if slack_object:
-        slack_object.files.upload(log_path, title=title, channels="#build-server")
+        slack_object.files.upload(log_path, filetype="text/plain", title=title, initial_comment=comment, channels="#build-server")
 
     # Re-open the log (for append)
     log = open(log_path, "a")
@@ -416,11 +417,10 @@ try:
                 upload(app_build_path, app_upload_bucket)
 
                 # Notify Slack
-                slack("%s: Successful build: http://%s/%s" % (platform.system(), app_upload_bucket, app_name))
-                slack_upload_log(log, "%s: Build logs for %s" % (platform.system(), app_name))
+                slack_upload_log(log, "%s: Build logs for %s" % (platform.system(), app_name), "Successful build: http://%s/%s" % (app_upload_bucket, app_name))
 
-                # Copy app to uploads folder (so it will be skipped next time)
-                shutil.copyfile(app_build_path, app_upload_path)
+                # Move app to uploads folder (so it will be skipped next time)
+                shutil.move(app_build_path, app_upload_path)
 
             else:
                 # App doesn't exist (something went wrong)
@@ -434,8 +434,7 @@ except Exception as ex:
 
 # Report any errors detected
 if errors_detected:
-    slack("%s: Build errors were detected: %s" % (platform.system(), errors_detected))
-    slack_upload_log(log, "%s: Error log" % platform.system())
+    slack_upload_log(log, "%s: Error log" % platform.system(), truncate(errors_detected[0], 150))
 else:
     output("Successful build server run!")
 
