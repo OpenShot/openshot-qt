@@ -57,6 +57,10 @@ windows_key = None
 windows_key_password = None
 commit_data = {}
 
+# Create temp log
+log_path = os.path.join(PATH, 's3-builds', 'build-server.log')
+log = open(log_path, 'w+')
+
 
 # Determine the paths and cmake args for each platform
 if platform.system() == "Linux":
@@ -90,17 +94,44 @@ def output(line):
     """Append output to list and print it"""
     print(line)
     output_lines.append(line)
+    if isinstance(line, bytes):
+        log.write(line.decode('UTF-8'))
+    else:
+        log.write(line)
 
 def error(line):
     """Append error output to list and print it"""
     print("Error: %s" % line)
     errors_detected.append(line)
+    if isinstance(line, bytes):
+        log.write(line.decode('UTF-8'))
+    else:
+        log.write(line)
+
+def truncate(message):
+    """Truncate the message with ellipses"""
+    if len(message) < 256:
+        return message
+    else:
+        return "%s..." % message[:256]
 
 def slack(message):
     """Append a message to slack #build-server channel"""
     print("Slack: %s" % message)
     if slack_object:
-        slack_object.chat.post_message("#build-server", message)
+        slack_object.chat.post_message("#build-server", truncate(message[:256]))
+
+def slack_upload_log(log, title):
+    """Upload a file to slack and notify a slack channel"""
+    # Close log file
+    log.close()
+
+    print("Slack Upload: %s" % log_path)
+    if slack_object:
+        slack_object.files.upload(log_path, title=title, channels="#build-server")
+
+    # Re-open the log (for append)
+    log = open(log_path, "a")
 
 def upload(file_path, s3_bucket):
     """Upload a file to S3 (retry 3 times)"""
@@ -138,6 +169,9 @@ try:
         windows_key = sys.argv[4]
         windows_key_password = sys.argv[5]
 
+    # Start log
+    output("%s Build Log for %s" % (platform.system(), datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+
     # Loop through projects
     for project_path, cmake_args in project_paths:
         # Change os directory
@@ -158,7 +192,7 @@ try:
 
         if needs_update:
             # Get latest from git
-            for line in run_command("git pull"):
+            for line in run_command("git pull origin master"):
                 output(line)
 
             # Sync these changes to bzr (if build-server running on linux)
@@ -383,6 +417,7 @@ try:
 
                 # Notify Slack
                 slack("%s: Successful build: http://%s/%s" % (platform.system(), app_upload_bucket, app_name))
+                slack_upload_log(log, "%s: Build logs for %s" % (platform.system(), app_name))
 
                 # Copy app to uploads folder (so it will be skipped next time)
                 shutil.copyfile(app_build_path, app_upload_path)
@@ -400,9 +435,12 @@ except Exception as ex:
 # Report any errors detected
 if errors_detected:
     slack("%s: Build errors were detected: %s" % (platform.system(), errors_detected))
+    slack_upload_log(log, "%s: Error log" % platform.system())
 else:
     output("Successful build server run!")
 
+# Close file
+log.close()
 
 
 
