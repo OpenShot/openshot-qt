@@ -196,6 +196,10 @@ try:
             for line in run_command("git pull origin master"):
                 output(line)
 
+            # Get latest tags from git
+            for line in run_command("git fetch --tags"):
+                output(line)
+
             # Sync these changes to bzr (if build-server running on linux)
             if platform.system() == "Linux":
                 for line in run_command("git bzr push"):
