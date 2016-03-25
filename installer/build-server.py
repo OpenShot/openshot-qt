@@ -129,7 +129,7 @@ def slack_upload_log(log, title, comment=None):
 
     print("Slack Upload: %s" % log_path)
     if slack_object:
-        slack_object.files.upload(log_path, filetype="text/plain", title=title, initial_comment=comment, channels="#build-server")
+        slack_object.files.upload(log_path, filetype="txt", filename="%s-build-server.txt" % platform.system(), title=title, initial_comment=comment, channels="#build-server")
 
     # Re-open the log (for append)
     log = open(log_path, "a")
@@ -357,10 +357,13 @@ try:
                             app_image_success = True
 
                     # Was the AppImage creation successful
-                    if not app_image_success:
+                    if not app_image_success or errors_detected:
                         # AppImage failed
                         error("AppImageKit Error: AppImageAssistant did not output 'completed successfully'")
                         needs_upload = False
+
+                        # Delete build (since something failed)
+                        os.remove(app_build_path)
 
 
             if platform.system() == "Darwin":
@@ -376,15 +379,17 @@ try:
                     if "Your image is ready".encode("UTF-8") in line:
                         app_image_success = True
 
-                # Was the DMG creation successful
-                if app_image_success:
-                    # Rename DMG (to be consistent with other OS installers)
-                    os.rename(os.path.join(project_path, "build", "OpenShot-%s.dmg" % info.VERSION), app_build_path)
+                # Rename DMG (to be consistent with other OS installers)
+                os.rename(os.path.join(project_path, "build", "OpenShot-%s.dmg" % info.VERSION), app_build_path)
 
-                else:
+                # Was the DMG creation successful
+                if not app_image_success or errors_detected:
                     # DMG failed
                     error("Build-Mac-DMG Error: Did not output 'Your image is ready'")
                     needs_upload = False
+
+                    # Delete build (since key signing might have failed)
+                    os.remove(app_build_path)
 
 
             if platform.system() == "Windows":
@@ -410,6 +415,9 @@ try:
                     error("Key Sign Error: Had output when none was expected (%s)" % key_sign_output)
                     needs_upload = False
 
+                    # Delete build (since key signing might have failed)
+                    os.remove(app_build_path)
+
 
         if needs_upload:
             # Check if app exists
@@ -421,8 +429,9 @@ try:
                 # Notify Slack
                 slack_upload_log(log, "%s: Build logs for %s" % (platform.system(), app_name), "Successful build: http://%s/%s" % (app_upload_bucket, app_name))
 
-                # Move app to uploads folder (so it will be skipped next time)
-                shutil.move(app_build_path, app_upload_path)
+                # Move app to uploads folder, and remove from build folder (so it will be skipped next time)
+                shutil.copyfile(app_build_path, app_upload_path)
+                os.remove(app_build_path)
 
             else:
                 # App doesn't exist (something went wrong)
