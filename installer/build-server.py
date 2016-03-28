@@ -29,13 +29,12 @@ import os
 import sys
 
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
-sys.path.append(os.path.join(PATH, 'src'))
 
 import datetime
 import platform
 import shutil
-from classes import info
 from slacker import Slacker
+import re
 import stat
 import subprocess
 import sys
@@ -71,7 +70,7 @@ if platform.system() == "Linux":
 elif platform.system() == "Darwin":
     freeze_command = '/Library/Frameworks/Python.Framework/Versions/3.5/bin/python3.5 /Users/jonathan/apps/openshot-qt-git/freeze.py bdist_mac --iconfile=installer/openshot.icns --custom-info-plist=installer/Info.plist --bundle-name="OpenShot Video Editor"'
     project_paths = [("/Users/jonathan/apps/libopenshot-audio-git", '-DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -D"CMAKE_BUILD_TYPE:STRING=Release" -D"CMAKE_OSX_DEPLOYMENT_TARGET=10.9" ../'),
-                     ("/Users/jonathan/apps/libopenshot-git", '-DCMAKE_CXX_COMPILER=/usr/local/opt/gcc48/bin/g++-4.8 -DCMAKE_C_COMPILER=/usr/local/opt/gcc48/bin/gcc-4.8 -DCMAKE_PREFIX_PATH=/usr/local/qt5/5.5/clang_64 -DPYTHON_INCLUDE_DIR=/Library/Frameworks/Python.framework/Versions/3.5/include/python3.5m -DPYTHON_LIBRARY=/Library/Frameworks/Python.framework/Versions/3.5/lib/libpython3.5.dylib -DPython_FRAMEWORKS=/Library/Frameworks/Python.framework/ -D"CMAKE_BUILD_TYPE:STRING=Release" -D"CMAKE_OSX_SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk" -D"CMAKE_OSX_DEPLOYMENT_TARGET=10.9" ../ -D”CMAKE_INSTALL_RPATH_USE_LINK_PATH=1” -D"ENABLE_RUBY=0"'),
+                     ("/Users/jonathan/apps/libopenshot-git", '-DCMAKE_CXX_COMPILER=/usr/local/opt/gcc48/bin/g++-4.8 -DCMAKE_C_COMPILER=/usr/local/opt/gcc48/bin/gcc-4.8 -DCMAKE_PREFIX_PATH=/usr/local/qt5/5.5/clang_64 -DPYTHON_INCLUDE_DIR=/Library/Frameworks/Python.framework/Versions/3.5/include/python3.5m -DPYTHON_LIBRARY=/Library/Frameworks/Python.framework/Versions/3.5/lib/libpython3.5.dylib -DPython_FRAMEWORKS=/Library/Frameworks/Python.framework/ -D"CMAKE_BUILD_TYPE:STRING=Release" -D"CMAKE_OSX_SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk" -D"CMAKE_OSX_DEPLOYMENT_TARGET=10.9" ../ -D"CMAKE_INSTALL_RPATH_USE_LINK_PATH=1" -D"ENABLE_RUBY=0"'),
                      ("/Users/jonathan/apps/openshot-qt-git", "")]
 
 elif platform.system() == "Windows":
@@ -253,6 +252,9 @@ try:
             openshot_qt_git_desc = "%s-%s-%s" % (openshot_qt_git_desc, commit_data[project_paths[0][0]], commit_data[project_paths[1][0]])
             output("git description of openshot-qt-git: %s" % openshot_qt_git_desc)
 
+        # Detect version number from git description
+        version = re.search('v(.+?)-', openshot_qt_git_desc).groups()[0]
+
         # Check for left over openshot-qt dupe folder
         if os.path.exists(os.path.join(project_path, "openshot_qt")):
             shutil.rmtree(os.path.join(project_path, "openshot_qt"))
@@ -384,7 +386,7 @@ try:
                         app_image_success = True
 
                 # Rename DMG (to be consistent with other OS installers)
-                os.rename(os.path.join(project_path, "build", "OpenShot-%s.dmg" % info.VERSION), app_build_path)
+                os.rename(os.path.join(project_path, "build", "OpenShot-%s.dmg" % version), app_build_path)
 
                 # Was the DMG creation successful
                 if not app_image_success or errors_detected:
@@ -402,7 +404,7 @@ try:
                 app_image_success = True
 
                 # Rename MSI (to be consistent with other OS installers)
-                os.rename(os.path.join(project_path, "dist", "OpenShot Video Editor-%s-win32.msi" % info.VERSION), app_build_path)
+                os.rename(os.path.join(project_path, "dist", "OpenShot Video Editor-%s-win32.msi" % version), app_build_path)
 
                 key_sign_command = '"C:\\Program Files (x86)\\kSign\\kSignCMD.exe" /f "%s" /p "%s" /d "OpenShot Video Editor" /du "http://www.openshot.org" "%s"' % (windows_key, windows_key_password, app_build_path)
                 key_sign_output = ""
