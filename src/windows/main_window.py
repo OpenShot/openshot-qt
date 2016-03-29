@@ -488,7 +488,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
     def actionHelpContents_trigger(self, event):
         try:
-            webbrowser.open("http://openshotusers.com/")
+            webbrowser.open("http://openshotusers.com/?app-menu")
             log.info("Help Contents is open")
         except:
             QMessageBox.information(self, "Error !",
@@ -508,23 +508,23 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
     def actionReportBug_trigger(self, event):
         try:
-            webbrowser.open("https://bugs.launchpad.net/openshot/+filebug")
-            log.info("Open the Report Bug Launchpad web page with success")
+            webbrowser.open("https://github.com/OpenShot/openshot-qt/issues/?app-menu-bug")
+            log.info("Open the Bug Report GitHub Issues web page with success")
         except:
-            QMessageBox.information(self, "Error !", "Unable to open the launchpad web page")
-            log.info("Unable to open the Report Bug launchpad web page")
+            QMessageBox.information(self, "Error !", "Unable to open the Bug Report GitHub Issues web page")
+            log.info("Unable to open the Bug Report GitHub Issues web page")
 
     def actionAskQuestion_trigger(self, event):
         try:
-            webbrowser.open("https://answers.launchpad.net/openshot/+addquestion")
-            log.info("Open the Question launchpad web page with success")
+            webbrowser.open("https://github.com/OpenShot/openshot-qt/issues/?app-menu-question")
+            log.info("Open the Questions GitHub Issues web page with success")
         except:
-            QMessageBox.information(self, "Error !", "Unable to open the Question web page")
-            log.info("Unable to open the Question web page")
+            QMessageBox.information(self, "Error !", "Unable to open the Questions GitHub Issues web page")
+            log.info("Unable to open the Questions GitHub Issues web page")
 
     def actionTranslate_trigger(self, event):
         try:
-            webbrowser.open("https://translations.launchpad.net/openshot")
+            webbrowser.open("https://translations.launchpad.net/openshot/2.0")
             log.info("Open the Translate launchpad web page with success")
         except:
             QMessageBox.information(self, "Error !", "Unable to open the Translation web page")
@@ -532,7 +532,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
     def actionDonate_trigger(self, event):
         try:
-            webbrowser.open("http://openshot.org/donate/")
+            webbrowser.open("http://openshot.org/donate/?app-menu")
             log.info("Open the Donate web page with success")
         except:
             QMessageBox.information(self, "Error !", "Unable to open the Donate web page")
@@ -540,7 +540,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
     def actionUpdate_trigger(self, event):
         try:
-            webbrowser.open("http://openshot.org/download/")
+            webbrowser.open("http://openshot.org/download/?app-toolbar")
             log.info("Open the Download web page with success")
         except:
             QMessageBox.information(self, "Error !", "Unable to open the Download web page")
