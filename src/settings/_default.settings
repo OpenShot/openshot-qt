@@ -209,7 +209,18 @@
     "title": "Debug Mode (Verbose)",
     "type": "bool",
     "category": "Debug",
-    "setting": "debug-mode"
+    "setting": "debug-mode",
+    "restart": true
+  },
+  {
+    "min": 0,
+    "max": 9999,
+    "value": 5556,
+    "title": "Debug Mode (Port)",
+    "type": "spinner-int",
+    "category": "Debug",
+    "setting": "debug-port",
+    "restart": true
   },
   {
     "value": true,

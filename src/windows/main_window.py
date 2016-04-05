@@ -103,6 +103,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Stop threads
         self.preview_thread.kill()
 
+        # Stop libopenshot logger
+        get_app().logger_libopenshot.kill()
+
         # Wait for thread
         self.preview_parent.background.wait(250)
 

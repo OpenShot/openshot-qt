@@ -37,7 +37,7 @@ from PyQt5.QtCore import QT_VERSION_STR
 from PyQt5.Qt import PYQT_VERSION_STR
 
 from classes.logger import log
-from classes import info, settings, project_data, updates, language, ui_util
+from classes import info, settings, project_data, updates, language, ui_util, logger_libopenshot
 import openshot
 
 
@@ -92,6 +92,10 @@ class OpenShotApp(QApplication):
 
         # Load ui theme if not set by OS
         ui_util.load_theme()
+
+        # Start libopenshot logging thread
+        self.logger_libopenshot = logger_libopenshot.LoggerLibOpenShot()
+        self.logger_libopenshot.start()
 
         # Track which dockable window received a context menu
         self.context_menu_object = None

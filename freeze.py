@@ -118,11 +118,10 @@ if sys.platform == "win32":
     external_so_files = []
     build_exe_options["include_msvcr"] = True
 
-    # Copy required ImageMagick files
-    for filename in find_files("C:\\Program Files\\ImageMagick-Windows7\\etc\\ImageMagick-6", ["*.xml"]):
+    # Copy required ZMQ files
+    for filename in find_files("C:\\Python34\\Lib\\site-packages\\zmq\\", ["libzmq.pyd"]):
         external_so_files.append(
-            (filename, filename.replace("C:\\Program Files\\ImageMagick-Windows7\\etc\\ImageMagick-6\\",
-                                        "ImageMagick/etc/configuration/")))
+            (filename, filename.replace("C:\\Python34\\Lib\\site-packages\\zmq\\", "")))
 
     # Copy missing SVG dll
     # TODO: Determine why cx_Freeze misses this DLL when freezing. Without it, libopenshot cannot open SVG files
@@ -259,7 +258,7 @@ for filename in find_files("openshot_qt", ["*"]):
 
 # Dependencies are automatically detected, but it might need fine tuning.
 build_exe_options["packages"] = ["os", "sys", "PyQt5", "openshot", "time", "uuid", "shutil", "threading", "subprocess",
-                                 "re", "math", "subprocess", "xml", "logging", "urllib", "httplib2", "webbrowser", json_library]
+                                 "re", "math", "subprocess", "xml", "logging", "urllib", "httplib2", "webbrowser", "zmq", json_library]
 build_exe_options["include_files"] = src_files + external_so_files
 
 # Set options
