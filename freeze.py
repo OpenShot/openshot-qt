@@ -119,15 +119,11 @@ if sys.platform == "win32":
     build_exe_options["include_msvcr"] = True
 
     # Copy required ZMQ files
-    for filename in find_files("C:\\Python34\\Lib\\site-packages\\zmq\\", ["libzmq.pyd"]):
-        external_so_files.append(
-            (filename, filename.replace("C:\\Python34\\Lib\\site-packages\\zmq\\", "")))
+    external_so_files.append(("C:\\Python34\\Lib\\site-packages\\zmq\\libzmq.pyd", "libzmq.pyd"))
 
     # Copy missing SVG dll
     # TODO: Determine why cx_Freeze misses this DLL when freezing. Without it, libopenshot cannot open SVG files
-    for filename in find_files("C:\\Qt\\Qt5.4.2\\5.4\\mingw491_32\\bin", ["Qt5Svgd.dll"]):
-        external_so_files.append(
-            (filename, filename.replace("C:\\Qt\\Qt5.4.2\\5.4\\mingw491_32\\bin\\", "")))
+    external_so_files.append(("C:\\Qt\\Qt5.4.2\\5.4\\mingw491_32\\bin\\Qt5Svgd.dll", "Qt5Svgd.dll"))
 
     # Append Windows ICON file
     iconFile += ".ico"
