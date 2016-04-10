@@ -33,6 +33,7 @@ from PyQt5.QtCore import QLocale, QLibraryInfo, QTranslator, QCoreApplication
 
 from classes.logger import log
 from classes import info
+from classes import settings
 
 
 def init_language():
@@ -55,6 +56,12 @@ def init_language():
     locale_names = [os.environ.get('LANG', QLocale().system().name()),
                     os.environ.get('LOCALE', QLocale().system().name())
                     ]
+
+    # Determine if the user has overwritten the language (in the preferences)
+    preference_lang = settings.get_settings().get('default-language')
+    if preference_lang != "Default":
+        # Append preference lang to top of list
+        locale_names.insert(0, preference_lang)
 
     # Output all system languages detected
     log.info("Qt Detected Languages: {}".format(QLocale().system().uiLanguages()))
@@ -150,3 +157,19 @@ def find_language_match(pattern, path, translator, locale_name):
         i -= 1
 
     return success
+
+def get_all_languages():
+    """Get all language names and countries packaged with OpenShot"""
+
+    # Get app instance
+    app = QCoreApplication.instance()
+
+    # Loop through all supported language locale codes
+    all_languages = []
+    for locale_name in info.SUPPORTED_LANGUAGES:
+        native_lang_name = QLocale(locale_name).nativeLanguageName().title()
+        country_name = QLocale(locale_name).nativeCountryName().title()
+        all_languages.append((locale_name, native_lang_name, country_name))
+
+    # Return list
+    return all_languages

@@ -35,7 +35,6 @@ GPL_VERSION = "3"
 DESCRIPTION = "Create and edit videos and movies"
 COMPANY_NAME = "OpenShot Studios, LLC"
 COPYRIGHT = "Copyright (c) 2008-2016 %s" % COMPANY_NAME
-SUPPORTED_LANGUAGES = ["English", "Dutch", "French", "German", "Italian", "Portuguese", "Spanish", "Swedish"]
 CWD = os.getcwd()
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
 HOME_PATH = os.path.join(os.path.expanduser("~"))
@@ -64,6 +63,11 @@ JT = {"name": u"Jonathan Thomas", "email": "jonathan@openshot.org", "website":"h
 OG = {"name": u"Olivier Girard", "email": "olivier@openshot.org", "website":"http://openshot.org/developers/olivier"}
 CP = {"name": u"Cody Parker", "email": "cody@yourcodepro.com", "website":"http://openshot.org/developers/cody_parker"}
 
+# Languages
+SUPPORTED_LANGUAGES = []
+for lang in os.listdir(os.path.join(PATH, 'locale')):
+    if lang not in ["OpenShot"] and not os.path.isfile(os.path.join(PATH, 'locale', lang)):
+        SUPPORTED_LANGUAGES.append(lang)
 
 # credits
 CREDITS = {

@@ -1,5 +1,14 @@
 [
   {
+    "title": "Language",
+    "category": "General",
+    "setting": "default-language",
+    "value": "Default",
+    "type": "dropdown",
+    "values": [],
+    "restart": true
+  },
+  {
     "value": "Humanity: Dark",
     "title": "Default Theme",
     "category": "General",

@@ -36,6 +36,7 @@ from PyQt5 import uic
 
 from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
+from classes.language import get_all_languages
 from classes.logger import log
 from classes.metrics import *
 import openshot
@@ -167,6 +168,21 @@ class Preferences(QDialog):
                             value_list.append({"name":profile.info.description, "value":profile.info.description})
                         # Sort profile list
                         value_list.sort(key=operator.itemgetter("name"))
+
+                    # Overwrite value list (for language dropdown)
+                    if param["setting"] == "default-language":
+                        value_list = []
+                        # Loop through languages
+                        for locale, language, country in get_all_languages():
+                            # Load Profile and append description
+                            if language:
+                                lang_name = "%s (%s)" % (language, locale)
+                                value_list.append({"name":lang_name, "value":locale})
+                        # Sort profile list
+                        value_list.sort(key=operator.itemgetter("name"))
+                        # Add Default to top of list
+                        value_list.insert(0, {"name":_("Default"), "value":"Default"})
+
 
                     # Add normal values
                     box_index = 0
