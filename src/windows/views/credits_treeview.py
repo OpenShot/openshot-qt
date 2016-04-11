@@ -53,19 +53,17 @@ class CreditsTreeView(QTreeView):
         # Format columns
         self.header().setSectionResizeMode(0, QHeaderView.Fixed)
         self.header().setSectionResizeMode(1, QHeaderView.Fixed)
-        self.header().setSectionResizeMode(2, QHeaderView.Fixed)
         self.setColumnWidth(0, 22)
         self.setColumnWidth(1, 22)
-        self.setColumnWidth(2, 22)
-        self.resizeColumnToContents(3)
-        self.resizeColumnToContents(4)
-        self.resizeColumnToContents(5)
-        self.sortByColumn(3, Qt.AscendingOrder)
+        self.setColumnWidth(2, 150)
+        self.setColumnWidth(3, 150)
+        self.setColumnWidth(4, 150)
+        self.sortByColumn(2, Qt.AscendingOrder)
 
         if "email" not in self.columns:
-            self.setColumnHidden(4, True)
+            self.setColumnHidden(3, True)
         if "website" not in self.columns:
-            self.setColumnHidden(5, True)
+            self.setColumnHidden(4, True)
 
     def __init__(self, credits, columns, *args):
         # Invoke parent init

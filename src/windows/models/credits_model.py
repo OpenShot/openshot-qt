@@ -49,6 +49,7 @@ class CreditsModel():
     star_icon = QIcon(os.path.join(info.IMAGES_PATH, "star-icon.png"))
     paypal_icon = QIcon(os.path.join(info.IMAGES_PATH, "paypal-icon.png"))
     kickstarter_icon = QIcon(os.path.join(info.IMAGES_PATH, "kickstarter-icon.png"))
+    bitcoin_icon = QIcon(os.path.join(info.IMAGES_PATH, "bitcoin-icon.png"))
 
     def update_model(self, filter=None, clear=True):
         log.info("updating credits model.")
@@ -64,7 +65,7 @@ class CreditsModel():
             self.model.clear()
 
         # Add Headers
-        self.model.setHorizontalHeaderLabels(["", "", "", _("Name"), _("Email"), _("Website")])
+        self.model.setHorizontalHeaderLabels(["", "", _("Name"), _("Email"), _("Website")])
 
         for person in self.credits_list:
             # Get details of person
@@ -93,23 +94,21 @@ class CreditsModel():
 
             row = []
 
-            # Append paypal icon (if needed)
+            # Append type icon (PayPal, Kickstarter, or Bitcoin)
             col = QStandardItem()
             if "p" in icons:
                 col.setIcon(QIcon(self.paypal_icon))
                 col.setToolTip(_("PayPal Supporter!"))
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
-            row.append(col)
-
-            # Append kickstarter icon (if needed)
-            col = QStandardItem()
-            if "k" in icons:
+            elif "k" in icons:
                 col.setIcon(QIcon(self.kickstarter_icon))
                 col.setToolTip(_("Kickstarter Supporter!"))
+            elif "b" in icons:
+                col.setIcon(QIcon(self.bitcoin_icon))
+                col.setToolTip(_("Bitcoin Supporter!"))
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
             row.append(col)
 
-            # Append star icon (if needed)
+            # Append Star icon (Multiple donations, big donations, five-timer kickstarter group, etc...)
             col = QStandardItem()
             if "s" in icons:
                 col.setIcon(QIcon(self.star_icon))
