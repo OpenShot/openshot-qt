@@ -34,8 +34,7 @@ import re
 import xml.dom.minidom as xml
 import functools
 
-from PyQt5.QtCore import QSize, Qt, QEvent, QObject, QThread, pyqtSlot, \
-    pyqtSignal, QMetaObject, Q_ARG
+from PyQt5.QtCore import QSize, Qt, QEvent, QObject, QThread, pyqtSlot, pyqtSignal, QMetaObject, Q_ARG, QTimer
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
@@ -316,13 +315,24 @@ class BlenderTreeView(QTreeView):
         length = int(self.params["end_frame"])
         self.win.lblFrame.setText("{}/{}".format(current_frame, length))
 
-    def sliderPreview_released(self):
-        log.info('sliderPreview_released')
+    def sliderPreview_valueChanged(self, new_value):
+        """Get new value of preview slider, and start timer to Render frame"""
+        log.info('sliderPreview_valueChanged: %s' % new_value)
+        if self.win.sliderPreview.isEnabled():
+            self.preview_timer.start()
+
+        # Update preview label
+        preview_frame_number = new_value
+        length = int(self.params["end_frame"])
+        self.win.lblFrame.setText("{}/{}".format(preview_frame_number, length))
+
+    def preview_timer_onTimeout(self):
+        """Timer is ready to Render frame"""
+        log.info('preview_timer_onTimeout')
+        self.preview_timer.stop()
 
         # Update preview label
         preview_frame_number = self.win.sliderPreview.value()
-        length = int(self.params["end_frame"])
-        self.win.lblFrame.setText("{}/{}".format(preview_frame_number, length))
 
         # Render current frame
         self.Render(preview_frame_number)
@@ -578,6 +588,11 @@ class BlenderTreeView(QTreeView):
         self.selected = None
         self.deselected = None
 
+        # Preview render timer
+        self.preview_timer = QTimer(self)
+        self.preview_timer.setInterval(300)
+        self.preview_timer.timeout.connect(self.preview_timer_onTimeout)
+
         # Init dictionary which holds the values to the template parameters
         self.params = {}
 
@@ -599,7 +614,7 @@ class BlenderTreeView(QTreeView):
 
         # Hook up button
         self.win.btnRefresh.clicked.connect(functools.partial(self.btnRefresh_clicked))
-        self.win.sliderPreview.sliderReleased.connect(functools.partial(self.sliderPreview_released))
+        self.win.sliderPreview.valueChanged.connect(functools.partial(self.sliderPreview_valueChanged))
 
         # Refresh view
         self.refresh_view()
