@@ -508,6 +508,9 @@ class Export(QDialog):
 
     def accept(self):
         """ Start exporting video, but don't close window """
+        # Get settings
+        self.s = settings.get_settings()
+
         # Disable controls
         self.txtFileName.setEnabled(False)
         self.txtExportFolder.setEnabled(False)
@@ -542,6 +545,7 @@ class Export(QDialog):
         # Create FFmpegWriter
         try:
             w = openshot.FFmpegWriter(export_file_path)
+            w.debug = s.get("debug-mode")
 
             # Set video options
             w.SetVideoOptions(True,
@@ -571,7 +575,7 @@ class Export(QDialog):
             self.progressExportVideo.setMinimum(self.txtStartFrame.value())
             self.progressExportVideo.setMaximum(self.txtEndFrame.value())
 
-            # Write some test frames
+            # Write each frame in the selected range
             for frame in range(self.txtStartFrame.value(), self.txtEndFrame.value() + 1):
                 # Update progress bar
                 self.progressExportVideo.setValue(frame)

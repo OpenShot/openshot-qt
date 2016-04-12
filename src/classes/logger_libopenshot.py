@@ -26,10 +26,11 @@
  """
 
 from threading import Thread
-import zmq
-from classes import settings
+from classes import settings, info
 from classes.logger import log
 import openshot
+import os
+import zmq
 
 
 class LoggerLibOpenShot(Thread):
@@ -49,6 +50,9 @@ class LoggerLibOpenShot(Thread):
 
         # Set port on ZmqLogger singleton
         openshot.ZmqLogger.Instance().Connection("tcp://*:%s" % port)
+
+        # Set filepath for ZmqLogger also
+        openshot.ZmqLogger.Instance().Path(os.path.join(info.USER_PATH, 'libopenshot.log'))
 
         # Socket to talk to server
         context = zmq.Context()

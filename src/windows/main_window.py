@@ -103,7 +103,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Stop threads
         self.preview_thread.kill()
 
-        # Stop libopenshot logger
+        # Close & Stop libopenshot logger
+        openshot.ZmqLogger.Instance().Close()
         get_app().logger_libopenshot.kill()
 
         # Wait for thread
@@ -147,9 +148,33 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Check if it already exists
         if os.path.exists(lock_path):
-            # Throw exception
+            # Walk the libopenshot log (if found), and try and find last line before this launch
+            log_path = os.path.join(info.USER_PATH, "libopenshot.log")
+            last_log_line = None
+            if os.path.exists(log_path):
+                with open(log_path, "r") as f:
+                    # Read from bottom up
+                    for line in reversed(f.readlines()):
+                        # Ignore certain unuseful lines
+                        if "---" not in line and "libopenshot logging:" not in line:
+                            last_log_line = line
+                            break
+
+            # Clear / normalize log line (so we can roll them up in the analytics)
+            if last_log_line:
+                # Remove '()' from line, and split. Trying to grab the beginning of the log line.
+                last_log_line = last_log_line.replace("()", "")
+                log_parts = last_log_line.split("(")
+                if len(log_parts) == 2:
+                    last_log_line = "-%s" % log_parts[0].replace("logger_libopenshot:INFO ", "").strip()[:64]
+                elif len(log_parts) >= 3:
+                    last_log_line = "-%s (%s" % (log_parts[0].replace("logger_libopenshot:INFO ", "").strip()[:64], log_parts[1])
+            else:
+                last_log_line = ""
+
+            # Throw exception (with last libopenshot line... if found)
             log.error("Unhandled crash detected... will attempt to recover backup project: %s" % info.BACKUP_PATH)
-            track_metric_error("unhandled-crash", True)
+            track_metric_error("unhandled-crash%s" % last_log_line, True)
 
             # Remove file
             os.remove(lock_path)
