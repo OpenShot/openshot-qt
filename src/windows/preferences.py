@@ -161,11 +161,12 @@ class Preferences(QDialog):
                     if param["setting"] == "default-profile":
                         value_list = []
                         # Loop through profiles
-                        for file in os.listdir(info.PROFILES_PATH):
-                            # Load Profile and append description
-                            profile_path = os.path.join(info.PROFILES_PATH, file)
-                            profile = openshot.Profile(profile_path)
-                            value_list.append({"name":profile.info.description, "value":profile.info.description})
+                        for profile_folder in [info.USER_PROFILES_PATH, info.PROFILES_PATH]:
+                            for file in os.listdir(profile_folder):
+                                # Load Profile and append description
+                                profile_path = os.path.join(profile_folder, file)
+                                profile = openshot.Profile(profile_path)
+                                value_list.append({"name":profile.info.description, "value":profile.info.description})
                         # Sort profile list
                         value_list.sort(key=operator.itemgetter("name"))
 

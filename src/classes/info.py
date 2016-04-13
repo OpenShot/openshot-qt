@@ -49,10 +49,11 @@ IMAGES_PATH = os.path.join(PATH, "images")
 TRANSITIONS_PATH = os.path.join(USER_PATH, "transitions")
 EXPORT_PRESETS_DIR = os.path.join(PATH, "presets")
 EXPORT_TESTS = os.path.join(USER_PATH, "tests")
+USER_PROFILES_PATH = os.path.join(USER_PATH, "profiles")
 
 # Create PATHS if they do not exist (this is where temp files are stored... such as cached thumbnails)
 for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH, TITLE_PATH, PROFILES_PATH, IMAGES_PATH,
-               TRANSITIONS_PATH, EXPORT_TESTS, BACKUP_PATH]:
+               TRANSITIONS_PATH, EXPORT_TESTS, BACKUP_PATH, USER_PROFILES_PATH]:
     if not os.path.exists(folder.encode("UTF-8")):
         os.makedirs(folder, exist_ok=True)
 

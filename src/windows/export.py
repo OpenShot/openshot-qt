@@ -147,14 +147,15 @@ class Export(QDialog):
         # Loop through profiles
         self.profile_names = []
         self.profile_paths = {}
-        for file in os.listdir(info.PROFILES_PATH):
-            # Load Profile
-            profile_path = os.path.join(info.PROFILES_PATH, file)
-            profile = openshot.Profile(profile_path)
+        for profile_folder in [info.USER_PROFILES_PATH, info.PROFILES_PATH]:
+            for file in os.listdir(profile_folder):
+                # Load Profile
+                profile_path = os.path.join(profile_folder, file)
+                profile = openshot.Profile(profile_path)
 
-            # Add description of Profile to list
-            self.profile_names.append(profile.info.description)
-            self.profile_paths[profile.info.description] = profile_path
+                # Add description of Profile to list
+                self.profile_names.append(profile.info.description)
+                self.profile_paths[profile.info.description] = profile_path
 
         # Sort list
         self.profile_names.sort()

@@ -260,19 +260,20 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         default_profile = s.get("default-profile")
 
         # Loop through profiles
-        for file in os.listdir(info.PROFILES_PATH):
-            # Load Profile and append description
-            profile_path = os.path.join(info.PROFILES_PATH, file)
-            profile = openshot.Profile(profile_path)
+        for profile_folder in [info.USER_PROFILES_PATH, info.PROFILES_PATH]:
+            for file in os.listdir(profile_folder):
+                # Load Profile and append description
+                profile_path = os.path.join(profile_folder, file)
+                profile = openshot.Profile(profile_path)
 
-            if default_profile == profile.info.description:
-                log.info("Setting default profile to %s" % profile.info.description)
+                if default_profile == profile.info.description:
+                    log.info("Setting default profile to %s" % profile.info.description)
 
-                # Update default profile
-                self._data["profile"] = profile.info.description
-                self._data["width"] = profile.info.width
-                self._data["height"] = profile.info.height
-                self._data["fps"] = {"num" : profile.info.fps.num, "den" : profile.info.fps.den}
+                    # Update default profile
+                    self._data["profile"] = profile.info.description
+                    self._data["width"] = profile.info.width
+                    self._data["height"] = profile.info.height
+                    self._data["fps"] = {"num" : profile.info.fps.num, "den" : profile.info.fps.den}
 
         # Get the default audio settings for the timeline (and preview playback)
         default_sample_rate = int(s.get("default-samplerate"))
