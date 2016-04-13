@@ -379,6 +379,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Import legacy openshot classes (from version 1.X)
         from classes.legacy.openshot import classes as legacy_classes
+        from classes.legacy.openshot.classes import project as legacy_project
         from classes.legacy.openshot.classes import sequences as legacy_sequences
         from classes.legacy.openshot.classes import track as legacy_track
         from classes.legacy.openshot.classes import clip as legacy_clip
@@ -386,6 +387,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         from classes.legacy.openshot.classes import files as legacy_files
         from classes.legacy.openshot.classes import transition as legacy_transition
         sys.modules['openshot.classes'] = legacy_classes
+        sys.modules['classes.project'] = legacy_project
         sys.modules['classes.sequences'] = legacy_sequences
         sys.modules['classes.track'] = legacy_track
         sys.modules['classes.clip'] = legacy_clip
