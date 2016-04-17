@@ -96,6 +96,11 @@ class VideoWidget(QWidget):
         """ Connect signals to renderer """
         renderer.present.connect(self.present)
 
+    def mouseMoveEvent(self, event):
+        """ Capture mouse events on video preview window """
+        #log.info("%s,%s" % (event.x(), event.y()))
+        pass
+
     def __init__(self, *args):
         # Invoke parent init
         QWidget.__init__(self, *args)
@@ -114,6 +119,9 @@ class VideoWidget(QWidget):
         super().setPalette(p)
         super().setAttribute(Qt.WA_OpaquePaintEvent)
         super().setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+
+        # Set mouse tracking
+        self.setMouseTracking(True)
 
         # Init current frame's QImage
         self.current_image = None

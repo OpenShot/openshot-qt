@@ -135,6 +135,7 @@
     </property>
     <addaction name="actionHelpContents"/>
     <addaction name="separator"/>
+    <addaction name="actionTutorial"/>
     <addaction name="actionReportBug"/>
     <addaction name="actionAskQuestion"/>
     <addaction name="actionTranslate"/>
@@ -206,7 +207,7 @@
    <attribute name="dockWidgetArea">
     <number>4</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents_2">
+   <widget class="QWidget" name="dockVideoContents">
     <layout class="QGridLayout" name="gridLayout_3">
      <item row="0" column="1">
       <layout class="QVBoxLayout" name="tabVideo"/>
@@ -1258,6 +1259,19 @@
    </property>
    <property name="iconVisibleInMenu">
     <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionTutorial">
+   <property name="icon">
+    <iconset theme="im-message-new">
+     <normaloff/>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Tutorial</string>
+   </property>
+   <property name="toolTip">
+    <string>Launch Tutorial</string>
    </property>
   </action>
  </widget>

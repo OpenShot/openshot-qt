@@ -147,7 +147,6 @@ class OpenShotApp(QApplication):
         # Create main window
         from windows.main_window import MainWindow
         self.window = MainWindow()
-        self.window.show()
 
         log.info('Process command-line arguments: %s' % args)
         if len(args[0]) == 2:

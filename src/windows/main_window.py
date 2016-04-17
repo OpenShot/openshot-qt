@@ -54,6 +54,7 @@ from windows.views.transitions_listview import TransitionsListView
 from windows.views.effects_treeview import EffectsTreeView
 from windows.views.effects_listview import EffectsListView
 from windows.views.properties_tableview import PropertiesTableView
+from windows.views.tutorial import TutorialManager
 from windows.video_widget import VideoWidget
 from windows.preview_thread import PreviewParent
 
@@ -76,6 +77,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
     # Save window settings on close
     def closeEvent(self, event):
+
+        # Close any tutorial dialogs
+        self.tutorial_manager.exit_manager()
 
         # Prompt user to save (if needed)
         if get_app().project.needs_save():
@@ -1276,6 +1280,19 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         """ Show all dockable widgets """
         self.showDocks(self.getDocks())
 
+    def actionTutorial_trigger(self, event):
+        """ Show tutorial again """
+        s = settings.get_settings()
+
+        # Clear tutorial settings
+        s.set("tutorial_enabled", True)
+        s.set("tutorial_ids", "")
+
+        # Show first tutorial dialog again
+        if self.tutorial_manager:
+            self.tutorial_manager.exit_manager()
+            self.tutorial_manager = TutorialManager(self)
+
     def SetWindowTitle(self, profile=None):
         """ Set the window title based on a variety of factors """
 
@@ -1539,6 +1556,20 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             self.actionUpdate.setText(_("New Version Available: %s") % version)
             self.actionUpdate.setToolTip(_("New Version Available: %s") % version)
 
+    def moveEvent(self, event):
+        """ Move tutorial dialogs also (if any)"""
+        if self.tutorial_manager:
+            self.tutorial_manager.re_position_dialog()
+
+    def eventFilter(self, object, e):
+        """ Filter out certain types of window events """
+        if e.type() == QEvent.WindowActivate:
+            self.tutorial_manager.re_show_dialog()
+        elif e.type() == QEvent.WindowStateChange and self.isMinimized():
+            self.tutorial_manager.minimize()
+
+        return False
+
     def __init__(self):
 
         # Create main window base class
@@ -1551,6 +1582,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Track metrics
         track_metric_session()  # start session
         track_metric_screen("main-screen")
+
+        # Create blank tutorial manager
+        self.tutorial_manager = None
 
         # Load UI from designer
         ui_util.load_ui(self, self.ui_path)
@@ -1635,3 +1669,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Create lock file
         self.create_lock_file()
+
+        # Show window
+        self.show()
+
+        # Create tutorial manager
+        self.tutorial_manager = TutorialManager(self)
+
+        # Install event filter
+        self.installEventFilter(self)

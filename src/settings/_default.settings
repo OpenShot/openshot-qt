@@ -237,5 +237,19 @@
     "type": "bool",
     "category": "Debug",
     "setting": "send_metrics"
+  },
+  {
+    "value": true,
+    "title": "",
+    "type": "hidden",
+    "category": "Tutorial",
+    "setting": "tutorial_enabled"
+  },
+  {
+    "value": "",
+    "title": "",
+    "type": "hidden",
+    "category": "Tutorial",
+    "setting": "tutorial_ids"
   }
 ]
