@@ -360,12 +360,16 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         """Attempt to read a legacy version 1.x openshot project file"""
         import sys, pickle
         from classes.query import File, Track, Clip, Transition
+        from classes.app import get_app
         import openshot
 
         try:
             import json
         except ImportError:
             import simplejson as json
+
+        # Get translation method
+        _ = get_app()._tr
 
         # Append version info
         v = openshot.GetVersion()
@@ -395,6 +399,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         sys.modules['classes.keyframe'] = legacy_keyframe
         sys.modules['classes.files'] = legacy_files
         sys.modules['classes.transition'] = legacy_transition
+
+        # Keep track of files that failed to load
+        failed_files = []
 
         with open(file_path.encode('UTF-8'), 'rb') as f:
             try:
@@ -432,6 +439,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             # Handle exception quietly
                             msg = ("%s is not a valid video, audio, or image file." % item.name)
                             log.error(msg)
+                            failed_files.append(item.name)
 
                 # Delete all tracks
                 track_list = copy.deepcopy(Track.filter())
@@ -453,7 +461,12 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     for track in reversed(sequence.tracks):
                         for clip in track.clips:
                             # Get associated file for this clip
-                            file = file_lookup[clip.file_object.unique_id]
+                            if clip.file_object.unique_id in file_lookup.keys():
+                                file = file_lookup[clip.file_object.unique_id]
+                            else:
+                                # Skip missing file
+                                log.info("Skipping importing missing file: %s" % clip.file_object.unique_id)
+                                continue
 
                             # Create clip
                             if (file.data["media_type"] == "video" or file.data["media_type"] == "image"):
@@ -586,9 +599,14 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
             except Exception as ex:
                 # Error parsing legacy contents
-                msg = ("Failed to load project file %s: %s" % (file_path, ex))
+                msg = _("Failed to load project file %s: %s" % (file_path, ex))
                 log.error(msg)
                 raise Exception(msg)
+
+        # Show warning if some files failed to load
+        if failed_files:
+            # Throw exception
+            raise Exception(_("Failed to load the following files:\n%s" % ", ".join(failed_files)))
 
         # Return mostly empty project_data dict (with just the current version #)
         log.info("Successfully loaded legacy project file: %s" % file_path)
