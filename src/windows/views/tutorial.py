@@ -240,7 +240,6 @@ class TutorialManager(object):
 
     def re_position_dialog(self):
         """ Reposition a tutorial dialog next to another widget """
-        log.info("re_position_dialog")
         if self.current_dialog:
             self.current_dialog.moveWidget()
 
