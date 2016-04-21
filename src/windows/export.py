@@ -546,7 +546,6 @@ class Export(QDialog):
         # Create FFmpegWriter
         try:
             w = openshot.FFmpegWriter(export_file_path)
-            w.debug = s.get("debug-mode")
 
             # Set video options
             w.SetVideoOptions(True,

@@ -219,7 +219,7 @@
     "type": "bool",
     "category": "Debug",
     "setting": "debug-mode",
-    "restart": true
+    "restart": false
   },
   {
     "min": 0,

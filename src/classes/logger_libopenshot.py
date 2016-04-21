@@ -47,12 +47,16 @@ class LoggerLibOpenShot(Thread):
 
         # Get port from settings
         port = s.get("debug-port")
+        debug_enabled = s.get("debug-mode")
 
         # Set port on ZmqLogger singleton
         openshot.ZmqLogger.Instance().Connection("tcp://*:%s" % port)
 
         # Set filepath for ZmqLogger also
         openshot.ZmqLogger.Instance().Path(os.path.join(info.USER_PATH, 'libopenshot.log'))
+
+        # Enable / Disable logger
+        openshot.ZmqLogger.Instance().Enable(debug_enabled)
 
         # Socket to talk to server
         context = zmq.Context()

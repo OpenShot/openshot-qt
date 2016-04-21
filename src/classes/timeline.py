@@ -60,7 +60,6 @@ class TimelineSync(UpdateInterface):
         self.timeline.info.duration = 999.99
         self.timeline.info.sample_rate = sample_rate
         self.timeline.info.channels = channels
-        self.timeline.debug = s.get("debug-mode")
 
         # Open the timeline reader
         self.timeline.Open()

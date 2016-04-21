@@ -223,7 +223,10 @@ class Preferences(QDialog):
         if param["setting"] == "debug-mode":
             # Update debug setting of timeline
             log.info("Setting debug-mode to %s" % (state == Qt.Checked))
-            get_app().window.timeline_sync.timeline.debug = (state == Qt.Checked)
+            debug_enabled = (state == Qt.Checked)
+
+            # Enable / Disable logger
+            openshot.ZmqLogger.Instance().Enable(debug_enabled)
 
         elif param["setting"] == "enable-auto-save":
             # Toggle autosave

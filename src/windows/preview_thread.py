@@ -212,9 +212,6 @@ class PlayerWorker(QObject):
             log.info("Set timeline reader again in player: %s" % self.timeline)
             self.player.Reader(self.timeline)
 
-            # Set debug mode
-            self.timeline.debug = s.get("debug-mode")
-
             # Clear clip reader reference
             self.clip_reader = None
             self.clip_path = None
@@ -262,7 +259,6 @@ class PlayerWorker(QObject):
 
             # Assign new clip_reader
             self.clip_reader = new_mapper
-            self.clip_reader.debug = s.get("debug-mode")
             self.clip_path = path
 
             # Open reader
