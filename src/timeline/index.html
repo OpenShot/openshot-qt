@@ -97,11 +97,11 @@
 						<br class="cleared">
 					</div>
 					<br class="cleared">
-					<div ng-show="{{!clip.show_audio}}" class="thumb-container">
+					<div ng-show="!clip.show_audio" class="thumb-container">
 						<img class="thumb thumb-start" ng-src="{{ FormatThumbPath(clip.image) }}"/>
 					</div>
-					<div ng-show="{{clip.show_audio}}" class="audio-container">
-						<canvas tl-audio height="46px" width="{{ (clip.end - clip.start) * pixelsPerSecond}}px;left:{{clip.position * pixelsPerSecond}}px" class="audio"></canvas>
+					<div ng-show="clip.show_audio" class="audio-container">
+						<canvas tl-audio height="46px" width="{{ (clip.end - clip.start) * pixelsPerSecond}}px" class="audio"></canvas>
 					</div>
 				</div>
 				

@@ -97,46 +97,56 @@ function handleVisibleClipElements(scope, clip_id){
 function drawAudio(scope, clip_id){
     //get the clip in the scope
     clip = findElement(scope.project.clips, "id", clip_id);
-    
+
     if (clip.show_audio){
         element = $("#clip_"+clip_id);
 
+        // Determine start and stop samples
+        var start_sample = Math.round(clip.start * 100);
+        var end_sample = Math.round(clip.end * 100);
+
+        // Determine divisor for zoom scale
+        var sample_divisor = Math.round(100 / scope.pixelsPerSecond);
+
         //show audio container
-        //element.find(".audio-container").show();
-        
-        //draw audio
+        element.find(".audio-container").show();
+
+        // Get audio canvas context
         var audio_canvas = element.find(".audio");
         var ctx = audio_canvas[0].getContext('2d');
-        //set the midpoint
-        var mid_point = parseInt(audio_canvas.css("height")) / 2;
+
+        // Clear canvas
+        ctx.canvas.width = ctx.canvas.width;
+
+        // Offset the coordinates for thinner lines
+        ctx.translate(0.5, 0.5);
+        ctx.beginPath();
+
+        // Find the midpoint
+        var mid_point = audio_canvas.height() - 8;
         var line_spot = 0;
-        
-        //draw midpoint line
-        ctx.beginPath();
-        ctx.lineWidth = .5;
-        ctx.beginPath();
+
+        // Draw the mid-point line
+        ctx.lineWidth = 1;
         ctx.moveTo(0, mid_point);
-        ctx.lineTo(parseInt(audio_canvas.css("width")), mid_point);
-        ctx.strokeStyle = "#fff";
+        ctx.lineTo(audio_canvas.width(), mid_point);
+        ctx.strokeStyle = "#2a82da";
         ctx.stroke();
 
         //for each point of audio data, draw a line
-        for (var i = 0; i < clip.audio_data.length; i++) {
+        for (var i = start_sample; i < clip.audio_data.length && i < end_sample; i+=sample_divisor) {
             //increase the 'x' axis draw point
+            ctx.beginPath();
             line_spot += 1;
-            ctx.beginPath();
-            ctx.lineWidth = 1;
-            ctx.beginPath();
             ctx.moveTo(line_spot, mid_point);
             var audio_point = clip.audio_data[i];
             //set the point to draw to
             var draw_to = (audio_point * mid_point);
             //handle the 'draw to' point based on positive or negative audio point
-            if (audio_point >= 0) draw_to = mid_point - draw_to;
-            if (audio_point < 0) draw_to = mid_point + (draw_to * -1);
+            if (audio_point >= 0.0) draw_to = mid_point - draw_to;
+            if (audio_point < 0.0) draw_to = mid_point + (draw_to * -1.0);
             //draw it
             ctx.lineTo(line_spot, draw_to);
-            ctx.strokeStyle = "#FF6E97";
             ctx.stroke();
         }
     }

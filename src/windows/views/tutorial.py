@@ -233,7 +233,6 @@ class TutorialManager(object):
 
     def re_show_dialog(self):
         """ Re show an active dialog """
-        log.info("re_show_dialog")
         if self.current_dialog:
             self.current_dialog.showNormal()
             self.current_dialog.raise_()

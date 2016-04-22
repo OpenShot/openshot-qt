@@ -334,6 +334,37 @@ App.controller('TimelineCtrl',function($scope) {
      });
  };
 
+ // Set the audio data for a clip
+ $scope.setAudioData = function(clip_id, audio_data){
+ 	// Find matching clip
+	for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++)
+		if ($scope.project.clips[clip_index].id == clip_id) {
+			// Set audio data
+			$scope.$apply(function(){
+				$scope.project.clips[clip_index].audio_data = audio_data;
+				$scope.project.clips[clip_index].show_audio = true;
+			});
+			timeline.qt_log("Audio data successful set on clip JSON");
+			break;
+		}
+
+	 // Draw audio data
+	 drawAudio($scope, clip_id);
+ };
+
+ // Hide the audio waveform for a clip
+ $scope.hideAudioData = function(clip_id, audio_data){
+ 	// Find matching clip
+	for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++)
+		if ($scope.project.clips[clip_index].id == clip_id) {
+			// Set audio data
+			$scope.$apply(function(){
+				$scope.project.clips[clip_index].show_audio = false;
+			});
+			break;
+		}
+ };
+
  // Change the snapping mode
  $scope.SetSnappingMode = function(enable_snapping){
       $scope.$apply(function(){

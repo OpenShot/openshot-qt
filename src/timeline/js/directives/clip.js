@@ -64,16 +64,19 @@ App.directive('tlClip', function($timeout){
 					}
 
 					// Hide keyframe points
-					element.find('.point_icon').hide()
+					element.find('.point_icon').fadeOut('fast');
+					element.find('.audio-container').fadeOut('fast');
 
 				},
 				stop: function(e, ui) {
 					dragging = false;
 
 					// Hide keyframe points
-					if (dragLoc == 'right')
+					if (dragLoc == 'right') {
 						// Make the keyframe points visible again
-						element.find('.point_icon').show()
+						element.find('.point_icon').show();
+						element.find('.audio-container').show();
+					}
 
 					//get amount changed in width
 					var delta_x = ui.originalSize.width - ui.size.width;
@@ -260,11 +263,6 @@ App.directive('tlClip', function($timeout){
                 	// Clear previous drag position
 					previous_drag_position = null;
 					dragging = false;
-
-					//redraw audio
-					if (scope.clip.show_audio){
-						drawAudio(scope, scope.clip.id);
-					}
 
 				},
                 drag: function(e, ui) {

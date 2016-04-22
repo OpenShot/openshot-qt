@@ -70,7 +70,7 @@ img {
 .audio {}
 .effect-container { overflow: hidden; white-space: nowrap; height: 20px; float:left; min-width: 0px; }
 .thumb-container { margin-top:-20px; overflow: hidden; }
-.audio-container { display:none; margin-top:-18px; background-color:#000;height:46px;border-top-left-radius: 4px; border-bottom-left-radius: 4px;border-top-right-radius: 4px; border-bottom-right-radius: 4px;}
+.audio-container { display:none; margin-top:-20px; height:46px; overflow: hidden; margin-left: -2px;}
 
 /* Clip Animations */
 .clip.ng-enter,

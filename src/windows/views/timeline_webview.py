@@ -44,6 +44,7 @@ from classes.app import get_app
 from classes.logger import log
 from classes.query import File, Clip
 from classes.query import Transition
+from classes.waveform import get_audio_data
 
 try:
     import json
@@ -679,6 +680,14 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             Volume_Menu.addMenu(Position_Menu)
         menu.addMenu(Volume_Menu)
 
+        # Add experimental waveform menu
+        Waveform_Menu = QMenu(_("Waveform"), self)
+        ShowWaveform = Waveform_Menu.addAction(_("Show Audio"))
+        ShowWaveform.triggered.connect(partial(self.Show_Waveform_Triggered, clip_id))
+        HideWaveform = Waveform_Menu.addAction(_("Hide Audio"))
+        HideWaveform.triggered.connect(partial(self.Hide_Waveform_Triggered, clip_id))
+        menu.addMenu(Waveform_Menu)
+
         # If Playhead overlapping clip
         start_of_clip = float(clip.data["start"])
         end_of_clip = float(clip.data["end"])
@@ -704,6 +713,36 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Show Context menu
         return menu.popup(QCursor.pos())
+
+    def Show_Waveform_Triggered(self, clip_id):
+        """Show a waveform for the selected clip"""
+        # Get existing clip object
+        clip = Clip.get(id=clip_id)
+        file_path = clip.data["reader"]["path"]
+
+        # Get audio data in a separate thread (so it doesn't block the UI)
+        channel_filter = -1 # all channels
+        get_audio_data(clip_id, file_path, channel_filter)
+
+    def Hide_Waveform_Triggered(self, clip_id):
+        """Hide the waveform for the selected clip"""
+        # Get existing clip object
+        clip = Clip.get(id=clip_id)
+
+        # Pass to javascript timeline (and render)
+        cmd = JS_SCOPE_SELECTOR + ".hideAudioData('" + clip_id + "');"
+        self.page().mainFrame().evaluateJavaScript(cmd)
+
+    def Waveform_Ready(self, clip_id, audio_data):
+        """Callback when audio waveform is ready"""
+        log.info("Waveform_Ready for clip ID: %s" % (clip_id))
+
+        # Convert waveform data to JSON
+        serialized_audio_data = json.dumps(audio_data)
+
+        # Pass to javascript timeline (and render)
+        cmd = JS_SCOPE_SELECTOR + ".setAudioData('" + clip_id + "', " + serialized_audio_data + ");"
+        self.page().mainFrame().evaluateJavaScript(cmd)
 
     def Layout_Triggered(self, action, clip_id):
         """Callback for the layout context menus"""
@@ -1912,6 +1951,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Connect zoom functionality
         window.sliderZoom.valueChanged.connect(self.update_zoom)
+
+        # Connect waveform generation signal
+        get_app().window.WaveformReady.connect(self.Waveform_Ready)
 
         # Copy clipboard
         self.copy_clipboard = {}
