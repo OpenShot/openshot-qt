@@ -39,7 +39,7 @@ import openshot
 s = settings.get_settings()
 
 
-def get_audio_data(clip_id, file_path, channel_filter):
+def get_audio_data(clip_id, file_path, channel_filter, volume_keyframe):
     """Get a Clip object form libopenshot, and grab audio data"""
     clip = openshot.Clip(file_path)
     clip.Open()
@@ -48,36 +48,46 @@ def get_audio_data(clip_id, file_path, channel_filter):
     clip.Reader().info.has_video = False
 
     log.info("Clip loaded, start thread")
-    t = threading.Thread(target=get_waveform_thread, args=[clip, clip_id, file_path, channel_filter])
+    t = threading.Thread(target=get_waveform_thread, args=[clip, clip_id, file_path, channel_filter, volume_keyframe])
     t.start()
 
-def get_waveform_thread(clip, clip_id, file_path, channel_filter=-1):
+def get_waveform_thread(clip, clip_id, file_path, channel_filter=-1, volume_keyframe=None):
     """Get the audio data from a clip in a separate thread"""
     audio_data = []
     sample_rate = clip.Reader().info.sample_rate
 
     # How many samples per second do we need (to approximate the waveform)
-    samples_per_second = 100
+    samples_per_second = 20
     sample_divisor = round(sample_rate / samples_per_second)
     log.info("Getting waveform for sample rate: %s" % sample_rate)
 
-    sample_index = 0
+    sample = 0
     for frame_number in range(1, clip.Reader().info.video_length):
         # Get frame object
         frame = clip.Reader().GetFrame(frame_number)
 
-        # Loop through the samples in this channel
-        for sample in range(0, frame.GetAudioSamplesCount()):
-            # Only take samples that are divisible by this
-            if sample_index == 0 or sample_index % sample_divisor == 0:
-                # Determine amount of range
-                magnitude_range = sample_divisor
-                if sample + magnitude_range > frame.GetAudioSamplesCount():
-                    magnitude_range = frame.GetAudioSamplesCount() - sample
+        # Get volume for this frame
+        volume = 1.0
+        if volume_keyframe:
+            volume = volume_keyframe.GetValue(frame_number)
 
-                # Get audio data for this channel
-                audio_data.append(frame.GetAudioSample(channel_filter, sample, magnitude_range))
-            sample_index += 1
+        # Loop through samples in frame (hopping through it to get X # of data points per second)
+        while True:
+            # Determine amount of range
+            magnitude_range = sample_divisor
+            if sample + magnitude_range > frame.GetAudioSamplesCount():
+                magnitude_range = frame.GetAudioSamplesCount() - sample
+
+            # Get audio data for this channel
+            if sample < frame.GetAudioSamplesCount():
+                audio_data.append(frame.GetAudioSample(channel_filter, sample, magnitude_range) * volume)
+            else:
+                # Adjust starting sample for next frame
+                sample = max(0, sample - frame.GetAudioSamplesCount())
+                break # We are done with this frame
+
+            # Jump to next sample needed
+            sample += sample_divisor
 
     # Close reader
     clip.Close()

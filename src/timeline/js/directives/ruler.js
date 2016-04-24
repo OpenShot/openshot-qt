@@ -192,15 +192,6 @@ App.directive('tlRuler', function ($timeout) {
 							ctx.lineTo(x*each_tick, line_top);
 							ctx.stroke();
 						}
-
-						//redraw audio if needed
-						$.each(scope.project.clips, function(){
-							drawAudio(scope, this.id);
-							handleVisibleClipElements(scope, this.id);
-						});
-
-
-
 				    }, 0);
 
              }

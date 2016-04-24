@@ -33,7 +33,7 @@ from functools import partial
 from random import uniform
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
-from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication
+from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication, QTimer
 from PyQt5.QtGui import QCursor
 from PyQt5.QtWebKitWidgets import QWebView
 from PyQt5.QtWidgets import QMenu
@@ -138,6 +138,9 @@ MENU_COPY_KEYFRAMES_CONTRAST = 12
 MENU_SLICE_KEEP_BOTH = 0
 MENU_SLICE_KEEP_LEFT = 1
 MENU_SLICE_KEEP_RIGHT = 2
+
+MENU_SPLIT_AUDIO_SINGLE = 0
+MENU_SPLIT_AUDIO_MULTIPLE = 1
 
 
 class TimelineWebView(QWebView, updates.UpdateInterface):
@@ -680,13 +683,13 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             Volume_Menu.addMenu(Position_Menu)
         menu.addMenu(Volume_Menu)
 
-        # Add experimental waveform menu
-        Waveform_Menu = QMenu(_("Waveform"), self)
-        ShowWaveform = Waveform_Menu.addAction(_("Show Audio"))
-        ShowWaveform.triggered.connect(partial(self.Show_Waveform_Triggered, clip_id))
-        HideWaveform = Waveform_Menu.addAction(_("Hide Audio"))
-        HideWaveform.triggered.connect(partial(self.Hide_Waveform_Triggered, clip_id))
-        menu.addMenu(Waveform_Menu)
+        # Add separate audio menu
+        Split_Audio_Channels_Menu = QMenu(_("Separate Audio"), self)
+        Split_Single_Clip = Split_Audio_Channels_Menu.addAction(_("Single Clip (all channels)"))
+        Split_Single_Clip.triggered.connect(partial(self.Split_Audio_Triggered, MENU_SPLIT_AUDIO_SINGLE, clip_id))
+        Split_Multiple_Clips = Split_Audio_Channels_Menu.addAction(_("Multiple Clips (each channel)"))
+        Split_Multiple_Clips.triggered.connect(partial(self.Split_Audio_Triggered, MENU_SPLIT_AUDIO_MULTIPLE, clip_id))
+        menu.addMenu(Split_Audio_Channels_Menu)
 
         # If Playhead overlapping clip
         start_of_clip = float(clip.data["start"])
@@ -703,8 +706,16 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             Slice_Keep_Right.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_RIGHT, clip_id, playhead_position))
             menu.addMenu(Slice_Menu)
 
-        # Properties
+        # Add clip display menu (waveform or thunbnail)
         menu.addSeparator()
+        Waveform_Menu = QMenu(_("Display"), self)
+        ShowWaveform = Waveform_Menu.addAction(_("Show Waveform"))
+        ShowWaveform.triggered.connect(partial(self.Show_Waveform_Triggered, clip_id))
+        HideWaveform = Waveform_Menu.addAction(_("Show Thumbnail"))
+        HideWaveform.triggered.connect(partial(self.Hide_Waveform_Triggered, clip_id))
+        menu.addMenu(Waveform_Menu)
+
+        # Properties
         menu.addAction(self.window.actionProperties)
 
         # Remove Clip Menu
@@ -720,9 +731,23 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         clip = Clip.get(id=clip_id)
         file_path = clip.data["reader"]["path"]
 
-        # Get audio data in a separate thread (so it doesn't block the UI)
-        channel_filter = -1 # all channels
-        get_audio_data(clip_id, file_path, channel_filter)
+        # Find actual clip object from libopenshot
+        c = None
+        clips = get_app().window.timeline_sync.timeline.Clips()
+        for clip_object in clips:
+            if clip_object.Id() == clip_id:
+                c = clip_object
+
+        if c and c.Reader() and not c.Reader().info.has_single_image:
+            # Find frame 1 channel_filter property
+            channel_filter = c.channel_filter.GetInt(1)
+
+            # Set cursor to waiting
+            get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
+
+            # Get audio data in a separate thread (so it doesn't block the UI)
+            channel_filter = channel_filter
+            get_audio_data(clip_id, file_path, channel_filter, c.volume)
 
     def Hide_Waveform_Triggered(self, clip_id):
         """Hide the waveform for the selected clip"""
@@ -743,6 +768,92 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Pass to javascript timeline (and render)
         cmd = JS_SCOPE_SELECTOR + ".setAudioData('" + clip_id + "', " + serialized_audio_data + ");"
         self.page().mainFrame().evaluateJavaScript(cmd)
+
+        # Restore normal cursor
+        get_app().restoreOverrideCursor()
+
+    def Split_Audio_Triggered(self, action, clip_id):
+        """Callback for split audio context menus"""
+        log.info("Split_Audio_Triggered")
+
+        # Get existing clip object
+        clip = Clip.get(id=clip_id)
+
+        # Filter out audio on the original clip
+        p = openshot.Point(1, 0.0, openshot.CONSTANT) # Override has_audio keyframe to False
+        p_object = json.loads(p.Json())
+        clip.data["has_audio"] = { "Points" : [p_object]}
+
+        # Save filter on original clip
+        clip.save()
+
+
+        # Clear audio override
+        p = openshot.Point(1, -1.0, openshot.CONSTANT) # Override has_audio keyframe to False
+        p_object = json.loads(p.Json())
+        clip.data["has_audio"] = { "Points" : [p_object]}
+
+        # Remove the ID property from the clip (so it becomes a new one)
+        clip.id = None
+        clip.type = 'insert'
+        clip.data.pop('id')
+        clip.key.pop(1)
+
+
+        if action == MENU_SPLIT_AUDIO_SINGLE:
+            # Clear channel filter on new clip
+            p = openshot.Point(1, -1.0, openshot.CONSTANT)
+            p_object = json.loads(p.Json())
+            clip.data["channel_filter"] = { "Points" : [p_object]}
+
+            # Filter out video on the new clip
+            p = openshot.Point(1, 0.0, openshot.CONSTANT) # Override has_audio keyframe to False
+            p_object = json.loads(p.Json())
+            clip.data["has_video"] = { "Points" : [p_object]}
+
+            # Adjust the layer, so this new audio clip doesn't overlap the parent
+            clip.data['layer'] = clip.data['layer'] - 1 # Add to layer below clip
+
+            # Save changes
+            clip.save()
+
+            # Generate waveform for clip
+            #channel_filter = -1 # all channels
+            self.Show_Waveform_Triggered(clip.id)
+            #get_audio_data(clip.id, clip.data["reader"]["path"], channel_filter, None)
+
+        if action == MENU_SPLIT_AUDIO_MULTIPLE:
+            # Get # of channels on clip
+            channels = int(clip.data["reader"]["channels"])
+
+            # Loop through each channel
+            for channel in range(0, channels):
+                log.info("Adding clip for channel %s" % channel)
+
+                # Each clip is filtered to a different channel
+                p = openshot.Point(1, channel, openshot.CONSTANT)
+                p_object = json.loads(p.Json())
+                clip.data["channel_filter"] = { "Points" : [p_object]}
+
+                # Filter out video on the new clip
+                p = openshot.Point(1, 0.0, openshot.CONSTANT) # Override has_audio keyframe to False
+                p_object = json.loads(p.Json())
+                clip.data["has_video"] = { "Points" : [p_object]}
+
+                # Adjust the layer, so this new audio clip doesn't overlap the parent
+                clip.data['layer'] = max(clip.data['layer'] - 1, 0) # Add to layer below clip
+
+                # Save changes
+                clip.save()
+
+                # Generate waveform for clip
+                self.Show_Waveform_Triggered(clip.id)
+                #get_audio_data(clip.id, clip.data["reader"]["path"], channel)
+
+                # Remove the ID property from the clip (so next time, it will create a new clip)
+                clip.id = None
+                clip.type = 'insert'
+                clip.data.pop('id')
 
     def Layout_Triggered(self, action, clip_id):
         """Callback for the layout context menus"""
@@ -1176,6 +1287,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Get existing clip object
         clip = Clip.get(id=clip_id)
 
+        # Determine if waveform needs to be redrawn
+        has_audio_data = bool(self.eval_js(JS_SCOPE_SELECTOR + ".hasAudioData('" + clip_id + "');"))
+
         if action == MENU_SLICE_KEEP_LEFT or action == MENU_SLICE_KEEP_BOTH:
             # Get details of original clip
             position_of_clip = float(clip.data["position"])
@@ -1212,7 +1326,6 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             # Get details of original clip
             position_of_clip = float(right_clip.data["position"])
             start_of_clip = float(right_clip.data["start"])
-            end_of_clip = float(right_clip.data["end"])
 
             # Set new 'end' of right_clip
             right_clip.data["position"] = playhead_position
@@ -1227,8 +1340,18 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             # Save changes again (with new thumbnail)
             self.update_clip_data(right_clip.data, only_basic_props=False, ignore_reader=True)
 
+            if has_audio_data:
+                # Re-generate waveform since volume curve has changed
+                log.info("Generate right splice waveform for clip id: %s" % right_clip.id)
+                self.Show_Waveform_Triggered(right_clip.id)
+
         # Save changes
         self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+
+        if has_audio_data:
+            # Re-generate waveform since volume curve has changed
+            log.info("Generate left splice waveform for clip id: %s" % clip.id)
+            self.Show_Waveform_Triggered(clip.id)
 
     def Volume_Triggered(self, action, clip_id, position="Entire Clip"):
         """Callback for volume context menus"""
@@ -1315,6 +1438,12 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Save changes
         self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+
+        # Determine if waveform needs to be redrawn
+        has_audio_data = bool(self.eval_js(JS_SCOPE_SELECTOR + ".hasAudioData('" + clip.id + "');"))
+        if has_audio_data:
+            # Re-generate waveform since volume curve has changed
+            self.Show_Waveform_Triggered(clip.id)
 
     def Rotate_Triggered(self, action, clip_id, position="Start of Clip"):
         """Callback for rotate context menus"""
@@ -1680,6 +1809,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         cmd = JS_SCOPE_SELECTOR + ".setScale(" + str(newValue) + ");"
         self.page().mainFrame().evaluateJavaScript(cmd)
 
+        # Start timer to redraw audio
+        self.redraw_audio_timer.start()
+
     def keyPressEvent(self, event):
         """ Keypress callback for timeline """
 
@@ -1931,6 +2063,17 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         self.new_item = False
         self.item_type = None
 
+    def redraw_audio_onTimeout(self):
+        """Timer is ready to redraw audio (if any)"""
+        log.info('redraw_audio_onTimeout')
+
+        # Stop timer
+        self.redraw_audio_timer.stop()
+
+        # Pass to javascript timeline (and render)
+        cmd = JS_SCOPE_SELECTOR + ".reDrawAllAudioData();"
+        self.page().mainFrame().evaluateJavaScript(cmd)
+
     def __init__(self, window):
         QWebView.__init__(self)
         self.window = window
@@ -1962,3 +2105,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Init New clip
         self.new_item = False
         self.item_type = None
+
+        # Delayed zoom audio redraw
+        self.redraw_audio_timer = QTimer(self)
+        self.redraw_audio_timer.setInterval(300)
+        self.redraw_audio_timer.timeout.connect(self.redraw_audio_onTimeout)

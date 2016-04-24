@@ -48,51 +48,6 @@ function getTrackContainerHeight() {
 	return $("#track-container").height() - track_margin;
 }
 
-// Hide and show various clip elements (based on width of clip)
-function handleVisibleClipElements(scope, clip_id){
-
-    // Get the clip in the scope
-    clip = findElement(scope.project.clips, "id", clip_id);
-    element = $("#clip_"+clip_id);
-
-    // Check clip width to determine which elements can be shown
-    var clip_width = element.width();
-    var thumb_width = $(".thumb").outerWidth(true);
-    var effects_width = element.find(".clip_effects").outerWidth(true); 
-    var label_width = element.find(".clip_label").outerWidth(true);
-    var menu_width = element.find(".clip_menu").outerWidth(true);   
-    
-    // Set min widths
-    var min_for_thumb_end = thumb_width * 2;
-    var min_for_thumb_start = thumb_width;
-    var min_for_menu = menu_width;
-    var min_for_effects = menu_width + effects_width;
-    var min_for_label = menu_width + effects_width + label_width;
-
-
-    // Show the images as audio is not shown
-    if (!clip.show_audio){
-        //show end clip?
-        //(clip_width <= min_for_thumb_end) ? element.find(".thumb-end").hide() : element.find(".thumb-end").show();
-        
-        //show start clip?
-        //(clip_width <= min_for_thumb_start) ? element.find(".thumb-start").hide() : element.find(".thumb-start").show();
-        //console.log("W: " + clip_width  + " --- CLIP" + clip.id + " : " + min_for_thumb_start);
-    }
-
-    // Show label?
-    (clip_width <= min_for_menu) ? element.find(".clip_label").hide() : element.find(".clip_label").show();
-    
-    // Show effects?
-    (clip_width <= min_for_effects) ? element.find(".clip_effects").hide() : element.find(".clip_effects").show();
-
-    // Show menu?
-    (clip_width <= min_for_menu) ? element.find(".clip_menu").hide() : element.find(".clip_menu").show();
-
-    element.find(".clip_top").show();
-    //element.find(".thumb-container").show();
-}
-
 // Draw the audio wave on a clip
 function drawAudio(scope, clip_id){
     //get the clip in the scope
@@ -102,11 +57,12 @@ function drawAudio(scope, clip_id){
         element = $("#clip_"+clip_id);
 
         // Determine start and stop samples
-        var start_sample = Math.round(clip.start * 100);
-        var end_sample = Math.round(clip.end * 100);
+        var samples_per_second = 20;
+        var start_sample = clip.start * samples_per_second;
+        var end_sample = clip.end * samples_per_second;
 
         // Determine divisor for zoom scale
-        var sample_divisor = Math.round(100 / scope.pixelsPerSecond);
+        var sample_divisor = samples_per_second / scope.pixelsPerSecond;
 
         //show audio container
         element.find(".audio-container").show();
@@ -134,12 +90,14 @@ function drawAudio(scope, clip_id){
         ctx.stroke();
 
         //for each point of audio data, draw a line
-        for (var i = start_sample; i < clip.audio_data.length && i < end_sample; i+=sample_divisor) {
+        var sample_index = 0;
+        for (var i = 1; i < audio_canvas.width(); i+=1) {
             //increase the 'x' axis draw point
             ctx.beginPath();
             line_spot += 1;
             ctx.moveTo(line_spot, mid_point);
-            var audio_point = clip.audio_data[i];
+            sample_index = Math.round(start_sample + (sample_divisor * i));
+            var audio_point = clip.audio_data[sample_index];
             //set the point to draw to
             var draw_to = (audio_point * mid_point);
             //handle the 'draw to' point based on positive or negative audio point

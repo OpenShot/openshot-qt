@@ -235,10 +235,13 @@ App.controller('TimelineCtrl',function($scope) {
   // Move the playhead to a specific time
   $scope.MovePlayhead = function(position_seconds) {
 	  // Update internal scope (in seconds)
-	  $scope.$apply(function(){
-		  $scope.project.playhead_position = position_seconds;
-		  $scope.playheadTime = secondsToTime(position_seconds, $scope.project.fps.num, $scope.project.fps.den);
-	  });
+	  $scope.project.playhead_position = position_seconds;
+	  $scope.playheadTime = secondsToTime(position_seconds, $scope.project.fps.num, $scope.project.fps.den);
+
+	  // Use JQuery to move playhead (for performance reasons) - scope.apply is too expensive here
+	  $(".playhead-top").css("left", (($scope.project.playhead_position * $scope.pixelsPerSecond) + $scope.playheadOffset) + "px");
+	  $(".playhead-line").css("left", (($scope.project.playhead_position * $scope.pixelsPerSecond) + $scope.playheadOffset) + "px");
+	  $("#ruler_time").text($scope.playheadTime.hour + ":" + $scope.playheadTime.min + ":" + $scope.playheadTime.sec + ":" + $scope.playheadTime.frame);
   };
   
   // Move the playhead to a specific frame
@@ -360,9 +363,34 @@ App.controller('TimelineCtrl',function($scope) {
 			// Set audio data
 			$scope.$apply(function(){
 				$scope.project.clips[clip_index].show_audio = false;
+				$scope.project.clips[clip_index].audio_data = [];
 			});
 			break;
 		}
+ };
+
+ // Redraw all audio waveforms on the timeline (if any)
+ $scope.reDrawAllAudioData = function(){
+ 	// Find matching clip
+	for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
+		if ("audio_data" in $scope.project.clips[clip_index] && $scope.project.clips[clip_index].audio_data.length > 0) {
+			// Redraw audio data (since it has audio data)
+			drawAudio($scope, $scope.project.clips[clip_index].id);
+		}
+	}
+ };
+
+ // Does clip have audio_data?
+ $scope.hasAudioData = function(clip_id){
+ 	// Find matching clip
+	for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
+		if ($scope.project.clips[clip_index].id == clip_id && "audio_data" in $scope.project.clips[clip_index] && $scope.project.clips[clip_index].audio_data.length > 0) {
+			return true;
+			break;
+		}
+	}
+
+	 return false;
  };
 
  // Change the snapping mode
@@ -643,9 +671,6 @@ $scope.SetTrackLabel = function (label){
 			 $scope.project.clips[$scope.project.clips.length - 1].position = clip_position;
 			 $scope.project.clips[$scope.project.clips.length - 1].layer = $scope.GetTrackAtY(y - scrolling_tracks_offset_top).number;
 
-			 // hide and show elements of the clip (based on size)
-			 handleVisibleClipElements($scope, $scope.project.clips[$scope.project.clips.length - 1].id);
-		 
 		 } else if (item_type == "transition") {
 			 // move transition
 			 $scope.project.effects[$scope.project.effects.length - 1].position = clip_position;

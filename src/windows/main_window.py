@@ -34,7 +34,7 @@ from uuid import uuid4
 from copy import deepcopy
 
 from PyQt5.QtCore import *
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon, QCursor
 from PyQt5.QtWidgets import *
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
@@ -285,6 +285,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         app = get_app()
         _ = app._tr  # Get translation function
 
+        # Set cursor to waiting
+        get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
+
         try:
             if os.path.exists(file_path.encode('UTF-8')):
                 # Clear any previous thumbnails
@@ -315,6 +318,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         except Exception as ex:
             log.error("Couldn't open project {}".format(file_path))
             QMessageBox.warning(self, _("Error Opening Project"), str(ex))
+
+        # Restore normal cursor
+        get_app().restoreOverrideCursor()
 
     def clear_all_thumbnails(self):
         """Clear all user thumbnails"""
