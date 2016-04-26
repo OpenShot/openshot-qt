@@ -50,6 +50,9 @@ def init_language():
         {"type": 'OpenShot',
          "pattern": os.path.join('%s', 'LC_MESSAGES', 'OpenShot'),
          "path": os.path.join(info.PATH, 'locale')},
+        {"type": 'QT',
+         "pattern": 'qt_%s',
+         "path": os.path.join(info.PATH, 'locale', 'QT')}, # Optional path where we package QT translations
     )
 
     # Determine the environment locale, or default to system locale name

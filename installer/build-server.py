@@ -40,6 +40,7 @@ import subprocess
 import sys
 import tinys3
 import traceback
+from PyQt5.QtCore import QLibraryInfo
 
 
 freeze_command = None
@@ -263,6 +264,19 @@ try:
         if os.path.exists(os.path.join(project_path, "dist")):
             shutil.rmtree(os.path.join(project_path, "dist"))
 
+        # Copy QT translations to local folder (to be packaged)
+        qt_local_path = os.path.join(project_path, "src", "locale", "QT")
+        qt_system_path = QLibraryInfo.location(QLibraryInfo.TranslationsPath)
+        if os.path.exists(qt_system_path):
+            # Create local QT translation folder (if needed)
+            if not os.path.exists(qt_local_path):
+                os.mkdir(qt_local_path)
+            # Loop through QT translation files and copy them
+            for file in os.listdir(qt_system_path):
+                # Copy QT locale files
+                if file.startswith("qt_") and file.endswith(".qm"):
+                    shutil.copyfile(os.path.join(qt_system_path, file), os.path.join(qt_local_path, file))
+
         # Create uploads path (if not found)
         upload_path = os.path.join(project_path, "s3-uploads")
         if not os.path.exists(upload_path):
@@ -443,6 +457,9 @@ try:
                 # App doesn't exist (something went wrong)
                 error("App Missing Error: %s does not exist" % app_build_path)
 
+        # Remove temporary files
+        if os.path.exists(qt_local_path):
+            shutil.rmtree(qt_local_path)
 
 except Exception as ex:
     tb = traceback.format_exc()
