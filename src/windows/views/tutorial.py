@@ -222,11 +222,15 @@ class TutorialManager(object):
 
     def exit_manager(self):
         """ Disconnect from all signals, and shutdown tutorial manager """
-        self.win.dockFiles.visibilityChanged.disconnect()
-        self.win.dockTransitions.visibilityChanged.disconnect()
-        self.win.dockEffects.visibilityChanged.disconnect()
-        self.win.dockProperties.visibilityChanged.disconnect()
-        self.win.dockVideo.visibilityChanged.disconnect()
+        try:
+            self.win.dockFiles.visibilityChanged.disconnect()
+            self.win.dockTransitions.visibilityChanged.disconnect()
+            self.win.dockEffects.visibilityChanged.disconnect()
+            self.win.dockProperties.visibilityChanged.disconnect()
+            self.win.dockVideo.visibilityChanged.disconnect()
+        except:
+            # Ignore errors from this
+            pass
 
         # Close dialog window
         self.close_dialogs()

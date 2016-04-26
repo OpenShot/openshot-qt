@@ -45,14 +45,20 @@ def init_language():
     # Setup of our list of translators and paths
     translator_types = (
         {"type": 'QT',
-         "pattern": 'qt_%s',
+         "pattern": 'qt_%s',        # Older versions of Qt use this file (built-in translations)
          "path": QLibraryInfo.location(QLibraryInfo.TranslationsPath)},
-        {"type": 'OpenShot',
-         "pattern": os.path.join('%s', 'LC_MESSAGES', 'OpenShot'),
-         "path": os.path.join(info.PATH, 'locale')},
+        {"type": 'QT',
+         "pattern": 'qtbase_%s',    # Newer versions of Qt use this file (built-in translations)
+         "path": QLibraryInfo.location(QLibraryInfo.TranslationsPath)},
         {"type": 'QT',
          "pattern": 'qt_%s',
          "path": os.path.join(info.PATH, 'locale', 'QT')}, # Optional path where we package QT translations
+        {"type": 'QT',
+         "pattern": 'qtbase_%s',
+         "path": os.path.join(info.PATH, 'locale', 'QT')}, # Optional path where we package QT translations
+        {"type": 'OpenShot',
+         "pattern": os.path.join('%s', 'LC_MESSAGES', 'OpenShot'),  # Our custom translations
+         "path": os.path.join(info.PATH, 'locale')},
     )
 
     # Determine the environment locale, or default to system locale name
