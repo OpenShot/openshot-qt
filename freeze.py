@@ -233,6 +233,12 @@ elif sys.platform == "linux":
     # for certain distros (like Fedora, openSUSE, Debian, etc...)
     external_so_files.append(("/lib/x86_64-linux-gnu/libssl.so.1.0.0", "libssl.so.1.0.0"))
     external_so_files.append(("/lib/x86_64-linux-gnu/libcrypto.so.1.0.0", "libcrypto.so.1.0.0"))
+    # Glib related files (required for some distros)
+    external_so_files.append(("/usr/lib/x86_64-linux-gnu/libglib-2.0.so", "libglib-2.0.so"))
+    external_so_files.append(("/usr/lib/x86_64-linux-gnu/libgio-2.0.so", "libgio-2.0.so"))
+    external_so_files.append(("/usr/lib/x86_64-linux-gnu/libgmodule-2.0.so", "libgmodule-2.0.so"))
+    external_so_files.append(("/usr/lib/x86_64-linux-gnu/libgobject-2.0.so", "libgobject-2.0.so"))
+    external_so_files.append(("/usr/lib/x86_64-linux-gnu/libgthread-2.0.so", "libgthread-2.0.so"))
 
 elif sys.platform == "darwin":
     # Copy Mac specific files that cx_Freeze misses
