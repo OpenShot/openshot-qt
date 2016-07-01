@@ -107,6 +107,8 @@
     </property>
     <addaction name="actionTitle"/>
     <addaction name="actionAnimatedTitle"/>
+    <addaction name="separator"/>
+    <addaction name="actionAnimation"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -1272,6 +1274,19 @@
    </property>
    <property name="toolTip">
     <string>Launch Tutorial</string>
+   </property>
+  </action>
+  <action name="actionAnimation">
+   <property name="icon">
+    <iconset theme="video-x-generic">
+     <normaloff/>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Create Animation</string>
+   </property>
+   <property name="toolTip">
+    <string>Create Animation</string>
    </property>
   </action>
  </widget>
