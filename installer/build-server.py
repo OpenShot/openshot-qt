@@ -470,7 +470,7 @@ except Exception as ex:
 
 # Report any errors detected
 if errors_detected:
-    slack_upload_log(log, "%s: Error log" % platform.system(), truncate(errors_detected[0], 150))
+    slack_upload_log(log, "%s: Error log" % platform.system(), ":skull_and_crossbones: %s" % truncate(errors_detected[0], 150))
 
 
 
