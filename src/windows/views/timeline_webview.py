@@ -381,16 +381,32 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         event.ignore()
 
     # Javascript callable function to show clip or transition content menus, passing in type to show
-    @pyqtSlot(str)
+    @pyqtSlot(float)
     def ShowPlayheadMenu(self, position=None):
         log.info('ShowPlayheadMenu: %s' % position)
 
+        # Get translation method
+        _ = get_app()._tr
+
+        # Get list of intercepting clips with position (if any)
+        intersecting_clips = Clip.filter(intersect=position)
+
         menu = QMenu(self)
-        if type == "clip":
-            menu.addAction(self.window.actionRemoveClip)
-        elif type == "transition":
-            menu.addAction(self.window.actionRemoveTransition)
-            # return menu.popup(QCursor.pos())
+        if intersecting_clips:
+            # Get list of clip ids
+            clip_ids = [c.id for c in intersecting_clips]
+            print (clip_ids)
+
+            # Add split clip menu
+            Slice_Menu = QMenu(_("Slice Clip"), self)
+            Slice_Keep_Both = Slice_Menu.addAction(_("Keep Both Sides"))
+            Slice_Keep_Both.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_BOTH, clip_ids, position))
+            Slice_Keep_Left = Slice_Menu.addAction(_("Keep Left Side"))
+            Slice_Keep_Left.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_LEFT, clip_ids, position))
+            Slice_Keep_Right = Slice_Menu.addAction(_("Keep Right Side"))
+            Slice_Keep_Right.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_RIGHT, clip_ids, position))
+            menu.addMenu(Slice_Menu)
+            return menu.popup(QCursor.pos())
 
     @pyqtSlot(str)
     def ShowEffectMenu(self, effect_id=None):
@@ -699,11 +715,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             # Add split clip menu
             Slice_Menu = QMenu(_("Slice Clip"), self)
             Slice_Keep_Both = Slice_Menu.addAction(_("Keep Both Sides"))
-            Slice_Keep_Both.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_BOTH, clip_id, playhead_position))
+            Slice_Keep_Both.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_BOTH, [clip_id], playhead_position))
             Slice_Keep_Left = Slice_Menu.addAction(_("Keep Left Side"))
-            Slice_Keep_Left.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_LEFT, clip_id, playhead_position))
+            Slice_Keep_Left.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_LEFT, [clip_id], playhead_position))
             Slice_Keep_Right = Slice_Menu.addAction(_("Keep Right Side"))
-            Slice_Keep_Right.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_RIGHT, clip_id, playhead_position))
+            Slice_Keep_Right.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_RIGHT, [clip_id], playhead_position))
             menu.addMenu(Slice_Menu)
 
         # Add clip display menu (waveform or thunbnail)
@@ -1280,78 +1296,81 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Save changes
         self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
-    def Slice_Triggered(self, action, clip_id, playhead_position=0):
+    def Slice_Triggered(self, action, clip_ids, playhead_position=0):
         """Callback for slice context menus"""
         log.info(action)
 
-        # Get existing clip object
-        clip = Clip.get(id=clip_id)
+        # Loop through each clip (using the list of ids)
+        for clip_id in clip_ids:
 
-        # Determine if waveform needs to be redrawn
-        has_audio_data = bool(self.eval_js(JS_SCOPE_SELECTOR + ".hasAudioData('" + clip_id + "');"))
+            # Get existing clip object
+            clip = Clip.get(id=clip_id)
 
-        if action == MENU_SLICE_KEEP_LEFT or action == MENU_SLICE_KEEP_BOTH:
-            # Get details of original clip
-            position_of_clip = float(clip.data["position"])
-            start_of_clip = float(clip.data["start"])
-            end_of_clip = float(clip.data["end"])
+            # Determine if waveform needs to be redrawn
+            has_audio_data = bool(self.eval_js(JS_SCOPE_SELECTOR + ".hasAudioData('" + clip_id + "');"))
 
-            # Set new 'end' of clip
-            clip.data["end"] = start_of_clip + (playhead_position - position_of_clip)
+            if action == MENU_SLICE_KEEP_LEFT or action == MENU_SLICE_KEEP_BOTH:
+                # Get details of original clip
+                position_of_clip = float(clip.data["position"])
+                start_of_clip = float(clip.data["start"])
+                end_of_clip = float(clip.data["end"])
 
-        elif action == MENU_SLICE_KEEP_RIGHT:
-            # Get details of original clip
-            position_of_clip = float(clip.data["position"])
-            start_of_clip = float(clip.data["start"])
-            end_of_clip = float(clip.data["end"])
+                # Set new 'end' of clip
+                clip.data["end"] = start_of_clip + (playhead_position - position_of_clip)
 
-            # Set new 'end' of clip
-            clip.data["position"] = playhead_position
-            clip.data["start"] = start_of_clip + (playhead_position - position_of_clip)
+            elif action == MENU_SLICE_KEEP_RIGHT:
+                # Get details of original clip
+                position_of_clip = float(clip.data["position"])
+                start_of_clip = float(clip.data["start"])
+                end_of_clip = float(clip.data["end"])
 
-            # Update thumbnail for right clip (after the clip has been created)
-            self.UpdateClipThumbnail(clip.data)
+                # Set new 'end' of clip
+                clip.data["position"] = playhead_position
+                clip.data["start"] = start_of_clip + (playhead_position - position_of_clip)
 
-        if action == MENU_SLICE_KEEP_BOTH:
-            # Add the 2nd clip (the right side, since the left side has already been adjusted above)
-            # Get right side clip object
-            right_clip = Clip.get(id=clip_id)
+                # Update thumbnail for right clip (after the clip has been created)
+                self.UpdateClipThumbnail(clip.data)
 
-            # Remove the ID property from the clip (so it becomes a new one)
-            right_clip.id = None
-            right_clip.type = 'insert'
-            right_clip.data.pop('id')
-            right_clip.key.pop(1)
+            if action == MENU_SLICE_KEEP_BOTH:
+                # Add the 2nd clip (the right side, since the left side has already been adjusted above)
+                # Get right side clip object
+                right_clip = Clip.get(id=clip_id)
 
-            # Get details of original clip
-            position_of_clip = float(right_clip.data["position"])
-            start_of_clip = float(right_clip.data["start"])
+                # Remove the ID property from the clip (so it becomes a new one)
+                right_clip.id = None
+                right_clip.type = 'insert'
+                right_clip.data.pop('id')
+                right_clip.key.pop(1)
 
-            # Set new 'end' of right_clip
-            right_clip.data["position"] = playhead_position
-            right_clip.data["start"] = start_of_clip + (playhead_position - position_of_clip)
+                # Get details of original clip
+                position_of_clip = float(right_clip.data["position"])
+                start_of_clip = float(right_clip.data["start"])
+
+                # Set new 'end' of right_clip
+                right_clip.data["position"] = playhead_position
+                right_clip.data["start"] = start_of_clip + (playhead_position - position_of_clip)
+
+                # Save changes
+                right_clip.save()
+
+                # Update thumbnail for right clip (after the clip has been created)
+                self.UpdateClipThumbnail(right_clip.data)
+
+                # Save changes again (with new thumbnail)
+                self.update_clip_data(right_clip.data, only_basic_props=False, ignore_reader=True)
+
+                if has_audio_data:
+                    # Re-generate waveform since volume curve has changed
+                    log.info("Generate right splice waveform for clip id: %s" % right_clip.id)
+                    self.Show_Waveform_Triggered(right_clip.id)
 
             # Save changes
-            right_clip.save()
-
-            # Update thumbnail for right clip (after the clip has been created)
-            self.UpdateClipThumbnail(right_clip.data)
-
-            # Save changes again (with new thumbnail)
-            self.update_clip_data(right_clip.data, only_basic_props=False, ignore_reader=True)
+            self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
             if has_audio_data:
                 # Re-generate waveform since volume curve has changed
-                log.info("Generate right splice waveform for clip id: %s" % right_clip.id)
-                self.Show_Waveform_Triggered(right_clip.id)
-
-        # Save changes
-        self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
-
-        if has_audio_data:
-            # Re-generate waveform since volume curve has changed
-            log.info("Generate left splice waveform for clip id: %s" % clip.id)
-            self.Show_Waveform_Triggered(clip.id)
+                log.info("Generate left splice waveform for clip id: %s" % clip.id)
+                self.Show_Waveform_Triggered(clip.id)
 
     def Volume_Triggered(self, action, clip_id, position="Entire Clip"):
         """Callback for volume context menus"""
