@@ -42,8 +42,7 @@ from classes import info, updates
 from classes import settings
 from classes.app import get_app
 from classes.logger import log
-from classes.query import File, Clip
-from classes.query import Transition
+from classes.query import File, Clip, Transition
 from classes.waveform import get_audio_data
 
 try:
@@ -390,21 +389,22 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Get list of intercepting clips with position (if any)
         intersecting_clips = Clip.filter(intersect=position)
+        intersecting_trans = Transition.filter(intersect=position)
 
         menu = QMenu(self)
-        if intersecting_clips:
+        if intersecting_clips or intersecting_trans:
             # Get list of clip ids
             clip_ids = [c.id for c in intersecting_clips]
-            print (clip_ids)
+            trans_ids = [t.id for t in intersecting_trans]
 
             # Add split clip menu
-            Slice_Menu = QMenu(_("Slice Clip"), self)
+            Slice_Menu = QMenu(_("Slice All"), self)
             Slice_Keep_Both = Slice_Menu.addAction(_("Keep Both Sides"))
-            Slice_Keep_Both.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_BOTH, clip_ids, position))
+            Slice_Keep_Both.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_BOTH, clip_ids, trans_ids, position))
             Slice_Keep_Left = Slice_Menu.addAction(_("Keep Left Side"))
-            Slice_Keep_Left.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_LEFT, clip_ids, position))
+            Slice_Keep_Left.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_LEFT, clip_ids, trans_ids, position))
             Slice_Keep_Right = Slice_Menu.addAction(_("Keep Right Side"))
-            Slice_Keep_Right.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_RIGHT, clip_ids, position))
+            Slice_Keep_Right.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_RIGHT, clip_ids, trans_ids, position))
             menu.addMenu(Slice_Menu)
             return menu.popup(QCursor.pos())
 
@@ -713,13 +713,13 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         position_of_clip = float(clip.data["position"])
         if playhead_position >= position_of_clip and playhead_position <= (position_of_clip + (end_of_clip - start_of_clip)):
             # Add split clip menu
-            Slice_Menu = QMenu(_("Slice Clip"), self)
+            Slice_Menu = QMenu(_("Slice"), self)
             Slice_Keep_Both = Slice_Menu.addAction(_("Keep Both Sides"))
-            Slice_Keep_Both.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_BOTH, [clip_id], playhead_position))
+            Slice_Keep_Both.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_BOTH, [clip_id], [], playhead_position))
             Slice_Keep_Left = Slice_Menu.addAction(_("Keep Left Side"))
-            Slice_Keep_Left.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_LEFT, [clip_id], playhead_position))
+            Slice_Keep_Left.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_LEFT, [clip_id], [], playhead_position))
             Slice_Keep_Right = Slice_Menu.addAction(_("Keep Right Side"))
-            Slice_Keep_Right.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_RIGHT, [clip_id], playhead_position))
+            Slice_Keep_Right.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_RIGHT, [clip_id], [], playhead_position))
             menu.addMenu(Slice_Menu)
 
         # Add clip display menu (waveform or thunbnail)
@@ -1296,7 +1296,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Save changes
         self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
-    def Slice_Triggered(self, action, clip_ids, playhead_position=0):
+    def Slice_Triggered(self, action, clip_ids, trans_ids, playhead_position=0):
         """Callback for slice context menus"""
         log.info(action)
 
@@ -1371,6 +1371,56 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 # Re-generate waveform since volume curve has changed
                 log.info("Generate left splice waveform for clip id: %s" % clip.id)
                 self.Show_Waveform_Triggered(clip.id)
+
+
+        # Loop through each transition (using the list of ids)
+        for trans_id in trans_ids:
+            # Get existing transition object
+            trans = Transition.get(id=trans_id)
+
+            if action == MENU_SLICE_KEEP_LEFT or action == MENU_SLICE_KEEP_BOTH:
+                # Get details of original transition
+                position_of_tran = float(trans.data["position"])
+
+                # Set new 'end' of transition
+                trans.data["end"] = playhead_position - position_of_tran
+
+            elif action == MENU_SLICE_KEEP_RIGHT:
+                # Get details of transition clip
+                position_of_tran = float(trans.data["position"])
+                end_of_tran = float(trans.data["end"])
+
+                # Set new 'end' of transition
+                trans.data["position"] = playhead_position
+                trans.data["end"] = end_of_tran - (playhead_position - position_of_tran)
+
+            if action == MENU_SLICE_KEEP_BOTH:
+                # Add the 2nd transition (the right side, since the left side has already been adjusted above)
+                # Get right side transition object
+                right_tran = Transition.get(id=trans_id)
+
+                # Remove the ID property from the transition (so it becomes a new one)
+                right_tran.id = None
+                right_tran.type = 'insert'
+                right_tran.data.pop('id')
+                right_tran.key.pop(1)
+
+                # Get details of original transition
+                position_of_tran = float(right_tran.data["position"])
+                end_of_tran = float(right_tran.data["end"])
+
+                # Set new 'end' of right_tran
+                right_tran.data["position"] = playhead_position
+                right_tran.data["end"] = end_of_tran - (playhead_position - position_of_tran)
+
+                # Save changes
+                right_tran.save()
+
+                # Save changes again (right side)
+                self.update_transition_data(right_tran.data, only_basic_props=False)
+
+            # Save changes (left side)
+            self.update_transition_data(trans.data, only_basic_props=False)
 
     def Volume_Triggered(self, action, clip_id, position="Entire Clip"):
         """Callback for volume context menus"""
@@ -1696,6 +1746,14 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         if tran_id not in self.window.selected_transitions:
             self.window.addSelection(tran_id, 'transition')
 
+        # Get framerate
+        fps = get_app().project.get(["fps"])
+        fps_float = float(fps["num"]) / float(fps["den"])
+
+        # Get existing transition object
+        tran = Transition.get(id=tran_id)
+        playhead_position = float(self.window.preview_thread.current_frame) / fps_float
+
         menu = QMenu(self)
 
         # Copy Menu
@@ -1718,6 +1776,21 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         Paste_Tran.triggered.connect(partial(self.Paste_Tran_Triggered, MENU_PASTE, tran_id))
 
         menu.addSeparator()
+
+        # If Playhead overlapping transition
+        start_of_tran = float(tran.data["start"])
+        end_of_tran = float(tran.data["end"])
+        position_of_tran = float(tran.data["position"])
+        if playhead_position >= position_of_tran and playhead_position <= (position_of_tran + (end_of_tran - start_of_tran)):
+            # Add split transition menu
+            Slice_Menu = QMenu(_("Slice"), self)
+            Slice_Keep_Both = Slice_Menu.addAction(_("Keep Both Sides"))
+            Slice_Keep_Both.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_BOTH, [], [tran_id], playhead_position))
+            Slice_Keep_Left = Slice_Menu.addAction(_("Keep Left Side"))
+            Slice_Keep_Left.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_LEFT, [], [tran_id], playhead_position))
+            Slice_Keep_Right = Slice_Menu.addAction(_("Keep Right Side"))
+            Slice_Keep_Right.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_RIGHT, [], [tran_id], playhead_position))
+            menu.addMenu(Slice_Menu)
 
         # Reverse Transition menu
         Reverse_Transition = menu.addAction(_("Reverse Transition"))
