@@ -430,6 +430,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         if clip_id not in self.window.selected_clips:
             self.window.addSelection(clip_id, 'clip')
 
+        # Get list of selected clips
+        clip_ids = self.window.selected_clips
+
         # Get framerate
         fps = get_app().project.get(["fps"])
         fps_float = float(fps["num"]) / float(fps["den"])
@@ -471,40 +474,40 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Paste Menu
         Paste_Clip = menu.addAction(_("Paste"))
-        Paste_Clip.triggered.connect(partial(self.Paste_Triggered, MENU_PASTE, clip_id))
+        Paste_Clip.triggered.connect(partial(self.Paste_Triggered, MENU_PASTE, clip_ids))
 
         menu.addSeparator()
 
         # Fade In Menu
         Fade_Menu = QMenu(_("Fade"), self)
         Fade_None = Fade_Menu.addAction(_("No Fade"))
-        Fade_None.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_NONE, clip_id))
+        Fade_None.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_NONE, clip_ids))
         Fade_Menu.addSeparator()
         for position in ["Start of Clip", "End of Clip", "Entire Clip"]:
             Position_Menu = QMenu(_(position), self)
 
             if position == "Start of Clip":
                 Fade_In_Fast = Position_Menu.addAction(_("Fade In (Fast)"))
-                Fade_In_Fast.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_IN_FAST, clip_id, position))
+                Fade_In_Fast.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_IN_FAST, clip_ids, position))
                 Fade_In_Slow = Position_Menu.addAction(_("Fade In (Slow)"))
-                Fade_In_Slow.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_IN_SLOW, clip_id, position))
+                Fade_In_Slow.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_IN_SLOW, clip_ids, position))
 
             elif position == "End of Clip":
                 Fade_Out_Fast = Position_Menu.addAction(_("Fade Out (Fast)"))
-                Fade_Out_Fast.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_OUT_FAST, clip_id, position))
+                Fade_Out_Fast.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_OUT_FAST, clip_ids, position))
                 Fade_Out_Slow = Position_Menu.addAction(_("Fade Out (Slow)"))
-                Fade_Out_Slow.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_OUT_SLOW, clip_id, position))
+                Fade_Out_Slow.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_OUT_SLOW, clip_ids, position))
 
             else:
                 Fade_In_Out_Fast = Position_Menu.addAction(_("Fade In and Out (Fast)"))
-                Fade_In_Out_Fast.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_IN_OUT_FAST, clip_id, position))
+                Fade_In_Out_Fast.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_IN_OUT_FAST, clip_ids, position))
                 Fade_In_Out_Slow = Position_Menu.addAction(_("Fade In and Out (Slow)"))
-                Fade_In_Out_Slow.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_IN_OUT_SLOW, clip_id, position))
+                Fade_In_Out_Slow.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_IN_OUT_SLOW, clip_ids, position))
                 Position_Menu.addSeparator()
                 Fade_In_Slow = Position_Menu.addAction(_("Fade In (Entire Clip)"))
-                Fade_In_Slow.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_IN_SLOW, clip_id, position))
+                Fade_In_Slow.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_IN_SLOW, clip_ids, position))
                 Fade_Out_Slow = Position_Menu.addAction(_("Fade Out (Entire Clip)"))
-                Fade_Out_Slow.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_OUT_SLOW, clip_id, position))
+                Fade_Out_Slow.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_OUT_SLOW, clip_ids, position))
 
             Fade_Menu.addMenu(Position_Menu)
         menu.addMenu(Fade_Menu)
@@ -513,7 +516,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Animate Menu
         Animate_Menu = QMenu(_("Animate"), self)
         Animate_None = Animate_Menu.addAction(_("No Animation"))
-        Animate_None.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_NONE, clip_id))
+        Animate_None.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_NONE, clip_ids))
         Animate_Menu.addSeparator()
         for position in ["Start of Clip", "End of Clip", "Entire Clip"]:
             Position_Menu = QMenu(_(position), self)
@@ -521,59 +524,59 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             # Scale
             Scale_Menu = QMenu(_("Zoom"), self)
             Animate_In_50_100 = Scale_Menu.addAction(_("Zoom In (50% to 100%)"))
-            Animate_In_50_100.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_IN_50_100, clip_id, position))
+            Animate_In_50_100.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_IN_50_100, clip_ids, position))
             Animate_In_75_100 = Scale_Menu.addAction(_("Zoom In (75% to 100%)"))
-            Animate_In_75_100.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_IN_75_100, clip_id, position))
+            Animate_In_75_100.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_IN_75_100, clip_ids, position))
             Animate_In_100_150 = Scale_Menu.addAction(_("Zoom In (100% to 150%)"))
-            Animate_In_100_150.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_IN_100_150, clip_id, position))
+            Animate_In_100_150.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_IN_100_150, clip_ids, position))
             Animate_Out_100_75 = Scale_Menu.addAction(_("Zoom Out (100% to 75%)"))
-            Animate_Out_100_75.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_OUT_100_75, clip_id, position))
+            Animate_Out_100_75.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_OUT_100_75, clip_ids, position))
             Animate_Out_100_50 = Scale_Menu.addAction(_("Zoom Out (100% to 50%)"))
-            Animate_Out_100_50.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_OUT_100_50, clip_id, position))
+            Animate_Out_100_50.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_OUT_100_50, clip_ids, position))
             Animate_Out_150_100 = Scale_Menu.addAction(_("Zoom Out (150% to 100%)"))
-            Animate_Out_150_100.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_OUT_150_100, clip_id, position))
+            Animate_Out_150_100.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_OUT_150_100, clip_ids, position))
             Position_Menu.addMenu(Scale_Menu)
 
             # Center to Edge
             Center_Edge_Menu = QMenu(_("Center to Edge"), self)
             Animate_Center_Top = Center_Edge_Menu.addAction(_("Center to Top"))
-            Animate_Center_Top.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_CENTER_TOP, clip_id, position))
+            Animate_Center_Top.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_CENTER_TOP, clip_ids, position))
             Animate_Center_Left = Center_Edge_Menu.addAction(_("Center to Left"))
-            Animate_Center_Left.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_CENTER_LEFT, clip_id, position))
+            Animate_Center_Left.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_CENTER_LEFT, clip_ids, position))
             Animate_Center_Right = Center_Edge_Menu.addAction(_("Center to Right"))
-            Animate_Center_Right.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_CENTER_RIGHT, clip_id, position))
+            Animate_Center_Right.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_CENTER_RIGHT, clip_ids, position))
             Animate_Center_Bottom = Center_Edge_Menu.addAction(_("Center to Bottom"))
-            Animate_Center_Bottom.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_CENTER_BOTTOM, clip_id, position))
+            Animate_Center_Bottom.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_CENTER_BOTTOM, clip_ids, position))
             Position_Menu.addMenu(Center_Edge_Menu)
 
             # Edge to Center
             Edge_Center_Menu = QMenu(_("Edge to Center"), self)
             Animate_Top_Center = Edge_Center_Menu.addAction(_("Top to Center"))
-            Animate_Top_Center.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_TOP_CENTER, clip_id, position))
+            Animate_Top_Center.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_TOP_CENTER, clip_ids, position))
             Animate_Left_Center = Edge_Center_Menu.addAction(_("Left to Center"))
-            Animate_Left_Center.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_LEFT_CENTER, clip_id, position))
+            Animate_Left_Center.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_LEFT_CENTER, clip_ids, position))
             Animate_Right_Center = Edge_Center_Menu.addAction(_("Right to Center"))
-            Animate_Right_Center.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_RIGHT_CENTER, clip_id, position))
+            Animate_Right_Center.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_RIGHT_CENTER, clip_ids, position))
             Animate_Bottom_Center = Edge_Center_Menu.addAction(_("Bottom to Center"))
-            Animate_Bottom_Center.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_BOTTOM_CENTER, clip_id, position))
+            Animate_Bottom_Center.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_BOTTOM_CENTER, clip_ids, position))
             Position_Menu.addMenu(Edge_Center_Menu)
 
             # Edge to Edge
             Edge_Edge_Menu = QMenu(_("Edge to Edge"), self)
             Animate_Top_Bottom = Edge_Edge_Menu.addAction(_("Top to Bottom"))
-            Animate_Top_Bottom.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_TOP_BOTTOM, clip_id, position))
+            Animate_Top_Bottom.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_TOP_BOTTOM, clip_ids, position))
             Animate_Left_Right = Edge_Edge_Menu.addAction(_("Left to Right"))
-            Animate_Left_Right.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_LEFT_RIGHT, clip_id, position))
+            Animate_Left_Right.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_LEFT_RIGHT, clip_ids, position))
             Animate_Right_Left = Edge_Edge_Menu.addAction(_("Right to Left"))
-            Animate_Right_Left.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_RIGHT_LEFT, clip_id, position))
+            Animate_Right_Left.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_RIGHT_LEFT, clip_ids, position))
             Animate_Bottom_Top = Edge_Edge_Menu.addAction(_("Bottom to Top"))
-            Animate_Bottom_Top.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_BOTTOM_TOP, clip_id, position))
+            Animate_Bottom_Top.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_BOTTOM_TOP, clip_ids, position))
             Position_Menu.addMenu(Edge_Edge_Menu)
 
             # Random Animation
             Position_Menu.addSeparator()
             Random = Position_Menu.addAction(_("Random"))
-            Random.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_RANDOM, clip_id, position))
+            Random.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_RANDOM, clip_ids, position))
 
             # Add Sub-Menu's to Position menu
             Animate_Menu.addMenu(Position_Menu)
@@ -584,42 +587,42 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Rotate Menu
         Rotation_Menu = QMenu(_("Rotate"), self)
         Rotation_None = Rotation_Menu.addAction(_("No Rotation"))
-        Rotation_None.triggered.connect(partial(self.Rotate_Triggered, MENU_ROTATE_NONE, clip_id))
+        Rotation_None.triggered.connect(partial(self.Rotate_Triggered, MENU_ROTATE_NONE, clip_ids))
         Rotation_Menu.addSeparator()
         Rotation_90_Right = Rotation_Menu.addAction(_("Rotate 90 (Right)"))
-        Rotation_90_Right.triggered.connect(partial(self.Rotate_Triggered, MENU_ROTATE_90_RIGHT, clip_id))
+        Rotation_90_Right.triggered.connect(partial(self.Rotate_Triggered, MENU_ROTATE_90_RIGHT, clip_ids))
         Rotation_90_Left = Rotation_Menu.addAction(_("Rotate 90 (Left)"))
-        Rotation_90_Left.triggered.connect(partial(self.Rotate_Triggered, MENU_ROTATE_90_LEFT, clip_id))
+        Rotation_90_Left.triggered.connect(partial(self.Rotate_Triggered, MENU_ROTATE_90_LEFT, clip_ids))
         Rotation_180_Flip = Rotation_Menu.addAction(_("Rotate 180 (Flip)"))
-        Rotation_180_Flip.triggered.connect(partial(self.Rotate_Triggered, MENU_ROTATE_180_FLIP, clip_id))
+        Rotation_180_Flip.triggered.connect(partial(self.Rotate_Triggered, MENU_ROTATE_180_FLIP, clip_ids))
         menu.addMenu(Rotation_Menu)
 
         # Layout Menu
         Layout_Menu = QMenu(_("Layout"), self)
         Layout_None = Layout_Menu.addAction(_("Reset Layout"))
-        Layout_None.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_NONE, clip_id))
+        Layout_None.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_NONE, clip_ids))
         Layout_Menu.addSeparator()
         Layout_Center = Layout_Menu.addAction(_("1/4 Size - Center"))
-        Layout_Center.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_CENTER, clip_id))
+        Layout_Center.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_CENTER, clip_ids))
         Layout_Top_Left = Layout_Menu.addAction(_("1/4 Size - Top Left"))
-        Layout_Top_Left.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_TOP_LEFT, clip_id))
+        Layout_Top_Left.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_TOP_LEFT, clip_ids))
         Layout_Top_Right = Layout_Menu.addAction(_("1/4 Size - Top Right"))
-        Layout_Top_Right.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_TOP_RIGHT, clip_id))
+        Layout_Top_Right.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_TOP_RIGHT, clip_ids))
         Layout_Bottom_Left = Layout_Menu.addAction(_("1/4 Size - Bottom Left"))
-        Layout_Bottom_Left.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_BOTTOM_LEFT, clip_id))
+        Layout_Bottom_Left.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_BOTTOM_LEFT, clip_ids))
         Layout_Bottom_Right = Layout_Menu.addAction(_("1/4 Size - Bottom Right"))
-        Layout_Bottom_Right.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_BOTTOM_RIGHT, clip_id))
+        Layout_Bottom_Right.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_BOTTOM_RIGHT, clip_ids))
         Layout_Menu.addSeparator()
         Layout_Bottom_All_With_Aspect = Layout_Menu.addAction(_("Show All (Maintain Ratio)"))
-        Layout_Bottom_All_With_Aspect.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_ALL_WITH_ASPECT, clip_id))
+        Layout_Bottom_All_With_Aspect.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_ALL_WITH_ASPECT, clip_ids))
         Layout_Bottom_All_Without_Aspect = Layout_Menu.addAction(_("Show All (Distort)"))
-        Layout_Bottom_All_Without_Aspect.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_ALL_WITHOUT_ASPECT, clip_id))
+        Layout_Bottom_All_Without_Aspect.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_ALL_WITHOUT_ASPECT, clip_ids))
         menu.addMenu(Layout_Menu)
 
         # Time Menu
         Time_Menu = QMenu(_("Time"), self)
         Time_None = Time_Menu.addAction(_("Reset Time"))
-        Time_None.triggered.connect(partial(self.Time_Triggered, MENU_TIME_NONE, clip_id, '1X'))
+        Time_None.triggered.connect(partial(self.Time_Triggered, MENU_TIME_NONE, clip_ids, '1X'))
         Time_Menu.addSeparator()
         for speed, speed_values in [("Normal", ['1X']), ("Fast", ['2X', '4X', '8X', '16X', '32X']), ("Slow", ['1/2X', '1/4X', '1/8X', '1/16X', '1/32X'])]:
             Speed_Menu = QMenu(_(speed), self)
@@ -630,7 +633,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 for actual_speed in speed_values:
                     # Add menu option
                     Time_Option = Direction_Menu.addAction(_(actual_speed))
-                    Time_Option.triggered.connect(partial(self.Time_Triggered, direction_value, clip_id, actual_speed))
+                    Time_Option.triggered.connect(partial(self.Time_Triggered, direction_value, clip_ids, actual_speed))
 
                 # Add menu to parent
                 Speed_Menu.addMenu(Direction_Menu)
@@ -643,58 +646,58 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Volume Menu
         Volume_Menu = QMenu(_("Volume"), self)
         Volume_None = Volume_Menu.addAction(_("Reset Volume"))
-        Volume_None.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_NONE, clip_id))
+        Volume_None.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_NONE, clip_ids))
         Volume_Menu.addSeparator()
         for position in ["Start of Clip", "End of Clip", "Entire Clip"]:
             Position_Menu = QMenu(_(position), self)
 
             if position == "Start of Clip":
                 Fade_In_Fast = Position_Menu.addAction(_("Fade In (Fast)"))
-                Fade_In_Fast.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_FADE_IN_FAST, clip_id, position))
+                Fade_In_Fast.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_FADE_IN_FAST, clip_ids, position))
                 Fade_In_Slow = Position_Menu.addAction(_("Fade In (Slow)"))
-                Fade_In_Slow.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_FADE_IN_SLOW, clip_id, position))
+                Fade_In_Slow.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_FADE_IN_SLOW, clip_ids, position))
 
             elif position == "End of Clip":
                 Fade_Out_Fast = Position_Menu.addAction(_("Fade Out (Fast)"))
-                Fade_Out_Fast.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_FADE_OUT_FAST, clip_id, position))
+                Fade_Out_Fast.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_FADE_OUT_FAST, clip_ids, position))
                 Fade_Out_Slow = Position_Menu.addAction(_("Fade Out (Slow)"))
-                Fade_Out_Slow.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_FADE_OUT_SLOW, clip_id, position))
+                Fade_Out_Slow.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_FADE_OUT_SLOW, clip_ids, position))
 
             else:
                 Fade_In_Out_Fast = Position_Menu.addAction(_("Fade In and Out (Fast)"))
-                Fade_In_Out_Fast.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_FADE_IN_OUT_FAST, clip_id, position))
+                Fade_In_Out_Fast.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_FADE_IN_OUT_FAST, clip_ids, position))
                 Fade_In_Out_Slow = Position_Menu.addAction(_("Fade In and Out (Slow)"))
-                Fade_In_Out_Slow.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_FADE_IN_OUT_SLOW, clip_id, position))
+                Fade_In_Out_Slow.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_FADE_IN_OUT_SLOW, clip_ids, position))
                 Position_Menu.addSeparator()
                 Fade_In_Slow = Position_Menu.addAction(_("Fade In (Entire Clip)"))
-                Fade_In_Slow.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_FADE_IN_SLOW, clip_id, position))
+                Fade_In_Slow.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_FADE_IN_SLOW, clip_ids, position))
                 Fade_Out_Slow = Position_Menu.addAction(_("Fade Out (Entire Clip)"))
-                Fade_Out_Slow.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_FADE_OUT_SLOW, clip_id, position))
+                Fade_Out_Slow.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_FADE_OUT_SLOW, clip_ids, position))
 
             # Add levels (100% to 0%)
             Position_Menu.addSeparator()
             Volume_100 = Position_Menu.addAction(_("Level 100%"))
-            Volume_100.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_100, clip_id, position))
+            Volume_100.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_100, clip_ids, position))
             Volume_90 = Position_Menu.addAction(_("Level 90%"))
-            Volume_90.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_90, clip_id, position))
+            Volume_90.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_90, clip_ids, position))
             Volume_80 = Position_Menu.addAction(_("Level 80%"))
-            Volume_80.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_80, clip_id, position))
+            Volume_80.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_80, clip_ids, position))
             Volume_70 = Position_Menu.addAction(_("Level 70%"))
-            Volume_70.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_70, clip_id, position))
+            Volume_70.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_70, clip_ids, position))
             Volume_60 = Position_Menu.addAction(_("Level 60%"))
-            Volume_60.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_60, clip_id, position))
+            Volume_60.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_60, clip_ids, position))
             Volume_50 = Position_Menu.addAction(_("Level 50%"))
-            Volume_50.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_50, clip_id, position))
+            Volume_50.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_50, clip_ids, position))
             Volume_40 = Position_Menu.addAction(_("Level 40%"))
-            Volume_40.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_40, clip_id, position))
+            Volume_40.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_40, clip_ids, position))
             Volume_30 = Position_Menu.addAction(_("Level 30%"))
-            Volume_30.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_30, clip_id, position))
+            Volume_30.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_30, clip_ids, position))
             Volume_20 = Position_Menu.addAction(_("Level 20%"))
-            Volume_20.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_20, clip_id, position))
+            Volume_20.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_20, clip_ids, position))
             Volume_10 = Position_Menu.addAction(_("Level 10%"))
-            Volume_10.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_10, clip_id, position))
+            Volume_10.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_10, clip_ids, position))
             Volume_0 = Position_Menu.addAction(_("Level 0%"))
-            Volume_0.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_0, clip_id, position))
+            Volume_0.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_0, clip_ids, position))
 
             Volume_Menu.addMenu(Position_Menu)
         menu.addMenu(Volume_Menu)
@@ -702,9 +705,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Add separate audio menu
         Split_Audio_Channels_Menu = QMenu(_("Separate Audio"), self)
         Split_Single_Clip = Split_Audio_Channels_Menu.addAction(_("Single Clip (all channels)"))
-        Split_Single_Clip.triggered.connect(partial(self.Split_Audio_Triggered, MENU_SPLIT_AUDIO_SINGLE, clip_id))
+        Split_Single_Clip.triggered.connect(partial(self.Split_Audio_Triggered, MENU_SPLIT_AUDIO_SINGLE, clip_ids))
         Split_Multiple_Clips = Split_Audio_Channels_Menu.addAction(_("Multiple Clips (each channel)"))
-        Split_Multiple_Clips.triggered.connect(partial(self.Split_Audio_Triggered, MENU_SPLIT_AUDIO_MULTIPLE, clip_id))
+        Split_Multiple_Clips.triggered.connect(partial(self.Split_Audio_Triggered, MENU_SPLIT_AUDIO_MULTIPLE, clip_ids))
         menu.addMenu(Split_Audio_Channels_Menu)
 
         # If Playhead overlapping clip
@@ -726,9 +729,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         menu.addSeparator()
         Waveform_Menu = QMenu(_("Display"), self)
         ShowWaveform = Waveform_Menu.addAction(_("Show Waveform"))
-        ShowWaveform.triggered.connect(partial(self.Show_Waveform_Triggered, clip_id))
+        ShowWaveform.triggered.connect(partial(self.Show_Waveform_Triggered, clip_ids))
         HideWaveform = Waveform_Menu.addAction(_("Show Thumbnail"))
-        HideWaveform.triggered.connect(partial(self.Hide_Waveform_Triggered, clip_id))
+        HideWaveform.triggered.connect(partial(self.Hide_Waveform_Triggered, clip_ids))
         menu.addMenu(Waveform_Menu)
 
         # Properties
@@ -741,38 +744,46 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Show Context menu
         return menu.popup(QCursor.pos())
 
-    def Show_Waveform_Triggered(self, clip_id):
+    def Show_Waveform_Triggered(self, clip_ids):
         """Show a waveform for the selected clip"""
-        # Get existing clip object
-        clip = Clip.get(id=clip_id)
-        file_path = clip.data["reader"]["path"]
 
-        # Find actual clip object from libopenshot
-        c = None
-        clips = get_app().window.timeline_sync.timeline.Clips()
-        for clip_object in clips:
-            if clip_object.Id() == clip_id:
-                c = clip_object
+        # Loop through each selected clip
+        for clip_id in clip_ids:
 
-        if c and c.Reader() and not c.Reader().info.has_single_image:
-            # Find frame 1 channel_filter property
-            channel_filter = c.channel_filter.GetInt(1)
+            # Get existing clip object
+            clip = Clip.get(id=clip_id)
+            file_path = clip.data["reader"]["path"]
 
-            # Set cursor to waiting
-            get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
+            # Find actual clip object from libopenshot
+            c = None
+            clips = get_app().window.timeline_sync.timeline.Clips()
+            for clip_object in clips:
+                if clip_object.Id() == clip_id:
+                    c = clip_object
 
-            # Get audio data in a separate thread (so it doesn't block the UI)
-            channel_filter = channel_filter
-            get_audio_data(clip_id, file_path, channel_filter, c.volume)
+            if c and c.Reader() and not c.Reader().info.has_single_image:
+                # Find frame 1 channel_filter property
+                channel_filter = c.channel_filter.GetInt(1)
 
-    def Hide_Waveform_Triggered(self, clip_id):
+                # Set cursor to waiting
+                get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
+
+                # Get audio data in a separate thread (so it doesn't block the UI)
+                channel_filter = channel_filter
+                get_audio_data(clip_id, file_path, channel_filter, c.volume)
+
+    def Hide_Waveform_Triggered(self, clip_ids):
         """Hide the waveform for the selected clip"""
-        # Get existing clip object
-        clip = Clip.get(id=clip_id)
 
-        # Pass to javascript timeline (and render)
-        cmd = JS_SCOPE_SELECTOR + ".hideAudioData('" + clip_id + "');"
-        self.page().mainFrame().evaluateJavaScript(cmd)
+        # Loop through each selected clip
+        for clip_id in clip_ids:
+
+            # Get existing clip object
+            clip = Clip.get(id=clip_id)
+
+            # Pass to javascript timeline (and render)
+            cmd = JS_SCOPE_SELECTOR + ".hideAudioData('" + clip_id + "');"
+            self.page().mainFrame().evaluateJavaScript(cmd)
 
     def Waveform_Ready(self, clip_id, audio_data):
         """Callback when audio waveform is ready"""
@@ -788,66 +799,38 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Restore normal cursor
         get_app().restoreOverrideCursor()
 
-    def Split_Audio_Triggered(self, action, clip_id):
+    def Split_Audio_Triggered(self, action, clip_ids):
         """Callback for split audio context menus"""
         log.info("Split_Audio_Triggered")
 
-        # Get existing clip object
-        clip = Clip.get(id=clip_id)
+        # Loop through each selected clip
+        for clip_id in clip_ids:
 
-        # Filter out audio on the original clip
-        p = openshot.Point(1, 0.0, openshot.CONSTANT) # Override has_audio keyframe to False
-        p_object = json.loads(p.Json())
-        clip.data["has_audio"] = { "Points" : [p_object]}
+            # Get existing clip object
+            clip = Clip.get(id=clip_id)
 
-        # Save filter on original clip
-        clip.save()
-
-
-        # Clear audio override
-        p = openshot.Point(1, -1.0, openshot.CONSTANT) # Override has_audio keyframe to False
-        p_object = json.loads(p.Json())
-        clip.data["has_audio"] = { "Points" : [p_object]}
-
-        # Remove the ID property from the clip (so it becomes a new one)
-        clip.id = None
-        clip.type = 'insert'
-        clip.data.pop('id')
-        clip.key.pop(1)
-
-
-        if action == MENU_SPLIT_AUDIO_SINGLE:
-            # Clear channel filter on new clip
-            p = openshot.Point(1, -1.0, openshot.CONSTANT)
-            p_object = json.loads(p.Json())
-            clip.data["channel_filter"] = { "Points" : [p_object]}
-
-            # Filter out video on the new clip
+            # Filter out audio on the original clip
             p = openshot.Point(1, 0.0, openshot.CONSTANT) # Override has_audio keyframe to False
             p_object = json.loads(p.Json())
-            clip.data["has_video"] = { "Points" : [p_object]}
+            clip.data["has_audio"] = { "Points" : [p_object]}
 
-            # Adjust the layer, so this new audio clip doesn't overlap the parent
-            clip.data['layer'] = clip.data['layer'] - 1 # Add to layer below clip
-
-            # Save changes
+            # Save filter on original clip
             clip.save()
 
-            # Generate waveform for clip
-            #channel_filter = -1 # all channels
-            self.Show_Waveform_Triggered(clip.id)
-            #get_audio_data(clip.id, clip.data["reader"]["path"], channel_filter, None)
+            # Clear audio override
+            p = openshot.Point(1, -1.0, openshot.CONSTANT) # Override has_audio keyframe to False
+            p_object = json.loads(p.Json())
+            clip.data["has_audio"] = { "Points" : [p_object]}
 
-        if action == MENU_SPLIT_AUDIO_MULTIPLE:
-            # Get # of channels on clip
-            channels = int(clip.data["reader"]["channels"])
+            # Remove the ID property from the clip (so it becomes a new one)
+            clip.id = None
+            clip.type = 'insert'
+            clip.data.pop('id')
+            clip.key.pop(1)
 
-            # Loop through each channel
-            for channel in range(0, channels):
-                log.info("Adding clip for channel %s" % channel)
-
-                # Each clip is filtered to a different channel
-                p = openshot.Point(1, channel, openshot.CONSTANT)
+            if action == MENU_SPLIT_AUDIO_SINGLE:
+                # Clear channel filter on new clip
+                p = openshot.Point(1, -1.0, openshot.CONSTANT)
                 p_object = json.loads(p.Json())
                 clip.data["channel_filter"] = { "Points" : [p_object]}
 
@@ -857,254 +840,286 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 clip.data["has_video"] = { "Points" : [p_object]}
 
                 # Adjust the layer, so this new audio clip doesn't overlap the parent
-                clip.data['layer'] = max(clip.data['layer'] - 1, 0) # Add to layer below clip
+                clip.data['layer'] = clip.data['layer'] - 1 # Add to layer below clip
 
                 # Save changes
                 clip.save()
 
                 # Generate waveform for clip
-                self.Show_Waveform_Triggered(clip.id)
-                #get_audio_data(clip.id, clip.data["reader"]["path"], channel)
+                self.Show_Waveform_Triggered([clip.id])
 
-                # Remove the ID property from the clip (so next time, it will create a new clip)
-                clip.id = None
-                clip.type = 'insert'
-                clip.data.pop('id')
+            if action == MENU_SPLIT_AUDIO_MULTIPLE:
+                # Get # of channels on clip
+                channels = int(clip.data["reader"]["channels"])
 
-    def Layout_Triggered(self, action, clip_id):
+                # Loop through each channel
+                for channel in range(0, channels):
+                    log.info("Adding clip for channel %s" % channel)
+
+                    # Each clip is filtered to a different channel
+                    p = openshot.Point(1, channel, openshot.CONSTANT)
+                    p_object = json.loads(p.Json())
+                    clip.data["channel_filter"] = { "Points" : [p_object]}
+
+                    # Filter out video on the new clip
+                    p = openshot.Point(1, 0.0, openshot.CONSTANT) # Override has_audio keyframe to False
+                    p_object = json.loads(p.Json())
+                    clip.data["has_video"] = { "Points" : [p_object]}
+
+                    # Adjust the layer, so this new audio clip doesn't overlap the parent
+                    clip.data['layer'] = max(clip.data['layer'] - 1, 0) # Add to layer below clip
+
+                    # Save changes
+                    clip.save()
+
+                    # Generate waveform for clip
+                    self.Show_Waveform_Triggered([clip.id])
+
+                    # Remove the ID property from the clip (so next time, it will create a new clip)
+                    clip.id = None
+                    clip.type = 'insert'
+                    clip.data.pop('id')
+
+    def Layout_Triggered(self, action, clip_ids):
         """Callback for the layout context menus"""
         log.info(action)
 
-        # Get existing clip object
-        clip = Clip.get(id=clip_id)
+        # Loop through each selected clip
+        for clip_id in clip_ids:
 
-        new_gravity = openshot.GRAVITY_CENTER
-        if action == MENU_LAYOUT_CENTER:
+            # Get existing clip object
+            clip = Clip.get(id=clip_id)
+
             new_gravity = openshot.GRAVITY_CENTER
-        if action == MENU_LAYOUT_TOP_LEFT:
-            new_gravity = openshot.GRAVITY_TOP_LEFT
-        elif action == MENU_LAYOUT_TOP_RIGHT:
-            new_gravity = openshot.GRAVITY_TOP_RIGHT
-        elif action == MENU_LAYOUT_BOTTOM_LEFT:
-            new_gravity = openshot.GRAVITY_BOTTOM_LEFT
-        elif action == MENU_LAYOUT_BOTTOM_RIGHT:
-            new_gravity = openshot.GRAVITY_BOTTOM_RIGHT
+            if action == MENU_LAYOUT_CENTER:
+                new_gravity = openshot.GRAVITY_CENTER
+            if action == MENU_LAYOUT_TOP_LEFT:
+                new_gravity = openshot.GRAVITY_TOP_LEFT
+            elif action == MENU_LAYOUT_TOP_RIGHT:
+                new_gravity = openshot.GRAVITY_TOP_RIGHT
+            elif action == MENU_LAYOUT_BOTTOM_LEFT:
+                new_gravity = openshot.GRAVITY_BOTTOM_LEFT
+            elif action == MENU_LAYOUT_BOTTOM_RIGHT:
+                new_gravity = openshot.GRAVITY_BOTTOM_RIGHT
 
-        if action == MENU_LAYOUT_NONE:
-            # Reset scale mode
-            clip.data["scale"] = openshot.SCALE_FIT
-            clip.data["gravity"] = openshot.GRAVITY_CENTER
+            if action == MENU_LAYOUT_NONE:
+                # Reset scale mode
+                clip.data["scale"] = openshot.SCALE_FIT
+                clip.data["gravity"] = openshot.GRAVITY_CENTER
 
-            # Clear scale keyframes
-            p = openshot.Point(1, 1.0, openshot.BEZIER)
-            p_object = json.loads(p.Json())
-            clip.data["scale_x"] = { "Points" : [p_object]}
-            clip.data["scale_y"] = { "Points" : [p_object]}
+                # Clear scale keyframes
+                p = openshot.Point(1, 1.0, openshot.BEZIER)
+                p_object = json.loads(p.Json())
+                clip.data["scale_x"] = { "Points" : [p_object]}
+                clip.data["scale_y"] = { "Points" : [p_object]}
 
-            # Clear location keyframes
-            p = openshot.Point(1, 0.0, openshot.BEZIER)
-            p_object = json.loads(p.Json())
-            clip.data["location_x"] = { "Points" : [p_object]}
-            clip.data["location_y"] = { "Points" : [p_object]}
+                # Clear location keyframes
+                p = openshot.Point(1, 0.0, openshot.BEZIER)
+                p_object = json.loads(p.Json())
+                clip.data["location_x"] = { "Points" : [p_object]}
+                clip.data["location_y"] = { "Points" : [p_object]}
 
-        if action == MENU_LAYOUT_CENTER or \
-               action == MENU_LAYOUT_TOP_LEFT or \
-               action == MENU_LAYOUT_TOP_RIGHT or \
-               action == MENU_LAYOUT_BOTTOM_LEFT or \
-               action == MENU_LAYOUT_BOTTOM_RIGHT:
-            # Reset scale mode
-            clip.data["scale"] = openshot.SCALE_FIT
-            clip.data["gravity"] = new_gravity
+            if action == MENU_LAYOUT_CENTER or \
+                   action == MENU_LAYOUT_TOP_LEFT or \
+                   action == MENU_LAYOUT_TOP_RIGHT or \
+                   action == MENU_LAYOUT_BOTTOM_LEFT or \
+                   action == MENU_LAYOUT_BOTTOM_RIGHT:
+                # Reset scale mode
+                clip.data["scale"] = openshot.SCALE_FIT
+                clip.data["gravity"] = new_gravity
 
-            # Add scale keyframes
-            p = openshot.Point(1, 0.5, openshot.BEZIER)
-            p_object = json.loads(p.Json())
-            clip.data["scale_x"] = { "Points" : [p_object]}
-            clip.data["scale_y"] = { "Points" : [p_object]}
+                # Add scale keyframes
+                p = openshot.Point(1, 0.5, openshot.BEZIER)
+                p_object = json.loads(p.Json())
+                clip.data["scale_x"] = { "Points" : [p_object]}
+                clip.data["scale_y"] = { "Points" : [p_object]}
 
-            # Add location keyframes
-            p = openshot.Point(1, 0.0, openshot.BEZIER)
-            p_object = json.loads(p.Json())
-            clip.data["location_x"] = { "Points" : [p_object]}
-            clip.data["location_y"] = { "Points" : [p_object]}
+                # Add location keyframes
+                p = openshot.Point(1, 0.0, openshot.BEZIER)
+                p_object = json.loads(p.Json())
+                clip.data["location_x"] = { "Points" : [p_object]}
+                clip.data["location_y"] = { "Points" : [p_object]}
 
 
-        if action == MENU_LAYOUT_ALL_WITH_ASPECT:
-            # Update all intersecting clips
-            self.show_all_clips(clip, False)
+            if action == MENU_LAYOUT_ALL_WITH_ASPECT:
+                # Update all intersecting clips
+                self.show_all_clips(clip, False)
 
-        elif action == MENU_LAYOUT_ALL_WITHOUT_ASPECT:
-            # Update all intersecting clips
-            self.show_all_clips(clip, True)
+            elif action == MENU_LAYOUT_ALL_WITHOUT_ASPECT:
+                # Update all intersecting clips
+                self.show_all_clips(clip, True)
 
-        else:
-            # Save changes
-            self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+            else:
+                # Save changes
+                self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
-    def Animate_Triggered(self, action, clip_id, position="Entire Clip"):
+    def Animate_Triggered(self, action, clip_ids, position="Entire Clip"):
         """Callback for the animate context menus"""
         log.info(action)
 
-        # Get existing clip object
-        clip = Clip.get(id=clip_id)
+        # Loop through each selected clip
+        for clip_id in clip_ids:
 
-        # Get framerate
-        fps = get_app().project.get(["fps"])
-        fps_float = float(fps["num"]) / float(fps["den"])
+            # Get existing clip object
+            clip = Clip.get(id=clip_id)
 
-        # Get existing clip object
-        clip = Clip.get(id=clip_id)
-        start_of_clip = round(float(clip.data["start"]) * fps_float) + 1.0
-        end_of_clip = round(float(clip.data["end"]) * fps_float) + 1.0
+            # Get framerate
+            fps = get_app().project.get(["fps"])
+            fps_float = float(fps["num"]) / float(fps["den"])
 
-        # Determine the beginning and ending of this animation
-        # ["Start of Clip", "End of Clip", "Entire Clip"]
-        start_animation = start_of_clip
-        end_animation = end_of_clip
-        if position == "Start of Clip":
+            # Get existing clip object
+            clip = Clip.get(id=clip_id)
+            start_of_clip = round(float(clip.data["start"]) * fps_float) + 1.0
+            end_of_clip = round(float(clip.data["end"]) * fps_float) + 1.0
+
+            # Determine the beginning and ending of this animation
+            # ["Start of Clip", "End of Clip", "Entire Clip"]
             start_animation = start_of_clip
-            end_animation = min(start_of_clip + (1.0 * fps_float), end_of_clip)
-        elif position == "End of Clip":
-            start_animation = max(1.0, end_of_clip - (1.0 * fps_float))
             end_animation = end_of_clip
+            if position == "Start of Clip":
+                start_animation = start_of_clip
+                end_animation = min(start_of_clip + (1.0 * fps_float), end_of_clip)
+            elif position == "End of Clip":
+                start_animation = max(1.0, end_of_clip - (1.0 * fps_float))
+                end_animation = end_of_clip
 
-        if action == MENU_ANIMATE_NONE:
-            # Clear all keyframes
-            default_zoom = openshot.Point(start_animation, 1.0, openshot.BEZIER)
-            default_zoom_object = json.loads(default_zoom.Json())
-            default_loc = openshot.Point(start_animation, 0.0, openshot.BEZIER)
-            default_loc_object = json.loads(default_loc.Json())
-            clip.data["gravity"] = openshot.GRAVITY_CENTER
-            clip.data["scale_x"] = { "Points" : [default_zoom_object]}
-            clip.data["scale_y"] = { "Points" : [default_zoom_object]}
-            clip.data["location_x"] = { "Points" : [default_loc_object]}
-            clip.data["location_y"] = { "Points" : [default_loc_object]}
+            if action == MENU_ANIMATE_NONE:
+                # Clear all keyframes
+                default_zoom = openshot.Point(start_animation, 1.0, openshot.BEZIER)
+                default_zoom_object = json.loads(default_zoom.Json())
+                default_loc = openshot.Point(start_animation, 0.0, openshot.BEZIER)
+                default_loc_object = json.loads(default_loc.Json())
+                clip.data["gravity"] = openshot.GRAVITY_CENTER
+                clip.data["scale_x"] = { "Points" : [default_zoom_object]}
+                clip.data["scale_y"] = { "Points" : [default_zoom_object]}
+                clip.data["location_x"] = { "Points" : [default_loc_object]}
+                clip.data["location_y"] = { "Points" : [default_loc_object]}
 
-        if action in [MENU_ANIMATE_IN_50_100, MENU_ANIMATE_IN_75_100, MENU_ANIMATE_IN_100_150, MENU_ANIMATE_OUT_100_75, MENU_ANIMATE_OUT_100_50, MENU_ANIMATE_OUT_150_100]:
-            # Scale animation
-            start_scale = 1.0
-            end_scale = 1.0
-            if action == MENU_ANIMATE_IN_50_100:
-                start_scale = 0.5
-            elif action == MENU_ANIMATE_IN_75_100:
-                start_scale = 0.75
-            elif action == MENU_ANIMATE_IN_100_150:
-                end_scale = 1.5
-            elif action == MENU_ANIMATE_OUT_100_75:
-                end_scale = 0.75
-            elif action == MENU_ANIMATE_OUT_100_50:
-                end_scale = 0.5
-            elif action == MENU_ANIMATE_OUT_150_100:
-                start_scale = 1.5
+            if action in [MENU_ANIMATE_IN_50_100, MENU_ANIMATE_IN_75_100, MENU_ANIMATE_IN_100_150, MENU_ANIMATE_OUT_100_75, MENU_ANIMATE_OUT_100_50, MENU_ANIMATE_OUT_150_100]:
+                # Scale animation
+                start_scale = 1.0
+                end_scale = 1.0
+                if action == MENU_ANIMATE_IN_50_100:
+                    start_scale = 0.5
+                elif action == MENU_ANIMATE_IN_75_100:
+                    start_scale = 0.75
+                elif action == MENU_ANIMATE_IN_100_150:
+                    end_scale = 1.5
+                elif action == MENU_ANIMATE_OUT_100_75:
+                    end_scale = 0.75
+                elif action == MENU_ANIMATE_OUT_100_50:
+                    end_scale = 0.5
+                elif action == MENU_ANIMATE_OUT_150_100:
+                    start_scale = 1.5
 
-            # Add keyframes
-            start = openshot.Point(start_animation, start_scale, openshot.BEZIER)
-            start_object = json.loads(start.Json())
-            end = openshot.Point(end_animation, end_scale, openshot.BEZIER)
-            end_object = json.loads(end.Json())
-            clip.data["gravity"] = openshot.GRAVITY_CENTER
-            clip.data["scale_x"]["Points"].append(start_object)
-            clip.data["scale_x"]["Points"].append(end_object)
-            clip.data["scale_y"]["Points"].append(start_object)
-            clip.data["scale_y"]["Points"].append(end_object)
+                # Add keyframes
+                start = openshot.Point(start_animation, start_scale, openshot.BEZIER)
+                start_object = json.loads(start.Json())
+                end = openshot.Point(end_animation, end_scale, openshot.BEZIER)
+                end_object = json.loads(end.Json())
+                clip.data["gravity"] = openshot.GRAVITY_CENTER
+                clip.data["scale_x"]["Points"].append(start_object)
+                clip.data["scale_x"]["Points"].append(end_object)
+                clip.data["scale_y"]["Points"].append(start_object)
+                clip.data["scale_y"]["Points"].append(end_object)
 
 
-        if action in [MENU_ANIMATE_CENTER_TOP, MENU_ANIMATE_CENTER_LEFT, MENU_ANIMATE_CENTER_RIGHT, MENU_ANIMATE_CENTER_BOTTOM,
-                      MENU_ANIMATE_TOP_CENTER, MENU_ANIMATE_LEFT_CENTER, MENU_ANIMATE_RIGHT_CENTER, MENU_ANIMATE_BOTTOM_CENTER,
-                      MENU_ANIMATE_TOP_BOTTOM, MENU_ANIMATE_LEFT_RIGHT, MENU_ANIMATE_RIGHT_LEFT, MENU_ANIMATE_BOTTOM_TOP]:
-            # Location animation
-            animate_start_x = 0.0
-            animate_end_x = 0.0
-            animate_start_y = 0.0
-            animate_end_y = 0.0
-            # Center to edge...
-            if action == MENU_ANIMATE_CENTER_TOP:
-                animate_end_y = -1.0
-            elif action == MENU_ANIMATE_CENTER_LEFT:
-                animate_end_x = -1.0
-            elif action == MENU_ANIMATE_CENTER_RIGHT:
-                animate_end_x = 1.0
-            elif action == MENU_ANIMATE_CENTER_BOTTOM:
-                animate_end_y = 1.0
+            if action in [MENU_ANIMATE_CENTER_TOP, MENU_ANIMATE_CENTER_LEFT, MENU_ANIMATE_CENTER_RIGHT, MENU_ANIMATE_CENTER_BOTTOM,
+                          MENU_ANIMATE_TOP_CENTER, MENU_ANIMATE_LEFT_CENTER, MENU_ANIMATE_RIGHT_CENTER, MENU_ANIMATE_BOTTOM_CENTER,
+                          MENU_ANIMATE_TOP_BOTTOM, MENU_ANIMATE_LEFT_RIGHT, MENU_ANIMATE_RIGHT_LEFT, MENU_ANIMATE_BOTTOM_TOP]:
+                # Location animation
+                animate_start_x = 0.0
+                animate_end_x = 0.0
+                animate_start_y = 0.0
+                animate_end_y = 0.0
+                # Center to edge...
+                if action == MENU_ANIMATE_CENTER_TOP:
+                    animate_end_y = -1.0
+                elif action == MENU_ANIMATE_CENTER_LEFT:
+                    animate_end_x = -1.0
+                elif action == MENU_ANIMATE_CENTER_RIGHT:
+                    animate_end_x = 1.0
+                elif action == MENU_ANIMATE_CENTER_BOTTOM:
+                    animate_end_y = 1.0
 
-            # Edge to Center
-            elif action == MENU_ANIMATE_TOP_CENTER:
-                animate_start_y = -1.0
-            elif action == MENU_ANIMATE_LEFT_CENTER:
-                animate_start_x = -1.0
-            elif action == MENU_ANIMATE_RIGHT_CENTER:
-                animate_start_x = 1.0
-            elif action == MENU_ANIMATE_BOTTOM_CENTER:
-                animate_start_y = 1.0
+                # Edge to Center
+                elif action == MENU_ANIMATE_TOP_CENTER:
+                    animate_start_y = -1.0
+                elif action == MENU_ANIMATE_LEFT_CENTER:
+                    animate_start_x = -1.0
+                elif action == MENU_ANIMATE_RIGHT_CENTER:
+                    animate_start_x = 1.0
+                elif action == MENU_ANIMATE_BOTTOM_CENTER:
+                    animate_start_y = 1.0
 
-            # Edge to Edge
-            elif action == MENU_ANIMATE_TOP_BOTTOM:
-                animate_start_y = -1.0
-                animate_end_y = 1.0
-            elif action == MENU_ANIMATE_LEFT_RIGHT:
-                animate_start_x = -1.0
-                animate_end_x = 1.0
-            elif action == MENU_ANIMATE_RIGHT_LEFT:
-                animate_start_x = 1.0
-                animate_end_x = -1.0
-            elif action == MENU_ANIMATE_BOTTOM_TOP:
-                animate_start_y = 1.0
-                animate_end_y = -1.0
+                # Edge to Edge
+                elif action == MENU_ANIMATE_TOP_BOTTOM:
+                    animate_start_y = -1.0
+                    animate_end_y = 1.0
+                elif action == MENU_ANIMATE_LEFT_RIGHT:
+                    animate_start_x = -1.0
+                    animate_end_x = 1.0
+                elif action == MENU_ANIMATE_RIGHT_LEFT:
+                    animate_start_x = 1.0
+                    animate_end_x = -1.0
+                elif action == MENU_ANIMATE_BOTTOM_TOP:
+                    animate_start_y = 1.0
+                    animate_end_y = -1.0
 
-            # Add keyframes
-            start_x = openshot.Point(start_animation, animate_start_x, openshot.BEZIER)
-            start_x_object = json.loads(start_x.Json())
-            end_x = openshot.Point(end_animation, animate_end_x, openshot.BEZIER)
-            end_x_object = json.loads(end_x.Json())
-            start_y = openshot.Point(start_animation, animate_start_y, openshot.BEZIER)
-            start_y_object = json.loads(start_y.Json())
-            end_y = openshot.Point(end_animation, animate_end_y, openshot.BEZIER)
-            end_y_object = json.loads(end_y.Json())
-            clip.data["gravity"] = openshot.GRAVITY_CENTER
-            clip.data["location_x"]["Points"].append(start_x_object)
-            clip.data["location_x"]["Points"].append(end_x_object)
-            clip.data["location_y"]["Points"].append(start_y_object)
-            clip.data["location_y"]["Points"].append(end_y_object)
+                # Add keyframes
+                start_x = openshot.Point(start_animation, animate_start_x, openshot.BEZIER)
+                start_x_object = json.loads(start_x.Json())
+                end_x = openshot.Point(end_animation, animate_end_x, openshot.BEZIER)
+                end_x_object = json.loads(end_x.Json())
+                start_y = openshot.Point(start_animation, animate_start_y, openshot.BEZIER)
+                start_y_object = json.loads(start_y.Json())
+                end_y = openshot.Point(end_animation, animate_end_y, openshot.BEZIER)
+                end_y_object = json.loads(end_y.Json())
+                clip.data["gravity"] = openshot.GRAVITY_CENTER
+                clip.data["location_x"]["Points"].append(start_x_object)
+                clip.data["location_x"]["Points"].append(end_x_object)
+                clip.data["location_y"]["Points"].append(start_y_object)
+                clip.data["location_y"]["Points"].append(end_y_object)
 
-        if action == MENU_ANIMATE_RANDOM:
-            # Location animation
-            animate_start_x = uniform(-0.5, 0.5)
-            animate_end_x = uniform(-0.15, 0.15)
-            animate_start_y = uniform(-0.5, 0.5)
-            animate_end_y = uniform(-0.15, 0.15)
+            if action == MENU_ANIMATE_RANDOM:
+                # Location animation
+                animate_start_x = uniform(-0.5, 0.5)
+                animate_end_x = uniform(-0.15, 0.15)
+                animate_start_y = uniform(-0.5, 0.5)
+                animate_end_y = uniform(-0.15, 0.15)
 
-            # Scale animation
-            start_scale = uniform(0.5, 1.5)
-            end_scale = uniform(0.85, 1.15)
+                # Scale animation
+                start_scale = uniform(0.5, 1.5)
+                end_scale = uniform(0.85, 1.15)
 
-            # Add keyframes
-            start = openshot.Point(start_animation, start_scale, openshot.BEZIER)
-            start_object = json.loads(start.Json())
-            end = openshot.Point(end_animation, end_scale, openshot.BEZIER)
-            end_object = json.loads(end.Json())
-            clip.data["gravity"] = openshot.GRAVITY_CENTER
-            clip.data["scale_x"]["Points"].append(start_object)
-            clip.data["scale_x"]["Points"].append(end_object)
-            clip.data["scale_y"]["Points"].append(start_object)
-            clip.data["scale_y"]["Points"].append(end_object)
+                # Add keyframes
+                start = openshot.Point(start_animation, start_scale, openshot.BEZIER)
+                start_object = json.loads(start.Json())
+                end = openshot.Point(end_animation, end_scale, openshot.BEZIER)
+                end_object = json.loads(end.Json())
+                clip.data["gravity"] = openshot.GRAVITY_CENTER
+                clip.data["scale_x"]["Points"].append(start_object)
+                clip.data["scale_x"]["Points"].append(end_object)
+                clip.data["scale_y"]["Points"].append(start_object)
+                clip.data["scale_y"]["Points"].append(end_object)
 
-            # Add keyframes
-            start_x = openshot.Point(start_animation, animate_start_x, openshot.BEZIER)
-            start_x_object = json.loads(start_x.Json())
-            end_x = openshot.Point(end_animation, animate_end_x, openshot.BEZIER)
-            end_x_object = json.loads(end_x.Json())
-            start_y = openshot.Point(start_animation, animate_start_y, openshot.BEZIER)
-            start_y_object = json.loads(start_y.Json())
-            end_y = openshot.Point(end_animation, animate_end_y, openshot.BEZIER)
-            end_y_object = json.loads(end_y.Json())
-            clip.data["gravity"] = openshot.GRAVITY_CENTER
-            clip.data["location_x"]["Points"].append(start_x_object)
-            clip.data["location_x"]["Points"].append(end_x_object)
-            clip.data["location_y"]["Points"].append(start_y_object)
-            clip.data["location_y"]["Points"].append(end_y_object)
+                # Add keyframes
+                start_x = openshot.Point(start_animation, animate_start_x, openshot.BEZIER)
+                start_x_object = json.loads(start_x.Json())
+                end_x = openshot.Point(end_animation, animate_end_x, openshot.BEZIER)
+                end_x_object = json.loads(end_x.Json())
+                start_y = openshot.Point(start_animation, animate_start_y, openshot.BEZIER)
+                start_y_object = json.loads(start_y.Json())
+                end_y = openshot.Point(end_animation, animate_end_y, openshot.BEZIER)
+                end_y_object = json.loads(end_y.Json())
+                clip.data["gravity"] = openshot.GRAVITY_CENTER
+                clip.data["location_x"]["Points"].append(start_x_object)
+                clip.data["location_x"]["Points"].append(end_x_object)
+                clip.data["location_y"]["Points"].append(start_y_object)
+                clip.data["location_y"]["Points"].append(end_y_object)
 
-        # Save changes
-        self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+            # Save changes
+            self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
     def Copy_Triggered(self, action, clip_id):
         """Callback for copy context menus"""
@@ -1148,34 +1163,37 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         elif action == MENU_COPY_EFFECTS:
             self.copy_clipboard['effects'] = clip.data['effects']
 
-    def Paste_Triggered(self, action, clip_id):
+    def Paste_Triggered(self, action, clip_ids):
         """Callback for paste context menus"""
         log.info(action)
 
-        # Get existing clip object
-        clip = Clip.get(id=clip_id)
-        selected_clip_position = clip.data['position']
-        selected_clip_layer = clip.data['layer']
+        # Loop through each selected clip
+        for clip_id in clip_ids:
 
-        # Apply clipboard to clip
-        for k,v in self.copy_clipboard.items():
-            # Overwrite clips propeties (which are in the clipboard)
-            clip.data[k] = v
+            # Get existing clip object
+            clip = Clip.get(id=clip_id)
+            selected_clip_position = clip.data['position']
+            selected_clip_layer = clip.data['layer']
 
-        # Check if 'id' in clipboard (i.e. an entire clip is being copied)
-        if 'id' in self.copy_clipboard.keys():
-            # Remove the ID property from the clip (so it becomes a new one)
-            clip.id = None
-            clip.type = 'insert'
-            clip.data.pop('id')
-            clip.key.pop(1)
+            # Apply clipboard to clip
+            for k,v in self.copy_clipboard.items():
+                # Overwrite clips propeties (which are in the clipboard)
+                clip.data[k] = v
 
-            # Adjust the position by a few seconds (so it's visible)
-            clip.data['position'] = selected_clip_position + 2.0
-            clip.data['layer'] = selected_clip_layer
+            # Check if 'id' in clipboard (i.e. an entire clip is being copied)
+            if 'id' in self.copy_clipboard.keys():
+                # Remove the ID property from the clip (so it becomes a new one)
+                clip.id = None
+                clip.type = 'insert'
+                clip.data.pop('id')
+                clip.key.pop(1)
 
-        # Save changes
-        clip.save()
+                # Adjust the position by a few seconds (so it's visible)
+                clip.data['position'] = selected_clip_position + 2.0
+                clip.data['layer'] = selected_clip_layer
+
+            # Save changes
+            clip.save()
 
     def Copy_Tran_Triggered(self, action, tran_id):
         """Callback for copy transition context menus"""
@@ -1197,36 +1215,39 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         elif action == MENU_COPY_KEYFRAMES_CONTRAST:
             self.copy_transition_clipboard['contrast'] = tran.data['contrast']
 
-    def Paste_Tran_Triggered(self, action, tran_id):
+    def Paste_Tran_Triggered(self, action, tran_ids):
         """Callback for paste transition context menus"""
         log.info(action)
 
-        # Get existing transition object
-        tran = Transition.get(id=tran_id)
-        selected_tran_position = tran.data['position']
-        selected_tran_layer = tran.data['layer']
+        # Loop through all selected transitions
+        for tran_id in tran_ids:
 
-        # Apply clipboard to transition
-        for k,v in self.copy_transition_clipboard.items():
-            # Overwrite transition propeties (which are in the clipboard)
-            tran.data[k] = v
+            # Get existing transition object
+            tran = Transition.get(id=tran_id)
+            selected_tran_position = tran.data['position']
+            selected_tran_layer = tran.data['layer']
 
-        # Check if 'id' in clipboard (i.e. an entire clip is being copied)
-        if 'id' in self.copy_transition_clipboard.keys():
-            # Remove the ID property from the clip (so it becomes a new one)
-            tran.id = None
-            tran.type = 'insert'
-            tran.data.pop('id')
-            tran.key.pop(1)
+            # Apply clipboard to transition
+            for k,v in self.copy_transition_clipboard.items():
+                # Overwrite transition propeties (which are in the clipboard)
+                tran.data[k] = v
 
-            # Adjust the position by a few seconds (so it's visible)
-            tran.data['position'] = selected_tran_position + 2.0
-            tran.data['layer'] = selected_tran_layer
+            # Check if 'id' in clipboard (i.e. an entire clip is being copied)
+            if 'id' in self.copy_transition_clipboard.keys():
+                # Remove the ID property from the clip (so it becomes a new one)
+                tran.id = None
+                tran.type = 'insert'
+                tran.data.pop('id')
+                tran.key.pop(1)
 
-        # Save changes
-        tran.save()
+                # Adjust the position by a few seconds (so it's visible)
+                tran.data['position'] = selected_tran_position + 2.0
+                tran.data['layer'] = selected_tran_layer
 
-    def Fade_Triggered(self, action, clip_id, position="Entire Clip"):
+            # Save changes
+            tran.save()
+
+    def Fade_Triggered(self, action, clip_ids, position="Entire Clip"):
         """Callback for fade context menus"""
         log.info(action)
         prop_name = "alpha"
@@ -1235,66 +1256,69 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         fps = get_app().project.get(["fps"])
         fps_float = float(fps["num"]) / float(fps["den"])
 
-        # Get existing clip object
-        clip = Clip.get(id=clip_id)
-        start_of_clip = round(float(clip.data["start"]) * fps_float) + 1.0
-        end_of_clip = round(float(clip.data["end"]) * fps_float) + 1.0
+        # Loop through each selected clip
+        for clip_id in clip_ids:
 
-        # Determine the beginning and ending of this animation
-        # ["Start of Clip", "End of Clip", "Entire Clip"]
-        start_animation = start_of_clip
-        end_animation = end_of_clip
-        if position == "Start of Clip" and action in [MENU_FADE_IN_FAST, MENU_FADE_OUT_FAST]:
+            # Get existing clip object
+            clip = Clip.get(id=clip_id)
+            start_of_clip = round(float(clip.data["start"]) * fps_float) + 1.0
+            end_of_clip = round(float(clip.data["end"]) * fps_float) + 1.0
+
+            # Determine the beginning and ending of this animation
+            # ["Start of Clip", "End of Clip", "Entire Clip"]
             start_animation = start_of_clip
-            end_animation = min(start_of_clip + (1.0 * fps_float), end_of_clip)
-        elif position == "Start of Clip" and action in [MENU_FADE_IN_SLOW, MENU_FADE_OUT_SLOW]:
-            start_animation = start_of_clip
-            end_animation = min(start_of_clip + (3.0 * fps_float), end_of_clip)
-        elif position == "End of Clip" and action in [MENU_FADE_IN_FAST, MENU_FADE_OUT_FAST]:
-            start_animation = max(1.0, end_of_clip - (1.0 * fps_float))
             end_animation = end_of_clip
-        elif position == "End of Clip" and action in [MENU_FADE_IN_SLOW, MENU_FADE_OUT_SLOW]:
-            start_animation = max(1.0, end_of_clip - (3.0 * fps_float))
-            end_animation = end_of_clip
+            if position == "Start of Clip" and action in [MENU_FADE_IN_FAST, MENU_FADE_OUT_FAST]:
+                start_animation = start_of_clip
+                end_animation = min(start_of_clip + (1.0 * fps_float), end_of_clip)
+            elif position == "Start of Clip" and action in [MENU_FADE_IN_SLOW, MENU_FADE_OUT_SLOW]:
+                start_animation = start_of_clip
+                end_animation = min(start_of_clip + (3.0 * fps_float), end_of_clip)
+            elif position == "End of Clip" and action in [MENU_FADE_IN_FAST, MENU_FADE_OUT_FAST]:
+                start_animation = max(1.0, end_of_clip - (1.0 * fps_float))
+                end_animation = end_of_clip
+            elif position == "End of Clip" and action in [MENU_FADE_IN_SLOW, MENU_FADE_OUT_SLOW]:
+                start_animation = max(1.0, end_of_clip - (3.0 * fps_float))
+                end_animation = end_of_clip
 
-        # Fade in and out (special case)
-        if position == "Entire Clip" and action == MENU_FADE_IN_OUT_FAST:
-            # Call this method for the start and end of the clip
-            self.Fade_Triggered(MENU_FADE_IN_FAST, clip_id, "Start of Clip")
-            self.Fade_Triggered(MENU_FADE_OUT_FAST, clip_id, "End of Clip")
-            return
-        elif position == "Entire Clip" and action == MENU_FADE_IN_OUT_SLOW:
-            # Call this method for the start and end of the clip
-            self.Fade_Triggered(MENU_FADE_IN_SLOW, clip_id, "Start of Clip")
-            self.Fade_Triggered(MENU_FADE_OUT_SLOW, clip_id, "End of Clip")
-            return
+            # Fade in and out (special case)
+            if position == "Entire Clip" and action == MENU_FADE_IN_OUT_FAST:
+                # Call this method for the start and end of the clip
+                self.Fade_Triggered(MENU_FADE_IN_FAST, clip_ids, "Start of Clip")
+                self.Fade_Triggered(MENU_FADE_OUT_FAST, clip_ids, "End of Clip")
+                return
+            elif position == "Entire Clip" and action == MENU_FADE_IN_OUT_SLOW:
+                # Call this method for the start and end of the clip
+                self.Fade_Triggered(MENU_FADE_IN_SLOW, clip_ids, "Start of Clip")
+                self.Fade_Triggered(MENU_FADE_OUT_SLOW, clip_ids, "End of Clip")
+                return
 
-        if action == MENU_FADE_NONE:
-            # Clear all keyframes
-            p = openshot.Point(1, 1.0, openshot.BEZIER)
-            p_object = json.loads(p.Json())
-            clip.data[prop_name] = { "Points" : [p_object]}
+            if action == MENU_FADE_NONE:
+                # Clear all keyframes
+                p = openshot.Point(1, 1.0, openshot.BEZIER)
+                p_object = json.loads(p.Json())
+                clip.data[prop_name] = { "Points" : [p_object]}
 
-        if action in [MENU_FADE_IN_FAST, MENU_FADE_IN_SLOW]:
-            # Add keyframes
-            start = openshot.Point(start_animation, 0.0, openshot.BEZIER)
-            start_object = json.loads(start.Json())
-            end = openshot.Point(end_animation, 1.0, openshot.BEZIER)
-            end_object = json.loads(end.Json())
-            clip.data[prop_name]["Points"].append(start_object)
-            clip.data[prop_name]["Points"].append(end_object)
+            if action in [MENU_FADE_IN_FAST, MENU_FADE_IN_SLOW]:
+                # Add keyframes
+                start = openshot.Point(start_animation, 0.0, openshot.BEZIER)
+                start_object = json.loads(start.Json())
+                end = openshot.Point(end_animation, 1.0, openshot.BEZIER)
+                end_object = json.loads(end.Json())
+                clip.data[prop_name]["Points"].append(start_object)
+                clip.data[prop_name]["Points"].append(end_object)
 
-        if action in [MENU_FADE_OUT_FAST, MENU_FADE_OUT_SLOW]:
-            # Add keyframes
-            start = openshot.Point(start_animation, 1.0, openshot.BEZIER)
-            start_object = json.loads(start.Json())
-            end = openshot.Point(end_animation, 0.0, openshot.BEZIER)
-            end_object = json.loads(end.Json())
-            clip.data[prop_name]["Points"].append(start_object)
-            clip.data[prop_name]["Points"].append(end_object)
+            if action in [MENU_FADE_OUT_FAST, MENU_FADE_OUT_SLOW]:
+                # Add keyframes
+                start = openshot.Point(start_animation, 1.0, openshot.BEZIER)
+                start_object = json.loads(start.Json())
+                end = openshot.Point(end_animation, 0.0, openshot.BEZIER)
+                end_object = json.loads(end.Json())
+                clip.data[prop_name]["Points"].append(start_object)
+                clip.data[prop_name]["Points"].append(end_object)
 
-        # Save changes
-        self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+            # Save changes
+            self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
     def Slice_Triggered(self, action, clip_ids, trans_ids, playhead_position=0):
         """Callback for slice context menus"""
@@ -1422,7 +1446,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             # Save changes (left side)
             self.update_transition_data(trans.data, only_basic_props=False)
 
-    def Volume_Triggered(self, action, clip_id, position="Entire Clip"):
+    def Volume_Triggered(self, action, clip_ids, position="Entire Clip"):
         """Callback for volume context menus"""
         log.info(action)
         prop_name = "volume"
@@ -1431,90 +1455,93 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         fps = get_app().project.get(["fps"])
         fps_float = float(fps["num"]) / float(fps["den"])
 
-        # Get existing clip object
-        clip = Clip.get(id=clip_id)
-        start_of_clip = round(float(clip.data["start"]) * fps_float) + 1.0
-        end_of_clip = round(float(clip.data["end"]) * fps_float) + 1.0
+        # Loop through each selected clip
+        for clip_id in clip_ids:
 
-        # Determine the beginning and ending of this animation
-        # ["Start of Clip", "End of Clip", "Entire Clip"]
-        start_animation = start_of_clip
-        end_animation = end_of_clip
-        if position == "Start of Clip" and action in [MENU_VOLUME_FADE_IN_FAST, MENU_VOLUME_FADE_OUT_FAST]:
+            # Get existing clip object
+            clip = Clip.get(id=clip_id)
+            start_of_clip = round(float(clip.data["start"]) * fps_float) + 1.0
+            end_of_clip = round(float(clip.data["end"]) * fps_float) + 1.0
+
+            # Determine the beginning and ending of this animation
+            # ["Start of Clip", "End of Clip", "Entire Clip"]
             start_animation = start_of_clip
-            end_animation = min(start_of_clip + (1.0 * fps_float), end_of_clip)
-        elif position == "Start of Clip" and action in [MENU_VOLUME_FADE_IN_SLOW, MENU_VOLUME_FADE_OUT_SLOW]:
-            start_animation = start_of_clip
-            end_animation = min(start_of_clip + (3.0 * fps_float), end_of_clip)
-        elif position == "End of Clip" and action in [MENU_VOLUME_FADE_IN_FAST, MENU_VOLUME_FADE_OUT_FAST]:
-            start_animation = max(1.0, end_of_clip - (1.0 * fps_float))
             end_animation = end_of_clip
-        elif position == "End of Clip" and action in [MENU_VOLUME_FADE_IN_SLOW, MENU_VOLUME_FADE_OUT_SLOW]:
-            start_animation = max(1.0, end_of_clip - (3.0 * fps_float))
-            end_animation = end_of_clip
-        elif position == "Start of Clip":
-            # Only used when setting levels (a single keyframe)
-            start_animation = start_of_clip
-            end_animation = start_of_clip
-        elif position == "End of Clip":
-            # Only used when setting levels (a single keyframe)
-            start_animation = end_of_clip
-            end_animation = end_of_clip
+            if position == "Start of Clip" and action in [MENU_VOLUME_FADE_IN_FAST, MENU_VOLUME_FADE_OUT_FAST]:
+                start_animation = start_of_clip
+                end_animation = min(start_of_clip + (1.0 * fps_float), end_of_clip)
+            elif position == "Start of Clip" and action in [MENU_VOLUME_FADE_IN_SLOW, MENU_VOLUME_FADE_OUT_SLOW]:
+                start_animation = start_of_clip
+                end_animation = min(start_of_clip + (3.0 * fps_float), end_of_clip)
+            elif position == "End of Clip" and action in [MENU_VOLUME_FADE_IN_FAST, MENU_VOLUME_FADE_OUT_FAST]:
+                start_animation = max(1.0, end_of_clip - (1.0 * fps_float))
+                end_animation = end_of_clip
+            elif position == "End of Clip" and action in [MENU_VOLUME_FADE_IN_SLOW, MENU_VOLUME_FADE_OUT_SLOW]:
+                start_animation = max(1.0, end_of_clip - (3.0 * fps_float))
+                end_animation = end_of_clip
+            elif position == "Start of Clip":
+                # Only used when setting levels (a single keyframe)
+                start_animation = start_of_clip
+                end_animation = start_of_clip
+            elif position == "End of Clip":
+                # Only used when setting levels (a single keyframe)
+                start_animation = end_of_clip
+                end_animation = end_of_clip
 
-        # Fade in and out (special case)
-        if position == "Entire Clip" and action == MENU_VOLUME_FADE_IN_OUT_FAST:
-            # Call this method for the start and end of the clip
-            self.Volume_Triggered(MENU_VOLUME_FADE_IN_FAST, clip_id, "Start of Clip")
-            self.Volume_Triggered(MENU_VOLUME_FADE_OUT_FAST, clip_id, "End of Clip")
-            return
-        elif position == "Entire Clip" and action == MENU_VOLUME_FADE_IN_OUT_SLOW:
-            # Call this method for the start and end of the clip
-            self.Volume_Triggered(MENU_VOLUME_FADE_IN_SLOW, clip_id, "Start of Clip")
-            self.Volume_Triggered(MENU_VOLUME_FADE_OUT_SLOW, clip_id, "End of Clip")
-            return
+            # Fade in and out (special case)
+            if position == "Entire Clip" and action == MENU_VOLUME_FADE_IN_OUT_FAST:
+                # Call this method for the start and end of the clip
+                self.Volume_Triggered(MENU_VOLUME_FADE_IN_FAST, clip_ids, "Start of Clip")
+                self.Volume_Triggered(MENU_VOLUME_FADE_OUT_FAST, clip_ids, "End of Clip")
+                return
+            elif position == "Entire Clip" and action == MENU_VOLUME_FADE_IN_OUT_SLOW:
+                # Call this method for the start and end of the clip
+                self.Volume_Triggered(MENU_VOLUME_FADE_IN_SLOW, clip_ids, "Start of Clip")
+                self.Volume_Triggered(MENU_VOLUME_FADE_OUT_SLOW, clip_ids, "End of Clip")
+                return
 
-        if action == MENU_VOLUME_NONE:
-            # Clear all keyframes
-            p = openshot.Point(1, 1.0, openshot.BEZIER)
-            p_object = json.loads(p.Json())
-            clip.data[prop_name] = { "Points" : [p_object]}
+            if action == MENU_VOLUME_NONE:
+                # Clear all keyframes
+                p = openshot.Point(1, 1.0, openshot.BEZIER)
+                p_object = json.loads(p.Json())
+                clip.data[prop_name] = { "Points" : [p_object]}
 
-        if action in [MENU_VOLUME_FADE_IN_FAST, MENU_VOLUME_FADE_IN_SLOW]:
-            # Add keyframes
-            start = openshot.Point(start_animation, 0.0, openshot.BEZIER)
-            start_object = json.loads(start.Json())
-            end = openshot.Point(end_animation, 1.0, openshot.BEZIER)
-            end_object = json.loads(end.Json())
-            clip.data[prop_name]["Points"].append(start_object)
-            clip.data[prop_name]["Points"].append(end_object)
+            if action in [MENU_VOLUME_FADE_IN_FAST, MENU_VOLUME_FADE_IN_SLOW]:
+                # Add keyframes
+                start = openshot.Point(start_animation, 0.0, openshot.BEZIER)
+                start_object = json.loads(start.Json())
+                end = openshot.Point(end_animation, 1.0, openshot.BEZIER)
+                end_object = json.loads(end.Json())
+                clip.data[prop_name]["Points"].append(start_object)
+                clip.data[prop_name]["Points"].append(end_object)
 
-        if action in [MENU_VOLUME_FADE_OUT_FAST, MENU_VOLUME_FADE_OUT_SLOW]:
-            # Add keyframes
-            start = openshot.Point(start_animation, 1.0, openshot.BEZIER)
-            start_object = json.loads(start.Json())
-            end = openshot.Point(end_animation, 0.0, openshot.BEZIER)
-            end_object = json.loads(end.Json())
-            clip.data[prop_name]["Points"].append(start_object)
-            clip.data[prop_name]["Points"].append(end_object)
+            if action in [MENU_VOLUME_FADE_OUT_FAST, MENU_VOLUME_FADE_OUT_SLOW]:
+                # Add keyframes
+                start = openshot.Point(start_animation, 1.0, openshot.BEZIER)
+                start_object = json.loads(start.Json())
+                end = openshot.Point(end_animation, 0.0, openshot.BEZIER)
+                end_object = json.loads(end.Json())
+                clip.data[prop_name]["Points"].append(start_object)
+                clip.data[prop_name]["Points"].append(end_object)
 
-        if action in [MENU_VOLUME_LEVEL_100, MENU_VOLUME_LEVEL_90, MENU_VOLUME_LEVEL_80, MENU_VOLUME_LEVEL_70,
-                      MENU_VOLUME_LEVEL_60, MENU_VOLUME_LEVEL_50, MENU_VOLUME_LEVEL_40, MENU_VOLUME_LEVEL_30,
-                      MENU_VOLUME_LEVEL_20, MENU_VOLUME_LEVEL_10, MENU_VOLUME_LEVEL_0]:
-            # Add keyframes
-            p = openshot.Point(start_animation, float(action) / 100.0, openshot.BEZIER)
-            p_object = json.loads(p.Json())
-            clip.data[prop_name]["Points"].append(p_object)
+            if action in [MENU_VOLUME_LEVEL_100, MENU_VOLUME_LEVEL_90, MENU_VOLUME_LEVEL_80, MENU_VOLUME_LEVEL_70,
+                          MENU_VOLUME_LEVEL_60, MENU_VOLUME_LEVEL_50, MENU_VOLUME_LEVEL_40, MENU_VOLUME_LEVEL_30,
+                          MENU_VOLUME_LEVEL_20, MENU_VOLUME_LEVEL_10, MENU_VOLUME_LEVEL_0]:
+                # Add keyframes
+                p = openshot.Point(start_animation, float(action) / 100.0, openshot.BEZIER)
+                p_object = json.loads(p.Json())
+                clip.data[prop_name]["Points"].append(p_object)
 
-        # Save changes
-        self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+            # Save changes
+            self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
-        # Determine if waveform needs to be redrawn
-        has_audio_data = bool(self.eval_js(JS_SCOPE_SELECTOR + ".hasAudioData('" + clip.id + "');"))
-        if has_audio_data:
-            # Re-generate waveform since volume curve has changed
-            self.Show_Waveform_Triggered(clip.id)
+            # Determine if waveform needs to be redrawn
+            has_audio_data = bool(self.eval_js(JS_SCOPE_SELECTOR + ".hasAudioData('" + clip.id + "');"))
+            if has_audio_data:
+                # Re-generate waveform since volume curve has changed
+                self.Show_Waveform_Triggered(clip.id)
 
-    def Rotate_Triggered(self, action, clip_id, position="Start of Clip"):
+    def Rotate_Triggered(self, action, clip_ids, position="Start of Clip"):
         """Callback for rotate context menus"""
         log.info(action)
         prop_name = "rotation"
@@ -1523,38 +1550,40 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         fps = get_app().project.get(["fps"])
         fps_float = float(fps["num"]) / float(fps["den"])
 
-        # Get existing clip object
-        clip = Clip.get(id=clip_id)
+        # Loop through each selected clip
+        for clip_id in clip_ids:
 
-        if action == MENU_ROTATE_NONE:
-            # Clear all keyframes
-            p = openshot.Point(1, 0.0, openshot.BEZIER)
-            p_object = json.loads(p.Json())
-            clip.data[prop_name] = { "Points" : [p_object]}
+            # Get existing clip object
+            clip = Clip.get(id=clip_id)
 
-        if action == MENU_ROTATE_90_RIGHT:
-            # Add keyframes
-            p = openshot.Point(1, 90.0, openshot.BEZIER)
-            p_object = json.loads(p.Json())
-            clip.data[prop_name] = { "Points" : [p_object]}
+            if action == MENU_ROTATE_NONE:
+                # Clear all keyframes
+                p = openshot.Point(1, 0.0, openshot.BEZIER)
+                p_object = json.loads(p.Json())
+                clip.data[prop_name] = { "Points" : [p_object]}
 
-        if action == MENU_ROTATE_90_LEFT:
-            # Add keyframes
-            p = openshot.Point(1, -90.0, openshot.BEZIER)
-            p_object = json.loads(p.Json())
-            clip.data[prop_name] = { "Points" : [p_object]}
+            if action == MENU_ROTATE_90_RIGHT:
+                # Add keyframes
+                p = openshot.Point(1, 90.0, openshot.BEZIER)
+                p_object = json.loads(p.Json())
+                clip.data[prop_name] = { "Points" : [p_object]}
 
-        if action == MENU_ROTATE_180_FLIP:
-            # Add keyframes
-            p = openshot.Point(1, 180.0, openshot.BEZIER)
-            p_object = json.loads(p.Json())
-            clip.data[prop_name] = { "Points" : [p_object]}
+            if action == MENU_ROTATE_90_LEFT:
+                # Add keyframes
+                p = openshot.Point(1, -90.0, openshot.BEZIER)
+                p_object = json.loads(p.Json())
+                clip.data[prop_name] = { "Points" : [p_object]}
 
-        # Save changes
-        self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+            if action == MENU_ROTATE_180_FLIP:
+                # Add keyframes
+                p = openshot.Point(1, 180.0, openshot.BEZIER)
+                p_object = json.loads(p.Json())
+                clip.data[prop_name] = { "Points" : [p_object]}
 
+            # Save changes
+            self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
-    def Time_Triggered(self, action, clip_id, speed="1X"):
+    def Time_Triggered(self, action, clip_ids, speed="1X"):
         """Callback for rotate context menus"""
         log.info(action)
         prop_name = "time"
@@ -1563,81 +1592,84 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         fps = get_app().project.get(["fps"])
         fps_float = float(fps["num"]) / float(fps["den"])
 
-        # Get existing clip object
-        clip = Clip.get(id=clip_id)
+        # Loop through each selected clip
+        for clip_id in clip_ids:
 
-        # Determine the beginning and ending of this animation
-        start_animation = 1
+            # Get existing clip object
+            clip = Clip.get(id=clip_id)
 
-        # Calculate speed factor
-        speed_label = speed.replace('X', '')
-        speed_parts = speed_label.split('/')
-        even_multiple = 1
-        if len(speed_parts) == 2:
-            speed_factor = float(speed_parts[0]) / float(speed_parts[1])
-            even_multiple = int(speed_parts[1])
-        else:
-            speed_factor = float(speed_label)
-            even_multiple = int(speed_factor)
+            # Determine the beginning and ending of this animation
+            start_animation = 1
 
-        # Clear all keyframes
-        p = openshot.Point(start_animation, 0.0, openshot.LINEAR)
-        p_object = json.loads(p.Json())
-        clip.data[prop_name] = { "Points" : [p_object]}
+            # Calculate speed factor
+            speed_label = speed.replace('X', '')
+            speed_parts = speed_label.split('/')
+            even_multiple = 1
+            if len(speed_parts) == 2:
+                speed_factor = float(speed_parts[0]) / float(speed_parts[1])
+                even_multiple = int(speed_parts[1])
+            else:
+                speed_factor = float(speed_label)
+                even_multiple = int(speed_factor)
 
-        # Reset original end & duration (if available)
-        if "original_data" in clip.data.keys():
-            clip.data["end"] = clip.data["original_data"]["end"]
-            clip.data["duration"] = clip.data["original_data"]["duration"]
-            clip.data["reader"]["video_length"] = clip.data["original_data"]["video_length"]
-            clip.data.pop("original_data")
+            # Clear all keyframes
+            p = openshot.Point(start_animation, 0.0, openshot.LINEAR)
+            p_object = json.loads(p.Json())
+            clip.data[prop_name] = { "Points" : [p_object]}
 
-        # Get the ending frame
-        end_of_clip = (float(clip.data["end"]) * fps_float) + 1
+            # Reset original end & duration (if available)
+            if "original_data" in clip.data.keys():
+                clip.data["end"] = clip.data["original_data"]["end"]
+                clip.data["duration"] = clip.data["original_data"]["duration"]
+                clip.data["reader"]["video_length"] = clip.data["original_data"]["video_length"]
+                clip.data.pop("original_data")
 
-        # Determine the beginning and ending of this animation
-        start_animation = (float(clip.data["start"]) * fps_float) + 1
-        duration_animation = self.round_to_multiple(end_of_clip - start_animation, even_multiple)
-        end_animation = start_animation + duration_animation
+            # Get the ending frame
+            end_of_clip = (float(clip.data["end"]) * fps_float) + 1
 
-        if action == MENU_TIME_FORWARD:
-            # Add keyframes
-            start = openshot.Point(start_animation, start_animation, openshot.LINEAR)
-            start_object = json.loads(start.Json())
-            clip.data[prop_name] = { "Points" : [start_object]}
-            end = openshot.Point(start_animation + (duration_animation / speed_factor), end_animation, openshot.LINEAR)
-            end_object = json.loads(end.Json())
-            clip.data[prop_name]["Points"].append(end_object)
-            # Keep original 'end' and 'duration'
-            if "original_data" not in clip.data.keys():
-                clip.data["original_data"] = { "end" : clip.data["end"],
-                                               "duration" : clip.data["duration"],
-                                               "video_length" : clip.data["reader"]["video_length"] }
-            # Adjust end & duration
-            clip.data["end"] = (start_animation + (duration_animation / speed_factor)) / fps_float
-            clip.data["duration"] = self.round_to_multiple(clip.data["duration"] / speed_factor, even_multiple)
-            clip.data["reader"]["video_length"] = str(self.round_to_multiple(float(clip.data["reader"]["video_length"]) / speed_factor, even_multiple))
+            # Determine the beginning and ending of this animation
+            start_animation = (float(clip.data["start"]) * fps_float) + 1
+            duration_animation = self.round_to_multiple(end_of_clip - start_animation, even_multiple)
+            end_animation = start_animation + duration_animation
 
-        if action == MENU_TIME_BACKWARD:
-            # Add keyframes
-            start = openshot.Point(start_animation, end_animation, openshot.LINEAR)
-            start_object = json.loads(start.Json())
-            clip.data[prop_name] = { "Points" : [start_object]}
-            end = openshot.Point(start_animation + (duration_animation / speed_factor), start_animation, openshot.LINEAR)
-            end_object = json.loads(end.Json())
-            clip.data[prop_name]["Points"].append(end_object)
-            # Keep original 'end' and 'duration'
-            if "original_data" not in clip.data.keys():
-                clip.data["original_data"] = { "end" : clip.data["end"],
-                                               "duration" : clip.data["duration"],
-                                               "video_length" : clip.data["reader"]["video_length"] }
-            # Adjust end & duration
-            clip.data["end"] = (start_animation + (duration_animation / speed_factor)) / fps_float
-            clip.data["duration"] = self.round_to_multiple(clip.data["duration"] / speed_factor, even_multiple)
-            clip.data["reader"]["video_length"] = str(self.round_to_multiple(float(clip.data["reader"]["video_length"]) / speed_factor, even_multiple))
+            if action == MENU_TIME_FORWARD:
+                # Add keyframes
+                start = openshot.Point(start_animation, start_animation, openshot.LINEAR)
+                start_object = json.loads(start.Json())
+                clip.data[prop_name] = { "Points" : [start_object]}
+                end = openshot.Point(start_animation + (duration_animation / speed_factor), end_animation, openshot.LINEAR)
+                end_object = json.loads(end.Json())
+                clip.data[prop_name]["Points"].append(end_object)
+                # Keep original 'end' and 'duration'
+                if "original_data" not in clip.data.keys():
+                    clip.data["original_data"] = { "end" : clip.data["end"],
+                                                   "duration" : clip.data["duration"],
+                                                   "video_length" : clip.data["reader"]["video_length"] }
+                # Adjust end & duration
+                clip.data["end"] = (start_animation + (duration_animation / speed_factor)) / fps_float
+                clip.data["duration"] = self.round_to_multiple(clip.data["duration"] / speed_factor, even_multiple)
+                clip.data["reader"]["video_length"] = str(self.round_to_multiple(float(clip.data["reader"]["video_length"]) / speed_factor, even_multiple))
 
-        # Save changes
-        self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+            if action == MENU_TIME_BACKWARD:
+                # Add keyframes
+                start = openshot.Point(start_animation, end_animation, openshot.LINEAR)
+                start_object = json.loads(start.Json())
+                clip.data[prop_name] = { "Points" : [start_object]}
+                end = openshot.Point(start_animation + (duration_animation / speed_factor), start_animation, openshot.LINEAR)
+                end_object = json.loads(end.Json())
+                clip.data[prop_name]["Points"].append(end_object)
+                # Keep original 'end' and 'duration'
+                if "original_data" not in clip.data.keys():
+                    clip.data["original_data"] = { "end" : clip.data["end"],
+                                                   "duration" : clip.data["duration"],
+                                                   "video_length" : clip.data["reader"]["video_length"] }
+                # Adjust end & duration
+                clip.data["end"] = (start_animation + (duration_animation / speed_factor)) / fps_float
+                clip.data["duration"] = self.round_to_multiple(clip.data["duration"] / speed_factor, even_multiple)
+                clip.data["reader"]["video_length"] = str(self.round_to_multiple(float(clip.data["reader"]["video_length"]) / speed_factor, even_multiple))
+
+            # Save changes
+            self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
     def round_to_multiple(self, number, multiple):
         """Round this to the closest multiple of a given #"""
@@ -1715,25 +1747,28 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                     # Save changes
                     self.update_clip_data(selected_clip.data, only_basic_props=False, ignore_reader=True)
 
-    def Reverse_Transition_Triggered(self, tran_id):
+    def Reverse_Transition_Triggered(self, tran_ids):
         """Callback for reversing a transition"""
         log.info("Reverse_Transition_Triggered")
 
-        # Get existing clip object
-        tran = Transition.get(id=tran_id)
+        # Loop through all selected transitions
+        for tran_id in tran_ids:
 
-        # Loop through brightness keyframes
-        tran_data_copy = deepcopy(tran.data)
-        new_index = len(tran.data["brightness"]["Points"])
-        for point in tran.data["brightness"]["Points"]:
-            new_index -= 1
-            tran_data_copy["brightness"]["Points"][new_index]["co"]["Y"] = point["co"]["Y"]
-            if "handle_left" in point:
-                tran_data_copy["brightness"]["Points"][new_index]["handle_left"]["Y"] = point["handle_left"]["Y"]
-                tran_data_copy["brightness"]["Points"][new_index]["handle_right"]["Y"] = point["handle_right"]["Y"]
+            # Get existing clip object
+            tran = Transition.get(id=tran_id)
 
-        # Save changes
-        self.update_transition_data(tran_data_copy, only_basic_props=False)
+            # Loop through brightness keyframes
+            tran_data_copy = deepcopy(tran.data)
+            new_index = len(tran.data["brightness"]["Points"])
+            for point in tran.data["brightness"]["Points"]:
+                new_index -= 1
+                tran_data_copy["brightness"]["Points"][new_index]["co"]["Y"] = point["co"]["Y"]
+                if "handle_left" in point:
+                    tran_data_copy["brightness"]["Points"][new_index]["handle_left"]["Y"] = point["handle_left"]["Y"]
+                    tran_data_copy["brightness"]["Points"][new_index]["handle_right"]["Y"] = point["handle_right"]["Y"]
+
+            # Save changes
+            self.update_transition_data(tran_data_copy, only_basic_props=False)
 
     @pyqtSlot(str)
     def ShowTransitionMenu(self, tran_id=None):
@@ -1745,6 +1780,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Set the selected transition (if needed)
         if tran_id not in self.window.selected_transitions:
             self.window.addSelection(tran_id, 'transition')
+
+        # Get list of all selected transitions
+        tran_ids = self.window.selected_transitions
 
         # Get framerate
         fps = get_app().project.get(["fps"])
@@ -1773,7 +1811,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Paste Menu
         Paste_Tran = menu.addAction(_("Paste"))
-        Paste_Tran.triggered.connect(partial(self.Paste_Tran_Triggered, MENU_PASTE, tran_id))
+        Paste_Tran.triggered.connect(partial(self.Paste_Tran_Triggered, MENU_PASTE, tran_ids))
 
         menu.addSeparator()
 
@@ -1794,7 +1832,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Reverse Transition menu
         Reverse_Transition = menu.addAction(_("Reverse Transition"))
-        Reverse_Transition.triggered.connect(partial(self.Reverse_Transition_Triggered, tran_id))
+        Reverse_Transition.triggered.connect(partial(self.Reverse_Transition_Triggered, tran_ids))
 
         # Remove transition menu
         menu.addSeparator()
