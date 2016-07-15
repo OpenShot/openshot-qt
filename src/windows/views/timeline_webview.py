@@ -75,6 +75,9 @@ MENU_LAYOUT_BOTTOM_RIGHT = 5
 MENU_LAYOUT_ALL_WITH_ASPECT = 6
 MENU_LAYOUT_ALL_WITHOUT_ASPECT = 7
 
+MENU_ALIGN_LEFT = 0
+MENU_ALIGN_RIGHT = 1
+
 MENU_ANIMATE_NONE = 0
 MENU_ANIMATE_IN_50_100 = 1
 MENU_ANIMATE_IN_75_100 = 2
@@ -429,9 +432,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Set the selected clip (if needed)
         if clip_id not in self.window.selected_clips:
             self.window.addSelection(clip_id, 'clip')
-
         # Get list of selected clips
         clip_ids = self.window.selected_clips
+        tran_ids = self.window.selected_transitions
 
         # Get framerate
         fps = get_app().project.get(["fps"])
@@ -477,6 +480,17 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         Paste_Clip.triggered.connect(partial(self.Paste_Triggered, MENU_PASTE, clip_ids))
 
         menu.addSeparator()
+
+        # Alignment Menu (if multiple selections)
+        if len(clip_ids) > 1:
+            Alignment_Menu = QMenu(_("Align"), self)
+            Align_Left = Alignment_Menu.addAction(_("Left"))
+            Align_Left.triggered.connect(partial(self.Align_Triggered, MENU_ALIGN_LEFT, clip_ids, tran_ids))
+            Align_Right = Alignment_Menu.addAction(_("Right"))
+            Align_Right.triggered.connect(partial(self.Align_Triggered, MENU_ALIGN_RIGHT, clip_ids, tran_ids))
+
+            # Add menu to parent
+            menu.addMenu(Alignment_Menu)
 
         # Fade In Menu
         Fade_Menu = QMenu(_("Fade"), self)
@@ -1247,6 +1261,76 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             # Save changes
             tran.save()
 
+    def Align_Triggered(self, action, clip_ids, tran_ids):
+        """Callback for alignment context menus"""
+        log.info(action)
+        prop_name = "position"
+        left_edge = -1.0
+        right_edge = -1.0
+
+        # Loop through each selected clip (find furthest left and right edge)
+        for clip_id in clip_ids:
+            # Get existing clip object
+            clip = Clip.get(id=clip_id)
+            position = float(clip.data["position"])
+            start_of_clip = float(clip.data["start"])
+            end_of_clip = float(clip.data["end"])
+
+            if position < left_edge or left_edge == -1.0:
+                left_edge = position
+            if position + (end_of_clip - start_of_clip) > right_edge or right_edge == -1.0:
+                right_edge = position + (end_of_clip - start_of_clip)
+
+        # Loop through each selected transition (find furthest left and right edge)
+        for tran_id in tran_ids:
+            # Get existing transition object
+            tran = Transition.get(id=tran_id)
+            position = float(tran.data["position"])
+            start_of_tran = float(tran.data["start"])
+            end_of_tran = float(tran.data["end"])
+
+            if position < left_edge or left_edge == -1.0:
+                left_edge = position
+            if position + (end_of_tran - start_of_tran) > right_edge or right_edge == -1.0:
+                right_edge = position + (end_of_tran - start_of_tran)
+
+
+        # Loop through each selected clip (update position to align clips)
+        for clip_id in clip_ids:
+            # Get existing clip object
+            clip = Clip.get(id=clip_id)
+
+            if action == MENU_ALIGN_LEFT:
+                clip.data['position'] = left_edge
+            elif action == MENU_ALIGN_RIGHT:
+                position = float(clip.data["position"])
+                start_of_clip = float(clip.data["start"])
+                end_of_clip = float(clip.data["end"])
+                right_clip_edge = position + (end_of_clip - start_of_clip)
+
+                clip.data['position'] = position + (right_edge - right_clip_edge)
+
+            # Save changes
+            self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+
+        # Loop through each selected transition (update position to align clips)
+        for tran_id in tran_ids:
+            # Get existing transition object
+            tran = Transition.get(id=tran_id)
+
+            if action == MENU_ALIGN_LEFT:
+                tran.data['position'] = left_edge
+            elif action == MENU_ALIGN_RIGHT:
+                position = float(tran.data["position"])
+                start_of_tran = float(tran.data["start"])
+                end_of_tran = float(tran.data["end"])
+                right_tran_edge = position + (end_of_tran - start_of_tran)
+
+                tran.data['position'] = position + (right_edge - right_tran_edge)
+
+            # Save changes
+            self.update_transition_data(tran.data, only_basic_props=False)
+
     def Fade_Triggered(self, action, clip_ids, position="Entire Clip"):
         """Callback for fade context menus"""
         log.info(action)
@@ -1780,9 +1864,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Set the selected transition (if needed)
         if tran_id not in self.window.selected_transitions:
             self.window.addSelection(tran_id, 'transition')
-
         # Get list of all selected transitions
         tran_ids = self.window.selected_transitions
+        clip_ids = self.window.selected_clips
 
         # Get framerate
         fps = get_app().project.get(["fps"])
@@ -1814,6 +1898,17 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         Paste_Tran.triggered.connect(partial(self.Paste_Tran_Triggered, MENU_PASTE, tran_ids))
 
         menu.addSeparator()
+
+        # Alignment Menu (if multiple selections)
+        if len(clip_ids) > 1:
+            Alignment_Menu = QMenu(_("Align"), self)
+            Align_Left = Alignment_Menu.addAction(_("Left"))
+            Align_Left.triggered.connect(partial(self.Align_Triggered, MENU_ALIGN_LEFT, clip_ids, tran_ids))
+            Align_Right = Alignment_Menu.addAction(_("Right"))
+            Align_Right.triggered.connect(partial(self.Align_Triggered, MENU_ALIGN_RIGHT, clip_ids, tran_ids))
+
+            # Add menu to parent
+            menu.addMenu(Alignment_Menu)
 
         # If Playhead overlapping transition
         start_of_tran = float(tran.data["start"])
