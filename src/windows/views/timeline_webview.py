@@ -122,6 +122,7 @@ MENU_TIME_NONE = 0
 MENU_TIME_FORWARD = 1
 MENU_TIME_BACKWARD = 2
 
+MENU_COPY_ALL = -1
 MENU_COPY_CLIP = 0
 MENU_COPY_KEYFRAMES_ALL = 1
 MENU_COPY_KEYFRAMES_ALPHA = 2
@@ -422,6 +423,27 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         menu.addAction(self.window.actionRemoveEffect)
         return menu.popup(QCursor.pos())
 
+    @pyqtSlot(float, int)
+    def ShowTimelineMenu(self, position, layer_id):
+        log.info('ShowTimelineMenu: position: %s, layer: %s' % (position, layer_id))
+
+        # Get translation method
+        _ = get_app()._tr
+
+        # Get list of clipboard items (that are complete clips or transitions)
+        # i.e. ignore partial clipboard items (keyframes / effects / etc...)
+        clipboard_clip_ids = [k for k, v in self.copy_clipboard.items() if v.get('id')]
+        clipboard_tran_ids = [k for k, v in self.copy_transition_clipboard.items() if v.get('id')]
+
+        # Paste Menu (if entire cilps or transitions are copied)
+        if self.copy_clipboard or self.copy_transition_clipboard:
+            if len(clipboard_clip_ids) + len(clipboard_tran_ids) > 0:
+                menu = QMenu(self)
+                Paste_Clip = menu.addAction(_("Paste"))
+                Paste_Clip.triggered.connect(partial(self.Paste_Triggered, MENU_PASTE, float(position), int(layer_id), [], []))
+
+                return menu.popup(QCursor.pos())
+
     @pyqtSlot(str)
     def ShowClipMenu(self, clip_id=None):
         log.info('ShowClipMenu: %s' % clip_id)
@@ -451,33 +473,48 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         menu = QMenu(self)
 
         # Copy Menu
-        Copy_Menu = QMenu(_("Copy"), self)
-        Copy_Clip = Copy_Menu.addAction(_("Clip"))
-        Copy_Clip.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_CLIP, clip_id))
-        Keyframe_Menu = QMenu(_("Keyframes"), self)
-        Copy_Keyframes_All = Keyframe_Menu.addAction(_("All"))
-        Copy_Keyframes_All.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_ALL, clip_id))
-        Keyframe_Menu.addSeparator()
-        Copy_Keyframes_Alpha = Keyframe_Menu.addAction(_("Alpha"))
-        Copy_Keyframes_Alpha.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_ALPHA, clip_id))
-        Copy_Keyframes_Scale = Keyframe_Menu.addAction(_("Scale"))
-        Copy_Keyframes_Scale.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_SCALE, clip_id))
-        Copy_Keyframes_Rotate = Keyframe_Menu.addAction(_("Rotation"))
-        Copy_Keyframes_Rotate.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_ROTATE, clip_id))
-        Copy_Keyframes_Locate = Keyframe_Menu.addAction(_("Location"))
-        Copy_Keyframes_Locate.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_LOCATION, clip_id))
-        Copy_Keyframes_Time = Keyframe_Menu.addAction(_("Time"))
-        Copy_Keyframes_Time.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_TIME, clip_id))
-        Copy_Keyframes_Volume = Keyframe_Menu.addAction(_("Volume"))
-        Copy_Keyframes_Volume.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_VOLUME, clip_id))
-        Copy_Keyframes_Volume = Copy_Menu.addAction(_("Effects"))
-        Copy_Keyframes_Volume.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_EFFECTS, clip_id))
-        Copy_Menu.addMenu(Keyframe_Menu)
-        menu.addMenu(Copy_Menu)
+        if len(tran_ids) + len(clip_ids) > 1:
+            # Show Copy All menu (clips and transitions are selected)
+            Copy_All = menu.addAction(_("Copy"))
+            Copy_All.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_ALL, clip_ids, tran_ids))
+        else:
+            # Only a single clip is selected (Show normal copy menus)
+            Copy_Menu = QMenu(_("Copy"), self)
+            Copy_Clip = Copy_Menu.addAction(_("Clip"))
+            Copy_Clip.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_CLIP, [clip_id], []))
 
-        # Paste Menu
-        Paste_Clip = menu.addAction(_("Paste"))
-        Paste_Clip.triggered.connect(partial(self.Paste_Triggered, MENU_PASTE, clip_ids))
+            Keyframe_Menu = QMenu(_("Keyframes"), self)
+            Copy_Keyframes_All = Keyframe_Menu.addAction(_("All"))
+            Copy_Keyframes_All.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_ALL, [clip_id], []))
+            Keyframe_Menu.addSeparator()
+            Copy_Keyframes_Alpha = Keyframe_Menu.addAction(_("Alpha"))
+            Copy_Keyframes_Alpha.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_ALPHA, [clip_id], []))
+            Copy_Keyframes_Scale = Keyframe_Menu.addAction(_("Scale"))
+            Copy_Keyframes_Scale.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_SCALE, [clip_id], []))
+            Copy_Keyframes_Rotate = Keyframe_Menu.addAction(_("Rotation"))
+            Copy_Keyframes_Rotate.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_ROTATE, [clip_id], []))
+            Copy_Keyframes_Locate = Keyframe_Menu.addAction(_("Location"))
+            Copy_Keyframes_Locate.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_LOCATION, [clip_id], []))
+            Copy_Keyframes_Time = Keyframe_Menu.addAction(_("Time"))
+            Copy_Keyframes_Time.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_TIME, [clip_id], []))
+            Copy_Keyframes_Volume = Keyframe_Menu.addAction(_("Volume"))
+            Copy_Keyframes_Volume.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_VOLUME, [clip_id], []))
+
+            # Only add copy->effects and copy->keyframes if 1 clip is selected
+            Copy_Effects = Copy_Menu.addAction(_("Effects"))
+            Copy_Effects.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_EFFECTS, [clip_id], []))
+            Copy_Menu.addMenu(Keyframe_Menu)
+            menu.addMenu(Copy_Menu)
+
+        # Get list of clipboard items (that are complete clips or transitions)
+        # i.e. ignore partial clipboard items (keyframes / effects / etc...)
+        clipboard_clip_ids = [k for k, v in self.copy_clipboard.items() if v.get('id')]
+        clipboard_tran_ids = [k for k, v in self.copy_transition_clipboard.items() if v.get('id')]
+        # Determine if the paste menu should be shown
+        if self.copy_clipboard and len(clipboard_clip_ids) + len(clipboard_tran_ids) == 0:
+            # Paste Menu (Only show if partial clipboard available)
+            Paste_Clip = menu.addAction(_("Paste"))
+            Paste_Clip.triggered.connect(partial(self.Paste_Triggered, MENU_PASTE, 0.0, 0, clip_ids, []))
 
         menu.addSeparator()
 
@@ -1135,131 +1172,171 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             # Save changes
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
-    def Copy_Triggered(self, action, clip_id):
+    def Copy_Triggered(self, action, clip_ids, tran_ids):
         """Callback for copy context menus"""
         log.info(action)
 
-        # Get existing clip object
-        clip = Clip.get(id=clip_id)
-
         # Empty previous clipboard
         self.copy_clipboard = {}
+        self.copy_transition_clipboard = {}
 
-        if action == MENU_COPY_CLIP:
-            self.copy_clipboard = clip.data
-        elif action == MENU_COPY_KEYFRAMES_ALL:
-            self.copy_clipboard['alpha'] = clip.data['alpha']
-            self.copy_clipboard['gravity'] = clip.data['gravity']
-            self.copy_clipboard['scale_x'] = clip.data['scale_x']
-            self.copy_clipboard['scale_y'] = clip.data['scale_y']
-            self.copy_clipboard['rotation'] = clip.data['rotation']
-            self.copy_clipboard['location_x'] = clip.data['location_x']
-            self.copy_clipboard['location_y'] = clip.data['location_y']
-            self.copy_clipboard['time'] = clip.data['time']
-            self.copy_clipboard['volume'] = clip.data['volume']
-        elif action == MENU_COPY_KEYFRAMES_ALPHA:
-            self.copy_clipboard['alpha'] = clip.data['alpha']
-        elif action == MENU_COPY_KEYFRAMES_SCALE:
-            self.copy_clipboard['gravity'] = clip.data['gravity']
-            self.copy_clipboard['scale_x'] = clip.data['scale_x']
-            self.copy_clipboard['scale_y'] = clip.data['scale_y']
-        elif action == MENU_COPY_KEYFRAMES_ROTATE:
-            self.copy_clipboard['gravity'] = clip.data['gravity']
-            self.copy_clipboard['rotation'] = clip.data['rotation']
-        elif action == MENU_COPY_KEYFRAMES_LOCATION:
-            self.copy_clipboard['gravity'] = clip.data['gravity']
-            self.copy_clipboard['location_x'] = clip.data['location_x']
-            self.copy_clipboard['location_y'] = clip.data['location_y']
-        elif action == MENU_COPY_KEYFRAMES_TIME:
-            self.copy_clipboard['time'] = clip.data['time']
-        elif action == MENU_COPY_KEYFRAMES_VOLUME:
-            self.copy_clipboard['volume'] = clip.data['volume']
-        elif action == MENU_COPY_EFFECTS:
-            self.copy_clipboard['effects'] = clip.data['effects']
-
-    def Paste_Triggered(self, action, clip_ids):
-        """Callback for paste context menus"""
-        log.info(action)
-
-        # Loop through each selected clip
+        # Loop through clip objects
         for clip_id in clip_ids:
 
             # Get existing clip object
             clip = Clip.get(id=clip_id)
-            selected_clip_position = clip.data['position']
-            selected_clip_layer = clip.data['layer']
+            self.copy_clipboard[clip_id] = {}
 
-            # Apply clipboard to clip
-            for k,v in self.copy_clipboard.items():
-                # Overwrite clips propeties (which are in the clipboard)
-                clip.data[k] = v
+            if action == MENU_COPY_CLIP or action == MENU_COPY_ALL:
+                self.copy_clipboard[clip_id] = clip.data
+            elif action == MENU_COPY_KEYFRAMES_ALL:
+                self.copy_clipboard[clip_id]['alpha'] = clip.data['alpha']
+                self.copy_clipboard[clip_id]['gravity'] = clip.data['gravity']
+                self.copy_clipboard[clip_id]['scale_x'] = clip.data['scale_x']
+                self.copy_clipboard[clip_id]['scale_y'] = clip.data['scale_y']
+                self.copy_clipboard[clip_id]['rotation'] = clip.data['rotation']
+                self.copy_clipboard[clip_id]['location_x'] = clip.data['location_x']
+                self.copy_clipboard[clip_id]['location_y'] = clip.data['location_y']
+                self.copy_clipboard[clip_id]['time'] = clip.data['time']
+                self.copy_clipboard[clip_id]['volume'] = clip.data['volume']
+            elif action == MENU_COPY_KEYFRAMES_ALPHA:
+                self.copy_clipboard[clip_id]['alpha'] = clip.data['alpha']
+            elif action == MENU_COPY_KEYFRAMES_SCALE:
+                self.copy_clipboard[clip_id]['gravity'] = clip.data['gravity']
+                self.copy_clipboard[clip_id]['scale_x'] = clip.data['scale_x']
+                self.copy_clipboard[clip_id]['scale_y'] = clip.data['scale_y']
+            elif action == MENU_COPY_KEYFRAMES_ROTATE:
+                self.copy_clipboard[clip_id]['gravity'] = clip.data['gravity']
+                self.copy_clipboard[clip_id]['rotation'] = clip.data['rotation']
+            elif action == MENU_COPY_KEYFRAMES_LOCATION:
+                self.copy_clipboard[clip_id]['gravity'] = clip.data['gravity']
+                self.copy_clipboard[clip_id]['location_x'] = clip.data['location_x']
+                self.copy_clipboard[clip_id]['location_y'] = clip.data['location_y']
+            elif action == MENU_COPY_KEYFRAMES_TIME:
+                self.copy_clipboard[clip_id]['time'] = clip.data['time']
+            elif action == MENU_COPY_KEYFRAMES_VOLUME:
+                self.copy_clipboard[clip_id]['volume'] = clip.data['volume']
+            elif action == MENU_COPY_EFFECTS:
+                self.copy_clipboard[clip_id]['effects'] = clip.data['effects']
 
-            # Check if 'id' in clipboard (i.e. an entire clip is being copied)
-            if 'id' in self.copy_clipboard.keys():
+        # Loop through transition objects
+        for tran_id in tran_ids:
+
+            # Get existing transition object
+            tran = Transition.get(id=tran_id)
+            self.copy_transition_clipboard[tran_id] = {}
+
+            if action == MENU_COPY_TRANSITION or action == MENU_COPY_ALL:
+                self.copy_transition_clipboard[tran_id] = tran.data
+            elif action == MENU_COPY_KEYFRAMES_ALL:
+                self.copy_transition_clipboard[tran_id]['brightness'] = tran.data['brightness']
+                self.copy_transition_clipboard[tran_id]['contrast'] = tran.data['contrast']
+            elif action == MENU_COPY_KEYFRAMES_BRIGHTNESS:
+                self.copy_transition_clipboard[tran_id]['brightness'] = tran.data['brightness']
+            elif action == MENU_COPY_KEYFRAMES_CONTRAST:
+                self.copy_transition_clipboard[tran_id]['contrast'] = tran.data['contrast']
+
+    def Paste_Triggered(self, action, position, layer_id, clip_ids, tran_ids):
+        """Callback for paste context menus"""
+        log.info(action)
+
+        # Get list of clipboard items (that are complete clips or transitions)
+        # i.e. ignore partial clipboard items (keyframes / effects / etc...)
+        clipboard_clip_ids = [k for k, v in self.copy_clipboard.items() if v.get('id')]
+        clipboard_tran_ids = [k for k, v in self.copy_transition_clipboard.items() if v.get('id')]
+
+        # Determine left most copied clip, and top most track (the top left point of the copied objects)
+        if len(clipboard_clip_ids) + len(clipboard_tran_ids):
+            left_most_position = -1.0
+            top_most_layer = -1
+            # Loop through each copied clip (looking for top left point)
+            for clip_id in clipboard_clip_ids:
+                # Get existing clip object
+                clip = Clip.get(id=clip_id)
+                if clip.data['position'] < left_most_position or left_most_position == -1.0:
+                    left_most_position = clip.data['position']
+                if clip.data['layer'] > top_most_layer or top_most_layer == -1.0:
+                    top_most_layer = clip.data['layer']
+            # Loop through each copied transition (looking for top left point)
+            for tran_id in clipboard_tran_ids:
+                # Get existing transition object
+                tran = Transition.get(id=tran_id)
+                if tran.data['position'] < left_most_position or left_most_position == -1.0:
+                    left_most_position = tran.data['position']
+                if tran.data['layer'] > top_most_layer or top_most_layer == -1.0:
+                    top_most_layer = tran.data['layer']
+
+            # Determine difference from top left and paste location
+            position_diff = position - left_most_position
+            layer_diff = layer_id - top_most_layer
+
+            # Loop through each copied clip
+            for clip_id in clipboard_clip_ids:
+                # Get existing clip object
+                clip = Clip.get(id=clip_id)
+
                 # Remove the ID property from the clip (so it becomes a new one)
                 clip.id = None
                 clip.type = 'insert'
                 clip.data.pop('id')
                 clip.key.pop(1)
 
-                # Adjust the position by a few seconds (so it's visible)
-                clip.data['position'] = selected_clip_position + 2.0
-                clip.data['layer'] = selected_clip_layer
+                # Adjust the position and track
+                clip.data['position'] += position_diff
+                clip.data['layer'] += layer_diff
 
-            # Save changes
-            clip.save()
+                # Save changes
+                clip.save()
 
-    def Copy_Tran_Triggered(self, action, tran_id):
-        """Callback for copy transition context menus"""
-        log.info(action)
+            # Loop through all copied transitions
+            for tran_id in clipboard_tran_ids:
+                # Get existing transition object
+                tran = Transition.get(id=tran_id)
 
-        # Get existing transition object
-        tran = Transition.get(id=tran_id)
-
-        # Empty previous clipboard
-        self.copy_transition_clipboard = {}
-
-        if action == MENU_COPY_TRANSITION:
-            self.copy_transition_clipboard = tran.data
-        elif action == MENU_COPY_KEYFRAMES_ALL:
-            self.copy_transition_clipboard['brightness'] = tran.data['brightness']
-            self.copy_transition_clipboard['contrast'] = tran.data['contrast']
-        elif action == MENU_COPY_KEYFRAMES_BRIGHTNESS:
-            self.copy_transition_clipboard['brightness'] = tran.data['brightness']
-        elif action == MENU_COPY_KEYFRAMES_CONTRAST:
-            self.copy_transition_clipboard['contrast'] = tran.data['contrast']
-
-    def Paste_Tran_Triggered(self, action, tran_ids):
-        """Callback for paste transition context menus"""
-        log.info(action)
-
-        # Loop through all selected transitions
-        for tran_id in tran_ids:
-
-            # Get existing transition object
-            tran = Transition.get(id=tran_id)
-            selected_tran_position = tran.data['position']
-            selected_tran_layer = tran.data['layer']
-
-            # Apply clipboard to transition
-            for k,v in self.copy_transition_clipboard.items():
-                # Overwrite transition propeties (which are in the clipboard)
-                tran.data[k] = v
-
-            # Check if 'id' in clipboard (i.e. an entire clip is being copied)
-            if 'id' in self.copy_transition_clipboard.keys():
-                # Remove the ID property from the clip (so it becomes a new one)
+                # Remove the ID property from the transition (so it becomes a new one)
                 tran.id = None
                 tran.type = 'insert'
                 tran.data.pop('id')
                 tran.key.pop(1)
 
-                # Adjust the position by a few seconds (so it's visible)
-                tran.data['position'] = selected_tran_position + 2.0
-                tran.data['layer'] = selected_tran_layer
+                # Adjust the position and track
+                tran.data['position'] += position_diff
+                tran.data['layer'] += layer_diff
 
-            # Save changes
-            tran.save()
+                # Save changes
+                tran.save()
+
+        # Loop through each full clip object copied
+        if self.copy_clipboard:
+            for clip_id in clip_ids:
+
+                # Get existing clip object
+                clip = Clip.get(id=clip_id)
+
+                # Apply clipboard to clip (there should only be a single key in this dict)
+                for k,v in self.copy_clipboard[list(self.copy_clipboard)[0]].items():
+                    if k != 'id':
+                        # Overwrite clips propeties (which are in the clipboard)
+                        clip.data[k] = v
+
+                # Save changes
+                clip.save()
+
+        # Loop through each full transition object copied
+        if self.copy_transition_clipboard:
+            for tran_id in tran_ids:
+
+                # Get existing transition object
+                tran = Transition.get(id=tran_id)
+
+                # Apply clipboard to transition (there should only be a single key in this dict)
+                for k, v in self.copy_transition_clipboard[list(self.copy_transition_clipboard)[0]].items():
+                    if k != 'id':
+                        # Overwrite transition propeties (which are in the clipboard)
+                        tran.data[k] = v
+
+                # Save changes
+                tran.save()
 
     def Align_Triggered(self, action, clip_ids, tran_ids):
         """Callback for alignment context menus"""
@@ -1879,23 +1956,38 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         menu = QMenu(self)
 
         # Copy Menu
-        Copy_Menu = QMenu(_("Copy"), self)
-        Copy_Tran = Copy_Menu.addAction(_("Transition"))
-        Copy_Tran.triggered.connect(partial(self.Copy_Tran_Triggered, MENU_COPY_TRANSITION, tran_id))
-        Keyframe_Menu = QMenu(_("Keyframes"), self)
-        Copy_Keyframes_All = Keyframe_Menu.addAction(_("All"))
-        Copy_Keyframes_All.triggered.connect(partial(self.Copy_Tran_Triggered, MENU_COPY_KEYFRAMES_ALL, tran_id))
-        Keyframe_Menu.addSeparator()
-        Copy_Keyframes_Brightness = Keyframe_Menu.addAction(_("Brightness"))
-        Copy_Keyframes_Brightness.triggered.connect(partial(self.Copy_Tran_Triggered, MENU_COPY_KEYFRAMES_BRIGHTNESS, tran_id))
-        Copy_Keyframes_Scale = Keyframe_Menu.addAction(_("Contrast"))
-        Copy_Keyframes_Scale.triggered.connect(partial(self.Copy_Tran_Triggered, MENU_COPY_KEYFRAMES_CONTRAST, tran_id))
-        Copy_Menu.addMenu(Keyframe_Menu)
-        menu.addMenu(Copy_Menu)
+        if len(tran_ids) + len(clip_ids) > 1:
+            # Copy All Menu (Clips and/or transitions are selected)
+            Copy_All = menu.addAction(_("Copy"))
+            Copy_All.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_ALL, clip_ids, tran_ids))
+        else:
+            # Only a single transitions is selected (show normal transition copy menu)
+            Copy_Menu = QMenu(_("Copy"), self)
+            Copy_Tran = Copy_Menu.addAction(_("Transition"))
+            Copy_Tran.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_TRANSITION, [], [tran_id]))
 
-        # Paste Menu
-        Paste_Tran = menu.addAction(_("Paste"))
-        Paste_Tran.triggered.connect(partial(self.Paste_Tran_Triggered, MENU_PASTE, tran_ids))
+            Keyframe_Menu = QMenu(_("Keyframes"), self)
+            Copy_Keyframes_All = Keyframe_Menu.addAction(_("All"))
+            Copy_Keyframes_All.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_ALL, [], [tran_id]))
+            Keyframe_Menu.addSeparator()
+            Copy_Keyframes_Brightness = Keyframe_Menu.addAction(_("Brightness"))
+            Copy_Keyframes_Brightness.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_BRIGHTNESS, [], [tran_id]))
+            Copy_Keyframes_Scale = Keyframe_Menu.addAction(_("Contrast"))
+            Copy_Keyframes_Scale.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_CONTRAST, [], [tran_id]))
+
+            # Only show copy->keyframe if a single transitions is selected
+            Copy_Menu.addMenu(Keyframe_Menu)
+            menu.addMenu(Copy_Menu)
+
+        # Get list of clipboard items (that are complete clips or transitions)
+        # i.e. ignore partial clipboard items (keyframes / effects / etc...)
+        clipboard_clip_ids = [k for k, v in self.copy_clipboard.items() if v.get('id')]
+        clipboard_tran_ids = [k for k, v in self.copy_transition_clipboard.items() if v.get('id')]
+        # Determine if the paste menu should be shown
+        if self.copy_transition_clipboard and len(clipboard_clip_ids) + len(clipboard_tran_ids) == 0:
+            # Paste Menu (Only show when partial transition clipboard avaialble)
+            Paste_Tran = menu.addAction(_("Paste"))
+            Paste_Tran.triggered.connect(partial(self.Paste_Triggered, MENU_PASTE, 0.0, 0, [], tran_ids))
 
         menu.addSeparator()
 

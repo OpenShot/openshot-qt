@@ -584,6 +584,13 @@ App.controller('TimelineCtrl',function($scope) {
 	 }
  };
 
+  // Show timeline context menu
+ $scope.ShowTimelineMenu = function(e, layer_number) {
+ 	if ($scope.Qt) {
+	 	timeline.ShowTimelineMenu($scope.GetJavaScriptPosition(e.pageX), layer_number);
+	 }
+ };
+
  // Get the name of the track
  $scope.GetTrackName = function(layer_label, layer_number){
 	// Determine custom label or default track name
