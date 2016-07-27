@@ -68,7 +68,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
     previewFrameSignal = pyqtSignal(int)
     refreshFrameSignal = pyqtSignal()
     LoadFileSignal = pyqtSignal(str)
-    PlaySignal = pyqtSignal()
+    PlaySignal = pyqtSignal(int)
     PauseSignal = pyqtSignal()
     SeekSignal = pyqtSignal(int)
     SpeedSignal = pyqtSignal(float)
@@ -598,6 +598,19 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
     def actionPlay_trigger(self, event, force=None):
 
+        # Determine max frame (based on clips)
+        timeline_length = 0.0
+        fps = get_app().window.timeline_sync.timeline.info.fps.ToFloat()
+        clips = get_app().window.timeline_sync.timeline.Clips()
+        for clip in clips:
+            clip_last_frame = clip.Position() + clip.Duration()
+            if clip_last_frame > timeline_length:
+                # Set max length of timeline
+                timeline_length = clip_last_frame
+
+        # Convert to int and round
+        timeline_length_int = round(timeline_length * fps) + 1
+
         if force == "pause":
             self.actionPlay.setChecked(False)
         elif force == "play":
@@ -605,7 +618,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         if self.actionPlay.isChecked():
             ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
-            self.PlaySignal.emit()
+            self.PlaySignal.emit(timeline_length_int)
 
         else:
             ui_util.setup_icon(self, self.actionPlay, "actionPlay")  # to default

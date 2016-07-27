@@ -48,6 +48,12 @@ class PreviewParent(QObject):
     def onPositionChanged(self, current_frame):
         self.parent.movePlayhead(current_frame)
 
+        # Check if we are at the end of the timeline
+        if self.worker.player.Mode() == openshot.PLAYBACK_PLAY and current_frame >= self.worker.timeline_length and self.worker.timeline_length != -1:
+            # Yes, pause the video
+            self.parent.actionPlay.trigger()
+            self.worker.timeline_length = -1
+
     # Signal when the playback mode changes in the preview player (i.e PLAY, PAUSE, STOP)
     def onModeChanged(self, current_mode):
         log.info('onModeChanged')
@@ -107,6 +113,7 @@ class PlayerWorker(QObject):
         self.number = None
         self.current_frame = None
         self.current_mode = None
+        self.timeline_length = -1
 
         # Create QtPlayer class from libopenshot
         self.player = openshot.QtPlayer()
@@ -277,8 +284,11 @@ class PlayerWorker(QObject):
         self.player.Seek(seek_position)
         self.player.Speed(self.original_speed)
 
-    def Play(self):
+    def Play(self, timeline_length):
         """ Start playing the video player """
+
+        # Set length of timeline in frames
+        self.timeline_length = timeline_length
 
         # Start playback
         self.player.Play()
