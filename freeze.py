@@ -166,8 +166,16 @@ if sys.platform == "win32":
          "8000")
     ]
 
+    # Set some properties on the MSI
+    properties = [
+        ("REINSTALLMODE", "amus")   # Force overwrite of all files during install
+    ]
+
     # Now create the table dictionary
-    msi_data = {"Environment": environment_table, "InstallExecuteSequence" : execute_sequence, "InstallUISequence" : execute_sequence}
+    msi_data = {"Environment": environment_table,
+                "InstallExecuteSequence" : execute_sequence,
+                "InstallUISequence" : execute_sequence,
+                "Property" : properties }
 
     # Change some default MSI options and specify the use of the above defined tables
     bdist_msi_options = {"data": msi_data}
