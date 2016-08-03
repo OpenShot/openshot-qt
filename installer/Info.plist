@@ -14,5 +14,7 @@
 	<string>icon.icns</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.video</string>
+	<key>NSHighResolutionCapable</key>
+	<true/>
 </dict>
 </plist>
