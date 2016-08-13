@@ -70,6 +70,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
     LoadFileSignal = pyqtSignal(str)
     PlaySignal = pyqtSignal(int)
     PauseSignal = pyqtSignal()
+    StopSignal = pyqtSignal()
     SeekSignal = pyqtSignal(int)
     SpeedSignal = pyqtSignal(float)
     RecoverBackup = pyqtSignal()
@@ -106,6 +107,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         track_metric_session(False)
 
         # Stop threads
+        self.StopSignal.emit()
         self.preview_thread.kill()
 
         # Close & Stop libopenshot logger
@@ -113,7 +115,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         get_app().logger_libopenshot.kill()
 
         # Wait for thread
-        self.preview_parent.background.wait(250)
+        self.preview_parent.background.wait(500)
 
         # Destroy lock file
         self.destroy_lock_file()

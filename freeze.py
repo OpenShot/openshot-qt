@@ -44,6 +44,7 @@
 #    b) bash installer/build-mac-dmg.sh
 #
 # Windows Syntax to Build MSI Installer
+# NOTE: Python3.5 requires custom build of cx_Freeze (https://github.com/sekrause/cx_Freeze-wheels). Download, python setup.py build, python setup.py install
 # 1) python3 freeze.py bdist_msi
 # NOTE: Requires a tweak to cx_freeze: http://stackoverflow.com/questions/24195311/how-to-set-shortcut-working-directory-in-cx-freeze-msi-bundle
 # 2) Sign MSI with private code signing key (optional)
@@ -115,15 +116,7 @@ build_exe_options = {}
 
 if sys.platform == "win32":
     base = "Win32GUI"
-    external_so_files = []
     build_exe_options["include_msvcr"] = True
-
-    # Copy required ZMQ files
-    external_so_files.append(("C:\\Python34\\Lib\\site-packages\\zmq\\libzmq.pyd", "libzmq.pyd"))
-
-    # Copy missing SVG dll
-    # TODO: Determine why cx_Freeze misses this DLL when freezing. Without it, libopenshot cannot open SVG files
-    external_so_files.append(("C:\\Qt\\Qt5.4.2\\5.4\\mingw491_32\\bin\\Qt5Svgd.dll", "Qt5Svgd.dll"))
 
     # Append Windows ICON file
     iconFile += ".ico"
@@ -131,55 +124,6 @@ if sys.platform == "win32":
 
     # Append some additional files for Windows (this is a debug launcher)
     src_files.append((os.path.join(PATH, "installer", "launch-win.bat"), "launch-win.bat"))
-
-    # Create environment variable for ImageMagick (on install)
-    environment_table = [
-        ("MAGICK_CONFIGURE_PATH",
-         "*=MAGICK_CONFIGURE_PATH",
-         "[TARGETDIR]ImageMagick\\etc\\configuration",
-         "OpenShot"
-         ),
-        # TODO: Find a better way to load the qt_plugin_path for libopenshot, which can be imported in
-        # different directories from the .exe, causing the plugins (i.e. svg) to not load in some cases.
-        ("QT_PLUGIN_PATH",
-         "*=QT_PLUGIN_PATH",
-         "[TARGETDIR]",
-         "OpenShot"
-         )
-    ]
-
-    # Create custom action table
-    # TODO: Revisit this idea, to force the environment variables to be updated after the installer runs.
-    # ImageMagick needs an environment variable or it will crash. Forcing a reboot is currently the only
-    # option I can get to work correctly.
-    # custom_action = [
-    #     ("SetVar",
-    #      "242",
-    #      "[SystemFolder]setx.exe",
-    #      "OSVE 1")
-    # ]
-
-    # Install an action into the MSI install sequence (schedule a reboot)
-    execute_sequence = [
-        ("ScheduleReboot",
-         "NOT REMOVE",
-         "8000")
-    ]
-
-    # Set some properties on the MSI
-    properties = [
-        ("REINSTALLMODE", "amus")   # Force overwrite of all files during install
-    ]
-
-    # Now create the table dictionary
-    msi_data = {"Environment": environment_table,
-                "InstallExecuteSequence" : execute_sequence,
-                "InstallUISequence" : execute_sequence,
-                "Property" : properties }
-
-    # Change some default MSI options and specify the use of the above defined tables
-    bdist_msi_options = {"data": msi_data}
-    build_options["bdist_msi"] = bdist_msi_options
 
 elif sys.platform == "linux":
     # Find all related SO files

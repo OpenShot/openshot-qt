@@ -85,6 +85,7 @@ class PreviewParent(QObject):
         self.parent.PauseSignal.connect(self.worker.Pause)
         self.parent.SeekSignal.connect(self.worker.Seek)
         self.parent.SpeedSignal.connect(self.worker.Speed)
+        self.parent.StopSignal.connect(self.worker.Stop)
 
         # Move Worker to new thread, and Start
         self.worker.moveToThread(self.background)
@@ -163,7 +164,7 @@ class PlayerWorker(QObject):
 
         # Get the address of the player's renderer (a QObject that emits signals when frames are ready)
         self.renderer_address = self.player.GetRendererQObject()
-        self.player.SetQWidget(int(sip.unwrapinstance(self.videoPreview)))
+        self.player.SetQWidget(sip.unwrapinstance(self.videoPreview))
         self.renderer = sip.wrapinstance(self.renderer_address, QObject)
         self.videoPreview.connectSignals(self.renderer)
 
@@ -294,19 +295,25 @@ class PlayerWorker(QObject):
         self.player.Play()
 
     def Pause(self):
-        """ Start playing the video player """
+        """ Pause the video player """
 
-        # Start playback
+        # Pause playback
         self.player.Pause()
+
+    def Stop(self):
+        """ Stop the video player and terminate the playback threads """
+
+        # Stop playback
+        self.player.Stop()
 
     def Seek(self, number):
         """ Seek to a specific frame """
 
-        # Start playback
+        # Seek to frame
         self.player.Seek(number)
 
     def Speed(self, new_speed):
         """ Set the speed of the video player """
 
-        # Start playback
+        # Set speed
         self.player.Speed(new_speed)

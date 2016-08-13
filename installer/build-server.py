@@ -76,7 +76,7 @@ elif platform.system() == "Darwin":
 
 elif platform.system() == "Windows":
     make_command = "mingw32-make"
-    freeze_command = "python C:\\Users\\Jonathan\\apps\\openshot-qt-git\\freeze.py bdist_msi"
+    freeze_command = "python3 C:\\Users\\Jonathan\\apps\\openshot-qt-git\\freeze.py build"
     project_paths = [("C:\\Users\\Jonathan\\apps\\libopenshot-audio-git", '-G "MinGW Makefiles" ../ -D"CMAKE_BUILD_TYPE:STRING=Release"'),
                      ("C:\\Users\\Jonathan\\apps\\libopenshot-git", '-G "MinGW Makefiles" ../ -D"CMAKE_BUILD_TYPE:STRING=Release"'),
                      ("C:\\Users\\Jonathan\\apps\\openshot-qt-git", "")]
@@ -297,7 +297,7 @@ try:
             app_name += "-x86_64.dmg"
             app_upload_bucket = "releases.openshot.org/mac"
         elif platform.system() == "Windows":
-            app_name += "-x86_32.msi"
+            app_name += "-x86_64.exe"
             app_upload_bucket = "releases.openshot.org/windows"
         app_build_path = os.path.join(builds_path, app_name)
         app_upload_path = os.path.join(upload_path, app_name)
@@ -416,23 +416,62 @@ try:
 
             if platform.system() == "Windows":
 
-                # Create MSI (OpenShot-%s-x86_32.MSI)
-                app_image_success = True
+                # Move python3.5 folder structure, since Cx_Freeze doesn't put it in the correct place
+                exe_dir = os.path.join(PATH, 'build', 'exe.mingw-3.5')
+                python35_dir = os.path.join(exe_dir, 'lib', 'python3.5')
+                if not os.path.exists(python35_dir):
+                    os.mkdir(python35_dir)
 
-                # Rename MSI (to be consistent with other OS installers)
-                os.rename(os.path.join(project_path, "dist", "OpenShot Video Editor-%s-win32.msi" % version), app_build_path)
+                    # Copy all non-zip files from /lib/ into /python3.5/
+                    for lib_file in os.listdir(os.path.join(exe_dir, 'lib')):
+                        if not ".zip" in lib_file:
+                            lib_src_path = os.path.join(os.path.join(exe_dir, 'lib'), lib_file)
+                            lib_dst_path = os.path.join(os.path.join(python35_dir), lib_file)
+                            if not os.path.isdir(lib_src_path):
+                                shutil.move(lib_src_path, lib_dst_path)
 
+                # Delete debug Qt libraries (since they are not needed, and cx_Freeze grabs them)
+                for debug_qt_lib in os.listdir(exe_dir):
+                    if debug_qt_lib.endswith("d.dll"):
+                        # Delete the debug dll
+                        os.remove(os.path.join(exe_dir, debug_qt_lib))
+
+                # Create Installer (OpenShot-%s-x86_64.exe)
+                inno_success = True
+                inno_command = '"C:\Program Files (x86)\Inno Setup 5\iscc.exe" /Q /DVERSION=%s "%s"' % (version, os.path.join(PATH, 'installer', 'windows-installer.iss'))
+                inno_output = ""
+                # Compile Inno installer
+                for line in run_command(inno_command):
+                    output(line)
+                    if line:
+                        inno_success = False
+                        inno_output = line
+
+                # Was the Inno Installer successful
+                inno_output_exe = os.path.join(project_path, "installer", "Output", "OpenShot-x86_64.exe")
+                if not inno_success or not os.path.exists(inno_output_exe):
+                    # Installer failed
+                    error("Inno Compiler Error: Had output when none was expected (%s)" % inno_output)
+                    needs_upload = False
+                else:
+                    # Rename exe to correct name / path
+                    os.rename(inno_output_exe, app_build_path)
+                    # Clean-up empty folder created by Inno compiler
+                    os.rmdir(os.path.join(PATH, 'installer', 'Output'))
+
+                # Sign the installer
+                key_sign_success = True
                 key_sign_command = '"C:\\Program Files (x86)\\kSign\\kSignCMD.exe" /f "%s" /p "%s" /d "OpenShot Video Editor" /du "http://www.openshot.org" "%s"' % (windows_key, windows_key_password, app_build_path)
                 key_sign_output = ""
                 # Sign MSI
                 for line in run_command(key_sign_command):
                     output(line)
                     if line:
-                        app_image_success = False
+                        key_sign_success = False
                         key_sign_output = line
 
                 # Was the MSI creation successful
-                if not app_image_success:
+                if not key_sign_success:
                     # MSI failed
                     error("Key Sign Error: Had output when none was expected (%s)" % key_sign_output)
                     needs_upload = False

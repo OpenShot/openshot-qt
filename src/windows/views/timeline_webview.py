@@ -2076,7 +2076,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
     def PlayheadMoved(self, position_seconds, position_frames, time_code):
 
         # Load the timeline into the Player (ignored if this has already happened)
-        self.window.LoadFileSignal.emit(None)
+        self.window.LoadFileSignal.emit('')
 
         if self.last_position_frames != position_frames:
             # Update time code (to prevent duplicate previews)
