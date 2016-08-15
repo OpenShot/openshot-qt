@@ -1546,7 +1546,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Setup Zoom slider
         self.sliderZoom = QSlider(Qt.Horizontal, self)
         self.sliderZoom.setPageStep(6)
-        self.sliderZoom.setRange(8, 200)
+        self.sliderZoom.setRange(8, 800)
         self.sliderZoom.setValue(20)
         self.sliderZoom.setInvertedControls(True)
         self.sliderZoom.resize(100, 16)

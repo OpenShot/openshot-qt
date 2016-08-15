@@ -107,8 +107,6 @@
     </property>
     <addaction name="actionTitle"/>
     <addaction name="actionAnimatedTitle"/>
-    <addaction name="separator"/>
-    <addaction name="actionAnimation"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
