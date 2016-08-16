@@ -25,8 +25,9 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+from PyQt5.QtCore import Qt, QRectF, QLocale
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QTableView, QAbstractItemView, QMenu, QSizePolicy, QHeaderView, QColorDialog
+from PyQt5.QtWidgets import QTableView, QAbstractItemView, QMenu, QSizePolicy, QHeaderView, QColorDialog, QItemDelegate, QStyle
 
 from classes.logger import log
 from classes.app import get_app
@@ -38,8 +39,168 @@ except ImportError:
     import simplejson as json
 
 
+class PropertyDelegate(QItemDelegate):
+    def __init__(self, parent=None, *args):
+        QItemDelegate.__init__(self, parent, *args)
+
+    def paint(self, painter, option, index):
+        painter.save()
+        painter.setRenderHint(QPainter.Antialiasing)
+
+        # Get data model and selection
+        model = get_app().window.propertyTableView.clip_properties_model.model
+        row = model.itemFromIndex(index).row()
+        selected_label = model.item(row, 0)
+        selected_value = model.item(row, 1)
+        property = selected_label.data()
+
+        # Get min/max values for this property
+        property_name = property[1]["name"]
+        property_type = property[1]["type"]
+        property_max = property[1]["max"]
+        property_min = property[1]["min"]
+        readonly = property[1]["readonly"]
+
+        # Calculate percentage value
+        if property_type in ["float", "int"]:
+            # Get the current value
+            current_value = QLocale().system().toDouble(selected_value.text())[0]
+
+            # Shift my range to be positive
+            if property_min < 0.0:
+                property_shift = 0.0 - property_min
+                property_min += property_shift
+                property_max += property_shift
+                current_value += property_shift
+
+            # Calculate current value as % of min/max range
+            min_max_range = float(property_max) - float(property_min)
+            value_percent = current_value / min_max_range
+        else:
+            value_percent = 0.0
+
+        # set background color
+        painter.setPen(QPen(Qt.NoPen))
+        if property_type == "color":
+            # Color keyframe
+            red = property[1]["red"]["value"]
+            green = property[1]["green"]["value"]
+            blue = property[1]["blue"]["value"]
+            painter.setBrush(QBrush(QColor(QColor(red, green, blue))))
+        else:
+            # Normal Keyframe
+            if option.state & QStyle.State_Selected:
+                painter.setBrush(QBrush(QColor("#575757")))
+            else:
+                painter.setBrush(QBrush(QColor("#3e3e3e")))
+
+        if not readonly:
+            path = QPainterPath()
+            path.addRoundedRect(QRectF(option.rect), 15, 15)
+            painter.fillPath(path, QColor("#3e3e3e"))
+            painter.drawPath(path)
+
+            # Render mask rectangle
+            painter.setBrush(QBrush(QColor("#000000")))
+            mask_rect = QRectF(option.rect)
+            mask_rect.setWidth(option.rect.width() * value_percent)
+            painter.setClipRect(mask_rect, Qt.IntersectClip)
+
+            # Render progress
+            painter.setBrush(QBrush(QColor("#828282")))
+            path = QPainterPath()
+            value_rect = QRectF(option.rect)
+            path.addRoundedRect(value_rect, 15, 15);
+            painter.fillPath(path, QColor("#828282"))
+            painter.drawPath(path);
+
+        # set text color
+        painter.setClipping(False)
+        painter.setPen(QPen(Qt.white))
+        value = index.data(Qt.DisplayRole)
+        if value:
+            painter.drawText(option.rect, Qt.AlignCenter, value)
+
+        painter.restore()
+
+
 class PropertiesTableView(QTableView):
     """ A Properties Table QWidget used on the main window """
+
+    def mouseMoveEvent(self, event):
+        # Get data model and selection
+        model = self.clip_properties_model.model
+        row = self.indexAt(event.pos()).row()
+        column = self.indexAt(event.pos()).column()
+        if model.item(row, 0):
+            self.selected_label = model.item(row, 0)
+            self.selected_item = model.item(row, 1)
+
+        # Is the user dragging on the value column
+        if self.selected_label and self.selected_item:
+            frame_number = self.clip_properties_model.frame_number
+
+            # Get the position of the cursor and % value
+            value_column_x = self.columnViewportPosition(1)
+            value_column_y = value_column_x + self.columnWidth(1)
+            cursor_value = event.x() - value_column_x
+            cursor_value_percent = cursor_value / self.columnWidth(1)
+
+            property = self.selected_label.data()
+            property_name = property[1]["name"]
+            property_type = property[1]["type"]
+            property_max = property[1]["max"]
+            property_min = property[1]["min"]
+            property_value = property[1]["value"]
+            readonly = property[1]["readonly"]
+
+            # Bail if readonly
+            if readonly:
+                return
+
+            # Calculate percentage value
+            if property_type in ["float", "int"]:
+                min_max_range = float(property_max) - float(property_min)
+
+                # Determine if range is unreasonably long (such as position, start, end, etc.... which can be huge #'s)
+                if min_max_range > 1000.0:
+                    # Get the current value
+                    new_value = QLocale().system().toDouble(self.selected_item.text())[0]
+
+                    # Huge range - increment / decrement slowly
+                    if self.previous_x == -1:
+                        # init previous_x for the first time
+                        self.previous_x = event.x()
+                    # calculate # of pixels dragged
+                    drag_diff = self.previous_x - event.x()
+                    if drag_diff > 0:
+                        # Move to the left by a small amount
+                        new_value -= 0.50
+                    elif drag_diff < 0:
+                        # Move to the right by a small amount
+                        new_value += 0.50
+                    # update previous x
+                    self.previous_x = event.x()
+                else:
+                    # Small range - use cursor % to calculate new value
+                    new_value = property_min + (min_max_range * cursor_value_percent)
+
+                # Clamp value between min and max (just incase user drags too big)
+                new_value = max(property_min, new_value)
+                new_value = min(property_max, new_value)
+
+                # Update text label
+                if property_type == "float":
+                    self.selected_item.setText(QLocale().system().toString(new_value, "f", precision=2))
+                elif property_type == "int":
+                    self.selected_item.setText(QLocale().system().toString(new_value, "g", precision=2))
+
+                # Update value of this property
+                self.clip_properties_model.value_updated(self.selected_item, -1, new_value)
+
+                # Repaint
+                self.viewport().update()
+
 
     def double_click(self, model_index):
         """Double click handler for the property table"""
@@ -208,6 +369,11 @@ class PropertiesTableView(QTableView):
         self.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.setWordWrap(True)
+
+        # Set delegate
+        delegate = PropertyDelegate()
+        self.setItemDelegateForColumn(1, delegate)
+        self.previous_x = -1
 
         # Get table header
         horizontal_header = self.horizontalHeader()

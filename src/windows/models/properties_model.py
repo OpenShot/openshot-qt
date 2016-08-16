@@ -449,7 +449,7 @@ class PropertiesModel(updates.UpdateInterface):
 
 
             # Reduce # of clip properties we are saving (performance boost)
-            c.data = {property_key: c.data[property_key]}
+            c.data = {property_key: c.data.get(property_key)}
 
             # Save changes
             if clip_updated:
