@@ -422,6 +422,8 @@ App.controller('TimelineCtrl',function($scope) {
 			return "#ff9700";
 		case "Saturation":
 			return "#ff3d00";
+		default:
+			return "0095bf";
 	}
 
 	 return "rgba(54, 25, 25, .2)";

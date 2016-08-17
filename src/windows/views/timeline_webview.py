@@ -2313,21 +2313,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 log.info(clip)
 
                 # Create Effect
-                effect = None
-                if name == "blur":
-                    effect = openshot.Blur()
-                elif name == "brightness":
-                    effect = openshot.Brightness()
-                elif name == "chromakey":
-                    effect = openshot.ChromaKey()
-                elif name == "deinterlace":
-                    effect = openshot.Deinterlace()
-                elif name == "mask":
-                    effect = openshot.Mask()
-                elif name == "negate":
-                    effect = openshot.Negate()
-                elif name == "saturation":
-                    effect = openshot.Saturation()
+                effect = openshot.EffectInfo().CreateEffect(name)
 
                 # Get Effect JSON
                 effect.Id(get_app().project.generate_id())
