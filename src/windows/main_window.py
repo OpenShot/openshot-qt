@@ -53,7 +53,7 @@ from windows.views.transitions_treeview import TransitionsTreeView
 from windows.views.transitions_listview import TransitionsListView
 from windows.views.effects_treeview import EffectsTreeView
 from windows.views.effects_listview import EffectsListView
-from windows.views.properties_tableview import PropertiesTableView
+from windows.views.properties_tableview import PropertiesTableView, SelectionLabel
 from windows.views.tutorial import TutorialManager
 from windows.video_widget import VideoWidget
 from windows.preview_thread import PreviewParent
@@ -1355,6 +1355,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
     # Add to the selected items
     def addSelection(self, item_id, item_type, clear_existing=False):
+        log.info('main::addSelection: item_id: %s, item_type: %s, clear_existing: %s' % (item_id, item_type, clear_existing))
+
         # Clear existing selection (if needed)
         if clear_existing:
             if item_type == "clip":
@@ -1364,15 +1366,17 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             elif item_type == "effect":
                 self.selected_effects.clear()
 
-        if item_type == "clip" and item_id not in self.selected_clips:
-            self.selected_clips.append(item_id)
-        elif item_type == "transition" and item_id not in self.selected_transitions:
-            self.selected_transitions.append(item_id)
-        elif item_type == "effect" and item_id not in self.selected_effects:
-            self.selected_effects.append(item_id)
+        if item_id:
+            # If item_id is not blank, store it
+            if item_type == "clip" and item_id not in self.selected_clips:
+                self.selected_clips.append(item_id)
+            elif item_type == "transition" and item_id not in self.selected_transitions:
+                self.selected_transitions.append(item_id)
+            elif item_type == "effect" and item_id not in self.selected_effects:
+                self.selected_effects.append(item_id)
 
-        # Change selected item in properties view
-        self.propertyTableView.select_item(item_id, item_type)
+            # Change selected item in properties view
+            self.propertyTableView.loadProperties.emit(item_id, item_type)
 
     # Remove from the selected items
     def removeSelection(self, item_id, item_type):
@@ -1385,14 +1389,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Move selection to next selected clip (if any)
         if item_type == "clip" and self.selected_clips:
-            self.propertyTableView.select_item(self.selected_clips[0], item_type)
+            self.propertyTableView.loadProperties.emit(self.selected_clips[0], item_type)
         elif item_type == "transition" and self.selected_transitions:
-            self.propertyTableView.select_item(self.selected_transitions[0], item_type)
+            self.propertyTableView.loadProperties.emit(self.selected_transitions[0], item_type)
         elif item_type == "effect" and self.selected_effects:
-            self.propertyTableView.select_item(self.selected_effects[0], item_type)
+            self.propertyTableView.loadProperties.emit(self.selected_effects[0], item_type)
         else:
             # Clear selection in properties view
-            self.propertyTableView.select_item("", "")
+            self.propertyTableView.loadProperties.emit("", "")
 
     # Update window settings in setting store
     def save_settings(self):
@@ -1676,7 +1680,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Setup properties table
         self.txtPropertyFilter.setPlaceholderText(_("Filter"))
         self.propertyTableView = PropertiesTableView(self)
-        self.dockPropertiesContent.layout().addWidget(self.propertyTableView, 3, 1)
+        self.selectionLabel = SelectionLabel(self)
+        self.dockPropertiesContent.layout().addWidget(self.selectionLabel, 0, 1)
+        self.dockPropertiesContent.layout().addWidget(self.propertyTableView, 2, 1)
 
         # Setup video preview QWidget
         self.videoPreview = VideoWidget()

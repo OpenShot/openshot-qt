@@ -25,13 +25,18 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-from PyQt5.QtCore import Qt, QRectF, QLocale
+import os
+from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, Qt
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QTableView, QAbstractItemView, QMenu, QSizePolicy, QHeaderView, QColorDialog, QItemDelegate, QStyle
+from PyQt5.QtWidgets import QTableView, QAbstractItemView, QMenu, QSizePolicy, QHeaderView, QColorDialog, QItemDelegate, QStyle, QLabel
 
 from classes.logger import log
 from classes.app import get_app
+from classes import info
+from classes.query import Clip, Effect, Transition
 from windows.models.properties_model import PropertiesModel
+
+import openshot
 
 try:
     import json
@@ -42,6 +47,12 @@ except ImportError:
 class PropertyDelegate(QItemDelegate):
     def __init__(self, parent=None, *args):
         QItemDelegate.__init__(self, parent, *args)
+
+        # pixmaps for curve icons
+        self.curve_pixmaps = { openshot.BEZIER: QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.BEZIER)),
+                               openshot.LINEAR: QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.LINEAR)),
+                               openshot.CONSTANT: QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.CONSTANT))
+                             }
 
     def paint(self, painter, option, index):
         painter.save()
@@ -60,6 +71,9 @@ class PropertyDelegate(QItemDelegate):
         property_max = property[1]["max"]
         property_min = property[1]["min"]
         readonly = property[1]["readonly"]
+        keyframe = property[1]["keyframe"]
+        points = property[1]["points"]
+        interpolation = property[1]["interpolation"]
 
         # Calculate percentage value
         if property_type in ["float", "int"]:
@@ -106,16 +120,25 @@ class PropertyDelegate(QItemDelegate):
             mask_rect.setWidth(option.rect.width() * value_percent)
             painter.setClipRect(mask_rect, Qt.IntersectClip)
 
+            # gradient for value box
+            gradient = QLinearGradient(option.rect.topLeft(), option.rect.topRight())
+            gradient.setColorAt(0, QColor("#828282"))
+            gradient.setColorAt(1, QColor("#828282"))
+
             # Render progress
-            painter.setBrush(QBrush(QColor("#828282")))
+            painter.setBrush(gradient)
             path = QPainterPath()
             value_rect = QRectF(option.rect)
             path.addRoundedRect(value_rect, 15, 15);
-            painter.fillPath(path, QColor("#828282"))
+            painter.fillPath(path, gradient)
             painter.drawPath(path);
+            painter.setClipping(False)
+
+            if points > 1:
+                # Draw interpolation icon on top
+                painter.drawPixmap(option.rect.x() + option.rect.width() - 30.0, option.rect.y() + 4, self.curve_pixmaps[interpolation])
 
         # set text color
-        painter.setClipping(False)
         painter.setPen(QPen(Qt.white))
         value = index.data(Qt.DisplayRole)
         if value:
@@ -126,6 +149,7 @@ class PropertyDelegate(QItemDelegate):
 
 class PropertiesTableView(QTableView):
     """ A Properties Table QWidget used on the main window """
+    loadProperties = pyqtSignal(str, str)
 
     def mouseMoveEvent(self, event):
         # Get data model and selection
@@ -193,7 +217,7 @@ class PropertiesTableView(QTableView):
                 if property_type == "float":
                     self.selected_item.setText(QLocale().system().toString(new_value, "f", precision=2))
                 elif property_type == "int":
-                    self.selected_item.setText(QLocale().system().toString(new_value, "g", precision=2))
+                    self.selected_item.setText(QLocale().system().toString(new_value, "g", precision=0))
 
                 # Update value of this property
                 self.clip_properties_model.value_updated(self.selected_item, -1, new_value)
@@ -233,12 +257,6 @@ class PropertiesTableView(QTableView):
 
         # Get translation object
         _ = get_app()._tr
-
-        # Set label
-        if item_id:
-            get_app().window.lblSelectedItem.setText(_("Selection: %s") % item_id)
-        else:
-            get_app().window.lblSelectedItem.setText(_("No Selection"))
 
         # Update item
         self.clip_properties_model.update_item(item_id, item_type)
@@ -283,15 +301,22 @@ class PropertiesTableView(QTableView):
             log.info("Points: %s" % points)
             log.info("Property: %s" % str(property))
 
+            bezier_icon = QIcon(QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.BEZIER)))
+            linear_icon = QIcon(QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.LINEAR)))
+            constant_icon = QIcon(QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.CONSTANT)))
+
             # Add menu options for keyframes
             menu = QMenu(self)
             if points > 1:
                 # Menu for more than 1 point
                 Bezier_Action = menu.addAction(_("Bezier"))
+                Bezier_Action.setIcon(bezier_icon)
                 Bezier_Action.triggered.connect(self.Bezier_Action_Triggered)
                 Linear_Action = menu.addAction(_("Linear"))
+                Linear_Action.setIcon(linear_icon)
                 Linear_Action.triggered.connect(self.Linear_Action_Triggered)
                 Constant_Action = menu.addAction(_("Constant"))
+                Constant_Action.setIcon(constant_icon)
                 Constant_Action.triggered.connect(self.Constant_Action_Triggered)
                 menu.addSeparator()
                 Remove_Action = menu.addAction(_("Remove Keyframe"))
@@ -391,3 +416,98 @@ class PropertiesTableView(QTableView):
         # Connect filter signals
         get_app().window.txtPropertyFilter.textChanged.connect(self.filter_changed)
         self.doubleClicked.connect(self.double_click)
+        self.loadProperties.connect(self.select_item)
+
+
+class SelectionLabel(QLabel):
+    """ The label to display selections """
+
+    def contextMenuEvent(self, event):
+        # Display context menu
+        log.info('contextMenuEvent')
+
+        # Get translation object
+        _ = get_app()._tr
+
+        menu = QMenu(self)
+
+        # Look up item for more info
+        if self.item_type == "clip":
+            self.item_name = Clip.get(id=self.item_id).title()
+        elif self.item_type == "transition":
+            self.item_name = Transition.get(id=self.item_id).title()
+        elif self.item_type == "effect":
+            self.item_name = Effect.get(id=self.item_id).title()
+
+        # Add selected clips
+        for item_id in get_app().window.selected_clips:
+            item_name = Clip.get(id=item_id).title()
+            action = menu.addAction(item_name)
+            action.setData({'item_id':item_id, 'item_type':'clip'})
+            action.triggered.connect(self.Action_Triggered)
+
+        # Add selected transitions
+        for item_id in get_app().window.selected_transitions:
+            item_name = Transition.get(id=item_id).title()
+            action = menu.addAction(item_name)
+            action.setData({'item_id': item_id, 'item_type': 'transition'})
+            action.triggered.connect(self.Action_Triggered)
+
+        # Add selected effects
+        for item_id in get_app().window.selected_effects:
+            item_name = Effect.get(id=item_id).title()
+            action = menu.addAction(item_name)
+            action.setData({'item_id': item_id, 'item_type': 'effect'})
+            action.triggered.connect(self.Action_Triggered)
+
+        # Show context menu
+        menu.popup(QCursor.pos())
+
+    def Action_Triggered(self, event):
+        # Switch selection
+        item_id = self.sender().data()['item_id']
+        item_type = self.sender().data()['item_type']
+        log.info('switch selection to %s:%s' % (item_id, item_type))
+
+        # Set the property tableview to the new item
+        get_app().window.propertyTableView.loadProperties.emit(item_id, item_type)
+
+    def select_item(self, item_id, item_type):
+        # Set the active item
+        self.item_id = item_id
+        self.item_type = item_type
+        self.item_name = None
+
+        # Look up item for more info
+        if self.item_type == "clip":
+            self.item_name = Clip.get(id=self.item_id).title()
+        elif self.item_type == "transition":
+            self.item_name = Transition.get(id=self.item_id).title()
+        elif self.item_type == "effect":
+            self.item_name = Effect.get(id=self.item_id).title()
+
+        # Get translation object
+        _ = get_app()._tr
+
+        # Truncate long text
+        if self.item_name and len(self.item_name) > 25:
+            self.item_name = "%s..." % self.item_name[:22]
+
+        # Set label
+        if item_id:
+            self.setText("<strong>%s</strong> %s" % (_("Selection:"), self.item_name))
+        else:
+            self.setText("<strong>%s</strong>" % _("No Selection"))
+
+    def __init__(self, *args):
+        # Invoke parent init
+        QLabel.__init__(self, *args)
+        self.item_id = None
+        self.item_type = None
+
+        # Support rich text
+        self.setTextFormat(Qt.RichText)
+
+
+        # Connect signals
+        get_app().window.propertyTableView.loadProperties.connect(self.select_item)

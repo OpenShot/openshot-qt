@@ -2100,7 +2100,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Init snapping state (1 = snapping, 0 = no snapping)
         self.eval_js(JS_SCOPE_SELECTOR + ".SetSnappingMode(%s);" % int(enable_snapping))
 
-    @pyqtSlot(str, str)
+    @pyqtSlot(str, str, bool)
     def addSelection(self, item_id, item_type, clear_existing=False):
         """ Add the selected item to the current selection """
 

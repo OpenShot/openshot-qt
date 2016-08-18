@@ -363,7 +363,10 @@ App.directive('tlMultiSelectable', function(){
 					if (scope.Qt)
 					{
 						timeline.qt_log("Add to selection: " + id);
-						timeline.addSelection(id, type);
+						timeline.addSelection(id, type, false);
+
+						// Clear effect selections (if any)
+						timeline.addSelection("", "effect", true);
 					}
 					
 					scope.$apply(function(){

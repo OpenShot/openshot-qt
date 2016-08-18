@@ -306,6 +306,28 @@ App.controller('TimelineCtrl',function($scope) {
 					keyframes[co.X] = co.Y;
 			}
 	}
+
+	// Determine if this property contains effects (i.e. clips have their own effects)
+	if ("effects" in object)
+		for (effect in object["effects"]) {
+			
+			// Loop through properties of an effect, looking for keyframe points
+			for (child in object["effects"][effect]) {
+				if (!object["effects"][effect].hasOwnProperty(child)) {
+					//The current property is not a direct property of p
+					continue;
+				}
+
+				// Determine if this property is a Keyframe
+				if (typeof object["effects"][effect][child] == "object" && "Points" in object["effects"][effect][child])
+					for (var point = 0; point < object["effects"][effect][child].Points.length; point++) {
+						var co = object["effects"][effect][child].Points[point].co;
+						if (co.X >= clip_start_x && co.X <= clip_end_x)
+							// Only add keyframe coordinates that are within the bounds of the clip
+							keyframes[co.X] = co.Y;
+					}
+			}
+		}
 	
 	// Return keyframe array
 	return keyframes;
@@ -451,8 +473,10 @@ App.controller('TimelineCtrl',function($scope) {
  	var id = clip_id.replace("clip_", "");
 
 	// Clear transitions also (if needed)
-	if (id != "" && clear_selections)
-		$scope.SelectTransition("", true);
+	if (id != "" && clear_selections) {
+		$scope.SelectTransition("", clear_selections);
+		$scope.SelectEffect("", clear_selections);
+	}
 
 	// Is CTRL pressed?
 	is_ctrl = false;
@@ -464,7 +488,7 @@ App.controller('TimelineCtrl',function($scope) {
 		if ($scope.project.clips[clip_index].id == id) {
 			$scope.project.clips[clip_index].selected = true;
 			if ($scope.Qt)
-	 			timeline.addSelection(id, "clip");
+				timeline.addSelection(id, "clip", clear_selections);
 		}
 		else if (clear_selections && !is_ctrl) {
 			$scope.project.clips[clip_index].selected = false;
@@ -479,8 +503,10 @@ App.controller('TimelineCtrl',function($scope) {
  	var id = tran_id.replace("transition_", "");
 
 	// Clear clips also (if needed)
-	if (id != "" && clear_selections)
+	if (id != "" && clear_selections) {
 		$scope.SelectClip("", true);
+		$scope.SelectEffect("", true);
+	}
 
 	// Is CTRL pressed?
 	is_ctrl = false;
@@ -492,7 +518,7 @@ App.controller('TimelineCtrl',function($scope) {
 		if ($scope.project.effects[tran_index].id == id) {
 			$scope.project.effects[tran_index].selected = true;
 		 	if ($scope.Qt)
-			 	timeline.addSelection(id, "transition");
+				timeline.addSelection(id, "transition", clear_selections);
 		}
 		else if (clear_selections && !is_ctrl) {
 			$scope.project.effects[tran_index].selected = false;
@@ -511,10 +537,8 @@ App.controller('TimelineCtrl',function($scope) {
 
   // Select transition in scope
  $scope.SelectEffect = function(effect_id) {
- 	if ($scope.Qt) {
-	 	timeline.qt_log("$scope.SelectEffect");
+ 	if ($scope.Qt)
 	 	timeline.addSelection(effect_id, "effect", true);
- 	}
  };
 
 // Find the furthest right edge on the timeline (and resize it if too small)
