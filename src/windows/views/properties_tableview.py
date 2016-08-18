@@ -26,9 +26,9 @@
  """
 
 import os
-from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, Qt
+from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, Qt, QObject
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QTableView, QAbstractItemView, QMenu, QSizePolicy, QHeaderView, QColorDialog, QItemDelegate, QStyle, QLabel
+from PyQt5.QtWidgets import QTableView, QAbstractItemView, QMenu, QSizePolicy, QHeaderView, QColorDialog, QItemDelegate, QStyle, QLabel, QPushButton, QHBoxLayout, QFrame
 
 from classes.logger import log
 from classes.app import get_app
@@ -419,17 +419,15 @@ class PropertiesTableView(QTableView):
         self.loadProperties.connect(self.select_item)
 
 
-class SelectionLabel(QLabel):
+class SelectionLabel(QFrame):
     """ The label to display selections """
 
-    def contextMenuEvent(self, event):
-        # Display context menu
-        log.info('contextMenuEvent')
+    def getMenu(self):
+        # Build menu for selection button
+        menu = QMenu(self)
 
         # Get translation object
         _ = get_app()._tr
-
-        menu = QMenu(self)
 
         # Look up item for more info
         if self.item_type == "clip":
@@ -441,27 +439,35 @@ class SelectionLabel(QLabel):
 
         # Add selected clips
         for item_id in get_app().window.selected_clips:
-            item_name = Clip.get(id=item_id).title()
+            clip = Clip.get(id=item_id)
+            item_name = clip.title()
             action = menu.addAction(item_name)
             action.setData({'item_id':item_id, 'item_type':'clip'})
             action.triggered.connect(self.Action_Triggered)
 
+            # Add effects for these clips (if any)
+            for effect in clip.data.get('effects'):
+                item_name = Effect.get(id=effect.get('id')).title()
+                action = menu.addAction('    %s' % _(item_name))
+                action.setData({'item_id': effect.get('id'), 'item_type': 'effect'})
+                action.triggered.connect(self.Action_Triggered)
+
         # Add selected transitions
         for item_id in get_app().window.selected_transitions:
             item_name = Transition.get(id=item_id).title()
-            action = menu.addAction(item_name)
+            action = menu.addAction(_(item_name))
             action.setData({'item_id': item_id, 'item_type': 'transition'})
             action.triggered.connect(self.Action_Triggered)
 
         # Add selected effects
         for item_id in get_app().window.selected_effects:
             item_name = Effect.get(id=item_id).title()
-            action = menu.addAction(item_name)
+            action = menu.addAction(_(item_name))
             action.setData({'item_id': item_id, 'item_type': 'effect'})
             action.triggered.connect(self.Action_Triggered)
 
-        # Show context menu
-        menu.popup(QCursor.pos())
+        # Return the menu object
+        return menu
 
     def Action_Triggered(self, event):
         # Switch selection
@@ -478,16 +484,16 @@ class SelectionLabel(QLabel):
         self.item_type = item_type
         self.item_name = None
 
+        # Get translation object
+        _ = get_app()._tr
+
         # Look up item for more info
         if self.item_type == "clip":
             self.item_name = Clip.get(id=self.item_id).title()
         elif self.item_type == "transition":
-            self.item_name = Transition.get(id=self.item_id).title()
+            self.item_name = _(Transition.get(id=self.item_id).title())
         elif self.item_type == "effect":
-            self.item_name = Effect.get(id=self.item_id).title()
-
-        # Get translation object
-        _ = get_app()._tr
+            self.item_name = _(Effect.get(id=self.item_id).title())
 
         # Truncate long text
         if self.item_name and len(self.item_name) > 25:
@@ -495,19 +501,36 @@ class SelectionLabel(QLabel):
 
         # Set label
         if item_id:
-            self.setText("<strong>%s</strong> %s" % (_("Selection:"), self.item_name))
+            self.lblSelection.setText("<strong>%s</strong>" % _("Selection:"))
+            self.btnSelectionName.setText(self.item_name)
+            self.btnSelectionName.setVisible(True)
         else:
-            self.setText("<strong>%s</strong>" % _("No Selection"))
+            self.lblSelection.setText("<strong>%s</strong>" % _("No Selection"))
+            self.btnSelectionName.setVisible(False)
+
+        # Set the menu on the button
+        self.btnSelectionName.setMenu(self.getMenu())
 
     def __init__(self, *args):
         # Invoke parent init
-        QLabel.__init__(self, *args)
+        QFrame.__init__(self, *args)
         self.item_id = None
         self.item_type = None
 
-        # Support rich text
-        self.setTextFormat(Qt.RichText)
+        # Widgets
+        self.lblSelection = QLabel()
+        self.btnSelectionName = QPushButton()
+        self.btnSelectionName.setVisible(False)
+        self.btnSelectionName.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
 
+        # Support rich text
+        self.lblSelection.setTextFormat(Qt.RichText)
+
+        hbox = QHBoxLayout()
+        hbox.setContentsMargins(0,0,0,0)
+        hbox.addWidget(self.lblSelection)
+        hbox.addWidget(self.btnSelectionName)
+        self.setLayout(hbox)
 
         # Connect signals
         get_app().window.propertyTableView.loadProperties.connect(self.select_item)
