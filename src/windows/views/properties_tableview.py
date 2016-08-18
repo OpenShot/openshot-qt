@@ -441,28 +441,38 @@ class SelectionLabel(QFrame):
         for item_id in get_app().window.selected_clips:
             clip = Clip.get(id=item_id)
             item_name = clip.title()
+            item_icon = QIcon(QPixmap(clip.data.get('image')))
             action = menu.addAction(item_name)
+            action.setIcon(item_icon)
             action.setData({'item_id':item_id, 'item_type':'clip'})
             action.triggered.connect(self.Action_Triggered)
 
             # Add effects for these clips (if any)
             for effect in clip.data.get('effects'):
                 item_name = Effect.get(id=effect.get('id')).title()
+                item_icon = QIcon(QPixmap(os.path.join(info.PATH, "effects", "icons", "%s.png" % effect.get('class_name').lower())))
                 action = menu.addAction('    %s' % _(item_name))
+                action.setIcon(item_icon)
                 action.setData({'item_id': effect.get('id'), 'item_type': 'effect'})
                 action.triggered.connect(self.Action_Triggered)
 
         # Add selected transitions
         for item_id in get_app().window.selected_transitions:
-            item_name = Transition.get(id=item_id).title()
+            trans = Transition.get(id=item_id)
+            item_name = _(trans.title())
+            item_icon = QIcon(QPixmap(trans.data.get('reader',{}).get('path')))
             action = menu.addAction(_(item_name))
+            action.setIcon(item_icon)
             action.setData({'item_id': item_id, 'item_type': 'transition'})
             action.triggered.connect(self.Action_Triggered)
 
         # Add selected effects
         for item_id in get_app().window.selected_effects:
-            item_name = Effect.get(id=item_id).title()
+            effect = Effect.get(id=item_id)
+            item_name = _(effect.title())
+            item_icon = QIcon(QPixmap(os.path.join(info.PATH, "effects", "icons", "%s.png" % effect.data.get('class_name').lower())))
             action = menu.addAction(_(item_name))
+            action.setIcon(item_icon)
             action.setData({'item_id': item_id, 'item_type': 'effect'})
             action.triggered.connect(self.Action_Triggered)
 
@@ -483,17 +493,24 @@ class SelectionLabel(QFrame):
         self.item_id = item_id
         self.item_type = item_type
         self.item_name = None
+        self.item_icon = None
 
         # Get translation object
         _ = get_app()._tr
 
         # Look up item for more info
         if self.item_type == "clip":
-            self.item_name = Clip.get(id=self.item_id).title()
+            clip = Clip.get(id=self.item_id)
+            self.item_name = clip.title()
+            self.item_icon = QIcon(QPixmap(clip.data.get('image')))
         elif self.item_type == "transition":
-            self.item_name = _(Transition.get(id=self.item_id).title())
+            trans = Transition.get(id=self.item_id)
+            self.item_name = _(trans.title())
+            self.item_icon = QIcon(QPixmap(trans.data.get('reader', {}).get('path')))
         elif self.item_type == "effect":
-            self.item_name = _(Effect.get(id=self.item_id).title())
+            effect = Effect.get(id=self.item_id)
+            self.item_name = _(effect.title())
+            self.item_icon = QIcon(QPixmap(os.path.join(info.PATH, "effects", "icons", "%s.png" % effect.data.get('class_name').lower())))
 
         # Truncate long text
         if self.item_name and len(self.item_name) > 25:
@@ -504,6 +521,8 @@ class SelectionLabel(QFrame):
             self.lblSelection.setText("<strong>%s</strong>" % _("Selection:"))
             self.btnSelectionName.setText(self.item_name)
             self.btnSelectionName.setVisible(True)
+            if self.item_icon:
+                self.btnSelectionName.setIcon(self.item_icon)
         else:
             self.lblSelection.setText("<strong>%s</strong>" % _("No Selection"))
             self.btnSelectionName.setVisible(False)
@@ -517,8 +536,12 @@ class SelectionLabel(QFrame):
         self.item_id = None
         self.item_type = None
 
+        # Get translation object
+        _ = get_app()._tr
+
         # Widgets
         self.lblSelection = QLabel()
+        self.lblSelection.setText("<strong>%s</strong>" % _("No Selection"))
         self.btnSelectionName = QPushButton()
         self.btnSelectionName.setVisible(False)
         self.btnSelectionName.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)

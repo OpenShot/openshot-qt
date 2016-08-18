@@ -232,11 +232,16 @@ for file in os.listdir(export_path):
 # Loop through Settings
 settings_file = open(os.path.join(info.PATH, 'settings', '_default.settings'), 'r').read()
 settings = json.loads(settings_file)
+category_names = []
 for setting in settings:
     if "type" in setting and setting["type"] != "hidden":
         # Add visible settings
         export_text[setting["title"]] = "Settings for %s" % setting["setting"]
-
+    if "type" in setting and setting["type"] != "hidden":
+        # Add visible category names
+        if setting["category"] not in category_names:
+            export_text[setting["category"]] = "Settings Category for %s" % setting["category"]
+            category_names.append(setting["category"])
 
 # Loop through transitions and add to POT file
 transitions_text = {}
