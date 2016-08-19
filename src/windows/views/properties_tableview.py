@@ -213,12 +213,6 @@ class PropertiesTableView(QTableView):
                 new_value = max(property_min, new_value)
                 new_value = min(property_max, new_value)
 
-                # Update text label
-                if property_type == "float":
-                    self.selected_item.setText(QLocale().system().toString(new_value, "f", precision=2))
-                elif property_type == "int":
-                    self.selected_item.setText(QLocale().system().toString(new_value, "g", precision=0))
-
                 # Update value of this property
                 self.clip_properties_model.value_updated(self.selected_item, -1, new_value)
 

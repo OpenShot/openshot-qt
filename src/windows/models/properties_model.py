@@ -67,7 +67,7 @@ class PropertiesModel(updates.UpdateInterface):
     def changed(self, action):
 
         # Handle change
-        if action.key and action.key[0] == "clips":
+        if action.key and action.key[0] in ["clips", "effects"]:
             log.info(action.values)
             # Update the model data
             self.update_model(get_app().window.txtPropertyFilter.text())
@@ -359,8 +359,11 @@ class PropertiesModel(updates.UpdateInterface):
                     new_value = False
                 else:
                     new_value = True
+            elif property_type == "int":
+                # Use int value
+                new_value = QLocale().system().toInt(item.text())[0]
             else:
-                # Use numeric value
+                # Use decimal value
                 new_value = QLocale().system().toFloat(item.text())[0]
         else:
             new_value = None
