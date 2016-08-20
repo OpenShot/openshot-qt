@@ -420,6 +420,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         self.window.addSelection(effect_id, 'effect', True)
 
         menu = QMenu(self)
+        # Properties
+        menu.addAction(self.window.actionProperties)
+
+        # Remove Effect Menu
+        menu.addSeparator()
         menu.addAction(self.window.actionRemoveEffect)
         return menu.popup(QCursor.pos())
 
@@ -2021,6 +2026,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         Reverse_Transition = menu.addAction(_("Reverse Transition"))
         Reverse_Transition.triggered.connect(partial(self.Reverse_Transition_Triggered, tran_ids))
 
+        # Properties
+        menu.addSeparator()
+        menu.addAction(self.window.actionProperties)
+
         # Remove transition menu
         menu.addSeparator()
         menu.addAction(self.window.actionRemoveTransition)
@@ -2245,6 +2254,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Add clip to timeline
         self.update_clip_data(new_clip, only_basic_props=False)
 
+        # Init javascript bounding box (for snapping support)
+        code = JS_SCOPE_SELECTOR + ".StartManualMove('clip', '" + new_clip.get('id') + "');"
+        self.eval_js(code)
+
     # Resize timeline
     @pyqtSlot(float)
     def resizeTimeline(self, new_duration):
@@ -2291,6 +2304,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Send to update manager
         self.update_transition_data(transitions_data, only_basic_props=False)
 
+        # Init javascript bounding box (for snapping support)
+        code = JS_SCOPE_SELECTOR + ".StartManualMove('transition', '" + transitions_data.get('id') + "');"
+        self.eval_js(code)
+
     # Add Effect
     def addEffect(self, effect_names, position):
         log.info("addEffect...")
@@ -2332,11 +2349,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         pos = event.posF()
 
         # Move clip on timeline
-        code = ""
-        if self.item_type == "clip":
-            code = JS_SCOPE_SELECTOR + ".MoveItem(" + str(pos.x()) + ", " + str(pos.y()) + ", 'clip');"
-        elif self.item_type == "transition":
-            code = JS_SCOPE_SELECTOR + ".MoveItem(" + str(pos.x()) + ", " + str(pos.y()) + ", 'transition');"
+        code = JS_SCOPE_SELECTOR + ".MoveItem(" + str(pos.x()) + ", " + str(pos.y()) + ", '" + self.item_type + "');"
         self.eval_js(code)
 
         if code:
@@ -2349,16 +2362,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         data = json.loads(event.mimeData().text())
         pos = event.posF()
 
-        # Update project data with final position of item
-        if self.item_type == "clip":
+        if self.item_type in ["clip", "transition"]:
             # Update most recent clip
-            self.eval_js(JS_SCOPE_SELECTOR + ".UpdateRecentItemJSON('clip');")
+            self.eval_js(JS_SCOPE_SELECTOR + ".UpdateRecentItemJSON('" + self.item_type + "');")
 
-        elif self.item_type == "transition":
-            # Update most recent transition
-            self.eval_js(JS_SCOPE_SELECTOR + ".UpdateRecentItemJSON('transition');")
-
-        elif self.item_type == "effect":
+        if self.item_type == "effect":
             # Add effect only on drop
             self.addEffect(data, pos)
 

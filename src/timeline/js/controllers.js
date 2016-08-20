@@ -445,10 +445,8 @@ App.controller('TimelineCtrl',function($scope) {
 		case "Saturation":
 			return "#ff3d00";
 		default:
-			return "0095bf";
+			return "#000000";
 	}
-
-	 return "rgba(54, 25, 25, .2)";
  };
 
  // Add a new clip to the timeline
@@ -667,50 +665,119 @@ $scope.SetTrackLabel = function (label){
  // Get JSON of most recent item (used by Qt)
  $scope.UpdateRecentItemJSON = function(item_type) {
 
-		// update clip in Qt (very important =)
-		if (item_type == 'clip') {
-			var item_data = $scope.project.clips[$scope.project.clips.length - 1];
-			timeline.update_clip_data(JSON.stringify(item_data));
-		}
-		else if (item_type == 'transition') {
-			var item_data = $scope.project.effects[$scope.project.effects.length - 1];
-			timeline.update_transition_data(JSON.stringify(item_data));
-		}
+	// Get position of item
+	var scrolling_tracks_offset_top = $("#scrolling_tracks").offset().top;
+	var clip_position = parseFloat(bounding_box.left) / parseFloat($scope.pixelsPerSecond);
+	var layer_num = $scope.GetTrackAtY(bounding_box.track_position - scrolling_tracks_offset_top).number;
 
-	    // Resize timeline if it's too small to contain all clips
-	    $scope.ResizeTimeline();
-		 	
- };
- 
- // Move a new clip to the timeline
- $scope.MoveItem = function(x, y, item_type){
-	 $scope.$apply(function(){
-		 
-     	var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
-    	var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
-    	x += horz_scroll_offset;
-    	y += vert_scroll_offset;
-		 
-		 // Convert x and y into timeline vars
-		 var scrolling_tracks_offset_left = $("#scrolling_tracks").offset().left;
-		 var scrolling_tracks_offset_top = $("#scrolling_tracks").offset().top;
-		 var clip_position = parseFloat(x - scrolling_tracks_offset_left) / parseFloat($scope.pixelsPerSecond);
-		 if (clip_position < 0)
-			 clip_position = 0;
-
+	// update scope with final position of items
+	$scope.$apply(function() {
 		 // Update clip position & layer (based on x,y)
 		 if (item_type == "clip") {
 			 // move clip
 			 $scope.project.clips[$scope.project.clips.length - 1].position = clip_position;
-			 $scope.project.clips[$scope.project.clips.length - 1].layer = $scope.GetTrackAtY(y - scrolling_tracks_offset_top).number;
+			 $scope.project.clips[$scope.project.clips.length - 1].layer = layer_num;
 
 		 } else if (item_type == "transition") {
 			 // move transition
 			 $scope.project.effects[$scope.project.effects.length - 1].position = clip_position;
-			 $scope.project.effects[$scope.project.effects.length - 1].layer = $scope.GetTrackAtY(y - scrolling_tracks_offset_top).number;
+			 $scope.project.effects[$scope.project.effects.length - 1].layer = layer_num;
 		 }
+	});
 
-	 });
+	// update clip in Qt (very important =)
+	if (item_type == 'clip') {
+		var item_data = $scope.project.clips[$scope.project.clips.length - 1];
+		timeline.update_clip_data(JSON.stringify(item_data));
+	}
+	else if (item_type == 'transition') {
+		var item_data = $scope.project.effects[$scope.project.effects.length - 1];
+		timeline.update_transition_data(JSON.stringify(item_data));
+	}
+
+	// Resize timeline if it's too small to contain all clips
+	$scope.ResizeTimeline();
+
+	// Hide snapline (if any)
+	$scope.HideSnapline();
+
+	// Remove CSS class (after the drag)
+	bounding_box.element.removeClass('ui-selectable-helper');
+	bounding_box = {};
+ };
+	
+ // Init bounding boxes for manual move
+ $scope.StartManualMove = function(item_type, item_id){
+	 // Select the item
+	 if (item_type == 'clip')
+		$scope.SelectClip(item_id, true);
+	 else if (item_type == 'transition')
+	 	$scope.SelectTransition(item_id, true);
+	 
+	 // JQuery selector for element (clip or transition)
+	 var element_id = "#" + item_type + "_" + item_id;
+
+	 // Init bounding box
+	 bounding_box = {};
+	 setBoundingBox($(element_id));
+
+	 // Init some variables to track the changing position
+	 bounding_box.previous_x = bounding_box.left;
+	 bounding_box.previous_y = bounding_box.top;
+	 bounding_box.offset_x = 0;
+	 bounding_box.offset_y = 0;
+	 bounding_box.element = $(element_id);
+	 bounding_box.track_position = 0;
+
+	 // Add CSS class (during the drag)
+	 bounding_box.element.addClass('ui-selectable-helper');
+ };
+ 
+ // Move a new clip to the timeline
+ $scope.MoveItem = function(x, y, item_type) {
+
+	var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
+	var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
+	x += horz_scroll_offset;
+	y += vert_scroll_offset;
+
+	// Convert x and y into timeline vars
+	var scrolling_tracks_offset_left = $("#scrolling_tracks").offset().left;
+	var scrolling_tracks_offset_top = $("#scrolling_tracks").offset().top;
+
+	// Calculate the x,y of cursor
+	var left = parseFloat(x - scrolling_tracks_offset_left);
+	var top = parseFloat(y - scrolling_tracks_offset_top);
+
+	// Calculate amount to move transitions
+	var x_offset = left - bounding_box.previous_x;
+	var y_offset = top - bounding_box.previous_y;
+
+	// Move the bounding box and apply snapping rules
+	results = moveBoundingBox($scope, bounding_box.previous_x, bounding_box.previous_y, x_offset, y_offset, left, top);
+
+	// Track previous values
+	bounding_box.previous_x = results.position.left;
+	bounding_box.previous_y = results.position.top;
+
+	var clip_position = parseFloat(results.position.left) / parseFloat($scope.pixelsPerSecond);
+	if (clip_position < 0)
+		clip_position = 0;
+
+	// Loop through each layer (looking for the closest track based on Y coordinate)
+	bounding_box.track_position = 0;
+	for (var layer_index = $scope.project.layers.length - 1; layer_index >= 0 ; layer_index--) {
+		var layer = $scope.project.layers[layer_index];
+
+		// Compare position of track to Y param
+		if (top < layer.y && top > bounding_box.track_position)
+			// return first matching layer
+			bounding_box.track_position = layer.y;
+	}
+
+	//change the element location
+	bounding_box.element.css('left', results.position.left);
+	bounding_box.element.css('top', bounding_box.track_position - scrolling_tracks_offset_top);
  };
  
  // Update X,Y indexes of tracks / layers (anytime the project.layers scope changes)
@@ -822,7 +889,7 @@ $scope.SetTrackLabel = function (label){
 	var smallest_abs_diff = 900.0;
 	var snapping_position = 0.0;
 	var diffs = [];
-	
+
 	// Loop through each pixel position (supports multiple positions: i.e. left and right side of bounding box)
 	for (var pos_index = 0; pos_index < pixel_positions.length; pos_index++) {
 		var pixel_position = pixel_positions[pos_index];
@@ -890,17 +957,23 @@ $scope.SetTrackLabel = function (label){
  
   // Show the nearby snapping line
  $scope.ShowSnapline = function(position){
-	 $scope.$apply(function(){
-		$scope.snapline_position = position;
-		$scope.snapline = true; 
-	 });
+	 if (position != $scope.snapline_position || !$scope.snapline) {
+		 // Only update if value has changed
+		 $scope.$apply(function(){
+			$scope.snapline_position = position;
+			$scope.snapline = true;
+		 });
+	 }
  };
  
  // Hide the nearby snapping line
  $scope.HideSnapline = function(){
-	 $scope.$apply(function(){
-		$scope.snapline = false; 
-	 });
+	 if ($scope.snapline) {
+		 // Only hide if not already hidden
+		 $scope.$apply(function(){
+			$scope.snapline = false;
+		 });
+	 }
  };
  
  // Find a track JSON object at a given y coordinate (if any)

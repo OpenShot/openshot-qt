@@ -17,7 +17,7 @@ body {
 
 .ui-selectable-helper{
   position:absolute;
-  z-index:9998;
+  z-index:9998!important;
   border:1px solid #2a82da;
   background-color: #2a82da;
   opacity: 0.4;

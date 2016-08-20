@@ -223,7 +223,7 @@ App.directive('tlTransition', function(){
                 drag: function(e, ui) {
                 	var previous_x = ui.originalPosition.left;
 					var previous_y = ui.originalPosition.top;
-					if (previous_drag_position)
+					if (previous_drag_position != null)
 					{
 						// if available, override with previous drag position
 						previous_x = previous_drag_position.left;
@@ -237,14 +237,14 @@ App.directive('tlTransition', function(){
 	            	var x_offset = ui.position.left - previous_x;
 	            	var y_offset = ui.position.top - previous_y;
 
-                    //update the dragged transition location in the location arrays
-					move_transitions[element.attr('id')] = {"top": ui.position.top,
-                                                      "left": ui.position.left};
-
 					// Move the bounding box and apply snapping rules
-					results = moveBoundingBox(scope, element, previous_x, previous_y, x_offset, y_offset, ui);
+					results = moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, ui.position.left, ui.position.top);
 					x_offset = results.x_offset;
 					y_offset = results.y_offset;
+
+					// Update ui object
+					ui.position.left = results.position.left;
+					ui.position.top = results.position.top;
 
     				// Move all other selected transitions with this one
 	                $(".ui-selected").each(function(){

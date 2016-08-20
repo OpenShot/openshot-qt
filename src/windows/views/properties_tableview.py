@@ -26,7 +26,7 @@
  """
 
 import os
-from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, Qt, QObject
+from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, Qt, QObject, QTimer
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QTableView, QAbstractItemView, QMenu, QSizePolicy, QHeaderView, QColorDialog, QItemDelegate, QStyle, QLabel, QPushButton, QHBoxLayout, QFrame
 
@@ -445,7 +445,7 @@ class SelectionLabel(QFrame):
             for effect in clip.data.get('effects'):
                 item_name = Effect.get(id=effect.get('id')).title()
                 item_icon = QIcon(QPixmap(os.path.join(info.PATH, "effects", "icons", "%s.png" % effect.get('class_name').lower())))
-                action = menu.addAction('    %s' % _(item_name))
+                action = menu.addAction('  >  %s' % _(item_name))
                 action.setIcon(item_icon)
                 action.setData({'item_id': effect.get('id'), 'item_type': 'effect'})
                 action.triggered.connect(self.Action_Triggered)
@@ -483,11 +483,23 @@ class SelectionLabel(QFrame):
         get_app().window.propertyTableView.loadProperties.emit(item_id, item_type)
 
     def select_item(self, item_id, item_type):
-        # Set the active item
-        self.item_id = item_id
-        self.item_type = item_type
+        # Keep track of id and type
+        self.next_item_id = item_id
+        self.next_item_type = item_type
+
+        # Update the model data
+        self.update_timer.start()
+
+    # Update the next item (once the timer runs out)
+    def update_item_timeout(self):
+        # Get the next item id, and type
+        self.item_id = self.next_item_id
+        self.item_type = self.next_item_type
         self.item_name = None
         self.item_icon = None
+
+        # Stop timer
+        self.update_timer.stop()
 
         # Get translation object
         _ = get_app()._tr
@@ -511,7 +523,7 @@ class SelectionLabel(QFrame):
             self.item_name = "%s..." % self.item_name[:22]
 
         # Set label
-        if item_id:
+        if self.item_id:
             self.lblSelection.setText("<strong>%s</strong>" % _("Selection:"))
             self.btnSelectionName.setText(self.item_name)
             self.btnSelectionName.setVisible(True)
@@ -548,6 +560,15 @@ class SelectionLabel(QFrame):
         hbox.addWidget(self.lblSelection)
         hbox.addWidget(self.btnSelectionName)
         self.setLayout(hbox)
+
+        # Timer to use a delay before showing properties (to prevent a mass selection from trying
+        # to update the property model hundreds of times)
+        self.update_timer = QTimer()
+        self.update_timer.setInterval(100)
+        self.update_timer.timeout.connect(self.update_item_timeout)
+        self.update_timer.stop()
+        self.next_item_id = None
+        self.next_item_type = None
 
         # Connect signals
         get_app().window.propertyTableView.loadProperties.connect(self.select_item)

@@ -209,13 +209,17 @@ function setBoundingBox(item){
 }
 
 // Move bounding box (apply snapping and constraints)
-function moveBoundingBox(scope, element, previous_x, previous_y, x_offset, y_offset, ui) {
-    
+function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left, top) {
+    // Store result of snapping logic (left, top)
+    var snapping_result = Object();
+    snapping_result.left = left;
+    snapping_result.top = top;
+
 	// Check for shift key
 	if (scope.shift_pressed) {
 		// freeze X movement
 		x_offset = 0;
-		ui.position.left = previous_x;
+        snapping_result.left = previous_x;
 	}
 
     // Update bounding box
@@ -230,21 +234,21 @@ function moveBoundingBox(scope, element, previous_x, previous_y, x_offset, y_off
     	x_offset -= bounding_box.left;
     	bounding_box.left = 0;
     	bounding_box.right = bounding_box.width;
-		ui.position.left = previous_x + x_offset;
+        snapping_result.left = previous_x + x_offset;
     }
     if (bounding_box.top < 0) {
     	// Top border
     	y_offset -= bounding_box.top;
     	bounding_box.top = 0;
     	bounding_box.bottom = bounding_box.height;
-		ui.position.top = previous_y + y_offset;
+        snapping_result.top = previous_y + y_offset;
     }
     if (bounding_box.bottom > track_container_height) {
     	// Bottom border
     	y_offset -= (bounding_box.bottom - track_container_height);
     	bounding_box.bottom = track_container_height;
     	bounding_box.top = bounding_box.bottom - bounding_box.height;
-		ui.position.top = previous_y + y_offset;
+        snapping_result.top = previous_y + y_offset;
     }
     
     // Get list of current selected ids (so we can ignore their snapping x coordinates)
@@ -271,14 +275,14 @@ function moveBoundingBox(scope, element, previous_x, previous_y, x_offset, y_off
             x_offset -= nearby_offset;
             bounding_box.left -= nearby_offset;
             bounding_box.right -= nearby_offset;
-            ui.position.left -= nearby_offset;
+            snapping_result.left -= nearby_offset;
         }
 		
     } else {
 	    // Hide snapline
 		scope.HideSnapline();
 	}
-    
-    return { 'x_offset' : x_offset, 'y_offset' : y_offset };
+
+    return { 'position': snapping_result, 'x_offset' : x_offset, 'y_offset' : y_offset };
 }
 
