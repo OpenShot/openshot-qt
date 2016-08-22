@@ -65,6 +65,7 @@
 		<div id="track_controls">
 			<div ng-repeat="layer in project.layers.slice().reverse()" id="track_static_{{layer.number}}" ng-right-click="ShowTrackMenu(layer.id)" class="track_name">
 				<div class="track_top">
+					<div tl-clip-menu class="track_menu" ng-click="ShowTrackMenu(layer.id)"></div>
 					<div class="track_label">{{GetTrackName(layer.label, layer.number)}}</div>
 				</div>
 			</div>

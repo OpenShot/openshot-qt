@@ -39,6 +39,8 @@ img {
 /* Tracks */
 #track_controls { width: 140px; position: relative; float: left; height: 316px; overflow: hidden;}
 .track_top { background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.20)), color-stop(100%,rgba(255,255,255,0))); border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
+.track_menu { cursor: pointer; float:left;margin-top:4px;margin-left:4px;margin-right:4px;width:12px;height:12px;background-image: url(../images/menu.png);}
+.track_menu:hover { background-image: url(../images/menu_hover.png); }
 .track_label { padding-top: 2px; padding-left: 2px; padding-left: 4px; }
 .track_name { width: 140px; height: 64px; color: #fff; font-size: 9pt; margin-left: 5px; margin-bottom: 8px; background-color: #000; border: 1px solid #4B92AD; border-top-left-radius: 8px; border-bottom-left-radius: 8px; box-shadow: 0px 0px 10px #000; }
 .track { height: 64px; background-color: #000; margin-bottom: 8px; background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(50,50,50,1)), color-stop(100%,rgba(6,6,6,1))); border-top: 1px solid #4b92ad; border-bottom: 1px solid #4b92ad; border-right: 1px solid #4B92AD; border-top-right-radius: 8px; border-bottom-right-radius: 8px; box-shadow: 0px 0px 10px #000; }
@@ -75,8 +77,8 @@ img {
 /* Clip Animations */
 .clip.ng-enter,
 .clip.ng-leave {
-  -webkit-transition:0.2s linear all;
-  transition:0.4s linear all;
+  -webkit-transition:0.1s linear all;
+  transition:0.1s linear all;
 }
 
 .clip.ng-enter,
@@ -99,8 +101,8 @@ img {
 /* Transitions Animations */
 .transition.ng-enter,
 .transition.ng-leave {
-  -webkit-transition:0.2s linear all;
-  transition:0.2s linear all;
+  -webkit-transition:0.1s linear all;
+  transition:0.1s linear all;
 }
 
 .transition.ng-enter,

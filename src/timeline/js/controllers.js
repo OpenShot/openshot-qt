@@ -702,17 +702,18 @@ $scope.SetTrackLabel = function (label){
 	$scope.HideSnapline();
 
 	// Remove CSS class (after the drag)
-	bounding_box.element.removeClass('ui-selectable-helper');
 	bounding_box = {};
  };
 	
  // Init bounding boxes for manual move
  $scope.StartManualMove = function(item_type, item_id){
 	 // Select the item
-	 if (item_type == 'clip')
-		$scope.SelectClip(item_id, true);
-	 else if (item_type == 'transition')
-	 	$scope.SelectTransition(item_id, true);
+	 $scope.$apply(function() {
+		 if (item_type == 'clip')
+			 $scope.SelectClip(item_id, true);
+		 else if (item_type == 'transition')
+			 $scope.SelectTransition(item_id, true);
+	 });
 	 
 	 // JQuery selector for element (clip or transition)
 	 var element_id = "#" + item_type + "_" + item_id;
@@ -728,9 +729,6 @@ $scope.SetTrackLabel = function (label){
 	 bounding_box.offset_y = 0;
 	 bounding_box.element = $(element_id);
 	 bounding_box.track_position = 0;
-
-	 // Add CSS class (during the drag)
-	 bounding_box.element.addClass('ui-selectable-helper');
  };
  
  // Move a new clip to the timeline
@@ -770,7 +768,7 @@ $scope.SetTrackLabel = function (label){
 		var layer = $scope.project.layers[layer_index];
 
 		// Compare position of track to Y param
-		if (top < layer.y && top > bounding_box.track_position)
+		if ((top < layer.y && top > bounding_box.track_position) || bounding_box.track_position==0)
 			// return first matching layer
 			bounding_box.track_position = layer.y;
 	}

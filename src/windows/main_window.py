@@ -1060,6 +1060,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
     def actionRemoveTrack_trigger(self, event):
         log.info('actionRemoveTrack_trigger')
 
+        # Get translation function
+        _ = get_app()._tr
+
         track_id = self.selected_tracks[0]
         max_track_number = len(get_app().project.get(["layers"]))
 
@@ -1070,6 +1073,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Revove all clips on this track first
         for clip in Clip.filter(layer=selected_track_number):
             clip.delete()
+
+        # Don't allow user to delete final track
+        if max_track_number == 1:
+            # Show error and do nothing
+            QMessageBox.warning(self, _("Error Removing Track"), _("You must keep at least 1 track"))
+            return
 
         # Remove track
         selected_track.delete()
