@@ -42,7 +42,7 @@ from classes import info, updates
 from classes import settings
 from classes.app import get_app
 from classes.logger import log
-from classes.query import File, Clip, Transition
+from classes.query import File, Clip, Transition, Track
 from classes.waveform import get_audio_data
 
 try:
@@ -2044,10 +2044,17 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         if layer_id not in self.window.selected_tracks:
             self.window.selected_tracks = [layer_id]
 
+        # Get track object
+        track = Track.get(id=layer_id)
+
         menu = QMenu(self)
         menu.addAction(self.window.actionAddTrackAbove)
         menu.addAction(self.window.actionAddTrackBelow)
         menu.addAction(self.window.actionRenameTrack)
+        if track.data['lock']:
+            menu.addAction(self.window.actionUnlockTrack)
+        else:
+            menu.addAction(self.window.actionLockTrack)
         menu.addSeparator()
         menu.addAction(self.window.actionRemoveTrack)
         return menu.popup(QCursor.pos())
@@ -2254,8 +2261,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Add clip to timeline
         self.update_clip_data(new_clip, only_basic_props=False)
 
+        # temp hold item_id
+        self.item_id = new_clip.get('id')
+
         # Init javascript bounding box (for snapping support)
-        code = JS_SCOPE_SELECTOR + ".StartManualMove('clip', '" + new_clip.get('id') + "');"
+        code = JS_SCOPE_SELECTOR + ".StartManualMove('clip', '" + self.item_id + "');"
         self.eval_js(code)
 
     # Resize timeline
@@ -2304,8 +2314,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Send to update manager
         self.update_transition_data(transitions_data, only_basic_props=False)
 
+        # temp keep track of id
+        self.item_id = transitions_data.get('id')
+
         # Init javascript bounding box (for snapping support)
-        code = JS_SCOPE_SELECTOR + ".StartManualMove('transition', '" + transitions_data.get('id') + "');"
+        code = JS_SCOPE_SELECTOR + ".StartManualMove('transition', '" + self.item_id + "');"
         self.eval_js(code)
 
     # Add Effect
@@ -2364,7 +2377,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         if self.item_type in ["clip", "transition"]:
             # Update most recent clip
-            self.eval_js(JS_SCOPE_SELECTOR + ".UpdateRecentItemJSON('" + self.item_type + "');")
+            self.eval_js(JS_SCOPE_SELECTOR + ".UpdateRecentItemJSON('" + self.item_type + "', '" + self.item_id + "');")
 
         if self.item_type == "effect":
             # Add effect only on drop
@@ -2373,6 +2386,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Clear new clip
         self.new_item = False
         self.item_type = None
+        self.item_id = None
 
     def redraw_audio_onTimeout(self):
         """Timer is ready to redraw audio (if any)"""
@@ -2416,6 +2430,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Init New clip
         self.new_item = False
         self.item_type = None
+        self.item_id = None
 
         # Delayed zoom audio redraw
         self.redraw_audio_timer = QTimer(self)

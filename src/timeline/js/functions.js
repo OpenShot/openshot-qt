@@ -137,42 +137,24 @@ function secondsToTime(secs, fps_num, fps_den)
 }
 
 // Find the closest track number (based on a Y coordinate)
-function findTrackAtLocation(top){
-	//default return value
-	var retVal = "track_-1";
-    
-    //if the clip was dropped above the top track, return -1
-    var track_count = $('.track').length;
+function findTrackAtLocation(scope, top){
 
-	//loop all tracks
-	$(".track").each(function(index, element) {
-        var track = $(this);
-	    
-        //if clip top is less than 0, then set it to the first track
-        if (index == 0 && top < 0) {
-            retVal = track.attr("id");
-            return false;
-        }else{
-            //otherwise, find the correct track
-            track_top = track.position().top;
-    	    track_bottom = track_top + track.outerHeight(true);
-            if (top >= track_top && top <= track_bottom){
-        		//found the track at this location
-        		retVal = track.attr("id");
-        		return false;
-        	}
+	// Loop through each layer (looking for the closest track based on Y coordinate)
+	var track_position = 0;
+    var track_number = 0;
+	for (var layer_index = scope.project.layers.length - 1; layer_index >= 0 ; layer_index--) {
+		var layer = scope.project.layers[layer_index];
+
+		// Compare position of track to Y param
+		if ((top < layer.y && top > track_position) || track_position==0) {
+            // return first matching layer
+            track_position = layer.y;
+            track_number = layer.number;
         }
+	}
 
-        //if this is the last and no track was found, return the last track
-        if (index == track_count - 1 && retVal == -1) {
-            retVal = track.attr("id");
-            return false;
-        }
-    });
-
-    return parseInt(retVal.substr(retVal.indexOf("_") + 1));;
+    return track_number;
 }
-
 
 var bounding_box = Object();
 

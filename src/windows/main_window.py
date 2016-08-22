@@ -716,7 +716,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Look for existing Marker
         track = Track()
-        track.data = {"number": track_number, "y": 0, "label": ""}
+        track.data = {"number": track_number, "y": 0, "label": "", "lock": False}
         track.save()
 
     def actionAddTrackAbove_trigger(self, event):
@@ -732,7 +732,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Create new track
         track = Track()
-        track.data = {"number": max_track_number, "y": 0, "label": ""}
+        track.data = {"number": max_track_number, "y": 0, "label": "", "lock": False}
         track.save()
 
         # Loop through all clips on higher layers, and move to new layer (in reverse order)
@@ -757,7 +757,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Create new track
         track = Track()
-        track.data = {"number": max_track_number, "y": 0, "label": ""}
+        track.data = {"number": max_track_number, "y": 0, "label": "", "lock": False}
         track.save()
 
         # Loop through all clips on higher layers, and move to new layer (in reverse order)
@@ -1070,15 +1070,19 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         selected_track = Track.get(id=track_id)
         selected_track_number = int(selected_track.data["number"])
 
-        # Revove all clips on this track first
-        for clip in Clip.filter(layer=selected_track_number):
-            clip.delete()
-
         # Don't allow user to delete final track
         if max_track_number == 1:
             # Show error and do nothing
             QMessageBox.warning(self, _("Error Removing Track"), _("You must keep at least 1 track"))
             return
+
+        # Revove all clips on this track first
+        for clip in Clip.filter(layer=selected_track_number):
+            clip.delete()
+
+        # Revove all transitions on this track first
+        for trans in Transition.filter(layer=selected_track_number):
+            trans.delete()
 
         # Remove track
         selected_track.delete()
@@ -1097,6 +1101,30 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Clear selected track
         self.selected_tracks = []
+
+    def actionLockTrack_trigger(self, event):
+        """Callback for locking a track"""
+        log.info('actionLockTrack_trigger')
+
+        # Get details of track
+        track_id = self.selected_tracks[0]
+        selected_track = Track.get(id=track_id)
+
+        # Lock track and save
+        selected_track.data['lock'] = True
+        selected_track.save()
+
+    def actionUnlockTrack_trigger(self, event):
+        """Callback for unlocking a track"""
+        log.info('actionUnlockTrack_trigger')
+
+        # Get details of track
+        track_id = self.selected_tracks[0]
+        selected_track = Track.get(id=track_id)
+
+        # Lock track and save
+        selected_track.data['lock'] = False
+        selected_track.save()
 
     def actionRenameTrack_trigger(self, event):
         """Callback for renaming track"""

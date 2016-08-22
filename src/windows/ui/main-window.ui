@@ -1274,6 +1274,30 @@
     <string>Create Animation</string>
    </property>
   </action>
+  <action name="actionLockTrack">
+   <property name="icon">
+    <iconset resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/custom/lock.png</normaloff>:/icons/Humanity/actions/custom/lock.png</iconset>
+   </property>
+   <property name="text">
+    <string>Lock Track</string>
+   </property>
+   <property name="toolTip">
+    <string>Lock Track</string>
+   </property>
+  </action>
+  <action name="actionUnlockTrack">
+   <property name="icon">
+    <iconset resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/custom/lock.png</normaloff>:/icons/Humanity/actions/custom/lock.png</iconset>
+   </property>
+   <property name="text">
+    <string>Unlock Track</string>
+   </property>
+   <property name="toolTip">
+    <string>Unlock Track</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="../../images/openshot.qrc"/>

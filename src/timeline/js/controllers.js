@@ -163,16 +163,24 @@ App.controller('TimelineCtrl',function($scope) {
 		                 position : 137.5,
 		                 start : 0,
 		                 end : 30
+	                	},
+	                	{
+	   	                 id : '7',
+		                 layer : 2,
+		                 title : 'Transition',
+		                 position : 30.5,
+		                 start : 0,
+		                 end : 30
 	                	}
                     
                     ],
              
 	  layers : [
-	  				{id: 'L0', number:0, y:0, label: ''},
-					{id: 'L1', number:1, y:0, label: ''},
-					{id: 'L2', number:2, y:0, label: ''},
-					{id: 'L3', number:3, y:0, label: ''},
-					{id: 'L4', number:4, y:0, label: ''}
+	  				{id: 'L0', number:0, y:0, label: '', lock: false},
+					{id: 'L1', number:1, y:0, label: '', lock: false},
+					{id: 'L2', number:2, y:0, label: '', lock: false},
+					{id: 'L3', number:3, y:0, label: '', lock: false},
+					{id: 'L4', number:4, y:0, label: '', lock: false}
 	  				
              ],
              
@@ -220,6 +228,7 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.debug = false;
   $scope.min_width = 1024;
   $scope.track_label = "Track %s";
+  $scope.enable_sorting = true;
   
   // Method to set if Qt is detected (which clears demo data)
   $scope.Qt = false;
@@ -663,7 +672,18 @@ $scope.SetTrackLabel = function (label){
  };
  
  // Get JSON of most recent item (used by Qt)
- $scope.UpdateRecentItemJSON = function(item_type) {
+ $scope.UpdateRecentItemJSON = function(item_type, item_id) {
+
+	 // Find item in JSON
+	 var item_object = null;
+	 if (item_type == 'clip') {
+		item_object = findElement($scope.project.clips, "id", item_id);
+	 } else if (item_type == 'transition') {
+		item_object = findElement($scope.project.effects, "id", item_id);
+	 } else {
+		 // Bail out if no id found
+		 return;
+	 }
 
 	// Get position of item
 	var scrolling_tracks_offset_top = $("#scrolling_tracks").offset().top;
@@ -672,28 +692,16 @@ $scope.SetTrackLabel = function (label){
 
 	// update scope with final position of items
 	$scope.$apply(function() {
-		 // Update clip position & layer (based on x,y)
-		 if (item_type == "clip") {
-			 // move clip
-			 $scope.project.clips[$scope.project.clips.length - 1].position = clip_position;
-			 $scope.project.clips[$scope.project.clips.length - 1].layer = layer_num;
-
-		 } else if (item_type == "transition") {
-			 // move transition
-			 $scope.project.effects[$scope.project.effects.length - 1].position = clip_position;
-			 $scope.project.effects[$scope.project.effects.length - 1].layer = layer_num;
-		 }
+		// update item
+		item_object.position = clip_position;
+		item_object.layer = layer_num;
 	});
 
 	// update clip in Qt (very important =)
-	if (item_type == 'clip') {
-		var item_data = $scope.project.clips[$scope.project.clips.length - 1];
-		timeline.update_clip_data(JSON.stringify(item_data));
-	}
-	else if (item_type == 'transition') {
-		var item_data = $scope.project.effects[$scope.project.effects.length - 1];
-		timeline.update_transition_data(JSON.stringify(item_data));
-	}
+	if (item_type == 'clip')
+		timeline.update_clip_data(JSON.stringify(item_object));
+	else if (item_type == 'transition')
+		timeline.update_transition_data(JSON.stringify(item_object));
 
 	// Resize timeline if it's too small to contain all clips
 	$scope.ResizeTimeline();
@@ -780,6 +788,17 @@ $scope.SetTrackLabel = function (label){
  
  // Update X,Y indexes of tracks / layers (anytime the project.layers scope changes)
  $scope.UpdateLayerIndex = function(){
+
+	 if ($scope.Qt)
+		 timeline.qt_log('UpdateLayerIndex');
+
+	var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
+	var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
+
+	// Get scrollbar offsets
+	var scrolling_tracks_offset_left = $("#scrolling_tracks").offset().left;
+	var scrolling_tracks_offset_top = $("#scrolling_tracks").offset().top;
+
 	 $scope.$apply(function(){
 		 
 		 // Loop through each layer
@@ -790,18 +809,26 @@ $scope.SetTrackLabel = function (label){
 			var layer_elem = $("#track_" + layer.number);
 			if (layer_elem) {
 				// Update the top offset
-				layer.y = layer_elem.offset().top;
+				layer.y = layer_elem.offset().top + vert_scroll_offset;
 			}
 		}
-		
+
+		// Update playhead height
+		$scope.playhead_height = $("#track-container").height();
+		$(".playhead-line").height($scope.playhead_height);
 	 });
  };
- 
+
  // Sort clips and transitions by position
  $scope.SortItems = function(){
-	 console.log('Sorting clips and transitions');
+	 if (!$scope.enable_sorting)
+		 // Sorting is disabled, do nothing
+		 return;
+
+	 if ($scope.Qt)
+		 timeline.qt_log('SortItems');
+
 	 $scope.$apply(function(){
-	 	
 		 // Sort by position second
 		 $scope.project.clips = $scope.project.clips.sort(function(a,b) {
 			    if ( a.position < b.position )
@@ -810,13 +837,26 @@ $scope.SetTrackLabel = function (label){
 			        return 1;
 			    return 0;
 		  });
-	 
+
+		 // Sort transitions by position second
+		 $scope.project.effects = $scope.project.effects.sort(function(a,b) {
+			    if ( a.position < b.position )
+			        return -1;
+			    if ( a.position > b.position )
+			        return 1;
+			    return 0;
+		  });
+
+		 // Sort tracks by position second
+		 $scope.project.layers = $scope.project.layers.sort(function(a,b) {
+			    if ( a.number < b.number )
+			        return -1;
+			    if ( a.number > b.number )
+			        return 1;
+			    return 0;
+		  });
+
 	});
-	// Print clips 
-	//for (var index = 0; index < $scope.project.clips.length; index++) {
-	//	var clip = $scope.project.clips[index];
-	//	console.log('clip layer: ' + clip.layer + ', position: ' + clip.position);
-	//}
  };
  
  // Find overlapping clips
@@ -1118,8 +1158,13 @@ $scope.SetTrackLabel = function (label){
 		    $scope.ResizeTimeline();
 		 	
 		    // Re-sort clips and transitions array
-		    scope.SortItems();
+		    $scope.SortItems();
 
+			// Re-index Layer Y values
+			$scope.UpdateLayerIndex();
+
+			// Lock / unlock any items
+			$scope.LockItems();
 	 	}
 	}	
 	 
@@ -1139,11 +1184,30 @@ $scope.SetTrackLabel = function (label){
  		$scope.SelectClip("", true);
 	 });
 
-	// Re-index Layer Y values
-	$scope.UpdateLayerIndex();
+     // Re-sort clips and transitions array
+     $scope.SortItems;
+
+	 // Re-index Layer Y values
+	 $scope.UpdateLayerIndex();
+
+	 // Lock / unlock any items
+	 $scope.LockItems();
 	 
 	 // return true
 	 return true;
+ };
+
+ // Lock and unlock items
+ $scope.LockItems = function(){
+
+	// Enable all items
+	//$(".clip").draggable("enable")
+
+	// Disable any locked items
+	// for (layer in $scope.project.layers)
+	// {
+	// 	timeline.qt_log(layer);
+	// }
  };
   
 // ############# END QT FUNCTIONS #################### //   

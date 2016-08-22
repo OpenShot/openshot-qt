@@ -42,7 +42,6 @@ App.directive('tlTrack', function($timeout) {
                 		scope.UpdateLayerIndex();
 						scope.playhead_height = $("#track-container").height();
 						$(".playhead-line").height(scope.playhead_height);
-                		console.log('update track indexes...');
                 	}, 0);
                 		
                 }
@@ -52,6 +51,16 @@ App.directive('tlTrack', function($timeout) {
         	element.droppable({
 		        accept: ".droppable",
 		       	drop:function(event,ui) {
+
+					// Disabling sorting (until all the updates are completed)
+					scope.enable_sorting = false;
+
+					var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
+					var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
+
+					// Get scrollbar offsets
+					var scrolling_tracks_offset_left = $("#scrolling_tracks").offset().left;
+					var scrolling_tracks_offset_top = $("#scrolling_tracks").offset().top;
 
 					// Keep track of each dropped clip (to check for missing transitions below, after they have been dropped)
 					var dropped_clips = [];
@@ -92,14 +101,18 @@ App.directive('tlTrack', function($timeout) {
 		       			item_id = item.attr("id");
 		       			item_num = item_id.substr(item_id.indexOf("_") + 1);
 		       			item_middle = item.position().top + (item.height() / 2); // find middle of clip
-		       			item_left = item.position().left + scroll_left_pixels;
+		       			item_left = item.position().left;
+
+						// Adjust top and left coordinates for scrollbars
+						item_left = parseFloat(item_left + horz_scroll_offset);
+						item_middle = parseFloat(item_middle - scrolling_tracks_offset_top + vert_scroll_offset);
 
 						// make sure the item isn't dropped off too far to the left
 						if (item_left < 0) item_left = 0;
 
 		            	// get track the item was dropped on 
-						drop_track_num = findTrackAtLocation(parseInt(item_middle));
-		            	
+						drop_track_num = findTrackAtLocation(scope, parseInt(item_middle));
+
 		            	// if the droptrack was found, update the json
 		            	if (drop_track_num != -1){ 
 
@@ -153,8 +166,9 @@ App.directive('tlTrack', function($timeout) {
 
 					// Clear dropped clips
 					dropped_clips = [];
-		            
+
 		            // Re-sort clips
+					scope.enable_sorting = true;
 		            scope.SortItems();
 		        }	
 		    });

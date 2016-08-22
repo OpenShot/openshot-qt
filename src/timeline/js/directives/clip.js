@@ -203,7 +203,6 @@ App.directive('tlClip', function($timeout){
 		        snap: ".track", // snaps to a track
 		        snapMode: "inner", 
 		        snapTolerance: 20,
-		        stack: ".droppable",
 		        scroll: true,
 				cancel: '.effect-container',
 		        start: function(event, ui) {

@@ -316,5 +316,6 @@
         <file>Humanity/actions/16/view-list-details.png</file>
         <file>Humanity/actions/16/zoom-in.png</file>
         <file>Humanity/actions/16/zoom-out.png</file>
+        <file>Humanity/actions/custom/lock.png</file>
     </qresource>
 </RCC>

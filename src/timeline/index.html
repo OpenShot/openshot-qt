@@ -66,7 +66,7 @@
 			<div ng-repeat="layer in project.layers.slice().reverse()" id="track_static_{{layer.number}}" ng-right-click="ShowTrackMenu(layer.id)" class="track_name">
 				<div class="track_top">
 					<div tl-clip-menu class="track_menu" ng-click="ShowTrackMenu(layer.id)"></div>
-					<div class="track_label">{{GetTrackName(layer.label, layer.number)}}</div>
+					<span class="track_label">{{GetTrackName(layer.label, layer.number)}}</span><span ng-show="layer.lock" class="track_lock"></span>
 				</div>
 			</div>
 			<br>
@@ -79,7 +79,7 @@
 				</div>
 				
 				<!-- CLIPS -->
-				<div ng-hide tl-clip ng-repeat="clip in project.clips" id="clip_{{clip.id}}" ng-click="SelectClip(clip.id, true, $event)" ng-right-click="ShowClipMenu(clip.id)" class="clip droppable" ng-class="clip.selected ? 'ui-selected' : ''" style="width:{{(clip.end - clip.start) * pixelsPerSecond}}px; left:{{clip.position * pixelsPerSecond}}px; top:{{getTrackTop(clip.layer)}}px;z-index:{{5000 + $index}};">
+				<div ng-hide tl-clip ng-repeat="clip in project.clips" id="clip_{{clip.id}}" ng-click="SelectClip(clip.id, true, $event)" ng-right-click="ShowClipMenu(clip.id)" class="clip droppable" ng-class="clip.selected ? 'ui-selected' : ''" style="width:{{(clip.end - clip.start) * pixelsPerSecond}}px; left:{{clip.position * pixelsPerSecond}}px; top:{{getTrackTop(clip.layer)}}px;z-index:{{1000 + $index}};">
 					<div class="clip_top">
 						<div tl-clip-menu class="clip_menu" ng-click="ShowClipMenu(clip.id)"></div>
 
@@ -107,7 +107,7 @@
 				</div>
 				
 				<!-- TRANSITIONS -->
-				<div ng-hide tl-transition ng-repeat="transition in project.effects" id="transition_{{transition.id}}" ng-click="SelectTransition(transition.id, true, $event)" ng-right-click="ShowTransitionMenu(transition.id)" class="transition droppable" ng-class="transition.selected ? 'ui-selected' : ''" style="width:{{ (transition.end - transition.start) * pixelsPerSecond}}px; left:{{transition.position * pixelsPerSecond}}px; top:{{getTrackTop(transition.layer)}}px;z-index:{{8000 + $index}};">
+				<div ng-hide tl-transition ng-repeat="transition in project.effects" id="transition_{{transition.id}}" ng-click="SelectTransition(transition.id, true, $event)" ng-right-click="ShowTransitionMenu(transition.id)" class="transition droppable" ng-class="transition.selected ? 'ui-selected' : ''" style="width:{{ (transition.end - transition.start) * pixelsPerSecond}}px; left:{{transition.position * pixelsPerSecond}}px; top:{{getTrackTop(transition.layer)}}px;z-index:{{5000 + $index}};">
 					<div class="transition_top">
 						<div tl-clip-menu class="transition_menu" ng-click="ShowTransitionMenu(transition.id)"></div>
 						<!-- TRANSITION KEYFRAME POINTS -->
