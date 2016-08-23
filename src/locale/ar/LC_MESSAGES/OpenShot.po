@@ -3164,7 +3164,7 @@ msgstr "أحجية"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr_ripple_2.jpg
 msgid "Middle barr ripple %s"
-msgstr "تموج العمود من الوسط"
+msgstr "%s تموج العمود من الوسط"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_down.jpg
 msgid "Wave left down"

@@ -3842,7 +3842,7 @@ Do you want to replace it?</source>
     </message>
     <message>
         <source>Middle barr ripple %s</source>
-        <translation>تموج العمود من الوسط</translation>
+        <translation>%s تموج العمود من الوسط</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr_ripple_2.jpg</extra-po-references>
     </message>
     <message>
