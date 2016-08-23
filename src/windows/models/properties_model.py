@@ -67,7 +67,7 @@ class PropertiesModel(updates.UpdateInterface):
     def changed(self, action):
 
         # Handle change
-        if action.key and action.key[0] in ["clips", "effects"]:
+        if action.key and action.key[0] in ["clips", "effects"] and action.type in ["update", "insert"]:
             log.info(action.values)
             # Update the model data
             self.update_model(get_app().window.txtPropertyFilter.text())
@@ -216,7 +216,7 @@ class PropertiesModel(updates.UpdateInterface):
         if c:
             # Update clip attribute
             if property_key in c.data:
-                log.info(c.data)
+                log.info("remove keyframe: %s" % c.data)
 
                 # Determine type of keyframe (normal or color)
                 keyframe_list = []
@@ -293,7 +293,7 @@ class PropertiesModel(updates.UpdateInterface):
             if c:
                 # Update clip attribute
                 if property_key in c.data:
-                    log.info(c.data)
+                    log.info("color update: %s" % c.data)
 
                     # Loop through each keyframe (red, blue, and green)
                     for color, new_value in [("red", new_color.red()), ("blue", new_color.blue()),  ("green", new_color.green())]:
@@ -401,7 +401,7 @@ class PropertiesModel(updates.UpdateInterface):
         if c:
             # Update clip attribute
             if property_key in c.data:
-                log.info(c.data)
+                log.info("value updated: %s" % c.data)
 
                 # Check the type of property (some are keyframe, and some are not)
                 if type(c.data[property_key]) == dict:
