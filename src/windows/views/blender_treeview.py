@@ -77,13 +77,18 @@ class BlenderTreeView(QTreeView):
 
         # Get animation details
         animation = self.get_animation_details()
-        self.selected_template = animation["service"]
+        self.selected_template = animation.get("service")
+
+        # In newer versions of Qt, setting the model invokes the currentChanged signal,
+        # but the selection is -1. So, just do nothing here.
+        if not self.selected_template:
+            return
 
         # Assign a new unique id for each template selected
         self.generateUniqueFolder()
 
         # Loop through params
-        for param in animation["params"]:
+        for param in animation.get("params",[]):
             log.info(param["title"])
 
             # Is Hidden Param?
@@ -257,13 +262,14 @@ class BlenderTreeView(QTreeView):
 
     def init_slider_values(self):
         """ Init the slider and preview frame label to the currently selected animation """
+        log.info("init_slider_values")
 
         # Get current preview slider frame
         preview_frame_number = self.win.sliderPreview.value()
-        length = int(self.params["end_frame"])
+        length = int(self.params.get("end_frame", 1))
 
         # Get the animation speed (if any)
-        if not self.params["animation_speed"]:
+        if not self.params.get("animation_speed"):
             self.params["animation_speed"] = 1
         else:
             # Adjust length (based on animation speed multiplier)
@@ -272,7 +278,7 @@ class BlenderTreeView(QTreeView):
         # Update the preview slider
         middle_frame = int(length / 2)
 
-        self.win.sliderPreview.setMinimum(self.params["start_frame"])
+        self.win.sliderPreview.setMinimum(self.params.get("start_frame", 1))
         self.win.sliderPreview.setMaximum(length)
         self.win.sliderPreview.setValue(middle_frame)
 
@@ -285,6 +291,7 @@ class BlenderTreeView(QTreeView):
     def btnRefresh_clicked(self, checked):
 
         # Render current frame
+        log.info("btnRefresh_clicked")
         preview_frame_number = self.win.sliderPreview.value()
         self.Render(preview_frame_number)
 
@@ -341,6 +348,8 @@ class BlenderTreeView(QTreeView):
         """ Build a dictionary of all animation settings and properties from XML """
 
         if not self.selected:
+            return {}
+        elif self.selected and self.selected.row() == -1:
             return {}
 
         # Get all selected rows items
