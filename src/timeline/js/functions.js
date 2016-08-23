@@ -145,15 +145,35 @@ function findTrackAtLocation(scope, top){
 	for (var layer_index = scope.project.layers.length - 1; layer_index >= 0 ; layer_index--) {
 		var layer = scope.project.layers[layer_index];
 
-		// Compare position of track to Y param
-		if ((top < layer.y && top > track_position) || track_position==0) {
-            // return first matching layer
-            track_position = layer.y;
-            track_number = layer.number;
-        }
+		// Compare position of track to Y param (of unlocked tracks)
+        if (!layer.lock)
+            if ((top < layer.y && top > track_position) || track_position==0) {
+                // return first matching layer
+                track_position = layer.y;
+                track_number = layer.number;
+            }
 	}
 
     return track_number;
+}
+
+// Find the closest track number (based on a Y coordinate)
+function hasLockedTrack(scope, top, bottom){
+
+	// Loop through each layer (looking for the closest track based on Y coordinate)
+	var track_position = 0;
+    var track_number = 0;
+	for (var layer_index = scope.project.layers.length - 1; layer_index >= 0 ; layer_index--) {
+		var layer = scope.project.layers[layer_index];
+
+		// Compare position of track to Y param
+		if (layer.lock && layer.y >= top && layer.y <= bottom) {
+            // Yes, found a locked track inside these coordinates
+            return true;
+        }
+	}
+
+    return false;
 }
 
 var bounding_box = Object();

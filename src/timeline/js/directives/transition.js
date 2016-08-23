@@ -29,6 +29,7 @@
 
 // Init Variables
 var dragging = false;
+var resize_disabled = false;
 var previous_drag_position = null;
 var start_transitions = {};
 var move_transitions = {};
@@ -52,6 +53,7 @@ App.directive('tlTransition', function(){
 				minWidth: 1,
 				start: function(e, ui) {
 					dragging = true;
+					resize_disabled = false;
 					
 					//determine which side is being changed
 					var parentOffset = element.offset(); 
@@ -62,12 +64,25 @@ App.directive('tlTransition', function(){
 						dragLoc = 'right';
 					}
 
+					// Does this bounding box overlap a locked track?
+					var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
+					var track_top = (parseInt(element.position().top) + parseInt(vert_scroll_offset));
+					var track_bottom = (parseInt(element.position().top) + parseInt(element.height()) + parseInt(vert_scroll_offset));
+					if (hasLockedTrack(scope, track_top, track_bottom))
+						resize_disabled = true;
+
 					// Hide keyframe points
 					element.find('.point_icon').hide()
 
 				},
 				stop: function(e, ui) {
 					dragging = false;
+
+					if (resize_disabled) {
+						// disabled, do nothing
+						resize_disabled = false;
+						return;
+					}
 
 					// Make the keyframe points visible again
 					element.find('.point_icon').show()
@@ -109,6 +124,13 @@ App.directive('tlTransition', function(){
 
 				},
 				resize: function(e, ui) {
+
+					if (resize_disabled) {
+						// disabled, keep the item the same size
+						$(this).css(ui.originalPosition);
+						$(this).width(ui.originalSize.width);
+						return;
+					}
 					
 					// get amount changed in width
 					var delta_x = ui.originalSize.width - ui.size.width;
@@ -204,6 +226,10 @@ App.directive('tlTransition', function(){
                         //send transition to bounding box builder
                         setBoundingBox($(this));
                     });
+
+					// Does this bounding box overlap a locked track?
+					if (hasLockedTrack(scope, bounding_box.top, bounding_box.bottom))
+						return !event; // yes, do nothing
 
 		        },
                 stop: function(event, ui) {

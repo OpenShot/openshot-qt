@@ -775,10 +775,11 @@ $scope.SetTrackLabel = function (label){
 	for (var layer_index = $scope.project.layers.length - 1; layer_index >= 0 ; layer_index--) {
 		var layer = $scope.project.layers[layer_index];
 
-		// Compare position of track to Y param
-		if ((top < layer.y && top > bounding_box.track_position) || bounding_box.track_position==0)
-			// return first matching layer
-			bounding_box.track_position = layer.y;
+		// Compare position of track to Y param (for unlocked tracks)
+		if (!layer.lock)
+			if ((top < layer.y && top > bounding_box.track_position) || bounding_box.track_position==0)
+				// return first matching layer
+				bounding_box.track_position = layer.y;
 	}
 
 	//change the element location
@@ -1033,7 +1034,16 @@ $scope.SetTrackLabel = function (label){
 		else
 			return null;
  };
- 
+
+ // Determine which CSS classes are used on a track
+ $scope.GetTrackStyle = function(lock){
+
+		if (lock)
+			return "track track_disabled";
+	 	else
+			return "track";
+ };
+
  // Apply JSON diff from UpdateManager (this is how the user interface communicates changes
  // to the timeline. A change can be an insert, update, or delete. The change is passed in
  // as JSON, which represents the change.

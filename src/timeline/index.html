@@ -75,7 +75,7 @@
 		<div tl-scrollable-tracks id="scrolling_tracks">
 			<div id="track-container" tl-track tl-multi-selectable style="width: {{GetTimelineWidth(1024)}}px; padding-bottom: 2px;">
 				<!-- TRACKS -->
-				<div ng-repeat="layer in project.layers.slice().reverse()" id="track_{{layer.number}}" ng-right-click="ShowTimelineMenu($event, layer.number)"  class="track" style="width:{{GetTimelineWidth(1024)}}px;">
+				<div ng-repeat="layer in project.layers.slice().reverse()" id="track_{{layer.number}}" ng-right-click="ShowTimelineMenu($event, layer.number)"  class="{{GetTrackStyle(layer.lock)}}" style="width:{{GetTimelineWidth(1024)}}px;">
 				</div>
 				
 				<!-- CLIPS -->

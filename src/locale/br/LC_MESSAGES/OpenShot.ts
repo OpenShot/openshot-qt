@@ -3,12 +3,12 @@
 <TS version="2.1">
     <extra-po-header-language_team>Breton &lt;br@li.org&gt;</extra-po-header-language_team>
     <extra-po-header-last_translator>Gwenn M &lt;Unknown&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-04-22 12:01+0000</extra-po-header-po_revision_date>
-    <extra-po-header-pot_creation_date>2016-04-19 16:45+0000</extra-po-header-pot_creation_date>
+    <extra-po-header-po_revision_date>2016-08-18 20:18+0000</extra-po-header-po_revision_date>
+    <extra-po-header-pot_creation_date>2016-08-18 18:23+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 17995)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-04-23 05:36+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 18176)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2016-08-20 06:07+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Breton translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -33,8 +33,8 @@
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="474"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1069"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="157"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1102"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="164"/>
         <source>Track %s</source>
         <translation>Loabr %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
@@ -65,127 +65,127 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="484"/>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="496"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="555"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="629"/>
         <source>Random</source>
         <translation>Dargouezhek</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="485"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="818"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="821"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="805"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="808"/>
         <source>Zoom In</source>
         <translation>Zoum brasaat</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="486"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="833"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="836"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="820"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="823"/>
         <source>Zoom Out</source>
         <translation>Zoum bihanaat</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="91"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="93"/>
         <source>Unsaved Changes</source>
         <translation>N&apos;eo ket enrollet ar c&apos;hemmoù</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="91"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="93"/>
         <source>Save changes to project before closing?</source>
         <translation>Enrollañ kemmoù ar raktres a-raok serriñ?</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="141"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="144"/>
         <source>Backup Recovered</source>
         <translation>Gwarediñ atoret</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="142"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="145"/>
         <source>Your most recent unsaved project has been recovered.</source>
         <translation>Atoret eo bet ho raktresoù dienrollet nevesañ</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="279"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="293"/>
         <source>Error Saving Project</source>
         <translation>Fazi en ur enrollañ ar raktres</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="316"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="333"/>
         <source>Error Opening Project</source>
         <translation>Fazi en ur zigeriñ ar raktres</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="352"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="313"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="372"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="300"/>
         <source>Open Project...</source>
         <translation>Digeriñ ur raktres...</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="352"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="365"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="409"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="372"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="385"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="429"/>
         <source>OpenShot Project (*.osp)</source>
         <translation>Raktres OpenShot (*.osp)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="364"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="408"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1308"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="384"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="428"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1341"/>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="104"/>
         <source>Untitled Project</source>
         <translation>Raktres hep titl</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="365"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="385"/>
         <source>Save Project...</source>
         <translation>Enrollañ ar raktres</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="409"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="358"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="361"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="429"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="345"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="348"/>
         <source>Save Project As...</source>
         <translation>Enrollañ ar raktres evel...</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="424"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="444"/>
         <source>Import File...</source>
         <translation>Enporzhiañ ur restr...</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1071"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1240"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1243"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1104"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1227"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1230"/>
         <source>Rename Track</source>
         <translation>Adenvel al loabr</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1071"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1104"/>
         <source>Track Name:</source>
         <translation>Anv al loabr:</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1395"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1432"/>
         <source>Recent Projects</source>
         <translation>Raktresoù nevesañ</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1434"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1451"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1470"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1644"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="285"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1471"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1488"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1507"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1681"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="272"/>
         <source>Filter</source>
         <translation>Sil</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1521"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1639"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1558"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2124"/>
         <source>{} seconds</source>
         <translation>{} eilenn</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1556"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1557"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1593"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1594"/>
         <source>New Version Available: %s</source>
         <translation>Handelv nevez hegerz: %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
@@ -237,17 +237,17 @@
         <translation>Stailhit {} evit arverañ an arc&apos;hwel-mañ</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="185"/>
+        <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="187"/>
         <source>Default</source>
         <translation>Dre ziouer</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="286"/>
+        <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="291"/>
         <source>Restart Required</source>
         <translation>Adloc&apos;hadur azgoulennet</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="287"/>
+        <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="292"/>
         <source>Please restart OpenShot for all preferences to take effect.</source>
         <translation>Adloc&apos;hit OpenShot evit ma vefe arloet an holl wellvezioù</translation>
     </message>
@@ -363,37 +363,37 @@
         <translation>War lerc&apos;h</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="275"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="277"/>
         <source>&lt;b&gt;Project Files:&lt;/b&gt; Get started with your project by adding video, audio, and image files here. Drag and drop files from your file system.</source>
         <translation>&lt;b&gt;Restroù raktres:&lt;/b&gt; Krogit ganti en ur ouzhpennañ videoioù, tonioù ha skeudennoù amañ. Riklit ha lakait ar restroù adalek ho reizhiad restroù.</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="276"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="278"/>
         <source>&lt;b&gt;Timeline:&lt;/b&gt; Arrange your clips on the timeline here. Overlap clips to create automatic transitions. Access lots of fun presets and options by right-clicking on clips.</source>
         <translation>&lt;b&gt;Red-amzer:&lt;/b&gt; Aozit ho klipoù war ar red-amzer amañ. Lakait klipoù an eil war egile evit krouiñ ardreuzadoù emgefreek. Haezit rakarventennoù ha dibarzhioù en ur glikañ dehou war ar c&apos;hlipoù.</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="277"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="279"/>
         <source>&lt;b&gt;Video Preview:&lt;/b&gt; Watch your timeline video preview here. Use the buttons (play, rewind, fast-forward) to control the video playback.</source>
         <translation>&lt;b&gt;Alberz ar video:&lt;/b&gt; Sellit ouzh alberz video ho re-amzer amañ. Arverit an afelloù (lenn, adenbeniañ,  war-raok) evit reoliñ ar video.</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="278"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="280"/>
         <source>&lt;b&gt;Properties:&lt;/b&gt; View and change advanced properties of clips and effects here. Right-clicking on clips is usually faster than manually changing properties.</source>
         <translation>&lt;b&gt;Perzhioù:&lt;/b&gt; Gwelit ha kemmit perzhioù kemplezh klipoù hag efedoù. Klikañ dehou war ar c&apos;hlip war-eeun a zo primoc&apos;h eget kemmañ ar perzhioù gant an dorn, peurliesañ.</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="279"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="281"/>
         <source>&lt;b&gt;Transitions:&lt;/b&gt; Create a gradual fade from one clip to another. Drag and drop a transition onto the timeline and position it on top of a clip (usually at the beginning or ending).</source>
         <translation>&lt;b&gt;Ardreuzadoù:&lt;/b&gt; krouiñ un arveuz dereziek eus ur c&apos;hlip d&apos;egile. Riklit ha lakait un ardreuzad war ar red-amzer ha lec&apos;hiit anezhañ a-us d&apos;ur c&apos;hlip (en deroù pe en dibenn).</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="280"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="282"/>
         <source>&lt;b&gt;Effects:&lt;/b&gt; Adjust brigthness, contrast, saturation, and add exciting special effects. Drag and drop an effect onto the timeline and position it on top of a clip (or track)</source>
         <translation>&lt;b&gt;Efedoù:&lt;/b&gt; Kengeidañ a ra al lintr, an dargemm, ar peurvec&apos;hiañ, hag ouzhpennañ a ra efedoù arbennik. Riklit ha lakait an efed war ar red-amzer ha lec&apos;hiit anezhañ a-us d&apos;ur c&apos;hlip (pe ul loabr)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="281"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="283"/>
         <source>&lt;b&gt;Export Video:&lt;/b&gt; When you are ready to create your finished video, click this button to export your timeline as a single video file.</source>
         <translation>&lt;b&gt;Ezporzhiañ ar Video:&lt;/b&gt; Pa &apos;z oc&apos;h prest da grouiñ ho video peurechuet, klikit an afell-mañ evit ezporzhiañ ho red-amzer en ur restr video.</translation>
     </message>
@@ -445,509 +445,573 @@ Treug Blender:
         <translation>N&apos;eus ket bet kavet a skeudenn en ec&apos;hankad Blender</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="422"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="405"/>
+        <source>Slice All</source>
+        <translation>Troc&apos;hañ an holl</translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="406"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="771"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2012"/>
+        <source>Keep Both Sides</source>
+        <translation>Mirout an daou gostez</translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="408"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="773"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2014"/>
+        <source>Keep Left Side</source>
+        <translation>Mirout ar c&apos;hostez kleiz</translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="410"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="775"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2016"/>
+        <source>Keep Right Side</source>
+        <translation>Mirout ar c&apos;hostez dehou</translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="442"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="516"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1989"/>
+        <source>Paste</source>
+        <translation>Pegañ</translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="470"/>
         <source>Start of Clip</source>
         <translation>Deroù ar c&apos;hlip</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="422"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="470"/>
         <source>End of Clip</source>
         <translation>Dibenn ar c&apos;hlip</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="422"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="470"/>
         <source>Entire Clip</source>
         <translation>Kilp a-bezh</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="422"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="470"/>
         <source>Normal</source>
         <translation>Reoliek</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="422"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="470"/>
         <source>Fast</source>
         <translation>Prim</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="422"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="470"/>
         <source>Slow</source>
         <translation>Gorrek</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="422"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="470"/>
         <source>Forward</source>
         <translation>War-lerc&apos;h</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="422"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="470"/>
         <source>Backward</source>
         <translation>War-dreñv</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="428"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1515"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="478"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="482"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1961"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1965"/>
         <source>Copy</source>
         <translation>Eilañ</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="429"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="483"/>
         <source>Clip</source>
         <translation>Klip</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="431"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1518"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="486"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1969"/>
         <source>Keyframes</source>
         <translation>Skeudennoù-alc&apos;hwez</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="432"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1519"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="487"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1970"/>
         <source>All</source>
         <translation>An holl</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="435"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="490"/>
         <source>Alpha</source>
         <translation>Alfa</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="437"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="492"/>
         <source>Scale</source>
         <translation>Skeulaat</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="439"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="494"/>
         <source>Rotation</source>
         <translation>C&apos;hwelañ</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="441"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="496"/>
         <source>Location</source>
         <translation>Lec&apos;hiadur</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="443"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="600"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="498"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="674"/>
         <source>Time</source>
         <translation>Eur</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="445"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="624"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="500"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="698"/>
         <source>Volume</source>
         <translation>Ampled</translation>
         <extra-po-references>libopenshot (Clip Properties) Settings for volume</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="447"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="504"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="235"/>
         <source>Effects</source>
         <translation>Efedoù</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="453"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1530"/>
-        <source>Paste</source>
-        <translation>Pegañ</translation>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="523"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1996"/>
+        <source>Align</source>
+        <translation>Steudañ</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="459"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="524"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1997"/>
+        <source>Left</source>
+        <translation>Kleiz</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="526"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1999"/>
+        <source>Right</source>
+        <translation>Dehou</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="533"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="240"/>
         <source>Fade</source>
         <translation>Arveuz</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/fade.svg</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="460"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="534"/>
         <source>No Fade</source>
         <translation>Arveuz ebet</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="467"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="632"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="541"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="706"/>
         <source>Fade In (Fast)</source>
         <translation>Digeriñ en arveuz (prim)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="469"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="634"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="543"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="708"/>
         <source>Fade In (Slow)</source>
         <translation>Digeriñ en arveuz (gorrek)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="473"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="638"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="547"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="712"/>
         <source>Fade Out (Fast)</source>
         <translation>Serriñ en arveuz (prim)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="475"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="640"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="549"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="714"/>
         <source>Fade Out (Slow)</source>
         <translation>Serriñ en arveuz (gorrek)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="479"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="644"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="553"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="718"/>
         <source>Fade In and Out (Fast)</source>
         <translation>Digeriñ ha serriñ en arveuz (prim)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="481"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="646"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="555"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="720"/>
         <source>Fade In and Out (Slow)</source>
         <translation>Digeriñ ha serriñ en arveuz (gorrek)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="484"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="649"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="558"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="723"/>
         <source>Fade In (Entire Clip)</source>
         <translation>Digeriñ en arveuz (klip)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="486"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="651"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="560"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="725"/>
         <source>Fade Out (Entire Clip)</source>
         <translation>Serriñ en arveuz (klip)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="494"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="568"/>
         <source>Animate</source>
         <translation>Blivañ</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="495"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="569"/>
         <source>No Animation</source>
         <translation>Bliverezh ebet</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="502"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="576"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="307"/>
         <source>Zoom</source>
         <translation>Zoum</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="503"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="577"/>
         <source>Zoom In (50% to 100%)</source>
         <translation>Zoum brasaat (50% da 100%)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="505"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="579"/>
         <source>Zoom In (75% to 100%)</source>
         <translation>Zoum brasaat (75% da 100%)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="507"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="581"/>
         <source>Zoom In (100% to 150%)</source>
         <translation>Zoum brasaat (100% da 150%)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="509"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="583"/>
         <source>Zoom Out (100% to 75%)</source>
         <translation>Zoom bihanat (100% da 75%)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="511"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="585"/>
         <source>Zoom Out (100% to 50%)</source>
         <translation>Zoom bihanat (100% da 50%)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="513"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="587"/>
         <source>Zoom Out (150% to 100%)</source>
         <translation>Zoom bihanat (150% da 100%)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="518"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="592"/>
         <source>Center to Edge</source>
         <translation>Kreiz d&apos;ar Riblenn</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="519"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="593"/>
         <source>Center to Top</source>
         <translation>Kreizhda grec&apos;h</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="521"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="595"/>
         <source>Center to Left</source>
         <translation>Kreiz da gleiz</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="523"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="597"/>
         <source>Center to Right</source>
         <translation>Kreiz da zehou</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="525"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="599"/>
         <source>Center to Bottom</source>
         <translation>Kreiz da draoñ</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="530"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="604"/>
         <source>Edge to Center</source>
         <translation>Riblenn da greiz</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="531"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="605"/>
         <source>Top to Center</source>
         <translation>Krec&apos;h da greiz</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="533"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="607"/>
         <source>Left to Center</source>
         <translation>Kleiz da greiz</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="535"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="609"/>
         <source>Right to Center</source>
         <translation>Dehou da greiz</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="537"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="611"/>
         <source>Bottom to Center</source>
         <translation>Traoñ da greiz</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="542"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="616"/>
         <source>Edge to Edge</source>
         <translation>Riblenn da riblenn</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="543"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="617"/>
         <source>Top to Bottom</source>
         <translation>Krec&apos;h da draoñ</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="545"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="619"/>
         <source>Left to Right</source>
         <translation>Kleiz da zehou</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="547"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="621"/>
         <source>Right to Left</source>
         <translation>Dehou da gleiz</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="549"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="623"/>
         <source>Bottom to Top</source>
         <translation>Traoñ da grec&apos;h</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="565"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="639"/>
         <source>Rotate</source>
         <translation>C&apos;hwelañ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="566"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="640"/>
         <source>No Rotation</source>
         <translation>C&apos;hwelañ ebet</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="569"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="643"/>
         <source>Rotate 90 (Right)</source>
         <translation>C&apos;hwelañ 90 (dehou)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="571"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="645"/>
         <source>Rotate 90 (Left)</source>
         <translation>C&apos;hwelañ 90 (Kleiz)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="573"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="647"/>
         <source>Rotate 180 (Flip)</source>
         <translation>C&apos;hwelañ 180 (gwintañ)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="578"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="652"/>
         <source>Layout</source>
         <translation>Kenaozadur</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="579"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="653"/>
         <source>Reset Layout</source>
         <translation>Adderaouekaat ar c&apos;henaozadur</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="582"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="656"/>
         <source>1/4 Size - Center</source>
         <translation>1/4 ment - Kreiz</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="584"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="658"/>
         <source>1/4 Size - Top Left</source>
         <translation>1/4 ment - Krec&apos;h kleiz</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="586"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="660"/>
         <source>1/4 Size - Top Right</source>
         <translation>1/4 ment - Krec&apos;h dehou</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="588"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="662"/>
         <source>1/4 Size - Bottom Left</source>
         <translation>1/4 ment - Traoñ kleiz</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="590"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="664"/>
         <source>1/4 Size - Bottom Right</source>
         <translation>1/4 ment - Traoñ dehou</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="593"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="667"/>
         <source>Show All (Maintain Ratio)</source>
         <translation>DIskouez an holl (mirout ar feur)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="595"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="669"/>
         <source>Show All (Distort)</source>
         <translation>Diskouez an holl (distummañ)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="601"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="675"/>
         <source>Reset Time</source>
         <translation>Adderaouekaat an amzer</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="625"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="699"/>
         <source>Reset Volume</source>
         <translation>Adderaouekaat an ampled</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="656"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="730"/>
         <source>Level 100%</source>
         <translation>Live 100%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="658"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="732"/>
         <source>Level 90%</source>
         <translation>Live 90%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="660"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="734"/>
         <source>Level 80%</source>
         <translation>Live 80%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="662"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="736"/>
         <source>Level 70%</source>
         <translation>Live 70%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="664"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="738"/>
         <source>Level 60%</source>
         <translation>Live 60%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="666"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="740"/>
         <source>Level 50%</source>
         <translation>Live 50%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="668"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="742"/>
         <source>Level 40%</source>
         <translation>Live 40%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="670"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="744"/>
         <source>Level 30%</source>
         <translation>Live 30%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="672"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="746"/>
         <source>Level 20%</source>
         <translation>Live 20%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="674"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="748"/>
         <source>Level 10%</source>
         <translation>Live 10%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="676"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="750"/>
         <source>Level 0%</source>
         <translation>Live 0%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="688"/>
-        <source>Slice Clip</source>
-        <translation>Didroc&apos;hañ ar c&apos;hlip</translation>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="757"/>
+        <source>Separate Audio</source>
+        <translation>Disrannañ an aodio</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="689"/>
-        <source>Keep Both Sides</source>
-        <translation>Mirout an daou gostez</translation>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="758"/>
+        <source>Single Clip (all channels)</source>
+        <translation>Ur c&apos;hlip (holl sanelloù)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="691"/>
-        <source>Keep Left Side</source>
-        <translation>Mirout ar c&apos;hostez kleiz</translation>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="760"/>
+        <source>Multiple Clips (each channel)</source>
+        <translation>Meur a glip (pep sanell)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="693"/>
-        <source>Keep Right Side</source>
-        <translation>Mirout ar c&apos;hostez dehou</translation>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="770"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2011"/>
+        <source>Slice</source>
+        <translation>Troc&apos;hañ</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1516"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="781"/>
+        <source>Display</source>
+        <translation>Skrammañ</translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="782"/>
+        <source>Show Waveform</source>
+        <translation>Diskouez ar stumm gwagenn</translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="784"/>
+        <source>Show Thumbnail</source>
+        <translation>Digouez ar velvenn</translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1966"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="341"/>
         <source>Transition</source>
         <translation>Ardreuzad</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1522"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1973"/>
         <source>Brightness</source>
         <translation>Lintr</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1524"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1975"/>
         <source>Contrast</source>
         <translation>Dargemm</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1536"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2021"/>
         <source>Reverse Transition</source>
         <translation>Tuginañ an ardreuzad</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="78"/>
-        <source>Selection: %s</source>
-        <translation>Diuzad: %s</translation>
-        <extra-po-flags>python-format</extra-po-flags>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="80"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="272"/>
-        <source>No Selection</source>
-        <translation>Diuzadenn ebet</translation>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="129"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="312"/>
         <source>Bezier</source>
         <translation>Bezier</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="131"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="315"/>
         <source>Linear</source>
         <translation>Linennel</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="133"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="318"/>
         <source>Constant</source>
         <translation>Digemm</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="136"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="141"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="322"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="327"/>
         <source>Remove Keyframe</source>
         <translation>Dilemel ar skeudenn-alc&apos;hwez</translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="521"/>
+        <source>Selection:</source>
+        <translation>Diuzadenn:</translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="527"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="544"/>
+        <source>No Selection</source>
+        <translation>Diuzadenn ebet</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/add_to_timeline_model.py" line="57"/>
@@ -1110,12 +1174,12 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="629"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="628"/>
         <source>Export Error</source>
         <translation>Fazi ezporzhiañ</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="630"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="629"/>
         <source>Sorry, there was an error exporting your video: 
 %s</source>
         <translation>Digarezit, ur fazi a zo bet en ur ezporzhiañ ho video:
@@ -1123,509 +1187,9 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
-        <source>Viewport</source>
-        <translation>Alberz</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Gain</source>
-        <translation>Savad</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Red Scale</source>
-        <translation>Skeul ruz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Interval</source>
-        <translation>Etremez</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Line 3 Color</source>
-        <translation>Liv al linenn 3</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>End: X</source>
-        <translation>Dibenn: X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Velocity: Y</source>
-        <translation>Tizh: Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Three point balance</source>
-        <translation>Mentelad tri foent</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fixed Rotate Z</source>
-        <translation>C&apos;hwelañ digemm war Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>v</source>
-        <translation>v</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fills alpha channel with a gradient</source>
-        <translation>Leuniañ ar sanell alfa gant un ilrezenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Z Coordinate</source>
-        <translation>Daveenn Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Star Count</source>
-        <translation>Rodenn: niver a stered</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Wireframe Text</source>
-        <translation>Testenn e orjalennoù</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/wireframe_text.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Trip Level</source>
-        <translation>Live fazi</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Particles: Lifetime</source>
-        <translation>Eufl: padelezh buhez</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Up Scale</source>
-        <translation>Kreskaat ar vent</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Min</source>
-        <translation>Bihanañ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Latitude (Equator)</source>
-        <translation>Ledred loc&apos;hañ (keheder)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Right</source>
-        <translation>Dehou</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Border Width</source>
-        <translation>Ledander ar riblenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Title Diffuse Color</source>
-        <translation>Titl liv amstrew</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Red/Green Axis</source>
-        <translation>Ahelioù ruz/gwer</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Blur</source>
-        <translation>Ruzed</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blur.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Distort</source>
-        <translation>Distummañ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Levels</source>
-        <translation>Liveoù</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Cartoon</source>
-        <translation>Tresadenn-vev</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Black color</source>
-        <translation>Liv du</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Font Name</source>
-        <translation>Anv an nodrezh</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Lens Correction</source>
-        <translation>Reizhañ ar ferenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Glow</source>
-        <translation>Lufrus</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/glow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>X axis</source>
-        <translation>Ahel X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Letterbox</source>
-        <translation>Boest-lizhiri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Brightness Delta Every</source>
-        <translation>Diforc&apos;h al lintr bep</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Negative</source>
-        <translation>Leiel</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Equalizor</source>
-        <translation>Kevatalaer</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Fresnel</source>
-        <translation>Drekleur: Fresnel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Replaces the color (or chroma) of the frame with transparency (i.e. keys out the color).</source>
-        <translation>Erlec&apos;hiañ liv ar skeudenn gant boullder (sk. alc&apos;hwezioù maez al liv)</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Calculates the distance between the selected color and the current pixel and uses that value as new pixel value</source>
-        <translation>Jediñ a ra an hirder etre al liv diuzet hag ar piksel bremanel hag arverañ ar gwerzh-mañ evel talvoud piksel nevez</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Old Film</source>
-        <translation>Film kozh</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Lighter</source>
-        <translation>Sklaeroc&apos;h</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Top Right</source>
-        <translation>Krec&apos;h kleiz</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Aspect ratio</source>
-        <translation>Feur an neuz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Scaling</source>
-        <translation>O skeulaat</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Phaser</source>
-        <translation>Lankad</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Size</source>
-        <translation>Rodenn: ment</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Anchor</source>
-        <translation>Eor</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Softness</source>
-        <translation>Kuñvder</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Interlaced black lines</source>
-        <translation>Kenweañ al linennoù du</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Rotate an image statically or animated</source>
-        <translation>C&apos;hweladur diasavel pe blivet ur skeudenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gravity</source>
-        <translation>Kerc&apos;hellder</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Center</source>
-        <translation>Kreiz</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Bottom Center</source>
-        <translation>Traoñ kreiz</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Amplitude</source>
-        <translation>Heled</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Color</source>
-        <translation>Liv</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Detect and highlight the edges of objects</source>
-        <translation>Dinoiñ hag usskediñ riblennoù an ergorennoù</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Display Clouds</source>
-        <translation>Skrammañ koumoul</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Number</source>
-        <translation>Niver</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Input level white point</source>
-        <translation>Live enankad ar pik gwenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Iterations</source>
-        <translation>Arredoadurioù</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Sigma</source>
-        <translation>Sigma</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Simple color adjustment</source>
-        <translation>Kengeidañ eeun al liv</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Reduce image to primary colors</source>
-        <translation>Digreskiñ ar skeudenn d&apos;al livioù pennañ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Rotate Y</source>
-        <translation>C&apos;hwelañ Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Slide Left to Right</source>
-        <translation>Riklañ eus an tu kleiz betek an tu dehou</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/slide_left_to_right.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Bass</source>
-        <translation>Boud</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Delta</source>
-        <translation>Delta</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjusts the gamma or luminance value of the image</source>
-        <translation>Kengeidañ ar gamma pe lintr ar skeudenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Vignette</source>
-        <translation>Vignetenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Bevel Depth</source>
-        <translation>Donnder ar veskell</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Map white to</source>
-        <translation>Amsaviñ ar gwenn gant</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Aspect type</source>
-        <translation>Rizh an neuz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Layer</source>
-        <translation>Gwiskad</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Chroma Key (Greenscreen)</source>
-        <translation>Alc&apos;hwez liv (skramm gwer)</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Top Center</source>
-        <translation>Krec&apos;h kreiz</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Max</source>
-        <translation>Brasañ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjusts the brightness of the image</source>
-        <translation>Kengeidañ lintr ar skeudenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
-    </message>
-    <message>
-        <source>X Offset</source>
-        <translation>Linkañ X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Three Layer</source>
-        <translation>Tri gwiskad</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Trees</source>
-        <translation>Gwez</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/trees.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Brightness &amp; Contrast</source>
-        <translation>Lintr ha dargemm</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Fisheye</source>
-        <translation>Gavael vras</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Zoom to Clapboard</source>
-        <translation>Zouman davet ar c&apos;hlap</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Frame Number</source>
-        <translation>Niver ar skeudenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Longitude (minutes)</source>
-        <translation>Hedred loc&apos;hañ (munutennoù)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sun: Type of Glare</source>
-        <translation>Heol: doare gouloù</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Deinterlace</source>
-        <translation>Digenweañ</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Speed</source>
-        <translation>Tizh</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Glass Slider</source>
-        <translation>Riklell wer</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adds static and grain to the image</source>
-        <translation>Ouzhpennañ trouz ha greun d&apos;ar skeudenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Alpha controlled</source>
-        <translation>Boullder reoliet</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>File Name</source>
-        <translation>Anv ar restr</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Show histogram</source>
-        <translation>Diskouez an tellun</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>u</source>
-        <translation>u</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Delay grab</source>
-        <translation>Daleañ an dapadenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Starting Size</source>
-        <translation>Rodenn: ment deraouiñ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Green Tint</source>
-        <translation>Arne gwer</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Use Flare</source>
-        <translation>Rodenn: arverañ an trelladur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Remove interlacing from a video (i.e. even or odd horizontal lines)</source>
-        <translation>Dilemel kenweañ ur video (sk. linennoù a-blaen par pe ampar)</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Picture 1 Path</source>
-        <translation>Treug ar skeudenn 1</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the low-pitched sound or tone</source>
-        <translation>Kengeidañ ar sonioù boud pe an ton</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
+        <source>Adjust the color of the image to black and white based on a threshold</source>
+        <translation>Kengeidañ liv ar skeudenn e gwenn ha du diazezet war ur gwehin</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
     </message>
     <message>
         <source>Adjust the high-pitched sound or tone</source>
@@ -1633,277 +1197,9 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/treble.xml</extra-po-references>
     </message>
     <message>
-        <source>Line 4 Color</source>
-        <translation>Liv al linenn 4</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Title 2</source>
-        <translation>Titl 2</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Start: X</source>
-        <translation>Loc&apos;hañ: X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Freeze After</source>
-        <translation>Skornañ goude</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
-    </message>
-    <message>
-        <source>delayed alpha smoothed blit of time</source>
-        <translation>padelezh skurzher ardreuzad ar gwiskad alfa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Pixelate</source>
-        <translation>Pikselaat</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Tile 3: Diffuse Color</source>
-        <translation>Teol 3: liv amstrew</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Tile 1: Diffuse Color</source>
-        <translation>Teol 1: liv amstrewiñ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Param</source>
-        <translation>Arventennoù</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Midpoint</source>
-        <translation>Poent kreiz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Main Text</source>
-        <translation>Testenn bennañ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation>Rizh</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Longitude (seconds)</source>
-        <translation>Hedred degouezhout (eilennoù)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Distort the source similar to plasma</source>
-        <translation>Distummañ an tarzh da vezañ heñvel ouzh plasma</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Latitude (degrees)</source>
-        <translation>Ledred loc&apos;hañ (derezioù)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>White Balance</source>
-        <translation>Mentel ar gwenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Decay</source>
-        <translation>Distok</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Is Odd Frame</source>
-        <translation>a zo ur skeudenn ampar</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Threshold</source>
-        <translation>Gwehin</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjusts the gamma and brightness randomly to create the illusion of old film</source>
-        <translation>Kengeidañ ar gamma hag al lintr en un doare dargouezhek evit lakaat da grediñ eo ur film kozh</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fly Towards Camera (Two Titles)</source>
-        <translation>Nijal davet ar c&apos;hamera (daou ditl)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/fly_by_two_titles.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Green</source>
-        <translation>Gwer</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Filter the image to look like it is drawn with charcoal</source>
-        <translation>Silañ ar skeudenn evit ma vefe heñvel ouzh un dresadenn graet gant glaou koad</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Color Saturation</source>
-        <translation>Peurvec&apos;hiañ liv</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Flippo</source>
-        <translation>Flippo</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Latitude (minutes)</source>
-        <translation>Ledred degouezhout (munutennoù)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>World Map (Realistic)</source>
-        <translation>Kartenn ar bed (gwirheñvel)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Line Count</source>
-        <translation>Rodenn: niver a linennoù</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Scan Lines</source>
-        <translation>Linennoù c&apos;hwilerviñ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Interpolation</source>
-        <translation>Etreletodiñ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Spots: Color Threshold</source>
-        <translation>Pikoù: liv ar gwehin</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>End Value</source>
-        <translation>Gwerzh dibenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Manual Pixel Aspect ratio</source>
-        <translation>Kenfeurioù neuz ar piksel dre zorn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Balance</source>
-        <translation>Mentelad</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Title</source>
-        <translation>Titl loc&apos;hañ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>End: Y</source>
-        <translation>Dibenn: Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Canvas</source>
-        <translation>Steuenn</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Old Dust</source>
-        <translation>Poultr kozh</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Particles: Gravity</source>
-        <translation>Eufl: kerc&apos;hellder</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>TehRoxx0r</source>
-        <translation>TehRoxx0r</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the color of the image to emulate black-and-white film that has had sepia pigment added</source>
-        <translation>Kengeidañ liv ar skeudenn en ur gendarvanañ ur film gwenn ha du gant un gwered sepia</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Darker</source>
-        <translation>Teñvaloc&apos;h</translation>
+        <source>Old Lines</source>
+        <translation>Linennoù kozh</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Split preview</source>
-        <translation>Rannañ an alberz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Exploding Text</source>
-        <translation>Titl o tarzhañ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Color Tiles</source>
-        <translation>Teolennoù al livioù</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Convert colors in the image to the opposite or complementary colors</source>
-        <translation>Amdreiñ al livioù ar skeudenn d&apos;al livioù enebat pe klokaus</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/invert.xml</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="106"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="849"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="852"/>
-        <source>Title</source>
-        <translation>Titl</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sun: Number of Streaks</source>
-        <translation>Heol: niver a skinoù</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Mirror Color</source>
-        <translation>Liv melezour</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Bottom Right</source>
-        <translation>Traoñ dehou</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Picture 3 Path</source>
-        <translation>Treug ar skeudenn 3</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Specular Intensity</source>
-        <translation>Kreñder melezourel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Find and glow the edges of objects</source>
-        <translation>Kavout ha goulaouiñ riblennoù an ergorennoù</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Add a glow effect to the image</source>
-        <translation>Ouzhpennañ un efed lufrus war ar skeudenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/glow.xml</extra-po-references>
     </message>
     <message>
         <source>Diffuse Color</source>
@@ -1911,234 +1207,84 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
-        <source>Amount</source>
-        <translation>Kementad</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+        <source>Freeze Before</source>
+        <translation>Skornañ a-raok</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
     </message>
     <message>
-        <source>Background: Alpha</source>
-        <translation>Drekleur: boullder</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Text Alignment</source>
-        <translation>Steudadur an destenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Max Count</source>
-        <translation>Kementad brasañ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Y Offset</source>
-        <translation>Linkañ Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Correction near edges</source>
-        <translation>Reizhadur war ar riblennoù</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fixed Rotate Y</source>
-        <translation>C&apos;hweladur digemm a-serzh Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>World Map</source>
-        <translation>Kartenn ar bed</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Block Size Y</source>
-        <translation>Ment ar bloc&apos;h Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Action</source>
-        <translation>Gwered</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Invert</source>
-        <translation>Tuginañ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gain Out</source>
-        <translation>Ec&apos;hankad ar savad</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Diffuse Color</source>
-        <translation>Drekleur: livioù amstrew</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Shift the hue of all colors in the image</source>
-        <translation>Linkañ arliv holl livioù ar skeudenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/hue.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Greyscale</source>
-        <translation>Liveoù  louedoù</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gravity: X</source>
-        <translation>Kerc&apos;hellder: X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjusts the contrast of a source image</source>
-        <translation>Kengeidañ a ra dargemm ur skeudenn darzh</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/contrast.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Picture 4 Path</source>
-        <translation>Treug ar skeudenn 4</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Charcoal</source>
-        <translation>Glaou</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Waveform</source>
-        <translation>Stumm ar wagenn</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Top</source>
-        <translation>Krec&apos;h</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Specular Color</source>
-        <translation>Liv melezourel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Ring Count</source>
-        <translation>Rodenn: niver a walennoù</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Cartoonify the image, using a form of edge detection</source>
-        <translation>Tresadenaat ar skeudenn, en ur arverañ ur stumm dinoiñ ar riblennoù</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Key Color</source>
-        <translation>Liv an alc&apos;hwez</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Rotate Z</source>
-        <translation>C&apos;hwelañ Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Lens Flare</source>
-        <translation>Trelladur ar ferenn</translation>
+        <source>Sun: Number of Streaks</source>
+        <translation>Heol: niver a skinoù</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
-        <source>Treble</source>
-        <translation>Skiltr</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/treble.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Bottom Left</source>
-        <translation>Traoñ kleiz</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Longitude (seconds)</source>
-        <translation>Hedred loc&apos;hañ (eilennoù)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the color of the image to black and white based on a threshold</source>
-        <translation>Kengeidañ liv ar skeudenn e gwenn ha du diazezet war ur gwehin</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Rotate X</source>
-        <translation>C&apos;hwelañ X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Add small dust shapes randomly on the image</source>
-        <translation>Ouzhpennañ poultrenn en un doare dargouezhek war ar skeudenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Defocus</source>
-        <translation>Distiañ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Latitude (seconds)</source>
-        <translation>Ledred loc&apos;hañ (eilennoù)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>X Coordinate</source>
-        <translation>Daveenn X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Horizontal Sync</source>
-        <translation>Goubredañ a-serzh</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Velocity: Z</source>
-        <translation>Buander: Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Latitude (minutes)</source>
-        <translation>Ledred loc&apos;hañ (munutennoù)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Mask</source>
-        <translation>Maskl</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Scale Y</source>
-        <translation>Skeul Y</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Echo</source>
-        <translation>Heklev</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gain In</source>
-        <translation>Live enankañ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the brightness and contrast of the frame&apos;s image.</source>
-        <translation>Kengeidañ lintr ha dargemm ar skeudenn</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Frequency</source>
-        <translation>Talm</translation>
+        <source>Adjust the low-pitched sound or tone</source>
+        <translation>Kengeidañ ar sonioù boud pe an ton</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
     </message>
     <message>
-        <source>Left</source>
-        <translation>Kleiz</translation>
+        <source>Dynamic 3 level thresholding</source>
+        <translation>Kengeidañ gwehin al live dialuskel 3</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Start Value</source>
+        <translation>Gwerzh an derou</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Old Dust</source>
+        <translation>Poultr kozh</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Picture Frames (4 pictures)</source>
+        <translation>Frammoù (4 skeudenn)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Ending Size</source>
+        <translation>Rodenn: ment dibenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Calculates the distance between the selected color and the current pixel and uses that value as new pixel value</source>
+        <translation>Jediñ a ra an hirder etre al liv diuzet hag ar piksel bremanel hag arverañ ar gwerzh-mañ evel talvoud piksel nevez</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Rotate 360 Degrees</source>
+        <translation>C&apos;hwelañ da 360 derez</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/rotate_360.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Particles: Amount</source>
+        <translation>Eufl: kementad</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Vertical Radius</source>
+        <translation>Skin a-serzh</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Fixed Rotate Z</source>
+        <translation>C&apos;hwelañ digemm war Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Title Specular Color</source>
+        <translation>Titil gant livioù melezourel</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Rotate Y</source>
+        <translation>C&apos;hwelañ Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Chroma Hold</source>
+        <translation>Liv da zerc&apos;hel</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml</extra-po-references>
     </message>
     <message>
         <source>Particle Number</source>
@@ -2146,14 +1292,474 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
     </message>
     <message>
-        <source>Nosync</source>
-        <translation>Nosync</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
+        <source>Alphagrad</source>
+        <translation>Alfagrad</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
     </message>
     <message>
-        <source>Delay</source>
-        <translation>Dale</translation>
+        <source>Enable Video</source>
+        <translation>Gweredekaat ar video</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Stretch</source>
+        <translation>Astenn</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the brightness and contrast of the frame&apos;s image.</source>
+        <translation>Kengeidañ lintr ha dargemm ar skeudenn</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Rotate an image statically or animated</source>
+        <translation>C&apos;hweladur diasavel pe blivet ur skeudenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Blur the image similar to an out-of-focus camera</source>
+        <translation>Lakaat ruzed war ar skeudenn, evel ur c&apos;hamera distiet</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/blur.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjusts the gamma and brightness randomly to create the illusion of old film</source>
+        <translation>Kengeidañ ar gamma hag al lintr en un doare dargouezhek evit lakaat da grediñ eo ur film kozh</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Three Layer</source>
+        <translation>Tri gwiskad</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the white balance and color temperature</source>
+        <translation>Kengeidañ al livioù gwenn ha gwrezverk al liv</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>X axis</source>
+        <translation>Ahel X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Make image sharper</source>
+        <translation>Lemmaat ar skeudenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Diff Space</source>
+        <translation>Egor diforc&apos;h</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Episode Title</source>
+        <translation>Titl ar rann</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Defocus</source>
+        <translation>Distiañ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Factor</source>
+        <translation>Parenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Map black to</source>
+        <translation>Amsaviñ al liv du da</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Lens vignetting</source>
+        <translation>Vignetenn ferenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fixed Rotate Y</source>
+        <translation>C&apos;hweladur digemm a-serzh Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>End Value</source>
+        <translation>Gwerzh dibenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fills alpha channel with a gradient</source>
+        <translation>Leuniañ ar sanell alfa gant un ilrezenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Saturation</source>
+        <translation>Peurvec&apos;hiañ</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Freeze After</source>
+        <translation>Skornañ goude</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Alpha</source>
+        <translation>Drekleur: boullder</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
+    </message>
+    <message>
+        <source>End: X</source>
+        <translation>Dibenn: X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Rotate Z</source>
+        <translation>C&apos;hwelañ Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Delta</source>
+        <translation>Delta</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Number of Snow Flakes</source>
+        <translation>Niver a valzennoù erc&apos;h</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Red Scale</source>
+        <translation>Skeul ruz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Center</source>
+        <translation>Kreiz</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Add an echo</source>
+        <translation>Ouzhepnnañ un heklev</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Frame Number</source>
+        <translation>Niver ar skeudenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sub Title</source>
+        <translation>Istitloù</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Canvas</source>
+        <translation>Steuenn</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Manual Scale</source>
+        <translation>Skeul dre zorn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>X Offset</source>
+        <translation>Linkañ X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Title 2</source>
+        <translation>Titl 2</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Equalizor</source>
+        <translation>Kevatalaer</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>End Frame</source>
+        <translation>Skeudenn dibenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Shift the hue of all colors in the image</source>
+        <translation>Linkañ arliv holl livioù ar skeudenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/hue.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gravity</source>
+        <translation>Kerc&apos;hellder</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>End: Z</source>
+        <translation>Dibenn: Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Old Film</source>
+        <translation>Film kozh</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Red</source>
+        <translation>Ruz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Start Frame</source>
+        <translation>Skeudenn deroù</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Wireframe Text</source>
+        <translation>Testenn e orjalennoù</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/wireframe_text.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Episode</source>
+        <translation>Rann</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust color balance with 3 color points</source>
+        <translation>Kengeidañ mentelad al livioù gant 3 foent livioù</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Y axis</source>
+        <translation>Ahel Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Equalizes the intensity histograms</source>
+        <translation>Kevatalaat a ra an tellunioù kreñvder</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Y Scatter</source>
+        <translation>Strewiñ Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Longitude (Prime Meridian)</source>
+        <translation>Hedred loc&apos;hañ (hedredenn gentañ)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Custom Texture (Equirectangular)</source>
+        <translation>Gwiadezh personelaet (Skouergornek-kevatal)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Glare</source>
+        <translation>Skleur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Line 4 Color</source>
+        <translation>Liv al linenn 4</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Text Size</source>
+        <translation>Ment an destenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Primary Colors</source>
+        <translation>Livioù kentael</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Cartoonify the image, using a form of edge detection</source>
+        <translation>Tresadenaat ar skeudenn, en ur arverañ ur stumm dinoiñ ar riblennoù</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Anchor</source>
+        <translation>Eor</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Cartoon</source>
+        <translation>Tresadenn-vev</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Uses a grayscale mask image to gradually wipe / transition between 2 images.</source>
+        <translation>Arver ur maskl skeudenn liveoù loued evit tremen eus ur skeudenn d&apos;eben tamm-ha-tamm</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Lens Correction</source>
+        <translation>Reizhañ ar ferenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Crop</source>
+        <translation>Didroc&apos;hañ</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>delayed alpha smoothed blit of time</source>
+        <translation>padelezh skurzher ardreuzad ar gwiskad alfa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Find and glow the edges of objects</source>
+        <translation>Kavout ha goulaouiñ riblennoù an ergorennoù</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Balance</source>
+        <translation>Mentelad</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Width</source>
+        <translation>Ledander</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjusts the contrast of a source image</source>
+        <translation>Kengeidañ a ra dargemm ur skeudenn darzh</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/contrast.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Brightness Delta Up</source>
+        <translation>Kreskaat difoc&apos;h al lintr</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Reduces and mixes the colors of the image based on a threshold</source>
+        <translation>Digreskiñ ha meskañ a ra livioù ar skeudenn diazezet war ur gwehin</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threshold.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fuzz</source>
+        <translation>Toueziañ</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Replace Image</source>
+        <translation>Amsaviñ ar skeudenn</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Noise</source>
+        <translation>Trouz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Top</source>
+        <translation>Krec&apos;h</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>X Scatter</source>
+        <translation>Strewiñ X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Scale Y</source>
+        <translation>Skeul Y</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Operation</source>
+        <translation>Gwezhiadur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Reduce image to primary colors</source>
+        <translation>Digreskiñ ar skeudenn d&apos;al livioù pennañ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Convert colors in the image to the opposite or complementary colors</source>
+        <translation>Amdreiñ al livioù ar skeudenn d&apos;al livioù enebat pe klokaus</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/invert.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Dissolving Text</source>
+        <translation>Testenn o loezañ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/dissolve.xml</extra-po-references>
+    </message>
+    <message>
+        <source>World Map (Realistic)</source>
+        <translation>Kartenn ar bed (gwirheñvel)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Midpoint</source>
+        <translation>Poent kreiz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Waveform</source>
+        <translation>Stumm ar wagenn</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>X Coordinate</source>
+        <translation>Daveenn X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Start: Z</source>
+        <translation>Deroù: Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Make a single color transparent.  Also referred to as green screen and blue screen.</source>
+        <translation>Lakaat ul liv da vezañ treuzwelus. Anvet vez &apos;skramm gwer&apos; pe &apos;skramm glas&apos; ivez.</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adds static and grain to the image</source>
+        <translation>Ouzhpennañ trouz ha greun d&apos;ar skeudenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Simple color adjustment</source>
+        <translation>Kengeidañ eeun al liv</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tile 2: Diffuse Color</source>
+        <translation>Teol 2: livioù amstrew</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Distort</source>
+        <translation>Distummañ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Duration</source>
+        <translation>Padelezh</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Is Odd Frame</source>
+        <translation>a zo ur skeudenn ampar</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Creates a square alpha-channel mask</source>
+        <translation>Krouiñ a ra ur maskl karrez sanell alfa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Frequency</source>
+        <translation>Talm</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Threshold</source>
+        <translation>Gwehin</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="115"/>
@@ -2162,339 +1768,24 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Display a single color, while using greyscale for the rest of the image</source>
-        <translation>Skramman ul liv hepken, arverañ liveoù loued evit peurrest ar skeudenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml</extra-po-references>
+        <source>Glass Slider</source>
+        <translation>Riklell wer</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
     </message>
     <message>
-        <source>Transition width</source>
-        <translation>Ledander ardreuzad</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fuzz</source>
-        <translation>Toueziañ</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Key</source>
-        <translation>Alc&apos;hwez</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Use Alpha</source>
-        <translation>Arverañ an alfa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sobel</source>
-        <translation>Sobel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Crop</source>
-        <translation>Didroc&apos;hañ</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Brightness Delta Down</source>
-        <translation>DIgreskiñ an diforc&apos;h lintr</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo Zoom Out</source>
-        <translation>Rodenn kreskaet</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/halo_zoom_out.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gravity: Y</source>
-        <translation>Kerc&apos;hellder: Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Animation Length</source>
-        <translation>Padelezh ar bliverezh</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Particles: Amount</source>
-        <translation>Eufl: kementad</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Hardness</source>
-        <translation>Rodenn: kaleted</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Convert an image to shades of grey</source>
-        <translation>Amdreiñ ur skeudenn da liveoù loued</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Extrude</source>
-        <translation>Eztourzhañ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Add an echo</source>
-        <translation>Ouzhepnnañ un heklev</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Dynamic 3 level thresholding</source>
-        <translation>Kengeidañ gwehin al live dialuskel 3</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the blur of the frame&apos;s image.</source>
-        <translation>Kengeidañ ruzed ar skeudenn</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Replace Image</source>
-        <translation>Amsaviñ ar skeudenn</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Chroma Key</source>
-        <translation>Alc&apos;hwez liv</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust luminance or color channel intensity</source>
-        <translation>Kengeidañ sked pe kreñvder ar sanell liv</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Picture 2 Path</source>
-        <translation>Treug ar skeudenn 2</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Snow</source>
-        <translation>Erc&apos;h</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Blinds (Two Titles)</source>
-        <translation>Stignoù (daou ditl)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Neon Curves</source>
-        <translation>Krommennoù Neon</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Oversaturate the color in the image, like in old Technicolor movies</source>
-        <translation>Dreistpeurvec&apos;hiañ livioù ar skeudenn, evel ur film kozh Technicolor</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Title 1</source>
-        <translation>Titl 1</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the white balance and color temperature</source>
-        <translation>Kengeidañ al livioù gwenn ha gwrezverk al liv</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Black and White</source>
-        <translation>Gwenn ha du</translation>
+        <source>Invert</source>
+        <translation>Tuginañ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
     </message>
     <message>
-        <source>Tilt</source>
-        <translation>Stouañ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+        <source>Gamma</source>
+        <translation>Gamma</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml</extra-po-references>
     </message>
     <message>
-        <source>Gravity: Z</source>
-        <translation>Kerc&apos;hellder: Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>X Center</source>
-        <translation>Kreiz X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Operation</source>
-        <translation>Gwezhiadur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Longitude (degrees)</source>
-        <translation>Hedred degouezhout (derezioù)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Latitude (Equator)</source>
-        <translation>Ledred degouezhout (keheder)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adds random vertical lines to the image</source>
-        <translation>Ouzhpennan linennoù a-serzh dargouezhek d&apos;ar skeudenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sun: Angle Offset</source>
-        <translation>Heol: linkad ar c&apos;horn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Negates the colors, producing a negative of the image.</source>
-        <translation>Tuginañ a ra al livioù, ha sevel ur ginenn eus ak skeudenn</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Baltan</source>
-        <translation>Baltan</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Increase the size of pixels to obscure the image</source>
-        <translation>Kreskaat ment ar pikselioù evit teñvalaat ar skeudenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Make a single color transparent.  Also referred to as green screen and blue screen.</source>
-        <translation>Lakaat ul liv da vezañ treuzwelus. Anvet vez &apos;skramm gwer&apos; pe &apos;skramm glas&apos; ivez.</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Velocity: X</source>
-        <translation>Tizh: X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Channel</source>
-        <translation>Sanell</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Horizontal Radius</source>
-        <translation>Skin a-blaen</translation>
+        <source>Channel Mapping</source>
+        <translation>Glennañ ar sanell</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Red</source>
-        <translation>Ruz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Allows compensation of lens distortion</source>
-        <translation>Aotren kempouezadur torrgamm ar ferenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Longitude (degrees)</source>
-        <translation>Hedred loc&apos;hañ (derezioù)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Dissolving Text</source>
-        <translation>Testenn o loezañ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/dissolve.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Neutral Color</source>
-        <translation>Liv neptuek</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Text Size</source>
-        <translation>Ment an destenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sepia</source>
-        <translation>Sepia</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Ending Size</source>
-        <translation>Rodenn: ment dibenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Output level white point</source>
-        <translation>Live an ec&apos;hankad poent gwenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Location X</source>
-        <translation>Lec&apos;hiadur X</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Output level black point</source>
-        <translation>Poent du al live ec&apos;hankañ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Alpha Mask / Wipe Transition</source>
-        <translation>Maskl alfa / Ardreuzad c&apos;hwilerviñ</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Latitude (degrees)</source>
-        <translation>Ledred degouezhout (derezioù)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Location Y</source>
-        <translation>Lec&apos;hiadur Y</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Delayed frame blitting mapped on a time bitmap</source>
-        <translation>C&apos;hwilerviñ ar skeudenn daleet adlakaet war un oged amzer</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Every</source>
-        <translation>Pep</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Flying Title</source>
-        <translation>Titl nij</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Stretch</source>
-        <translation>Astenn</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Input level black point</source>
-        <translation>Live poent du en enankad</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Histogram position</source>
-        <translation>Lec&apos;hiadur an tellunioù</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>something videowall-ish</source>
-        <translation>Doare ur voger video</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Tile 2: Diffuse Color</source>
-        <translation>Teol 2: livioù amstrew</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Freeze the frame of a video</source>
-        <translation>Stagañ skeudenn ur video</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
     </message>
     <message>
         <source>Source image on left side</source>
@@ -2502,75 +1793,34 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
     </message>
     <message>
-        <source>Manual Scale</source>
-        <translation>Skeul dre zorn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+        <source>Channel</source>
+        <translation>Sanell</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
-        <source>Defish</source>
-        <translation>Defish</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+        <source>Gain</source>
+        <translation>Savad</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
     </message>
     <message>
-        <source>Old Grain</source>
-        <translation>Kozhadur: greun</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Start: Z</source>
-        <translation>Deroù: Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the color saturation.</source>
-        <translation>Kengeidañ peurvec&apos;hiañ al livioù</translation>
+        <source>Replaces the color (or chroma) of the frame with transparency (i.e. keys out the color).</source>
+        <translation>Erlec&apos;hiañ liv ar skeudenn gant boullder (sk. alc&apos;hwezioù maez al liv)</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
-        <source>Creates a square alpha-channel mask</source>
-        <translation>Krouiñ a ra ur maskl karrez sanell alfa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
+        <source>Split preview</source>
+        <translation>Rannañ an alberz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
     </message>
     <message>
-        <source>Tint amount</source>
-        <translation>Kementad arliv</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
+        <source>Correction near edges</source>
+        <translation>Reizhadur war ar riblennoù</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
     </message>
     <message>
-        <source>Vertical Radius</source>
-        <translation>Skin a-serzh</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Brightness Delta Up</source>
-        <translation>Kreskaat difoc&apos;h al lintr</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fixed Rotate X</source>
-        <translation>C&apos;hweladur digemm a-blaen X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sharpness</source>
-        <translation>Lemmder</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Blur the image similar to an out-of-focus camera</source>
-        <translation>Lakaat ruzed war ar skeudenn, evel ur c&apos;hamera distiet</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/blur.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Width</source>
-        <translation>Ledander</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="96"/>
-        <source>Start</source>
-        <translation>Loc&apos;hañ</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+        <source>Output level black point</source>
+        <translation>Poent du al live ec&apos;hankañ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
         <source>ID</source>
@@ -2578,29 +1828,74 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Left | Right</source>
-        <translation>Kleiz | Dehou</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
+        <source>Trip Level</source>
+        <translation>Live fazi</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
     </message>
     <message>
-        <source>X Scatter</source>
-        <translation>Strewiñ X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+        <source>Min</source>
+        <translation>Bihanañ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
     </message>
     <message>
-        <source>Keep luma</source>
-        <translation>Mirout luma</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+        <source>Vignette</source>
+        <translation>Vignetenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
     </message>
     <message>
-        <source>Y axis</source>
-        <translation>Ahel Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
+        <source>Tilt</source>
+        <translation>Stouañ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
     </message>
     <message>
-        <source>Arrival Longitude (minutes)</source>
-        <translation>Hedred degouezhout (munutennoù)</translation>
+        <source>Channel Filter</source>
+        <translation>Sil ar sanell</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Latitude (seconds)</source>
+        <translation>Ledred loc&apos;hañ (eilennoù)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Diffuse Color</source>
+        <translation>Drekleur: livioù amstrew</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
+    </message>
+    <message>
+        <source>v</source>
+        <translation>v</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Aspect ratio</source>
+        <translation>Feur an neuz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Distort the source similar to plasma</source>
+        <translation>Distummañ an tarzh da vezañ heñvel ouzh plasma</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>Kementad</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Text Width</source>
+        <translation>Ledander an destenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Line Count</source>
+        <translation>Rodenn: niver a linennoù</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Green Tint</source>
+        <translation>Arne gwer</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
     </message>
     <message>
         <source>Adjust the left/right balance</source>
@@ -2608,73 +1903,73 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
     </message>
     <message>
-        <source>Episode Title</source>
-        <translation>Titl ar rann</translation>
+        <source>Adjust the color saturation.</source>
+        <translation>Kengeidañ peurvec&apos;hiañ al livioù</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Flying Title</source>
+        <translation>Titl nij</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
     </message>
     <message>
-        <source>Halo: Use Lines</source>
-        <translation>Rodenn: arverañ linennoù</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+        <source>Center size</source>
+        <translation>Ment ar c&apos;hreiz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
     </message>
     <message>
-        <source>Reduces and mixes the colors of the image based on a threshold</source>
-        <translation>Digreskiñ ha meskañ a ra livioù ar skeudenn diazezet war ur gwehin</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threshold.xml</extra-po-references>
+        <source>World Map</source>
+        <translation>Kartenn ar bed</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
-        <source>Wave Color</source>
-        <translation>Liv ar wagenn</translation>
+        <source>Location X</source>
+        <translation>Lec&apos;hiadur X</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Blue</source>
-        <translation>Glas</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust color balance with 3 color points</source>
-        <translation>Kengeidañ mentelad al livioù gant 3 foent livioù</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>First Title</source>
-        <translation>Titl kentañ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation>Ment</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sun: Color Threshold</source>
-        <translation>Heol: Gwehin liv</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adds black borders at the top and bottom</source>
-        <translation>Ouzhpennañ bandennoù du er c&apos;hrec&apos;h hag en traoñ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Tile 4: Diffuse Color</source>
-        <translation>Teol 4: livioù amstrew</translation>
+        <source>Background: Specular Color</source>
+        <translation>Drekleur: liv melezourel</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
-        <source>Start Value</source>
-        <translation>Gwerzh an derou</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
+        <source>Treble</source>
+        <translation>Skiltr</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/treble.xml</extra-po-references>
     </message>
     <message>
-        <source>Factor</source>
-        <translation>Parenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
+        <source>Top Right</source>
+        <translation>Krec&apos;h kleiz</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Duration</source>
-        <translation>Padelezh</translation>
+        <source>Decay</source>
+        <translation>Distok</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Amplitude</source>
+        <translation>Heled</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo Zoom Out</source>
+        <translation>Rodenn kreskaet</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/halo_zoom_out.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Filter the image to look like it is drawn with charcoal</source>
+        <translation>Silañ ar skeudenn evit ma vefe heñvel ouzh un dresadenn graet gant glaou koad</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust luminance or color channel intensity</source>
+        <translation>Kengeidañ sked pe kreñvder ar sanell liv</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Top Left</source>
+        <translation>Krec&apos;h dehoù</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2683,109 +1978,19 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
-        <source>Picture Frames (4 pictures)</source>
-        <translation>Frammoù (4 skeudenn)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+        <source>Type</source>
+        <translation>Rizh</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
     </message>
     <message>
-        <source>Adjusts the saturation or intensity of the image</source>
-        <translation>Kengeidañ peurvec&apos;hiadur pe kreñvder ar skeudenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/saturation.xml</extra-po-references>
+        <source>Oversaturate the color in the image, like in old Technicolor movies</source>
+        <translation>Dreistpeurvec&apos;hiañ livioù ar skeudenn, evel ur film kozh Technicolor</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
     </message>
     <message>
-        <source>Background: Blend</source>
-        <translation>Drekleur: kemmeskañ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Y Center</source>
-        <translation>Kreiz Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Max Diameter</source>
-        <translation>Treuzskiz brasañ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gamma</source>
-        <translation>Gamma</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Number of Snow Flakes</source>
-        <translation>Niver a valzennoù erc&apos;h</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Center size</source>
-        <translation>Ment ar c&apos;hreiz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Mix</source>
-        <translation>Meskaj</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Noise</source>
-        <translation>Trouz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Chroma Hold</source>
-        <translation>Liv da zerc&apos;hel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Use Stars</source>
-        <translation>Rodenn: arverañ stered</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fly Towards Camera</source>
-        <translation>Nijal davet ar c&apos;hamera</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/fly_by_1.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Color adjustment</source>
-        <translation>Kengeidañ al livioù</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Space Movie Intro</source>
-        <translation>Digoradur ur film egor</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Map black to</source>
-        <translation>Amsaviñ al liv du da</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Reverse</source>
-        <translation>Tuginañ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Hue</source>
-        <translation>Arliv</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/hue.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Saturation</source>
-        <translation>Peurvec&apos;hiañ</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Alphagrad</source>
-        <translation>Alfagrad</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Line 1 Color</source>
-        <translation>Liv al linenn 1</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+        <source>Negates the colors, producing a negative of the image.</source>
+        <translation>Tuginañ a ra al livioù, ha sevel ur ginenn eus ak skeudenn</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Edgeglow</source>
@@ -2793,39 +1998,299 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
     </message>
     <message>
-        <source>Freeze</source>
-        <translation>Skornet</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+        <source>Max Count</source>
+        <translation>Kementad brasañ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
     </message>
     <message>
-        <source>Lens vignetting</source>
-        <translation>Vignetenn ferenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+        <source>Specular Color</source>
+        <translation>Liv melezourel</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
-        <source>Invert horizontally or vertically</source>
-        <translation>Tuginañ a-blaen pe a-serzh</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Best Fit</source>
-        <translation>Ment wellañ</translation>
+        <source>Iterations</source>
+        <translation>Arredoadurioù</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Variance</source>
-        <translation>Hebiant</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
+        <source>Viewport</source>
+        <translation>Alberz</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Oversaturate Color</source>
-        <translation>Dreistpeurvec&apos;hiadur al livioù</translation>
+        <source>Charcoal</source>
+        <translation>Glaou</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tile 1: Diffuse Color</source>
+        <translation>Teol 1: liv amstrewiñ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Exploding Text</source>
+        <translation>Titl o tarzhañ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Darker</source>
+        <translation>Teñvaloc&apos;h</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the blur of the frame&apos;s image.</source>
+        <translation>Kengeidañ ruzed ar skeudenn</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Output level white point</source>
+        <translation>Live an ec&apos;hankad poent gwenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Wave Color</source>
+        <translation>Liv ar wagenn</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Color adjustment</source>
+        <translation>Kengeidañ al livioù</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Scale X</source>
+        <translation>Skeul X</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Add small dust shapes randomly on the image</source>
+        <translation>Ouzhpennañ poultrenn en un doare dargouezhek war ar skeudenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Hue</source>
+        <translation>Arliv</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/hue.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the image up and down, with the off-screen portion appearing on the other side</source>
+        <translation>Kengeidañ ar skeudenn er c&apos;hrec&apos;h hag en traoñ, gant al lodenn maez ar skramm diskouezet en tu all</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
+    </message>
+    <message>
+        <source>White Balance</source>
+        <translation>Mentel ar gwenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Neon Curves</source>
+        <translation>Krommennoù Neon</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Velocity: Y</source>
+        <translation>Tizh: Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Latitude (Equator)</source>
+        <translation>Ledred degouezhout (keheder)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Show histogram</source>
+        <translation>Diskouez an tellun</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Echo</source>
+        <translation>Heklev</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Title 1</source>
+        <translation>Titl 1</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Longitude (degrees)</source>
+        <translation>Hedred loc&apos;hañ (derezioù)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sobel</source>
+        <translation>Sobel</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Scan Lines</source>
+        <translation>Linennoù c&apos;hwilerviñ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Glow</source>
+        <translation>Lufrus</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/glow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Picture 3 Path</source>
+        <translation>Treug ar skeudenn 3</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Brightness Delta Down</source>
+        <translation>DIgreskiñ an diforc&apos;h lintr</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Scaling</source>
+        <translation>O skeulaat</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Display Clouds</source>
+        <translation>Skrammañ koumoul</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Block Size X</source>
+        <translation>Ment bloc&apos;had X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Lens Flare</source>
+        <translation>Trelladur ar ferenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Interpolation</source>
+        <translation>Etreletodiñ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Green</source>
+        <translation>Gwer</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Block Size Y</source>
+        <translation>Ment ar bloc&apos;h Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Blue/Yellow</source>
+        <translation>Glas/melen</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
     </message>
     <message>
-        <source>Background: Shadeless</source>
-        <translation>Drekleur: diskeud</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+        <source>Specular Intensity</source>
+        <translation>Kreñder melezourel</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Key</source>
+        <translation>Alc&apos;hwez</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Velocity: X</source>
+        <translation>Tizh: X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Latitude (minutes)</source>
+        <translation>Ledred loc&apos;hañ (munutennoù)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Alpha controlled</source>
+        <translation>Boullder reoliet</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Picture 1 Path</source>
+        <translation>Treug ar skeudenn 1</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Max Diameter</source>
+        <translation>Treuzskiz brasañ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Z Coordinate</source>
+        <translation>Daveenn Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sun: Type of Glare</source>
+        <translation>Heol: doare gouloù</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Convert an image to shades of grey</source>
+        <translation>Amdreiñ ur skeudenn da liveoù loued</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Picture 4 Path</source>
+        <translation>Treug ar skeudenn 4</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Freeze the frame of a video</source>
+        <translation>Stagañ skeudenn ur video</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Interlaced black lines</source>
+        <translation>Kenweañ al linennoù du</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Black and White</source>
+        <translation>Gwenn ha du</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Velocity: Z</source>
+        <translation>Buander: Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Levels</source>
+        <translation>Liveoù</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gain In</source>
+        <translation>Live enankañ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Liv</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Phaser</source>
+        <translation>Lankad</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Up Scale</source>
+        <translation>Kreskaat ar vent</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjusts the brightness of the image</source>
+        <translation>Kengeidañ lintr ar skeudenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Ring Count</source>
+        <translation>Rodenn: niver a walennoù</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Luma formula</source>
@@ -2833,14 +2298,104 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
-        <source>Glare</source>
-        <translation>Skleur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glare.xml</extra-po-references>
+        <source>X Center</source>
+        <translation>Kreiz X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
     </message>
     <message>
-        <source>Gray color</source>
-        <translation>Liv loued</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+        <source>Number</source>
+        <translation>Niver</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Allows compensation of lens distortion</source>
+        <translation>Aotren kempouezadur torrgamm ar ferenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tile 3: Diffuse Color</source>
+        <translation>Teol 3: liv amstrew</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Chroma Key (Greenscreen)</source>
+        <translation>Alc&apos;hwez liv (skramm gwer)</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Latitude (degrees)</source>
+        <translation>Ledred degouezhout (derezioù)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adds random vertical lines to the image</source>
+        <translation>Ouzhpennan linennoù a-serzh dargouezhek d&apos;ar skeudenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Picture 2 Path</source>
+        <translation>Treug ar skeudenn 2</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Variance</source>
+        <translation>Hebiant</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Reverse</source>
+        <translation>Tuginañ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Bass</source>
+        <translation>Boud</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Location Y</source>
+        <translation>Lec&apos;hiadur Y</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Horizontal Radius</source>
+        <translation>Skin a-blaen</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Input level black point</source>
+        <translation>Live poent du en enankad</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>First Title</source>
+        <translation>Titl kentañ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fixed Rotate X</source>
+        <translation>C&apos;hweladur digemm a-blaen X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adds black borders at the top and bottom</source>
+        <translation>Ouzhpennañ bandennoù du er c&apos;hrec&apos;h hag en traoñ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Trees</source>
+        <translation>Gwez</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/trees.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Param</source>
+        <translation>Arventennoù</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Alpha Mask / Wipe Transition</source>
+        <translation>Maskl alfa / Ardreuzad c&apos;hwilerviñ</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Tint</source>
@@ -2848,19 +2403,114 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
     </message>
     <message>
-        <source>Equalizes the intensity histograms</source>
-        <translation>Kevatalaat a ra an tellunioù kreñvder</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml</extra-po-references>
+        <source>Tint a source image with specified color</source>
+        <translation>Livañ ur skeudenn vammenn gant al liv erspizet</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
     </message>
     <message>
-        <source>Rotate 360 Degrees</source>
-        <translation>C&apos;hwelañ da 360 derez</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/rotate_360.xml</extra-po-references>
+        <source>Adjusts the saturation or intensity of the image</source>
+        <translation>Kengeidañ peurvec&apos;hiadur pe kreñvder ar skeudenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/saturation.xml</extra-po-references>
     </message>
     <message>
-        <source>Text Width</source>
-        <translation>Ledander an destenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+        <source>Gravity: X</source>
+        <translation>Kerc&apos;hellder: X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Brightness &amp; Contrast</source>
+        <translation>Lintr ha dargemm</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Chroma Key</source>
+        <translation>Alc&apos;hwez liv</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sharpness</source>
+        <translation>Lemmder</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Remove interlacing from a video (i.e. even or odd horizontal lines)</source>
+        <translation>Dilemel kenweañ ur video (sk. linennoù a-blaen par pe ampar)</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>TehRoxx0r</source>
+        <translation>TehRoxx0r</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Title</source>
+        <translation>Titl loc&apos;hañ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Old Grain</source>
+        <translation>Kozhadur: greun</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Every</source>
+        <translation>Pep</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Left | Right</source>
+        <translation>Kleiz | Dehou</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Split and mirror the image</source>
+        <translation>Didroc&apos;hañ ha tuginañ ar skeudenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gray color</source>
+        <translation>Liv loued</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Border Width</source>
+        <translation>Ledander ar riblenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Star Count</source>
+        <translation>Rodenn: niver a stered</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Latitude (degrees)</source>
+        <translation>Ledred loc&apos;hañ (derezioù)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation>Ment</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Animation Length</source>
+        <translation>Padelezh ar bliverezh</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Size</source>
+        <translation>Rodenn: ment</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Color Saturation</source>
+        <translation>Peurvec&apos;hiañ liv</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Aspect type</source>
+        <translation>Rizh an neuz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
     </message>
     <message>
         <source>Color Distance</source>
@@ -2873,54 +2523,84 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
     </message>
     <message>
-        <source>Old Lines</source>
-        <translation>Linennoù kozh</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Top Left</source>
-        <translation>Krec&apos;h dehoù</translation>
+        <source>Bottom Right</source>
+        <translation>Traoñ dehou</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Adjust the image up and down, with the off-screen portion appearing on the other side</source>
-        <translation>Kengeidañ ar skeudenn er c&apos;hrec&apos;h hag en traoñ, gant al lodenn maez ar skramm diskouezet en tu all</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
+        <source>Lighter</source>
+        <translation>Sklaeroc&apos;h</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
     </message>
     <message>
-        <source>Uses a grayscale mask image to gradually wipe / transition between 2 images.</source>
-        <translation>Arver ur maskl skeudenn liveoù loued evit tremen eus ur skeudenn d&apos;eben tamm-ha-tamm</translation>
+        <source>Particles: Lifetime</source>
+        <translation>Eufl: padelezh buhez</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Deinterlace</source>
+        <translation>Digenweañ</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
-        <source>Primary Colors</source>
-        <translation>Livioù kentael</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
+        <source>Manual Pixel Aspect ratio</source>
+        <translation>Kenfeurioù neuz ar piksel dre zorn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
     </message>
     <message>
-        <source>End Frame</source>
-        <translation>Skeudenn dibenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+        <source>Halo: Use Flare</source>
+        <translation>Rodenn: arverañ an trelladur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
-        <source>Diff Space</source>
-        <translation>Egor diforc&apos;h</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
+        <source>Adjusts the gamma or luminance value of the image</source>
+        <translation>Kengeidañ ar gamma pe lintr ar skeudenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml</extra-po-references>
     </message>
     <message>
-        <source>Line 2 Color</source>
-        <translation>Liv al linenn 2</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+        <source>Font Name</source>
+        <translation>Anv an nodrezh</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
-        <source>Tint a source image with specified color</source>
-        <translation>Livañ ur skeudenn vammenn gant al liv erspizet</translation>
+        <source>Bottom Left</source>
+        <translation>Traoñ kleiz</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Histogram position</source>
+        <translation>Lec&apos;hiadur an tellunioù</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tint amount</source>
+        <translation>Kementad arliv</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
     </message>
     <message>
-        <source>Add a series of peaks and troughs to the audio, creating a sweeping effect</source>
-        <translation>Ouzhpennañ un heuliad a uc&apos;hadoù ha kleuzioù  d&apos;an aodio, evit krouiñ un efed c&apos;hwilerviñ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
+        <source>Adjust the color of the image to emulate black-and-white film that has had sepia pigment added</source>
+        <translation>Kengeidañ liv ar skeudenn en ur gendarvanañ ur film gwenn ha du gant un gwered sepia</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Greyscale</source>
+        <translation>Liveoù  louedoù</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Y Center</source>
+        <translation>Kreiz Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
+    </message>
+    <message>
+        <source>File Name</source>
+        <translation>Anv ar restr</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Flippo</source>
+        <translation>Flippo</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
     </message>
     <message>
         <source>Title 3</source>
@@ -2928,119 +2608,29 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
-        <source>Start: Y</source>
-        <translation>Deroù: Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+        <source>Input level white point</source>
+        <translation>Live enankad ar pik gwenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
-        <source>Title Specular Color</source>
-        <translation>Titil gant livioù melezourel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>End: Z</source>
-        <translation>Dibenn: Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Y Scatter</source>
-        <translation>Strewiñ Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Freeze Before</source>
-        <translation>Skornañ a-raok</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Make image sharper</source>
-        <translation>Lemmaat ar skeudenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Blue/Yellow</source>
-        <translation>Glas/melen</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sub Title</source>
-        <translation>Istitloù</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Specular Intensity</source>
-        <translation>Drekleur: kreñder ar melezour</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Split and mirror the image</source>
-        <translation>Didroc&apos;hañ ha tuginañ ar skeudenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Position</source>
-        <translation>Lec&apos;hiadur</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Block Size X</source>
-        <translation>Ment bloc&apos;had X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Bottom</source>
-        <translation>Traoñ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Longitude (Prime Meridian)</source>
-        <translation>Hedred loc&apos;hañ (hedredenn gentañ)</translation>
+        <source>Arrival Longitude (degrees)</source>
+        <translation>Hedred degouezhout (derezioù)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
-        <source>Scale X</source>
-        <translation>Skeul X</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+        <source>Horizontal Sync</source>
+        <translation>Goubredañ a-serzh</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
     </message>
     <message>
-        <source>Arrival Latitude (seconds)</source>
-        <translation>Ledred degouezhout (eilennoù)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+        <source>Sun: Angle Offset</source>
+        <translation>Heol: linkad ar c&apos;horn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
-        <source>Display Ground</source>
-        <translation>Skrammañ al leur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Correction near center</source>
-        <translation>Reizhadur e-kichen ar c&apos;hreiz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Episode</source>
-        <translation>Rann</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Title</source>
-        <translation>Titl degouezh</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Start Frame</source>
-        <translation>Skeudenn deroù</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Use Rings</source>
-        <translation>Rodenn: arverañ gwalennoù</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Custom Texture (Equirectangular)</source>
-        <translation>Gwiadezh personelaet (Skouergornek-kevatal)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+        <source>Use Alpha</source>
+        <translation>Arverañ an alfa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml</extra-po-references>
     </message>
     <message>
         <source>Magic Wand</source>
@@ -3048,24 +2638,513 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
+        <source>Nosync</source>
+        <translation>Nosync</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Zoom to Clapboard</source>
+        <translation>Zouman davet ar c&apos;hlap</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Negative</source>
+        <translation>Leiel</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Bevel Depth</source>
+        <translation>Donnder ar veskell</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Oversaturate Color</source>
+        <translation>Dreistpeurvec&apos;hiadur al livioù</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Rotate X</source>
+        <translation>C&apos;hwelañ X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Specular Intensity</source>
+        <translation>Drekleur: kreñder ar melezour</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Display a single color, while using greyscale for the rest of the image</source>
+        <translation>Skramman ul liv hepken, arverañ liveoù loued evit peurrest ar skeudenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation>Traoñ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>something videowall-ish</source>
+        <translation>Doare ur voger video</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Delay</source>
+        <translation>Dale</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Fresnel</source>
+        <translation>Drekleur: Fresnel</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Blue</source>
+        <translation>Glas</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Use Rings</source>
+        <translation>Rodenn: arverañ gwalennoù</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Shadeless</source>
+        <translation>Drekleur: diskeud</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sun: Color Threshold</source>
+        <translation>Heol: Gwehin liv</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
         <source>White color</source>
         <translation>Liv gwenn</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
     </message>
     <message>
-        <source>Background: Specular Color</source>
-        <translation>Drekleur: liv melezourel</translation>
+        <source>Arrival Latitude (seconds)</source>
+        <translation>Ledred degouezhout (eilennoù)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="96"/>
+        <source>Start</source>
+        <translation>Loc&apos;hañ</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Extrude</source>
+        <translation>Eztourzhañ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Best Fit</source>
+        <translation>Ment wellañ</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Defish</source>
+        <translation>Defish</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fisheye</source>
+        <translation>Gavael vras</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Mix</source>
+        <translation>Meskaj</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Red/Green Axis</source>
+        <translation>Ahelioù ruz/gwer</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Title</source>
+        <translation>Titl degouezh</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Starting Size</source>
+        <translation>Rodenn: ment deraouiñ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Invert horizontally or vertically</source>
+        <translation>Tuginañ a-blaen pe a-serzh</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Add a series of peaks and troughs to the audio, creating a sweeping effect</source>
+        <translation>Ouzhpennañ un heuliad a uc&apos;hadoù ha kleuzioù  d&apos;an aodio, evit krouiñ un efed c&apos;hwilerviñ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Mirror Color</source>
+        <translation>Liv melezour</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Delayed frame blitting mapped on a time bitmap</source>
+        <translation>C&apos;hwilerviñ ar skeudenn daleet adlakaet war un oged amzer</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Slide Left to Right</source>
+        <translation>Riklañ eus an tu kleiz betek an tu dehou</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/slide_left_to_right.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Latitude (minutes)</source>
+        <translation>Ledred degouezhout (munutennoù)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Longitude (minutes)</source>
+        <translation>Hedred degouezhout (munutennoù)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Main Text</source>
+        <translation>Testenn bennañ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Keep luma</source>
+        <translation>Mirout luma</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Layer</source>
+        <translation>Gwiskad</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Mask</source>
+        <translation>Maskl</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Enable Audio</source>
+        <translation>Gweredekaat an aodio</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Gain Out</source>
+        <translation>Ec&apos;hankad ar savad</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Key Color</source>
+        <translation>Liv an alc&apos;hwez</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Position</source>
+        <translation>Lec&apos;hiadur</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Gravity: Y</source>
+        <translation>Kerc&apos;hellder: Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Map white to</source>
+        <translation>Amsaviñ ar gwenn gant</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Top Center</source>
+        <translation>Krec&apos;h kreiz</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Fly Towards Camera (Two Titles)</source>
+        <translation>Nijal davet ar c&apos;hamera (daou ditl)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/fly_by_two_titles.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Title Diffuse Color</source>
+        <translation>Titl liv amstrew</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Hardness</source>
+        <translation>Rodenn: kaleted</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Correction near center</source>
+        <translation>Reizhadur e-kichen ar c&apos;hreiz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Y Offset</source>
+        <translation>Linkañ Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Particles: Gravity</source>
+        <translation>Eufl: kerc&apos;hellder</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Letterbox</source>
+        <translation>Boest-lizhiri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Blinds (Two Titles)</source>
+        <translation>Stignoù (daou ditl)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sigma</source>
+        <translation>Sigma</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Interval</source>
+        <translation>Etremez</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Spots: Color Threshold</source>
+        <translation>Pikoù: liv ar gwehin</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Longitude (seconds)</source>
+        <translation>Hedred loc&apos;hañ (eilennoù)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Neutral Color</source>
+        <translation>Liv neptuek</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Baltan</source>
+        <translation>Baltan</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Use Lines</source>
+        <translation>Rodenn: arverañ linennoù</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Snow</source>
+        <translation>Erc&apos;h</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Latitude (Equator)</source>
+        <translation>Ledred loc&apos;hañ (keheder)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Add a glow effect to the image</source>
+        <translation>Ouzhpennañ un efed lufrus war ar skeudenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/glow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tile 4: Diffuse Color</source>
+        <translation>Teol 4: livioù amstrew</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
-        <source>Blender Command (path)</source>
-        <translation>Arc&apos;had Blender (treug)</translation>
-        <extra-po-references>Settings for blender_command</extra-po-references>
+        <source>Sepia</source>
+        <translation>Sepia</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
     </message>
     <message>
-        <source>Nokia nHD</source>
-        <translation>Nokia nHD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/nokia_nHD.xml</extra-po-references>
+        <source>Color Tiles</source>
+        <translation>Teolennoù al livioù</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Increase the size of pixels to obscure the image</source>
+        <translation>Kreskaat ment ar pikselioù evit teñvalaat ar skeudenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Start: Y</source>
+        <translation>Deroù: Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gravity: Z</source>
+        <translation>Kerc&apos;hellder: Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Pixelate</source>
+        <translation>Pikselaat</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Transition width</source>
+        <translation>Ledander ardreuzad</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Action</source>
+        <translation>Gwered</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Text Alignment</source>
+        <translation>Steudadur an destenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+    </message>
+    <message>
+        <source>End: Y</source>
+        <translation>Dibenn: Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Display Ground</source>
+        <translation>Skrammañ al leur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Start: X</source>
+        <translation>Loc&apos;hañ: X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Speed</source>
+        <translation>Tizh</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Line 3 Color</source>
+        <translation>Liv al linenn 3</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Black color</source>
+        <translation>Liv du</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Freeze</source>
+        <translation>Skornet</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+    </message>
+    <message>
+        <source>u</source>
+        <translation>u</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Delay grab</source>
+        <translation>Daleañ an dapadenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Detect and highlight the edges of objects</source>
+        <translation>Dinoiñ hag usskediñ riblennoù an ergorennoù</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="106"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="836"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="839"/>
+        <source>Title</source>
+        <translation>Titl</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Line 2 Color</source>
+        <translation>Liv al linenn 2</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Space Movie Intro</source>
+        <translation>Digoradur ur film egor</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Brightness Delta Every</source>
+        <translation>Diforc&apos;h al lintr bep</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Max</source>
+        <translation>Brasañ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fly Towards Camera</source>
+        <translation>Nijal davet ar c&apos;hamera</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/fly_by_1.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Bottom Center</source>
+        <translation>Traoñ kreiz</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Softness</source>
+        <translation>Kuñvder</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Line 1 Color</source>
+        <translation>Liv al linenn 1</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Three point balance</source>
+        <translation>Mentelad tri foent</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Use Stars</source>
+        <translation>Rodenn: arverañ stered</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Blur</source>
+        <translation>Ruzed</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blur.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Longitude (seconds)</source>
+        <translation>Hedred degouezhout (eilennoù)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Blend</source>
+        <translation>Drekleur: kemmeskañ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Longitude (minutes)</source>
+        <translation>Hedred loc&apos;hañ (munutennoù)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>MPEG (mpeg2)</source>
+        <translation>MPEG (mpeg2)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mpeg_mpeg2.xml</extra-po-references>
+    </message>
+    <message>
+        <source>OGG (theora/vorbis)</source>
+        <translation>OGG (theora/vorbis)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_libvorbis.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Xbox 360</source>
+        <translation>Xbox 360</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/xbox360.xml</extra-po-references>
     </message>
     <message>
         <source>WEBM (vpx)</source>
@@ -3073,34 +3152,44 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml</extra-po-references>
     </message>
     <message>
-        <source>YouTube-HD</source>
-        <translation>YouTube-HD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/youtube_HD.xml</extra-po-references>
+        <source>Autosave Interval (minutes)</source>
+        <translation>Etremez enrollañ emgefreek (munutennoù)</translation>
+        <extra-po-references>Settings for autosave-interval</extra-po-references>
     </message>
     <message>
-        <source>OGG (theora/flac)</source>
-        <translation>OGG (theora/flac)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_flac.xml</extra-po-references>
+        <source>Debug</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings Category for Debug</extra-po-references>
     </message>
     <message>
-        <source>Device</source>
-        <translation>Trobarzhell</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml</extra-po-references>
+        <source>Debug Mode (Port)</source>
+        <translation>Mod diveugañ (Porzh)</translation>
+        <extra-po-references>Settings for debug-port</extra-po-references>
     </message>
     <message>
-        <source>Debug Mode (Verbose)</source>
-        <translation>Mod diveugañ (munutaet)</translation>
-        <extra-po-references>Settings for debug-mode</extra-po-references>
+        <source>Picasa</source>
+        <translation>Picasa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/picasa.xml</extra-po-references>
     </message>
     <message>
-        <source>Send Anonymous Metrics and Errors</source>
-        <translation>Kas roadennoù dizanv ha fazioù</translation>
-        <extra-po-references>Settings for send_metrics</extra-po-references>
+        <source>Blender Command (path)</source>
+        <translation>Arc&apos;had Blender (treug)</translation>
+        <extra-po-references>Settings for blender_command</extra-po-references>
     </message>
     <message>
-        <source>MOV (mpeg4)</source>
-        <translation>MOV (mpeg4)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mov_mpeg4.xml</extra-po-references>
+        <source>DVD-NTSC</source>
+        <translation>DVD-NTSC</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Flickr-HD</source>
+        <translation>Flickr-HD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/flickr_HD.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Profiles</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings Category for Profiles</extra-po-references>
     </message>
     <message>
         <source>Web</source>
@@ -3108,24 +3197,80 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml</extra-po-references>
     </message>
     <message>
+        <source>MP4 (Xvid)</source>
+        <translation>MP4 (Xvid)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_xvid.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Default Theme</source>
+        <translation>Neuz dre ziouer</translation>
+        <extra-po-references>Settings for theme</extra-po-references>
+    </message>
+    <message>
+        <source>Default Audio Channels</source>
+        <translation>Sanelloù aodio dre ziouer</translation>
+        <extra-po-references>Settings for default-channellayout</extra-po-references>
+    </message>
+    <message>
+        <source>Blu-Ray/AVCHD</source>
+        <translation>Blu-Ray/AVCHD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Device</source>
+        <translation>Trobarzhell</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml</extra-po-references>
+    </message>
+    <message>
+        <source>MOV (mpeg4)</source>
+        <translation>MOV (mpeg4)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mov_mpeg4.xml</extra-po-references>
+    </message>
+    <message>
         <source>MOV (h.264)</source>
         <translation>MOV (h.264)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mov_x264.xml</extra-po-references>
     </message>
     <message>
-        <source>AVCHD Disks</source>
-        <translation>Kantennoù AVCHD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml</extra-po-references>
+        <source>DVD</source>
+        <translation>DVD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml</extra-po-references>
     </message>
     <message>
-        <source>Apple TV</source>
-        <translation>Apple TV</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml</extra-po-references>
+        <source>Debug Mode (Verbose)</source>
+        <translation>Mod diveugañ (munutaet)</translation>
+        <extra-po-references>Settings for debug-mode</extra-po-references>
     </message>
     <message>
-        <source>FLV (h.264)</source>
-        <translation>FLV (h.264)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_flv_x264.xml</extra-po-references>
+        <source>Language</source>
+        <translation>Yezh</translation>
+        <extra-po-references>Settings for default-language</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="118"/>
+        <source>Vimeo</source>
+        <translation>Vimeo</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/vimeo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>MP4 (mpeg4)</source>
+        <translation>MP4 (mpeg4)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_mpeg4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Default Audio Sample Rate</source>
+        <translation>Feur aodio dre ziouer</translation>
+        <extra-po-references>Settings for default-samplerate</extra-po-references>
+    </message>
+    <message>
+        <source>Autosave</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings Category for Autosave</extra-po-references>
+    </message>
+    <message>
+        <source>YouTube-HD</source>
+        <translation>YouTube-HD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/youtube_HD.xml</extra-po-references>
     </message>
     <message>
         <source>AVI (mpeg2)</source>
@@ -3133,9 +3278,39 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mpeg2.xml</extra-po-references>
     </message>
     <message>
-        <source>Blu-Ray/AVCHD</source>
-        <translation>Blu-Ray/AVCHD</translation>
+        <source>Wikipedia</source>
+        <translation>Wikipedia</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/wikipedia.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Nokia nHD</source>
+        <translation>Nokia nHD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/nokia_nHD.xml</extra-po-references>
+    </message>
+    <message>
+        <source>AVCHD Disks</source>
+        <translation>Kantennoù AVCHD</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml</extra-po-references>
+    </message>
+    <message>
+        <source>DVD-PAL</source>
+        <translation>DVD-PAL</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_pal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>General</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings Category for General</extra-po-references>
+    </message>
+    <message>
+        <source>OGG (theora/flac)</source>
+        <translation>OGG (theora/flac)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_flac.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Advanced Title Editor (path)</source>
+        <translation>Embanner titloù kempleshoc&apos;h (treug)</translation>
+        <extra-po-references>Settings for title_editor</extra-po-references>
     </message>
     <message>
         <source>Enable Autosave</source>
@@ -3148,120 +3323,14 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/vimeo_HD.xml</extra-po-references>
     </message>
     <message>
-        <source>Debug Mode (Port)</source>
-        <translation>Mod diveugañ (Porzh)</translation>
-        <extra-po-references>Settings for debug-port</extra-po-references>
-    </message>
-    <message>
-        <source>Xbox 360</source>
-        <translation>Xbox 360</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/xbox360.xml</extra-po-references>
-    </message>
-    <message>
-        <source>DVD-PAL</source>
-        <translation>DVD-PAL</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_pal.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Default Audio Channels</source>
-        <translation>Sanelloù aodio dre ziouer</translation>
-        <extra-po-references>Settings for default-channellayout</extra-po-references>
-    </message>
-    <message>
-        <source>MP4 (Xvid)</source>
-        <translation>MP4 (Xvid)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_xvid.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Default Audio Sample Rate</source>
-        <translation>Feur aodio dre ziouer</translation>
-        <extra-po-references>Settings for default-samplerate</extra-po-references>
-    </message>
-    <message>
-        <source>Language</source>
-        <translation>Yezh</translation>
-        <extra-po-references>Settings for default-language</extra-po-references>
-    </message>
-    <message>
-        <source>Flickr-HD</source>
-        <translation>Flickr-HD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/flickr_HD.xml</extra-po-references>
-    </message>
-    <message>
-        <source>MPEG (mpeg2)</source>
-        <translation>MPEG (mpeg2)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mpeg_mpeg2.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Advanced Title Editor (path)</source>
-        <translation>Embanner titloù kempleshoc&apos;h (treug)</translation>
-        <extra-po-references>Settings for title_editor</extra-po-references>
-    </message>
-    <message>
-        <source>DVD</source>
-        <translation>DVD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml</extra-po-references>
-    </message>
-    <message>
-        <source>YouTube</source>
-        <translation>YouTube</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/youtube.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Wikipedia</source>
-        <translation>Wikipedia</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/wikipedia.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Autosave Interval (minutes)</source>
-        <translation>Etremez enrollañ emgefreek (munutennoù)</translation>
-        <extra-po-references>Settings for autosave-interval</extra-po-references>
-    </message>
-    <message>
-        <source>MP4 (mpeg4)</source>
-        <translation>MP4 (mpeg4)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_mpeg4.xml</extra-po-references>
-    </message>
-    <message>
         <source>Metacafe</source>
         <translation>Metacafe</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml</extra-po-references>
     </message>
     <message>
-        <source>AVI (h.264)</source>
-        <translation>AVI (h.264)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_x264.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Default Theme</source>
-        <translation>Neuz dre ziouer</translation>
-        <extra-po-references>Settings for theme</extra-po-references>
-    </message>
-    <message>
-        <source>DVD-NTSC</source>
-        <translation>DVD-NTSC</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml</extra-po-references>
-    </message>
-    <message>
-        <source>OGG (theora/vorbis)</source>
-        <translation>OGG (theora/vorbis)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_libvorbis.xml</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="118"/>
-        <source>Vimeo</source>
-        <translation>Vimeo</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/vimeo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>AVI (mpeg4)</source>
-        <translation>AVI (mpeg4)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mp4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Default Profile</source>
-        <translation>Aelad dre ziouer</translation>
-        <extra-po-references>Settings for default-profile</extra-po-references>
+        <source>Send Anonymous Metrics and Errors</source>
+        <translation>Kas roadennoù dizanv ha fazioù</translation>
+        <extra-po-references>Settings for send_metrics</extra-po-references>
     </message>
     <message>
         <source>Image Length (seconds)</source>
@@ -3269,509 +3338,39 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <extra-po-references>Settings for default-image-length</extra-po-references>
     </message>
     <message>
-        <source>Picasa</source>
-        <translation>Picasa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/picasa.xml</extra-po-references>
+        <source>AVI (mpeg4)</source>
+        <translation>AVI (mpeg4)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mp4.xml</extra-po-references>
     </message>
     <message>
-        <source>Spiral big %s</source>
-        <translation>Troellenn vras %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big_2.jpg</extra-po-references>
+        <source>YouTube</source>
+        <translation>YouTube</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/youtube.xml</extra-po-references>
     </message>
     <message>
-        <source>Middle top arrow</source>
-        <translation>Bir krec&apos;h kreiz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_top_arrow.jpg</extra-po-references>
+        <source>AVI (h.264)</source>
+        <translation>AVI (h.264)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_x264.xml</extra-po-references>
     </message>
     <message>
-        <source>Right arrow</source>
-        <translation>Bir dehou</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_arrow.jpg</extra-po-references>
+        <source>Apple TV</source>
+        <translation>Apple TV</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml</extra-po-references>
     </message>
     <message>
-        <source>Big cross right barr</source>
-        <translation>Barrenn vras kroaz dehou</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_right_barr.jpg</extra-po-references>
+        <source>FLV (h.264)</source>
+        <translation>FLV (h.264)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_flv_x264.xml</extra-po-references>
     </message>
     <message>
-        <source>Square middle right barr</source>
-        <translation>Barrenn greiz karrez dehou</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_right_barr.jpg</extra-po-references>
+        <source>Default Profile</source>
+        <translation>Aelad dre ziouer</translation>
+        <extra-po-references>Settings for default-profile</extra-po-references>
     </message>
     <message>
-        <source>Puzzle</source>
-        <translation>Miltamm</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/puzzle.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Lateral right triangle</source>
-        <translation>Tric&apos;horn a-stlez dehou</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_right_triangle.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Big barr shaking2</source>
-        <translation>Barrenn vras fiñvus2</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral %s</source>
-        <translation>Troellenn %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Central mozaic</source>
-        <translation>Marelladur kreiz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/central_mozaic.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle barr ripple %s</source>
-        <translation>Barrenn gwagennet kreiz %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr_ripple_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>4 squares leftt barr</source>
-        <translation>Barrenn gleiz 4 c&apos;harrez</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_leftt_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wave left up</source>
-        <translation>Gwagenn krec&apos;h kleiz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_up.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ray %s</source>
-        <translation>Skin %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Cross %s</source>
-        <translation>Kroaz %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/cross_15.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Blinds in to out</source>
-        <translation>Stignoù davet an diavaez</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Whirpool %s</source>
-        <translation>Troenn %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/whirpool_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Luminous frame %s</source>
-        <translation>Framm gouloù %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_frame_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wipe right to left</source>
-        <translation>C&apos;hwilerviñ davet an tu kleiz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_right_to_left.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Rectangle out to in</source>
-        <translation>Reizhkornek davet an diabarzh</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_out_to_in.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wandering %s</source>
-        <translation>Kantreal %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wandering_12.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Hatched %s</source>
-        <translation>Linennaouet %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/hatched_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Square middle left barr</source>
-        <translation>Barrenn greiz karrez kleiz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_left_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Sphere %s</source>
-        <translation>Pellenn %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wave right up</source>
-        <translation>Gwagenn dehou krec&apos;h</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_up.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Mozaic %s</source>
-        <translation>Marelladur %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_5.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle barr</source>
-        <translation>Barren greiz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Small low arrow</source>
-        <translation>Birig izel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_low_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Small losange</source>
-        <translation>Lankellig</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_losange.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Little left inspiration</source>
-        <translation>Awen vihan kleiz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_left_inspiration.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wave right down</source>
-        <translation>Gwagenn diskenn a-zehou</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_down.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Star %s</source>
-        <translation>Steredenn %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/star_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wipe left to right</source>
-        <translation>C&apos;hwilerviñ war an tu dehou</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_left_to_right.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Ripple luminous top arrow</source>
-        <translation>Bir goulaouet gwagennet krec&apos;h</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_top_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Deform %s</source>
-        <translation>Distummañ %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/deform_8.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Left arrow</source>
-        <translation>Bir kleiz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Small barr</source>
-        <translation>Barrennig</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Lateral left triangle</source>
-        <translation>Tic&apos;horn a-stlez kleiz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_left_triangle.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Blur ray left</source>
-        <translation>Skin ruzed kleiz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_left.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Postime %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/postime_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ray light left %s</source>
-        <translation>Skin gouloù a-gleiz %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Vertical blinds in to out</source>
-        <translation>Stignoù a-serzh davet an diavaez</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Blinds in to out big</source>
-        <translation>Stignoù bras davet an diavaez</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out_big.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Sunlight %s</source>
-        <translation>Gouloù heol %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sunlight_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle left inspiration</source>
-        <translation>Awen grenn kleiz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_left_inspiration.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Fogg %s</source>
-        <translation>Latar %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fogg_3.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Mountains</source>
-        <translation>Menezioù</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mountains.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Clouds %s</source>
-        <translation>Koumoul %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Small cross right barr</source>
-        <translation>Barrennig kroaz dehou</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_right_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Big cross left barr</source>
-        <translation>Barrenn vras kroz kleiz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_left_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Strange barr %s</source>
-        <translation>Barrenn iskis %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/strange_barr_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Frame %s</source>
-        <translation>Framm %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Circle out to in</source>
-        <translation>Kelc&apos;h davet an diabarzh</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_out_to_in.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Future %s</source>
-        <translation>Dazont %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/future_11.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Foggy spiral %s</source>
-        <translation>Troellenn latar %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/foggy_spiral_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Blur right barr</source>
-        <translation>Barrenn ruzed dehou</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_right_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Bubbles</source>
-        <translation>Klogor</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/bubbles.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>4 squares right barr</source>
-        <translation>Barrenn dehou 4 c&apos;harrez</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_right_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Horizontal barr %s</source>
-        <translation>Barrenn a-blaen %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/horizontal_barr_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Circle in to out</source>
-        <translation>Kelc&apos;h davet an diavaez</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_in_to_out.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Ray light right %s</source>
-        <translation>Skin gouloù dehou %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ray light left</source>
-        <translation>Skin gouloù kleiz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wipe top to bottom</source>
-        <translation>C&apos;hwilerviñ davet an traoñ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_top_to_bottom.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Luminous spiral %s</source>
-        <translation>Troellenn goulaouet %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_spiral_9.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Triangle %s</source>
-        <translation>Tic&apos;horn %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/triangle_3.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ray light %s</source>
-        <translation>Skin gouloù %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_18.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ray light right</source>
-        <translation>Skin gouloù dehou</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Mozaic barr right</source>
-        <translation>Barrenn varelladur dehou</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ripple low arrow</source>
-        <translation>Bir gwagennet izel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_low_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ripple top arrow</source>
-        <translation>Bir gwagennet krec&apos;h</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_top_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Frame barr right</source>
-        <translation>Framm barrenn dehou</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Board %s</source>
-        <translation>Taolenn %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/board_10.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ripple luminous low arrow</source>
-        <translation>Bir goulaouet izel gwagennet</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_low_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Free left inspiration</source>
-        <translation>Awen zieub kleiz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_left_inspiration.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wipe bottom to top</source>
-        <translation>C&apos;hwilerviñ davet ar c&apos;hrec&apos;h</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_bottom_to_top.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Checked %s</source>
-        <translation>Gwririekaet %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/checked_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral small</source>
-        <translation>Troellennig</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Clock left to right</source>
-        <translation>Horolaj kleiz da zehou</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_left_to_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Blinds sliding</source>
-        <translation>Stignoù riklus</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_sliding.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Free inspiration right</source>
-        <translation>Awen zieub dehou</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_inspiration_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wave left down</source>
-        <translation>Gwagenn gleiz traoñ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_down.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Right mozaic</source>
-        <translation>Marelladur dehou</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Mozaic barr left</source>
-        <translation>Barrenn gleiz marelladur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_left.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Hourglass %s</source>
-        <translation>Eurier-traezh %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/hourglass_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Sphere</source>
-        <translation>Pellenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Little rippling left</source>
-        <translation>Gwagennig gleiz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_left.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle low arrow</source>
-        <translation>Bir kreiz izel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_low_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral small %s</source>
-        <translation>Troellennig %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral abstract %s</source>
-        <translation>Troellennoù goubarek %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_abstract_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Frame barr left</source>
-        <translation>Barrenn frammet kleiz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_left.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Twirl %s</source>
-        <translation>Troidellat %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/twirl_26.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Vertical blinds in to out big</source>
-        <translation>Stignoù bras a-serzh davet an diavaez</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out_big.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle cross left barr</source>
-        <translation>Barrenn groaz kreiz kleiz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_left_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle right inspiration</source>
-        <translation>Awen grenn kreiz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_right_inspiration.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Frame cross left barr</source>
-        <translation>Framm kroaz barrenn gleiz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_cross_left_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spots</source>
-        <translation>Pikoù</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spots.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Luminous boxes %s</source>
-        <translation>Boestoù gouloù %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_boxes_19.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Stain %s</source>
-        <translation>Intr %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/stain_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Boxes %s</source>
-        <translation>Boestoù %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/boxes_12.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Square right barr</source>
-        <translation>Barrenn dehou karrez</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_right_barr.jpg</extra-po-references>
+        <source>Fish-eyes %s</source>
+        <translation>Fish-eyes %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fish-eyes_5.jpg</extra-po-references>
     </message>
     <message>
         <source>Small cross left barr</source>
@@ -3779,39 +3378,144 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_left_barr.jpg</extra-po-references>
     </message>
     <message>
-        <source>Fractal %s</source>
-        <translation>Brevenn %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fractal_5.jpg</extra-po-references>
+        <source>Mountains</source>
+        <translation>Menezioù</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mountains.jpg</extra-po-references>
     </message>
     <message>
-        <source>Flower %s</source>
-        <translation>Bleunienn %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/flower_4.jpg</extra-po-references>
+        <source>Ripple luminous low arrow</source>
+        <translation>Bir goulaouet izel gwagennet</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_low_arrow.jpg</extra-po-references>
     </message>
     <message>
-        <source>Right mozaic %s</source>
-        <translation>Marelladur dehou %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic_2.jpg</extra-po-references>
+        <source>Rectangle out to in</source>
+        <translation>Reizhkornek davet an diabarzh</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_out_to_in.jpg</extra-po-references>
     </message>
     <message>
-        <source>Blur ray right</source>
-        <translation>Skin ruzed dehou</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_right.jpg</extra-po-references>
+        <source>Big barr shaking %s</source>
+        <translation>Barrenn vras fiñvus %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking_1.jpg</extra-po-references>
     </message>
     <message>
-        <source>Little right inspiration</source>
-        <translation>Awen vihan dehou</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_right_inspiration.jpg</extra-po-references>
+        <source>Wipe top to bottom</source>
+        <translation>C&apos;hwilerviñ davet an traoñ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_top_to_bottom.svg</extra-po-references>
     </message>
     <message>
-        <source>Clock right to left</source>
-        <translation>Horolaj dehou da gleiz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_right_to_left.jpg</extra-po-references>
+        <source>Spiral small</source>
+        <translation>Troellennig</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small.jpg</extra-po-references>
     </message>
     <message>
-        <source>Wipe diagonal %s</source>
-        <translation>C&apos;hwilerviñ a-veskell %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wipe_diagonal_3.jpg</extra-po-references>
+        <source>Hatched %s</source>
+        <translation>Linennaouet %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/hatched_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Cross %s</source>
+        <translation>Kroaz %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/cross_15.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Board %s</source>
+        <translation>Taolenn %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/board_10.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Foggy spiral %s</source>
+        <translation>Troellenn latar %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/foggy_spiral_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>4 squares leftt barr</source>
+        <translation>Barrenn gleiz 4 c&apos;harrez</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_leftt_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle top arrow</source>
+        <translation>Bir krec&apos;h kreiz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_top_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle barr</source>
+        <translation>Barren greiz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Sun shaking</source>
+        <translation>Heol fiñvus</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sun_shaking.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Dissolve</source>
+        <translation>Loezañ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/dissolve.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Mozaic %s</source>
+        <translation>Marelladur %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_5.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Frame barr left</source>
+        <translation>Barrenn frammet kleiz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_left.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Mozaic barr right</source>
+        <translation>Barrenn varelladur dehou</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ray light right</source>
+        <translation>Skin gouloù dehou</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Frame barr right</source>
+        <translation>Framm barrenn dehou</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral %s</source>
+        <translation>Troellenn %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wave right down</source>
+        <translation>Gwagenn diskenn a-zehou</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_down.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral big %s</source>
+        <translation>Troellenn vras %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ray light left</source>
+        <translation>Skin gouloù kleiz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Future %s</source>
+        <translation>Dazont %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/future_11.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle black barr</source>
+        <translation>Barrenn zu kreiz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_black_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Vertical bars</source>
+        <translation>Barrennoù a-serzh</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_bars.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Hourglass %s</source>
+        <translation>Eurier-traezh %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/hourglass_1.jpg</extra-po-references>
     </message>
     <message>
         <source>Mosaic %s</source>
@@ -3819,9 +3523,69 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mosaic_2.jpg</extra-po-references>
     </message>
     <message>
-        <source>Blur left barr</source>
-        <translation>Barrenn ruzed kleiz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_left_barr.jpg</extra-po-references>
+        <source>Sphere</source>
+        <translation>Pellenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>4 squares right barr</source>
+        <translation>Barrenn dehou 4 c&apos;harrez</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Square middle left barr</source>
+        <translation>Barrenn greiz karrez kleiz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_left_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Small losange</source>
+        <translation>Lankellig</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_losange.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Clock right to left</source>
+        <translation>Horolaj dehou da gleiz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_right_to_left.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle left inspiration</source>
+        <translation>Awen grenn kleiz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_left_inspiration.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Bubbles</source>
+        <translation>Klogor</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/bubbles.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Little left inspiration</source>
+        <translation>Awen vihan kleiz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_left_inspiration.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Circle out to in</source>
+        <translation>Kelc&apos;h davet an diabarzh</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_out_to_in.svg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral abstract %s</source>
+        <translation>Troellennoù goubarek %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_abstract_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Fractal %s</source>
+        <translation>Brevenn %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fractal_5.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ripple top arrow</source>
+        <translation>Bir gwagennet krec&apos;h</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_top_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wipe left to right</source>
+        <translation>C&apos;hwilerviñ war an tu dehou</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_left_to_right.svg</extra-po-references>
     </message>
     <message>
         <source>Barr ripple %s</source>
@@ -3829,71 +3593,9 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/barr_ripple_2.jpg</extra-po-references>
     </message>
     <message>
-        <source>Ripple %s</source>
-        <translation>Gwagennañ %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_4.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral medium</source>
-        <translation>Troellenn grenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_medium.jpg</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="749"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="752"/>
-        <source>Common</source>
-        <translation>Boutin</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral big</source>
-        <translation>Troellenn vras</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Rectangle in to out</source>
-        <translation>Reizhkornek davet an diavaez</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_in_to_out.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Crossed barr</source>
-        <translation>Barrenn kroazet</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/crossed_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Extra</source>
-        <translation>Ouzhpenn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra</extra-po-references>
-    </message>
-    <message>
-        <source>Big losange</source>
-        <translation>Lankell vras</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_losange.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle losange</source>
-        <translation>Lankell greiz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_losange.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ondulation %s</source>
-        <translation>Gwagenniñ %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ondulation_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Clouds</source>
-        <translation>Koumoul</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Stretched %s</source>
-        <translation>Astennet %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/stretched_3.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle black barr</source>
-        <translation>Barrenn zu kreiz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_black_barr.jpg</extra-po-references>
+        <source>Blinds sliding</source>
+        <translation>Stignoù riklus</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_sliding.jpg</extra-po-references>
     </message>
     <message>
         <source>Little rippling right</source>
@@ -3906,34 +3608,121 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/openshot_logo.jpg</extra-po-references>
     </message>
     <message>
-        <source>Big barr</source>
-        <translation>Barrenn vras</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr.jpg</extra-po-references>
+        <source>Right mozaic</source>
+        <translation>Marelladur dehou</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic.jpg</extra-po-references>
     </message>
     <message>
-        <source>Middle cross right barr</source>
-        <translation>Barrenn kroz kreiz dehou</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_right_barr.jpg</extra-po-references>
+        <source>Stretched %s</source>
+        <translation>Astennet %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/stretched_3.jpg</extra-po-references>
     </message>
     <message>
-        <source>Left mozaic</source>
-        <translation>Marelladur kleiz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_mozaic.jpg</extra-po-references>
+        <source>Postime %s</source>
+        <translation>Postime %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/postime_1.jpg</extra-po-references>
     </message>
     <message>
-        <source>Dissolve</source>
-        <translation>Loezañ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/dissolve.jpg</extra-po-references>
+        <source>Spiral small %s</source>
+        <translation>Troellennig %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small_2.jpg</extra-po-references>
     </message>
     <message>
-        <source>Fish-eyes %s</source>
-        <translation>Fish-eyes %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fish-eyes_5.jpg</extra-po-references>
+        <source>Blinds in to out big</source>
+        <translation>Stignoù bras davet an diavaez</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out_big.jpg</extra-po-references>
     </message>
     <message>
-        <source>Sun shaking</source>
-        <translation>Heol fiñvus</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sun_shaking.jpg</extra-po-references>
+        <source>Luminous frame %s</source>
+        <translation>Framm gouloù %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_frame_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Extra</source>
+        <translation>Ouzhpenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra</extra-po-references>
+    </message>
+    <message>
+        <source>Mozaic barr left</source>
+        <translation>Barrenn gleiz marelladur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_left.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ray light right %s</source>
+        <translation>Skin gouloù dehou %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Stain %s</source>
+        <translation>Intr %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/stain_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Free left inspiration</source>
+        <translation>Awen zieub kleiz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_left_inspiration.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Circle in to out</source>
+        <translation>Kelc&apos;h davet an diavaez</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_in_to_out.svg</extra-po-references>
+    </message>
+    <message>
+        <source>Vertical blinds in to out</source>
+        <translation>Stignoù a-serzh davet an diavaez</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Vertical blinds in to out big</source>
+        <translation>Stignoù bras a-serzh davet an diavaez</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out_big.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Sunlight %s</source>
+        <translation>Gouloù heol %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sunlight_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ondulation %s</source>
+        <translation>Gwagenniñ %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ondulation_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Checked %s</source>
+        <translation>Gwririekaet %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/checked_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Clouds</source>
+        <translation>Koumoul</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Lateral left triangle</source>
+        <translation>Tic&apos;horn a-stlez kleiz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_left_triangle.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Big barr shaking2</source>
+        <translation>Barrenn vras fiñvus2</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Strange barr %s</source>
+        <translation>Barrenn iskis %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/strange_barr_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Frame %s</source>
+        <translation>Framm %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="736"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="739"/>
+        <source>Common</source>
+        <translation>Boutin</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common</extra-po-references>
     </message>
     <message>
         <source>Distortion %s</source>
@@ -3941,14 +3730,319 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg</extra-po-references>
     </message>
     <message>
-        <source>Big barr shaking %s</source>
-        <translation>Barrenn vras fiñvus %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking_1.jpg</extra-po-references>
+        <source>Frame cross left barr</source>
+        <translation>Framm kroaz barrenn gleiz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_cross_left_barr.jpg</extra-po-references>
     </message>
     <message>
-        <source>Vertical bars</source>
-        <translation>Barrennoù a-serzh</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_bars.jpg</extra-po-references>
+        <source>Fogg %s</source>
+        <translation>Latar %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fogg_3.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spots</source>
+        <translation>Pikoù</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spots.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wipe bottom to top</source>
+        <translation>C&apos;hwilerviñ davet ar c&apos;hrec&apos;h</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_bottom_to_top.svg</extra-po-references>
+    </message>
+    <message>
+        <source>Right arrow</source>
+        <translation>Bir dehou</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ray light %s</source>
+        <translation>Skin gouloù %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_18.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Little rippling left</source>
+        <translation>Gwagennig gleiz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_left.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle losange</source>
+        <translation>Lankell greiz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_losange.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle cross right barr</source>
+        <translation>Barrenn kroz kreiz dehou</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Clouds %s</source>
+        <translation>Koumoul %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Square middle right barr</source>
+        <translation>Barrenn greiz karrez dehou</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wave right up</source>
+        <translation>Gwagenn dehou krec&apos;h</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_up.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ray light left %s</source>
+        <translation>Skin gouloù a-gleiz %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Twirl %s</source>
+        <translation>Troidellat %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/twirl_26.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Square right barr</source>
+        <translation>Barrenn dehou karrez</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Big cross right barr</source>
+        <translation>Barrenn vras kroaz dehou</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Rectangle in to out</source>
+        <translation>Reizhkornek davet an diavaez</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_in_to_out.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Puzzle</source>
+        <translation>Miltamm</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/puzzle.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle barr ripple %s</source>
+        <translation>Barrenn gwagennet kreiz %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr_ripple_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wave left down</source>
+        <translation>Gwagenn gleiz traoñ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_down.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wipe right to left</source>
+        <translation>C&apos;hwilerviñ davet an tu kleiz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_right_to_left.svg</extra-po-references>
+    </message>
+    <message>
+        <source>Boxes %s</source>
+        <translation>Boestoù %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/boxes_12.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ray %s</source>
+        <translation>Skin %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Left arrow</source>
+        <translation>Bir kleiz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wave left up</source>
+        <translation>Gwagenn krec&apos;h kleiz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_up.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Luminous spiral %s</source>
+        <translation>Troellenn goulaouet %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_spiral_9.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral big</source>
+        <translation>Troellenn vras</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle cross left barr</source>
+        <translation>Barrenn groaz kreiz kleiz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_left_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Square left barr</source>
+        <translation>Barrenn gleiz karrez</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_left_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Star %s</source>
+        <translation>Steredenn %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/star_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wipe diagonal %s</source>
+        <translation>C&apos;hwilerviñ a-veskell %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wipe_diagonal_3.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Lateral right triangle</source>
+        <translation>Tric&apos;horn a-stlez dehou</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_right_triangle.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Blur ray left</source>
+        <translation>Skin ruzed kleiz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_left.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Luminous boxes %s</source>
+        <translation>Boestoù gouloù %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_boxes_19.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wandering %s</source>
+        <translation>Kantreal %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wandering_12.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Small cross right barr</source>
+        <translation>Barrennig kroaz dehou</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Whirpool %s</source>
+        <translation>Troenn %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/whirpool_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Blur right barr</source>
+        <translation>Barrenn ruzed dehou</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Big barr</source>
+        <translation>Barrenn vras</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Clock left to right</source>
+        <translation>Horolaj kleiz da zehou</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_left_to_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Small barr</source>
+        <translation>Barrennig</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Big cross left barr</source>
+        <translation>Barrenn vras kroz kleiz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_left_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Big losange</source>
+        <translation>Lankell vras</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_losange.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ripple %s</source>
+        <translation>Gwagennañ %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_4.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Little right inspiration</source>
+        <translation>Awen vihan dehou</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_right_inspiration.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Central mozaic</source>
+        <translation>Marelladur kreiz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/central_mozaic.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral medium</source>
+        <translation>Troellenn grenn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_medium.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Horizontal barr %s</source>
+        <translation>Barrenn a-blaen %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/horizontal_barr_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Blur left barr</source>
+        <translation>Barrenn ruzed kleiz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_left_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Deform %s</source>
+        <translation>Distummañ %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/deform_8.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ripple luminous top arrow</source>
+        <translation>Bir goulaouet gwagennet krec&apos;h</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_top_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Left mozaic</source>
+        <translation>Marelladur kleiz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_mozaic.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle right inspiration</source>
+        <translation>Awen grenn kreiz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_right_inspiration.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Blinds in to out</source>
+        <translation>Stignoù davet an diavaez</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Sphere %s</source>
+        <translation>Pellenn %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Blur ray right</source>
+        <translation>Skin ruzed dehou</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Crossed barr</source>
+        <translation>Barrenn kroazet</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/crossed_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Free inspiration right</source>
+        <translation>Awen zieub dehou</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_inspiration_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Right mozaic %s</source>
+        <translation>Marelladur dehou %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Triangle %s</source>
+        <translation>Tic&apos;horn %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/triangle_3.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ripple low arrow</source>
+        <translation>Bir gwagennet izel</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_low_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Flower %s</source>
+        <translation>Bleunienn %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/flower_4.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Small low arrow</source>
+        <translation>Birig izel</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_low_arrow.jpg</extra-po-references>
     </message>
     <message>
         <source>Small top arrow</source>
@@ -3956,9 +4050,9 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_top_arrow.jpg</extra-po-references>
     </message>
     <message>
-        <source>Square left barr</source>
-        <translation>Barrenn gleiz karrez</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_left_barr.jpg</extra-po-references>
+        <source>Middle low arrow</source>
+        <translation>Bir kreiz izel</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_low_arrow.jpg</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/about.ui" line="23"/>
@@ -4081,6 +4175,7 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/animated-title.ui" line="59"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/animation.ui" line="341"/>
         <source>Preview</source>
         <translation>Alberz</translation>
     </message>
@@ -4098,6 +4193,69 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <location filename="../../../../openshot-qt-git/src/windows/ui/animated-title.ui" line="114"/>
         <source>Refresh</source>
         <translation>Azbevaat</translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/animation.ui" line="14"/>
+        <source>Animation</source>
+        <translation>Bliverezh</translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/animation.ui" line="46"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="146"/>
+        <source>Details</source>
+        <translation>Munudoù</translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/animation.ui" line="60"/>
+        <source>Loop (Repeat)</source>
+        <translation>Kelc&apos;hiad (adlenn)</translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/animation.ui" line="77"/>
+        <source># of Frames:</source>
+        <translation>Niver a skeudennoù:</translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/animation.ui" line="141"/>
+        <source>Name:</source>
+        <translation>Anv:</translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/animation.ui" line="148"/>
+        <source>YourAnimation</source>
+        <translation>HoPliverezh</translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/animation.ui" line="165"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="644"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="379"/>
+        <source>Frame Rate:</source>
+        <translation>Feur skeudenn:</translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/animation.ui" line="235"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="723"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="461"/>
+        <source>Width:</source>
+        <translation>Ledander:</translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/animation.ui" line="273"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="513"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="215"/>
+        <source>Height:</source>
+        <translation>Uhelder:</translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/animation.ui" line="318"/>
+        <source>Color:</source>
+        <translation>Liv:</translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/animation.ui" line="400"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="76"/>
+        <source>00:00:00:1</source>
+        <translation>00:00:00:1</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="31"/>
@@ -4143,11 +4301,6 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="44"/>
         <source>Choose the &lt;b&gt;start&lt;/b&gt; and &lt;b&gt;end&lt;/b&gt; of each clip</source>
         <translation>Dibabit &lt;b&gt;deroù&lt;/b&gt; ha  &lt;b&gt;dibenn&lt;/b&gt; pep klip</translation>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="76"/>
-        <source>00:00:00:1</source>
-        <translation>00:00:00:1</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="93"/>
@@ -4271,12 +4424,6 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <translation>Aelad</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="513"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="215"/>
-        <source>Height:</source>
-        <translation>Uhelder:</translation>
-    </message>
-    <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="546"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="257"/>
         <source>Aspect Ratio:</source>
@@ -4289,22 +4436,10 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <translation>Feur piksel:</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="644"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="379"/>
-        <source>Frame Rate:</source>
-        <translation>Feur skeudenn:</translation>
-    </message>
-    <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="696"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="431"/>
         <source>Interlaced:</source>
         <translation>Gweadennet</translation>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="723"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="461"/>
-        <source>Width:</source>
-        <translation>Ledander:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="757"/>
@@ -4394,11 +4529,6 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
         <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="100"/>
         <source>File Path:</source>
         <translation>Treug ar restr:</translation>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="146"/>
-        <source>Details</source>
-        <translation>Munudoù</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="198"/>
@@ -4528,500 +4658,506 @@ Fellout a ra deoc&apos;h erlec&apos;hiañ anezhi?</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="256"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1228"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1215"/>
         <source>Properties</source>
         <translation>Perzhioù</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="298"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="285"/>
         <source>New Project...</source>
         <translation>Raktres nevez...</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="301"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="288"/>
         <source>New Project</source>
         <translation>Raktres nevez</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="304"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="291"/>
         <source>Ctrl+N</source>
         <translation>Reol.+N</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="316"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="303"/>
         <source>Open Project</source>
         <translation>Digeriñ ur raktres</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="319"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="306"/>
         <source>Ctrl+O</source>
         <translation>Reol+O</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="328"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="331"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="315"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="318"/>
         <source>Save Project</source>
         <translation>Enrollañ ar raktres</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="334"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="321"/>
         <source>Ctrl+S</source>
         <translation>Reol+S</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="343"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="346"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="330"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="333"/>
         <source>Undo</source>
         <translation>Dizober</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="349"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="336"/>
         <source>Ctrl+Z</source>
         <translation>Reol+Z</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="364"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="351"/>
         <source>Ctrl+Shift+S</source>
         <translation>Reol+Pennlizh+S</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="373"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="360"/>
         <source>Import Files...</source>
         <translation>Enporzhiañ restroù...</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="376"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="363"/>
         <source>Import Files</source>
         <translation>Enporzhiañ restroù</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="379"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="366"/>
         <source>Ctrl+F</source>
         <translation>Reol+F</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="388"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="375"/>
         <source>Import Image Sequence...</source>
         <translation>Enporzhiañ un heuliad a skeudennoù...</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="394"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="938"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="381"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="925"/>
         <source>Ctrl+I</source>
         <translation>Reol+I</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="403"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="390"/>
         <source>Import New Transition...</source>
         <translation>Enporzhiañ un ardreuzad nevez...</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="406"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="393"/>
         <source>Import New Transition</source>
         <translation>Enporzhiañ un ardreuzad nevez</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="409"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="396"/>
         <source>Ctrl+W</source>
         <translation>Reol+W</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="418"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="421"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="405"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="408"/>
         <source>Redo</source>
         <translation>Adober</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="424"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="411"/>
         <source>Ctrl+Y</source>
         <translation>Reol+Y</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="433"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="436"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="420"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="423"/>
         <source>Remove Clip</source>
         <translation>Dilemel ar c&apos;hlip</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="445"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="448"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="432"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="435"/>
         <source>Remove Transition</source>
         <translation>Dilemel an ardreuzad</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="463"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="450"/>
         <source>Ctrl+Shift+E</source>
         <translation>Reol+Pennlizh+E</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="472"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="475"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="459"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="462"/>
         <source>Upload Video</source>
         <translation>Pellgas ur video</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="478"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="465"/>
         <source>Ctrl+U</source>
         <translation>Reol+U</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="488"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="475"/>
         <source>&amp;Quit</source>
         <translation>&amp;Kuitaat</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="491"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="478"/>
         <source>Quit</source>
         <translation>Kuitaat</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="494"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="481"/>
         <source>Ctrl+Q</source>
         <translation>Reol+Q</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="506"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="509"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="493"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="496"/>
         <source>Add Track</source>
         <translation>Ouzhpennañ ul loabr</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="518"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="505"/>
         <source>&amp;Preferences</source>
         <translation>&amp;Gwellvezioù</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="521"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="508"/>
         <source>Preferences</source>
         <translation>Gwellvezioù</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="524"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="511"/>
         <source>Ctrl+Shift+P</source>
         <translation>Reol+Pennlizh+P</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="536"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="539"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="523"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="526"/>
         <source>Play</source>
         <translation>Lenn</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="548"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="551"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="535"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="538"/>
         <source>Jump To Start</source>
         <translation>Mont d&apos;an deroù</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="560"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="563"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="547"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="550"/>
         <source>Rewind</source>
         <translation>War-gil</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="572"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="575"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="559"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="562"/>
         <source>Fast Forward</source>
         <translation>Tremen buan</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="584"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="587"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="571"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="574"/>
         <source>Jump To End</source>
         <translation>Mont d&apos;an dibenn</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="599"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="602"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="586"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="589"/>
         <source>Arrow Tool</source>
         <translation>Ostilh diuzañ</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="614"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="617"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="601"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="604"/>
         <source>Razor Tool</source>
         <translation>Ostilh didroc&apos;hañ</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="632"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="635"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="619"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="622"/>
         <source>Snapping Enabled</source>
         <translation>Gweredekaet an desteudadur</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="644"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="647"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="631"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="634"/>
         <source>Add Marker</source>
         <translation>Ouzhpennañ ur merker</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="650"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="637"/>
         <source>Ctrl+M</source>
         <translation>Reol+M</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="659"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="662"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="646"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="649"/>
         <source>Previous Marker</source>
         <translation>Merker kent</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="671"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="674"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="658"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="661"/>
         <source>Next Marker</source>
         <translation>Merker war-lec&apos;h</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="682"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="685"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="738"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="741"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="772"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="775"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1050"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="669"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="672"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="725"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="728"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="759"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="762"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1037"/>
         <source>Show All</source>
         <translation>Diskouez pep tra</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="693"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="696"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="783"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="786"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="680"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="683"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="770"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="773"/>
         <source>Video</source>
         <translation>Video</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="704"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="707"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="794"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="797"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="691"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="694"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="781"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="784"/>
         <source>Audio</source>
         <translation>Aodio</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="715"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="718"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="702"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="705"/>
         <source>Image</source>
         <translation>Skeudenn</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="824"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="811"/>
         <source>=</source>
         <translation>=</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="839"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="826"/>
         <source>-</source>
         <translation>-</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="855"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="842"/>
         <source>Ctrl+T</source>
         <translation>Reol+T</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="865"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="868"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="852"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="855"/>
         <source>Animated Title</source>
         <translation>Titl fiñvus</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="871"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="858"/>
         <source>Ctrl+B</source>
         <translation>Reol+B</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="884"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="887"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="871"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="874"/>
         <source>Fullscreen</source>
         <translation>Skrammad a-bezh</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="890"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="877"/>
         <source>F11</source>
         <translation>F11</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="902"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="905"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="889"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="892"/>
         <source>View Toolbar</source>
         <translation>Gwelout ar varrenn ostilhoù</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="920"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="907"/>
         <source>Ctrl+H</source>
         <translation>Reol+H</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="932"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="935"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="919"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="922"/>
         <source>Thumbnail View</source>
         <translation>Gwel ar skeudennig</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="947"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="950"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="934"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="937"/>
         <source>Details View</source>
         <translation>Gwel munudoù</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="953"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="940"/>
         <source>Ctrl+D</source>
         <translation>Reol+D</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="962"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="949"/>
         <source>Report a Bug...</source>
         <translation>Danevelliñ ur beug</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="971"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="958"/>
         <source>Ask a Question...</source>
         <translation>Sevel ur goulenn...</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="980"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="967"/>
         <source>Translate this Application...</source>
         <translation>Treiñ an arload-mañ...</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="989"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="976"/>
         <source>Donate</source>
         <translation>Reiñ arc&apos;hant</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="999"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="986"/>
         <source>Contents</source>
         <translation>Endalc&apos;hadoù</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1002"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="989"/>
         <source>Open Help Contents</source>
         <translation>Digeriñ an endalc&apos;hadoù skoazell</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1011"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="998"/>
         <source>Simple View</source>
         <translation>Gwel eeun</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1020"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1007"/>
         <source>Advanced View</source>
         <translation>Gwel kemplezh</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1029"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1016"/>
         <source>Freeze View</source>
         <translation>Skornañ ar gwel</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1038"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1025"/>
         <source>Un-Freeze View</source>
         <translation>Diskornañ ar gwel</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1058"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1045"/>
         <source>Recent Placeholder</source>
         <translation>Erlec&apos;hiad a-nevez</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1070"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1073"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1057"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1060"/>
         <source>Choose Profile</source>
         <translation>Dibab un aelad</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1076"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1063"/>
         <source>Ctrl+P</source>
         <translation>Reol+P</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1085"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1088"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1072"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1075"/>
         <source>Add to Timeline</source>
         <translation>Ouzhpennañ d&apos;ar red-amzer</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1091"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1078"/>
         <source>Ctrl+A</source>
         <translation>Reol+A</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1100"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1103"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1087"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1090"/>
         <source>Preview File</source>
         <translation>Restr alberz</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1112"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1099"/>
         <source>Remove from Project</source>
         <translation>Dilemel eus ar raktres</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1115"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1102"/>
         <source>Remove from </source>
         <translation>Dilemel adalek </translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1149"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1152"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1136"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1139"/>
         <source>Remove Track</source>
         <translation>Dilemel al loabr</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1161"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1164"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1148"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1151"/>
         <source>Remove Marker</source>
         <translation>Dilemel ar merker</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1173"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1176"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1160"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1163"/>
         <source>Add Track Above</source>
         <translation>Ouzhpennañ ul loabr a-us</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1185"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1188"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1172"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1175"/>
         <source>Add Track Below</source>
         <translation>Ouzhpennañ ul loabr dindan</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1197"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1200"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1184"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1187"/>
         <source>Remove Effect</source>
         <translation>Dilemel an efed</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1210"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1197"/>
         <source>Split Clip...</source>
         <translation>Didroc&apos;hañ ar c&apos;hlip...</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1216"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1203"/>
         <source>Ctrl+X</source>
         <translation>Reol+X</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1225"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1212"/>
         <source>&amp;Properties</source>
         <translation>&amp;Perzhioù</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1252"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1255"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1239"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1242"/>
         <source>New Version Available</source>
         <translation>Handelv nevez hegerz</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1271"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1258"/>
         <source>Tutorial</source>
         <translation>Kelennskrid</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1274"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1261"/>
         <source>Launch Tutorial</source>
         <translation>Kelennskrid loc&apos;hañ</translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1271"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1274"/>
+        <source>Create Animation</source>
+        <translation>Krouiñ ar blliverezh</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/presets.ui" line="14"/>

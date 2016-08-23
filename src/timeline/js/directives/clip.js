@@ -29,6 +29,7 @@
 
 // Init variables
 var dragging = false;
+var resize_disabled = false;
 var previous_drag_position = null;
 var start_clips = {};
 var move_clips = {};
@@ -63,6 +64,17 @@ App.directive('tlClip', function($timeout){
 						dragLoc = 'right';
 					}
 
+					// Does this bounding box overlap a locked track?
+					if (hasLockedTrack(scope, e.pageY, e.pageY))
+						return !event; // yes, do nothing
+
+					// Does this bounding box overlap a locked track?
+					var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
+					var track_top = (parseInt(element.position().top) + parseInt(vert_scroll_offset));
+					var track_bottom = (parseInt(element.position().top) + parseInt(element.height()) + parseInt(vert_scroll_offset));
+					if (hasLockedTrack(scope, track_top, track_bottom))
+						resize_disabled = true;
+
 					// Hide keyframe points
 					element.find('.point_icon').fadeOut('fast');
 					element.find('.audio-container').fadeOut('fast');
@@ -70,6 +82,12 @@ App.directive('tlClip', function($timeout){
 				},
 				stop: function(e, ui) {
 					dragging = false;
+
+					if (resize_disabled) {
+						// disabled, do nothing
+						resize_disabled = false;
+						return;
+					}
 
 					// Hide keyframe points
 					if (dragLoc == 'right') {
@@ -136,6 +154,13 @@ App.directive('tlClip', function($timeout){
 
 				},
 				resize: function(e, ui) {
+
+					if (resize_disabled) {
+						// disabled, keep the item the same size
+						$(this).css(ui.originalPosition);
+						$(this).width(ui.originalSize.width);
+						return;
+					}
 
 					// get amount changed in width
 					var delta_x = parseFloat(ui.originalSize.width) - ui.size.width;
@@ -248,6 +273,10 @@ App.directive('tlClip', function($timeout){
                         //send clip to bounding box builder
                         setBoundingBox($(this));
                     });
+					
+					// Does this bounding box overlap a locked track?
+					if (hasLockedTrack(scope, bounding_box.top, bounding_box.bottom))
+						return !event; // yes, do nothing
 		        	
 		        },
                 stop: function(event, ui) {
