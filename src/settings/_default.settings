@@ -251,5 +251,268 @@
     "type": "hidden",
     "category": "Tutorial",
     "setting": "tutorial_ids"
+  },
+
+
+
+  {
+    "category": "Keyboard",
+    "title": "&Preferences",
+    "restart": true,
+    "setting": "actionPreferences",
+    "value": "Ctrl+Shift+P",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "&Quit",
+    "restart": true,
+    "setting": "actionQuit",
+    "value": "Ctrl+Q",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "About OpenShot",
+    "restart": true,
+    "setting": "actionAbout",
+    "value": "Ctrl+H",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Add Marker",
+    "restart": true,
+    "setting": "actionAddMarker",
+    "value": "Ctrl+M",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Add to Timeline",
+    "restart": true,
+    "setting": "actionAdd_to_Timeline",
+    "value": "Ctrl+A",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Animated Title",
+    "restart": true,
+    "setting": "actionAnimatedTitle",
+    "value": "Ctrl+B",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Choose Profile",
+    "restart": true,
+    "setting": "actionProfile",
+    "value": "Ctrl+P",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Details View",
+    "restart": true,
+    "setting": "actionDetailsView",
+    "value": "Ctrl+D",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Export Video",
+    "restart": true,
+    "setting": "actionExportVideo",
+    "value": "Ctrl+E",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Fullscreen",
+    "restart": true,
+    "setting": "actionFullscreen",
+    "value": "F11",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Import Files...",
+    "restart": true,
+    "setting": "actionImportFiles",
+    "value": "Ctrl+F",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "New Project...",
+    "restart": true,
+    "setting": "actionNew",
+    "value": "Ctrl+N",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Open Project...",
+    "restart": true,
+    "setting": "actionOpen",
+    "value": "Ctrl+O",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Redo",
+    "restart": true,
+    "setting": "actionRedo",
+    "value": "Ctrl+Y",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Save Project",
+    "restart": true,
+    "setting": "actionSave",
+    "value": "Ctrl+S",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Save Project As...",
+    "restart": true,
+    "setting": "actionSaveAs",
+    "value": "Ctrl+Shift+S",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Split Clip...",
+    "restart": true,
+    "setting": "actionSplitClip",
+    "value": "Ctrl+X",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Thumbnail View",
+    "restart": true,
+    "setting": "actionThumbnailView",
+    "value": "Ctrl+Shift+D",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Title",
+    "restart": true,
+    "setting": "actionTitle",
+    "value": "Ctrl+T",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Undo",
+    "restart": true,
+    "setting": "actionUndo",
+    "value": "Ctrl+Z",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Zoom In",
+    "restart": true,
+    "setting": "actionTimelineZoomIn",
+    "value": "=",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Zoom Out",
+    "restart": true,
+    "setting": "actionTimelineZoomOut",
+    "value": "-",
+    "type": "text"
+  },
+
+
+
+
+  {
+    "category": "Keyboard",
+    "title": "Previous Frame",
+    "restart": true,
+    "setting": "seekPreviousFrame",
+    "value": "Left",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Next Frame",
+    "restart": true,
+    "setting": "seekNextFrame",
+    "value": "Right",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Rewind",
+    "restart": true,
+    "setting": "rewindVideo",
+    "value": "J",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Fast Forward",
+    "restart": true,
+    "setting": "fastforwardVideo",
+    "value": "L",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Play/Pause Toggle",
+    "restart": true,
+    "setting": "playToggle",
+    "value": "Space",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Play/Pause Toggle (Alternate 1)",
+    "restart": true,
+    "setting": "playToggle1",
+    "value": "Up",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Play/Pause Toggle (Alternate 2)",
+    "restart": true,
+    "setting": "playToggle2",
+    "value": "Down",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Play/Pause Toggle (Alternate 3)",
+    "restart": true,
+    "setting": "playToggle3",
+    "value": "K",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Delete Item",
+    "restart": true,
+    "setting": "deleteItem",
+    "value": "Delete",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Delete Item (Alternate 1)",
+    "restart": true,
+    "setting": "deleteItem1",
+    "value": "Backspace",
+    "type": "text"
   }
 ]

@@ -81,6 +81,7 @@ class Preferences(QDialog):
         self.requires_restart = False
         self.category_names = {}
         self.category_tabs = {}
+        self.category_scrollareas = {}
         # Loop through settings and find all unique categories
         for item in self.settings_data:
             category = item["category"]
@@ -91,13 +92,22 @@ class Preferences(QDialog):
                 if not category in self.category_names:
                     self.category_names[category] = []
 
-                    # Add new category as a tab
-                    tabWidget = QWidget(self)
-                    self.tabCategories.addTab(tabWidget, _(category))
-                    self.category_tabs[category] = tabWidget
+                    # Create scrollarea
+                    scroll_area = QScrollArea(self)
+                    scroll_area.setWidgetResizable(True)
+                    scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+                    scroll_area.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
-                    # Add form layout to this tab
-                    layout = QFormLayout(tabWidget)
+                    # Create tab widget and layout
+                    layout = QVBoxLayout()
+                    tabWidget = QWidget(self)
+                    tabWidget.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+                    tabWidget.setLayout(layout)
+                    scroll_area.setWidget(tabWidget)
+
+                    # Add tab
+                    self.tabCategories.addTab(scroll_area, _(category))
+                    self.category_tabs[category] = tabWidget
 
                 # Append settings into correct category
                 self.category_names[category].append(item)
@@ -203,9 +213,24 @@ class Preferences(QDialog):
 
                 # Add Label and Widget to the form
                 if (widget and label):
-                    tabWidget.layout().addRow(label, widget)
+                    # Add minimum size
+                    label.setMinimumWidth(180);
+                    label.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+                    widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+
+                    # Create HBox layout
+                    layout_hbox = QHBoxLayout()
+                    layout_hbox.addWidget(label)
+                    layout_hbox.addWidget(widget)
+
+                    # Add widget to layout
+                    tabWidget.layout().addLayout(layout_hbox)
                 elif (label):
-                    tabWidget.layout().addRow(label)
+                    # Add widget to layout
+                    tabWidget.layout().addWidget(label)
+
+            # Add stretch to bottom of layout
+            tabWidget.layout().addStretch()
 
     def check_for_restart(self, param):
         """Check if the app needs to restart"""

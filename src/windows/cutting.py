@@ -56,10 +56,11 @@ class Cutting(QDialog):
     previewFrameSignal = pyqtSignal(int)
     refreshFrameSignal = pyqtSignal()
     LoadFileSignal = pyqtSignal(str)
-    PlaySignal = pyqtSignal()
+    PlaySignal = pyqtSignal(int)
     PauseSignal = pyqtSignal()
     SeekSignal = pyqtSignal(int)
     SpeedSignal = pyqtSignal(float)
+    StopSignal = pyqtSignal()
 
     def __init__(self, file=None):
 
@@ -157,7 +158,7 @@ class Cutting(QDialog):
         if self.btnPlay.isChecked():
             log.info('play (icon to pause)')
             ui_util.setup_icon(self, self.btnPlay, "actionPlay", "media-playback-pause")
-            self.preview_thread.Play()
+            self.preview_thread.Play(self.video_length)
         else:
             log.info('pause (icon to play)')
             ui_util.setup_icon(self, self.btnPlay, "actionPlay", "media-playback-start")  # to default

@@ -34,7 +34,7 @@ from uuid import uuid4
 from copy import deepcopy
 
 from PyQt5.QtCore import *
-from PyQt5.QtGui import QIcon, QCursor
+from PyQt5.QtGui import QIcon, QCursor, QKeySequence
 from PyQt5.QtWidgets import *
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
@@ -493,10 +493,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             log.info('Export Video add cancelled')
 
     def actionUndo_trigger(self, event):
+        log.info('actionUndo_trigger')
         app = get_app()
         app.updates.undo()
 
     def actionRedo_trigger(self, event):
+        log.info('actionRedo_trigger')
         app = get_app()
         app.updates.redo()
 
@@ -856,6 +858,21 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             frame_to_seek = int(closest_position * fps_float)
             self.SeekSignal.emit(frame_to_seek)
 
+    def getShortcutByName(self, setting_name):
+        """ Get a key sequence back from the setting name """
+        s = settings.get_settings()
+        shortcut = s.get(setting_name) or ""
+        return shortcut.lower()
+
+    def getAllKeyboardShortcuts(self):
+        """ Get a key sequence back from the setting name """
+        keyboard_shortcuts = []
+        all_settings = settings.get_settings()._data
+        for setting in all_settings:
+            if setting.get('category') == 'Keyboard':
+                keyboard_shortcuts.append(setting)
+        return keyboard_shortcuts
+
     def keyPressEvent(self, event):
         """ Add some shortkey for Player """
         self.key = ""
@@ -863,10 +880,43 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Get the video player object
         player = self.preview_thread.player
 
-        log.info("keyPressEvent: player.Position(): %s" % player.Position())
+        # Determine what modifier keys are pressed
+        keypress_string = ""
+        if event.modifiers() & Qt.ControlModifier:
+            keypress_string += "Ctrl+"
+        if event.modifiers() & Qt.AltModifier:
+            keypress_string += "Alt+"
+        if event.modifiers() & Qt.ShiftModifier:
+            keypress_string += "Shift+"
+        if event.key() == Qt.Key_Left:
+            keypress_string += "Left"
+        elif event.key() == Qt.Key_Right:
+            keypress_string += "Right"
+        elif event.key() == Qt.Key_Up:
+            keypress_string += "Up"
+        elif event.key() == Qt.Key_Down:
+            keypress_string += "Down"
+        elif event.key() == Qt.Key_Delete:
+            keypress_string += "Delete"
+        elif event.key() == Qt.Key_Backspace:
+            keypress_string += "Backspace"
+        elif event.key() == Qt.Key_Space:
+            keypress_string += "Space"
+        elif event.key() == Qt.Key_Home:
+            keypress_string += "Home"
+        elif event.key() == Qt.Key_End:
+            keypress_string += "End"
+        else:
+            keypress_string += event.text()
+
+        # Convert to lower
+        keypress_string = keypress_string.lower()
+
+        # Debug
+        log.info("keyPressEvent: %s at player.Position(): %s" % (keypress_string, player.Position()))
 
         # Basic shortcuts i.e just a letter
-        if event.key() == Qt.Key_Left:
+        if keypress_string == self.getShortcutByName("seekPreviousFrame"):
             # Pause video
             self.actionPlay_trigger(event, force="pause")
             # Set speed to 0
@@ -878,7 +928,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             # Notify properties dialog
             self.propertyTableView.select_frame(player.Position())
 
-        elif event.key() == Qt.Key_Right:
+        elif keypress_string == self.getShortcutByName("seekNextFrame"):
             # Pause video
             self.actionPlay_trigger(event, force="pause")
             # Set speed to 0
@@ -890,56 +940,80 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             # Notify properties dialog
             self.propertyTableView.select_frame(player.Position())
 
-        elif event.key() == Qt.Key_Up:
-            self.actionPlay.trigger()
-
-        elif event.key() == Qt.Key_Down:
-            self.actionPlay.trigger()
-
-        elif event.key() == Qt.Key_C:
-            self.actionPlay.trigger()
-
-        elif event.key() == Qt.Key_J:
+        elif keypress_string == self.getShortcutByName("rewindVideo"):
             self.actionRewind.trigger()
             ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
             self.actionPlay.setChecked(True)
 
-        elif event.key() == Qt.Key_K or event.key() == Qt.Key_Space:
+        elif keypress_string == self.getShortcutByName("fastforwardVideo"):
+            self.actionFastForward.trigger()
+            ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
+            self.actionPlay.setChecked(True)
+
+        elif keypress_string in [self.getShortcutByName("playToggle"),
+                                 self.getShortcutByName("playToggle1"),
+                                 self.getShortcutByName("playToggle2"),
+                                 self.getShortcutByName("playToggle3")] :
             self.actionPlay.trigger()
 
             # Notify properties dialog
             self.propertyTableView.select_frame(player.Position())
 
-        elif event.key() == Qt.Key_L:
-            self.actionFastForward.trigger()
-            ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
-            self.actionPlay.setChecked(True)
-
-        elif event.key() == Qt.Key_M:
-            self.actionPlay.trigger()
-
-        elif event.key() == Qt.Key_D:
-            # Add the Ctrl key
-            if event.modifiers() & Qt.ControlModifier:
-                self.actionFastForward.trigger()
-
-        elif event.key() == Qt.Key_End:
-            # Add the Ctrl key
-            if event.modifiers() & Qt.ControlModifier:
-                self.actionFastForward.trigger()
-
-        elif event.key() == Qt.Key_Home:
-            # Add the Ctrl key
-            if event.modifiers() & Qt.ControlModifier:
-                self.actionFastForward.trigger()
-
-        elif event.key() == Qt.Key_Delete or event.key() == Qt.Key_Backspace:
+        elif keypress_string in [self.getShortcutByName("deleteItem"),
+                                 self.getShortcutByName("deleteItem1")]:
             # Delete selected clip / transition
             self.actionRemoveClip.trigger()
             self.actionRemoveTransition.trigger()
 
+        # Boiler plate key mappings (mostly for menu support on Ubuntu/Unity)
+        elif keypress_string == self.getShortcutByName("actionNew"):
+            self.actionNew.trigger()
+        elif keypress_string == self.getShortcutByName("actionOpen"):
+            self.actionOpen.trigger()
+        elif keypress_string == self.getShortcutByName("actionSave"):
+            self.actionSave.trigger()
+        elif keypress_string == self.getShortcutByName("actionUndo"):
+            self.actionUndo.trigger()
+        elif keypress_string == self.getShortcutByName("actionSaveAs"):
+            self.actionSaveAs.trigger()
+        elif keypress_string == self.getShortcutByName("actionImportFiles"):
+            self.actionImportFiles.trigger()
+        elif keypress_string == self.getShortcutByName("actionRedo"):
+            self.actionRedo.trigger()
+        elif keypress_string == self.getShortcutByName("actionExportVideo"):
+            self.actionExportVideo.trigger()
+        elif keypress_string == self.getShortcutByName("actionQuit"):
+            self.actionQuit.trigger()
+        elif keypress_string == self.getShortcutByName("actionPreferences"):
+            self.actionPreferences.trigger()
+        elif keypress_string == self.getShortcutByName("actionAddMarker"):
+            self.actionAddMarker.trigger()
+        elif keypress_string == self.getShortcutByName("actionTimelineZoomIn"):
+            self.actionTimelineZoomIn.trigger()
+        elif keypress_string == self.getShortcutByName("actionTimelineZoomOut"):
+            self.actionTimelineZoomOut.trigger()
+        elif keypress_string == self.getShortcutByName("actionTitle"):
+            self.actionTitle.trigger()
+        elif keypress_string == self.getShortcutByName("actionAnimatedTitle"):
+            self.actionAnimatedTitle.trigger()
+        elif keypress_string == self.getShortcutByName("actionFullscreen"):
+            self.actionFullscreen.trigger()
+        elif keypress_string == self.getShortcutByName("actionAbout"):
+            self.actionAbout.trigger()
+        elif keypress_string == self.getShortcutByName("actionThumbnailView"):
+            self.actionThumbnailView.trigger()
+        elif keypress_string == self.getShortcutByName("actionDetailsView"):
+            self.actionDetailsView.trigger()
+        elif keypress_string == self.getShortcutByName("actionProfile"):
+            self.actionProfile.trigger()
+        elif keypress_string == self.getShortcutByName("actionAdd_to_Timeline"):
+            self.actionAdd_to_Timeline.trigger()
+        elif keypress_string == self.getShortcutByName("actionSplitClip"):
+            self.actionSplitClip.trigger()
+
         # Bubble event on
         event.ignore()
+
 
     def actionProfile_trigger(self, event):
         # Show dialog
@@ -959,6 +1033,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         for file_id in self.selected_files:
             # Find matching file
             f = File.get(id=file_id)
+
+        # Bail out if no file selected
+        if not f:
+            log.info(self.selected_files)
+            return
 
         # show dialog
         from windows.cutting import Cutting
@@ -1618,6 +1697,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         self.selected_tracks = []
         self.selected_effects = []
 
+        # Clear selection in properties view
+        if self.propertyTableView:
+            self.propertyTableView.loadProperties.emit("", "")
+
     def foundCurrentVersion(self, version):
         """Handle the callback for detecting the current version on openshot.org"""
         log.info('foundCurrentVersion: Found the latest version: %s' % version)
@@ -1663,6 +1746,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Load UI from designer
         ui_util.load_ui(self, self.ui_path)
 
+        # Update all action-based shortcuts (from settings file)
+        for shortcut in self.getAllKeyboardShortcuts():
+            for action in self.findChildren(QAction):
+                if shortcut.get('setting') == action.objectName():
+                    action.setShortcut(QKeySequence(shortcut.get('value')))
+
         # Load user settings for window
         s = settings.get_settings()
         self.recent_menu = None
@@ -1682,9 +1771,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Connect signals
         self.RecoverBackup.connect(self.recover_backup)
-
-        # Init selection containers
-        self.clearSelections()
 
         # Setup timeline
         self.timeline = TimelineWebView(self)
@@ -1720,6 +1806,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         self.selectionLabel = SelectionLabel(self)
         self.dockPropertiesContent.layout().addWidget(self.selectionLabel, 0, 1)
         self.dockPropertiesContent.layout().addWidget(self.propertyTableView, 2, 1)
+
+        # Init selection containers
+        self.clearSelections()
 
         # Setup video preview QWidget
         self.videoPreview = VideoWidget()

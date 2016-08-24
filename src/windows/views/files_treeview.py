@@ -303,6 +303,10 @@ class FilesTreeView(QTreeView):
         self.resizeColumnToContents(2)
         self.resizeColumnToContents(1)
 
+    def currentChanged(self, selected, deselected):
+        log.info('currentChanged')
+        self.updateSelection()
+
     def value_updated(self, item):
         """ Name or tags updated """
         # Get translation method

@@ -922,7 +922,7 @@
     <string>Thumbnail View</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+I</string>
+    <string>Ctrl+E</string>
    </property>
   </action>
   <action name="actionDetailsView">

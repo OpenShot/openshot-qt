@@ -291,6 +291,10 @@ class FilesListView(QListView):
     def refresh_view(self):
         self.files_model.update_model()
 
+    def currentChanged(self, selected, deselected):
+        log.info('currentChanged')
+        self.updateSelection()
+
     def resize_contents(self):
         pass
 
