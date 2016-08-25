@@ -473,7 +473,39 @@ App.controller('TimelineCtrl',function($scope) {
 
 	 });
  };
+	
+ // Clear all selections
+ $scope.ClearAllSelections = function() {
+	// Clear the selections on the main window
+	$scope.SelectTransition("", true);
+	$scope.SelectEffect("", true);
+
+	// Update scope
+	$scope.$apply(function() {
+		 for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++)
+			 $scope.project.clips[clip_index].selected = false;
+		 for (var effect_index = 0; effect_index < $scope.project.effects.length; effect_index++)
+			 $scope.project.effects[effect_index].selected = false;
+	});
+ };
  
+ // Select all clips and transitions
+ $scope.SelectAll = function() {
+	 $scope.$apply(function() {
+		 // Select all clips
+		 for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
+			 $scope.project.clips[clip_index].selected = true;
+			 timeline.addSelection($scope.project.clips[clip_index].id, "clip", false);
+		 }
+		 // Select all transitions
+		 for (var effect_index = 0; effect_index < $scope.project.effects.length; effect_index++) {
+			 $scope.project.effects[effect_index].selected = true;
+			 timeline.addSelection($scope.project.effects[effect_index].id, "transition", false);
+		 }
+	 });
+ };
+ 	
+	
  // Select clip in scope
  $scope.SelectClip = function(clip_id, clear_selections, event) {
  	// Trim clip_id

@@ -261,7 +261,8 @@
     "restart": true,
     "setting": "actionPreferences",
     "value": "Ctrl+Shift+P",
-    "type": "text"
+    "type": "text",
+    "sort": true
   },
   {
     "category": "Keyboard",
@@ -292,7 +293,7 @@
     "title": "Add to Timeline",
     "restart": true,
     "setting": "actionAdd_to_Timeline",
-    "value": "Ctrl+A",
+    "value": "Ctrl+W",
     "type": "text"
   },
   {
@@ -513,6 +514,62 @@
     "restart": true,
     "setting": "deleteItem1",
     "value": "Backspace",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Slice All: Keep Both Sides",
+    "restart": true,
+    "setting": "sliceAllKeepBothSides",
+    "value": "Ctrl+K",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Slice All: Keep Left Side",
+    "restart": true,
+    "setting": "sliceAllKeepLeftSide",
+    "value": "Ctrl+L",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Slice All: Keep Right Side",
+    "restart": true,
+    "setting": "sliceAllKeepRightSide",
+    "value": "Ctrl+J",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Copy",
+    "restart": true,
+    "setting": "copyAll",
+    "value": "Ctrl+C",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Paste",
+    "restart": true,
+    "setting": "pasteAll",
+    "value": "Ctrl+V",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Select All",
+    "restart": true,
+    "setting": "selectAll",
+    "value": "Ctrl+A",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Select None",
+    "restart": true,
+    "setting": "selectNone",
+    "value": "Ctrl+Shift+A",
     "type": "text"
   }
 ]

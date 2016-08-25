@@ -34,7 +34,7 @@ from random import uniform
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication, QTimer
-from PyQt5.QtGui import QCursor
+from PyQt5.QtGui import QCursor, QKeySequence
 from PyQt5.QtWebKitWidgets import QWebView
 from PyQt5.QtWidgets import QMenu
 
@@ -445,6 +445,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             if len(clipboard_clip_ids) + len(clipboard_tran_ids) > 0:
                 menu = QMenu(self)
                 Paste_Clip = menu.addAction(_("Paste"))
+                Paste_Clip.setShortcut(QKeySequence(self.window.getShortcutByName("pasteAll")))
                 Paste_Clip.triggered.connect(partial(self.Paste_Triggered, MENU_PASTE, float(position), int(layer_id), [], []))
 
                 return menu.popup(QCursor.pos())
@@ -481,11 +482,13 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         if len(tran_ids) + len(clip_ids) > 1:
             # Show Copy All menu (clips and transitions are selected)
             Copy_All = menu.addAction(_("Copy"))
+            Copy_All.setShortcut(QKeySequence(self.window.getShortcutByName("copyAll")))
             Copy_All.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_ALL, clip_ids, tran_ids))
         else:
             # Only a single clip is selected (Show normal copy menus)
             Copy_Menu = QMenu(_("Copy"), self)
             Copy_Clip = Copy_Menu.addAction(_("Clip"))
+            Copy_Clip.setShortcut(QKeySequence(self.window.getShortcutByName("copyAll")))
             Copy_Clip.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_CLIP, [clip_id], []))
 
             Keyframe_Menu = QMenu(_("Keyframes"), self)
@@ -774,10 +777,13 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             # Add split clip menu
             Slice_Menu = QMenu(_("Slice"), self)
             Slice_Keep_Both = Slice_Menu.addAction(_("Keep Both Sides"))
+            Slice_Keep_Both.setShortcut(QKeySequence(self.window.getShortcutByName("sliceAllKeepBothSides")))
             Slice_Keep_Both.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_BOTH, [clip_id], [], playhead_position))
             Slice_Keep_Left = Slice_Menu.addAction(_("Keep Left Side"))
+            Slice_Keep_Left.setShortcut(QKeySequence(self.window.getShortcutByName("sliceAllKeepLeftSide")))
             Slice_Keep_Left.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_LEFT, [clip_id], [], playhead_position))
             Slice_Keep_Right = Slice_Menu.addAction(_("Keep Right Side"))
+            Slice_Keep_Right.setShortcut(QKeySequence(self.window.getShortcutByName("sliceAllKeepRightSide")))
             Slice_Keep_Right.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_RIGHT, [clip_id], [], playhead_position))
             menu.addMenu(Slice_Menu)
 
@@ -1270,6 +1276,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                     left_most_position = tran.data['position']
                 if tran.data['layer'] > top_most_layer or top_most_layer == -1.0:
                     top_most_layer = tran.data['layer']
+
+            # Default layer if not known
+            if layer_id == -1:
+                layer_id = top_most_layer
 
             # Determine difference from top left and paste location
             position_diff = position - left_most_position
@@ -1964,11 +1974,13 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         if len(tran_ids) + len(clip_ids) > 1:
             # Copy All Menu (Clips and/or transitions are selected)
             Copy_All = menu.addAction(_("Copy"))
+            Copy_All.setShortcut(QKeySequence(self.window.getShortcutByName("copyAll")))
             Copy_All.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_ALL, clip_ids, tran_ids))
         else:
             # Only a single transitions is selected (show normal transition copy menu)
             Copy_Menu = QMenu(_("Copy"), self)
             Copy_Tran = Copy_Menu.addAction(_("Transition"))
+            Copy_Tran.setShortcut(QKeySequence(self.window.getShortcutByName("copyAll")))
             Copy_Tran.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_TRANSITION, [], [tran_id]))
 
             Keyframe_Menu = QMenu(_("Keyframes"), self)
@@ -2397,6 +2409,20 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Pass to javascript timeline (and render)
         cmd = JS_SCOPE_SELECTOR + ".reDrawAllAudioData();"
+        self.page().mainFrame().evaluateJavaScript(cmd)
+
+    def ClearAllSelections(self):
+        """Clear all selections in JavaScript"""
+
+        # Call javascript command
+        cmd = JS_SCOPE_SELECTOR + ".ClearAllSelections();"
+        self.page().mainFrame().evaluateJavaScript(cmd)
+
+    def SelectAll(self):
+        """Select all clips and transitions in JavaScript"""
+
+        # Call javascript command
+        cmd = JS_SCOPE_SELECTOR + ".SelectAll();"
         self.page().mainFrame().evaluateJavaScript(cmd)
 
     def __init__(self, window):

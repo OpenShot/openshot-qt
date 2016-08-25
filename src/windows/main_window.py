@@ -880,6 +880,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Get the video player object
         player = self.preview_thread.player
 
+        # Get framerate
+        fps = get_app().project.get(["fps"])
+        fps_float = float(fps["num"]) / float(fps["den"])
+        playhead_position = float(self.preview_thread.current_frame) / fps_float
+
         # Determine what modifier keys are pressed
         keypress_string = ""
         if event.modifiers() & Qt.ControlModifier:
@@ -1010,6 +1015,43 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             self.actionAdd_to_Timeline.trigger()
         elif keypress_string == self.getShortcutByName("actionSplitClip"):
             self.actionSplitClip.trigger()
+
+        # Timeline keyboard shortcuts
+        elif keypress_string == self.getShortcutByName("sliceAllKeepBothSides"):
+            intersecting_clips = Clip.filter(intersect=playhead_position)
+            intersecting_trans = Transition.filter(intersect=playhead_position)
+            if intersecting_clips or intersecting_trans:
+                # Get list of clip ids
+                clip_ids = [c.id for c in intersecting_clips]
+                trans_ids = [t.id for t in intersecting_trans]
+                self.timeline.Slice_Triggered(0, clip_ids, trans_ids, playhead_position)
+        elif keypress_string == self.getShortcutByName("sliceAllKeepLeftSide"):
+            intersecting_clips = Clip.filter(intersect=playhead_position)
+            intersecting_trans = Transition.filter(intersect=playhead_position)
+            if intersecting_clips or intersecting_trans:
+                # Get list of clip ids
+                clip_ids = [c.id for c in intersecting_clips]
+                trans_ids = [t.id for t in intersecting_trans]
+                self.timeline.Slice_Triggered(1, clip_ids, trans_ids, playhead_position)
+        elif keypress_string == self.getShortcutByName("sliceAllKeepRightSide"):
+            intersecting_clips = Clip.filter(intersect=playhead_position)
+            intersecting_trans = Transition.filter(intersect=playhead_position)
+            if intersecting_clips or intersecting_trans:
+                # Get list of clip ids
+                clip_ids = [c.id for c in intersecting_clips]
+                trans_ids = [t.id for t in intersecting_trans]
+                self.timeline.Slice_Triggered(2, clip_ids, trans_ids, playhead_position)
+        elif keypress_string == self.getShortcutByName("copyAll"):
+            self.timeline.Copy_Triggered(-1, self.selected_clips, self.selected_transitions)
+        elif keypress_string == self.getShortcutByName("pasteAll"):
+            self.timeline.Paste_Triggered(9, float(playhead_position), -1, [], [])
+
+        # Select All / None
+        elif keypress_string == self.getShortcutByName("selectAll"):
+            self.timeline.SelectAll()
+
+        elif keypress_string == self.getShortcutByName("selectNone"):
+            self.timeline.ClearAllSelections()
 
         # Bubble event on
         event.ignore()

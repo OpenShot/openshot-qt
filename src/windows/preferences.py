@@ -81,11 +81,17 @@ class Preferences(QDialog):
         self.requires_restart = False
         self.category_names = {}
         self.category_tabs = {}
-        self.category_scrollareas = {}
+        self.category_sort = {}
+
         # Loop through settings and find all unique categories
         for item in self.settings_data:
-            category = item["category"]
-            setting_type = item["type"]
+            category = item.get("category")
+            setting_type = item.get("type")
+            sort_category = item.get("sort")
+
+            # Indicate sorted category
+            if sort_category:
+                self.category_sort[category] = sort_category
 
             if not setting_type == "hidden":
                 # Load setting
@@ -109,6 +115,9 @@ class Preferences(QDialog):
                     self.tabCategories.addTab(scroll_area, _(category))
                     self.category_tabs[category] = tabWidget
 
+                # Append translated title
+                item["title_tr"] = _(item.get("title"))
+
                 # Append settings into correct category
                 self.category_names[category].append(item)
 
@@ -116,8 +125,14 @@ class Preferences(QDialog):
         for category in self.category_tabs.keys():
             tabWidget = self.category_tabs[category]
 
+            # Get list of items in category
+            params = self.category_names[category]
+            if self.category_sort.get(category):
+                # Sort this category by translated title
+                params.sort(key=operator.itemgetter("title_tr"))
+
             # Loop through settings for each category
-            for param in self.category_names[category]:
+            for param in params:
 
                 # Create Label
                 widget = None
