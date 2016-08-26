@@ -257,7 +257,7 @@
 
   {
     "category": "Keyboard",
-    "title": "&Preferences",
+    "title": "Preferences",
     "restart": true,
     "setting": "actionPreferences",
     "value": "Ctrl+Shift+P",
@@ -266,7 +266,7 @@
   },
   {
     "category": "Keyboard",
-    "title": "&Quit",
+    "title": "Quit",
     "restart": true,
     "setting": "actionQuit",
     "value": "Ctrl+Q",
@@ -286,6 +286,22 @@
     "restart": true,
     "setting": "actionAddMarker",
     "value": "Ctrl+M",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Previous Marker",
+    "restart": true,
+    "setting": "actionPreviousMarker",
+    "value": "Ctrl+Left",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Next Marker",
+    "restart": true,
+    "setting": "actionNextMarker",
+    "value": "Ctrl+Right",
     "type": "text"
   },
   {
@@ -570,6 +586,46 @@
     "restart": true,
     "setting": "selectNone",
     "value": "Ctrl+Shift+A",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Add Track",
+    "restart": true,
+    "setting": "actionAddTrack",
+    "value": "Ctrl+Shift+T",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Snapping Enabled",
+    "restart": true,
+    "setting": "actionSnappingTool",
+    "value": "Ctrl+G",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Jump To Start",
+    "restart": true,
+    "setting": "actionJumpStart",
+    "value": "Ctrl+Home",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Jump To End",
+    "restart": true,
+    "setting": "actionJumpEnd",
+    "value": "Ctrl+End",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Properties",
+    "restart": true,
+    "setting": "actionProperties",
+    "value": "Ctrl+I",
     "type": "text"
   }
 ]

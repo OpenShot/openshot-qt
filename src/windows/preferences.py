@@ -32,6 +32,7 @@ import functools
 
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
+from PyQt5.QtGui import QKeySequence
 from PyQt5 import uic
 
 from classes import info, ui_util, settings, qt_types, updates
@@ -299,6 +300,12 @@ class Preferences(QDialog):
                 value = widget.toPlainText()
         except:
             pass
+
+        # If this setting is a keyboard mapping, parse it first
+        if param.get("category") == "Keyboard":
+            previous_value = value
+            value = QKeySequence(value).toString()
+            log.info("Parsing keyboard mapping via QKeySequence from %s to %s" % (previous_value, value))
 
         # Save setting
         self.s.set(param["setting"], value)

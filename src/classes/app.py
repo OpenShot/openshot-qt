@@ -41,6 +41,13 @@ from classes import info, settings, project_data, updates, language, ui_util, lo
 import openshot
 
 
+try:
+    # Enable High-DPI resolutions
+    QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
+except AttributeError:
+    pass # Quitely fail for older Qt5 versions
+
+
 def get_app():
     """ Returns the current QApplication instance of OpenShot """
     return QApplication.instance()

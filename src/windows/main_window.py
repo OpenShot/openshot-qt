@@ -861,8 +861,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
     def getShortcutByName(self, setting_name):
         """ Get a key sequence back from the setting name """
         s = settings.get_settings()
-        shortcut = s.get(setting_name) or ""
-        return shortcut.lower()
+        shortcut = QKeySequence(s.get(setting_name))
+        return shortcut
 
     def getAllKeyboardShortcuts(self):
         """ Get a key sequence back from the setting name """
@@ -874,8 +874,23 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         return keyboard_shortcuts
 
     def keyPressEvent(self, event):
-        """ Add some shortkey for Player """
-        self.key = ""
+        """ Process key press events and match with known shortcuts"""
+        MOD_MASK = (Qt.CTRL | Qt.ALT | Qt.SHIFT | Qt.META)
+
+        # Detect the current KeySequence pressed (including modifier keys)
+        key_value = event.key()
+        print(key_value)
+        modifiers = int(event.modifiers())
+        if (key_value > 0 and key_value != Qt.Key_Shift and key_value != Qt.Key_Alt and
+                    key_value != Qt.Key_Control and key_value != Qt.Key_Meta):
+            # A valid keysequence was detected
+            key = QKeySequence(modifiers + key_value)
+        else:
+            # No valid keysequence detected
+            return
+
+        # Debug
+        log.info("keyPressEvent: %s" % (key.toString()))
 
         # Get the video player object
         player = self.preview_thread.player
@@ -885,43 +900,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         fps_float = float(fps["num"]) / float(fps["den"])
         playhead_position = float(self.preview_thread.current_frame) / fps_float
 
-        # Determine what modifier keys are pressed
-        keypress_string = ""
-        if event.modifiers() & Qt.ControlModifier:
-            keypress_string += "Ctrl+"
-        if event.modifiers() & Qt.AltModifier:
-            keypress_string += "Alt+"
-        if event.modifiers() & Qt.ShiftModifier:
-            keypress_string += "Shift+"
-        if event.key() == Qt.Key_Left:
-            keypress_string += "Left"
-        elif event.key() == Qt.Key_Right:
-            keypress_string += "Right"
-        elif event.key() == Qt.Key_Up:
-            keypress_string += "Up"
-        elif event.key() == Qt.Key_Down:
-            keypress_string += "Down"
-        elif event.key() == Qt.Key_Delete:
-            keypress_string += "Delete"
-        elif event.key() == Qt.Key_Backspace:
-            keypress_string += "Backspace"
-        elif event.key() == Qt.Key_Space:
-            keypress_string += "Space"
-        elif event.key() == Qt.Key_Home:
-            keypress_string += "Home"
-        elif event.key() == Qt.Key_End:
-            keypress_string += "End"
-        else:
-            keypress_string += event.text()
-
-        # Convert to lower
-        keypress_string = keypress_string.lower()
-
-        # Debug
-        log.info("keyPressEvent: %s at player.Position(): %s" % (keypress_string, player.Position()))
-
         # Basic shortcuts i.e just a letter
-        if keypress_string == self.getShortcutByName("seekPreviousFrame"):
+        if key.matches(self.getShortcutByName("seekPreviousFrame")) == QKeySequence.ExactMatch:
             # Pause video
             self.actionPlay_trigger(event, force="pause")
             # Set speed to 0
@@ -933,7 +913,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             # Notify properties dialog
             self.propertyTableView.select_frame(player.Position())
 
-        elif keypress_string == self.getShortcutByName("seekNextFrame"):
+        elif key.matches(self.getShortcutByName("seekNextFrame")) == QKeySequence.ExactMatch:
             # Pause video
             self.actionPlay_trigger(event, force="pause")
             # Set speed to 0
@@ -945,79 +925,94 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             # Notify properties dialog
             self.propertyTableView.select_frame(player.Position())
 
-        elif keypress_string == self.getShortcutByName("rewindVideo"):
+        elif key.matches(self.getShortcutByName("rewindVideo")) == QKeySequence.ExactMatch:
+            # Toggle rewind and start playback
             self.actionRewind.trigger()
             ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
             self.actionPlay.setChecked(True)
 
-        elif keypress_string == self.getShortcutByName("fastforwardVideo"):
+        elif key.matches(self.getShortcutByName("fastforwardVideo")) == QKeySequence.ExactMatch:
+            # Toggle fastforward button and start playback
             self.actionFastForward.trigger()
             ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
             self.actionPlay.setChecked(True)
 
-        elif keypress_string in [self.getShortcutByName("playToggle"),
-                                 self.getShortcutByName("playToggle1"),
-                                 self.getShortcutByName("playToggle2"),
-                                 self.getShortcutByName("playToggle3")] :
+        elif key.matches(self.getShortcutByName("playToggle")) == QKeySequence.ExactMatch or \
+             key.matches(self.getShortcutByName("playToggle1")) == QKeySequence.ExactMatch or \
+             key.matches(self.getShortcutByName("playToggle2")) == QKeySequence.ExactMatch or \
+             key.matches(self.getShortcutByName("playToggle3")) == QKeySequence.ExactMatch:
+            # Toggle playbutton and show properties
             self.actionPlay.trigger()
-
-            # Notify properties dialog
             self.propertyTableView.select_frame(player.Position())
 
-        elif keypress_string in [self.getShortcutByName("deleteItem"),
-                                 self.getShortcutByName("deleteItem1")]:
+        elif key.matches(self.getShortcutByName("deleteItem")) == QKeySequence.ExactMatch or \
+             key.matches(self.getShortcutByName("deleteItem1")) == QKeySequence.ExactMatch:
             # Delete selected clip / transition
             self.actionRemoveClip.trigger()
             self.actionRemoveTransition.trigger()
 
         # Boiler plate key mappings (mostly for menu support on Ubuntu/Unity)
-        elif keypress_string == self.getShortcutByName("actionNew"):
+        elif key.matches(self.getShortcutByName("actionNew")) == QKeySequence.ExactMatch:
             self.actionNew.trigger()
-        elif keypress_string == self.getShortcutByName("actionOpen"):
+        elif key.matches(self.getShortcutByName("actionOpen")) == QKeySequence.ExactMatch:
             self.actionOpen.trigger()
-        elif keypress_string == self.getShortcutByName("actionSave"):
+        elif key.matches(self.getShortcutByName("actionSave")) == QKeySequence.ExactMatch:
             self.actionSave.trigger()
-        elif keypress_string == self.getShortcutByName("actionUndo"):
+        elif key.matches(self.getShortcutByName("actionUndo")) == QKeySequence.ExactMatch:
             self.actionUndo.trigger()
-        elif keypress_string == self.getShortcutByName("actionSaveAs"):
+        elif key.matches(self.getShortcutByName("actionSaveAs")) == QKeySequence.ExactMatch:
             self.actionSaveAs.trigger()
-        elif keypress_string == self.getShortcutByName("actionImportFiles"):
+        elif key.matches(self.getShortcutByName("actionImportFiles")) == QKeySequence.ExactMatch:
             self.actionImportFiles.trigger()
-        elif keypress_string == self.getShortcutByName("actionRedo"):
+        elif key.matches(self.getShortcutByName("actionRedo")) == QKeySequence.ExactMatch:
             self.actionRedo.trigger()
-        elif keypress_string == self.getShortcutByName("actionExportVideo"):
+        elif key.matches(self.getShortcutByName("actionExportVideo")) == QKeySequence.ExactMatch:
             self.actionExportVideo.trigger()
-        elif keypress_string == self.getShortcutByName("actionQuit"):
+        elif key.matches(self.getShortcutByName("actionQuit")) == QKeySequence.ExactMatch:
             self.actionQuit.trigger()
-        elif keypress_string == self.getShortcutByName("actionPreferences"):
+        elif key.matches(self.getShortcutByName("actionPreferences")) == QKeySequence.ExactMatch:
             self.actionPreferences.trigger()
-        elif keypress_string == self.getShortcutByName("actionAddMarker"):
+        elif key.matches(self.getShortcutByName("actionAddTrack")) == QKeySequence.ExactMatch:
+            self.actionAddTrack.trigger()
+        elif key.matches(self.getShortcutByName("actionAddMarker")) == QKeySequence.ExactMatch:
             self.actionAddMarker.trigger()
-        elif keypress_string == self.getShortcutByName("actionTimelineZoomIn"):
+        elif key.matches(self.getShortcutByName("actionPreviousMarker")) == QKeySequence.ExactMatch:
+            self.actionPreviousMarker.trigger()
+        elif key.matches(self.getShortcutByName("actionNextMarker")) == QKeySequence.ExactMatch:
+            self.actionNextMarker.trigger()
+        elif key.matches(self.getShortcutByName("actionTimelineZoomIn")) == QKeySequence.ExactMatch:
             self.actionTimelineZoomIn.trigger()
-        elif keypress_string == self.getShortcutByName("actionTimelineZoomOut"):
+        elif key.matches(self.getShortcutByName("actionTimelineZoomOut")) == QKeySequence.ExactMatch:
             self.actionTimelineZoomOut.trigger()
-        elif keypress_string == self.getShortcutByName("actionTitle"):
+        elif key.matches(self.getShortcutByName("actionTitle")) == QKeySequence.ExactMatch:
             self.actionTitle.trigger()
-        elif keypress_string == self.getShortcutByName("actionAnimatedTitle"):
+        elif key.matches(self.getShortcutByName("actionAnimatedTitle")) == QKeySequence.ExactMatch:
             self.actionAnimatedTitle.trigger()
-        elif keypress_string == self.getShortcutByName("actionFullscreen"):
+        elif key.matches(self.getShortcutByName("actionFullscreen")) == QKeySequence.ExactMatch:
             self.actionFullscreen.trigger()
-        elif keypress_string == self.getShortcutByName("actionAbout"):
+        elif key.matches(self.getShortcutByName("actionAbout")) == QKeySequence.ExactMatch:
             self.actionAbout.trigger()
-        elif keypress_string == self.getShortcutByName("actionThumbnailView"):
+        elif key.matches(self.getShortcutByName("actionThumbnailView")) == QKeySequence.ExactMatch:
             self.actionThumbnailView.trigger()
-        elif keypress_string == self.getShortcutByName("actionDetailsView"):
+        elif key.matches(self.getShortcutByName("actionDetailsView")) == QKeySequence.ExactMatch:
             self.actionDetailsView.trigger()
-        elif keypress_string == self.getShortcutByName("actionProfile"):
+        elif key.matches(self.getShortcutByName("actionProfile")) == QKeySequence.ExactMatch:
             self.actionProfile.trigger()
-        elif keypress_string == self.getShortcutByName("actionAdd_to_Timeline"):
+        elif key.matches(self.getShortcutByName("actionAdd_to_Timeline")) == QKeySequence.ExactMatch:
             self.actionAdd_to_Timeline.trigger()
-        elif keypress_string == self.getShortcutByName("actionSplitClip"):
+        elif key.matches(self.getShortcutByName("actionSplitClip")) == QKeySequence.ExactMatch:
             self.actionSplitClip.trigger()
+        elif key.matches(self.getShortcutByName("actionSnappingTool")) == QKeySequence.ExactMatch:
+            self.actionSnappingTool.trigger()
+        elif key.matches(self.getShortcutByName("actionJumpStart")) == QKeySequence.ExactMatch:
+            self.actionJumpStart.trigger()
+        elif key.matches(self.getShortcutByName("actionJumpEnd")) == QKeySequence.ExactMatch:
+            self.actionJumpEnd.trigger()
+        elif key.matches(self.getShortcutByName("actionProperties")) == QKeySequence.ExactMatch:
+            self.actionProperties.trigger()
 
         # Timeline keyboard shortcuts
-        elif keypress_string == self.getShortcutByName("sliceAllKeepBothSides"):
+        elif key.matches(self.getShortcutByName("sliceAllKeepBothSides")) == QKeySequence.ExactMatch:
             intersecting_clips = Clip.filter(intersect=playhead_position)
             intersecting_trans = Transition.filter(intersect=playhead_position)
             if intersecting_clips or intersecting_trans:
@@ -1025,7 +1020,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
                 clip_ids = [c.id for c in intersecting_clips]
                 trans_ids = [t.id for t in intersecting_trans]
                 self.timeline.Slice_Triggered(0, clip_ids, trans_ids, playhead_position)
-        elif keypress_string == self.getShortcutByName("sliceAllKeepLeftSide"):
+        elif key.matches(self.getShortcutByName("sliceAllKeepLeftSide")) == QKeySequence.ExactMatch:
             intersecting_clips = Clip.filter(intersect=playhead_position)
             intersecting_trans = Transition.filter(intersect=playhead_position)
             if intersecting_clips or intersecting_trans:
@@ -1033,7 +1028,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
                 clip_ids = [c.id for c in intersecting_clips]
                 trans_ids = [t.id for t in intersecting_trans]
                 self.timeline.Slice_Triggered(1, clip_ids, trans_ids, playhead_position)
-        elif keypress_string == self.getShortcutByName("sliceAllKeepRightSide"):
+        elif key.matches(self.getShortcutByName("sliceAllKeepRightSide")) == QKeySequence.ExactMatch:
             intersecting_clips = Clip.filter(intersect=playhead_position)
             intersecting_trans = Transition.filter(intersect=playhead_position)
             if intersecting_clips or intersecting_trans:
@@ -1041,16 +1036,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
                 clip_ids = [c.id for c in intersecting_clips]
                 trans_ids = [t.id for t in intersecting_trans]
                 self.timeline.Slice_Triggered(2, clip_ids, trans_ids, playhead_position)
-        elif keypress_string == self.getShortcutByName("copyAll"):
+        elif key.matches(self.getShortcutByName("copyAll")) == QKeySequence.ExactMatch:
             self.timeline.Copy_Triggered(-1, self.selected_clips, self.selected_transitions)
-        elif keypress_string == self.getShortcutByName("pasteAll"):
+        elif key.matches(self.getShortcutByName("pasteAll")) == QKeySequence.ExactMatch:
             self.timeline.Paste_Triggered(9, float(playhead_position), -1, [], [])
 
         # Select All / None
-        elif keypress_string == self.getShortcutByName("selectAll"):
+        elif key.matches(self.getShortcutByName("selectAll")) == QKeySequence.ExactMatch:
             self.timeline.SelectAll()
 
-        elif keypress_string == self.getShortcutByName("selectNone"):
+        elif key.matches(self.getShortcutByName("selectNone")) == QKeySequence.ExactMatch:
             self.timeline.ClearAllSelections()
 
         # Bubble event on
@@ -1769,6 +1764,18 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         return False
 
+    def InitKeyboardShortcuts(self):
+        """Initialize all keyboard shortcuts from the settings file"""
+
+        # Translate object
+        _ = get_app()._tr
+
+        # Update all action-based shortcuts (from settings file)
+        for shortcut in self.getAllKeyboardShortcuts():
+            for action in self.findChildren(QAction):
+                if shortcut.get('setting') == action.objectName():
+                    action.setShortcut(QKeySequence(_(shortcut.get('value'))))
+
     def __init__(self):
 
         # Create main window base class
@@ -1788,11 +1795,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Load UI from designer
         ui_util.load_ui(self, self.ui_path)
 
-        # Update all action-based shortcuts (from settings file)
-        for shortcut in self.getAllKeyboardShortcuts():
-            for action in self.findChildren(QAction):
-                if shortcut.get('setting') == action.objectName():
-                    action.setShortcut(QKeySequence(shortcut.get('value')))
+        # Set all keyboard shortcuts from the settings file
+        self.InitKeyboardShortcuts()
 
         # Load user settings for window
         s = settings.get_settings()
