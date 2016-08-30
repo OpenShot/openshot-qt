@@ -4,11 +4,11 @@
     <extra-po-header-language_team>Japanese &lt;ja@li.org&gt;</extra-po-header-language_team>
     <extra-po-header-last_translator>Masaki Tamakoshi &lt;Unknown&gt;</extra-po-header-last_translator>
     <extra-po-header-po_revision_date>2016-06-25 08:51+0000</extra-po-header-po_revision_date>
-    <extra-po-header-pot_creation_date>2016-08-24 23:34+0000</extra-po-header-pot_creation_date>
+    <extra-po-header-pot_creation_date>2016-08-26 01:07+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
     <extra-po-header-x_generator>Launchpad (build 18179)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-08-26 06:06+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_launchpad_export_date>2016-08-27 06:13+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Japanese translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -32,7 +32,7 @@
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="474"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1260"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1255"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="164"/>
         <source>Track %s</source>
         <translation>トラック %s</translation>
@@ -131,7 +131,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="384"/>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="428"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1499"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1494"/>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="104"/>
         <source>Untitled Project</source>
         <translation>無名のプロジェクト</translation>
@@ -155,50 +155,50 @@
         <translation>ファイルのインポート...</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1197"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1192"/>
         <source>Error Removing Track</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1197"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1192"/>
         <source>You must keep at least 1 track</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1262"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1257"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1227"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1230"/>
         <source>Rename Track</source>
         <translation>トラック名を変更</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1262"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1257"/>
         <source>Track Name:</source>
         <translation>トラック名：</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1590"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1585"/>
         <source>Recent Projects</source>
         <translation>最近開いたプロジェクト</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1629"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1646"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1665"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1846"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1624"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1641"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1660"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1850"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="272"/>
         <source>Filter</source>
         <translation>フィルタ</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1716"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1711"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2152"/>
         <source>{} seconds</source>
         <translation>{}秒</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1755"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1756"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1750"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1751"/>
         <source>New Version Available: %s</source>
         <translation>入手可能な新しいバージョン: %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
@@ -250,17 +250,17 @@
         <translation>この機能を有効にするには{}をインストールしてください。</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="209"/>
+        <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="211"/>
         <source>Default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="328"/>
+        <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="336"/>
         <source>Restart Required</source>
         <translation>再起動が必要です</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="329"/>
+        <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="337"/>
         <source>Please restart OpenShot for all preferences to take effect.</source>
         <translation>全ての設定を有効にするためにOpenShotを再起動してください。</translation>
     </message>
@@ -1209,124 +1209,14 @@ Do you want to replace it?</source>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
-        <source>Number of Snow Flakes</source>
-        <translation>雪片の数</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Blue</source>
-        <translation>青</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Top</source>
-        <translation>上</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the low-pitched sound or tone</source>
-        <translation>低ピッチの音を調整します</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Phaser</source>
-        <translation>フェーザー</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Y Scatter</source>
-        <translation>散らばり Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the brightness and contrast of the frame&apos;s image.</source>
-        <translation>フレーム画像の明度・コントラスト調整</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Episode</source>
-        <translation>エピソード</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the color saturation.</source>
-        <translation>彩度調整</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Particles: Gravity</source>
-        <translation>小片: 重力</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Episode Title</source>
-        <translation>エピソード タイトル</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Add a glow effect to the image</source>
-        <translation>画像に白熱光のエフェクトを追加します</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/glow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Glow</source>
-        <translation>白熱光</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/glow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Width</source>
-        <translation>幅</translation>
+        <source>Number</source>
+        <translation>数</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
     </message>
     <message>
-        <source>Alpha Mask / Wipe Transition</source>
-        <translation>アルファマスク / ワイプトランジション</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Use Rings</source>
-        <translation>ハロー: 輪を使用</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Negative</source>
-        <translation>ネガフィルム</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Alpha</source>
-        <translation>背景: アルファ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Channel Filter</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Param</source>
-        <translation>引数</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gain Out</source>
-        <translation>ゲイン 外</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Blur</source>
-        <translation>ぼかし</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blur.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gravity: Y</source>
-        <translation>重力: Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the left/right balance</source>
-        <translation>左右のバランスを調整します</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
+        <source>Three Layer</source>
+        <translation>3つのレイヤー</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml</extra-po-references>
     </message>
     <message>
         <source>Background: Fresnel</source>
@@ -1334,14 +1224,220 @@ Do you want to replace it?</source>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
     </message>
     <message>
-        <source>Velocity: Y</source>
-        <translation>速度: Y</translation>
+        <source>Exploding Text</source>
+        <translation>飛び散るテキスト</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Border Width</source>
+        <translation>ボーダーの幅</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Invert horizontally or vertically</source>
+        <translation>水平もしくは垂直方向に反転します</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sub Title</source>
+        <translation>サブタイトル</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Size</source>
+        <translation>ハロー: サイズ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
-        <source>Cartoonify the image, using a form of edge detection</source>
-        <translation>エッジ検出を用いて画像をマンガのようにします</translation>
+        <source>Arrival Latitude (seconds)</source>
+        <translation>到着地の経度 (秒)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Reverse</source>
+        <translation>逆向き</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Episode Title</source>
+        <translation>エピソード タイトル</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Reduce image to primary colors</source>
+        <translation>画像の色を原色に減色します</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Detect and highlight the edges of objects</source>
+        <translation>オブジェクトのエッジを検出して強調します</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Brightness &amp; Contrast</source>
+        <translation>輝度とコントラスト</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Spots: Color Threshold</source>
+        <translation>点々: 色のしきい値</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Position</source>
+        <translation>位置</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Decay</source>
+        <translation>減衰</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Blur the image similar to an out-of-focus camera</source>
+        <translation>カメラのピンぼけのように画像をぼかします</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/blur.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fisheye</source>
+        <translation>魚眼レンズ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Bass</source>
+        <translation>低音</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adds static and grain to the image</source>
+        <translation>ノイズや粒々を画像に追加します</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Mask</source>
+        <translation>マスク</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Cartoon</source>
+        <translation>マンガ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Center</source>
+        <translation>中央</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust luminance or color channel intensity</source>
+        <translation>輝度もしくは色チャンネル強度の調整を行います</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Output level black point</source>
+        <translation>出力レベル ブラックポイント</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Diffuse Color</source>
+        <translation>拡散色</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Best Fit</source>
+        <translation>全体に合わせる</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Interpolation</source>
+        <translation>補間</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Softness</source>
+        <translation>ソフトネス</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Velocity: Z</source>
+        <translation>速度: Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Deinterlace</source>
+        <translation>インターレース解除</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Start Value</source>
+        <translation>開始値</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Custom Texture (Equirectangular)</source>
+        <translation>カスタムテクスチャ (正距円筒画像)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Filter the image to look like it is drawn with charcoal</source>
+        <translation>炭で描いたように見えるよう画像をフィルタします</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="96"/>
+        <source>Start</source>
+        <translation>開始</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Darker</source>
+        <translation>暗い線</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Neutral Color</source>
+        <translation>中間色</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Flying Title</source>
+        <translation>フライングタイトル</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Extrude</source>
+        <translation>押し出し</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Mirror</source>
+        <translation>鏡</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
+    </message>
+    <message>
+        <source>White color</source>
+        <translation>白色</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>something videowall-ish</source>
+        <translation>ビデオウォール的な何か</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Chroma Key (Greenscreen)</source>
+        <translation>クロマキー (グリーンバック合成)</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Brightness Delta Up</source>
+        <translation>明るさ変化 増加</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Increase the size of pixels to obscure the image</source>
+        <translation>ピクセルのサイズを増やして画像を見えにくくします</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
     </message>
     <message>
         <source>Gain In</source>
@@ -1349,18 +1445,668 @@ Do you want to replace it?</source>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
     </message>
     <message>
-        <source>Fly Towards Camera (Two Titles)</source>
-        <translation>カメラに向かって飛ぶ (2つのタイトル)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/fly_by_two_titles.xml</extra-po-references>
+        <source>Tile 1: Diffuse Color</source>
+        <translation>タイル 1: 拡散色</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
-        <source>Blue/Yellow</source>
-        <translation>青/黄色</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
+        <source>Z Coordinate</source>
+        <translation>Z座標</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Operation</source>
+        <translation>効力</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Flippo</source>
+        <translation>反転</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Longitude (minutes)</source>
+        <translation>出発地の経度 (分)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Simple color adjustment</source>
+        <translation>シンプルな色調整です</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Interlaced black lines</source>
+        <translation>インターレースの黒い線です</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Calculates the distance between the selected color and the current pixel and uses that value as new pixel value</source>
+        <translation>選択された色と各ピクセルの距離を計算し、その値を新しいピクセル値として使用します</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fixed Rotate X</source>
+        <translation>静止回転 X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Y Center</source>
+        <translation>Y 中央</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Input level black point</source>
+        <translation>入力レベル ブラックポイント</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Velocity: Y</source>
+        <translation>速度: Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Up Scale</source>
+        <translation>アップスケール</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Title 1</source>
+        <translation>タイトル 1</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Longitude (minutes)</source>
+        <translation>到着地の経度 (分)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Location Y</source>
+        <translation>Y座標</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Fixed Rotate Z</source>
+        <translation>静止回転 Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Bottom Right</source>
+        <translation>右下</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Crop</source>
+        <translation>トリミング</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Factor</source>
+        <translation>係数</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sigma</source>
+        <translation>シグマ値</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Main Text</source>
+        <translation>メイン テキスト</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Text Alignment</source>
+        <translation>テキストの配置</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Dynamic 3 level thresholding</source>
+        <translation>動的な3値化</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation>下</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fills alpha channel with a gradient</source>
+        <translation>グラデーションでアルファチャンネルを満たします</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Find and glow the edges of objects</source>
+        <translation>オブジェクトのエッジを探して発光します</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Latitude (degrees)</source>
+        <translation>到着地の緯度 (度)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the color of the image to black and white based on a threshold</source>
+        <translation>しきい値に基づいて画像の色をモノクロに調整します</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tile 2: Diffuse Color</source>
+        <translation>タイル 2: 拡散色</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Scale X</source>
+        <translation>拡縮X</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Use Lines</source>
+        <translation>ハロー: 線を使用</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Convert an image to shades of grey</source>
+        <translation>画像を陰の灰色に変換します</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the color saturation.</source>
+        <translation>彩度調整</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>End: X</source>
+        <translation>終了位置: X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Start: X</source>
         <translation>開始位置: X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gravity: X</source>
+        <translation>重力: X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>ID</source>
+        <translation>ID</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Negates the colors, producing a negative of the image.</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Manual Scale</source>
+        <translation>手動スケール調整</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Longitude (degrees)</source>
+        <translation>到着地の経度 (度)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Latitude (Equator)</source>
+        <translation>到着地の緯度 (北/南緯)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Use Rings</source>
+        <translation>ハロー: 輪を使用</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Lens Correction</source>
+        <translation>レンズ補正</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Luma formula</source>
+        <translation>色変換式</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Vignette</source>
+        <translation>レンズぼかし</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Ending Size</source>
+        <translation>ハロー: 終了サイズ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Brightness Delta Down</source>
+        <translation>明るさ変化 減少</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Start: Y</source>
+        <translation>開始位置: Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Split preview</source>
+        <translation>半分を元の色で表示</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Horizontal Sync</source>
+        <translation>水平同期</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Stretch</source>
+        <translation>ストレッチ</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Top Right</source>
+        <translation>上右</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Tilt</source>
+        <translation>傾き</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Max Diameter</source>
+        <translation>直径の上限</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Title 3</source>
+        <translation>タイトル 3</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Add small dust shapes randomly on the image</source>
+        <translation>画像に小さい埃の輪郭をランダムに追加します</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Oversaturate the color in the image, like in old Technicolor movies</source>
+        <translation>画像に色を流し込み、古いテクニカラー映画のようにします</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Diff Space</source>
+        <translation>差のスペース</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tint</source>
+        <translation>色合い</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Red</source>
+        <translation>赤色</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Wave Color</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Latitude (minutes)</source>
+        <translation>出発地の緯度 (分)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sepia</source>
+        <translation>セピア</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Is Odd Frame</source>
+        <translation>奇数フレーム</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Defocus</source>
+        <translation>ピンぼけ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Rotate 360 Degrees</source>
+        <translation>360度回転</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/rotate_360.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adds black borders at the top and bottom</source>
+        <translation>上下に黒いボーダーを追加します</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjusts the brightness of the image</source>
+        <translation>画像の明るさを調整します</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Correction near edges</source>
+        <translation>端付近の補正</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Invert</source>
+        <translation>色反転</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Rotate an image statically or animated</source>
+        <translation>画像を静止しながらもしくは動きながら回転させます</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the low-pitched sound or tone</source>
+        <translation>低ピッチの音を調整します</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tile 3: Diffuse Color</source>
+        <translation>タイル 3: 拡散色</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fly Towards Camera</source>
+        <translation>カメラに向かって飛ぶ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/fly_by_1.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Aspect type</source>
+        <translation>アスペクト形式</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Blue</source>
+        <translation>青</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Channel</source>
+        <translation>チャンネル</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Ring Count</source>
+        <translation>ハロー: 輪の数</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>X Scatter</source>
+        <translation>散らばり X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Delayed frame blitting mapped on a time bitmap</source>
+        <translation>円状の形に従って、映像を遅れて表示します</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Every</source>
+        <translation>頻度</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Blend</source>
+        <translation>背景: ブレンド</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Red/Green Axis</source>
+        <translation>赤/緑 軸</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Picture 3 Path</source>
+        <translation>写真 3 のパス</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Chroma Key</source>
+        <translation>クロマキー</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Enable Audio</source>
+        <translation>音声を有効にする</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Channel Mapping</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Scaling</source>
+        <translation>スケール調整</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Title 2</source>
+        <translation>タイトル 2</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Freeze</source>
+        <translation>静止</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Dissolving Text</source>
+        <translation>溶解するテキスト</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/dissolve.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Noise</source>
+        <translation>ノイズ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>色</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Center size</source>
+        <translation>中央部分の大きさ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Horizontal Radius</source>
+        <translation>水平半径</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Magic Wand</source>
+        <translation>魔法の杖</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Display a single color, while using greyscale for the rest of the image</source>
+        <translation>1色をそのまま,残りをグレイスケールで表示します</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Correction near center</source>
+        <translation>中央付近の補正</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Velocity: X</source>
+        <translation>速度: X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Distort the source similar to plasma</source>
+        <translation>プラズマのようにゆがめます</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
+    </message>
+    <message>
+        <source>delayed alpha smoothed blit of time</source>
+        <translation>残像効果</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Freeze Before</source>
+        <translation>指定フレーム前に静止</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Edgeglow</source>
+        <translation>エッジ発光</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Color Tiles</source>
+        <translation>カラータイル</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tint a source image with specified color</source>
+        <translation>指定された色で画像に色を付けます</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Line 1 Color</source>
+        <translation>線 1 の色</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Y axis</source>
+        <translation>Y 軸</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Longitude (seconds)</source>
+        <translation>出発地の経度 (秒)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the brightness and contrast of the frame&apos;s image.</source>
+        <translation>フレーム画像の明度・コントラスト調整</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Interval</source>
+        <translation>間隔</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Color Saturation</source>
+        <translation>彩度</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Latitude (minutes)</source>
+        <translation>到着地の緯度 (分)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Black and White</source>
+        <translation>モノクロ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
+    </message>
+    <message>
+        <source>X Coordinate</source>
+        <translation>X座標</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Equalizor</source>
+        <translation>イコライザ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Diffuse Color</source>
+        <translation>背景: 拡散色</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Space Movie Intro</source>
+        <translation>スターウォーズ風イントロ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Enable Video</source>
+        <translation>映像を有効にする</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Allows compensation of lens distortion</source>
+        <translation>レンズの歪みを補正</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>適用量</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Rotate X</source>
+        <translation>回転 X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Split and mirror the image</source>
+        <translation>画像を分割して反射します</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Episode</source>
+        <translation>エピソード</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Action</source>
+        <translation>操作</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Start: Z</source>
+        <translation>開始位置: Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Particles: Gravity</source>
+        <translation>小片: 重力</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Mix</source>
+        <translation>混合</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>TehRoxx0r</source>
+        <translation>多画面</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fuzz</source>
+        <translation>遊び量</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Use Alpha</source>
+        <translation>アルファ使用</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Add an echo</source>
+        <translation>エコーを追加します</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Use Flare</source>
+        <translation>ハロー: 炎を使用</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
@@ -1369,29 +2115,24 @@ Do you want to replace it?</source>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
-        <source>Font Name</source>
-        <translation>フォント名</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+        <source>Gravity: Z</source>
+        <translation>重力: Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
-        <source>Y axis</source>
-        <translation>Y 軸</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
+        <source>Title Diffuse Color</source>
+        <translation>タイトルの拡散色</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
     </message>
     <message>
-        <source>Halo: Use Lines</source>
-        <translation>ハロー: 線を使用</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+        <source>Zoom to Clapboard</source>
+        <translation>カチンコにズーム</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml</extra-po-references>
     </message>
     <message>
-        <source>ID</source>
-        <translation>ID</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Waveform</source>
-        <translation>波形</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+        <source>Midpoint</source>
+        <translation>中間点</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
     </message>
     <message>
         <source>Max</source>
@@ -1399,19 +2140,264 @@ Do you want to replace it?</source>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
     </message>
     <message>
-        <source>Fixed Rotate Z</source>
-        <translation>静止回転 Z</translation>
+        <source>Defish</source>
+        <translation>歪み補正</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Top</source>
+        <translation>上</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Treble</source>
+        <translation>高音</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/treble.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Bottom Left</source>
+        <translation>左下</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Nosync</source>
+        <translation>ずらし</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sun: Number of Streaks</source>
+        <translation>太陽: 光線の数</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Width</source>
+        <translation>幅</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Source image on left side</source>
+        <translation>元の色の映像を左半分へ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Distort</source>
+        <translation>ゆがみ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gamma</source>
+        <translation>ガンマ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the color of the image to emulate black-and-white film that has had sepia pigment added</source>
+        <translation>セピア色になった白黒フィルムのように画像の色を調整します</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Picture 1 Path</source>
+        <translation>写真 1 のパス</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Color adjustment</source>
+        <translation>色の調整</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Echo</source>
+        <translation>エコー</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Anchor</source>
+        <translation>アンカー</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Longitude (seconds)</source>
+        <translation>到着地の緯度 (秒)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Hardness</source>
+        <translation>ハロー: 固さ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Show histogram</source>
+        <translation>ヒストグラムを表示</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tint amount</source>
+        <translation>色を付ける量</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Make image sharper</source>
+        <translation>映像をより鮮明にします</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Threshold</source>
+        <translation>しきい値</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Saturation</source>
+        <translation>彩度</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Param</source>
+        <translation>引数</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Y Offset</source>
+        <translation>Y オフセット</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
-        <source>Correction near center</source>
-        <translation>中央付近の補正</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
+        <source>Phaser</source>
+        <translation>フェーザー</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
     </message>
     <message>
-        <source>Depart Latitude (minutes)</source>
-        <translation>出発地の緯度 (分)</translation>
+        <source>Alpha controlled</source>
+        <translation>アルファ有り部分のみ調整</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Lens vignetting</source>
+        <translation>レンズぼかしz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the high-pitched sound or tone</source>
+        <translation>高ピッチの音を調整します</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/treble.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Amplitude</source>
+        <translation>振幅</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Cartoonify the image, using a form of edge detection</source>
+        <translation>エッジ検出を用いて画像をマンガのようにします</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Latitude (degrees)</source>
+        <translation>出発地の緯度 (度)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Max Count</source>
+        <translation>数の上限</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gray color</source>
+        <translation>灰色</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Iterations</source>
+        <translation>反復</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Blue/Yellow</source>
+        <translation>青/黄色</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Rotate Y</source>
+        <translation>回転 Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Specular Color</source>
+        <translation>反射色</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Mirror Color</source>
+        <translation>ミラーの色</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Convert colors in the image to the opposite or complementary colors</source>
+        <translation>画像の色を対を成す色に変換します</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/invert.xml</extra-po-references>
+    </message>
+    <message>
+        <source>X Offset</source>
+        <translation>X オフセット</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Use Stars</source>
+        <translation>ハロー: 星を使用</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gravity: Y</source>
+        <translation>重力: Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Trip Level</source>
+        <translation>トリップレベル</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Oversaturate Color</source>
+        <translation>色の流し込み</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Balance</source>
+        <translation>バランス</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Three point balance</source>
+        <translation>3点バランス</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Star Count</source>
+        <translation>ハロー: 星の数</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Text Width</source>
+        <translation>テキストの幅</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Alphagrad</source>
+        <translation>アルファグラデーション</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust color balance with 3 color points</source>
+        <translation>色のバランスを3色の点で調整します</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Slide Left to Right</source>
+        <translation>左から右へ滑る</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/slide_left_to_right.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Bottom Center</source>
+        <translation>下中央</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Left | Right</source>
@@ -1424,1068 +2410,8 @@ Do you want to replace it?</source>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
-        <source>Depart Latitude (degrees)</source>
-        <translation>出発地の緯度 (度)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation>サイズ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Dissolving Text</source>
-        <translation>溶解するテキスト</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/dissolve.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Ring Count</source>
-        <translation>ハロー: 輪の数</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Vignette</source>
-        <translation>レンズぼかし</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Max Diameter</source>
-        <translation>直径の上限</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adds black borders at the top and bottom</source>
-        <translation>上下に黒いボーダーを追加します</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
-    </message>
-    <message>
-        <source>delayed alpha smoothed blit of time</source>
-        <translation>残像効果</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Amount</source>
-        <translation>適用量</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Split and mirror the image</source>
-        <translation>画像を分割して反射します</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Freeze Before</source>
-        <translation>指定フレーム前に静止</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Interval</source>
-        <translation>間隔</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sub Title</source>
-        <translation>サブタイトル</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Ending Size</source>
-        <translation>ハロー: 終了サイズ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Tint</source>
-        <translation>色合い</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Particles: Lifetime</source>
-        <translation>小片: 寿命</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Mirror Color</source>
-        <translation>ミラーの色</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>End Frame</source>
-        <translation>終了フレーム</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Freeze</source>
-        <translation>静止</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Line 4 Color</source>
-        <translation>線 4 の色</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Picture Frames (4 pictures)</source>
-        <translation>写真フレーム (4枚)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Interpolation</source>
-        <translation>補間</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adds static and grain to the image</source>
-        <translation>ノイズや粒々を画像に追加します</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Remove interlacing from a video (i.e. even or odd horizontal lines)</source>
-        <translation>ビデオのインターレース解除（奇数と偶数フィールドの再結合）</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Picture 4 Path</source>
-        <translation>写真 4 のパス</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fly Towards Camera</source>
-        <translation>カメラに向かって飛ぶ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/fly_by_1.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Best Fit</source>
-        <translation>全体に合わせる</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Mask</source>
-        <translation>マスク</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Line Count</source>
-        <translation>ハロー: 線の数</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Letterbox</source>
-        <translation>レターボックス</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Position</source>
-        <translation>位置</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>v</source>
-        <translation>v</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Tile 1: Diffuse Color</source>
-        <translation>タイル 1: 拡散色</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Black and White</source>
-        <translation>モノクロ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Frame Number</source>
-        <translation>フレーム番号</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
-    </message>
-    <message>
-        <source>X Coordinate</source>
-        <translation>X座標</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sun: Color Threshold</source>
-        <translation>太陽: 色のしきい値</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sun: Angle Offset</source>
-        <translation>太陽: 角度のオフセット</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>White color</source>
-        <translation>白色</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Input level black point</source>
-        <translation>入力レベル ブラックポイント</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Three Layer</source>
-        <translation>3つのレイヤー</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Hardness</source>
-        <translation>ハロー: 固さ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sepia</source>
-        <translation>セピア</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Simple color adjustment</source>
-        <translation>シンプルな色調整です</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Speed</source>
-        <translation>速度</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Tint amount</source>
-        <translation>色を付ける量</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Rotate 360 Degrees</source>
-        <translation>360度回転</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/rotate_360.xml</extra-po-references>
-    </message>
-    <message>
-        <source>End Value</source>
-        <translation>終了値</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Allows compensation of lens distortion</source>
-        <translation>レンズの歪みを補正</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
-    </message>
-    <message>
-        <source>World Map</source>
-        <translation>世界地図</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Greyscale</source>
-        <translation>グレイスケール</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Dynamic 3 level thresholding</source>
-        <translation>動的な3値化</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Picture 3 Path</source>
-        <translation>写真 3 のパス</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sobel</source>
-        <translation>ソーベル</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Correction near edges</source>
-        <translation>端付近の補正</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjusts the gamma and brightness randomly to create the illusion of old film</source>
-        <translation>ガンマと明るさを調整して古いフィルム風にします</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Velocity: Z</source>
-        <translation>速度: Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Snow</source>
-        <translation>雪</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Alphagrad</source>
-        <translation>アルファグラデーション</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Shadeless</source>
-        <translation>背景: 陰なし</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Map black to</source>
-        <translation>黒色に割り当てる色</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>End: X</source>
-        <translation>終了位置: X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo Zoom Out</source>
-        <translation>ハロー ズームアウト</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/halo_zoom_out.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Particle Number</source>
-        <translation>破片数</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Line 1 Color</source>
-        <translation>線 1 の色</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Every</source>
-        <translation>頻度</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Anchor</source>
-        <translation>アンカー</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Balance</source>
-        <translation>バランス</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sun: Type of Glare</source>
-        <translation>太陽: 光の種類</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
         <source>Arrival Title</source>
         <translation>到着地のタイトル</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Treble</source>
-        <translation>高音</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/treble.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Saturation</source>
-        <translation>彩度</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Use Flare</source>
-        <translation>ハロー: 炎を使用</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>X Offset</source>
-        <translation>X オフセット</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Enable Audio</source>
-        <translation>音声を有効にする</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Color adjustment</source>
-        <translation>色の調整</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Start: Z</source>
-        <translation>開始位置: Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sigma</source>
-        <translation>シグマ値</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Specular Intensity</source>
-        <translation>反射強度</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Duration</source>
-        <translation>再生時間</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Map white to</source>
-        <translation>白色に割り当てる色</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Convert an image to shades of grey</source>
-        <translation>画像を陰の灰色に変換します</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml</extra-po-references>
-    </message>
-    <message>
-        <source>World Map (Realistic)</source>
-        <translation>世界地図(リアル画像)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Reverse</source>
-        <translation>逆向き</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Space Movie Intro</source>
-        <translation>スターウォーズ風イントロ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the white balance and color temperature</source>
-        <translation>ホワイトバランスと色温度を調整します</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Levels</source>
-        <translation>レベル</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Mix</source>
-        <translation>混合</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Delayed frame blitting mapped on a time bitmap</source>
-        <translation>円状の形に従って、映像を遅れて表示します</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Action</source>
-        <translation>操作</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gravity</source>
-        <translation>重力</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Input level white point</source>
-        <translation>入力レベル ホワイトポイント</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Red/Green Axis</source>
-        <translation>赤/緑 軸</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Delta</source>
-        <translation>変化</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the color of the image to black and white based on a threshold</source>
-        <translation>しきい値に基づいて画像の色をモノクロに調整します</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Vertical Radius</source>
-        <translation>垂直半径</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Output level black point</source>
-        <translation>出力レベル ブラックポイント</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Rotate an image statically or animated</source>
-        <translation>画像を静止しながらもしくは動きながら回転させます</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Lens Correction</source>
-        <translation>レンズ補正</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Block Size X</source>
-        <translation>ブロックサイズ X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Operation</source>
-        <translation>効力</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust color balance with 3 color points</source>
-        <translation>色のバランスを3色の点で調整します</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Main Text</source>
-        <translation>メイン テキスト</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Aspect type</source>
-        <translation>アスペクト形式</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Latitude (seconds)</source>
-        <translation>到着地の経度 (秒)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Latitude (minutes)</source>
-        <translation>到着地の緯度 (分)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Line 3 Color</source>
-        <translation>線 3 の色</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Interlaced black lines</source>
-        <translation>インターレースの黒い線です</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Horizontal Sync</source>
-        <translation>水平同期</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Rotate X</source>
-        <translation>回転 X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Slide Left to Right</source>
-        <translation>左から右へ滑る</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/slide_left_to_right.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Viewport</source>
-        <translation>ビューポート</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Shift the hue of all colors in the image</source>
-        <translation>画像の全ての色の色相をずらします</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/hue.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Brightness Delta Up</source>
-        <translation>明るさ変化 増加</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Start Frame</source>
-        <translation>開始フレーム</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Softness</source>
-        <translation>ソフトネス</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Bottom</source>
-        <translation>下</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Exploding Text</source>
-        <translation>飛び散るテキスト</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Rotate Z</source>
-        <translation>回転 Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust luminance or color channel intensity</source>
-        <translation>輝度もしくは色チャンネル強度の調整を行います</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Longitude (degrees)</source>
-        <translation>出発地の経度 (度)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Equalizes the intensity histograms</source>
-        <translation>明度の分布を均一にします</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Convert colors in the image to the opposite or complementary colors</source>
-        <translation>画像の色を対を成す色に変換します</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/invert.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Old Film</source>
-        <translation>古いフィルム</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Edgeglow</source>
-        <translation>エッジ発光</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Scale X</source>
-        <translation>拡縮X</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Chroma Key (Greenscreen)</source>
-        <translation>クロマキー (グリーンバック合成)</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Fisheye</source>
-        <translation>魚眼レンズ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gain</source>
-        <translation>ゲイン</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Brightness Delta Every</source>
-        <translation>明るさ変化 頻度</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Custom Texture (Equirectangular)</source>
-        <translation>カスタムテクスチャ (正距円筒画像)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Longitude (degrees)</source>
-        <translation>到着地の経度 (度)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>something videowall-ish</source>
-        <translation>ビデオウォール的な何か</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>X Center</source>
-        <translation>X 中央</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Distort the source similar to plasma</source>
-        <translation>プラズマのようにゆがめます</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Keep luma</source>
-        <translation>輝度の保持</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Threshold</source>
-        <translation>しきい値</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the high-pitched sound or tone</source>
-        <translation>高ピッチの音を調整します</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/treble.xml</extra-po-references>
-    </message>
-    <message>
-        <source>TehRoxx0r</source>
-        <translation>多画面</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Channel</source>
-        <translation>チャンネル</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Animation Length</source>
-        <translation>アニメーションの長さ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Longitude (minutes)</source>
-        <translation>到着地の経度 (分)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fills alpha channel with a gradient</source>
-        <translation>グラデーションでアルファチャンネルを満たします</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Manual Scale</source>
-        <translation>手動スケール調整</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Charcoal</source>
-        <translation>木炭画</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Min</source>
-        <translation>最小</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Calculates the distance between the selected color and the current pixel and uses that value as new pixel value</source>
-        <translation>選択された色と各ピクセルの距離を計算し、その値を新しいピクセル値として使用します</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Freeze the frame of a video</source>
-        <translation>映像のフレームを固定します</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Diff Space</source>
-        <translation>差のスペース</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Mirror</source>
-        <translation>鏡</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Chroma Hold</source>
-        <translation>指定色のみ保持</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Neon Curves</source>
-        <translation>ネオンカーブ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gray color</source>
-        <translation>灰色</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Enable Video</source>
-        <translation>映像を有効にする</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Uses a grayscale mask image to gradually wipe / transition between 2 images.</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Brightness &amp; Contrast</source>
-        <translation>輝度とコントラスト</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Trees</source>
-        <translation>木々</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/trees.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Color Tiles</source>
-        <translation>カラータイル</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Oversaturate Color</source>
-        <translation>色の流し込み</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Display a single color, while using greyscale for the rest of the image</source>
-        <translation>1色をそのまま,残りをグレイスケールで表示します</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Block Size Y</source>
-        <translation>ブロックサイズ Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Up Scale</source>
-        <translation>アップスケール</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Specular Color</source>
-        <translation>反射色</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Z Coordinate</source>
-        <translation>Z座標</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Location Y</source>
-        <translation>Y座標</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Size</source>
-        <translation>ハロー: サイズ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Red Scale</source>
-        <translation>赤スケール</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Cartoon</source>
-        <translation>マンガ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Is Odd Frame</source>
-        <translation>奇数フレーム</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Luma formula</source>
-        <translation>色変換式</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Detect and highlight the edges of objects</source>
-        <translation>オブジェクトのエッジを検出して強調します</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Canvas</source>
-        <translation>キャンバス</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Top Left</source>
-        <translation>左上</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Negates the colors, producing a negative of the image.</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Key Color</source>
-        <translation>キーカラー</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Replace Image</source>
-        <translation>画像の置換</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Zoom to Clapboard</source>
-        <translation>カチンコにズーム</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Center</source>
-        <translation>中央</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Track</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Title Diffuse Color</source>
-        <translation>タイトルの拡散色</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Starting Size</source>
-        <translation>ハロー: 開始サイズ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Crop</source>
-        <translation>トリミング</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Fixed Rotate Y</source>
-        <translation>静止回転 Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Title 3</source>
-        <translation>タイトル 3</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Baltan</source>
-        <translation>バルタン</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Invert horizontally or vertically</source>
-        <translation>水平もしくは垂直方向に反転します</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>X Scatter</source>
-        <translation>散らばり X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Output level white point</source>
-        <translation>出力レベル ホワイトポイント</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Add a series of peaks and troughs to the audio, creating a sweeping effect</source>
-        <translation>音声に一連の起伏を追加し、スイープ効果を作成します</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Midpoint</source>
-        <translation>中間点</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Darker</source>
-        <translation>暗い線</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Tilt</source>
-        <translation>傾き</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Bass</source>
-        <translation>低音</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
-    </message>
-    <message>
-        <source>First Title</source>
-        <translation>ファースト タイトル</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Y Center</source>
-        <translation>Y 中央</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the image up and down, with the off-screen portion appearing on the other side</source>
-        <translation>画像を上下にずらし、画面からはみ出た部分を反対側に表示します</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Variance</source>
-        <translation>色の可変性</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Transition width</source>
-        <translation>トランジション幅</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Lens vignetting</source>
-        <translation>レンズぼかしz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Lens Flare</source>
-        <translation>レンズフレア</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Tile 3: Diffuse Color</source>
-        <translation>タイル 3: 拡散色</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gravity: Z</source>
-        <translation>重力: Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Primary Colors</source>
-        <translation>原色</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
-    </message>
-    <message>
-        <source>End: Z</source>
-        <translation>終了位置: Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Noise</source>
-        <translation>ノイズ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Filter the image to look like it is drawn with charcoal</source>
-        <translation>炭で描いたように見えるよう画像をフィルタします</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Longitude (seconds)</source>
-        <translation>到着地の緯度 (秒)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Bevel Depth</source>
-        <translation>ベベルの深さ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Factor</source>
-        <translation>係数</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Red</source>
-        <translation>赤色</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Amplitude</source>
-        <translation>振幅</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Hue</source>
-        <translation>色相</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/hue.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Latitude (seconds)</source>
-        <translation>出発地の緯度 (秒)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
@@ -2494,139 +2420,68 @@ Do you want to replace it?</source>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Adjusts the brightness of the image</source>
-        <translation>画像の明るさを調整します</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
+        <source>Duration</source>
+        <translation>再生時間</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Picture 1 Path</source>
-        <translation>写真 1 のパス</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+        <source>Sun: Type of Glare</source>
+        <translation>太陽: 光の種類</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
-        <source>Deinterlace</source>
-        <translation>インターレース解除</translation>
+        <source>Gravity</source>
+        <translation>重力</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Speed</source>
+        <translation>速度</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Keep luma</source>
+        <translation>輝度の保持</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Glow</source>
+        <translation>白熱光</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/glow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Replaces the color (or chroma) of the frame with transparency (i.e. keys out the color).</source>
+        <translation type="unfinished"></translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
-        <source>Extrude</source>
-        <translation>押し出し</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+        <source>Delta</source>
+        <translation>変化</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
     </message>
     <message>
-        <source>Text Size</source>
-        <translation>テキストのサイズ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+        <source>Shift the hue of all colors in the image</source>
+        <translation>画像の全ての色の色相をずらします</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/hue.xml</extra-po-references>
     </message>
     <message>
-        <source>Lighter</source>
-        <translation>明るい線</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fixed Rotate X</source>
-        <translation>静止回転 X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Make image sharper</source>
-        <translation>映像をより鮮明にします</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Channel Mapping</source>
+        <source>Channel Filter</source>
         <translation type="unfinished"></translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Alpha controlled</source>
-        <translation>アルファ有り部分のみ調整</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Key</source>
-        <translation>キー</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Specular Color</source>
-        <translation>背景: 反射色</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gravity: X</source>
-        <translation>重力: X</translation>
+        <source>Specular Intensity</source>
+        <translation>反射強度</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
-        <source>Horizontal Radius</source>
-        <translation>水平半径</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+        <source>X axis</source>
+        <translation>X 軸</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="115"/>
-        <source>End</source>
-        <translation>終了</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Neutral Color</source>
-        <translation>中間色</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Longitude (minutes)</source>
-        <translation>出発地の経度 (分)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Find and glow the edges of objects</source>
-        <translation>オブジェクトのエッジを探して発光します</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Reduce image to primary colors</source>
-        <translation>画像の色を原色に減色します</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Echo</source>
-        <translation>エコー</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Title</source>
-        <translation>出発地のタイトル</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Latitude (Equator)</source>
-        <translation>到着地の緯度 (北/南緯)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Invert</source>
-        <translation>色反転</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Display Clouds</source>
-        <translation>雲を表示</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml</extra-po-references>
-    </message>
-    <message>
-        <source>End: Y</source>
-        <translation>終了位置: Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Text Width</source>
-        <translation>テキストの幅</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Histogram position</source>
-        <translation>ヒストグラムの位置</translation>
+        <source>Levels</source>
+        <translation>レベル</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
@@ -2635,54 +2490,134 @@ Do you want to replace it?</source>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/contrast.xml</extra-po-references>
     </message>
     <message>
-        <source>Spots: Color Threshold</source>
-        <translation>点々: 色のしきい値</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+        <source>Key Color</source>
+        <translation>キーカラー</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Halo: Use Stars</source>
-        <translation>ハロー: 星を使用</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+        <source>Background: Alpha</source>
+        <translation>背景: アルファ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
     </message>
     <message>
-        <source>Three point balance</source>
-        <translation>3点バランス</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+        <source>Remove interlacing from a video (i.e. even or odd horizontal lines)</source>
+        <translation>ビデオのインターレース解除（奇数と偶数フィールドの再結合）</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
-        <source>Start Value</source>
-        <translation>開始値</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
+        <source>Baltan</source>
+        <translation>バルタン</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml</extra-po-references>
     </message>
     <message>
-        <source>Tint a source image with specified color</source>
-        <translation>指定された色で画像に色を付けます</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
+        <source>Adjust the image up and down, with the off-screen portion appearing on the other side</source>
+        <translation>画像を上下にずらし、画面からはみ出た部分を反対側に表示します</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
     </message>
     <message>
-        <source>Add small dust shapes randomly on the image</source>
-        <translation>画像に小さい埃の輪郭をランダムに追加します</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
+        <source>Top Left</source>
+        <translation>左上</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>u</source>
-        <translation>u</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
+        <source>Picture 2 Path</source>
+        <translation>写真 2 のパス</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
     </message>
     <message>
-        <source>Adjust the color of the image to emulate black-and-white film that has had sepia pigment added</source>
-        <translation>セピア色になった白黒フィルムのように画像の色を調整します</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Defocus</source>
-        <translation>ピンぼけ</translation>
+        <source>Font Name</source>
+        <translation>フォント名</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
-        <source>White Balance</source>
-        <translation>ホワイトバランス</translation>
+        <source>Blinds (Two Titles)</source>
+        <translation>ブラインド (2つのタイトル)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Waveform</source>
+        <translation>波形</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Line 2 Color</source>
+        <translation>線 2 の色</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Particles: Lifetime</source>
+        <translation>小片: 寿命</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Old Film</source>
+        <translation>古いフィルム</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Number of Snow Flakes</source>
+        <translation>雪片の数</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Make a single color transparent.  Also referred to as green screen and blue screen.</source>
+        <translation>1つの色を透明にします。グリーンスクリーンやブルースクリーンとも呼ばれます。</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Input level white point</source>
+        <translation>入力レベル ホワイトポイント</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Longitude (degrees)</source>
+        <translation>出発地の経度 (度)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Map black to</source>
+        <translation>黒色に割り当てる色</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Specular Color</source>
+        <translation>背景: 反射色</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Negative</source>
+        <translation>ネガフィルム</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Lighter</source>
+        <translation>明るい線</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the white balance and color temperature</source>
+        <translation>ホワイトバランスと色温度を調整します</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>World Map (Realistic)</source>
+        <translation>世界地図(リアル画像)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Wireframe Text</source>
+        <translation>ワイヤフレームテキスト</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/wireframe_text.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fixed Rotate Y</source>
+        <translation>静止回転 Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Neon Curves</source>
+        <translation>ネオンカーブ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
     </message>
     <message>
         <source>Black color</source>
@@ -2690,13 +2625,158 @@ Do you want to replace it?</source>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
     </message>
     <message>
-        <source>Flippo</source>
-        <translation>反転</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
+        <source>Add a glow effect to the image</source>
+        <translation>画像に白熱光のエフェクトを追加します</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/glow.xml</extra-po-references>
     </message>
     <message>
-        <source>Bottom Right</source>
-        <translation>右下</translation>
+        <source>Equalizes the intensity histograms</source>
+        <translation>明度の分布を均一にします</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Title</source>
+        <translation>出発地のタイトル</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Transition width</source>
+        <translation>トランジション幅</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Rotate Z</source>
+        <translation>回転 Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Green</source>
+        <translation>緑色</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Particles: Amount</source>
+        <translation>小片: 量</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Shadeless</source>
+        <translation>背景: 陰なし</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Color Distance</source>
+        <translation>色距離</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Latitude (Equator)</source>
+        <translation>出発地の緯度 (北/南緯)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Reduces and mixes the colors of the image based on a threshold</source>
+        <translation>しきい値に基づいて画像の色を減らして混ぜます</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threshold.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Picture 4 Path</source>
+        <translation>写真 4 のパス</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Y Scatter</source>
+        <translation>散らばり Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Glare</source>
+        <translation>まぶしい光</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Alpha Mask / Wipe Transition</source>
+        <translation>アルファマスク / ワイプトランジション</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Freeze After</source>
+        <translation>指定フレーム後に静止</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Canvas</source>
+        <translation>キャンバス</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>End Frame</source>
+        <translation>終了フレーム</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Delay</source>
+        <translation>遅延</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Creates a square alpha-channel mask</source>
+        <translation>正方形のアルファチャンネルマスクを作成します</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Red Scale</source>
+        <translation>赤スケール</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gain Out</source>
+        <translation>ゲイン 外</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Block Size Y</source>
+        <translation>ブロックサイズ Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>White Balance</source>
+        <translation>ホワイトバランス</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Add a series of peaks and troughs to the audio, creating a sweeping effect</source>
+        <translation>音声に一連の起伏を追加し、スイープ効果を作成します</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Location X</source>
+        <translation>X座標</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>形式</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sun: Color Threshold</source>
+        <translation>太陽: 色のしきい値</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Green Tint</source>
+        <translation>緑色</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gain</source>
+        <translation>ゲイン</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Vertical Radius</source>
+        <translation>垂直半径</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2705,54 +2785,9 @@ Do you want to replace it?</source>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
     </message>
     <message>
-        <source>Tile 4: Diffuse Color</source>
-        <translation>タイル 4: 拡散色</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Diffuse Color</source>
-        <translation>背景: 拡散色</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Blur the image similar to an out-of-focus camera</source>
-        <translation>カメラのピンぼけのように画像をぼかします</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/blur.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Blend</source>
-        <translation>背景: ブレンド</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjusts the saturation or intensity of the image</source>
-        <translation>画像の彩度を調整します</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/saturation.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Center size</source>
-        <translation>中央部分の大きさ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Rotate Y</source>
-        <translation>回転 Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Color</source>
-        <translation>色</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Chroma Key</source>
-        <translation>クロマキー</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Nosync</source>
-        <translation>ずらし</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
+        <source>Sun: Angle Offset</source>
+        <translation>太陽: 角度のオフセット</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
         <source>Delay grab</source>
@@ -2760,19 +2795,29 @@ Do you want to replace it?</source>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml</extra-po-references>
     </message>
     <message>
-        <source>Split preview</source>
-        <translation>半分を元の色で表示</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+        <source>Greyscale</source>
+        <translation>グレイスケール</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml</extra-po-references>
     </message>
     <message>
-        <source>Depart Longitude (seconds)</source>
-        <translation>出発地の経度 (秒)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+        <source>Replace Image</source>
+        <translation>画像の置換</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Creates a square alpha-channel mask</source>
-        <translation>正方形のアルファチャンネルマスクを作成します</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
+        <source>Min</source>
+        <translation>最小</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Track</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Histogram position</source>
+        <translation>ヒストグラムの位置</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
         <source>Glass Slider</source>
@@ -2780,14 +2825,29 @@ Do you want to replace it?</source>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
     </message>
     <message>
-        <source>Background: Specular Intensity</source>
-        <translation>背景: 反射の明度</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+        <source>Scan Lines</source>
+        <translation>走査線</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml</extra-po-references>
     </message>
     <message>
-        <source>Stretch</source>
-        <translation>ストレッチ</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+        <source>v</source>
+        <translation>v</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Display Ground</source>
+        <translation>グラウンドを使用する</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Key</source>
+        <translation>キー</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sobel</source>
+        <translation>ソーベル</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="106"/>
@@ -2798,14 +2858,14 @@ Do you want to replace it?</source>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml Settings for actionTitle</extra-po-references>
     </message>
     <message>
-        <source>Blinds (Two Titles)</source>
-        <translation>ブラインド (2つのタイトル)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml</extra-po-references>
+        <source>Pixelate</source>
+        <translation>ピクセル化</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
     </message>
     <message>
-        <source>Line 2 Color</source>
-        <translation>線 2 の色</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+        <source>Depart Latitude (seconds)</source>
+        <translation>出発地の緯度 (秒)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Old Lines</source>
@@ -2813,9 +2873,19 @@ Do you want to replace it?</source>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
     </message>
     <message>
-        <source>File Name</source>
-        <translation>ファイル名</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+        <source>Variance</source>
+        <translation>色の可変性</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Aspect ratio</source>
+        <translation>アスペクト比</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Bevel Depth</source>
+        <translation>ベベルの深さ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
         <source>Old Grain</source>
@@ -2823,88 +2893,42 @@ Do you want to replace it?</source>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
     </message>
     <message>
-        <source>Defish</source>
-        <translation>歪み補正</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+        <source>Start Frame</source>
+        <translation>開始フレーム</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
-        <source>Pixelate</source>
-        <translation>ピクセル化</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
+        <source>File Name</source>
+        <translation>ファイル名</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
-        <source>Velocity: X</source>
-        <translation>速度: X</translation>
+        <source>World Map</source>
+        <translation>世界地図</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>End: Z</source>
+        <translation>終了位置: Z</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
-        <source>Iterations</source>
-        <translation>反復</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+        <source>Picture Frames (4 pictures)</source>
+        <translation>写真フレーム (4枚)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
     </message>
     <message>
-        <source>Use Alpha</source>
-        <translation>アルファ使用</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml</extra-po-references>
+        <source>Halo: Starting Size</source>
+        <translation>ハロー: 開始サイズ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
-        <source>Border Width</source>
-        <translation>ボーダーの幅</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
+        <source>Tile 4: Diffuse Color</source>
+        <translation>タイル 4: 拡散色</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
-        <source>Halo: Star Count</source>
-        <translation>ハロー: 星の数</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Max Count</source>
-        <translation>数の上限</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gamma</source>
-        <translation>ガンマ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Green Tint</source>
-        <translation>緑色</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Wireframe Text</source>
-        <translation>ワイヤフレームテキスト</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/wireframe_text.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Frequency</source>
-        <translation>周波数</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
-    </message>
-    <message>
-        <source>X axis</source>
-        <translation>X 軸</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="96"/>
-        <source>Start</source>
-        <translation>開始</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Source image on left side</source>
-        <translation>元の色の映像を左半分へ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Magic Wand</source>
-        <translation>魔法の杖</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Replaces the color (or chroma) of the frame with transparency (i.e. keys out the color).</source>
+        <source>Uses a grayscale mask image to gradually wipe / transition between 2 images.</source>
         <translation type="unfinished"></translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
@@ -2914,179 +2938,49 @@ Do you want to replace it?</source>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Old Dust</source>
-        <translation>古い埃</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
+        <source>Trees</source>
+        <translation>木々</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/trees.xml</extra-po-references>
     </message>
     <message>
-        <source>Arrival Longitude (Prime Meridian)</source>
-        <translation>到着地の経度 (東/西経)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Delay</source>
-        <translation>遅延</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Tile 2: Diffuse Color</source>
-        <translation>タイル 2: 拡散色</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Picture 2 Path</source>
-        <translation>写真 2 のパス</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Freeze After</source>
-        <translation>指定フレーム後に静止</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Number</source>
-        <translation>数</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Display Ground</source>
-        <translation>グラウンドを使用する</translation>
+        <source>Particle Number</source>
+        <translation>破片数</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
     </message>
     <message>
-        <source>Distort</source>
-        <translation>ゆがみ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
+        <source>Hue</source>
+        <translation>色相</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/hue.xml</extra-po-references>
     </message>
     <message>
-        <source>Sharpness</source>
-        <translation>鮮明度調整</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
+        <source>Charcoal</source>
+        <translation>木炭画</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
     </message>
     <message>
-        <source>Add an echo</source>
-        <translation>エコーを追加します</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+        <source>Adjust the left/right balance</source>
+        <translation>左右のバランスを調整します</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
     </message>
     <message>
-        <source>Equalizor</source>
-        <translation>イコライザ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Trip Level</source>
-        <translation>トリップレベル</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Increase the size of pixels to obscure the image</source>
-        <translation>ピクセルのサイズを増やして画像を見えにくくします</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Start: Y</source>
-        <translation>開始位置: Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Bottom Left</source>
-        <translation>左下</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Scan Lines</source>
-        <translation>走査線</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Green</source>
-        <translation>緑色</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fuzz</source>
-        <translation>遊び量</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Text Alignment</source>
-        <translation>テキストの配置</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Glare</source>
-        <translation>まぶしい光</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Y Offset</source>
-        <translation>Y オフセット</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Decay</source>
-        <translation>減衰</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Color Saturation</source>
-        <translation>彩度</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Adds random vertical lines to the image</source>
-        <translation>画像にランダムな縦線を追加します</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Reduces and mixes the colors of the image based on a threshold</source>
-        <translation>しきい値に基づいて画像の色を減らして混ぜます</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threshold.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Latitude (degrees)</source>
-        <translation>到着地の緯度 (度)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Show histogram</source>
-        <translation>ヒストグラムを表示</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Oversaturate the color in the image, like in old Technicolor movies</source>
-        <translation>画像に色を流し込み、古いテクニカラー映画のようにします</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Color Distance</source>
-        <translation>色距離</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Scaling</source>
-        <translation>スケール調整</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Location X</source>
-        <translation>X座標</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Diffuse Color</source>
-        <translation>拡散色</translation>
+        <source>Animation Length</source>
+        <translation>アニメーションの長さ</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
-        <source>Top Right</source>
-        <translation>上右</translation>
+        <source>Halo: Line Count</source>
+        <translation>ハロー: 線の数</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Viewport</source>
+        <translation>ビューポート</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Flying Title</source>
-        <translation>フライングタイトル</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+        <source>Brightness Delta Every</source>
+        <translation>明るさ変化 頻度</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
     </message>
     <message>
         <source>Title Specular Color</source>
@@ -3094,29 +2988,94 @@ Do you want to replace it?</source>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
     </message>
     <message>
-        <source>Sun: Number of Streaks</source>
-        <translation>太陽: 光線の数</translation>
+        <source>Sharpness</source>
+        <translation>鮮明度調整</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>End: Y</source>
+        <translation>終了位置: Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Lens Flare</source>
+        <translation>レンズフレア</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
-        <source>Title 2</source>
-        <translation>タイトル 2</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+        <source>Map white to</source>
+        <translation>白色に割り当てる色</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
     </message>
     <message>
-        <source>Make a single color transparent.  Also referred to as green screen and blue screen.</source>
-        <translation>1つの色を透明にします。グリーンスクリーンやブルースクリーンとも呼ばれます。</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
+        <source>End Value</source>
+        <translation>終了値</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
     </message>
     <message>
-        <source>Depart Latitude (Equator)</source>
-        <translation>出発地の緯度 (北/南緯)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+        <source>Adjusts the saturation or intensity of the image</source>
+        <translation>画像の彩度を調整します</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/saturation.xml</extra-po-references>
     </message>
     <message>
-        <source>Aspect ratio</source>
-        <translation>アスペクト比</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+        <source>u</source>
+        <translation>u</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Letterbox</source>
+        <translation>レターボックス</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
+    </message>
+    <message>
+        <source>First Title</source>
+        <translation>ファースト タイトル</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Primary Colors</source>
+        <translation>原色</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Chroma Hold</source>
+        <translation>指定色のみ保持</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adds random vertical lines to the image</source>
+        <translation>画像にランダムな縦線を追加します</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Frequency</source>
+        <translation>周波数</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Old Dust</source>
+        <translation>古い埃</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fly Towards Camera (Two Titles)</source>
+        <translation>カメラに向かって飛ぶ (2つのタイトル)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/fly_by_two_titles.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Frame Number</source>
+        <translation>フレーム番号</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Blur</source>
+        <translation>ぼかし</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blur.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Snow</source>
+        <translation>雪</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
         <source>Adjusts the gamma or luminance value of the image</source>
@@ -3124,111 +3083,80 @@ Do you want to replace it?</source>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml</extra-po-references>
     </message>
     <message>
-        <source>Wave Color</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+        <source>Halo Zoom Out</source>
+        <translation>ハロー ズームアウト</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/halo_zoom_out.xml</extra-po-references>
     </message>
     <message>
-        <source>Bottom Center</source>
-        <translation>下中央</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Particles: Amount</source>
-        <translation>小片: 量</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Title 1</source>
-        <translation>タイトル 1</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation>形式</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Brightness Delta Down</source>
-        <translation>明るさ変化 減少</translation>
+        <source>Adjusts the gamma and brightness randomly to create the illusion of old film</source>
+        <translation>ガンマと明るさを調整して古いフィルム風にします</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
     </message>
     <message>
-        <source>AVI (h.264)</source>
-        <translation>AVI (h.264)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_x264.xml</extra-po-references>
+        <source>Line 4 Color</source>
+        <translation>線 4 の色</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
     </message>
     <message>
-        <source>Metacafe</source>
-        <translation>Metacafe</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml</extra-po-references>
+        <source>Size</source>
+        <translation>サイズ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
     </message>
     <message>
-        <source>Play/Pause Toggle (Alternate 1)</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for playToggle1</extra-po-references>
+        <source>Display Clouds</source>
+        <translation>雲を表示</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml</extra-po-references>
     </message>
     <message>
-        <source>Play/Pause Toggle (Alternate 3)</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for playToggle3</extra-po-references>
+        <source>Background: Specular Intensity</source>
+        <translation>背景: 反射の明度</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
-        <source>Delete Item</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for deleteItem</extra-po-references>
+        <source>Block Size X</source>
+        <translation>ブロックサイズ X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
     </message>
     <message>
-        <source>DVD</source>
-        <translation>DVD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml</extra-po-references>
+        <source>Arrival Longitude (Prime Meridian)</source>
+        <translation>到着地の経度 (東/西経)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
-        <source>Debug Mode (Port)</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for debug-port</extra-po-references>
+        <source>Freeze the frame of a video</source>
+        <translation>映像のフレームを固定します</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="871"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="874"/>
-        <source>Fullscreen</source>
-        <translation>全画面表示</translation>
-        <extra-po-references>Settings for actionFullscreen</extra-po-references>
+        <source>Text Size</source>
+        <translation>テキストのサイズ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="505"/>
-        <source>&amp;Preferences</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for actionPreferences</extra-po-references>
+        <source>Output level white point</source>
+        <translation>出力レベル ホワイトポイント</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
-        <source>AVCHD Disks</source>
-        <translation>AVCHDディスク</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml</extra-po-references>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="115"/>
+        <source>End</source>
+        <translation>終了</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1057"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1060"/>
-        <source>Choose Profile</source>
-        <translation>ビデオ形式の選択</translation>
-        <extra-po-references>Settings for actionProfile</extra-po-references>
+        <source>Line 3 Color</source>
+        <translation>線 3 の色</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="360"/>
-        <source>Import Files...</source>
-        <translation>ファイルをインポート...</translation>
-        <extra-po-references>Settings for actionImportFiles</extra-po-references>
+        <source>X Center</source>
+        <translation>X 中央</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
     </message>
     <message>
-        <source>Nokia nHD</source>
-        <translation>Nokia nHD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/nokia_nHD.xml</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="285"/>
-        <source>New Project...</source>
-        <translation>新しいプロジェクト...</translation>
-        <extra-po-references>Settings for actionNew</extra-po-references>
+        <source>Debug Mode (Verbose)</source>
+        <translation>デバッグモード（冗長な）</translation>
+        <extra-po-references>Settings for debug-mode</extra-po-references>
     </message>
     <message>
         <source>MOV (mpeg4)</source>
@@ -3236,11 +3164,24 @@ Do you want to replace it?</source>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mov_mpeg4.xml</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="919"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="922"/>
-        <source>Thumbnail View</source>
-        <translation>サムネイル表示</translation>
-        <extra-po-references>Settings for actionThumbnailView</extra-po-references>
+        <source>Profiles</source>
+        <translation>プロファイル</translation>
+        <extra-po-references>Settings Category for Profiles</extra-po-references>
+    </message>
+    <message>
+        <source>DVD-PAL</source>
+        <translation>DVD-PAL</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_pal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Nokia nHD</source>
+        <translation>Nokia nHD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/nokia_nHD.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Default Theme</source>
+        <translation>標準のテーマ</translation>
+        <extra-po-references>Settings for theme</extra-po-references>
     </message>
     <message>
         <source>Apple TV</source>
@@ -3248,19 +3189,84 @@ Do you want to replace it?</source>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml</extra-po-references>
     </message>
     <message>
-        <source>Wikipedia</source>
-        <translation>ウィキペディア</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/wikipedia.xml</extra-po-references>
+        <source>Enable Autosave</source>
+        <translation>自動保存を有効にする</translation>
+        <extra-po-references>Settings for enable-auto-save</extra-po-references>
     </message>
     <message>
-        <source>Delete Item (Alternate 1)</source>
+        <source>General</source>
+        <translation>一般</translation>
+        <extra-po-references>Settings Category for General</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="315"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="318"/>
+        <source>Save Project</source>
+        <translation>プロジェクトを保存</translation>
+        <extra-po-references>Settings for actionSave</extra-po-references>
+    </message>
+    <message>
+        <source>Debug</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>Settings for deleteItem1</extra-po-references>
+        <extra-po-references>Settings Category for Debug</extra-po-references>
     </message>
     <message>
-        <source>Image Length (seconds)</source>
-        <translation>画像の長さ (秒)</translation>
-        <extra-po-references>Settings for default-image-length</extra-po-references>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="493"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="496"/>
+        <source>Add Track</source>
+        <translation>トラックを追加</translation>
+        <extra-po-references>Settings for actionAddTrack</extra-po-references>
+    </message>
+    <message>
+        <source>Metacafe</source>
+        <translation>Metacafe</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml</extra-po-references>
+    </message>
+    <message>
+        <source>AVI (mpeg4)</source>
+        <translation>AVI (mpeg4)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mp4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Slice All: Keep Both Sides</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for sliceAllKeepBothSides</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="559"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="562"/>
+        <source>Fast Forward</source>
+        <translation>早送り</translation>
+        <extra-po-references>Settings for fastforwardVideo</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="405"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="408"/>
+        <source>Redo</source>
+        <translation>やり直す</translation>
+        <extra-po-references>Settings for actionRedo</extra-po-references>
+    </message>
+    <message>
+        <source>Select None</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for selectNone</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="646"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="649"/>
+        <source>Previous Marker</source>
+        <translation>前のマーカー</translation>
+        <extra-po-references>Settings for actionPreviousMarker</extra-po-references>
+    </message>
+    <message>
+        <source>Advanced Title Editor (path)</source>
+        <translation>外部のタイトルエディタ（パス）</translation>
+        <extra-po-references>Settings for title_editor</extra-po-references>
+    </message>
+    <message>
+        <source>Play/Pause Toggle (Alternate 3)</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for playToggle3</extra-po-references>
     </message>
     <message>
         <source>Slice All: Keep Right Side</source>
@@ -3268,11 +3274,9 @@ Do you want to replace it?</source>
         <extra-po-references>Settings for sliceAllKeepRightSide</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="631"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="634"/>
-        <source>Add Marker</source>
-        <translation>マーカーを追加</translation>
-        <extra-po-references>Settings for actionAddMarker</extra-po-references>
+        <source>Select All</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for selectAll</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="547"/>
@@ -3282,9 +3286,35 @@ Do you want to replace it?</source>
         <extra-po-references>Settings for rewindVideo</extra-po-references>
     </message>
     <message>
-        <source>Default Profile</source>
-        <translation>初期設定</translation>
-        <extra-po-references>Settings for default-profile</extra-po-references>
+        <source>Wikipedia</source>
+        <translation>ウィキペディア</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/wikipedia.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Keyboard</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings Category for Keyboard</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1072"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1075"/>
+        <source>Add to Timeline</source>
+        <translation>タイムラインに追加</translation>
+        <extra-po-references>Settings for actionAdd_to_Timeline</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="330"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="333"/>
+        <source>Undo</source>
+        <translation>元に戻す</translation>
+        <extra-po-references>Settings for actionUndo</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="535"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="538"/>
+        <source>Jump To Start</source>
+        <translation>先頭に戻る</translation>
+        <extra-po-references>Settings for actionJumpStart</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="934"/>
@@ -3294,15 +3324,187 @@ Do you want to replace it?</source>
         <extra-po-references>Settings for actionDetailsView</extra-po-references>
     </message>
     <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="256"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1215"/>
+        <source>Properties</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for actionProperties</extra-po-references>
+    </message>
+    <message>
+        <source>Next Frame</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for seekNextFrame</extra-po-references>
+    </message>
+    <message>
+        <source>Autosave</source>
+        <translation>自動保存</translation>
+        <extra-po-references>Settings Category for Autosave</extra-po-references>
+    </message>
+    <message>
+        <source>Xbox 360</source>
+        <translation>Xbox 360</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/xbox360.xml</extra-po-references>
+    </message>
+    <message>
         <source>Vimeo-HD</source>
         <translation>Vimeo-HD</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/vimeo_HD.xml</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="118"/>
-        <source>Vimeo</source>
-        <translation>Vimeo</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/vimeo.xml</extra-po-references>
+        <source>Play/Pause Toggle</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for playToggle</extra-po-references>
+    </message>
+    <message>
+        <source>Flickr-HD</source>
+        <translation>Flickr-HD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/flickr_HD.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Autosave Interval (minutes)</source>
+        <translation>自動保存の間隔 (分)</translation>
+        <extra-po-references>Settings for autosave-interval</extra-po-references>
+    </message>
+    <message>
+        <source>YouTube-HD</source>
+        <translation>YouTube-HD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/youtube_HD.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Blu-Ray/AVCHD</source>
+        <translation>Blu-Ray/AVCHD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml</extra-po-references>
+    </message>
+    <message>
+        <source>MP4 (mpeg4)</source>
+        <translation>MP4 (mpeg4)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_mpeg4.xml</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="619"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="622"/>
+        <source>Snapping Enabled</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for actionSnappingTool</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="285"/>
+        <source>New Project...</source>
+        <translation>新しいプロジェクト...</translation>
+        <extra-po-references>Settings for actionNew</extra-po-references>
+    </message>
+    <message>
+        <source>DVD-NTSC</source>
+        <translation>DVD-NTSC</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Delete Item</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for deleteItem</extra-po-references>
+    </message>
+    <message>
+        <source>FLV (h.264)</source>
+        <translation>FLV (h.264)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_flv_x264.xml</extra-po-references>
+    </message>
+    <message>
+        <source>MPEG (mpeg2)</source>
+        <translation>MPEG (mpeg2)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mpeg_mpeg2.xml</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="508"/>
+        <source>Preferences</source>
+        <translation>設定</translation>
+        <extra-po-references>Settings for actionPreferences</extra-po-references>
+    </message>
+    <message>
+        <source>AVI (mpeg2)</source>
+        <translation>AVI (mpeg2)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mpeg2.xml</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="571"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="574"/>
+        <source>Jump To End</source>
+        <translation>最後尾に跳ぶ</translation>
+        <extra-po-references>Settings for actionJumpEnd</extra-po-references>
+    </message>
+    <message>
+        <source>Play/Pause Toggle (Alternate 1)</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for playToggle1</extra-po-references>
+    </message>
+    <message>
+        <source>Play/Pause Toggle (Alternate 2)</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for playToggle2</extra-po-references>
+    </message>
+    <message>
+        <source>Default Audio Channels</source>
+        <translation>標準の音声チャンネル</translation>
+        <extra-po-references>Settings for default-channellayout</extra-po-references>
+    </message>
+    <message>
+        <source>MOV (h.264)</source>
+        <translation>MOV (h.264)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mov_x264.xml</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1197"/>
+        <source>Split Clip...</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for actionSplitClip</extra-po-references>
+    </message>
+    <message>
+        <source>AVI (h.264)</source>
+        <translation>AVI (h.264)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_x264.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Send Anonymous Metrics and Errors</source>
+        <translation>匿名でエラーと評価の計測値を送る</translation>
+        <extra-po-references>Settings for send_metrics</extra-po-references>
+    </message>
+    <message>
+        <source>Device</source>
+        <translation>デバイス</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml</extra-po-references>
+    </message>
+    <message>
+        <source>OGG (theora/vorbis)</source>
+        <translation>OGG (theora/vorbis)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_libvorbis.xml</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="871"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="874"/>
+        <source>Fullscreen</source>
+        <translation>全画面表示</translation>
+        <extra-po-references>Settings for actionFullscreen</extra-po-references>
+    </message>
+    <message>
+        <source>Blender Command (path)</source>
+        <translation>Blenderの実行ファイル(パス)</translation>
+        <extra-po-references>Settings for blender_command</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="478"/>
+        <source>Quit</source>
+        <translation>終了</translation>
+        <extra-po-references>Settings for actionQuit</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/about.ui" line="23"/>
+        <source>About OpenShot</source>
+        <translation>OpenShot について</translation>
+        <extra-po-references>Settings for actionAbout</extra-po-references>
+    </message>
+    <message>
+        <source>Default Audio Sample Rate</source>
+        <translation>標準の音声サンプリング・レート</translation>
+        <extra-po-references>Settings for default-samplerate</extra-po-references>
     </message>
     <message>
         <source>Language</source>
@@ -3315,101 +3517,26 @@ Do you want to replace it?</source>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml</extra-po-references>
     </message>
     <message>
-        <source>General</source>
-        <translation>一般</translation>
-        <extra-po-references>Settings Category for General</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="330"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="333"/>
-        <source>Undo</source>
-        <translation>元に戻す</translation>
-        <extra-po-references>Settings for actionUndo</extra-po-references>
-    </message>
-    <message>
-        <source>Device</source>
-        <translation>デバイス</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/about.ui" line="23"/>
-        <source>About OpenShot</source>
-        <translation>OpenShot について</translation>
-        <extra-po-references>Settings for actionAbout</extra-po-references>
-    </message>
-    <message>
         <source>OGG (theora/flac)</source>
         <translation>OGG (theora/flac)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_flac.xml</extra-po-references>
     </message>
     <message>
-        <source>Play/Pause Toggle</source>
+        <source>Debug Mode (Port)</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>Settings for playToggle</extra-po-references>
+        <extra-po-references>Settings for debug-port</extra-po-references>
     </message>
     <message>
-        <source>Next Frame</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for seekNextFrame</extra-po-references>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="360"/>
+        <source>Import Files...</source>
+        <translation>ファイルをインポート...</translation>
+        <extra-po-references>Settings for actionImportFiles</extra-po-references>
     </message>
     <message>
-        <source>Flickr-HD</source>
-        <translation>Flickr-HD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/flickr_HD.xml</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="315"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="318"/>
-        <source>Save Project</source>
-        <translation>プロジェクトを保存</translation>
-        <extra-po-references>Settings for actionSave</extra-po-references>
-    </message>
-    <message>
-        <source>AVI (mpeg2)</source>
-        <translation>AVI (mpeg2)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mpeg2.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Autosave</source>
-        <translation>自動保存</translation>
-        <extra-po-references>Settings Category for Autosave</extra-po-references>
-    </message>
-    <message>
-        <source>AVI (mpeg4)</source>
-        <translation>AVI (mpeg4)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mp4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Autosave Interval (minutes)</source>
-        <translation>自動保存の間隔 (分)</translation>
-        <extra-po-references>Settings for autosave-interval</extra-po-references>
-    </message>
-    <message>
-        <source>DVD-NTSC</source>
-        <translation>DVD-NTSC</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Blender Command (path)</source>
-        <translation>Blenderの実行ファイル(パス)</translation>
-        <extra-po-references>Settings for blender_command</extra-po-references>
-    </message>
-    <message>
-        <source>MOV (h.264)</source>
-        <translation>MOV (h.264)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mov_x264.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Slice All: Keep Left Side</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for sliceAllKeepLeftSide</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="559"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="562"/>
-        <source>Fast Forward</source>
-        <translation>早送り</translation>
-        <extra-po-references>Settings for fastforwardVideo</extra-po-references>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="118"/>
+        <source>Vimeo</source>
+        <translation>Vimeo</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/vimeo.xml</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="852"/>
@@ -3419,115 +3546,9 @@ Do you want to replace it?</source>
         <extra-po-references>Settings for actionAnimatedTitle</extra-po-references>
     </message>
     <message>
-        <source>Default Theme</source>
-        <translation>標準のテーマ</translation>
-        <extra-po-references>Settings for theme</extra-po-references>
-    </message>
-    <message>
-        <source>YouTube-HD</source>
-        <translation>YouTube-HD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/youtube_HD.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Play/Pause Toggle (Alternate 2)</source>
+        <source>Delete Item (Alternate 1)</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>Settings for playToggle2</extra-po-references>
-    </message>
-    <message>
-        <source>Send Anonymous Metrics and Errors</source>
-        <translation>匿名でエラーと評価の計測値を送る</translation>
-        <extra-po-references>Settings for send_metrics</extra-po-references>
-    </message>
-    <message>
-        <source>WEBM (vpx)</source>
-        <translation>WEBM (vpx)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="475"/>
-        <source>&amp;Quit</source>
-        <translation>終了(&amp;Q)</translation>
-        <extra-po-references>Settings for actionQuit</extra-po-references>
-    </message>
-    <message>
-        <source>Default Audio Channels</source>
-        <translation>標準の音声チャンネル</translation>
-        <extra-po-references>Settings for default-channellayout</extra-po-references>
-    </message>
-    <message>
-        <source>Previous Frame</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for seekPreviousFrame</extra-po-references>
-    </message>
-    <message>
-        <source>MPEG (mpeg2)</source>
-        <translation>MPEG (mpeg2)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mpeg_mpeg2.xml</extra-po-references>
-    </message>
-    <message>
-        <source>FLV (h.264)</source>
-        <translation>FLV (h.264)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_flv_x264.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Debug</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings Category for Debug</extra-po-references>
-    </message>
-    <message>
-        <source>Profiles</source>
-        <translation>プロファイル</translation>
-        <extra-po-references>Settings Category for Profiles</extra-po-references>
-    </message>
-    <message>
-        <source>Blu-Ray/AVCHD</source>
-        <translation>Blu-Ray/AVCHD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1197"/>
-        <source>Split Clip...</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for actionSplitClip</extra-po-references>
-    </message>
-    <message>
-        <source>Debug Mode (Verbose)</source>
-        <translation>デバッグモード（冗長な）</translation>
-        <extra-po-references>Settings for debug-mode</extra-po-references>
-    </message>
-    <message>
-        <source>Default Audio Sample Rate</source>
-        <translation>標準の音声サンプリング・レート</translation>
-        <extra-po-references>Settings for default-samplerate</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="405"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="408"/>
-        <source>Redo</source>
-        <translation>やり直す</translation>
-        <extra-po-references>Settings for actionRedo</extra-po-references>
-    </message>
-    <message>
-        <source>YouTube</source>
-        <translation>YouTube</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/youtube.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Select None</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for selectNone</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1072"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1075"/>
-        <source>Add to Timeline</source>
-        <translation>タイムラインに追加</translation>
-        <extra-po-references>Settings for actionAdd_to_Timeline</extra-po-references>
-    </message>
-    <message>
-        <source>Enable Autosave</source>
-        <translation>自動保存を有効にする</translation>
-        <extra-po-references>Settings for enable-auto-save</extra-po-references>
+        <extra-po-references>Settings for deleteItem1</extra-po-references>
     </message>
     <message>
         <source>Picasa</source>
@@ -3535,636 +3556,82 @@ Do you want to replace it?</source>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/picasa.xml</extra-po-references>
     </message>
     <message>
+        <source>Image Length (seconds)</source>
+        <translation>画像の長さ (秒)</translation>
+        <extra-po-references>Settings for default-image-length</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="631"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="634"/>
+        <source>Add Marker</source>
+        <translation>マーカーを追加</translation>
+        <extra-po-references>Settings for actionAddMarker</extra-po-references>
+    </message>
+    <message>
+        <source>AVCHD Disks</source>
+        <translation>AVCHDディスク</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Slice All: Keep Left Side</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for sliceAllKeepLeftSide</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1057"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1060"/>
+        <source>Choose Profile</source>
+        <translation>ビデオ形式の選択</translation>
+        <extra-po-references>Settings for actionProfile</extra-po-references>
+    </message>
+    <message>
+        <source>Default Profile</source>
+        <translation>初期設定</translation>
+        <extra-po-references>Settings for default-profile</extra-po-references>
+    </message>
+    <message>
+        <source>DVD</source>
+        <translation>DVD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml</extra-po-references>
+    </message>
+    <message>
+        <source>YouTube</source>
+        <translation>YouTube</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/youtube.xml</extra-po-references>
+    </message>
+    <message>
+        <source>WEBM (vpx)</source>
+        <translation>WEBM (vpx)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="658"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="661"/>
+        <source>Next Marker</source>
+        <translation>次のマーカー</translation>
+        <extra-po-references>Settings for actionNextMarker</extra-po-references>
+    </message>
+    <message>
+        <source>Previous Frame</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for seekPreviousFrame</extra-po-references>
+    </message>
+    <message>
         <source>MP4 (Xvid)</source>
         <translation>MP4 (Xvid)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_xvid.xml</extra-po-references>
     </message>
     <message>
-        <source>OGG (theora/vorbis)</source>
-        <translation>OGG (theora/vorbis)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_libvorbis.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Advanced Title Editor (path)</source>
-        <translation>外部のタイトルエディタ（パス）</translation>
-        <extra-po-references>Settings for title_editor</extra-po-references>
-    </message>
-    <message>
-        <source>MP4 (mpeg4)</source>
-        <translation>MP4 (mpeg4)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_mpeg4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Xbox 360</source>
-        <translation>Xbox 360</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/xbox360.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Slice All: Keep Both Sides</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for sliceAllKeepBothSides</extra-po-references>
-    </message>
-    <message>
-        <source>Keyboard</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings Category for Keyboard</extra-po-references>
-    </message>
-    <message>
-        <source>DVD-PAL</source>
-        <translation>DVD-PAL</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_pal.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Select All</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for selectAll</extra-po-references>
-    </message>
-    <message>
-        <source>4 squares leftt barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_leftt_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Mozaic %s</source>
-        <translation>モザイク %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_5.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Deform %s</source>
-        <translation>歪み %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/deform_8.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Vertical blinds in to out big</source>
-        <translation>垂直ブラインド 中から外 大</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out_big.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Frame barr left</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_left.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wave left down</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_down.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Extra</source>
-        <translation>拡張</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra</extra-po-references>
-    </message>
-    <message>
-        <source>Blinds sliding</source>
-        <translation>ブラインド スライド</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_sliding.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Big cross right barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_right_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Vertical bars</source>
-        <translation>垂直バー</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_bars.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Clock left to right</source>
-        <translation>時計 左から右</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_left_to_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ray light right %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spots</source>
-        <translation>斑点</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spots.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle losange</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_losange.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Luminous frame %s</source>
-        <translation>輝く額縁 %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_frame_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Openshot logo</source>
-        <translation>OpenShot ロゴ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/openshot_logo.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ripple luminous top arrow</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_top_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Cross %s</source>
-        <translation>交差 %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/cross_15.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle barr ripple %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr_ripple_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Sphere %s</source>
-        <translation>球状 %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ray %s</source>
-        <translation>輝き %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wipe left to right</source>
-        <translation>ワイプ 左から右</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_left_to_right.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Distortion %s</source>
-        <translation>ディストーション %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Blur left barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_left_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Left mozaic</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_mozaic.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Fractal %s</source>
-        <translation>フラクタル %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fractal_5.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Stretched %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/stretched_3.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Big barr</source>
-        <translation>大きなバー</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Mozaic barr left</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_left.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle cross right barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_right_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral small</source>
-        <translation>渦巻き 小</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Checked %s</source>
-        <translation>チェック %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/checked_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ripple %s</source>
-        <translation>さざ波 %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_4.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Square right barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_right_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ripple luminous low arrow</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_low_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Frame barr right</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Lateral left triangle</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_left_triangle.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Flower %s</source>
-        <translation>フラワー %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/flower_4.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Clouds %s</source>
-        <translation>雲 %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Fogg %s</source>
-        <translation>霧 %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fogg_3.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Mountains</source>
-        <translation>山脈</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mountains.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Triangle %s</source>
-        <translation>三角形 %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/triangle_3.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral medium</source>
-        <translation>渦巻き 中</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_medium.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Rectangle in to out</source>
-        <translation>矩形 中から外</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_in_to_out.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Circle out to in</source>
-        <translation>円 外から中</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_out_to_in.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral big %s</source>
-        <translation>大きな螺旋 %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Blur right barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_right_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ray light left</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Blinds in to out big</source>
-        <translation>ブラインド 中から外 大</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out_big.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Big losange</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_losange.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wipe top to bottom</source>
-        <translation>ワイプ 上から下</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_top_to_bottom.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Small cross right barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_right_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Frame %s</source>
-        <translation>額縁 %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Luminous spiral %s</source>
-        <translation>輝く螺旋 %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_spiral_9.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Foggy spiral %s</source>
-        <translation>霧の螺旋 %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/foggy_spiral_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Small cross left barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_left_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Clouds</source>
-        <translation>雲</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle low arrow</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_low_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ray light right</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Big barr shaking2</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Vertical blinds in to out</source>
-        <translation>垂直ブラインド 中から外</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Postime %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/postime_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Horizontal barr %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/horizontal_barr_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral big</source>
-        <translation>渦巻き 大</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wipe bottom to top</source>
-        <translation>ワイプ 下から上</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_bottom_to_top.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Strange barr %s</source>
-        <translation>奇妙なバー %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/strange_barr_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Crossed barr</source>
-        <translation>交差するバー</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/crossed_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Sphere</source>
-        <translation>球</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ondulation %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ondulation_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Small low arrow</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_low_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Big cross left barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_left_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral %s</source>
-        <translation>螺旋 %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_1.jpg</extra-po-references>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="919"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="922"/>
+        <source>Thumbnail View</source>
+        <translation>サムネイル表示</translation>
+        <extra-po-references>Settings for actionThumbnailView</extra-po-references>
     </message>
     <message>
         <source>Wave right down</source>
         <translation type="unfinished"></translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_down.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Fish-eyes %s</source>
-        <translation>魚眼効果 %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fish-eyes_5.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Lateral right triangle</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_right_triangle.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ray light %s</source>
-        <translation>筋状の光 %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_18.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Stain %s</source>
-        <translation>汚れ %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/stain_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Square middle left barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_left_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Central mozaic</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/central_mozaic.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Right mozaic</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ripple low arrow</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_low_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>4 squares right barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_right_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Whirpool %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/whirpool_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Mosaic %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mosaic_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Barr ripple %s</source>
-        <translation>さざ波バー %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/barr_ripple_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Hourglass %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/hourglass_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral small %s</source>
-        <translation>小さな螺旋 %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Mozaic barr right</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Square middle right barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_right_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Puzzle</source>
-        <translation>パズル</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/puzzle.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Blur ray left</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_left.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Sunlight %s</source>
-        <translation>サンライト %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sunlight_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Dissolve</source>
-        <translation>ディゾルブ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/dissolve.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Free left inspiration</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_left_inspiration.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Little right inspiration</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_right_inspiration.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle black barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_black_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Left arrow</source>
-        <translation>左向きの矢印</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Blinds in to out</source>
-        <translation>ブラインド 中から外</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Right arrow</source>
-        <translation>右向きの矢印</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Big barr shaking %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Star %s</source>
-        <translation>スター %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/star_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Blur ray right</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ray light left %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Future %s</source>
-        <translation>フューチャー %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/future_11.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Twirl %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/twirl_26.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Rectangle out to in</source>
-        <translation>矩形 外から中</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_out_to_in.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wipe right to left</source>
-        <translation>ワイプ 右から左</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_right_to_left.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral abstract %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_abstract_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Little rippling right</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Little left inspiration</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_left_inspiration.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Board %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/board_10.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Small top arrow</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_top_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Right mozaic %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Small barr</source>
-        <translation>小さなバー</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="736"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="739"/>
-        <source>Common</source>
-        <translation>基本</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common</extra-po-references>
-    </message>
-    <message>
-        <source>Wave left up</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_up.jpg</extra-po-references>
     </message>
     <message>
         <source>Wandering %s</source>
@@ -4177,44 +3644,19 @@ Do you want to replace it?</source>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sun_shaking.jpg</extra-po-references>
     </message>
     <message>
-        <source>Wave right up</source>
+        <source>Barr ripple %s</source>
+        <translation>さざ波バー %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/barr_ripple_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Small low arrow</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_up.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_low_arrow.jpg</extra-po-references>
     </message>
     <message>
-        <source>Middle top arrow</source>
+        <source>Left mozaic</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_top_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Circle in to out</source>
-        <translation>円 中から外</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_in_to_out.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Bubbles</source>
-        <translation>泡</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/bubbles.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Clock right to left</source>
-        <translation>時計 右から左</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_right_to_left.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Small losange</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_losange.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Free inspiration right</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_inspiration_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Hatched %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/hatched_1.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_mozaic.jpg</extra-po-references>
     </message>
     <message>
         <source>Middle left inspiration</source>
@@ -4222,19 +3664,9 @@ Do you want to replace it?</source>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_left_inspiration.jpg</extra-po-references>
     </message>
     <message>
-        <source>Square left barr</source>
+        <source>4 squares right barr</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_left_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wipe diagonal %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wipe_diagonal_3.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Little rippling left</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_left.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_right_barr.jpg</extra-po-references>
     </message>
     <message>
         <source>Frame cross left barr</source>
@@ -4242,14 +3674,44 @@ Do you want to replace it?</source>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_cross_left_barr.jpg</extra-po-references>
     </message>
     <message>
-        <source>Boxes %s</source>
-        <translation>ボックス %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/boxes_12.jpg</extra-po-references>
+        <source>Blur ray right</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_right.jpg</extra-po-references>
     </message>
     <message>
-        <source>Luminous boxes %s</source>
+        <source>Board %s</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_boxes_19.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/board_10.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Bubbles</source>
+        <translation>泡</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/bubbles.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Big losange</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_losange.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Big barr shaking %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Dissolve</source>
+        <translation>ディゾルブ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/dissolve.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ripple %s</source>
+        <translation>さざ波 %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_4.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wipe right to left</source>
+        <translation>ワイプ 右から左</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_right_to_left.svg</extra-po-references>
     </message>
     <message>
         <source>Middle right inspiration</source>
@@ -4257,14 +3719,601 @@ Do you want to replace it?</source>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_right_inspiration.jpg</extra-po-references>
     </message>
     <message>
+        <source>Rectangle out to in</source>
+        <translation>矩形 外から中</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_out_to_in.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Small losange</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_losange.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Little rippling right</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral big %s</source>
+        <translation>大きな螺旋 %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spots</source>
+        <translation>斑点</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spots.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Deform %s</source>
+        <translation>歪み %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/deform_8.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ripple luminous low arrow</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_low_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Clock right to left</source>
+        <translation>時計 右から左</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_right_to_left.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Square middle right barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral big</source>
+        <translation>渦巻き 大</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Stretched %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/stretched_3.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wave left up</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_up.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Blur left barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_left_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Small barr</source>
+        <translation>小さなバー</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ray light right</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Little right inspiration</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_right_inspiration.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Circle in to out</source>
+        <translation>円 中から外</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_in_to_out.svg</extra-po-references>
+    </message>
+    <message>
+        <source>Vertical blinds in to out</source>
+        <translation>垂直ブラインド 中から外</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ray light left %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Small cross left barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_left_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Sunlight %s</source>
+        <translation>サンライト %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sunlight_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Little rippling left</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_left.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Flower %s</source>
+        <translation>フラワー %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/flower_4.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wave left down</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_down.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral medium</source>
+        <translation>渦巻き 中</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_medium.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral small</source>
+        <translation>渦巻き 小</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wipe diagonal %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wipe_diagonal_3.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Luminous boxes %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_boxes_19.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Big cross left barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_left_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Puzzle</source>
+        <translation>パズル</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/puzzle.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Frame barr right</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Cross %s</source>
+        <translation>交差 %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/cross_15.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ondulation %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ondulation_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Free inspiration right</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_inspiration_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Fogg %s</source>
+        <translation>霧 %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fogg_3.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Future %s</source>
+        <translation>フューチャー %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/future_11.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>4 squares leftt barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_leftt_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Clouds</source>
+        <translation>雲</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Luminous spiral %s</source>
+        <translation>輝く螺旋 %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_spiral_9.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Hatched %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/hatched_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Strange barr %s</source>
+        <translation>奇妙なバー %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/strange_barr_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Lateral right triangle</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_right_triangle.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle losange</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_losange.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Big barr shaking2</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Foggy spiral %s</source>
+        <translation>霧の螺旋 %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/foggy_spiral_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Mozaic barr right</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Boxes %s</source>
+        <translation>ボックス %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/boxes_12.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wipe left to right</source>
+        <translation>ワイプ 左から右</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_left_to_right.svg</extra-po-references>
+    </message>
+    <message>
+        <source>Frame %s</source>
+        <translation>額縁 %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Square right barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Mozaic barr left</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_left.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Right arrow</source>
+        <translation>右向きの矢印</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ripple low arrow</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_low_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Vertical blinds in to out big</source>
+        <translation>垂直ブラインド 中から外 大</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out_big.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Mosaic %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mosaic_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="736"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="739"/>
+        <source>Common</source>
+        <translation>基本</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common</extra-po-references>
+    </message>
+    <message>
+        <source>Ray light right %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Square middle left barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_left_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Vertical bars</source>
+        <translation>垂直バー</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_bars.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Mozaic %s</source>
+        <translation>モザイク %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_5.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Star %s</source>
+        <translation>スター %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/star_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Triangle %s</source>
+        <translation>三角形 %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/triangle_3.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Sphere</source>
+        <translation>球</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Free left inspiration</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_left_inspiration.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Lateral left triangle</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_left_triangle.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Right mozaic</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ripple luminous top arrow</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_top_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Postime %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/postime_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Crossed barr</source>
+        <translation>交差するバー</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/crossed_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Circle out to in</source>
+        <translation>円 外から中</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_out_to_in.svg</extra-po-references>
+    </message>
+    <message>
+        <source>Left arrow</source>
+        <translation>左向きの矢印</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Horizontal barr %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/horizontal_barr_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Big barr</source>
+        <translation>大きなバー</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Blur right barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle low arrow</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_low_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ray light %s</source>
+        <translation>筋状の光 %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_18.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Frame barr left</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_left.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Twirl %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/twirl_26.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Blinds in to out big</source>
+        <translation>ブラインド 中から外 大</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out_big.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral abstract %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_abstract_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle black barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_black_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ray light left</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Checked %s</source>
+        <translation>チェック %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/checked_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Luminous frame %s</source>
+        <translation>輝く額縁 %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_frame_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Blinds sliding</source>
+        <translation>ブラインド スライド</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_sliding.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Small top arrow</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_top_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wave right up</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_up.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Clouds %s</source>
+        <translation>雲 %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Blinds in to out</source>
+        <translation>ブラインド 中から外</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Fish-eyes %s</source>
+        <translation>魚眼効果 %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fish-eyes_5.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Fractal %s</source>
+        <translation>フラクタル %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fractal_5.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Big cross right barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ray %s</source>
+        <translation>輝き %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Rectangle in to out</source>
+        <translation>矩形 中から外</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_in_to_out.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Little left inspiration</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_left_inspiration.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Blur ray left</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_left.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle top arrow</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_top_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Mountains</source>
+        <translation>山脈</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mountains.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Central mozaic</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/central_mozaic.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Small cross right barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Sphere %s</source>
+        <translation>球状 %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle barr ripple %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr_ripple_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Hourglass %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/hourglass_1.jpg</extra-po-references>
+    </message>
+    <message>
         <source>Middle cross left barr</source>
         <translation type="unfinished"></translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_left_barr.jpg</extra-po-references>
     </message>
     <message>
+        <source>Whirpool %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/whirpool_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle cross right barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral %s</source>
+        <translation>螺旋 %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Openshot logo</source>
+        <translation>OpenShot ロゴ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/openshot_logo.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Distortion %s</source>
+        <translation>ディストーション %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Right mozaic %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Square left barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_left_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Clock left to right</source>
+        <translation>時計 左から右</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_left_to_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wipe bottom to top</source>
+        <translation>ワイプ 下から上</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_bottom_to_top.svg</extra-po-references>
+    </message>
+    <message>
+        <source>Stain %s</source>
+        <translation>汚れ %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/stain_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral small %s</source>
+        <translation>小さな螺旋 %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wipe top to bottom</source>
+        <translation>ワイプ 上から下</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_top_to_bottom.svg</extra-po-references>
+    </message>
+    <message>
         <source>Ripple top arrow</source>
         <translation type="unfinished"></translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_top_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Extra</source>
+        <translation>拡張</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/about.ui" line="67"/>
@@ -4864,12 +4913,6 @@ Do you want to replace it?</source>
         <translation>トランジション</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="256"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1215"/>
-        <source>Properties</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="288"/>
         <source>New Project</source>
         <translation>新規プロジェクト</translation>
@@ -4973,9 +5016,9 @@ Do you want to replace it?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="478"/>
-        <source>Quit</source>
-        <translation>終了</translation>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="475"/>
+        <source>&amp;Quit</source>
+        <translation>終了(&amp;Q)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="481"/>
@@ -4983,15 +5026,9 @@ Do you want to replace it?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="493"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="496"/>
-        <source>Add Track</source>
-        <translation>トラックを追加</translation>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="508"/>
-        <source>Preferences</source>
-        <translation>設定</translation>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="505"/>
+        <source>&amp;Preferences</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="511"/>
@@ -5003,18 +5040,6 @@ Do you want to replace it?</source>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="526"/>
         <source>Play</source>
         <translation>再生</translation>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="535"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="538"/>
-        <source>Jump To Start</source>
-        <translation>先頭に戻る</translation>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="571"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="574"/>
-        <source>Jump To End</source>
-        <translation>最後尾に跳ぶ</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="586"/>
@@ -5029,27 +5054,9 @@ Do you want to replace it?</source>
         <translation>カミソリツール</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="619"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="622"/>
-        <source>Snapping Enabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="637"/>
         <source>Ctrl+M</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="646"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="649"/>
-        <source>Previous Marker</source>
-        <translation>前のマーカー</translation>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="658"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="661"/>
-        <source>Next Marker</source>
-        <translation>次のマーカー</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="669"/>
