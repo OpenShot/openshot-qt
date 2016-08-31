@@ -403,7 +403,7 @@ try:
 
                 # Rename DMG (to be consistent with other OS installers)
                 for dmg_path in os.listdir(os.path.join(project_path, "build")):
-                    if os.path.isfile(dmg_path) and dmg_path.endswith(".dmg"):
+                    if os.path.isfile(os.path.join(project_path, "build", dmg_path)) and dmg_path.endswith(".dmg"):
                         os.rename(os.path.join(project_path, "build", dmg_path), app_build_path)
 
                 # Was the DMG creation successful
