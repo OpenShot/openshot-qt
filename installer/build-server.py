@@ -402,7 +402,9 @@ try:
                         app_image_success = True
 
                 # Rename DMG (to be consistent with other OS installers)
-                os.rename(os.path.join(project_path, "build", "OpenShot-%s.dmg" % version), app_build_path)
+                for dmg_path in os.listdir(os.path.join(project_path, "build")):
+                    if os.path.isfile(dmg_path) and dmg_path.endswith(".dmg"):
+                        os.rename(os.path.join(project_path, "build", dmg_path), app_build_path)
 
                 # Was the DMG creation successful
                 if not app_image_success or errors_detected:
