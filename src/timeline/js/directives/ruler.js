@@ -238,34 +238,36 @@ App.directive('tlRulertime', function () {
 App.directive('tlProgress', function($timeout){
 	return {
 		link: function(scope, element, attrs){
-			scope.$watch('progress + project.scale', function (val) {
+			scope.$watch('project.progress.version + project.scale', function (val) {
              if (val) {
              	$timeout(function(){
-				        var progress = scope.project.progress;
-						for(p=0;p<progress.length;p++){
+					//clear the canvas first
+					var ctx = element[0].getContext('2d');
+					ctx.clearRect(0, 0, element.width(), element.height());
 
-							//get the progress item details
-							var start_second = progress[p][0];
-							var stop_second = progress[p][1];
-							var status = progress[p][2];
+					// Determine fps & and get cached ranges
+					var fps = scope.project.fps.num / scope.project.fps.den;
+					var progress = scope.project.progress.ranges;
 
-							//figure out the actual pixel position
-							var start_pixel = start_second * scope.pixelsPerSecond;
-							var stop_pixel = stop_second * scope.pixelsPerSecond;
-							var rect_length = stop_pixel - start_pixel;
+					// Loop through each cached range of frames, and draw rect
+					for(p=0;p<progress.length;p++){
 
-							//get the element and draw the rects
-							var ctx = element[0].getContext('2d');
-							ctx.beginPath();
-						    ctx.rect(start_pixel, 0, rect_length, 5);
-						   	//change style based on status
-						   	if (status == 'complete'){
-								ctx.fillStyle = 'green';
-							}else{
-								ctx.fillStyle = 'yellow';
-							}
-						   	ctx.fill();
-						}
+						//get the progress item details
+						var start_second = parseFloat(progress[p]["start"]) / fps;
+						var stop_second = parseFloat(progress[p]["end"]) / fps;
+
+						//figure out the actual pixel position
+						var start_pixel = start_second * scope.pixelsPerSecond;
+						var stop_pixel = stop_second * scope.pixelsPerSecond;
+						var rect_length = stop_pixel - start_pixel;
+
+						//get the element and draw the rects
+						ctx.beginPath();
+						ctx.rect(start_pixel, 0, rect_length, 5);
+						ctx.fillStyle = '#4B92AD';
+						ctx.fill();
+					}
+
              	}, 0);
 
              }

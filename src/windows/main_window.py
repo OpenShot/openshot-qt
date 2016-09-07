@@ -503,6 +503,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         app.updates.redo()
 
     def actionPreferences_trigger(self, event):
+        # Stop preview thread
+        self.SpeedSignal.emit(0)
+        ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-start")
+        self.actionPlay.setChecked(False)
+
         # Show dialog
         from windows.preferences import Preferences
         win = Preferences()
@@ -1776,6 +1781,40 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
                 if shortcut.get('setting') == action.objectName():
                     action.setShortcut(QKeySequence(_(shortcut.get('value'))))
 
+    def InitCacheSettings(self):
+        """Set the correct cache settings for the timeline"""
+        # Load user settings
+        s = settings.get_settings()
+        log.info("InitCacheSettings")
+        log.info("cache-mode: %s" % s.get("cache-mode"))
+        log.info("cache-limit-mb: %s" % s.get("cache-limit-mb"))
+
+        # Get MB limit of cache (and convert to bytes)
+        cache_limit = s.get("cache-limit-mb") * 1024 * 1024 # Convert MB to Bytes
+
+        # Clear old cache
+        new_cache_object = None
+        if s.get("cache-mode") == "CacheMemory":
+            # Create CacheMemory object, and set on timeline
+            log.info("Creating CacheMemory object with %s byte limit" % cache_limit)
+            new_cache_object = openshot.CacheMemory(cache_limit)
+            self.timeline_sync.timeline.SetCache(new_cache_object)
+
+        elif s.get("cache-mode") == "CacheDisk":
+            # Create CacheDisk object, and set on timeline
+            log.info("Creating CacheDisk object with %s byte limit at %s" % (cache_limit, info.PREVIEW_CACHE_PATH))
+            image_format = s.get("cache-image-format")
+            image_quality = s.get("cache-quality")
+            image_scale = s.get("cache-scale")
+            new_cache_object = openshot.CacheDisk(info.PREVIEW_CACHE_PATH, image_format, image_quality, image_scale, cache_limit)
+            self.timeline_sync.timeline.SetCache(new_cache_object)
+
+        # Clear old cache before it goes out of scope
+        if self.cache_object:
+            self.cache_object.Clear()
+        # Update cache reference, so it doesn't go out of scope
+        self.cache_object = new_cache_object
+
     def __init__(self):
 
         # Create main window base class
@@ -1865,6 +1904,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Create the timeline sync object (used for previewing timeline)
         self.timeline_sync = TimelineSync(self)
+
+        # Setup Cache settings
+        self.cache_object = None
+        self.InitCacheSettings()
 
         # Start the preview thread
         self.preview_parent = PreviewParent()

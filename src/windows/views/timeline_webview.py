@@ -2425,6 +2425,21 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         cmd = JS_SCOPE_SELECTOR + ".SelectAll();"
         self.page().mainFrame().evaluateJavaScript(cmd)
 
+    def render_cache_json(self):
+        """Render the cached frames to the timeline (called every X seconds), and only if changed"""
+
+        # Get final cache object from timeline
+        cache_json = get_app().window.timeline_sync.timeline.GetCache().Json()
+        cache_object = json.loads(cache_json)
+        cache_version = cache_object["version"]
+
+        if self.cache_renderer_version != cache_version:
+            # Cache has changed, re-render it
+            self.cache_renderer_version = cache_version
+
+            cmd = JS_SCOPE_SELECTOR + ".RenderCache(" + cache_json + ");"
+            self.page().mainFrame().evaluateJavaScript(cmd)
+
     def __init__(self, window):
         QWebView.__init__(self)
         self.window = window
@@ -2462,3 +2477,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         self.redraw_audio_timer = QTimer(self)
         self.redraw_audio_timer.setInterval(300)
         self.redraw_audio_timer.timeout.connect(self.redraw_audio_onTimeout)
+
+        # QTimer for cache rendering
+        self.cache_renderer_version = None
+        self.cache_renderer = QTimer(self)
+        self.cache_renderer.setInterval(0.5 * 1000)
+        self.cache_renderer.timeout.connect(self.render_cache_json)
+        self.cache_renderer.start()

@@ -290,6 +290,10 @@ class Preferences(QDialog):
             # Update autosave interval (# of minutes)
             get_app().window.auto_save_timer.setInterval(value * 1000 * 60)
 
+        # Apply cache settings (if needed)
+        if param["setting"] in ["cache-limit-mb", "cache-scale", "cache-quality"]:
+            get_app().window.InitCacheSettings()
+
         # Check for restart
         self.check_for_restart(param)
 
@@ -319,6 +323,10 @@ class Preferences(QDialog):
         value = widget.itemData(index)
         self.s.set(param["setting"], value)
         log.info(value)
+
+        # Apply cache settings (if needed)
+        if param["setting"] in ["cache-mode", "cache-image-format"]:
+            get_app().window.InitCacheSettings()
 
         # Check for restart
         self.check_for_restart(param)

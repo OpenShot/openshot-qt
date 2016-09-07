@@ -214,6 +214,83 @@
     "type": "spinner"
   },
   {
+    "title": "Cache Mode",
+    "category": "Cache",
+    "setting": "cache-mode",
+    "value": "CacheMemory",
+    "values": [
+      {
+        "value": "CacheMemory",
+        "name": "Memory"
+      },
+      {
+        "value": "CacheDisk",
+        "name": "Disk"
+      }
+    ],
+    "type": "dropdown"
+  },
+  {
+    "min": 0,
+    "max": 9999999,
+    "value": 250,
+    "title": "Cache Limit (MB)",
+    "type": "spinner-int",
+    "category": "Cache",
+    "setting": "cache-limit-mb"
+  },
+  {
+    "title": "Image Format (Disk Only)",
+    "type": "dropdown",
+    "category": "Cache",
+    "setting": "cache-image-format",
+    "value": "PPM",
+    "values": [
+      {
+        "value": "PPM",
+        "name": "PPM"
+      },
+      {
+        "value": "JPG",
+        "name": "JPG"
+      },
+      {
+        "value": "PNG",
+        "name": "PNG"
+      },
+      {
+        "value": "BMP",
+        "name": "BMP"
+      },
+      {
+        "value": "XBM",
+        "name": "XBM"
+      },
+      {
+        "value": "XPM",
+        "name": "XPM"
+      }
+    ]
+  },
+  {
+    "min": 0.05,
+    "max": 1.0,
+    "value": 0.25,
+    "title": "Scale Factor (Disk Only)",
+    "type": "spinner",
+    "category": "Cache",
+    "setting": "cache-scale"
+  },
+  {
+    "min": 0,
+    "max": 100,
+    "value": 100,
+    "title": "Image Quality (Disk Only)",
+    "type": "spinner-int",
+    "category": "Cache",
+    "setting": "cache-quality"
+  },
+  {
     "value": false,
     "title": "Debug Mode (Verbose)",
     "type": "bool",

@@ -207,11 +207,24 @@ App.controller('TimelineCtrl',function($scope) {
 	                },
               ],
               
-	  progress : [
-	                  [0, 30, 'rendering'],
-	                  [40, 50, 'complete'],
-	                  [100, 150, 'complete'],
-                  ]
+	  progress : {
+				   max_bytes : "0",
+				   ranges : [
+					  {
+						 end : "30",
+						 start : "0"
+					  },
+					  {
+						 end : "40",
+						 start : "50"
+					  },
+					  {
+						 end : "100",
+						 start : "150"
+					  }
+				   ],
+				   version : "2"
+				}
     };
   
   // Additional variables used to control the rendering of HTML
@@ -473,6 +486,16 @@ App.controller('TimelineCtrl',function($scope) {
 
 	 });
  };
+	
+ // Update cache json
+ $scope.RenderCache = function(cache_json){
+	 $scope.$apply(function(){
+
+		 // Push new clip onto stack
+		 $scope.project.progress = cache_json;
+
+	 });
+ };	
 	
  // Clear all selections
  $scope.ClearAllSelections = function() {

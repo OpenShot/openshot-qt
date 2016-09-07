@@ -599,7 +599,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
             except Exception as ex:
                 # Error parsing legacy contents
-                msg = _("Failed to load project file %s: %s" % (file_path, ex))
+                msg = _("Failed to load project file %(path)s: %(error)s" % {"path": file_path, "error": ex})
                 log.error(msg)
                 raise Exception(msg)
 
