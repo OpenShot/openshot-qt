@@ -512,6 +512,15 @@ class Export(QDialog):
         # Get settings
         self.s = settings.get_settings()
 
+        # Set lossless cache settings (temporarily)
+        new_cache_object = openshot.CacheMemory(250)
+        get_app().window.timeline_sync.timeline.SetCache(new_cache_object)
+        # Clear old cache before it goes out of scope
+        if get_app().window.cache_object:
+            get_app().window.cache_object.Clear()
+        # Update cache reference, so it doesn't go out of scope
+        get_app().window.cache_object = new_cache_object
+
         # Disable controls
         self.txtFileName.setEnabled(False)
         self.txtExportFolder.setEnabled(False)
@@ -634,6 +643,9 @@ class Export(QDialog):
 
         # Restore timeline settings
         self.restoreTimeline()
+
+        # Adjust cache settings back to normal
+        get_app().window.InitCacheSettings()
 
         log.info("End Accept")
 
