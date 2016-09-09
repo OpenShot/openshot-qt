@@ -41,8 +41,7 @@ mv "$OS_PATH/MacOS/titles" "$OS_PATH/Resources/titles"; ln -s "../Resources/titl
 mv "$OS_PATH/MacOS/transitions" "$OS_PATH/Resources/transitions"; ln -s "../Resources/transitions" "$OS_PATH/MacOS/transitions";
 mv "$OS_PATH/MacOS/uploads" "$OS_PATH/Resources/uploads"; ln -s "../Resources/uploads" "$OS_PATH/MacOS/uploads";
 mv "$OS_PATH/MacOS/windows" "$OS_PATH/Resources/windows"; ln -s "../Resources/windows" "$OS_PATH/MacOS/windows";
-#mkdir "$OS_PATH/Resources/ImageMagick"; mv "$OS_PATH/MacOS/ImageMagick/config-Q16" "$OS_PATH/Resources/ImageMagick/config-Q16"; ln -s "../../Resources/ImageMagick/config-Q16" "$OS_PATH/MacOS/ImageMagick/config-Q16";
-#mv "$OS_PATH/MacOS/ImageMagick/etc" "$OS_PATH/Resources/ImageMagick/etc"; ln -s "../../Resources/ImageMagick/etc" "$OS_PATH/MacOS/ImageMagick/etc";
+mv "$OS_PATH/MacOS/qt.conf" "$OS_PATH/Resources/qt.conf"; ln -s "../Resources/qt.conf" "$OS_PATH/MacOS/qt.conf";
 mv "$OS_PATH/MacOS/PyQt5.uic.widget-plugins" "$OS_PATH/Resources/PyQt5.uic.widget-plugins"; ln -s "../Resources/PyQt5.uic.widget-plugins" "$OS_PATH/MacOS/PyQt5.uic.widget-plugins";
 if [ -d "$OS_PATH/MacOS/python3.5" ]; then
   echo "Symlink python35.zip and python3.5 folder"

@@ -207,6 +207,7 @@ elif sys.platform == "darwin":
     src_files.append((os.path.join(PATH, "xdg", iconFile), iconFile))
 
 # Append all source files
+src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
 for filename in find_files("openshot_qt", ["*"]):
     src_files.append((filename, filename.replace("openshot_qt/", "").replace("openshot_qt\\", "")))
 
