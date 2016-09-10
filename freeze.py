@@ -169,13 +169,11 @@ elif sys.platform == "linux":
                     # Determine if dependency is usr installed (or system installed)
                     # Or if the dependency matches one of the following exceptions
                     libpath = libdetailsparts[0].strip()
-                    if (libpath and not libpath.startswith("/lib")) \
-                            or "libgcrypt" in libpath \
-                            or "libgcc_s" in libpath \
-                            or "libQt5DBus" in libpath \
-                            or "libpng12" in libpath \
-                            or "libbz2" in libpath \
-                            or "libqxcb" in libpath:
+                    libpath_folder, libpath_file = os.path.split(libpath)
+                    if (libpath \
+                        and not libpath.startswith("/lib") \
+                        and not libpath_file in ["libstdc++.so.6", "libGL.so.1", "libxcb.so.1", "libX11.so.6", "libasound.so.2", "libfontconfig.so.1", "libgcc_s.so.1 ", "libICE.so.6", "libp11-kit.so.0", "libSM.so.6", "libgobject-2.0.so.0"]) \
+                            or libpath_file in ["libgcrypt.so.11", "libQt5DBus.so.5", "libpng12.so.0", "libbz2.so.1.0", "libqxcb.so"]:
 
                         # Ignore paths that start with /lib
                         filepath, filename = os.path.split(libpath)
@@ -189,7 +187,6 @@ elif sys.platform == "linux":
     external_so_files.append(("/usr/lib/x86_64-linux-gnu/libglib-2.0.so", "libglib-2.0.so"))
     external_so_files.append(("/usr/lib/x86_64-linux-gnu/libgio-2.0.so", "libgio-2.0.so"))
     external_so_files.append(("/usr/lib/x86_64-linux-gnu/libgmodule-2.0.so", "libgmodule-2.0.so"))
-    external_so_files.append(("/usr/lib/x86_64-linux-gnu/libgobject-2.0.so", "libgobject-2.0.so"))
     external_so_files.append(("/usr/lib/x86_64-linux-gnu/libgthread-2.0.so", "libgthread-2.0.so"))
 
 elif sys.platform == "darwin":
