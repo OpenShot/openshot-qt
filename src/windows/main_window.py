@@ -84,7 +84,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         self.tutorial_manager.exit_manager()
 
         # Prompt user to save (if needed)
-        if get_app().project.needs_save():
+        if get_app().project.needs_save() and not self.mode == "unittest":
             log.info('Prompt user to save project')
             # Translate object
             _ = get_app()._tr
@@ -1815,10 +1815,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Update cache reference, so it doesn't go out of scope
         self.cache_object = new_cache_object
 
-    def __init__(self):
+    def __init__(self, mode=None):
 
         # Create main window base class
         QMainWindow.__init__(self)
+        self.mode = mode    # None or unittest (None is normal usage)
 
         # set window on app for reference during initialization of children
         get_app().window = self
@@ -1855,7 +1856,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         get_current_Version()
 
         # Connect signals
-        self.RecoverBackup.connect(self.recover_backup)
+        if not self.mode == "unittest":
+            self.RecoverBackup.connect(self.recover_backup)
 
         # Setup timeline
         self.timeline = TimelineWebView(self)
@@ -1925,7 +1927,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         self.create_lock_file()
 
         # Show window
-        self.show()
+        if not self.mode == "unittest":
+            self.show()
 
         # Create tutorial manager
         self.tutorial_manager = TutorialManager(self)

@@ -54,9 +54,10 @@ def get_app():
 
 
 class OpenShotApp(QApplication):
-    """ This class is the primary QApplication for OpenShot """
+    """ This class is the primary QApplication for OpenShot.
+            mode=None (normal), mode=unittest (testing) """
 
-    def __init__(self, *args):
+    def __init__(self, *args, mode=None):
         QApplication.__init__(self, *args)
 
         # Log some basic system info
@@ -153,7 +154,7 @@ class OpenShotApp(QApplication):
 
         # Create main window
         from windows.main_window import MainWindow
-        self.window = MainWindow()
+        self.window = MainWindow(mode)
 
         log.info('Process command-line arguments: %s' % args)
         if len(args[0]) == 2:
