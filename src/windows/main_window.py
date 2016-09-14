@@ -144,9 +144,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             msg.setWindowTitle(_("Backup Recovered"))
             msg.setText(_("Your most recent unsaved project has been recovered."))
             msg.exec_()
-        else:
-            # Load a blank project (to propagate the default settings)
-            get_app().project.load("")
 
     def create_lock_file(self):
         """Create a lock file"""
@@ -1707,8 +1704,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Setup Zoom slider
         self.sliderZoom = QSlider(Qt.Horizontal, self)
-        self.sliderZoom.setPageStep(6)
-        self.sliderZoom.setRange(8, 800)
+        self.sliderZoom.setPageStep(2)
+        self.sliderZoom.setRange(1, 800)
         self.sliderZoom.setValue(20)
         self.sliderZoom.setInvertedControls(True)
         self.sliderZoom.resize(100, 16)
@@ -1859,6 +1856,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         if not self.mode == "unittest":
             self.RecoverBackup.connect(self.recover_backup)
 
+        # Create the timeline sync object (used for previewing timeline)
+        self.timeline_sync = TimelineSync(self)
+
         # Setup timeline
         self.timeline = TimelineWebView(self)
         self.frameWeb.layout().addWidget(self.timeline)
@@ -1903,9 +1903,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Load window state and geometry
         self.load_settings()
-
-        # Create the timeline sync object (used for previewing timeline)
-        self.timeline_sync = TimelineSync(self)
 
         # Setup Cache settings
         self.cache_object = None

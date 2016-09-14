@@ -37,143 +37,145 @@ App.controller('TimelineCtrl',function($scope) {
 		    num : 24,
 		    den : 1
 		   },
-      duration : 300,				//length of project in seconds
+      duration : 300,			//length of project in seconds
       scale : 16.0,				//seconds per tick
       tick_pixels : 100,		//pixels between tick mark
       playhead_position : 10,	//position of play head
-      clips : [
-	               { 
-	                 id : '1', 
-	                 layer : 1, 
-	                 image : './media/images/thumbnail.png',
-	                 locked : false,
-	                 duration : 32, //max length in seconds
-	                 start : 0,
-	                 end : 32,
-	                 position : 0.0,
-	                 title : 'Clip U2V5ENELDY',
-	                 effects : [
-	                           { type : 'Saturation', icon : 'bw.png'},
-	                           { type : 'ChromaKey',icon : 'om.png'},
-	                           { type : 'Negate',icon : 'neg.png'},
-	                           { type : 'Blur', icon: 'blur.png'},
-	                           { type : 'Brightness', icon: 'cartoon.png'}
-	                           ],
-	                 images :  {start: 1, end: 4},
-	                 show_audio : false,
-
-					 alpha: {
-					    Points: [
-					      {
-					        "interpolation": 2,
-					        "co": {
-					          "Y": 0,
-					          "X": 0
-					        }
-					      },
-					      {
-					        "interpolation": 1,
-					        "co": {
-					          "Y": 0,
-					          "X": 250
-					        }
-					      },
-					      {
-					        "interpolation": 1,
-					        "co": {
-					          "Y": 1,
-					          "X": 500
-					        }
-					      }
-						]
-					},
-					location_x: { Points: [] },
-					location_y: { Points: [] },
-					scale_x: { Points: [] },
-					scale_y: { Points: [] },
-					rotation: { Points: [] },
-					time: { Points: [] },
-					volume: { Points: [] }
-	                 
-	               },
-	               {
-	                 id : '2', 
-	                 layer : 2, 
-	                 image : './media/images/thumbnail.png',
-	                 locked : false,
-	                 duration : 45,
-	                 start : 0,
-	                 end : 45,
-	                 position : 0.0,
-	                 title : 'Clip B',
-	                 effects : [],
-	                 images : {start: 3, end: 7},
-	                 show_audio : false,
-	                 alpha: { Points: [] },
-	                 location_x: { Points: [] },
-					 location_y: { Points: [] },
-					 scale_x: { Points: [] },
-					 scale_y: { Points: [] },
-					 rotation: { Points: [] },
-					 time: { Points: [] },
-					 volume: { Points: [] }
-	               },
-	               {
-	                 id : '3', 
-	                 layer : 3, 
-	                 image : './media/images/thumbnail.png',
-	                 locked : false,
-	                 duration : 120,
-	                 start : 0,
-	                 end : 120,
-	                 position : 32.0,
-	                 title : 'Clip C',
-	                 effects : [
-	                           { type : 'Deinterlace',icon : 'om.png'},
-	                           { type : 'Blur', icon: 'blur.png'},
-	                           { type : 'Mask', icon: 'cartoon.png'}
-	                           ],
-	                 images : { start: 5, end: 10 },
-	                 show_audio : false,
-	                 audio_data : [.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3, ],
-	                 alpha: { Points: [] },
-	                 location_x: { Points: [] },
-					 location_y: { Points: [] },
-					 scale_x: { Points: [] },
-					 scale_y: { Points: [] },
-					 rotation: { Points: [] },
-					 time: { Points: [] },
-					 volume: { Points: [] }
-	               },
-             ],
+      clips : [],
+		  	// [
+	          //      {
+	          //        id : '1',
+	          //        layer : 1,
+	          //        image : './media/images/thumbnail.png',
+	          //        locked : false,
+	          //        duration : 32, //max length in seconds
+	          //        start : 0,
+	          //        end : 32,
+	          //        position : 0.0,
+	          //        title : 'Clip U2V5ENELDY',
+	          //        effects : [
+	          //                  { type : 'Saturation', icon : 'bw.png'},
+	          //                  { type : 'ChromaKey',icon : 'om.png'},
+	          //                  { type : 'Negate',icon : 'neg.png'},
+	          //                  { type : 'Blur', icon: 'blur.png'},
+	          //                  { type : 'Brightness', icon: 'cartoon.png'}
+	          //                  ],
+	          //        images :  {start: 1, end: 4},
+	          //        show_audio : false,
+             //
+				// 	 alpha: {
+				// 	    Points: [
+				// 	      {
+				// 	        "interpolation": 2,
+				// 	        "co": {
+				// 	          "Y": 0,
+				// 	          "X": 0
+				// 	        }
+				// 	      },
+				// 	      {
+				// 	        "interpolation": 1,
+				// 	        "co": {
+				// 	          "Y": 0,
+				// 	          "X": 250
+				// 	        }
+				// 	      },
+				// 	      {
+				// 	        "interpolation": 1,
+				// 	        "co": {
+				// 	          "Y": 1,
+				// 	          "X": 500
+				// 	        }
+				// 	      }
+				// 		]
+				// 	},
+				// 	location_x: { Points: [] },
+				// 	location_y: { Points: [] },
+				// 	scale_x: { Points: [] },
+				// 	scale_y: { Points: [] },
+				// 	rotation: { Points: [] },
+				// 	time: { Points: [] },
+				// 	volume: { Points: [] }
+	          //
+	          //      },
+	          //      {
+	          //        id : '2',
+	          //        layer : 2,
+	          //        image : './media/images/thumbnail.png',
+	          //        locked : false,
+	          //        duration : 45,
+	          //        start : 0,
+	          //        end : 45,
+	          //        position : 0.0,
+	          //        title : 'Clip B',
+	          //        effects : [],
+	          //        images : {start: 3, end: 7},
+	          //        show_audio : false,
+	          //        alpha: { Points: [] },
+	          //        location_x: { Points: [] },
+				// 	 location_y: { Points: [] },
+				// 	 scale_x: { Points: [] },
+				// 	 scale_y: { Points: [] },
+				// 	 rotation: { Points: [] },
+				// 	 time: { Points: [] },
+				// 	 volume: { Points: [] }
+	          //      },
+	          //      {
+	          //        id : '3',
+	          //        layer : 3,
+	          //        image : './media/images/thumbnail.png',
+	          //        locked : false,
+	          //        duration : 120,
+	          //        start : 0,
+	          //        end : 120,
+	          //        position : 32.0,
+	          //        title : 'Clip C',
+	          //        effects : [
+	          //                  { type : 'Deinterlace',icon : 'om.png'},
+	          //                  { type : 'Blur', icon: 'blur.png'},
+	          //                  { type : 'Mask', icon: 'cartoon.png'}
+	          //                  ],
+	          //        images : { start: 5, end: 10 },
+	          //        show_audio : false,
+	          //        audio_data : [.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3, ],
+	          //        alpha: { Points: [] },
+	          //        location_x: { Points: [] },
+				// 	 location_y: { Points: [] },
+				// 	 scale_x: { Points: [] },
+				// 	 scale_y: { Points: [] },
+				// 	 rotation: { Points: [] },
+				// 	 time: { Points: [] },
+				// 	 volume: { Points: [] }
+	          //      },
+             // ],
              
-	  effects : [
-	                	{
-	   	                 id : '5', 
-		                 layer : 4, 
-		                 title : 'Transition',
-		                 position : 20.0,
-		                 start : 0,
-		                 end : 30
-	                	},
-	                	{
-	   	                 id : '6', 
-		                 layer : 3, 
-		                 title : 'Transition',
-		                 position : 137.5,
-		                 start : 0,
-		                 end : 30
-	                	},
-	                	{
-	   	                 id : '7',
-		                 layer : 2,
-		                 title : 'Transition',
-		                 position : 30.5,
-		                 start : 0,
-		                 end : 30
-	                	}
-                    
-                    ],
+	  effects : [],
+		  		// [
+	               //  	{
+	   	        //          id : '5',
+		           //       layer : 4,
+		           //       title : 'Transition',
+		           //       position : 20.0,
+		           //       start : 0,
+		           //       end : 30
+	               //  	},
+	               //  	{
+	   	        //          id : '6',
+		           //       layer : 3,
+		           //       title : 'Transition',
+		           //       position : 137.5,
+		           //       start : 0,
+		           //       end : 30
+	               //  	},
+	               //  	{
+	   	        //          id : '7',
+		           //       layer : 2,
+		           //       title : 'Transition',
+		           //       position : 30.5,
+		           //       start : 0,
+		           //       end : 30
+	               //  	}
+                   //
+                   //  ],
              
 	  layers : [
 	  				{id: 'L0', number:0, y:0, label: '', lock: false},
@@ -184,47 +186,49 @@ App.controller('TimelineCtrl',function($scope) {
 	  				
              ],
              
-	  markers : [
-	                {
-	                  id : 'M1',
-	                  position : 16,
-	                  icon : 'yellow.png'
-	                },
-	                {
-	                  id : 'M2',
-	                  position: 120,
-	                  icon : 'green.png'
-	                },
-	                {
-	                  id : 'M3',
-	                  position: 300,
-	                  icon : 'red.png'
-	                },
-	                {
-	                  id : 'M4',
-	                  position: 10,
-	                  icon : 'purple.png'
-	                },
-              ],
+	  markers : [],
+              // [
+	           //      {
+	           //        id : 'M1',
+	           //        position : 16,
+	           //        icon : 'yellow.png'
+	           //      },
+	           //      {
+	           //        id : 'M2',
+	           //        position: 120,
+	           //        icon : 'green.png'
+	           //      },
+	           //      {
+	           //        id : 'M3',
+	           //        position: 300,
+	           //        icon : 'red.png'
+	           //      },
+	           //      {
+	           //        id : 'M4',
+	           //        position: 10,
+	           //        icon : 'purple.png'
+	           //      },
+              // ],
               
-	  progress : {
-				   max_bytes : "0",
-				   ranges : [
-					  {
-						 end : "30",
-						 start : "0"
-					  },
-					  {
-						 end : "40",
-						 start : "50"
-					  },
-					  {
-						 end : "100",
-						 start : "150"
-					  }
-				   ],
-				   version : "2"
-				}
+	  progress : {}
+	  			// {
+				//    max_bytes : "0",
+				//    ranges : [
+				// 	  {
+				// 		 end : "30",
+				// 		 start : "0"
+				// 	  },
+				// 	  {
+				// 		 end : "40",
+				// 		 start : "50"
+				// 	  },
+				// 	  {
+				// 		 end : "100",
+				// 		 start : "150"
+				// 	  }
+				//    ],
+				//    version : "2"
+				// }
     };
   
   // Additional variables used to control the rendering of HTML
@@ -247,10 +251,6 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.Qt = false;
   $scope.EnableQt = function() { 
 	  	$scope.Qt = true;
-	  	$scope.project.clips = [];
-	  	$scope.project.markers = [];
-	  	$scope.project.effects = [];
-	  	$scope.project.progress = [];
 	  	timeline.qt_log("$scope.Qt = true;"); 
   };
 
