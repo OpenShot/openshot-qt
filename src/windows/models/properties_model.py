@@ -131,6 +131,9 @@ class PropertiesModel(updates.UpdateInterface):
             self.selected.append((e, item_type))
 
 
+        # Update frame # from timeline
+        self.update_frame(get_app().window.preview_thread.player.Position(), reload_model=False)
+
         # Get ID of item
         self.new_item = True
 
@@ -138,7 +141,7 @@ class PropertiesModel(updates.UpdateInterface):
         self.update_model(get_app().window.txtPropertyFilter.text())
 
     # Update the values of the selected clip, based on the current frame
-    def update_frame(self, frame_number):
+    def update_frame(self, frame_number, reload_model=True):
 
         # Check for a selected clip
         if self.selected:
@@ -185,7 +188,8 @@ class PropertiesModel(updates.UpdateInterface):
             log.info("Update frame to %s" % self.frame_number)
 
             # Update the model data
-            self.update_model(get_app().window.txtPropertyFilter.text())
+            if reload_model:
+                self.update_model(get_app().window.txtPropertyFilter.text())
 
     def remove_keyframe(self, item):
         """Remove an existing keyframe (if any)"""

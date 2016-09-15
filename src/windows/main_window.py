@@ -494,10 +494,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         app = get_app()
         app.updates.undo()
 
+        # Update the preview
+        self.refreshFrameSignal.emit()
+
     def actionRedo_trigger(self, event):
         log.info('actionRedo_trigger')
         app = get_app()
         app.updates.redo()
+
+        # Update the preview
+        self.refreshFrameSignal.emit()
 
     def actionPreferences_trigger(self, event):
         # Stop preview thread

@@ -152,9 +152,6 @@ class PropertiesTableView(QTableView):
     loadProperties = pyqtSignal(str, str)
 
     def mouseMoveEvent(self, event):
-        # Ignore undo/redo history temporarily (to avoid a huge pile of undo/redo history)
-        get_app().updates.ignore_history = True
-
         # Get data model and selection
         model = self.clip_properties_model.model
         row = self.indexAt(event.pos()).row()
@@ -174,16 +171,40 @@ class PropertiesTableView(QTableView):
             cursor_value_percent = cursor_value / self.columnWidth(1)
 
             property = self.selected_label.data()
+            property_key = property[0]
             property_name = property[1]["name"]
             property_type = property[1]["type"]
             property_max = property[1]["max"]
             property_min = property[1]["min"]
             property_value = property[1]["value"]
             readonly = property[1]["readonly"]
+            item_id, item_type = self.selected_item.data()
 
             # Bail if readonly
             if readonly:
                 return
+
+            # Get the original data of this item (prior to any updates, for the undo/redo system)
+            if not self.original_data:
+                # Ignore undo/redo history temporarily (to avoid a huge pile of undo/redo history)
+                get_app().updates.ignore_history = True
+
+                # Find this clip
+                c = None
+                if item_type == "clip":
+                    # Get clip object
+                    c = Clip.get(id=item_id)
+                elif item_type == "transition":
+                    # Get transition object
+                    c = Transition.get(id=item_id)
+                elif item_type == "effect":
+                    # Get effect object
+                    c = Effect.get(id=item_id)
+
+                if c:
+                    if property_key in c.data:
+                        # Grab the original data for this item/property
+                        self.original_data = c.data
 
             # Calculate percentage value
             if property_type in ["float", "int"]:
@@ -227,7 +248,10 @@ class PropertiesTableView(QTableView):
         get_app().updates.ignore_history = False
 
         # Add final update to undo/redo history
-        get_app().updates.apply_last_action_to_history()
+        get_app().updates.apply_last_action_to_history(self.original_data)
+
+        # Clear original data
+        self.original_data = None
 
     def doubleClicked(self, model_index):
         """Double click handler for the property table"""
@@ -392,6 +416,7 @@ class PropertiesTableView(QTableView):
         self.selected = []
         self.selected_item = None
         self.new_value = None
+        self.original_data = None
 
         # Setup header columns
         self.setModel(self.clip_properties_model.model)

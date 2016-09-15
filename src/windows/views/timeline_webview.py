@@ -222,8 +222,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Save clip
         existing_clip.save()
 
-        # Update the preview
+        # Update the preview and reselct current frame in properties
         get_app().window.refreshFrameSignal.emit()
+        get_app().window.propertyTableView.select_frame(self.window.preview_thread.player.Position())
 
     # Update Thumbnails for modified clips
     def UpdateClipThumbnail(self, clip_data):
@@ -378,6 +379,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Save transition
         existing_item.save()
+
+        # Update the preview and reselct current frame in properties
+        get_app().window.refreshFrameSignal.emit()
+        get_app().window.propertyTableView.select_frame(self.window.preview_thread.player.Position())
 
     # Prevent default context menu, and ignore, so that javascript can intercept
     def contextMenuEvent(self, event):
@@ -2399,6 +2404,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         self.new_item = False
         self.item_type = None
         self.item_id = None
+
+        # Update the preview and reselct current frame in properties
+        get_app().window.refreshFrameSignal.emit()
+        get_app().window.propertyTableView.select_frame(self.window.preview_thread.player.Position())
 
     def redraw_audio_onTimeout(self):
         """Timer is ready to redraw audio (if any)"""

@@ -255,6 +255,8 @@ class UpdateManager:
             self.actionHistory.append(self.last_action)
         self.dispatch_action(self.last_action)
 
-    def apply_last_action_to_history(self):
+    def apply_last_action_to_history(self, previous_value):
         """ Apply the last action to the history """
-        self.actionHistory.append(self.last_action)
+        if self.last_action:
+            self.last_action.set_old_values(previous_value)
+            self.actionHistory.append(self.last_action)
