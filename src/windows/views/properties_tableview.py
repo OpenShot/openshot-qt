@@ -152,6 +152,9 @@ class PropertiesTableView(QTableView):
     loadProperties = pyqtSignal(str, str)
 
     def mouseMoveEvent(self, event):
+        # Ignore undo/redo history temporarily (to avoid a huge pile of undo/redo history)
+        get_app().updates.ignore_history = True
+
         # Get data model and selection
         model = self.clip_properties_model.model
         row = self.indexAt(event.pos()).row()
@@ -189,7 +192,7 @@ class PropertiesTableView(QTableView):
                 # Determine if range is unreasonably long (such as position, start, end, etc.... which can be huge #'s)
                 if min_max_range > 1000.0:
                     # Get the current value
-                    new_value = QLocale().system().toDouble(self.selected_item.text())[0]
+                    self.new_value = QLocale().system().toDouble(self.selected_item.text())[0]
 
                     # Huge range - increment / decrement slowly
                     if self.previous_x == -1:
@@ -199,28 +202,34 @@ class PropertiesTableView(QTableView):
                     drag_diff = self.previous_x - event.x()
                     if drag_diff > 0:
                         # Move to the left by a small amount
-                        new_value -= 0.50
+                        self.new_value -= 0.50
                     elif drag_diff < 0:
                         # Move to the right by a small amount
-                        new_value += 0.50
+                        self.new_value += 0.50
                     # update previous x
                     self.previous_x = event.x()
                 else:
                     # Small range - use cursor % to calculate new value
-                    new_value = property_min + (min_max_range * cursor_value_percent)
+                    self.new_value = property_min + (min_max_range * cursor_value_percent)
 
                 # Clamp value between min and max (just incase user drags too big)
-                new_value = max(property_min, new_value)
-                new_value = min(property_max, new_value)
+                self.new_value = max(property_min, self.new_value)
+                self.new_value = min(property_max, self.new_value)
 
                 # Update value of this property
-                self.clip_properties_model.value_updated(self.selected_item, -1, new_value)
+                self.clip_properties_model.value_updated(self.selected_item, -1, self.new_value)
 
                 # Repaint
                 self.viewport().update()
 
+    def mouseReleaseEvent(self, event):
+        # Inform UpdateManager to accept updates, and only store our final update
+        get_app().updates.ignore_history = False
 
-    def double_click(self, model_index):
+        # Add final update to undo/redo history
+        get_app().updates.apply_last_action_to_history()
+
+    def doubleClicked(self, model_index):
         """Double click handler for the property table"""
         # Get data model and selection
         model = self.clip_properties_model.model
@@ -382,6 +391,7 @@ class PropertiesTableView(QTableView):
         # Keep track of mouse press start position to determine when to start drag
         self.selected = []
         self.selected_item = None
+        self.new_value = None
 
         # Setup header columns
         self.setModel(self.clip_properties_model.model)
@@ -409,7 +419,6 @@ class PropertiesTableView(QTableView):
 
         # Connect filter signals
         get_app().window.txtPropertyFilter.textChanged.connect(self.filter_changed)
-        self.doubleClicked.connect(self.double_click)
         self.loadProperties.connect(self.select_item)
 
 
