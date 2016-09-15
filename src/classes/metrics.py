@@ -144,7 +144,7 @@ def send_metric(params):
 
         # Send metric HTTP data
         try:
-            resp, content = httplib2.Http(timeout=3).request(url, headers={"user-agent": user_agent})
+            resp, content = httplib2.Http(timeout=3, disable_ssl_certificate_validation=True).request(url, headers={"user-agent": user_agent})
             log.info("Track metric: %s (%s)" % (resp, content))
 
         except Exception as Ex:

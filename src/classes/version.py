@@ -48,7 +48,7 @@ def get_version_from_http():
 
     # Send metric HTTP data
     try:
-        resp, content = httplib2.Http(timeout=3).request(url, headers={"user-agent": "openshot-qt-%s" % info.VERSION})
+        resp, content = httplib2.Http(timeout=3, disable_ssl_certificate_validation=True).request(url, headers={"user-agent": "openshot-qt-%s" % info.VERSION})
         log.info("Found current version: %s (%s)" % (resp, content))
 
         # Parse version
