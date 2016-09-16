@@ -406,7 +406,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         with open(file_path.encode('UTF-8'), 'rb') as f:
             try:
                 # Unpickle legacy openshot project file
-                v1_data = pickle.load(f, fix_imports=True)
+                v1_data = pickle.load(f, fix_imports=True, encoding="UTF-8")
                 file_lookup = {}
 
                 # Loop through files
