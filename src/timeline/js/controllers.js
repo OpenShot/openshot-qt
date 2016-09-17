@@ -489,12 +489,37 @@ App.controller('TimelineCtrl',function($scope) {
 	
  // Update cache json
  $scope.RenderCache = function(cache_json){
-	 $scope.$apply(function(){
 
-		 // Push new clip onto stack
-		 $scope.project.progress = cache_json;
+	 // Push new clip onto stack
+	 $scope.project.progress = cache_json;
+	 
+	//clear the canvas first
+	var ruler = $("#progress");
+	var ctx = ruler[0].getContext('2d');
+	ctx.clearRect(0, 0, ruler.width(), ruler.height());
 
-	 });
+	// Determine fps & and get cached ranges
+	var fps = $scope.project.fps.num / $scope.project.fps.den;
+	var progress = $scope.project.progress.ranges;
+
+	// Loop through each cached range of frames, and draw rect
+	for(p=0;p<progress.length;p++) {
+
+		//get the progress item details
+		var start_second = parseFloat(progress[p]["start"]) / fps;
+		var stop_second = parseFloat(progress[p]["end"]) / fps;
+
+		//figure out the actual pixel position
+		var start_pixel = start_second * $scope.pixelsPerSecond;
+		var stop_pixel = stop_second * $scope.pixelsPerSecond;
+		var rect_length = stop_pixel - start_pixel;
+
+		//get the element and draw the rects
+		ctx.beginPath();
+		ctx.rect(start_pixel, 0, rect_length, 5);
+		ctx.fillStyle = '#4B92AD';
+		ctx.fill();
+	}
  };	
 	
  // Clear all selections
