@@ -521,6 +521,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         else:
             log.info('Preferences add cancelled')
 
+        # Save settings
+        s = settings.get_settings()
+        s.save()
+
     def actionFilesShowAll_trigger(self, event):
         self.filesTreeView.refresh_view()
 
@@ -661,6 +665,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Notify properties dialog
         self.propertyTableView.select_frame(position_frames)
+
+    def handlePausedVideo(self):
+        """Handle the pause signal, by refreshing the properties dialog"""
+        self.propertyTableView.select_frame(self.preview_thread.player.Position())
 
     def movePlayhead(self, position_frames):
         """Update playhead position"""
@@ -1918,6 +1926,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         self.preview_parent = PreviewParent()
         self.preview_parent.Init(self, self.timeline_sync.timeline, self.videoPreview)
         self.preview_thread = self.preview_parent.worker
+
+        # Set pause callback
+        self.PauseSignal.connect(self.handlePausedVideo)
 
         # QTimer for Autosave
         self.auto_save_timer = QTimer(self)

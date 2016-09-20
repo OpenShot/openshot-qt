@@ -748,6 +748,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
     def add_to_recent_files(self, file_path):
         """ Add this project to the recent files list """
+        if "backup.osp" not in file_path:
+            # Ignore backup recovery project
+            return
 
         s = settings.get_settings()
         recent_projects = s.get("recent_projects")
