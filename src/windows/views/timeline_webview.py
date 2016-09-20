@@ -31,6 +31,7 @@ import os
 from copy import deepcopy
 from functools import partial
 from random import uniform
+from urllib.parse import urlparse
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication, QTimer
@@ -2188,10 +2189,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Initialize snapping mode
         self.SetSnappingMode(self.window.actionSnappingTool.isChecked())
 
+    # An item is being dragged onto the timeline (mouse is entering the timeline now)
     def dragEnterEvent(self, event):
 
         # If a plain text drag accept
-        if not self.new_item and not event.mimeData().hasUrls() and event.mimeData().hasText():
+        if not self.new_item and not event.mimeData().hasUrls() and event.mimeData().html():
             # get type of dropped data
             self.item_type = event.mimeData().html()
 
@@ -2208,8 +2210,17 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             elif self.item_type == "transition":
                 self.addTransition(data, pos)
 
-        # accept all events, even if a new clip is not being added
-        event.accept()
+            # accept all events, even if a new clip is not being added
+            event.accept()
+
+        # Accept a plain file URL (from the OS)
+        elif not self.new_item and event.mimeData().hasUrls():
+            # Track that a new item is being 'added'
+            self.new_item = True
+            self.item_type = "os_drop"
+
+            # accept event
+            event.accept()
 
     # Add Clip
     def addClip(self, data, position):
@@ -2282,7 +2293,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         self.item_id = new_clip.get('id')
 
         # Init javascript bounding box (for snapping support)
-        code = JS_SCOPE_SELECTOR + ".StartManualMove('clip', '" + self.item_id + "');"
+        code = JS_SCOPE_SELECTOR + ".StartManualMove('" + self.item_type + "', '" + self.item_id + "');"
         self.eval_js(code)
 
     # Resize timeline
@@ -2335,18 +2346,17 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         self.item_id = transitions_data.get('id')
 
         # Init javascript bounding box (for snapping support)
-        code = JS_SCOPE_SELECTOR + ".StartManualMove('transition', '" + self.item_id + "');"
+        code = JS_SCOPE_SELECTOR + ".StartManualMove('" + self.item_type + "', '" + self.item_id + "');"
         self.eval_js(code)
 
     # Add Effect
     def addEffect(self, effect_names, position):
-        log.info("addEffect...")
+        log.info("addEffect: %s at %s" % (effect_names, position))
         # Get name of effect
         name = effect_names[0]
 
         # Find the closest track (from javascript)
-        closest_track_num = int(self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack(" + str(position.y()) + ");"))
-        closest_layer = closest_track_num + 1  # convert track number to layer position
+        closest_layer = int(self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack(" + str(position.y()) + ");"))
 
         # Find position from javascript
         js_position = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition(" + str(position.x()) + ");")
@@ -2374,40 +2384,77 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
     # Without defining this method, the 'copy' action doesn't show with cursor
     def dragMoveEvent(self, event):
+        # Accept all move events
+        event.accept()
 
         # Get cursor position
         pos = event.posF()
 
         # Move clip on timeline
-        code = JS_SCOPE_SELECTOR + ".MoveItem(" + str(pos.x()) + ", " + str(pos.y()) + ", '" + self.item_type + "');"
-        self.eval_js(code)
+        if self.item_type in ["clip", "transition"]:
+            code = JS_SCOPE_SELECTOR + ".MoveItem(" + str(pos.x()) + ", " + str(pos.y()) + ", '" + self.item_type + "');"
+            self.eval_js(code)
 
-        if code:
-            event.accept()
-
+    # Drop an item on the timeline
     def dropEvent(self, event):
-        log.info('Dropping {} in timeline.'.format(event.mimeData().text()))
-        event.accept()
+        log.info("Dropping item on timeline - item_id: %s, item_type: %s" % (self.item_id, self.item_type))
 
-        data = json.loads(event.mimeData().text())
+        # Get position of cursor
         pos = event.posF()
 
         if self.item_type in ["clip", "transition"]:
             # Update most recent clip
             self.eval_js(JS_SCOPE_SELECTOR + ".UpdateRecentItemJSON('" + self.item_type + "', '" + self.item_id + "');")
 
-        if self.item_type == "effect":
+        elif self.item_type == "effect":
             # Add effect only on drop
+            data = json.loads(event.mimeData().text())
             self.addEffect(data, pos)
+
+        elif self.item_type == "os_drop":
+            # Add new files to project
+            get_app().window.filesTreeView.dropEvent(event)
+
+            # Add clips for each file dropped
+            for uri in event.mimeData().urls():
+                file_url = urlparse(uri.toString())
+                if file_url.scheme == "file":
+                    filepath = file_url.path
+                    if filepath[0] == "/" and ":" in filepath:
+                        filepath = filepath[1:]
+                    if os.path.exists(filepath.encode('UTF-8')) and os.path.isfile(filepath.encode('UTF-8')):
+                        # Valid file, so create clip for it
+                        for file in File.filter(path=filepath):
+                            # Insert clip for this file at this position
+                            self.addClip([file.id], pos)
 
         # Clear new clip
         self.new_item = False
         self.item_type = None
         self.item_id = None
 
+        # Accept event
+        event.accept()
+
         # Update the preview and reselct current frame in properties
         get_app().window.refreshFrameSignal.emit()
         get_app().window.propertyTableView.select_frame(self.window.preview_thread.player.Position())
+
+    def dragLeaveEvent(self, event):
+        """A drag is in-progress and the user moves mouse outside of timeline"""
+        log.info('dragLeaveEvent - Undo drop')
+        if self.item_type == "clip":
+            get_app().window.actionRemoveClip.trigger()
+        elif self.item_type == "transition":
+            get_app().window.actionRemoveTransition.trigger()
+
+        # Clear new clip
+        self.new_item = False
+        self.item_type = None
+        self.item_id = None
+
+        # Accept event
+        event.accept()
 
     def redraw_audio_onTimeout(self):
         """Timer is ready to redraw audio (if any)"""

@@ -743,11 +743,12 @@ $scope.SetTrackLabel = function (label){
  // Get Track number of item (used by Qt)
  $scope.GetJavaScriptTrack = function(y){
 	// Adjust for scrollbar position
+	var scrolling_tracks_offset_top = $("#scrolling_tracks").offset().top;
   	var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
 	y += vert_scroll_offset;
 
 	// Return number of track
-	var track_number = parseInt($scope.GetTrackAtY(y).number);
+	var track_number = parseInt($scope.GetTrackAtY(y - scrolling_tracks_offset_top).number);
 	return track_number;
  };
  
@@ -789,6 +790,14 @@ $scope.SetTrackLabel = function (label){
 	// Hide snapline (if any)
 	$scope.HideSnapline();
 
+	// Check again for missing transitions
+	missing_transition_details = $scope.GetMissingTransitions(item_object);
+	if ($scope.Qt && missing_transition_details != null)
+		timeline.add_missing_transition(JSON.stringify(missing_transition_details));
+
+	// Remove manual move stylesheet
+	bounding_box.element.removeClass("manual-move");
+
 	// Remove CSS class (after the drag)
 	bounding_box = {};
  };
@@ -817,6 +826,10 @@ $scope.SetTrackLabel = function (label){
 	 bounding_box.offset_y = 0;
 	 bounding_box.element = $(element_id);
 	 bounding_box.track_position = 0;
+
+	 // Set z-order to be above other clips/transitions
+	 if (item_type != "os_drop")
+	 	bounding_box.element.addClass("manual-move");
  };
  
  // Move a new clip to the timeline

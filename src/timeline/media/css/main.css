@@ -24,6 +24,11 @@ body {
   z-index:8000 !important;
 }
 
+/* manually moving selected item */
+.manual-move {
+  z-index:8000 !important;
+}
+
 /* selection box during drag */
 .ui-selectable-helper{
   position:absolute;
