@@ -160,10 +160,13 @@ class TutorialManager(object):
         for tutorial_details in self.tutorial_objects:
             # Get details
             tutorial_id = tutorial_details["id"]
-            tutorial_object = tutorial_details["object"]
+            tutorial_object_id = tutorial_details["object_id"]
             tutorial_text = tutorial_details["text"]
             tutorial_x_offset = tutorial_details["x"]
             tutorial_y_offset = tutorial_details["y"]
+
+            # Get QWidget
+            tutorial_object = self.get_object(tutorial_object_id)
 
             # Skip completed tutorials (and invisible widgets)
             if tutorial_object.visibleRegion().isEmpty() or tutorial_id in self.tutorial_ids or not self.tutorial_enabled:
@@ -180,6 +183,27 @@ class TutorialManager(object):
             self.current_dialog = tutorial_dialog
             self.current_dialog.show()
             break
+
+    def get_object(self, object_id):
+        """Get an object from the main window by object id"""
+        if object_id == "filesTreeView":
+            return self.win.filesTreeView
+        elif object_id == "timeline":
+            return self.win.timeline
+        elif object_id == "dockVideoContents":
+            return self.win.dockVideoContents
+        elif object_id == "propertyTableView":
+            return self.win.propertyTableView
+        elif object_id == "transitionsTreeView":
+            return self.win.transitionsTreeView
+        elif object_id == "effectsTreeView":
+            return self.win.effectsTreeView
+        elif object_id == "export_button":
+            # Find export toolbar button on main window
+            export_button = None
+            for toolbutton in self.win.toolBar.children():
+                if type(toolbutton) == QToolButton and toolbutton.defaultAction() and toolbutton.defaultAction().objectName() == "actionExportVideo":
+                    return toolbutton
 
     def next_tip(self, tid):
         """ Mark the current tip completed, and show the next one """
@@ -267,20 +291,14 @@ class TutorialManager(object):
         self.tutorial_enabled = s.get("tutorial_enabled")
         self.tutorial_ids = s.get("tutorial_ids").split(",")
 
-        # Find export toolbar button on main window
-        export_button = None
-        for toolbutton in self.win.toolBar.children():
-            if type(toolbutton) == QToolButton and toolbutton.defaultAction() and  toolbutton.defaultAction().objectName() == "actionExportVideo":
-                export_button = toolbutton
-
         # Add all possible tutorials
-        self.tutorial_objects = [    {"id":"1", "x":20, "y":0, "object":self.win.filesTreeView, "text":_("<b>Project Files:</b> Get started with your project by adding video, audio, and image files here. Drag and drop files from your file system.")},
-                                     {"id":"2", "x":200, "y":-15, "object":self.win.timeline, "text":_("<b>Timeline:</b> Arrange your clips on the timeline here. Overlap clips to create automatic transitions. Access lots of fun presets and options by right-clicking on clips.")},
-                                     {"id":"3", "x":150, "y":100, "object":self.win.dockVideoContents, "text":_("<b>Video Preview:</b> Watch your timeline video preview here. Use the buttons (play, rewind, fast-forward) to control the video playback.")},
-                                     {"id":"4", "x":20, "y":-35, "object":self.win.propertyTableView, "text":_("<b>Properties:</b> View and change advanced properties of clips and effects here. Right-clicking on clips is usually faster than manually changing properties.")},
-                                     {"id":"5", "x":20, "y":10, "object":self.win.transitionsTreeView, "text":_("<b>Transitions:</b> Create a gradual fade from one clip to another. Drag and drop a transition onto the timeline and position it on top of a clip (usually at the beginning or ending).")},
-                                     {"id":"6", "x":20, "y":20, "object":self.win.effectsTreeView, "text":_("<b>Effects:</b> Adjust brigthness, contrast, saturation, and add exciting special effects. Drag and drop an effect onto the timeline and position it on top of a clip (or track)")},
-                                     {"id":"7", "x":-265, "y":-22, "object":export_button, "text":_("<b>Export Video:</b> When you are ready to create your finished video, click this button to export your timeline as a single video file.")}
+        self.tutorial_objects = [    {"id":"1", "x":20, "y":0, "object_id":"filesTreeView", "text":_("<b>Project Files:</b> Get started with your project by adding video, audio, and image files here. Drag and drop files from your file system.")},
+                                     {"id":"2", "x":200, "y":-15, "object_id":"timeline", "text":_("<b>Timeline:</b> Arrange your clips on the timeline here. Overlap clips to create automatic transitions. Access lots of fun presets and options by right-clicking on clips.")},
+                                     {"id":"3", "x":150, "y":100, "object_id":"dockVideoContents", "text":_("<b>Video Preview:</b> Watch your timeline video preview here. Use the buttons (play, rewind, fast-forward) to control the video playback.")},
+                                     {"id":"4", "x":20, "y":-35, "object_id":"propertyTableView", "text":_("<b>Properties:</b> View and change advanced properties of clips and effects here. Right-clicking on clips is usually faster than manually changing properties.")},
+                                     {"id":"5", "x":20, "y":10, "object_id":"transitionsTreeView", "text":_("<b>Transitions:</b> Create a gradual fade from one clip to another. Drag and drop a transition onto the timeline and position it on top of a clip (usually at the beginning or ending).")},
+                                     {"id":"6", "x":20, "y":20, "object_id":"effectsTreeView", "text":_("<b>Effects:</b> Adjust brigthness, contrast, saturation, and add exciting special effects. Drag and drop an effect onto the timeline and position it on top of a clip (or track)")},
+                                     {"id":"7", "x":-265, "y":-22, "object_id":"export_button", "text":_("<b>Export Video:</b> When you are ready to create your finished video, click this button to export your timeline as a single video file.")}
                                 ]
 
         # Connect to dock widgets

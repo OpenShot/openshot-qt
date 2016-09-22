@@ -54,7 +54,6 @@ class TransitionsListView(QListView):
 
         # Ignore event, propagate to parent
         event.ignore()
-        super().mouseMoveEvent(event)
 
     def startDrag(self, event):
         """ Override startDrag method to display custom icon """
