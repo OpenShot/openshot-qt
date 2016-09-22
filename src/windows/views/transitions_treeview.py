@@ -48,7 +48,6 @@ class TransitionsTreeView(QTreeView):
         app.context_menu_object = "transitions"
 
         menu = QMenu(self)
-        menu.addAction(self.win.actionDetailsView)
         menu.addAction(self.win.actionThumbnailView)
         menu.exec_(QCursor.pos())
 

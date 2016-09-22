@@ -49,7 +49,6 @@ class EffectsListView(QListView):
 
         menu = QMenu(self)
         menu.addAction(self.win.actionDetailsView)
-        menu.addAction(self.win.actionThumbnailView)
         menu.exec_(QCursor.pos())
 
     def startDrag(self, event):
