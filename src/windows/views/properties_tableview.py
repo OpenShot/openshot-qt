@@ -414,6 +414,7 @@ class PropertiesTableView(QTableView):
 
         # Keep track of mouse press start position to determine when to start drag
         self.selected = []
+        self.selected_label = None
         self.selected_item = None
         self.new_value = None
         self.original_data = None
