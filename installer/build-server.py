@@ -41,6 +41,7 @@ import sys
 import tinys3
 import traceback
 from PyQt5.QtCore import QLibraryInfo
+from github3 import login
 
 
 freeze_command = None
@@ -54,6 +55,9 @@ s3_secret_key = None
 s3_connection = None
 windows_key = None
 windows_key_password = None
+github_user = None
+github_pass = None
+github_release = None
 commit_data = {}
 
 # Create temp log
@@ -136,21 +140,31 @@ def slack_upload_log(log, title, comment=None):
     # Re-open the log (for append)
     log = open(log_path, "a")
 
-def upload(file_path, s3_bucket):
-    """Upload a file to S3 (retry 3 times)"""
+def get_release(repo, tag_name):
+    """Fetch the GitHub release tagged with the given tag and return it
+    @param repo:        github3 repository object
+    @returns:           github3 release object or None
+    """
+    for release in repo.iter_releases():
+        if release.tag_name == tag_name:
+            return release
+
+def upload(file_path, github_release):
+    """Upload a file to GitHub (retry 3 times)"""
     if s3_connection:
         folder_path, file_name = os.path.split(file_path)
         for attempt in range(3):
             try:
                 # Attempt the upload
                 with open(file_path, "rb") as f:
-                    s3_connection.upload(file_name, f, s3_bucket)
+                    # Upload to GitHub
+                    github_release.upload_asset("application/octet-stream", file_name, f)
                 # Successfully uploaded!
                 break
             except Exception as ex:
                 # Quietly fail, and try again
                 if attempt < 2:
-                    output("Amazon S3 upload failed... trying again")
+                    output("Upload failed... trying again")
                 else:
                     # Throw loud exception
                     raise ex
@@ -158,9 +172,6 @@ def upload(file_path, s3_bucket):
 
 try:
     # Validate command-line arguments
-    # argv[1] = Slack_token
-    # argv[2] = S3 access key
-    # argv[3] = S3 secret key
     if len(sys.argv) >= 2:
         slack_token = sys.argv[1]
         slack_object = Slacker(slack_token)
@@ -171,6 +182,14 @@ try:
     if len(sys.argv) >= 6:
         windows_key = sys.argv[4]
         windows_key_password = sys.argv[5]
+    if len(sys.argv) >= 8:
+        github_user = sys.argv[6]
+        github_pass = sys.argv[7]
+
+        # Login and get "GitHub" object
+        gh = login(github_user, github_pass)
+        repo = gh.repository("OpenShot", "openshot-qt")
+        github_release = get_release(repo, "daily")
 
     # Start log
     output("%s Build Log for %s" % (platform.system(), datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
@@ -485,9 +504,9 @@ try:
         if needs_upload:
             # Check if app exists
             if os.path.exists(app_build_path):
-                # Upload file to S3
-                output("S3: Uploading %s to Amazon S3" % app_build_path)
-                upload(app_build_path, app_upload_bucket)
+                # Upload file to GitHub
+                output("GitHub: Uploading %s to GitHub Release: %s" % (app_build_path, github_release.tag_name))
+                upload(app_build_path, github_release)
 
                 # Notify Slack
                 slack_upload_log(log, "%s: Build logs for %s" % (platform.system(), app_name), "Successful build: http://%s/%s" % (app_upload_bucket, app_name))
