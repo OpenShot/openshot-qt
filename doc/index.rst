@@ -17,29 +17,24 @@
 .. You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
 
-Welcome to OpenShot Video Editor's documentation!
+OpenShot User Guide
 =================================================
 
 OpenShot Video Editor is an award-winning, open-source video editor, available on
-Linux, Mac, and Windows. Create stunning videos, films, and animations with OpenShot’s
-easy-to-use interface and rich feature-set.
+Linux, Mac, and Windows. OpenShot can create stunning videos, films, and animations with an
+easy-to-use interface and rich set of features.
 
-This is the official user manual for OpenShot (version 2.x)
+Learning to use OpenShot is easy, and with this guide, you will be a master in no
+time at all!
 
-Contents:
+Table of Contents:
+-------------------
 
 .. toctree::
    :maxdepth: 2
 
    introduction
    getting_started
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   quick_tutorial
+   main_window
 
