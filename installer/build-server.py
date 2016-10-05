@@ -86,9 +86,9 @@ elif platform.system() == "Windows":
                      ("C:\\Users\\Jonathan\\apps\\openshot-qt-git", "")]
 
 
-def run_command(command):
+def run_command(command, working_dir=None):
     """Utility function to return output from command line"""
-    p = subprocess.Popen(command, shell=True,
+    p = subprocess.Popen(command, shell=True, cwd=working_dir,
                          stdout=subprocess.PIPE,
                          stderr=subprocess.STDOUT)
     return iter(p.stdout.readline, b"")
@@ -528,10 +528,10 @@ try:
 
                 # Create torrent and upload
                 torrent_path = "%s.torrent" % app_build_path
-                torrent_command = 'mktorrent -a "udp://tracker.openbittorrent.com:80/announce, udp://tracker.publicbt.com:80/announce, udp://tracker.opentrackr.org:1337" -c "OpenShot Video Editor %s" -w "%s" -o "%s" "%s"' % (version, url, torrent_path, app_build_path)
+                torrent_command = 'mktorrent -a "udp://tracker.openbittorrent.com:80/announce, udp://tracker.publicbt.com:80/announce, udp://tracker.opentrackr.org:1337" -c "OpenShot Video Editor %s" -w "%s" -o "%s" "%s"' % (version, url, "%s.torrent" % app_name, app_name)
                 torrent_output = ""
                 # Create torrent
-                for line in run_command(torrent_command):
+                for line in run_command(torrent_command, builds_path):
                     output(line)
                     if line:
                         torrent_output = line.decode('UTF-8').strip()
