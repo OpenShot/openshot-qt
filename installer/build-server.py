@@ -151,6 +151,7 @@ def get_release(repo, tag_name):
 
 def upload(file_path, github_release):
     """Upload a file to GitHub (retry 3 times)"""
+    url = None
     if s3_connection:
         folder_path, file_name = os.path.split(file_path)
         for attempt in range(3):
@@ -158,7 +159,8 @@ def upload(file_path, github_release):
                 # Attempt the upload
                 with open(file_path, "rb") as f:
                     # Upload to GitHub
-                    github_release.upload_asset("application/octet-stream", file_name, f)
+                    asset = github_release.upload_asset("application/octet-stream", file_name, f)
+                    url = asset.to_json()["browser_download_url"]
                 # Successfully uploaded!
                 break
             except Exception as ex:
@@ -168,6 +170,8 @@ def upload(file_path, github_release):
                 else:
                     # Throw loud exception
                     raise ex
+
+    return url
 
 
 try:
@@ -189,7 +193,6 @@ try:
         # Login and get "GitHub" object
         gh = login(github_user, github_pass)
         repo = gh.repository("OpenShot", "openshot-qt")
-        github_release = get_release(repo, "daily")
 
     # Start log
     output("%s Build Log for %s" % (platform.system(), datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
@@ -268,11 +271,26 @@ try:
         # Get GIT description of openshot-qt-git branch (i.e. v2.0.6-18-ga01a98c)
         openshot_qt_git_desc = ""
         for line in run_command("git describe --tags"):
-            openshot_qt_git_desc = "OpenShot-%s" % line.decode("utf-8").strip()
+            git_description = line.decode("utf-8").strip()
+            openshot_qt_git_desc = "OpenShot-%s" % git_description
 
             # Add num of commits from libopenshot and libopenshot-audio (for naming purposes)
-            openshot_qt_git_desc = "%s-%s-%s" % (openshot_qt_git_desc, commit_data[project_paths[0][0]], commit_data[project_paths[1][0]])
-            output("git description of openshot-qt-git: %s" % openshot_qt_git_desc)
+            # If not an official release
+            if "-" in git_description:
+                # Make filename more descriptive for daily builds
+                openshot_qt_git_desc = "%s-%s-%s" % (openshot_qt_git_desc, commit_data[project_paths[0][0]], commit_data[project_paths[1][0]])
+                output("git description of openshot-qt-git: %s" % openshot_qt_git_desc)
+
+                # Get daily git_release object
+                github_release = get_release(repo, "daily")
+            else:
+                # Get official version release (i.e. v2.1.0, v2.x.x)
+                github_release = get_release(repo, git_description)
+
+                # If no release is found, create a new one
+                if not github_release:
+                    # Create a new release if one if missing
+                    github_release = repo.create_release(git_description, target_commitish="master", prerelease=True)
 
         # Detect version number from git description
         version = re.search('v(.+?)-', openshot_qt_git_desc).groups()[0]
@@ -506,14 +524,34 @@ try:
             if os.path.exists(app_build_path):
                 # Upload file to GitHub
                 output("GitHub: Uploading %s to GitHub Release: %s" % (app_build_path, github_release.tag_name))
-                upload(app_build_path, github_release)
+                url = upload(app_build_path, github_release)
 
-                # Notify Slack
-                slack_upload_log(log, "%s: Build logs for %s" % (platform.system(), app_name), "Successful build: http://%s/%s" % (app_upload_bucket, app_name))
+                # Create torrent and upload
+                torrent_path = "%s.torrent" % app_build_path
+                torrent_command = 'mktorrent -a "udp://tracker.openbittorrent.com:80/announce, udp://tracker.publicbt.com:80/announce, udp://tracker.opentrackr.org:1337" -c "OpenShot Video Editor %s" -w "%s" -o "%s" "%s"' % (version, url, torrent_path, app_build_path)
+                torrent_output = ""
+                # Create torrent
+                for line in run_command(torrent_command):
+                    output(line)
+                    if line:
+                        torrent_output = line.decode('UTF-8').strip()
 
-                # Move app to uploads folder, and remove from build folder (so it will be skipped next time)
-                shutil.copyfile(app_build_path, app_upload_path)
-                os.remove(app_build_path)
+                if not torrent_output.endswith("Writing metainfo file... done."):
+                    # Torrent failed
+                    error("Torrent Error: Unexpected output (%s)" % torrent_output)
+
+                else:
+                    # Torrent succeeded! Upload the torrent to github
+                    url = upload(torrent_path, github_release)
+
+                    # Notify Slack
+                    slack_upload_log(log, "%s: Build logs for %s" % (platform.system(), app_name), "Successful build: http://%s/%s" % (app_upload_bucket, app_name))
+
+                    # Move app to uploads folder, and remove from build folder (so it will be skipped next time)
+                    shutil.copyfile(app_build_path, app_upload_path)
+                    os.remove(app_build_path)
+                    shutil.copyfile(torrent_path, "%s.torrent" % app_upload_path)
+                    os.remove(torrent_path)
 
             else:
                 # App doesn't exist (something went wrong)
