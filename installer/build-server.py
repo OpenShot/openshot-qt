@@ -524,11 +524,11 @@ try:
             if os.path.exists(app_build_path):
                 # Upload file to GitHub
                 output("GitHub: Uploading %s to GitHub Release: %s" % (app_build_path, github_release.tag_name))
-                url = upload(app_build_path, github_release)
+                download_url = upload(app_build_path, github_release)
 
                 # Create torrent and upload
                 torrent_path = "%s.torrent" % app_build_path
-                torrent_command = 'mktorrent -a "udp://tracker.openbittorrent.com:80/announce, udp://tracker.publicbt.com:80/announce, udp://tracker.opentrackr.org:1337" -c "OpenShot Video Editor %s" -w "%s" -o "%s" "%s"' % (version, url, "%s.torrent" % app_name, app_name)
+                torrent_command = 'mktorrent -a "udp://tracker.openbittorrent.com:80/announce, udp://tracker.publicbt.com:80/announce, udp://tracker.opentrackr.org:1337" -c "OpenShot Video Editor %s" -w "%s" -o "%s" "%s"' % (version, download_url, "%s.torrent" % app_name, app_name)
                 torrent_output = ""
                 # Create torrent
                 for line in run_command(torrent_command, builds_path):
@@ -545,7 +545,7 @@ try:
                     url = upload(torrent_path, github_release)
 
                     # Notify Slack
-                    slack_upload_log(log, "%s: Build logs for %s" % (platform.system(), app_name), "Successful build: http://%s/%s" % (app_upload_bucket, app_name))
+                    slack_upload_log(log, "%s: Build logs for %s" % (platform.system(), app_name), "Successful build: %s" % download_url)
 
                     # Move app to uploads folder, and remove from build folder (so it will be skipped next time)
                     shutil.copyfile(app_build_path, app_upload_path)
