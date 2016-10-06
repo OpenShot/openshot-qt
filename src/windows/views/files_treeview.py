@@ -352,6 +352,7 @@ class FilesTreeView(QTreeView):
         self.setDragEnabled(True)
         self.setDropIndicatorShown(True)
         self.selected = []
+        self.ignore_image_sequence_paths = []
 
         # Setup header columns
         self.setModel(self.files_model.model)
