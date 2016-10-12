@@ -9,20 +9,20 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-09-07 00:46+0000\n"
-"PO-Revision-Date: 2016-05-23 08:17+0000\n"
-"Last-Translator: Manuel Xosé Lemos <Unknown>\n"
+"PO-Revision-Date: 2016-09-30 21:13+0000\n"
+"Last-Translator: Xosé <Unknown>\n"
 "Language-Team: Galician <gl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-09-08 07:01+0000\n"
-"X-Generator: Launchpad (build 18179)\n"
+"X-Launchpad-Export-Date: 2016-10-01 06:21+0000\n"
+"X-Generator: Launchpad (build 18204)\n"
 "Language: gl\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:602
 #, python-format
 msgid "Failed to load project file %(path)s: %(error)s"
-msgstr ""
+msgstr "Non foi posíbel cargar o ficheiro de proxecto %(path)s: %(error)s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:609
 #, python-format
@@ -30,6 +30,8 @@ msgid ""
 "Failed to load the following files:\n"
 "%s"
 msgstr ""
+"Non foi posíbel cargar os ficheiros seguintes:\n"
+"%s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:474
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1260
@@ -137,11 +139,11 @@ msgstr "Importar un ficheiro..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1197
 msgid "Error Removing Track"
-msgstr ""
+msgstr "Produciuse un erro ao eliminar a pista"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1197
 msgid "You must keep at least 1 track"
-msgstr ""
+msgstr "Hai que conservar unha pista como mínimo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1262
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1227
@@ -317,7 +319,7 @@ msgstr "Quere importar %s como unha secuencia de imaxes?"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:119
 msgid "Hide Tutorial"
-msgstr ""
+msgstr "Agochar o titorial"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:121
 msgid "Next"
@@ -328,6 +330,9 @@ msgid ""
 "<b>Project Files:</b> Get started with your project by adding video, audio, "
 "and image files here. Drag and drop files from your file system."
 msgstr ""
+"<b>Ficheiros do proxecto:</b> Comece o seu proxecto engadindo aquí ficheiros "
+"de vídeo, son e imaxes. Arrastre e solte os ficheiros desde o seu sistema de "
+"ficheiros."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:278
 msgid ""
@@ -547,7 +552,7 @@ msgstr "Efectos"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:531
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:2013
 msgid "Align"
-msgstr ""
+msgstr "Aliñar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:532
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:2014
@@ -844,7 +849,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:795
 msgid "Show Thumbnail"
-msgstr ""
+msgstr "Mostrar miniatura"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1982
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:341
@@ -884,7 +889,7 @@ msgstr "Retirar fotograma chave"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:527
 msgid "Selection:"
-msgstr ""
+msgstr "Selección:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:533
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:550
@@ -2604,7 +2609,7 @@ msgstr "Balance"
 
 #: libopenshot (Clip Properties)
 msgid "Fuzz"
-msgstr ""
+msgstr "Difuso"
 
 #: libopenshot (Clip Properties)
 msgid "Crop"
@@ -2640,7 +2645,7 @@ msgstr "Blu-Ray/AVCHD"
 
 #: Settings for selectNone
 msgid "Select None"
-msgstr ""
+msgstr "Non seleccionar nada"
 
 #: Settings for playToggle3
 msgid "Play/Pause Toggle (Alternate 3)"
@@ -2683,7 +2688,7 @@ msgstr "Ir ao final"
 
 #: Settings Category for Debug
 msgid "Debug"
-msgstr ""
+msgstr "Depuración"
 
 #: Settings for actionJumpStart
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:535
@@ -2755,7 +2760,7 @@ msgstr "DVD-NTSC"
 
 #: Settings Category for Keyboard
 msgid "Keyboard"
-msgstr ""
+msgstr "Teclado"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_avi_x264.xml
 msgid "AVI (h.264)"
@@ -2795,7 +2800,7 @@ msgstr "OGG (theora/vorbis)"
 
 #: Settings for seekPreviousFrame
 msgid "Previous Frame"
-msgstr ""
+msgstr "Fotograma anterior"
 
 #: Settings for actionAbout
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/about.ui:23
@@ -2878,7 +2883,7 @@ msgstr "MOV (mpeg4)"
 
 #: Settings Category for Cache
 msgid "Cache"
-msgstr ""
+msgstr "Caché"
 
 #: Settings for actionImportFiles
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:360
@@ -2966,7 +2971,7 @@ msgstr "Propiedades"
 
 #: Settings for deleteItem
 msgid "Delete Item"
-msgstr ""
+msgstr "Eliminar este obxecto"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml
 msgid "AVCHD Disks"
@@ -3009,7 +3014,7 @@ msgstr "Nokia nHD"
 
 #: Settings for selectAll
 msgid "Select All"
-msgstr ""
+msgstr "Seleccionar todo"
 
 #: Settings for blender_command
 msgid "Blender Command (path)"

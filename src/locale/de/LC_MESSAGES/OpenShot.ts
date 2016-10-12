@@ -2,13 +2,13 @@
 <!DOCTYPE TS>
 <TS version="2.1">
     <extra-po-header-language_team>German &lt;de@li.org&gt;</extra-po-header-language_team>
-    <extra-po-header-last_translator>Marc Hölscher &lt;marc.hoelscher@freenet.de&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-09-20 18:04+0000</extra-po-header-po_revision_date>
+    <extra-po-header-last_translator>Ettore Atalan &lt;atalanttore@googlemail.com&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2016-10-04 22:41+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2016-09-07 00:46+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 18204)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-09-21 06:43+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 18217)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2016-10-05 06:21+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># German translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -533,7 +533,7 @@ Blender Pfad:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="405"/>
         <source>Slice All</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle trennen</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="406"/>
@@ -1029,7 +1029,7 @@ Blender Pfad:
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="778"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2028"/>
         <source>Slice</source>
-        <translation type="unfinished"></translation>
+        <translation>Trennen</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="792"/>
@@ -3258,7 +3258,7 @@ Soll die Datei ersetzt werden?</translation>
     </message>
     <message>
         <source>Slice All: Keep Left Side</source>
-        <translation>Trennen: Linke Seite behalten</translation>
+        <translation>Trennen: linke Seite behalten</translation>
         <extra-po-references>Settings for sliceAllKeepLeftSide</extra-po-references>
     </message>
     <message>
@@ -3807,7 +3807,7 @@ Soll die Datei ersetzt werden?</translation>
     </message>
     <message>
         <source>Frame barr right</source>
-        <translation type="unfinished"></translation>
+        <translation>Einzelbildbalken rechts</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_right.jpg</extra-po-references>
     </message>
     <message>
@@ -3832,7 +3832,7 @@ Soll die Datei ersetzt werden?</translation>
     </message>
     <message>
         <source>Middle cross left barr</source>
-        <translation type="unfinished"></translation>
+        <translation>Mittleres Kreuz, linker Balken</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_left_barr.jpg</extra-po-references>
     </message>
     <message>
@@ -3992,7 +3992,7 @@ Soll die Datei ersetzt werden?</translation>
     </message>
     <message>
         <source>Blur right barr</source>
-        <translation>Rechtern Balken verwischen</translation>
+        <translation>Rechten Balken verwischen</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_right_barr.jpg</extra-po-references>
     </message>
     <message>
@@ -4012,7 +4012,7 @@ Soll die Datei ersetzt werden?</translation>
     </message>
     <message>
         <source>Right mozaic %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Rechtes Mosaik %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic_2.jpg</extra-po-references>
     </message>
     <message>
@@ -4349,7 +4349,7 @@ Soll die Datei ersetzt werden?</translation>
     </message>
     <message>
         <source>Left mozaic</source>
-        <translation>Linkes 	Mosaik</translation>
+        <translation>Linkes Mosaik</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_mozaic.jpg</extra-po-references>
     </message>
     <message>
@@ -4379,7 +4379,7 @@ Soll die Datei ersetzt werden?</translation>
     </message>
     <message>
         <source>Mozaic barr left</source>
-        <translation type="unfinished"></translation>
+        <translation>Mosaikbalken links</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_left.jpg</extra-po-references>
     </message>
     <message>
@@ -4561,7 +4561,7 @@ Soll die Datei ersetzt werden?</translation>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/animation.ui" line="60"/>
         <source>Loop (Repeat)</source>
-        <translation type="unfinished"></translation>
+        <translation>Schleife (Wiederholung)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/animation.ui" line="77"/>
@@ -4608,7 +4608,7 @@ Soll die Datei ersetzt werden?</translation>
         <location filename="../../../../openshot-qt-git/src/windows/ui/animation.ui" line="400"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="76"/>
         <source>00:00:00:1</source>
-        <translation type="unfinished"></translation>
+        <translation>00:00:00:1</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="31"/>
@@ -5227,7 +5227,7 @@ Soll die Datei ersetzt werden?</translation>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="925"/>
         <source>Ctrl+E</source>
-        <translation type="unfinished"></translation>
+        <translation>Strg+E</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="940"/>

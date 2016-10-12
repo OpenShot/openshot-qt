@@ -2,13 +2,13 @@
 <!DOCTYPE TS>
 <TS version="2.1">
     <extra-po-header-language_team>Occitan (post 1500) &lt;oc@li.org&gt;</extra-po-header-language_team>
-    <extra-po-header-last_translator>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-01-11 05:40+0000</extra-po-header-po_revision_date>
+    <extra-po-header-last_translator>Cédric VALMARY (Tot en òc) &lt;cvalmary@yahoo.fr&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2016-10-08 08:56+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2016-09-07 00:46+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 18179)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-09-08 07:04+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 18227)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2016-10-09 07:30+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Occitan (post 1500) translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -66,7 +66,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="496"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="637"/>
         <source>Random</source>
-        <translation type="unfinished"></translation>
+        <translation>Aleatòri</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="485"/>
@@ -87,7 +87,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="93"/>
         <source>Unsaved Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Modificacions pas enregistradas</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="93"/>
@@ -188,7 +188,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1889"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="272"/>
         <source>Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtrar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1716"/>
@@ -586,7 +586,7 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="512"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="235"/>
         <source>Effects</source>
-        <translation>Efièches</translation>
+        <translation>Efièits</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="531"/>
@@ -757,12 +757,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="617"/>
         <source>Right to Center</source>
-        <translation>De drecha cap al centre</translation>
+        <translation>De dreita cap al centre</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="619"/>
         <source>Bottom to Center</source>
-        <translation>D&apos;avaul cap al centre</translation>
+        <translation>D&apos;aval cap al centre</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="624"/>
@@ -777,12 +777,12 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="627"/>
         <source>Left to Right</source>
-        <translation>D&apos;esquèrra cap a drecha</translation>
+        <translation>D&apos;esquèrra cap a dreita</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="629"/>
         <source>Right to Left</source>
-        <translation>De drecha cap a esquèrra</translation>
+        <translation>De dreita cap a esquèrra</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="631"/>
@@ -803,7 +803,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="651"/>
         <source>Rotate 90 (Right)</source>
-        <translation>Rotacion de 90 grases cap a drecha</translation>
+        <translation>Rotacion de 90 grases cap a dreita</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="653"/>
@@ -838,7 +838,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="668"/>
         <source>1/4 Size - Top Right</source>
-        <translation>Escala 1/4 - Amontt a drecha</translation>
+        <translation>Escala 1/4 - Amont a dreita</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="670"/>
@@ -848,7 +848,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="672"/>
         <source>1/4 Size - Bottom Right</source>
-        <translation>Escala 1/4 - Aval a drecha</translation>
+        <translation>Escala 1/4 - Aval a dreita</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="675"/>
@@ -1320,7 +1320,7 @@ Do you want to replace it?</source>
     </message>
     <message>
         <source>Delta</source>
-        <translation>Delta</translation>
+        <translation>Dèlta</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
     </message>
     <message>
@@ -1330,7 +1330,7 @@ Do you want to replace it?</source>
     </message>
     <message>
         <source>Pixelate</source>
-        <translation>Pixelizar</translation>
+        <translation>Pixellizar</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
     </message>
     <message>
@@ -1340,7 +1340,7 @@ Do you want to replace it?</source>
     </message>
     <message>
         <source>Red/Green Axis</source>
-        <translation>AXe roge/verd</translation>
+        <translation>Axe roge/verd</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
     </message>
     <message>
@@ -1385,7 +1385,7 @@ Do you want to replace it?</source>
     </message>
     <message>
         <source>Border Width</source>
-        <translation>Largor de las bordaduras</translation>
+        <translation>Largor de la bordadura</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
     </message>
     <message>
@@ -1520,7 +1520,7 @@ Do you want to replace it?</source>
     </message>
     <message>
         <source>Tint amount</source>
-        <translation>Montant tencha</translation>
+        <translation>Montant tinta</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
     </message>
     <message>
@@ -1566,7 +1566,7 @@ Do you want to replace it?</source>
     </message>
     <message>
         <source>Background: Blend</source>
-        <translation>Rèire plan :Fusion</translation>
+        <translation>Rèireplan :Fusion</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
     </message>
     <message>
@@ -1626,7 +1626,7 @@ Do you want to replace it?</source>
     </message>
     <message>
         <source>Background: Alpha</source>
-        <translation>Rèire plan : Transparéncia</translation>
+        <translation>Rèireplan : Transparéncia</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
     </message>
     <message>
@@ -1641,7 +1641,7 @@ Do you want to replace it?</source>
     </message>
     <message>
         <source>Up Scale</source>
-        <translation>Augmentar la talha</translation>
+        <translation>Aumentar la talha</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
     </message>
     <message>
@@ -1942,7 +1942,7 @@ Do you want to replace it?</source>
     </message>
     <message>
         <source>Lens Flare</source>
-        <translation>Efièch d&apos;esbleugiment</translation>
+        <translation>Efièit d&apos;esbleugiment</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
@@ -2252,7 +2252,7 @@ Do you want to replace it?</source>
     </message>
     <message>
         <source>Hue</source>
-        <translation>Tencha</translation>
+        <translation>Tinta</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/hue.xml</extra-po-references>
     </message>
     <message>
@@ -2422,7 +2422,7 @@ Do you want to replace it?</source>
     </message>
     <message>
         <source>World Map</source>
-        <translation>Carta del mond</translation>
+        <translation>Mapa del mond</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
@@ -2675,7 +2675,7 @@ Do you want to replace it?</source>
     </message>
     <message>
         <source>Tint</source>
-        <translation>Tencha</translation>
+        <translation>Tinta</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
     </message>
     <message>
@@ -2700,7 +2700,7 @@ Do you want to replace it?</source>
     </message>
     <message>
         <source>Halo: Hardness</source>
-        <translation>Halo: Dureté</translation>
+        <translation>Halo: Duretat</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
@@ -2975,7 +2975,7 @@ Do you want to replace it?</source>
     </message>
     <message>
         <source>Noise</source>
-        <translation>Bruch</translation>
+        <translation>Bruit</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
     </message>
     <message>
@@ -3010,7 +3010,7 @@ Do you want to replace it?</source>
     </message>
     <message>
         <source>Green Tint</source>
-        <translation>Tencha verda</translation>
+        <translation>Tinta verda</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
     </message>
     <message>
@@ -3309,7 +3309,7 @@ Do you want to replace it?</source>
     </message>
     <message>
         <source>Web</source>
-        <translation>Web</translation>
+        <translation>Internet</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml</extra-po-references>
     </message>
     <message>

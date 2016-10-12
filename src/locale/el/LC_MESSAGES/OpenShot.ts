@@ -3,12 +3,12 @@
 <TS version="2.1">
     <extra-po-header-language_team>Greek &lt;el@li.org&gt;</extra-po-header-language_team>
     <extra-po-header-last_translator>firewalker &lt;Unknown&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-08-27 09:47+0000</extra-po-header-po_revision_date>
+    <extra-po-header-po_revision_date>2016-09-22 13:59+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2016-09-07 00:46+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 18179)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-09-08 07:01+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 18204)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2016-09-23 06:44+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Greek translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -3210,7 +3210,7 @@ Do you want to replace it?</source>
     </message>
     <message>
         <source>Cache Limit (MB)</source>
-        <translation type="unfinished"></translation>
+        <translation>Όριο Προσωρινής Μνήμης (MB)</translation>
         <extra-po-references>Settings for cache-limit-mb</extra-po-references>
     </message>
     <message>
@@ -3339,12 +3339,12 @@ Do you want to replace it?</source>
     </message>
     <message>
         <source>Image Quality (Disk Only)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ποιότητα Εικόνας (Στο Δίσκο μόνο)</translation>
         <extra-po-references>Settings for cache-quality</extra-po-references>
     </message>
     <message>
         <source>Scale Factor (Disk Only)</source>
-        <translation type="unfinished"></translation>
+        <translation>Παράγοντας Κλίμακας (Στο Δίσκο μόνο)</translation>
         <extra-po-references>Settings for cache-scale</extra-po-references>
     </message>
     <message>
@@ -3460,7 +3460,7 @@ Do you want to replace it?</source>
     </message>
     <message>
         <source>Cache</source>
-        <translation type="unfinished"></translation>
+        <translation>Προσωρινή μνήμη</translation>
         <extra-po-references>Settings Category for Cache</extra-po-references>
     </message>
     <message>
@@ -3481,7 +3481,7 @@ Do you want to replace it?</source>
     </message>
     <message>
         <source>Image Format (Disk Only)</source>
-        <translation type="unfinished"></translation>
+        <translation>Τύπος Εικόνας (Στο Δίσκο μόνο)</translation>
         <extra-po-references>Settings for cache-image-format</extra-po-references>
     </message>
     <message>
@@ -3555,7 +3555,7 @@ Do you want to replace it?</source>
     </message>
     <message>
         <source>Cache Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Τύπος Προσωρινής μνήμης</translation>
         <extra-po-references>Settings for cache-mode</extra-po-references>
     </message>
     <message>

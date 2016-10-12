@@ -3,13 +3,13 @@
 <TS version="2.1">
     <extra-po-header-language>gl</extra-po-header-language>
     <extra-po-header-language_team>Galician &lt;gl@li.org&gt;</extra-po-header-language_team>
-    <extra-po-header-last_translator>Manuel Xosé Lemos &lt;Unknown&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-05-23 08:17+0000</extra-po-header-po_revision_date>
+    <extra-po-header-last_translator>Xosé &lt;Unknown&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2016-09-30 21:13+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2016-09-07 00:46+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 18179)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-09-08 07:01+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 18204)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2016-10-01 06:21+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Galician translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -22,14 +22,15 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="602"/>
         <source>Failed to load project file %(path)s: %(error)s</source>
-        <translation type="unfinished"></translation>
+        <translation>Non foi posíbel cargar o ficheiro de proxecto %(path)s: %(error)s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="609"/>
         <source>Failed to load the following files:
 %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Non foi posíbel cargar os ficheiros seguintes:
+%s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -159,12 +160,12 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1197"/>
         <source>Error Removing Track</source>
-        <translation type="unfinished"></translation>
+        <translation>Produciuse un erro ao eliminar a pista</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1197"/>
         <source>You must keep at least 1 track</source>
-        <translation type="unfinished"></translation>
+        <translation>Hai que conservar unha pista como mínimo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1262"/>
@@ -373,7 +374,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="119"/>
         <source>Hide Tutorial</source>
-        <translation type="unfinished"></translation>
+        <translation>Agochar o titorial</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="121"/>
@@ -383,7 +384,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="277"/>
         <source>&lt;b&gt;Project Files:&lt;/b&gt; Get started with your project by adding video, audio, and image files here. Drag and drop files from your file system.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ficheiros do proxecto:&lt;/b&gt; Comece o seu proxecto engadindo aquí ficheiros de vídeo, son e imaxes. Arrastre e solte os ficheiros desde o seu sistema de ficheiros.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="278"/>
@@ -609,7 +610,7 @@ Ruta a Blender:
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="531"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2013"/>
         <source>Align</source>
-        <translation type="unfinished"></translation>
+        <translation>Aliñar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="532"/>
@@ -976,7 +977,7 @@ Ruta a Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="795"/>
         <source>Show Thumbnail</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar miniatura</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1982"/>
@@ -1025,7 +1026,7 @@ Ruta a Blender:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="527"/>
         <source>Selection:</source>
-        <translation type="unfinished"></translation>
+        <translation>Selección:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="533"/>
@@ -3124,7 +3125,7 @@ Desexa substituílo?</translation>
     </message>
     <message>
         <source>Fuzz</source>
-        <translation type="unfinished"></translation>
+        <translation>Difuso</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -3169,7 +3170,7 @@ Desexa substituílo?</translation>
     </message>
     <message>
         <source>Select None</source>
-        <translation type="unfinished"></translation>
+        <translation>Non seleccionar nada</translation>
         <extra-po-references>Settings for selectNone</extra-po-references>
     </message>
     <message>
@@ -3221,7 +3222,7 @@ Desexa substituílo?</translation>
     </message>
     <message>
         <source>Debug</source>
-        <translation type="unfinished"></translation>
+        <translation>Depuración</translation>
         <extra-po-references>Settings Category for Debug</extra-po-references>
     </message>
     <message>
@@ -3308,7 +3309,7 @@ Desexa substituílo?</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Teclado</translation>
         <extra-po-references>Settings Category for Keyboard</extra-po-references>
     </message>
     <message>
@@ -3358,7 +3359,7 @@ Desexa substituílo?</translation>
     </message>
     <message>
         <source>Previous Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Fotograma anterior</translation>
         <extra-po-references>Settings for seekPreviousFrame</extra-po-references>
     </message>
     <message>
@@ -3459,7 +3460,7 @@ Desexa substituílo?</translation>
     </message>
     <message>
         <source>Cache</source>
-        <translation type="unfinished"></translation>
+        <translation>Caché</translation>
         <extra-po-references>Settings Category for Cache</extra-po-references>
     </message>
     <message>
@@ -3566,7 +3567,7 @@ Desexa substituílo?</translation>
     </message>
     <message>
         <source>Delete Item</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar este obxecto</translation>
         <extra-po-references>Settings for deleteItem</extra-po-references>
     </message>
     <message>
@@ -3619,7 +3620,7 @@ Desexa substituílo?</translation>
     </message>
     <message>
         <source>Select All</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar todo</translation>
         <extra-po-references>Settings for selectAll</extra-po-references>
     </message>
     <message>

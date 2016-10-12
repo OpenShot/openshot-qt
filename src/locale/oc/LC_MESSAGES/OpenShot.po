@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-09-07 00:46+0000\n"
-"PO-Revision-Date: 2016-01-11 05:40+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2016-10-08 08:56+0000\n"
+"Last-Translator: Cédric VALMARY (Tot en òc) <cvalmary@yahoo.fr>\n"
 "Language-Team: Occitan (post 1500) <oc@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-09-08 07:04+0000\n"
-"X-Generator: Launchpad (build 18179)\n"
+"X-Launchpad-Export-Date: 2016-10-09 07:30+0000\n"
+"X-Generator: Launchpad (build 18227)\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:602
 #, python-format
@@ -59,7 +59,7 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:496
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:637
 msgid "Random"
-msgstr ""
+msgstr "Aleatòri"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:485
 #: Settings for actionTimelineZoomIn
@@ -77,7 +77,7 @@ msgstr "Zoom arrièr"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:93
 msgid "Unsaved Changes"
-msgstr ""
+msgstr "Modificacions pas enregistradas"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:93
 msgid "Save changes to project before closing?"
@@ -161,7 +161,7 @@ msgstr "Projèctes recents"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1889
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:272
 msgid "Filter"
-msgstr ""
+msgstr "Filtrar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1716
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:2152
@@ -518,7 +518,7 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:512
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:235
 msgid "Effects"
-msgstr "Efièches"
+msgstr "Efièits"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:531
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:2013
@@ -658,11 +658,11 @@ msgstr "D'esquèrra cap al centre"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:617
 msgid "Right to Center"
-msgstr "De drecha cap al centre"
+msgstr "De dreita cap al centre"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:619
 msgid "Bottom to Center"
-msgstr "D'avaul cap al centre"
+msgstr "D'aval cap al centre"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:624
 msgid "Edge to Edge"
@@ -674,11 +674,11 @@ msgstr "D'amont cap aval"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:627
 msgid "Left to Right"
-msgstr "D'esquèrra cap a drecha"
+msgstr "D'esquèrra cap a dreita"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:629
 msgid "Right to Left"
-msgstr "De drecha cap a esquèrra"
+msgstr "De dreita cap a esquèrra"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:631
 msgid "Bottom to Top"
@@ -695,7 +695,7 @@ msgstr "Pas de rotacion"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:651
 msgid "Rotate 90 (Right)"
-msgstr "Rotacion de 90 grases cap a drecha"
+msgstr "Rotacion de 90 grases cap a dreita"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:653
 msgid "Rotate 90 (Left)"
@@ -723,7 +723,7 @@ msgstr "Escala 1/4 - Amont a esquèrra"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:668
 msgid "1/4 Size - Top Right"
-msgstr "Escala 1/4 - Amontt a drecha"
+msgstr "Escala 1/4 - Amont a dreita"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:670
 msgid "1/4 Size - Bottom Left"
@@ -731,7 +731,7 @@ msgstr "Escala 1/4 - Aval a esquèrra"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:672
 msgid "1/4 Size - Bottom Right"
-msgstr "Escala 1/4 - Aval a drecha"
+msgstr "Escala 1/4 - Aval a dreita"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:675
 msgid "Show All (Maintain Ratio)"
@@ -1119,7 +1119,7 @@ msgstr "Extrudar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
 msgid "Delta"
-msgstr "Delta"
+msgstr "Dèlta"
 
 #: libopenshot (Effect Metadata)
 msgid "Alpha Mask / Wipe Transition"
@@ -1127,7 +1127,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml
 msgid "Pixelate"
-msgstr "Pixelizar"
+msgstr "Pixellizar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Halo: Ring Count"
@@ -1135,7 +1135,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml
 msgid "Red/Green Axis"
-msgstr "AXe roge/verd"
+msgstr "Axe roge/verd"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
 msgid "Z Coordinate"
@@ -1171,7 +1171,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml
 msgid "Border Width"
-msgstr "Largor de las bordaduras"
+msgstr "Largor de la bordadura"
 
 #: libopenshot (Effect Metadata)
 msgid "Adjust the color saturation."
@@ -1279,7 +1279,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
 msgid "Tint amount"
-msgstr "Montant tencha"
+msgstr "Montant tinta"
 
 #: libopenshot (Clip Properties)
 msgid "Stretch"
@@ -1316,7 +1316,7 @@ msgstr "Arribada Longitud (segondas)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
 msgid "Background: Blend"
-msgstr "Rèire plan :Fusion"
+msgstr "Rèireplan :Fusion"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
 msgid "Background: Diffuse Color"
@@ -1367,7 +1367,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
 msgid "Background: Alpha"
-msgstr "Rèire plan : Transparéncia"
+msgstr "Rèireplan : Transparéncia"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/fly_by_two_titles.xml
 msgid "Fly Towards Camera (Two Titles)"
@@ -1379,7 +1379,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml
 msgid "Up Scale"
-msgstr "Augmentar la talha"
+msgstr "Aumentar la talha"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml
 msgid "Start Value"
@@ -1622,7 +1622,7 @@ msgstr "Títol 3"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
 msgid "Lens Flare"
-msgstr "Efièch d'esbleugiment"
+msgstr "Efièit d'esbleugiment"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml
 msgid "Red Scale"
@@ -1874,7 +1874,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/hue.xml
 msgid "Hue"
-msgstr "Tencha"
+msgstr "Tinta"
 
 #: libopenshot (Clip Properties)
 msgid "Location Y"
@@ -2011,7 +2011,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "World Map"
-msgstr "Carta del mond"
+msgstr "Mapa del mond"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/fly_by_1.xml
 msgid "Fly Towards Camera"
@@ -2215,7 +2215,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
 msgid "Tint"
-msgstr "Tencha"
+msgstr "Tinta"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/blur.xml
 msgid "Blur the image similar to an out-of-focus camera"
@@ -2235,7 +2235,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Halo: Hardness"
-msgstr "Halo: Dureté"
+msgstr "Halo: Duretat"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
 msgid "Background: Shadeless"
@@ -2457,7 +2457,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml
 msgid "Noise"
-msgstr "Bruch"
+msgstr "Bruit"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
 msgid "Keep luma"
@@ -2485,7 +2485,7 @@ msgstr "Arribada Latitud (Grases)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml
 msgid "Green Tint"
-msgstr "Tencha verda"
+msgstr "Tinta verda"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml
 msgid "Chroma Key"
@@ -2729,7 +2729,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml
 msgid "Web"
-msgstr "Web"
+msgstr "Internet"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_mov_x264.xml
 msgid "MOV (h.264)"

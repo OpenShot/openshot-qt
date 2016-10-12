@@ -8,19 +8,19 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-09-07 00:46+0000\n"
-"PO-Revision-Date: 2016-09-10 10:30+0000\n"
-"Last-Translator: Debcool <fabian.culot@debcool.net>\n"
+"PO-Revision-Date: 2016-09-23 07:48+0000\n"
+"Last-Translator: Isidro Pisa <isidro@utils.info>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-09-11 06:14+0000\n"
-"X-Generator: Launchpad (build 18186)\n"
+"X-Launchpad-Export-Date: 2016-09-24 07:39+0000\n"
+"X-Generator: Launchpad (build 18204)\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:602
 #, python-format
 msgid "Failed to load project file %(path)s: %(error)s"
-msgstr ""
+msgstr "Impossible de charger le fichier de projet %(path)s: %(error)s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:609
 #, python-format
@@ -83,7 +83,7 @@ msgstr "Modifications non enregistrées"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:93
 msgid "Save changes to project before closing?"
-msgstr ""
+msgstr "Enregistrer les changements du projet avant la fermeture ?"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:144
 msgid "Backup Recovered"
@@ -2724,7 +2724,7 @@ msgstr "Ne Rien Sélectionner"
 
 #: Settings for playToggle3
 msgid "Play/Pause Toggle (Alternate 3)"
-msgstr ""
+msgstr "Alterner Jouer/Pause (Alternative 3)"
 
 #: Settings Category for Profiles
 msgid "Profiles"
@@ -2737,7 +2737,7 @@ msgstr "Nouveau projet…"
 
 #: Settings for sliceAllKeepLeftSide
 msgid "Slice All: Keep Left Side"
-msgstr ""
+msgstr "Couper tout : Gardez côté gauche"
 
 #: Settings for rewindVideo
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:547
@@ -2753,7 +2753,7 @@ msgstr "Repère suivant"
 
 #: Settings for cache-limit-mb
 msgid "Cache Limit (MB)"
-msgstr ""
+msgstr "Limite de Cache (MB)"
 
 #: Settings for actionJumpEnd
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:571
@@ -2859,15 +2859,15 @@ msgstr "MOV (h.264)"
 
 #: Settings for cache-quality
 msgid "Image Quality (Disk Only)"
-msgstr ""
+msgstr "Qualité d'image (disque uniquement)"
 
 #: Settings for cache-scale
 msgid "Scale Factor (Disk Only)"
-msgstr ""
+msgstr "Facteur d'échelle (disque uniquement)"
 
 #: Settings for sliceAllKeepBothSides
 msgid "Slice All: Keep Both Sides"
-msgstr ""
+msgstr "Couper tout : Gardez les deux côtés"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_libvorbis.xml
 msgid "OGG (theora/vorbis)"
@@ -2940,7 +2940,7 @@ msgstr "Ajouter à la Timeline"
 
 #: Settings for sliceAllKeepRightSide
 msgid "Slice All: Keep Right Side"
-msgstr ""
+msgstr "Couper tout : Gardez côté droit"
 
 #: Settings for actionAnimatedTitle
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:852
@@ -2958,7 +2958,7 @@ msgstr "MOV (mpeg4)"
 
 #: Settings Category for Cache
 msgid "Cache"
-msgstr ""
+msgstr "Cache"
 
 #: Settings for actionImportFiles
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:360
@@ -2975,7 +2975,7 @@ msgstr "Intervalle d'enregistrement automatique (minutes)"
 
 #: Settings for cache-image-format
 msgid "Image Format (Disk Only)"
-msgstr ""
+msgstr "Format d'image (disque uniquement)"
 
 #: Settings for theme
 msgid "Default Theme"
@@ -3036,7 +3036,7 @@ msgstr "Interrupteur lecture/pause (alternative 1)"
 
 #: Settings for cache-mode
 msgid "Cache Mode"
-msgstr ""
+msgstr "Mode Cache"
 
 #: Settings for actionProperties
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:256

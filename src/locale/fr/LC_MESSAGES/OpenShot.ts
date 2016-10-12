@@ -2,13 +2,13 @@
 <!DOCTYPE TS>
 <TS version="2.1">
     <extra-po-header-language_team>French &lt;fr@li.org&gt;</extra-po-header-language_team>
-    <extra-po-header-last_translator>Debcool &lt;fabian.culot@debcool.net&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-09-10 10:30+0000</extra-po-header-po_revision_date>
+    <extra-po-header-last_translator>Isidro Pisa &lt;isidro@utils.info&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2016-09-23 07:48+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2016-09-07 00:46+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 18186)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-09-11 06:14+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 18204)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2016-09-24 07:39+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># French translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -20,7 +20,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="602"/>
         <source>Failed to load project file %(path)s: %(error)s</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible de charger le fichier de projet %(path)s: %(error)s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -93,7 +93,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="93"/>
         <source>Save changes to project before closing?</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrer les changements du projet avant la fermeture ?</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="144"/>
@@ -3225,7 +3225,7 @@ Voulez-vous le(la) remplacer ?</translation>
     </message>
     <message>
         <source>Play/Pause Toggle (Alternate 3)</source>
-        <translation type="unfinished"></translation>
+        <translation>Alterner Jouer/Pause (Alternative 3)</translation>
         <extra-po-references>Settings for playToggle3</extra-po-references>
     </message>
     <message>
@@ -3241,7 +3241,7 @@ Voulez-vous le(la) remplacer ?</translation>
     </message>
     <message>
         <source>Slice All: Keep Left Side</source>
-        <translation type="unfinished"></translation>
+        <translation>Couper tout : Gardez côté gauche</translation>
         <extra-po-references>Settings for sliceAllKeepLeftSide</extra-po-references>
     </message>
     <message>
@@ -3260,7 +3260,7 @@ Voulez-vous le(la) remplacer ?</translation>
     </message>
     <message>
         <source>Cache Limit (MB)</source>
-        <translation type="unfinished"></translation>
+        <translation>Limite de Cache (MB)</translation>
         <extra-po-references>Settings for cache-limit-mb</extra-po-references>
     </message>
     <message>
@@ -3389,17 +3389,17 @@ Voulez-vous le(la) remplacer ?</translation>
     </message>
     <message>
         <source>Image Quality (Disk Only)</source>
-        <translation type="unfinished"></translation>
+        <translation>Qualité d&apos;image (disque uniquement)</translation>
         <extra-po-references>Settings for cache-quality</extra-po-references>
     </message>
     <message>
         <source>Scale Factor (Disk Only)</source>
-        <translation type="unfinished"></translation>
+        <translation>Facteur d&apos;échelle (disque uniquement)</translation>
         <extra-po-references>Settings for cache-scale</extra-po-references>
     </message>
     <message>
         <source>Slice All: Keep Both Sides</source>
-        <translation type="unfinished"></translation>
+        <translation>Couper tout : Gardez les deux côtés</translation>
         <extra-po-references>Settings for sliceAllKeepBothSides</extra-po-references>
     </message>
     <message>
@@ -3488,7 +3488,7 @@ Voulez-vous le(la) remplacer ?</translation>
     </message>
     <message>
         <source>Slice All: Keep Right Side</source>
-        <translation type="unfinished"></translation>
+        <translation>Couper tout : Gardez côté droit</translation>
         <extra-po-references>Settings for sliceAllKeepRightSide</extra-po-references>
     </message>
     <message>
@@ -3510,7 +3510,7 @@ Voulez-vous le(la) remplacer ?</translation>
     </message>
     <message>
         <source>Cache</source>
-        <translation type="unfinished"></translation>
+        <translation>Cache</translation>
         <extra-po-references>Settings Category for Cache</extra-po-references>
     </message>
     <message>
@@ -3531,7 +3531,7 @@ Voulez-vous le(la) remplacer ?</translation>
     </message>
     <message>
         <source>Image Format (Disk Only)</source>
-        <translation type="unfinished"></translation>
+        <translation>Format d&apos;image (disque uniquement)</translation>
         <extra-po-references>Settings for cache-image-format</extra-po-references>
     </message>
     <message>
@@ -3605,7 +3605,7 @@ Voulez-vous le(la) remplacer ?</translation>
     </message>
     <message>
         <source>Cache Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode Cache</translation>
         <extra-po-references>Settings for cache-mode</extra-po-references>
     </message>
     <message>
