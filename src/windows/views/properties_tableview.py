@@ -26,6 +26,7 @@
  """
 
 import os
+from functools import partial
 from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, Qt, QObject, QTimer
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QTableView, QAbstractItemView, QMenu, QSizePolicy, QHeaderView, QColorDialog, QItemDelegate, QStyle, QLabel, QPushButton, QHBoxLayout, QFrame
@@ -253,7 +254,7 @@ class PropertiesTableView(QTableView):
         # Clear original data
         self.original_data = None
 
-    def doubleClicked(self, model_index):
+    def doubleClickedCB(self, model_index):
         """Double click handler for the property table"""
         # Get data model and selection
         model = self.clip_properties_model.model
@@ -328,6 +329,41 @@ class PropertiesTableView(QTableView):
             log.info("Points: %s" % points)
             log.info("Property: %s" % str(property))
 
+            # Define bezier presets
+            bezier_presets = [
+                (0.250, 0.100, 0.250, 1.000, _("Ease (Default)")),
+                (0.420, 0.000, 1.000, 1.000, _("Ease In")),
+                (0.000, 0.000, 0.580, 1.000, _("Ease Out")),
+                (0.420, 0.000, 0.580, 1.000, _("Ease In/Out")),
+
+                (0.550, 0.085, 0.680, 0.530, _("Ease In (Quad)")),
+                (0.550, 0.055, 0.675, 0.190, _("Ease In (Cubic)")),
+                (0.895, 0.030, 0.685, 0.220, _("Ease In (Quart)")),
+                (0.755, 0.050, 0.855, 0.060, _("Ease In (Quint)")),
+                (0.470, 0.000, 0.745, 0.715, _("Ease In (Sine)")),
+                (0.950, 0.050, 0.795, 0.035, _("Ease In (Expo)")),
+                (0.600, 0.040, 0.980, 0.335, _("Ease In (Circ)")),
+                (0.600, -0.280, 0.735, 0.045, _("Ease In (Back)")),
+
+                (0.250, 0.460, 0.450, 0.940, _("Ease Out (Quad)")),
+                (0.215, 0.610, 0.355, 1.000, _("Ease Out (Cubic)")),
+                (0.165, 0.840, 0.440, 1.000, _("Ease Out (Quart)")),
+                (0.230, 1.000, 0.320, 1.000, _("Ease Out (Quint)")),
+                (0.390, 0.575, 0.565, 1.000, _("Ease Out (Sine)")),
+                (0.190, 1.000, 0.220, 1.000, _("Ease Out (Expo)")),
+                (0.075, 0.820, 0.165, 1.000, _("Ease Out (Circ)")),
+                (0.175, 0.885, 0.320, 1.275, _("Ease Out (Back)")),
+
+                (0.455, 0.030, 0.515, 0.955, _("Ease In/Out (Quad)")),
+                (0.645, 0.045, 0.355, 1.000, _("Ease In/Out (Cubic)")),
+                (0.770, 0.000, 0.175, 1.000, _("Ease In/Out (Quart)")),
+                (0.860, 0.000, 0.070, 1.000, _("Ease In/Out (Quint)")),
+                (0.445, 0.050, 0.550, 0.950, _("Ease In/Out (Sine)")),
+                (1.000, 0.000, 0.000, 1.000, _("Ease In/Out (Expo)")),
+                (0.785, 0.135, 0.150, 0.860, _("Ease In/Out (Circ)")),
+                (0.680, -0.550, 0.265, 1.550, _("Ease In/Out (Back)"))
+            ]
+
             bezier_icon = QIcon(QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.BEZIER)))
             linear_icon = QIcon(QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.LINEAR)))
             constant_icon = QIcon(QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.CONSTANT)))
@@ -336,9 +372,12 @@ class PropertiesTableView(QTableView):
             menu = QMenu(self)
             if points > 1:
                 # Menu for more than 1 point
-                Bezier_Action = menu.addAction(_("Bezier"))
-                Bezier_Action.setIcon(bezier_icon)
-                Bezier_Action.triggered.connect(self.Bezier_Action_Triggered)
+                Bezier_Menu = QMenu(_("Bezier"), self)
+                Bezier_Menu.setIcon(bezier_icon)
+                for bezier_preset in bezier_presets:
+                    preset_action = Bezier_Menu.addAction(bezier_preset[4])
+                    preset_action.triggered.connect(partial(self.Bezier_Action_Triggered, bezier_preset))
+                menu.addMenu(Bezier_Menu)
                 Linear_Action = menu.addAction(_("Linear"))
                 Linear_Action.setIcon(linear_icon)
                 Linear_Action.triggered.connect(self.Linear_Action_Triggered)
@@ -364,32 +403,32 @@ class PropertiesTableView(QTableView):
                 # Show choice menu
                 menu.popup(QCursor.pos())
 
-    def Bezier_Action_Triggered(self, event):
-        log.info("Bezier_Action_Triggered")
+    def Bezier_Action_Triggered(self, preset=[]):
+        log.info("Bezier_Action_Triggered: %s" % str(preset))
         if self.property_type != "color":
             # Update keyframe interpolation mode
-            self.clip_properties_model.value_updated(self.selected_item, 0)
+            self.clip_properties_model.value_updated(self.selected_item, interpolation=0, interpolation_details=preset)
         else:
             # Update colors interpolation mode
-            self.clip_properties_model.color_update(self.selected_item, QColor("#000"), 0)
+            self.clip_properties_model.color_update(self.selected_item, QColor("#000"), interpolation=0, interpolation_details=preset)
 
     def Linear_Action_Triggered(self, event):
         log.info("Linear_Action_Triggered")
         if self.property_type != "color":
             # Update keyframe interpolation mode
-            self.clip_properties_model.value_updated(self.selected_item, 1)
+            self.clip_properties_model.value_updated(self.selected_item, interpolation=1)
         else:
             # Update colors interpolation mode
-            self.clip_properties_model.color_update(self.selected_item, QColor("#000"), 1)
+            self.clip_properties_model.color_update(self.selected_item, QColor("#000"), interpolation=1, interpolation_details=preset)
 
     def Constant_Action_Triggered(self, event):
         log.info("Constant_Action_Triggered")
         if self.property_type != "color":
             # Update keyframe interpolation mode
-            self.clip_properties_model.value_updated(self.selected_item, 2)
+            self.clip_properties_model.value_updated(self.selected_item, interpolation=2)
         else:
             # Update colors interpolation mode
-            self.clip_properties_model.color_update(self.selected_item, QColor("#000"), 2)
+            self.clip_properties_model.color_update(self.selected_item, QColor("#000"), interpolation=2, interpolation_details=preset)
 
     def Remove_Action_Triggered(self, event):
         log.info("Remove_Action_Triggered")
@@ -445,6 +484,7 @@ class PropertiesTableView(QTableView):
 
         # Connect filter signals
         get_app().window.txtPropertyFilter.textChanged.connect(self.filter_changed)
+        self.doubleClicked.connect(self.doubleClickedCB)
         self.loadProperties.connect(self.select_item)
 
 

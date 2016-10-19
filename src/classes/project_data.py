@@ -642,6 +642,39 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     if "handle_right" in point:
                         point["handle_right"]["Y"] = 1.0 - point["handle_right"]["Y"]
 
+        elif openshot_version <= "2.1.0-dev":
+            # Fix handle_left and handle_right coordinates and default to ease in/out bezier curve
+            # using the new percent based keyframes
+            for clip_type in ["clips", "effects"]:
+                for clip in self._data[clip_type]:
+                    for object in [clip] + clip.get('effects',[]):
+                        for item_key, item_data in object.items():
+                            # Does clip attribute have a {"Points": [...]} list
+                            if type(item_data) == dict and "Points" in item_data:
+                                for point in item_data.get("Points"):
+                                    # Convert to percent-based curves
+                                    if "handle_left" in point:
+                                        # Left handle
+                                        point.get("handle_left")["X"] = 0.5
+                                        point.get("handle_left")["Y"] = 1.0
+                                    if "handle_right" in point:
+                                        # Right handle
+                                        point.get("handle_right")["X"] = 0.5
+                                        point.get("handle_right")["Y"] = 0.0
+
+                            elif type(item_data) == dict and "red" in item_data:
+                                for color in ["red", "blue", "green", "alpha"]:
+                                    for point in item_data.get(color).get("Points"):
+                                        # Convert to percent-based curves
+                                        if "handle_left" in point:
+                                            # Left handle
+                                            point.get("handle_left")["X"] = 0.5
+                                            point.get("handle_left")["Y"] = 1.0
+                                        if "handle_right" in point:
+                                            # Right handle
+                                            point.get("handle_right")["X"] = 0.5
+                                            point.get("handle_right")["Y"] = 0.0
+
     def save(self, file_path, move_temp_files=True, make_paths_relative=True):
         """ Save project file to disk """
         import openshot
