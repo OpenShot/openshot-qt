@@ -118,7 +118,7 @@ class TitleEditor(QDialog):
             # pretty up the filename for display purposes
             if fnmatch.fnmatch(file, '*.svg'):
                 (fileName, fileExtension) = os.path.splitext(file)
-            self.cmbTemplate.addItem(fileName.replace("_", " "), os.path.join(info.TITLE_PATH, file))
+                self.cmbTemplate.addItem(fileName.replace("_", " "), os.path.join(info.TITLE_PATH, file))
 
         # Add built-in titles
         self.template_dir = os.path.join(info.PATH, 'titles')
@@ -126,7 +126,7 @@ class TitleEditor(QDialog):
             # pretty up the filename for display purposes
             if fnmatch.fnmatch(file, '*.svg'):
                 (fileName, fileExtension) = os.path.splitext(file)
-            self.cmbTemplate.addItem(fileName.replace("_", " "), os.path.join(self.template_dir, file))
+                self.cmbTemplate.addItem(fileName.replace("_", " "), os.path.join(self.template_dir, file))
 
         # set event handlers
         self.cmbTemplate.activated.connect(functools.partial(self.cmbTemplate_activated))
@@ -140,6 +140,12 @@ class TitleEditor(QDialog):
         self.txtLine4.textChanged.connect(functools.partial(self.txtLine_changed))
         self.txtLine5.textChanged.connect(functools.partial(self.txtLine_changed))
         self.txtLine6.textChanged.connect(functools.partial(self.txtLine_changed))
+        self.txtLine7.textChanged.connect(functools.partial(self.txtLine_changed))
+        self.txtLine8.textChanged.connect(functools.partial(self.txtLine_changed))
+        self.txtLine9.textChanged.connect(functools.partial(self.txtLine_changed))
+        self.txtLine10.textChanged.connect(functools.partial(self.txtLine_changed))
+        self.txtLine11.textChanged.connect(functools.partial(self.txtLine_changed))
+        self.txtLine12.textChanged.connect(functools.partial(self.txtLine_changed))
 
     def txtLine_changed(self):
 
@@ -151,6 +157,12 @@ class TitleEditor(QDialog):
         text_list.append(self.txtLine4.toPlainText())
         text_list.append(self.txtLine5.toPlainText())
         text_list.append(self.txtLine6.toPlainText())
+        text_list.append(self.txtLine7.toPlainText())
+        text_list.append(self.txtLine8.toPlainText())
+        text_list.append(self.txtLine9.toPlainText())
+        text_list.append(self.txtLine10.toPlainText())
+        text_list.append(self.txtLine11.toPlainText())
+        text_list.append(self.txtLine12.toPlainText())
         for i in range(0, self.text_fields):
             if len(self.tspan_node[i].childNodes) > 0 and i <= (len(text_list) - 1):
                 new_text_node = self.xmldoc.createTextNode(text_list[i])
@@ -179,6 +191,19 @@ class TitleEditor(QDialog):
         self.lblLine5.setVisible(False)
         self.txtLine6.setVisible(False)
         self.lblLine6.setVisible(False)
+        self.txtLine7.setVisible(False)
+        self.lblLine7.setVisible(False)
+        self.txtLine8.setVisible(False)
+        self.lblLine8.setVisible(False)
+        self.txtLine9.setVisible(False)
+        self.lblLine9.setVisible(False)
+        self.txtLine10.setVisible(False)
+        self.lblLine10.setVisible(False)
+        self.txtLine11.setVisible(False)
+        self.lblLine11.setVisible(False)
+        self.txtLine12.setVisible(False)
+        self.lblLine12.setVisible(False)
+
 
     def show_textboxes(self, num_fields):
         """ Only show a certain number of text inputs """
@@ -207,6 +232,31 @@ class TitleEditor(QDialog):
             self.txtLine6.setEnabled(True)
             self.txtLine6.setVisible(True)
             self.lblLine6.setVisible(True)
+        if num_fields >= 7:
+            self.txtLine7.setEnabled(True)
+            self.txtLine7.setVisible(True)
+            self.lblLine7.setVisible(True)
+        if num_fields >= 8:
+            self.txtLine8.setEnabled(True)
+            self.txtLine8.setVisible(True)
+            self.lblLine8.setVisible(True)
+        if num_fields >= 9:
+            self.txtLine9.setEnabled(True)
+            self.txtLine9.setVisible(True)
+            self.lblLine9.setVisible(True)
+        if num_fields >= 10:
+            self.txtLine10.setEnabled(True)
+            self.txtLine10.setVisible(True)
+            self.lblLine10.setVisible(True)
+        if num_fields >= 11:
+            self.txtLine11.setEnabled(True)
+            self.txtLine11.setVisible(True)
+            self.lblLine11.setVisible(True)
+        if num_fields >= 12:
+            self.txtLine12.setEnabled(True)
+            self.txtLine12.setVisible(True)
+            self.lblLine12.setVisible(True)
+
 
     def display_svg(self):
         scene = QGraphicsScene(self)
@@ -288,6 +338,24 @@ class TitleEditor(QDialog):
         if num_fields >= 6:
             self.txtLine6.setText("")
             self.txtLine6.setText(title_text[5])
+        if num_fields >= 7:
+            self.txtLine7.setText("")
+            self.txtLine7.setText(title_text[6])
+        if num_fields >= 8:
+            self.txtLine8.setText("")
+            self.txtLine8.setText(title_text[7])
+        if num_fields >= 9:
+            self.txtLine9.setText("")
+            self.txtLine9.setText(title_text[8])
+        if num_fields >= 10:
+            self.txtLine10.setText("")
+            self.txtLine10.setText(title_text[9])
+        if num_fields >= 11:
+            self.txtLine11.setText("")
+            self.txtLine11.setText(title_text[10])
+        if num_fields >= 12:
+            self.txtLine12.setText("")
+            self.txtLine12.setText(title_text[11])
 
         # Update color buttons
         self.update_font_color_button()
