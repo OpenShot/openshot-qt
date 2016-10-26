@@ -327,6 +327,15 @@ App.controller('TimelineCtrl',function($scope) {
 					// Only add keyframe coordinates that are within the bounds of the clip
 					keyframes[co.X] = co.Y;
 			}
+
+	    // Determine if this property is a Color Keyframe
+	 	if (typeof object[child] == "object" && "red" in object[child])
+			for (var point = 0; point < object[child]["red"].Points.length; point++) {
+				var co = object[child]["red"].Points[point].co;
+				if (co.X >= clip_start_x && co.X <= clip_end_x)
+					// Only add keyframe coordinates that are within the bounds of the clip
+					keyframes[co.X] = co.Y;
+			}
 	}
 
 	// Determine if this property contains effects (i.e. clips have their own effects)
@@ -344,6 +353,15 @@ App.controller('TimelineCtrl',function($scope) {
 				if (typeof object["effects"][effect][child] == "object" && "Points" in object["effects"][effect][child])
 					for (var point = 0; point < object["effects"][effect][child].Points.length; point++) {
 						var co = object["effects"][effect][child].Points[point].co;
+						if (co.X >= clip_start_x && co.X <= clip_end_x)
+							// Only add keyframe coordinates that are within the bounds of the clip
+							keyframes[co.X] = co.Y;
+					}
+
+				// Determine if this property is a Color Keyframe
+				if (typeof object["effects"][effect][child] == "object" && "red" in object["effects"][effect][child])
+					for (var point = 0; point < object["effects"][effect][child]["red"].Points.length; point++) {
+						var co = object["effects"][effect][child]["red"].Points[point].co;
 						if (co.X >= clip_start_x && co.X <= clip_end_x)
 							// Only add keyframe coordinates that are within the bounds of the clip
 							keyframes[co.X] = co.Y;
