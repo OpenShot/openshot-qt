@@ -28,6 +28,7 @@
  """
 
 import os
+import platform
 import shutil
 import webbrowser
 from uuid import uuid4
@@ -154,18 +155,50 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         if os.path.exists(lock_path):
             # Walk the libopenshot log (if found), and try and find last line before this launch
             log_path = os.path.join(info.USER_PATH, "libopenshot.log")
-            last_log_line = None
+            last_log_line = ""
+            last_stack_trace = ""
+            found_stack = False
+            log_start_counter = 0
             if os.path.exists(log_path):
                 with open(log_path, "r") as f:
                     # Read from bottom up
                     for line in reversed(f.readlines()):
+                        # Detect stack trace
+                        if "End of Stack Trace" in line:
+                            found_stack = True
+                            continue
+                        elif "Unhandled Exception: Stack Trace" in line:
+                            found_stack = False
+                            continue
+                        elif "libopenshot logging:" in line:
+                            log_start_counter += 1
+                            if log_start_counter > 1:
+                                # Found the previous log start, too old now
+                                break
+
+                        if found_stack:
+                            # Append line to beginning of stacktrace
+                            last_stack_trace = line + last_stack_trace
+
                         # Ignore certain unuseful lines
-                        if "---" not in line and "libopenshot logging:" not in line:
+                        if line.strip() and "---" not in line and "libopenshot logging:" not in line and not last_log_line:
                             last_log_line = line
-                            break
+
+            # Split last stack trace (if any)
+            if last_stack_trace:
+                # Get top line of stack trace (for metrics)
+                last_log_line = last_stack_trace.split("\n")[0].strip()
 
             # Clear / normalize log line (so we can roll them up in the analytics)
             if last_log_line:
+                # Format last log line based on OS (since each OS can be formatted differently)
+                if platform.system() == "Darwin":
+                    last_log_line = "mac-%s" % last_log_line[58:].strip()
+                elif platform.system() == "Windows":
+                    last_log_line = "windows-%s" % last_log_line
+                elif platform.system() == "Linux":
+                    last_log_line = "linux-%s" % last_log_line.replace("/usr/local/lib/", "")
+
                 # Remove '()' from line, and split. Trying to grab the beginning of the log line.
                 last_log_line = last_log_line.replace("()", "")
                 log_parts = last_log_line.split("(")
