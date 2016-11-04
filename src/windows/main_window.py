@@ -189,6 +189,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
                 # Get top line of stack trace (for metrics)
                 last_log_line = last_stack_trace.split("\n")[0].strip()
 
+                # Send stacktrace for debugging (if send metrics is enalbed)
+                track_exception_stacktrace(last_stack_trace)
+
             # Clear / normalize log line (so we can roll them up in the analytics)
             if last_log_line:
                 # Format last log line based on OS (since each OS can be formatted differently)
