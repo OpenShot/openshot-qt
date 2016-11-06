@@ -190,7 +190,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
                 last_log_line = last_stack_trace.split("\n")[0].strip()
 
                 # Send stacktrace for debugging (if send metrics is enalbed)
-                track_exception_stacktrace(last_stack_trace)
+                track_exception_stacktrace(last_stack_trace, "libopenshot")
 
             # Clear / normalize log line (so we can roll them up in the analytics)
             if last_log_line:

@@ -121,9 +121,9 @@ def track_metric_error(error_name, is_fatal=False):
     t = threading.Thread(target=send_metric, args=[metric_params])
     t.start()
 
-def track_exception_stacktrace(stacktrace):
+def track_exception_stacktrace(stacktrace, source):
     """Track an exception/stacktrace has occurred"""
-    t = threading.Thread(target=send_exception, args=[stacktrace])
+    t = threading.Thread(target=send_exception, args=[stacktrace, source])
     t.start()
 
 def track_metric_session(is_start=True):
@@ -155,12 +155,15 @@ def send_metric(params):
         except Exception as Ex:
             log.error("Failed to Track metric: %s" % (Ex))
 
-def send_exception(stacktrace):
+def send_exception(stacktrace, source):
     """Send exception stacktrace over HTTP for tracking"""
     # Check if the user wants to send metrics and errors
     if s.get("send_metrics"):
 
-        data = urllib.parse.urlencode({ "stacktrace": stacktrace, "platform": platform.system() })
+        data = urllib.parse.urlencode({ "stacktrace": stacktrace,
+                                        "platform": platform.system(),
+                                        "version": info.VERSION,
+                                        "source": source })
         url = "http://www.openshot.org/exception/json/"
 
         # Send exception HTTP data

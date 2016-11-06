@@ -28,6 +28,7 @@
  """
 
 import os
+import sys
 import platform
 from uuid import uuid4
 from PyQt5.QtWidgets import QApplication, QStyleFactory
@@ -85,6 +86,10 @@ class OpenShotApp(QApplication):
         except Exception as ex:
             log.error("Couldn't load user settings. Exiting.\n{}".format(ex))
             exit()
+
+        # Init and attach exception handler
+        from classes import exceptions
+        sys.excepthook = exceptions.ExceptionHandler
 
         # Init translation system
         language.init_language()
