@@ -582,16 +582,19 @@ class SelectionLabel(QFrame):
         # Look up item for more info
         if self.item_type == "clip":
             clip = Clip.get(id=self.item_id)
-            self.item_name = clip.title()
-            self.item_icon = QIcon(QPixmap(clip.data.get('image')))
+            if clip:
+                self.item_name = clip.title()
+                self.item_icon = QIcon(QPixmap(clip.data.get('image')))
         elif self.item_type == "transition":
             trans = Transition.get(id=self.item_id)
-            self.item_name = _(trans.title())
-            self.item_icon = QIcon(QPixmap(trans.data.get('reader', {}).get('path')))
+            if trans:
+                self.item_name = _(trans.title())
+                self.item_icon = QIcon(QPixmap(trans.data.get('reader', {}).get('path')))
         elif self.item_type == "effect":
             effect = Effect.get(id=self.item_id)
-            self.item_name = _(effect.title())
-            self.item_icon = QIcon(QPixmap(os.path.join(info.PATH, "effects", "icons", "%s.png" % effect.data.get('class_name').lower())))
+            if effect:
+                self.item_name = _(effect.title())
+                self.item_icon = QIcon(QPixmap(os.path.join(info.PATH, "effects", "icons", "%s.png" % effect.data.get('class_name').lower())))
 
         # Truncate long text
         if self.item_name and len(self.item_name) > 25:

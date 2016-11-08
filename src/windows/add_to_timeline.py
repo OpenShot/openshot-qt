@@ -198,6 +198,11 @@ class AddToTimeline(QDialog):
             new_clip["title"] = filename
             new_clip["image"] = thumb_path
 
+            # Skip any clips that are missing a 'reader' attribute
+            # TODO: Determine why this even happens, as it shouldn't be possible
+            if not new_clip.get("reader"):
+                continue  # Skip to next file
+
             # Overwrite frame rate (incase the user changed it in the File Properties)
             file_properties_fps = float(file.data["fps"]["num"]) / float(file.data["fps"]["den"])
             file_fps = float(new_clip["reader"]["fps"]["num"]) / float(new_clip["reader"]["fps"]["den"])

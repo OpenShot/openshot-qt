@@ -776,22 +776,23 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         menu.addMenu(Split_Audio_Channels_Menu)
 
         # If Playhead overlapping clip
-        start_of_clip = float(clip.data["start"])
-        end_of_clip = float(clip.data["end"])
-        position_of_clip = float(clip.data["position"])
-        if playhead_position >= position_of_clip and playhead_position <= (position_of_clip + (end_of_clip - start_of_clip)):
-            # Add split clip menu
-            Slice_Menu = QMenu(_("Slice"), self)
-            Slice_Keep_Both = Slice_Menu.addAction(_("Keep Both Sides"))
-            Slice_Keep_Both.setShortcut(QKeySequence(self.window.getShortcutByName("sliceAllKeepBothSides")))
-            Slice_Keep_Both.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_BOTH, [clip_id], [], playhead_position))
-            Slice_Keep_Left = Slice_Menu.addAction(_("Keep Left Side"))
-            Slice_Keep_Left.setShortcut(QKeySequence(self.window.getShortcutByName("sliceAllKeepLeftSide")))
-            Slice_Keep_Left.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_LEFT, [clip_id], [], playhead_position))
-            Slice_Keep_Right = Slice_Menu.addAction(_("Keep Right Side"))
-            Slice_Keep_Right.setShortcut(QKeySequence(self.window.getShortcutByName("sliceAllKeepRightSide")))
-            Slice_Keep_Right.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_RIGHT, [clip_id], [], playhead_position))
-            menu.addMenu(Slice_Menu)
+        if clip:
+            start_of_clip = float(clip.data["start"])
+            end_of_clip = float(clip.data["end"])
+            position_of_clip = float(clip.data["position"])
+            if playhead_position >= position_of_clip and playhead_position <= (position_of_clip + (end_of_clip - start_of_clip)):
+                # Add split clip menu
+                Slice_Menu = QMenu(_("Slice"), self)
+                Slice_Keep_Both = Slice_Menu.addAction(_("Keep Both Sides"))
+                Slice_Keep_Both.setShortcut(QKeySequence(self.window.getShortcutByName("sliceAllKeepBothSides")))
+                Slice_Keep_Both.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_BOTH, [clip_id], [], playhead_position))
+                Slice_Keep_Left = Slice_Menu.addAction(_("Keep Left Side"))
+                Slice_Keep_Left.setShortcut(QKeySequence(self.window.getShortcutByName("sliceAllKeepLeftSide")))
+                Slice_Keep_Left.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_LEFT, [clip_id], [], playhead_position))
+                Slice_Keep_Right = Slice_Menu.addAction(_("Keep Right Side"))
+                Slice_Keep_Right.setShortcut(QKeySequence(self.window.getShortcutByName("sliceAllKeepRightSide")))
+                Slice_Keep_Right.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_RIGHT, [clip_id], [], playhead_position))
+                menu.addMenu(Slice_Menu)
 
         # Add clip display menu (waveform or thunbnail)
         menu.addSeparator()
@@ -2026,19 +2027,20 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             menu.addMenu(Alignment_Menu)
 
         # If Playhead overlapping transition
-        start_of_tran = float(tran.data["start"])
-        end_of_tran = float(tran.data["end"])
-        position_of_tran = float(tran.data["position"])
-        if playhead_position >= position_of_tran and playhead_position <= (position_of_tran + (end_of_tran - start_of_tran)):
-            # Add split transition menu
-            Slice_Menu = QMenu(_("Slice"), self)
-            Slice_Keep_Both = Slice_Menu.addAction(_("Keep Both Sides"))
-            Slice_Keep_Both.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_BOTH, [], [tran_id], playhead_position))
-            Slice_Keep_Left = Slice_Menu.addAction(_("Keep Left Side"))
-            Slice_Keep_Left.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_LEFT, [], [tran_id], playhead_position))
-            Slice_Keep_Right = Slice_Menu.addAction(_("Keep Right Side"))
-            Slice_Keep_Right.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_RIGHT, [], [tran_id], playhead_position))
-            menu.addMenu(Slice_Menu)
+        if tran:
+            start_of_tran = float(tran.data["start"])
+            end_of_tran = float(tran.data["end"])
+            position_of_tran = float(tran.data["position"])
+            if playhead_position >= position_of_tran and playhead_position <= (position_of_tran + (end_of_tran - start_of_tran)):
+                # Add split transition menu
+                Slice_Menu = QMenu(_("Slice"), self)
+                Slice_Keep_Both = Slice_Menu.addAction(_("Keep Both Sides"))
+                Slice_Keep_Both.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_BOTH, [], [tran_id], playhead_position))
+                Slice_Keep_Left = Slice_Menu.addAction(_("Keep Left Side"))
+                Slice_Keep_Left.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_LEFT, [], [tran_id], playhead_position))
+                Slice_Keep_Right = Slice_Menu.addAction(_("Keep Right Side"))
+                Slice_Keep_Right.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_RIGHT, [], [tran_id], playhead_position))
+                menu.addMenu(Slice_Menu)
 
         # Reverse Transition menu
         Reverse_Transition = menu.addAction(_("Reverse Transition"))
@@ -2253,6 +2255,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         new_clip["file_id"] = file.id
         new_clip["title"] = filename
         new_clip["image"] = thumb_path
+
+        # Skip any clips that are missing a 'reader' attribute
+        # TODO: Determine why this even happens, as it shouldn't be possible
+        if not new_clip.get("reader"):
+            return  # Do nothing
 
         # Check for optional start and end attributes
         start_frame = 1
