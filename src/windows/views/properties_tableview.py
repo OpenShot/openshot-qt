@@ -500,11 +500,21 @@ class SelectionLabel(QFrame):
 
         # Look up item for more info
         if self.item_type == "clip":
-            self.item_name = Clip.get(id=self.item_id).title()
+            item = Clip.get(id=self.item_id)
+            if item:
+                self.item_name = item.title()
         elif self.item_type == "transition":
-            self.item_name = Transition.get(id=self.item_id).title()
+            item = Transition.get(id=self.item_id)
+            if item:
+                self.item_name = item.title()
         elif self.item_type == "effect":
-            self.item_name = Effect.get(id=self.item_id).title()
+            item = Effect.get(id=self.item_id)
+            if item:
+                self.item_name = item.title()
+
+        # Bail if no item name was found
+        if not self.item_name:
+            return
 
         # Add selected clips
         for item_id in get_app().window.selected_clips:

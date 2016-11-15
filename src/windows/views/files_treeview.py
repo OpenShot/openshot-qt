@@ -337,6 +337,10 @@ class FilesTreeView(QTreeView):
         # Re-enable updates
         self.files_model.ignore_update_signal = False
 
+    def prepare_for_delete(self):
+        """Remove signal handlers and prepare for deletion"""
+        self.files_model.model.ModelRefreshed.disconnect()
+
     def __init__(self, *args):
         # Invoke parent init
         QTreeView.__init__(self, *args)

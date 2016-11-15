@@ -322,9 +322,11 @@ class PropertiesModel(updates.UpdateInterface):
                                 found_point = True
                                 clip_updated = True
                                 point["interpolation"] = interpolation
-                                point["handle_right"] = point.get("handle_right") or {"Y": 0.0, "X": 0.0}
-                                point["handle_right"]["X"] = interpolation_details[0]
-                                point["handle_right"]["Y"] = interpolation_details[1]
+                                if interpolation == 0:
+                                    point["handle_right"] = point.get("handle_right") or {"Y": 0.0, "X": 0.0}
+                                    point["handle_right"]["X"] = interpolation_details[0]
+                                    point["handle_right"]["Y"] = interpolation_details[1]
+
                                 log.info("updating interpolation mode point: co.X = %s to %s" % (point["co"]["X"], interpolation))
                                 log.info("use interpolation preset: %s" % str(interpolation_details))
 
@@ -333,9 +335,11 @@ class PropertiesModel(updates.UpdateInterface):
                                 found_point = True
                                 clip_updated = True
                                 point["interpolation"] = interpolation
-                                point["handle_left"] = point.get("handle_left") or {"Y": 0.0, "X": 0.0}
-                                point["handle_left"]["X"] = interpolation_details[2]
-                                point["handle_left"]["Y"] = interpolation_details[3]
+                                if interpolation == 0:
+                                    point["handle_left"] = point.get("handle_left") or {"Y": 0.0, "X": 0.0}
+                                    point["handle_left"]["X"] = interpolation_details[2]
+                                    point["handle_left"]["Y"] = interpolation_details[3]
+
                                 log.info("updating interpolation mode point: co.X = %s to %s" % (point["co"]["X"], interpolation))
                                 log.info("use interpolation preset: %s" % str(interpolation_details))
 
@@ -448,9 +452,10 @@ class PropertiesModel(updates.UpdateInterface):
                             found_point = True
                             clip_updated = True
                             point["interpolation"] = interpolation
-                            point["handle_right"] = point.get("handle_right") or {"Y": 0.0, "X": 0.0}
-                            point["handle_right"]["X"] = interpolation_details[0]
-                            point["handle_right"]["Y"] = interpolation_details[1]
+                            if interpolation == 0:
+                                point["handle_right"] = point.get("handle_right") or {"Y": 0.0, "X": 0.0}
+                                point["handle_right"]["X"] = interpolation_details[0]
+                                point["handle_right"]["Y"] = interpolation_details[1]
 
                             log.info("updating interpolation mode point: co.X = %s to %s" % (point["co"]["X"], interpolation))
                             log.info("use interpolation preset: %s" % str(interpolation_details))
@@ -460,9 +465,11 @@ class PropertiesModel(updates.UpdateInterface):
                             found_point = True
                             clip_updated = True
                             point["interpolation"] = interpolation
-                            point["handle_left"] = point.get("handle_left") or {"Y": 0.0, "X": 0.0}
-                            point["handle_left"]["X"] = interpolation_details[2]
-                            point["handle_left"]["Y"] = interpolation_details[3]
+                            if interpolation == 0:
+                                point["handle_left"] = point.get("handle_left") or {"Y": 0.0, "X": 0.0}
+                                point["handle_left"]["X"] = interpolation_details[2]
+                                point["handle_left"]["Y"] = interpolation_details[3]
+
                             log.info("updating interpolation mode point: co.X = %s to %s" % (point["co"]["X"], interpolation))
                             log.info("use interpolation preset: %s" % str(interpolation_details))
 

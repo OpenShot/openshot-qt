@@ -1360,6 +1360,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         app = get_app()
         s = settings.get_settings()
 
+        # Prepare treeview for deletion
+        if self.filesTreeView:
+            self.filesTreeView.prepare_for_delete()
+
         # Files
         if app.context_menu_object == "files":
             s.set("file_view", "details")
@@ -1393,6 +1397,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Get settings
         app = get_app()
         s = settings.get_settings()
+
+        # Prepare treeview for deletion
+        if self.filesTreeView:
+            self.filesTreeView.prepare_for_delete()
 
         # Files
         if app.context_menu_object == "files":

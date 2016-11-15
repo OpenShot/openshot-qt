@@ -297,6 +297,10 @@ class FilesListView(QListView):
     def resize_contents(self):
         pass
 
+    def prepare_for_delete(self):
+        """Remove signal handlers and prepare for deletion"""
+        pass
+
     def __init__(self, *args):
         # Invoke parent init
         QListView.__init__(self, *args)
