@@ -117,14 +117,18 @@ try:
 	bpy.context.scene.render.file_format = params["file_format"]
 	if params["use_alpha"] == "No":
 		bpy.context.scene.render.color_mode = "RGB"
+		bpy.context.scene.render.alpha_mode = "SKY"
 	else:
 		bpy.context.scene.render.color_mode = params["color_mode"]
+		bpy.context.scene.render.alpha_mode = params["alpha_mode"]
 except:
 	bpy.context.scene.render.image_settings.file_format = params["file_format"]
 	if params["use_alpha"] == "No":
 		bpy.context.scene.render.image_settings.color_mode = "RGB"
+		bpy.context.scene.render.alpha_mode = "SKY"
 	else:
 		bpy.context.scene.render.image_settings.color_mode = params["color_mode"]
+		bpy.context.scene.render.alpha_mode = params["alpha_mode"]
 #bpy.data.worlds[0].horizon_color = params["horizon_color"]
 bpy.context.scene.render.resolution_x = params["resolution_x"]
 bpy.context.scene.render.resolution_y = params["resolution_y"]

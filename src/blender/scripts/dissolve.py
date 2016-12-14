@@ -354,6 +354,7 @@ try:
 except:
 	bpy.context.scene.render.image_settings.file_format = params["file_format"]
 	bpy.context.scene.render.image_settings.color_mode = params["color_mode"]
+bpy.context.scene.render.alpha_mode = params["alpha_mode"]
 bpy.data.worlds[0].horizon_color = params["horizon_color"]
 bpy.context.scene.render.resolution_x = params["resolution_x"]
 bpy.context.scene.render.resolution_y = params["resolution_y"]

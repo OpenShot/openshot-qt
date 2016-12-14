@@ -463,9 +463,11 @@ class BlenderTreeView(QTreeView):
         if is_preview:
             # preview mode - use offwhite background (i.e. horizon color)
             project_params["color_mode"] = "RGB"
+            project_params["alpha_mode"] = "SKY"
         else:
             # render mode - transparent background
             project_params["color_mode"] = "RGBA"
+            project_params["alpha_mode"] = "TRANSPARENT"
         project_params["horizon_color"] = (0.57, 0.57, 0.57)
         project_params["animation"] = True
         project_params["output_path"] = os.path.join(info.BLENDER_PATH, self.unique_folder_name,
