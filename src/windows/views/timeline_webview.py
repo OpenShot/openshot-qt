@@ -2492,16 +2492,23 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         """Render the cached frames to the timeline (called every X seconds), and only if changed"""
 
         # Get final cache object from timeline
-        cache_json = get_app().window.timeline_sync.timeline.GetCache().Json()
-        cache_object = json.loads(cache_json)
-        cache_version = cache_object["version"]
+        try:
+            cache_object = get_app().window.timeline_sync.timeline.GetCache()
+            if cache_object and cache_object.Count() > 0:
+                # Get the JSON from the cache object (i.e. which frames are cached)
+                cache_json = get_app().window.timeline_sync.timeline.GetCache().Json()
+                cache_dict = json.loads(cache_json)
+                cache_version = cache_dict["version"]
 
-        if self.cache_renderer_version != cache_version:
-            # Cache has changed, re-render it
-            self.cache_renderer_version = cache_version
+                if self.cache_renderer_version != cache_version:
+                    # Cache has changed, re-render it
+                    self.cache_renderer_version = cache_version
 
-            cmd = JS_SCOPE_SELECTOR + ".RenderCache(" + cache_json + ");"
-            self.page().mainFrame().evaluateJavaScript(cmd)
+                    cmd = JS_SCOPE_SELECTOR + ".RenderCache(" + cache_json + ");"
+                    self.page().mainFrame().evaluateJavaScript(cmd)
+        finally:
+            # ignore any errors inside the cache rendering
+            pass
 
     def __init__(self, window):
         QWebView.__init__(self)
@@ -2546,4 +2553,6 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         self.cache_renderer = QTimer(self)
         self.cache_renderer.setInterval(0.5 * 1000)
         self.cache_renderer.timeout.connect(self.render_cache_json)
-        self.cache_renderer.start()
+
+        # Delay the start of cache rendering
+        QTimer.singleShot(1500, self.cache_renderer.start)
