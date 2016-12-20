@@ -50,6 +50,7 @@ class CreditsModel():
     paypal_icon = QIcon(os.path.join(info.IMAGES_PATH, "paypal-icon.png"))
     kickstarter_icon = QIcon(os.path.join(info.IMAGES_PATH, "kickstarter-icon.png"))
     bitcoin_icon = QIcon(os.path.join(info.IMAGES_PATH, "bitcoin-icon.png"))
+    patreon_icon = QIcon(os.path.join(info.IMAGES_PATH, "patreon-icon.png"))
 
     def update_model(self, filter=None, clear=True):
         log.info("updating credits model.")
@@ -94,7 +95,7 @@ class CreditsModel():
 
             row = []
 
-            # Append type icon (PayPal, Kickstarter, or Bitcoin)
+            # Append type icon (PayPal, Kickstarter, Bitcoin, or Patreon)
             col = QStandardItem()
             if "p" in icons:
                 col.setIcon(QIcon(self.paypal_icon))
@@ -105,6 +106,9 @@ class CreditsModel():
             elif "b" in icons:
                 col.setIcon(QIcon(self.bitcoin_icon))
                 col.setToolTip(_("Bitcoin Supporter!"))
+            elif "n" in icons:
+                col.setIcon(QIcon(self.patreon_icon))
+                col.setToolTip(_("Patreon Supporter!"))
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
             row.append(col)
 

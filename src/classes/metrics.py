@@ -163,7 +163,8 @@ def send_exception(stacktrace, source):
         data = urllib.parse.urlencode({ "stacktrace": stacktrace,
                                         "platform": platform.system(),
                                         "version": info.VERSION,
-                                        "source": source })
+                                        "source": source,
+                                        "unique_install_id": s.get("unique_install_id" )})
         url = "http://www.openshot.org/exception/json/"
 
         # Send exception HTTP data
