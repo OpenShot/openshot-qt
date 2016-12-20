@@ -4,12 +4,12 @@
     <extra-po-header-language>is</extra-po-header-language>
     <extra-po-header-language_team>Icelandic &lt;is@li.org&gt;</extra-po-header-language_team>
     <extra-po-header-last_translator>Sveinn í Felli &lt;sv1@fellsnet.is&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-08-29 09:33+0000</extra-po-header-po_revision_date>
-    <extra-po-header-pot_creation_date>2016-09-07 00:46+0000</extra-po-header-pot_creation_date>
+    <extra-po-header-po_revision_date>2016-12-05 11:10+0000</extra-po-header-po_revision_date>
+    <extra-po-header-pot_creation_date>2016-10-19 02:13+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 18179)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-09-08 07:01+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 18282)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2016-12-06 05:25+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Icelandic translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -35,8 +35,8 @@
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="474"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1260"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="164"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1271"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="165"/>
         <source>Track %s</source>
         <translation>Spor %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
@@ -67,7 +67,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="484"/>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="496"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="637"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="643"/>
         <source>Random</source>
         <translation>Handahófskennt</translation>
     </message>
@@ -108,44 +108,44 @@
         <translation>Endurheimti síðasta óvistaða verkefnið þitt.</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="293"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="290"/>
         <source>Error Saving Project</source>
         <translation>Villa við að vista verkefni</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="333"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="330"/>
         <source>Error Opening Project</source>
         <translation>Villa við að opna verkefni</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="372"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="369"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="300"/>
         <source>Open Project...</source>
         <translation>Opna verkefni...</translation>
         <extra-po-references>Settings for actionOpen</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="372"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="385"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="429"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="369"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="382"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="426"/>
         <source>OpenShot Project (*.osp)</source>
         <translation>OpenShot verkefni (*.osp)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="384"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="428"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1499"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="381"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="425"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1510"/>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="104"/>
         <source>Untitled Project</source>
         <translation>Ónefnt verkefni</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="385"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="382"/>
         <source>Save Project...</source>
         <translation>Vista verkefni...</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="429"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="426"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="345"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="348"/>
         <source>Save Project As...</source>
@@ -153,55 +153,55 @@
         <extra-po-references>Settings for actionSaveAs</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="444"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="441"/>
         <source>Import File...</source>
         <translation>Flytja inn skrá...</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1197"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1208"/>
         <source>Error Removing Track</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1197"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1208"/>
         <source>You must keep at least 1 track</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1262"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1273"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1227"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1230"/>
         <source>Rename Track</source>
         <translation>Endurnefna spor</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1262"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1273"/>
         <source>Track Name:</source>
         <translation>Heiti á spori:</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1590"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1601"/>
         <source>Recent Projects</source>
         <translation>Nýleg verkefni</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1629"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1646"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1665"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1889"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1640"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1657"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1676"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1905"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="272"/>
         <source>Filter</source>
         <translation>Sía</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1716"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2152"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1727"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2158"/>
         <source>{} seconds</source>
         <translation>{} sekúndur</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1755"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1756"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1766"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1767"/>
         <source>New Version Available: %s</source>
         <translation>Ný útgáfa er tiltæk: %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
@@ -241,8 +241,8 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="648"/>
         <location filename="../../../../openshot-qt-git/src/windows/animated_title.py" line="165"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/files_treeview.py" line="203"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/files_listview.py" line="204"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/files_treeview.py" line="202"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/files_listview.py" line="203"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/files_model.py" line="175"/>
         <source>{} is not a valid video, audio, or image file.</source>
         <translation>{} er ekki gild myndskeiðsskrá, hljóðskrá eða myndskrá.</translation>
@@ -353,16 +353,16 @@
   Sveinn í Felli https://launchpad.net/~sveinki</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/files_treeview.py" line="251"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/files_listview.py" line="252"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/files_treeview.py" line="250"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/files_listview.py" line="251"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="17"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="229"/>
         <source>Import Image Sequence</source>
         <translation>Flytja inn myndarunu</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/files_treeview.py" line="251"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/files_listview.py" line="252"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/files_treeview.py" line="250"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/files_listview.py" line="251"/>
         <source>Would you like to import %s as an image sequence?</source>
         <translation>Viltu flytja %s inn sem myndaröð?</translation>
         <extra-po-flags>python-format</extra-po-flags>
@@ -378,37 +378,37 @@
         <translation>Næsta</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="277"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="295"/>
         <source>&lt;b&gt;Project Files:&lt;/b&gt; Get started with your project by adding video, audio, and image files here. Drag and drop files from your file system.</source>
         <translation>&lt;b&gt;Verkefnaskrár:&lt;/b&gt; Byrjaðu á verkinu þínu með því að bæta hér við myndskeiðum, hljóði og myndaskrám. Dragðu og slepptu hér skrám úr skráakerfinu þínu.</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="278"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="296"/>
         <source>&lt;b&gt;Timeline:&lt;/b&gt; Arrange your clips on the timeline here. Overlap clips to create automatic transitions. Access lots of fun presets and options by right-clicking on clips.</source>
         <translation>&lt;b&gt;Tímalína:&lt;/b&gt; Raðaðu hér myndskeiðunum þínum á tímalínunni. Láttu myndskeið skarast til að framkvæma sjálfvirkar millifærslur. Þú getur fengið fram margar skemmtilegar forstillingar og valkosti með því að hægrismella á myndskeið.</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="279"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="297"/>
         <source>&lt;b&gt;Video Preview:&lt;/b&gt; Watch your timeline video preview here. Use the buttons (play, rewind, fast-forward) to control the video playback.</source>
         <translation>&lt;b&gt;Forskoðun myndskeiðs:&lt;/b&gt; Forskoðaðu hér það sem er að gerast á tímalínunni. Notaðu stjórnhnappana (afspilun, vinda til baka, spóla hratt áfram) til að eiga við afspilunina.</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="280"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="298"/>
         <source>&lt;b&gt;Properties:&lt;/b&gt; View and change advanced properties of clips and effects here. Right-clicking on clips is usually faster than manually changing properties.</source>
         <translation>&lt;b&gt;Eiginleikar:&lt;/b&gt; Skoðaðu hér og breyttu ítarlegum eiginleikum myndskeiða og sjónhverfinga. Yfirleitt er þó hraðvirkara að hægrismella á myndskeiðin heldur en að breyta eiginleikum handvirkt.</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="281"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="299"/>
         <source>&lt;b&gt;Transitions:&lt;/b&gt; Create a gradual fade from one clip to another. Drag and drop a transition onto the timeline and position it on top of a clip (usually at the beginning or ending).</source>
         <translation>&lt;b&gt;Millifærslur:&lt;/b&gt; Búðu til deyfingu úr einu myndmerki yfir í annað. Dragðu og slepptu sjónhverfingu ofan á tímalínuna og komdu henni fyrir ofan á myndskeiði (venjulega við upphaf eða enda).</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="282"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="300"/>
         <source>&lt;b&gt;Effects:&lt;/b&gt; Adjust brigthness, contrast, saturation, and add exciting special effects. Drag and drop an effect onto the timeline and position it on top of a clip (or track)</source>
         <translation>&lt;b&gt;Sjónhverfingar:&lt;/b&gt; Aðlaga birtustig, birtuskil, litmettun, og bæta við ýmsum spennandi myndbrellum. Dragðu og slepptu sjónhverfingu ofan á tímalínuna og komdu henni fyrir ofan á myndskeiði (eða hljóðrás)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="283"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="301"/>
         <source>&lt;b&gt;Export Video:&lt;/b&gt; When you are ready to create your finished video, click this button to export your timeline as a single video file.</source>
         <translation>&lt;b&gt;Flytja út myndskeið:&lt;/b&gt; Þegar þú ert tilbúin/n með lokaútgáfu myndskeiðsins þíns, smelltu þá á þennan hnapp til að flytja efnið á tímalínunni út sem eina myndskeiðsskrá.</translation>
     </message>
@@ -460,573 +460,713 @@ Slóð á Blender forritið:
         <translation>Enginn rammi fannst í úttakinu frá Blender</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="405"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="411"/>
         <source>Slice All</source>
         <translation>Sneiða allt</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="406"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="779"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2029"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="412"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="785"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2035"/>
         <source>Keep Both Sides</source>
         <translation>Halda báðum hliðum</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="408"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="782"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2031"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="414"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="788"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2037"/>
         <source>Keep Left Side</source>
         <translation>Halda vinstri hlið</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="410"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="785"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2033"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="416"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="791"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2039"/>
         <source>Keep Right Side</source>
         <translation>Halda hægri hlið</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="447"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="524"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2006"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="453"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="530"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2012"/>
         <source>Paste</source>
         <translation>Líma</translation>
         <extra-po-references>Settings for pasteAll</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="476"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="482"/>
         <source>Start of Clip</source>
         <translation>Upphaf myndskeiðs</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="476"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="482"/>
         <source>End of Clip</source>
         <translation>Endir myndskeiðs</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="476"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="482"/>
         <source>Entire Clip</source>
         <translation>Allt myndskeiðið</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="476"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="482"/>
         <source>Normal</source>
         <translation>Venjulegt</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="476"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="482"/>
         <source>Fast</source>
         <translation>Hratt</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="476"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="482"/>
         <source>Slow</source>
         <translation>Hægt</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="476"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="482"/>
         <source>Forward</source>
         <translation>Áfram</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="476"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="482"/>
         <source>Backward</source>
         <translation>Afturábak</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="484"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="489"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1976"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1981"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="490"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="495"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1982"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1987"/>
         <source>Copy</source>
         <translation>Afrita</translation>
         <extra-po-references>Settings for copyAll</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="490"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="496"/>
         <source>Clip</source>
         <translation>Myndskeið</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="494"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1986"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="500"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1992"/>
         <source>Keyframes</source>
         <translation>Lykilrammar</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="495"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1987"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="501"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1993"/>
         <source>All</source>
         <translation>Allt</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="498"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="504"/>
         <source>Alpha</source>
         <translation>Alfa gegnsæisrás</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="500"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="506"/>
         <source>Scale</source>
         <translation>Kvarði</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="502"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="508"/>
         <source>Rotation</source>
         <translation>Snúningur</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="504"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="510"/>
         <source>Location</source>
         <translation>Staðsetning</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="506"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="682"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="512"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="688"/>
         <source>Time</source>
         <translation>Tími</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="508"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="706"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="514"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="712"/>
         <source>Volume</source>
         <translation>Hljóðstyrkur</translation>
         <extra-po-references>libopenshot (Clip Properties) Settings for volume</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="512"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="518"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="235"/>
         <source>Effects</source>
         <translation>Sjónhverfingar</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="531"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2013"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="537"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2019"/>
         <source>Align</source>
         <translation>Jafna</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="532"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2014"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="538"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2020"/>
         <source>Left</source>
         <translation>Vinstri</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="534"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2016"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="540"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2022"/>
         <source>Right</source>
         <translation>Hægri</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="541"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="547"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="240"/>
         <source>Fade</source>
         <translation>Deyfa út</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/fade.svg</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="542"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="548"/>
         <source>No Fade</source>
         <translation>Engin deyfing</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="549"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="714"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="555"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="720"/>
         <source>Fade In (Fast)</source>
         <translation>Deyfa inn (hratt)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="551"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="716"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="557"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="722"/>
         <source>Fade In (Slow)</source>
         <translation>Deyfa inn (hægt)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="555"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="720"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="561"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="726"/>
         <source>Fade Out (Fast)</source>
         <translation>Deyfa út (hratt)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="557"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="722"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="563"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="728"/>
         <source>Fade Out (Slow)</source>
         <translation>Deyfa út (hægt)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="561"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="726"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="567"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="732"/>
         <source>Fade In and Out (Fast)</source>
         <translation>Deyfa inn og út (hratt)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="563"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="728"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="569"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="734"/>
         <source>Fade In and Out (Slow)</source>
         <translation>Deyfa inn og út (hægt)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="566"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="731"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="572"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="737"/>
         <source>Fade In (Entire Clip)</source>
         <translation>Deyfa inn (allt myndskeiðið)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="568"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="733"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="574"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="739"/>
         <source>Fade Out (Entire Clip)</source>
         <translation>Deyfa út (allt myndskeiðið)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="576"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="582"/>
         <source>Animate</source>
         <translation>Hreyfingar</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="577"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="583"/>
         <source>No Animation</source>
         <translation>Engin hreyfing</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="584"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="590"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="307"/>
         <source>Zoom</source>
         <translation>Aðdráttur</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="585"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="591"/>
         <source>Zoom In (50% to 100%)</source>
         <translation>Renna að (50% til 100%)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="587"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="593"/>
         <source>Zoom In (75% to 100%)</source>
         <translation>Renna að (75% til 100%)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="589"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="595"/>
         <source>Zoom In (100% to 150%)</source>
         <translation>Renna að (100% til 150%)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="591"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="597"/>
         <source>Zoom Out (100% to 75%)</source>
         <translation>Renna frá (100% til 75%)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="593"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="599"/>
         <source>Zoom Out (100% to 50%)</source>
         <translation>Renna frá (100% til 50%)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="595"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="601"/>
         <source>Zoom Out (150% to 100%)</source>
         <translation>Renna frá (150% til 100%)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="600"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="606"/>
         <source>Center to Edge</source>
         <translation>Miðja að jaðri</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="601"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="607"/>
         <source>Center to Top</source>
         <translation>Miðja og upp</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="603"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="609"/>
         <source>Center to Left</source>
         <translation>Miðja til vinstri</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="605"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="611"/>
         <source>Center to Right</source>
         <translation>Miðja til hægri</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="607"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="613"/>
         <source>Center to Bottom</source>
         <translation>Miðja og niður</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="612"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="618"/>
         <source>Edge to Center</source>
         <translation>Jaðar að miðju</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="613"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="619"/>
         <source>Top to Center</source>
         <translation>Ofan að miðju</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="615"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="621"/>
         <source>Left to Center</source>
         <translation>Vinstri til miðju</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="617"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="623"/>
         <source>Right to Center</source>
         <translation>Hægri til miðju</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="619"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="625"/>
         <source>Bottom to Center</source>
         <translation>Neðan að miðju</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="624"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="630"/>
         <source>Edge to Edge</source>
         <translation>Jaðar að jaðri</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="625"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="631"/>
         <source>Top to Bottom</source>
         <translation>Ofan og niður</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="627"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="633"/>
         <source>Left to Right</source>
         <translation>Vinstri til hægri</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="629"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="635"/>
         <source>Right to Left</source>
         <translation>Hægri til vinstri</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="631"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="637"/>
         <source>Bottom to Top</source>
         <translation>Neðan og upp</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="647"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="653"/>
         <source>Rotate</source>
         <translation>Snúa</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="648"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="654"/>
         <source>No Rotation</source>
         <translation>Enginn snúningur</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="651"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="657"/>
         <source>Rotate 90 (Right)</source>
         <translation>Snúa 90 gráður (hægri)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="653"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="659"/>
         <source>Rotate 90 (Left)</source>
         <translation>Snúa 90 gráður (vinstri)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="655"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="661"/>
         <source>Rotate 180 (Flip)</source>
         <translation>Snúa 180 gráður (á hvolf)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="660"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="666"/>
         <source>Layout</source>
         <translation>Framsetning</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="661"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="667"/>
         <source>Reset Layout</source>
         <translation>Endurstilla framsetningu</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="664"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="670"/>
         <source>1/4 Size - Center</source>
         <translation>1/4 stærð - miðja</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="666"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="672"/>
         <source>1/4 Size - Top Left</source>
         <translation>1/4 stærð - efst til vinstri</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="668"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="674"/>
         <source>1/4 Size - Top Right</source>
         <translation>1/4 stærð - efst til hægri</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="670"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="676"/>
         <source>1/4 Size - Bottom Left</source>
         <translation>1/4 stærð - neðst til vinstri</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="672"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="678"/>
         <source>1/4 Size - Bottom Right</source>
         <translation>1/4 stærð - neðst til hægri</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="675"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="681"/>
         <source>Show All (Maintain Ratio)</source>
         <translation>Sýna allt (halda hlutföllum)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="677"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="683"/>
         <source>Show All (Distort)</source>
         <translation>Sýna allt (aflaga)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="683"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="689"/>
         <source>Reset Time</source>
         <translation>Endurstilla tíma</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="707"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="713"/>
         <source>Reset Volume</source>
         <translation>Endurstilla hljóðstyrk</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="738"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="744"/>
         <source>Level 100%</source>
         <translation>Styrkur 100%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="740"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="746"/>
         <source>Level 90%</source>
         <translation>Styrkur 90%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="742"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="748"/>
         <source>Level 80%</source>
         <translation>Styrkur 80%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="744"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="750"/>
         <source>Level 70%</source>
         <translation>Styrkur 70%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="746"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="752"/>
         <source>Level 60%</source>
         <translation>Styrkur 60%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="748"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="754"/>
         <source>Level 50%</source>
         <translation>Styrkur 50%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="750"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="756"/>
         <source>Level 40%</source>
         <translation>Styrkur 40%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="752"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="758"/>
         <source>Level 30%</source>
         <translation>Styrkur 30%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="754"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="760"/>
         <source>Level 20%</source>
         <translation>Styrkur 20%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="756"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="762"/>
         <source>Level 10%</source>
         <translation>Styrkur 10%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="758"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="764"/>
         <source>Level 0%</source>
         <translation>Styrkur 0%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="765"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="771"/>
         <source>Separate Audio</source>
         <translation>Aðskilið hljóð</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="766"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="772"/>
         <source>Single Clip (all channels)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="768"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="774"/>
         <source>Multiple Clips (each channel)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="778"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2028"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="784"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2034"/>
         <source>Slice</source>
         <translation>Sneiða</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="792"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="798"/>
         <source>Display</source>
         <translation>Skjár</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="793"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="799"/>
         <source>Show Waveform</source>
         <translation>Birta bylgjuform</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="795"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="801"/>
         <source>Show Thumbnail</source>
         <translation>Birta smámynd</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1982"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1988"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="341"/>
         <source>Transition</source>
         <translation>Millifærsla</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1990"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1996"/>
         <source>Brightness</source>
         <translation>Birtustig</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1992"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1998"/>
         <source>Contrast</source>
         <translation>Birtuskil</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2038"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2044"/>
         <source>Reverse Transition</source>
         <translation>Snúa við millifærslu</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="306"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="334"/>
+        <source>Ease (Default)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="335"/>
+        <source>Ease In</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="336"/>
+        <source>Ease Out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="337"/>
+        <source>Ease In/Out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="339"/>
+        <source>Ease In (Quad)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="340"/>
+        <source>Ease In (Cubic)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="341"/>
+        <source>Ease In (Quart)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="342"/>
+        <source>Ease In (Quint)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="343"/>
+        <source>Ease In (Sine)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="344"/>
+        <source>Ease In (Expo)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="345"/>
+        <source>Ease In (Circ)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="346"/>
+        <source>Ease In (Back)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="348"/>
+        <source>Ease Out (Quad)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="349"/>
+        <source>Ease Out (Cubic)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="350"/>
+        <source>Ease Out (Quart)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="351"/>
+        <source>Ease Out (Quint)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="352"/>
+        <source>Ease Out (Sine)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="353"/>
+        <source>Ease Out (Expo)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="354"/>
+        <source>Ease Out (Circ)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="355"/>
+        <source>Ease Out (Back)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="357"/>
+        <source>Ease In/Out (Quad)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="358"/>
+        <source>Ease In/Out (Cubic)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="359"/>
+        <source>Ease In/Out (Quart)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="360"/>
+        <source>Ease In/Out (Quint)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="361"/>
+        <source>Ease In/Out (Sine)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="362"/>
+        <source>Ease In/Out (Expo)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="363"/>
+        <source>Ease In/Out (Circ)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="364"/>
+        <source>Ease In/Out (Back)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="375"/>
         <source>Bezier</source>
         <translation>Bezier</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="309"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="381"/>
         <source>Linear</source>
         <translation>Línulegt</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="312"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="384"/>
         <source>Constant</source>
         <translation>Fast</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="316"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="321"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="388"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="393"/>
         <source>Remove Keyframe</source>
         <translation>Fjarlægja lykilramma</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="527"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="602"/>
         <source>Selection:</source>
         <translation>Val:</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="533"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="550"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="608"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="625"/>
         <source>No Selection</source>
         <translation>Ekkert valið</translation>
     </message>
@@ -1087,33 +1227,33 @@ Slóð á Blender forritið:
         <translation>Margháttuð framlög!</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="371"/>
-        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="580"/>
-        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="648"/>
+        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="391"/>
+        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="615"/>
+        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="683"/>
         <source>False</source>
         <translation>Ósatt</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="518"/>
-        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="701"/>
+        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="553"/>
+        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="736"/>
         <source>Property</source>
         <translation>Eiginleiki</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="518"/>
-        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="701"/>
+        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="553"/>
+        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="736"/>
         <source>Value</source>
         <translation>Gildi</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="536"/>
+        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="571"/>
         <source>Transparency</source>
         <translation>Gegnsæi</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="578"/>
-        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="646"/>
+        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="613"/>
+        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="681"/>
         <source>True</source>
         <translation>Satt</translation>
     </message>
@@ -1129,7 +1269,7 @@ Slóð á Blender forritið:
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="74"/>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="534"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="543"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="20"/>
         <source>Export Video</source>
         <translation>Flytja út vídeó</translation>
@@ -1184,7 +1324,7 @@ Slóð á Blender forritið:
         <translation>Veldu möppu...</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="534"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="543"/>
         <source>%s already exists.
 Do you want to replace it?</source>
         <translation>%s er þegar til.
@@ -1192,12 +1332,12 @@ Viltu skipta henni út?</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="628"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="637"/>
         <source>Export Error</source>
         <translation>Villa við útflutning</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="629"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="638"/>
         <source>Sorry, there was an error exporting your video: 
 %s</source>
         <translation>Því miður, það kom upp villa þegar reynt var að flytja út myndskeiðið þitt: 
@@ -1205,89 +1345,24 @@ Viltu skipta henni út?</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
-        <source>Halo: Line Count</source>
-        <translation>Ljósbaugur: línufjöldi</translation>
+        <source>Particle Number</source>
+        <translation>Fjöldi einda</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Blend</source>
+        <translation>Bakgrunnur: Blanda</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Decay</source>
+        <translation>Hjöðnun</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Use Rings</source>
+        <translation>Ljósbaugur: nota hringi</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Use Stars</source>
-        <translation>Ljósbaugur: nota stjörnur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Lens vignetting</source>
-        <translation>Hornskygging linsu</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Display a single color, while using greyscale for the rest of the image</source>
-        <translation>Birta einn lit, á meðan grátónar eru notaðir fyrir aðra hluta myndarinnar</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gamma</source>
-        <translation>Litróf (gamma)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Use Alpha</source>
-        <translation>Nota gegnsæisrás (alpha)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Invert horizontally or vertically</source>
-        <translation>Umhverfa lárétt eða lóðrétt</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Longitude (minutes)</source>
-        <translation>Aðfallslengd (mínútur)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the blur of the frame&apos;s image.</source>
-        <translation>Aðlaga afskerpingu myndar í ramma.</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Key</source>
-        <translation>Lykill</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Mirror</source>
-        <translation>Spegla</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Star Count</source>
-        <translation>Ljósbaugur: fjöldi stjarna</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Brightness Delta Up</source>
-        <translation>Birtumunur upp</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>TehRoxx0r</source>
-        <translation>TehRoxx0r</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Mask</source>
-        <translation>Maski</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Line 3 Color</source>
-        <translation>Litur á línu 3</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Color Distance</source>
-        <translation>Litfjarlægð</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
     </message>
     <message>
         <source>Bottom Right</source>
@@ -1295,34 +1370,94 @@ Viltu skipta henni út?</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Color</source>
-        <translation>Litur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
+        <source>Position</source>
+        <translation>Staðsetning</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Freeze the frame of a video</source>
-        <translation>Frysta myndramma úr myndskeiði</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+        <source>Slide Left to Right</source>
+        <translation>Renna vinstri til hægri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/slide_left_to_right.xml</extra-po-references>
     </message>
     <message>
-        <source>Freeze Before</source>
-        <translation>Frysta á undan</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+        <source>Diffuse Color</source>
+        <translation>Dreifilitur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
-        <source>Width</source>
-        <translation>Breidd</translation>
+        <source>Start: Z</source>
+        <translation>Upphaf: Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Title Specular Color</source>
+        <translation>Gljálitur titils</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Top Center</source>
+        <translation>Efst fyrir miðju</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Invert</source>
+        <translation>Umhverfa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gravity: Y</source>
+        <translation>Þyngdarafl: Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Lens Flare</source>
+        <translation>Ljósglampi í linsu</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Uses a grayscale mask image to gradually wipe / transition between 2 images.</source>
+        <translation>Notar grátóna maska til að stroka millifærslu milli 2 mynda</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Gravity: Z</source>
+        <translation>Þyngdarafl: Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Specular Color</source>
+        <translation>Gljáandi litur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Old Lines</source>
+        <translation>Gamlar línur</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
     </message>
     <message>
-        <source>Fixed Rotate X</source>
-        <translation>Fastur snúningur X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+        <source>Adjust the color of the image to emulate black-and-white film that has had sepia pigment added</source>
+        <translation>Breytir litum í mynd til að herma eftir svarthvítri filmu sem lituð hefur verið með sepía-lit</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
     </message>
     <message>
-        <source>Start: X</source>
-        <translation>Upphaf: X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+        <source>Convert colors in the image to the opposite or complementary colors</source>
+        <translation>Umbreyta litum myndarinnar í andstæða eða mótsvarandi liti</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/invert.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Operation</source>
+        <translation>Aðgerð</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Viewport</source>
+        <translation>Skjágluggi</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Adds black borders at the top and bottom</source>
+        <translation>Bætir svörtum jöðrum við efst og neðst</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
     </message>
     <message>
         <source>Green</source>
@@ -1330,8 +1465,173 @@ Viltu skipta henni út?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
-        <source>Extrude</source>
-        <translation>Pressa út</translation>
+        <source>Add a series of peaks and troughs to the audio, creating a sweeping effect</source>
+        <translation>Bætir runu af toppum og fasaskiptum inn í hljóðrásina</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Add an echo</source>
+        <translation>Bæta við bergmáli</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Frequency</source>
+        <translation>Tíðni</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Title Diffuse Color</source>
+        <translation>Dreifilitur titils</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Equalizes the intensity histograms</source>
+        <translation>Jafnar litstyrk út frá styrkdreifingu</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Longitude (Prime Meridian)</source>
+        <translation>Úttakslengd (Prime Meridian)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Border Width</source>
+        <translation>Breidd jaðars</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Convert an image to shades of grey</source>
+        <translation>Umbreyta mynd í grátóna</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Latitude (minutes)</source>
+        <translation>Úttaksbreidd (mínútur)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Rotate X</source>
+        <translation>Snúa X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Color Distance</source>
+        <translation>Litfjarlægð</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Up Scale</source>
+        <translation>Kvarða upp</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Snow</source>
+        <translation>Snjór</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the image up and down, with the off-screen portion appearing on the other side</source>
+        <translation>Færir mynd upp eða niður, þannig að sá hluti myndarinnar sem út af stendur birtist á hinni hliðinni</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Interval</source>
+        <translation>Millibil</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Line 1 Color</source>
+        <translation>Litur á línu 1</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Shear Y</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Blur</source>
+        <translation>Móða</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blur.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Longitude (seconds)</source>
+        <translation>Aðfallslengd (sekúndur)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjusts the contrast of a source image</source>
+        <translation>Breyta birtuskilum upprunamyndar</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/contrast.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Freeze Before</source>
+        <translation>Frysta á undan</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Latitude (seconds)</source>
+        <translation>Útgangsbreidd (sekúndur)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Delay</source>
+        <translation>Seinkun</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Levels</source>
+        <translation>Litatíðnidreifing</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Edgeglow</source>
+        <translation>Glóbrúnir</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>End Value</source>
+        <translation>Lokagildi</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Show histogram</source>
+        <translation>Birta litatíðnirit</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Star Count</source>
+        <translation>Ljósbaugur: fjöldi stjarna</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Replace Image</source>
+        <translation>Skipta út mynd</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Alpha</source>
+        <translation>Bakgrunnur: Alfa gegnsæi</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Episode</source>
+        <translation>Þáttur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Manual Scale</source>
+        <translation>Handvirk kvörðun</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Display a single color, while using greyscale for the rest of the image</source>
+        <translation>Birta einn lit, á meðan grátónar eru notaðir fyrir aðra hluta myndarinnar</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Bevel Depth</source>
+        <translation>Dýpt fláa</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
@@ -1340,129 +1640,9 @@ Viltu skipta henni út?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
     </message>
     <message>
-        <source>Alpha Mask / Wipe Transition</source>
-        <translation>Gegnsæismaski / Stroka millifærslu</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Pixelate</source>
-        <translation>Stalla í díla</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Ring Count</source>
-        <translation>Ljósbaugur: fjöldi hringja</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Red/Green Axis</source>
-        <translation>Rauður/grænn ás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Z Coordinate</source>
-        <translation>Z hnit</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Position</source>
-        <translation>Staðsetning</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Oversaturate the color in the image, like in old Technicolor movies</source>
-        <translation>Yfirmetta liti í myndinni, svipað og í gömlum Technicolor kvikmyndum</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Wave Color</source>
-        <translation>Litur bylgju</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Spots: Color Threshold</source>
-        <translation>Blettir: Litmörk</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Picture 1 Path</source>
-        <translation>Slóð á mynd 1</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Brightness Delta Down</source>
-        <translation>Birtumunur niður</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Canvas</source>
-        <translation>Myndflötur</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Border Width</source>
-        <translation>Breidd jaðars</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the color saturation.</source>
-        <translation>Breyta mettun litarins.</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Vertical Radius</source>
-        <translation>Lóðréttur radíus</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Scale X</source>
-        <translation>X-kvarði</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
         <source>Halo: Ending Size</source>
         <translation>Ljósbaugur: stærð enda</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Neon Curves</source>
-        <translation>Neon sveigjur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adds black borders at the top and bottom</source>
-        <translation>Bætir svörtum jöðrum við efst og neðst</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Output level black point</source>
-        <translation>Svartgildi úttaks</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust luminance or color channel intensity</source>
-        <translation>Aðlaga ljóma eða styrk litrásar</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Longitude (degrees)</source>
-        <translation>Aðfallslengd (gráður)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Particles: Gravity</source>
-        <translation>Agnir: þyngdarafl</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sobel</source>
-        <translation>Finna jaðra</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Center size</source>
-        <translation>Stærð miðju</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
     </message>
     <message>
         <source>Primary Colors</source>
@@ -1470,391 +1650,19 @@ Viltu skipta henni út?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
     </message>
     <message>
-        <source>Bevel Depth</source>
-        <translation>Dýpt fláa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+        <source>Adjust the left/right balance</source>
+        <translation>Stilla jafnvægi vinstri/hægri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
     </message>
     <message>
-        <source>Arrival Latitude (seconds)</source>
-        <translation>Aðfallsbreidd (sekúndur)</translation>
+        <source>Mix</source>
+        <translation>Blöndun</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Custom Texture (Equirectangular)</source>
+        <translation>Sérsniðin áferð (ferningslaga)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Start: Z</source>
-        <translation>Upphaf: Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Number</source>
-        <translation>Fjöldi</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Line 4 Color</source>
-        <translation>Litur á línu 4</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Text Alignment</source>
-        <translation>Jöfnun texta</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Title</source>
-        <translation>Komutitill</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Convert colors in the image to the opposite or complementary colors</source>
-        <translation>Umbreyta litum myndarinnar í andstæða eða mótsvarandi liti</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/invert.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Velocity: Z</source>
-        <translation>Hraði: Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Title Diffuse Color</source>
-        <translation>Dreifilitur titils</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Wireframe Text</source>
-        <translation>Víravirkistexti</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/wireframe_text.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Blue/Yellow</source>
-        <translation>Blátt/Gult</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Episode</source>
-        <translation>Þáttur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Tint amount</source>
-        <translation>Magn litar</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Stretch</source>
-        <translation>Teygja</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Oversaturate Color</source>
-        <translation>Yfirmettaður litur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Bass</source>
-        <translation>Bassi</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="115"/>
-        <source>End</source>
-        <translation>Endir</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Tilt</source>
-        <translation>Halli</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Amount</source>
-        <translation>Magn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Snow</source>
-        <translation>Snjór</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Longitude (seconds)</source>
-        <translation>Aðfallslengd (sekúndur)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Blend</source>
-        <translation>Bakgrunnur: Blanda</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Diffuse Color</source>
-        <translation>Bakgrunnslitur: Dreifilitur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Top Center</source>
-        <translation>Efst fyrir miðju</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Calculates the distance between the selected color and the current pixel and uses that value as new pixel value</source>
-        <translation>Reiknar fjarlægð milli valins litar og núverandi mynddíls og notar það gildi sem nýjan mynddíl</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Rotate 360 Degrees</source>
-        <translation>Snúa um 360 gráður</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/rotate_360.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Display Clouds</source>
-        <translation>Birta ský</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Edgeglow</source>
-        <translation>Glóbrúnir</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Variance</source>
-        <translation>Breytileiki</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Picture 3 Path</source>
-        <translation>Slóð á mynd 3</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Every</source>
-        <translation>Hverjar</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Add a series of peaks and troughs to the audio, creating a sweeping effect</source>
-        <translation>Bætir runu af toppum og fasaskiptum inn í hljóðrásina</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Dissolving Text</source>
-        <translation>Uppleystur texti</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/dissolve.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Alpha</source>
-        <translation>Bakgrunnur: Alfa gegnsæi</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fly Towards Camera (Two Titles)</source>
-        <translation>Fljúga í áttina að myndavél (tveir titlar)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/fly_by_two_titles.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adds static and grain to the image</source>
-        <translation>Setja truflanir og korn í myndina</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Up Scale</source>
-        <translation>Kvarða upp</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Start Value</source>
-        <translation>Upphafsgildi</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Longitude (Prime Meridian)</source>
-        <translation>Aðfallslengd (Prime Meridian)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Slide Left to Right</source>
-        <translation>Renna vinstri til hægri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/slide_left_to_right.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Add small dust shapes randomly on the image</source>
-        <translation>Bætir litlum rykblettum tilviljanakennt á myndina</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Exploding Text</source>
-        <translation>Sprengdur texti</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gravity: X</source>
-        <translation>Þyngdarafl: X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation>Tegund</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Animation Length</source>
-        <translation>Lengd hreyfimyndar</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Frame Number</source>
-        <translation>Númer ramma</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Rotate Z</source>
-        <translation>Snúa Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Add an echo</source>
-        <translation>Bæta við bergmáli</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Trip Level</source>
-        <translation>Þrep (trip level)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Simple color adjustment</source>
-        <translation>Eninfaldar litabreytingar</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Tile 4: Diffuse Color</source>
-        <translation>Flís 4: Dreifilitur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the color of the image to emulate black-and-white film that has had sepia pigment added</source>
-        <translation>Breytir litum í mynd til að herma eftir svarthvítri filmu sem lituð hefur verið með sepía-lit</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Negates the colors, producing a negative of the image.</source>
-        <translation>Umhverfir litunum, verður að negatívri mynd.</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Max</source>
-        <translation>Hámark</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Replace Image</source>
-        <translation>Skipta út mynd</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Bottom Center</source>
-        <translation>Neðst fyrir miðju</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Old Dust</source>
-        <translation>Gamalt ryk</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Amplitude</source>
-        <translation>Útslag</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fills alpha channel with a gradient</source>
-        <translation>Fyllir alfa-gegnsæisrás með litstigli</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>End Frame</source>
-        <translation>Endarammi</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Distort</source>
-        <translation>Aflaga</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Frequency</source>
-        <translation>Tíðni</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Flippo</source>
-        <translation>Þrívíddarsnúningur (flippo)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Convert an image to shades of grey</source>
-        <translation>Umbreyta mynd í grátóna</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Chroma Key (Greenscreen)</source>
-        <translation>Bakgrunnsútskipti (Chroma Key - Grænskjár)</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="96"/>
-        <source>Start</source>
-        <translation>Byrja</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Reduces and mixes the colors of the image based on a threshold</source>
-        <translation>Fækkar og blandar litum í mynd út frá litmörkum</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threshold.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Title 1</source>
-        <translation>Skjátitill 1</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Glare</source>
-        <translation>Glampi</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Rotate X</source>
-        <translation>Snúa X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Y Center</source>
-        <translation>Y-miðja</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Delay</source>
-        <translation>Seinkun</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Iterations</source>
-        <translation>Ítranir</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>White color</source>
-        <translation>Hvítur litur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Input level black point</source>
-        <translation>Svartgildi inntaks</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Enable Audio</source>
-        <translation>Virkja hljóð</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Waveform</source>
@@ -1862,404 +1670,49 @@ Viltu skipta henni út?</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Min</source>
-        <translation>Lágmark</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Color Tiles</source>
-        <translation>Litaflísar</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Add a glow effect to the image</source>
-        <translation>Bæta glóandi áhrifum á myndina</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/glow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Blinds (Two Titles)</source>
-        <translation>Rimlar (tveir titlar)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Top</source>
-        <translation>Efst</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Equalizes the intensity histograms</source>
-        <translation>Jafnar litstyrk út frá styrkdreifingu</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Rotate Y</source>
-        <translation>Snúa Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Lighter</source>
-        <translation>Ljósara</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Three Layer</source>
-        <translation>Þriggja laga</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Red</source>
-        <translation>Rautt</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Max Diameter</source>
-        <translation>Hámarksþvermál</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Font Name</source>
-        <translation>Heiti leturs</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Vignette</source>
-        <translation>Hornskygging</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Diffuse Color</source>
-        <translation>Dreifilitur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Three point balance</source>
-        <translation>Þriggja punkta vægi</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Flying Title</source>
-        <translation>Fljúgandi skjátitill</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>ID</source>
-        <translation>Auðkenni (ID)</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Phaser</source>
-        <translation>Fasaskipti (phaser)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Title 3</source>
-        <translation>Skjátitill 3</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Lens Flare</source>
-        <translation>Ljósglampi í linsu</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Red Scale</source>
-        <translation>Öfug filma (redscale)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Scale Y</source>
-        <translation>Y-kvarði</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust color balance with 3 color points</source>
-        <translation>Stilla litajafnvægi með 3 litpunktum</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Title</source>
-        <translation>Brottfarartitill</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gravity: Y</source>
-        <translation>Þyngdarafl: Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Defocus</source>
-        <translation>Affókusera</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Input level white point</source>
-        <translation>Hvítgildi inntaks</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Action</source>
-        <translation>Aðgerð</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Interval</source>
-        <translation>Millibil</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Latitude (minutes)</source>
-        <translation>Aðfallsbreidd (mínútur)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Replaces the color (or chroma) of the frame with transparency (i.e. keys out the color).</source>
-        <translation>Skiptir út litnum (eða chroma) í rammanum fyrir gegnsæi (þ.e.a.s. setur annan lykil fyrir litinn).</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Gray color</source>
-        <translation>Grár litur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gain In</source>
-        <translation>Styrkaukning inn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Decay</source>
-        <translation>Hjöðnun</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Diff Space</source>
-        <translation>Bil mismunar</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Letterbox</source>
-        <translation>Bíóhlutföll (letterbox)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Reduce image to primary colors</source>
-        <translation>Smætta mynd í frumliti</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Map black to</source>
-        <translation>Varpa svörtu í</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Alphagrad</source>
-        <translation>Alphagrad</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Is Odd Frame</source>
-        <translation>Er oddatölurammi</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Title 2</source>
-        <translation>Skjátitill 2</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Cartoon</source>
-        <translation>Skrípó</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Lens Correction</source>
-        <translation>Linsuleiðrétting</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Latitude (degrees)</source>
-        <translation>Úttaksbreidd (gráður)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Remove interlacing from a video (i.e. even or odd horizontal lines)</source>
-        <translation>Fjarlægja brúun úr myndskeiði (þ.e.a.s. viðbættar láréttar oddatölu- eða slétttölulínur)</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Tile 3: Diffuse Color</source>
-        <translation>Flís 3: Dreifilitur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>End Value</source>
-        <translation>Lokagildi</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Top Left</source>
-        <translation>Efst til vinstri</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Adjusts the brightness of the image</source>
-        <translation>Lagar birtustig myndarinnar</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjusts the saturation or intensity of the image</source>
-        <translation>Breytir litmettun eða litstyrk myndarinnar</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/saturation.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Midpoint</source>
-        <translation>Miðpunktur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Longitude (degrees)</source>
-        <translation>Úttakslengd (gráður)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Darker</source>
-        <translation>Dekkra</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Find and glow the edges of objects</source>
-        <translation>Finna brúnir hluta og láta þær glóa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Correction near edges</source>
-        <translation>Leiðrétting á jöðrum</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Particles: Amount</source>
-        <translation>Agnir: Magn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Allows compensation of lens distortion</source>
-        <translation>Leyfir að bæta upp fyrir linsubjögun</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Fresnel</source>
-        <translation>Bakgrunnur: Fresnel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Histogram position</source>
-        <translation>Staðsetning litatíðnirits</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Text Size</source>
-        <translation>Textastærð</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Equalizor</source>
-        <translation>Litatíðnijafnari (equalizor)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Defish</source>
-        <translation>Af-fiskauga (defish)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Left | Right</source>
-        <translation>Hægri | Vinstri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Make image sharper</source>
-        <translation>Skerpa mynd</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Latitude (Equator)</source>
-        <translation>Úttaksbreidd (Miðbaugur)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>something videowall-ish</source>
-        <translation>eitthvað svipað og vídeóveggur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Freeze</source>
-        <translation>Frysta</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Channel Filter</source>
-        <translation>Rásasía</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Make a single color transparent.  Also referred to as green screen and blue screen.</source>
-        <translation>Gerir einn lit gegnsæjan. Oft talað um sem grænskjá eða bláskjá (green screen / blue screen).</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Bottom Left</source>
-        <translation>Neðst til vinstri</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Key Color</source>
-        <translation>Lykillitur</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Particle Number</source>
-        <translation>Fjöldi einda</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Y Offset</source>
-        <translation>Y-hliðrun</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sun: Angle Offset</source>
-        <translation>Sól: Hliðrun horns</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Best Fit</source>
-        <translation>Besta lögun</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Old Grain</source>
-        <translation>Gömul korn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
-    </message>
-    <message>
         <source>Delay grab</source>
         <translation>Hringbylgjur (delay grab)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml</extra-po-references>
     </message>
     <message>
-        <source>Black and White</source>
-        <translation>Svart/hvítt</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
+        <source>Gravity: X</source>
+        <translation>Þyngdarafl: X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
-        <source>Adjust the brightness and contrast of the frame&apos;s image.</source>
-        <translation>Breyta ljósmagni og birtumun í mynd rammans.</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+        <source>v</source>
+        <translation>v</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
     </message>
     <message>
-        <source>Operation</source>
-        <translation>Aðgerð</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+        <source>Luma formula</source>
+        <translation>Luma formúla</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Number of Snow Flakes</source>
+        <translation>Fjöldi snjókorna</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Old Dust</source>
+        <translation>Gamalt ryk</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tile 2: Diffuse Color</source>
+        <translation>Flís 2: Dreifilitur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Rotate an image statically or animated</source>
+        <translation>Snúa mynd á staðnum eða með hreyfingu</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Nosync</source>
+        <translation>Ósamstillt</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
     </message>
     <message>
         <source>Adjusts the gamma or luminance value of the image</source>
@@ -2267,94 +1720,54 @@ Viltu skipta henni út?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml</extra-po-references>
     </message>
     <message>
-        <source>Hue</source>
-        <translation>Litblær</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/hue.xml</extra-po-references>
+        <source>Baltan</source>
+        <translation>Baltan</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml</extra-po-references>
     </message>
     <message>
-        <source>Location Y</source>
-        <translation>Staðsetning Y</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+        <source>Rotate Z</source>
+        <translation>Snúa Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
-        <source>Interlaced black lines</source>
-        <translation>Fléttaðar svartar línur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml</extra-po-references>
+        <source>Input level black point</source>
+        <translation>Svartgildi inntaks</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
-        <source>Adjust the white balance and color temperature</source>
-        <translation>Stilla hvítvægi og lithitastig</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
+        <source>World Map (Realistic)</source>
+        <translation>Heimskort (raunsæislegt)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml</extra-po-references>
     </message>
     <message>
-        <source>Delayed frame blitting mapped on a time bitmap</source>
-        <translation>BitBLT seinkun á ramma (bit block transfer) varpað í tíma á bitamynd</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml</extra-po-references>
+        <source>Y Offset</source>
+        <translation>Y-hliðrun</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
-        <source>Adjust the color of the image to black and white based on a threshold</source>
-        <translation>Breytir litum í mynd í svart og hvítt út frá litmörkum</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjusts the contrast of a source image</source>
-        <translation>Breyta birtuskilum upprunamyndar</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/contrast.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Line 1 Color</source>
-        <translation>Litur á línu 1</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sharpness</source>
-        <translation>Skerpa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Color Saturation</source>
-        <translation>Litmettun</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Aspect ratio</source>
-        <translation>Stærðarhlutföll</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Reverse</source>
-        <translation>Afturábak</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjusts the gamma and brightness randomly to create the illusion of old film</source>
-        <translation>Lagar litróf og birtustig slembið til að skapa áhrif eins og á gamalli filmu</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>X Scatter</source>
-        <translation>X tvístrun</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
-    </message>
-    <message>
-        <source>u</source>
-        <translation>u</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Anchor</source>
-        <translation>Festipunktur</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Use Rings</source>
-        <translation>Ljósbaugur: nota hringi</translation>
+        <source>Halo: Use Stars</source>
+        <translation>Ljósbaugur: nota stjörnur</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
-        <source>Output level white point</source>
-        <translation>Hvítgildi úttaks</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+        <source>Wireframe Text</source>
+        <translation>Víravirkistexti</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/wireframe_text.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Left | Right</source>
+        <translation>Hægri | Vinstri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Invert horizontally or vertically</source>
+        <translation>Umhverfa lárétt eða lóðrétt</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Lens Correction</source>
+        <translation>Linsuleiðrétting</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
     </message>
     <message>
         <source>Halo: Use Flare</source>
@@ -2362,28 +1775,493 @@ Viltu skipta henni út?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
+        <source>Gravity</source>
+        <translation>Þyngdarafl</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Sepia</source>
+        <translation>Sepía</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Size</source>
+        <translation>Ljósbaugur: stærð</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Latitude (Equator)</source>
+        <translation>Úttaksbreidd (Miðbaugur)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sun: Color Threshold</source>
+        <translation>Sól: Litmörk</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gain In</source>
+        <translation>Styrkaukning inn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Mask</source>
+        <translation>Maski</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Iterations</source>
+        <translation>Ítranir</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Mirror</source>
+        <translation>Spegla</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Make image sharper</source>
+        <translation>Skerpa mynd</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Y Center</source>
+        <translation>Y-miðja</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Neon Curves</source>
+        <translation>Neon sveigjur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Best Fit</source>
+        <translation>Besta lögun</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Title 3</source>
+        <translation>Skjátitill 3</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fixed Rotate Z</source>
+        <translation>Fastur snúningur Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fly Towards Camera (Two Titles)</source>
+        <translation>Fljúga í áttina að myndavél (tveir titlar)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/fly_by_two_titles.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Manual Pixel Aspect ratio</source>
+        <translation>Handvirk stærðarhlutföll mynddíla</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the high-pitched sound or tone</source>
+        <translation>Laga hátíðnihljóð og hátóna</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/treble.xml</extra-po-references>
+    </message>
+    <message>
+        <source>White color</source>
+        <translation>Hvítur litur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Split and mirror the image</source>
+        <translation>Kljúfa og spegla myndinni</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Lighter</source>
+        <translation>Ljósara</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Use Alpha</source>
+        <translation>Nota gegnsæisrás (alpha)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Darker</source>
+        <translation>Dekkra</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Glare</source>
+        <translation>Glampi</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Line 2 Color</source>
+        <translation>Litur á línu 2</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+    </message>
+    <message>
+        <source>something videowall-ish</source>
+        <translation>eitthvað svipað og vídeóveggur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Hue</source>
+        <translation>Litblær</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/hue.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fixed Rotate X</source>
+        <translation>Fastur snúningur X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Vertical Radius</source>
+        <translation>Lóðréttur radíus</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Old Film</source>
+        <translation>Gömul filma</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Phaser</source>
+        <translation>Fasaskipti (phaser)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Max</source>
+        <translation>Hámark</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjusts the gamma and brightness randomly to create the illusion of old film</source>
+        <translation>Lagar litróf og birtustig slembið til að skapa áhrif eins og á gamalli filmu</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Title</source>
+        <translation>Brottfarartitill</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Latitude (minutes)</source>
+        <translation>Aðfallsbreidd (mínútur)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Freeze</source>
+        <translation>Frysta</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Number</source>
+        <translation>Fjöldi</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Delayed frame blitting mapped on a time bitmap</source>
+        <translation>BitBLT seinkun á ramma (bit block transfer) varpað í tíma á bitamynd</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Chroma Key</source>
+        <translation>Bakgrunnsútskipti (Chroma Key)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Crop</source>
+        <translation>Utansníða</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
         <source>Zoom to Clapboard</source>
         <translation>Aðdráttur að klappspjaldi</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml</extra-po-references>
     </message>
     <message>
-        <source>End: Y</source>
-        <translation>Endir: Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+        <source>Tile 3: Diffuse Color</source>
+        <translation>Flís 3: Dreifilitur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
-        <source>Velocity: Y</source>
-        <translation>Hraði: Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+        <source>Noise</source>
+        <translation>Truflanir</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
     </message>
     <message>
-        <source>Size</source>
-        <translation>Stærð</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
+        <source>Saturation</source>
+        <translation>Mettun</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Particles: Lifetime</source>
-        <translation>Agnir: líftími</translation>
+        <source>Blinds (Two Titles)</source>
+        <translation>Rimlar (tveir titlar)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Midpoint</source>
+        <translation>Miðpunktur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Dynamic 3 level thresholding</source>
+        <translation>Breytileg 3 stiga litmörk</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gain</source>
+        <translation>Styrkaukning</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Max Count</source>
+        <translation>Hámarksfjöldi</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fly Towards Camera</source>
+        <translation>Fljúga í áttina að myndavél</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/fly_by_1.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Trip Level</source>
+        <translation>Þrep (trip level)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Picture Frames (4 pictures)</source>
+        <translation>Myndarammar (4 myndir)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Litur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Oversaturate the color in the image, like in old Technicolor movies</source>
+        <translation>Yfirmetta liti í myndinni, svipað og í gömlum Technicolor kvikmyndum</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Dissolving Text</source>
+        <translation>Uppleystur texti</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/dissolve.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Alphagrad</source>
+        <translation>Alphagrad</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Block Size X</source>
+        <translation>Blokkarstærð X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Glass Slider</source>
+        <translation>Glersleði</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Flippo</source>
+        <translation>Þrívíddarsnúningur (flippo)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Episode Title</source>
+        <translation>Titill þáttar</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation>Neðst</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Block Size Y</source>
+        <translation>Blokkarstærð Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Horizontal Radius</source>
+        <translation>Láréttur radíus</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Channel Filter</source>
+        <translation>Rásasía</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Fixed Rotate Y</source>
+        <translation>Fastur snúningur Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Color Tiles</source>
+        <translation>Litaflísar</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the blur of the frame&apos;s image.</source>
+        <translation>Aðlaga afskerpingu myndar í ramma.</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Defish</source>
+        <translation>Af-fiskauga (defish)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Text Width</source>
+        <translation>Textabreidd</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Simple color adjustment</source>
+        <translation>Eninfaldar litabreytingar</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>ID</source>
+        <translation>Auðkenni (ID)</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Tile 4: Diffuse Color</source>
+        <translation>Flís 4: Dreifilitur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust luminance or color channel intensity</source>
+        <translation>Aðlaga ljóma eða styrk litrásar</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Tegund</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Brightness Delta Down</source>
+        <translation>Birtumunur niður</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Keep luma</source>
+        <translation>Halda ljómastigli</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Red/Green Axis</source>
+        <translation>Rauður/grænn ás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Transition width</source>
+        <translation>Breidd millifærslu</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gamma</source>
+        <translation>Litróf (gamma)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fuzz</source>
+        <translation>Loðið</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Line 3 Color</source>
+        <translation>Litur á línu 3</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Add small dust shapes randomly on the image</source>
+        <translation>Bætir litlum rykblettum tilviljanakennt á myndina</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Color Saturation</source>
+        <translation>Litmettun</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Display Ground</source>
+        <translation>Sýna yfirborð</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Three point balance</source>
+        <translation>Þriggja punkta vægi</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust color balance with 3 color points</source>
+        <translation>Stilla litajafnvægi með 3 litpunktum</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Reverse</source>
+        <translation>Afturábak</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Track</source>
+        <translation>Rás</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Input level white point</source>
+        <translation>Hvítgildi inntaks</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Bottom Left</source>
+        <translation>Neðst til vinstri</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Chroma Key (Greenscreen)</source>
+        <translation>Bakgrunnsútskipti (Chroma Key - Grænskjár)</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Tilt</source>
+        <translation>Halli</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Channel</source>
+        <translation>Hljóðrás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Interpolation</source>
+        <translation>Brúun</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Space Movie Intro</source>
+        <translation>Kynning geimmyndar</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>World Map</source>
+        <translation>Heimskort</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Rotate Y</source>
+        <translation>Snúa Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Start: X</source>
+        <translation>Upphaf: X</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
@@ -2392,29 +2270,84 @@ Viltu skipta henni út?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
-        <source>Title Specular Color</source>
-        <translation>Gljálitur titils</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+        <source>File Name</source>
+        <translation>Skráarheiti</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
-        <source>Gain Out</source>
-        <translation>Styrkaukning út</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+        <source>Halo: Line Count</source>
+        <translation>Ljósbaugur: línufjöldi</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
-        <source>Depart Longitude (Prime Meridian)</source>
-        <translation>Úttakslengd (Prime Meridian)</translation>
+        <source>Depart Longitude (degrees)</source>
+        <translation>Úttakslengd (gráður)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
-        <source>Depart Longitude (seconds)</source>
-        <translation>Úttakslengd (sekúndur)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+        <source>Tint a source image with specified color</source>
+        <translation>Lita upprunamynd með tilteknum litblæ</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
     </message>
     <message>
-        <source>Channel Mapping</source>
-        <translation>Rásavörpun</translation>
+        <source>Center</source>
+        <translation>Miðja</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Sun: Angle Offset</source>
+        <translation>Sól: Hliðrun horns</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tint amount</source>
+        <translation>Magn litar</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sigma</source>
+        <translation>Sigma</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Negates the colors, producing a negative of the image.</source>
+        <translation>Umhverfir litunum, verður að negatívri mynd.</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Threshold</source>
+        <translation>Þröskuldur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>TehRoxx0r</source>
+        <translation>TehRoxx0r</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Specular Color</source>
+        <translation>Bakgrunnur: Dreifilitur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fills alpha channel with a gradient</source>
+        <translation>Fyllir alfa-gegnsæisrás með litstigli</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>X Coordinate</source>
+        <translation>X hnit</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Black and White</source>
+        <translation>Svart/hvítt</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adds random vertical lines to the image</source>
+        <translation>Bætir tilviljanakenndum lóðréttum línum á mynd</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
     </message>
     <message>
         <source>Blue</source>
@@ -2422,29 +2355,195 @@ Viltu skipta henni út?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
-        <source>Fixed Rotate Z</source>
-        <translation>Fastur snúningur Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+        <source>Deinterlace</source>
+        <translation>Afflétta</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
-        <source>Adjust the low-pitched sound or tone</source>
-        <translation>Laga lágtíðnihljóð og lágtóna</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
+        <source>Start: Y</source>
+        <translation>Upphaf: Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
-        <source>Viewport</source>
-        <translation>Skjágluggi</translation>
+        <source>Black color</source>
+        <translation>Svartur litur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Max Diameter</source>
+        <translation>Hámarksþvermál</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
+    </message>
+    <message>
+        <source>End: Z</source>
+        <translation>Endir: Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Pixelate</source>
+        <translation>Stalla í díla</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Action</source>
+        <translation>Aðgerð</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Particles: Lifetime</source>
+        <translation>Agnir: líftími</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Aspect ratio</source>
+        <translation>Stærðarhlutföll</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Starting Size</source>
+        <translation>Ljósbaugur: upphafsstærð</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Add a glow effect to the image</source>
+        <translation>Bæta glóandi áhrifum á myndina</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/glow.xml</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="115"/>
+        <source>End</source>
+        <translation>Endir</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>World Map</source>
-        <translation>Heimskort</translation>
+        <source>Cartoon</source>
+        <translation>Skrípó</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Start Frame</source>
+        <translation>Upphafsrammi</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Reduces and mixes the colors of the image based on a threshold</source>
+        <translation>Fækkar og blandar litum í mynd út frá litmörkum</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threshold.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sharpness</source>
+        <translation>Skerpa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Specular Intensity</source>
+        <translation>Bakgrunnur: Styrkur gljáa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Neutral Color</source>
+        <translation>Hlutlaus litur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Width</source>
+        <translation>Breidd</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Scaling</source>
+        <translation>Kvörðun</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Start Value</source>
+        <translation>Upphafsgildi</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Key Color</source>
+        <translation>Lykillitur</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Defocus</source>
+        <translation>Affókusera</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Horizontal Sync</source>
+        <translation>Lárétt samstilling</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the color saturation.</source>
+        <translation>Breyta mettun litarins.</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Fisheye</source>
+        <translation>Fiskauga</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjusts the saturation or intensity of the image</source>
+        <translation>Breytir litmettun eða litstyrk myndarinnar</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/saturation.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Longitude (minutes)</source>
+        <translation>Aðfallslengd (mínútur)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
-        <source>Fly Towards Camera</source>
-        <translation>Fljúga í áttina að myndavél</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/fly_by_1.xml</extra-po-references>
+        <source>Selection</source>
+        <translation>Valið</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Sobel</source>
+        <translation>Finna jaðra</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Font Name</source>
+        <translation>Heiti leturs</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+    </message>
+    <message>
+        <source>X axis</source>
+        <translation>X-ás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the white balance and color temperature</source>
+        <translation>Stilla hvítvægi og lithitastig</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Location Y</source>
+        <translation>Staðsetning Y</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Brightness Delta Every</source>
+        <translation>Birtumunur hverjar</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Chroma Hold</source>
+        <translation>Takmarka við einn lit (chroma hold)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Shift the hue of all colors in the image</source>
+        <translation>Snúa litgildi allra lita myndarinnar</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/hue.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Increase the size of pixels to obscure the image</source>
+        <translation>Stækka mynddíla til að gera mynd ógreinilegri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
     </message>
     <message>
         <source>X Offset</source>
@@ -2452,19 +2551,69 @@ Viltu skipta henni út?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
+        <source>Distort</source>
+        <translation>Aflaga</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Oversaturate Color</source>
+        <translation>Yfirmettaður litur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
+    </message>
+    <message>
         <source>Aspect type</source>
         <translation>Tegund stærðarhlutfalla</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
     </message>
     <message>
-        <source>X Center</source>
-        <translation>X-miðja</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
+        <source>Blue/Yellow</source>
+        <translation>Blátt/Gult</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
     </message>
     <message>
-        <source>Transition width</source>
-        <translation>Breidd millifærslu</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+        <source>Wave Color</source>
+        <translation>Litur bylgju</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Factor</source>
+        <translation>Stuðull</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Output level black point</source>
+        <translation>Svartgildi úttaks</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Every</source>
+        <translation>Hverjar</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Scale X</source>
+        <translation>X-kvarði</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Exploding Text</source>
+        <translation>Sprengdur texti</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sub Title</source>
+        <translation>Undirtexti</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml</extra-po-references>
+    </message>
+    <message>
+        <source>First Title</source>
+        <translation>Fyrsti titill</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Latitude (Equator)</source>
+        <translation>Aðfallsbreidd (Miðbaugur)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Velocity: X</source>
@@ -2472,9 +2621,459 @@ Viltu skipta henni út?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
+        <source>Creates a square alpha-channel mask</source>
+        <translation>Býr til ferningslaga maska alfa-gegnsæisrásar</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Vignette</source>
+        <translation>Hornskygging</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Enable Audio</source>
+        <translation>Virkja hljóð</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation>Stærð</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Specular Intensity</source>
+        <translation>Styrkur gljáa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Negative</source>
+        <translation>Negatíva</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Interlaced black lines</source>
+        <translation>Fléttaðar svartar línur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Freeze After</source>
+        <translation>Frysta eftir</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Diffuse Color</source>
+        <translation>Bakgrunnslitur: Dreifilitur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the brightness and contrast of the frame&apos;s image.</source>
+        <translation>Breyta ljósmagni og birtumun í mynd rammans.</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Use Lines</source>
+        <translation>Ljósbaugur: nota línur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Magic Wand</source>
+        <translation>Töfrasproti</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Longitude (degrees)</source>
+        <translation>Aðfallslengd (gráður)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Scale Y</source>
+        <translation>Y-kvarði</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Animation Length</source>
+        <translation>Lengd hreyfimyndar</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Letterbox</source>
+        <translation>Bíóhlutföll (letterbox)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Greyscale</source>
+        <translation>Grátóna</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Text Size</source>
+        <translation>Textastærð</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Lens vignetting</source>
+        <translation>Hornskygging linsu</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Main Text</source>
+        <translation>Megintexti</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Shadeless</source>
+        <translation>Bakgrunnur: Skuggalaust</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Center size</source>
+        <translation>Stærð miðju</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Longitude (minutes)</source>
+        <translation>Úttakslengd (mínútur)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>u</source>
+        <translation>u</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Freeze the frame of a video</source>
+        <translation>Frysta myndramma úr myndskeiði</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo Zoom Out</source>
+        <translation>Draga ljósbaug frá</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/halo_zoom_out.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Balance</source>
+        <translation>Vægi</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Charcoal</source>
+        <translation>Viðarkolateikning</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Equalizor</source>
+        <translation>Litatíðnijafnari (equalizor)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Longitude (seconds)</source>
+        <translation>Úttakslengd (sekúndur)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>End: Y</source>
+        <translation>Endir: Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
         <source>Duration</source>
         <translation>Tímalengd</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Picture 1 Path</source>
+        <translation>Slóð á mynd 1</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sun: Number of Streaks</source>
+        <translation>Sól: Fjöldi strika</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Top</source>
+        <translation>Efst</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Calculates the distance between the selected color and the current pixel and uses that value as new pixel value</source>
+        <translation>Reiknar fjarlægð milli valins litar og núverandi mynddíls og notar það gildi sem nýjan mynddíl</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Speed</source>
+        <translation>Hraði</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Bottom Center</source>
+        <translation>Neðst fyrir miðju</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Remove interlacing from a video (i.e. even or odd horizontal lines)</source>
+        <translation>Fjarlægja brúun úr myndskeiði (þ.e.a.s. viðbættar láréttar oddatölu- eða slétttölulínur)</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Title 1</source>
+        <translation>Skjátitill 1</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Spots: Color Threshold</source>
+        <translation>Blettir: Litmörk</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Red Scale</source>
+        <translation>Öfug filma (redscale)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Output level white point</source>
+        <translation>Hvítgildi úttaks</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Title</source>
+        <translation>Komutitill</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Echo</source>
+        <translation>Bergmál</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Map white to</source>
+        <translation>Vörpun hvíts á</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Title 2</source>
+        <translation>Skjátitill 2</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tile 1: Diffuse Color</source>
+        <translation>Flís 1: Dreifilitur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Mirror Color</source>
+        <translation>Speglunarlitur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Rotate 360 Degrees</source>
+        <translation>Snúa um 360 gráður</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/rotate_360.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Trees</source>
+        <translation>Tré</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/trees.xml</extra-po-references>
+    </message>
+    <message>
+        <source>End Frame</source>
+        <translation>Endarammi</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Canvas</source>
+        <translation>Myndflötur</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Picture 2 Path</source>
+        <translation>Slóð á mynd 2</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Picture 4 Path</source>
+        <translation>Slóð á mynd 4</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Green Tint</source>
+        <translation>Grænn blær</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Distort the source similar to plasma</source>
+        <translation>Afmyndar uppruna líkt og plasma</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Stretch</source>
+        <translation>Teygja</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Variance</source>
+        <translation>Breytileiki</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tint</source>
+        <translation>Litblær</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Key</source>
+        <translation>Lykill</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adds static and grain to the image</source>
+        <translation>Setja truflanir og korn í myndina</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Bass</source>
+        <translation>Bassi</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Map black to</source>
+        <translation>Varpa svörtu í</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Brightness &amp; Contrast</source>
+        <translation>Birtustig og birtuskil</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Brightness Delta Up</source>
+        <translation>Birtumunur upp</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>End: X</source>
+        <translation>Endir: X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Shear X</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Treble</source>
+        <translation>Diskantur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/treble.xml</extra-po-references>
+    </message>
+    <message>
+        <source>X Center</source>
+        <translation>X-miðja</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Cartoonify the image, using a form of edge detection</source>
+        <translation>Láta mynd líkja eftir teiknimynd, með því að finna brúnir</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Softness</source>
+        <translation>Mýking</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Y Scatter</source>
+        <translation>Y tvístrun</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Histogram position</source>
+        <translation>Staðsetning litatíðnirits</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Enable Video</source>
+        <translation>Virkja vídeó</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Text Alignment</source>
+        <translation>Jöfnun texta</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Amplitude</source>
+        <translation>Útslag</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Is Odd Frame</source>
+        <translation>Er oddatölurammi</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Replaces the color (or chroma) of the frame with transparency (i.e. keys out the color).</source>
+        <translation>Skiptir út litnum (eða chroma) í rammanum fyrir gegnsæi (þ.e.a.s. setur annan lykil fyrir litinn).</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Adjusts the brightness of the image</source>
+        <translation>Lagar birtustig myndarinnar</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Red</source>
+        <translation>Rautt</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Velocity: Y</source>
+        <translation>Hraði: Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Location X</source>
+        <translation>Staðsetning X</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Detect and highlight the edges of objects</source>
+        <translation>Finna brúnir hluta og áherslulita þær</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Y axis</source>
+        <translation>Y ás</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Ring Count</source>
+        <translation>Ljósbaugur: fjöldi hringja</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Color adjustment</source>
+        <translation>Aðlögun lita</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Source image on left side</source>
+        <translation>Upprunamynd til vinstri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Latitude (degrees)</source>
+        <translation>Úttaksbreidd (gráður)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Anchor</source>
+        <translation>Festipunktur</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Velocity: Z</source>
+        <translation>Hraði: Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="106"/>
@@ -2485,309 +3084,29 @@ Viltu skipta henni út?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml Settings for actionTitle</extra-po-references>
     </message>
     <message>
-        <source>Bottom</source>
-        <translation>Neðst</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
+        <source>Make a single color transparent.  Also referred to as green screen and blue screen.</source>
+        <translation>Gerir einn lit gegnsæjan. Oft talað um sem grænskjá eða bláskjá (green screen / blue screen).</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
     </message>
     <message>
-        <source>Distort the source similar to plasma</source>
-        <translation>Afmyndar uppruna líkt og plasma</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Baltan</source>
-        <translation>Baltan</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Max Count</source>
-        <translation>Hámarksfjöldi</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Longitude (minutes)</source>
-        <translation>Úttakslengd (mínútur)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Softness</source>
-        <translation>Mýking</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Mirror Color</source>
-        <translation>Speglunarlitur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Y axis</source>
-        <translation>Y ás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Black color</source>
-        <translation>Svartur litur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Use Lines</source>
-        <translation>Ljósbaugur: nota línur</translation>
+        <source>Particles: Gravity</source>
+        <translation>Agnir: þyngdarafl</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
-        <source>Start Frame</source>
-        <translation>Upphafsrammi</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+        <source>Alpha Mask / Wipe Transition</source>
+        <translation>Gegnsæismaski / Stroka millifærslu</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
-        <source>Y Scatter</source>
-        <translation>Y tvístrun</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sepia</source>
-        <translation>Sepía</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Brightness Delta Every</source>
-        <translation>Birtumunur hverjar</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Block Size Y</source>
-        <translation>Blokkarstærð Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Starting Size</source>
-        <translation>Ljósbaugur: upphafsstærð</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Size</source>
-        <translation>Ljósbaugur: stærð</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Detect and highlight the edges of objects</source>
-        <translation>Finna brúnir hluta og áherslulita þær</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Text Width</source>
-        <translation>Textabreidd</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Saturation</source>
-        <translation>Mettun</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Tint a source image with specified color</source>
-        <translation>Lita upprunamynd með tilteknum litblæ</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Top Right</source>
-        <translation>Efst til hægri</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Display Ground</source>
-        <translation>Sýna yfirborð</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Line 2 Color</source>
-        <translation>Litur á línu 2</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Trees</source>
-        <translation>Tré</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/trees.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Latitude (Equator)</source>
-        <translation>Aðfallsbreidd (Miðbaugur)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sun: Type of Glare</source>
-        <translation>Sól: Tegund glampa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Nosync</source>
-        <translation>Ósamstillt</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Manual Scale</source>
-        <translation>Handvirk kvörðun</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Source image on left side</source>
-        <translation>Upprunamynd til vinstri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gain</source>
-        <translation>Styrkaukning</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Echo</source>
-        <translation>Bergmál</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Greyscale</source>
-        <translation>Grátóna</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Interpolation</source>
-        <translation>Brúun</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>delayed alpha smoothed blit of time</source>
-        <translation>Seinkuð gegnsæisvörpun með BitBLT (bit block transfer)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Horizontal Sync</source>
-        <translation>Lárétt samstilling</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Tile 1: Diffuse Color</source>
-        <translation>Flís 1: Dreifilitur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Rotate an image statically or animated</source>
-        <translation>Snúa mynd á staðnum eða með hreyfingu</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Freeze After</source>
-        <translation>Frysta eftir</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Speed</source>
-        <translation>Hraði</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Glass Slider</source>
-        <translation>Glersleði</translation>
+        <source>Background: Fresnel</source>
+        <translation>Bakgrunnur: Fresnel</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
     </message>
     <message>
-        <source>Tint</source>
-        <translation>Litblær</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Blur the image similar to an out-of-focus camera</source>
-        <translation>Afskerping myndar, líkt og með myndavél sem ekki er í fókus</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/blur.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Old Film</source>
-        <translation>Gömul filma</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Mix</source>
-        <translation>Blöndun</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Scaling</source>
-        <translation>Kvörðun</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Hardness</source>
-        <translation>Ljósbaugur: harka</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Shadeless</source>
-        <translation>Bakgrunnur: Skuggalaust</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Picture 4 Path</source>
-        <translation>Slóð á mynd 4</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Start: Y</source>
-        <translation>Upphaf: Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Map white to</source>
-        <translation>Vörpun hvíts á</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Luma formula</source>
-        <translation>Luma formúla</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Location X</source>
-        <translation>Staðsetning X</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Episode Title</source>
-        <translation>Titill þáttar</translation>
+        <source>Flying Title</source>
+        <translation>Fljúgandi skjátitill</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Filter the image to look like it is drawn with charcoal</source>
-        <translation>Síar myndina svo að hún líkist viðarkolateikningu</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Neutral Color</source>
-        <translation>Hlutlaus litur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Enable Video</source>
-        <translation>Virkja vídeó</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>End: X</source>
-        <translation>Endir: X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Specular Intensity</source>
-        <translation>Styrkur gljáa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>X Coordinate</source>
-        <translation>X hnit</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Show histogram</source>
-        <translation>Birta litatíðnirit</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
         <source>Correction near center</source>
@@ -2795,54 +3114,14 @@ Viltu skipta henni út?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
     </message>
     <message>
-        <source>Halo Zoom Out</source>
-        <translation>Draga ljósbaug frá</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/halo_zoom_out.xml</extra-po-references>
+        <source>Gray color</source>
+        <translation>Grár litur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
     </message>
     <message>
-        <source>Levels</source>
-        <translation>Litatíðnidreifing</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the image up and down, with the off-screen portion appearing on the other side</source>
-        <translation>Færir mynd upp eða niður, þannig að sá hluti myndarinnar sem út af stendur birtist á hinni hliðinni</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Specular Intensity</source>
-        <translation>Bakgrunnur: Styrkur gljáa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Creates a square alpha-channel mask</source>
-        <translation>Býr til ferningslaga maska alfa-gegnsæisrásar</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Brightness &amp; Contrast</source>
-        <translation>Birtustig og birtuskil</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Blur</source>
-        <translation>Móða</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blur.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Factor</source>
-        <translation>Stuðull</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Treble</source>
-        <translation>Diskantur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/treble.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fisheye</source>
-        <translation>Fiskauga</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+        <source>Display Clouds</source>
+        <translation>Birta ský</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml</extra-po-references>
     </message>
     <message>
         <source>White Balance</source>
@@ -2850,163 +3129,8 @@ Viltu skipta henni út?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
     </message>
     <message>
-        <source>Gravity: Z</source>
-        <translation>Þyngdarafl: Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Specular Color</source>
-        <translation>Bakgrunnur: Dreifilitur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Cartoonify the image, using a form of edge detection</source>
-        <translation>Láta mynd líkja eftir teiknimynd, með því að finna brúnir</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sigma</source>
-        <translation>Sigma</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Invert</source>
-        <translation>Umhverfa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Manual Pixel Aspect ratio</source>
-        <translation>Handvirk stærðarhlutföll mynddíla</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the left/right balance</source>
-        <translation>Stilla jafnvægi vinstri/hægri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Chroma Hold</source>
-        <translation>Takmarka við einn lit (chroma hold)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Split and mirror the image</source>
-        <translation>Kljúfa og spegla myndinni</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
-    </message>
-    <message>
-        <source>v</source>
-        <translation>v</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fixed Rotate Y</source>
-        <translation>Fastur snúningur Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Number of Snow Flakes</source>
-        <translation>Fjöldi snjókorna</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the high-pitched sound or tone</source>
-        <translation>Laga hátíðnihljóð og hátóna</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/treble.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Space Movie Intro</source>
-        <translation>Kynning geimmyndar</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Picture 2 Path</source>
-        <translation>Slóð á mynd 2</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sun: Number of Streaks</source>
-        <translation>Sól: Fjöldi strika</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Latitude (minutes)</source>
-        <translation>Úttaksbreidd (mínútur)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Scan Lines</source>
-        <translation>Skönnunarlínur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Increase the size of pixels to obscure the image</source>
-        <translation>Stækka mynddíla til að gera mynd ógreinilegri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Shift the hue of all colors in the image</source>
-        <translation>Snúa litgildi allra lita myndarinnar</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/hue.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sun: Color Threshold</source>
-        <translation>Sól: Litmörk</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>X axis</source>
-        <translation>X-ás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>World Map (Realistic)</source>
-        <translation>Heimskort (raunsæislegt)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Deinterlace</source>
-        <translation>Afflétta</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Tile 2: Diffuse Color</source>
-        <translation>Flís 2: Dreifilitur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Magic Wand</source>
-        <translation>Töfrasproti</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Old Lines</source>
-        <translation>Gamlar línur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Horizontal Radius</source>
-        <translation>Láréttur radíus</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Noise</source>
-        <translation>Truflanir</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Keep luma</source>
-        <translation>Halda ljómastigli</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Main Text</source>
-        <translation>Megintexti</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Latitude (seconds)</source>
-        <translation>Útgangsbreidd (sekúndur)</translation>
+        <source>Arrival Longitude (Prime Meridian)</source>
+        <translation>Aðfallslengd (Prime Meridian)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
@@ -3015,64 +3139,85 @@ Viltu skipta henni út?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
     </message>
     <message>
-        <source>Track</source>
-        <translation>Rás</translation>
+        <source>Find and glow the edges of objects</source>
+        <translation>Finna brúnir hluta og láta þær glóa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="96"/>
+        <source>Start</source>
+        <translation>Byrja</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Arrival Latitude (degrees)</source>
-        <translation>Aðfallsbreidd (gráður)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Green Tint</source>
-        <translation>Grænn blær</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Chroma Key</source>
-        <translation>Bakgrunnsútskipti (Chroma Key)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Color adjustment</source>
-        <translation>Aðlögun lita</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sub Title</source>
-        <translation>Undirtexti</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Charcoal</source>
-        <translation>Viðarkolateikning</translation>
+        <source>X Scatter</source>
+        <translation>X tvístrun</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
     </message>
     <message>
-        <source>Channel</source>
-        <translation>Hljóðrás</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+        <source>Frame Number</source>
+        <translation>Númer ramma</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
     </message>
     <message>
-        <source>File Name</source>
-        <translation>Skráarheiti</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+        <source>Picture 3 Path</source>
+        <translation>Slóð á mynd 3</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
     </message>
     <message>
-        <source>Specular Color</source>
-        <translation>Gljáandi litur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+        <source>Top Left</source>
+        <translation>Efst til vinstri</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>First Title</source>
-        <translation>Fyrsti titill</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+        <source>Channel Mapping</source>
+        <translation>Rásavörpun</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Uses a grayscale mask image to gradually wipe / transition between 2 images.</source>
-        <translation>Notar grátóna maska til að stroka millifærslu milli 2 mynda</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+        <source>Arrival Latitude (seconds)</source>
+        <translation>Aðfallsbreidd (sekúndur)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Correction near edges</source>
+        <translation>Leiðrétting á jöðrum</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Min</source>
+        <translation>Lágmark</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Allows compensation of lens distortion</source>
+        <translation>Leyfir að bæta upp fyrir linsubjögun</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the color of the image to black and white based on a threshold</source>
+        <translation>Breytir litum í mynd í svart og hvítt út frá litmörkum</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Z Coordinate</source>
+        <translation>Z hnit</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Handles</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>Magn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Scan Lines</source>
+        <translation>Skönnunarlínur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml</extra-po-references>
     </message>
     <message>
         <source>Param</source>
@@ -3080,69 +3225,59 @@ Viltu skipta henni út?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
     </message>
     <message>
-        <source>End: Z</source>
-        <translation>Endir: Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Center</source>
-        <translation>Miðja</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Gravity</source>
-        <translation>Þyngdarafl</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Negative</source>
-        <translation>Negatíva</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Custom Texture (Equirectangular)</source>
-        <translation>Sérsniðin áferð (ferningslaga)</translation>
+        <source>Arrival Latitude (degrees)</source>
+        <translation>Aðfallsbreidd (gráður)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
-        <source>Picture Frames (4 pictures)</source>
-        <translation>Myndarammar (4 myndir)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Block Size X</source>
-        <translation>Blokkarstærð X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Balance</source>
-        <translation>Vægi</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fuzz</source>
-        <translation>Loðið</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Crop</source>
-        <translation>Utansníða</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Threshold</source>
-        <translation>Þröskuldur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Dynamic 3 level thresholding</source>
-        <translation>Breytileg 3 stiga litmörk</translation>
+        <source>Three Layer</source>
+        <translation>Þriggja laga</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml</extra-po-references>
     </message>
     <message>
-        <source>Adds random vertical lines to the image</source>
-        <translation>Bætir tilviljanakenndum lóðréttum línum á mynd</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+        <source>Filter the image to look like it is drawn with charcoal</source>
+        <translation>Síar myndina svo að hún líkist viðarkolateikningu</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the low-pitched sound or tone</source>
+        <translation>Laga lágtíðnihljóð og lágtóna</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Old Grain</source>
+        <translation>Gömul korn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Top Right</source>
+        <translation>Efst til hægri</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Reduce image to primary colors</source>
+        <translation>Smætta mynd í frumliti</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Line 4 Color</source>
+        <translation>Litur á línu 4</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Blur the image similar to an out-of-focus camera</source>
+        <translation>Afskerping myndar, líkt og með myndavél sem ekki er í fókus</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/blur.xml</extra-po-references>
+    </message>
+    <message>
+        <source>delayed alpha smoothed blit of time</source>
+        <translation>Seinkuð gegnsæisvörpun með BitBLT (bit block transfer)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gain Out</source>
+        <translation>Styrkaukning út</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
     </message>
     <message>
         <source>Glow</source>
@@ -3150,224 +3285,29 @@ Viltu skipta henni út?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/glow.xml</extra-po-references>
     </message>
     <message>
-        <source>Debug Mode (Port)</source>
-        <translation>Villuleitarhamur (yfirfært)</translation>
-        <extra-po-references>Settings for debug-port</extra-po-references>
+        <source>Diff Space</source>
+        <translation>Bil mismunar</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
     </message>
     <message>
-        <source>Enable Autosave</source>
-        <translation>Virkja sjálfvirka vistun</translation>
-        <extra-po-references>Settings for enable-auto-save</extra-po-references>
+        <source>Halo: Hardness</source>
+        <translation>Ljósbaugur: harka</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
-        <source>Blu-Ray/AVCHD</source>
-        <translation>Blu-Ray/AVCHD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml</extra-po-references>
+        <source>Extrude</source>
+        <translation>Pressa út</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
-        <source>Select None</source>
-        <translation>Velja ekkert</translation>
-        <extra-po-references>Settings for selectNone</extra-po-references>
+        <source>Particles: Amount</source>
+        <translation>Agnir: Magn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
-        <source>Play/Pause Toggle (Alternate 3)</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for playToggle3</extra-po-references>
-    </message>
-    <message>
-        <source>Profiles</source>
-        <translation>Snið</translation>
-        <extra-po-references>Settings Category for Profiles</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="285"/>
-        <source>New Project...</source>
-        <translation>Nýtt verkefni...</translation>
-        <extra-po-references>Settings for actionNew</extra-po-references>
-    </message>
-    <message>
-        <source>Slice All: Keep Left Side</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for sliceAllKeepLeftSide</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="547"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="550"/>
-        <source>Rewind</source>
-        <translation>Spóla til baka</translation>
-        <extra-po-references>Settings for rewindVideo</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="658"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="661"/>
-        <source>Next Marker</source>
-        <translation>Næsta merki</translation>
-        <extra-po-references>Settings for actionNextMarker</extra-po-references>
-    </message>
-    <message>
-        <source>Cache Limit (MB)</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for cache-limit-mb</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="571"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="574"/>
-        <source>Jump To End</source>
-        <translation>Hoppa á enda</translation>
-        <extra-po-references>Settings for actionJumpEnd</extra-po-references>
-    </message>
-    <message>
-        <source>Debug</source>
-        <translation>Aflúsun</translation>
-        <extra-po-references>Settings Category for Debug</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="535"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="538"/>
-        <source>Jump To Start</source>
-        <translation>Hoppa á byrjun</translation>
-        <extra-po-references>Settings for actionJumpStart</extra-po-references>
-    </message>
-    <message>
-        <source>Play/Pause Toggle</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for playToggle</extra-po-references>
-    </message>
-    <message>
-        <source>DVD</source>
-        <translation>DVD mynddiskur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="493"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="496"/>
-        <source>Add Track</source>
-        <translation>Bæta við spori</translation>
-        <extra-po-references>Settings for actionAddTrack</extra-po-references>
-    </message>
-    <message>
-        <source>Next Frame</source>
-        <translation>Næsti rammi</translation>
-        <extra-po-references>Settings for seekNextFrame</extra-po-references>
-    </message>
-    <message>
-        <source>Delete Item (Alternate 1)</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for deleteItem1</extra-po-references>
-    </message>
-    <message>
-        <source>Vimeo-HD</source>
-        <translation>Vimeo-HD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/vimeo_HD.xml</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1197"/>
-        <source>Split Clip...</source>
-        <translation>Kljúfa myndskeið...</translation>
-        <extra-po-references>Settings for actionSplitClip</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="330"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="333"/>
-        <source>Undo</source>
-        <translation>Afturkalla</translation>
-        <extra-po-references>Settings for actionUndo</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="919"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="922"/>
-        <source>Thumbnail View</source>
-        <translation>Smámyndasýn</translation>
-        <extra-po-references>Settings for actionThumbnailView</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="559"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="562"/>
-        <source>Fast Forward</source>
-        <translation>Spóla áfram</translation>
-        <extra-po-references>Settings for fastforwardVideo</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="478"/>
-        <source>Quit</source>
-        <translation>Hætta</translation>
-        <extra-po-references>Settings for actionQuit</extra-po-references>
-    </message>
-    <message>
-        <source>AVI (mpeg2)</source>
-        <translation>AVI (mpeg2)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mpeg2.xml</extra-po-references>
-    </message>
-    <message>
-        <source>DVD-NTSC</source>
-        <translation>DVD-NTSC</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Keyboard</source>
-        <translation>Lyklaborð</translation>
-        <extra-po-references>Settings Category for Keyboard</extra-po-references>
-    </message>
-    <message>
-        <source>AVI (h.264)</source>
-        <translation>AVI (h.264)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_x264.xml</extra-po-references>
-    </message>
-    <message>
-        <source>YouTube</source>
-        <translation>YouTube</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/youtube.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Advanced Title Editor (path)</source>
-        <translation>Ítarlegri skjátitlaritill (slóð)</translation>
-        <extra-po-references>Settings for title_editor</extra-po-references>
-    </message>
-    <message>
-        <source>Web</source>
-        <translation>Vefur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml</extra-po-references>
-    </message>
-    <message>
-        <source>MOV (h.264)</source>
-        <translation>MOV (h.264)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mov_x264.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Image Quality (Disk Only)</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for cache-quality</extra-po-references>
-    </message>
-    <message>
-        <source>Scale Factor (Disk Only)</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for cache-scale</extra-po-references>
-    </message>
-    <message>
-        <source>Slice All: Keep Both Sides</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for sliceAllKeepBothSides</extra-po-references>
-    </message>
-    <message>
-        <source>OGG (theora/vorbis)</source>
-        <translation>OGG (theora/vorbis)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_libvorbis.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Previous Frame</source>
-        <translation>Fyrri rammi</translation>
-        <extra-po-references>Settings for seekPreviousFrame</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/about.ui" line="23"/>
-        <source>About OpenShot</source>
-        <translation>Um OpenShot</translation>
-        <extra-po-references>Settings for actionAbout</extra-po-references>
-    </message>
-    <message>
-        <source>Image Length (seconds)</source>
-        <translation>Lengd myndar (sekúndur)</translation>
-        <extra-po-references>Settings for default-image-length</extra-po-references>
+        <source>Sun: Type of Glare</source>
+        <translation>Sól: Tegund glampa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="934"/>
@@ -3377,6 +3317,11 @@ Viltu skipta henni út?</translation>
         <extra-po-references>Settings for actionDetailsView</extra-po-references>
     </message>
     <message>
+        <source>Cache</source>
+        <translation>Skyndiminni</translation>
+        <extra-po-references>Settings Category for Cache</extra-po-references>
+    </message>
+    <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1057"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1060"/>
         <source>Choose Profile</source>
@@ -3384,175 +3329,15 @@ Viltu skipta henni út?</translation>
         <extra-po-references>Settings for actionProfile</extra-po-references>
     </message>
     <message>
-        <source>MP4 (Xvid)</source>
-        <translation>MP4 (Xvid)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_xvid.xml</extra-po-references>
-    </message>
-    <message>
-        <source>General</source>
-        <translation>Almennt</translation>
-        <extra-po-references>Settings Category for General</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="405"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="408"/>
-        <source>Redo</source>
-        <translation>Endurtaka</translation>
-        <extra-po-references>Settings for actionRedo</extra-po-references>
-    </message>
-    <message>
-        <source>Picasa</source>
-        <translation>Picasa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/picasa.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Metacafe</source>
-        <translation>Metacafe</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Apple TV</source>
-        <translation>Apple TV</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml</extra-po-references>
-    </message>
-    <message>
-        <source>FLV (h.264)</source>
-        <translation>FLV (h.264)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_flv_x264.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Device</source>
-        <translation>Tæki</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1072"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1075"/>
-        <source>Add to Timeline</source>
-        <translation>Bæta á tímalínu</translation>
-        <extra-po-references>Settings for actionAdd_to_Timeline</extra-po-references>
-    </message>
-    <message>
-        <source>Slice All: Keep Right Side</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for sliceAllKeepRightSide</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="852"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="855"/>
-        <source>Animated Title</source>
-        <translation>Skjátitill með hreyfingum</translation>
-        <extra-po-references>Settings for actionAnimatedTitle</extra-po-references>
-    </message>
-    <message>
-        <source>DVD-PAL</source>
-        <translation>DVD-PAL</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_pal.xml</extra-po-references>
-    </message>
-    <message>
-        <source>MOV (mpeg4)</source>
-        <translation>MOV (mpeg4)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mov_mpeg4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Cache</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings Category for Cache</extra-po-references>
+        <source>Previous Frame</source>
+        <translation>Fyrri rammi</translation>
+        <extra-po-references>Settings for seekPreviousFrame</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="360"/>
         <source>Import Files...</source>
         <translation>Flytja inn skrár...</translation>
         <extra-po-references>Settings for actionImportFiles</extra-po-references>
-    </message>
-    <message>
-        <source>Send Anonymous Metrics and Errors</source>
-        <translation>Senda nafnlausar upplýsingar um villur og notkun</translation>
-        <extra-po-references>Settings for send_metrics</extra-po-references>
-    </message>
-    <message>
-        <source>Autosave Interval (minutes)</source>
-        <translation>Tíðni sjálfvirkrar vistunar (í mínútum)</translation>
-        <extra-po-references>Settings for autosave-interval</extra-po-references>
-    </message>
-    <message>
-        <source>Image Format (Disk Only)</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for cache-image-format</extra-po-references>
-    </message>
-    <message>
-        <source>Default Theme</source>
-        <translation>Sjálfgefið þema</translation>
-        <extra-po-references>Settings for theme</extra-po-references>
-    </message>
-    <message>
-        <source>YouTube-HD</source>
-        <translation>YouTube-HD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/youtube_HD.xml</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="315"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="318"/>
-        <source>Save Project</source>
-        <translation>Vista verkefni</translation>
-        <extra-po-references>Settings for actionSave</extra-po-references>
-    </message>
-    <message>
-        <source>Wikipedia</source>
-        <translation>Wikipedia</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/wikipedia.xml</extra-po-references>
-    </message>
-    <message>
-        <source>OGG (theora/flac)</source>
-        <translation>OGG (theora/flac)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_flac.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Default Profile</source>
-        <translation>Sjálfgefið snið</translation>
-        <extra-po-references>Settings for default-profile</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="646"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="649"/>
-        <source>Previous Marker</source>
-        <translation>Fyrra merki</translation>
-        <extra-po-references>Settings for actionPreviousMarker</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="631"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="634"/>
-        <source>Add Marker</source>
-        <translation>Bæta við merki</translation>
-        <extra-po-references>Settings for actionAddMarker</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="871"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="874"/>
-        <source>Fullscreen</source>
-        <translation>Fylla skjá</translation>
-        <extra-po-references>Settings for actionFullscreen</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="508"/>
-        <source>Preferences</source>
-        <translation>Stillingar</translation>
-        <extra-po-references>Settings for actionPreferences</extra-po-references>
-    </message>
-    <message>
-        <source>Default Audio Sample Rate</source>
-        <translation>Sjálfgefin safntíðni hljóðs</translation>
-        <extra-po-references>Settings for default-samplerate</extra-po-references>
-    </message>
-    <message>
-        <source>Play/Pause Toggle (Alternate 1)</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for playToggle1</extra-po-references>
-    </message>
-    <message>
-        <source>Cache Mode</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for cache-mode</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="256"/>
@@ -3562,14 +3347,147 @@ Viltu skipta henni út?</translation>
         <extra-po-references>Settings for actionProperties</extra-po-references>
     </message>
     <message>
-        <source>Delete Item</source>
-        <translation>Eyða atriði</translation>
-        <extra-po-references>Settings for deleteItem</extra-po-references>
+        <source>DVD-NTSC</source>
+        <translation>DVD-NTSC</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml</extra-po-references>
     </message>
     <message>
-        <source>AVCHD Disks</source>
-        <translation>AVCHD Disks</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml</extra-po-references>
+        <source>Device</source>
+        <translation>Tæki</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml</extra-po-references>
+    </message>
+    <message>
+        <source>WEBM (vpx)</source>
+        <translation>WEBM (vpx)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Enable Autosave</source>
+        <translation>Virkja sjálfvirka vistun</translation>
+        <extra-po-references>Settings for enable-auto-save</extra-po-references>
+    </message>
+    <message>
+        <source>Keyboard</source>
+        <translation>Lyklaborð</translation>
+        <extra-po-references>Settings Category for Keyboard</extra-po-references>
+    </message>
+    <message>
+        <source>Play/Pause Toggle</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for playToggle</extra-po-references>
+    </message>
+    <message>
+        <source>Slice All: Keep Left Side</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for sliceAllKeepLeftSide</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/about.ui" line="23"/>
+        <source>About OpenShot</source>
+        <translation>Um OpenShot</translation>
+        <extra-po-references>Settings for actionAbout</extra-po-references>
+    </message>
+    <message>
+        <source>YouTube</source>
+        <translation>YouTube</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/youtube.xml</extra-po-references>
+    </message>
+    <message>
+        <source>MP4 (mpeg4)</source>
+        <translation>MP4 (mpeg4)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_mpeg4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Autosave</source>
+        <translation>Vista sjálfkrafa</translation>
+        <extra-po-references>Settings Category for Autosave</extra-po-references>
+    </message>
+    <message>
+        <source>Default Profile</source>
+        <translation>Sjálfgefið snið</translation>
+        <extra-po-references>Settings for default-profile</extra-po-references>
+    </message>
+    <message>
+        <source>Autosave Interval (minutes)</source>
+        <translation>Tíðni sjálfvirkrar vistunar (í mínútum)</translation>
+        <extra-po-references>Settings for autosave-interval</extra-po-references>
+    </message>
+    <message>
+        <source>FLV (h.264)</source>
+        <translation>FLV (h.264)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_flv_x264.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Image Format (Disk Only)</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for cache-image-format</extra-po-references>
+    </message>
+    <message>
+        <source>MOV (h.264)</source>
+        <translation>MOV (h.264)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mov_x264.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Select None</source>
+        <translation>Velja ekkert</translation>
+        <extra-po-references>Settings for selectNone</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="658"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="661"/>
+        <source>Next Marker</source>
+        <translation>Næsta merki</translation>
+        <extra-po-references>Settings for actionNextMarker</extra-po-references>
+    </message>
+    <message>
+        <source>General</source>
+        <translation>Almennt</translation>
+        <extra-po-references>Settings Category for General</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="535"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="538"/>
+        <source>Jump To Start</source>
+        <translation>Hoppa á byrjun</translation>
+        <extra-po-references>Settings for actionJumpStart</extra-po-references>
+    </message>
+    <message>
+        <source>Play/Pause Toggle (Alternate 3)</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for playToggle3</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="285"/>
+        <source>New Project...</source>
+        <translation>Nýtt verkefni...</translation>
+        <extra-po-references>Settings for actionNew</extra-po-references>
+    </message>
+    <message>
+        <source>Picasa</source>
+        <translation>Picasa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/picasa.xml</extra-po-references>
+    </message>
+    <message>
+        <source>AVI (mpeg4)</source>
+        <translation>AVI (mpeg4)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mp4.xml</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1072"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1075"/>
+        <source>Add to Timeline</source>
+        <translation>Bæta á tímalínu</translation>
+        <extra-po-references>Settings for actionAdd_to_Timeline</extra-po-references>
+    </message>
+    <message>
+        <source>Default Audio Channels</source>
+        <translation>Sjálfgefnar hljóðrásir</translation>
+        <extra-po-references>Settings for default-channellayout</extra-po-references>
+    </message>
+    <message>
+        <source>Next Frame</source>
+        <translation>Næsti rammi</translation>
+        <extra-po-references>Settings for seekNextFrame</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="619"/>
@@ -3579,24 +3497,316 @@ Viltu skipta henni út?</translation>
         <extra-po-references>Settings for actionSnappingTool</extra-po-references>
     </message>
     <message>
-        <source>Default Audio Channels</source>
-        <translation>Sjálfgefnar hljóðrásir</translation>
-        <extra-po-references>Settings for default-channellayout</extra-po-references>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="478"/>
+        <source>Quit</source>
+        <translation>Hætta</translation>
+        <extra-po-references>Settings for actionQuit</extra-po-references>
     </message>
     <message>
-        <source>AVI (mpeg4)</source>
-        <translation>AVI (mpeg4)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mp4.xml</extra-po-references>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="508"/>
+        <source>Preferences</source>
+        <translation>Stillingar</translation>
+        <extra-po-references>Settings for actionPreferences</extra-po-references>
     </message>
     <message>
-        <source>Autosave</source>
-        <translation>Vista sjálfkrafa</translation>
-        <extra-po-references>Settings Category for Autosave</extra-po-references>
+        <source>OGG (theora/vorbis)</source>
+        <translation>OGG (theora/vorbis)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_libvorbis.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Scale Factor (Disk Only)</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for cache-scale</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="852"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="855"/>
+        <source>Animated Title</source>
+        <translation>Skjátitill með hreyfingum</translation>
+        <extra-po-references>Settings for actionAnimatedTitle</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="559"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="562"/>
+        <source>Fast Forward</source>
+        <translation>Spóla áfram</translation>
+        <extra-po-references>Settings for fastforwardVideo</extra-po-references>
+    </message>
+    <message>
+        <source>Delete Item (Alternate 1)</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for deleteItem1</extra-po-references>
+    </message>
+    <message>
+        <source>Nokia nHD</source>
+        <translation>Nokia nHD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/nokia_nHD.xml</extra-po-references>
+    </message>
+    <message>
+        <source>MOV (mpeg4)</source>
+        <translation>MOV (mpeg4)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mov_mpeg4.xml</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="631"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="634"/>
+        <source>Add Marker</source>
+        <translation>Bæta við merki</translation>
+        <extra-po-references>Settings for actionAddMarker</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="315"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="318"/>
+        <source>Save Project</source>
+        <translation>Vista verkefni</translation>
+        <extra-po-references>Settings for actionSave</extra-po-references>
     </message>
     <message>
         <source>Language</source>
         <translation>Tungumál</translation>
         <extra-po-references>Settings for default-language</extra-po-references>
+    </message>
+    <message>
+        <source>Profiles</source>
+        <translation>Snið</translation>
+        <extra-po-references>Settings Category for Profiles</extra-po-references>
+    </message>
+    <message>
+        <source>Default Audio Sample Rate</source>
+        <translation>Sjálfgefin safntíðni hljóðs</translation>
+        <extra-po-references>Settings for default-samplerate</extra-po-references>
+    </message>
+    <message>
+        <source>Debug</source>
+        <translation>Aflúsun</translation>
+        <extra-po-references>Settings Category for Debug</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="571"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="574"/>
+        <source>Jump To End</source>
+        <translation>Hoppa á enda</translation>
+        <extra-po-references>Settings for actionJumpEnd</extra-po-references>
+    </message>
+    <message>
+        <source>Apple TV</source>
+        <translation>Apple TV</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Blu-Ray/AVCHD</source>
+        <translation>Blu-Ray/AVCHD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Debug Mode (Verbose)</source>
+        <translation>Villuleitarhamur (ítarlegt)</translation>
+        <extra-po-references>Settings for debug-mode</extra-po-references>
+    </message>
+    <message>
+        <source>AVI (mpeg2)</source>
+        <translation>AVI (mpeg2)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mpeg2.xml</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="547"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="550"/>
+        <source>Rewind</source>
+        <translation>Spóla til baka</translation>
+        <extra-po-references>Settings for rewindVideo</extra-po-references>
+    </message>
+    <message>
+        <source>MPEG (mpeg2)</source>
+        <translation>MPEG (mpeg2)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mpeg_mpeg2.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Send Anonymous Metrics and Errors</source>
+        <translation>Senda nafnlausar upplýsingar um villur og notkun</translation>
+        <extra-po-references>Settings for send_metrics</extra-po-references>
+    </message>
+    <message>
+        <source>Image Quality (Disk Only)</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for cache-quality</extra-po-references>
+    </message>
+    <message>
+        <source>AVCHD Disks</source>
+        <translation>AVCHD Disks</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml</extra-po-references>
+    </message>
+    <message>
+        <source>OGG (theora/flac)</source>
+        <translation>OGG (theora/flac)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_flac.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Cache Mode</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for cache-mode</extra-po-references>
+    </message>
+    <message>
+        <source>Blender Command (path)</source>
+        <translation>Blender skipun (slóð)</translation>
+        <extra-po-references>Settings for blender_command</extra-po-references>
+    </message>
+    <message>
+        <source>Xbox 360</source>
+        <translation>Xbox 360</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/xbox360.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Default Theme</source>
+        <translation>Sjálfgefið þema</translation>
+        <extra-po-references>Settings for theme</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="493"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="496"/>
+        <source>Add Track</source>
+        <translation>Bæta við spori</translation>
+        <extra-po-references>Settings for actionAddTrack</extra-po-references>
+    </message>
+    <message>
+        <source>Debug Mode (Port)</source>
+        <translation>Villuleitarhamur (yfirfært)</translation>
+        <extra-po-references>Settings for debug-port</extra-po-references>
+    </message>
+    <message>
+        <source>Metacafe</source>
+        <translation>Metacafe</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="919"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="922"/>
+        <source>Thumbnail View</source>
+        <translation>Smámyndasýn</translation>
+        <extra-po-references>Settings for actionThumbnailView</extra-po-references>
+    </message>
+    <message>
+        <source>MP4 (Xvid)</source>
+        <translation>MP4 (Xvid)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_xvid.xml</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="405"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="408"/>
+        <source>Redo</source>
+        <translation>Endurtaka</translation>
+        <extra-po-references>Settings for actionRedo</extra-po-references>
+    </message>
+    <message>
+        <source>DVD</source>
+        <translation>DVD mynddiskur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="871"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="874"/>
+        <source>Fullscreen</source>
+        <translation>Fylla skjá</translation>
+        <extra-po-references>Settings for actionFullscreen</extra-po-references>
+    </message>
+    <message>
+        <source>Play/Pause Toggle (Alternate 1)</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for playToggle1</extra-po-references>
+    </message>
+    <message>
+        <source>Flickr-HD</source>
+        <translation>Flickr-HD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/flickr_HD.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Select All</source>
+        <translation>Velja allt</translation>
+        <extra-po-references>Settings for selectAll</extra-po-references>
+    </message>
+    <message>
+        <source>Delete Item</source>
+        <translation>Eyða atriði</translation>
+        <extra-po-references>Settings for deleteItem</extra-po-references>
+    </message>
+    <message>
+        <source>Image Length (seconds)</source>
+        <translation>Lengd myndar (sekúndur)</translation>
+        <extra-po-references>Settings for default-image-length</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="330"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="333"/>
+        <source>Undo</source>
+        <translation>Afturkalla</translation>
+        <extra-po-references>Settings for actionUndo</extra-po-references>
+    </message>
+    <message>
+        <source>Play/Pause Toggle (Alternate 2)</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for playToggle2</extra-po-references>
+    </message>
+    <message>
+        <source>Wikipedia</source>
+        <translation>Wikipedia</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/wikipedia.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Advanced Title Editor (path)</source>
+        <translation>Ítarlegri skjátitlaritill (slóð)</translation>
+        <extra-po-references>Settings for title_editor</extra-po-references>
+    </message>
+    <message>
+        <source>Slice All: Keep Both Sides</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for sliceAllKeepBothSides</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1197"/>
+        <source>Split Clip...</source>
+        <translation>Kljúfa myndskeið...</translation>
+        <extra-po-references>Settings for actionSplitClip</extra-po-references>
+    </message>
+    <message>
+        <source>Web</source>
+        <translation>Vefur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml</extra-po-references>
+    </message>
+    <message>
+        <source>YouTube-HD</source>
+        <translation>YouTube-HD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/youtube_HD.xml</extra-po-references>
+    </message>
+    <message>
+        <source>DVD-PAL</source>
+        <translation>DVD-PAL</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_pal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Slice All: Keep Right Side</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for sliceAllKeepRightSide</extra-po-references>
+    </message>
+    <message>
+        <source>Cache Limit (MB)</source>
+        <translation>Mörk skyndiminnis (MB)</translation>
+        <extra-po-references>Settings for cache-limit-mb</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="646"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="649"/>
+        <source>Previous Marker</source>
+        <translation>Fyrra merki</translation>
+        <extra-po-references>Settings for actionPreviousMarker</extra-po-references>
+    </message>
+    <message>
+        <source>Vimeo-HD</source>
+        <translation>Vimeo-HD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/vimeo_HD.xml</extra-po-references>
+    </message>
+    <message>
+        <source>AVI (h.264)</source>
+        <translation>AVI (h.264)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_x264.xml</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="118"/>
@@ -3605,94 +3815,19 @@ Viltu skipta henni út?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/vimeo.xml</extra-po-references>
     </message>
     <message>
-        <source>MP4 (mpeg4)</source>
-        <translation>MP4 (mpeg4)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_mpeg4.xml</extra-po-references>
+        <source>Ondulation %s</source>
+        <translation>Bylgjun %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ondulation_1.jpg</extra-po-references>
     </message>
     <message>
-        <source>Nokia nHD</source>
-        <translation>Nokia nHD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/nokia_nHD.xml</extra-po-references>
+        <source>Spiral abstract %s</source>
+        <translation>Spírall abstrakt %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_abstract_2.jpg</extra-po-references>
     </message>
     <message>
-        <source>Select All</source>
-        <translation>Velja allt</translation>
-        <extra-po-references>Settings for selectAll</extra-po-references>
-    </message>
-    <message>
-        <source>Blender Command (path)</source>
-        <translation>Blender skipun (slóð)</translation>
-        <extra-po-references>Settings for blender_command</extra-po-references>
-    </message>
-    <message>
-        <source>Play/Pause Toggle (Alternate 2)</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for playToggle2</extra-po-references>
-    </message>
-    <message>
-        <source>Debug Mode (Verbose)</source>
-        <translation>Villuleitarhamur (ítarlegt)</translation>
-        <extra-po-references>Settings for debug-mode</extra-po-references>
-    </message>
-    <message>
-        <source>Xbox 360</source>
-        <translation>Xbox 360</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/xbox360.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Flickr-HD</source>
-        <translation>Flickr-HD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/flickr_HD.xml</extra-po-references>
-    </message>
-    <message>
-        <source>MPEG (mpeg2)</source>
-        <translation>MPEG (mpeg2)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mpeg_mpeg2.xml</extra-po-references>
-    </message>
-    <message>
-        <source>WEBM (vpx)</source>
-        <translation>WEBM (vpx)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Board %s</source>
-        <translation>Borð %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/board_10.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Mozaic %s</source>
-        <translation>Mósaík %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_5.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Luminous frame %s</source>
-        <translation>Ljómandi rammi %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_frame_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Vertical bars</source>
-        <translation>Lóðréttir rimlar</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_bars.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Whirpool %s</source>
-        <translation>Hringiða %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/whirpool_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Small top arrow</source>
-        <translation>Litlir oddar upp</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_top_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle left inspiration</source>
-        <translation>Birting miðlungs odda vinstri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_left_inspiration.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral big</source>
-        <translation>Spírall stór</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big.jpg</extra-po-references>
+        <source>Mozaic barr right</source>
+        <translation>Mósaík strimlar hægri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_right.jpg</extra-po-references>
     </message>
     <message>
         <source>Wandering %s</source>
@@ -3700,44 +3835,9 @@ Viltu skipta henni út?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wandering_12.jpg</extra-po-references>
     </message>
     <message>
-        <source>Middle low arrow</source>
-        <translation>Miðlungs oddar niður</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_low_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ray light %s</source>
-        <translation>Ljósgeislar %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_18.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Luminous spiral %s</source>
-        <translation>Ljómandi spírall %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_spiral_9.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Fractal %s</source>
-        <translation>Brotamynd %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fractal_5.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Little right inspiration</source>
-        <translation>Birting lítilla odda hægri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_right_inspiration.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Small cross left barr</source>
-        <translation>Litlir strikaðir strimlar til vinstri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_left_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Left arrow</source>
-        <translation>Vinstri oddar</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Frame barr right</source>
-        <translation>Rammi strimlar hægri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_right.jpg</extra-po-references>
+        <source>Ray %s</source>
+        <translation>Geislar %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_1.jpg</extra-po-references>
     </message>
     <message>
         <source>Foggy spiral %s</source>
@@ -3745,154 +3845,19 @@ Viltu skipta henni út?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/foggy_spiral_1.jpg</extra-po-references>
     </message>
     <message>
-        <source>Ray light right %s</source>
-        <translation>Ljósgeislar hægri %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right_2.jpg</extra-po-references>
+        <source>Blinds in to out big</source>
+        <translation>Rimlar stórir innan og út</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out_big.jpg</extra-po-references>
     </message>
     <message>
-        <source>Square left barr</source>
-        <translation>Ferkantaðir strimlar til vinstri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_left_barr.jpg</extra-po-references>
+        <source>Distortion %s</source>
+        <translation>Aflögun %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg</extra-po-references>
     </message>
     <message>
-        <source>Star %s</source>
-        <translation>Stjarna %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/star_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle cross left barr</source>
-        <translation>Miðlungs strikaðir strimlar til vinstri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_left_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Rectangle out to in</source>
-        <translation>Ferningur utan og inn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_out_to_in.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Hatched %s</source>
-        <translation>Strikað %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/hatched_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle barr</source>
-        <translation>Miðlungs strimlar</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Rectangle in to out</source>
-        <translation>Ferningur innan og út</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_in_to_out.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Flower %s</source>
-        <translation>Blóm %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/flower_4.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>4 squares leftt barr</source>
-        <translation>4 ferningar strimlar til vinstri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_leftt_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Big losange</source>
-        <translation>Stór tígull</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_losange.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Twirl %s</source>
-        <translation>Ruggað %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/twirl_26.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle losange</source>
-        <translation>Miðlungs tígull</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_losange.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Big cross right barr</source>
-        <translation>Stórir strikaðir strimlar til hægri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_right_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral small</source>
-        <translation>Spírall lítill</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ray light right</source>
-        <translation>Ljósgeislar hægri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Blur ray right</source>
-        <translation>Deyfðir geislar hægri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spots</source>
-        <translation>Blettir</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spots.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Crossed barr</source>
-        <translation>Krossaðir strimlar</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/crossed_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle top arrow</source>
-        <translation>Miðlungs oddar upp</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_top_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Checked %s</source>
-        <translation>Köflótt %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/checked_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Dissolve</source>
-        <translation>Leysa upp</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/dissolve.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Circle in to out</source>
-        <translation>Hringur innan og út</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_in_to_out.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Cross %s</source>
-        <translation>Kross %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/cross_15.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral big %s</source>
-        <translation>Spírall stór %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Luminous boxes %s</source>
-        <translation>Ljómandi kassar %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_boxes_19.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ripple top arrow</source>
-        <translation>Gáraðir oddar upp</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_top_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Boxes %s</source>
-        <translation>Kassar %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/boxes_12.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Extra</source>
-        <translation>Auka</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra</extra-po-references>
-    </message>
-    <message>
-        <source>Small cross right barr</source>
-        <translation>Litlir strikaðir strimlar til hægri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_right_barr.jpg</extra-po-references>
+        <source>Small losange</source>
+        <translation>Lítill tígull</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_losange.jpg</extra-po-references>
     </message>
     <message>
         <source>Ripple luminous low arrow</source>
@@ -3900,69 +3865,59 @@ Viltu skipta henni út?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_low_arrow.jpg</extra-po-references>
     </message>
     <message>
+        <source>Big losange</source>
+        <translation>Stór tígull</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_losange.jpg</extra-po-references>
+    </message>
+    <message>
         <source>Blur ray left</source>
         <translation>Deyfðir geislar vinstri</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_left.jpg</extra-po-references>
     </message>
     <message>
-        <source>Future %s</source>
-        <translation>Framtíð %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/future_11.jpg</extra-po-references>
+        <source>Wave right down</source>
+        <translation>Bylgja hægri-niður</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_down.jpg</extra-po-references>
     </message>
     <message>
-        <source>Ray light left</source>
-        <translation>Ljósgeislar vinstri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left.jpg</extra-po-references>
+        <source>Wipe right to left</source>
+        <translation>Stroka hægri til vinstri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_right_to_left.svg</extra-po-references>
     </message>
     <message>
-        <source>Free left inspiration</source>
-        <translation>Birting odda vinstri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_left_inspiration.jpg</extra-po-references>
+        <source>Clock left to right</source>
+        <translation>Klukka vinstri til hægri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_left_to_right.jpg</extra-po-references>
     </message>
     <message>
-        <source>Blur right barr</source>
-        <translation>Deyfðir strimlar til hægri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_right_barr.jpg</extra-po-references>
+        <source>Fractal %s</source>
+        <translation>Brotamynd %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fractal_5.jpg</extra-po-references>
     </message>
     <message>
-        <source>Spiral medium</source>
-        <translation>Spírall meðal</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_medium.jpg</extra-po-references>
+        <source>Middle black barr</source>
+        <translation>Miðlungs svartir strimlar</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_black_barr.jpg</extra-po-references>
     </message>
     <message>
-        <source>Middle cross right barr</source>
-        <translation>Miðlungs strikaðir strimlar til hægri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_right_barr.jpg</extra-po-references>
+        <source>Fogg %s</source>
+        <translation>Þoka %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fogg_3.jpg</extra-po-references>
     </message>
     <message>
-        <source>Spiral small %s</source>
-        <translation>Spírall lítill %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small_2.jpg</extra-po-references>
+        <source>Square middle left barr</source>
+        <translation>Ferkantaðir miðlungs strimlar til vinstri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_left_barr.jpg</extra-po-references>
     </message>
     <message>
-        <source>Right mozaic %s</source>
-        <translation>Mósaík kantað %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic_2.jpg</extra-po-references>
+        <source>Middle right inspiration</source>
+        <translation>Birting miðlungs odda hægri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_right_inspiration.jpg</extra-po-references>
     </message>
     <message>
-        <source>Little rippling left</source>
-        <translation>Lítil gárun vinstri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_left.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Clouds</source>
-        <translation>Ský</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wipe bottom to top</source>
-        <translation>Stroka neðan og upp</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_bottom_to_top.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle barr ripple %s</source>
-        <translation>Miðlungs rifnir strimlar %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr_ripple_2.jpg</extra-po-references>
+        <source>Board %s</source>
+        <translation>Borð %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/board_10.jpg</extra-po-references>
     </message>
     <message>
         <source>Horizontal barr %s</source>
@@ -3970,14 +3925,199 @@ Viltu skipta henni út?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/horizontal_barr_1.jpg</extra-po-references>
     </message>
     <message>
-        <source>Ripple low arrow</source>
-        <translation>Gáraðir oddar niður</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_low_arrow.jpg</extra-po-references>
+        <source>Middle losange</source>
+        <translation>Miðlungs tígull</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_losange.jpg</extra-po-references>
     </message>
     <message>
-        <source>Ondulation %s</source>
-        <translation>Bylgjun %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ondulation_1.jpg</extra-po-references>
+        <source>Lateral left triangle</source>
+        <translation>Þríhyrningur vinstri hlið</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_left_triangle.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Hourglass %s</source>
+        <translation>Stundaglas %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/hourglass_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Small top arrow</source>
+        <translation>Litlir oddar upp</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_top_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ray light left %s</source>
+        <translation>Ljósgeislar vinstri %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Central mozaic</source>
+        <translation>Miðjuð mósaík</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/central_mozaic.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Lateral right triangle</source>
+        <translation>Þríhyrningur hægri hlið</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_right_triangle.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Blur ray right</source>
+        <translation>Deyfðir geislar hægri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Clouds</source>
+        <translation>Ský</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Whirpool %s</source>
+        <translation>Hringiða %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/whirpool_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle cross left barr</source>
+        <translation>Miðlungs strikaðir strimlar til vinstri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_left_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Small cross left barr</source>
+        <translation>Litlir strikaðir strimlar til vinstri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_left_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Clouds %s</source>
+        <translation>Ský %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ray light right</source>
+        <translation>Ljósgeislar hægri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle left inspiration</source>
+        <translation>Birting miðlungs odda vinstri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_left_inspiration.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Vertical bars</source>
+        <translation>Lóðréttir rimlar</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_bars.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ripple top arrow</source>
+        <translation>Gáraðir oddar upp</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_top_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Frame %s</source>
+        <translation>Rammi %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Luminous spiral %s</source>
+        <translation>Ljómandi spírall %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_spiral_9.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wipe top to bottom</source>
+        <translation>Stroka ofan og niður</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_top_to_bottom.svg</extra-po-references>
+    </message>
+    <message>
+        <source>Left mozaic</source>
+        <translation>Mósaík vinstri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_mozaic.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Free inspiration right</source>
+        <translation>Birting odda hægri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_inspiration_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Future %s</source>
+        <translation>Framtíð %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/future_11.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Big barr shaking %s</source>
+        <translation>Stórir hristir strimlar %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Frame barr right</source>
+        <translation>Rammi strimlar hægri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wave left up</source>
+        <translation>Bylgja vinstri-upp</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_up.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral medium</source>
+        <translation>Spírall meðal</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_medium.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral small %s</source>
+        <translation>Spírall lítill %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Mountains</source>
+        <translation>Fjöll</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mountains.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ripple luminous top arrow</source>
+        <translation>Bjartir gáraðir oddar upp</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_top_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Openshot logo</source>
+        <translation>OpenShot merkið</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/openshot_logo.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle barr</source>
+        <translation>Miðlungs strimlar</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle cross right barr</source>
+        <translation>Miðlungs strikaðir strimlar til hægri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Cross %s</source>
+        <translation>Kross %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/cross_15.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Extra</source>
+        <translation>Auka</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra</extra-po-references>
+    </message>
+    <message>
+        <source>Frame barr left</source>
+        <translation>Rammi strimlar vinstri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_left.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Mozaic barr left</source>
+        <translation>Mósaík strimlar vinstri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_left.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Circle out to in</source>
+        <translation>Hringur utan og inn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_out_to_in.svg</extra-po-references>
+    </message>
+    <message>
+        <source>Wipe left to right</source>
+        <translation>Stroka vinstri til hægri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_left_to_right.svg</extra-po-references>
     </message>
     <message>
         <source>Right mozaic</source>
@@ -3985,9 +4125,99 @@ Viltu skipta henni út?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic.jpg</extra-po-references>
     </message>
     <message>
-        <source>Clouds %s</source>
-        <translation>Ský %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds_2.jpg</extra-po-references>
+        <source>Square left barr</source>
+        <translation>Ferkantaðir strimlar til vinstri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_left_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Small low arrow</source>
+        <translation>Litlir oddar niður</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_low_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Free left inspiration</source>
+        <translation>Birting odda vinstri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_left_inspiration.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Postime %s</source>
+        <translation>Formtími %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/postime_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Rectangle out to in</source>
+        <translation>Ferningur utan og inn</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_out_to_in.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Big barr</source>
+        <translation>Stórir strimlar</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Sphere %s</source>
+        <translation>Kúla %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Twirl %s</source>
+        <translation>Ruggað %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/twirl_26.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Left arrow</source>
+        <translation>Vinstri oddar</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ripple %s</source>
+        <translation>Gárur %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_4.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Circle in to out</source>
+        <translation>Hringur innan og út</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_in_to_out.svg</extra-po-references>
+    </message>
+    <message>
+        <source>Blinds sliding</source>
+        <translation>Rennandi rimlar</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_sliding.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle low arrow</source>
+        <translation>Miðlungs oddar niður</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_low_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Stain %s</source>
+        <translation>Blettir %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/stain_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Little rippling right</source>
+        <translation>Lítil gárun hægri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Fish-eyes %s</source>
+        <translation>Fiskaugu %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fish-eyes_5.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Luminous boxes %s</source>
+        <translation>Ljómandi kassar %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_boxes_19.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Stretched %s</source>
+        <translation>Teygt %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/stretched_3.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wipe bottom to top</source>
+        <translation>Stroka neðan og upp</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_bottom_to_top.svg</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="736"/>
@@ -3997,59 +4227,19 @@ Viltu skipta henni út?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common</extra-po-references>
     </message>
     <message>
-        <source>Circle out to in</source>
-        <translation>Hringur utan og inn</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_out_to_in.svg</extra-po-references>
+        <source>Star %s</source>
+        <translation>Stjarna %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/star_2.jpg</extra-po-references>
     </message>
     <message>
-        <source>Postime %s</source>
-        <translation>Formtími %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/postime_1.jpg</extra-po-references>
+        <source>Middle top arrow</source>
+        <translation>Miðlungs oddar upp</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_top_arrow.jpg</extra-po-references>
     </message>
     <message>
-        <source>Frame %s</source>
-        <translation>Rammi %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Barr ripple %s</source>
-        <translation>Rifnir strimlar %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/barr_ripple_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral %s</source>
-        <translation>Spírall %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Big barr shaking2</source>
-        <translation>Stórir hristir strimlar2</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Small low arrow</source>
-        <translation>Litlir oddar niður</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_low_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Sphere</source>
-        <translation>Kúla</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Stretched %s</source>
-        <translation>Teygt %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/stretched_3.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Small barr</source>
-        <translation>Litlir strimlar</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Big cross left barr</source>
-        <translation>Stórir strikaðir strimlar til vinstri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_left_barr.jpg</extra-po-references>
+        <source>Middle barr ripple %s</source>
+        <translation>Miðlungs rifnir strimlar %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr_ripple_2.jpg</extra-po-references>
     </message>
     <message>
         <source>Wave right up</source>
@@ -4057,64 +4247,29 @@ Viltu skipta henni út?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_up.jpg</extra-po-references>
     </message>
     <message>
-        <source>Openshot logo</source>
-        <translation>OpenShot merkið</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/openshot_logo.jpg</extra-po-references>
+        <source>Right mozaic %s</source>
+        <translation>Mósaík kantað %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic_2.jpg</extra-po-references>
     </message>
     <message>
-        <source>Wipe diagonal %s</source>
-        <translation>Stroka á ská %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wipe_diagonal_3.jpg</extra-po-references>
+        <source>Puzzle</source>
+        <translation>Púsl</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/puzzle.jpg</extra-po-references>
     </message>
     <message>
-        <source>Frame cross left barr</source>
-        <translation>Rammi með strikuðum strimlum til vinstri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_cross_left_barr.jpg</extra-po-references>
+        <source>Little right inspiration</source>
+        <translation>Birting lítilla odda hægri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_right_inspiration.jpg</extra-po-references>
     </message>
     <message>
-        <source>Little rippling right</source>
-        <translation>Lítil gárun hægri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_right.jpg</extra-po-references>
+        <source>Mosaic %s</source>
+        <translation>Mósaík %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mosaic_2.jpg</extra-po-references>
     </message>
     <message>
-        <source>Central mozaic</source>
-        <translation>Miðjuð mósaík</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/central_mozaic.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ray light left %s</source>
-        <translation>Ljósgeislar vinstri %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Big barr shaking %s</source>
-        <translation>Stórir hristir strimlar %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Square middle left barr</source>
-        <translation>Ferkantaðir miðlungs strimlar til vinstri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_left_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Big barr</source>
-        <translation>Stórir strimlar</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle right inspiration</source>
-        <translation>Birting miðlungs odda hægri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_right_inspiration.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Sunlight %s</source>
-        <translation>Sólarljós %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sunlight_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Lateral left triangle</source>
-        <translation>Þríhyrningur vinstri hlið</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_left_triangle.jpg</extra-po-references>
+        <source>Spiral big</source>
+        <translation>Spírall stór</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big.jpg</extra-po-references>
     </message>
     <message>
         <source>Blinds in to out</source>
@@ -4122,19 +4277,14 @@ Viltu skipta henni út?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out.jpg</extra-po-references>
     </message>
     <message>
-        <source>Ray %s</source>
-        <translation>Geislar %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_1.jpg</extra-po-references>
+        <source>Bubbles</source>
+        <translation>Blöðrur</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/bubbles.jpg</extra-po-references>
     </message>
     <message>
-        <source>Wave left down</source>
-        <translation>Bylgja vinstri-niður</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_down.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Fish-eyes %s</source>
-        <translation>Fiskaugu %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fish-eyes_5.jpg</extra-po-references>
+        <source>Sun shaking</source>
+        <translation>Hrist sól</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sun_shaking.jpg</extra-po-references>
     </message>
     <message>
         <source>Right arrow</source>
@@ -4142,19 +4292,44 @@ Viltu skipta henni út?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_arrow.jpg</extra-po-references>
     </message>
     <message>
-        <source>Small losange</source>
-        <translation>Lítill tígull</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_losange.jpg</extra-po-references>
+        <source>Small cross right barr</source>
+        <translation>Litlir strikaðir strimlar til hægri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_right_barr.jpg</extra-po-references>
     </message>
     <message>
-        <source>Square middle right barr</source>
-        <translation>Ferkantaðir miðlungs strimlar til hægri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_right_barr.jpg</extra-po-references>
+        <source>Crossed barr</source>
+        <translation>Krossaðir strimlar</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/crossed_barr.jpg</extra-po-references>
     </message>
     <message>
-        <source>Deform %s</source>
-        <translation>Aflögun %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/deform_8.jpg</extra-po-references>
+        <source>Blur left barr</source>
+        <translation>Deyfðir strimlar til vinstri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_left_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ray light %s</source>
+        <translation>Ljósgeislar %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_18.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Little left inspiration</source>
+        <translation>Birting lítilla odda vinstri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_left_inspiration.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Little rippling left</source>
+        <translation>Lítil gárun vinstri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_left.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral small</source>
+        <translation>Spírall lítill</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ripple low arrow</source>
+        <translation>Gáraðir oddar niður</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_low_arrow.jpg</extra-po-references>
     </message>
     <message>
         <source>Square right barr</source>
@@ -4167,124 +4342,19 @@ Viltu skipta henni út?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/triangle_3.jpg</extra-po-references>
     </message>
     <message>
-        <source>Puzzle</source>
-        <translation>Púsl</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/puzzle.jpg</extra-po-references>
+        <source>Wave left down</source>
+        <translation>Bylgja vinstri-niður</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_down.jpg</extra-po-references>
     </message>
     <message>
-        <source>Middle black barr</source>
-        <translation>Miðlungs svartir strimlar</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_black_barr.jpg</extra-po-references>
+        <source>4 squares right barr</source>
+        <translation>4 ferningar strimlar til hægri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_right_barr.jpg</extra-po-references>
     </message>
     <message>
-        <source>Blur left barr</source>
-        <translation>Deyfðir strimlar til vinstri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_left_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Stain %s</source>
-        <translation>Blettir %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/stain_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Mountains</source>
-        <translation>Fjöll</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mountains.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Mosaic %s</source>
-        <translation>Mósaík %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mosaic_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Sphere %s</source>
-        <translation>Kúla %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Hourglass %s</source>
-        <translation>Stundaglas %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/hourglass_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wipe left to right</source>
-        <translation>Stroka vinstri til hægri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_left_to_right.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Clock left to right</source>
-        <translation>Klukka vinstri til hægri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_left_to_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Mozaic barr right</source>
-        <translation>Mósaík strimlar hægri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Vertical blinds in to out big</source>
-        <translation>Rimlar láréttir stórir innan og út</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out_big.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral abstract %s</source>
-        <translation>Spírall abstrakt %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_abstract_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Lateral right triangle</source>
-        <translation>Þríhyrningur hægri hlið</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_right_triangle.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wave right down</source>
-        <translation>Bylgja hægri-niður</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_down.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Vertical blinds in to out</source>
-        <translation>Rimlar láréttir innan og út</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Clock right to left</source>
-        <translation>Klukka hægri til vinstri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_right_to_left.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Fogg %s</source>
-        <translation>Þoka %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fogg_3.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Free inspiration right</source>
-        <translation>Birting odda hægri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_inspiration_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Sun shaking</source>
-        <translation>Hrist sól</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sun_shaking.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wipe right to left</source>
-        <translation>Stroka hægri til vinstri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_right_to_left.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Distortion %s</source>
-        <translation>Aflögun %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Left mozaic</source>
-        <translation>Mósaík vinstri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_mozaic.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wave left up</source>
-        <translation>Bylgja vinstri-upp</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_up.jpg</extra-po-references>
+        <source>Sphere</source>
+        <translation>Kúla</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere.jpg</extra-po-references>
     </message>
     <message>
         <source>Strange barr %s</source>
@@ -4292,54 +4362,144 @@ Viltu skipta henni út?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/strange_barr_1.jpg</extra-po-references>
     </message>
     <message>
-        <source>Little left inspiration</source>
-        <translation>Birting lítilla odda vinstri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_left_inspiration.jpg</extra-po-references>
+        <source>Barr ripple %s</source>
+        <translation>Rifnir strimlar %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/barr_ripple_2.jpg</extra-po-references>
     </message>
     <message>
-        <source>Ripple luminous top arrow</source>
-        <translation>Bjartir gáraðir oddar upp</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_top_arrow.jpg</extra-po-references>
+        <source>Ray light left</source>
+        <translation>Ljósgeislar vinstri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left.jpg</extra-po-references>
     </message>
     <message>
-        <source>Wipe top to bottom</source>
-        <translation>Stroka ofan og niður</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_top_to_bottom.svg</extra-po-references>
+        <source>Checked %s</source>
+        <translation>Köflótt %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/checked_1.jpg</extra-po-references>
     </message>
     <message>
-        <source>Mozaic barr left</source>
-        <translation>Mósaík strimlar vinstri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_left.jpg</extra-po-references>
+        <source>Dissolve</source>
+        <translation>Leysa upp</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/dissolve.jpg</extra-po-references>
     </message>
     <message>
-        <source>Bubbles</source>
-        <translation>Blöðrur</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/bubbles.jpg</extra-po-references>
+        <source>Big cross right barr</source>
+        <translation>Stórir strikaðir strimlar til hægri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_right_barr.jpg</extra-po-references>
     </message>
     <message>
-        <source>Ripple %s</source>
-        <translation>Gárur %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_4.jpg</extra-po-references>
+        <source>Vertical blinds in to out</source>
+        <translation>Rimlar láréttir innan og út</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out.jpg</extra-po-references>
     </message>
     <message>
-        <source>Blinds in to out big</source>
-        <translation>Rimlar stórir innan og út</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out_big.jpg</extra-po-references>
+        <source>Vertical blinds in to out big</source>
+        <translation>Rimlar láréttir stórir innan og út</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out_big.jpg</extra-po-references>
     </message>
     <message>
-        <source>Blinds sliding</source>
-        <translation>Rennandi rimlar</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_sliding.jpg</extra-po-references>
+        <source>Mozaic %s</source>
+        <translation>Mósaík %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_5.jpg</extra-po-references>
     </message>
     <message>
-        <source>Frame barr left</source>
-        <translation>Rammi strimlar vinstri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_left.jpg</extra-po-references>
+        <source>Sunlight %s</source>
+        <translation>Sólarljós %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sunlight_2.jpg</extra-po-references>
     </message>
     <message>
-        <source>4 squares right barr</source>
-        <translation>4 ferningar strimlar til hægri</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_right_barr.jpg</extra-po-references>
+        <source>Ray light right %s</source>
+        <translation>Ljósgeislar hægri %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Square middle right barr</source>
+        <translation>Ferkantaðir miðlungs strimlar til hægri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Luminous frame %s</source>
+        <translation>Ljómandi rammi %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_frame_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Hatched %s</source>
+        <translation>Strikað %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/hatched_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Small barr</source>
+        <translation>Litlir strimlar</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wipe diagonal %s</source>
+        <translation>Stroka á ská %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wipe_diagonal_3.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spots</source>
+        <translation>Blettir</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spots.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Big barr shaking2</source>
+        <translation>Stórir hristir strimlar2</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Frame cross left barr</source>
+        <translation>Rammi með strikuðum strimlum til vinstri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_cross_left_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Boxes %s</source>
+        <translation>Kassar %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/boxes_12.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Blur right barr</source>
+        <translation>Deyfðir strimlar til hægri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Clock right to left</source>
+        <translation>Klukka hægri til vinstri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_right_to_left.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral %s</source>
+        <translation>Spírall %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>4 squares leftt barr</source>
+        <translation>4 ferningar strimlar til vinstri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_leftt_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Deform %s</source>
+        <translation>Aflögun %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/deform_8.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral big %s</source>
+        <translation>Spírall stór %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Flower %s</source>
+        <translation>Blóm %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/flower_4.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Rectangle in to out</source>
+        <translation>Ferningur innan og út</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_in_to_out.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Big cross left barr</source>
+        <translation>Stórir strikaðir strimlar til vinstri</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_left_barr.jpg</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/about.ui" line="67"/>

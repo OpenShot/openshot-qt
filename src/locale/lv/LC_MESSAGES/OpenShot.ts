@@ -4,11 +4,11 @@
     <extra-po-header-language_team>Latvian &lt;lv@li.org&gt;</extra-po-header-language_team>
     <extra-po-header-last_translator>tuxmaniack &lt;Unknown&gt;</extra-po-header-last_translator>
     <extra-po-header-po_revision_date>2016-04-30 08:21+0000</extra-po-header-po_revision_date>
-    <extra-po-header-pot_creation_date>2016-09-07 00:46+0000</extra-po-header-pot_creation_date>
+    <extra-po-header-pot_creation_date>2016-10-19 02:13+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 18179)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2016-09-08 07:03+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 18232)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2016-10-20 06:33+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Latvian translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -33,8 +33,8 @@
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="474"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1260"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="164"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1271"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="165"/>
         <source>Track %s</source>
         <translation>%s. celiņš</translation>
         <extra-po-flags>python-format</extra-po-flags>
@@ -65,7 +65,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="484"/>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="496"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="637"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="643"/>
         <source>Random</source>
         <translation>Nejaušs</translation>
     </message>
@@ -106,44 +106,44 @@
         <translation>Jūsu nesen nesaglabātais projekts tika atgūts.</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="293"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="290"/>
         <source>Error Saving Project</source>
         <translation>Gadījās kļūda, saglabājot projektu</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="333"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="330"/>
         <source>Error Opening Project</source>
         <translation>Gadījās kļūda, atverot projektu</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="372"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="369"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="300"/>
         <source>Open Project...</source>
         <translation>Atvērt projektu...</translation>
         <extra-po-references>Settings for actionOpen</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="372"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="385"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="429"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="369"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="382"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="426"/>
         <source>OpenShot Project (*.osp)</source>
         <translation>OpenShot projekts (*.osp)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="384"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="428"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1499"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="381"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="425"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1510"/>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="104"/>
         <source>Untitled Project</source>
         <translation>Nenosaukts projekts</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="385"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="382"/>
         <source>Save Project...</source>
         <translation>Saglabāt projektu...</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="429"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="426"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="345"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="348"/>
         <source>Save Project As...</source>
@@ -151,55 +151,55 @@
         <extra-po-references>Settings for actionSaveAs</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="444"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="441"/>
         <source>Import File...</source>
         <translation>Importēt failu...</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1197"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1208"/>
         <source>Error Removing Track</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1197"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1208"/>
         <source>You must keep at least 1 track</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1262"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1273"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1227"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1230"/>
         <source>Rename Track</source>
         <translation>Pārdēvēt celiņu</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1262"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1273"/>
         <source>Track Name:</source>
         <translation>Celiņa nosaukums:</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1590"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1601"/>
         <source>Recent Projects</source>
         <translation>Nesenie projekti</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1629"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1646"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1665"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1889"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1640"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1657"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1676"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1905"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="272"/>
         <source>Filter</source>
         <translation>Filtrs</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1716"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2152"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1727"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2158"/>
         <source>{} seconds</source>
         <translation>{} sekundes</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1755"/>
-        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1756"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1766"/>
+        <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1767"/>
         <source>New Version Available: %s</source>
         <translation>Pieejama jauna versija: %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
@@ -239,8 +239,8 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="648"/>
         <location filename="../../../../openshot-qt-git/src/windows/animated_title.py" line="165"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/files_treeview.py" line="203"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/files_listview.py" line="204"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/files_treeview.py" line="202"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/files_listview.py" line="203"/>
         <location filename="../../../../openshot-qt-git/src/windows/models/files_model.py" line="175"/>
         <source>{} is not a valid video, audio, or image file.</source>
         <translation>{} nav derīgs video, audio vai attēla fails.</translation>
@@ -354,16 +354,16 @@
   tuxmaniack https://launchpad.net/~tuxmaniack</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/files_treeview.py" line="251"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/files_listview.py" line="252"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/files_treeview.py" line="250"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/files_listview.py" line="251"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="17"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/import-images-sequences.ui" line="229"/>
         <source>Import Image Sequence</source>
         <translation>Impotēt attēlu secību</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/files_treeview.py" line="251"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/files_listview.py" line="252"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/files_treeview.py" line="250"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/files_listview.py" line="251"/>
         <source>Would you like to import %s as an image sequence?</source>
         <translation>Vai vēlaties importēt %s, kā attēlu secību?</translation>
         <extra-po-flags>python-format</extra-po-flags>
@@ -379,37 +379,37 @@
         <translation>Nākamais</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="277"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="295"/>
         <source>&lt;b&gt;Project Files:&lt;/b&gt; Get started with your project by adding video, audio, and image files here. Drag and drop files from your file system.</source>
         <translation>&lt;b&gt;Projekta faili:&lt;/b&gt; Sāciet darbu ar projektu - pievienojiet video, audio un attēlu failus. Velciet un nometiet failus no jūsu failu sistēmas.</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="278"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="296"/>
         <source>&lt;b&gt;Timeline:&lt;/b&gt; Arrange your clips on the timeline here. Overlap clips to create automatic transitions. Access lots of fun presets and options by right-clicking on clips.</source>
         <translation>&lt;b&gt;Laika skala:&lt;/b&gt; Organizējiet klipus uz laika joslas. Pārklājiet klipus, lai izveidotu automātiskas pārejas. Piekļūstiet daudzām jautrām sagatavēm un opcijām noklikšķinot ar peles labo taustiņu.</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="279"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="297"/>
         <source>&lt;b&gt;Video Preview:&lt;/b&gt; Watch your timeline video preview here. Use the buttons (play, rewind, fast-forward) to control the video playback.</source>
         <translation>&lt;b&gt;Video priekšskatījums:&lt;/b&gt; Apskatiet laika skalas video priekšskatījumu. Izmantojiet pogas (atskaņot, pārtīt, ātrā-pārtīšana), lai kontrolētu video atskaņošanu.</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="280"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="298"/>
         <source>&lt;b&gt;Properties:&lt;/b&gt; View and change advanced properties of clips and effects here. Right-clicking on clips is usually faster than manually changing properties.</source>
         <translation>&lt;b&gt;Īpašības:&lt;/b&gt; Apskatiet un pielāgojiet klipu un efektu īpašības. Labais klikšķis uz klipiem parasti ir ātrāk kā manuāla īpašību maiņa.</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="281"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="299"/>
         <source>&lt;b&gt;Transitions:&lt;/b&gt; Create a gradual fade from one clip to another. Drag and drop a transition onto the timeline and position it on top of a clip (usually at the beginning or ending).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="282"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="300"/>
         <source>&lt;b&gt;Effects:&lt;/b&gt; Adjust brigthness, contrast, saturation, and add exciting special effects. Drag and drop an effect onto the timeline and position it on top of a clip (or track)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="283"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="301"/>
         <source>&lt;b&gt;Export Video:&lt;/b&gt; When you are ready to create your finished video, click this button to export your timeline as a single video file.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -456,573 +456,713 @@ Blender Path:
         <translation>Izvadē no Blender netika atrasts neviens kadrs</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="405"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="411"/>
         <source>Slice All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="406"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="779"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2029"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="412"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="785"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2035"/>
         <source>Keep Both Sides</source>
         <translation>Paturēt abas puses</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="408"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="782"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2031"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="414"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="788"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2037"/>
         <source>Keep Left Side</source>
         <translation>Paturēt kreiso pusi</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="410"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="785"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2033"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="416"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="791"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2039"/>
         <source>Keep Right Side</source>
         <translation>Paturēt labo pusi</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="447"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="524"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2006"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="453"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="530"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2012"/>
         <source>Paste</source>
         <translation>Ielīmēt</translation>
         <extra-po-references>Settings for pasteAll</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="476"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="482"/>
         <source>Start of Clip</source>
         <translation>Klipa sākums</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="476"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="482"/>
         <source>End of Clip</source>
         <translation>Klipa beigas</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="476"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="482"/>
         <source>Entire Clip</source>
         <translation>Viss klips</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="476"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="482"/>
         <source>Normal</source>
         <translation>Normāls</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="476"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="482"/>
         <source>Fast</source>
         <translation>Ātrs</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="476"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="482"/>
         <source>Slow</source>
         <translation>Lēns</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="476"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="482"/>
         <source>Forward</source>
         <translation>Uz priekšu</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="476"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="482"/>
         <source>Backward</source>
         <translation>Atpakaļgaitā</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="484"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="489"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1976"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1981"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="490"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="495"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1982"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1987"/>
         <source>Copy</source>
         <translation>Kopēt</translation>
         <extra-po-references>Settings for copyAll</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="490"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="496"/>
         <source>Clip</source>
         <translation>Klips</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="494"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1986"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="500"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1992"/>
         <source>Keyframes</source>
         <translation>Atslēgkadri</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="495"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1987"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="501"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1993"/>
         <source>All</source>
         <translation>Visi</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="498"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="504"/>
         <source>Alpha</source>
         <translation>Alfa</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="500"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="506"/>
         <source>Scale</source>
         <translation>Mērogot</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="502"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="508"/>
         <source>Rotation</source>
         <translation>Rotācija</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="504"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="510"/>
         <source>Location</source>
         <translation>Vieta</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="506"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="682"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="512"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="688"/>
         <source>Time</source>
         <translation>Laiks</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="508"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="706"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="514"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="712"/>
         <source>Volume</source>
         <translation>Skaļums</translation>
         <extra-po-references>libopenshot (Clip Properties) Settings for volume</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="512"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="518"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="235"/>
         <source>Effects</source>
         <translation>Efekti</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="531"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2013"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="537"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2019"/>
         <source>Align</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="532"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2014"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="538"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2020"/>
         <source>Left</source>
         <translation>Pa kreisi</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="534"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2016"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="540"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2022"/>
         <source>Right</source>
         <translation>Pa labi</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="541"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="547"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="240"/>
         <source>Fade</source>
         <translation>Dzišana</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/fade.svg</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="542"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="548"/>
         <source>No Fade</source>
         <translation>Nav dzišanas</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="549"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="714"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="555"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="720"/>
         <source>Fade In (Fast)</source>
         <translation>Iedziest (ātri)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="551"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="716"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="557"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="722"/>
         <source>Fade In (Slow)</source>
         <translation>Iedziest (lēni)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="555"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="720"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="561"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="726"/>
         <source>Fade Out (Fast)</source>
         <translation>Izdziest (ātri)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="557"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="722"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="563"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="728"/>
         <source>Fade Out (Slow)</source>
         <translation>Izdziest (lēni)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="561"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="726"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="567"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="732"/>
         <source>Fade In and Out (Fast)</source>
         <translation>Iedziest un izdziest (ātri)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="563"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="728"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="569"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="734"/>
         <source>Fade In and Out (Slow)</source>
         <translation>Iedziest un izdziest (lēni)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="566"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="731"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="572"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="737"/>
         <source>Fade In (Entire Clip)</source>
         <translation>Iedziest (viss klips)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="568"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="733"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="574"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="739"/>
         <source>Fade Out (Entire Clip)</source>
         <translation>Izdziest (viss klips)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="576"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="582"/>
         <source>Animate</source>
         <translation>Animēšana</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="577"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="583"/>
         <source>No Animation</source>
         <translation>Nav animācijas</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="584"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="590"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="307"/>
         <source>Zoom</source>
         <translation>Tālummaiņa</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="585"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="591"/>
         <source>Zoom In (50% to 100%)</source>
         <translation>Tuvināt (50% līdz 100%)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="587"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="593"/>
         <source>Zoom In (75% to 100%)</source>
         <translation>Tuvināt (75% līdz 100%)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="589"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="595"/>
         <source>Zoom In (100% to 150%)</source>
         <translation>Tuvināt (100% līdz 150%)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="591"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="597"/>
         <source>Zoom Out (100% to 75%)</source>
         <translation>Tālināt (100% līdz 75%)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="593"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="599"/>
         <source>Zoom Out (100% to 50%)</source>
         <translation>Tālināt (100% līdz 50%)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="595"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="601"/>
         <source>Zoom Out (150% to 100%)</source>
         <translation>Tālināt (150% līdz 100%)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="600"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="606"/>
         <source>Center to Edge</source>
         <translation>No centra uz malu</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="601"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="607"/>
         <source>Center to Top</source>
         <translation>No centra uz augšu</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="603"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="609"/>
         <source>Center to Left</source>
         <translation>No centra uz kreiso</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="605"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="611"/>
         <source>Center to Right</source>
         <translation>No centra pa labi</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="607"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="613"/>
         <source>Center to Bottom</source>
         <translation>No centra uz leju</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="612"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="618"/>
         <source>Edge to Center</source>
         <translation>No malas uz centru</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="613"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="619"/>
         <source>Top to Center</source>
         <translation>No augšas uz centru</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="615"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="621"/>
         <source>Left to Center</source>
         <translation>No kreisās uz centru</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="617"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="623"/>
         <source>Right to Center</source>
         <translation>No labās uz centru</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="619"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="625"/>
         <source>Bottom to Center</source>
         <translation>No apakšas uz centru</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="624"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="630"/>
         <source>Edge to Edge</source>
         <translation>No malas uz malu</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="625"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="631"/>
         <source>Top to Bottom</source>
         <translation>No augšas uz leju</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="627"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="633"/>
         <source>Left to Right</source>
         <translation>No kreisās uz labo</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="629"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="635"/>
         <source>Right to Left</source>
         <translation>No labās uz kreiso</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="631"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="637"/>
         <source>Bottom to Top</source>
         <translation>No apakšas uz augšu</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="647"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="653"/>
         <source>Rotate</source>
         <translation>Pagriešana</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="648"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="654"/>
         <source>No Rotation</source>
         <translation>Nav pagriezts</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="651"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="657"/>
         <source>Rotate 90 (Right)</source>
         <translation>Pagriezt 90 (pa labi)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="653"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="659"/>
         <source>Rotate 90 (Left)</source>
         <translation>Pagriezt 90 (pa kreisi)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="655"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="661"/>
         <source>Rotate 180 (Flip)</source>
         <translation>Pagriezt 180 (apmest)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="660"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="666"/>
         <source>Layout</source>
         <translation>Izkārtojums</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="661"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="667"/>
         <source>Reset Layout</source>
         <translation>Pārstatīt izkārtojumu</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="664"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="670"/>
         <source>1/4 Size - Center</source>
         <translation>1/4 izmēra - centrā</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="666"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="672"/>
         <source>1/4 Size - Top Left</source>
         <translation>1/4 izmēra - augšā, pa kreisi</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="668"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="674"/>
         <source>1/4 Size - Top Right</source>
         <translation>1/4 izmēra - augšā, pa labi</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="670"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="676"/>
         <source>1/4 Size - Bottom Left</source>
         <translation>1/4 izmēra - apakšā, pa kreisi</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="672"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="678"/>
         <source>1/4 Size - Bottom Right</source>
         <translation>1/4 izmēra - apakšā, pa labi</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="675"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="681"/>
         <source>Show All (Maintain Ratio)</source>
         <translation>Rādīt visus (saglabāt attiecību)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="677"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="683"/>
         <source>Show All (Distort)</source>
         <translation>Rādīt visus (ar kropļojumiem)</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="683"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="689"/>
         <source>Reset Time</source>
         <translation>Atstatīt laiku</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="707"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="713"/>
         <source>Reset Volume</source>
         <translation>Atstatīt skaļumu</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="738"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="744"/>
         <source>Level 100%</source>
         <translation>Līmenis 100%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="740"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="746"/>
         <source>Level 90%</source>
         <translation>Līmenis 90%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="742"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="748"/>
         <source>Level 80%</source>
         <translation>Līmenis 80%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="744"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="750"/>
         <source>Level 70%</source>
         <translation>Līmenis 70%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="746"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="752"/>
         <source>Level 60%</source>
         <translation>Līmenis 60%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="748"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="754"/>
         <source>Level 50%</source>
         <translation>Līmenis 50%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="750"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="756"/>
         <source>Level 40%</source>
         <translation>Līmenis 40%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="752"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="758"/>
         <source>Level 30%</source>
         <translation>Līmenis 30%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="754"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="760"/>
         <source>Level 20%</source>
         <translation>Līmenis 20%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="756"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="762"/>
         <source>Level 10%</source>
         <translation>Līmenis 10%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="758"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="764"/>
         <source>Level 0%</source>
         <translation>Līmenis 0%</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="765"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="771"/>
         <source>Separate Audio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="766"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="772"/>
         <source>Single Clip (all channels)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="768"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="774"/>
         <source>Multiple Clips (each channel)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="778"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2028"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="784"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2034"/>
         <source>Slice</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="792"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="798"/>
         <source>Display</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="793"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="799"/>
         <source>Show Waveform</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="795"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="801"/>
         <source>Show Thumbnail</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1982"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1988"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="341"/>
         <source>Transition</source>
         <translation>Pārejas efekts</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1990"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1996"/>
         <source>Brightness</source>
         <translation>Gaišums</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1992"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="1998"/>
         <source>Contrast</source>
         <translation>Kontrasts</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2038"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2044"/>
         <source>Reverse Transition</source>
         <translation>Reversa pāreja</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="306"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="334"/>
+        <source>Ease (Default)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="335"/>
+        <source>Ease In</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="336"/>
+        <source>Ease Out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="337"/>
+        <source>Ease In/Out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="339"/>
+        <source>Ease In (Quad)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="340"/>
+        <source>Ease In (Cubic)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="341"/>
+        <source>Ease In (Quart)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="342"/>
+        <source>Ease In (Quint)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="343"/>
+        <source>Ease In (Sine)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="344"/>
+        <source>Ease In (Expo)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="345"/>
+        <source>Ease In (Circ)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="346"/>
+        <source>Ease In (Back)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="348"/>
+        <source>Ease Out (Quad)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="349"/>
+        <source>Ease Out (Cubic)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="350"/>
+        <source>Ease Out (Quart)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="351"/>
+        <source>Ease Out (Quint)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="352"/>
+        <source>Ease Out (Sine)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="353"/>
+        <source>Ease Out (Expo)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="354"/>
+        <source>Ease Out (Circ)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="355"/>
+        <source>Ease Out (Back)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="357"/>
+        <source>Ease In/Out (Quad)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="358"/>
+        <source>Ease In/Out (Cubic)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="359"/>
+        <source>Ease In/Out (Quart)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="360"/>
+        <source>Ease In/Out (Quint)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="361"/>
+        <source>Ease In/Out (Sine)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="362"/>
+        <source>Ease In/Out (Expo)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="363"/>
+        <source>Ease In/Out (Circ)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="364"/>
+        <source>Ease In/Out (Back)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="375"/>
         <source>Bezier</source>
         <translation>Bezjē</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="309"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="381"/>
         <source>Linear</source>
         <translation>Lineārs</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="312"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="384"/>
         <source>Constant</source>
         <translation>Konstants</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="316"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="321"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="388"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="393"/>
         <source>Remove Keyframe</source>
         <translation>Izņemt atslēgkadru</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="527"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="602"/>
         <source>Selection:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="533"/>
-        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="550"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="608"/>
+        <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="625"/>
         <source>No Selection</source>
         <translation>Nav iezīmēts</translation>
     </message>
@@ -1083,33 +1223,33 @@ Blender Path:
         <translation>Vairāki devumi!</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="371"/>
-        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="580"/>
-        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="648"/>
+        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="391"/>
+        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="615"/>
+        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="683"/>
         <source>False</source>
         <translation>Aplams</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="518"/>
-        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="701"/>
+        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="553"/>
+        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="736"/>
         <source>Property</source>
         <translation>Īpašība</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="518"/>
-        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="701"/>
+        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="553"/>
+        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="736"/>
         <source>Value</source>
         <translation>Vērtība</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="536"/>
+        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="571"/>
         <source>Transparency</source>
         <translation>Caurspīdīgums</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="578"/>
-        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="646"/>
+        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="613"/>
+        <location filename="../../../../openshot-qt-git/src/windows/models/properties_model.py" line="681"/>
         <source>True</source>
         <translation>Patiess</translation>
     </message>
@@ -1125,7 +1265,7 @@ Blender Path:
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="74"/>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="534"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="543"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="20"/>
         <source>Export Video</source>
         <translation>Eksportēt video</translation>
@@ -1180,7 +1320,7 @@ Blender Path:
         <translation>Izvēlēties mapi...</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="534"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="543"/>
         <source>%s already exists.
 Do you want to replace it?</source>
         <translation>%s jau eksistē.
@@ -1188,12 +1328,12 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="628"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="637"/>
         <source>Export Error</source>
         <translation>Eksporta kļūda</translation>
     </message>
     <message>
-        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="629"/>
+        <location filename="../../../../openshot-qt-git/src/windows/export.py" line="638"/>
         <source>Sorry, there was an error exporting your video: 
 %s</source>
         <translation>Atvainojiet, eksportējot video gadijās kļūda: 
@@ -1201,89 +1341,24 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
-        <source>Halo: Line Count</source>
-        <translation>Halo: Līniju skaits</translation>
+        <source>Particle Number</source>
+        <translation>Daļiņu skaits</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Blend</source>
+        <translation>Fons: Saplūst</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Decay</source>
+        <translation>Sabrukums</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Use Rings</source>
+        <translation>Halo: Izmantot riņķus</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Use Stars</source>
-        <translation>Halo: Izmantot zvaigznes</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Lens vignetting</source>
-        <translation>Malu aptumšošana</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Display a single color, while using greyscale for the rest of the image</source>
-        <translation>Attēlot vienu krāsu, bet pārējo attēlu pārvēršt pelēktoņos.</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gamma</source>
-        <translation>Gamma</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Use Alpha</source>
-        <translation>Lietot alfa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Invert horizontally or vertically</source>
-        <translation>Invertēt horizontāli vai vertikāli</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Longitude (minutes)</source>
-        <translation>Ierašanās garums (minūtes)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the blur of the frame&apos;s image.</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Key</source>
-        <translation>Atslēga</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Mirror</source>
-        <translation>Spogulis</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Star Count</source>
-        <translation>Halo: Zvaigžņu skaits</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Brightness Delta Up</source>
-        <translation>Gaišuma delta augšup</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>TehRoxx0r</source>
-        <translation>TehRoxx0r</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Mask</source>
-        <translation>Maska</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Line 3 Color</source>
-        <translation>Līnijas 3 krāsa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Color Distance</source>
-        <translation>Krāsas attālums</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
     </message>
     <message>
         <source>Bottom Right</source>
@@ -1291,34 +1366,94 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Color</source>
-        <translation>Krāsa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
+        <source>Position</source>
+        <translation>Novietojums</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Freeze the frame of a video</source>
-        <translation>Sastindzina video kadru</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+        <source>Slide Left to Right</source>
+        <translation>Slīd no kreisās uz labo</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/slide_left_to_right.xml</extra-po-references>
     </message>
     <message>
-        <source>Freeze Before</source>
-        <translation>Iesalt pirms</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+        <source>Diffuse Color</source>
+        <translation>Izplūšanas krāsa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
-        <source>Width</source>
-        <translation>Platums</translation>
+        <source>Start: Z</source>
+        <translation>Sākums: Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Title Specular Color</source>
+        <translation>Virsraksta telpiskā krāsa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Top Center</source>
+        <translation>Augšā centrā</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Invert</source>
+        <translation>Invertēt</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gravity: Y</source>
+        <translation>Gravitāte: Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Lens Flare</source>
+        <translation>Lēcas uzplaiksnījums</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Uses a grayscale mask image to gradually wipe / transition between 2 images.</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Gravity: Z</source>
+        <translation>Gravitāte: Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Specular Color</source>
+        <translation>Telpiskā krāsa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Old Lines</source>
+        <translation>Vecas līnijas</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
     </message>
     <message>
-        <source>Fixed Rotate X</source>
-        <translation>Fiksēta pagriešana X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+        <source>Adjust the color of the image to emulate black-and-white film that has had sepia pigment added</source>
+        <translation>Pielāgot attēla krāsu, lai atdarinātu melnbalto filmu, kurai tika pievienots sēpijas pigments.</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
     </message>
     <message>
-        <source>Start: X</source>
-        <translation>Sākums: X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+        <source>Convert colors in the image to the opposite or complementary colors</source>
+        <translation>Pārveidot attēla krāsas uz pretējām vai papildu krāsām</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/invert.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Operation</source>
+        <translation>Darbība</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Viewport</source>
+        <translation>Skatu punkts</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Adds black borders at the top and bottom</source>
+        <translation>Pievieno melnas apmales augšā un apakšā</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
     </message>
     <message>
         <source>Green</source>
@@ -1326,8 +1461,173 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
-        <source>Extrude</source>
-        <translation>Izgrūšana</translation>
+        <source>Add a series of peaks and troughs to the audio, creating a sweeping effect</source>
+        <translation>Pievieno audio virkni pacēlumu un kritumu</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Add an echo</source>
+        <translation>Pievienot atbalsi</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Frequency</source>
+        <translation>Biežums</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Title Diffuse Color</source>
+        <translation>Virsraksta izplūšanas krāsa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Equalizes the intensity histograms</source>
+        <translation>Izlīdzina histogrammas intensitāti</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Longitude (Prime Meridian)</source>
+        <translation>Izbraukšanas garums (Griničas meridiāns)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Border Width</source>
+        <translation>Apmales platums</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Convert an image to shades of grey</source>
+        <translation>Pārveidot attēlu pelēkos toņos</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Latitude (minutes)</source>
+        <translation>Izbraukšanas platums (minūtes)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Rotate X</source>
+        <translation>Pagriezt X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Color Distance</source>
+        <translation>Krāsas attālums</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Up Scale</source>
+        <translation>Palielināšana</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Snow</source>
+        <translation>Sniegs</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the image up and down, with the off-screen portion appearing on the other side</source>
+        <translation>Pielāgot attēlu augšup un lejup ar aizkadra daļu otrā pusē</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Interval</source>
+        <translation>Intervāls</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Line 1 Color</source>
+        <translation>Līnijas 1 krāsa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Shear Y</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Blur</source>
+        <translation>Izpludināšana</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blur.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Longitude (seconds)</source>
+        <translation>Ierašanās garums (sekundes)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjusts the contrast of a source image</source>
+        <translation>Pielāgo avota attēla kontrastu</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/contrast.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Freeze Before</source>
+        <translation>Iesalt pirms</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Latitude (seconds)</source>
+        <translation>Izbraukšanas platums (sekundes)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Delay</source>
+        <translation>Aizture</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Levels</source>
+        <translation>Līmeņi</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Edgeglow</source>
+        <translation>Malu kvēlošana</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>End Value</source>
+        <translation>Beigu vērtība</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Show histogram</source>
+        <translation>Rādīt histogrammu</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Star Count</source>
+        <translation>Halo: Zvaigžņu skaits</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Replace Image</source>
+        <translation>Aizvietot attēlu</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Alpha</source>
+        <translation>Fons: Alfa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Episode</source>
+        <translation>Sērija</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Manual Scale</source>
+        <translation>Manuāls mērogs</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Display a single color, while using greyscale for the rest of the image</source>
+        <translation>Attēlot vienu krāsu, bet pārējo attēlu pārvēršt pelēktoņos.</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Bevel Depth</source>
+        <translation>Apmales dziļums</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
@@ -1336,129 +1636,9 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
     </message>
     <message>
-        <source>Alpha Mask / Wipe Transition</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Pixelate</source>
-        <translation>Pikselēt</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Ring Count</source>
-        <translation>Halo: Riņķu skaits</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Red/Green Axis</source>
-        <translation>Sarkans/zaļš ass</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Z Coordinate</source>
-        <translation>Z koordināte</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Position</source>
-        <translation>Novietojums</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Oversaturate the color in the image, like in old Technicolor movies</source>
-        <translation>Pārsātināt krāsas attēlā, tāpat, kā vecās Technicolor filmās</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Wave Color</source>
-        <translation>Viļņa krāsa</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Spots: Color Threshold</source>
-        <translation>Plankumi: Krāsu slieksnis</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Picture 1 Path</source>
-        <translation>Attēla 1 ceļš</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Brightness Delta Down</source>
-        <translation>Gaišuma delta lejup</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Canvas</source>
-        <translation>Audekls</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Border Width</source>
-        <translation>Apmales platums</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the color saturation.</source>
-        <translation>Pielāgot krāsu piesātinājumu.</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Vertical Radius</source>
-        <translation>Vertikāls rādiuss</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Scale X</source>
-        <translation>Mērogs X</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
         <source>Halo: Ending Size</source>
         <translation>Halo: Beigu izmērs</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Neon Curves</source>
-        <translation>Neona līknes</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adds black borders at the top and bottom</source>
-        <translation>Pievieno melnas apmales augšā un apakšā</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Output level black point</source>
-        <translation>Izvades līmeņa melnais punkts</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust luminance or color channel intensity</source>
-        <translation>Pielāgot spilgtumu vai krāsu kanālu intensitāti</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Longitude (degrees)</source>
-        <translation>Ierašanās garums (grādi)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Particles: Gravity</source>
-        <translation>Daļiņas: Gravitāte</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sobel</source>
-        <translation>Sobel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Center size</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
     </message>
     <message>
         <source>Primary Colors</source>
@@ -1466,391 +1646,19 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
     </message>
     <message>
-        <source>Bevel Depth</source>
-        <translation>Apmales dziļums</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+        <source>Adjust the left/right balance</source>
+        <translation>Pielāgot labā/kreisā līdzsvaru</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
     </message>
     <message>
-        <source>Arrival Latitude (seconds)</source>
-        <translation>Ierašanās platums (sekundes)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+        <source>Mix</source>
+        <translation>Jaukts</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
     </message>
     <message>
-        <source>Start: Z</source>
-        <translation>Sākums: Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Number</source>
-        <translation>Numurs</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Line 4 Color</source>
-        <translation>Līnijas 4 krāsa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Text Alignment</source>
-        <translation>Teksta līdzināšana</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Title</source>
-        <translation>Ierašanās nosaukums</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Convert colors in the image to the opposite or complementary colors</source>
-        <translation>Pārveidot attēla krāsas uz pretējām vai papildu krāsām</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/invert.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Velocity: Z</source>
-        <translation>Ātrums: Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Title Diffuse Color</source>
-        <translation>Virsraksta izplūšanas krāsa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Wireframe Text</source>
-        <translation>Karkasa teksts</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/wireframe_text.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Blue/Yellow</source>
-        <translation>Zils/zeltens</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Episode</source>
-        <translation>Sērija</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Tint amount</source>
-        <translation>Tonņa daudzums</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Stretch</source>
-        <translation>Izstiept</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Oversaturate Color</source>
-        <translation>Pārsātināt krāsu</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Bass</source>
-        <translation>Bass</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="115"/>
-        <source>End</source>
-        <translation>Beigas</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Tilt</source>
-        <translation>Slīpums</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Amount</source>
-        <translation>Apjoms</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Snow</source>
-        <translation>Sniegs</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Longitude (seconds)</source>
-        <translation>Ierašanās garums (sekundes)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Blend</source>
-        <translation>Fons: Saplūst</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Diffuse Color</source>
-        <translation>Fons: Izplūšanas krāsa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Top Center</source>
-        <translation>Augšā centrā</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Calculates the distance between the selected color and the current pixel and uses that value as new pixel value</source>
-        <translation>Aprēķina attālumu starp izvēlēto krāsu un pašreizējo pikseli, un izmanto tā vērtību, kā jaunā pikseļa krāsu</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Rotate 360 Degrees</source>
-        <translation>Pagriezt par 360 grādiem</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/rotate_360.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Display Clouds</source>
-        <translation>Rādīt mākoņus</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Edgeglow</source>
-        <translation>Malu kvēlošana</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Variance</source>
+        <source>Custom Texture (Equirectangular)</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Picture 3 Path</source>
-        <translation>Attēla 3 ceļš</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Every</source>
-        <translation>Katru</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Add a series of peaks and troughs to the audio, creating a sweeping effect</source>
-        <translation>Pievieno audio virkni pacēlumu un kritumu</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Dissolving Text</source>
-        <translation>Izšķīstošs teksts</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/dissolve.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Alpha</source>
-        <translation>Fons: Alfa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fly Towards Camera (Two Titles)</source>
-        <translation>Lido pretī kamerai (divi virsraksti)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/fly_by_two_titles.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adds static and grain to the image</source>
-        <translation>Pievieno statiskus graudus uz attēla</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Up Scale</source>
-        <translation>Palielināšana</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Start Value</source>
-        <translation>Sākuma vērtība</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Longitude (Prime Meridian)</source>
-        <translation>Ierašanās garums (Griničas meridiāns)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Slide Left to Right</source>
-        <translation>Slīd no kreisās uz labo</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/slide_left_to_right.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Add small dust shapes randomly on the image</source>
-        <translation>Pievienot nelielas, nejaušas putekļu figūras uz attēla</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Exploding Text</source>
-        <translation>Eksplodējošs teksts</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gravity: X</source>
-        <translation>Gravitāte: X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation>Tips</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Animation Length</source>
-        <translation>Animācijas garums</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Frame Number</source>
-        <translation>Kadra numurs</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Rotate Z</source>
-        <translation>Pagriezt Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Add an echo</source>
-        <translation>Pievienot atbalsi</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Trip Level</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Simple color adjustment</source>
-        <translation>Vienkārša krāsu pielāgošana</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Tile 4: Diffuse Color</source>
-        <translation>Flīze 4: Izplūst krāsa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the color of the image to emulate black-and-white film that has had sepia pigment added</source>
-        <translation>Pielāgot attēla krāsu, lai atdarinātu melnbalto filmu, kurai tika pievienots sēpijas pigments.</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Negates the colors, producing a negative of the image.</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Max</source>
-        <translation>Maks.</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Replace Image</source>
-        <translation>Aizvietot attēlu</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Bottom Center</source>
-        <translation>Apakšā centrā</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Old Dust</source>
-        <translation>Veci putekļi</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Amplitude</source>
-        <translation>Amplitūda</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fills alpha channel with a gradient</source>
-        <translation>Piepilda alfa kanālu ar krāsu pāreju</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>End Frame</source>
-        <translation>Beigu kadrs</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Distort</source>
-        <translation>Kropļojumi</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Frequency</source>
-        <translation>Biežums</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Flippo</source>
-        <translation>Apmetējs</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Convert an image to shades of grey</source>
-        <translation>Pārveidot attēlu pelēkos toņos</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Chroma Key (Greenscreen)</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="96"/>
-        <source>Start</source>
-        <translation>Sākums</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Reduces and mixes the colors of the image based on a threshold</source>
-        <translation>Samazina un sajauc attēla krāsas, pamatojoties uz slieksni</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threshold.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Title 1</source>
-        <translation>Virsraksts 1</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Glare</source>
-        <translation>Žilbums</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Rotate X</source>
-        <translation>Pagriezt X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Y Center</source>
-        <translation>Y centrs</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Delay</source>
-        <translation>Aizture</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Iterations</source>
-        <translation>Iterācijas</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>White color</source>
-        <translation>Baltā krāsa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Input level black point</source>
-        <translation>Ievades līmeņa melnais punkts</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Enable Audio</source>
-        <translation>Aktivizēt audio</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Waveform</source>
@@ -1858,404 +1666,49 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Min</source>
-        <translation>Min.</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Color Tiles</source>
-        <translation>Krāsainas flīzes</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Add a glow effect to the image</source>
-        <translation>Pievienot attēlam kvēlošanas efektu</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/glow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Blinds (Two Titles)</source>
-        <translation>Žalūzijas (divi virsraksti)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Top</source>
-        <translation>Augša</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Equalizes the intensity histograms</source>
-        <translation>Izlīdzina histogrammas intensitāti</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Rotate Y</source>
-        <translation>Pagriezt Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Lighter</source>
-        <translation>Gaišāks</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Three Layer</source>
-        <translation>Trīs slāņi</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Red</source>
-        <translation>Sarkans</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Max Diameter</source>
-        <translation>Maks. diametrs</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Font Name</source>
-        <translation>Fonta nosaukums</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Vignette</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Diffuse Color</source>
-        <translation>Izplūšanas krāsa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Three point balance</source>
-        <translation>Trīs punktu līdzsvars</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Flying Title</source>
-        <translation>Lidojošs virsraksts</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>ID</source>
-        <translation>ID</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Phaser</source>
-        <translation>Fāzeris</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Title 3</source>
-        <translation>Virsraksts 3</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Lens Flare</source>
-        <translation>Lēcas uzplaiksnījums</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Red Scale</source>
-        <translation>Sarkanā mērogs</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Scale Y</source>
-        <translation>Mērogs Y</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust color balance with 3 color points</source>
-        <translation>Pielāgot krāsu līdzsvaru ar 3 krāsu punktiem</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Title</source>
-        <translation>Izbraukšanas virsraksts</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gravity: Y</source>
-        <translation>Gravitāte: Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Defocus</source>
-        <translation>Defokusēt</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Input level white point</source>
-        <translation>Ievades līmeņa baltais punkts</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Action</source>
-        <translation>Darbība</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Interval</source>
-        <translation>Intervāls</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Latitude (minutes)</source>
-        <translation>Ierašanās platums (minūtes)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Replaces the color (or chroma) of the frame with transparency (i.e. keys out the color).</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Gray color</source>
-        <translation>Pelēkā krāsa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gain In</source>
-        <translation>Kritums</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Decay</source>
-        <translation>Sabrukums</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Diff Space</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Letterbox</source>
-        <translation>Platekrāns</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Reduce image to primary colors</source>
-        <translation>Samazināt attēla krāsas līdz primārajām</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Map black to</source>
-        <translation>Melnā krāsa uz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Alphagrad</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Is Odd Frame</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Title 2</source>
-        <translation>Virsraksts 2</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Cartoon</source>
-        <translation>Multene</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Lens Correction</source>
-        <translation>Lēcas korekcija</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Latitude (degrees)</source>
-        <translation>Izbraukšanas platums (grādi)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Remove interlacing from a video (i.e. even or odd horizontal lines)</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Tile 3: Diffuse Color</source>
-        <translation>Flīze 3: Izplūst krāsa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>End Value</source>
-        <translation>Beigu vērtība</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Top Left</source>
-        <translation>Augšā pa kreisi</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Adjusts the brightness of the image</source>
-        <translation>Pielāgo attēla gaišumu</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjusts the saturation or intensity of the image</source>
-        <translation>Pielāgo attēla piesātinājumu vai intensitāti</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/saturation.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Midpoint</source>
-        <translation>Viduspunkts</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Longitude (degrees)</source>
-        <translation>Izbraukšanas garums (grādi)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Darker</source>
-        <translation>Tumšāks</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Find and glow the edges of objects</source>
-        <translation>Atrast un kvēlot objektu malas</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Correction near edges</source>
-        <translation>Korekcija pie centra</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Particles: Amount</source>
-        <translation>Daļiņas: Skaits</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Allows compensation of lens distortion</source>
-        <translation>Ļauj izlabot attēla lēcas kropļojumus</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Fresnel</source>
-        <translation>Fons: Fresnel</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Histogram position</source>
-        <translation>Histogrammas novietojums</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Text Size</source>
-        <translation>Teksta izmērs</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Equalizor</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Defish</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Left | Right</source>
-        <translation>Kreisā | Labā</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Make image sharper</source>
-        <translation>Padarīt attēlu asāku</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Latitude (Equator)</source>
-        <translation>Izbraukšanas platums (ekvators)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>something videowall-ish</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Freeze</source>
-        <translation>Iesaldēt</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Channel Filter</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Make a single color transparent.  Also referred to as green screen and blue screen.</source>
-        <translation>Padarīt vienu krāsu caurspīdīgu. Saukts arī par zaļo vai zilo ekrānu.</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Bottom Left</source>
-        <translation>Apakšā pa kreisi</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Key Color</source>
-        <translation>Atslēgas krāsa</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Particle Number</source>
-        <translation>Daļiņu skaits</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Y Offset</source>
-        <translation>Y nobīde</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sun: Angle Offset</source>
-        <translation>Saule: Nobīdes leņķis</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Best Fit</source>
-        <translation>Labākais Izmērs</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Old Grain</source>
-        <translation>Veca graudainība</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
-    </message>
-    <message>
         <source>Delay grab</source>
         <translation>Aizturēts atvars</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml</extra-po-references>
     </message>
     <message>
-        <source>Black and White</source>
-        <translation>Melnbalts</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
+        <source>Gravity: X</source>
+        <translation>Gravitāte: X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
-        <source>Adjust the brightness and contrast of the frame&apos;s image.</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+        <source>v</source>
+        <translation>v</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
     </message>
     <message>
-        <source>Operation</source>
-        <translation>Darbība</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+        <source>Luma formula</source>
+        <translation>Luminiscences formula</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Number of Snow Flakes</source>
+        <translation>Sniega pārslu skaits</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Old Dust</source>
+        <translation>Veci putekļi</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tile 2: Diffuse Color</source>
+        <translation>Flīze 2: Izplūst krāsa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Rotate an image statically or animated</source>
+        <translation>Pagriezt attēlu statiski vai animēti</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Nosync</source>
+        <translation>Nesinhrons</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
     </message>
     <message>
         <source>Adjusts the gamma or luminance value of the image</source>
@@ -2263,94 +1716,54 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml</extra-po-references>
     </message>
     <message>
-        <source>Hue</source>
-        <translation>Nokrāsa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/hue.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Location Y</source>
+        <source>Baltan</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml</extra-po-references>
     </message>
     <message>
-        <source>Interlaced black lines</source>
-        <translation>Pārklājošas melnas līnijas</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml</extra-po-references>
+        <source>Rotate Z</source>
+        <translation>Pagriezt Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
-        <source>Adjust the white balance and color temperature</source>
-        <translation>Pielāgot baltās krāsas līdzsvaru un krāsu temperatūru</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
+        <source>Input level black point</source>
+        <translation>Ievades līmeņa melnais punkts</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
-        <source>Delayed frame blitting mapped on a time bitmap</source>
-        <translation>Aizturēta kadra maiņa, atvara efektā</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml</extra-po-references>
+        <source>World Map (Realistic)</source>
+        <translation>Pasaules karte (reālistiska)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml</extra-po-references>
     </message>
     <message>
-        <source>Adjust the color of the image to black and white based on a threshold</source>
-        <translation>Pielāgot attēla krāsu par melnbaltu, balstītu uz slieksni</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
+        <source>Y Offset</source>
+        <translation>Y nobīde</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
-        <source>Adjusts the contrast of a source image</source>
-        <translation>Pielāgo avota attēla kontrastu</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/contrast.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Line 1 Color</source>
-        <translation>Līnijas 1 krāsa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sharpness</source>
-        <translation>Asums</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Color Saturation</source>
-        <translation>Krāsu piesātinājums</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Aspect ratio</source>
-        <translation>Izmēru attiecība</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Reverse</source>
-        <translation>Pretēji</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjusts the gamma and brightness randomly to create the illusion of old film</source>
-        <translation>Pielāgo gammu un gaišumu nejauši, lai radītu vecas filmas ilūziju</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>X Scatter</source>
-        <translation>X izkliede</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
-    </message>
-    <message>
-        <source>u</source>
-        <translation>u</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Anchor</source>
-        <translation>Enkurs</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Use Rings</source>
-        <translation>Halo: Izmantot riņķus</translation>
+        <source>Halo: Use Stars</source>
+        <translation>Halo: Izmantot zvaigznes</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
-        <source>Output level white point</source>
-        <translation>Izvades līmeņa baltais punkts</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+        <source>Wireframe Text</source>
+        <translation>Karkasa teksts</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/wireframe_text.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Left | Right</source>
+        <translation>Kreisā | Labā</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Invert horizontally or vertically</source>
+        <translation>Invertēt horizontāli vai vertikāli</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Lens Correction</source>
+        <translation>Lēcas korekcija</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
     </message>
     <message>
         <source>Halo: Use Flare</source>
@@ -2358,28 +1771,493 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
+        <source>Gravity</source>
+        <translation>Gravitācija</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Sepia</source>
+        <translation>Sēpija</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Size</source>
+        <translation>Halo: Izmērs</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Latitude (Equator)</source>
+        <translation>Izbraukšanas platums (ekvators)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sun: Color Threshold</source>
+        <translation>Saule: Krāsu slieksnis</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gain In</source>
+        <translation>Kritums</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Mask</source>
+        <translation>Maska</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Iterations</source>
+        <translation>Iterācijas</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Mirror</source>
+        <translation>Spogulis</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Make image sharper</source>
+        <translation>Padarīt attēlu asāku</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Y Center</source>
+        <translation>Y centrs</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Neon Curves</source>
+        <translation>Neona līknes</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Best Fit</source>
+        <translation>Labākais Izmērs</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Title 3</source>
+        <translation>Virsraksts 3</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fixed Rotate Z</source>
+        <translation>Fiksēta pagriešana Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fly Towards Camera (Two Titles)</source>
+        <translation>Lido pretī kamerai (divi virsraksti)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/fly_by_two_titles.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Manual Pixel Aspect ratio</source>
+        <translation>Manuāla pikseļu attiecība</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the high-pitched sound or tone</source>
+        <translation>Pielāgot augstās skaņas vai toņus</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/treble.xml</extra-po-references>
+    </message>
+    <message>
+        <source>White color</source>
+        <translation>Baltā krāsa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Split and mirror the image</source>
+        <translation>Sadalīt un spoguļot attēlu</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Lighter</source>
+        <translation>Gaišāks</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Use Alpha</source>
+        <translation>Lietot alfa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Darker</source>
+        <translation>Tumšāks</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Glare</source>
+        <translation>Žilbums</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Line 2 Color</source>
+        <translation>Līnijas 2 krāsa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+    </message>
+    <message>
+        <source>something videowall-ish</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Hue</source>
+        <translation>Nokrāsa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/hue.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fixed Rotate X</source>
+        <translation>Fiksēta pagriešana X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Vertical Radius</source>
+        <translation>Vertikāls rādiuss</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Old Film</source>
+        <translation>Veca filma</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Phaser</source>
+        <translation>Fāzeris</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Max</source>
+        <translation>Maks.</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjusts the gamma and brightness randomly to create the illusion of old film</source>
+        <translation>Pielāgo gammu un gaišumu nejauši, lai radītu vecas filmas ilūziju</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Title</source>
+        <translation>Izbraukšanas virsraksts</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Latitude (minutes)</source>
+        <translation>Ierašanās platums (minūtes)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Freeze</source>
+        <translation>Iesaldēt</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Number</source>
+        <translation>Numurs</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Delayed frame blitting mapped on a time bitmap</source>
+        <translation>Aizturēta kadra maiņa, atvara efektā</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Chroma Key</source>
+        <translation>Krāsas atslēga</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Crop</source>
+        <translation>Apcirst</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
         <source>Zoom to Clapboard</source>
         <translation>Pietuvināt klapīti</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml</extra-po-references>
     </message>
     <message>
-        <source>End: Y</source>
-        <translation>Beigas: Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+        <source>Tile 3: Diffuse Color</source>
+        <translation>Flīze 3: Izplūst krāsa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
-        <source>Velocity: Y</source>
-        <translation>Ātrums: Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+        <source>Noise</source>
+        <translation>Trokšņi</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
     </message>
     <message>
-        <source>Size</source>
-        <translation>Izmērs</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
+        <source>Saturation</source>
+        <translation>Piesātinājums</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Particles: Lifetime</source>
-        <translation>Daļiņas: Dzīvildze</translation>
+        <source>Blinds (Two Titles)</source>
+        <translation>Žalūzijas (divi virsraksti)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Midpoint</source>
+        <translation>Viduspunkts</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Dynamic 3 level thresholding</source>
+        <translation>Dinamisks 3 līmeņu slieksnis</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gain</source>
+        <translation>Pieaugums</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Max Count</source>
+        <translation>Maks. skaits</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fly Towards Camera</source>
+        <translation>Lido pretī kamerai</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/fly_by_1.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Trip Level</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Picture Frames (4 pictures)</source>
+        <translation>Attēli rāmīšos (4 rāmji)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Krāsa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Oversaturate the color in the image, like in old Technicolor movies</source>
+        <translation>Pārsātināt krāsas attēlā, tāpat, kā vecās Technicolor filmās</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Dissolving Text</source>
+        <translation>Izšķīstošs teksts</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/dissolve.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Alphagrad</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Block Size X</source>
+        <translation>Bloka lielums X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Glass Slider</source>
+        <translation>Stikla slīdnis</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Flippo</source>
+        <translation>Apmetējs</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Episode Title</source>
+        <translation>Sērijas nosaukums</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation>Apakša</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Block Size Y</source>
+        <translation>Bloka lielums Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Horizontal Radius</source>
+        <translation>Horizontālais rādiuss</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Channel Filter</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Fixed Rotate Y</source>
+        <translation>Fiksēta pagriešana Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Color Tiles</source>
+        <translation>Krāsainas flīzes</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the blur of the frame&apos;s image.</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Defish</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Text Width</source>
+        <translation>Teksta platums</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Simple color adjustment</source>
+        <translation>Vienkārša krāsu pielāgošana</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>ID</source>
+        <translation>ID</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Tile 4: Diffuse Color</source>
+        <translation>Flīze 4: Izplūst krāsa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust luminance or color channel intensity</source>
+        <translation>Pielāgot spilgtumu vai krāsu kanālu intensitāti</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Tips</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Brightness Delta Down</source>
+        <translation>Gaišuma delta lejup</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Keep luma</source>
+        <translation>Paturēt luminiscenci</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Red/Green Axis</source>
+        <translation>Sarkans/zaļš ass</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Transition width</source>
+        <translation>Pārejas platums</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gamma</source>
+        <translation>Gamma</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fuzz</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Line 3 Color</source>
+        <translation>Līnijas 3 krāsa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Add small dust shapes randomly on the image</source>
+        <translation>Pievienot nelielas, nejaušas putekļu figūras uz attēla</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Color Saturation</source>
+        <translation>Krāsu piesātinājums</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Display Ground</source>
+        <translation>Rādīt zemi</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Three point balance</source>
+        <translation>Trīs punktu līdzsvars</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust color balance with 3 color points</source>
+        <translation>Pielāgot krāsu līdzsvaru ar 3 krāsu punktiem</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Reverse</source>
+        <translation>Pretēji</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Track</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Input level white point</source>
+        <translation>Ievades līmeņa baltais punkts</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Bottom Left</source>
+        <translation>Apakšā pa kreisi</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Chroma Key (Greenscreen)</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Tilt</source>
+        <translation>Slīpums</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Channel</source>
+        <translation>Kanāls</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Interpolation</source>
+        <translation>Interpolācija</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Space Movie Intro</source>
+        <translation>Kosmosa filmas ievads</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>World Map</source>
+        <translation>Pasaules karte</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Rotate Y</source>
+        <translation>Pagriezt Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Start: X</source>
+        <translation>Sākums: X</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
@@ -2388,29 +2266,84 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
-        <source>Title Specular Color</source>
-        <translation>Virsraksta telpiskā krāsa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+        <source>File Name</source>
+        <translation>Faila nosaukums</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
-        <source>Gain Out</source>
-        <translation>Kāpums</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+        <source>Halo: Line Count</source>
+        <translation>Halo: Līniju skaits</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
-        <source>Depart Longitude (Prime Meridian)</source>
-        <translation>Izbraukšanas garums (Griničas meridiāns)</translation>
+        <source>Depart Longitude (degrees)</source>
+        <translation>Izbraukšanas garums (grādi)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
-        <source>Depart Longitude (seconds)</source>
-        <translation>Izbraukšanas garums (sekundes)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+        <source>Tint a source image with specified color</source>
+        <translation>Tonēt avota attēlu ar norādīto krāsu</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
     </message>
     <message>
-        <source>Channel Mapping</source>
-        <translation type="unfinished"></translation>
+        <source>Center</source>
+        <translation>Centrs</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Sun: Angle Offset</source>
+        <translation>Saule: Nobīdes leņķis</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tint amount</source>
+        <translation>Tonņa daudzums</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sigma</source>
+        <translation>Sigma</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Negates the colors, producing a negative of the image.</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Threshold</source>
+        <translation>Slieksnis</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>TehRoxx0r</source>
+        <translation>TehRoxx0r</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Specular Color</source>
+        <translation>Fons: Telpiskā krāsa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Fills alpha channel with a gradient</source>
+        <translation>Piepilda alfa kanālu ar krāsu pāreju</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+    </message>
+    <message>
+        <source>X Coordinate</source>
+        <translation>X koordināte</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Black and White</source>
+        <translation>Melnbalts</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adds random vertical lines to the image</source>
+        <translation>Pievieno attēlam nejaušas vertikālas līnijas</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
     </message>
     <message>
         <source>Blue</source>
@@ -2418,29 +2351,195 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
     </message>
     <message>
-        <source>Fixed Rotate Z</source>
-        <translation>Fiksēta pagriešana Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
+        <source>Deinterlace</source>
+        <translation>Novērst rindpārleci</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
-        <source>Adjust the low-pitched sound or tone</source>
-        <translation>Pielāgot zemās skaņas vai toni</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
+        <source>Start: Y</source>
+        <translation>Sākums: Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
-        <source>Viewport</source>
-        <translation>Skatu punkts</translation>
+        <source>Black color</source>
+        <translation>Melnā krāsa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Max Diameter</source>
+        <translation>Maks. diametrs</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
+    </message>
+    <message>
+        <source>End: Z</source>
+        <translation>Beigas: Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Pixelate</source>
+        <translation>Pikselēt</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Action</source>
+        <translation>Darbība</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Particles: Lifetime</source>
+        <translation>Daļiņas: Dzīvildze</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Aspect ratio</source>
+        <translation>Izmēru attiecība</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Starting Size</source>
+        <translation>Halo: Sākuma izmērs</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Add a glow effect to the image</source>
+        <translation>Pievienot attēlam kvēlošanas efektu</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/glow.xml</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="115"/>
+        <source>End</source>
+        <translation>Beigas</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>World Map</source>
-        <translation>Pasaules karte</translation>
+        <source>Cartoon</source>
+        <translation>Multene</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Start Frame</source>
+        <translation>Sākuma kadrs</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Reduces and mixes the colors of the image based on a threshold</source>
+        <translation>Samazina un sajauc attēla krāsas, pamatojoties uz slieksni</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threshold.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sharpness</source>
+        <translation>Asums</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Specular Intensity</source>
+        <translation>Fons: Telpiskā intensitāte</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Neutral Color</source>
+        <translation>Neitrālā krāsa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Width</source>
+        <translation>Platums</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Scaling</source>
+        <translation>Mērogošana</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Start Value</source>
+        <translation>Sākuma vērtība</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Key Color</source>
+        <translation>Atslēgas krāsa</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Defocus</source>
+        <translation>Defokusēt</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Horizontal Sync</source>
+        <translation>Horizontālā sinhronizācija</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the color saturation.</source>
+        <translation>Pielāgot krāsu piesātinājumu.</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Fisheye</source>
+        <translation>Zivs acs</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjusts the saturation or intensity of the image</source>
+        <translation>Pielāgo attēla piesātinājumu vai intensitāti</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/saturation.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Longitude (minutes)</source>
+        <translation>Ierašanās garums (minūtes)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
-        <source>Fly Towards Camera</source>
-        <translation>Lido pretī kamerai</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/fly_by_1.xml</extra-po-references>
+        <source>Selection</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Sobel</source>
+        <translation>Sobel</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Font Name</source>
+        <translation>Fonta nosaukums</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+    </message>
+    <message>
+        <source>X axis</source>
+        <translation>X ass</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the white balance and color temperature</source>
+        <translation>Pielāgot baltās krāsas līdzsvaru un krāsu temperatūru</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Location Y</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Brightness Delta Every</source>
+        <translation>Gaišuma delta katru</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Chroma Hold</source>
+        <translation>Krāsas aizturēšana</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Shift the hue of all colors in the image</source>
+        <translation>Pārbīdīt visu krāsu toni attēlā</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/hue.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Increase the size of pixels to obscure the image</source>
+        <translation>Palielināt pikseļu lielumu, lai maskētu attēlu</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
     </message>
     <message>
         <source>X Offset</source>
@@ -2448,19 +2547,69 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
     </message>
     <message>
+        <source>Distort</source>
+        <translation>Kropļojumi</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Oversaturate Color</source>
+        <translation>Pārsātināt krāsu</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
+    </message>
+    <message>
         <source>Aspect type</source>
         <translation>Izmēru attiecības tips</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
     </message>
     <message>
-        <source>X Center</source>
-        <translation>X centrs</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
+        <source>Blue/Yellow</source>
+        <translation>Zils/zeltens</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml</extra-po-references>
     </message>
     <message>
-        <source>Transition width</source>
-        <translation>Pārejas platums</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
+        <source>Wave Color</source>
+        <translation>Viļņa krāsa</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Factor</source>
+        <translation>Koeficients</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Output level black point</source>
+        <translation>Izvades līmeņa melnais punkts</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Every</source>
+        <translation>Katru</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Scale X</source>
+        <translation>Mērogs X</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Exploding Text</source>
+        <translation>Eksplodējošs teksts</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sub Title</source>
+        <translation>Apakšvirsraksts</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml</extra-po-references>
+    </message>
+    <message>
+        <source>First Title</source>
+        <translation>Pirmais virsraksts</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Latitude (Equator)</source>
+        <translation>Ierašanās platums (ekvators)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Velocity: X</source>
@@ -2468,9 +2617,459 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
+        <source>Creates a square alpha-channel mask</source>
+        <translation>Izveido kvadrātveida alfa kanāla masku</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Vignette</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Enable Audio</source>
+        <translation>Aktivizēt audio</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation>Izmērs</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Specular Intensity</source>
+        <translation>Telpiskā intensitāte</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Negative</source>
+        <translation>Negatīvs</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Interlaced black lines</source>
+        <translation>Pārklājošas melnas līnijas</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Freeze After</source>
+        <translation>Iesalt pēc</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Diffuse Color</source>
+        <translation>Fons: Izplūšanas krāsa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the brightness and contrast of the frame&apos;s image.</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Use Lines</source>
+        <translation>Halo: Izmantot līnijas</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Magic Wand</source>
+        <translation>Maģiskais zizlis</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Longitude (degrees)</source>
+        <translation>Ierašanās garums (grādi)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Scale Y</source>
+        <translation>Mērogs Y</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Animation Length</source>
+        <translation>Animācijas garums</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Letterbox</source>
+        <translation>Platekrāns</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Greyscale</source>
+        <translation>Pelēktoņu</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Text Size</source>
+        <translation>Teksta izmērs</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Lens vignetting</source>
+        <translation>Malu aptumšošana</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Main Text</source>
+        <translation>Pamatteksts</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Background: Shadeless</source>
+        <translation>Fons: Bez ēnas</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Center size</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Longitude (minutes)</source>
+        <translation>Izbraukšanas garums (minūtes)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>u</source>
+        <translation>u</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Freeze the frame of a video</source>
+        <translation>Sastindzina video kadru</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo Zoom Out</source>
+        <translation>Halo attālinās</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/halo_zoom_out.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Balance</source>
+        <translation>Līdzsvars</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Charcoal</source>
+        <translation>Krītiņi</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Equalizor</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Longitude (seconds)</source>
+        <translation>Izbraukšanas garums (sekundes)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>End: Y</source>
+        <translation>Beigas: Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
         <source>Duration</source>
         <translation>Ilgums</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Picture 1 Path</source>
+        <translation>Attēla 1 ceļš</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Sun: Number of Streaks</source>
+        <translation>Saule: Svītru skaits</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Top</source>
+        <translation>Augša</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Calculates the distance between the selected color and the current pixel and uses that value as new pixel value</source>
+        <translation>Aprēķina attālumu starp izvēlēto krāsu un pašreizējo pikseli, un izmanto tā vērtību, kā jaunā pikseļa krāsu</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Speed</source>
+        <translation>Ātrums</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Bottom Center</source>
+        <translation>Apakšā centrā</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Remove interlacing from a video (i.e. even or odd horizontal lines)</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Title 1</source>
+        <translation>Virsraksts 1</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Spots: Color Threshold</source>
+        <translation>Plankumi: Krāsu slieksnis</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Red Scale</source>
+        <translation>Sarkanā mērogs</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Output level white point</source>
+        <translation>Izvades līmeņa baltais punkts</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Arrival Title</source>
+        <translation>Ierašanās nosaukums</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Echo</source>
+        <translation>Atbalss</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Map white to</source>
+        <translation>Baltā krāsa uz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Title 2</source>
+        <translation>Virsraksts 2</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tile 1: Diffuse Color</source>
+        <translation>Flīze 1: Izplūst krāsa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Mirror Color</source>
+        <translation>Spoguļa krāsa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Rotate 360 Degrees</source>
+        <translation>Pagriezt par 360 grādiem</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/rotate_360.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Trees</source>
+        <translation>Koki</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/trees.xml</extra-po-references>
+    </message>
+    <message>
+        <source>End Frame</source>
+        <translation>Beigu kadrs</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Canvas</source>
+        <translation>Audekls</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Picture 2 Path</source>
+        <translation>Attēla 2 ceļš</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Picture 4 Path</source>
+        <translation>Attēla 4 ceļš</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Green Tint</source>
+        <translation>Zaļais tonis</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Distort the source similar to plasma</source>
+        <translation>Izkropļot avotu līdzīgi plazmai</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Stretch</source>
+        <translation>Izstiept</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Variance</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Tint</source>
+        <translation>Tonis</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Key</source>
+        <translation>Atslēga</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adds static and grain to the image</source>
+        <translation>Pievieno statiskus graudus uz attēla</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Bass</source>
+        <translation>Bass</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Map black to</source>
+        <translation>Melnā krāsa uz</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Brightness &amp; Contrast</source>
+        <translation>Spilgtums un kontrasts</translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Brightness Delta Up</source>
+        <translation>Gaišuma delta augšup</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
+    </message>
+    <message>
+        <source>End: X</source>
+        <translation>Beigas: X</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Shear X</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Treble</source>
+        <translation>Diskants</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/treble.xml</extra-po-references>
+    </message>
+    <message>
+        <source>X Center</source>
+        <translation>X centrs</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Cartoonify the image, using a form of edge detection</source>
+        <translation>Izmantot malu noteikšanu, lai padarītu attēlu par multeni</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Softness</source>
+        <translation>Mīkstums</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Y Scatter</source>
+        <translation>Y izkliede</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Histogram position</source>
+        <translation>Histogrammas novietojums</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Enable Video</source>
+        <translation>Aktivizēt video</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Text Alignment</source>
+        <translation>Teksta līdzināšana</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Amplitude</source>
+        <translation>Amplitūda</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Is Odd Frame</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Replaces the color (or chroma) of the frame with transparency (i.e. keys out the color).</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+    </message>
+    <message>
+        <source>Adjusts the brightness of the image</source>
+        <translation>Pielāgo attēla gaišumu</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Red</source>
+        <translation>Sarkans</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Velocity: Y</source>
+        <translation>Ātrums: Y</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Location X</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Detect and highlight the edges of objects</source>
+        <translation>Atklāt un izcelt objektu malas</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Y axis</source>
+        <translation>Y ass</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Halo: Ring Count</source>
+        <translation>Halo: Riņķu skaits</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Color adjustment</source>
+        <translation>Krāsu pielāgošana</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Source image on left side</source>
+        <translation>Avota attēls kreisajā pusē</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Depart Latitude (degrees)</source>
+        <translation>Izbraukšanas platums (grādi)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Anchor</source>
+        <translation>Enkurs</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Velocity: Z</source>
+        <translation>Ātrums: Z</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="106"/>
@@ -2481,309 +3080,29 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml Settings for actionTitle</extra-po-references>
     </message>
     <message>
-        <source>Bottom</source>
-        <translation>Apakša</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
+        <source>Make a single color transparent.  Also referred to as green screen and blue screen.</source>
+        <translation>Padarīt vienu krāsu caurspīdīgu. Saukts arī par zaļo vai zilo ekrānu.</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
     </message>
     <message>
-        <source>Distort the source similar to plasma</source>
-        <translation>Izkropļot avotu līdzīgi plazmai</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/distort.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Baltan</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Max Count</source>
-        <translation>Maks. skaits</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Longitude (minutes)</source>
-        <translation>Izbraukšanas garums (minūtes)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Softness</source>
-        <translation>Mīkstums</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Mirror Color</source>
-        <translation>Spoguļa krāsa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Y axis</source>
-        <translation>Y ass</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Black color</source>
-        <translation>Melnā krāsa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Use Lines</source>
-        <translation>Halo: Izmantot līnijas</translation>
+        <source>Particles: Gravity</source>
+        <translation>Daļiņas: Gravitāte</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
-        <source>Start Frame</source>
-        <translation>Sākuma kadrs</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Y Scatter</source>
-        <translation>Y izkliede</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sepia</source>
-        <translation>Sēpija</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Brightness Delta Every</source>
-        <translation>Gaišuma delta katru</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Block Size Y</source>
-        <translation>Bloka lielums Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Starting Size</source>
-        <translation>Halo: Sākuma izmērs</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Size</source>
-        <translation>Halo: Izmērs</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Detect and highlight the edges of objects</source>
-        <translation>Atklāt un izcelt objektu malas</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Text Width</source>
-        <translation>Teksta platums</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Saturation</source>
-        <translation>Piesātinājums</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Tint a source image with specified color</source>
-        <translation>Tonēt avota attēlu ar norādīto krāsu</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Top Right</source>
-        <translation>Augšā pa labi</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Display Ground</source>
-        <translation>Rādīt zemi</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/explode.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Line 2 Color</source>
-        <translation>Līnijas 2 krāsa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Trees</source>
-        <translation>Koki</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/trees.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Arrival Latitude (Equator)</source>
-        <translation>Ierašanās platums (ekvators)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sun: Type of Glare</source>
-        <translation>Saule: Žilbuma tips</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Nosync</source>
-        <translation>Nesinhrons</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Manual Scale</source>
-        <translation>Manuāls mērogs</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Source image on left side</source>
-        <translation>Avota attēls kreisajā pusē</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Gain</source>
-        <translation>Pieaugums</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Echo</source>
-        <translation>Atbalss</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Greyscale</source>
-        <translation>Pelēktoņu</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Interpolation</source>
-        <translation>Interpolācija</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>delayed alpha smoothed blit of time</source>
+        <source>Alpha Mask / Wipe Transition</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml</extra-po-references>
+        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
-        <source>Horizontal Sync</source>
-        <translation>Horizontālā sinhronizācija</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Tile 1: Diffuse Color</source>
-        <translation>Flīze 1: Izplūst krāsa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Rotate an image statically or animated</source>
-        <translation>Pagriezt attēlu statiski vai animēti</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Freeze After</source>
-        <translation>Iesalt pēc</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Speed</source>
-        <translation>Ātrums</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Glass Slider</source>
-        <translation>Stikla slīdnis</translation>
+        <source>Background: Fresnel</source>
+        <translation>Fons: Fresnel</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
     </message>
     <message>
-        <source>Tint</source>
-        <translation>Tonis</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Blur the image similar to an out-of-focus camera</source>
-        <translation>Aizmiglot attēlu līdzīgi nefokusētai kamerai</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/blur.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Old Film</source>
-        <translation>Veca filma</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Mix</source>
-        <translation>Jaukts</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Scaling</source>
-        <translation>Mērogošana</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Halo: Hardness</source>
-        <translation>Halo: Cietība</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Shadeless</source>
-        <translation>Fons: Bez ēnas</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Picture 4 Path</source>
-        <translation>Attēla 4 ceļš</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Start: Y</source>
-        <translation>Sākums: Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Map white to</source>
-        <translation>Baltā krāsa uz</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Luma formula</source>
-        <translation>Luminiscences formula</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Location X</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Episode Title</source>
-        <translation>Sērijas nosaukums</translation>
+        <source>Flying Title</source>
+        <translation>Lidojošs virsraksts</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Filter the image to look like it is drawn with charcoal</source>
-        <translation>Filtrēt attēlu, lai tas izskatās kā zīmēts ar krītiņiem</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Neutral Color</source>
-        <translation>Neitrālā krāsa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Enable Video</source>
-        <translation>Aktivizēt video</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>End: X</source>
-        <translation>Beigas: X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Specular Intensity</source>
-        <translation>Telpiskā intensitāte</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>X Coordinate</source>
-        <translation>X koordināte</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Show histogram</source>
-        <translation>Rādīt histogrammu</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
     </message>
     <message>
         <source>Correction near center</source>
@@ -2791,54 +3110,14 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
     </message>
     <message>
-        <source>Halo Zoom Out</source>
-        <translation>Halo attālinās</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/halo_zoom_out.xml</extra-po-references>
+        <source>Gray color</source>
+        <translation>Pelēkā krāsa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
     </message>
     <message>
-        <source>Levels</source>
-        <translation>Līmeņi</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the image up and down, with the off-screen portion appearing on the other side</source>
-        <translation>Pielāgot attēlu augšup un lejup ar aizkadra daļu otrā pusē</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Specular Intensity</source>
-        <translation>Fons: Telpiskā intensitāte</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Creates a square alpha-channel mask</source>
-        <translation>Izveido kvadrātveida alfa kanāla masku</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Brightness &amp; Contrast</source>
-        <translation>Spilgtums un kontrasts</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Blur</source>
-        <translation>Izpludināšana</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blur.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Factor</source>
-        <translation>Koeficients</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Treble</source>
-        <translation>Diskants</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/treble.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fisheye</source>
-        <translation>Zivs acs</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+        <source>Display Clouds</source>
+        <translation>Rādīt mākoņus</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml</extra-po-references>
     </message>
     <message>
         <source>White Balance</source>
@@ -2846,163 +3125,8 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
     </message>
     <message>
-        <source>Gravity: Z</source>
-        <translation>Gravitāte: Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Background: Specular Color</source>
-        <translation>Fons: Telpiskā krāsa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Cartoonify the image, using a form of edge detection</source>
-        <translation>Izmantot malu noteikšanu, lai padarītu attēlu par multeni</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sigma</source>
-        <translation>Sigma</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Invert</source>
-        <translation>Invertēt</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Manual Pixel Aspect ratio</source>
-        <translation>Manuāla pikseļu attiecība</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the left/right balance</source>
-        <translation>Pielāgot labā/kreisā līdzsvaru</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Chroma Hold</source>
-        <translation>Krāsas aizturēšana</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Split and mirror the image</source>
-        <translation>Sadalīt un spoguļot attēlu</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml</extra-po-references>
-    </message>
-    <message>
-        <source>v</source>
-        <translation>v</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fixed Rotate Y</source>
-        <translation>Fiksēta pagriešana Y</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Number of Snow Flakes</source>
-        <translation>Sniega pārslu skaits</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Adjust the high-pitched sound or tone</source>
-        <translation>Pielāgot augstās skaņas vai toņus</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/treble.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Space Movie Intro</source>
-        <translation>Kosmosa filmas ievads</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Picture 2 Path</source>
-        <translation>Attēla 2 ceļš</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sun: Number of Streaks</source>
-        <translation>Saule: Svītru skaits</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Latitude (minutes)</source>
-        <translation>Izbraukšanas platums (minūtes)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Scan Lines</source>
-        <translation>Skenēšanas līnijas</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Increase the size of pixels to obscure the image</source>
-        <translation>Palielināt pikseļu lielumu, lai maskētu attēlu</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Shift the hue of all colors in the image</source>
-        <translation>Pārbīdīt visu krāsu toni attēlā</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/hue.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Sun: Color Threshold</source>
-        <translation>Saule: Krāsu slieksnis</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
-    </message>
-    <message>
-        <source>X axis</source>
-        <translation>X ass</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml</extra-po-references>
-    </message>
-    <message>
-        <source>World Map (Realistic)</source>
-        <translation>Pasaules karte (reālistiska)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Deinterlace</source>
-        <translation>Novērst rindpārleci</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Tile 2: Diffuse Color</source>
-        <translation>Flīze 2: Izplūst krāsa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Magic Wand</source>
-        <translation>Maģiskais zizlis</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Old Lines</source>
-        <translation>Vecas līnijas</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Horizontal Radius</source>
-        <translation>Horizontālais rādiuss</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Noise</source>
-        <translation>Trokšņi</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Keep luma</source>
-        <translation>Paturēt luminiscenci</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Main Text</source>
-        <translation>Pamatteksts</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Depart Latitude (seconds)</source>
-        <translation>Izbraukšanas platums (sekundes)</translation>
+        <source>Arrival Longitude (Prime Meridian)</source>
+        <translation>Ierašanās garums (Griničas meridiāns)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
@@ -3011,64 +3135,85 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml</extra-po-references>
     </message>
     <message>
-        <source>Track</source>
+        <source>Find and glow the edges of objects</source>
+        <translation>Atrast un kvēlot objektu malas</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/cutting.ui" line="96"/>
+        <source>Start</source>
+        <translation>Sākums</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>X Scatter</source>
+        <translation>X izkliede</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Frame Number</source>
+        <translation>Kadra numurs</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Picture 3 Path</source>
+        <translation>Attēla 3 ceļš</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Top Left</source>
+        <translation>Augšā pa kreisi</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Channel Mapping</source>
         <translation type="unfinished"></translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
-        <source>Arrival Latitude (degrees)</source>
-        <translation>Ierašanās platums (grādi)</translation>
+        <source>Arrival Latitude (seconds)</source>
+        <translation>Ierašanās platums (sekundes)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
-        <source>Green Tint</source>
-        <translation>Zaļais tonis</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml</extra-po-references>
+        <source>Correction near edges</source>
+        <translation>Korekcija pie centra</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
     </message>
     <message>
-        <source>Chroma Key</source>
-        <translation>Krāsas atslēga</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml</extra-po-references>
+        <source>Min</source>
+        <translation>Min.</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml</extra-po-references>
     </message>
     <message>
-        <source>Color adjustment</source>
-        <translation>Krāsu pielāgošana</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml</extra-po-references>
+        <source>Allows compensation of lens distortion</source>
+        <translation>Ļauj izlabot attēla lēcas kropļojumus</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml</extra-po-references>
     </message>
     <message>
-        <source>Sub Title</source>
-        <translation>Apakšvirsraksts</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml</extra-po-references>
+        <source>Adjust the color of the image to black and white based on a threshold</source>
+        <translation>Pielāgot attēla krāsu par melnbaltu, balstītu uz slieksni</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml</extra-po-references>
     </message>
     <message>
-        <source>Charcoal</source>
-        <translation>Krītiņi</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+        <source>Z Coordinate</source>
+        <translation>Z koordināte</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
     </message>
     <message>
-        <source>Channel</source>
-        <translation>Kanāls</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/levels.xml</extra-po-references>
-    </message>
-    <message>
-        <source>File Name</source>
-        <translation>Faila nosaukums</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Specular Color</source>
-        <translation>Telpiskā krāsa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>First Title</source>
-        <translation>Pirmais virsraksts</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Uses a grayscale mask image to gradually wipe / transition between 2 images.</source>
+        <source>Handles</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>Apjoms</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Scan Lines</source>
+        <translation>Skenēšanas līnijas</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml</extra-po-references>
     </message>
     <message>
         <source>Param</source>
@@ -3076,69 +3221,59 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml</extra-po-references>
     </message>
     <message>
-        <source>End: Z</source>
-        <translation>Beigas: Z</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Center</source>
-        <translation>Centrs</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Gravity</source>
-        <translation>Gravitācija</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Negative</source>
-        <translation>Negatīvs</translation>
-        <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
-    </message>
-    <message>
-        <source>Custom Texture (Equirectangular)</source>
-        <translation type="unfinished"></translation>
+        <source>Arrival Latitude (degrees)</source>
+        <translation>Ierašanās platums (grādi)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
-        <source>Picture Frames (4 pictures)</source>
-        <translation>Attēli rāmīšos (4 rāmji)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Block Size X</source>
-        <translation>Bloka lielums X</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Balance</source>
-        <translation>Līdzsvars</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/balance.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Fuzz</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Crop</source>
-        <translation>Apcirst</translation>
-        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
-    </message>
-    <message>
-        <source>Threshold</source>
-        <translation>Slieksnis</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Dynamic 3 level thresholding</source>
-        <translation>Dinamisks 3 līmeņu slieksnis</translation>
+        <source>Three Layer</source>
+        <translation>Trīs slāņi</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml</extra-po-references>
     </message>
     <message>
-        <source>Adds random vertical lines to the image</source>
-        <translation>Pievieno attēlam nejaušas vertikālas līnijas</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml</extra-po-references>
+        <source>Filter the image to look like it is drawn with charcoal</source>
+        <translation>Filtrēt attēlu, lai tas izskatās kā zīmēts ar krītiņiem</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Adjust the low-pitched sound or tone</source>
+        <translation>Pielāgot zemās skaņas vai toni</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/bass.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Old Grain</source>
+        <translation>Veca graudainība</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Top Right</source>
+        <translation>Augšā pa labi</translation>
+        <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
+    </message>
+    <message>
+        <source>Reduce image to primary colors</source>
+        <translation>Samazināt attēla krāsas līdz primārajām</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Line 4 Color</source>
+        <translation>Līnijas 4 krāsa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Blur the image similar to an out-of-focus camera</source>
+        <translation>Aizmiglot attēlu līdzīgi nefokusētai kamerai</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/blur.xml</extra-po-references>
+    </message>
+    <message>
+        <source>delayed alpha smoothed blit of time</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Gain Out</source>
+        <translation>Kāpums</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/echo.xml</extra-po-references>
     </message>
     <message>
         <source>Glow</source>
@@ -3146,224 +3281,29 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/glow.xml</extra-po-references>
     </message>
     <message>
-        <source>Debug Mode (Port)</source>
+        <source>Diff Space</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>Settings for debug-port</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml</extra-po-references>
     </message>
     <message>
-        <source>Enable Autosave</source>
-        <translation>Ieslēgt automātisko saglabāšanu</translation>
-        <extra-po-references>Settings for enable-auto-save</extra-po-references>
+        <source>Halo: Hardness</source>
+        <translation>Halo: Cietība</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
-        <source>Blu-Ray/AVCHD</source>
-        <translation>Blu-Ray/AVCHD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml</extra-po-references>
+        <source>Extrude</source>
+        <translation>Izgrūšana</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
-        <source>Select None</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for selectNone</extra-po-references>
+        <source>Particles: Amount</source>
+        <translation>Daļiņas: Skaits</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
-        <source>Play/Pause Toggle (Alternate 3)</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for playToggle3</extra-po-references>
-    </message>
-    <message>
-        <source>Profiles</source>
-        <translation>Profili</translation>
-        <extra-po-references>Settings Category for Profiles</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="285"/>
-        <source>New Project...</source>
-        <translation>Jauns projekts...</translation>
-        <extra-po-references>Settings for actionNew</extra-po-references>
-    </message>
-    <message>
-        <source>Slice All: Keep Left Side</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for sliceAllKeepLeftSide</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="547"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="550"/>
-        <source>Rewind</source>
-        <translation>Tīt atpakaļ</translation>
-        <extra-po-references>Settings for rewindVideo</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="658"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="661"/>
-        <source>Next Marker</source>
-        <translation>Nākamā atzīme</translation>
-        <extra-po-references>Settings for actionNextMarker</extra-po-references>
-    </message>
-    <message>
-        <source>Cache Limit (MB)</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for cache-limit-mb</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="571"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="574"/>
-        <source>Jump To End</source>
-        <translation>Pārlekt uz beigām</translation>
-        <extra-po-references>Settings for actionJumpEnd</extra-po-references>
-    </message>
-    <message>
-        <source>Debug</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings Category for Debug</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="535"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="538"/>
-        <source>Jump To Start</source>
-        <translation>Pārlekt uz sākumu</translation>
-        <extra-po-references>Settings for actionJumpStart</extra-po-references>
-    </message>
-    <message>
-        <source>Play/Pause Toggle</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for playToggle</extra-po-references>
-    </message>
-    <message>
-        <source>DVD</source>
-        <translation>DVD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="493"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="496"/>
-        <source>Add Track</source>
-        <translation>Pievienot celiņu</translation>
-        <extra-po-references>Settings for actionAddTrack</extra-po-references>
-    </message>
-    <message>
-        <source>Next Frame</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for seekNextFrame</extra-po-references>
-    </message>
-    <message>
-        <source>Delete Item (Alternate 1)</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for deleteItem1</extra-po-references>
-    </message>
-    <message>
-        <source>Vimeo-HD</source>
-        <translation>Vimeo-HD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/vimeo_HD.xml</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1197"/>
-        <source>Split Clip...</source>
-        <translation>Sadalīt klipu...</translation>
-        <extra-po-references>Settings for actionSplitClip</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="330"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="333"/>
-        <source>Undo</source>
-        <translation>Atsaukt</translation>
-        <extra-po-references>Settings for actionUndo</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="919"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="922"/>
-        <source>Thumbnail View</source>
-        <translation>Sīktēlu skats</translation>
-        <extra-po-references>Settings for actionThumbnailView</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="559"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="562"/>
-        <source>Fast Forward</source>
-        <translation>Tīt uz priekšu</translation>
-        <extra-po-references>Settings for fastforwardVideo</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="478"/>
-        <source>Quit</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for actionQuit</extra-po-references>
-    </message>
-    <message>
-        <source>AVI (mpeg2)</source>
-        <translation>AVI (mpeg2)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mpeg2.xml</extra-po-references>
-    </message>
-    <message>
-        <source>DVD-NTSC</source>
-        <translation>DVD-NTSC</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Keyboard</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings Category for Keyboard</extra-po-references>
-    </message>
-    <message>
-        <source>AVI (h.264)</source>
-        <translation>AVI (h.264)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_x264.xml</extra-po-references>
-    </message>
-    <message>
-        <source>YouTube</source>
-        <translation>YouTube</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/youtube.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Advanced Title Editor (path)</source>
-        <translation>Paplašinātais virsrakstu redaktors (ceļš)</translation>
-        <extra-po-references>Settings for title_editor</extra-po-references>
-    </message>
-    <message>
-        <source>Web</source>
-        <translation>Tīmeklis</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml</extra-po-references>
-    </message>
-    <message>
-        <source>MOV (h.264)</source>
-        <translation>MOV (h.264)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mov_x264.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Image Quality (Disk Only)</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for cache-quality</extra-po-references>
-    </message>
-    <message>
-        <source>Scale Factor (Disk Only)</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for cache-scale</extra-po-references>
-    </message>
-    <message>
-        <source>Slice All: Keep Both Sides</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for sliceAllKeepBothSides</extra-po-references>
-    </message>
-    <message>
-        <source>OGG (theora/vorbis)</source>
-        <translation>OGG (theora/vorbis)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_libvorbis.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Previous Frame</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for seekPreviousFrame</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/about.ui" line="23"/>
-        <source>About OpenShot</source>
-        <translation>Par OpenShot</translation>
-        <extra-po-references>Settings for actionAbout</extra-po-references>
-    </message>
-    <message>
-        <source>Image Length (seconds)</source>
-        <translation>Attēlu garums (sekundes)</translation>
-        <extra-po-references>Settings for default-image-length</extra-po-references>
+        <source>Sun: Type of Glare</source>
+        <translation>Saule: Žilbuma tips</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="934"/>
@@ -3373,6 +3313,11 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>Settings for actionDetailsView</extra-po-references>
     </message>
     <message>
+        <source>Cache</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings Category for Cache</extra-po-references>
+    </message>
+    <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1057"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1060"/>
         <source>Choose Profile</source>
@@ -3380,175 +3325,15 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>Settings for actionProfile</extra-po-references>
     </message>
     <message>
-        <source>MP4 (Xvid)</source>
-        <translation>MP4 (Xvid)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_xvid.xml</extra-po-references>
-    </message>
-    <message>
-        <source>General</source>
-        <translation>Vispārīgi</translation>
-        <extra-po-references>Settings Category for General</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="405"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="408"/>
-        <source>Redo</source>
-        <translation>Pārdarīt</translation>
-        <extra-po-references>Settings for actionRedo</extra-po-references>
-    </message>
-    <message>
-        <source>Picasa</source>
-        <translation>Picasa</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/picasa.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Metacafe</source>
-        <translation>Metacafe</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Apple TV</source>
-        <translation>Apple TV</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml</extra-po-references>
-    </message>
-    <message>
-        <source>FLV (h.264)</source>
-        <translation>FLV (h.264)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_flv_x264.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Device</source>
-        <translation>Ierīce</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1072"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1075"/>
-        <source>Add to Timeline</source>
-        <translation>Pievienot laika skalai</translation>
-        <extra-po-references>Settings for actionAdd_to_Timeline</extra-po-references>
-    </message>
-    <message>
-        <source>Slice All: Keep Right Side</source>
+        <source>Previous Frame</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>Settings for sliceAllKeepRightSide</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="852"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="855"/>
-        <source>Animated Title</source>
-        <translation>Animētais virsraksts</translation>
-        <extra-po-references>Settings for actionAnimatedTitle</extra-po-references>
-    </message>
-    <message>
-        <source>DVD-PAL</source>
-        <translation>DVD-PAL</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_pal.xml</extra-po-references>
-    </message>
-    <message>
-        <source>MOV (mpeg4)</source>
-        <translation>MOV (mpeg4)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mov_mpeg4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Cache</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings Category for Cache</extra-po-references>
+        <extra-po-references>Settings for seekPreviousFrame</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="360"/>
         <source>Import Files...</source>
         <translation>Importēt failus...</translation>
         <extra-po-references>Settings for actionImportFiles</extra-po-references>
-    </message>
-    <message>
-        <source>Send Anonymous Metrics and Errors</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for send_metrics</extra-po-references>
-    </message>
-    <message>
-        <source>Autosave Interval (minutes)</source>
-        <translation>Automātiskās saglabāšanas intervāls (minūtes)</translation>
-        <extra-po-references>Settings for autosave-interval</extra-po-references>
-    </message>
-    <message>
-        <source>Image Format (Disk Only)</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for cache-image-format</extra-po-references>
-    </message>
-    <message>
-        <source>Default Theme</source>
-        <translation>Noklusējuma tēma</translation>
-        <extra-po-references>Settings for theme</extra-po-references>
-    </message>
-    <message>
-        <source>YouTube-HD</source>
-        <translation>YouTube-HD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/youtube_HD.xml</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="315"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="318"/>
-        <source>Save Project</source>
-        <translation>Saglabāt projektu</translation>
-        <extra-po-references>Settings for actionSave</extra-po-references>
-    </message>
-    <message>
-        <source>Wikipedia</source>
-        <translation>Vikipēdija</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/wikipedia.xml</extra-po-references>
-    </message>
-    <message>
-        <source>OGG (theora/flac)</source>
-        <translation>OGG (theora/flac)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_flac.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Default Profile</source>
-        <translation>Noklusējuma profils</translation>
-        <extra-po-references>Settings for default-profile</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="646"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="649"/>
-        <source>Previous Marker</source>
-        <translation>Iepriekšējā atzīme</translation>
-        <extra-po-references>Settings for actionPreviousMarker</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="631"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="634"/>
-        <source>Add Marker</source>
-        <translation>Pievienot atzīmi</translation>
-        <extra-po-references>Settings for actionAddMarker</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="871"/>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="874"/>
-        <source>Fullscreen</source>
-        <translation>Pilnekrāns</translation>
-        <extra-po-references>Settings for actionFullscreen</extra-po-references>
-    </message>
-    <message>
-        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="508"/>
-        <source>Preferences</source>
-        <translation>Iestatījumi</translation>
-        <extra-po-references>Settings for actionPreferences</extra-po-references>
-    </message>
-    <message>
-        <source>Default Audio Sample Rate</source>
-        <translation>Noklusējuma nolases biežums:</translation>
-        <extra-po-references>Settings for default-samplerate</extra-po-references>
-    </message>
-    <message>
-        <source>Play/Pause Toggle (Alternate 1)</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for playToggle1</extra-po-references>
-    </message>
-    <message>
-        <source>Cache Mode</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for cache-mode</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="256"/>
@@ -3558,14 +3343,147 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>Settings for actionProperties</extra-po-references>
     </message>
     <message>
-        <source>Delete Item</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>Settings for deleteItem</extra-po-references>
+        <source>DVD-NTSC</source>
+        <translation>DVD-NTSC</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml</extra-po-references>
     </message>
     <message>
-        <source>AVCHD Disks</source>
-        <translation>AVCHD Disks</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml</extra-po-references>
+        <source>Device</source>
+        <translation>Ierīce</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml</extra-po-references>
+    </message>
+    <message>
+        <source>WEBM (vpx)</source>
+        <translation>WEBM (vpx)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Enable Autosave</source>
+        <translation>Ieslēgt automātisko saglabāšanu</translation>
+        <extra-po-references>Settings for enable-auto-save</extra-po-references>
+    </message>
+    <message>
+        <source>Keyboard</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings Category for Keyboard</extra-po-references>
+    </message>
+    <message>
+        <source>Play/Pause Toggle</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for playToggle</extra-po-references>
+    </message>
+    <message>
+        <source>Slice All: Keep Left Side</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for sliceAllKeepLeftSide</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/about.ui" line="23"/>
+        <source>About OpenShot</source>
+        <translation>Par OpenShot</translation>
+        <extra-po-references>Settings for actionAbout</extra-po-references>
+    </message>
+    <message>
+        <source>YouTube</source>
+        <translation>YouTube</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/youtube.xml</extra-po-references>
+    </message>
+    <message>
+        <source>MP4 (mpeg4)</source>
+        <translation>MP4 (mpeg4)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_mpeg4.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Autosave</source>
+        <translation>Automātiska saglabāšana</translation>
+        <extra-po-references>Settings Category for Autosave</extra-po-references>
+    </message>
+    <message>
+        <source>Default Profile</source>
+        <translation>Noklusējuma profils</translation>
+        <extra-po-references>Settings for default-profile</extra-po-references>
+    </message>
+    <message>
+        <source>Autosave Interval (minutes)</source>
+        <translation>Automātiskās saglabāšanas intervāls (minūtes)</translation>
+        <extra-po-references>Settings for autosave-interval</extra-po-references>
+    </message>
+    <message>
+        <source>FLV (h.264)</source>
+        <translation>FLV (h.264)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_flv_x264.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Image Format (Disk Only)</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for cache-image-format</extra-po-references>
+    </message>
+    <message>
+        <source>MOV (h.264)</source>
+        <translation>MOV (h.264)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mov_x264.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Select None</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for selectNone</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="658"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="661"/>
+        <source>Next Marker</source>
+        <translation>Nākamā atzīme</translation>
+        <extra-po-references>Settings for actionNextMarker</extra-po-references>
+    </message>
+    <message>
+        <source>General</source>
+        <translation>Vispārīgi</translation>
+        <extra-po-references>Settings Category for General</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="535"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="538"/>
+        <source>Jump To Start</source>
+        <translation>Pārlekt uz sākumu</translation>
+        <extra-po-references>Settings for actionJumpStart</extra-po-references>
+    </message>
+    <message>
+        <source>Play/Pause Toggle (Alternate 3)</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for playToggle3</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="285"/>
+        <source>New Project...</source>
+        <translation>Jauns projekts...</translation>
+        <extra-po-references>Settings for actionNew</extra-po-references>
+    </message>
+    <message>
+        <source>Picasa</source>
+        <translation>Picasa</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/picasa.xml</extra-po-references>
+    </message>
+    <message>
+        <source>AVI (mpeg4)</source>
+        <translation>AVI (mpeg4)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mp4.xml</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1072"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1075"/>
+        <source>Add to Timeline</source>
+        <translation>Pievienot laika skalai</translation>
+        <extra-po-references>Settings for actionAdd_to_Timeline</extra-po-references>
+    </message>
+    <message>
+        <source>Default Audio Channels</source>
+        <translation>Noklusējuma audio kanāli</translation>
+        <extra-po-references>Settings for default-channellayout</extra-po-references>
+    </message>
+    <message>
+        <source>Next Frame</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for seekNextFrame</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="619"/>
@@ -3575,24 +3493,316 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>Settings for actionSnappingTool</extra-po-references>
     </message>
     <message>
-        <source>Default Audio Channels</source>
-        <translation>Noklusējuma audio kanāli</translation>
-        <extra-po-references>Settings for default-channellayout</extra-po-references>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="478"/>
+        <source>Quit</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for actionQuit</extra-po-references>
     </message>
     <message>
-        <source>AVI (mpeg4)</source>
-        <translation>AVI (mpeg4)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mp4.xml</extra-po-references>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="508"/>
+        <source>Preferences</source>
+        <translation>Iestatījumi</translation>
+        <extra-po-references>Settings for actionPreferences</extra-po-references>
     </message>
     <message>
-        <source>Autosave</source>
-        <translation>Automātiska saglabāšana</translation>
-        <extra-po-references>Settings Category for Autosave</extra-po-references>
+        <source>OGG (theora/vorbis)</source>
+        <translation>OGG (theora/vorbis)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_libvorbis.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Scale Factor (Disk Only)</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for cache-scale</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="852"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="855"/>
+        <source>Animated Title</source>
+        <translation>Animētais virsraksts</translation>
+        <extra-po-references>Settings for actionAnimatedTitle</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="559"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="562"/>
+        <source>Fast Forward</source>
+        <translation>Tīt uz priekšu</translation>
+        <extra-po-references>Settings for fastforwardVideo</extra-po-references>
+    </message>
+    <message>
+        <source>Delete Item (Alternate 1)</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for deleteItem1</extra-po-references>
+    </message>
+    <message>
+        <source>Nokia nHD</source>
+        <translation>Nokia nHD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/nokia_nHD.xml</extra-po-references>
+    </message>
+    <message>
+        <source>MOV (mpeg4)</source>
+        <translation>MOV (mpeg4)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mov_mpeg4.xml</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="631"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="634"/>
+        <source>Add Marker</source>
+        <translation>Pievienot atzīmi</translation>
+        <extra-po-references>Settings for actionAddMarker</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="315"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="318"/>
+        <source>Save Project</source>
+        <translation>Saglabāt projektu</translation>
+        <extra-po-references>Settings for actionSave</extra-po-references>
     </message>
     <message>
         <source>Language</source>
         <translation>Valoda</translation>
         <extra-po-references>Settings for default-language</extra-po-references>
+    </message>
+    <message>
+        <source>Profiles</source>
+        <translation>Profili</translation>
+        <extra-po-references>Settings Category for Profiles</extra-po-references>
+    </message>
+    <message>
+        <source>Default Audio Sample Rate</source>
+        <translation>Noklusējuma nolases biežums:</translation>
+        <extra-po-references>Settings for default-samplerate</extra-po-references>
+    </message>
+    <message>
+        <source>Debug</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings Category for Debug</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="571"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="574"/>
+        <source>Jump To End</source>
+        <translation>Pārlekt uz beigām</translation>
+        <extra-po-references>Settings for actionJumpEnd</extra-po-references>
+    </message>
+    <message>
+        <source>Apple TV</source>
+        <translation>Apple TV</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Blu-Ray/AVCHD</source>
+        <translation>Blu-Ray/AVCHD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Debug Mode (Verbose)</source>
+        <translation>Atkļūdošanas režīms (detalizēts)</translation>
+        <extra-po-references>Settings for debug-mode</extra-po-references>
+    </message>
+    <message>
+        <source>AVI (mpeg2)</source>
+        <translation>AVI (mpeg2)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mpeg2.xml</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="547"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="550"/>
+        <source>Rewind</source>
+        <translation>Tīt atpakaļ</translation>
+        <extra-po-references>Settings for rewindVideo</extra-po-references>
+    </message>
+    <message>
+        <source>MPEG (mpeg2)</source>
+        <translation>MPEG (mpeg2)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mpeg_mpeg2.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Send Anonymous Metrics and Errors</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for send_metrics</extra-po-references>
+    </message>
+    <message>
+        <source>Image Quality (Disk Only)</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for cache-quality</extra-po-references>
+    </message>
+    <message>
+        <source>AVCHD Disks</source>
+        <translation>AVCHD Disks</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml</extra-po-references>
+    </message>
+    <message>
+        <source>OGG (theora/flac)</source>
+        <translation>OGG (theora/flac)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_flac.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Cache Mode</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for cache-mode</extra-po-references>
+    </message>
+    <message>
+        <source>Blender Command (path)</source>
+        <translation>Blender komanda (ceļš)</translation>
+        <extra-po-references>Settings for blender_command</extra-po-references>
+    </message>
+    <message>
+        <source>Xbox 360</source>
+        <translation>Xbox 360</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/xbox360.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Default Theme</source>
+        <translation>Noklusējuma tēma</translation>
+        <extra-po-references>Settings for theme</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="493"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="496"/>
+        <source>Add Track</source>
+        <translation>Pievienot celiņu</translation>
+        <extra-po-references>Settings for actionAddTrack</extra-po-references>
+    </message>
+    <message>
+        <source>Debug Mode (Port)</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for debug-port</extra-po-references>
+    </message>
+    <message>
+        <source>Metacafe</source>
+        <translation>Metacafe</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="919"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="922"/>
+        <source>Thumbnail View</source>
+        <translation>Sīktēlu skats</translation>
+        <extra-po-references>Settings for actionThumbnailView</extra-po-references>
+    </message>
+    <message>
+        <source>MP4 (Xvid)</source>
+        <translation>MP4 (Xvid)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_xvid.xml</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="405"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="408"/>
+        <source>Redo</source>
+        <translation>Pārdarīt</translation>
+        <extra-po-references>Settings for actionRedo</extra-po-references>
+    </message>
+    <message>
+        <source>DVD</source>
+        <translation>DVD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="871"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="874"/>
+        <source>Fullscreen</source>
+        <translation>Pilnekrāns</translation>
+        <extra-po-references>Settings for actionFullscreen</extra-po-references>
+    </message>
+    <message>
+        <source>Play/Pause Toggle (Alternate 1)</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for playToggle1</extra-po-references>
+    </message>
+    <message>
+        <source>Flickr-HD</source>
+        <translation>Flickr-HD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/flickr_HD.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Select All</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for selectAll</extra-po-references>
+    </message>
+    <message>
+        <source>Delete Item</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for deleteItem</extra-po-references>
+    </message>
+    <message>
+        <source>Image Length (seconds)</source>
+        <translation>Attēlu garums (sekundes)</translation>
+        <extra-po-references>Settings for default-image-length</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="330"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="333"/>
+        <source>Undo</source>
+        <translation>Atsaukt</translation>
+        <extra-po-references>Settings for actionUndo</extra-po-references>
+    </message>
+    <message>
+        <source>Play/Pause Toggle (Alternate 2)</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for playToggle2</extra-po-references>
+    </message>
+    <message>
+        <source>Wikipedia</source>
+        <translation>Vikipēdija</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/wikipedia.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Advanced Title Editor (path)</source>
+        <translation>Paplašinātais virsrakstu redaktors (ceļš)</translation>
+        <extra-po-references>Settings for title_editor</extra-po-references>
+    </message>
+    <message>
+        <source>Slice All: Keep Both Sides</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for sliceAllKeepBothSides</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1197"/>
+        <source>Split Clip...</source>
+        <translation>Sadalīt klipu...</translation>
+        <extra-po-references>Settings for actionSplitClip</extra-po-references>
+    </message>
+    <message>
+        <source>Web</source>
+        <translation>Tīmeklis</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml</extra-po-references>
+    </message>
+    <message>
+        <source>YouTube-HD</source>
+        <translation>YouTube-HD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/youtube_HD.xml</extra-po-references>
+    </message>
+    <message>
+        <source>DVD-PAL</source>
+        <translation>DVD-PAL</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/dvd_pal.xml</extra-po-references>
+    </message>
+    <message>
+        <source>Slice All: Keep Right Side</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for sliceAllKeepRightSide</extra-po-references>
+    </message>
+    <message>
+        <source>Cache Limit (MB)</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>Settings for cache-limit-mb</extra-po-references>
+    </message>
+    <message>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="646"/>
+        <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="649"/>
+        <source>Previous Marker</source>
+        <translation>Iepriekšējā atzīme</translation>
+        <extra-po-references>Settings for actionPreviousMarker</extra-po-references>
+    </message>
+    <message>
+        <source>Vimeo-HD</source>
+        <translation>Vimeo-HD</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/vimeo_HD.xml</extra-po-references>
+    </message>
+    <message>
+        <source>AVI (h.264)</source>
+        <translation>AVI (h.264)</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_avi_x264.xml</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="118"/>
@@ -3601,94 +3811,19 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/vimeo.xml</extra-po-references>
     </message>
     <message>
-        <source>MP4 (mpeg4)</source>
-        <translation>MP4 (mpeg4)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_mpeg4.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Nokia nHD</source>
-        <translation>Nokia nHD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/nokia_nHD.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Select All</source>
+        <source>Ondulation %s</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>Settings for selectAll</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ondulation_1.jpg</extra-po-references>
     </message>
     <message>
-        <source>Blender Command (path)</source>
-        <translation>Blender komanda (ceļš)</translation>
-        <extra-po-references>Settings for blender_command</extra-po-references>
+        <source>Spiral abstract %s</source>
+        <translation>Spirāle abstrakta %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_abstract_2.jpg</extra-po-references>
     </message>
     <message>
-        <source>Play/Pause Toggle (Alternate 2)</source>
+        <source>Mozaic barr right</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>Settings for playToggle2</extra-po-references>
-    </message>
-    <message>
-        <source>Debug Mode (Verbose)</source>
-        <translation>Atkļūdošanas režīms (detalizēts)</translation>
-        <extra-po-references>Settings for debug-mode</extra-po-references>
-    </message>
-    <message>
-        <source>Xbox 360</source>
-        <translation>Xbox 360</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/xbox360.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Flickr-HD</source>
-        <translation>Flickr-HD</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/flickr_HD.xml</extra-po-references>
-    </message>
-    <message>
-        <source>MPEG (mpeg2)</source>
-        <translation>MPEG (mpeg2)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mpeg_mpeg2.xml</extra-po-references>
-    </message>
-    <message>
-        <source>WEBM (vpx)</source>
-        <translation>WEBM (vpx)</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml</extra-po-references>
-    </message>
-    <message>
-        <source>Board %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/board_10.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Mozaic %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_5.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Luminous frame %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_frame_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Vertical bars</source>
-        <translation>Vertikālas restes</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_bars.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Whirpool %s</source>
-        <translation>Atvars %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/whirpool_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Small top arrow</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_top_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle left inspiration</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_left_inspiration.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral big</source>
-        <translation>Spirāle liela</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_right.jpg</extra-po-references>
     </message>
     <message>
         <source>Wandering %s</source>
@@ -3696,44 +3831,9 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wandering_12.jpg</extra-po-references>
     </message>
     <message>
-        <source>Middle low arrow</source>
+        <source>Ray %s</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_low_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ray light %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_18.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Luminous spiral %s</source>
-        <translation>Spirāle luminiscējoša %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_spiral_9.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Fractal %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fractal_5.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Little right inspiration</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_right_inspiration.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Small cross left barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_left_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Left arrow</source>
-        <translation>Kreisā bulta</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Frame barr right</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_right.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_1.jpg</extra-po-references>
     </message>
     <message>
         <source>Foggy spiral %s</source>
@@ -3741,154 +3841,19 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/foggy_spiral_1.jpg</extra-po-references>
     </message>
     <message>
-        <source>Ray light right %s</source>
+        <source>Blinds in to out big</source>
+        <translation>Žalūzijas atveras, lielas</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out_big.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Distortion %s</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right_2.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg</extra-po-references>
     </message>
     <message>
-        <source>Square left barr</source>
+        <source>Small losange</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_left_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Star %s</source>
-        <translation>Zvaigzne %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/star_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle cross left barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_left_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Rectangle out to in</source>
-        <translation>Taisnstūris uz iekšu</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_out_to_in.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Hatched %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/hatched_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Rectangle in to out</source>
-        <translation>Taisnstūris uz āru</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_in_to_out.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Flower %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/flower_4.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>4 squares leftt barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_leftt_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Big losange</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_losange.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Twirl %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/twirl_26.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle losange</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_losange.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Big cross right barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_right_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral small</source>
-        <translation>Spirāle maza</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ray light right</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Blur ray right</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spots</source>
-        <translation>Plankumi</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spots.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Crossed barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/crossed_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle top arrow</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_top_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Checked %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/checked_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Dissolve</source>
-        <translation>Izšķīst</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/dissolve.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Circle in to out</source>
-        <translation>Riņķis uz āru</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_in_to_out.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Cross %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/cross_15.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral big %s</source>
-        <translation>Spirāle liela %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Luminous boxes %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_boxes_19.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ripple top arrow</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_top_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Boxes %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/boxes_12.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Extra</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra</extra-po-references>
-    </message>
-    <message>
-        <source>Small cross right barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_right_barr.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_losange.jpg</extra-po-references>
     </message>
     <message>
         <source>Ripple luminous low arrow</source>
@@ -3896,69 +3861,59 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_low_arrow.jpg</extra-po-references>
     </message>
     <message>
+        <source>Big losange</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_losange.jpg</extra-po-references>
+    </message>
+    <message>
         <source>Blur ray left</source>
         <translation type="unfinished"></translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_left.jpg</extra-po-references>
     </message>
     <message>
-        <source>Future %s</source>
-        <translation>Nākotne %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/future_11.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Ray light left</source>
+        <source>Wave right down</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_down.jpg</extra-po-references>
     </message>
     <message>
-        <source>Free left inspiration</source>
+        <source>Wipe right to left</source>
+        <translation>Iedziest no labās uz kreiso</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_right_to_left.svg</extra-po-references>
+    </message>
+    <message>
+        <source>Clock left to right</source>
+        <translation>Pulkstenis pa kreisi</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_left_to_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Fractal %s</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_left_inspiration.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fractal_5.jpg</extra-po-references>
     </message>
     <message>
-        <source>Blur right barr</source>
+        <source>Middle black barr</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_right_barr.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_black_barr.jpg</extra-po-references>
     </message>
     <message>
-        <source>Spiral medium</source>
-        <translation>Spirāle vidēja</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_medium.jpg</extra-po-references>
+        <source>Fogg %s</source>
+        <translation>Migla %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fogg_3.jpg</extra-po-references>
     </message>
     <message>
-        <source>Middle cross right barr</source>
+        <source>Square middle left barr</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_right_barr.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_left_barr.jpg</extra-po-references>
     </message>
     <message>
-        <source>Spiral small %s</source>
-        <translation>Spirāle maza %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Right mozaic %s</source>
+        <source>Middle right inspiration</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic_2.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_right_inspiration.jpg</extra-po-references>
     </message>
     <message>
-        <source>Little rippling left</source>
+        <source>Board %s</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_left.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Clouds</source>
-        <translation>Mākoņi</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wipe bottom to top</source>
-        <translation>Iedziest no apakšas uz augšu</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_bottom_to_top.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle barr ripple %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr_ripple_2.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/board_10.jpg</extra-po-references>
     </message>
     <message>
         <source>Horizontal barr %s</source>
@@ -3966,14 +3921,199 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/horizontal_barr_1.jpg</extra-po-references>
     </message>
     <message>
-        <source>Ripple low arrow</source>
+        <source>Middle losange</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_low_arrow.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_losange.jpg</extra-po-references>
     </message>
     <message>
-        <source>Ondulation %s</source>
+        <source>Lateral left triangle</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ondulation_1.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_left_triangle.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Hourglass %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/hourglass_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Small top arrow</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_top_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ray light left %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Central mozaic</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/central_mozaic.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Lateral right triangle</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_right_triangle.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Blur ray right</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Clouds</source>
+        <translation>Mākoņi</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Whirpool %s</source>
+        <translation>Atvars %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/whirpool_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle cross left barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_left_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Small cross left barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_left_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Clouds %s</source>
+        <translation>Mākoņi %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ray light right</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle left inspiration</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_left_inspiration.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Vertical bars</source>
+        <translation>Vertikālas restes</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_bars.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ripple top arrow</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_top_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Frame %s</source>
+        <translation>Rāmis %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Luminous spiral %s</source>
+        <translation>Spirāle luminiscējoša %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_spiral_9.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wipe top to bottom</source>
+        <translation>Iedziest no augšas uz leju</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_top_to_bottom.svg</extra-po-references>
+    </message>
+    <message>
+        <source>Left mozaic</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_mozaic.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Free inspiration right</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_inspiration_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Future %s</source>
+        <translation>Nākotne %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/future_11.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Big barr shaking %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Frame barr right</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wave left up</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_up.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral medium</source>
+        <translation>Spirāle vidēja</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_medium.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral small %s</source>
+        <translation>Spirāle maza %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Mountains</source>
+        <translation>Kalni</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mountains.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ripple luminous top arrow</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_top_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Openshot logo</source>
+        <translation>OpenShot logo</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/openshot_logo.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle cross right barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Cross %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/cross_15.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Extra</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra</extra-po-references>
+    </message>
+    <message>
+        <source>Frame barr left</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_left.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Mozaic barr left</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_left.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Circle out to in</source>
+        <translation>Riņķis uz iekšu</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_out_to_in.svg</extra-po-references>
+    </message>
+    <message>
+        <source>Wipe left to right</source>
+        <translation>Iedziest no kreisās uz labo</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_left_to_right.svg</extra-po-references>
     </message>
     <message>
         <source>Right mozaic</source>
@@ -3981,9 +4121,99 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic.jpg</extra-po-references>
     </message>
     <message>
-        <source>Clouds %s</source>
-        <translation>Mākoņi %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds_2.jpg</extra-po-references>
+        <source>Square left barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_left_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Small low arrow</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_low_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Free left inspiration</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_left_inspiration.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Postime %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/postime_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Rectangle out to in</source>
+        <translation>Taisnstūris uz iekšu</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_out_to_in.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Big barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Sphere %s</source>
+        <translation>Sfēra %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Twirl %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/twirl_26.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Left arrow</source>
+        <translation>Kreisā bulta</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ripple %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_4.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Circle in to out</source>
+        <translation>Riņķis uz āru</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_in_to_out.svg</extra-po-references>
+    </message>
+    <message>
+        <source>Blinds sliding</source>
+        <translation>Žalūzijas bīdāmās</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_sliding.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Middle low arrow</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_low_arrow.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Stain %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/stain_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Little rippling right</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_right.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Fish-eyes %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fish-eyes_5.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Luminous boxes %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_boxes_19.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Stretched %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/stretched_3.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wipe bottom to top</source>
+        <translation>Iedziest no apakšas uz augšu</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_bottom_to_top.svg</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="736"/>
@@ -3993,59 +4223,19 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common</extra-po-references>
     </message>
     <message>
-        <source>Circle out to in</source>
-        <translation>Riņķis uz iekšu</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_out_to_in.svg</extra-po-references>
+        <source>Star %s</source>
+        <translation>Zvaigzne %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/star_2.jpg</extra-po-references>
     </message>
     <message>
-        <source>Postime %s</source>
+        <source>Middle top arrow</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/postime_1.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_top_arrow.jpg</extra-po-references>
     </message>
     <message>
-        <source>Frame %s</source>
-        <translation>Rāmis %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Barr ripple %s</source>
+        <source>Middle barr ripple %s</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/barr_ripple_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral %s</source>
-        <translation>Spirāle %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Big barr shaking2</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Small low arrow</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_low_arrow.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Sphere</source>
-        <translation>Lode</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Stretched %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/stretched_3.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Small barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Big cross left barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_left_barr.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr_ripple_2.jpg</extra-po-references>
     </message>
     <message>
         <source>Wave right up</source>
@@ -4053,64 +4243,29 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_up.jpg</extra-po-references>
     </message>
     <message>
-        <source>Openshot logo</source>
-        <translation>OpenShot logo</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/openshot_logo.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wipe diagonal %s</source>
+        <source>Right mozaic %s</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wipe_diagonal_3.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic_2.jpg</extra-po-references>
     </message>
     <message>
-        <source>Frame cross left barr</source>
+        <source>Puzzle</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_cross_left_barr.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/puzzle.jpg</extra-po-references>
     </message>
     <message>
-        <source>Little rippling right</source>
+        <source>Little right inspiration</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_right.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_right_inspiration.jpg</extra-po-references>
     </message>
     <message>
-        <source>Central mozaic</source>
+        <source>Mosaic %s</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/central_mozaic.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mosaic_2.jpg</extra-po-references>
     </message>
     <message>
-        <source>Ray light left %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Big barr shaking %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Square middle left barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_left_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Big barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Middle right inspiration</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_right_inspiration.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Sunlight %s</source>
-        <translation>Saules gaisma %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sunlight_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Lateral left triangle</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_left_triangle.jpg</extra-po-references>
+        <source>Spiral big</source>
+        <translation>Spirāle liela</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big.jpg</extra-po-references>
     </message>
     <message>
         <source>Blinds in to out</source>
@@ -4118,19 +4273,14 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out.jpg</extra-po-references>
     </message>
     <message>
-        <source>Ray %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_1.jpg</extra-po-references>
+        <source>Bubbles</source>
+        <translation>Burbuļi</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/bubbles.jpg</extra-po-references>
     </message>
     <message>
-        <source>Wave left down</source>
+        <source>Sun shaking</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_down.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Fish-eyes %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fish-eyes_5.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sun_shaking.jpg</extra-po-references>
     </message>
     <message>
         <source>Right arrow</source>
@@ -4138,19 +4288,44 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_arrow.jpg</extra-po-references>
     </message>
     <message>
-        <source>Small losange</source>
+        <source>Small cross right barr</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_losange.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_right_barr.jpg</extra-po-references>
     </message>
     <message>
-        <source>Square middle right barr</source>
+        <source>Crossed barr</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_right_barr.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/crossed_barr.jpg</extra-po-references>
     </message>
     <message>
-        <source>Deform %s</source>
-        <translation>Deformācija %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/deform_8.jpg</extra-po-references>
+        <source>Blur left barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_left_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ray light %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_18.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Little left inspiration</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_left_inspiration.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Little rippling left</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_left.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral small</source>
+        <translation>Spirāle maza</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ripple low arrow</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_low_arrow.jpg</extra-po-references>
     </message>
     <message>
         <source>Square right barr</source>
@@ -4163,124 +4338,19 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/triangle_3.jpg</extra-po-references>
     </message>
     <message>
-        <source>Puzzle</source>
+        <source>Wave left down</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/puzzle.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_down.jpg</extra-po-references>
     </message>
     <message>
-        <source>Middle black barr</source>
+        <source>4 squares right barr</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_black_barr.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_right_barr.jpg</extra-po-references>
     </message>
     <message>
-        <source>Blur left barr</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_left_barr.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Stain %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/stain_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Mountains</source>
-        <translation>Kalni</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mountains.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Mosaic %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mosaic_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Sphere %s</source>
-        <translation>Sfēra %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Hourglass %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/hourglass_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wipe left to right</source>
-        <translation>Iedziest no kreisās uz labo</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_left_to_right.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Clock left to right</source>
-        <translation>Pulkstenis pa kreisi</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_left_to_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Mozaic barr right</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Vertical blinds in to out big</source>
-        <translation>Vertikālās žalūzijas atveras, lielas</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out_big.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Spiral abstract %s</source>
-        <translation>Spirāle abstrakta %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_abstract_2.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Lateral right triangle</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_right_triangle.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wave right down</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_down.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Vertical blinds in to out</source>
-        <translation>Vertikālās žalūzijas atveras</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Clock right to left</source>
-        <translation>Pulkstenis pa labi</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_right_to_left.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Fogg %s</source>
-        <translation>Migla %s</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/fogg_3.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Free inspiration right</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_inspiration_right.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Sun shaking</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sun_shaking.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wipe right to left</source>
-        <translation>Iedziest no labās uz kreiso</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_right_to_left.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Distortion %s</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Left mozaic</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_mozaic.jpg</extra-po-references>
-    </message>
-    <message>
-        <source>Wave left up</source>
-        <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_up.jpg</extra-po-references>
+        <source>Sphere</source>
+        <translation>Lode</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere.jpg</extra-po-references>
     </message>
     <message>
         <source>Strange barr %s</source>
@@ -4288,54 +4358,144 @@ Vai vēlaties to aizvietot?</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/strange_barr_1.jpg</extra-po-references>
     </message>
     <message>
-        <source>Little left inspiration</source>
+        <source>Barr ripple %s</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_left_inspiration.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/barr_ripple_2.jpg</extra-po-references>
     </message>
     <message>
-        <source>Ripple luminous top arrow</source>
+        <source>Ray light left</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_top_arrow.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left.jpg</extra-po-references>
     </message>
     <message>
-        <source>Wipe top to bottom</source>
-        <translation>Iedziest no augšas uz leju</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_top_to_bottom.svg</extra-po-references>
-    </message>
-    <message>
-        <source>Mozaic barr left</source>
+        <source>Checked %s</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_left.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/checked_1.jpg</extra-po-references>
     </message>
     <message>
-        <source>Bubbles</source>
-        <translation>Burbuļi</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/bubbles.jpg</extra-po-references>
+        <source>Dissolve</source>
+        <translation>Izšķīst</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/dissolve.jpg</extra-po-references>
     </message>
     <message>
-        <source>Ripple %s</source>
+        <source>Big cross right barr</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_4.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_right_barr.jpg</extra-po-references>
     </message>
     <message>
-        <source>Blinds in to out big</source>
-        <translation>Žalūzijas atveras, lielas</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out_big.jpg</extra-po-references>
+        <source>Vertical blinds in to out</source>
+        <translation>Vertikālās žalūzijas atveras</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out.jpg</extra-po-references>
     </message>
     <message>
-        <source>Blinds sliding</source>
-        <translation>Žalūzijas bīdāmās</translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_sliding.jpg</extra-po-references>
+        <source>Vertical blinds in to out big</source>
+        <translation>Vertikālās žalūzijas atveras, lielas</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out_big.jpg</extra-po-references>
     </message>
     <message>
-        <source>Frame barr left</source>
+        <source>Mozaic %s</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_left.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_5.jpg</extra-po-references>
     </message>
     <message>
-        <source>4 squares right barr</source>
+        <source>Sunlight %s</source>
+        <translation>Saules gaisma %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sunlight_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Ray light right %s</source>
         <translation type="unfinished"></translation>
-        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_right_barr.jpg</extra-po-references>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Square middle right barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Luminous frame %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_frame_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Hatched %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/hatched_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Small barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Wipe diagonal %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wipe_diagonal_3.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spots</source>
+        <translation>Plankumi</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spots.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Big barr shaking2</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Frame cross left barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_cross_left_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Boxes %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/boxes_12.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Blur right barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_right_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Clock right to left</source>
+        <translation>Pulkstenis pa labi</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_right_to_left.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral %s</source>
+        <translation>Spirāle %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_1.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>4 squares leftt barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_leftt_barr.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Deform %s</source>
+        <translation>Deformācija %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/deform_8.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Spiral big %s</source>
+        <translation>Spirāle liela %s</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big_2.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Flower %s</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/flower_4.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Rectangle in to out</source>
+        <translation>Taisnstūris uz āru</translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_in_to_out.jpg</extra-po-references>
+    </message>
+    <message>
+        <source>Big cross left barr</source>
+        <translation type="unfinished"></translation>
+        <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_left_barr.jpg</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/about.ui" line="67"/>

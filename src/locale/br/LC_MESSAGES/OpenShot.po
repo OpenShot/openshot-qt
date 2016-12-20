@@ -7,20 +7,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-09-07 00:46+0000\n"
-"PO-Revision-Date: 2016-08-18 20:18+0000\n"
+"POT-Creation-Date: 2016-10-19 02:13+0000\n"
+"PO-Revision-Date: 2016-10-17 06:46+0000\n"
 "Last-Translator: Gwenn M <Unknown>\n"
 "Language-Team: Breton <br@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-09-08 06:59+0000\n"
-"X-Generator: Launchpad (build 18179)\n"
+"X-Launchpad-Export-Date: 2016-10-20 06:29+0000\n"
+"X-Generator: Launchpad (build 18232)\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:602
 #, python-format
 msgid "Failed to load project file %(path)s: %(error)s"
-msgstr ""
+msgstr "C'hwitadenn en ur gargañ restr ar raktres %(path)s: %(error)s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:609
 #, python-format
@@ -32,8 +32,8 @@ msgstr ""
 "%s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:474
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1260
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:164
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1271
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:165
 #, python-format
 msgid "Track %s"
 msgstr "Loabr %s"
@@ -59,7 +59,7 @@ msgstr "Digeriñ ha serriñ en arveuz"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:484
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:496
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:637
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:643
 msgid "Random"
 msgstr "Dargouezhek"
 
@@ -93,85 +93,85 @@ msgstr "Gwarediñ atoret"
 msgid "Your most recent unsaved project has been recovered."
 msgstr "Atoret eo bet ho raktresoù dienrollet nevesañ"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:293
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:290
 msgid "Error Saving Project"
 msgstr "Fazi en ur enrollañ ar raktres"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:333
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:330
 msgid "Error Opening Project"
 msgstr "Fazi en ur zigeriñ ar raktres"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:372 Settings
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:369 Settings
 #: for actionOpen
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:300
 msgid "Open Project..."
 msgstr "Digeriñ ur raktres..."
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:372
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:385
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:429
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:369
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:382
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:426
 msgid "OpenShot Project (*.osp)"
 msgstr "Raktres OpenShot (*.osp)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:384
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:428
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1499
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:381
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:425
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1510
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:104
 msgid "Untitled Project"
 msgstr "Raktres hep titl"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:385
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:382
 msgid "Save Project..."
 msgstr "Enrollañ ar raktres"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:429 Settings
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:426 Settings
 #: for actionSaveAs
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:345
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:348
 msgid "Save Project As..."
 msgstr "Enrollañ ar raktres evel..."
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:444
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:441
 msgid "Import File..."
 msgstr "Enporzhiañ ur restr..."
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1197
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1208
 msgid "Error Removing Track"
-msgstr ""
+msgstr "Fazi en ur zilemel ar loabr"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1197
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1208
 msgid "You must keep at least 1 track"
-msgstr ""
+msgstr "Ret eo deoc'h mirout ul loabr d'an nebeutañ"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1262
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1273
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1227
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1230
 msgid "Rename Track"
 msgstr "Adenvel al loabr"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1262
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1273
 msgid "Track Name:"
 msgstr "Anv al loabr:"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1590
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1601
 msgid "Recent Projects"
 msgstr "Raktresoù nevesañ"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1629
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1646
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1665
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1889
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1640
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1657
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1676
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1905
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:272
 msgid "Filter"
 msgstr "Sil"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1716
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:2152
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1727
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:2158
 msgid "{} seconds"
 msgstr "{} eilenn"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1755
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1756
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1766
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1767
 #, python-format
 msgid "New Version Available: %s"
 msgstr "Handelv nevez hegerz: %s"
@@ -204,8 +204,8 @@ msgstr "Scalable Vector Graphics (*.svg)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:648
 #: /home/jonathan/apps/openshot-qt-git/src/windows/animated_title.py:165
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/files_treeview.py:203
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/files_listview.py:204
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/files_treeview.py:202
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/files_listview.py:203
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/files_model.py:175
 msgid "{} is not a valid video, audio, or image file."
 msgstr "{} n'eo ket ur restr video, son pe skeudenn talvoudek"
@@ -299,15 +299,15 @@ msgstr ""
 "  Gwenn M https://launchpad.net/~tornoz\n"
 "  Jonathan Thomas https://launchpad.net/~jonoomph"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/files_treeview.py:251
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/files_listview.py:252
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/files_treeview.py:250
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/files_listview.py:251
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:17
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/import-images-sequences.ui:229
 msgid "Import Image Sequence"
 msgstr "Enporzhiañ un heuliad a skeudennoù"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/files_treeview.py:251
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/files_listview.py:252
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/files_treeview.py:250
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/files_listview.py:251
 #, python-format
 msgid "Would you like to import %s as an image sequence?"
 msgstr "Fellout a ra deoc'h enporzhiañ %s evel un heuliad a skeudennoù?"
@@ -320,7 +320,7 @@ msgstr "Kuzhat ar c'helennskrid"
 msgid "Next"
 msgstr "War lerc'h"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:277
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:295
 msgid ""
 "<b>Project Files:</b> Get started with your project by adding video, audio, "
 "and image files here. Drag and drop files from your file system."
@@ -328,7 +328,7 @@ msgstr ""
 "<b>Restroù raktres:</b> Krogit ganti en ur ouzhpennañ videoioù, tonioù ha "
 "skeudennoù amañ. Riklit ha lakait ar restroù adalek ho reizhiad restroù."
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:278
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:296
 msgid ""
 "<b>Timeline:</b> Arrange your clips on the timeline here. Overlap clips to "
 "create automatic transitions. Access lots of fun presets and options by "
@@ -338,15 +338,15 @@ msgstr ""
 "eil war egile evit krouiñ ardreuzadoù emgefreek. Haezit rakarventennoù ha "
 "dibarzhioù en ur glikañ dehou war ar c'hlipoù."
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:279
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:297
 msgid ""
 "<b>Video Preview:</b> Watch your timeline video preview here. Use the "
 "buttons (play, rewind, fast-forward) to control the video playback."
 msgstr ""
-"<b>Alberz ar video:</b> Sellit ouzh alberz video ho re-amzer amañ. Arverit "
+"<b>Alberz ar video:</b> Sellit ouzh alberz video ho red-amzer amañ. Arverit "
 "an afelloù (lenn, adenbeniañ,  war-raok) evit reoliñ ar video."
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:280
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:298
 msgid ""
 "<b>Properties:</b> View and change advanced properties of clips and effects "
 "here. Right-clicking on clips is usually faster than manually changing "
@@ -356,7 +356,7 @@ msgstr ""
 "Klikañ dehou war ar c'hlip war-eeun a zo primoc'h eget kemmañ ar perzhioù "
 "gant an dorn, peurliesañ."
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:281
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:299
 msgid ""
 "<b>Transitions:</b> Create a gradual fade from one clip to another. Drag and "
 "drop a transition onto the timeline and position it on top of a clip "
@@ -366,7 +366,7 @@ msgstr ""
 "ha lakait un ardreuzad war ar red-amzer ha lec'hiit anezhañ a-us d'ur c'hlip "
 "(en deroù pe en dibenn)."
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:282
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:300
 msgid ""
 "<b>Effects:</b> Adjust brigthness, contrast, saturation, and add exciting "
 "special effects. Drag and drop an effect onto the timeline and position it "
@@ -376,7 +376,7 @@ msgstr ""
 "ouzhpennañ a ra efedoù arbennik. Riklit ha lakait an efed war ar red-amzer "
 "ha lec'hiit anezhañ a-us d'ur c'hlip (pe ul loabr)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:283
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:301
 msgid ""
 "<b>Export Video:</b> When you are ready to create your finished video, click "
 "this button to export your timeline as a single video file."
@@ -439,469 +439,581 @@ msgstr ""
 msgid "No frame was found in the output from Blender"
 msgstr "N'eus ket bet kavet a skeudenn en ec'hankad Blender"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:405
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:411
 msgid "Slice All"
 msgstr "Troc'hañ an holl"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:406
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:779
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:2029
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:412
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:785
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:2035
 msgid "Keep Both Sides"
 msgstr "Mirout an daou gostez"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:408
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:782
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:2031
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:414
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:788
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:2037
 msgid "Keep Left Side"
 msgstr "Mirout ar c'hostez kleiz"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:410
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:785
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:2033
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:416
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:791
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:2039
 msgid "Keep Right Side"
 msgstr "Mirout ar c'hostez dehou"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:447
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:524
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:2006
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:453
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:530
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:2012
 #: Settings for pasteAll
 msgid "Paste"
 msgstr "Pegañ"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:476
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:482
 msgid "Start of Clip"
 msgstr "Deroù ar c'hlip"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:476
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:482
 msgid "End of Clip"
 msgstr "Dibenn ar c'hlip"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:476
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:482
 msgid "Entire Clip"
 msgstr "Kilp a-bezh"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:476
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:482
 msgid "Normal"
 msgstr "Reoliek"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:476
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:482
 msgid "Fast"
 msgstr "Prim"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:476
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:482
 msgid "Slow"
 msgstr "Gorrek"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:476
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:482
 msgid "Forward"
 msgstr "War-lerc'h"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:476
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:482
 msgid "Backward"
 msgstr "War-dreñv"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:484
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:489
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1976
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1981
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:490
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:495
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1982
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1987
 #: Settings for copyAll
 msgid "Copy"
 msgstr "Eilañ"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:490
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:496
 msgid "Clip"
 msgstr "Klip"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:494
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1986
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:500
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1992
 msgid "Keyframes"
 msgstr "Skeudennoù-alc'hwez"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:495
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1987
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:501
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1993
 msgid "All"
 msgstr "An holl"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:498
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:504
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "Alpha"
 msgstr "Alfa"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:500
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:506
 #: libopenshot (Clip Properties)
 msgid "Scale"
 msgstr "Skeulaat"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:502
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:508
 #: libopenshot (Clip Properties)
 msgid "Rotation"
 msgstr "C'hwelañ"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:504
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:510
 msgid "Location"
 msgstr "Lec'hiadur"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:506
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:682
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:512
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:688
 #: libopenshot (Clip Properties)
 msgid "Time"
 msgstr "Eur"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:508
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:706
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:514
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:712
 #: libopenshot (Clip Properties) Settings for volume
 msgid "Volume"
 msgstr "Ampled"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:512
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:518
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:235
 msgid "Effects"
 msgstr "Efedoù"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:531
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:2013
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:537
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:2019
 msgid "Align"
 msgstr "Steudañ"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:532
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:2014
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:538
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:2020
 #: libopenshot (Clip Properties)
 msgid "Left"
 msgstr "Kleiz"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:534
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:2016
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:540
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:2022
 #: libopenshot (Clip Properties)
 msgid "Right"
 msgstr "Dehou"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:541
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:547
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/common/fade.svg
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:240
 msgid "Fade"
 msgstr "Arveuz"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:542
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:548
 msgid "No Fade"
 msgstr "Arveuz ebet"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:549
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:714
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:555
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:720
 msgid "Fade In (Fast)"
 msgstr "Digeriñ en arveuz (prim)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:551
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:716
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:557
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:722
 msgid "Fade In (Slow)"
 msgstr "Digeriñ en arveuz (gorrek)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:555
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:720
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:561
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:726
 msgid "Fade Out (Fast)"
 msgstr "Serriñ en arveuz (prim)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:557
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:722
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:563
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:728
 msgid "Fade Out (Slow)"
 msgstr "Serriñ en arveuz (gorrek)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:561
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:726
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:567
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:732
 msgid "Fade In and Out (Fast)"
 msgstr "Digeriñ ha serriñ en arveuz (prim)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:563
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:728
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:569
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:734
 msgid "Fade In and Out (Slow)"
 msgstr "Digeriñ ha serriñ en arveuz (gorrek)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:566
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:731
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:572
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:737
 msgid "Fade In (Entire Clip)"
 msgstr "Digeriñ en arveuz (klip)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:568
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:733
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:574
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:739
 msgid "Fade Out (Entire Clip)"
 msgstr "Serriñ en arveuz (klip)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:576
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:582
 msgid "Animate"
 msgstr "Blivañ"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:577
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:583
 msgid "No Animation"
 msgstr "Bliverezh ebet"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:584
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:590
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:307
 msgid "Zoom"
 msgstr "Zoum"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:585
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:591
 msgid "Zoom In (50% to 100%)"
 msgstr "Zoum brasaat (50% da 100%)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:587
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:593
 msgid "Zoom In (75% to 100%)"
 msgstr "Zoum brasaat (75% da 100%)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:589
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:595
 msgid "Zoom In (100% to 150%)"
 msgstr "Zoum brasaat (100% da 150%)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:591
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:597
 msgid "Zoom Out (100% to 75%)"
 msgstr "Zoom bihanat (100% da 75%)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:593
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:599
 msgid "Zoom Out (100% to 50%)"
 msgstr "Zoom bihanat (100% da 50%)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:595
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:601
 msgid "Zoom Out (150% to 100%)"
 msgstr "Zoom bihanat (150% da 100%)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:600
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:606
 msgid "Center to Edge"
 msgstr "Kreiz d'ar Riblenn"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:601
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:607
 msgid "Center to Top"
 msgstr "Kreizhda grec'h"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:603
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:609
 msgid "Center to Left"
 msgstr "Kreiz da gleiz"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:605
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:611
 msgid "Center to Right"
 msgstr "Kreiz da zehou"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:607
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:613
 msgid "Center to Bottom"
 msgstr "Kreiz da draoñ"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:612
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:618
 msgid "Edge to Center"
 msgstr "Riblenn da greiz"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:613
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:619
 msgid "Top to Center"
 msgstr "Krec'h da greiz"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:615
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:621
 msgid "Left to Center"
 msgstr "Kleiz da greiz"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:617
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:623
 msgid "Right to Center"
 msgstr "Dehou da greiz"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:619
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:625
 msgid "Bottom to Center"
 msgstr "Traoñ da greiz"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:624
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:630
 msgid "Edge to Edge"
 msgstr "Riblenn da riblenn"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:625
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:631
 msgid "Top to Bottom"
 msgstr "Krec'h da draoñ"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:627
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:633
 msgid "Left to Right"
 msgstr "Kleiz da zehou"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:629
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:635
 msgid "Right to Left"
 msgstr "Dehou da gleiz"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:631
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:637
 msgid "Bottom to Top"
 msgstr "Traoñ da grec'h"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:647
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:653
 #: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
 msgid "Rotate"
 msgstr "C'hwelañ"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:648
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:654
 msgid "No Rotation"
 msgstr "C'hwelañ ebet"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:651
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:657
 msgid "Rotate 90 (Right)"
 msgstr "C'hwelañ 90 (dehou)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:653
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:659
 msgid "Rotate 90 (Left)"
 msgstr "C'hwelañ 90 (Kleiz)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:655
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:661
 msgid "Rotate 180 (Flip)"
 msgstr "C'hwelañ 180 (gwintañ)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:660
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:666
 msgid "Layout"
 msgstr "Kenaozadur"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:661
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:667
 msgid "Reset Layout"
 msgstr "Adderaouekaat ar c'henaozadur"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:664
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:670
 msgid "1/4 Size - Center"
 msgstr "1/4 ment - Kreiz"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:666
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:672
 msgid "1/4 Size - Top Left"
 msgstr "1/4 ment - Krec'h kleiz"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:668
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:674
 msgid "1/4 Size - Top Right"
 msgstr "1/4 ment - Krec'h dehou"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:670
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:676
 msgid "1/4 Size - Bottom Left"
 msgstr "1/4 ment - Traoñ kleiz"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:672
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:678
 msgid "1/4 Size - Bottom Right"
 msgstr "1/4 ment - Traoñ dehou"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:675
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:681
 msgid "Show All (Maintain Ratio)"
 msgstr "DIskouez an holl (mirout ar feur)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:677
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:683
 msgid "Show All (Distort)"
 msgstr "Diskouez an holl (distummañ)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:683
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:689
 msgid "Reset Time"
 msgstr "Adderaouekaat an amzer"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:707
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:713
 msgid "Reset Volume"
 msgstr "Adderaouekaat an ampled"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:738
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:744
 msgid "Level 100%"
 msgstr "Live 100%"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:740
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:746
 msgid "Level 90%"
 msgstr "Live 90%"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:742
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:748
 msgid "Level 80%"
 msgstr "Live 80%"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:744
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:750
 msgid "Level 70%"
 msgstr "Live 70%"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:746
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:752
 msgid "Level 60%"
 msgstr "Live 60%"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:748
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:754
 msgid "Level 50%"
 msgstr "Live 50%"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:750
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:756
 msgid "Level 40%"
 msgstr "Live 40%"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:752
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:758
 msgid "Level 30%"
 msgstr "Live 30%"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:754
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:760
 msgid "Level 20%"
 msgstr "Live 20%"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:756
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:762
 msgid "Level 10%"
 msgstr "Live 10%"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:758
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:764
 msgid "Level 0%"
 msgstr "Live 0%"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:765
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:771
 msgid "Separate Audio"
 msgstr "Disrannañ an aodio"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:766
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:772
 msgid "Single Clip (all channels)"
 msgstr "Ur c'hlip (holl sanelloù)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:768
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:774
 msgid "Multiple Clips (each channel)"
 msgstr "Meur a glip (pep sanell)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:778
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:2028
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:784
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:2034
 msgid "Slice"
 msgstr "Troc'hañ"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:792
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:798
 msgid "Display"
 msgstr "Skrammañ"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:793
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:799
 msgid "Show Waveform"
 msgstr "Diskouez ar stumm gwagenn"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:795
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:801
 msgid "Show Thumbnail"
 msgstr "Digouez ar velvenn"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1982
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1988
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:341
 msgid "Transition"
 msgstr "Ardreuzad"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1990
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1996
 #: libopenshot (Clip Properties)
 msgid "Brightness"
 msgstr "Lintr"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1992
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:1998
 #: libopenshot (Clip Properties)
 msgid "Contrast"
 msgstr "Dargemm"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:2038
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:2044
 msgid "Reverse Transition"
 msgstr "Tuginañ an ardreuzad"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:306
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:334
+msgid "Ease (Default)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:335
+msgid "Ease In"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:336
+msgid "Ease Out"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:337
+msgid "Ease In/Out"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:339
+msgid "Ease In (Quad)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:340
+msgid "Ease In (Cubic)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:341
+msgid "Ease In (Quart)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:342
+msgid "Ease In (Quint)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:343
+msgid "Ease In (Sine)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:344
+msgid "Ease In (Expo)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:345
+msgid "Ease In (Circ)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:346
+msgid "Ease In (Back)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:348
+msgid "Ease Out (Quad)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:349
+msgid "Ease Out (Cubic)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:350
+msgid "Ease Out (Quart)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:351
+msgid "Ease Out (Quint)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:352
+msgid "Ease Out (Sine)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:353
+msgid "Ease Out (Expo)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:354
+msgid "Ease Out (Circ)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:355
+msgid "Ease Out (Back)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:357
+msgid "Ease In/Out (Quad)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:358
+msgid "Ease In/Out (Cubic)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:359
+msgid "Ease In/Out (Quart)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:360
+msgid "Ease In/Out (Quint)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:361
+msgid "Ease In/Out (Sine)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:362
+msgid "Ease In/Out (Expo)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:363
+msgid "Ease In/Out (Circ)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:364
+msgid "Ease In/Out (Back)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:375
 msgid "Bezier"
 msgstr "Bezier"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:309
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:381
 msgid "Linear"
 msgstr "Linennel"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:312
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:384
 msgid "Constant"
 msgstr "Digemm"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:316
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:321
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:388
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:393
 msgid "Remove Keyframe"
 msgstr "Dilemel ar skeudenn-alc'hwez"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:527
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:602
 msgid "Selection:"
 msgstr "Diuzadenn:"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:533
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:550
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:608
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:625
 msgid "No Selection"
 msgstr "Diuzadenn ebet"
 
@@ -952,29 +1064,29 @@ msgstr "Skorer Bitcoin!"
 msgid "Multiple Contributions!"
 msgstr "Meur a berzhiadur!"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:371
-#: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:580
-#: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:648
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:391
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:615
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:683
 msgid "False"
 msgstr "Gaou"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:518
-#: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:701
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:553
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:736
 msgid "Property"
 msgstr "Perzh"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:518
-#: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:701
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:553
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:736
 msgid "Value"
 msgstr "Gwerzh"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:536
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:571
 #: /home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml
 msgid "Transparency"
 msgstr "Boullder"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:578
-#: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:646
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:613
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:681
 msgid "True"
 msgstr "Gwir"
 
@@ -987,7 +1099,7 @@ msgid "Description"
 msgstr "Deskrivadur"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:74
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:534 Settings for
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:543 Settings for
 #: actionExportVideo
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:20
 msgid "Export Video"
@@ -1033,7 +1145,7 @@ msgstr "Uhel"
 msgid "Choose a Folder..."
 msgstr "Dibabit un teuliad..."
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:534
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:543
 #, python-format
 msgid ""
 "%s already exists.\n"
@@ -1042,11 +1154,11 @@ msgstr ""
 "%s a zo dioutañ endeo.\n"
 "Fellout a ra deoc'h erlec'hiañ anezhi?"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:628
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:637
 msgid "Export Error"
 msgstr "Fazi ezporzhiañ"
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:629
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:638
 #, python-format
 msgid ""
 "Sorry, there was an error exporting your video: \n"
@@ -1055,433 +1167,80 @@ msgstr ""
 "Digarezit, ur fazi a zo bet en ur ezporzhiañ ho video:\n"
 "%s"
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Halo: Line Count"
-msgstr "Rodenn: niver a linennoù"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Halo: Use Stars"
-msgstr "Rodenn: arverañ stered"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml
-msgid "Lens vignetting"
-msgstr "Vignetenn ferenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml
-msgid "Display a single color, while using greyscale for the rest of the image"
-msgstr "Skramman ul liv hepken, arverañ liveoù loued evit peurrest ar skeudenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml
-msgid "Gamma"
-msgstr "Gamma"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml
-msgid "Use Alpha"
-msgstr "Arverañ an alfa"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml
-msgid "Invert horizontally or vertically"
-msgstr "Tuginañ a-blaen pe a-serzh"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Arrival Longitude (minutes)"
-msgstr "Hedred degouezhout (munutennoù)"
-
-#: libopenshot (Effect Metadata)
-msgid "Adjust the blur of the frame's image."
-msgstr "Kengeidañ ruzed ar skeudenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml
-msgid "Key"
-msgstr "Alc'hwez"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml
-msgid "Mirror"
-msgstr "Melezour"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Halo: Star Count"
-msgstr "Rodenn: niver a stered"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
-msgid "Brightness Delta Up"
-msgstr "Kreskaat difoc'h al lintr"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml
-msgid "TehRoxx0r"
-msgstr "TehRoxx0r"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml
-msgid "Mask"
-msgstr "Maskl"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
-msgid "Line 3 Color"
-msgstr "Liv al linenn 3"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml
-msgid "Color Distance"
-msgstr "Pellder al liv"
-
-#: libopenshot (Clip Properties)
-msgid "Bottom Right"
-msgstr "Traoñ dehou"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml
-msgid "Color"
-msgstr "Liv"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml
-msgid "Freeze the frame of a video"
-msgstr "Stagañ skeudenn ur video"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml
-msgid "Freeze Before"
-msgstr "Skornañ a-raok"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
-msgid "Width"
-msgstr "Ledander"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
-msgid "Fixed Rotate X"
-msgstr "C'hweladur digemm a-blaen X"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Start: X"
-msgstr "Loc'hañ: X"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
-msgid "Green"
-msgstr "Gwer"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
-msgid "Extrude"
-msgstr "Eztourzhañ"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
-msgid "Delta"
-msgstr "Delta"
-
-#: libopenshot (Effect Metadata)
-msgid "Alpha Mask / Wipe Transition"
-msgstr "Maskl alfa / Ardreuzad c'hwilerviñ"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml
-msgid "Pixelate"
-msgstr "Pikselaat"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Halo: Ring Count"
-msgstr "Rodenn: niver a walennoù"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml
-msgid "Red/Green Axis"
-msgstr "Ahelioù ruz/gwer"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
-msgid "Z Coordinate"
-msgstr "Daveenn Z"
-
-#: libopenshot (Clip Properties)
-msgid "Position"
-msgstr "Lec'hiadur"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml
-msgid "Oversaturate the color in the image, like in old Technicolor movies"
-msgstr "Dreistpeurvec'hiañ livioù ar skeudenn, evel ur film kozh Technicolor"
-
-#: libopenshot (Clip Properties)
-msgid "Wave Color"
-msgstr "Liv ar wagenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
-msgid "Spots: Color Threshold"
-msgstr "Pikoù: liv ar gwehin"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
-msgid "Picture 1 Path"
-msgstr "Treug ar skeudenn 1"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
-msgid "Brightness Delta Down"
-msgstr "DIgreskiñ an diforc'h lintr"
-
-#: libopenshot (Clip Properties)
-msgid "Canvas"
-msgstr "Steuenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml
-msgid "Border Width"
-msgstr "Ledander ar riblenn"
-
-#: libopenshot (Effect Metadata)
-msgid "Adjust the color saturation."
-msgstr "Kengeidañ peurvec'hiañ al livioù"
-
-#: libopenshot (Clip Properties)
-msgid "Vertical Radius"
-msgstr "Skin a-serzh"
-
-#: libopenshot (Clip Properties)
-msgid "Scale X"
-msgstr "Skeul X"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
-msgid "Halo: Ending Size"
-msgstr "Rodenn: ment dibenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
-msgid "Neon Curves"
-msgstr "Krommennoù Neon"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml
-msgid "Adds black borders at the top and bottom"
-msgstr "Ouzhpennañ bandennoù du er c'hrec'h hag en traoñ"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
-msgid "Output level black point"
-msgstr "Poent du al live ec'hankañ"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
-msgid "Adjust luminance or color channel intensity"
-msgstr "Kengeidañ sked pe kreñvder ar sanell liv"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Arrival Longitude (degrees)"
-msgstr "Hedred degouezhout (derezioù)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Particles: Gravity"
-msgstr "Eufl: kerc'hellder"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml
-msgid "Sobel"
-msgstr "Sobel"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml
-msgid "Center size"
-msgstr "Ment ar c'hreiz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml
-msgid "Primary Colors"
-msgstr "Livioù kentael"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
-msgid "Bevel Depth"
-msgstr "Donnder ar veskell"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Arrival Latitude (seconds)"
-msgstr "Ledred degouezhout (eilennoù)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Start: Z"
-msgstr "Deroù: Z"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
-msgid "Number"
-msgstr "Niver"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
-msgid "Line 4 Color"
-msgstr "Liv al linenn 4"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
-msgid "Text Alignment"
-msgstr "Steudadur an destenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Arrival Title"
-msgstr "Titl degouezh"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/invert.xml
-msgid "Convert colors in the image to the opposite or complementary colors"
-msgstr "Amdreiñ al livioù ar skeudenn d'al livioù enebat pe klokaus"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Velocity: Z"
-msgstr "Buander: Z"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
-msgid "Title Diffuse Color"
-msgstr "Titl liv amstrew"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/wireframe_text.xml
-msgid "Wireframe Text"
-msgstr "Testenn e orjalennoù"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml
-msgid "Blue/Yellow"
-msgstr "Glas/melen"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
-msgid "Episode"
-msgstr "Rann"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
-msgid "Tint amount"
-msgstr "Kementad arliv"
-
-#: libopenshot (Clip Properties)
-msgid "Stretch"
-msgstr "Astenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml
-msgid "Oversaturate Color"
-msgstr "Dreistpeurvec'hiadur al livioù"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/bass.xml
-msgid "Bass"
-msgstr "Boud"
-
-#: libopenshot (Clip Properties)
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:115
-msgid "End"
-msgstr "Dibenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
-msgid "Tilt"
-msgstr "Stouañ"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
-msgid "Amount"
-msgstr "Kementad"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Snow"
-msgstr "Erc'h"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Arrival Longitude (seconds)"
-msgstr "Hedred degouezhout (eilennoù)"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/explode.xml
+msgid "Particle Number"
+msgstr "Niver a eufl"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
 msgid "Background: Blend"
 msgstr "Drekleur: kemmeskañ"
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
-msgid "Background: Diffuse Color"
-msgstr "Drekleur: livioù amstrew"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
+msgid "Decay"
+msgstr "Distok"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Halo: Use Rings"
+msgstr "Rodenn: arverañ gwalennoù"
 
 #: libopenshot (Clip Properties)
-msgid "Top Center"
-msgstr "Krec'h kreiz"
+msgid "Bottom Right"
+msgstr "Traoñ dehou"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml
-msgid ""
-"Calculates the distance between the selected color and the current pixel and "
-"uses that value as new pixel value"
-msgstr ""
-"Jediñ a ra an hirder etre al liv diuzet hag ar piksel bremanel hag arverañ "
-"ar gwerzh-mañ evel talvoud piksel nevez"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/rotate_360.xml
-msgid "Rotate 360 Degrees"
-msgstr "C'hwelañ da 360 derez"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml
-msgid "Display Clouds"
-msgstr "Skrammañ koumoul"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml
-msgid "Edgeglow"
-msgstr "Gouloù ar riblennoù"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml
-msgid "Variance"
-msgstr "Hebiant"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
-msgid "Picture 3 Path"
-msgstr "Treug ar skeudenn 3"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
-msgid "Every"
-msgstr "Pep"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml
-msgid ""
-"Add a series of peaks and troughs to the audio, creating a sweeping effect"
-msgstr ""
-"Ouzhpennañ un heuliad a uc'hadoù ha kleuzioù  d'an aodio, evit krouiñ un "
-"efed c'hwilerviñ"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/dissolve.xml
-msgid "Dissolving Text"
-msgstr "Testenn o loezañ"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
-msgid "Background: Alpha"
-msgstr "Drekleur: boullder"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/fly_by_two_titles.xml
-msgid "Fly Towards Camera (Two Titles)"
-msgstr "Nijal davet ar c'hamera (daou ditl)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml
-msgid "Adds static and grain to the image"
-msgstr "Ouzhpennañ trouz ha greun d'ar skeudenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml
-msgid "Up Scale"
-msgstr "Kreskaat ar vent"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml
-msgid "Start Value"
-msgstr "Gwerzh an derou"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Arrival Longitude (Prime Meridian)"
-msgstr "Hedred degouezhout (hedredenn gentañ)"
+#: libopenshot (Clip Properties)
+msgid "Position"
+msgstr "Lec'hiadur"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/slide_left_to_right.xml
 msgid "Slide Left to Right"
 msgstr "Riklañ eus an tu kleiz betek an tu dehou"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml
-msgid "Add small dust shapes randomly on the image"
-msgstr "Ouzhpennañ poultrenn en un doare dargouezhek war ar skeudenn"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "Diffuse Color"
+msgstr "Liv amstrew"
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/explode.xml
-msgid "Exploding Text"
-msgstr "Titl o tarzhañ"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Start: Z"
+msgstr "Deroù: Z"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
+msgid "Title Specular Color"
+msgstr "Titil gant livioù melezourel"
+
+#: libopenshot (Clip Properties)
+msgid "Top Center"
+msgstr "Krec'h kreiz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml
+msgid "Invert"
+msgstr "Tuginañ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Gravity: X"
-msgstr "Kerc'hellder: X"
+msgid "Gravity: Y"
+msgstr "Kerc'hellder: Y"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
-msgid "Type"
-msgstr "Rizh"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
+msgid "Lens Flare"
+msgstr "Trelladur ar ferenn"
+
+#: libopenshot (Effect Metadata)
+msgid ""
+"Uses a grayscale mask image to gradually wipe / transition between 2 images."
+msgstr ""
+"Arver ur maskl skeudenn liveoù loued evit tremen eus ur skeudenn d'eben tamm-"
+"ha-tamm"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Animation Length"
-msgstr "Padelezh ar bliverezh"
+msgid "Gravity: Z"
+msgstr "Kerc'hellder: Z"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml
-msgid "Frame Number"
-msgstr "Niver ar skeudenn"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "Specular Color"
+msgstr "Liv melezourel"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
-msgid "Rotate Z"
-msgstr "C'hwelañ Z"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
-msgid "Add an echo"
-msgstr "Ouzhepnnañ un heklev"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml
-msgid "Trip Level"
-msgstr "Live fazi"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
-msgid "Simple color adjustment"
-msgstr "Kengeidañ eeun al liv"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Tile 4: Diffuse Color"
-msgstr "Teol 4: livioù amstrew"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
+msgid "Old Lines"
+msgstr "Linennoù kozh"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml
 msgid ""
@@ -1491,872 +1250,80 @@ msgstr ""
 "Kengeidañ liv ar skeudenn en ur gendarvanañ ur film gwenn ha du gant un "
 "gwered sepia"
 
-#: libopenshot (Effect Metadata)
-msgid "Negates the colors, producing a negative of the image."
-msgstr "Tuginañ a ra al livioù, ha sevel ur ginenn eus ak skeudenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
-msgid "Max"
-msgstr "Brasañ"
-
-#: libopenshot (Clip Properties)
-msgid "Replace Image"
-msgstr "Amsaviñ ar skeudenn"
-
-#: libopenshot (Clip Properties)
-msgid "Bottom Center"
-msgstr "Traoñ kreiz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml
-msgid "Old Dust"
-msgstr "Poultr kozh"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/distort.xml
-msgid "Amplitude"
-msgstr "Heled"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
-msgid "Fills alpha channel with a gradient"
-msgstr "Leuniañ ar sanell alfa gant un ilrezenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "End Frame"
-msgstr "Skeudenn dibenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/distort.xml
-msgid "Distort"
-msgstr "Distummañ"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/bass.xml
-msgid "Frequency"
-msgstr "Talm"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml
-msgid "Flippo"
-msgstr "Flippo"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml
-msgid "Convert an image to shades of grey"
-msgstr "Amdreiñ ur skeudenn da liveoù loued"
-
-#: libopenshot (Effect Metadata)
-msgid "Chroma Key (Greenscreen)"
-msgstr "Alc'hwez liv (skramm gwer)"
-
-#: libopenshot (Clip Properties)
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:96
-msgid "Start"
-msgstr "Loc'hañ"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/threshold.xml
-msgid "Reduces and mixes the colors of the image based on a threshold"
-msgstr "Digreskiñ ha meskañ a ra livioù ar skeudenn diazezet war ur gwehin"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Title 1"
-msgstr "Titl 1"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/glare.xml
-msgid "Glare"
-msgstr "Skleur"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
-msgid "Rotate X"
-msgstr "C'hwelañ X"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
-msgid "Y Center"
-msgstr "Kreiz Y"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
-msgid "Delay"
-msgstr "Dale"
-
-#: libopenshot (Clip Properties)
-msgid "Iterations"
-msgstr "Arredoadurioù"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
-msgid "White color"
-msgstr "Liv gwenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
-msgid "Input level black point"
-msgstr "Live poent du en enankad"
-
-#: libopenshot (Clip Properties)
-msgid "Enable Audio"
-msgstr "Gweredekaat an aodio"
-
-#: libopenshot (Clip Properties)
-msgid "Waveform"
-msgstr "Stumm ar wagenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
-msgid "Min"
-msgstr "Bihanañ"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Color Tiles"
-msgstr "Teolennoù al livioù"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/glow.xml
-msgid "Add a glow effect to the image"
-msgstr "Ouzhpennañ un efed lufrus war ar skeudenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml
-msgid "Blinds (Two Titles)"
-msgstr "Stignoù (daou ditl)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml
-msgid "Top"
-msgstr "Krec'h"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml
-msgid "Equalizes the intensity histograms"
-msgstr "Kevatalaat a ra an tellunioù kreñvder"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
-msgid "Rotate Y"
-msgstr "C'hwelañ Y"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
-msgid "Lighter"
-msgstr "Sklaeroc'h"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml
-msgid "Three Layer"
-msgstr "Tri gwiskad"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
-msgid "Red"
-msgstr "Ruz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml
-msgid "Max Diameter"
-msgstr "Treuzskiz brasañ"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
-msgid "Font Name"
-msgstr "Anv an nodrezh"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml
-msgid "Vignette"
-msgstr "Vignetenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Diffuse Color"
-msgstr "Liv amstrew"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
-msgid "Three point balance"
-msgstr "Mentelad tri foent"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
-msgid "Flying Title"
-msgstr "Titl nij"
-
-#: libopenshot (Clip Properties)
-msgid "ID"
-msgstr "Naoudi (ID)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml
-msgid "Phaser"
-msgstr "Lankad"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Title 3"
-msgstr "Titl 3"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
-msgid "Lens Flare"
-msgstr "Trelladur ar ferenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml
-msgid "Red Scale"
-msgstr "Skeul ruz"
-
-#: libopenshot (Clip Properties)
-msgid "Scale Y"
-msgstr "Skeul Y"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
-msgid "Adjust color balance with 3 color points"
-msgstr "Kengeidañ mentelad al livioù gant 3 foent livioù"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Depart Title"
-msgstr "Titl loc'hañ"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Gravity: Y"
-msgstr "Kerc'hellder: Y"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
-msgid "Defocus"
-msgstr "Distiañ"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
-msgid "Input level white point"
-msgstr "Live enankad ar pik gwenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
-msgid "Action"
-msgstr "Gwered"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml
-msgid "Interval"
-msgstr "Etremez"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Arrival Latitude (minutes)"
-msgstr "Ledred degouezhout (munutennoù)"
-
-#: libopenshot (Effect Metadata)
-msgid ""
-"Replaces the color (or chroma) of the frame with transparency (i.e. keys out "
-"the color)."
-msgstr "Erlec'hiañ liv ar skeudenn gant boullder (sk. alc'hwezioù maez al liv)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
-msgid "Gray color"
-msgstr "Liv loued"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
-msgid "Gain In"
-msgstr "Live enankañ"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
-msgid "Decay"
-msgstr "Distok"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml
-msgid "Diff Space"
-msgstr "Egor diforc'h"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml
-msgid "Letterbox"
-msgstr "Boest-lizhiri"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml
-msgid "Reduce image to primary colors"
-msgstr "Digreskiñ ar skeudenn d'al livioù pennañ"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
-msgid "Map black to"
-msgstr "Amsaviñ al liv du da"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
-msgid "Alphagrad"
-msgstr "Alfagrad"
-
-#: libopenshot (Clip Properties)
-msgid "Is Odd Frame"
-msgstr "a zo ur skeudenn ampar"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Title 2"
-msgstr "Titl 2"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml
-msgid "Cartoon"
-msgstr "Tresadenn-vev"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
-msgid "Lens Correction"
-msgstr "Reizhañ ar ferenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Depart Latitude (degrees)"
-msgstr "Ledred loc'hañ (derezioù)"
-
-#: libopenshot (Effect Metadata)
-msgid "Remove interlacing from a video (i.e. even or odd horizontal lines)"
-msgstr "Dilemel kenweañ ur video (sk. linennoù a-blaen par pe ampar)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Tile 3: Diffuse Color"
-msgstr "Teol 3: liv amstrew"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml
-msgid "End Value"
-msgstr "Gwerzh dibenn"
-
-#: libopenshot (Clip Properties)
-msgid "Top Left"
-msgstr "Krec'h dehoù"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml
-msgid "Adjusts the brightness of the image"
-msgstr "Kengeidañ lintr ar skeudenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/saturation.xml
-msgid "Adjusts the saturation or intensity of the image"
-msgstr "Kengeidañ peurvec'hiadur pe kreñvder ar skeudenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml
-msgid "Midpoint"
-msgstr "Poent kreiz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Depart Longitude (degrees)"
-msgstr "Hedred loc'hañ (derezioù)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
-msgid "Darker"
-msgstr "Teñvaloc'h"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml
-msgid "Find and glow the edges of objects"
-msgstr "Kavout ha goulaouiñ riblennoù an ergorennoù"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
-msgid "Correction near edges"
-msgstr "Reizhadur war ar riblennoù"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Particles: Amount"
-msgstr "Eufl: kementad"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
-msgid "Allows compensation of lens distortion"
-msgstr "Aotren kempouezadur torrgamm ar ferenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
-msgid "Background: Fresnel"
-msgstr "Drekleur: Fresnel"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
-msgid "Histogram position"
-msgstr "Lec'hiadur an tellunioù"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
-msgid "Text Size"
-msgstr "Ment an destenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml
-msgid "Equalizor"
-msgstr "Kevatalaer"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
-msgid "Defish"
-msgstr "Defish"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/balance.xml
-msgid "Left | Right"
-msgstr "Kleiz | Dehou"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml
-msgid "Make image sharper"
-msgstr "Lemmaat ar skeudenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Depart Latitude (Equator)"
-msgstr "Ledred loc'hañ (keheder)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml
-msgid "something videowall-ish"
-msgstr "Doare ur voger video"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml
-msgid "Freeze"
-msgstr "Skornet"
-
-#: libopenshot (Clip Properties)
-msgid "Channel Filter"
-msgstr "Sil ar sanell"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml
-msgid ""
-"Make a single color transparent.  Also referred to as green screen and blue "
-"screen."
-msgstr ""
-"Lakaat ul liv da vezañ treuzwelus. Anvet vez 'skramm gwer' pe 'skramm glas' "
-"ivez."
-
-#: libopenshot (Clip Properties)
-msgid "Bottom Left"
-msgstr "Traoñ kleiz"
-
-#: libopenshot (Clip Properties)
-msgid "Key Color"
-msgstr "Liv an alc'hwez"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/explode.xml
-msgid "Particle Number"
-msgstr "Niver a eufl"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
-msgid "Y Offset"
-msgstr "Linkañ Y"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
-msgid "Sun: Angle Offset"
-msgstr "Heol: linkad ar c'horn"
-
-#: libopenshot (Clip Properties)
-msgid "Best Fit"
-msgstr "Ment wellañ"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml
-msgid "Old Grain"
-msgstr "Kozhadur: greun"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml
-msgid "Delay grab"
-msgstr "Daleañ an dapadenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml
-msgid "Black and White"
-msgstr "Gwenn ha du"
-
-#: libopenshot (Effect Metadata)
-msgid "Adjust the brightness and contrast of the frame's image."
-msgstr "Kengeidañ lintr ha dargemm ar skeudenn"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/invert.xml
+msgid "Convert colors in the image to the opposite or complementary colors"
+msgstr "Amdreiñ al livioù ar skeudenn d'al livioù enebat pe klokaus"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
 msgid "Operation"
 msgstr "Gwezhiadur"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml
-msgid "Adjusts the gamma or luminance value of the image"
-msgstr "Kengeidañ ar gamma pe lintr ar skeudenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/hue.xml
-msgid "Hue"
-msgstr "Arliv"
-
 #: libopenshot (Clip Properties)
-msgid "Location Y"
-msgstr "Lec'hiadur Y"
+msgid "Viewport"
+msgstr "Alberz"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml
-msgid "Interlaced black lines"
-msgstr "Kenweañ al linennoù du"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml
-msgid "Adjust the white balance and color temperature"
-msgstr "Kengeidañ al livioù gwenn ha gwrezverk al liv"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml
-msgid "Delayed frame blitting mapped on a time bitmap"
-msgstr "C'hwilerviñ ar skeudenn daleet adlakaet war un oged amzer"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml
-msgid "Adjust the color of the image to black and white based on a threshold"
-msgstr "Kengeidañ liv ar skeudenn e gwenn ha du diazezet war ur gwehin"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/contrast.xml
-msgid "Adjusts the contrast of a source image"
-msgstr "Kengeidañ a ra dargemm ur skeudenn darzh"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
-msgid "Line 1 Color"
-msgstr "Liv al linenn 1"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml
-msgid "Sharpness"
-msgstr "Lemmder"
-
-#: libopenshot (Effect Metadata)
-msgid "Color Saturation"
-msgstr "Peurvec'hiañ liv"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml
-msgid "Aspect ratio"
-msgstr "Feur an neuz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml
-msgid "Reverse"
-msgstr "Tuginañ"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
-msgid ""
-"Adjusts the gamma and brightness randomly to create the illusion of old film"
-msgstr ""
-"Kengeidañ ar gamma hag al lintr en un doare dargouezhek evit lakaat da "
-"grediñ eo ur film kozh"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml
-msgid "X Scatter"
-msgstr "Strewiñ X"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml
-msgid "u"
-msgstr "u"
-
-#: libopenshot (Clip Properties)
-msgid "Anchor"
-msgstr "Eor"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Halo: Use Rings"
-msgstr "Rodenn: arverañ gwalennoù"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
-msgid "Output level white point"
-msgstr "Live an ec'hankad poent gwenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Halo: Use Flare"
-msgstr "Rodenn: arverañ an trelladur"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml
-msgid "Zoom to Clapboard"
-msgstr "Zouman davet ar c'hlap"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "End: Y"
-msgstr "Dibenn: Y"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Velocity: Y"
-msgstr "Tizh: Y"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml
-msgid "Size"
-msgstr "Ment"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Particles: Lifetime"
-msgstr "Eufl: padelezh buhez"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml
+msgid "Adds black borders at the top and bottom"
+msgstr "Ouzhpennañ bandennoù du er c'hrec'h hag en traoñ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
-msgid "Alpha controlled"
-msgstr "Boullder reoliet"
+msgid "Green"
+msgstr "Gwer"
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
-msgid "Title Specular Color"
-msgstr "Titil gant livioù melezourel"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml
+msgid ""
+"Add a series of peaks and troughs to the audio, creating a sweeping effect"
+msgstr ""
+"Ouzhpennañ un heuliad a uc'hadoù ha kleuzioù  d'an aodio, evit krouiñ un "
+"efed c'hwilerviñ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
-msgid "Gain Out"
-msgstr "Ec'hankad ar savad"
+msgid "Add an echo"
+msgstr "Ouzhepnnañ un heklev"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/bass.xml
+msgid "Frequency"
+msgstr "Talm"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
+msgid "Title Diffuse Color"
+msgstr "Titl liv amstrew"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml
+msgid "Equalizes the intensity histograms"
+msgstr "Kevatalaat a ra an tellunioù kreñvder"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Depart Longitude (Prime Meridian)"
 msgstr "Hedred loc'hañ (hedredenn gentañ)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Depart Longitude (seconds)"
-msgstr "Hedred loc'hañ (eilennoù)"
-
-#: libopenshot (Clip Properties)
-msgid "Channel Mapping"
-msgstr "Glennañ ar sanell"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
-msgid "Blue"
-msgstr "Glas"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
-msgid "Fixed Rotate Z"
-msgstr "C'hwelañ digemm war Z"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/bass.xml
-msgid "Adjust the low-pitched sound or tone"
-msgstr "Kengeidañ ar sonioù boud pe an ton"
-
-#: libopenshot (Clip Properties)
-msgid "Viewport"
-msgstr "Alberz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "World Map"
-msgstr "Kartenn ar bed"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/fly_by_1.xml
-msgid "Fly Towards Camera"
-msgstr "Nijal davet ar c'hamera"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
-msgid "X Offset"
-msgstr "Linkañ X"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
-msgid "Aspect type"
-msgstr "Rizh an neuz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
-msgid "X Center"
-msgstr "Kreiz X"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
-msgid "Transition width"
-msgstr "Ledander ardreuzad"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Velocity: X"
-msgstr "Tizh: X"
-
-#: libopenshot (Clip Properties)
-msgid "Duration"
-msgstr "Padelezh"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml Settings for
-#: actionTitle
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:106
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:836
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:839
-msgid "Title"
-msgstr "Titl"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml
-msgid "Bottom"
-msgstr "Traoñ"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/distort.xml
-msgid "Distort the source similar to plasma"
-msgstr "Distummañ an tarzh da vezañ heñvel ouzh plasma"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml
-msgid "Baltan"
-msgstr "Baltan"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml
-msgid "Max Count"
-msgstr "Kementad brasañ"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Depart Longitude (minutes)"
-msgstr "Hedred loc'hañ (munutennoù)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml
-msgid "Softness"
-msgstr "Kuñvder"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Mirror Color"
-msgstr "Liv melezour"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml
-msgid "Y axis"
-msgstr "Ahel Y"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
-msgid "Black color"
-msgstr "Liv du"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Halo: Use Lines"
-msgstr "Rodenn: arverañ linennoù"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Start Frame"
-msgstr "Skeudenn deroù"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml
-msgid "Y Scatter"
-msgstr "Strewiñ Y"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml
-msgid "Sepia"
-msgstr "Sepia"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
-msgid "Brightness Delta Every"
-msgstr "Diforc'h al lintr bep"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml
-msgid "Block Size Y"
-msgstr "Ment ar bloc'h Y"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
-msgid "Halo: Starting Size"
-msgstr "Rodenn: ment deraouiñ"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Halo: Size"
-msgstr "Rodenn: ment"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml
-msgid "Detect and highlight the edges of objects"
-msgstr "Dinoiñ hag usskediñ riblennoù an ergorennoù"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
-msgid "Text Width"
-msgstr "Ledander an destenn"
-
-#: libopenshot (Clip Properties)
-msgid "Saturation"
-msgstr "Peurvec'hiañ"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
-msgid "Tint a source image with specified color"
-msgstr "Livañ ur skeudenn vammenn gant al liv erspizet"
-
-#: libopenshot (Clip Properties)
-msgid "Top Right"
-msgstr "Krec'h kleiz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/explode.xml
-msgid "Display Ground"
-msgstr "Skrammañ al leur"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
-msgid "Line 2 Color"
-msgstr "Liv al linenn 2"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/trees.xml
-msgid "Trees"
-msgstr "Gwez"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Arrival Latitude (Equator)"
-msgstr "Ledred degouezhout (keheder)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
-msgid "Sun: Type of Glare"
-msgstr "Heol: doare gouloù"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml
-msgid "Nosync"
-msgstr "Nosync"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
-msgid "Manual Scale"
-msgstr "Skeul dre zorn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
-msgid "Source image on left side"
-msgstr "Skeudenn vammenn war an tu kleiz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/bass.xml
-msgid "Gain"
-msgstr "Savad"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
-msgid "Echo"
-msgstr "Heklev"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml
+msgid "Border Width"
+msgstr "Ledander ar riblenn"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml
-msgid "Greyscale"
-msgstr "Liveoù  louedoù"
+msgid "Convert an image to shades of grey"
+msgstr "Amdreiñ ur skeudenn da liveoù loued"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
-msgid "Interpolation"
-msgstr "Etreletodiñ"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml
-msgid "delayed alpha smoothed blit of time"
-msgstr "padelezh skurzher ardreuzad ar gwiskad alfa"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml
-msgid "Horizontal Sync"
-msgstr "Goubredañ a-serzh"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Tile 1: Diffuse Color"
-msgstr "Teol 1: liv amstrewiñ"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Depart Latitude (minutes)"
+msgstr "Ledred loc'hañ (munutennoù)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
-msgid "Rotate an image statically or animated"
-msgstr "C'hweladur diasavel pe blivet ur skeudenn"
+msgid "Rotate X"
+msgstr "C'hwelañ X"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml
-msgid "Freeze After"
-msgstr "Skornañ goude"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml
+msgid "Color Distance"
+msgstr "Pellder al liv"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml
-msgid "Speed"
-msgstr "Tizh"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
-msgid "Glass Slider"
-msgstr "Riklell wer"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
-msgid "Tint"
-msgstr "Livaj"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/blur.xml
-msgid "Blur the image similar to an out-of-focus camera"
-msgstr "Lakaat ruzed war ar skeudenn, evel ur c'hamera distiet"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
-msgid "Old Film"
-msgstr "Film kozh"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml
-msgid "Mix"
-msgstr "Meskaj"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
-msgid "Scaling"
-msgstr "O skeulaat"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Halo: Hardness"
-msgstr "Rodenn: kaleted"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Background: Shadeless"
-msgstr "Drekleur: diskeud"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
-msgid "Picture 4 Path"
-msgstr "Treug ar skeudenn 4"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Start: Y"
-msgstr "Deroù: Y"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
-msgid "Map white to"
-msgstr "Amsaviñ ar gwenn gant"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
-msgid "Luma formula"
-msgstr "Reollun Luma"
-
-#: libopenshot (Clip Properties)
-msgid "Location X"
-msgstr "Lec'hiadur X"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
-msgid "Episode Title"
-msgstr "Titl ar rann"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml
-msgid "Filter the image to look like it is drawn with charcoal"
-msgstr ""
-"Silañ ar skeudenn evit ma vefe heñvel ouzh un dresadenn graet gant glaou koad"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml
-msgid "Neutral Color"
-msgstr "Liv neptuek"
-
-#: libopenshot (Clip Properties)
-msgid "Enable Video"
-msgstr "Gweredekaat ar video"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "End: X"
-msgstr "Dibenn: X"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml
+msgid "Up Scale"
+msgstr "Kreskaat ar vent"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Specular Intensity"
-msgstr "Kreñder melezourel"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
-msgid "X Coordinate"
-msgstr "Daveenn X"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
-msgid "Show histogram"
-msgstr "Diskouez an tellun"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
-msgid "Correction near center"
-msgstr "Reizhadur e-kichen ar c'hreiz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/halo_zoom_out.xml
-msgid "Halo Zoom Out"
-msgstr "Rodenn kreskaet"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
-msgid "Levels"
-msgstr "Liveoù"
+msgid "Snow"
+msgstr "Erc'h"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml
 msgid ""
@@ -2366,460 +1333,1441 @@ msgstr ""
 "Kengeidañ ar skeudenn er c'hrec'h hag en traoñ, gant al lodenn maez ar "
 "skramm diskouezet en tu all"
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Background: Specular Intensity"
-msgstr "Drekleur: kreñder ar melezour"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml
+msgid "Interval"
+msgstr "Etremez"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml
-msgid "Creates a square alpha-channel mask"
-msgstr "Krouiñ a ra ur maskl karrez sanell alfa"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
+msgid "Line 1 Color"
+msgstr "Liv al linenn 1"
 
-#: libopenshot (Effect Metadata)
-msgid "Brightness & Contrast"
-msgstr "Lintr ha dargemm"
+#: libopenshot (Clip Properties)
+msgid "Shear Y"
+msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/blur.xml
 msgid "Blur"
 msgstr "Ruzed"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml
-msgid "Factor"
-msgstr "Parenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/treble.xml
-msgid "Treble"
-msgstr "Skiltr"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
-msgid "Fisheye"
-msgstr "Gavael vras"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml
-msgid "White Balance"
-msgstr "Mentel ar gwenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Gravity: Z"
-msgstr "Kerc'hellder: Z"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Background: Specular Color"
-msgstr "Drekleur: liv melezourel"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml
-msgid "Cartoonify the image, using a form of edge detection"
-msgstr "Tresadenaat ar skeudenn, en ur arverañ ur stumm dinoiñ ar riblennoù"
-
-#: libopenshot (Clip Properties)
-msgid "Sigma"
-msgstr "Sigma"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml
-msgid "Invert"
-msgstr "Tuginañ"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
-msgid "Manual Pixel Aspect ratio"
-msgstr "Kenfeurioù neuz ar piksel dre zorn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/balance.xml
-msgid "Adjust the left/right balance"
-msgstr "Kengeidañ ar mentelad kleiz/dehou"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml
-msgid "Chroma Hold"
-msgstr "Liv da zerc'hel"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml
-msgid "Split and mirror the image"
-msgstr "Didroc'hañ ha tuginañ ar skeudenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml
-msgid "v"
-msgstr "v"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
-msgid "Fixed Rotate Y"
-msgstr "C'hweladur digemm a-serzh Y"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Number of Snow Flakes"
-msgstr "Niver a valzennoù erc'h"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/treble.xml
-msgid "Adjust the high-pitched sound or tone"
-msgstr "Kengeidañ ar sonioù pe an tonioù skiltr"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
-msgid "Space Movie Intro"
-msgstr "Digoradur ur film egor"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
-msgid "Picture 2 Path"
-msgstr "Treug ar skeudenn 2"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
-msgid "Sun: Number of Streaks"
-msgstr "Heol: niver a skinoù"
-
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Depart Latitude (minutes)"
-msgstr "Ledred loc'hañ (munutennoù)"
+msgid "Arrival Longitude (seconds)"
+msgstr "Hedred degouezhout (eilennoù)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml
-msgid "Scan Lines"
-msgstr "Linennoù c'hwilerviñ"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/contrast.xml
+msgid "Adjusts the contrast of a source image"
+msgstr "Kengeidañ a ra dargemm ur skeudenn darzh"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml
-msgid "Increase the size of pixels to obscure the image"
-msgstr "Kreskaat ment ar pikselioù evit teñvalaat ar skeudenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/hue.xml
-msgid "Shift the hue of all colors in the image"
-msgstr "Linkañ arliv holl livioù ar skeudenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
-msgid "Sun: Color Threshold"
-msgstr "Heol: Gwehin liv"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml
-msgid "X axis"
-msgstr "Ahel X"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml
-msgid "World Map (Realistic)"
-msgstr "Kartenn ar bed (gwirheñvel)"
-
-#: libopenshot (Effect Metadata)
-msgid "Deinterlace"
-msgstr "Digenweañ"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Tile 2: Diffuse Color"
-msgstr "Teol 2: livioù amstrew"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Magic Wand"
-msgstr "Bazh hud"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
-msgid "Old Lines"
-msgstr "Linennoù kozh"
-
-#: libopenshot (Clip Properties)
-msgid "Horizontal Radius"
-msgstr "Skin a-blaen"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml
-msgid "Noise"
-msgstr "Trouz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
-msgid "Keep luma"
-msgstr "Mirout luma"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
-msgid "Main Text"
-msgstr "Testenn bennañ"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml
+msgid "Freeze Before"
+msgstr "Skornañ a-raok"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Depart Latitude (seconds)"
 msgstr "Ledred loc'hañ (eilennoù)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
-msgid "Split preview"
-msgstr "Rannañ an alberz"
-
-#: libopenshot (Clip Properties)
-msgid "Track"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Arrival Latitude (degrees)"
-msgstr "Ledred degouezhout (derezioù)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml
-msgid "Green Tint"
-msgstr "Arne gwer"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml
-msgid "Chroma Key"
-msgstr "Alc'hwez liv"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
-msgid "Color adjustment"
-msgstr "Kengeidañ al livioù"
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml
-msgid "Sub Title"
-msgstr "Istitloù"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml
-msgid "Charcoal"
-msgstr "Glaou"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
+msgid "Delay"
+msgstr "Dale"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
-msgid "Channel"
-msgstr "Sanell"
+msgid "Levels"
+msgstr "Liveoù"
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "File Name"
-msgstr "Anv ar restr"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml
+msgid "Edgeglow"
+msgstr "Gouloù ar riblennoù"
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Specular Color"
-msgstr "Liv melezourel"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml
+msgid "End Value"
+msgstr "Gwerzh dibenn"
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
-msgid "First Title"
-msgstr "Titl kentañ"
-
-#: libopenshot (Effect Metadata)
-msgid ""
-"Uses a grayscale mask image to gradually wipe / transition between 2 images."
-msgstr ""
-"Arver ur maskl skeudenn liveoù loued evit tremen eus ur skeudenn d'eben tamm-"
-"ha-tamm"
-
-#: /home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml
-msgid "Param"
-msgstr "Arventennoù"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
+msgid "Show histogram"
+msgstr "Diskouez an tellun"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "End: Z"
-msgstr "Dibenn: Z"
+msgid "Halo: Star Count"
+msgstr "Rodenn: niver a stered"
 
 #: libopenshot (Clip Properties)
-msgid "Center"
-msgstr "Kreiz"
+msgid "Replace Image"
+msgstr "Amsaviñ ar skeudenn"
 
-#: libopenshot (Clip Properties)
-msgid "Gravity"
-msgstr "Kerc'hellder"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
+msgid "Background: Alpha"
+msgstr "Drekleur: boullder"
 
-#: libopenshot (Effect Metadata)
-msgid "Negative"
-msgstr "Leiel"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
+msgid "Episode"
+msgstr "Rann"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
+msgid "Manual Scale"
+msgstr "Skeul dre zorn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml
+msgid "Display a single color, while using greyscale for the rest of the image"
+msgstr "Skramman ul liv hepken, arverañ liveoù loued evit peurrest ar skeudenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
+msgid "Bevel Depth"
+msgstr "Donnder ar veskell"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
+msgid "Delta"
+msgstr "Delta"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
+msgid "Halo: Ending Size"
+msgstr "Rodenn: ment dibenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml
+msgid "Primary Colors"
+msgstr "Livioù kentael"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/balance.xml
+msgid "Adjust the left/right balance"
+msgstr "Kengeidañ ar mentelad kleiz/dehou"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml
+msgid "Mix"
+msgstr "Meskaj"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Custom Texture (Equirectangular)"
 msgstr "Gwiadezh personelaet (Skouergornek-kevatal)"
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
-msgid "Picture Frames (4 pictures)"
-msgstr "Frammoù (4 skeudenn)"
+#: libopenshot (Clip Properties)
+msgid "Waveform"
+msgstr "Stumm ar wagenn"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml
-msgid "Block Size X"
-msgstr "Ment bloc'had X"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml
+msgid "Delay grab"
+msgstr "Daleañ an dapadenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "Gravity: X"
+msgstr "Kerc'hellder: X"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml
+msgid "v"
+msgstr "v"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
+msgid "Luma formula"
+msgstr "Reollun Luma"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "Number of Snow Flakes"
+msgstr "Niver a valzennoù erc'h"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml
+msgid "Old Dust"
+msgstr "Poultr kozh"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
+msgid "Tile 2: Diffuse Color"
+msgstr "Teol 2: livioù amstrew"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
+msgid "Rotate an image statically or animated"
+msgstr "C'hweladur diasavel pe blivet ur skeudenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml
+msgid "Nosync"
+msgstr "Nosync"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml
+msgid "Adjusts the gamma or luminance value of the image"
+msgstr "Kengeidañ ar gamma pe lintr ar skeudenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml
+msgid "Baltan"
+msgstr "Baltan"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
+msgid "Rotate Z"
+msgstr "C'hwelañ Z"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
+msgid "Input level black point"
+msgstr "Live poent du en enankad"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml
+msgid "World Map (Realistic)"
+msgstr "Kartenn ar bed (gwirheñvel)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
+msgid "Y Offset"
+msgstr "Linkañ Y"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Halo: Use Stars"
+msgstr "Rodenn: arverañ stered"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/wireframe_text.xml
+msgid "Wireframe Text"
+msgstr "Testenn e orjalennoù"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/balance.xml
-msgid "Balance"
-msgstr "Mentelad"
+msgid "Left | Right"
+msgstr "Kleiz | Dehou"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml
+msgid "Invert horizontally or vertically"
+msgstr "Tuginañ a-blaen pe a-serzh"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
+msgid "Lens Correction"
+msgstr "Reizhañ ar ferenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Halo: Use Flare"
+msgstr "Rodenn: arverañ an trelladur"
 
 #: libopenshot (Clip Properties)
-msgid "Fuzz"
-msgstr "Toueziañ"
+msgid "Gravity"
+msgstr "Kerc'hellder"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml
+msgid "Sepia"
+msgstr "Sepia"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Halo: Size"
+msgstr "Rodenn: ment"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Depart Latitude (Equator)"
+msgstr "Ledred loc'hañ (keheder)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
+msgid "Sun: Color Threshold"
+msgstr "Heol: Gwehin liv"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
+msgid "Gain In"
+msgstr "Live enankañ"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml
+msgid "Mask"
+msgstr "Maskl"
+
+#: libopenshot (Clip Properties)
+msgid "Iterations"
+msgstr "Arredoadurioù"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml
+msgid "Mirror"
+msgstr "Melezour"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml
+msgid "Make image sharper"
+msgstr "Lemmaat ar skeudenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
+msgid "Y Center"
+msgstr "Kreiz Y"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
+msgid "Neon Curves"
+msgstr "Krommennoù Neon"
+
+#: libopenshot (Clip Properties)
+msgid "Best Fit"
+msgstr "Ment wellañ"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
+msgid "Title 3"
+msgstr "Titl 3"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
+msgid "Fixed Rotate Z"
+msgstr "C'hwelañ digemm war Z"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/fly_by_two_titles.xml
+msgid "Fly Towards Camera (Two Titles)"
+msgstr "Nijal davet ar c'hamera (daou ditl)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
+msgid "Manual Pixel Aspect ratio"
+msgstr "Kenfeurioù neuz ar piksel dre zorn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/treble.xml
+msgid "Adjust the high-pitched sound or tone"
+msgstr "Kengeidañ ar sonioù pe an tonioù skiltr"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
+msgid "White color"
+msgstr "Liv gwenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml
+msgid "Split and mirror the image"
+msgstr "Didroc'hañ ha tuginañ ar skeudenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
+msgid "Lighter"
+msgstr "Sklaeroc'h"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml
+msgid "Use Alpha"
+msgstr "Arverañ an alfa"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
+msgid "Darker"
+msgstr "Teñvaloc'h"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/glare.xml
+msgid "Glare"
+msgstr "Skleur"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
+msgid "Line 2 Color"
+msgstr "Liv al linenn 2"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml
+msgid "something videowall-ish"
+msgstr "Doare ur voger video"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/hue.xml
+msgid "Hue"
+msgstr "Arliv"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
+msgid "Fixed Rotate X"
+msgstr "C'hweladur digemm a-blaen X"
+
+#: libopenshot (Clip Properties)
+msgid "Vertical Radius"
+msgstr "Skin a-serzh"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
+msgid "Old Film"
+msgstr "Film kozh"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml
+msgid "Phaser"
+msgstr "Lankad"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
+msgid "Max"
+msgstr "Brasañ"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
+msgid ""
+"Adjusts the gamma and brightness randomly to create the illusion of old film"
+msgstr ""
+"Kengeidañ ar gamma hag al lintr en un doare dargouezhek evit lakaat da "
+"grediñ eo ur film kozh"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Depart Title"
+msgstr "Titl loc'hañ"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Arrival Latitude (minutes)"
+msgstr "Ledred degouezhout (munutennoù)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml
+msgid "Freeze"
+msgstr "Skornet"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
+msgid "Number"
+msgstr "Niver"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/delaygrab.xml
+msgid "Delayed frame blitting mapped on a time bitmap"
+msgstr "C'hwilerviñ ar skeudenn daleet adlakaet war un oged amzer"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml
+msgid "Chroma Key"
+msgstr "Alc'hwez liv"
 
 #: libopenshot (Clip Properties)
 msgid "Crop"
 msgstr "Didroc'hañ"
 
-#: /home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml
-msgid "Threshold"
-msgstr "Gwehin"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml
+msgid "Zoom to Clapboard"
+msgstr "Zouman davet ar c'hlap"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
+msgid "Tile 3: Diffuse Color"
+msgstr "Teol 3: liv amstrew"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml
+msgid "Noise"
+msgstr "Trouz"
+
+#: libopenshot (Clip Properties)
+msgid "Saturation"
+msgstr "Peurvec'hiañ"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml
+msgid "Blinds (Two Titles)"
+msgstr "Stignoù (daou ditl)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml
+msgid "Midpoint"
+msgstr "Poent kreiz"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml
 msgid "Dynamic 3 level thresholding"
 msgstr "Kengeidañ gwehin al live dialuskel 3"
 
+#: /home/jonathan/apps/openshot-qt-git/src/effects/bass.xml
+msgid "Gain"
+msgstr "Savad"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml
+msgid "Max Count"
+msgstr "Kementad brasañ"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/fly_by_1.xml
+msgid "Fly Towards Camera"
+msgstr "Nijal davet ar c'hamera"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml
+msgid "Trip Level"
+msgstr "Live fazi"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
+msgid "Picture Frames (4 pictures)"
+msgstr "Frammoù (4 skeudenn)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml
+msgid "Color"
+msgstr "Liv"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml
+msgid "Oversaturate the color in the image, like in old Technicolor movies"
+msgstr "Dreistpeurvec'hiañ livioù ar skeudenn, evel ur film kozh Technicolor"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/dissolve.xml
+msgid "Dissolving Text"
+msgstr "Testenn o loezañ"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
+msgid "Alphagrad"
+msgstr "Alfagrad"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml
+msgid "Block Size X"
+msgstr "Ment bloc'had X"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
+msgid "Glass Slider"
+msgstr "Riklell wer"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml
+msgid "Flippo"
+msgstr "Flippo"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
+msgid "Episode Title"
+msgstr "Titl ar rann"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml
+msgid "Bottom"
+msgstr "Traoñ"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml
+msgid "Block Size Y"
+msgstr "Ment ar bloc'h Y"
+
+#: libopenshot (Clip Properties)
+msgid "Horizontal Radius"
+msgstr "Skin a-blaen"
+
+#: libopenshot (Clip Properties)
+msgid "Channel Filter"
+msgstr "Sil ar sanell"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
+msgid "Fixed Rotate Y"
+msgstr "C'hweladur digemm a-serzh Y"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
+msgid "Color Tiles"
+msgstr "Teolennoù al livioù"
+
+#: libopenshot (Effect Metadata)
+msgid "Adjust the blur of the frame's image."
+msgstr "Kengeidañ ruzed ar skeudenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
+msgid "Defish"
+msgstr "Defish"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
+msgid "Text Width"
+msgstr "Ledander an destenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
+msgid "Simple color adjustment"
+msgstr "Kengeidañ eeun al liv"
+
+#: libopenshot (Clip Properties)
+msgid "ID"
+msgstr "Naoudi (ID)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
+msgid "Tile 4: Diffuse Color"
+msgstr "Teol 4: livioù amstrew"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
+msgid "Adjust luminance or color channel intensity"
+msgstr "Kengeidañ sked pe kreñvder ar sanell liv"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
+msgid "Type"
+msgstr "Rizh"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
+msgid "Brightness Delta Down"
+msgstr "DIgreskiñ an diforc'h lintr"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
+msgid "Keep luma"
+msgstr "Mirout luma"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml
+msgid "Red/Green Axis"
+msgstr "Ahelioù ruz/gwer"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
+msgid "Transition width"
+msgstr "Ledander ardreuzad"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/gamma.xml
+msgid "Gamma"
+msgstr "Gamma"
+
+#: libopenshot (Clip Properties)
+msgid "Fuzz"
+msgstr "Toueziañ"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
+msgid "Line 3 Color"
+msgstr "Liv al linenn 3"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml
+msgid "Add small dust shapes randomly on the image"
+msgstr "Ouzhpennañ poultrenn en un doare dargouezhek war ar skeudenn"
+
+#: libopenshot (Effect Metadata)
+msgid "Color Saturation"
+msgstr "Peurvec'hiañ liv"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/explode.xml
+msgid "Display Ground"
+msgstr "Skrammañ al leur"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
+msgid "Three point balance"
+msgstr "Mentelad tri foent"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
+msgid "Adjust color balance with 3 color points"
+msgstr "Kengeidañ mentelad al livioù gant 3 foent livioù"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/mirror.xml
+msgid "Reverse"
+msgstr "Tuginañ"
+
+#: libopenshot (Clip Properties)
+msgid "Track"
+msgstr "Loabr"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
+msgid "Input level white point"
+msgstr "Live enankad ar pik gwenn"
+
+#: libopenshot (Clip Properties)
+msgid "Bottom Left"
+msgstr "Traoñ kleiz"
+
+#: libopenshot (Effect Metadata)
+msgid "Chroma Key (Greenscreen)"
+msgstr "Alc'hwez liv (skramm gwer)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
+msgid "Tilt"
+msgstr "Stouañ"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
+msgid "Channel"
+msgstr "Sanell"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
+msgid "Interpolation"
+msgstr "Etreletodiñ"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
+msgid "Space Movie Intro"
+msgstr "Digoradur ur film egor"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "World Map"
+msgstr "Kartenn ar bed"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
+msgid "Rotate Y"
+msgstr "C'hwelañ Y"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Start: X"
+msgstr "Loc'hañ: X"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
+msgid "Alpha controlled"
+msgstr "Boullder reoliet"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "File Name"
+msgstr "Anv ar restr"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Halo: Line Count"
+msgstr "Rodenn: niver a linennoù"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Depart Longitude (degrees)"
+msgstr "Hedred loc'hañ (derezioù)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
+msgid "Tint a source image with specified color"
+msgstr "Livañ ur skeudenn vammenn gant al liv erspizet"
+
+#: libopenshot (Clip Properties)
+msgid "Center"
+msgstr "Kreiz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
+msgid "Sun: Angle Offset"
+msgstr "Heol: linkad ar c'horn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
+msgid "Tint amount"
+msgstr "Kementad arliv"
+
+#: libopenshot (Clip Properties)
+msgid "Sigma"
+msgstr "Sigma"
+
+#: libopenshot (Effect Metadata)
+msgid "Negates the colors, producing a negative of the image."
+msgstr "Tuginañ a ra al livioù, ha sevel ur ginenn eus ak skeudenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml
+msgid "Threshold"
+msgstr "Gwehin"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/tehroxx0r.xml
+msgid "TehRoxx0r"
+msgstr "TehRoxx0r"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
+msgid "Background: Specular Color"
+msgstr "Drekleur: liv melezourel"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
+msgid "Fills alpha channel with a gradient"
+msgstr "Leuniañ ar sanell alfa gant un ilrezenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
+msgid "X Coordinate"
+msgstr "Daveenn X"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml
+msgid "Black and White"
+msgstr "Gwenn ha du"
+
 #: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
 msgid "Adds random vertical lines to the image"
 msgstr "Ouzhpennan linennoù a-serzh dargouezhek d'ar skeudenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
+msgid "Blue"
+msgstr "Glas"
+
+#: libopenshot (Effect Metadata)
+msgid "Deinterlace"
+msgstr "Digenweañ"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Start: Y"
+msgstr "Deroù: Y"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
+msgid "Black color"
+msgstr "Liv du"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_dust.xml
+msgid "Max Diameter"
+msgstr "Treuzskiz brasañ"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "End: Z"
+msgstr "Dibenn: Z"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml
+msgid "Pixelate"
+msgstr "Pikselaat"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
+msgid "Action"
+msgstr "Gwered"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Particles: Lifetime"
+msgstr "Eufl: padelezh buhez"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml
+msgid "Aspect ratio"
+msgstr "Feur an neuz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
+msgid "Halo: Starting Size"
+msgstr "Rodenn: ment deraouiñ"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/glow.xml
+msgid "Add a glow effect to the image"
+msgstr "Ouzhpennañ un efed lufrus war ar skeudenn"
+
+#: libopenshot (Clip Properties)
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:115
+msgid "End"
+msgstr "Dibenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml
+msgid "Cartoon"
+msgstr "Tresadenn-vev"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "Start Frame"
+msgstr "Skeudenn deroù"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/threshold.xml
+msgid "Reduces and mixes the colors of the image based on a threshold"
+msgstr "Digreskiñ ha meskañ a ra livioù ar skeudenn diazezet war ur gwehin"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml
+msgid "Sharpness"
+msgstr "Lemmder"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
+msgid "Background: Specular Intensity"
+msgstr "Drekleur: kreñder ar melezour"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml
+msgid "Neutral Color"
+msgstr "Liv neptuek"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_lines.xml
+msgid "Width"
+msgstr "Ledander"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
+msgid "Scaling"
+msgstr "O skeulaat"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml
+msgid "Start Value"
+msgstr "Gwerzh an derou"
+
+#: libopenshot (Clip Properties)
+msgid "Key Color"
+msgstr "Liv an alc'hwez"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
+msgid "Defocus"
+msgstr "Distiañ"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/nosync.xml
+msgid "Horizontal Sync"
+msgstr "Goubredañ a-serzh"
+
+#: libopenshot (Effect Metadata)
+msgid "Adjust the color saturation."
+msgstr "Kengeidañ peurvec'hiañ al livioù"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
+msgid "Fisheye"
+msgstr "Gavael vras"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/saturation.xml
+msgid "Adjusts the saturation or intensity of the image"
+msgstr "Kengeidañ peurvec'hiadur pe kreñvder ar skeudenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Arrival Longitude (minutes)"
+msgstr "Hedred degouezhout (munutennoù)"
+
+#: libopenshot (Clip Properties)
+msgid "Selection"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml
+msgid "Sobel"
+msgstr "Sobel"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
+msgid "Font Name"
+msgstr "Anv an nodrezh"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml
+msgid "X axis"
+msgstr "Ahel X"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml
+msgid "Adjust the white balance and color temperature"
+msgstr "Kengeidañ al livioù gwenn ha gwrezverk al liv"
+
+#: libopenshot (Clip Properties)
+msgid "Location Y"
+msgstr "Lec'hiadur Y"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
+msgid "Brightness Delta Every"
+msgstr "Diforc'h al lintr bep"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_hold.xml
+msgid "Chroma Hold"
+msgstr "Liv da zerc'hel"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/hue.xml
+msgid "Shift the hue of all colors in the image"
+msgstr "Linkañ arliv holl livioù ar skeudenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/pixelate.xml
+msgid "Increase the size of pixels to obscure the image"
+msgstr "Kreskaat ment ar pikselioù evit teñvalaat ar skeudenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/rotate.xml
+msgid "X Offset"
+msgstr "Linkañ X"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/distort.xml
+msgid "Distort"
+msgstr "Distummañ"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml
+msgid "Oversaturate Color"
+msgstr "Dreistpeurvec'hiadur al livioù"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
+msgid "Aspect type"
+msgstr "Rizh an neuz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/tcolor.xml
+msgid "Blue/Yellow"
+msgstr "Glas/melen"
+
+#: libopenshot (Clip Properties)
+msgid "Wave Color"
+msgstr "Liv ar wagenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml
+msgid "Factor"
+msgstr "Parenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
+msgid "Output level black point"
+msgstr "Poent du al live ec'hankañ"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
+msgid "Every"
+msgstr "Pep"
+
+#: libopenshot (Clip Properties)
+msgid "Scale X"
+msgstr "Skeul X"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/explode.xml
+msgid "Exploding Text"
+msgstr "Titl o tarzhañ"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml
+msgid "Sub Title"
+msgstr "Istitloù"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
+msgid "First Title"
+msgstr "Titl kentañ"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Arrival Latitude (Equator)"
+msgstr "Ledred degouezhout (keheder)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Velocity: X"
+msgstr "Tizh: X"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml
+msgid "Creates a square alpha-channel mask"
+msgstr "Krouiñ a ra ur maskl karrez sanell alfa"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml
+msgid "Vignette"
+msgstr "Vignetenn"
+
+#: libopenshot (Clip Properties)
+msgid "Enable Audio"
+msgstr "Gweredekaat an aodio"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/sharpness.xml
+msgid "Size"
+msgstr "Ment"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "Specular Intensity"
+msgstr "Kreñder melezourel"
+
+#: libopenshot (Effect Metadata)
+msgid "Negative"
+msgstr "Leiel"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml
+msgid "Interlaced black lines"
+msgstr "Kenweañ al linennoù du"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml
+msgid "Freeze After"
+msgstr "Skornañ goude"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
+msgid "Background: Diffuse Color"
+msgstr "Drekleur: livioù amstrew"
+
+#: libopenshot (Effect Metadata)
+msgid "Adjust the brightness and contrast of the frame's image."
+msgstr "Kengeidañ lintr ha dargemm ar skeudenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Halo: Use Lines"
+msgstr "Rodenn: arverañ linennoù"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Magic Wand"
+msgstr "Bazh hud"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Arrival Longitude (degrees)"
+msgstr "Hedred degouezhout (derezioù)"
+
+#: libopenshot (Clip Properties)
+msgid "Scale Y"
+msgstr "Skeul Y"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "Animation Length"
+msgstr "Padelezh ar bliverezh"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/letterbox.xml
+msgid "Letterbox"
+msgstr "Boest-lizhiri"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/greyscale.xml
+msgid "Greyscale"
+msgstr "Liveoù  louedoù"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
+msgid "Text Size"
+msgstr "Ment an destenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml
+msgid "Lens vignetting"
+msgstr "Vignetenn ferenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
+msgid "Main Text"
+msgstr "Testenn bennañ"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
+msgid "Background: Shadeless"
+msgstr "Drekleur: diskeud"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml
+msgid "Center size"
+msgstr "Ment ar c'hreiz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Depart Longitude (minutes)"
+msgstr "Hedred loc'hañ (munutennoù)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/sepia.xml
+msgid "u"
+msgstr "u"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml
+msgid "Freeze the frame of a video"
+msgstr "Stagañ skeudenn ur video"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/halo_zoom_out.xml
+msgid "Halo Zoom Out"
+msgstr "Rodenn kreskaet"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/balance.xml
+msgid "Balance"
+msgstr "Mentelad"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml
+msgid "Charcoal"
+msgstr "Glaou"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/equaliz0r.xml
+msgid "Equalizor"
+msgstr "Kevatalaer"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Depart Longitude (seconds)"
+msgstr "Hedred loc'hañ (eilennoù)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "End: Y"
+msgstr "Dibenn: Y"
+
+#: libopenshot (Clip Properties)
+msgid "Duration"
+msgstr "Padelezh"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
+msgid "Picture 1 Path"
+msgstr "Treug ar skeudenn 1"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
+msgid "Sun: Number of Streaks"
+msgstr "Heol: niver a skinoù"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/mask0mate.xml
+msgid "Top"
+msgstr "Krec'h"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/colordistance.xml
+msgid ""
+"Calculates the distance between the selected color and the current pixel and "
+"uses that value as new pixel value"
+msgstr ""
+"Jediñ a ra an hirder etre al liv diuzet hag ar piksel bremanel hag arverañ "
+"ar gwerzh-mañ evel talvoud piksel nevez"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml
+msgid "Speed"
+msgstr "Tizh"
+
+#: libopenshot (Clip Properties)
+msgid "Bottom Center"
+msgstr "Traoñ kreiz"
+
+#: libopenshot (Effect Metadata)
+msgid "Remove interlacing from a video (i.e. even or odd horizontal lines)"
+msgstr "Dilemel kenweañ ur video (sk. linennoù a-blaen par pe ampar)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
+msgid "Title 1"
+msgstr "Titl 1"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
+msgid "Spots: Color Threshold"
+msgstr "Pikoù: liv ar gwehin"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml
+msgid "Red Scale"
+msgstr "Skeul ruz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
+msgid "Output level white point"
+msgstr "Live an ec'hankad poent gwenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Arrival Title"
+msgstr "Titl degouezh"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
+msgid "Echo"
+msgstr "Heklev"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
+msgid "Map white to"
+msgstr "Amsaviñ ar gwenn gant"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
+msgid "Title 2"
+msgstr "Titl 2"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
+msgid "Tile 1: Diffuse Color"
+msgstr "Teol 1: liv amstrewiñ"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "Mirror Color"
+msgstr "Liv melezour"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/rotate_360.xml
+msgid "Rotate 360 Degrees"
+msgstr "C'hwelañ da 360 derez"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/trees.xml
+msgid "Trees"
+msgstr "Gwez"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "End Frame"
+msgstr "Skeudenn dibenn"
+
+#: libopenshot (Clip Properties)
+msgid "Canvas"
+msgstr "Steuenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
+msgid "Picture 2 Path"
+msgstr "Treug ar skeudenn 2"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
+msgid "Picture 4 Path"
+msgstr "Treug ar skeudenn 4"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml
+msgid "Green Tint"
+msgstr "Arne gwer"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/distort.xml
+msgid "Distort the source similar to plasma"
+msgstr "Distummañ an tarzh da vezañ heñvel ouzh plasma"
+
+#: libopenshot (Clip Properties)
+msgid "Stretch"
+msgstr "Astenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml
+msgid "Variance"
+msgstr "Hebiant"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
+msgid "Tint"
+msgstr "Livaj"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml
+msgid "Key"
+msgstr "Alc'hwez"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml
+msgid "Adds static and grain to the image"
+msgstr "Ouzhpennañ trouz ha greun d'ar skeudenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/bass.xml
+msgid "Bass"
+msgstr "Boud"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/tintor.xml
+msgid "Map black to"
+msgstr "Amsaviñ al liv du da"
+
+#: libopenshot (Effect Metadata)
+msgid "Brightness & Contrast"
+msgstr "Lintr ha dargemm"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_film.xml
+msgid "Brightness Delta Up"
+msgstr "Kreskaat difoc'h al lintr"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "End: X"
+msgstr "Dibenn: X"
+
+#: libopenshot (Clip Properties)
+msgid "Shear X"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/treble.xml
+msgid "Treble"
+msgstr "Skiltr"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
+msgid "X Center"
+msgstr "Kreiz X"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml
+msgid "Cartoonify the image, using a form of edge detection"
+msgstr "Tresadenaat ar skeudenn, en ur arverañ ur stumm dinoiñ ar riblennoù"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/vignette.xml
+msgid "Softness"
+msgstr "Kuñvder"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml
+msgid "Y Scatter"
+msgstr "Strewiñ Y"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/levels.xml
+msgid "Histogram position"
+msgstr "Lec'hiadur an tellunioù"
+
+#: libopenshot (Clip Properties)
+msgid "Enable Video"
+msgstr "Gweredekaat ar video"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
+msgid "Text Alignment"
+msgstr "Steudadur an destenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/distort.xml
+msgid "Amplitude"
+msgstr "Heled"
+
+#: libopenshot (Clip Properties)
+msgid "Is Odd Frame"
+msgstr "a zo ur skeudenn ampar"
+
+#: libopenshot (Effect Metadata)
+msgid ""
+"Replaces the color (or chroma) of the frame with transparency (i.e. keys out "
+"the color)."
+msgstr "Erlec'hiañ liv ar skeudenn gant boullder (sk. alc'hwezioù maez al liv)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/brightness.xml
+msgid "Adjusts the brightness of the image"
+msgstr "Kengeidañ lintr ar skeudenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
+msgid "Red"
+msgstr "Ruz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Velocity: Y"
+msgstr "Tizh: Y"
+
+#: libopenshot (Clip Properties)
+msgid "Location X"
+msgstr "Lec'hiadur X"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/sobel.xml
+msgid "Detect and highlight the edges of objects"
+msgstr "Dinoiñ hag usskediñ riblennoù an ergorennoù"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/flippo.xml
+msgid "Y axis"
+msgstr "Ahel Y"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Halo: Ring Count"
+msgstr "Rodenn: niver a walennoù"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/coloradj_RGB.xml
+msgid "Color adjustment"
+msgstr "Kengeidañ al livioù"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
+msgid "Source image on left side"
+msgstr "Skeudenn vammenn war an tu kleiz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Depart Latitude (degrees)"
+msgstr "Ledred loc'hañ (derezioù)"
+
+#: libopenshot (Clip Properties)
+msgid "Anchor"
+msgstr "Eor"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Velocity: Z"
+msgstr "Buander: Z"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml Settings for
+#: actionTitle
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:106
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:836
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:839
+msgid "Title"
+msgstr "Titl"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/chroma_key.xml
+msgid ""
+"Make a single color transparent.  Also referred to as green screen and blue "
+"screen."
+msgstr ""
+"Lakaat ul liv da vezañ treuzwelus. Anvet vez 'skramm gwer' pe 'skramm glas' "
+"ivez."
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Particles: Gravity"
+msgstr "Eufl: kerc'hellder"
+
+#: libopenshot (Effect Metadata)
+msgid "Alpha Mask / Wipe Transition"
+msgstr "Maskl alfa / Ardreuzad c'hwilerviñ"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
+msgid "Background: Fresnel"
+msgstr "Drekleur: Fresnel"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
+msgid "Flying Title"
+msgstr "Titl nij"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
+msgid "Correction near center"
+msgstr "Reizhadur e-kichen ar c'hreiz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
+msgid "Gray color"
+msgstr "Liv loued"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml
+msgid "Display Clouds"
+msgstr "Skrammañ koumoul"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/white_balance.xml
+msgid "White Balance"
+msgstr "Mentel ar gwenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Arrival Longitude (Prime Meridian)"
+msgstr "Hedred degouezhout (hedredenn gentañ)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/three_point_balance.xml
+msgid "Split preview"
+msgstr "Rannañ an alberz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/edgeglow.xml
+msgid "Find and glow the edges of objects"
+msgstr "Kavout ha goulaouiñ riblennoù an ergorennoù"
+
+#: libopenshot (Clip Properties)
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:96
+msgid "Start"
+msgstr "Loc'hañ"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml
+msgid "X Scatter"
+msgstr "Strewiñ X"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/freeze.xml
+msgid "Frame Number"
+msgstr "Niver ar skeudenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
+msgid "Picture 3 Path"
+msgstr "Treug ar skeudenn 3"
+
+#: libopenshot (Clip Properties)
+msgid "Top Left"
+msgstr "Krec'h dehoù"
+
+#: libopenshot (Clip Properties)
+msgid "Channel Mapping"
+msgstr "Glennañ ar sanell"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Arrival Latitude (seconds)"
+msgstr "Ledred degouezhout (eilennoù)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
+msgid "Correction near edges"
+msgstr "Reizhadur war ar riblennoù"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/alphagrad.xml
+msgid "Min"
+msgstr "Bihanañ"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/lenscorrection.xml
+msgid "Allows compensation of lens distortion"
+msgstr "Aotren kempouezadur torrgamm ar ferenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/two_layer.xml
+msgid "Adjust the color of the image to black and white based on a threshold"
+msgstr "Kengeidañ liv ar skeudenn e gwenn ha du diazezet war ur gwehin"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
+msgid "Z Coordinate"
+msgstr "Daveenn Z"
+
+#: libopenshot (Clip Properties)
+msgid "Handles"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/defish0r.xml
+msgid "Amount"
+msgstr "Kementad"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/scanlines.xml
+msgid "Scan Lines"
+msgstr "Linennoù c'hwilerviñ"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/phaser.xml
+msgid "Param"
+msgstr "Arventennoù"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Arrival Latitude (degrees)"
+msgstr "Ledred degouezhout (derezioù)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/threelay0r.xml
+msgid "Three Layer"
+msgstr "Tri gwiskad"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/charcoal.xml
+msgid "Filter the image to look like it is drawn with charcoal"
+msgstr ""
+"Silañ ar skeudenn evit ma vefe heñvel ouzh un dresadenn graet gant glaou koad"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/bass.xml
+msgid "Adjust the low-pitched sound or tone"
+msgstr "Kengeidañ ar sonioù boud pe an ton"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/old_grain.xml
+msgid "Old Grain"
+msgstr "Kozhadur: greun"
+
+#: libopenshot (Clip Properties)
+msgid "Top Right"
+msgstr "Krec'h kleiz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/primaries.xml
+msgid "Reduce image to primary colors"
+msgstr "Digreskiñ ar skeudenn d'al livioù pennañ"
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
+msgid "Line 4 Color"
+msgstr "Liv al linenn 4"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/blur.xml
+msgid "Blur the image similar to an out-of-focus camera"
+msgstr "Lakaat ruzed war ar skeudenn, evel ur c'hamera distiet"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/baltan.xml
+msgid "delayed alpha smoothed blit of time"
+msgstr "padelezh skurzher ardreuzad ar gwiskad alfa"
+
+#: /home/jonathan/apps/openshot-qt-git/src/effects/echo.xml
+msgid "Gain Out"
+msgstr "Ec'hankad ar savad"
 
 #: /home/jonathan/apps/openshot-qt-git/src/effects/glow.xml
 msgid "Glow"
 msgstr "Lufrus"
 
-#: Settings for debug-port
-msgid "Debug Mode (Port)"
-msgstr "Mod diveugañ (Porzh)"
+#: /home/jonathan/apps/openshot-qt-git/src/effects/cartoon.xml
+msgid "Diff Space"
+msgstr "Egor diforc'h"
 
-#: Settings for enable-auto-save
-msgid "Enable Autosave"
-msgstr "Gweredekaat an enrollañ emgefreek"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Halo: Hardness"
+msgstr "Rodenn: kaleted"
 
-#: /home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml
-msgid "Blu-Ray/AVCHD"
-msgstr "Blu-Ray/AVCHD"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
+msgid "Extrude"
+msgstr "Eztourzhañ"
 
-#: Settings for selectNone
-msgid "Select None"
-msgstr ""
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Particles: Amount"
+msgstr "Eufl: kementad"
 
-#: Settings for playToggle3
-msgid "Play/Pause Toggle (Alternate 3)"
-msgstr ""
-
-#: Settings Category for Profiles
-msgid "Profiles"
-msgstr ""
-
-#: Settings for actionNew
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:285
-msgid "New Project..."
-msgstr "Raktres nevez..."
-
-#: Settings for sliceAllKeepLeftSide
-msgid "Slice All: Keep Left Side"
-msgstr ""
-
-#: Settings for rewindVideo
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:547
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:550
-msgid "Rewind"
-msgstr "War-gil"
-
-#: Settings for actionNextMarker
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:658
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:661
-msgid "Next Marker"
-msgstr "Merker war-lec'h"
-
-#: Settings for cache-limit-mb
-msgid "Cache Limit (MB)"
-msgstr ""
-
-#: Settings for actionJumpEnd
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:571
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:574
-msgid "Jump To End"
-msgstr "Mont d'an dibenn"
-
-#: Settings Category for Debug
-msgid "Debug"
-msgstr ""
-
-#: Settings for actionJumpStart
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:535
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:538
-msgid "Jump To Start"
-msgstr "Mont d'an deroù"
-
-#: Settings for playToggle
-msgid "Play/Pause Toggle"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml
-msgid "DVD"
-msgstr "DVD"
-
-#: Settings for actionAddTrack
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:493
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:496
-msgid "Add Track"
-msgstr "Ouzhpennañ ul loabr"
-
-#: Settings for seekNextFrame
-msgid "Next Frame"
-msgstr ""
-
-#: Settings for deleteItem1
-msgid "Delete Item (Alternate 1)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/vimeo_HD.xml
-msgid "Vimeo-HD"
-msgstr "Vimeo-HD"
-
-#: Settings for actionSplitClip
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1197
-msgid "Split Clip..."
-msgstr "Didroc'hañ ar c'hlip..."
-
-#: Settings for actionUndo
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:330
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:333
-msgid "Undo"
-msgstr "Dizober"
-
-#: Settings for actionThumbnailView
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:919
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:922
-msgid "Thumbnail View"
-msgstr "Gwel ar skeudennig"
-
-#: Settings for fastforwardVideo
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:559
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:562
-msgid "Fast Forward"
-msgstr "Tremen buan"
-
-#: Settings for actionQuit
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:478
-msgid "Quit"
-msgstr "Kuitaat"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mpeg2.xml
-msgid "AVI (mpeg2)"
-msgstr "AVI (mpeg2)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml
-msgid "DVD-NTSC"
-msgstr "DVD-NTSC"
-
-#: Settings Category for Keyboard
-msgid "Keyboard"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_avi_x264.xml
-msgid "AVI (h.264)"
-msgstr "AVI (h.264)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/youtube.xml
-msgid "YouTube"
-msgstr "YouTube"
-
-#: Settings for title_editor
-msgid "Advanced Title Editor (path)"
-msgstr "Embanner titloù kempleshoc'h (treug)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml
-msgid "Web"
-msgstr "Web"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mov_x264.xml
-msgid "MOV (h.264)"
-msgstr "MOV (h.264)"
-
-#: Settings for cache-quality
-msgid "Image Quality (Disk Only)"
-msgstr ""
-
-#: Settings for cache-scale
-msgid "Scale Factor (Disk Only)"
-msgstr ""
-
-#: Settings for sliceAllKeepBothSides
-msgid "Slice All: Keep Both Sides"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_libvorbis.xml
-msgid "OGG (theora/vorbis)"
-msgstr "OGG (theora/vorbis)"
-
-#: Settings for seekPreviousFrame
-msgid "Previous Frame"
-msgstr ""
-
-#: Settings for actionAbout
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/about.ui:23
-msgid "About OpenShot"
-msgstr "A-zivout OpenShot"
-
-#: Settings for default-image-length
-msgid "Image Length (seconds)"
-msgstr "Padelezh ar skeudenn (eilennoù)"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
+msgid "Sun: Type of Glare"
+msgstr "Heol: doare gouloù"
 
 #: Settings for actionDetailsView
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:934
@@ -2827,151 +2775,24 @@ msgstr "Padelezh ar skeudenn (eilennoù)"
 msgid "Details View"
 msgstr "Gwel munudoù"
 
+#: Settings Category for Cache
+msgid "Cache"
+msgstr "Krubuilh"
+
 #: Settings for actionProfile
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1057
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1060
 msgid "Choose Profile"
 msgstr "Dibab un aelad"
 
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_xvid.xml
-msgid "MP4 (Xvid)"
-msgstr "MP4 (Xvid)"
-
-#: Settings Category for General
-msgid "General"
-msgstr ""
-
-#: Settings for actionRedo
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:405
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:408
-msgid "Redo"
-msgstr "Adober"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/picasa.xml
-msgid "Picasa"
-msgstr "Picasa"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml
-msgid "Metacafe"
-msgstr "Metacafe"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml
-msgid "Apple TV"
-msgstr "Apple TV"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_flv_x264.xml
-msgid "FLV (h.264)"
-msgstr "FLV (h.264)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml
-msgid "Device"
-msgstr "Trobarzhell"
-
-#: Settings for actionAdd_to_Timeline
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1072
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1075
-msgid "Add to Timeline"
-msgstr "Ouzhpennañ d'ar red-amzer"
-
-#: Settings for sliceAllKeepRightSide
-msgid "Slice All: Keep Right Side"
-msgstr ""
-
-#: Settings for actionAnimatedTitle
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:852
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:855
-msgid "Animated Title"
-msgstr "Titl fiñvus"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_pal.xml
-msgid "DVD-PAL"
-msgstr "DVD-PAL"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mov_mpeg4.xml
-msgid "MOV (mpeg4)"
-msgstr "MOV (mpeg4)"
-
-#: Settings Category for Cache
-msgid "Cache"
-msgstr ""
+#: Settings for seekPreviousFrame
+msgid "Previous Frame"
+msgstr "Skeudenn gent"
 
 #: Settings for actionImportFiles
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:360
 msgid "Import Files..."
 msgstr "Enporzhiañ restroù..."
-
-#: Settings for send_metrics
-msgid "Send Anonymous Metrics and Errors"
-msgstr "Kas roadennoù dizanv ha fazioù"
-
-#: Settings for autosave-interval
-msgid "Autosave Interval (minutes)"
-msgstr "Etremez enrollañ emgefreek (munutennoù)"
-
-#: Settings for cache-image-format
-msgid "Image Format (Disk Only)"
-msgstr ""
-
-#: Settings for theme
-msgid "Default Theme"
-msgstr "Neuz dre ziouer"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/youtube_HD.xml
-msgid "YouTube-HD"
-msgstr "YouTube-HD"
-
-#: Settings for actionSave
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:315
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:318
-msgid "Save Project"
-msgstr "Enrollañ ar raktres"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/wikipedia.xml
-msgid "Wikipedia"
-msgstr "Wikipedia"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_flac.xml
-msgid "OGG (theora/flac)"
-msgstr "OGG (theora/flac)"
-
-#: Settings for default-profile
-msgid "Default Profile"
-msgstr "Aelad dre ziouer"
-
-#: Settings for actionPreviousMarker
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:646
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:649
-msgid "Previous Marker"
-msgstr "Merker kent"
-
-#: Settings for actionAddMarker
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:631
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:634
-msgid "Add Marker"
-msgstr "Ouzhpennañ ur merker"
-
-#: Settings for actionFullscreen
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:871
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:874
-msgid "Fullscreen"
-msgstr "Skrammad a-bezh"
-
-#: Settings for actionPreferences
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:508
-msgid "Preferences"
-msgstr "Gwellvezioù"
-
-#: Settings for default-samplerate
-msgid "Default Audio Sample Rate"
-msgstr "Feur aodio dre ziouer"
-
-#: Settings for playToggle1
-msgid "Play/Pause Toggle (Alternate 1)"
-msgstr ""
-
-#: Settings for cache-mode
-msgid "Cache Mode"
-msgstr ""
 
 #: Settings for actionProperties
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:256
@@ -2979,13 +2800,121 @@ msgstr ""
 msgid "Properties"
 msgstr "Perzhioù"
 
-#: Settings for deleteItem
-msgid "Delete Item"
-msgstr ""
+#: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml
+msgid "DVD-NTSC"
+msgstr "DVD-NTSC"
 
-#: /home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml
-msgid "AVCHD Disks"
-msgstr "Kantennoù AVCHD"
+#: /home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml
+msgid "Device"
+msgstr "Trobarzhell"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml
+msgid "WEBM (vpx)"
+msgstr "WEBM (vpx)"
+
+#: Settings for enable-auto-save
+msgid "Enable Autosave"
+msgstr "Gweredekaat an enrollañ emgefreek"
+
+#: Settings Category for Keyboard
+msgid "Keyboard"
+msgstr "Klavier"
+
+#: Settings for playToggle
+msgid "Play/Pause Toggle"
+msgstr "Lenn/Ehan"
+
+#: Settings for sliceAllKeepLeftSide
+msgid "Slice All: Keep Left Side"
+msgstr "Troc'hañ an holl: mirout an tu kleiz"
+
+#: Settings for actionAbout
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/about.ui:23
+msgid "About OpenShot"
+msgstr "A-zivout OpenShot"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/youtube.xml
+msgid "YouTube"
+msgstr "YouTube"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_mpeg4.xml
+msgid "MP4 (mpeg4)"
+msgstr "MP4 (mpeg4)"
+
+#: Settings Category for Autosave
+msgid "Autosave"
+msgstr "Enrollañ emgefreek"
+
+#: Settings for default-profile
+msgid "Default Profile"
+msgstr "Aelad dre ziouer"
+
+#: Settings for autosave-interval
+msgid "Autosave Interval (minutes)"
+msgstr "Etremez enrollañ emgefreek (munutennoù)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_flv_x264.xml
+msgid "FLV (h.264)"
+msgstr "FLV (h.264)"
+
+#: Settings for cache-image-format
+msgid "Image Format (Disk Only)"
+msgstr "Mentrezh ar skeuden (Kantenn hepken)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mov_x264.xml
+msgid "MOV (h.264)"
+msgstr "MOV (h.264)"
+
+#: Settings for selectNone
+msgid "Select None"
+msgstr "Chom hep diuzañ netra"
+
+#: Settings for actionNextMarker
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:658
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:661
+msgid "Next Marker"
+msgstr "Merker war-lec'h"
+
+#: Settings Category for General
+msgid "General"
+msgstr "Hollek"
+
+#: Settings for actionJumpStart
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:535
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:538
+msgid "Jump To Start"
+msgstr "Mont d'an deroù"
+
+#: Settings for playToggle3
+msgid "Play/Pause Toggle (Alternate 3)"
+msgstr "Lenn/Ehan (a-eil)"
+
+#: Settings for actionNew
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:285
+msgid "New Project..."
+msgstr "Raktres nevez..."
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/picasa.xml
+msgid "Picasa"
+msgstr "Picasa"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mp4.xml
+msgid "AVI (mpeg4)"
+msgstr "AVI (mpeg4)"
+
+#: Settings for actionAdd_to_Timeline
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1072
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1075
+msgid "Add to Timeline"
+msgstr "Ouzhpennañ d'ar red-amzer"
+
+#: Settings for default-channellayout
+msgid "Default Audio Channels"
+msgstr "Sanelloù aodio dre ziouer"
+
+#: Settings for seekNextFrame
+msgid "Next Frame"
+msgstr "Skeudenn da-heul"
 
 #: Settings for actionSnappingTool
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:619
@@ -2993,334 +2922,589 @@ msgstr "Kantennoù AVCHD"
 msgid "Snapping Enabled"
 msgstr "Gweredekaet an desteudadur"
 
-#: Settings for default-channellayout
-msgid "Default Audio Channels"
-msgstr "Sanelloù aodio dre ziouer"
+#: Settings for actionQuit
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:478
+msgid "Quit"
+msgstr "Kuitaat"
 
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mp4.xml
-msgid "AVI (mpeg4)"
-msgstr "AVI (mpeg4)"
+#: Settings for actionPreferences
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:508
+msgid "Preferences"
+msgstr "Gwellvezioù"
 
-#: Settings Category for Autosave
-msgid "Autosave"
-msgstr ""
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_libvorbis.xml
+msgid "OGG (theora/vorbis)"
+msgstr "OGG (theora/vorbis)"
+
+#: Settings for cache-scale
+msgid "Scale Factor (Disk Only)"
+msgstr "Feur ar skeul (Kantenn hepken)"
+
+#: Settings for actionAnimatedTitle
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:852
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:855
+msgid "Animated Title"
+msgstr "Titl fiñvus"
+
+#: Settings for fastforwardVideo
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:559
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:562
+msgid "Fast Forward"
+msgstr "Tremen buan"
+
+#: Settings for deleteItem1
+msgid "Delete Item (Alternate 1)"
+msgstr "Dilemel an elfenn (dazeilel 1)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/nokia_nHD.xml
+msgid "Nokia nHD"
+msgstr "Nokia nHD"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mov_mpeg4.xml
+msgid "MOV (mpeg4)"
+msgstr "MOV (mpeg4)"
+
+#: Settings for actionAddMarker
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:631
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:634
+msgid "Add Marker"
+msgstr "Ouzhpennañ ur merker"
+
+#: Settings for actionSave
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:315
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:318
+msgid "Save Project"
+msgstr "Enrollañ ar raktres"
 
 #: Settings for default-language
 msgid "Language"
 msgstr "Yezh"
+
+#: Settings Category for Profiles
+msgid "Profiles"
+msgstr "Aeladoù"
+
+#: Settings for default-samplerate
+msgid "Default Audio Sample Rate"
+msgstr "Feur aodio dre ziouer"
+
+#: Settings Category for Debug
+msgid "Debug"
+msgstr "Diveugañ"
+
+#: Settings for actionJumpEnd
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:571
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:574
+msgid "Jump To End"
+msgstr "Mont d'an dibenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml
+msgid "Apple TV"
+msgstr "Apple TV"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml
+msgid "Blu-Ray/AVCHD"
+msgstr "Blu-Ray/AVCHD"
+
+#: Settings for debug-mode
+msgid "Debug Mode (Verbose)"
+msgstr "Mod diveugañ (munutaet)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mpeg2.xml
+msgid "AVI (mpeg2)"
+msgstr "AVI (mpeg2)"
+
+#: Settings for rewindVideo
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:547
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:550
+msgid "Rewind"
+msgstr "War-gil"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mpeg_mpeg2.xml
+msgid "MPEG (mpeg2)"
+msgstr "MPEG (mpeg2)"
+
+#: Settings for send_metrics
+msgid "Send Anonymous Metrics and Errors"
+msgstr "Kas roadennoù dizanv ha fazioù"
+
+#: Settings for cache-quality
+msgid "Image Quality (Disk Only)"
+msgstr "Perzhded ar skeudenn (Kantenn hepken)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml
+msgid "AVCHD Disks"
+msgstr "Kantennoù AVCHD"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_flac.xml
+msgid "OGG (theora/flac)"
+msgstr "OGG (theora/flac)"
+
+#: Settings for cache-mode
+msgid "Cache Mode"
+msgstr "Mod Krubuilh"
+
+#: Settings for blender_command
+msgid "Blender Command (path)"
+msgstr "Arc'had Blender (treug)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/xbox360.xml
+msgid "Xbox 360"
+msgstr "Xbox 360"
+
+#: Settings for theme
+msgid "Default Theme"
+msgstr "Neuz dre ziouer"
+
+#: Settings for actionAddTrack
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:493
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:496
+msgid "Add Track"
+msgstr "Ouzhpennañ ul loabr"
+
+#: Settings for debug-port
+msgid "Debug Mode (Port)"
+msgstr "Mod diveugañ (Porzh)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml
+msgid "Metacafe"
+msgstr "Metacafe"
+
+#: Settings for actionThumbnailView
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:919
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:922
+msgid "Thumbnail View"
+msgstr "Gwel ar skeudennig"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_xvid.xml
+msgid "MP4 (Xvid)"
+msgstr "MP4 (Xvid)"
+
+#: Settings for actionRedo
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:405
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:408
+msgid "Redo"
+msgstr "Adober"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml
+msgid "DVD"
+msgstr "DVD"
+
+#: Settings for actionFullscreen
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:871
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:874
+msgid "Fullscreen"
+msgstr "Skrammad a-bezh"
+
+#: Settings for playToggle1
+msgid "Play/Pause Toggle (Alternate 1)"
+msgstr "Lenn/Ehan (dazeilel 1)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/flickr_HD.xml
+msgid "Flickr-HD"
+msgstr "Flickr-HD"
+
+#: Settings for selectAll
+msgid "Select All"
+msgstr "Diuzañ pep tra"
+
+#: Settings for deleteItem
+msgid "Delete Item"
+msgstr "Dilemel an elfenn"
+
+#: Settings for default-image-length
+msgid "Image Length (seconds)"
+msgstr "Padelezh ar skeudenn (eilennoù)"
+
+#: Settings for actionUndo
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:330
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:333
+msgid "Undo"
+msgstr "Dizober"
+
+#: Settings for playToggle2
+msgid "Play/Pause Toggle (Alternate 2)"
+msgstr "Lenn/Ehan (dazeilel 2)"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/wikipedia.xml
+msgid "Wikipedia"
+msgstr "Wikipedia"
+
+#: Settings for title_editor
+msgid "Advanced Title Editor (path)"
+msgstr "Embanner titloù kempleshoc'h (treug)"
+
+#: Settings for sliceAllKeepBothSides
+msgid "Slice All: Keep Both Sides"
+msgstr "Troc'hañ an holl: Mirout an daou zu"
+
+#: Settings for actionSplitClip
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1197
+msgid "Split Clip..."
+msgstr "Didroc'hañ ar c'hlip..."
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml
+msgid "Web"
+msgstr "Web"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/youtube_HD.xml
+msgid "YouTube-HD"
+msgstr "YouTube-HD"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_pal.xml
+msgid "DVD-PAL"
+msgstr "DVD-PAL"
+
+#: Settings for sliceAllKeepRightSide
+msgid "Slice All: Keep Right Side"
+msgstr "Troc'hañ: Mirout an tu dehou"
+
+#: Settings for cache-limit-mb
+msgid "Cache Limit (MB)"
+msgstr "Bevenn ar c'hrubuilh (ME)"
+
+#: Settings for actionPreviousMarker
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:646
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:649
+msgid "Previous Marker"
+msgstr "Merker kent"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/vimeo_HD.xml
+msgid "Vimeo-HD"
+msgstr "Vimeo-HD"
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_avi_x264.xml
+msgid "AVI (h.264)"
+msgstr "AVI (h.264)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/vimeo.xml
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:118
 msgid "Vimeo"
 msgstr "Vimeo"
 
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_mpeg4.xml
-msgid "MP4 (mpeg4)"
-msgstr "MP4 (mpeg4)"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ondulation_1.jpg
+msgid "Ondulation %s"
+msgstr "Gwagenniñ %s"
 
-#: /home/jonathan/apps/openshot-qt-git/src/presets/nokia_nHD.xml
-msgid "Nokia nHD"
-msgstr "Nokia nHD"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_abstract_2.jpg
+msgid "Spiral abstract %s"
+msgstr "Troellennoù goubarek %s"
 
-#: Settings for selectAll
-msgid "Select All"
-msgstr ""
-
-#: Settings for blender_command
-msgid "Blender Command (path)"
-msgstr "Arc'had Blender (treug)"
-
-#: Settings for playToggle2
-msgid "Play/Pause Toggle (Alternate 2)"
-msgstr ""
-
-#: Settings for debug-mode
-msgid "Debug Mode (Verbose)"
-msgstr "Mod diveugañ (munutaet)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/xbox360.xml
-msgid "Xbox 360"
-msgstr "Xbox 360"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/flickr_HD.xml
-msgid "Flickr-HD"
-msgstr "Flickr-HD"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mpeg_mpeg2.xml
-msgid "MPEG (mpeg2)"
-msgstr "MPEG (mpeg2)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml
-msgid "WEBM (vpx)"
-msgstr "WEBM (vpx)"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/board_10.jpg
-msgid "Board %s"
-msgstr "Taolenn %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_5.jpg
-msgid "Mozaic %s"
-msgstr "Marelladur %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_frame_2.jpg
-msgid "Luminous frame %s"
-msgstr "Framm gouloù %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_bars.jpg
-msgid "Vertical bars"
-msgstr "Barrennoù a-serzh"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/whirpool_2.jpg
-msgid "Whirpool %s"
-msgstr "Troenn %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_top_arrow.jpg
-msgid "Small top arrow"
-msgstr "Birig krec'h"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_left_inspiration.jpg
-msgid "Middle left inspiration"
-msgstr "Awen grenn kleiz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big.jpg
-msgid "Spiral big"
-msgstr "Troellenn vras"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_right.jpg
+msgid "Mozaic barr right"
+msgstr "Barrenn varelladur dehou"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wandering_12.jpg
 msgid "Wandering %s"
 msgstr "Kantreal %s"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_low_arrow.jpg
-msgid "Middle low arrow"
-msgstr "Bir kreiz izel"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_18.jpg
-msgid "Ray light %s"
-msgstr "Skin gouloù %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_spiral_9.jpg
-msgid "Luminous spiral %s"
-msgstr "Troellenn goulaouet %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/fractal_5.jpg
-msgid "Fractal %s"
-msgstr "Brevenn %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_right_inspiration.jpg
-msgid "Little right inspiration"
-msgstr "Awen vihan dehou"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_left_barr.jpg
-msgid "Small cross left barr"
-msgstr "Barrennig kroaz a-gleiz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg
-msgid "Left arrow"
-msgstr "Bir kleiz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_right.jpg
-msgid "Frame barr right"
-msgstr "Framm barrenn dehou"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_1.jpg
+msgid "Ray %s"
+msgstr "Skin %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/foggy_spiral_1.jpg
 msgid "Foggy spiral %s"
 msgstr "Troellenn latar %s"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right_2.jpg
-msgid "Ray light right %s"
-msgstr "Skin gouloù dehou %s"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out_big.jpg
+msgid "Blinds in to out big"
+msgstr "Stignoù bras davet an diavaez"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_left_barr.jpg
-msgid "Square left barr"
-msgstr "Barrenn gleiz karrez"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg
+msgid "Distortion %s"
+msgstr "Distummadur %s"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/star_2.jpg
-msgid "Star %s"
-msgstr "Steredenn %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_left_barr.jpg
-msgid "Middle cross left barr"
-msgstr "Barrenn groaz kreiz kleiz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_out_to_in.jpg
-msgid "Rectangle out to in"
-msgstr "Reizhkornek davet an diabarzh"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/hatched_1.jpg
-msgid "Hatched %s"
-msgstr "Linennaouet %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr.jpg
-msgid "Middle barr"
-msgstr "Barren greiz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_in_to_out.jpg
-msgid "Rectangle in to out"
-msgstr "Reizhkornek davet an diavaez"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/flower_4.jpg
-msgid "Flower %s"
-msgstr "Bleunienn %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_leftt_barr.jpg
-msgid "4 squares leftt barr"
-msgstr "Barrenn gleiz 4 c'harrez"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_losange.jpg
-msgid "Big losange"
-msgstr "Lankell vras"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/twirl_26.jpg
-msgid "Twirl %s"
-msgstr "Troidellat %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_losange.jpg
-msgid "Middle losange"
-msgstr "Lankell greiz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_right_barr.jpg
-msgid "Big cross right barr"
-msgstr "Barrenn vras kroaz dehou"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small.jpg
-msgid "Spiral small"
-msgstr "Troellennig"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right.jpg
-msgid "Ray light right"
-msgstr "Skin gouloù dehou"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_right.jpg
-msgid "Blur ray right"
-msgstr "Skin ruzed dehou"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spots.jpg
-msgid "Spots"
-msgstr "Pikoù"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/crossed_barr.jpg
-msgid "Crossed barr"
-msgstr "Barrenn kroazet"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_top_arrow.jpg
-msgid "Middle top arrow"
-msgstr "Bir krec'h kreiz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/checked_1.jpg
-msgid "Checked %s"
-msgstr "Gwririekaet %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/dissolve.jpg
-msgid "Dissolve"
-msgstr "Loezañ"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_in_to_out.svg
-msgid "Circle in to out"
-msgstr "Kelc'h davet an diavaez"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/cross_15.jpg
-msgid "Cross %s"
-msgstr "Kroaz %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big_2.jpg
-msgid "Spiral big %s"
-msgstr "Troellenn vras %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_boxes_19.jpg
-msgid "Luminous boxes %s"
-msgstr "Boestoù gouloù %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_top_arrow.jpg
-msgid "Ripple top arrow"
-msgstr "Bir gwagennet krec'h"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/boxes_12.jpg
-msgid "Boxes %s"
-msgstr "Boestoù %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra
-msgid "Extra"
-msgstr "Ouzhpenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_right_barr.jpg
-msgid "Small cross right barr"
-msgstr "Barrennig kroaz dehou"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_losange.jpg
+msgid "Small losange"
+msgstr "Lankellig"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_low_arrow.jpg
 msgid "Ripple luminous low arrow"
 msgstr "Bir goulaouet izel gwagennet"
 
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_losange.jpg
+msgid "Big losange"
+msgstr "Lankell vras"
+
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_left.jpg
 msgid "Blur ray left"
 msgstr "Skin ruzed kleiz"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/future_11.jpg
-msgid "Future %s"
-msgstr "Dazont %s"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_down.jpg
+msgid "Wave right down"
+msgstr "Gwagenn diskenn a-zehou"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left.jpg
-msgid "Ray light left"
-msgstr "Skin gouloù kleiz"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_right_to_left.svg
+msgid "Wipe right to left"
+msgstr "C'hwilerviñ davet an tu kleiz"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_left_inspiration.jpg
-msgid "Free left inspiration"
-msgstr "Awen zieub kleiz"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_left_to_right.jpg
+msgid "Clock left to right"
+msgstr "Horolaj kleiz da zehou"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_right_barr.jpg
-msgid "Blur right barr"
-msgstr "Barrenn ruzed dehou"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/fractal_5.jpg
+msgid "Fractal %s"
+msgstr "Brevenn %s"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_medium.jpg
-msgid "Spiral medium"
-msgstr "Troellenn grenn"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_black_barr.jpg
+msgid "Middle black barr"
+msgstr "Barrenn zu kreiz"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_right_barr.jpg
-msgid "Middle cross right barr"
-msgstr "Barrenn kroz kreiz dehou"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/fogg_3.jpg
+msgid "Fogg %s"
+msgstr "Latar %s"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small_2.jpg
-msgid "Spiral small %s"
-msgstr "Troellennig %s"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_left_barr.jpg
+msgid "Square middle left barr"
+msgstr "Barrenn greiz karrez kleiz"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic_2.jpg
-msgid "Right mozaic %s"
-msgstr "Marelladur dehou %s"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_right_inspiration.jpg
+msgid "Middle right inspiration"
+msgstr "Awen grenn kreiz"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_left.jpg
-msgid "Little rippling left"
-msgstr "Gwagennig gleiz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds.jpg
-msgid "Clouds"
-msgstr "Koumoul"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_bottom_to_top.svg
-msgid "Wipe bottom to top"
-msgstr "C'hwilerviñ davet ar c'hrec'h"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr_ripple_2.jpg
-msgid "Middle barr ripple %s"
-msgstr "Barrenn gwagennet kreiz %s"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/board_10.jpg
+msgid "Board %s"
+msgstr "Taolenn %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/horizontal_barr_1.jpg
 msgid "Horizontal barr %s"
 msgstr "Barrenn a-blaen %s"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_low_arrow.jpg
-msgid "Ripple low arrow"
-msgstr "Bir gwagennet izel"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_losange.jpg
+msgid "Middle losange"
+msgstr "Lankell greiz"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ondulation_1.jpg
-msgid "Ondulation %s"
-msgstr "Gwagenniñ %s"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_left_triangle.jpg
+msgid "Lateral left triangle"
+msgstr "Tic'horn a-stlez kleiz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/hourglass_1.jpg
+msgid "Hourglass %s"
+msgstr "Eurier-traezh %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_top_arrow.jpg
+msgid "Small top arrow"
+msgstr "Birig krec'h"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left_2.jpg
+msgid "Ray light left %s"
+msgstr "Skin gouloù a-gleiz %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/central_mozaic.jpg
+msgid "Central mozaic"
+msgstr "Marelladur kreiz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_right_triangle.jpg
+msgid "Lateral right triangle"
+msgstr "Tric'horn a-stlez dehou"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_right.jpg
+msgid "Blur ray right"
+msgstr "Skin ruzed dehou"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds.jpg
+msgid "Clouds"
+msgstr "Koumoul"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/whirpool_2.jpg
+msgid "Whirpool %s"
+msgstr "Troenn %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_left_barr.jpg
+msgid "Middle cross left barr"
+msgstr "Barrenn groaz kreiz kleiz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_left_barr.jpg
+msgid "Small cross left barr"
+msgstr "Barrennig kroaz a-gleiz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds_2.jpg
+msgid "Clouds %s"
+msgstr "Koumoul %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right.jpg
+msgid "Ray light right"
+msgstr "Skin gouloù dehou"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_left_inspiration.jpg
+msgid "Middle left inspiration"
+msgstr "Awen grenn kleiz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_bars.jpg
+msgid "Vertical bars"
+msgstr "Barrennoù a-serzh"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_top_arrow.jpg
+msgid "Ripple top arrow"
+msgstr "Bir gwagennet krec'h"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_2.jpg
+msgid "Frame %s"
+msgstr "Framm %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_spiral_9.jpg
+msgid "Luminous spiral %s"
+msgstr "Troellenn goulaouet %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_top_to_bottom.svg
+msgid "Wipe top to bottom"
+msgstr "C'hwilerviñ davet an traoñ"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_mozaic.jpg
+msgid "Left mozaic"
+msgstr "Marelladur kleiz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_inspiration_right.jpg
+msgid "Free inspiration right"
+msgstr "Awen zieub dehou"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/future_11.jpg
+msgid "Future %s"
+msgstr "Dazont %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking_1.jpg
+msgid "Big barr shaking %s"
+msgstr "Barrenn vras fiñvus %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_right.jpg
+msgid "Frame barr right"
+msgstr "Framm barrenn dehou"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_up.jpg
+msgid "Wave left up"
+msgstr "Gwagenn krec'h kleiz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_medium.jpg
+msgid "Spiral medium"
+msgstr "Troellenn grenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small_2.jpg
+msgid "Spiral small %s"
+msgstr "Troellennig %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mountains.jpg
+msgid "Mountains"
+msgstr "Menezioù"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_top_arrow.jpg
+msgid "Ripple luminous top arrow"
+msgstr "Bir goulaouet gwagennet krec'h"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/openshot_logo.jpg
+msgid "Openshot logo"
+msgstr "Siell Openshot"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr.jpg
+msgid "Middle barr"
+msgstr "Barren greiz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_right_barr.jpg
+msgid "Middle cross right barr"
+msgstr "Barrenn kroz kreiz dehou"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/cross_15.jpg
+msgid "Cross %s"
+msgstr "Kroaz %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra
+msgid "Extra"
+msgstr "Ouzhpenn"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_left.jpg
+msgid "Frame barr left"
+msgstr "Barrenn frammet kleiz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_left.jpg
+msgid "Mozaic barr left"
+msgstr "Barrenn gleiz marelladur"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_out_to_in.svg
+msgid "Circle out to in"
+msgstr "Kelc'h davet an diabarzh"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_left_to_right.svg
+msgid "Wipe left to right"
+msgstr "C'hwilerviñ war an tu dehou"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic.jpg
 msgid "Right mozaic"
 msgstr "Marelladur dehou"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds_2.jpg
-msgid "Clouds %s"
-msgstr "Koumoul %s"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_left_barr.jpg
+msgid "Square left barr"
+msgstr "Barrenn gleiz karrez"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_low_arrow.jpg
+msgid "Small low arrow"
+msgstr "Birig izel"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_left_inspiration.jpg
+msgid "Free left inspiration"
+msgstr "Awen zieub kleiz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/postime_1.jpg
+msgid "Postime %s"
+msgstr "Postime %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_out_to_in.jpg
+msgid "Rectangle out to in"
+msgstr "Reizhkornek davet an diabarzh"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr.jpg
+msgid "Big barr"
+msgstr "Barrenn vras"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere_2.jpg
+msgid "Sphere %s"
+msgstr "Pellenn %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/twirl_26.jpg
+msgid "Twirl %s"
+msgstr "Troidellat %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg
+msgid "Left arrow"
+msgstr "Bir kleiz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_4.jpg
+msgid "Ripple %s"
+msgstr "Gwagennañ %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_in_to_out.svg
+msgid "Circle in to out"
+msgstr "Kelc'h davet an diavaez"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_sliding.jpg
+msgid "Blinds sliding"
+msgstr "Stignoù riklus"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_low_arrow.jpg
+msgid "Middle low arrow"
+msgstr "Bir kreiz izel"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/stain_1.jpg
+msgid "Stain %s"
+msgstr "Intr %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_right.jpg
+msgid "Little rippling right"
+msgstr "Gwagennigoù dehou"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/fish-eyes_5.jpg
+msgid "Fish-eyes %s"
+msgstr "Fish-eyes %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_boxes_19.jpg
+msgid "Luminous boxes %s"
+msgstr "Boestoù gouloù %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/stretched_3.jpg
+msgid "Stretched %s"
+msgstr "Astennet %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_bottom_to_top.svg
+msgid "Wipe bottom to top"
+msgstr "C'hwilerviñ davet ar c'hrec'h"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/common
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:736
@@ -3328,133 +3512,89 @@ msgstr "Koumoul %s"
 msgid "Common"
 msgstr "Boutin"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_out_to_in.svg
-msgid "Circle out to in"
-msgstr "Kelc'h davet an diabarzh"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/star_2.jpg
+msgid "Star %s"
+msgstr "Steredenn %s"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/postime_1.jpg
-msgid "Postime %s"
-msgstr "Postime %s"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_top_arrow.jpg
+msgid "Middle top arrow"
+msgstr "Bir krec'h kreiz"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_2.jpg
-msgid "Frame %s"
-msgstr "Framm %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/barr_ripple_2.jpg
-msgid "Barr ripple %s"
-msgstr "Barrenn gwagennet %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_1.jpg
-msgid "Spiral %s"
-msgstr "Troellenn %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking2.jpg
-msgid "Big barr shaking2"
-msgstr "Barrenn vras fiñvus2"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_low_arrow.jpg
-msgid "Small low arrow"
-msgstr "Birig izel"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere.jpg
-msgid "Sphere"
-msgstr "Pellenn"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/stretched_3.jpg
-msgid "Stretched %s"
-msgstr "Astennet %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_barr.jpg
-msgid "Small barr"
-msgstr "Barrennig"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_left_barr.jpg
-msgid "Big cross left barr"
-msgstr "Barrenn vras kroz kleiz"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr_ripple_2.jpg
+msgid "Middle barr ripple %s"
+msgstr "Barrenn gwagennet kreiz %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_up.jpg
 msgid "Wave right up"
 msgstr "Gwagenn dehou krec'h"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/openshot_logo.jpg
-msgid "Openshot logo"
-msgstr "Siell Openshot"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic_2.jpg
+msgid "Right mozaic %s"
+msgstr "Marelladur dehou %s"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wipe_diagonal_3.jpg
-msgid "Wipe diagonal %s"
-msgstr "C'hwilerviñ a-veskell %s"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/puzzle.jpg
+msgid "Puzzle"
+msgstr "Miltamm"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_cross_left_barr.jpg
-msgid "Frame cross left barr"
-msgstr "Framm kroaz barrenn gleiz"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_right_inspiration.jpg
+msgid "Little right inspiration"
+msgstr "Awen vihan dehou"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_right.jpg
-msgid "Little rippling right"
-msgstr "Gwagennigoù dehou"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mosaic_2.jpg
+msgid "Mosaic %s"
+msgstr "Marelladur %s"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/central_mozaic.jpg
-msgid "Central mozaic"
-msgstr "Marelladur kreiz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left_2.jpg
-msgid "Ray light left %s"
-msgstr "Skin gouloù a-gleiz %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking_1.jpg
-msgid "Big barr shaking %s"
-msgstr "Barrenn vras fiñvus %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_left_barr.jpg
-msgid "Square middle left barr"
-msgstr "Barrenn greiz karrez kleiz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr.jpg
-msgid "Big barr"
-msgstr "Barrenn vras"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_right_inspiration.jpg
-msgid "Middle right inspiration"
-msgstr "Awen grenn kreiz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/sunlight_2.jpg
-msgid "Sunlight %s"
-msgstr "Gouloù heol %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_left_triangle.jpg
-msgid "Lateral left triangle"
-msgstr "Tic'horn a-stlez kleiz"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big.jpg
+msgid "Spiral big"
+msgstr "Troellenn vras"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out.jpg
 msgid "Blinds in to out"
 msgstr "Stignoù davet an diavaez"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_1.jpg
-msgid "Ray %s"
-msgstr "Skin %s"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/bubbles.jpg
+msgid "Bubbles"
+msgstr "Klogor"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_down.jpg
-msgid "Wave left down"
-msgstr "Gwagenn gleiz traoñ"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/fish-eyes_5.jpg
-msgid "Fish-eyes %s"
-msgstr "Fish-eyes %s"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/sun_shaking.jpg
+msgid "Sun shaking"
+msgstr "Heol fiñvus"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_arrow.jpg
 msgid "Right arrow"
 msgstr "Bir dehou"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_losange.jpg
-msgid "Small losange"
-msgstr "Lankellig"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_right_barr.jpg
+msgid "Small cross right barr"
+msgstr "Barrennig kroaz dehou"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_right_barr.jpg
-msgid "Square middle right barr"
-msgstr "Barrenn greiz karrez dehou"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/crossed_barr.jpg
+msgid "Crossed barr"
+msgstr "Barrenn kroazet"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/deform_8.jpg
-msgid "Deform %s"
-msgstr "Distummañ %s"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_left_barr.jpg
+msgid "Blur left barr"
+msgstr "Barrenn ruzed kleiz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_18.jpg
+msgid "Ray light %s"
+msgstr "Skin gouloù %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_left_inspiration.jpg
+msgid "Little left inspiration"
+msgstr "Awen vihan kleiz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_left.jpg
+msgid "Little rippling left"
+msgstr "Gwagennig gleiz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small.jpg
+msgid "Spiral small"
+msgstr "Troellennig"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_low_arrow.jpg
+msgid "Ripple low arrow"
+msgstr "Bir gwagennet izel"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_right_barr.jpg
 msgid "Square right barr"
@@ -3464,145 +3604,133 @@ msgstr "Barrenn dehou karrez"
 msgid "Triangle %s"
 msgstr "Tic'horn %s"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/puzzle.jpg
-msgid "Puzzle"
-msgstr "Miltamm"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_down.jpg
+msgid "Wave left down"
+msgstr "Gwagenn gleiz traoñ"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_black_barr.jpg
-msgid "Middle black barr"
-msgstr "Barrenn zu kreiz"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_right_barr.jpg
+msgid "4 squares right barr"
+msgstr "Barrenn dehou 4 c'harrez"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_left_barr.jpg
-msgid "Blur left barr"
-msgstr "Barrenn ruzed kleiz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/stain_1.jpg
-msgid "Stain %s"
-msgstr "Intr %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mountains.jpg
-msgid "Mountains"
-msgstr "Menezioù"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mosaic_2.jpg
-msgid "Mosaic %s"
-msgstr "Marelladur %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere_2.jpg
-msgid "Sphere %s"
-msgstr "Pellenn %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/hourglass_1.jpg
-msgid "Hourglass %s"
-msgstr "Eurier-traezh %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_left_to_right.svg
-msgid "Wipe left to right"
-msgstr "C'hwilerviñ war an tu dehou"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_left_to_right.jpg
-msgid "Clock left to right"
-msgstr "Horolaj kleiz da zehou"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_right.jpg
-msgid "Mozaic barr right"
-msgstr "Barrenn varelladur dehou"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out_big.jpg
-msgid "Vertical blinds in to out big"
-msgstr "Stignoù bras a-serzh davet an diavaez"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_abstract_2.jpg
-msgid "Spiral abstract %s"
-msgstr "Troellennoù goubarek %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_right_triangle.jpg
-msgid "Lateral right triangle"
-msgstr "Tric'horn a-stlez dehou"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_down.jpg
-msgid "Wave right down"
-msgstr "Gwagenn diskenn a-zehou"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out.jpg
-msgid "Vertical blinds in to out"
-msgstr "Stignoù a-serzh davet an diavaez"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_right_to_left.jpg
-msgid "Clock right to left"
-msgstr "Horolaj dehou da gleiz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/fogg_3.jpg
-msgid "Fogg %s"
-msgstr "Latar %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_inspiration_right.jpg
-msgid "Free inspiration right"
-msgstr "Awen zieub dehou"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/sun_shaking.jpg
-msgid "Sun shaking"
-msgstr "Heol fiñvus"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_right_to_left.svg
-msgid "Wipe right to left"
-msgstr "C'hwilerviñ davet an tu kleiz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg
-msgid "Distortion %s"
-msgstr "Distummadur %s"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_mozaic.jpg
-msgid "Left mozaic"
-msgstr "Marelladur kleiz"
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_up.jpg
-msgid "Wave left up"
-msgstr "Gwagenn krec'h kleiz"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere.jpg
+msgid "Sphere"
+msgstr "Pellenn"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/strange_barr_1.jpg
 msgid "Strange barr %s"
 msgstr "Barrenn iskis %s"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_left_inspiration.jpg
-msgid "Little left inspiration"
-msgstr "Awen vihan kleiz"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/barr_ripple_2.jpg
+msgid "Barr ripple %s"
+msgstr "Barrenn gwagennet %s"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_top_arrow.jpg
-msgid "Ripple luminous top arrow"
-msgstr "Bir goulaouet gwagennet krec'h"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left.jpg
+msgid "Ray light left"
+msgstr "Skin gouloù kleiz"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_top_to_bottom.svg
-msgid "Wipe top to bottom"
-msgstr "C'hwilerviñ davet an traoñ"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/checked_1.jpg
+msgid "Checked %s"
+msgstr "Gwririekaet %s"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_left.jpg
-msgid "Mozaic barr left"
-msgstr "Barrenn gleiz marelladur"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/dissolve.jpg
+msgid "Dissolve"
+msgstr "Loezañ"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/bubbles.jpg
-msgid "Bubbles"
-msgstr "Klogor"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_right_barr.jpg
+msgid "Big cross right barr"
+msgstr "Barrenn vras kroaz dehou"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_4.jpg
-msgid "Ripple %s"
-msgstr "Gwagennañ %s"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out.jpg
+msgid "Vertical blinds in to out"
+msgstr "Stignoù a-serzh davet an diavaez"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out_big.jpg
-msgid "Blinds in to out big"
-msgstr "Stignoù bras davet an diavaez"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out_big.jpg
+msgid "Vertical blinds in to out big"
+msgstr "Stignoù bras a-serzh davet an diavaez"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_sliding.jpg
-msgid "Blinds sliding"
-msgstr "Stignoù riklus"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_5.jpg
+msgid "Mozaic %s"
+msgstr "Marelladur %s"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_left.jpg
-msgid "Frame barr left"
-msgstr "Barrenn frammet kleiz"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/sunlight_2.jpg
+msgid "Sunlight %s"
+msgstr "Gouloù heol %s"
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_right_barr.jpg
-msgid "4 squares right barr"
-msgstr "Barrenn dehou 4 c'harrez"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right_2.jpg
+msgid "Ray light right %s"
+msgstr "Skin gouloù dehou %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_right_barr.jpg
+msgid "Square middle right barr"
+msgstr "Barrenn greiz karrez dehou"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_frame_2.jpg
+msgid "Luminous frame %s"
+msgstr "Framm gouloù %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/hatched_1.jpg
+msgid "Hatched %s"
+msgstr "Linennaouet %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_barr.jpg
+msgid "Small barr"
+msgstr "Barrennig"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wipe_diagonal_3.jpg
+msgid "Wipe diagonal %s"
+msgstr "C'hwilerviñ a-veskell %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spots.jpg
+msgid "Spots"
+msgstr "Pikoù"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking2.jpg
+msgid "Big barr shaking2"
+msgstr "Barrenn vras fiñvus2"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_cross_left_barr.jpg
+msgid "Frame cross left barr"
+msgstr "Framm kroaz barrenn gleiz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/boxes_12.jpg
+msgid "Boxes %s"
+msgstr "Boestoù %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_right_barr.jpg
+msgid "Blur right barr"
+msgstr "Barrenn ruzed dehou"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_right_to_left.jpg
+msgid "Clock right to left"
+msgstr "Horolaj dehou da gleiz"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_1.jpg
+msgid "Spiral %s"
+msgstr "Troellenn %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_leftt_barr.jpg
+msgid "4 squares leftt barr"
+msgstr "Barrenn gleiz 4 c'harrez"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/deform_8.jpg
+msgid "Deform %s"
+msgstr "Distummañ %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big_2.jpg
+msgid "Spiral big %s"
+msgstr "Troellenn vras %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/flower_4.jpg
+msgid "Flower %s"
+msgstr "Bleunienn %s"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_in_to_out.jpg
+msgid "Rectangle in to out"
+msgstr "Reizhkornek davet an diavaez"
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_left_barr.jpg
+msgid "Big cross left barr"
+msgstr "Barrenn vras kroz kleiz"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/about.ui:67
 msgid ""
@@ -4310,7 +4438,7 @@ msgstr "Reol+H"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:925
 msgid "Ctrl+E"
-msgstr ""
+msgstr "Reol + E"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:940
 msgid "Ctrl+D"
@@ -4435,12 +4563,12 @@ msgstr "Krouiñ ar blliverezh"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1283
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1286
 msgid "Lock Track"
-msgstr ""
+msgstr "Prennañ al loabr"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1295
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1298
 msgid "Unlock Track"
-msgstr ""
+msgstr "Dibrennañ al loabr"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/presets.ui:14
 msgid "Export with FFmpeg Command"
