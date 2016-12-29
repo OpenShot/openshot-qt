@@ -293,7 +293,7 @@ try:
                     github_release = repo.create_release(git_description, target_commitish="master", prerelease=True)
 
         # Detect version number from git description
-        version = re.search('v(.+?)-', openshot_qt_git_desc).groups()[0]
+        version = re.search('v(.+?)($|-)', openshot_qt_git_desc).groups()[0]
 
         # Check for left over openshot-qt dupe folder
         if os.path.exists(os.path.join(project_path, "openshot_qt")):

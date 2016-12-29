@@ -37,6 +37,7 @@ from classes import info
 from classes.logger import log
 from classes.settings import SettingStore
 from classes.app import get_app
+from classes.query import Clip
 from windows.models.effects_model import EffectsModel
 
 
@@ -98,8 +99,49 @@ class VideoWidget(QWidget):
 
     def mouseMoveEvent(self, event):
         """ Capture mouse events on video preview window """
-        #log.info("%s,%s" % (event.x(), event.y()))
-        pass
+        if self.transforming_clip:
+
+            # Get framerate
+            fps = get_app().project.get(["fps"])
+            fps_float = float(fps["num"]) / float(fps["den"])
+
+            start_of_clip = float(self.transforming_clip.data["start"])
+            end_of_clip = float(self.transforming_clip.data["end"])
+            position_of_clip = float(self.transforming_clip.data["position"])
+            playhead_position = float(get_app().window.preview_thread.current_frame) / fps_float
+
+            if playhead_position >= position_of_clip and playhead_position <= (position_of_clip + (end_of_clip - start_of_clip)):
+                # Playhead is intersecting transforming clip
+                log.info("%s,%s" % (event.x(), event.y()))
+
+    def transformTriggered(self, clip_id):
+        """Handle the transform signal when it's emitted"""
+        # Disable Transform UI
+        if self.transforming_clip:
+            # Remove handles from old clip
+            self.transforming_clip.data["handles"] = openshot.TRANSFORM_HANDLE_NONE
+            self.transforming_clip.save()
+
+            # Is this the same clip_id already being transformed?
+            if clip_id == self.transforming_clip.id:
+                self.transforming_clip = None
+
+                # Update the preview and reselct current frame in properties
+                get_app().window.refreshFrameSignal.emit()
+                get_app().window.propertyTableView.select_frame(get_app().window.preview_thread.player.Position())
+                return
+
+        # Get new clip for transform
+        self.transforming_clip = Clip.get(id=clip_id)
+
+        if self.transforming_clip:
+            # Enable Transform UI
+            self.transforming_clip.data["handles"] = openshot.TRANSFORM_HANDLE_SELECTION
+            self.transforming_clip.save()
+
+        # Update the preview and reselct current frame in properties
+        get_app().window.refreshFrameSignal.emit()
+        get_app().window.propertyTableView.select_frame(get_app().window.preview_thread.player.Position())
 
     def __init__(self, *args):
         # Invoke parent init
@@ -112,6 +154,7 @@ class VideoWidget(QWidget):
         self.aspect_ratio.den = 9
         self.pixel_ratio.num = 1
         self.pixel_ratio.den = 1
+        self.transforming_clip = None
 
         # Init Qt style properties (black background, ect...)
         p = QPalette()
@@ -128,3 +171,6 @@ class VideoWidget(QWidget):
 
         # Get a reference to the window object
         self.win = get_app().window
+
+        # Connect to signals
+        self.win.TransformSignal.connect(self.transformTriggered)

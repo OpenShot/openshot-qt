@@ -119,6 +119,8 @@ MENU_VOLUME_LEVEL_20 = 20
 MENU_VOLUME_LEVEL_10 = 10
 MENU_VOLUME_LEVEL_0 = 0
 
+MENU_TRANSFORM = 0
+
 MENU_TIME_NONE = 0
 MENU_TIME_FORWARD = 1
 MENU_TIME_BACKWARD = 2
@@ -803,6 +805,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         HideWaveform.triggered.connect(partial(self.Hide_Waveform_Triggered, clip_ids))
         menu.addMenu(Waveform_Menu)
 
+        # Transform menu
+        Transform_Action = Layout_Menu.addAction(_("Transform"))
+        Transform_Action.triggered.connect(partial(self.Transform_Triggered, MENU_TRANSFORM, clip_ids))
+        menu.addAction(Transform_Action)
+
         # Properties
         menu.addAction(self.window.actionProperties)
 
@@ -812,6 +819,17 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Show Context menu
         return menu.popup(QCursor.pos())
+
+    def Transform_Triggered(self, action, clip_ids):
+        print("Transform_Triggered")
+
+        # Emit signal to transform this clip (for the 1st clip id)
+        if clip_ids:
+            # Transform first clip in list
+            get_app().window.TransformSignal.emit(clip_ids[0])
+        else:
+            # Clear transform
+            get_app().window.TransformSignal.emit(None)
 
     def Show_Waveform_Triggered(self, clip_ids):
         """Show a waveform for the selected clip"""
