@@ -1580,6 +1580,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             elif item_type == "effect":
                 self.selected_effects.clear()
 
+            # Clear transform (if any)
+            get_app().window.TransformSignal.emit(None)
+
         if item_id:
             # If item_id is not blank, store it
             if item_type == "clip" and item_id not in self.selected_clips:
@@ -1594,12 +1597,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
     # Remove from the selected items
     def removeSelection(self, item_id, item_type):
+        # Remove existing selection (if any)
         if item_type == "clip" and item_id in self.selected_clips:
             self.selected_clips.remove(item_id)
         elif item_type == "transition" and item_id in self.selected_transitions:
             self.selected_transitions.remove(item_id)
         elif item_type == "effect" and item_id in self.selected_effects:
             self.selected_effects.remove(item_id)
+
+        # Clear transform (if any)
+        get_app().window.TransformSignal.emit(None)
 
         # Move selection to next selected clip (if any)
         if item_type == "clip" and self.selected_clips:

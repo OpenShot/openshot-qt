@@ -801,6 +801,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Save setting
         s.set("recent_projects", recent_projects)
+        s.save()
 
     def convert_paths_to_relative(self, file_path):
         """ Convert all paths relative to this filepath """

@@ -1313,6 +1313,14 @@
     <string>Unlock Track</string>
    </property>
   </action>
+  <action name="actionTransform">
+   <property name="text">
+    <string>Transform</string>
+   </property>
+   <property name="toolTip">
+    <string>Transform</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="../../images/openshot.qrc"/>

@@ -796,6 +796,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 Slice_Keep_Right.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_RIGHT, [clip_id], [], playhead_position))
                 menu.addMenu(Slice_Menu)
 
+        # Transform menu
+        Transform_Action = self.window.actionTransform
+        Transform_Action.triggered.connect(partial(self.Transform_Triggered, MENU_TRANSFORM, clip_ids))
+        menu.addAction(Transform_Action)
+
         # Add clip display menu (waveform or thunbnail)
         menu.addSeparator()
         Waveform_Menu = QMenu(_("Display"), self)
@@ -804,11 +809,6 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         HideWaveform = Waveform_Menu.addAction(_("Show Thumbnail"))
         HideWaveform.triggered.connect(partial(self.Hide_Waveform_Triggered, clip_ids))
         menu.addMenu(Waveform_Menu)
-
-        # Transform menu
-        Transform_Action = Layout_Menu.addAction(_("Transform"))
-        Transform_Action.triggered.connect(partial(self.Transform_Triggered, MENU_TRANSFORM, clip_ids))
-        menu.addAction(Transform_Action)
 
         # Properties
         menu.addAction(self.window.actionProperties)
