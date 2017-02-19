@@ -1288,7 +1288,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             # Loop through each copied clip (looking for top left point)
             for clip_id in clipboard_clip_ids:
                 # Get existing clip object
-                clip = Clip.get(id=clip_id)
+                clip = Clip()
+                clip.data = self.copy_clipboard.get(clip_id, {})
                 if clip.data['position'] < left_most_position or left_most_position == -1.0:
                     left_most_position = clip.data['position']
                 if clip.data['layer'] > top_most_layer or top_most_layer == -1.0:
@@ -1296,7 +1297,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             # Loop through each copied transition (looking for top left point)
             for tran_id in clipboard_tran_ids:
                 # Get existing transition object
-                tran = Transition.get(id=tran_id)
+                tran = Transition()
+                tran.data = self.copy_transition_clipboard.get(tran_id, {})
                 if tran.data['position'] < left_most_position or left_most_position == -1.0:
                     left_most_position = tran.data['position']
                 if tran.data['layer'] > top_most_layer or top_most_layer == -1.0:
@@ -1313,13 +1315,12 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             # Loop through each copied clip
             for clip_id in clipboard_clip_ids:
                 # Get existing clip object
-                clip = Clip.get(id=clip_id)
+                clip = Clip()
+                clip.data = self.copy_clipboard.get(clip_id, {})
 
                 # Remove the ID property from the clip (so it becomes a new one)
-                clip.id = None
                 clip.type = 'insert'
                 clip.data.pop('id')
-                clip.key.pop(1)
 
                 # Adjust the position and track
                 clip.data['position'] += position_diff
@@ -1331,13 +1332,12 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             # Loop through all copied transitions
             for tran_id in clipboard_tran_ids:
                 # Get existing transition object
-                tran = Transition.get(id=tran_id)
+                tran = Transition()
+                tran.data = self.copy_transition_clipboard.get(tran_id, {})
 
                 # Remove the ID property from the transition (so it becomes a new one)
-                tran.id = None
                 tran.type = 'insert'
                 tran.data.pop('id')
-                tran.key.pop(1)
 
                 # Adjust the position and track
                 tran.data['position'] += position_diff
@@ -1351,7 +1351,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             for clip_id in clip_ids:
 
                 # Get existing clip object
-                clip = Clip.get(id=clip_id)
+                clip = Clip()
+                clip.data = self.copy_clipboard.get(clip_id, {})
 
                 # Apply clipboard to clip (there should only be a single key in this dict)
                 for k,v in self.copy_clipboard[list(self.copy_clipboard)[0]].items():
@@ -1367,7 +1368,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             for tran_id in tran_ids:
 
                 # Get existing transition object
-                tran = Transition.get(id=tran_id)
+                tran = Transition()
+                tran.data = self.copy_transition_clipboard.get(tran_id, {})
 
                 # Apply clipboard to transition (there should only be a single key in this dict)
                 for k, v in self.copy_transition_clipboard[list(self.copy_transition_clipboard)[0]].items():

@@ -859,14 +859,33 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         fps = get_app().project.get(["fps"])
         fps_float = float(fps["num"]) / float(fps["den"])
         current_position = self.preview_thread.current_frame / fps_float
+        all_marker_positions = []
+
+        # Get list of marker and important positions (like selected clip bounds)
+        for marker in Marker.filter():
+            all_marker_positions.append(marker.data["position"])
+
+        # Loop through selected clips (and add key positions)
+        for clip_id in self.selected_clips:
+            # Get selected object
+            selected_clip = Clip.get(id=clip_id)
+            if selected_clip:
+                all_marker_positions.append(selected_clip.data["position"])
+                all_marker_positions.append(selected_clip.data["position"] + (selected_clip.data["end"] - selected_clip.data["start"]))
+
+        # Loop through selected transitions (and add key positions)
+        for tran_id in self.selected_transitions:
+            # Get selected object
+            selected_tran = Transition.get(id=tran_id)
+            if selected_tran:
+                all_marker_positions.append(selected_tran.data["position"])
+                all_marker_positions.append(selected_tran.data["position"] + (selected_tran.data["end"] - selected_tran.data["start"]))
 
         # Loop through all markers, and find the closest one to the left
         closest_position = None
-        for marker in Marker.filter():
-            marker_position = marker.data["position"]
-
+        for marker_position in sorted(all_marker_positions):
             # Is marker smaller than position?
-            if marker_position < current_position:
+            if marker_position < current_position and (abs(marker_position - current_position) > 0.05):
                 # Is marker larger than previous marker
                 if closest_position and marker_position > closest_position:
                     # Set a new closest marker
@@ -878,8 +897,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Seek to marker position (if any)
         if closest_position:
             # Seek
-            frame_to_seek = int(closest_position * fps_float)
+            frame_to_seek = int(closest_position * fps_float) + 1
             self.SeekSignal.emit(frame_to_seek)
+
+            # Update the preview and reselct current frame in properties
+            get_app().window.refreshFrameSignal.emit()
+            get_app().window.propertyTableView.select_frame(frame_to_seek)
 
     def actionNextMarker_trigger(self, event):
         log.info("actionNextMarker_trigger")
@@ -889,14 +912,33 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         fps = get_app().project.get(["fps"])
         fps_float = float(fps["num"]) / float(fps["den"])
         current_position = self.preview_thread.current_frame / fps_float
+        all_marker_positions = []
+
+        # Get list of marker and important positions (like selected clip bounds)
+        for marker in Marker.filter():
+            all_marker_positions.append(marker.data["position"])
+
+        # Loop through selected clips (and add key positions)
+        for clip_id in self.selected_clips:
+            # Get selected object
+            selected_clip = Clip.get(id=clip_id)
+            if selected_clip:
+                all_marker_positions.append(selected_clip.data["position"])
+                all_marker_positions.append(selected_clip.data["position"] + (selected_clip.data["end"] - selected_clip.data["start"]))
+
+        # Loop through selected transitions (and add key positions)
+        for tran_id in self.selected_transitions:
+            # Get selected object
+            selected_tran = Transition.get(id=tran_id)
+            if selected_tran:
+                all_marker_positions.append(selected_tran.data["position"])
+                all_marker_positions.append(selected_tran.data["position"] + (selected_tran.data["end"] - selected_tran.data["start"]))
 
         # Loop through all markers, and find the closest one to the right
         closest_position = None
-        for marker in Marker.filter():
-            marker_position = marker.data["position"]
-
+        for marker_position in sorted(all_marker_positions):
             # Is marker smaller than position?
-            if marker_position > current_position:
+            if marker_position > current_position and (abs(marker_position - current_position) > 0.05):
                 # Is marker larger than previous marker
                 if closest_position and marker_position < closest_position:
                     # Set a new closest marker
@@ -908,8 +950,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Seek to marker position (if any)
         if closest_position:
             # Seek
-            frame_to_seek = int(closest_position * fps_float)
+            frame_to_seek = int(closest_position * fps_float) + 1
             self.SeekSignal.emit(frame_to_seek)
+
+            # Update the preview and reselct current frame in properties
+            get_app().window.refreshFrameSignal.emit()
+            get_app().window.propertyTableView.select_frame(frame_to_seek)
 
     def getShortcutByName(self, setting_name):
         """ Get a key sequence back from the setting name """

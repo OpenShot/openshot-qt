@@ -322,138 +322,136 @@ class VideoWidget(QWidget):
             # Get the rect where the video is actually drawn (without the black borders, etc...)
             viewport_rect = self.centeredViewport(self.width(), self.height())
 
-            # Determine if playhead intersects the current clip
-            if playhead_position >= position_of_clip and playhead_position <= (position_of_clip + (end_of_clip - start_of_clip)):
-                # Make back-up of clip data
+            # Make back-up of clip data
+            if self.mouse_dragging and not self.transform_mode:
+                self.original_clip_data = self.transforming_clip.data
+
+            # Determine if cursor is over a handle
+            if self.transform.mapRect(self.topRightHandle).contains(event.pos()):
+                self.setCursor(QCursor(Qt.SizeBDiagCursor))
+                # Set the transform mode
                 if self.mouse_dragging and not self.transform_mode:
-                    self.original_clip_data = self.transforming_clip.data
+                    self.transform_mode = 'scale_top_right'
 
-                # Determine if cursor is over a handle
-                if self.transform.mapRect(self.topRightHandle).contains(event.pos()):
-                    self.setCursor(QCursor(Qt.SizeBDiagCursor))
-                    # Set the transform mode
-                    if self.mouse_dragging and not self.transform_mode:
-                        self.transform_mode = 'scale_top_right'
+            elif self.transform.mapRect(self.topHandle).contains(event.pos()):
+                self.setCursor(QCursor(Qt.SizeVerCursor))
+                # Set the transform mode
+                if self.mouse_dragging and not self.transform_mode:
+                    self.transform_mode = 'scale_top'
 
-                elif self.transform.mapRect(self.topHandle).contains(event.pos()):
-                    self.setCursor(QCursor(Qt.SizeVerCursor))
-                    # Set the transform mode
-                    if self.mouse_dragging and not self.transform_mode:
-                        self.transform_mode = 'scale_top'
+            elif self.transform.mapRect(self.topLeftHandle).contains(event.pos()):
+                self.setCursor(QCursor(Qt.SizeFDiagCursor))
+                # Set the transform mode
+                if self.mouse_dragging and not self.transform_mode:
+                    self.transform_mode = 'scale_top_left'
 
-                elif self.transform.mapRect(self.topLeftHandle).contains(event.pos()):
-                    self.setCursor(QCursor(Qt.SizeFDiagCursor))
-                    # Set the transform mode
-                    if self.mouse_dragging and not self.transform_mode:
-                        self.transform_mode = 'scale_top_left'
+            elif self.transform.mapRect(self.leftHandle).contains(event.pos()):
+                self.setCursor(QCursor(Qt.SizeHorCursor))
+                # Set the transform mode
+                if self.mouse_dragging and not self.transform_mode:
+                    self.transform_mode = 'scale_left'
 
-                elif self.transform.mapRect(self.leftHandle).contains(event.pos()):
-                    self.setCursor(QCursor(Qt.SizeHorCursor))
-                    # Set the transform mode
-                    if self.mouse_dragging and not self.transform_mode:
-                        self.transform_mode = 'scale_left'
+            elif self.transform.mapRect(self.rightHandle).contains(event.pos()):
+                self.setCursor(QCursor(Qt.SizeHorCursor))
+                # Set the transform mode
+                if self.mouse_dragging and not self.transform_mode:
+                    self.transform_mode = 'scale_right'
 
-                elif self.transform.mapRect(self.rightHandle).contains(event.pos()):
-                    self.setCursor(QCursor(Qt.SizeHorCursor))
-                    # Set the transform mode
-                    if self.mouse_dragging and not self.transform_mode:
-                        self.transform_mode = 'scale_right'
+            elif self.transform.mapRect(self.bottomLeftHandle).contains(event.pos()):
+                self.setCursor(QCursor(Qt.SizeBDiagCursor))
+                # Set the transform mode
+                if self.mouse_dragging and not self.transform_mode:
+                    self.transform_mode = 'scale_bottom_left'
 
-                elif self.transform.mapRect(self.bottomLeftHandle).contains(event.pos()):
-                    self.setCursor(QCursor(Qt.SizeBDiagCursor))
-                    # Set the transform mode
-                    if self.mouse_dragging and not self.transform_mode:
-                        self.transform_mode = 'scale_bottom_left'
+            elif self.transform.mapRect(self.bottomHandle).contains(event.pos()):
+                self.setCursor(QCursor(Qt.SizeVerCursor))
+                # Set the transform mode
+                if self.mouse_dragging and not self.transform_mode:
+                    self.transform_mode = 'scale_bottom'
 
-                elif self.transform.mapRect(self.bottomHandle).contains(event.pos()):
-                    self.setCursor(QCursor(Qt.SizeVerCursor))
-                    # Set the transform mode
-                    if self.mouse_dragging and not self.transform_mode:
-                        self.transform_mode = 'scale_bottom'
+            elif self.transform.mapRect(self.bottomRightHandle).contains(event.pos()):
+                self.setCursor(QCursor(Qt.SizeFDiagCursor))
+                # Set the transform mode
+                if self.mouse_dragging and not self.transform_mode:
+                    self.transform_mode = 'scale_bottom_right'
 
-                elif self.transform.mapRect(self.bottomRightHandle).contains(event.pos()):
-                    self.setCursor(QCursor(Qt.SizeFDiagCursor))
-                    # Set the transform mode
-                    if self.mouse_dragging and not self.transform_mode:
-                        self.transform_mode = 'scale_bottom_right'
-
-                elif self.transform.mapRect(self.centerHandle).contains(event.pos()):
-                    self.setCursor(QCursor(Qt.SizeAllCursor))
-                    # Set the transform mode
-                    if self.mouse_dragging and not self.transform_mode:
-                        self.transform_mode = 'location'
-                        # Determine x,y offsets for gravity
-                        self.corner_offset_x = event.pos().x() - self.transform.mapRect(self.topLeftHandle).x()
-                        self.corner_offset_y = event.pos().y() - self.transform.mapRect(self.topLeftHandle).y()
+            elif self.transform.mapRect(self.centerHandle).contains(event.pos()):
+                self.setCursor(QCursor(Qt.SizeAllCursor))
+                # Set the transform mode
+                if self.mouse_dragging and not self.transform_mode:
+                    self.transform_mode = 'location'
+                    # Determine x,y offsets for gravity
+                    self.corner_offset_x = event.pos().x() - self.transform.mapRect(self.topLeftHandle).x()
+                    self.corner_offset_y = event.pos().y() - self.transform.mapRect(self.topLeftHandle).y()
 
 
-                elif not self.transform_mode:
-                    # Reset cursor when not over a handle
-                    self.setCursor(QCursor(Qt.ArrowCursor))
+            elif not self.transform_mode:
+                # Reset cursor when not over a handle
+                self.setCursor(QCursor(Qt.ArrowCursor))
 
-                # Determine frame # of clip
-                start_of_clip_frame = round(float(self.transforming_clip.data["start"]) * fps_float)
-                position_of_clip_frame = (float(self.transforming_clip.data["position"]) * fps_float) + 1
-                playhead_position_frame = float(get_app().window.preview_thread.current_frame)
-                clip_frame_number = round(playhead_position_frame - position_of_clip_frame) + start_of_clip_frame + 1
+            # Determine frame # of clip
+            start_of_clip_frame = round(float(self.transforming_clip.data["start"]) * fps_float)
+            position_of_clip_frame = (float(self.transforming_clip.data["position"]) * fps_float) + 1
+            playhead_position_frame = float(get_app().window.preview_thread.current_frame)
+            clip_frame_number = round(playhead_position_frame - position_of_clip_frame) + start_of_clip_frame + 1
 
-                # Transform clip object
-                if self.transform_mode:
-                    if self.transform_mode == 'location':
-                        # Calculate new location coordinates
-                        location_x = (event.pos().x() - self.gravity_point.x() - self.corner_offset_x) / viewport_rect.width()
-                        location_y = (event.pos().y() - self.gravity_point.y() - self.corner_offset_y) / viewport_rect.height()
+            # Transform clip object
+            if self.transform_mode:
+                if self.transform_mode == 'location':
+                    # Calculate new location coordinates
+                    location_x = (event.pos().x() - self.gravity_point.x() - self.corner_offset_x) / viewport_rect.width()
+                    location_y = (event.pos().y() - self.gravity_point.y() - self.corner_offset_y) / viewport_rect.height()
 
-                        # Save new location
-                        self.updateProperty(self.transforming_clip.id, clip_frame_number, 'location_x', location_x)
-                        self.updateProperty(self.transforming_clip.id, clip_frame_number, 'location_y', location_y)
+                    # Save new location
+                    self.updateProperty(self.transforming_clip.id, clip_frame_number, 'location_x', location_x)
+                    self.updateProperty(self.transforming_clip.id, clip_frame_number, 'location_y', location_y)
 
-                    elif self.transform_mode.startswith('scale_'):
-                        scale_x = None
-                        scale_y = None
+                elif self.transform_mode.startswith('scale_'):
+                    scale_x = None
+                    scale_y = None
 
-                        # Calculate new location coordinates
-                        center_x = self.transform.mapRect(self.centerHandle).x() + (self.transform.mapRect(self.centerHandle).width() / 2.0)
-                        center_y = self.transform.mapRect(self.centerHandle).y() + (self.transform.mapRect(self.centerHandle).height() / 2.0)
+                    # Calculate new location coordinates
+                    center_x = self.transform.mapRect(self.centerHandle).x() + (self.transform.mapRect(self.centerHandle).width() / 2.0)
+                    center_y = self.transform.mapRect(self.centerHandle).y() + (self.transform.mapRect(self.centerHandle).height() / 2.0)
 
-                        if self.transform_mode == 'scale_top_right':
-                            scale_x = (event.pos().x() - center_x) / (viewport_rect.width() / 2.0)
-                            scale_y = (center_y - event.pos().y()) / (viewport_rect.height() / 2.0)
-                        elif self.transform_mode == 'scale_bottom_right':
-                            scale_x = (event.pos().x() - center_x) / (viewport_rect.width() / 2.0)
-                            scale_y = (event.pos().y() - center_y) / (viewport_rect.height() / 2.0)
-                        elif self.transform_mode == 'scale_top_left':
-                            scale_x = (center_x - event.pos().x()) / (viewport_rect.width() / 2.0)
-                            scale_y = (center_y - event.pos().y()) / (viewport_rect.height() / 2.0)
-                        elif self.transform_mode == 'scale_bottom_left':
-                            scale_x = (center_x - event.pos().x()) / (viewport_rect.width() / 2.0)
-                            scale_y = (event.pos().y() - center_y) / (viewport_rect.height() / 2.0)
-                        elif self.transform_mode == 'scale_top':
-                            scale_y = (center_y - event.pos().y()) / (viewport_rect.height() / 2.0)
-                        elif self.transform_mode == 'scale_bottom':
-                            scale_y = (event.pos().y() - center_y) / (viewport_rect.height() / 2.0)
-                        elif self.transform_mode == 'scale_left':
-                            scale_x = (center_x - event.pos().x()) / (viewport_rect.width() / 2.0)
-                        elif self.transform_mode == 'scale_right':
-                            scale_x = (event.pos().x() - center_x) / (viewport_rect.width() / 2.0)
+                    if self.transform_mode == 'scale_top_right':
+                        scale_x = (event.pos().x() - center_x) / (viewport_rect.width() / 2.0)
+                        scale_y = (center_y - event.pos().y()) / (viewport_rect.height() / 2.0)
+                    elif self.transform_mode == 'scale_bottom_right':
+                        scale_x = (event.pos().x() - center_x) / (viewport_rect.width() / 2.0)
+                        scale_y = (event.pos().y() - center_y) / (viewport_rect.height() / 2.0)
+                    elif self.transform_mode == 'scale_top_left':
+                        scale_x = (center_x - event.pos().x()) / (viewport_rect.width() / 2.0)
+                        scale_y = (center_y - event.pos().y()) / (viewport_rect.height() / 2.0)
+                    elif self.transform_mode == 'scale_bottom_left':
+                        scale_x = (center_x - event.pos().x()) / (viewport_rect.width() / 2.0)
+                        scale_y = (event.pos().y() - center_y) / (viewport_rect.height() / 2.0)
+                    elif self.transform_mode == 'scale_top':
+                        scale_y = (center_y - event.pos().y()) / (viewport_rect.height() / 2.0)
+                    elif self.transform_mode == 'scale_bottom':
+                        scale_y = (event.pos().y() - center_y) / (viewport_rect.height() / 2.0)
+                    elif self.transform_mode == 'scale_left':
+                        scale_x = (center_x - event.pos().x()) / (viewport_rect.width() / 2.0)
+                    elif self.transform_mode == 'scale_right':
+                        scale_x = (event.pos().x() - center_x) / (viewport_rect.width() / 2.0)
 
-                        if int(QCoreApplication.instance().keyboardModifiers() & Qt.ControlModifier) > 0:
-                            # If CTRL key is pressed, fix the scale_y to the correct aspect ration
-                            if scale_x and scale_y:
-                                scale_y = scale_x
-                            elif scale_y:
-                                scale_x = scale_y
-                            elif scale_x:
-                                scale_y = scale_x
+                    if int(QCoreApplication.instance().keyboardModifiers() & Qt.ControlModifier) > 0:
+                        # If CTRL key is pressed, fix the scale_y to the correct aspect ration
+                        if scale_x and scale_y:
+                            scale_y = scale_x
+                        elif scale_y:
+                            scale_x = scale_y
+                        elif scale_x:
+                            scale_y = scale_x
 
-                        # Save new location
-                        if scale_x != None:
-                            self.updateProperty(self.transforming_clip.id, clip_frame_number, 'scale_x', scale_x)
-                        if scale_y != None:
-                            self.updateProperty(self.transforming_clip.id, clip_frame_number, 'scale_y', scale_y)
+                    # Save new location
+                    if scale_x != None:
+                        self.updateProperty(self.transforming_clip.id, clip_frame_number, 'scale_x', scale_x)
+                    if scale_y != None:
+                        self.updateProperty(self.transforming_clip.id, clip_frame_number, 'scale_y', scale_y)
 
-                # Force re-paint
-                self.update()
+            # Force re-paint
+            self.update()
 
         # Update mouse position
         self.mouse_position = event.pos()
