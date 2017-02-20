@@ -113,14 +113,6 @@ class OpenShotApp(QApplication):
         # Track which dockable window received a context menu
         self.context_menu_object = None
 
-        # Set unique install id (if blank)
-        if not self.settings.get("unique_install_id"):
-            self.settings.set("unique_install_id", str(uuid4()))
-
-            # Track 1st launch metric
-            import classes.metrics
-            classes.metrics.track_metric_screen("initial-launch-screen")
-
         # Set Font for any theme
         if self.settings.get("theme") != "No Theme":
             # Load embedded font

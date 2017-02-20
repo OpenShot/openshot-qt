@@ -1934,8 +1934,21 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         get_app().window = self
         _ = get_app()._tr
 
+        # Load user settings for window
+        s = settings.get_settings()
+        self.recent_menu = None
+
         # Track metrics
         track_metric_session()  # start session
+
+        # Set unique install id (if blank)
+        if not s.get("unique_install_id"):
+            s.set("unique_install_id", str(uuid4()))
+
+            # Track 1st launch metric
+            track_metric_screen("initial-launch-screen")
+
+        # Track main screen
         track_metric_screen("main-screen")
 
         # Create blank tutorial manager
@@ -1946,10 +1959,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Set all keyboard shortcuts from the settings file
         self.InitKeyboardShortcuts()
-
-        # Load user settings for window
-        s = settings.get_settings()
-        self.recent_menu = None
 
         # Init UI
         ui_util.init_ui(self)
@@ -2047,3 +2056,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Install event filter
         self.installEventFilter(self)
+
+        # Save settings
+        s.save()
