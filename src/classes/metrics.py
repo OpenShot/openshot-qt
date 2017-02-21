@@ -93,6 +93,7 @@ def track_metric_screen(screen_name):
     metric_params = deepcopy(params)
     metric_params["t"] = "screenview"
     metric_params["cd"] = screen_name
+    metric_params["cid"] = s.get("unique_install_id")
 
     t = threading.Thread(target=send_metric, args=[metric_params])
     t.start()
@@ -105,6 +106,7 @@ def track_metric_event(event_action, event_label, event_category="General", even
     metric_params["ea"] = event_action
     metric_params["el"] = event_label
     metric_params["ev"] = event_value
+    metric_params["cid"] = s.get("unique_install_id")
 
     t = threading.Thread(target=send_metric, args=[metric_params])
     t.start()
@@ -132,6 +134,7 @@ def track_metric_session(is_start=True):
     metric_params["t"] = "screenview"
     metric_params["sc"] = "start"
     metric_params["cd"] = "launch-app"
+    metric_params["cid"] = s.get("unique_install_id")
     if not is_start:
         metric_params["sc"] = "end"
         metric_params["cd"] = "close-app"
