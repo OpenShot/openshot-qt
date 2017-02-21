@@ -154,6 +154,7 @@ class PlayerWorker(QObject):
 
             # wait for a small delay
             time.sleep(0.01)
+            QCoreApplication.processEvents()
 
         self.finished.emit()
         log.info('exiting thread')

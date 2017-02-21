@@ -110,14 +110,18 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Stop threads
         self.StopSignal.emit()
+
+        # Process any queued events
+        QCoreApplication.processEvents()
+
+        # Stop preview thread (and wait for it to end)
         self.preview_thread.kill()
+        self.preview_parent.background.exit()
+        self.preview_parent.background.wait(5000)
 
         # Close & Stop libopenshot logger
         openshot.ZmqLogger.Instance().Close()
         get_app().logger_libopenshot.kill()
-
-        # Wait for thread
-        self.preview_parent.background.wait(500)
 
         # Destroy lock file
         self.destroy_lock_file()
@@ -1929,6 +1933,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Create main window base class
         QMainWindow.__init__(self)
         self.mode = mode    # None or unittest (None is normal usage)
+        self.initialized = False
 
         # set window on app for reference during initialization of children
         get_app().window = self
@@ -2059,3 +2064,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Save settings
         s.save()
+
+        # Refresh frame
+        self.refreshFrameSignal.emit()
+
+        # Main window is initialized
+        self.initialized = True

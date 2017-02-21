@@ -80,13 +80,15 @@ class TimelineSync(UpdateInterface):
             current_speed = self.window.preview_thread.player.Speed()
 
             # Stop preview thread
-            self.window.SpeedSignal.emit(0)
+            if self.window.initialized:
+                self.window.SpeedSignal.emit(0)
 
             # The timeline's profile changed, so update all clips
             self.timeline.ApplyMapperToClips()
 
             # Resume speed
-            self.window.SpeedSignal.emit(current_speed)
+            if self.window.initialized:
+                self.window.SpeedSignal.emit(current_speed)
             return
 
         # Pass the change to the libopenshot timeline
@@ -95,7 +97,8 @@ class TimelineSync(UpdateInterface):
             current_speed = self.window.preview_thread.player.Speed()
 
             # Stop preview thread
-            self.window.SpeedSignal.emit(0)
+            if self.window.initialized:
+                self.window.SpeedSignal.emit(0)
 
             if action.type == "load":
                 # This JSON is initially loaded to libopenshot to update the timeline
@@ -103,14 +106,16 @@ class TimelineSync(UpdateInterface):
                 self.timeline.Open()  # Re-Open the Timeline reader
 
                 # Refresh current frame (since the entire timeline was updated)
-                self.window.refreshFrameSignal.emit()
+                if self.window.initialized:
+                    self.window.refreshFrameSignal.emit()
 
             else:
                 # This JSON DIFF is passed to libopenshot to update the timeline
                 self.timeline.ApplyJsonDiff(action.json(is_array=True))
 
             # Resume speed
-            self.window.SpeedSignal.emit(current_speed)
+            if self.window.initialized:
+                self.window.SpeedSignal.emit(current_speed)
 
         except Exception as e:
             log.info("Error applying JSON to timeline object in libopenshot: %s" % e)

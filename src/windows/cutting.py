@@ -321,11 +321,12 @@ class Cutting(QDialog):
         log.info('closeEvent')
 
         # Stop preview and kill thread
-        self.preview_parent.worker.Pause()
+        self.preview_parent.worker.Stop()
         self.preview_parent.worker.kill()
+        self.preview_parent.background.exit()
 
         # Wait for thread
-        self.preview_parent.background.wait(250)
+        self.preview_parent.background.wait(5000)
 
         # Stop reader
         self.r.Close()
