@@ -30,4 +30,5 @@ OpenShot Video Editor is a volunteer effort, and a labor of love. Please be pati
 
 
 Thanks!
+
 OpenShot Team
