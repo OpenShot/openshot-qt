@@ -829,7 +829,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             get_app().window.TransformSignal.emit(clip_ids[0])
         else:
             # Clear transform
-            get_app().window.TransformSignal.emit(None)
+            get_app().window.TransformSignal.emit("")
 
     def Show_Waveform_Triggered(self, clip_ids):
         """Show a waveform for the selected clip"""

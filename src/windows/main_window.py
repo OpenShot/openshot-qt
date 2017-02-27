@@ -1631,7 +1631,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
                 self.selected_effects.clear()
 
             # Clear transform (if any)
-            get_app().window.TransformSignal.emit(None)
+            self.TransformSignal.emit("")
 
         if item_id:
             # If item_id is not blank, store it
@@ -1656,7 +1656,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             self.selected_effects.remove(item_id)
 
         # Clear transform (if any)
-        get_app().window.TransformSignal.emit(None)
+        get_app().window.TransformSignal.emit("")
 
         # Move selection to next selected clip (if any)
         if item_type == "clip" and self.selected_clips:
