@@ -333,6 +333,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             # Convert all paths back to absolute
             self.convert_paths_to_absolute()
 
+            # Check if paths are all valid
+            self.check_if_paths_are_valid()
+
             # Copy any project thumbnails to main THUMBNAILS folder
             loaded_project_folder = os.path.dirname(self.current_filepath)
             project_thumbnails_folder = os.path.join(loaded_project_folder, "thumbnail")
@@ -868,6 +871,55 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         except Exception as ex:
             log.error("Error while converting absolute paths to relative paths: %s" % str(ex))
 
+
+    def check_if_paths_are_valid(self):
+        """Check if all paths are valid, and prompt to update them if needed"""
+        # Get project folder
+        starting_folder = None
+        if self.current_filepath:
+            starting_folder = os.path.dirname(self.current_filepath)
+
+        # Get translation method
+        from classes.app import get_app
+        _ = get_app()._tr
+
+        from PyQt5.QtWidgets import QFileDialog, QMessageBox
+
+        # Loop through each files (in reverse order)
+        for file in reversed(self._data["files"]):
+            path = file["path"]
+            parent_path, file_name_with_ext = os.path.split(path)
+            while not os.path.exists(path):
+                # File already exists! Prompt user to find missing file
+                QMessageBox.warning(None, _("Missing File (%s)") % file["id"], _("%s cannot be found.") % file_name_with_ext)
+                starting_folder = QFileDialog.getExistingDirectory(None, _("Find directory that contains: %s" % file_name_with_ext), starting_folder)
+                log.info("Missing folder chosen by user: %s" % starting_folder)
+                if starting_folder:
+                    # Update file path
+                    path = os.path.join(starting_folder, file_name_with_ext)
+                    file["path"] = path
+                else:
+                    log.info('Removed missing file: %s' % file_name_with_ext)
+                    self._data["files"].remove(file)
+                    break
+
+        # Loop through each clip (in reverse order)
+        for clip in reversed(self._data["clips"]):
+            path = clip["reader"]["path"]
+            parent_path, file_name_with_ext = os.path.split(path)
+            while not os.path.exists(path):
+                # Clip already exists! Prompt user to find missing file
+                QMessageBox.warning(None, _("Missing File in Clip (%s)") % clip["id"], _("%s cannot be found.") % file_name_with_ext)
+                starting_folder = QFileDialog.getExistingDirectory(None, _("Find directory that contains: %s" % file_name_with_ext), starting_folder)
+                log.info("Missing folder chosen by user: %s" % starting_folder)
+                if starting_folder:
+                    # Update clip path
+                    path = os.path.join(starting_folder, file_name_with_ext)
+                    clip["reader"]["path"] = path
+                else:
+                    log.info('Removed missing clip: %s' % file_name_with_ext)
+                    self._data["clips"].remove(clip)
+                    break
 
     def convert_paths_to_absolute(self):
         """ Convert all paths to absolute """
