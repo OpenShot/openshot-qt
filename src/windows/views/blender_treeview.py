@@ -489,7 +489,7 @@ class BlenderTreeView(QTreeView):
             version_message = _("\n\nError Output:\n{}").format(command_output)
 
         # show error message
-        blender_version = "2.62"
+        blender_version = "2.78"
         # Handle exception
         msg = QMessageBox()
         msg.setText(_(
@@ -713,7 +713,7 @@ class Worker(QObject):
         # get the blender executable path
         self.blender_exec_path = s.get("blender_command")
         self.blender_frame_expression = re.compile(r"Fra:([0-9,]*).*Mem:(.*?) .*Part ([0-9,]*)-([0-9,]*)")
-        self.blender_saved_expression = re.compile(r"Saved: (.*.png)(.*)")
+        self.blender_saved_expression = re.compile(r"Saved: '(.*.png)(.*)'")
         self.blender_version = re.compile(r"Blender (.*?) ")
         self.blend_file_path = blend_file_path
         self.target_script = target_script
@@ -735,7 +735,7 @@ class Worker(QObject):
             self.version = self.blender_version.findall(str(self.process.stdout.readline()))
 
             if self.version:
-                if float(self.version[0]) < 2.62:
+                if float(self.version[0]) < 2.78:
                     # change cursor to "default" and stop running blender command
                     self.is_running = False
 
@@ -781,6 +781,7 @@ class Worker(QObject):
 
             # Look for progress info in the Blender Output
             output_saved = self.blender_saved_expression.findall(str(line))
+            log.info("Image detected from blender regex: %s" % output_saved)
 
             # Does it have a match?
             if output_saved:
