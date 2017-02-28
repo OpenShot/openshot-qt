@@ -70,8 +70,8 @@ def createExplodeTxt(title,particle_number,extrude,bevel_depth,spacemode,textsiz
 	bpy.context.scene.objects.active.data.space_character = width
 	bpy.context.scene.objects.active.data.font = font
 	#centering text
-	#bpy.data.objects['Text'].data.align='CENTER'
-	bpy.data.objects['Text'].data.align=spacemode
+	#bpy.data.objects['Text'].data.align_x='CENTER'
+	bpy.data.objects['Text'].data.align_x=spacemode
 
 	#extrude text
 	#bpy.data.objects['Text'].data.extrude=0.1

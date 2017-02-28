@@ -107,8 +107,8 @@ def createDissolveText(title,extrude,bevel_depth,spacemode,textsize,width,font):
 	ActiveObjectText.data.space_character = width
 	ActiveObjectText.data.font = font
 	#centering text
-	#ActiveObjectText.data.align='CENTER'
-	ActiveObjectText.data.align=spacemode
+	#ActiveObjectText.data.align_x='CENTER'
+	ActiveObjectText.data.align_x=spacemode
 	#extrude text
 	ActiveObjectText.data.extrude=extrude #0.04
 
