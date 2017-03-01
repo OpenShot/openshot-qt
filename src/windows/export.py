@@ -39,6 +39,11 @@ from classes.app import get_app
 from classes.logger import log
 from classes.metrics import *
 
+try:
+    import json
+except ImportError:
+    import simplejson as json
+
 
 class Export(QDialog):
     """ Export Dialog """
@@ -76,14 +81,40 @@ class Export(QDialog):
         self.buttonBox.addButton(QPushButton(_('Cancel')), QDialogButtonBox.RejectRole)
         self.exporting = False
 
+        # Clear timeline preview cache (to get more avaiable memory)
+        if get_app().window.cache_object:
+            get_app().window.cache_object.Clear()
+
+        # Hide audio channels
+        self.lblChannels.setVisible(False)
+        self.txtChannels.setVisible(False)
+
         # Get the original timeline settings
-        self.original_width = get_app().window.timeline_sync.timeline.info.width
-        self.original_height = get_app().window.timeline_sync.timeline.info.height
+        width = get_app().window.timeline_sync.timeline.info.width
+        height = get_app().window.timeline_sync.timeline.info.height
         fps = get_app().window.timeline_sync.timeline.info.fps
-        self.original_fps = { "num" : fps.num, "den" : fps.den }
-        self.original_sample_rate = get_app().window.timeline_sync.timeline.info.sample_rate
-        self.original_channels = get_app().window.timeline_sync.timeline.info.channels
-        self.original_channel_layout = get_app().window.timeline_sync.timeline.info.channel_layout
+        sample_rate = get_app().window.timeline_sync.timeline.info.sample_rate
+        channels = get_app().window.timeline_sync.timeline.info.channels
+        channel_layout = get_app().window.timeline_sync.timeline.info.channel_layout
+
+        # Create new "export" openshot.Timeline object
+        self.timeline = openshot.Timeline(width, height, openshot.Fraction(fps.num, fps.den),
+                                          sample_rate, channels, channel_layout)
+        # Init various properties
+        self.timeline.info.channel_layout = get_app().window.timeline_sync.timeline.info.channel_layout
+        self.timeline.info.has_audio = get_app().window.timeline_sync.timeline.info.has_audio
+        self.timeline.info.has_video = get_app().window.timeline_sync.timeline.info.has_video
+        self.timeline.info.video_length = get_app().window.timeline_sync.timeline.info.video_length
+        self.timeline.info.duration = get_app().window.timeline_sync.timeline.info.duration
+        self.timeline.info.sample_rate = get_app().window.timeline_sync.timeline.info.sample_rate
+        self.timeline.info.channels = get_app().window.timeline_sync.timeline.info.channels
+
+        # Load the "export" Timeline reader with the JSON from the real timeline
+        json_timeline = json.dumps(get_app().project._data)
+        self.timeline.SetJson(json_timeline)
+
+        # Open the "export" Timeline reader
+        self.timeline.Open()
 
         # Default export path
         recommended_path = recommended_path = os.path.join(info.HOME_PATH)
@@ -141,7 +172,7 @@ class Export(QDialog):
         self.cboSimpleQuality.currentIndexChanged.connect(
             functools.partial(self.cboSimpleQuality_index_changed, self.cboSimpleQuality))
         self.cboChannelLayout.currentIndexChanged.connect(self.updateChannels)
-
+        get_app().window.ExportFrame.connect(self.updateProgressBar)
 
         # ********* Advaned Profile List **********
         # Loop through profiles
@@ -213,6 +244,10 @@ class Export(QDialog):
         # Determine the length of the timeline (in frames)
         self.updateFrameRate()
 
+    def updateProgressBar(self, path, start_frame, end_frame, current_frame):
+        """Update progress bar during exporting"""
+        self.progressExportVideo.setValue(current_frame)
+
     def updateChannels(self):
         """Update the # of channels to match the channel layout"""
         log.info("updateChannels")
@@ -235,23 +270,22 @@ class Export(QDialog):
 
     def updateFrameRate(self):
         """Callback for changing the frame rate"""
-        log.info('Adjust the framerate of the project')
-
         # Adjust the main timeline reader
-        get_app().updates.update(["width"], self.txtWidth.value())
-        get_app().updates.update(["height"], self.txtHeight.value())
-        get_app().updates.update(["fps"], {"num" : self.txtFrameRateNum.value(), "den" : self.txtFrameRateDen.value()})
-        get_app().updates.update(["sample_rate"], self.txtSampleRate.value())
-        get_app().updates.update(["channels"], self.txtChannels.value())
-        get_app().updates.update(["channel_layout"], self.cboChannelLayout.currentData())
+        self.timeline.info.width = self.txtWidth.value()
+        self.timeline.info.height = self.txtHeight.value()
+        self.timeline.info.fps.num = self.txtFrameRateNum.value()
+        self.timeline.info.fps.den = self.txtFrameRateDen.value()
+        self.timeline.info.sample_rate = self.txtSampleRate.value()
+        self.timeline.info.channels = self.txtChannels.value()
+        self.timeline.info.channel_layout = self.cboChannelLayout.currentData()
 
         # Force ApplyMapperToClips to apply these changes
-        get_app().window.timeline_sync.timeline.ApplyMapperToClips()
+        self.timeline.ApplyMapperToClips()
 
         # Determine max frame (based on clips)
         timeline_length = 0.0
-        fps = get_app().window.timeline_sync.timeline.info.fps.ToFloat()
-        clips = get_app().window.timeline_sync.timeline.Clips()
+        fps = self.timeline.info.fps.ToFloat()
+        clips = self.timeline.Clips()
         for clip in clips:
             clip_last_frame = clip.Position() + clip.Duration()
             if clip_last_frame > timeline_length:
@@ -266,6 +300,11 @@ class Export(QDialog):
         self.txtEndFrame.setMaximum(self.timeline_length_int)
         self.txtStartFrame.setValue(1)
         self.txtEndFrame.setValue(self.timeline_length_int)
+
+        # Init progress bar
+        self.progressExportVideo.setMinimum(self.txtStartFrame.value())
+        self.progressExportVideo.setMaximum(self.txtEndFrame.value())
+        self.progressExportVideo.setValue(self.txtStartFrame.value())
 
     def cboSimpleProjectType_index_changed(self, widget, index):
         selected_project = widget.itemData(index)
@@ -508,18 +547,7 @@ class Export(QDialog):
         return str(int(bit_rate_bytes))
 
     def accept(self):
-        """ Start exporting video, but don't close window """
-        # Get settings
-        self.s = settings.get_settings()
-
-        # Set lossless cache settings (temporarily)
-        new_cache_object = openshot.CacheMemory(250)
-        get_app().window.timeline_sync.timeline.SetCache(new_cache_object)
-        # Clear old cache before it goes out of scope
-        if get_app().window.cache_object:
-            get_app().window.cache_object.Clear()
-        # Update cache reference, so it doesn't go out of scope
-        get_app().window.cache_object = new_cache_object
+        """ Start exporting video """
 
         # Disable controls
         self.txtFileName.setEnabled(False)
@@ -528,7 +556,6 @@ class Export(QDialog):
         self.export_button.setEnabled(False)
         self.exporting = True
 
-        # Test Succeeded
         # Determine final exported file path
         file_name_with_ext = "%s.%s" % (self.txtFileName.text().strip(), self.txtVideoFormat.text().strip())
         export_file_path = os.path.join(self.txtExportFolder.text().strip(), file_name_with_ext)
@@ -552,47 +579,70 @@ class Export(QDialog):
                 self.exporting = False
                 return
 
+        # Init export settings
+        video_settings = {  "vformat": self.txtVideoFormat.text(),
+                            "vcodec": self.txtVideoCodec.text(),
+                            "fps": { "num" : self.txtFrameRateNum.value(), "den": self.txtFrameRateDen.value()},
+                            "width": self.txtWidth.value(),
+                            "height": self.txtHeight.value(),
+                            "pixel_ratio": {"num": self.txtPixelRatioNum.value(), "den": self.txtPixelRatioDen.value()},
+                            "video_bitrate": int(self.convert_to_bytes(self.txtVideoBitRate.text())),
+                            "start_frame": self.txtStartFrame.value(),
+                            "end_frame": self.txtEndFrame.value() + 1
+                          }
+
+        audio_settings = {"acodec": self.txtAudioCodec.text(),
+                          "sample_rate": self.txtSampleRate.value(),
+                          "channels": self.txtChannels.value(),
+                          "channel_layout": self.cboChannelLayout.currentData(),
+                          "audio_bitrate": int(self.convert_to_bytes(self.txtAudioBitrate.text()))
+                          }
+
+        # Set lossless cache settings (temporarily)
+        export_cache_object = openshot.CacheMemory(250)
+        self.timeline.SetCache(export_cache_object)
+
         # Create FFmpegWriter
         try:
             w = openshot.FFmpegWriter(export_file_path)
 
             # Set video options
             w.SetVideoOptions(True,
-                              self.txtVideoCodec.text(),
-                              openshot.Fraction(self.txtFrameRateNum.value(),
-                                                self.txtFrameRateDen.value()),
-                              self.txtWidth.value(),
-                              self.txtHeight.value(),
-                              openshot.Fraction(self.txtPixelRatioNum.value(),
-                                                self.txtPixelRatioDen.value()),
+                              video_settings.get("vcodec"),
+                              openshot.Fraction(video_settings.get("fps").get("num"),
+                                                video_settings.get("fps").get("den")),
+                              video_settings.get("width"),
+                              video_settings.get("height"),
+                              openshot.Fraction(video_settings.get("pixel_ratio").get("num"),
+                                                video_settings.get("pixel_ratio").get("den")),
                               False,
                               False,
-                              int(self.convert_to_bytes(self.txtVideoBitRate.text())))
+                              video_settings.get("video_bitrate"))
 
             # Set audio options
             w.SetAudioOptions(True,
-                              self.txtAudioCodec.text(),
-                              self.txtSampleRate.value(),
-                              self.txtChannels.value(),
-                              self.cboChannelLayout.currentData(),
-                              int(self.convert_to_bytes(self.txtAudioBitrate.text())))
+                              audio_settings.get("acodec"),
+                              audio_settings.get("sample_rate"),
+                              audio_settings.get("channels"),
+                              audio_settings.get("channel_layout"),
+                              audio_settings.get("audio_bitrate"))
 
             # Open the writer
             w.Open()
 
-            # Init progress bar
-            self.progressExportVideo.setMinimum(self.txtStartFrame.value())
-            self.progressExportVideo.setMaximum(self.txtEndFrame.value())
+            # Notify window of export started
+            get_app().window.ExportStarted.emit(export_file_path, video_settings.get("start_frame"), video_settings.get("end_frame"))
 
             # Write each frame in the selected range
-            for frame in range(self.txtStartFrame.value(), self.txtEndFrame.value() + 1):
-                # Update progress bar
-                self.progressExportVideo.setValue(frame)
+            for frame in range(video_settings.get("start_frame"), video_settings.get("end_frame")):
+                # Update progress bar (emit signal to main window)
+                get_app().window.ExportFrame.emit(export_file_path, video_settings.get("start_frame"), video_settings.get("end_frame"), frame)
+
                 # Process events (to show the progress bar moving)
                 QCoreApplication.processEvents()
 
                 # Write the frame object to the video
-                w.WriteFrame(get_app().window.timeline_sync.timeline.GetFrame(frame))
+                w.WriteFrame(self.timeline.GetFrame(frame))
 
                 # Check if we need to bail out
                 if not self.exporting:
@@ -609,24 +659,24 @@ class Export(QDialog):
             log.info("Error type string: %s" % error_type_str)
 
             if "InvalidChannels" in error_type_str:
-                log.info("Error setting invalid # of channels (%s)" % (self.txtChannels.value()))
-                track_metric_error("invalid-channels-%s-%s-%s-%s" % (self.txtVideoFormat.text(), self.txtVideoCodec.text(), self.txtAudioCodec.text(), self.txtChannels.value()))
+                log.info("Error setting invalid # of channels (%s)" % (audio_settings.get("channels")))
+                track_metric_error("invalid-channels-%s-%s-%s-%s" % (video_settings.get("vformat"), video_settings.get("vcodec"), audio_settings.get("acodec"), audio_settings.get("channels")))
 
             elif "InvalidSampleRate" in error_type_str:
-                log.info("Error setting invalid sample rate (%s)" % (self.txtSampleRate.value()))
-                track_metric_error("invalid-sample-rate-%s-%s-%s-%s" % (self.txtVideoFormat.text(), self.txtVideoCodec.text(), self.txtAudioCodec.text(), self.txtSampleRate.value()))
+                log.info("Error setting invalid sample rate (%s)" % (audio_settings.get("sample_rate")))
+                track_metric_error("invalid-sample-rate-%s-%s-%s-%s" % (video_settings.get("vformat"), video_settings.get("vcodec"), audio_settings.get("acodec"), audio_settings.get("sample_rate")))
 
             elif "InvalidFormat" in error_type_str:
-                log.info("Error setting invalid format (%s)" % (self.txtVideoFormat.text()))
-                track_metric_error("invalid-format-%s" % (self.txtVideoFormat.text()))
+                log.info("Error setting invalid format (%s)" % (video_settings.get("vformat")))
+                track_metric_error("invalid-format-%s" % (video_settings.get("vformat")))
 
             elif "InvalidCodec" in error_type_str:
-                log.info("Error setting invalid codec (%s/%s/%s)" % (self.txtVideoFormat.text(), self.txtVideoCodec.text(), self.txtAudioCodec.text()))
-                track_metric_error("invalid-codec-%s-%s-%s" % (self.txtVideoFormat.text(), self.txtVideoCodec.text(), self.txtAudioCodec.text()))
+                log.info("Error setting invalid codec (%s/%s/%s)" % (video_settings.get("vformat"), video_settings.get("vcodec"), audio_settings.get("acodec")))
+                track_metric_error("invalid-codec-%s-%s-%s" % (video_settings.get("vformat"), video_settings.get("vcodec"), audio_settings.get("acodec")))
 
             elif "ErrorEncodingVideo" in error_type_str:
-                log.info("Error encoding video frame (%s/%s/%s)" % (self.txtVideoFormat.text(), self.txtVideoCodec.text(), self.txtAudioCodec.text()))
-                track_metric_error("video-encode-%s-%s-%s" % (self.txtVideoFormat.text(), self.txtVideoCodec.text(), self.txtAudioCodec.text()))
+                log.info("Error encoding video frame (%s/%s/%s)" % (video_settings.get("vformat"), video_settings.get("vcodec"), audio_settings.get("acodec")))
+                track_metric_error("video-encode-%s-%s-%s" % (video_settings.get("vformat"), video_settings.get("vcodec"), audio_settings.get("acodec")))
 
             # Show friendly error
             friendly_error = error_type_str.split("> ")[0].replace("<", "")
@@ -638,41 +688,19 @@ class Export(QDialog):
             msg.setText(_("Sorry, there was an error exporting your video: \n%s") % friendly_error)
             msg.exec_()
 
+        # Notify window of export started
+        get_app().window.ExportEnded.emit(export_file_path)
+
+        # Close timeline object
+        self.timeline.Close()
+
+        # Clear cache
+        export_cache_object.Clear()
+
         # Accept dialog
         super(Export, self).accept()
 
-        # Restore timeline settings
-        self.restoreTimeline()
-
-        # Adjust cache settings back to normal
-        get_app().window.InitCacheSettings()
-
-        log.info("End Accept")
-
-    def restoreTimeline(self):
-        """Restore timeline setting to original settings"""
-        log.info("restoreTimeline")
-
-        # Adjust the main timeline reader
-        get_app().updates.update(["width"], self.original_width)
-        get_app().updates.update(["height"], self.original_height)
-        get_app().updates.update(["fps"], self.original_fps)
-        get_app().updates.update(["sample_rate"], self.original_sample_rate)
-        get_app().updates.update(["channels"], self.original_channels)
-        get_app().updates.update(["channel_layout"], self.original_channel_layout)
-
-        # Force ApplyMapperToClips to apply these changes
-        get_app().window.timeline_sync.timeline.ApplyMapperToClips()
-
     def reject(self):
-
-        log.info("Start Reject")
-        self.exporting = False
-
         # Cancel dialog
+        self.exporting = False
         super(Export, self).reject()
-
-        # Restore timeline settings
-        self.restoreTimeline()
-
-        log.info("End Reject")

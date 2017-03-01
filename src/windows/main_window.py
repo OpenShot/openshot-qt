@@ -78,6 +78,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
     FoundVersionSignal = pyqtSignal(str)
     WaveformReady = pyqtSignal(str, list)
     TransformSignal = pyqtSignal(str)
+    ExportStarted = pyqtSignal(str, int, int)
+    ExportFrame = pyqtSignal(str, int, int, int)
+    ExportEnded = pyqtSignal(str)
 
     # Save window settings on close
     def closeEvent(self, event):
