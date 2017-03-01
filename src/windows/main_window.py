@@ -28,6 +28,7 @@
  """
 
 import os
+import sys
 import platform
 import shutil
 import webbrowser
@@ -1931,6 +1932,37 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Update cache reference, so it doesn't go out of scope
         self.cache_object = new_cache_object
 
+    def FrameExported(self, path, start_frame, end_frame, current_frame):
+        """Connect to Unity launcher (for Linux)"""
+        try:
+            if sys.platform == "linux" and self.has_launcher:
+                if not self.unity_launchers:
+                    # Get launcher only once
+                    from gi.repository import Unity
+                    self.unity_launchers.append(Unity.LauncherEntry.get_for_desktop_id("openshot-qt.desktop"))
+                    self.unity_launchers.append(Unity.LauncherEntry.get_for_desktop_id("appimagekit-openshot-qt.desktop"))
+
+                # Set progress and show progress bar
+                for launcher in self.unity_launchers:
+                    launcher.set_property("progress", current_frame / (end_frame - start_frame))
+                    launcher.set_property("progress_visible", True)
+
+        except:
+            # Just ignore
+            self.has_launcher = False
+
+    def ExportFinished(self, path):
+        """Export has completed"""
+        try:
+            if sys.platform == "linux" and self.has_launcher:
+                for launcher in self.unity_launchers:
+                    # Set progress on Unity launcher and hide progress bar
+                    launcher.set_property("progress", 0.0)
+                    launcher.set_property("progress_visible", False)
+        except:
+            pass
+
+
     def __init__(self, mode=None):
 
         # Create main window base class
@@ -2061,6 +2093,13 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Create tutorial manager
         self.tutorial_manager = TutorialManager(self)
+
+        # Connect to Unity DBus signal (if linux)
+        if sys.platform == "linux":
+            self.unity_launchers = []
+            self.has_launcher = True
+            self.ExportFrame.connect(self.FrameExported)
+            self.ExportEnded.connect(self.ExportFinished)
 
         # Install event filter
         self.installEventFilter(self)
