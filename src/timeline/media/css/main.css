@@ -70,6 +70,7 @@ img {
 
 /* Clips */
 .clip_top { display: -webkit-flex; background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.20)), color-stop(100%,rgba(255,255,255,0))); border-radius: 8px; overflow: hidden; }
+.clip_top:hover { overflow:visible; z-index:9000;}
 .clip_menu { cursor: pointer; display: -webkit-flex; float:left;margin-top:4px;margin-left:4px;margin-right:4px;min-width:12px;height:12px; background-image: url(../images/menu.png);}
 .clip_menu:hover { background-image: url(../images/menu_hover.png); }
 .clip_label { cursor: move; min-width: 0px; float:left; margin-left: 2px; color:#fff;font-weight:bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -87,7 +88,8 @@ img {
 .thumb-start { float:left; }
 .thumb-end {float:right; }
 .audio {}
-.effect-container { overflow: hidden; white-space: nowrap; height: 20px; float:left; min-width: 0px; }
+.effect-container { white-space: nowrap; height: 20px; float:left; border-radius: 8px; padding-left: 1px; padding-right: 1px;  }
+.effect-container:hover { background-color: #7c7979; z-index:9000; }
 .thumb-container { margin-top:-20px; overflow: hidden; }
 .audio-container { display:none; margin-top:-20px; height:46px; overflow: hidden; margin-left: -2px;}
 
