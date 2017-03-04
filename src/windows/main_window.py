@@ -252,6 +252,20 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             os.remove(lock_path)
 
     def actionNew_trigger(self, event):
+
+        app = get_app()
+        _ = app._tr  # Get translation function
+
+        # Do we have unsaved changes?
+        if get_app().project.needs_save():
+            ret = QMessageBox.question(self, _("Unsaved Changes"), _("Save changes to project first?"), QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
+            if ret == QMessageBox.Yes:
+                # Save project
+                self.actionSave_trigger(event)
+            elif ret == QMessageBox.Cancel:
+                # User canceled prompt
+                return
+
         # Clear any previous thumbnails
         self.clear_all_thumbnails()
 
@@ -411,6 +425,18 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         recommended_path = app.project.current_filepath
         if not recommended_path:
             recommended_path = info.HOME_PATH
+
+        # Do we have unsaved changes?
+        if get_app().project.needs_save():
+            ret = QMessageBox.question(self, _("Unsaved Changes"), _("Save changes to project first?"), QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
+            if ret == QMessageBox.Yes:
+                # Save project
+                self.actionSave_trigger(event)
+            elif ret == QMessageBox.Cancel:
+                # User canceled prompt
+                return
+
+        # Prompt for open project file
         file_path, file_type = QFileDialog.getOpenFileName(self, _("Open Project..."), recommended_path, _("OpenShot Project (*.osp)"))
 
         # Load project file
