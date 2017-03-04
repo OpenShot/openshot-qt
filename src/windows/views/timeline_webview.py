@@ -2156,6 +2156,13 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Init snapping state (1 = snapping, 0 = no snapping)
         self.eval_js(JS_SCOPE_SELECTOR + ".SetSnappingMode(%s);" % int(enable_snapping))
 
+    @pyqtSlot(int)
+    def SetRazorMode(self, enable_razor):
+        """ Enable / Disable razor mode """
+
+        # Init razor state (1 = razor, 0 = no razor)
+        self.eval_js(JS_SCOPE_SELECTOR + ".SetRazorMode(%s);" % int(enable_razor))
+
     @pyqtSlot(str, str, bool)
     def addSelection(self, item_id, item_type, clear_existing=False):
         """ Add the selected item to the current selection """

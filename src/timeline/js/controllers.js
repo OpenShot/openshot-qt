@@ -242,6 +242,7 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.snapline_position = 0.0;
   $scope.snapline = false;
   $scope.enable_snapping = true;
+  $scope.enable_razor = false;
   $scope.debug = false;
   $scope.min_width = 1024;
   $scope.track_label = "Track %s";
@@ -463,6 +464,13 @@ App.controller('TimelineCtrl',function($scope) {
 		 	$(".droppable").draggable("option", "snapTolerance", 20);
 		 else
 		 	$(".droppable").draggable("option", "snapTolerance", 0);
+     });
+ };
+
+ // Change the razor mode
+ $scope.SetRazorMode = function(enable_razor){
+      $scope.$apply(function(){
+         $scope.enable_razor = enable_razor;
      });
  };
 

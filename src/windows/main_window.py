@@ -868,6 +868,13 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Enable / Disable snapping mode
         self.timeline.SetSnappingMode(self.actionSnappingTool.isChecked())
 
+    def actionRazorTool_trigger(self, event):
+        """Toggle razor tool on and off"""
+        log.info('actionRazorTool_trigger')
+
+        # Enable / Disable razor mode
+        self.timeline.SetRazorMode(self.actionRazorTool.isChecked())
+
     def actionAddMarker_trigger(self, event):
         log.info("actionAddMarker_trigger")
 
@@ -1842,6 +1849,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # rest of options
         self.timelineToolbar.addAction(self.actionSnappingTool)
+        self.timelineToolbar.addAction(self.actionRazorTool)
         self.timelineToolbar.addSeparator()
         self.timelineToolbar.addAction(self.actionAddMarker)
         self.timelineToolbar.addAction(self.actionPreviousMarker)
