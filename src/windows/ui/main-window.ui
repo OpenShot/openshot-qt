@@ -610,7 +610,7 @@
    </property>
    <property name="icon">
     <iconset resource="../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/custom/razor_line_with_razor.png</normaloff>:/icons/Humanity/actions/custom/razor_line_with_razor.png</iconset>
+     <normaloff>:/icons/Humanity/actions/16/edit-cut.svg</normaloff>:/icons/Humanity/actions/16/edit-cut.svg</iconset>
    </property>
    <property name="text">
     <string>Razor Tool</string>
