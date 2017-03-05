@@ -509,16 +509,17 @@ class VideoWidget(QWidget):
                 need_refresh = True
 
         # Get new clip for transform
-        self.transforming_clip = Clip.get(id=clip_id)
+        if clip_id:
+            self.transforming_clip = Clip.get(id=clip_id)
 
-        if self.transforming_clip:
-            self.transforming_clip_object = None
-            clips = get_app().window.timeline_sync.timeline.Clips()
-            for clip in clips:
-                if clip.Id() == self.transforming_clip.id:
-                    self.transforming_clip_object = clip
-                    need_refresh = True
-                    break
+            if self.transforming_clip:
+                self.transforming_clip_object = None
+                clips = get_app().window.timeline_sync.timeline.Clips()
+                for clip in clips:
+                    if clip.Id() == self.transforming_clip.id:
+                        self.transforming_clip_object = clip
+                        need_refresh = True
+                        break
 
         # Update the preview and reselct current frame in properties
         if need_refresh:
