@@ -1523,9 +1523,26 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             # Save changes
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
+    @pyqtSlot(str, str, float)
+    def RazorSliceAtCursor(self, clip_id, trans_id, cursor_position):
+        """Callback from javascript that the razor tool was clicked"""
+
+        # Determine slice mode (keep both [default], keep left [shift], keep right [ctrl]
+        slice_mode = MENU_SLICE_KEEP_BOTH
+        if int(QCoreApplication.instance().keyboardModifiers() & Qt.ControlModifier) > 0:
+            slice_mode = MENU_SLICE_KEEP_RIGHT
+        elif int(QCoreApplication.instance().keyboardModifiers() & Qt.ShiftModifier) > 0:
+            slice_mode = MENU_SLICE_KEEP_LEFT
+
+        if clip_id:
+            # Slice clip
+            QTimer.singleShot(0, partial(self.Slice_Triggered, slice_mode, [clip_id], [], cursor_position))
+        elif trans_id:
+            # Slice transitions
+            QTimer.singleShot(0, partial(self.Slice_Triggered, slice_mode, [], [trans_id], cursor_position))
+
     def Slice_Triggered(self, action, clip_ids, trans_ids, playhead_position=0):
         """Callback for slice context menus"""
-        log.info(action)
 
         # Loop through each clip (using the list of ids)
         for clip_id in clip_ids:
@@ -1540,7 +1557,6 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 # Get details of original clip
                 position_of_clip = float(clip.data["position"])
                 start_of_clip = float(clip.data["start"])
-                end_of_clip = float(clip.data["end"])
 
                 # Set new 'end' of clip
                 clip.data["end"] = start_of_clip + (playhead_position - position_of_clip)
@@ -1549,7 +1565,6 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 # Get details of original clip
                 position_of_clip = float(clip.data["position"])
                 start_of_clip = float(clip.data["start"])
-                end_of_clip = float(clip.data["end"])
 
                 # Set new 'end' of clip
                 clip.data["position"] = playhead_position

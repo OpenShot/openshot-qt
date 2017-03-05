@@ -591,6 +591,16 @@ App.controller('TimelineCtrl',function($scope) {
 		$scope.SelectEffect("", clear_selections);
 	}
 
+	// Call slice method and exit (don't actually select the clip)
+	if (id != "" && $scope.enable_razor) {
+        if ($scope.Qt) {
+			cursor_seconds = $scope.GetJavaScriptPosition(event.clientX)
+            timeline.RazorSliceAtCursor(id, "", cursor_seconds)
+        }
+		// Don't actually select clip
+        return;
+    }
+
 	// Is CTRL pressed?
 	is_ctrl = false;
 	if (event && event.ctrlKey)
@@ -620,6 +630,16 @@ App.controller('TimelineCtrl',function($scope) {
 		$scope.SelectClip("", true);
 		$scope.SelectEffect("", true);
 	}
+
+	// Call slice method and exit (don't actually select the transition)
+	if (id != "" && $scope.enable_razor) {
+        if ($scope.Qt) {
+			cursor_seconds = $scope.GetJavaScriptPosition(event.clientX)
+            timeline.RazorSliceAtCursor("", id, cursor_seconds)
+        }
+		// Don't actually select transition
+        return;
+    }
 
 	// Is CTRL pressed?
 	is_ctrl = false;
@@ -1161,6 +1181,29 @@ $scope.SetTrackLabel = function (label){
 			return "track track_disabled";
 	 	else
 			return "track";
+ };
+
+ // Determine which CSS classes are used on a clip
+ $scope.getClipStyle = function(clip){
+
+ 		style = "";
+		if (clip.selected)
+			style += "ui-selected ";
+
+		if ($scope.enable_razor)
+			style += "razor_cursor ";
+
+	 	return style;
+ };
+
+ // Determine which CSS classes are used on a clip label
+ $scope.getClipLabelStyle = function(clip){
+
+ 		style = "";
+		if ($scope.enable_razor)
+			style += "razor_cursor";
+
+	 	return style;
  };
 
  // Apply JSON diff from UpdateManager (this is how the user interface communicates changes

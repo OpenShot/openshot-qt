@@ -228,7 +228,7 @@ App.directive('tlTransition', function(){
                     });
 
 					// Does this bounding box overlap a locked track?
-					if (hasLockedTrack(scope, bounding_box.top, bounding_box.bottom))
+					if (hasLockedTrack(scope, bounding_box.top, bounding_box.bottom) || scope.enable_razor)
 						return !event; // yes, do nothing
 
 		        },
