@@ -889,7 +889,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         for file in reversed(self._data["files"]):
             path = file["path"]
             parent_path, file_name_with_ext = os.path.split(path)
-            while not os.path.exists(path):
+            while not os.path.exists(path) and "%" not in path:
                 # File already exists! Prompt user to find missing file
                 QMessageBox.warning(None, _("Missing File (%s)") % file["id"], _("%s cannot be found.") % file_name_with_ext)
                 starting_folder = QFileDialog.getExistingDirectory(None, _("Find directory that contains: %s" % file_name_with_ext), starting_folder)
@@ -907,7 +907,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         for clip in reversed(self._data["clips"]):
             path = clip["reader"]["path"]
             parent_path, file_name_with_ext = os.path.split(path)
-            while not os.path.exists(path):
+            while not os.path.exists(path) and "%" not in path:
                 # Clip already exists! Prompt user to find missing file
                 QMessageBox.warning(None, _("Missing File in Clip (%s)") % clip["id"], _("%s cannot be found.") % file_name_with_ext)
                 starting_folder = QFileDialog.getExistingDirectory(None, _("Find directory that contains: %s" % file_name_with_ext), starting_folder)

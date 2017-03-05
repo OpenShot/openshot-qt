@@ -499,12 +499,14 @@ class VideoWidget(QWidget):
 
     def transformTriggered(self, clip_id):
         """Handle the transform signal when it's emitted"""
+        need_refresh = False
         # Disable Transform UI
         if self.transforming_clip:
             # Is this the same clip_id already being transformed?
             if clip_id == self.transforming_clip.id:
                 # Clear transform
                 self.transforming_clip = None
+                need_refresh = True
 
         # Get new clip for transform
         self.transforming_clip = Clip.get(id=clip_id)
@@ -515,11 +517,13 @@ class VideoWidget(QWidget):
             for clip in clips:
                 if clip.Id() == self.transforming_clip.id:
                     self.transforming_clip_object = clip
+                    need_refresh = True
                     break
 
         # Update the preview and reselct current frame in properties
-        get_app().window.refreshFrameSignal.emit()
-        get_app().window.propertyTableView.select_frame(get_app().window.preview_thread.player.Position())
+        if need_refresh:
+            get_app().window.refreshFrameSignal.emit()
+            get_app().window.propertyTableView.select_frame(get_app().window.preview_thread.player.Position())
 
     def __init__(self, *args):
         # Invoke parent init

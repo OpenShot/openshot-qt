@@ -191,8 +191,9 @@ class PlayerWorker(QObject):
         # Always load back in the timeline reader
         self.LoadFile(None)
 
-        # Mark frame number for processing
-        self.player.Seek(self.player.Position())
+        # Mark frame number for processing (if parent is done initializing)
+        if self.parent.initialized:
+            self.player.Seek(self.player.Position())
 
         log.info("self.player.Position(): %s" % self.player.Position())
 
