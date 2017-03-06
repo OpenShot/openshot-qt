@@ -1695,8 +1695,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             elif item_type == "effect" and item_id in self.selected_effects:
                 self.selected_effects.remove(item_id)
 
-            # Clear transform (if any)
-            get_app().window.TransformSignal.emit("")
+        # Clear transform (if any)
+        get_app().window.TransformSignal.emit("")
 
         # Move selection to next selected clip (if any)
         self.show_property_id = ""

@@ -503,7 +503,7 @@ class VideoWidget(QWidget):
         # Disable Transform UI
         if self.transforming_clip:
             # Is this the same clip_id already being transformed?
-            if clip_id == self.transforming_clip.id:
+            if not clip_id:
                 # Clear transform
                 self.transforming_clip = None
                 need_refresh = True
