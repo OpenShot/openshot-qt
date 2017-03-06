@@ -936,7 +936,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
                     closest_position = marker_position
 
         # Seek to marker position (if any)
-        if closest_position:
+        if closest_position != None:
             # Seek
             frame_to_seek = int(closest_position * fps_float) + 1
             self.SeekSignal.emit(frame_to_seek)
@@ -989,7 +989,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
                     closest_position = marker_position
 
         # Seek to marker position (if any)
-        if closest_position:
+        if closest_position != None:
             # Seek
             frame_to_seek = int(closest_position * fps_float) + 1
             self.SeekSignal.emit(frame_to_seek)
@@ -1680,31 +1680,39 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
                 self.selected_effects.append(item_id)
 
             # Change selected item in properties view
-            self.propertyTableView.loadProperties.emit(item_id, item_type)
+            self.show_property_id = item_id
+            self.show_property_type = item_type
+            self.show_property_timer.start()
 
     # Remove from the selected items
     def removeSelection(self, item_id, item_type):
         # Remove existing selection (if any)
-        if item_type == "clip" and item_id in self.selected_clips:
-            self.selected_clips.remove(item_id)
-        elif item_type == "transition" and item_id in self.selected_transitions:
-            self.selected_transitions.remove(item_id)
-        elif item_type == "effect" and item_id in self.selected_effects:
-            self.selected_effects.remove(item_id)
+        if item_id:
+            if item_type == "clip" and item_id in self.selected_clips:
+                self.selected_clips.remove(item_id)
+            elif item_type == "transition" and item_id in self.selected_transitions:
+                self.selected_transitions.remove(item_id)
+            elif item_type == "effect" and item_id in self.selected_effects:
+                self.selected_effects.remove(item_id)
 
-        # Clear transform (if any)
-        get_app().window.TransformSignal.emit("")
+            # Clear transform (if any)
+            get_app().window.TransformSignal.emit("")
 
         # Move selection to next selected clip (if any)
+        self.show_property_id = ""
+        self.show_property_type = ""
         if item_type == "clip" and self.selected_clips:
-            self.propertyTableView.loadProperties.emit(self.selected_clips[0], item_type)
+            self.show_property_id = self.selected_clips[0]
+            self.show_property_type = item_type
         elif item_type == "transition" and self.selected_transitions:
-            self.propertyTableView.loadProperties.emit(self.selected_transitions[0], item_type)
+            self.show_property_id = self.selected_transitions[0]
+            self.show_property_type = item_type
         elif item_type == "effect" and self.selected_effects:
-            self.propertyTableView.loadProperties.emit(self.selected_effects[0], item_type)
-        else:
-            # Clear selection in properties view
-            self.propertyTableView.loadProperties.emit("", "")
+            self.show_property_id = self.selected_effects[0]
+            self.show_property_type = item_type
+
+        # Change selected item in properties view
+        self.show_property_timer.start()
 
     # Update window settings in setting store
     def save_settings(self):
@@ -1920,6 +1928,15 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         return False
 
+    def show_property_timeout(self):
+        """Callback for show property timer"""
+
+        # Stop timer
+        self.show_property_timer.stop()
+
+        # Emit load properties signal
+        self.propertyTableView.loadProperties.emit(self.show_property_id, self.show_property_type)
+
     def InitKeyboardShortcuts(self):
         """Initialize all keyboard shortcuts from the settings file"""
 
@@ -2091,6 +2108,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Init selection containers
         self.clearSelections()
+
+        # Show Property timer
+        # Timer to use a delay before showing properties (to prevent a mass selection from trying
+        # to update the property model hundreds of times)
+        self.show_property_id = None
+        self.show_property_type = None
+        self.show_property_timer = QTimer()
+        self.show_property_timer.setInterval(100)
+        self.show_property_timer.timeout.connect(self.show_property_timeout)
+        self.show_property_timer.stop()
 
         # Setup video preview QWidget
         self.videoPreview = VideoWidget()

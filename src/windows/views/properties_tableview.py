@@ -567,24 +567,10 @@ class SelectionLabel(QFrame):
         # Set the property tableview to the new item
         get_app().window.propertyTableView.loadProperties.emit(item_id, item_type)
 
+    # Update selected item label
     def select_item(self, item_id, item_type):
-        # Keep track of id and type
-        self.next_item_id = item_id
-        self.next_item_type = item_type
-
-        # Update the model data
-        self.update_timer.start()
-
-    # Update the next item (once the timer runs out)
-    def update_item_timeout(self):
-        # Get the next item id, and type
-        self.item_id = self.next_item_id
-        self.item_type = self.next_item_type
         self.item_name = None
         self.item_icon = None
-
-        # Stop timer
-        self.update_timer.stop()
 
         # Get translation object
         _ = get_app()._tr
@@ -648,15 +634,6 @@ class SelectionLabel(QFrame):
         hbox.addWidget(self.lblSelection)
         hbox.addWidget(self.btnSelectionName)
         self.setLayout(hbox)
-
-        # Timer to use a delay before showing properties (to prevent a mass selection from trying
-        # to update the property model hundreds of times)
-        self.update_timer = QTimer()
-        self.update_timer.setInterval(100)
-        self.update_timer.timeout.connect(self.update_item_timeout)
-        self.update_timer.stop()
-        self.next_item_id = None
-        self.next_item_type = None
 
         # Connect signals
         get_app().window.propertyTableView.loadProperties.connect(self.select_item)

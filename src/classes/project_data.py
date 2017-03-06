@@ -131,8 +131,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 # Get the matching item
                 obj = obj[key_part]
 
-        # After processing each key, we've found object, return copy of it
-        return copy.deepcopy(obj)
+        # After processing each key, we've found object, return it
+        return obj
 
     def set(self, key, value):
         """Prevent calling JsonDataStore set() method. It is not allowed in ProjectDataStore, as changes come from UpdateManager."""

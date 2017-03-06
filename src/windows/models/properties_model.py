@@ -634,8 +634,6 @@ class PropertiesModel(updates.UpdateInterface):
                         my_icon = QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % interpolation))
                         col.setData(my_icon, Qt.DecorationRole)
 
-                        log.info(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % interpolation))
-
                         # Set the background color of the cell
                         if keyframe:
                             col.setBackground(QColor("green"))  # Highlight keyframe background

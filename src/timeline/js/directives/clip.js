@@ -389,17 +389,14 @@ App.directive('tlMultiSelectable', function(){
 					
 					if (scope.Qt)
 					{
-						timeline.qt_log("Add to selection: " + id);
 						timeline.addSelection(id, type, false);
 
 						// Clear effect selections (if any)
 						timeline.addSelection("", "effect", true);
 					}
-					
-					scope.$apply(function(){
-						item.selected = true;
-					});
-						 
+
+					// Update item state
+					item.selected = true;
 				},
 				unselected: function( event, ui ) {
 
@@ -419,14 +416,16 @@ App.directive('tlMultiSelectable', function(){
 					}
 					
 					if (scope.Qt)
-					{
-						timeline.qt_log("Remove from selection: " + id);
 						timeline.removeSelection(id, type);
-					}
-					scope.$apply(function(){
-						item.selected = false;
-					});
-						 
+
+					// Update item state
+					item.selected = false;
+				},
+				stop: function(event, ui) {
+					// This is called one time after all the selecting/unselecting is done
+					// Large amounts of selected item data could have changed, so
+					// let's force the UI to update
+					scope.$apply();
 				}
 			});
 		}
