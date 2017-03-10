@@ -571,6 +571,8 @@ class SelectionLabel(QFrame):
     def select_item(self, item_id, item_type):
         self.item_name = None
         self.item_icon = None
+        self.item_type = item_type
+        self.item_id = item_id
 
         # Get translation object
         _ = get_app()._tr

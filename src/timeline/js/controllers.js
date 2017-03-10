@@ -285,7 +285,7 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.PreviewFrame = function(position_seconds) {
 	  // Determine frame
 	  var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
-	  var frame = (position_seconds * frames_per_second) + 1;
+	  var frame = Math.round(position_seconds * frames_per_second) + 1;
 	  
 	  // Update GUI with position (to the preview can be updated)
 	  if ($scope.Qt)
@@ -297,7 +297,7 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.PreviewClipFrame = function(clip_id, position_seconds) {
 	  // Determine frame
 	  var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
-	  var frame = (position_seconds * frames_per_second) + 1;
+	  var frame = Math.round(position_seconds * frames_per_second) + 1;
 
 	  // Update GUI with position (to the preview can be updated)
 	  if ($scope.Qt)

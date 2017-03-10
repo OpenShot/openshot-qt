@@ -82,6 +82,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
     ExportStarted = pyqtSignal(str, int, int)
     ExportFrame = pyqtSignal(str, int, int, int)
     ExportEnded = pyqtSignal(str)
+    MaxSizeChanged = pyqtSignal(object)
 
     # Save window settings on close
     def closeEvent(self, event):
@@ -926,7 +927,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         closest_position = None
         for marker_position in sorted(all_marker_positions):
             # Is marker smaller than position?
-            if marker_position < current_position and (abs(marker_position - current_position) > 0.05):
+            if marker_position < current_position and (abs(marker_position - current_position) > 0.1):
                 # Is marker larger than previous marker
                 if closest_position and marker_position > closest_position:
                     # Set a new closest marker
@@ -938,7 +939,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Seek to marker position (if any)
         if closest_position != None:
             # Seek
-            frame_to_seek = int(closest_position * fps_float) + 1
+            frame_to_seek = round(closest_position * fps_float) + 1
             self.SeekSignal.emit(frame_to_seek)
 
             # Update the preview and reselct current frame in properties
@@ -979,7 +980,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         closest_position = None
         for marker_position in sorted(all_marker_positions):
             # Is marker smaller than position?
-            if marker_position > current_position and (abs(marker_position - current_position) > 0.05):
+            if marker_position > current_position and (abs(marker_position - current_position) > 0.1):
                 # Is marker larger than previous marker
                 if closest_position and marker_position < closest_position:
                     # Set a new closest marker
@@ -991,7 +992,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Seek to marker position (if any)
         if closest_position != None:
             # Seek
-            frame_to_seek = int(closest_position * fps_float) + 1
+            frame_to_seek = round(closest_position * fps_float) + 1
             self.SeekSignal.emit(frame_to_seek)
 
             # Update the preview and reselct current frame in properties
@@ -2169,7 +2170,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         s.save()
 
         # Refresh frame
-        self.refreshFrameSignal.emit()
+        QTimer.singleShot(100, self.refreshFrameSignal.emit)
 
         # Main window is initialized
         self.initialized = True

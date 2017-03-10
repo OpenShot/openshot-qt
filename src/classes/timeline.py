@@ -68,6 +68,9 @@ class TimelineSync(UpdateInterface):
         # This listener will receive events before others.
         self.app.updates.add_listener(self, 0)
 
+        # Connect to signal
+        self.window.MaxSizeChanged.connect(self.MaxSizeChangedCB)
+
     def changed(self, action):
         """ This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """
 
@@ -97,3 +100,13 @@ class TimelineSync(UpdateInterface):
 
         except Exception as e:
             log.info("Error applying JSON to timeline object in libopenshot: %s" % e)
+
+    def MaxSizeChangedCB(self, new_size):
+        """Callback for max sized change (i.e. max size of video widget)"""
+        # TODO: implement this to adjust libopenshot max video player size
+        # Clear timeline preview cache (since our video size has changed)
+        #self.timeline.ClearAllCache()
+
+        # Set new max video size (Based on preview widget size)
+        #self.timeline.SetMaxSize(new_size.width(), new_size.height())
+        pass

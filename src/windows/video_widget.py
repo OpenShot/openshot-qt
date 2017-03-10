@@ -526,6 +526,13 @@ class VideoWidget(QWidget):
             get_app().window.refreshFrameSignal.emit()
             get_app().window.propertyTableView.select_frame(get_app().window.preview_thread.player.Position())
 
+    def resizeEvent(self, event):
+        """Widget resize event"""
+        viewport_rect = self.centeredViewport(event.size().width(), event.size().height())
+
+        # Emit signal that video widget changed size
+        self.win.MaxSizeChanged.emit(viewport_rect.size())
+
     def __init__(self, *args):
         # Invoke parent init
         QWidget.__init__(self, *args)

@@ -507,9 +507,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             # Video Fade IN
                             if clip.video_fade_in:
                                 # Add keyframes
-                                start = openshot.Point(clip.start_time * fps_float, 0.0, openshot.BEZIER)
+                                start = openshot.Point(round(clip.start_time * fps_float) + 1, 0.0, openshot.BEZIER)
                                 start_object = json.loads(start.Json())
-                                end = openshot.Point((clip.start_time + clip.video_fade_in_amount) * fps_float, 1.0, openshot.BEZIER)
+                                end = openshot.Point(round((clip.start_time + clip.video_fade_in_amount) * fps_float) + 1, 1.0, openshot.BEZIER)
                                 end_object = json.loads(end.Json())
                                 new_clip["alpha"]["Points"].append(start_object)
                                 new_clip["alpha"]["Points"].append(end_object)
@@ -517,9 +517,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             # Video Fade OUT
                             if clip.video_fade_out:
                                 # Add keyframes
-                                start = openshot.Point((clip.end_time - clip.video_fade_out_amount) * fps_float, 1.0, openshot.BEZIER)
+                                start = openshot.Point(round((clip.end_time - clip.video_fade_out_amount) * fps_float) + 1, 1.0, openshot.BEZIER)
                                 start_object = json.loads(start.Json())
-                                end = openshot.Point(clip.end_time * fps_float, 0.0, openshot.BEZIER)
+                                end = openshot.Point(round(clip.end_time * fps_float) + 1, 0.0, openshot.BEZIER)
                                 end_object = json.loads(end.Json())
                                 new_clip["alpha"]["Points"].append(start_object)
                                 new_clip["alpha"]["Points"].append(end_object)
@@ -535,9 +535,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             # Audio Fade IN
                             if clip.audio_fade_in:
                                 # Add keyframes
-                                start = openshot.Point(clip.start_time * fps_float, 0.0, openshot.BEZIER)
+                                start = openshot.Point(round(clip.start_time * fps_float) + 1, 0.0, openshot.BEZIER)
                                 start_object = json.loads(start.Json())
-                                end = openshot.Point((clip.start_time + clip.video_fade_in_amount) * fps_float, clip.volume / 100.0, openshot.BEZIER)
+                                end = openshot.Point(round((clip.start_time + clip.video_fade_in_amount) * fps_float) + 1, clip.volume / 100.0, openshot.BEZIER)
                                 end_object = json.loads(end.Json())
                                 new_clip["volume"]["Points"].append(start_object)
                                 new_clip["volume"]["Points"].append(end_object)
@@ -545,9 +545,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             # Audio Fade OUT
                             if clip.audio_fade_out:
                                 # Add keyframes
-                                start = openshot.Point((clip.end_time - clip.video_fade_out_amount) * fps_float, clip.volume / 100.0, openshot.BEZIER)
+                                start = openshot.Point(round((clip.end_time - clip.video_fade_out_amount) * fps_float) + 1, clip.volume / 100.0, openshot.BEZIER)
                                 start_object = json.loads(start.Json())
-                                end = openshot.Point(clip.end_time * fps_float, 0.0, openshot.BEZIER)
+                                end = openshot.Point(round(clip.end_time * fps_float) + 1, 0.0, openshot.BEZIER)
                                 end_object = json.loads(end.Json())
                                 new_clip["volume"]["Points"].append(start_object)
                                 new_clip["volume"]["Points"].append(end_object)
@@ -574,7 +574,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
                             brightness = openshot.Keyframe()
                             brightness.AddPoint(1, trans_begin_value, openshot.BEZIER)
-                            brightness.AddPoint(trans.length * fps_float, trans_end_value, openshot.BEZIER)
+                            brightness.AddPoint(round(trans.length * fps_float) + 1, trans_end_value, openshot.BEZIER)
                             contrast = openshot.Keyframe(trans.softness * 10.0)
 
                             # Create transition dictionary

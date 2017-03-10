@@ -238,7 +238,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         fps_float = float(fps["num"]) / float(fps["den"])
 
         # Get starting time of clip
-        start_frame = round(float(clip_data["start"]) * fps_float) + 1
+        start_frame = round(float(clip_data["start"]) * fps_float) + 1.0
 
         # Determine thumb path
         thumb_path = os.path.join(info.THUMBNAIL_PATH, "{}-{}.png".format(clip_data["id"], start_frame))
@@ -294,7 +294,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Set brightness and contrast, to correctly transition for overlapping clips
         brightness = transition_object.brightness
         brightness.AddPoint(1, 1.0, openshot.BEZIER)
-        brightness.AddPoint((transition_details["end"]) * fps_float, -1.0, openshot.BEZIER)
+        brightness.AddPoint(round(transition_details["end"] * fps_float) + 1, -1.0, openshot.BEZIER)
         contrast = openshot.Keyframe(3.0)
 
         # Create transition dictionary
@@ -349,18 +349,18 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             brightness = existing_item.data["brightness"]
             if len(brightness["Points"]) > 1:
                 # If multiple points, move the final one to the 'new' end
-                brightness["Points"][-1]["co"]["X"] = duration * fps_float
+                brightness["Points"][-1]["co"]["X"] = round(duration * fps_float) + 1
 
             # Adjust transition's contrast keyframes to match the size of the transition
             contrast = existing_item.data["contrast"]
             if len(contrast["Points"]) > 1:
                 # If multiple points, move the final one to the 'new' end
-                contrast["Points"][-1]["co"]["X"] = duration * fps_float
+                contrast["Points"][-1]["co"]["X"] = round(duration * fps_float) + 1
         else:
             # Create new brightness and contrast Keyframes
             b = openshot.Keyframe()
             b.AddPoint(1, 1.0, openshot.BEZIER)
-            b.AddPoint(duration * fps_float, -1.0, openshot.BEZIER)
+            b.AddPoint(round(duration * fps_float) + 1, -1.0, openshot.BEZIER)
             brightness = json.loads(b.Json())
 
         # Only include the basic properties (performance boost)
@@ -1351,8 +1351,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             for clip_id in clip_ids:
 
                 # Get existing clip object
-                clip = Clip()
-                clip.data = self.copy_clipboard.get(clip_id, {})
+                clip = Clip.get(id=clip_id)
 
                 # Apply clipboard to clip (there should only be a single key in this dict)
                 for k,v in self.copy_clipboard[list(self.copy_clipboard)[0]].items():
@@ -1368,8 +1367,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             for tran_id in tran_ids:
 
                 # Get existing transition object
-                tran = Transition()
-                tran.data = self.copy_transition_clipboard.get(tran_id, {})
+                tran = Transition.get(id=tran_id)
 
                 # Apply clipboard to transition (there should only be a single key in this dict)
                 for k, v in self.copy_transition_clipboard[list(self.copy_transition_clipboard)[0]].items():
@@ -1843,10 +1841,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 clip.data.pop("original_data")
 
             # Get the ending frame
-            end_of_clip = (float(clip.data["end"]) * fps_float) + 1
+            end_of_clip = round(float(clip.data["end"]) * fps_float) + 1
 
             # Determine the beginning and ending of this animation
-            start_animation = (float(clip.data["start"]) * fps_float) + 1
+            start_animation = round(float(clip.data["start"]) * fps_float) + 1
             duration_animation = self.round_to_multiple(end_of_clip - start_animation, even_multiple)
             end_animation = start_animation + duration_animation
 
@@ -2370,7 +2368,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         brightness = openshot.Keyframe()
         brightness.AddPoint(1, 1.0, openshot.BEZIER)
-        brightness.AddPoint(10 * fps_float, -1.0, openshot.BEZIER)
+        brightness.AddPoint(round(10 * fps_float) + 1, -1.0, openshot.BEZIER)
         contrast = openshot.Keyframe(3.0)
 
         # Create transition dictionary

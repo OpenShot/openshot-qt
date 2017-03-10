@@ -173,11 +173,11 @@ class PropertiesModel(updates.UpdateInterface):
 
             # Determine the frame needed for this clip (based on the position on the timeline)
             time_diff = (requested_time - clip.Position()) + clip.Start()
-            self.frame_number = int(time_diff * fps_float) + 1
+            self.frame_number = round(time_diff * fps_float) + 1
 
             # Calculate biggest and smallest possible frames
-            min_frame_number = int((clip.Start() * fps_float)) + 1
-            max_frame_number = int((clip.End() * fps_float)) + 1
+            min_frame_number = round((clip.Start() * fps_float)) + 1
+            max_frame_number = round((clip.End() * fps_float)) + 1
 
             # Adjust frame number if out of range
             if self.frame_number < min_frame_number:

@@ -239,17 +239,17 @@ class AddToTimeline(QDialog):
                     new_clip["position"] = position
 
                 if fade_value == 'Fade In' or fade_value == 'Fade In & Out':
-                    start = openshot.Point((start_time * fps_float) + 1, 0.0, openshot.BEZIER)
+                    start = openshot.Point(round(start_time * fps_float) + 1, 0.0, openshot.BEZIER)
                     start_object = json.loads(start.Json())
-                    end = openshot.Point(min((start_time + fade_length) * fps_float, end_time * fps_float), 1.0, openshot.BEZIER)
+                    end = openshot.Point(min(round((start_time + fade_length) * fps_float) + 1, round(end_time * fps_float) + 1), 1.0, openshot.BEZIER)
                     end_object = json.loads(end.Json())
                     new_clip['alpha']["Points"].append(start_object)
                     new_clip['alpha']["Points"].append(end_object)
 
                 if fade_value == 'Fade Out' or fade_value == 'Fade In & Out':
-                    start = openshot.Point(max((end_time * fps_float) - (fade_length * fps_float), start_time * fps_float), 1.0, openshot.BEZIER)
+                    start = openshot.Point(max(round((end_time * fps_float) + 1) - (round(fade_length * fps_float) + 1), round(start_time * fps_float) + 1), 1.0, openshot.BEZIER)
                     start_object = json.loads(start.Json())
-                    end = openshot.Point(end_time * fps_float, 0.0, openshot.BEZIER)
+                    end = openshot.Point(round(end_time * fps_float) + 1, 0.0, openshot.BEZIER)
                     end_object = json.loads(end.Json())
                     new_clip['alpha']["Points"].append(start_object)
                     new_clip['alpha']["Points"].append(end_object)
@@ -288,9 +288,9 @@ class AddToTimeline(QDialog):
                     end_scale = 1.0
 
                 # Add keyframes
-                start = openshot.Point((start_time * fps_float) + 1, start_scale, openshot.BEZIER)
+                start = openshot.Point(round(start_time * fps_float) + 1, start_scale, openshot.BEZIER)
                 start_object = json.loads(start.Json())
-                end = openshot.Point(end_time * fps_float, end_scale, openshot.BEZIER)
+                end = openshot.Point(round(end_time * fps_float) + 1, end_scale, openshot.BEZIER)
                 end_object = json.loads(end.Json())
                 new_clip["gravity"] = openshot.GRAVITY_CENTER
                 new_clip["scale_x"]["Points"].append(start_object)
@@ -299,13 +299,13 @@ class AddToTimeline(QDialog):
                 new_clip["scale_y"]["Points"].append(end_object)
 
                 # Add keyframes
-                start_x = openshot.Point((start_time * fps_float) + 1, animate_start_x, openshot.BEZIER)
+                start_x = openshot.Point(round(start_time * fps_float) + 1, animate_start_x, openshot.BEZIER)
                 start_x_object = json.loads(start_x.Json())
-                end_x = openshot.Point(end_time * fps_float, animate_end_x, openshot.BEZIER)
+                end_x = openshot.Point(round(end_time * fps_float) + 1, animate_end_x, openshot.BEZIER)
                 end_x_object = json.loads(end_x.Json())
-                start_y = openshot.Point((start_time * fps_float) + 1, animate_start_y, openshot.BEZIER)
+                start_y = openshot.Point(round(start_time * fps_float) + 1, animate_start_y, openshot.BEZIER)
                 start_y_object = json.loads(start_y.Json())
-                end_y = openshot.Point(end_time * fps_float, animate_end_y, openshot.BEZIER)
+                end_y = openshot.Point(round(end_time * fps_float) + 1, animate_end_y, openshot.BEZIER)
                 end_y_object = json.loads(end_y.Json())
                 new_clip["gravity"] = openshot.GRAVITY_CENTER
                 new_clip["location_x"]["Points"].append(start_x_object)
@@ -325,7 +325,7 @@ class AddToTimeline(QDialog):
 
                 brightness = openshot.Keyframe()
                 brightness.AddPoint(1, 1.0, openshot.BEZIER)
-                brightness.AddPoint(min(transition_length, end_time - start_time) * fps_float, -1.0, openshot.BEZIER)
+                brightness.AddPoint(round(min(transition_length, end_time - start_time) * fps_float) + 1, -1.0, openshot.BEZIER)
                 contrast = openshot.Keyframe(3.0)
 
                 # Create transition dictionary
