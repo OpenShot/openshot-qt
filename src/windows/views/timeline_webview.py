@@ -238,7 +238,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         fps_float = float(fps["num"]) / float(fps["den"])
 
         # Get starting time of clip
-        start_frame = round(float(clip_data["start"]) * fps_float) + 1.0
+        start_frame = round(float(clip_data["start"]) * fps_float) + 1
 
         # Determine thumb path
         thumb_path = os.path.join(info.THUMBNAIL_PATH, "{}-{}.png".format(clip_data["id"], start_frame))
@@ -1056,8 +1056,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
             # Get existing clip object
             clip = Clip.get(id=clip_id)
-            start_of_clip = round(float(clip.data["start"]) * fps_float) + 1.0
-            end_of_clip = round(float(clip.data["end"]) * fps_float) + 1.0
+            start_of_clip = round(float(clip.data["start"]) * fps_float) + 1
+            end_of_clip = round(float(clip.data["end"]) * fps_float) + 1
 
             # Determine the beginning and ending of this animation
             # ["Start of Clip", "End of Clip", "Entire Clip"]
@@ -1462,8 +1462,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
             # Get existing clip object
             clip = Clip.get(id=clip_id)
-            start_of_clip = round(float(clip.data["start"]) * fps_float) + 1.0
-            end_of_clip = round(float(clip.data["end"]) * fps_float) + 1.0
+            start_of_clip = round(float(clip.data["start"]) * fps_float) + 1
+            end_of_clip = round(float(clip.data["end"]) * fps_float) + 1
 
             # Determine the beginning and ending of this animation
             # ["Start of Clip", "End of Clip", "Entire Clip"]
@@ -1676,8 +1676,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
             # Get existing clip object
             clip = Clip.get(id=clip_id)
-            start_of_clip = round(float(clip.data["start"]) * fps_float) + 1.0
-            end_of_clip = round(float(clip.data["end"]) * fps_float) + 1.0
+            start_of_clip = round(float(clip.data["start"]) * fps_float) + 1
+            end_of_clip = round(float(clip.data["end"]) * fps_float) + 1
 
             # Determine the beginning and ending of this animation
             # ["Start of Clip", "End of Clip", "Entire Clip"]

@@ -310,8 +310,8 @@ App.controller('TimelineCtrl',function($scope) {
   	keyframes = {};
 
     var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
-    var clip_start_x = Math.round(object.start * frames_per_second) + 1.0;
-    var clip_end_x = Math.round(object.end * frames_per_second) + 1.0;
+    var clip_start_x = Math.round(object.start * frames_per_second) + 1;
+    var clip_end_x = Math.round(object.end * frames_per_second) + 1;
 
  	// Loop through properties of an object (clip/transition), looking for keyframe points
 	for (child in object) {
@@ -1070,44 +1070,50 @@ $scope.SetTrackLabel = function (label){
 
 	// Loop through each pixel position (supports multiple positions: i.e. left and right side of bounding box)
 	for (var pos_index = 0; pos_index < pixel_positions.length; pos_index++) {
-		var pixel_position = pixel_positions[pos_index];
-		var position = pixel_position / $scope.pixelsPerSecond;
-		 
+		var position = pixel_positions[pos_index];
+
 		// Add clip positions to array
 		for (var index = 0; index < $scope.project.clips.length; index++) {
 			var clip = $scope.project.clips[index];
+			var clip_left_position = clip.position * $scope.pixelsPerSecond;
+			var clip_right_position = (clip.position + (clip.end - clip.start)) * $scope.pixelsPerSecond;
 
 			// exit out if this item is in ignore_ids
 			if (ignore_ids.hasOwnProperty(clip.id))
 				continue;
 			
-			diffs.push({'diff' : position - clip.position, 'position' : clip.position}, // left side of clip
-			           {'diff' : position - (clip.position + (clip.end - clip.start)), 'position' : clip.position + (clip.end - clip.start)}); // right side of clip
+			diffs.push({'diff' : position - clip_left_position, 'position' : clip_left_position}, // left side of clip
+			           {'diff' : position - clip_right_position, 'position' : clip_right_position}); // right side of clip
 		}
 		
 		// Add transition positions to array
 		for (var index = 0; index < $scope.project.effects.length; index++) {
 			var transition = $scope.project.effects[index];
+			var tran_left_position = transition.position * $scope.pixelsPerSecond;
+			var tran_right_position = (transition.position + (transition.end - transition.start)) * $scope.pixelsPerSecond;
+
 
 			// exit out if this item is in ignore_ids
 			if (ignore_ids.hasOwnProperty(transition.id))
 				continue;
 			
-			diffs.push({'diff' : position - transition.position, 'position' : transition.position}, // left side of transition
-			           {'diff' : position - (transition.position + (transition.end - transition.start)), 'position' : transition.position + (transition.end - transition.start)}); // right side of transition
+			diffs.push({'diff' : position - tran_left_position, 'position' : tran_left_position}, // left side of transition
+			           {'diff' : position - tran_right_position, 'position' : tran_right_position}); // right side of transition
 		}
 
 		// Add marker positions to array
 		for (var index = 0; index < $scope.project.markers.length; index++) {
 			var marker = $scope.project.markers[index];
+			var marker_position = marker.position * $scope.pixelsPerSecond;
 
-			diffs.push({'diff' : position - marker.position, 'position' : marker.position}, // left side of marker
-			           {'diff' : position - (marker.position + (marker.end - marker.start)), 'position' : marker.position + (marker.end - marker.start)}); // right side of marker
+			diffs.push({'diff' : position - marker_position, 'position' : marker_position}, // left side of marker
+			           {'diff' : position - marker_position, 'position' : marker_position}); // right side of marker
 		}
 
 		// Add playhead position to array
-		var playhead_diff = position - $scope.project.playhead_position;
-		diffs.push({'diff' : playhead_diff, 'position' : $scope.project.playhead_position });
+		var playhead_pixel_position = $scope.project.playhead_position * $scope.pixelsPerSecond;
+		var playhead_diff = position - playhead_pixel_position;
+		diffs.push({'diff' : playhead_diff, 'position' : playhead_pixel_position });
 		
 		// Loop through diffs (and find the smallest one)
 		for (var diff_index = 0; diff_index < diffs.length; diff_index++) {
