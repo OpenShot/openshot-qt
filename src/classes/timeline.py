@@ -103,10 +103,8 @@ class TimelineSync(UpdateInterface):
 
     def MaxSizeChangedCB(self, new_size):
         """Callback for max sized change (i.e. max size of video widget)"""
-        # TODO: implement this to adjust libopenshot max video player size
         # Clear timeline preview cache (since our video size has changed)
-        #self.timeline.ClearAllCache()
+        self.timeline.ClearAllCache()
 
         # Set new max video size (Based on preview widget size)
-        #self.timeline.SetMaxSize(new_size.width(), new_size.height())
-        pass
+        self.timeline.SetMaxSize(new_size.width(), new_size.height())

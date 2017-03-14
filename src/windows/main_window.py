@@ -170,9 +170,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             found_stack = False
             log_start_counter = 0
             if os.path.exists(log_path):
-                with open(log_path, "r") as f:
+                with open(log_path, "rb") as f:
                     # Read from bottom up
-                    for line in reversed(f.readlines()):
+                    for raw_line in reversed(self.tail_file(f, 500)):
+                        line = str(raw_line, 'utf-8')
                         # Detect stack trace
                         if "End of Stack Trace" in line:
                             found_stack = True
@@ -251,6 +252,25 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         if os.path.exists(lock_path):
             # Remove file
             os.remove(lock_path)
+
+    def tail_file(self, f, n, offset=None):
+        """Read the end of a file (n number of lines)"""
+        avg_line_length = 90
+        to_read = n + (offset or 0)
+
+        while True:
+            try:
+                # Seek to byte position
+                f.seek(-(avg_line_length * to_read), 2)
+            except IOError:
+                # Byte position not found
+                f.seek(0)
+            pos = f.tell()
+            lines = f.read().splitlines()
+            if len(lines) >= to_read or pos == 0:
+                # Return the lines
+                return lines[-to_read:offset and -offset or None]
+            avg_line_length *= 1.3
 
     def actionNew_trigger(self, event):
 

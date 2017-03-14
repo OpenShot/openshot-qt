@@ -25,7 +25,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-from PyQt5.QtCore import QSize, Qt, QCoreApplication, QPointF, QRect, QRectF, QMutex
+from PyQt5.QtCore import QSize, Qt, QCoreApplication, QPointF, QRect, QRectF, QMutex, QTimer
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QSizePolicy, QWidget
 import openshot  # Python module for libopenshot (required video editing module installed separately)
@@ -528,10 +528,19 @@ class VideoWidget(QWidget):
 
     def resizeEvent(self, event):
         """Widget resize event"""
-        viewport_rect = self.centeredViewport(event.size().width(), event.size().height())
+        self.delayed_size = self.centeredViewport(event.size().width(), event.size().height())
+        self.delayed_resize_timer.start()
+
+        # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
+        self.win.actionPlay_trigger(event, force="pause")
+
+    def delayed_resize_callback(self):
+        """Callback for resize event timer (to delay the resize event, and prevent lots of similar resize events)"""
+        # Stop timer
+        self.delayed_resize_timer.stop()
 
         # Emit signal that video widget changed size
-        self.win.MaxSizeChanged.emit(viewport_rect.size())
+        self.win.MaxSizeChanged.emit(self.delayed_size)
 
     def __init__(self, *args):
         # Invoke parent init
@@ -584,6 +593,14 @@ class VideoWidget(QWidget):
 
         # Get a reference to the window object
         self.win = get_app().window
+
+        # Show Property timer
+        # Timer to use a delay before sending MaxSizeChanged signals (so we don't spam libopenshot)
+        self.delayed_size = None
+        self.delayed_resize_timer = QTimer()
+        self.delayed_resize_timer.setInterval(200)
+        self.delayed_resize_timer.timeout.connect(self.delayed_resize_callback)
+        self.delayed_resize_timer.stop()
 
         # Connect to signals
         self.win.TransformSignal.connect(self.transformTriggered)
