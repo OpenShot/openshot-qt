@@ -65,6 +65,9 @@ class Profile(QDialog):
         # Get settings
         self.s = settings.get_settings()
 
+        # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
+        get_app().window.actionPlay_trigger(None, force="pause")
+
         # Track metrics
         track_metric_screen("profile-screen")
 

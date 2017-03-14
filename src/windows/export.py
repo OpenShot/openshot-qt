@@ -81,9 +81,11 @@ class Export(QDialog):
         self.buttonBox.addButton(QPushButton(_('Cancel')), QDialogButtonBox.RejectRole)
         self.exporting = False
 
+        # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
+        get_app().window.actionPlay_trigger(None, force="pause")
+
         # Clear timeline preview cache (to get more avaiable memory)
-        if get_app().window.cache_object:
-            get_app().window.cache_object.Clear()
+        get_app().window.timeline_sync.timeline.ClearAllCache()
 
         # Hide audio channels
         self.lblChannels.setVisible(False)
@@ -694,8 +696,8 @@ class Export(QDialog):
         # Close timeline object
         self.timeline.Close()
 
-        # Clear cache
-        export_cache_object.Clear()
+        # Clear all cache
+        self.timeline.ClearAllCache()
 
         # Accept dialog
         super(Export, self).accept()

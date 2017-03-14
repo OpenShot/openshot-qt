@@ -25,6 +25,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+import time
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 from classes.updates import UpdateInterface
@@ -103,6 +104,12 @@ class TimelineSync(UpdateInterface):
 
     def MaxSizeChangedCB(self, new_size):
         """Callback for max sized change (i.e. max size of video widget)"""
+        while not self.window.initialized:
+            log.info('Waiting for main window to initialize before calling SetMaxSize')
+            time.sleep(0.5)
+
+        log.info("Adjusting max size of preview image: %s" % new_size)
+
         # Clear timeline preview cache (since our video size has changed)
         self.timeline.ClearAllCache()
 

@@ -179,8 +179,7 @@ class PlayerWorker(QObject):
         log.info("previewFrame: %s" % number)
 
         # Mark frame number for processing
-        if self.parent.initialized:
-            self.player.Seek(number)
+        self.Seek(number)
 
         log.info("self.player.Position(): %s" % self.player.Position())
 
@@ -192,8 +191,7 @@ class PlayerWorker(QObject):
         self.parent.LoadFileSignal.emit('')
 
         # Mark frame number for processing (if parent is done initializing)
-        if self.parent.initialized:
-            self.player.Seek(self.player.Position())
+        self.Seek(self.player.Position())
 
         log.info("self.player.Position(): %s" % self.player.Position())
 
@@ -279,7 +277,7 @@ class PlayerWorker(QObject):
             previous_reader.Close()
 
         # Seek to frame 1, and resume speed
-        self.player.Seek(seek_position)
+        self.Seek(seek_position)
 
     def Play(self, timeline_length):
         """ Start playing the video player """
@@ -288,28 +286,33 @@ class PlayerWorker(QObject):
         self.timeline_length = timeline_length
 
         # Start playback
-        self.player.Play()
+        if self.parent.initialized:
+            self.player.Play()
 
     def Pause(self):
         """ Pause the video player """
 
         # Pause playback
-        self.player.Pause()
+        if self.parent.initialized:
+            self.player.Pause()
 
     def Stop(self):
         """ Stop the video player and terminate the playback threads """
 
         # Stop playback
-        self.player.Stop()
+        if self.parent.initialized:
+            self.player.Stop()
 
     def Seek(self, number):
         """ Seek to a specific frame """
 
         # Seek to frame
-        self.player.Seek(number)
+        if self.parent.initialized:
+            self.player.Seek(number)
 
     def Speed(self, new_speed):
         """ Set the speed of the video player """
 
         # Set speed
-        self.player.Speed(new_speed)
+        if self.parent.initialized:
+            self.player.Speed(new_speed)
