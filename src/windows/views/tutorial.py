@@ -29,11 +29,12 @@ import functools
 
 from PyQt5.QtCore import Qt, QPoint, QRectF, QEvent
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QLabel, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QToolButton
+from PyQt5.QtWidgets import QLabel, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QToolButton, QCheckBox
 
 from classes.logger import log
 from classes.settings import get_settings
 from classes.app import get_app
+from classes.metrics import *
 
 
 class TutorialDialog(QWidget):
@@ -59,15 +60,16 @@ class TutorialDialog(QWidget):
         painter.fillPath(path, QColor("#424242"))
         painter.drawPath(path)
 
-        # Paint blue triangle
-        arrow_height = 20
-        path = QPainterPath()
-        path.moveTo (0, 35)
-        path.lineTo (31, 35 - arrow_height)
-        path.lineTo (31, (35 - arrow_height) + (arrow_height * 2))
-        path.lineTo (0, 35)
-        painter.fillPath(path, QColor("#53a0ed"))
-        painter.drawPath(path)
+        # Paint blue triangle (if needed)
+        if self.arrow:
+            arrow_height = 20
+            path = QPainterPath()
+            path.moveTo (0, 35)
+            path.lineTo (31, 35 - arrow_height)
+            path.lineTo (31, (35 - arrow_height) + (arrow_height * 2))
+            path.lineTo (0, 35)
+            painter.fillPath(path, QColor("#53a0ed"))
+            painter.drawPath(path)
 
     def eventFilter(self, object, e):
         if e.type() == QEvent.WindowActivate:
@@ -84,7 +86,23 @@ class TutorialDialog(QWidget):
         y = self.position_widget.mapToGlobal(self.position_widget.pos()).y()
         self.move(QPoint(x + self.x_offset, y + self.y_offset))
 
-    def __init__(self, text, position_widget, x_offset, y_offset, *args):
+    def checkbox_metrics_callback(self, state):
+        """ Callback for error and anonymous usage checkbox"""
+        s = get_settings()
+        if state == Qt.Checked:
+            # Enabling metrics sending
+            s.set("send_metrics", True)
+
+            # Opt-in for metrics tracking
+            track_metric_screen("metrics-opt-in")
+        else:
+            # Opt-out for metrics tracking
+            track_metric_screen("metrics-opt-out")
+
+            # Disable metric sending
+            s.set("send_metrics", False)
+
+    def __init__(self, id, text, position_widget, x_offset, y_offset, arrow, *args):
         # Invoke parent init
         QWidget.__init__(self, *args)
 
@@ -93,9 +111,11 @@ class TutorialDialog(QWidget):
         _ = app._tr
 
         # Keep track of widget to position next to
+        self.id = id
         self.position_widget = position_widget
         self.x_offset = x_offset
         self.y_offset = y_offset
+        self.arrow = arrow
 
         # Create vertical box
         vbox = QVBoxLayout()
@@ -106,13 +126,30 @@ class TutorialDialog(QWidget):
         self.label.setText(text)
         self.label.setTextFormat(Qt.RichText)
         self.label.setWordWrap(True)
-        #self.label.setMargin(10)
-        self.label.setStyleSheet("margin: 10px; margin-left: 20px")
+        self.label.setStyleSheet("margin-left: 20px;")
         vbox.addWidget(self.label)
+
+        # Add error and anonymous metrics checkbox (for ID=0) tooltip
+        # This is a bit of a hack, but since it's the only exception, it's
+        # probably okay for now.
+        if self.id == "0":
+            # Get settings
+            s = get_settings()
+
+            # create spinner
+            checkbox_metrics = QCheckBox()
+            checkbox_metrics.setText(_("Yes, I would like to improve OpenShot!"))
+            checkbox_metrics.setStyleSheet("margin-left: 25px; margin-bottom: 5px;")
+            if s.get("send_metrics"):
+                checkbox_metrics.setCheckState(Qt.Checked)
+            else:
+                checkbox_metrics.setCheckState(Qt.Unchecked)
+            checkbox_metrics.stateChanged.connect(functools.partial(self.checkbox_metrics_callback))
+            vbox.addWidget(checkbox_metrics)
 
         # Add button box
         hbox = QHBoxLayout()
-        hbox.setContentsMargins(20,0,0,0)
+        hbox.setContentsMargins(20,10,0,0)
 
         # Create buttons
         self.btn_close_tips = QPushButton(self)
@@ -164,6 +201,7 @@ class TutorialManager(object):
             tutorial_text = tutorial_details["text"]
             tutorial_x_offset = tutorial_details["x"]
             tutorial_y_offset = tutorial_details["y"]
+            turorial_arrow = tutorial_details["arrow"]
 
             # Get QWidget
             tutorial_object = self.get_object(tutorial_object_id)
@@ -173,7 +211,7 @@ class TutorialManager(object):
                 continue
 
             # Create tutorial
-            tutorial_dialog = TutorialDialog(tutorial_text, tutorial_object, tutorial_x_offset, tutorial_y_offset)
+            tutorial_dialog = TutorialDialog(tutorial_id, tutorial_text, tutorial_object, tutorial_x_offset, tutorial_y_offset, turorial_arrow)
 
             # Connect signals
             tutorial_dialog.btn_next_tip.clicked.connect(functools.partial(self.next_tip, tutorial_id))
@@ -292,13 +330,14 @@ class TutorialManager(object):
         self.tutorial_ids = s.get("tutorial_ids").split(",")
 
         # Add all possible tutorials
-        self.tutorial_objects = [    {"id":"1", "x":20, "y":0, "object_id":"filesTreeView", "text":_("<b>Project Files:</b> Get started with your project by adding video, audio, and image files here. Drag and drop files from your file system.")},
-                                     {"id":"2", "x":200, "y":-15, "object_id":"timeline", "text":_("<b>Timeline:</b> Arrange your clips on the timeline here. Overlap clips to create automatic transitions. Access lots of fun presets and options by right-clicking on clips.")},
-                                     {"id":"3", "x":150, "y":100, "object_id":"dockVideoContents", "text":_("<b>Video Preview:</b> Watch your timeline video preview here. Use the buttons (play, rewind, fast-forward) to control the video playback.")},
-                                     {"id":"4", "x":20, "y":-35, "object_id":"propertyTableView", "text":_("<b>Properties:</b> View and change advanced properties of clips and effects here. Right-clicking on clips is usually faster than manually changing properties.")},
-                                     {"id":"5", "x":20, "y":10, "object_id":"transitionsTreeView", "text":_("<b>Transitions:</b> Create a gradual fade from one clip to another. Drag and drop a transition onto the timeline and position it on top of a clip (usually at the beginning or ending).")},
-                                     {"id":"6", "x":20, "y":20, "object_id":"effectsTreeView", "text":_("<b>Effects:</b> Adjust brigthness, contrast, saturation, and add exciting special effects. Drag and drop an effect onto the timeline and position it on top of a clip (or track)")},
-                                     {"id":"7", "x":-265, "y":-22, "object_id":"export_button", "text":_("<b>Export Video:</b> When you are ready to create your finished video, click this button to export your timeline as a single video file.")}
+        self.tutorial_objects = [    {"id":"0", "x":400, "y":0, "object_id":"filesTreeView", "text":_("<b>Welcome!</b> OpenShot Video Editor is an award-winning, open-source video editing application! This tutorial will walk you through the basics.<br><br>Would you like to automatically send errors and metrics to help improve OpenShot?"), "arrow":False},
+                                     {"id":"1", "x":20, "y":0, "object_id":"filesTreeView", "text":_("<b>Project Files:</b> Get started with your project by adding video, audio, and image files here. Drag and drop files from your file system."), "arrow":True},
+                                     {"id":"2", "x":200, "y":-15, "object_id":"timeline", "text":_("<b>Timeline:</b> Arrange your clips on the timeline here. Overlap clips to create automatic transitions. Access lots of fun presets and options by right-clicking on clips."), "arrow":True},
+                                     {"id":"3", "x":150, "y":100, "object_id":"dockVideoContents", "text":_("<b>Video Preview:</b> Watch your timeline video preview here. Use the buttons (play, rewind, fast-forward) to control the video playback."), "arrow":True},
+                                     {"id":"4", "x":20, "y":-35, "object_id":"propertyTableView", "text":_("<b>Properties:</b> View and change advanced properties of clips and effects here. Right-clicking on clips is usually faster than manually changing properties."), "arrow":True},
+                                     {"id":"5", "x":20, "y":10, "object_id":"transitionsTreeView", "text":_("<b>Transitions:</b> Create a gradual fade from one clip to another. Drag and drop a transition onto the timeline and position it on top of a clip (usually at the beginning or ending)."), "arrow":True},
+                                     {"id":"6", "x":20, "y":20, "object_id":"effectsTreeView", "text":_("<b>Effects:</b> Adjust brigthness, contrast, saturation, and add exciting special effects. Drag and drop an effect onto the timeline and position it on top of a clip (or track)"), "arrow":True},
+                                     {"id":"7", "x":-265, "y":-22, "object_id":"export_button", "text":_("<b>Export Video:</b> When you are ready to create your finished video, click this button to export your timeline as a single video file."), "arrow":True}
                                 ]
 
         # Connect to dock widgets
