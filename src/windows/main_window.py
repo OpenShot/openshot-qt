@@ -1036,8 +1036,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
     def keyPressEvent(self, event):
         """ Process key press events and match with known shortcuts"""
-        MOD_MASK = (Qt.CTRL | Qt.ALT | Qt.SHIFT | Qt.META)
-
         # Detect the current KeySequence pressed (including modifier keys)
         key_value = event.key()
         print(key_value)

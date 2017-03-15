@@ -2207,9 +2207,15 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
     def keyPressEvent(self, event):
         """ Keypress callback for timeline """
+        key_value = event.key()
+        if (key_value == Qt.Key_Shift or key_value == Qt.Key_Control):
 
-        # Ignore keypresses on the timeline, bubble events up
-        event.ignore()
+            # Only pass a few keystrokes to the webview (CTRL and SHIFT)
+            return QWebView.keyPressEvent(self, event)
+
+        else:
+            # Ignore most keypresses
+            event.ignore()
 
     # Capture wheel event to alter zoom slider control
     def wheelEvent(self, event):
