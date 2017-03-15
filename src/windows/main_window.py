@@ -270,7 +270,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             if len(lines) >= to_read or pos == 0:
                 # Return the lines
                 return lines[-to_read:offset and -offset or None]
-            avg_line_length *= 1.3
+            avg_line_length *= 2
 
     def actionNew_trigger(self, event):
 

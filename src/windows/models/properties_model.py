@@ -485,7 +485,9 @@ class PropertiesModel(updates.UpdateInterface):
                         log.info("Created new point at X=%s" % self.frame_number)
                         c.data[property_key]["Points"].append({'co': {'X': self.frame_number, 'Y': new_value}, 'interpolation': 1})
 
-                elif property_type == "int":
+            if not clip_updated:
+                # If no keyframe was found, set a basic property
+                if property_type == "int":
                     # Integer
                     clip_updated = True
                     c.data[property_key] = int(new_value)
