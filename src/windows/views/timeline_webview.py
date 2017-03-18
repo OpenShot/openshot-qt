@@ -175,8 +175,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Reset the scale when loading new JSON
         if action.type == "load":
-            # Set the scale again
-            self.update_zoom(self.window.sliderZoom.value())
+            # Set the scale again (to project setting)
+            initial_scale = get_app().project.get(["scale"]) or 20
+            get_app().window.sliderZoom.setValue(initial_scale)
 
     # Javascript callable function to update the project data when a clip changes
     @pyqtSlot(str)
@@ -2197,13 +2198,22 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
     # Handle changes to zoom level, update js
     def update_zoom(self, newValue):
         _ = get_app()._tr
+
+        # Set zoom label
         self.window.zoomScaleLabel.setText(_("{} seconds").format(newValue))
+
+        # Determine X coordinate of cursor (to center zoom on)
+        cursor_x = self.mapFromGlobal(self.cursor().pos()).x()
+
         # Get access to timeline scope and set scale to zoom slider value (passed in)
-        cmd = JS_SCOPE_SELECTOR + ".setScale(" + str(newValue) + ");"
+        cmd = JS_SCOPE_SELECTOR + ".setScale(" + str(newValue) + "," + str(cursor_x) + ");"
         self.page().mainFrame().evaluateJavaScript(cmd)
 
         # Start timer to redraw audio
         self.redraw_audio_timer.start()
+
+        # Save current zoom
+        get_app().updates.update(["scale"], newValue)
 
     def keyPressEvent(self, event):
         """ Keypress callback for timeline """
@@ -2224,9 +2234,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             tick_scale = 120
             steps = int(event.angleDelta().y() / tick_scale)
             self.window.sliderZoom.setValue(self.window.sliderZoom.value() - self.window.sliderZoom.pageStep() * steps)
-        # Otherwise pass on to implement default functionality (scroll in QWebView)
         else:
-            # self.show_context_menu('clip') #Test of spontaneous context menu creation
+            # Otherwise pass on to implement default functionality (scroll in QWebView)
             super(type(self), self).wheelEvent(event)
 
     def setup_js_data(self):

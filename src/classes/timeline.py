@@ -76,7 +76,7 @@ class TimelineSync(UpdateInterface):
         """ This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """
 
         # Ignore changes that don't affect libopenshot
-        if len(action.key) >= 1 and action.key[0].lower() in ["files", "markers", "layers", "export_path"]:
+        if len(action.key) >= 1 and action.key[0].lower() in ["files", "markers", "layers", "export_path", "scale"]:
             return
 
         elif len(action.key) >= 1 and action.key[0].lower() in ["profile"]:

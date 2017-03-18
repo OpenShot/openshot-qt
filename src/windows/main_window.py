@@ -1891,11 +1891,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         self.timelineToolbar.addAction(self.actionNextMarker)
         self.timelineToolbar.addSeparator()
 
+        # Get project's initial zoom value
+        initial_scale = get_app().project.get(["scale"]) or 20
+
         # Setup Zoom slider
         self.sliderZoom = QSlider(Qt.Horizontal, self)
         self.sliderZoom.setPageStep(2)
         self.sliderZoom.setRange(1, 800)
-        self.sliderZoom.setValue(20)
+        self.sliderZoom.setValue(initial_scale)
         self.sliderZoom.setInvertedControls(True)
         self.sliderZoom.resize(100, 16)
 

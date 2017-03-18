@@ -393,11 +393,29 @@ App.controller('TimelineCtrl',function($scope) {
 // ############# QT FUNCTIONS #################### //
 
  // Change the scale and apply to scope
- $scope.setScale = function(scaleVal){
+ $scope.setScale = function(scaleVal, cursor_x){
+
+	  // Get scrollbar positions
+	  var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
+	  var track_labels_width = $("#track_controls").width();
+
+	  // Determine actual x coordinate (over timeline)
+      var center_x = Math.max(cursor_x - track_labels_width, 0);
+
+      // Determine time of cursor position
+      var cursor_time = parseFloat(center_x) / $scope.pixelsPerSecond;
+
+      // Determine time of hidden scrollbar timeline
+      var hidden_scrollbar_time = parseFloat(horz_scroll_offset) / $scope.pixelsPerSecond;
+
       $scope.$apply(function(){
-         $scope.project.scale = scaleVal;
-         $scope.pixelsPerSecond =  parseFloat($scope.project.tick_pixels) / parseFloat($scope.project.scale);
-     });
+         $scope.project.scale = parseFloat(scaleVal);
+         $scope.pixelsPerSecond = parseFloat($scope.project.tick_pixels) / parseFloat($scope.project.scale);
+
+         // Scroll back to correct cursor time
+         var new_cursor_x = Math.round((hidden_scrollbar_time) * $scope.pixelsPerSecond);
+         $("#scrolling_tracks").scrollLeft(new_cursor_x);
+      });
  };
 
  // Set the audio data for a clip
@@ -1370,6 +1388,12 @@ $scope.SetTrackLabel = function (label){
 
 	 // Lock / unlock any items
 	 $scope.LockItems();
+
+	 // Scroll to top/left when loading a project
+	 $("#scrolling_tracks").animate({
+		scrollTop: 0,
+		scrollLeft: 0
+	 }, 'slow');
 	 
 	 // return true
 	 return true;
