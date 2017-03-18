@@ -196,6 +196,9 @@ def init_ui(window):
             _translate = QApplication.instance().translate
             window.setWindowTitle(_translate("", window.windowTitle()))
 
+            # Center window
+            center(window)
+
         # Loop through all widgets
         for widget in window.findChildren(QWidget):
             init_element(window, widget)
@@ -207,6 +210,14 @@ def init_ui(window):
     except:
         log.info('Failed to initialize an element on {}'.format(window.objectName()))
 
+def center(window):
+    """Center a window on the main window"""
+    from classes.app import get_app
+
+    frameGm = window.frameGeometry()
+    centerPoint = get_app().window.frameGeometry().center()
+    frameGm.moveCenter(centerPoint)
+    window.move(frameGm.topLeft())
 
 def transfer_children(from_widget, to_widget):
     log.info("Transferring children from '{}' to '{}'".format(from_widget.objectName(), to_widget.objectName()))

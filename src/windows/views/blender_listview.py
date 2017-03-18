@@ -1,6 +1,6 @@
 """ 
  @file
- @brief This file contains the blender file treeview, used by the 3d animated titles screen
+ @brief This file contains the blender file listview, used by the 3d animated titles screen
  @author Jonathan Thomas <jonathan@openshot.org>
  
  @section LICENSE
@@ -61,7 +61,7 @@ class QBlenderEvent(QEvent):
         self.id = id
 
 
-class BlenderTreeView(QTreeView):
+class BlenderListView(QListView):
     """ A TreeView QWidget used on the animated title window """
 
     def currentChanged(self, selected, deselected):
@@ -440,8 +440,6 @@ class BlenderTreeView(QTreeView):
 
     def refresh_view(self):
         self.blender_model.update_model()
-        self.hideColumn(2)
-        self.hideColumn(3)
 
     def get_project_params(self, is_preview=True):
         """ Return a dictionary of project related settings, needed by the Blender python script. """
@@ -617,9 +615,9 @@ class BlenderTreeView(QTreeView):
         # Setup header columns
         self.setModel(self.blender_model.model)
         self.setIconSize(QSize(131, 108))
-        self.setIndentation(0)
-        self.setSelectionBehavior(QTreeView.SelectRows)
-        self.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.setViewMode(QListView.IconMode)
+        self.setResizeMode(QListView.Adjust)
+        self.setUniformItemSizes(False)
         self.setWordWrap(True)
         self.setStyleSheet('QTreeView::item { padding-top: 2px; }')
 

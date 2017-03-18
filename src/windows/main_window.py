@@ -430,7 +430,15 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
                 # Create blender folder
                 os.mkdir(info.BLENDER_PATH)
 
-            # Clear any blender animations
+            # Clear any assets folder
+            if os.path.exists(info.ASSETS_PATH):
+                log.info("Clear all assets: %s" % info.ASSETS_PATH)
+                # Remove assets folder
+                shutil.rmtree(info.ASSETS_PATH)
+                # Create assets folder
+                os.mkdir(info.ASSETS_PATH)
+
+            # Clear any backups
             if os.path.exists(info.BACKUP_PATH):
                 log.info("Clear all backups: %s" % info.BACKUP_PATH)
                 # Remove backup folder
@@ -2103,6 +2111,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         else:
             self.filesTreeView = FilesListView(self)
         self.tabFiles.layout().addWidget(self.filesTreeView)
+        self.filesTreeView.setFocus()
 
         # Setup transitions tree
         if s.get("transitions_view") == "details":

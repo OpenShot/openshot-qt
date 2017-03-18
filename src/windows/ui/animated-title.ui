@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>658</width>
+    <width>750</width>
     <height>527</height>
    </rect>
   </property>
@@ -33,10 +33,34 @@
    </item>
    <item row="1" column="0">
     <widget class="QSplitter" name="splitter">
+     <property name="lineWidth">
+      <number>3</number>
+     </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
+     <property name="handleWidth">
+      <number>10</number>
+     </property>
      <widget class="QWidget" name="widget" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>340</width>
+        <height>16777215</height>
+       </size>
+      </property>
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="0" column="0">
         <layout class="QVBoxLayout" name="verticalLayout">
@@ -53,14 +77,7 @@
      </widget>
      <widget class="QWidget" name="widget_2" native="true">
       <layout class="QGridLayout" name="gridLayout_3">
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>Preview</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
+       <item row="3" column="0">
         <widget class="QScrollArea" name="scrollArea">
          <property name="widgetResizable">
           <bool>true</bool>
@@ -70,8 +87,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>392</width>
-            <height>209</height>
+            <width>445</width>
+            <height>219</height>
            </rect>
           </property>
           <layout class="QFormLayout" name="formLayout">
@@ -82,7 +99,7 @@
          </widget>
         </widget>
        </item>
-       <item row="3" column="0">
+       <item row="2" column="0">
         <layout class="QHBoxLayout" name="horizontalLayout">
          <property name="topMargin">
           <number>0</number>
@@ -120,7 +137,7 @@
        <item row="0" column="0">
         <widget class="QLabel" name="imgPreview">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>

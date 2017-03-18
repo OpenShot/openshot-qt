@@ -731,26 +731,40 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 path = file["path"]
 
                 # Find any temp BLENDER file paths
-                if info.BLENDER_PATH in path:
+                if info.BLENDER_PATH in path or info.ASSETS_PATH in path:
                     log.info("Temp blender file path detected in file")
 
                     # Get folder of file
                     folder_path, file_name = os.path.split(path)
                     parent_path, folder_name = os.path.split(folder_path)
-                    # Update path to new folder
-                    path = os.path.join(new_project_folder, folder_name)
-                    # Copy temp folder to project folder
-                    shutil.copytree(folder_path, path)
+                    new_parent_path = new_project_folder
+
+                    if os.path.isdir(path) or "%" in path:
+                        # Update path to new folder
+                        new_parent_path = os.path.join(new_project_folder, folder_name)
+
+                        # Copy blender tree into new folder
+                        shutil.copytree(folder_path, new_parent_path)
+                    else:
+                        # New path
+                        new_parent_path = os.path.join(new_project_folder, "assets")
+
+                        # Ensure blender folder exists
+                        if not os.path.exists(new_parent_path):
+                            os.mkdir(new_parent_path)
+
+                        # Copy titles/individual files into new folder
+                        shutil.copy2(path, os.path.join(new_parent_path, file_name))
 
                     # Update paths in project to new location
-                    file["path"] = os.path.join(path, file_name)
+                    file["path"] = os.path.join(new_parent_path, file_name)
 
             # Loop through each clip
             for clip in self._data["clips"]:
                 path = clip["reader"]["path"]
 
                 # Find any temp BLENDER file paths
-                if info.BLENDER_PATH in path:
+                if info.BLENDER_PATH in path or info.ASSETS_PATH in path:
                     log.info("Temp blender file path detected in clip")
 
                     # Get folder of file
@@ -767,7 +781,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 path = clip["image"]
 
                 # Find any temp BLENDER file paths
-                if info.BLENDER_PATH in path:
+                if info.BLENDER_PATH in path or info.ASSETS_PATH in path:
                     log.info("Temp blender file path detected in clip thumbnail")
 
                     # Get folder of file

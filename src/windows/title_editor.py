@@ -28,7 +28,6 @@
 
 import sys
 import os
-import fnmatch
 import shutil
 import functools
 import subprocess
@@ -46,6 +45,7 @@ from classes.logger import log
 from classes.app import get_app
 from classes.query import File
 from classes.metrics import *
+from windows.views.titles_listview import TitlesListView
 
 try:
     import json
@@ -102,67 +102,19 @@ class TitleEditor(QDialog):
         self.font_family = "Bitstream Vera Sans"
         self.tspan_node = None
 
-        # Hide all textboxes
-        self.hide_textboxes()
+        # Add titles list view
+        self.titlesTreeView = TitlesListView(self)
+        self.verticalLayout.addWidget(self.titlesTreeView)
 
-        # Remove temp file (if found)
-        temp_svg_path = os.path.join(info.TITLE_PATH, "temp.svg")
-        if os.path.exists(temp_svg_path):
-            os.remove(temp_svg_path)
+    def txtLine_changed(self, txtWidget):
 
-        # load the template files
-        self.cmbTemplate.addItem(_("<Select a template>"))
-
-        # Add user-defined titles (if any)
-        for file in sorted(os.listdir(info.TITLE_PATH)):
-            # pretty up the filename for display purposes
-            if fnmatch.fnmatch(file, '*.svg'):
-                (fileName, fileExtension) = os.path.splitext(file)
-                self.cmbTemplate.addItem(fileName.replace("_", " "), os.path.join(info.TITLE_PATH, file))
-
-        # Add built-in titles
-        self.template_dir = os.path.join(info.PATH, 'titles')
-        for file in sorted(os.listdir(self.template_dir)):
-            # pretty up the filename for display purposes
-            if fnmatch.fnmatch(file, '*.svg'):
-                (fileName, fileExtension) = os.path.splitext(file)
-                self.cmbTemplate.addItem(fileName.replace("_", " "), os.path.join(self.template_dir, file))
-
-        # set event handlers
-        self.cmbTemplate.activated.connect(functools.partial(self.cmbTemplate_activated))
-        self.btnFontColor.clicked.connect(functools.partial(self.btnFontColor_clicked))
-        self.btnBackgroundColor.clicked.connect(functools.partial(self.btnBackgroundColor_clicked))
-        self.btnFont.clicked.connect(functools.partial(self.btnFont_clicked))
-        self.btnAdvanced.clicked.connect(functools.partial(self.btnAdvanced_clicked))
-        self.txtLine1.textChanged.connect(functools.partial(self.txtLine_changed))
-        self.txtLine2.textChanged.connect(functools.partial(self.txtLine_changed))
-        self.txtLine3.textChanged.connect(functools.partial(self.txtLine_changed))
-        self.txtLine4.textChanged.connect(functools.partial(self.txtLine_changed))
-        self.txtLine5.textChanged.connect(functools.partial(self.txtLine_changed))
-        self.txtLine6.textChanged.connect(functools.partial(self.txtLine_changed))
-        self.txtLine7.textChanged.connect(functools.partial(self.txtLine_changed))
-        self.txtLine8.textChanged.connect(functools.partial(self.txtLine_changed))
-        self.txtLine9.textChanged.connect(functools.partial(self.txtLine_changed))
-        self.txtLine10.textChanged.connect(functools.partial(self.txtLine_changed))
-        self.txtLine11.textChanged.connect(functools.partial(self.txtLine_changed))
-        self.txtLine12.textChanged.connect(functools.partial(self.txtLine_changed))
-
-    def txtLine_changed(self):
+        # Loop through child widgets (and remove them)
+        text_list = []
+        for child in self.settingsContainer.children():
+            if type(child) == QTextEdit and child.objectName() != "txtFileName":
+                text_list.append(child.toPlainText())
 
         # Update text values in the SVG
-        text_list = []
-        text_list.append(self.txtLine1.toPlainText())
-        text_list.append(self.txtLine2.toPlainText())
-        text_list.append(self.txtLine3.toPlainText())
-        text_list.append(self.txtLine4.toPlainText())
-        text_list.append(self.txtLine5.toPlainText())
-        text_list.append(self.txtLine6.toPlainText())
-        text_list.append(self.txtLine7.toPlainText())
-        text_list.append(self.txtLine8.toPlainText())
-        text_list.append(self.txtLine9.toPlainText())
-        text_list.append(self.txtLine10.toPlainText())
-        text_list.append(self.txtLine11.toPlainText())
-        text_list.append(self.txtLine12.toPlainText())
         for i in range(0, self.text_fields):
             if len(self.tspan_node[i].childNodes) > 0 and i <= (len(text_list) - 1):
                 new_text_node = self.xmldoc.createTextNode(text_list[i])
@@ -177,111 +129,14 @@ class TitleEditor(QDialog):
         # Display SVG again
         self.display_svg()
 
-    def hide_textboxes(self):
-        """ Hide all text inputs """
-        self.txtLine1.setVisible(False)
-        self.lblLine1.setVisible(False)
-        self.txtLine2.setVisible(False)
-        self.lblLine2.setVisible(False)
-        self.txtLine3.setVisible(False)
-        self.lblLine3.setVisible(False)
-        self.txtLine4.setVisible(False)
-        self.lblLine4.setVisible(False)
-        self.txtLine5.setVisible(False)
-        self.lblLine5.setVisible(False)
-        self.txtLine6.setVisible(False)
-        self.lblLine6.setVisible(False)
-        self.txtLine7.setVisible(False)
-        self.lblLine7.setVisible(False)
-        self.txtLine8.setVisible(False)
-        self.lblLine8.setVisible(False)
-        self.txtLine9.setVisible(False)
-        self.lblLine9.setVisible(False)
-        self.txtLine10.setVisible(False)
-        self.lblLine10.setVisible(False)
-        self.txtLine11.setVisible(False)
-        self.lblLine11.setVisible(False)
-        self.txtLine12.setVisible(False)
-        self.lblLine12.setVisible(False)
-
-
-    def show_textboxes(self, num_fields):
-        """ Only show a certain number of text inputs """
-
-        if num_fields >= 1:
-            self.txtLine1.setEnabled(True)
-            self.txtLine1.setVisible(True)
-            self.lblLine1.setVisible(True)
-        if num_fields >= 2:
-            self.txtLine2.setEnabled(True)
-            self.txtLine2.setVisible(True)
-            self.lblLine2.setVisible(True)
-        if num_fields >= 3:
-            self.txtLine3.setEnabled(True)
-            self.txtLine3.setVisible(True)
-            self.lblLine3.setVisible(True)
-        if num_fields >= 4:
-            self.txtLine4.setEnabled(True)
-            self.txtLine4.setVisible(True)
-            self.lblLine4.setVisible(True)
-        if num_fields >= 5:
-            self.txtLine5.setEnabled(True)
-            self.txtLine5.setVisible(True)
-            self.lblLine5.setVisible(True)
-        if num_fields >= 6:
-            self.txtLine6.setEnabled(True)
-            self.txtLine6.setVisible(True)
-            self.lblLine6.setVisible(True)
-        if num_fields >= 7:
-            self.txtLine7.setEnabled(True)
-            self.txtLine7.setVisible(True)
-            self.lblLine7.setVisible(True)
-        if num_fields >= 8:
-            self.txtLine8.setEnabled(True)
-            self.txtLine8.setVisible(True)
-            self.lblLine8.setVisible(True)
-        if num_fields >= 9:
-            self.txtLine9.setEnabled(True)
-            self.txtLine9.setVisible(True)
-            self.lblLine9.setVisible(True)
-        if num_fields >= 10:
-            self.txtLine10.setEnabled(True)
-            self.txtLine10.setVisible(True)
-            self.lblLine10.setVisible(True)
-        if num_fields >= 11:
-            self.txtLine11.setEnabled(True)
-            self.txtLine11.setVisible(True)
-            self.lblLine11.setVisible(True)
-        if num_fields >= 12:
-            self.txtLine12.setEnabled(True)
-            self.txtLine12.setVisible(True)
-            self.lblLine12.setVisible(True)
-
-
     def display_svg(self):
         scene = QGraphicsScene(self)
         view = self.graphicsView
         svg = QtGui.QPixmap(self.filename)
-        svg_scaled = svg.scaled(svg.width() / 4, svg.height() / 4, Qt.KeepAspectRatio)
+        svg_scaled = svg.scaled(self.graphicsView.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
         scene.addPixmap(svg_scaled)
         view.setScene(scene)
         view.show()
-
-    def cmbTemplate_activated(self):
-        # reconstruct the filename from the modified display name
-        if self.cmbTemplate.currentIndex() > 0:
-            # ignore the 'select a template entry'
-            template = self.cmbTemplate.currentText()
-            template_path = self.cmbTemplate.itemData(self.cmbTemplate.currentIndex())
-
-            # Create temp version of SVG title
-            self.filename = self.create_temp_title(template_path)
-
-            # Load temp title
-            self.load_svg_template()
-
-            # Display tmp title
-            self.display_svg()
 
     def create_temp_title(self, template_path):
 
@@ -297,72 +152,107 @@ class TitleEditor(QDialog):
     def load_svg_template(self):
         """ Load an SVG title and init all textboxes and controls """
 
+        # Get translation object
+        _ = get_app()._tr
+
         # parse the svg object
         self.xmldoc = minidom.parse(self.filename)
         # get the text elements
         self.tspan_node = self.xmldoc.getElementsByTagName('tspan')
         self.text_fields = len(self.tspan_node)
 
-        # Hide all text inputs
-        self.hide_textboxes()
-        # Show the correct number of text inputs
-        self.show_textboxes(self.text_fields)
+        # Loop through child widgets (and remove them)
+        for child in self.settingsContainer.children():
+            try:
+                self.settingsContainer.layout().removeWidget(child)
+                child.deleteLater()
+            except:
+                pass
 
         # Get text nodes and rect nodes
         self.text_node = self.xmldoc.getElementsByTagName('text')
         self.rect_node = self.xmldoc.getElementsByTagName('rect')
 
+        # Create Label
+        label = QLabel()
+        label_line_text = _("File Name:")
+        label.setText(label_line_text)
+        label.setToolTip(label_line_text)
+
+        # create text editor for file name
+        self.txtFileName = QTextEdit()
+        self.txtFileName.setObjectName("txtFileName")
+        for i in range(1, 1000):
+            possible_path = os.path.join(info.ASSETS_PATH, "TitleFileName-%d.svg" % i)
+            if not os.path.exists(possible_path):
+                self.txtFileName.setText(_("TitleFileName-%d") % i)
+                break
+        self.txtFileName.setFixedHeight(28)
+        self.settingsContainer.layout().addRow(label, self.txtFileName)
+
         # Get text values
         title_text = []
         for i in range(0, self.text_fields):
             if len(self.tspan_node[i].childNodes) > 0:
-                title_text.append(self.tspan_node[i].childNodes[0].data)
+                text = self.tspan_node[i].childNodes[0].data
+                title_text.append(text)
 
-        # Set textbox values
-        num_fields = len(title_text)
-        if num_fields >= 1:
-            self.txtLine1.setText("")
-            self.txtLine1.setText(title_text[0])
-        if num_fields >= 2:
-            self.txtLine2.setText("")
-            self.txtLine2.setText(title_text[1])
-        if num_fields >= 3:
-            self.txtLine3.setText("")
-            self.txtLine3.setText(title_text[2])
-        if num_fields >= 4:
-            self.txtLine4.setText("")
-            self.txtLine4.setText(title_text[3])
-        if num_fields >= 5:
-            self.txtLine5.setText("")
-            self.txtLine5.setText(title_text[4])
-        if num_fields >= 6:
-            self.txtLine6.setText("")
-            self.txtLine6.setText(title_text[5])
-        if num_fields >= 7:
-            self.txtLine7.setText("")
-            self.txtLine7.setText(title_text[6])
-        if num_fields >= 8:
-            self.txtLine8.setText("")
-            self.txtLine8.setText(title_text[7])
-        if num_fields >= 9:
-            self.txtLine9.setText("")
-            self.txtLine9.setText(title_text[8])
-        if num_fields >= 10:
-            self.txtLine10.setText("")
-            self.txtLine10.setText(title_text[9])
-        if num_fields >= 11:
-            self.txtLine11.setText("")
-            self.txtLine11.setText(title_text[10])
-        if num_fields >= 12:
-            self.txtLine12.setText("")
-            self.txtLine12.setText(title_text[11])
+                # Create Label
+                label = QLabel()
+                label_line_text = _("Line %s:") % str(i + 1)
+                label.setText(label_line_text)
+                label.setToolTip(label_line_text)
+
+                # create text editor for each text element in title
+                widget = QTextEdit()
+                widget.setText(_(text))
+                widget.setFixedHeight(28)
+                widget.textChanged.connect(functools.partial(self.txtLine_changed, widget))
+                self.settingsContainer.layout().addRow(label, widget)
+
+
+        # Add Font button
+        label = QLabel()
+        label.setText(_("Font:"))
+        label.setToolTip(_("Font:"))
+        self.btnFont = QPushButton()
+        self.btnFont.setText(_("Change Font"))
+        self.settingsContainer.layout().addRow(label, self.btnFont)
+        self.btnFont.clicked.connect(self.btnFont_clicked)
+
+        # Add Text color button
+        label = QLabel()
+        label.setText(_("Text:"))
+        label.setToolTip(_("Text:"))
+        self.btnFontColor = QPushButton()
+        self.btnFontColor.setText(_("Text Color"))
+        self.settingsContainer.layout().addRow(label, self.btnFontColor)
+        self.btnFontColor.clicked.connect(self.btnFontColor_clicked)
+
+        # Add Background color button
+        label = QLabel()
+        label.setText(_("Background:"))
+        label.setToolTip(_("Background:"))
+        self.btnBackgroundColor = QPushButton()
+        self.btnBackgroundColor.setText(_("Background Color"))
+        self.settingsContainer.layout().addRow(label, self.btnBackgroundColor)
+        self.btnBackgroundColor.clicked.connect(self.btnBackgroundColor_clicked)
+
+        # Add Advanced Editor button
+        label = QLabel()
+        label.setText(_("Advanced:"))
+        label.setToolTip(_("Advanced:"))
+        self.btnAdvanced = QPushButton()
+        self.btnAdvanced.setText(_("Use Advanced Editor"))
+        self.settingsContainer.layout().addRow(label, self.btnAdvanced)
+        self.btnAdvanced.clicked.connect(self.btnAdvanced_clicked)
 
         # Update color buttons
         self.update_font_color_button()
         self.update_background_color_button()
 
         # Enable / Disable buttons based on # of text nodes
-        if num_fields >= 1:
+        if len(title_text) >= 1:
             self.btnFont.setEnabled(True)
             self.btnFontColor.setEnabled(True)
             self.btnBackgroundColor.setEnabled(True)
@@ -650,22 +540,18 @@ class TitleEditor(QDialog):
         app = get_app()
         _ = app._tr
 
-        # Get current project folder (if any)
-        project_path = get_app().project.current_filepath
-        default_folder = info.HOME_PATH
-        if project_path:
-            default_folder = os.path.dirname(project_path)
+        # Init file path for new title (save in blender folder for now)
+        file_name = "%s.svg" % self.txtFileName.toPlainText().strip()
+        file_path = os.path.join(info.ASSETS_PATH, file_name)
 
-        # Init file path for new title
-        title_path = os.path.join(default_folder, "%s.svg" % _("New Title"))
-
-        # Get file path for SVG title
-        file_path, file_type = QFileDialog.getSaveFileName(self, _("Save Title As..."), title_path, _("Scalable Vector Graphics (*.svg)"))
-
-        if file_path:
-            # Append .svg (if not already there)
-            if not file_path.endswith("svg"):
-                file_path = file_path + ".svg"
+        if self.txtFileName.toPlainText().strip():
+            # Do we have unsaved changes?
+            if os.path.exists(file_path):
+                ret = QMessageBox.question(self, _("Title Editor"), _("%s already exists.\nDo you want to replace it?") % file_name,
+                                           QMessageBox.No | QMessageBox.Yes)
+                if ret == QMessageBox.No:
+                    # Do nothing
+                    return
 
             # Update filename
             self.filename = file_path

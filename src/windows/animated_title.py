@@ -47,7 +47,7 @@ from classes.app import get_app
 from classes.logger import log
 from classes.query import File
 from classes.metrics import *
-from windows.views.blender_treeview import BlenderTreeView
+from windows.views.blender_listview import BlenderListView
 
 try:
     import json
@@ -76,7 +76,7 @@ class AnimatedTitle(QDialog):
         track_metric_screen("animated-title-screen")
 
         # Add blender treeview
-        self.blenderTreeView = BlenderTreeView(self)
+        self.blenderTreeView = BlenderListView(self)
         self.verticalLayout.addWidget(self.blenderTreeView)
 
         # Add render button
