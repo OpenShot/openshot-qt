@@ -59,13 +59,15 @@ class TitleEditor(QDialog):
     # Path to ui file
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'title-editor.ui')
 
-    def __init__(self):
+    def __init__(self, edit_file_path=None, duplicate=False):
 
         # Create dialog class
         QDialog.__init__(self)
 
         self.app = get_app()
         self.project = self.app.project
+        self.edit_file_path = edit_file_path
+        self.duplicate = duplicate
 
         # Get translation object
         _ = self.app._tr
@@ -105,6 +107,24 @@ class TitleEditor(QDialog):
         # Add titles list view
         self.titlesTreeView = TitlesListView(self)
         self.verticalLayout.addWidget(self.titlesTreeView)
+
+        # If editing existing title svg file
+        if self.edit_file_path:
+            # Hide list of templates
+            self.widget.setVisible(False)
+
+            # Display title in graphicsView
+            self.filename = self.edit_file_path
+
+            if self.duplicate:
+                # Create temp version of title
+                self.create_temp_title(self.edit_file_path)
+
+            # Add all widgets for editing
+            self.load_svg_template()
+
+            # Display image
+            QTimer.singleShot(0, self.display_svg)
 
     def txtLine_changed(self, txtWidget):
 
@@ -182,11 +202,19 @@ class TitleEditor(QDialog):
         # create text editor for file name
         self.txtFileName = QTextEdit()
         self.txtFileName.setObjectName("txtFileName")
-        for i in range(1, 1000):
-            possible_path = os.path.join(info.ASSETS_PATH, "TitleFileName-%d.svg" % i)
-            if not os.path.exists(possible_path):
-                self.txtFileName.setText(_("TitleFileName-%d") % i)
-                break
+
+        # If edit mode, set file name
+        if self.edit_file_path and not self.duplicate:
+            # Use existing name (and prevent editing name)
+            self.txtFileName.setText(os.path.split(self.edit_file_path)[1])
+            self.txtFileName.setEnabled(False)
+        else:
+            # Find an unused file name
+            for i in range(1, 1000):
+                possible_path = os.path.join(info.ASSETS_PATH, "TitleFileName-%d.svg" % i)
+                if not os.path.exists(possible_path):
+                    self.txtFileName.setText(_("TitleFileName-%d") % i)
+                    break
         self.txtFileName.setFixedHeight(28)
         self.settingsContainer.layout().addRow(label, self.txtFileName)
 
@@ -540,30 +568,36 @@ class TitleEditor(QDialog):
         app = get_app()
         _ = app._tr
 
-        # Init file path for new title (save in blender folder for now)
-        file_name = "%s.svg" % self.txtFileName.toPlainText().strip()
-        file_path = os.path.join(info.ASSETS_PATH, file_name)
-
-        if self.txtFileName.toPlainText().strip():
-            # Do we have unsaved changes?
-            if os.path.exists(file_path):
-                ret = QMessageBox.question(self, _("Title Editor"), _("%s already exists.\nDo you want to replace it?") % file_name,
-                                           QMessageBox.No | QMessageBox.Yes)
-                if ret == QMessageBox.No:
-                    # Do nothing
-                    return
-
-            # Update filename
-            self.filename = file_path
-
-            # Save title
+        # If editing file, just update the existing file
+        if self.edit_file_path and not self.duplicate:
+            # Overwrite title svg file
             self.writeToFile(self.xmldoc)
 
-            # Add file to project
-            self.add_file(self.filename)
+        else:
+            # Create new title (with unique name)
+            file_name = "%s.svg" % self.txtFileName.toPlainText().strip()
+            file_path = os.path.join(info.ASSETS_PATH, file_name)
 
-            # Close window
-            super(TitleEditor, self).accept()
+            if self.txtFileName.toPlainText().strip():
+                # Do we have unsaved changes?
+                if os.path.exists(file_path) and not self.edit_file_path:
+                    ret = QMessageBox.question(self, _("Title Editor"), _("%s already exists.\nDo you want to replace it?") % file_name,
+                                               QMessageBox.No | QMessageBox.Yes)
+                    if ret == QMessageBox.No:
+                        # Do nothing
+                        return
+
+                # Update filename
+                self.filename = file_path
+
+                # Save title
+                self.writeToFile(self.xmldoc)
+
+                # Add file to project
+                self.add_file(self.filename)
+
+        # Close window
+        super(TitleEditor, self).accept()
 
     def add_file(self, filepath):
         path, filename = os.path.split(filepath)

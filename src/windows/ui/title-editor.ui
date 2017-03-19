@@ -96,7 +96,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>362</width>
+            <width>440</width>
             <height>224</height>
            </rect>
           </property>
@@ -111,7 +111,7 @@
        <item row="0" column="0">
         <widget class="QGraphicsView" name="graphicsView">
          <property name="styleSheet">
-          <string notr="true">background-color: #000000;</string>
+          <string notr="true">background-color: #191919;</string>
          </property>
          <property name="verticalScrollBarPolicy">
           <enum>Qt::ScrollBarAlwaysOff</enum>

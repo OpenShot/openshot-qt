@@ -81,6 +81,15 @@ class FilesTreeView(QTreeView):
         if self.selected:
             # If file selected, show file related options
             menu.addSeparator()
+
+            # Add edit title option (if svg file)
+            selected_file_id = self.win.selected_files[0]
+            file = File.get(id=selected_file_id)
+            if file.data.get("path").endswith(".svg"):
+                menu.addAction(self.win.actionEditTitle)
+                menu.addAction(self.win.actionDuplicateTitle)
+                menu.addSeparator()
+
             menu.addAction(self.win.actionPreview_File)
             menu.addAction(self.win.actionSplitClip)
             menu.addAction(self.win.actionAdd_to_Timeline)

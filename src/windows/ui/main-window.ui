@@ -482,9 +482,8 @@
   </action>
   <action name="actionQuit">
    <property name="icon">
-    <iconset theme="gtk-quit">
-     <normaloff/>
-    </iconset>
+    <iconset theme="system-shutdown" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/system-shutdown.svg</normaloff>:/icons/Humanity/actions/16/system-shutdown.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Quit</string>
@@ -813,8 +812,8 @@
   </action>
   <action name="actionTimelineZoomIn">
    <property name="icon">
-    <iconset theme="zoom-in">
-     <normaloff>:/icons/Humanity/actions/16/zoom-in.svg</normaloff>:/icons/Humanity/actions/16/zoom-in.svg</iconset>
+    <iconset theme="zoom-in" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/zoom-in.png</normaloff>:/icons/Humanity/actions/16/zoom-in.png</iconset>
    </property>
    <property name="text">
     <string>Zoom In</string>
@@ -828,8 +827,8 @@
   </action>
   <action name="actionTimelineZoomOut">
    <property name="icon">
-    <iconset theme="zoom-out">
-     <normaloff>:/icons/Humanity/actions/16/zoom-out.svg</normaloff>:/icons/Humanity/actions/16/zoom-out.svg</iconset>
+    <iconset theme="zoom-out" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/zoom-out.png</normaloff>:/icons/Humanity/actions/16/zoom-out.png</iconset>
    </property>
    <property name="text">
     <string>Zoom Out</string>
@@ -843,9 +842,8 @@
   </action>
   <action name="actionTitle">
    <property name="icon">
-    <iconset theme="font">
-     <normaloff/>
-    </iconset>
+    <iconset theme="font" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/mimes/16/font-x-generic.svg</normaloff>:/icons/Humanity/mimes/16/font-x-generic.svg</iconset>
    </property>
    <property name="text">
     <string>Title</string>
@@ -859,9 +857,8 @@
   </action>
   <action name="actionAnimatedTitle">
    <property name="icon">
-    <iconset theme="video-x-generic">
-     <normaloff/>
-    </iconset>
+    <iconset theme="video-x-generic" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/mimes/16/video-x-generic.svg</normaloff>:/icons/Humanity/mimes/16/video-x-generic.svg</iconset>
    </property>
    <property name="text">
     <string>Animated Title</string>
@@ -878,9 +875,8 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset theme="view-fullscreen">
-     <normaloff/>
-    </iconset>
+    <iconset theme="view-fullscreen" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/view-fullscreen.svg</normaloff>:/icons/Humanity/actions/16/view-fullscreen.svg</iconset>
    </property>
    <property name="text">
     <string>Fullscreen</string>
@@ -897,8 +893,8 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset theme="zoom-in">
-     <normaloff>:/icons/Humanity/actions/16/zoom-in.svg</normaloff>:/icons/Humanity/actions/16/zoom-in.svg</iconset>
+    <iconset theme="zoom-in" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/zoom-in.png</normaloff>:/icons/Humanity/actions/16/zoom-in.png</iconset>
    </property>
    <property name="text">
     <string>View Toolbar</string>
@@ -910,7 +906,7 @@
   <action name="actionAbout">
    <property name="icon">
     <iconset theme="gtk-info" resource="../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/16/help-about.svg</normaloff>:/icons/Humanity/actions/16/help-about.svg</iconset>
+     <normaloff>:/icons/Humanity/actions/16/gtk-info.svg</normaloff>:/icons/Humanity/actions/16/gtk-info.svg</iconset>
    </property>
    <property name="text">
     <string>About OpenShot</string>
@@ -927,8 +923,8 @@
   </action>
   <action name="actionThumbnailView">
    <property name="icon">
-    <iconset theme="view-preview" resource="../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/16/view-preview.png</normaloff>:/icons/Humanity/actions/16/view-preview.png</iconset>
+    <iconset theme="view-list-icons" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/view-list-icons.png</normaloff>:/icons/Humanity/actions/16/view-list-icons.png</iconset>
    </property>
    <property name="text">
     <string>Thumbnail View</string>
@@ -942,8 +938,8 @@
   </action>
   <action name="actionDetailsView">
    <property name="icon">
-    <iconset theme="view-list-details">
-     <normaloff>:/icons/Humanity/actions/16/view-list-details.svg</normaloff>:/icons/Humanity/actions/16/view-list-details.svg</iconset>
+    <iconset theme="view-list-details" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/view-list-details.png</normaloff>:/icons/Humanity/actions/16/view-list-details.png</iconset>
    </property>
    <property name="text">
     <string>Details View</string>
@@ -993,9 +989,8 @@
   </action>
   <action name="actionHelpContents">
    <property name="icon">
-    <iconset theme="help">
-     <normaloff/>
-    </iconset>
+    <iconset theme="help" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/help-contents.svg</normaloff>:/icons/Humanity/actions/16/help-contents.svg</iconset>
    </property>
    <property name="text">
     <string>Contents</string>
@@ -1015,8 +1010,8 @@
   </action>
   <action name="actionAdvanced_View">
    <property name="icon">
-    <iconset theme="get-hot-new-stuff">
-     <normaloff>:/icons/Humanity/actions/16/get-hot-new-stuff.svg</normaloff>:/icons/Humanity/actions/16/get-hot-new-stuff.svg</iconset>
+    <iconset theme="get-hot-new-stuff" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/get-hot-new-stuff.png</normaloff>:/icons/Humanity/actions/16/get-hot-new-stuff.png</iconset>
    </property>
    <property name="text">
     <string>Advanced View</string>
@@ -1024,8 +1019,8 @@
   </action>
   <action name="actionFreeze_View">
    <property name="icon">
-    <iconset theme="locked">
-     <normaloff>:/icons/Humanity/status/locked.svg</normaloff>:/icons/Humanity/status/locked.svg</iconset>
+    <iconset theme="locked" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/locked.svg</normaloff>:/icons/Humanity/actions/16/locked.svg</iconset>
    </property>
    <property name="text">
     <string>Freeze View</string>
@@ -1033,8 +1028,8 @@
   </action>
   <action name="actionUn_Freeze_View">
    <property name="icon">
-    <iconset theme="locked">
-     <normaloff>:/icons/Humanity/status/locked.svg</normaloff>:/icons/Humanity/status/locked.svg</iconset>
+    <iconset theme="locked" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/locked.svg</normaloff>:/icons/Humanity/actions/16/locked.svg</iconset>
    </property>
    <property name="text">
     <string>Un-Freeze View</string>
@@ -1045,8 +1040,8 @@
   </action>
   <action name="actionShow_All">
    <property name="icon">
-    <iconset theme="zoom-in">
-     <normaloff>:/icons/Humanity/actions/16/zoom-in.svg</normaloff>:/icons/Humanity/actions/16/zoom-in.svg</iconset>
+    <iconset theme="zoom-in" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/zoom-in.png</normaloff>:/icons/Humanity/actions/16/zoom-in.png</iconset>
    </property>
    <property name="text">
     <string>Show All</string>
@@ -1055,6 +1050,10 @@
   <action name="actionRecent_Placeholder">
    <property name="checkable">
     <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset theme="document-open-recent" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/document-open-recent.svg</normaloff>:/icons/Humanity/actions/16/document-open-recent.svg</iconset>
    </property>
    <property name="text">
     <string>Recent Placeholder</string>
@@ -1131,9 +1130,8 @@
   </action>
   <action name="actionPropertyClear">
    <property name="icon">
-    <iconset theme="edit-clear">
-     <normaloff/>
-    </iconset>
+    <iconset theme="edit-clear" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/edit-clear.svg</normaloff>:/icons/Humanity/actions/16/edit-clear.svg</iconset>
    </property>
    <property name="text">
     <string>Clear</string>
@@ -1204,9 +1202,8 @@
   </action>
   <action name="actionSplitClip">
    <property name="icon">
-    <iconset theme="edit-cut">
-     <normaloff/>
-    </iconset>
+    <iconset theme="edit-cut" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/edit-cut.svg</normaloff>:/icons/Humanity/actions/16/edit-cut.svg</iconset>
    </property>
    <property name="text">
     <string>Split Clip...</string>
@@ -1236,7 +1233,7 @@
   <action name="actionRenameTrack">
    <property name="icon">
     <iconset theme="gtk-edit" resource="../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/16/list-add.svg</normaloff>:/icons/Humanity/actions/16/list-add.svg</iconset>
+     <normaloff>:/icons/Humanity/actions/16/gtk-edit.svg</normaloff>:/icons/Humanity/actions/16/gtk-edit.svg</iconset>
    </property>
    <property name="text">
     <string>Rename Track</string>
@@ -1247,7 +1244,7 @@
   </action>
   <action name="actionUpdate">
    <property name="icon">
-    <iconset resource="../../images/openshot.qrc">
+    <iconset theme="package-upgrade" resource="../../images/openshot.qrc">
      <normaloff>:/icons/Humanity/actions/16/package-upgrade.svg</normaloff>:/icons/Humanity/actions/16/package-upgrade.svg</iconset>
    </property>
    <property name="text">
@@ -1265,9 +1262,8 @@
   </action>
   <action name="actionTutorial">
    <property name="icon">
-    <iconset theme="im-message-new">
-     <normaloff/>
-    </iconset>
+    <iconset theme="im-message-new" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/im-message-new.svg</normaloff>:/icons/Humanity/actions/16/im-message-new.svg</iconset>
    </property>
    <property name="text">
     <string>Tutorial</string>
@@ -1278,9 +1274,8 @@
   </action>
   <action name="actionAnimation">
    <property name="icon">
-    <iconset theme="video-x-generic">
-     <normaloff/>
-    </iconset>
+    <iconset theme="video-x-generic" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/mimes/16/video-x-generic.svg</normaloff>:/icons/Humanity/mimes/16/video-x-generic.svg</iconset>
    </property>
    <property name="text">
     <string>Create Animation</string>
@@ -1314,11 +1309,45 @@
    </property>
   </action>
   <action name="actionTransform">
+   <property name="icon">
+    <iconset theme="transform-move" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/transform-move.png</normaloff>:/icons/Humanity/actions/16/transform-move.png</iconset>
+   </property>
    <property name="text">
     <string>Transform</string>
    </property>
    <property name="toolTip">
     <string>Transform</string>
+   </property>
+  </action>
+  <action name="actionEditTitle">
+   <property name="icon">
+    <iconset theme="gtk-edit" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/gtk-edit.svg</normaloff>:/icons/Humanity/actions/16/gtk-edit.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Edit Title</string>
+   </property>
+   <property name="toolTip">
+    <string>Edit Title</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+T</string>
+   </property>
+  </action>
+  <action name="actionDuplicateTitle">
+   <property name="icon">
+    <iconset theme="edit-copy" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/edit-copy.svg</normaloff>:/icons/Humanity/actions/16/edit-copy.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Duplicate Title</string>
+   </property>
+   <property name="toolTip">
+    <string>Duplicate Title</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+T</string>
    </property>
   </action>
  </widget>
