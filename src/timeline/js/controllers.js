@@ -401,21 +401,20 @@ App.controller('TimelineCtrl',function($scope) {
 
 	  // Determine actual x coordinate (over timeline)
       var center_x = Math.max(cursor_x - track_labels_width, 0);
+      if (cursor_x == 0)
+      	center_x = 0;
 
       // Determine time of cursor position
-      var cursor_time = parseFloat(center_x) / $scope.pixelsPerSecond;
-
-      // Determine time of hidden scrollbar timeline
-      var hidden_scrollbar_time = parseFloat(horz_scroll_offset) / $scope.pixelsPerSecond;
+      var cursor_time = parseFloat(center_x + horz_scroll_offset) / $scope.pixelsPerSecond;
 
       $scope.$apply(function(){
          $scope.project.scale = parseFloat(scaleVal);
          $scope.pixelsPerSecond = parseFloat($scope.project.tick_pixels) / parseFloat($scope.project.scale);
-
-         // Scroll back to correct cursor time
-         var new_cursor_x = Math.round((hidden_scrollbar_time) * $scope.pixelsPerSecond);
-         $("#scrolling_tracks").scrollLeft(new_cursor_x);
       });
+
+	 // Scroll back to correct cursor time (minus the difference of the cursor location)
+	 var new_cursor_x = Math.round((cursor_time * $scope.pixelsPerSecond) - center_x);
+	 $("#scrolling_tracks").scrollLeft(new_cursor_x);
  };
 
  // Set the audio data for a clip

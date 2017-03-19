@@ -2203,7 +2203,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         self.window.zoomScaleLabel.setText(_("{} seconds").format(newValue))
 
         # Determine X coordinate of cursor (to center zoom on)
-        cursor_x = self.mapFromGlobal(self.cursor().pos()).x()
+        cursor_y = self.mapFromGlobal(self.cursor().pos()).y()
+        if cursor_y >= 0:
+            cursor_x = self.mapFromGlobal(self.cursor().pos()).x()
+        else:
+            cursor_x = 0
 
         # Get access to timeline scope and set scale to zoom slider value (passed in)
         cmd = JS_SCOPE_SELECTOR + ".setScale(" + str(newValue) + "," + str(cursor_x) + ");"
