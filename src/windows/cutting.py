@@ -62,7 +62,8 @@ class Cutting(QDialog):
     SpeedSignal = pyqtSignal(float)
     StopSignal = pyqtSignal()
 
-    def __init__(self, file=None):
+    def __init__(self, file=None, preview=False):
+        _ = get_app()._tr
 
         # Create dialog class
         QDialog.__init__(self)
@@ -76,6 +77,12 @@ class Cutting(QDialog):
         # Track metrics
         track_metric_screen("cutting-screen")
 
+        # If preview, hide cutting controls
+        if preview:
+            self.lblInstructions.setVisible(False)
+            self.widgetControls.setVisible(False)
+            self.setWindowTitle(_("Preview"))
+
         self.start_frame = 1
         self.start_image = None
         self.end_frame = 1
@@ -88,18 +95,51 @@ class Cutting(QDialog):
         self.fps_num = int(file.data['fps']['num'])
         self.fps_den = int(file.data['fps']['den'])
         self.fps = float(self.fps_num) / float(self.fps_den)
+        self.width = int(file.data['width'])
+        self.height = int(file.data['height'])
+        self.sample_rate = int(file.data['sample_rate'])
+        self.channels = int(file.data['channels'])
+        self.channel_layout = int(file.data['channel_layout'])
 
         # Open video file with Reader
         log.info(self.file_path)
-        self.r = openshot.FFmpegReader(self.file_path)
-        self.r.Open()
+
+        # Create an instance of a libopenshot Timeline object
+        self.r = openshot.Timeline(self.width, self.height, openshot.Fraction(self.fps_num, self.fps_den), self.sample_rate, self.channels, self.channel_layout)
+        self.r.info.channel_layout = self.channel_layout
+        self.r.info.has_audio = True
+        self.r.info.has_video = True
+        self.r.info.video_length = 999999
+        self.r.info.duration = 999999
+        self.r.info.sample_rate = self.sample_rate
+        self.r.info.channels = self.channels
+
+        try:
+            # Add clip for current preview file
+            self.clip = openshot.Clip(self.file_path)
+            if preview:
+                # Display frame #'s during preview
+                self.clip.display = openshot.FRAME_DISPLAY_CLIP
+            self.r.AddClip(self.clip)
+        except:
+            log.error('Failed to load media file into preview player: %s' % self.file_path)
+            return
 
         # Add Video Widget
         self.videoPreview = VideoWidget()
         self.videoPreview.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
         self.verticalLayout.insertWidget(0, self.videoPreview)
 
+        # Set max size of video preview (for speed)
+        viewport_rect = self.videoPreview.centeredViewport(self.videoPreview.width(), self.videoPreview.height())
+        self.r.SetMaxSize(viewport_rect.width(), viewport_rect.height())
+
+        # Open reader
+        self.r.Open()
+
         # Start the preview thread
+        self.initialized = False
+        self.transforming_clip = False
         self.preview_parent = PreviewParent()
         self.preview_parent.Init(self, self.r, self.videoPreview)
         self.preview_thread = self.preview_parent.worker
@@ -128,6 +168,7 @@ class Cutting(QDialog):
         self.btnEnd.clicked.connect(self.btnEnd_clicked)
         self.btnClear.clicked.connect(self.btnClear_clicked)
         self.btnAddClip.clicked.connect(self.btnAddClip_clicked)
+        self.initialized = True
 
     def movePlayhead(self, frame_number):
         """Update the playhead position"""

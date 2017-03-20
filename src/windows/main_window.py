@@ -780,19 +780,22 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         """ Preview the selected media file """
         log.info('actionPreview_File_trigger')
 
-        if self.selected_files:
+        # Loop through selected files (set 1 selected file if more than 1)
+        f = None
+        for file_id in self.selected_files:
             # Find matching file
-            f = File.get(id=self.selected_files[0])
-            if f:
-                # Get file path
-                previewPath = f.data["path"]
+            f = File.get(id=file_id)
 
-                # Load file into player
-                self.LoadFileSignal.emit(previewPath)
+        # Bail out if no file selected
+        if not f:
+            log.info(self.selected_files)
+            return
 
-                # Trigger play button
-                self.actionPlay.setChecked(False)
-                self.actionPlay.trigger()
+        # show dialog
+        from windows.cutting import Cutting
+        win = Cutting(f, preview=True)
+        # Run the dialog event loop - blocking interaction on this window during that time
+        result = win.exec_()
 
     def previewFrame(self, position_seconds, position_frames, time_code):
         """Preview a specific frame"""
