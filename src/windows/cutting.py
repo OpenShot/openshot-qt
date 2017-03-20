@@ -26,6 +26,7 @@
  """
 
 import os
+import sys
 import functools
 import math
 
@@ -111,14 +112,21 @@ class Cutting(QDialog):
         try:
             # Add clip for current preview file
             self.clip = openshot.Clip(self.file_path)
+
+            # Show waveform for audio files
+            if not self.clip.Reader().info.has_video and self.clip.Reader().info.has_audio:
+                self.clip.Waveform(True)
+
+            # Set has_audio property
             self.r.info.has_audio = self.clip.Reader().info.has_audio
+            if sys.platform == "darwin":
+                # Disable audio in preview for OS X (because this seems to crash all audio support in OpenShot)
+                # TODO: Fix libopenshot to support multiple audio players without breaking all audio support.
+                self.r.info.has_audio = False
+
             if preview:
                 # Display frame #'s during preview
                 self.clip.display = openshot.FRAME_DISPLAY_CLIP
-
-                # Show waveform for audio files
-                if not self.clip.Reader().info.has_video and self.clip.Reader().info.has_audio:
-                    self.clip.Waveform(True)
 
             self.r.AddClip(self.clip)
         except:
