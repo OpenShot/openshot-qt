@@ -107,19 +107,19 @@ class Cutting(QDialog):
         # Create an instance of a libopenshot Timeline object
         self.r = openshot.Timeline(self.width, self.height, openshot.Fraction(self.fps_num, self.fps_den), self.sample_rate, self.channels, self.channel_layout)
         self.r.info.channel_layout = self.channel_layout
-        self.r.info.has_audio = True
-        self.r.info.has_video = True
-        self.r.info.video_length = 999999
-        self.r.info.duration = 999999
-        self.r.info.sample_rate = self.sample_rate
-        self.r.info.channels = self.channels
 
         try:
             # Add clip for current preview file
             self.clip = openshot.Clip(self.file_path)
+            self.r.info.has_audio = self.clip.Reader().info.has_audio
             if preview:
                 # Display frame #'s during preview
                 self.clip.display = openshot.FRAME_DISPLAY_CLIP
+
+                # Show waveform for audio files
+                if not self.clip.Reader().info.has_video and self.clip.Reader().info.has_audio:
+                    self.clip.Waveform(True)
+
             self.r.AddClip(self.clip)
         except:
             log.error('Failed to load media file into preview player: %s' % self.file_path)
@@ -361,16 +361,18 @@ class Cutting(QDialog):
     def closeEvent(self, event):
         log.info('closeEvent')
 
-        # Stop preview and kill thread
+        # Stop playback
         self.preview_parent.worker.Stop()
+
+        # Stop preview thread (and wait for it to end)
         self.preview_parent.worker.kill()
         self.preview_parent.background.exit()
-
-        # Wait for thread
         self.preview_parent.background.wait(5000)
 
-        # Stop reader
+        # Close readers
         self.r.Close()
+        self.clip.Close()
+        self.r.ClearAllCache()
 
     def reject(self):
         log.info('reject')
