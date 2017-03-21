@@ -25,7 +25,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-from PyQt5.QtCore import QSize, QPoint
+from PyQt5.QtCore import QSize, QPoint, QTimer
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QListView, QMenu
 
@@ -50,20 +50,21 @@ class TitlesListView(QListView):
         _ = get_app()._tr
 
         # Get all selected rows items
-        ItemRow = self.title_model.model.itemFromIndex(self.selected).row()
-        title_path = self.title_model.model.item(ItemRow, 2).text()
+        if self.title_model.model.itemFromIndex(self.selected):
+            ItemRow = self.title_model.model.itemFromIndex(self.selected).row()
+            title_path = self.title_model.model.item(ItemRow, 2).text()
 
-        # Display title in graphicsView
-        self.win.filename = title_path
+            # Display title in graphicsView
+            self.win.filename = title_path
 
-        # Create temp version of title
-        self.win.create_temp_title(title_path)
+            # Create temp version of title
+            self.win.create_temp_title(title_path)
 
-        # Display temp file
-        self.win.display_svg()
+            # Add all widgets for editing
+            self.win.load_svg_template()
 
-        # Add all widgets for editing
-        self.win.load_svg_template()
+            # Display temp image (slight delay to allow screen to be shown first)
+            QTimer.singleShot(50, self.win.display_svg)
 
     def refresh_view(self):
         self.title_model.update_model()
@@ -91,7 +92,6 @@ class TitlesListView(QListView):
         self.setResizeMode(QListView.Adjust)
         self.setUniformItemSizes(True)
         self.setWordWrap(True)
-        #self.setFixedWidth(330)
         self.setStyleSheet('QListView::item { padding-top: 2px; }')
 
         # Refresh view

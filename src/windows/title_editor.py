@@ -123,8 +123,8 @@ class TitleEditor(QDialog):
             # Add all widgets for editing
             self.load_svg_template()
 
-            # Display image
-            QTimer.singleShot(0, self.display_svg)
+            # Display image (slight delay to allow screen to be shown first)
+            QTimer.singleShot(50, self.display_svg)
 
     def txtLine_changed(self, txtWidget):
 
