@@ -99,7 +99,7 @@ class FilesModel(updates.UpdateInterface):
             self.model.clear()
 
         # Add Headers
-        self.model.setHorizontalHeaderLabels([_("Thumb"), _("Name"), _("Tags"), "", "", ""])
+        self.model.setHorizontalHeaderLabels(["", _("Name"), _("Tags"), "", "", ""])
 
         # Get list of files in project
         files = File.filter()  # get all files
@@ -186,7 +186,7 @@ class FilesModel(updates.UpdateInterface):
             # Append thumbnail
             col = QStandardItem()
             col.setIcon(QIcon(thumb_path))
-            col.setText((name[:9] + '...') if len(name) > 10 else name)
+            col.setText(name)
             col.setToolTip(filename)
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsDragEnabled)
             row.append(col)
@@ -194,7 +194,7 @@ class FilesModel(updates.UpdateInterface):
             # Append Filename
             col = QStandardItem("Name")
             col.setData(filename, Qt.DisplayRole)
-            col.setText((name[:20] + '...') if len(name) > 15 else name)
+            col.setText(name)
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsDragEnabled | Qt.ItemIsEditable)
             row.append(col)
 

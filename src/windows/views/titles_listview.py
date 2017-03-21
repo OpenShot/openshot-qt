@@ -25,7 +25,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-from PyQt5.QtCore import QSize, QPoint, QTimer
+from PyQt5.QtCore import QSize, QPoint, QTimer, Qt
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QListView, QMenu
 
@@ -80,18 +80,15 @@ class TitlesListView(QListView):
         # Get Model data
         self.title_model = TitlesModel()
 
-        # Keep track of mouse press start position to determine when to start drag
-        self.setAcceptDrops(True)
-        self.setDragEnabled(True)
-        self.setDropIndicatorShown(True)
-
         # Setup header columns
         self.setModel(self.title_model.model)
         self.setIconSize(QSize(131, 108))
+        self.setGridSize(QSize(102, 92))
         self.setViewMode(QListView.IconMode)
         self.setResizeMode(QListView.Adjust)
         self.setUniformItemSizes(True)
         self.setWordWrap(True)
+        self.setTextElideMode(Qt.ElideRight)
         self.setStyleSheet('QListView::item { padding-top: 2px; }')
 
         # Refresh view

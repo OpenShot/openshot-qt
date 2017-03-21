@@ -25,7 +25,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-from PyQt5.QtCore import QSize, QPoint
+from PyQt5.QtCore import QSize, QPoint, Qt
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QListView, QMenu
 
@@ -100,10 +100,12 @@ class TransitionsListView(QListView):
         # Setup header columns
         self.setModel(self.transition_model.model)
         self.setIconSize(QSize(131, 108))
+        self.setGridSize(QSize(102, 92))
         self.setViewMode(QListView.IconMode)
         self.setResizeMode(QListView.Adjust)
         self.setUniformItemSizes(True)
-        self.setWordWrap(True)
+        self.setWordWrap(False)
+        self.setTextElideMode(Qt.ElideRight)
         self.setStyleSheet('QListView::item { padding-top: 2px; }')
 
         # Refresh view

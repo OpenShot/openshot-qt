@@ -615,10 +615,12 @@ class BlenderListView(QListView):
         # Setup header columns
         self.setModel(self.blender_model.model)
         self.setIconSize(QSize(131, 108))
+        self.setGridSize(QSize(102, 92))
         self.setViewMode(QListView.IconMode)
         self.setResizeMode(QListView.Adjust)
         self.setUniformItemSizes(False)
         self.setWordWrap(True)
+        self.setTextElideMode(Qt.ElideRight)
         self.setStyleSheet('QTreeView::item { padding-top: 2px; }')
 
         # Hook up button

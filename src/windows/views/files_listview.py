@@ -308,7 +308,10 @@ class FilesListView(QListView):
 
     def prepare_for_delete(self):
         """Remove signal handlers and prepare for deletion"""
-        pass
+        try:
+            self.files_model.model.ModelRefreshed.disconnect()
+        except:
+            pass
 
     def __init__(self, *args):
         # Invoke parent init
@@ -328,11 +331,13 @@ class FilesListView(QListView):
         # Setup header columns
         self.setModel(self.files_model.model)
         self.setIconSize(QSize(131, 108))
+        self.setGridSize(QSize(102, 92))
         self.setViewMode(QListView.IconMode)
         self.setResizeMode(QListView.Adjust)
         self.setSelectionMode(QAbstractItemView.ExtendedSelection)
         self.setUniformItemSizes(True)
-        self.setWordWrap(True)
+        self.setWordWrap(False)
+        self.setTextElideMode(Qt.ElideRight)
         self.setStyleSheet('QListView::item { padding-top: 2px; }')
 
         # Refresh view

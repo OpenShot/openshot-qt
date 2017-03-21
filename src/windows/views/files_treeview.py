@@ -34,7 +34,7 @@ from urllib.parse import urlparse
 
 from PyQt5.QtCore import QSize, Qt, QPoint
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QTreeView, QMessageBox, QAbstractItemView, QMenu, QSizePolicy
+from PyQt5.QtWidgets import QTreeView, QMessageBox, QAbstractItemView, QMenu, QSizePolicy, QHeaderView
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 from classes.query import File
@@ -308,8 +308,18 @@ class FilesTreeView(QTreeView):
             self.resize_contents()
 
     def resize_contents(self):
-        self.resizeColumnToContents(2)
-        self.resizeColumnToContents(1)
+        # Get size of widget
+        thumbnail_width = 78
+        tags_width = 75
+
+        # Resize thumbnail and tags column
+        self.header().resizeSection(0, thumbnail_width)
+        self.header().resizeSection(2, tags_width)
+
+        # Set stretch mode on certain columns
+        self.header().setStretchLastSection(False)
+        self.header().setSectionResizeMode(1, QHeaderView.Stretch)
+        self.header().setSectionResizeMode(2, QHeaderView.Interactive)
 
     def currentChanged(self, selected, deselected):
         log.info('currentChanged')
@@ -348,7 +358,10 @@ class FilesTreeView(QTreeView):
 
     def prepare_for_delete(self):
         """Remove signal handlers and prepare for deletion"""
-        self.files_model.model.ModelRefreshed.disconnect()
+        try:
+            self.files_model.model.ModelRefreshed.disconnect()
+        except:
+            pass
 
     def __init__(self, *args):
         # Invoke parent init
@@ -374,7 +387,8 @@ class FilesTreeView(QTreeView):
         self.setSelectionBehavior(QTreeView.SelectRows)
         self.setSelectionMode(QAbstractItemView.ExtendedSelection)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.setWordWrap(True)
+        self.setWordWrap(False)
+        self.setTextElideMode(Qt.ElideRight)
         self.setStyleSheet('QTreeView::item { padding-top: 2px; }')
         self.files_model.model.ModelRefreshed.connect(self.refresh_columns)
 
