@@ -794,8 +794,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # show dialog
         from windows.cutting import Cutting
         win = Cutting(f, preview=True)
-        # Run the dialog event loop - blocking interaction on this window during that time
-        result = win.exec_()
+        win.show()
 
     def previewFrame(self, position_seconds, position_frames, time_code):
         """Preview a specific frame"""
