@@ -119,10 +119,6 @@ class Cutting(QDialog):
 
             # Set has_audio property
             self.r.info.has_audio = self.clip.Reader().info.has_audio
-            if sys.platform == "darwin":
-                # Disable audio in preview for OS X (because this seems to crash all audio support in OpenShot)
-                # TODO: Fix libopenshot to support multiple audio players without breaking all audio support.
-                self.r.info.has_audio = False
 
             if preview:
                 # Display frame #'s during preview
