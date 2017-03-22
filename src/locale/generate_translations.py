@@ -71,6 +71,7 @@ openshot_path = os.path.dirname(langage_folder_path)
 effects_path = os.path.join(openshot_path, 'effects')
 blender_path = os.path.join(openshot_path, 'blender')
 transitions_path = os.path.join(openshot_path, 'transitions')
+titles_path = os.path.join(openshot_path, 'titles')
 export_path = os.path.join(openshot_path, 'presets')
 windows_ui_path = os.path.join(openshot_path, 'windows', 'ui')
 locale_path = os.path.join(openshot_path, 'locale', 'OpenShot')
@@ -277,6 +278,28 @@ for file in os.listdir(transitions_path):
 
         # add text to list
         transitions_text[name] = full_subfile_path
+
+# Loop through titles and add to POT file
+for sub_file in os.listdir(titles_path):
+    # load xml export file
+    full_subfile_path = os.path.join(titles_path, sub_file)
+    (fileBaseName, fileExtension) = os.path.splitext(sub_file)
+
+    # split the name into parts (looking for a number)
+    suffix_number = None
+    name_parts = fileBaseName.split("_")
+    if name_parts[-1].isdigit():
+        suffix_number = name_parts[-1]
+
+    # get transition name
+    name = fileBaseName.replace("_", " ").capitalize()
+
+    # replace suffix number with placeholder (if any)
+    if suffix_number:
+        name = name.replace(suffix_number, "%s")
+
+    # add text to list
+    transitions_text[name] = full_subfile_path
 
 
 log.info("-----------------------------------------------------")

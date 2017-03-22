@@ -102,11 +102,21 @@ class TitlesModel():
             if filename[0] == "." or "thumbs.db" in filename.lower() or filename.lower() == "temp.svg":
                 continue
 
-            # Get name of title
+            # split the name into parts (looking for a number)
+            suffix_number = None
+            name_parts = fileBaseName.split("_")
+            if name_parts[-1].isdigit():
+                suffix_number = name_parts[-1]
+
+            # get name of transition
             title_name = fileBaseName.replace("_", " ").capitalize()
 
-            # Translate title
-            title_name = self.app._tr(title_name)
+            # replace suffix number with placeholder (if any)
+            if suffix_number:
+                title_name = title_name.replace(suffix_number, "%s")
+                title_name = self.app._tr(title_name) % suffix_number
+            else:
+                title_name = self.app._tr(title_name)
 
             # Check for thumbnail path (in build-in cache)
             thumb_path = os.path.join(info.IMAGES_PATH, "cache",  "{}.png".format(fileBaseName))
