@@ -193,9 +193,6 @@ class EffectsModel():
                 self.model.appendRow(row)
                 self.model_names[effect_name] = effect_name
 
-            # Process events in QT (to keep the interface responsive)
-            app.processEvents()
-
     def __init__(self, *args):
 
         # Create standard model

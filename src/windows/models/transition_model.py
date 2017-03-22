@@ -195,9 +195,6 @@ class TransitionsModel():
                     self.model.appendRow(row)
                     self.model_paths[path] = path
 
-                # Process events in QT (to keep the interface responsive)
-                app.processEvents()
-
     def __init__(self, *args):
 
         # Create standard model
