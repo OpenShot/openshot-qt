@@ -2168,6 +2168,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             self.effectsTreeView = EffectsListView(self)
         self.tabEffects.layout().addWidget(self.effectsTreeView)
 
+        # Process events before continuing
+        # TODO: Figure out why this is needed for a backup recovery to correctly show up on the timeline
+        get_app().processEvents()
+
         # Setup properties table
         self.txtPropertyFilter.setPlaceholderText(_("Filter"))
         self.propertyTableView = PropertiesTableView(self)
