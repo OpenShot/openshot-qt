@@ -28,7 +28,7 @@ Features
 --------
 * Cross-platform (Supports Linux, OS X, and Windows)
 * Support for many video, audio, and image formats (based on FFmpeg)
-* Powerful curve-based Keyframe animations
+* Powerful curve-based Key frame animations
 * Desktop integration (drag and drop support)
 * Unlimited tracks / layers
 * Clip resizing, scaling, trimming, snapping, rotation, and cutting

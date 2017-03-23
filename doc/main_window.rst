@@ -44,3 +44,91 @@ Overview
 
 For step-by-step instructions on the basic usage of OpenShot, be sure to read the
 :ref:`quick_tutorial_ref`.
+
+Built-in Tutorial
+-----------------
+When you first launch OpenShot, you will be presented with a friendly built-in tutorial. It will point out and explain
+the basics. Clicking **Next** will jump to the next topic. You can always view this tutorial again from the **Help->Tutorial** menu.
+
+.. image:: _static/built-in-tutorial.jpg
+
+
+Tracks & Layers
+------------------
+
+OpenShot uses tracks to layer videos and images. The top most track is the top layer, and the bottom track is the bottom layer.
+If you are familiar with layers in a photo editing application, then you should be quite familiar with this concept.
+OpenShot will mix each layer together, just like a photo editing application. You can have an unlimited number of tracks, but
+typically a video project will not need more than 10 (or so) tracks.
+
+For example, imagine a 3 track video project
+
+.. image:: _static/tracks.jpg
+
+==  ==================  ============
+#   Name                Description
+==  ==================  ============
+1   Top Track           Clips on this track will always be on top and visible
+2   Middle Track        Clips in the middle (might or might not be visible, depending on what is above them)
+3   Bottom Track        Clips on this track will always be on the bottom
+==  ==================  ============
+
+.. _keyboard_shortcut_ref:
+
+Keyboard Shortcuts
+------------------
+Here is a list of the default keyboard shortcuts supported by OpenShot. You can configure these shortcuts
+in the Preferences dialog. Learning a few of these shortcuts can save you a bunch of time!
+
+==================  ============
+Shortcut            Action
+==================  ============
+Ctrl+H              About OpenShot
+Ctrl+M              Add Marker
+Ctrl+Shift+T        Add Track
+Ctrl+W              Add to Timeline
+Ctrl+B              Animated Title
+Ctrl+P              Choose Profile
+Ctrl+C              Copy
+Delete              Delete Item
+Backspace           Delete Item
+Ctrl+D              Details View
+Ctrl+E              Export Video
+L                   Fast Forward
+F11                 Fullscreen
+Ctrl+F              Import Files
+Ctrl+End            Jump to End
+Ctrl+Home           Jump to Start
+Ctrl+N              New Project
+Right               Next Frame
+Ctrl+Right          Next Marker
+Ctrl+O              Open Project
+Ctrl+V              Paste
+Space               Play/Pause Toggle
+Up                  Play/Pause Toggle
+Down                Play/Pause Toggle
+K                   Play/Pause Toggle
+Ctrl+Shift+P        Preferences
+Left                Previous Frame
+Ctrl+Left           Previous Marker
+Ctrl+I              Properties
+Ctrl+Q              Quit
+Ctrl+Y              Redo
+J                   Rewind
+Ctrl+S              Save Project
+Ctrl+Shift+S        Save Project As...
+Ctrl+A              Select All
+Ctrl+Shift+A        Select None
+Ctrl+K              Slice All: Keep Both Sides
+Ctrl+L              Slice All: Keep Left Side
+Ctrl+J              Slice All: Keep Right Side
+Ctrl+G              Toggle Snapping
+Ctrl+X              Split Clip
+Ctrl+Shift+D        Thumbnail View
+Ctrl+T              Title Editor
+Ctrl+Z              Undo
+=                   Zoom In
+--                   Zoom Out
+Ctrl+Scroll         Zoom In/Out
+Ctrl+Middle Button  Scroll Timeline
+==================  ============
