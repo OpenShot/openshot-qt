@@ -690,7 +690,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
     def actionHelpContents_trigger(self, event):
         try:
-            webbrowser.open("http://openshotusers.com/?app-menu")
+            webbrowser.open("http://www.openshot.org/files/user-guide/?app-menu")
             log.info("Help Contents is open")
         except:
             QMessageBox.information(self, "Error !",
