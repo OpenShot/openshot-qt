@@ -18,7 +18,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
 
 Introduction
-=============
+============
 
 OpenShot Video Editor is an award-winning, open-source video editor, available on
 Linux, Mac, and Windows. OpenShot can create stunning videos, films, and animations with an

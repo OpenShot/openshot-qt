@@ -17,6 +17,8 @@
 .. You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
 
+.. _clips_ref:
+
 Clips
 =====
 
@@ -26,7 +28,7 @@ rendered and composited, such as scale, location, rotation, and alpha. These pro
 and when combined together, can create some amazing effects.
 
 Overview
----------
+--------
 
 .. image:: _static/clip-overview.jpg
 
@@ -58,7 +60,7 @@ Keep in mind that all of the above cutting methods also have :ref:`keyboard_shor
 .. _clip_presets_ref:
 
 Preset Menu
------------------
+-----------
 OpenShot has tons of great preset animations and clip properties, such as fading, sliding, zooming, etc...
 These presets can be accessed by right clicking on a clip.
 
@@ -83,7 +85,7 @@ Remove Clip         Remove a clip from the timeline
 ==================  ============
 
 Effects
------------------
+-------
 In addition to the many clip properties which can be animated and adjusted, you can also drop an effect directly onto
 a clip. Each effect is represented by a small letter icon. Clicking the effect icon will populate the properties of that
 effect, and allow you to edit (and animate) them.
@@ -93,7 +95,7 @@ effect, and allow you to edit (and animate) them.
 .. _clip_properties_ref:
 
 Properties
------------------
+----------
 Below is a list of clip properties which can be edited, and in most cases, animated over time. To view a clip's properties,
 right click and choose **Properties**. The property editor will appear, where you can change these properties. NOTE: Pay
 close attention to where the play-head (i.e. red playback line) is. Key frames are automatically created at the current playback

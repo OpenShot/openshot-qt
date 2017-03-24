@@ -26,7 +26,7 @@ values at certain points on a clip, and OpenShot does the hard work of interpola
 
 
 Overview
----------
+--------
 
 .. image:: _static/animation-overview.jpg
 
@@ -41,7 +41,7 @@ Overview
 ==  ==================  ============
 
 Key Frames
------------------
+----------
 To create a key frame in OpenShot, simply position the play-head (i.e. playback position) at any point over a clip,
 and edit properties in the property dialog. If the property supports key frames, it will turn green, and a small green
 tick mark will appear on your clip at that position. Move your play-head to another point over that clip, and adjust
@@ -58,3 +58,11 @@ Constant            Interpolated values stay the same until the next key frame, 
 ==================  ============
 
 For more info on clip properties, see :ref:`clip_properties_ref`. For more info on preset animations, see :ref:`clip_presets_ref`.
+
+Image Sequences
+---------------
+If you have a sequence of similarly named images (such as, cat001.png, cat002.png, cat003.png, etc...), you can simply
+drag and drop one of them into OpenShot, and you will be prompted to import the entire sequence.
+
+To adjust the frame rate of the animation, right click and choose **File Properties** in the **Project Files** panel,
+and adjust the frame rate. Once you have set the correct frame rate, drag the animation onto the timeline.

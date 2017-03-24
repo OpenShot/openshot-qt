@@ -18,14 +18,14 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
 
 Getting Started
-=================================================
+===============
 
 OpenShot Video Editor is available on most operating systems (including Linux, Mac, and Windows).
 Visit the official download page and grab the latest and greatest version:
 http://www.openshot.org/download/.
 
 Linux
----------
+-----
 Depending on which Linux distribution you use, there are likely many ways to install OpenShot. The
 easiest way to ensure you have the very latest version, is to download an AppImage from the
 project website (listed above). Once downloaded, right click on the AppImage file, choose
@@ -33,13 +33,13 @@ Properties, and mark the file as **Executable**. Now, go ahead and double click 
 AppImage to launch it.
 
 Mac
----------
+---
 Download the DMG file from the project website (listed above), double click it, and then drag
 the OpenShot application icon into your **Applications** shortcut. This is very similar to how most
 other Mac applications are installed. Now launch OpenShot from Launchpad.
 
 Windows
----------
+-------
 Download the Windows installer executable from the project website (listed above), double click it,
 and follow the directions on screen. Once completed, OpenShot will be installed and available
 in your Start menu.

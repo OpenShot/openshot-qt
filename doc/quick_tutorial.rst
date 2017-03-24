@@ -27,7 +27,7 @@ Using OpenShot is very easy, and this tutorial will take you through the basics 
 slide-show with music.
 
 Step 1 – Import Photos & Music
--------------------------------
+------------------------------
 Before we can begin making a video, we need to import files into OpenShot. Drag and
 drop a few images (\*.JPG, \*.PNG, etc...) and a music file (most formats will work)
 from your Desktop to OpenShot. Be sure to drop the files where the

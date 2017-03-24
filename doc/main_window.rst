@@ -24,7 +24,7 @@ OpenShot Video Editor has one main window which contains most of the information
 and menus needed to edit your video project.
 
 Overview
----------
+--------
 
 .. image:: _static/main-window.jpg
 
