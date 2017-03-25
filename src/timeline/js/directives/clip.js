@@ -29,6 +29,7 @@
 
 // Init variables
 var dragging = false;
+var resize_disabled = false;
 var previous_drag_position = null;
 var start_clips = {};
 var move_clips = {};
@@ -63,17 +64,37 @@ App.directive('tlClip', function($timeout){
 						dragLoc = 'right';
 					}
 
+					// Does this bounding box overlap a locked track?
+					if (hasLockedTrack(scope, e.pageY, e.pageY))
+						return !event; // yes, do nothing
+
+					// Does this bounding box overlap a locked track?
+					var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
+					var track_top = (parseInt(element.position().top) + parseInt(vert_scroll_offset));
+					var track_bottom = (parseInt(element.position().top) + parseInt(element.height()) + parseInt(vert_scroll_offset));
+					if (hasLockedTrack(scope, track_top, track_bottom))
+						resize_disabled = true;
+
 					// Hide keyframe points
-					element.find('.point_icon').hide()
+					element.find('.point_icon').fadeOut('fast');
+					element.find('.audio-container').fadeOut('fast');
 
 				},
 				stop: function(e, ui) {
 					dragging = false;
 
+					if (resize_disabled) {
+						// disabled, do nothing
+						resize_disabled = false;
+						return;
+					}
+
 					// Hide keyframe points
-					if (dragLoc == 'right')
+					if (dragLoc == 'right') {
 						// Make the keyframe points visible again
-						element.find('.point_icon').show()
+						element.find('.point_icon').show();
+						element.find('.audio-container').show();
+					}
 
 					//get amount changed in width
 					var delta_x = ui.originalSize.width - ui.size.width;
@@ -133,6 +154,13 @@ App.directive('tlClip', function($timeout){
 
 				},
 				resize: function(e, ui) {
+
+					if (resize_disabled) {
+						// disabled, keep the item the same size
+						$(this).css(ui.originalPosition);
+						$(this).width(ui.originalSize.width);
+						return;
+					}
 
 					// get amount changed in width
 					var delta_x = parseFloat(ui.originalSize.width) - ui.size.width;
@@ -200,9 +228,7 @@ App.directive('tlClip', function($timeout){
 		        snap: ".track", // snaps to a track
 		        snapMode: "inner", 
 		        snapTolerance: 20,
-		        stack: ".droppable",
 		        scroll: true,
-		        revert: 'invalid',
 				cancel: '.effect-container',
 		        start: function(event, ui) {
 		        	previous_drag_position = null;
@@ -247,6 +273,10 @@ App.directive('tlClip', function($timeout){
                         //send clip to bounding box builder
                         setBoundingBox($(this));
                     });
+					
+					// Does this bounding box overlap a locked track?
+					if (hasLockedTrack(scope, bounding_box.top, bounding_box.bottom) || scope.enable_razor)
+						return !event; // yes, do nothing
 		        	
 		        },
                 stop: function(event, ui) {
@@ -261,16 +291,11 @@ App.directive('tlClip', function($timeout){
 					previous_drag_position = null;
 					dragging = false;
 
-					//redraw audio
-					if (scope.clip.show_audio){
-						drawAudio(scope, scope.clip.id);
-					}
-
 				},
                 drag: function(e, ui) {
                 	var previous_x = ui.originalPosition.left;
 					var previous_y = ui.originalPosition.top;
-					if (previous_drag_position)
+					if (previous_drag_position != null)
 					{
 						// if available, override with previous drag position
 						previous_x = previous_drag_position.left;
@@ -284,15 +309,15 @@ App.directive('tlClip', function($timeout){
 	            	var x_offset = ui.position.left - previous_x;
 	            	var y_offset = ui.position.top - previous_y;
 
-                    // Update the dragged clip location in the location arrays
-					move_clips[element.attr('id')] = {"top": ui.position.top,
-                                                      "left": ui.position.left};
-
 					// Move the bounding box and apply snapping rules
-					results = moveBoundingBox(scope, element, previous_x, previous_y, x_offset, y_offset, ui);
+					results = moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, ui.position.left, ui.position.top);
 					x_offset = results.x_offset;
 					y_offset = results.y_offset;
-                    
+
+					// Update ui object
+					ui.position.left = results.position.left;
+					ui.position.top = results.position.top;
+
     				// Move all other selected clips with this one
 	                $(".ui-selected").each(function(){
 	                	var newY = move_clips[$(this).attr('id')]["top"] + y_offset;
@@ -364,14 +389,14 @@ App.directive('tlMultiSelectable', function(){
 					
 					if (scope.Qt)
 					{
-						timeline.qt_log("Add to selection: " + id);
-						timeline.addSelection(id, type);
+						timeline.addSelection(id, type, false);
+
+						// Clear effect selections (if any)
+						timeline.addSelection("", "effect", true);
 					}
-					
-					scope.$apply(function(){
-						item.selected = true;
-					});
-						 
+
+					// Update item state
+					item.selected = true;
 				},
 				unselected: function( event, ui ) {
 
@@ -391,14 +416,16 @@ App.directive('tlMultiSelectable', function(){
 					}
 					
 					if (scope.Qt)
-					{
-						timeline.qt_log("Remove from selection: " + id);
 						timeline.removeSelection(id, type);
-					}
-					scope.$apply(function(){
-						item.selected = false;
-					});
-						 
+
+					// Update item state
+					item.selected = false;
+				},
+				stop: function(event, ui) {
+					// This is called one time after all the selecting/unselecting is done
+					// Large amounts of selected item data could have changed, so
+					// let's force the UI to update
+					scope.$apply();
 				}
 			});
 		}

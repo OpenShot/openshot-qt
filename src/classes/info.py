@@ -27,34 +27,37 @@
 
 import os
 
-VERSION = "2.0.4"
-DATE = "20160109800000"
+VERSION = "2.2.0-dev"
+DATE = "20161220000000"
 NAME = "openshot-qt"
 PRODUCT_NAME = "OpenShot Video Editor"
 GPL_VERSION = "3"
 DESCRIPTION = "Create and edit videos and movies"
 COMPANY_NAME = "OpenShot Studios, LLC"
 COPYRIGHT = "Copyright (c) 2008-2016 %s" % COMPANY_NAME
-SUPPORTED_LANGUAGES = ["English", "Dutch", "French", "German", "Italian", "Portuguese", "Spanish", "Swedish"]
 CWD = os.getcwd()
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
 HOME_PATH = os.path.join(os.path.expanduser("~"))
 USER_PATH = os.path.join(HOME_PATH, ".openshot_qt")
+BACKUP_PATH = os.path.join(USER_PATH, "backup")
 BLENDER_PATH = os.path.join(USER_PATH, "blender")
+ASSETS_PATH = os.path.join(USER_PATH, "assets")
 THUMBNAIL_PATH = os.path.join(USER_PATH, "thumbnail")
 CACHE_PATH = os.path.join(USER_PATH, "cache")
+PREVIEW_CACHE_PATH = os.path.join(USER_PATH, "preview-cache")
 TITLE_PATH = os.path.join(USER_PATH, "title")
 PROFILES_PATH = os.path.join(PATH, "profiles")
 IMAGES_PATH = os.path.join(PATH, "images")
 TRANSITIONS_PATH = os.path.join(USER_PATH, "transitions")
 EXPORT_PRESETS_DIR = os.path.join(PATH, "presets")
 EXPORT_TESTS = os.path.join(USER_PATH, "tests")
+USER_PROFILES_PATH = os.path.join(USER_PATH, "profiles")
 
 # Create PATHS if they do not exist (this is where temp files are stored... such as cached thumbnails)
-for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH, TITLE_PATH, PROFILES_PATH, IMAGES_PATH,
-               TRANSITIONS_PATH, EXPORT_TESTS]:
+for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH, ASSETS_PATH, TITLE_PATH, PROFILES_PATH, IMAGES_PATH,
+               TRANSITIONS_PATH, EXPORT_TESTS, BACKUP_PATH, USER_PROFILES_PATH, PREVIEW_CACHE_PATH]:
     if not os.path.exists(folder.encode("UTF-8")):
-        os.makedirs(folder)
+        os.makedirs(folder, exist_ok=True)
 
 # names of all contributers, using "u" for unicode encoding
 AF = {"name": u"Andy Finch", "email": "andy@openshot.org", "website":"http://openshot.org/developers/andy"}
@@ -63,6 +66,11 @@ JT = {"name": u"Jonathan Thomas", "email": "jonathan@openshot.org", "website":"h
 OG = {"name": u"Olivier Girard", "email": "olivier@openshot.org", "website":"http://openshot.org/developers/olivier"}
 CP = {"name": u"Cody Parker", "email": "cody@yourcodepro.com", "website":"http://openshot.org/developers/cody_parker"}
 
+# Languages
+SUPPORTED_LANGUAGES = ['en_US']
+for lang in os.listdir(os.path.join(PATH, 'locale')):
+    if lang not in ["OpenShot"] and not os.path.isfile(os.path.join(PATH, 'locale', lang)):
+        SUPPORTED_LANGUAGES.append(lang)
 
 # credits
 CREDITS = {
@@ -110,4 +118,11 @@ SETUP = {
                        "Topic :: Artistic Software",
                        "Topic :: Multimedia :: Video :: Non-Linear Editor", ] +
                    ["Natural Language :: " + language for language in SUPPORTED_LANGUAGES],
+
+    # Automatic launch script creation
+    "entry_points": {
+        "gui_scripts": [
+            "openshot-qt = openshot_qt.launch:main"
+        ]
+    }
 }

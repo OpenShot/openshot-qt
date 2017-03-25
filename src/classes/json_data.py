@@ -103,7 +103,7 @@ class JsonDataStore:
             # Update default values to match user values
             for item in default:
                 user_value = user_values.get(item["setting"], None)
-                if user_value:
+                if user_value != None:
                     item["value"] = user_value
 
             # Return merged list
@@ -123,7 +123,7 @@ class JsonDataStore:
         """ Load JSON settings from a file """
         # log.debug("loading {}".format(file_path))
         try:
-            with open(file_path.encode('UTF-8'), 'r') as f:
+            with open(file_path, 'r') as f:
                 contents = f.read()
                 if contents:
                     # log.debug("loaded", contents)
@@ -140,7 +140,7 @@ class JsonDataStore:
         """ Save JSON settings to a file """
         # log.debug(json.dumps(data))
         try:
-            with open(file_path.encode('UTF-8'), 'w') as f:
+            with open(file_path, 'w') as f:
                 f.write(json.dumps(data))
         except Exception as ex:
             msg = ("Couldn't save {} file:\n{}\n{}".format(self.data_type, file_path, ex))

@@ -29,10 +29,12 @@ import os
 import time
 import sip
 
-from PyQt5.QtCore import QObject, QThread,  QTimer,  pyqtSlot, pyqtSignal, QCoreApplication
+from PyQt5.QtCore import QObject, QThread, pyqtSlot, pyqtSignal, QCoreApplication
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
+from classes.app import get_app
 from classes.logger import log
+from classes import settings
 
 try:
     import json
@@ -46,6 +48,12 @@ class PreviewParent(QObject):
     # Signal when the frame position changes in the preview player
     def onPositionChanged(self, current_frame):
         self.parent.movePlayhead(current_frame)
+
+        # Check if we are at the end of the timeline
+        if self.worker.player.Mode() == openshot.PLAYBACK_PLAY and current_frame >= self.worker.timeline_length and self.worker.timeline_length != -1:
+            # Yes, pause the video
+            self.parent.actionPlay.trigger()
+            self.worker.timeline_length = -1
 
     # Signal when the playback mode changes in the preview player (i.e PLAY, PAUSE, STOP)
     def onModeChanged(self, current_mode):
@@ -70,6 +78,16 @@ class PreviewParent(QObject):
         self.background.started.connect(self.worker.Start)
         self.worker.finished.connect(self.background.quit)
 
+        # Connect preview thread to main UI signals
+        self.parent.previewFrameSignal.connect(self.worker.previewFrame)
+        self.parent.refreshFrameSignal.connect(self.worker.refreshFrame)
+        self.parent.LoadFileSignal.connect(self.worker.LoadFile)
+        self.parent.PlaySignal.connect(self.worker.Play)
+        self.parent.PauseSignal.connect(self.worker.Pause)
+        self.parent.SeekSignal.connect(self.worker.Seek)
+        self.parent.SpeedSignal.connect(self.worker.Speed)
+        self.parent.StopSignal.connect(self.worker.Stop)
+
         # Move Worker to new thread, and Start
         self.worker.moveToThread(self.background)
         self.background.start()
@@ -91,20 +109,21 @@ class PlayerWorker(QObject):
         self.clip_reader = None
         self.original_speed = 0
         self.original_position = 0
-        self.previous_clip_mappers = []
+        self.previous_clips = []
         self.previous_clip_readers = []
+        self.is_running = True
+        self.number = None
+        self.current_frame = None
+        self.current_mode = None
+        self.timeline_length = -1
+
+        # Create QtPlayer class from libopenshot
+        self.player = openshot.QtPlayer()
 
     @pyqtSlot()
     def Start(self):
         """ This method starts the video player """
         log.info("QThread Start Method Invoked")
-
-        # Flag to run thread
-        self.is_running = True
-        self.number = None
-        self.player = None
-        self.current_frame = None
-        self.current_mode = None
 
         # Init new player
         self.initPlayer()
@@ -136,6 +155,7 @@ class PlayerWorker(QObject):
 
             # wait for a small delay
             time.sleep(0.01)
+            QCoreApplication.processEvents()
 
         self.finished.emit()
         log.info('exiting thread')
@@ -144,62 +164,52 @@ class PlayerWorker(QObject):
     def initPlayer(self):
         log.info("initPlayer")
 
-        # Create QtPlayer class from libopenshot
-        self.player = openshot.QtPlayer()
-
         # Get the address of the player's renderer (a QObject that emits signals when frames are ready)
         self.renderer_address = self.player.GetRendererQObject()
-        self.player.SetQWidget(int(sip.unwrapinstance(self.videoPreview)))
+        self.player.SetQWidget(sip.unwrapinstance(self.videoPreview))
         self.renderer = sip.wrapinstance(self.renderer_address, QObject)
         self.videoPreview.connectSignals(self.renderer)
 
-    @pyqtSlot()
     def kill(self):
         """ Kill this thread """
         self.is_running = False
 
-    @pyqtSlot(int)
     def previewFrame(self, number):
         """ Preview a certain frame """
-
         log.info("previewFrame: %s" % number)
 
         # Mark frame number for processing
-        self.player.Seek(number)
+        self.Seek(number)
 
         log.info("self.player.Position(): %s" % self.player.Position())
 
-    @pyqtSlot(int)
     def refreshFrame(self):
         """ Refresh a certain frame """
-
         log.info("refreshFrame")
 
         # Always load back in the timeline reader
-        self.LoadFile(None)
+        self.parent.LoadFileSignal.emit('')
 
-        # Mark frame number for processing
-        self.player.Seek(self.player.Position())
+        # Mark frame number for processing (if parent is done initializing)
+        self.Seek(self.player.Position())
 
         log.info("self.player.Position(): %s" % self.player.Position())
 
-    @pyqtSlot(str)
     def LoadFile(self, path=None):
         """ Load a media file into the video player """
-
         # Check to see if this path is already loaded
-        if path == self.clip_path:
+        # TODO: Determine why path is passed in as an empty string instead of None
+        if path == self.clip_path or (not path and not self.clip_path):
             return
+
+        log.info("LoadFile %s" % path)
+        s = settings.get_settings()
 
         # Determine the current frame of the timeline (when switching to a clip)
         seek_position = 1
         if path and not self.clip_path:
             # Track the current frame
             self.original_position = self.player.Position()
-
-        # Stop player (very important to prevent crashing)
-        self.original_speed = self.player.Speed()
-        self.player.Speed(0)
 
         # If blank path, switch back to self.timeline reader
         if not path:
@@ -217,85 +227,92 @@ class PlayerWorker(QObject):
             # Get extension of media path
             ext = os.path.splitext(path)
 
-            # Load Reader based on extension
-            new_reader = None
-            if ext in ['.avi', 'mov', 'mkv', 'mpg', 'mpeg', 'mp3', 'mp4', 'mts', 'ogg', 'wav', 'wmv', 'webm', 'vob']:
-                try:
-                    new_reader = openshot.FFmpegReader(path)
-                    new_reader.Open()
-                except:
-                    try:
-                        new_reader = openshot.QtImageReader(path)
-                        new_reader.Open()
-                    except:
-                        log.error('Failed to load media file into video player: %s' % path)
-                        return
-            else:
-                try:
-                    new_reader = openshot.QtImageReader(path)
-                    new_reader.Open()
-                except:
-                    try:
-                        new_reader = openshot.FFmpegReader(path)
-                        new_reader.Open()
-                    except:
-                        log.error('Failed to load media file into video player: %s' % path)
-                        return
+            # Create new timeline reader (to preview selected clip)
+            s = settings.get_settings()
+            project = get_app().project
 
+            # Get some settings from the project
+            fps = project.get(["fps"])
+            width = project.get(["width"])
+            height = project.get(["height"])
+            sample_rate = project.get(["sample_rate"])
+            channels = project.get(["channels"])
+            channel_layout = project.get(["channel_layout"])
 
+            # Create an instance of a libopenshot Timeline object
+            self.clip_reader = openshot.Timeline(width, height, openshot.Fraction(fps["num"], fps["den"]), sample_rate, channels, channel_layout)
+            self.clip_reader.info.channel_layout = channel_layout
+            self.clip_reader.info.has_audio = True
+            self.clip_reader.info.has_video = True
+            self.clip_reader.info.video_length = 999999
+            self.clip_reader.info.duration = 999999
+            self.clip_reader.info.sample_rate = sample_rate
+            self.clip_reader.info.channels = channels
 
-            # Wrap reader in FrameMapper (to match current settings of timeline)
-            new_mapper = openshot.FrameMapper(new_reader, self.timeline.info.fps, openshot.PULLDOWN_NONE, self.timeline.info.sample_rate,
-                                                    self.timeline.info.channels, self.timeline.info.channel_layout)
-
-            # Keep track of previous clip readers (so we can Close it later)
-            self.previous_clip_mappers.append(new_mapper)
-            self.previous_clip_readers.append(new_reader)
+            try:
+                # Add clip for current preview file
+                new_clip = openshot.Clip(path)
+                self.clip_reader.AddClip(new_clip)
+            except:
+                log.error('Failed to load media file into video player: %s' % path)
+                return
 
             # Assign new clip_reader
-            self.clip_reader = new_mapper
             self.clip_path = path
 
-            # Open reader
-            self.clip_reader.Open()
+            # Keep track of previous clip readers (so we can Close it later)
+            self.previous_clips.append(new_clip)
+            self.previous_clip_readers.append(self.clip_reader)
 
-            log.info("Set new FrameMapper reader in player: %s" % self.clip_reader)
+            # Open and set reader
+            self.clip_reader.Open()
             self.player.Reader(self.clip_reader)
 
         # Close and destroy old clip readers (leaving the 3 most recent)
         while len(self.previous_clip_readers) > 3:
-            log.info('Removing old clip reader: %s' % self.previous_clip_readers[0])
-            self.previous_clip_mappers.pop(0)
-            self.previous_clip_readers.pop(0)
+            log.info('Removing old clips from preview: %s' % self.previous_clip_readers[0])
+            previous_clip = self.previous_clips.pop(0)
+            previous_clip.Close()
+            previous_reader = self.previous_clip_readers.pop(0)
+            previous_reader.Close()
 
         # Seek to frame 1, and resume speed
-        self.player.Seek(seek_position)
-        self.player.Speed(self.original_speed)
+        self.Seek(seek_position)
 
-    @pyqtSlot()
-    def Play(self):
+    def Play(self, timeline_length):
         """ Start playing the video player """
 
-        # Start playback
-        self.player.Play()
+        # Set length of timeline in frames
+        self.timeline_length = timeline_length
 
-    @pyqtSlot()
+        # Start playback
+        if self.parent.initialized:
+            self.player.Play()
+
     def Pause(self):
-        """ Start playing the video player """
+        """ Pause the video player """
 
-        # Start playback
-        self.player.Pause()
+        # Pause playback
+        if self.parent.initialized:
+            self.player.Pause()
 
-    @pyqtSlot()
+    def Stop(self):
+        """ Stop the video player and terminate the playback threads """
+
+        # Stop playback
+        if self.parent.initialized:
+            self.player.Stop()
+
     def Seek(self, number):
         """ Seek to a specific frame """
 
-        # Start playback
-        self.player.Seek(number)
+        # Seek to frame
+        if self.parent.initialized:
+            self.player.Seek(number)
 
-    @pyqtSlot()
     def Speed(self, new_speed):
         """ Set the speed of the video player """
 
-        # Start playback
-        self.player.Speed(new_speed)
+        # Set speed
+        if self.parent.initialized:
+            self.player.Speed(new_speed)

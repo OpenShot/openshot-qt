@@ -35,6 +35,7 @@ from PyQt5.QtWidgets import *
 from classes import info, ui_util
 from classes.logger import log
 from classes.app import get_app
+from classes.metrics import *
 from windows.views.credits_treeview import CreditsTreeView
 
 try:
@@ -69,6 +70,9 @@ class About(QDialog):
         # Init some variables
         self.txtversion.setText(_("Version: %s") % info.VERSION)
         self.txtversion.setAlignment(Qt.AlignCenter)
+
+        # Track metrics
+        track_metric_screen("about-screen")
 
     def load_credit(self):
         """ Load Credits for everybody who has contribuated in several domain for Openshot """
@@ -153,7 +157,7 @@ class Credits(QDialog):
                 # Split each row into 2 parts (name and username)
                 translator_parts = row.split("https://launchpad.net/")
                 name = translator_parts[0].strip()
-                username = translator_parts[0].strip()
+                username = translator_parts[1].strip()
                 translator_credits.append({"name":name, "website":"https://launchpad.net/%s" % username})
 
             # Add translators listview

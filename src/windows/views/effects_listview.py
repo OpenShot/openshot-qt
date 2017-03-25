@@ -25,7 +25,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-from PyQt5.QtCore import QSize, QPoint
+from PyQt5.QtCore import QSize, QPoint, Qt
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QListView, QMenu
 
@@ -49,7 +49,6 @@ class EffectsListView(QListView):
 
         menu = QMenu(self)
         menu.addAction(self.win.actionDetailsView)
-        menu.addAction(self.win.actionThumbnailView)
         menu.exec_(QCursor.pos())
 
     def startDrag(self, event):
@@ -62,7 +61,6 @@ class EffectsListView(QListView):
         # Start drag operation
         drag = QDrag(self)
         drag.setMimeData(self.effects_model.model.mimeData(self.selectionModel().selectedIndexes()))
-        # drag.setPixmap(QIcon.fromTheme('document-new').pixmap(QSize(self.drag_item_size,self.drag_item_size)))
         drag.setPixmap(icon.pixmap(QSize(self.drag_item_size, self.drag_item_size)))
         drag.setHotSpot(QPoint(self.drag_item_size / 2, self.drag_item_size / 2))
         drag.exec_()
@@ -98,10 +96,12 @@ class EffectsListView(QListView):
         # Setup header columns
         self.setModel(self.effects_model.model)
         self.setIconSize(QSize(131, 108))
+        self.setGridSize(QSize(102, 92))
         self.setViewMode(QListView.IconMode)
         self.setResizeMode(QListView.Adjust)
         self.setUniformItemSizes(True)
-        self.setWordWrap(True)
+        self.setWordWrap(False)
+        self.setTextElideMode(Qt.ElideRight)
         self.setStyleSheet('QListView::item { padding-top: 2px; }')
 
         # Refresh view

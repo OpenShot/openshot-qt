@@ -6,6 +6,9 @@
   },
   "width": 1280,
   "height": 720,
+  "sample_rate": 44100,
+  "channels": 2,
+  "channel_layout": 3,
   "settings": {},
   "clips": [],
   "effects": [],
@@ -21,34 +24,40 @@
       "id": "L0",
       "label" : "",
       "number": 0,
-      "y": 0
+      "y": 0,
+      "lock": false
     },
     {
       "id": "L1",
       "label" : "",
       "number": 1,
-      "y": 0
+      "y": 0,
+      "lock": false
     },
     {
       "id": "L2",
       "label" : "",
       "number": 2,
-      "y": 0
+      "y": 0,
+      "lock": false
     },
     {
       "id": "L3",
       "label" : "",
       "number": 3,
-      "y": 0
+      "y": 0,
+      "lock": false
     },
     {
       "id": "L4",
       "label" : "",
       "number": 4,
-      "y": 0
+      "y": 0,
+      "lock": false
     }
   ],
   "markers": [  ],
-  "progress": [
-  ]
+  "progress": [  ],
+  "version" : { "openshot-qt" : "0.0.0",
+                "libopenshot" : "0.0.0" }
 }

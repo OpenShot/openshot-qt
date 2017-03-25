@@ -26,6 +26,7 @@
  """
 
 import os
+import sys
 import functools
 import math
 
@@ -36,6 +37,7 @@ import openshot  # Python module for libopenshot (required video editing module 
 from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
+from classes.metrics import *
 from windows.preview_thread import PreviewParent
 from windows.video_widget import VideoWidget
 
@@ -51,7 +53,18 @@ class Cutting(QDialog):
     # Path to ui file
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'cutting.ui')
 
-    def __init__(self, file=None):
+    # Signals for preview thread
+    previewFrameSignal = pyqtSignal(int)
+    refreshFrameSignal = pyqtSignal()
+    LoadFileSignal = pyqtSignal(str)
+    PlaySignal = pyqtSignal(int)
+    PauseSignal = pyqtSignal()
+    SeekSignal = pyqtSignal(int)
+    SpeedSignal = pyqtSignal(float)
+    StopSignal = pyqtSignal()
+
+    def __init__(self, file=None, preview=False):
+        _ = get_app()._tr
 
         # Create dialog class
         QDialog.__init__(self)
@@ -61,6 +74,15 @@ class Cutting(QDialog):
 
         # Init UI
         ui_util.init_ui(self)
+
+        # Track metrics
+        track_metric_screen("cutting-screen")
+
+        # If preview, hide cutting controls
+        if preview:
+            self.lblInstructions.setVisible(False)
+            self.widgetControls.setVisible(False)
+            self.setWindowTitle(_("Preview"))
 
         self.start_frame = 1
         self.start_image = None
@@ -74,18 +96,54 @@ class Cutting(QDialog):
         self.fps_num = int(file.data['fps']['num'])
         self.fps_den = int(file.data['fps']['den'])
         self.fps = float(self.fps_num) / float(self.fps_den)
+        self.width = int(file.data['width'])
+        self.height = int(file.data['height'])
+        self.sample_rate = int(file.data['sample_rate'])
+        self.channels = int(file.data['channels'])
+        self.channel_layout = int(file.data['channel_layout'])
 
         # Open video file with Reader
         log.info(self.file_path)
-        self.r = openshot.FFmpegReader(self.file_path)
-        self.r.Open()
+
+        # Create an instance of a libopenshot Timeline object
+        self.r = openshot.Timeline(self.width, self.height, openshot.Fraction(self.fps_num, self.fps_den), self.sample_rate, self.channels, self.channel_layout)
+        self.r.info.channel_layout = self.channel_layout
+
+        try:
+            # Add clip for current preview file
+            self.clip = openshot.Clip(self.file_path)
+
+            # Show waveform for audio files
+            if not self.clip.Reader().info.has_video and self.clip.Reader().info.has_audio:
+                self.clip.Waveform(True)
+
+            # Set has_audio property
+            self.r.info.has_audio = self.clip.Reader().info.has_audio
+
+            if preview:
+                # Display frame #'s during preview
+                self.clip.display = openshot.FRAME_DISPLAY_CLIP
+
+            self.r.AddClip(self.clip)
+        except:
+            log.error('Failed to load media file into preview player: %s' % self.file_path)
+            return
 
         # Add Video Widget
         self.videoPreview = VideoWidget()
         self.videoPreview.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
         self.verticalLayout.insertWidget(0, self.videoPreview)
 
+        # Set max size of video preview (for speed)
+        viewport_rect = self.videoPreview.centeredViewport(self.videoPreview.width(), self.videoPreview.height())
+        self.r.SetMaxSize(viewport_rect.width(), viewport_rect.height())
+
+        # Open reader
+        self.r.Open()
+
         # Start the preview thread
+        self.initialized = False
+        self.transforming_clip = False
         self.preview_parent = PreviewParent()
         self.preview_parent.Init(self, self.r, self.videoPreview)
         self.preview_thread = self.preview_parent.worker
@@ -114,6 +172,7 @@ class Cutting(QDialog):
         self.btnEnd.clicked.connect(self.btnEnd_clicked)
         self.btnClear.clicked.connect(self.btnClear_clicked)
         self.btnAddClip.clicked.connect(self.btnAddClip_clicked)
+        self.initialized = True
 
     def movePlayhead(self, frame_number):
         """Update the playhead position"""
@@ -144,7 +203,7 @@ class Cutting(QDialog):
         if self.btnPlay.isChecked():
             log.info('play (icon to pause)')
             ui_util.setup_icon(self, self.btnPlay, "actionPlay", "media-playback-pause")
-            self.preview_thread.Play()
+            self.preview_thread.Play(self.video_length)
         else:
             log.info('pause (icon to play)')
             ui_util.setup_icon(self, self.btnPlay, "actionPlay", "media-playback-start")  # to default
@@ -162,6 +221,8 @@ class Cutting(QDialog):
 
     def btnStart_clicked(self):
         """Start of clip button was clicked"""
+        _ = get_app()._tr
+
         # Pause video
         self.btnPlay_clicked(force="pause")
 
@@ -172,7 +233,7 @@ class Cutting(QDialog):
         if self.btnEnd.isEnabled() and current_frame >= self.end_frame:
             # Handle exception
             msg = QMessageBox()
-            msg.setText(get_app()._tr("Please choose valid 'start' and 'end' values for your clip."))
+            msg.setText(_("Please choose valid 'start' and 'end' values for your clip."))
             msg.exec_()
             return
 
@@ -194,6 +255,8 @@ class Cutting(QDialog):
 
     def btnEnd_clicked(self):
         """End of clip button was clicked"""
+        _ = get_app()._tr
+
         # Pause video
         self.btnPlay_clicked(force="pause")
 
@@ -204,7 +267,7 @@ class Cutting(QDialog):
         if current_frame <= self.start_frame:
             # Handle exception
             msg = QMessageBox()
-            msg.setText(get_app()._tr("Please choose valid 'start' and 'end' values for your clip."))
+            msg.setText(_("Please choose valid 'start' and 'end' values for your clip."))
             msg.exec_()
             return
 
@@ -302,15 +365,18 @@ class Cutting(QDialog):
     def closeEvent(self, event):
         log.info('closeEvent')
 
-        # Stop preview and kill thread
-        self.preview_parent.worker.Pause()
+        # Stop playback
+        self.preview_parent.worker.Stop()
+
+        # Stop preview thread (and wait for it to end)
         self.preview_parent.worker.kill()
+        self.preview_parent.background.exit()
+        self.preview_parent.background.wait(5000)
 
-        # Wait for thread
-        self.preview_parent.background.wait(250)
-
-        # Stop reader
+        # Close readers
         self.r.Close()
+        self.clip.Close()
+        self.r.ClearAllCache()
 
     def reject(self):
         log.info('reject')

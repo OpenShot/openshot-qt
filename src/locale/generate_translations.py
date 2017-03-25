@@ -71,6 +71,7 @@ openshot_path = os.path.dirname(langage_folder_path)
 effects_path = os.path.join(openshot_path, 'effects')
 blender_path = os.path.join(openshot_path, 'blender')
 transitions_path = os.path.join(openshot_path, 'transitions')
+titles_path = os.path.join(openshot_path, 'titles')
 export_path = os.path.join(openshot_path, 'presets')
 windows_ui_path = os.path.join(openshot_path, 'windows', 'ui')
 locale_path = os.path.join(openshot_path, 'locale', 'OpenShot')
@@ -232,11 +233,16 @@ for file in os.listdir(export_path):
 # Loop through Settings
 settings_file = open(os.path.join(info.PATH, 'settings', '_default.settings'), 'r').read()
 settings = json.loads(settings_file)
+category_names = []
 for setting in settings:
     if "type" in setting and setting["type"] != "hidden":
         # Add visible settings
         export_text[setting["title"]] = "Settings for %s" % setting["setting"]
-
+    if "type" in setting and setting["type"] != "hidden":
+        # Add visible category names
+        if setting["category"] not in category_names:
+            export_text[setting["category"]] = "Settings Category for %s" % setting["category"]
+            category_names.append(setting["category"])
 
 # Loop through transitions and add to POT file
 transitions_text = {}
@@ -272,6 +278,28 @@ for file in os.listdir(transitions_path):
 
         # add text to list
         transitions_text[name] = full_subfile_path
+
+# Loop through titles and add to POT file
+for sub_file in os.listdir(titles_path):
+    # load xml export file
+    full_subfile_path = os.path.join(titles_path, sub_file)
+    (fileBaseName, fileExtension) = os.path.splitext(sub_file)
+
+    # split the name into parts (looking for a number)
+    suffix_number = None
+    name_parts = fileBaseName.split("_")
+    if name_parts[-1].isdigit():
+        suffix_number = name_parts[-1]
+
+    # get transition name
+    name = fileBaseName.replace("_", " ").capitalize()
+
+    # replace suffix number with placeholder (if any)
+    if suffix_number:
+        name = name.replace(suffix_number, "%s")
+
+    # add text to list
+    transitions_text[name] = full_subfile_path
 
 
 log.info("-----------------------------------------------------")

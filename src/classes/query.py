@@ -87,6 +87,11 @@ class QueryObject:
             app.updates.delete(self.key)
             self.type = "delete"
 
+    def title(self):
+        """ Get the translated display title of this item """
+        # Needs to be overwritten in each derived class
+        return None
+
     def filter(OBJECT_TYPE, **kwargs):
         """ Take any arguments given as filters, and find a list of matching objects """
 
@@ -101,16 +106,22 @@ class QueryObject:
                 # Loop through all kwargs (and look for matches)
                 match = True
                 for key, value in kwargs.items():
+                    # Equals
                     if key in child and not child[key] == value:
                         match = False
                         break
+                    # Intersection Position
+                    elif key == "intersect":
+                        if child.get("position", 0) > value or \
+                                    child.get("position", 0) + (child.get("end", 0) - child.get("start", 0)) < value:
+                            match = False
 
                 # Add matched record
                 if match:
                     object = OBJECT_TYPE()
                     object.id = child["id"]
                     object.key = [OBJECT_TYPE.object_name, {"id": object.id}]
-                    object.data = child
+                    object.data = copy.deepcopy(child) # copy of object
                     object.type = "update"
                     matching_objects.append(object)
 
@@ -150,6 +161,11 @@ class Clip(QueryObject):
         """ Take any arguments given as filters, and find the first matching object """
         return QueryObject.get(Clip, **kwargs)
 
+    def title(self):
+        """ Get the translated display title of this item """
+        path = self.data.get("reader", {}).get("path")
+        folder_path, filename = os.path.split(path)
+        return os.path.splitext(filename)[0]
 
 class Transition(QueryObject):
     """ This class allows Transitions (i.e. timeline effects) to be queried, updated, and deleted from the project data. """
@@ -171,6 +187,28 @@ class Transition(QueryObject):
     def get(**kwargs):
         """ Take any arguments given as filters, and find the first matching object """
         return QueryObject.get(Transition, **kwargs)
+
+    def title(self):
+        """ Get the translated display title of this item """
+        path = self.data.get("reader", {}).get("path")
+        folder_path, filename = os.path.split(path)
+        fileBaseName, fileExtension = os.path.splitext(filename)
+
+        # split the name into parts (looking for a number)
+        suffix_number = None
+        name_parts = fileBaseName.split("_")
+        if name_parts[-1].isdigit():
+            suffix_number = name_parts[-1]
+        # get name of transition
+        item_name = fileBaseName.replace("_", " ").capitalize()
+
+        # replace suffix number with placeholder (if any)
+        if suffix_number:
+            item_name = item_name.replace(suffix_number, "%s")
+            item_name = get_app()._tr(item_name) % suffix_number
+        else:
+            item_name = get_app()._tr(item_name)
+        return item_name
 
 
 class File(QueryObject):
@@ -313,6 +351,10 @@ class Effect(QueryObject):
 
         # Return matching objects
         return matching_objects
+
+    def title(self):
+        """ Get the translated display title of this item """
+        return self.data.get("name") or self.data.get("type")
 
     def get(**kwargs):
         """ Take any arguments given as filters, and find the first matching object """

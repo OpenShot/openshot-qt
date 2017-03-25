@@ -89,10 +89,10 @@ class EffectsModel():
         # Loop through each effect
         for effect_info in raw_effects_list:
             # Get basic properties about each effect
-            effect_name = effect_info["class_name"].lower()
+            effect_name = effect_info["class_name"]
             title = effect_info["name"]
             description = effect_info["description"]
-            icon_name = "%s.png" % effect_name
+            icon_name = "%s.png" % effect_name.lower()
             icon_path = os.path.join(icons_dir, icon_name)
 
             # Determine the category of effect (audio, video, both)
@@ -117,8 +117,7 @@ class EffectsModel():
                         continue  # to next file, didn't match filter
 
             if win.effectsFilter.text() != "":
-                if not win.effectsFilter.text().lower() in self.app._tr(
-                        title).lower() and not win.effectsFilter.text().lower() in self.app._tr(description).lower():
+                if not win.effectsFilter.text().lower() in self.app._tr(title).lower() and not win.effectsFilter.text().lower() in self.app._tr(description).lower():
                     continue
 
             # Check for thumbnail path (in build-in cache)
@@ -148,7 +147,7 @@ class EffectsModel():
                 except:
                     # Handle exception
                     msg = QMessageBox()
-                    msg.setText(app._tr("{} is not a valid image file.".format(icon_path)))
+                    msg.setText(_("{} is not a valid image file.".format(icon_path)))
                     msg.exec_()
                     continue
 
@@ -193,9 +192,6 @@ class EffectsModel():
             if not effect_name in self.model_names:
                 self.model.appendRow(row)
                 self.model_names[effect_name] = effect_name
-
-            # Process events in QT (to keep the interface responsive)
-            app.processEvents()
 
     def __init__(self, *args):
 

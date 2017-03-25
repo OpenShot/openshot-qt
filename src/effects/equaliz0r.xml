@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE openshot-effect>
-<effect>
-	<title translatable="True">Equalizor</title>
-	<description translatable="True">Equalizes the intensity histograms</description>
-	<icon>equalizor.png</icon>
-	<category>Video</category>
-	<service>frei0r.equaliz0r</service>
-</effect>

@@ -30,7 +30,9 @@
 # Troubleshooting: If you encounter an error while attempting to freeze
 # the PyQt5/uic/port_v2, remove the __init__.py in that folder. And if
 # you are manually compiling PyQt5 on Windows, remove the -strip line
-# from the Makefile.
+# from the Makefile. On Mac, just delete the port_v2 folder. Also, you
+# might need to remove the QtTest.so from /usr/local/lib/python3.3/site-packages/PyQt5,
+# if you get errors while freezing.
 #
 # Mac Syntax to Build App Bundle:
 # 1) python3 freeze.py bdist_mac --qt-menu-nib="/usr/local/Cellar/qt5/5.4.2/plugins/platforms/" --iconfile=installer/openshot.icns --custom-info-plist=installer/Info.plist --bundle-name="OpenShot Video Editor"
@@ -42,6 +44,7 @@
 #    b) bash installer/build-mac-dmg.sh
 #
 # Windows Syntax to Build MSI Installer
+# NOTE: Python3.5 requires custom build of cx_Freeze (https://github.com/sekrause/cx_Freeze-wheels). Download, python setup.py build, python setup.py install
 # 1) python3 freeze.py bdist_msi
 # NOTE: Requires a tweak to cx_freeze: http://stackoverflow.com/questions/24195311/how-to-set-shortcut-working-directory-in-cx-freeze-msi-bundle
 # 2) Sign MSI with private code signing key (optional)
@@ -113,20 +116,7 @@ build_exe_options = {}
 
 if sys.platform == "win32":
     base = "Win32GUI"
-    external_so_files = []
     build_exe_options["include_msvcr"] = True
-
-    # Copy required ImageMagick files
-    for filename in find_files("C:\\Program Files\\ImageMagick-Windows7\\etc\\ImageMagick-6", ["*.xml"]):
-        external_so_files.append(
-            (filename, filename.replace("C:\\Program Files\\ImageMagick-Windows7\\etc\\ImageMagick-6\\",
-                                        "ImageMagick/etc/configuration/")))
-
-    # Copy missing SVG dll
-    # TODO: Determine why cx_Freeze misses this DLL when freezing. Without it, libopenshot cannot open SVG files
-    for filename in find_files("C:\\Qt\\Qt5.4.2\\5.4\\mingw491_32\\bin", ["Qt5Svgd.dll"]):
-        external_so_files.append(
-            (filename, filename.replace("C:\\Qt\\Qt5.4.2\\5.4\\mingw491_32\\bin\\", "")))
 
     # Append Windows ICON file
     iconFile += ".ico"
@@ -134,47 +124,6 @@ if sys.platform == "win32":
 
     # Append some additional files for Windows (this is a debug launcher)
     src_files.append((os.path.join(PATH, "installer", "launch-win.bat"), "launch-win.bat"))
-
-    # Create environment variable for ImageMagick (on install)
-    environment_table = [
-        ("MAGICK_CONFIGURE_PATH",
-         "*=MAGICK_CONFIGURE_PATH",
-         "[TARGETDIR]ImageMagick\\etc\\configuration",
-         "OpenShot"
-         ),
-        # TODO: Find a better way to load the qt_plugin_path for libopenshot, which can be imported in
-        # different directories from the .exe, causing the plugins (i.e. svg) to not load in some cases.
-        ("QT_PLUGIN_PATH",
-         "*=QT_PLUGIN_PATH",
-         "[TARGETDIR]",
-         "OpenShot"
-         )
-    ]
-
-    # Create custom action table
-    # TODO: Revisit this idea, to force the environment variables to be updated after the installer runs.
-    # ImageMagick needs an environment variable or it will crash. Forcing a reboot is currently the only
-    # option I can get to work correctly.
-    # custom_action = [
-    #     ("SetVar",
-    #      "242",
-    #      "[SystemFolder]setx.exe",
-    #      "OSVE 1")
-    # ]
-
-    # Install an action into the MSI install sequence (schedule a reboot)
-    execute_sequence = [
-        ("ScheduleReboot",
-         "NOT REMOVE",
-         "8000")
-    ]
-
-    # Now create the table dictionary
-    msi_data = {"Environment": environment_table, "InstallExecuteSequence" : execute_sequence, "InstallUISequence" : execute_sequence}
-
-    # Change some default MSI options and specify the use of the above defined tables
-    bdist_msi_options = {"data": msi_data}
-    build_options["bdist_msi"] = bdist_msi_options
 
 elif sys.platform == "linux":
     # Find all related SO files
@@ -189,42 +138,65 @@ elif sys.platform == "linux":
     # Shorten name (since RPM can't have spaces)
     info.PRODUCT_NAME = "openshot-qt"
 
-    # Get a list of all openshot.so dependencies
-    import subprocess
-    p = subprocess.Popen(["ldd", "/usr/local/lib/libopenshot.so"], stdout=subprocess.PIPE)
-    out, err = p.communicate()
-    depends = str(out).replace("\\t","").replace("\\n","\n").replace("\'","").split("\n")
-    for line in depends:
-        lineparts = line.split("=>")
-        libname = lineparts[0].strip()
-        if len(lineparts) > 1:
-            libdetails = lineparts[1].strip()
-            libdetailsparts = libdetails.split("(")
-            if len(libdetailsparts) > 1:
-                libpath = libdetailsparts[0].strip()
-                if libpath:
-                    filepath, filename = os.path.split(libpath)
-                    external_so_files.append((libpath, filename))
+    # Add custom launcher script for frozen linux version
+    src_files.append((os.path.join(PATH, "installer", "launch-linux.sh"), "launch-linux.sh"))
 
+    # Get a list of all openshot.so dependencies (scan these libraries for their dependencies)
+    import subprocess
+    for library in ["/usr/local/lib/libopenshot.so",
+                    "/usr/lib/python3/dist-packages/PyQt5/QtWebKit.cpython-34m-x86_64-linux-gnu.so",
+                    "/usr/lib/python3/dist-packages/PyQt5/QtSvg.cpython-34m-x86_64-linux-gnu.so",
+                    "/usr/lib/python3/dist-packages/PyQt5/QtWebKitWidgets.cpython-34m-x86_64-linux-gnu.so",
+                    "/usr/lib/python3/dist-packages/PyQt5/QtWidgets.cpython-34m-x86_64-linux-gnu.so",
+                    "/usr/lib/python3/dist-packages/PyQt5/QtCore.cpython-34m-x86_64-linux-gnu.so",
+                    "/usr/lib/python3/dist-packages/PyQt5/QtGui.cpython-34dm-x86_64-linux-gnu.so",
+                    "/usr/lib/python3/dist-packages/PyQt5/QtDBus.cpython-34dm-x86_64-linux-gnu.so",
+                    "/usr/lib/x86_64-linux-gnu/qt5/plugins/platforms/libqxcb.so"]:
+        p = subprocess.Popen(["ldd", library], stdout=subprocess.PIPE)
+        out, err = p.communicate()
+        depends = str(out).replace("\\t","").replace("\\n","\n").replace("\'","").split("\n")
+
+        # Loop through each line of output (which outputs dependencies - one per line)
+        for line in depends:
+            lineparts = line.split("=>")
+            libname = lineparts[0].strip()
+
+            if len(lineparts) > 1:
+                libdetails = lineparts[1].strip()
+                libdetailsparts = libdetails.split("(")
+
+                if len(libdetailsparts) > 1:
+                    # Determine if dependency is usr installed (or system installed)
+                    # Or if the dependency matches one of the following exceptions
+                    libpath = libdetailsparts[0].strip()
+                    libpath_folder, libpath_file = os.path.split(libpath)
+                    if (libpath \
+                        and not libpath.startswith("/lib") \
+                        and not libpath_file in ["libstdc++.so.6", "libGL.so.1", "libxcb.so.1", "libX11.so.6", "libasound.so.2", "libfontconfig.so.1", "libgcc_s.so.1 ", "libICE.so.6", "libp11-kit.so.0", "libSM.so.6", "libgobject-2.0.so.0"]) \
+                            or libpath_file in ["libgcrypt.so.11", "libQt5DBus.so.5", "libpng12.so.0", "libbz2.so.1.0", "libqxcb.so"]:
+
+                        # Ignore paths that start with /lib
+                        filepath, filename = os.path.split(libpath)
+                        external_so_files.append((libpath, filename))
+
+    # Manually add missing files (that were missed in the above step). These files are required
+    # for certain distros (like Fedora, openSUSE, Debian, etc...)
+    external_so_files.append(("/lib/x86_64-linux-gnu/libssl.so.1.0.0", "libssl.so.1.0.0"))
+    external_so_files.append(("/lib/x86_64-linux-gnu/libcrypto.so.1.0.0", "libcrypto.so.1.0.0"))
+    # Glib related files (required for some distros)
+    external_so_files.append(("/usr/lib/x86_64-linux-gnu/libglib-2.0.so", "libglib-2.0.so"))
+    external_so_files.append(("/usr/lib/x86_64-linux-gnu/libgio-2.0.so", "libgio-2.0.so"))
+    external_so_files.append(("/usr/lib/x86_64-linux-gnu/libgmodule-2.0.so", "libgmodule-2.0.so"))
+    external_so_files.append(("/usr/lib/x86_64-linux-gnu/libgthread-2.0.so", "libgthread-2.0.so"))
 
 elif sys.platform == "darwin":
     # Copy Mac specific files that cx_Freeze misses
-    # ImageMagick files
-    for filename in find_files("/usr/local/Cellar/imagemagick/6.8.9-5/lib/ImageMagick/", ["*"]):
-        external_so_files.append((filename, filename.replace("/usr/local/Cellar/imagemagick/6.8.9-5/lib/", "")))
-    for filename in find_files("/usr/local/Cellar/imagemagick/6.8.9-5/etc/ImageMagick-6/", ["*"]):
-        external_so_files.append((filename, filename.replace("/usr/local/Cellar/imagemagick/6.8.9-5/etc/ImageMagick-6/",
-                                                             "ImageMagick/etc/configuration/")))
-    # SVG executables
-    for filename in find_files("/Users/jonathan/apps/rsvg/", ["*"]):
-        external_so_files.append((filename, filename.replace("/Users/jonathan/apps/rsvg/", "")))
-
     # JPEG library
     for filename in find_files("/usr/local/Cellar/jpeg/8d/lib", ["libjpeg.8.dylib"]):
         external_so_files.append((filename, filename.replace("/usr/local/Cellar/jpeg/8d/lib/", "")))
 
     # Copy openshot.py Python bindings
-    src_files.append(("/usr/local/lib/python3.3/site-packages/openshot.py", "openshot.py"))
+    src_files.append(("/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/openshot.py", "openshot.py"))
     src_files.append((os.path.join(PATH, "installer", "launch-mac.sh"), "launch-mac.sh"))
 
     # Append Mac ICON file
@@ -232,12 +204,13 @@ elif sys.platform == "darwin":
     src_files.append((os.path.join(PATH, "xdg", iconFile), iconFile))
 
 # Append all source files
+src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
 for filename in find_files("openshot_qt", ["*"]):
     src_files.append((filename, filename.replace("openshot_qt/", "").replace("openshot_qt\\", "")))
 
 # Dependencies are automatically detected, but it might need fine tuning.
 build_exe_options["packages"] = ["os", "sys", "PyQt5", "openshot", "time", "uuid", "shutil", "threading", "subprocess",
-                                 "re", "math", "subprocess", "xml", "logging", "urllib", "webbrowser", json_library]
+                                 "re", "math", "subprocess", "xml", "logging", "urllib", "httplib2", "webbrowser", "zmq", json_library]
 build_exe_options["include_files"] = src_files + external_so_files
 
 # Set options

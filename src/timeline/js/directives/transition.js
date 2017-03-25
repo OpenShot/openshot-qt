@@ -29,6 +29,7 @@
 
 // Init Variables
 var dragging = false;
+var resize_disabled = false;
 var previous_drag_position = null;
 var start_transitions = {};
 var move_transitions = {};
@@ -52,6 +53,7 @@ App.directive('tlTransition', function(){
 				minWidth: 1,
 				start: function(e, ui) {
 					dragging = true;
+					resize_disabled = false;
 					
 					//determine which side is being changed
 					var parentOffset = element.offset(); 
@@ -62,12 +64,25 @@ App.directive('tlTransition', function(){
 						dragLoc = 'right';
 					}
 
+					// Does this bounding box overlap a locked track?
+					var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
+					var track_top = (parseInt(element.position().top) + parseInt(vert_scroll_offset));
+					var track_bottom = (parseInt(element.position().top) + parseInt(element.height()) + parseInt(vert_scroll_offset));
+					if (hasLockedTrack(scope, track_top, track_bottom))
+						resize_disabled = true;
+
 					// Hide keyframe points
 					element.find('.point_icon').hide()
 
 				},
 				stop: function(e, ui) {
 					dragging = false;
+
+					if (resize_disabled) {
+						// disabled, do nothing
+						resize_disabled = false;
+						return;
+					}
 
 					// Make the keyframe points visible again
 					element.find('.point_icon').show()
@@ -109,6 +124,13 @@ App.directive('tlTransition', function(){
 
 				},
 				resize: function(e, ui) {
+
+					if (resize_disabled) {
+						// disabled, keep the item the same size
+						$(this).css(ui.originalPosition);
+						$(this).width(ui.originalSize.width);
+						return;
+					}
 					
 					// get amount changed in width
 					var delta_x = ui.originalSize.width - ui.size.width;
@@ -159,7 +181,6 @@ App.directive('tlTransition', function(){
 		        snap: ".track", // snaps to a track
 		        snapMode: "inner", 
 		        snapTolerance: 20,
-		        stack: ".droppable",
 		        scroll: true,
 		        revert: 'invalid',
 		        start: function(event, ui) {
@@ -206,6 +227,10 @@ App.directive('tlTransition', function(){
                         setBoundingBox($(this));
                     });
 
+					// Does this bounding box overlap a locked track?
+					if (hasLockedTrack(scope, bounding_box.top, bounding_box.bottom) || scope.enable_razor)
+						return !event; // yes, do nothing
+
 		        },
                 stop: function(event, ui) {
 
@@ -223,7 +248,7 @@ App.directive('tlTransition', function(){
                 drag: function(e, ui) {
                 	var previous_x = ui.originalPosition.left;
 					var previous_y = ui.originalPosition.top;
-					if (previous_drag_position)
+					if (previous_drag_position != null)
 					{
 						// if available, override with previous drag position
 						previous_x = previous_drag_position.left;
@@ -237,14 +262,14 @@ App.directive('tlTransition', function(){
 	            	var x_offset = ui.position.left - previous_x;
 	            	var y_offset = ui.position.top - previous_y;
 
-                    //update the dragged transition location in the location arrays
-					move_transitions[element.attr('id')] = {"top": ui.position.top,
-                                                      "left": ui.position.left};
-
 					// Move the bounding box and apply snapping rules
-					results = moveBoundingBox(scope, element, previous_x, previous_y, x_offset, y_offset, ui);
+					results = moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, ui.position.left, ui.position.top);
 					x_offset = results.x_offset;
 					y_offset = results.y_offset;
+
+					// Update ui object
+					ui.position.left = results.position.left;
+					ui.position.top = results.position.top;
 
     				// Move all other selected transitions with this one
 	                $(".ui-selected").each(function(){

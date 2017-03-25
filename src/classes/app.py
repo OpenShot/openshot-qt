@@ -28,12 +28,25 @@
  """
 
 import os
+import sys
+import platform
+from uuid import uuid4
 from PyQt5.QtWidgets import QApplication, QStyleFactory
 from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont
 from PyQt5.QtCore import Qt
+from PyQt5.QtCore import QT_VERSION_STR
+from PyQt5.Qt import PYQT_VERSION_STR
 
 from classes.logger import log
-from classes import info, settings, project_data, updates, language, ui_util
+from classes import info, settings, project_data, updates, language, ui_util, logger_libopenshot
+import openshot
+
+
+try:
+    # Enable High-DPI resolutions
+    QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
+except AttributeError:
+    pass # Quitely fail for older Qt5 versions
 
 
 def get_app():
@@ -42,10 +55,25 @@ def get_app():
 
 
 class OpenShotApp(QApplication):
-    """ This class is the primary QApplication for OpenShot """
+    """ This class is the primary QApplication for OpenShot.
+            mode=None (normal), mode=unittest (testing) """
 
-    def __init__(self, *args):
+    def __init__(self, *args, mode=None):
         QApplication.__init__(self, *args)
+
+        # Log some basic system info
+        try:
+            v = openshot.GetVersion()
+            log.info("openshot-qt version: %s" % info.VERSION)
+            log.info("libopenshot version: %s" % v.ToString())
+            log.info("platform: %s" % platform.platform())
+            log.info("processor: %s" % platform.processor())
+            log.info("machine: %s" % platform.machine())
+            log.info("python version: %s" % platform.python_version())
+            log.info("qt5 version: %s" % QT_VERSION_STR)
+            log.info("pyqt5 version: %s" % PYQT_VERSION_STR)
+        except:
+            pass
 
         # Setup appication
         self.setApplicationName('openshot')
@@ -58,6 +86,10 @@ class OpenShotApp(QApplication):
         except Exception as ex:
             log.error("Couldn't load user settings. Exiting.\n{}".format(ex))
             exit()
+
+        # Init and attach exception handler
+        from classes import exceptions
+        sys.excepthook = exceptions.ExceptionHandler
 
         # Init translation system
         language.init_language()
@@ -74,18 +106,25 @@ class OpenShotApp(QApplication):
         # Load ui theme if not set by OS
         ui_util.load_theme()
 
+        # Start libopenshot logging thread
+        self.logger_libopenshot = logger_libopenshot.LoggerLibOpenShot()
+        self.logger_libopenshot.start()
+
         # Track which dockable window received a context menu
         self.context_menu_object = None
 
         # Set Font for any theme
         if self.settings.get("theme") != "No Theme":
             # Load embedded font
-            log.info("Setting font to %s" % os.path.join(info.IMAGES_PATH, "fonts", "Ubuntu-R.ttf"))
-            font_id = QFontDatabase.addApplicationFont(os.path.join(info.IMAGES_PATH, "fonts", "Ubuntu-R.ttf"))
-            font_family = QFontDatabase.applicationFontFamilies(font_id)[0]
-            font = QFont(font_family)
-            font.setPointSizeF(10.5)
-            QApplication.setFont(font)
+            try:
+                log.info("Setting font to %s" % os.path.join(info.IMAGES_PATH, "fonts", "Ubuntu-R.ttf"))
+                font_id = QFontDatabase.addApplicationFont(os.path.join(info.IMAGES_PATH, "fonts", "Ubuntu-R.ttf"))
+                font_family = QFontDatabase.applicationFontFamilies(font_id)[0]
+                font = QFont(font_family)
+                font.setPointSizeF(10.5)
+                QApplication.setFont(font)
+            except Exception as ex:
+                log.error("Error setting Ubuntu-R.ttf QFont: %s" % str(ex))
 
         # Set Experimental Dark Theme
         if self.settings.get("theme") == "Humanity: Dark":
@@ -106,16 +145,13 @@ class OpenShotApp(QApplication):
             darkPalette.setColor(QPalette.BrightText, Qt.red)
             darkPalette.setColor(QPalette.Highlight, QColor(42, 130, 218))
             darkPalette.setColor(QPalette.HighlightedText, Qt.black)
+            darkPalette.setColor(QPalette.Disabled, QPalette.Text, QColor(104, 104, 104))
             self.setPalette(darkPalette)
             self.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 0px solid white; }")
 
         # Create main window
         from windows.main_window import MainWindow
-        self.window = MainWindow()
-        self.window.show()
-
-        # Load new/blank project (which sets default profile)
-        self.project.load("")
+        self.window = MainWindow(mode)
 
         log.info('Process command-line arguments: %s' % args)
         if len(args[0]) == 2:
@@ -126,6 +162,10 @@ class OpenShotApp(QApplication):
             else:
                 # Auto import media file
                 self.window.filesTreeView.add_file(path)
+
+        # Reset undo/redo history
+        self.updates.reset()
+        self.window.updateStatusChanged(False, False)
 
     def _tr(self, message):
         return self.translate("", message)

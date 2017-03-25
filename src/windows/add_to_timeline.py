@@ -37,6 +37,7 @@ from classes import info, ui_util
 from classes.logger import log
 from classes.query import Track, Clip, Transition
 from classes.app import get_app
+from classes.metrics import *
 from windows.views.add_to_timeline_treeview import TimelineTreeView
 
 import openshot
@@ -197,6 +198,22 @@ class AddToTimeline(QDialog):
             new_clip["title"] = filename
             new_clip["image"] = thumb_path
 
+            # Skip any clips that are missing a 'reader' attribute
+            # TODO: Determine why this even happens, as it shouldn't be possible
+            if not new_clip.get("reader"):
+                continue  # Skip to next file
+
+            # Overwrite frame rate (incase the user changed it in the File Properties)
+            file_properties_fps = float(file.data["fps"]["num"]) / float(file.data["fps"]["den"])
+            file_fps = float(new_clip["reader"]["fps"]["num"]) / float(new_clip["reader"]["fps"]["den"])
+            fps_diff = file_fps / file_properties_fps
+            new_clip["reader"]["fps"]["num"] = file.data["fps"]["num"]
+            new_clip["reader"]["fps"]["den"] = file.data["fps"]["den"]
+            # Scale duration / length / and end properties
+            new_clip["reader"]["duration"] *= fps_diff
+            new_clip["end"] *= fps_diff
+            new_clip["duration"] *= fps_diff
+
             # Check for optional start and end attributes
             start_time = 0
             end_time = new_clip["reader"]["duration"]
@@ -222,17 +239,17 @@ class AddToTimeline(QDialog):
                     new_clip["position"] = position
 
                 if fade_value == 'Fade In' or fade_value == 'Fade In & Out':
-                    start = openshot.Point((start_time * fps_float) + 1, 1.0, openshot.BEZIER)
+                    start = openshot.Point(round(start_time * fps_float) + 1, 0.0, openshot.BEZIER)
                     start_object = json.loads(start.Json())
-                    end = openshot.Point(min((start_time + fade_length) * fps_float, end_time * fps_float), 0.0, openshot.BEZIER)
+                    end = openshot.Point(min(round((start_time + fade_length) * fps_float) + 1, round(end_time * fps_float) + 1), 1.0, openshot.BEZIER)
                     end_object = json.loads(end.Json())
                     new_clip['alpha']["Points"].append(start_object)
                     new_clip['alpha']["Points"].append(end_object)
 
                 if fade_value == 'Fade Out' or fade_value == 'Fade In & Out':
-                    start = openshot.Point(max((end_time * fps_float) - (fade_length * fps_float), start_time * fps_float), 0.0, openshot.BEZIER)
+                    start = openshot.Point(max(round((end_time * fps_float) + 1) - (round(fade_length * fps_float) + 1), round(start_time * fps_float) + 1), 1.0, openshot.BEZIER)
                     start_object = json.loads(start.Json())
-                    end = openshot.Point(end_time * fps_float, 1.0, openshot.BEZIER)
+                    end = openshot.Point(round(end_time * fps_float) + 1, 0.0, openshot.BEZIER)
                     end_object = json.loads(end.Json())
                     new_clip['alpha']["Points"].append(start_object)
                     new_clip['alpha']["Points"].append(end_object)
@@ -271,9 +288,9 @@ class AddToTimeline(QDialog):
                     end_scale = 1.0
 
                 # Add keyframes
-                start = openshot.Point((start_time * fps_float) + 1, start_scale, openshot.BEZIER)
+                start = openshot.Point(round(start_time * fps_float) + 1, start_scale, openshot.BEZIER)
                 start_object = json.loads(start.Json())
-                end = openshot.Point(end_time * fps_float, end_scale, openshot.BEZIER)
+                end = openshot.Point(round(end_time * fps_float) + 1, end_scale, openshot.BEZIER)
                 end_object = json.loads(end.Json())
                 new_clip["gravity"] = openshot.GRAVITY_CENTER
                 new_clip["scale_x"]["Points"].append(start_object)
@@ -282,13 +299,13 @@ class AddToTimeline(QDialog):
                 new_clip["scale_y"]["Points"].append(end_object)
 
                 # Add keyframes
-                start_x = openshot.Point((start_time * fps_float) + 1, animate_start_x, openshot.BEZIER)
+                start_x = openshot.Point(round(start_time * fps_float) + 1, animate_start_x, openshot.BEZIER)
                 start_x_object = json.loads(start_x.Json())
-                end_x = openshot.Point(end_time * fps_float, animate_end_x, openshot.BEZIER)
+                end_x = openshot.Point(round(end_time * fps_float) + 1, animate_end_x, openshot.BEZIER)
                 end_x_object = json.loads(end_x.Json())
-                start_y = openshot.Point((start_time * fps_float) + 1, animate_start_y, openshot.BEZIER)
+                start_y = openshot.Point(round(start_time * fps_float) + 1, animate_start_y, openshot.BEZIER)
                 start_y_object = json.loads(start_y.Json())
-                end_y = openshot.Point(end_time * fps_float, animate_end_y, openshot.BEZIER)
+                end_y = openshot.Point(round(end_time * fps_float) + 1, animate_end_y, openshot.BEZIER)
                 end_y_object = json.loads(end_y.Json())
                 new_clip["gravity"] = openshot.GRAVITY_CENTER
                 new_clip["location_x"]["Points"].append(start_x_object)
@@ -308,7 +325,7 @@ class AddToTimeline(QDialog):
 
                 brightness = openshot.Keyframe()
                 brightness.AddPoint(1, 1.0, openshot.BEZIER)
-                brightness.AddPoint(min(transition_length, end_time - start_time) * fps_float, -1.0, openshot.BEZIER)
+                brightness.AddPoint(round(min(transition_length, end_time - start_time) * fps_float) + 1, -1.0, openshot.BEZIER)
                 contrast = openshot.Keyframe(3.0)
 
                 # Create transition dictionary
@@ -431,6 +448,9 @@ class AddToTimeline(QDialog):
         self.app = get_app()
         _ = self.app._tr
 
+        # Track metrics
+        track_metric_screen("add-to-timeline-screen")
+
         # Add custom treeview to window
         self.treeFiles = TimelineTreeView(self)
         self.vboxTreeParent.insertWidget(0, self.treeFiles)
@@ -505,9 +525,9 @@ class AddToTimeline(QDialog):
                 # replace suffix number with placeholder (if any)
                 if suffix_number:
                     trans_name = trans_name.replace(suffix_number, "%s")
-                    trans_name = self.app._tr(trans_name) % suffix_number
+                    trans_name = _(trans_name) % suffix_number
                 else:
-                    trans_name = self.app._tr(trans_name)
+                    trans_name = _(trans_name)
 
                 # Check for thumbnail path (in build-in cache)
                 thumb_path = os.path.join(info.IMAGES_PATH, "cache",  "{}.png".format(fileBaseName))

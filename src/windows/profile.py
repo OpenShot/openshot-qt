@@ -38,6 +38,7 @@ import openshot  # Python module for libopenshot (required video editing module 
 from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
+from classes.metrics import *
 
 
 class Profile(QDialog):
@@ -64,17 +65,24 @@ class Profile(QDialog):
         # Get settings
         self.s = settings.get_settings()
 
+        # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
+        get_app().window.actionPlay_trigger(None, force="pause")
+
+        # Track metrics
+        track_metric_screen("profile-screen")
+
         # Loop through profiles
         self.profile_names = []
         self.profile_paths = {}
-        for file in os.listdir(info.PROFILES_PATH):
-            # Load Profile
-            profile_path = os.path.join(info.PROFILES_PATH, file)
-            profile = openshot.Profile(profile_path)
+        for profile_folder in [info.USER_PROFILES_PATH, info.PROFILES_PATH]:
+            for file in os.listdir(profile_folder):
+                # Load Profile
+                profile_path = os.path.join(profile_folder, file)
+                profile = openshot.Profile(profile_path)
 
-            # Add description of Profile to list
-            self.profile_names.append(profile.info.description)
-            self.profile_paths[profile.info.description] = profile_path
+                # Add description of Profile to list
+                self.profile_names.append(profile.info.description)
+                self.profile_paths[profile.info.description] = profile_path
 
         # Sort list
         self.profile_names.sort()

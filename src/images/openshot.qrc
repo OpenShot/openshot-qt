@@ -310,11 +310,15 @@
         <file>Humanity/actions/16/appointment-new.svg</file>
         <file>Humanity/actions/16/address-book-new.svg</file>
         <file>Humanity/actions/16/get-hot-new-stuff.png</file>
-        <file>Humanity/actions/16/view-preview.png</file>
         <file>Humanity/actions/16/edit-undo.svg</file>
         <file>Humanity/actions/16/edit-redo.svg</file>
         <file>Humanity/actions/16/view-list-details.png</file>
         <file>Humanity/actions/16/zoom-in.png</file>
         <file>Humanity/actions/16/zoom-out.png</file>
+        <file>Humanity/actions/custom/lock.png</file>
+        <file>Humanity/actions/16/document-open-recent.svg</file>
+        <file>Humanity/actions/16/locked.svg</file>
+        <file>Humanity/actions/16/transform-move.png</file>
+        <file>Humanity/actions/16/view-list-icons.png</file>
     </qresource>
 </RCC>

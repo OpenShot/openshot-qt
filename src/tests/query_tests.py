@@ -51,7 +51,7 @@ class TestQueryClass(unittest.TestCase):
     def setUpClass(TestQueryClass):
         """ Init unit test data """
         # Create Qt application
-        TestQueryClass.app = OpenShotApp(sys.argv)
+        TestQueryClass.app = OpenShotApp(sys.argv, mode="unittest")
         TestQueryClass.clip_ids = []
         TestQueryClass.file_ids = []
         TestQueryClass.transition_ids = []
@@ -95,14 +95,9 @@ class TestQueryClass(unittest.TestCase):
 
         # Insert some transitions into the project data
         for num in range(5):
-            # Create dummy transition
-            transitions_data = {
-                "id": str(num),
-                "layer": num,
-                "title": "Transition",
-                "position": 20.0 + num,
-                "duration": 30 + num
-            }
+            # Create mask object
+            transition_object = openshot.Mask()
+            transitions_data = json.loads(transition_object.Json())
 
             # Insert into project data
             query_transition = Transition()
@@ -111,6 +106,12 @@ class TestQueryClass(unittest.TestCase):
 
             # Keep track of the ids
             TestQueryClass.transition_ids.append(query_transition.id)
+
+    @classmethod
+    def tearDownClass(cls):
+        "Hook method for deconstructing the class fixture after running all tests in the class."
+        print ('Exiting Unittests: Quiting QApplication')
+        TestQueryClass.app.window.actionQuit.trigger()
 
     def test_add_clip(self):
         """ Test the Clip.save method by adding multiple clips """

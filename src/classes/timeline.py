@@ -25,11 +25,13 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+import time
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 from classes.updates import UpdateInterface
 from classes.logger import log
 from classes.app import get_app
+from classes import settings
 
 
 class TimelineSync(UpdateInterface):
@@ -39,24 +41,26 @@ class TimelineSync(UpdateInterface):
         self.app = get_app()
         self.window = window
         project = self.app.project
+        s = settings.get_settings()
 
-        # Append on some project settings
+        # Get some settings from the project
         fps = project.get(["fps"])
         width = project.get(["width"])
         height = project.get(["height"])
+        sample_rate = project.get(["sample_rate"])
+        channels = project.get(["channels"])
+        channel_layout = project.get(["channel_layout"])
 
         # Create an instance of a libopenshot Timeline object
-        self.timeline = openshot.Timeline(width, height, openshot.Fraction(fps["num"], fps["den"]), 48000, 2,
-                                          openshot.LAYOUT_STEREO)
-        self.timeline.info.channel_layout = openshot.LAYOUT_STEREO
+        self.timeline = openshot.Timeline(width, height, openshot.Fraction(fps["num"], fps["den"]), sample_rate, channels,
+                                          channel_layout)
+        self.timeline.info.channel_layout = channel_layout
         self.timeline.info.has_audio = True
         self.timeline.info.has_video = True
         self.timeline.info.video_length = 99999
         self.timeline.info.duration = 999.99
-        self.timeline.info.sample_rate = 44100
-        self.timeline.info.channels = 2
-        self.timeline.info.channel_layout = openshot.LAYOUT_STEREO
-        self.timeline.debug = False
+        self.timeline.info.sample_rate = sample_rate
+        self.timeline.info.channels = channels
 
         # Open the timeline reader
         self.timeline.Open()
@@ -65,46 +69,49 @@ class TimelineSync(UpdateInterface):
         # This listener will receive events before others.
         self.app.updates.add_listener(self, 0)
 
+        # Connect to signal
+        self.window.MaxSizeChanged.connect(self.MaxSizeChangedCB)
+
     def changed(self, action):
         """ This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """
 
         # Ignore changes that don't affect libopenshot
-        if len(action.key) >= 1 and action.key[0].lower() in ["files", "markers", "layers", "export_path"]:
+        if len(action.key) >= 1 and action.key[0].lower() in ["files", "markers", "layers", "export_path", "scale"]:
             return
 
         elif len(action.key) >= 1 and action.key[0].lower() in ["profile"]:
-            # Get speed of player
-            current_speed = self.window.preview_thread.player.Speed()
-
-            # Stop preview thread
-            self.window.preview_thread.Speed(0)
 
             # The timeline's profile changed, so update all clips
             self.timeline.ApplyMapperToClips()
-
-            # Resume speed
-            self.window.preview_thread.Speed(current_speed)
             return
 
         # Pass the change to the libopenshot timeline
         try:
-            # Get speed of player
-            current_speed = self.window.preview_thread.player.Speed()
-
-            # Stop preview thread
-            self.window.preview_thread.Speed(0)
-
             if action.type == "load":
                 # This JSON is initially loaded to libopenshot to update the timeline
                 self.timeline.SetJson(action.json(only_value=True))
                 self.timeline.Open()  # Re-Open the Timeline reader
 
+                # Refresh current frame (since the entire timeline was updated)
+                self.window.refreshFrameSignal.emit()
+
             else:
                 # This JSON DIFF is passed to libopenshot to update the timeline
                 self.timeline.ApplyJsonDiff(action.json(is_array=True))
 
-            # Resume speed
-            self.window.preview_thread.Speed(current_speed)
+        except Exception as e:
+            log.info("Error applying JSON to timeline object in libopenshot: %s" % e)
 
-        except:
-            log.info("Error applying JSON to timeline object in libopenshot")
+    def MaxSizeChangedCB(self, new_size):
+        """Callback for max sized change (i.e. max size of video widget)"""
+        while not self.window.initialized:
+            log.info('Waiting for main window to initialize before calling SetMaxSize')
+            time.sleep(0.5)
+
+        log.info("Adjusting max size of preview image: %s" % new_size)
+
+        # Clear timeline preview cache (since our video size has changed)
+        self.timeline.ClearAllCache()
+
+        # Set new max video size (Based on preview widget size)
+        self.timeline.SetMaxSize(new_size.width(), new_size.height())

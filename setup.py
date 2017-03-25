@@ -42,9 +42,6 @@ if os.path.exists(os.path.join(PATH, "src")):
     # Only make a copy if the SRC directory is present (otherwise ignore this)
     copytree(os.path.join(PATH, "src"), os.path.join(PATH, "openshot_qt"))
 
-    # Make a copy of the launch.py script (to name it more appropriately)
-    copy(os.path.join(PATH, "src", "launch.py"), os.path.join(PATH, "openshot_qt", "launch-openshot"))
-
 if os.path.exists(os.path.join(PATH, "openshot_qt")):
     # Append path to system path
     sys.path.append(os.path.join(PATH, "openshot_qt"))
@@ -99,7 +96,6 @@ package_data["openshot_qt"] = src_files
 # Call the main Distutils setup command
 # -------------------------------------
 dist = setup(
-    scripts=['openshot_qt/launch-openshot'],
     packages=[('openshot_qt')],
     package_data=package_data,
     data_files=os_files,
@@ -137,5 +133,5 @@ if ROOT and dist != None:
         sys.stderr.write(FAILED)
     sys.stdout.write("\n-----------------------------------------------")
     sys.stdout.write("\nInstallation Finished!")
-    sys.stdout.write("\nRun OpenShot by typing 'openshot' or through the Applications menu.")
+    sys.stdout.write("\nRun OpenShot by typing 'openshot-qt' or through the Applications menu.")
     sys.stdout.write("\n-----------------------------------------------\n")

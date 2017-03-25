@@ -49,7 +49,7 @@
 				<div class="playhead-line-small"></div>
 			</div>
 			<canvas tl-ruler id="ruler" width="{{GetTimelineWidth(1024)+7}}" height="39"></canvas>
-			
+
 			<!-- MARKERS --> 
 			<span class="ruler_marker" id="marker_for_{{marker.id}}">
 				<img ng-repeat="marker in project.markers" id="marker_{{marker.id}}_{{$index}}" ng-right-click="ShowMarkerMenu(marker.id)" style="position: absolute; bottom: 0px; left: {{(marker.position * pixelsPerSecond) - 6 }}px;" class="marker_icon" ng-src="media/images/markers/{{ marker.icon }}"/>
@@ -57,7 +57,7 @@
 			<br class="cleared">
 			
 			<!-- PROGRESS BAR -->
-			<canvas tl-progress id="progress" width="{{project.duration * pixelsPerSecond}}px" height="3px"></canvas>
+			<canvas id="progress" width="{{project.duration * pixelsPerSecond}}px" height="3px"></canvas>
  		</div>
  		<div class="cleared"></div>
 
@@ -65,7 +65,8 @@
 		<div id="track_controls">
 			<div ng-repeat="layer in project.layers.slice().reverse()" id="track_static_{{layer.number}}" ng-right-click="ShowTrackMenu(layer.id)" class="track_name">
 				<div class="track_top">
-					<div class="track_label">{{GetTrackName(layer.label, layer.number)}}</div>
+					<div tl-clip-menu class="track_menu" ng-click="ShowTrackMenu(layer.id)"></div>
+					<span class="track_label">{{GetTrackName(layer.label, layer.number)}}</span><span ng-show="layer.lock" class="track_lock"></span>
 				</div>
 			</div>
 			<br>
@@ -74,17 +75,17 @@
 		<div tl-scrollable-tracks id="scrolling_tracks">
 			<div id="track-container" tl-track tl-multi-selectable style="width: {{GetTimelineWidth(1024)}}px; padding-bottom: 2px;">
 				<!-- TRACKS -->
-				<div ng-repeat="layer in project.layers.slice().reverse()" id="track_{{layer.number}}" class="track" style="width:{{GetTimelineWidth(1024)}}px;">
+				<div ng-repeat="layer in project.layers.slice().reverse()" id="track_{{layer.number}}" ng-right-click="ShowTimelineMenu($event, layer.number)"  class="{{GetTrackStyle(layer.lock)}}" style="width:{{GetTimelineWidth(1024)}}px;">
 				</div>
 				
 				<!-- CLIPS -->
-				<div ng-hide tl-clip ng-repeat="clip in project.clips" id="clip_{{clip.id}}" ng-click="SelectClip(clip.id, true, $event)" ng-right-click="ShowClipMenu(clip.id)" class="clip droppable" ng-class="clip.selected ? 'ui-selected' : ''" style="width:{{(clip.end - clip.start) * pixelsPerSecond}}px; left:{{clip.position * pixelsPerSecond}}px; top:{{getTrackTop(clip.layer)}}px;z-index:{{5000 + $index}};">
+				<div ng-hide tl-clip ng-repeat="clip in project.clips" id="clip_{{clip.id}}" ng-click="SelectClip(clip.id, true, $event)" ng-right-click="ShowClipMenu(clip.id)" class="clip droppable" ng-class="getClipStyle(clip)" style="width:{{(clip.end - clip.start) * pixelsPerSecond}}px; left:{{clip.position * pixelsPerSecond}}px; top:{{getTrackTop(clip.layer)}}px;z-index:{{1000 + $index}};">
 					<div class="clip_top">
-						<div tl-clip-menu class="clip_menu" ng-click="ShowClipMenu(clip.id)"></div>
+						<div tl-clip-menu class="clip_menu" ng-show="!enable_razor" ng-click="ShowClipMenu(clip.id)" tooltip-enable="!enable_razor" tooltip="{{clip.title}}" tooltip-placement="bottom" tooltip-popup-delay="400"></div>
 
 						<!-- CLIP EFFECTS -->
-						<div class="effect-container" id="effects_{{clip.id}}">
-							<div class="clip_effects" ng-repeat="effect in clip.effects" id="effect_{{effect.id}}" style="background-color: {{ GetEffectColor(effect.type); }};" ng-click="SelectEffect(effect.id); $event.stopPropagation();" ng-right-click="ShowEffectMenu(effect.id); $event.stopPropagation();" tooltip="{{effect.type}} ({{$index+1}}/{{clip.effects.length}})"  tooltip-placement="right" tooltip-popup-delay="400">
+						<div ng-show="!enable_razor" class="effect-container" id="effects_{{clip.id}}">
+							<div class="clip_effects" ng-repeat="effect in clip.effects" id="effect_{{effect.id}}" style="background-color: {{ GetEffectColor(effect.type); }};" ng-click="SelectEffect(effect.id); $event.stopPropagation();" ng-right-click="ShowEffectMenu(effect.id); $event.stopPropagation();" tooltip="{{effect.type}} ({{$index+1}}/{{clip.effects.length}})"  tooltip-placement="bottom" tooltip-popup-delay="400">
 								{{effect.type[0]}}
 							</div>
 						</div>
@@ -93,22 +94,22 @@
 						<img ng-repeat="(point, value) in getKeyframes(clip)" id="point_{{point}}_{{$index}}" style="position: absolute; bottom: 0px; left: {{((point / (project.fps.num / project.fps.den) - clip.start) * pixelsPerSecond) - keyframePointOffset}}px;" class="point_icon" ng-src="media/images/keyframes/point.png"/>
 
 						<!-- CLIP LABEL -->
-						<div class="clip_label" tooltip="{{clip.title}}" tooltip-placement="right" tooltip-popup-delay="400">{{clip.title}}</div>
+						<div class="clip_label" ng-class="getClipLabelStyle(clip)" tooltip-enable="!enable_razor" tooltip="{{clip.title}}" tooltip-placement="bottom" tooltip-popup-delay="400">{{clip.title}}</div>
 						<br class="cleared">
 					</div>
 					<br class="cleared">
-					<div ng-show="{{!clip.show_audio}}" class="thumb-container">
+					<div ng-show="!clip.show_audio" class="thumb-container">
 						<img class="thumb thumb-start" ng-src="{{ FormatThumbPath(clip.image) }}"/>
 					</div>
-					<div ng-show="{{clip.show_audio}}" class="audio-container">
-						<canvas tl-audio height="46px" width="{{ (clip.end - clip.start) * pixelsPerSecond}}px;left:{{clip.position * pixelsPerSecond}}px" class="audio"></canvas>
+					<div ng-show="clip.show_audio" class="audio-container">
+						<canvas tl-audio height="46px" width="{{ (clip.end - clip.start) * pixelsPerSecond}}px" class="audio"></canvas>
 					</div>
 				</div>
 				
 				<!-- TRANSITIONS -->
-				<div ng-hide tl-transition ng-repeat="transition in project.effects" id="transition_{{transition.id}}" ng-click="SelectTransition(transition.id, true, $event)" ng-right-click="ShowTransitionMenu(transition.id)" class="transition droppable" ng-class="transition.selected ? 'ui-selected' : ''" style="width:{{ (transition.end - transition.start) * pixelsPerSecond}}px; left:{{transition.position * pixelsPerSecond}}px; top:{{getTrackTop(transition.layer)}}px;z-index:{{8000 + $index}};">
+				<div ng-hide tl-transition ng-repeat="transition in project.effects" id="transition_{{transition.id}}" ng-click="SelectTransition(transition.id, true, $event)" ng-right-click="ShowTransitionMenu(transition.id)" class="transition droppable" ng-class="getClipStyle(transition)" style="width:{{ (transition.end - transition.start) * pixelsPerSecond}}px; left:{{transition.position * pixelsPerSecond}}px; top:{{getTrackTop(transition.layer)}}px;z-index:{{5000 + $index}};">
 					<div class="transition_top">
-						<div tl-clip-menu class="transition_menu" ng-click="ShowTransitionMenu(transition.id)"></div>
+						<div tl-clip-menu class="transition_menu" ng-show="!enable_razor" ng-click="ShowTransitionMenu(transition.id)"></div>
 						<!-- TRANSITION KEYFRAME POINTS -->
 						<span class="keyframe_point" id="points_for_{{transition.id}}" ng-show="transition.selected">
 							<img ng-repeat="(point, value) in getKeyframes(transition)" id="point_{{point}}_{{$index}}" style="position: absolute; bottom: 0px; left: {{((point / (project.fps.num / project.fps.den) - clip.start) * pixelsPerSecond) - keyframePointOffset}}px;" class="point_icon" ng-src="media/images/keyframes/point.png"/>
@@ -125,7 +126,7 @@
 			<div class="playhead playhead-line" style="height: {{ playhead_height }}px; left:{{(project.playhead_position * pixelsPerSecond) + playheadOffset}}px;"></div>
 
 			<!-- SNAPPING HINT LINE -->
-			<div ng-show="snapline" class="snapping-line" style="height: {{ playhead_height }}px; left:{{( snapline_position * pixelsPerSecond)}}px;"></div>
+			<div ng-show="snapline" class="snapping-line" style="height: {{ playhead_height }}px; left:{{ snapline_position}}px;"></div>
 
 		</div>
 		

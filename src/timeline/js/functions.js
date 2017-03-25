@@ -48,95 +48,63 @@ function getTrackContainerHeight() {
 	return $("#track-container").height() - track_margin;
 }
 
-// Hide and show various clip elements (based on width of clip)
-function handleVisibleClipElements(scope, clip_id){
-
-    // Get the clip in the scope
-    clip = findElement(scope.project.clips, "id", clip_id);
-    element = $("#clip_"+clip_id);
-
-    // Check clip width to determine which elements can be shown
-    var clip_width = element.width();
-    var thumb_width = $(".thumb").outerWidth(true);
-    var effects_width = element.find(".clip_effects").outerWidth(true); 
-    var label_width = element.find(".clip_label").outerWidth(true);
-    var menu_width = element.find(".clip_menu").outerWidth(true);   
-    
-    // Set min widths
-    var min_for_thumb_end = thumb_width * 2;
-    var min_for_thumb_start = thumb_width;
-    var min_for_menu = menu_width;
-    var min_for_effects = menu_width + effects_width;
-    var min_for_label = menu_width + effects_width + label_width;
-
-
-    // Show the images as audio is not shown
-    if (!clip.show_audio){
-        //show end clip?
-        //(clip_width <= min_for_thumb_end) ? element.find(".thumb-end").hide() : element.find(".thumb-end").show();
-        
-        //show start clip?
-        //(clip_width <= min_for_thumb_start) ? element.find(".thumb-start").hide() : element.find(".thumb-start").show();
-        //console.log("W: " + clip_width  + " --- CLIP" + clip.id + " : " + min_for_thumb_start);
-    }
-
-    // Show label?
-    (clip_width <= min_for_menu) ? element.find(".clip_label").hide() : element.find(".clip_label").show();
-    
-    // Show effects?
-    (clip_width <= min_for_effects) ? element.find(".clip_effects").hide() : element.find(".clip_effects").show();
-
-    // Show menu?
-    (clip_width <= min_for_menu) ? element.find(".clip_menu").hide() : element.find(".clip_menu").show();
-
-    element.find(".clip_top").show();
-    //element.find(".thumb-container").show();
-}
-
 // Draw the audio wave on a clip
 function drawAudio(scope, clip_id){
     //get the clip in the scope
     clip = findElement(scope.project.clips, "id", clip_id);
-    
+
     if (clip.show_audio){
         element = $("#clip_"+clip_id);
 
+        // Determine start and stop samples
+        var samples_per_second = 20;
+        var start_sample = clip.start * samples_per_second;
+        var end_sample = clip.end * samples_per_second;
+
+        // Determine divisor for zoom scale
+        var sample_divisor = samples_per_second / scope.pixelsPerSecond;
+
         //show audio container
-        //element.find(".audio-container").show();
-        
-        //draw audio
+        element.find(".audio-container").show();
+
+        // Get audio canvas context
         var audio_canvas = element.find(".audio");
         var ctx = audio_canvas[0].getContext('2d');
-        //set the midpoint
-        var mid_point = parseInt(audio_canvas.css("height")) / 2;
+
+        // Clear canvas
+        ctx.canvas.width = ctx.canvas.width;
+
+        // Offset the coordinates for thinner lines
+        ctx.translate(0.5, 0.5);
+        ctx.beginPath();
+
+        // Find the midpoint
+        var mid_point = audio_canvas.height() - 8;
         var line_spot = 0;
-        
-        //draw midpoint line
-        ctx.beginPath();
-        ctx.lineWidth = .5;
-        ctx.beginPath();
+
+        // Draw the mid-point line
+        ctx.lineWidth = 1;
         ctx.moveTo(0, mid_point);
-        ctx.lineTo(parseInt(audio_canvas.css("width")), mid_point);
-        ctx.strokeStyle = "#fff";
+        ctx.lineTo(audio_canvas.width(), mid_point);
+        ctx.strokeStyle = "#2a82da";
         ctx.stroke();
 
         //for each point of audio data, draw a line
-        for (var i = 0; i < clip.audio_data.length; i++) {
+        var sample_index = 0;
+        for (var i = 1; i < audio_canvas.width(); i+=1) {
             //increase the 'x' axis draw point
+            ctx.beginPath();
             line_spot += 1;
-            ctx.beginPath();
-            ctx.lineWidth = 1;
-            ctx.beginPath();
             ctx.moveTo(line_spot, mid_point);
-            var audio_point = clip.audio_data[i];
+            sample_index = Math.round(start_sample + (sample_divisor * i));
+            var audio_point = clip.audio_data[sample_index];
             //set the point to draw to
             var draw_to = (audio_point * mid_point);
             //handle the 'draw to' point based on positive or negative audio point
-            if (audio_point >= 0) draw_to = mid_point - draw_to;
-            if (audio_point < 0) draw_to = mid_point + (draw_to * -1);
+            if (audio_point >= 0.0) draw_to = mid_point - draw_to;
+            if (audio_point < 0.0) draw_to = mid_point + (draw_to * -1.0);
             //draw it
             ctx.lineTo(line_spot, draw_to);
-            ctx.strokeStyle = "#FF6E97";
             ctx.stroke();
         }
     }
@@ -169,42 +137,44 @@ function secondsToTime(secs, fps_num, fps_den)
 }
 
 // Find the closest track number (based on a Y coordinate)
-function findTrackAtLocation(top){
-	//default return value
-	var retVal = "track_-1";
-    
-    //if the clip was dropped above the top track, return -1
-    var track_count = $('.track').length;
+function findTrackAtLocation(scope, top){
 
-	//loop all tracks
-	$(".track").each(function(index, element) {
-        var track = $(this);
-	    
-        //if clip top is less than 0, then set it to the first track
-        if (index == 0 && top < 0) {
-            retVal = track.attr("id");
-            return false;
-        }else{
-            //otherwise, find the correct track
-            track_top = track.position().top;
-    	    track_bottom = track_top + track.outerHeight(true);
-            if (top >= track_top && top <= track_bottom){
-        		//found the track at this location
-        		retVal = track.attr("id");
-        		return false;
-        	}
-        }
+	// Loop through each layer (looking for the closest track based on Y coordinate)
+	var track_position = 0;
+    var track_number = 0;
+	for (var layer_index = scope.project.layers.length - 1; layer_index >= 0 ; layer_index--) {
+		var layer = scope.project.layers[layer_index];
 
-        //if this is the last and no track was found, return the last track
-        if (index == track_count - 1 && retVal == -1) {
-            retVal = track.attr("id");
-            return false;
-        }
-    });
+		// Compare position of track to Y param (of unlocked tracks)
+        if (!layer.lock)
+            if ((top < layer.y && top > track_position) || track_position==0) {
+                // return first matching layer
+                track_position = layer.y;
+                track_number = layer.number;
+            }
+	}
 
-    return parseInt(retVal.substr(retVal.indexOf("_") + 1));;
+    return track_number;
 }
 
+// Find the closest track number (based on a Y coordinate)
+function hasLockedTrack(scope, top, bottom){
+
+	// Loop through each layer (looking for the closest track based on Y coordinate)
+	var track_position = 0;
+    var track_number = 0;
+	for (var layer_index = scope.project.layers.length - 1; layer_index >= 0 ; layer_index--) {
+		var layer = scope.project.layers[layer_index];
+
+		// Compare position of track to Y param
+		if (layer.lock && layer.y >= top && layer.y <= bottom) {
+            // Yes, found a locked track inside these coordinates
+            return true;
+        }
+	}
+
+    return false;
+}
 
 var bounding_box = Object();
 
@@ -241,13 +211,17 @@ function setBoundingBox(item){
 }
 
 // Move bounding box (apply snapping and constraints)
-function moveBoundingBox(scope, element, previous_x, previous_y, x_offset, y_offset, ui) {
-    
+function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left, top) {
+    // Store result of snapping logic (left, top)
+    var snapping_result = Object();
+    snapping_result.left = left;
+    snapping_result.top = top;
+
 	// Check for shift key
 	if (scope.shift_pressed) {
 		// freeze X movement
 		x_offset = 0;
-		ui.position.left = previous_x;
+        snapping_result.left = previous_x;
 	}
 
     // Update bounding box
@@ -262,21 +236,21 @@ function moveBoundingBox(scope, element, previous_x, previous_y, x_offset, y_off
     	x_offset -= bounding_box.left;
     	bounding_box.left = 0;
     	bounding_box.right = bounding_box.width;
-		ui.position.left = previous_x + x_offset;
+        snapping_result.left = previous_x + x_offset;
     }
     if (bounding_box.top < 0) {
     	// Top border
     	y_offset -= bounding_box.top;
     	bounding_box.top = 0;
     	bounding_box.bottom = bounding_box.height;
-		ui.position.top = previous_y + y_offset;
+        snapping_result.top = previous_y + y_offset;
     }
     if (bounding_box.bottom > track_container_height) {
     	// Bottom border
     	y_offset -= (bounding_box.bottom - track_container_height);
     	bounding_box.bottom = track_container_height;
     	bounding_box.top = bounding_box.bottom - bounding_box.height;
-		ui.position.top = previous_y + y_offset;
+        snapping_result.top = previous_y + y_offset;
     }
     
     // Get list of current selected ids (so we can ignore their snapping x coordinates)
@@ -288,8 +262,8 @@ function moveBoundingBox(scope, element, previous_x, previous_y, x_offset, y_off
     
     // Find closest nearby object, if any (for snapping)
     var bounding_box_padding = 3; // not sure why this is needed, but it helps line everything up
-    var results = scope.GetNearbyPosition([bounding_box.left, bounding_box.right + bounding_box_padding], 1.0, selected_ids);
-    var nearby_offset = results[0] * scope.pixelsPerSecond;
+    var results = scope.GetNearbyPosition([bounding_box.left, bounding_box.right + bounding_box_padding], 10.0, selected_ids);
+    var nearby_offset = results[0];
     var snapline_position = results[1];
 
     if (snapline_position) {
@@ -303,14 +277,14 @@ function moveBoundingBox(scope, element, previous_x, previous_y, x_offset, y_off
             x_offset -= nearby_offset;
             bounding_box.left -= nearby_offset;
             bounding_box.right -= nearby_offset;
-            ui.position.left -= nearby_offset;
+            snapping_result.left -= nearby_offset;
         }
 		
     } else {
 	    // Hide snapline
 		scope.HideSnapline();
 	}
-    
-    return { 'x_offset' : x_offset, 'y_offset' : y_offset };
+
+    return { 'position': snapping_result, 'x_offset' : x_offset, 'y_offset' : y_offset };
 }
 

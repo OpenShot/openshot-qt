@@ -46,7 +46,8 @@ from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
 from classes.query import File
-from windows.views.blender_treeview import BlenderTreeView
+from classes.metrics import *
+from windows.views.blender_listview import BlenderListView
 
 try:
     import json
@@ -71,8 +72,11 @@ class AnimatedTitle(QDialog):
         # Init UI
         ui_util.init_ui(self)
 
+        # Track metrics
+        track_metric_screen("animated-title-screen")
+
         # Add blender treeview
-        self.blenderTreeView = BlenderTreeView(self)
+        self.blenderTreeView = BlenderListView(self)
         self.verticalLayout.addWidget(self.blenderTreeView)
 
         # Add render button
@@ -128,6 +132,7 @@ class AnimatedTitle(QDialog):
 
         # Add file into project
         app = get_app()
+        _ = get_app()._tr
 
         # Check for this path in our existing project data
         file = File.get(path=filepath)
@@ -157,7 +162,7 @@ class AnimatedTitle(QDialog):
         except:
             # Handle exception
             msg = QMessageBox()
-            msg.setText(app._tr("{} is not a valid video, audio, or image file.".format(filename)))
+            msg.setText(_("{} is not a valid video, audio, or image file.".format(filename)))
             msg.exec_()
             return False
 

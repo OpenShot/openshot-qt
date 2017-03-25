@@ -192,15 +192,6 @@ App.directive('tlRuler', function ($timeout) {
 							ctx.lineTo(x*each_tick, line_top);
 							ctx.stroke();
 						}
-
-						//redraw audio if needed
-						$.each(scope.project.clips, function(){
-							drawAudio(scope, this.id);
-							handleVisibleClipElements(scope, this.id);
-						});
-
-
-
 				    }, 0);
 
              }
@@ -235,50 +226,6 @@ App.directive('tlRulertime', function () {
 					scope.PreviewFrame(playhead_seconds);
 				}
 			});
-
-
-		}
-	};
-});
-
-
-
-// Handles the HTML5 canvas progress bar
-App.directive('tlProgress', function($timeout){
-	return {
-		link: function(scope, element, attrs){
-			scope.$watch('progress + project.scale', function (val) {
-             if (val) {
-             	$timeout(function(){
-				        var progress = scope.project.progress;
-						for(p=0;p<progress.length;p++){
-
-							//get the progress item details
-							var start_second = progress[p][0];
-							var stop_second = progress[p][1];
-							var status = progress[p][2];
-
-							//figure out the actual pixel position
-							var start_pixel = start_second * scope.pixelsPerSecond;
-							var stop_pixel = stop_second * scope.pixelsPerSecond;
-							var rect_length = stop_pixel - start_pixel;
-
-							//get the element and draw the rects
-							var ctx = element[0].getContext('2d');
-							ctx.beginPath();
-						    ctx.rect(start_pixel, 0, rect_length, 5);
-						   	//change style based on status
-						   	if (status == 'complete'){
-								ctx.fillStyle = 'green';
-							}else{
-								ctx.fillStyle = 'yellow';
-							}
-						   	ctx.fill();
-						}
-             	}, 0);
-
-             }
-         });
 
 
 		}

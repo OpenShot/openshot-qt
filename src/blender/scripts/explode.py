@@ -70,8 +70,8 @@ def createExplodeTxt(title,particle_number,extrude,bevel_depth,spacemode,textsiz
 	bpy.context.scene.objects.active.data.space_character = width
 	bpy.context.scene.objects.active.data.font = font
 	#centering text
-	#bpy.data.objects['Text'].data.align='CENTER'
-	bpy.data.objects['Text'].data.align=spacemode
+	#bpy.data.objects['Text'].data.align_x='CENTER'
+	bpy.data.objects['Text'].data.align_x=spacemode
 
 	#extrude text
 	#bpy.data.objects['Text'].data.extrude=0.1
@@ -252,6 +252,7 @@ try:
 except:
 	bpy.context.scene.render.image_settings.file_format = params["file_format"]
 	bpy.context.scene.render.image_settings.color_mode = params["color_mode"]
+bpy.context.scene.render.alpha_mode = params["alpha_mode"]
 bpy.data.worlds[0].horizon_color = params["horizon_color"]
 bpy.context.scene.render.resolution_x = params["resolution_x"]
 bpy.context.scene.render.resolution_y = params["resolution_y"]

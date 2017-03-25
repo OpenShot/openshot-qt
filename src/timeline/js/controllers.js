@@ -37,173 +37,198 @@ App.controller('TimelineCtrl',function($scope) {
 		    num : 24,
 		    den : 1
 		   },
-      duration : 300,				//length of project in seconds
+      duration : 300,			//length of project in seconds
       scale : 16.0,				//seconds per tick
       tick_pixels : 100,		//pixels between tick mark
       playhead_position : 10,	//position of play head
-      clips : [
-	               { 
-	                 id : '1', 
-	                 layer : 1, 
-	                 image : './media/images/thumbnail.png',
-	                 locked : false,
-	                 duration : 32, //max length in seconds
-	                 start : 0,
-	                 end : 32,
-	                 position : 0.0,
-	                 title : 'Clip U2V5ENELDY',
-	                 effects : [
-	                           { type : 'Saturation', icon : 'bw.png'},
-	                           { type : 'ChromaKey',icon : 'om.png'},
-	                           { type : 'Negate',icon : 'neg.png'},
-	                           { type : 'Blur', icon: 'blur.png'},
-	                           { type : 'Brightness', icon: 'cartoon.png'}
-	                           ],
-	                 images :  {start: 1, end: 4},
-	                 show_audio : false,
-
-					 alpha: {
-					    Points: [
-					      {
-					        "interpolation": 2,
-					        "co": {
-					          "Y": 0,
-					          "X": 0
-					        }
-					      },
-					      {
-					        "interpolation": 1,
-					        "co": {
-					          "Y": 0,
-					          "X": 250
-					        }
-					      },
-					      {
-					        "interpolation": 1,
-					        "co": {
-					          "Y": 1,
-					          "X": 500
-					        }
-					      }
-						]
-					},
-					location_x: { Points: [] },
-					location_y: { Points: [] },
-					scale_x: { Points: [] },
-					scale_y: { Points: [] },
-					rotation: { Points: [] },
-					time: { Points: [] },
-					volume: { Points: [] }
-	                 
-	               },
-	               {
-	                 id : '2', 
-	                 layer : 2, 
-	                 image : './media/images/thumbnail.png',
-	                 locked : false,
-	                 duration : 45,
-	                 start : 0,
-	                 end : 45,
-	                 position : 0.0,
-	                 title : 'Clip B',
-	                 effects : [],
-	                 images : {start: 3, end: 7},
-	                 show_audio : false,
-	                 alpha: { Points: [] },
-	                 location_x: { Points: [] },
-					 location_y: { Points: [] },
-					 scale_x: { Points: [] },
-					 scale_y: { Points: [] },
-					 rotation: { Points: [] },
-					 time: { Points: [] },
-					 volume: { Points: [] }
-	               },
-	               {
-	                 id : '3', 
-	                 layer : 3, 
-	                 image : './media/images/thumbnail.png',
-	                 locked : false,
-	                 duration : 120,
-	                 start : 0,
-	                 end : 120,
-	                 position : 32.0,
-	                 title : 'Clip C',
-	                 effects : [
-	                           { type : 'Deinterlace',icon : 'om.png'},
-	                           { type : 'Blur', icon: 'blur.png'},
-	                           { type : 'Mask', icon: 'cartoon.png'}
-	                           ],
-	                 images : { start: 5, end: 10 },
-	                 show_audio : false,
-	                 audio_data : [.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3, ],
-	                 alpha: { Points: [] },
-	                 location_x: { Points: [] },
-					 location_y: { Points: [] },
-					 scale_x: { Points: [] },
-					 scale_y: { Points: [] },
-					 rotation: { Points: [] },
-					 time: { Points: [] },
-					 volume: { Points: [] }
-	               },
-             ],
+      clips : [],
+		  	// [
+	          //      {
+	          //        id : '1',
+	          //        layer : 1,
+	          //        image : './media/images/thumbnail.png',
+	          //        locked : false,
+	          //        duration : 32, //max length in seconds
+	          //        start : 0,
+	          //        end : 32,
+	          //        position : 0.0,
+	          //        title : 'Clip U2V5ENELDY',
+	          //        effects : [
+	          //                  { type : 'Saturation', icon : 'bw.png'},
+	          //                  { type : 'ChromaKey',icon : 'om.png'},
+	          //                  { type : 'Negate',icon : 'neg.png'},
+	          //                  { type : 'Blur', icon: 'blur.png'},
+	          //                  { type : 'Brightness', icon: 'cartoon.png'}
+	          //                  ],
+	          //        images :  {start: 1, end: 4},
+	          //        show_audio : false,
+             //
+				// 	 alpha: {
+				// 	    Points: [
+				// 	      {
+				// 	        "interpolation": 2,
+				// 	        "co": {
+				// 	          "Y": 0,
+				// 	          "X": 0
+				// 	        }
+				// 	      },
+				// 	      {
+				// 	        "interpolation": 1,
+				// 	        "co": {
+				// 	          "Y": 0,
+				// 	          "X": 250
+				// 	        }
+				// 	      },
+				// 	      {
+				// 	        "interpolation": 1,
+				// 	        "co": {
+				// 	          "Y": 1,
+				// 	          "X": 500
+				// 	        }
+				// 	      }
+				// 		]
+				// 	},
+				// 	location_x: { Points: [] },
+				// 	location_y: { Points: [] },
+				// 	scale_x: { Points: [] },
+				// 	scale_y: { Points: [] },
+				// 	rotation: { Points: [] },
+				// 	time: { Points: [] },
+				// 	volume: { Points: [] }
+	          //
+	          //      },
+	          //      {
+	          //        id : '2',
+	          //        layer : 2,
+	          //        image : './media/images/thumbnail.png',
+	          //        locked : false,
+	          //        duration : 45,
+	          //        start : 0,
+	          //        end : 45,
+	          //        position : 0.0,
+	          //        title : 'Clip B',
+	          //        effects : [],
+	          //        images : {start: 3, end: 7},
+	          //        show_audio : false,
+	          //        alpha: { Points: [] },
+	          //        location_x: { Points: [] },
+				// 	 location_y: { Points: [] },
+				// 	 scale_x: { Points: [] },
+				// 	 scale_y: { Points: [] },
+				// 	 rotation: { Points: [] },
+				// 	 time: { Points: [] },
+				// 	 volume: { Points: [] }
+	          //      },
+	          //      {
+	          //        id : '3',
+	          //        layer : 3,
+	          //        image : './media/images/thumbnail.png',
+	          //        locked : false,
+	          //        duration : 120,
+	          //        start : 0,
+	          //        end : 120,
+	          //        position : 32.0,
+	          //        title : 'Clip C',
+	          //        effects : [
+	          //                  { type : 'Deinterlace',icon : 'om.png'},
+	          //                  { type : 'Blur', icon: 'blur.png'},
+	          //                  { type : 'Mask', icon: 'cartoon.png'}
+	          //                  ],
+	          //        images : { start: 5, end: 10 },
+	          //        show_audio : false,
+	          //        audio_data : [.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3,.5, .6, .7, .7, .6, .5, .4, .1, 0, -0.1, -0.3, -0.6, -0.6, -0.3, -0.1, 0, .2, .3, ],
+	          //        alpha: { Points: [] },
+	          //        location_x: { Points: [] },
+				// 	 location_y: { Points: [] },
+				// 	 scale_x: { Points: [] },
+				// 	 scale_y: { Points: [] },
+				// 	 rotation: { Points: [] },
+				// 	 time: { Points: [] },
+				// 	 volume: { Points: [] }
+	          //      },
+             // ],
              
-	  effects : [
-	                	{
-	   	                 id : '5', 
-		                 layer : 4, 
-		                 title : 'Transition',
-		                 position : 20.0,
-		                 start : 0,
-		                 end : 30
-	                	},
-	                	{
-	   	                 id : '6', 
-		                 layer : 3, 
-		                 title : 'Transition',
-		                 position : 137.5,
-		                 start : 0,
-		                 end : 30
-	                	}
-                    
-                    ],
+	  effects : [],
+		  		// [
+	               //  	{
+	   	        //          id : '5',
+		           //       layer : 4,
+		           //       title : 'Transition',
+		           //       position : 20.0,
+		           //       start : 0,
+		           //       end : 30
+	               //  	},
+	               //  	{
+	   	        //          id : '6',
+		           //       layer : 3,
+		           //       title : 'Transition',
+		           //       position : 137.5,
+		           //       start : 0,
+		           //       end : 30
+	               //  	},
+	               //  	{
+	   	        //          id : '7',
+		           //       layer : 2,
+		           //       title : 'Transition',
+		           //       position : 30.5,
+		           //       start : 0,
+		           //       end : 30
+	               //  	}
+                   //
+                   //  ],
              
 	  layers : [
-	  				{id: 'L0', number:0, y:0, label: ''},
-					{id: 'L1', number:1, y:0, label: ''},
-					{id: 'L2', number:2, y:0, label: ''},
-					{id: 'L3', number:3, y:0, label: ''},
-					{id: 'L4', number:4, y:0, label: ''}
+	  				{id: 'L0', number:0, y:0, label: '', lock: false},
+					{id: 'L1', number:1, y:0, label: '', lock: false},
+					{id: 'L2', number:2, y:0, label: '', lock: false},
+					{id: 'L3', number:3, y:0, label: '', lock: false},
+					{id: 'L4', number:4, y:0, label: '', lock: false}
 	  				
              ],
              
-	  markers : [
-	                {
-	                  id : 'M1',
-	                  position : 16,
-	                  icon : 'yellow.png'
-	                },
-	                {
-	                  id : 'M2',
-	                  position: 120,
-	                  icon : 'green.png'
-	                },
-	                {
-	                  id : 'M3',
-	                  position: 300,
-	                  icon : 'red.png'
-	                },
-	                {
-	                  id : 'M4',
-	                  position: 10,
-	                  icon : 'purple.png'
-	                },
-              ],
+	  markers : [],
+              // [
+	           //      {
+	           //        id : 'M1',
+	           //        position : 16,
+	           //        icon : 'yellow.png'
+	           //      },
+	           //      {
+	           //        id : 'M2',
+	           //        position: 120,
+	           //        icon : 'green.png'
+	           //      },
+	           //      {
+	           //        id : 'M3',
+	           //        position: 300,
+	           //        icon : 'red.png'
+	           //      },
+	           //      {
+	           //        id : 'M4',
+	           //        position: 10,
+	           //        icon : 'purple.png'
+	           //      },
+              // ],
               
-	  progress : [
-	                  [0, 30, 'rendering'],
-	                  [40, 50, 'complete'],
-	                  [100, 150, 'complete'],
-                  ]
+	  progress : {}
+	  			// {
+				//    max_bytes : "0",
+				//    ranges : [
+				// 	  {
+				// 		 end : "30",
+				// 		 start : "0"
+				// 	  },
+				// 	  {
+				// 		 end : "40",
+				// 		 start : "50"
+				// 	  },
+				// 	  {
+				// 		 end : "100",
+				// 		 start : "150"
+				// 	  }
+				//    ],
+				//    version : "2"
+				// }
     };
   
   // Additional variables used to control the rendering of HTML
@@ -217,28 +242,29 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.snapline_position = 0.0;
   $scope.snapline = false;
   $scope.enable_snapping = true;
+  $scope.enable_razor = false;
   $scope.debug = false;
   $scope.min_width = 1024;
   $scope.track_label = "Track %s";
+  $scope.enable_sorting = true;
   
   // Method to set if Qt is detected (which clears demo data)
   $scope.Qt = false;
   $scope.EnableQt = function() { 
 	  	$scope.Qt = true;
-	  	$scope.project.clips = [];
-	  	$scope.project.markers = [];
-	  	$scope.project.effects = [];
-	  	$scope.project.progress = [];
 	  	timeline.qt_log("$scope.Qt = true;"); 
   };
 
   // Move the playhead to a specific time
   $scope.MovePlayhead = function(position_seconds) {
 	  // Update internal scope (in seconds)
-	  $scope.$apply(function(){
-		  $scope.project.playhead_position = position_seconds;
-		  $scope.playheadTime = secondsToTime(position_seconds, $scope.project.fps.num, $scope.project.fps.den);
-	  });
+	  $scope.project.playhead_position = position_seconds;
+	  $scope.playheadTime = secondsToTime(position_seconds, $scope.project.fps.num, $scope.project.fps.den);
+
+	  // Use JQuery to move playhead (for performance reasons) - scope.apply is too expensive here
+	  $(".playhead-top").css("left", (($scope.project.playhead_position * $scope.pixelsPerSecond) + $scope.playheadOffset) + "px");
+	  $(".playhead-line").css("left", (($scope.project.playhead_position * $scope.pixelsPerSecond) + $scope.playheadOffset) + "px");
+	  $("#ruler_time").text($scope.playheadTime.hour + ":" + $scope.playheadTime.min + ":" + $scope.playheadTime.sec + ":" + $scope.playheadTime.frame);
   };
   
   // Move the playhead to a specific frame
@@ -259,7 +285,7 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.PreviewFrame = function(position_seconds) {
 	  // Determine frame
 	  var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
-	  var frame = (position_seconds * frames_per_second) + 1;
+	  var frame = Math.round(position_seconds * frames_per_second) + 1;
 	  
 	  // Update GUI with position (to the preview can be updated)
 	  if ($scope.Qt)
@@ -271,7 +297,7 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.PreviewClipFrame = function(clip_id, position_seconds) {
 	  // Determine frame
 	  var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
-	  var frame = (position_seconds * frames_per_second) + 1;
+	  var frame = Math.round(position_seconds * frames_per_second) + 1;
 
 	  // Update GUI with position (to the preview can be updated)
 	  if ($scope.Qt)
@@ -284,8 +310,8 @@ App.controller('TimelineCtrl',function($scope) {
   	keyframes = {};
 
     var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
-    var clip_start_x = Math.round(object.start * frames_per_second) + 1.0;
-    var clip_end_x = Math.round(object.end * frames_per_second) + 1.0;
+    var clip_start_x = Math.round(object.start * frames_per_second) + 1;
+    var clip_end_x = Math.round(object.end * frames_per_second) + 1;
 
  	// Loop through properties of an object (clip/transition), looking for keyframe points
 	for (child in object) {
@@ -302,7 +328,47 @@ App.controller('TimelineCtrl',function($scope) {
 					// Only add keyframe coordinates that are within the bounds of the clip
 					keyframes[co.X] = co.Y;
 			}
+
+	    // Determine if this property is a Color Keyframe
+	 	if (typeof object[child] == "object" && "red" in object[child])
+			for (var point = 0; point < object[child]["red"].Points.length; point++) {
+				var co = object[child]["red"].Points[point].co;
+				if (co.X >= clip_start_x && co.X <= clip_end_x)
+					// Only add keyframe coordinates that are within the bounds of the clip
+					keyframes[co.X] = co.Y;
+			}
 	}
+
+	// Determine if this property contains effects (i.e. clips have their own effects)
+	if ("effects" in object)
+		for (effect in object["effects"]) {
+			
+			// Loop through properties of an effect, looking for keyframe points
+			for (child in object["effects"][effect]) {
+				if (!object["effects"][effect].hasOwnProperty(child)) {
+					//The current property is not a direct property of p
+					continue;
+				}
+
+				// Determine if this property is a Keyframe
+				if (typeof object["effects"][effect][child] == "object" && "Points" in object["effects"][effect][child])
+					for (var point = 0; point < object["effects"][effect][child].Points.length; point++) {
+						var co = object["effects"][effect][child].Points[point].co;
+						if (co.X >= clip_start_x && co.X <= clip_end_x)
+							// Only add keyframe coordinates that are within the bounds of the clip
+							keyframes[co.X] = co.Y;
+					}
+
+				// Determine if this property is a Color Keyframe
+				if (typeof object["effects"][effect][child] == "object" && "red" in object["effects"][effect][child])
+					for (var point = 0; point < object["effects"][effect][child]["red"].Points.length; point++) {
+						var co = object["effects"][effect][child]["red"].Points[point].co;
+						if (co.X >= clip_start_x && co.X <= clip_end_x)
+							// Only add keyframe coordinates that are within the bounds of the clip
+							keyframes[co.X] = co.Y;
+					}
+			}
+		}
 	
 	// Return keyframe array
 	return keyframes;
@@ -327,11 +393,84 @@ App.controller('TimelineCtrl',function($scope) {
 // ############# QT FUNCTIONS #################### //
 
  // Change the scale and apply to scope
- $scope.setScale = function(scaleVal){
+ $scope.setScale = function(scaleVal, cursor_x){
+
+	  // Get scrollbar positions
+	  var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
+	  var track_labels_width = $("#track_controls").width();
+
+	  // Determine actual x coordinate (over timeline)
+      var center_x = Math.max(cursor_x - track_labels_width, 0);
+      if (cursor_x == 0)
+      	center_x = 0;
+
+      // Determine time of cursor position
+      var cursor_time = parseFloat(center_x + horz_scroll_offset) / $scope.pixelsPerSecond;
+
       $scope.$apply(function(){
-         $scope.project.scale = scaleVal;
-         $scope.pixelsPerSecond =  parseFloat($scope.project.tick_pixels) / parseFloat($scope.project.scale);
-     });
+         $scope.project.scale = parseFloat(scaleVal);
+         $scope.pixelsPerSecond = parseFloat($scope.project.tick_pixels) / parseFloat($scope.project.scale);
+      });
+
+	 // Scroll back to correct cursor time (minus the difference of the cursor location)
+	 var new_cursor_x = Math.round((cursor_time * $scope.pixelsPerSecond) - center_x);
+	 $("#scrolling_tracks").scrollLeft(new_cursor_x);
+ };
+
+ // Set the audio data for a clip
+ $scope.setAudioData = function(clip_id, audio_data){
+ 	// Find matching clip
+	for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++)
+		if ($scope.project.clips[clip_index].id == clip_id) {
+			// Set audio data
+			$scope.$apply(function(){
+				$scope.project.clips[clip_index].audio_data = audio_data;
+				$scope.project.clips[clip_index].show_audio = true;
+			});
+			timeline.qt_log("Audio data successful set on clip JSON");
+			break;
+		}
+
+	 // Draw audio data
+	 drawAudio($scope, clip_id);
+ };
+
+ // Hide the audio waveform for a clip
+ $scope.hideAudioData = function(clip_id, audio_data){
+ 	// Find matching clip
+	for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++)
+		if ($scope.project.clips[clip_index].id == clip_id) {
+			// Set audio data
+			$scope.$apply(function(){
+				$scope.project.clips[clip_index].show_audio = false;
+				$scope.project.clips[clip_index].audio_data = [];
+			});
+			break;
+		}
+ };
+
+ // Redraw all audio waveforms on the timeline (if any)
+ $scope.reDrawAllAudioData = function(){
+ 	// Find matching clip
+	for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
+		if ("audio_data" in $scope.project.clips[clip_index] && $scope.project.clips[clip_index].audio_data.length > 0) {
+			// Redraw audio data (since it has audio data)
+			drawAudio($scope, $scope.project.clips[clip_index].id);
+		}
+	}
+ };
+
+ // Does clip have audio_data?
+ $scope.hasAudioData = function(clip_id){
+ 	// Find matching clip
+	for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
+		if ($scope.project.clips[clip_index].id == clip_id && "audio_data" in $scope.project.clips[clip_index] && $scope.project.clips[clip_index].audio_data.length > 0) {
+			return true;
+			break;
+		}
+	}
+
+	 return false;
  };
 
  // Change the snapping mode
@@ -342,6 +481,13 @@ App.controller('TimelineCtrl',function($scope) {
 		 	$(".droppable").draggable("option", "snapTolerance", 20);
 		 else
 		 	$(".droppable").draggable("option", "snapTolerance", 0);
+     });
+ };
+
+ // Change the razor mode
+ $scope.SetRazorMode = function(enable_razor){
+      $scope.$apply(function(){
+         $scope.enable_razor = enable_razor;
      });
  };
 
@@ -363,9 +509,9 @@ App.controller('TimelineCtrl',function($scope) {
 			return "#ff9700";
 		case "Saturation":
 			return "#ff3d00";
+		default:
+			return "#000000";
 	}
-
-	 return "rgba(54, 25, 25, .2)";
  };
 
  // Add a new clip to the timeline
@@ -383,15 +529,94 @@ App.controller('TimelineCtrl',function($scope) {
 
 	 });
  };
+	
+ // Update cache json
+ $scope.RenderCache = function(cache_json){
+
+	 // Push new clip onto stack
+	 $scope.project.progress = cache_json;
+	 
+	//clear the canvas first
+	var ruler = $("#progress");
+	var ctx = ruler[0].getContext('2d');
+	ctx.clearRect(0, 0, ruler.width(), ruler.height());
+
+	// Determine fps & and get cached ranges
+	var fps = $scope.project.fps.num / $scope.project.fps.den;
+	var progress = $scope.project.progress.ranges;
+
+	// Loop through each cached range of frames, and draw rect
+	for(p=0;p<progress.length;p++) {
+
+		//get the progress item details
+		var start_second = parseFloat(progress[p]["start"]) / fps;
+		var stop_second = parseFloat(progress[p]["end"]) / fps;
+
+		//figure out the actual pixel position
+		var start_pixel = start_second * $scope.pixelsPerSecond;
+		var stop_pixel = stop_second * $scope.pixelsPerSecond;
+		var rect_length = stop_pixel - start_pixel;
+
+		//get the element and draw the rects
+		ctx.beginPath();
+		ctx.rect(start_pixel, 0, rect_length, 5);
+		ctx.fillStyle = '#4B92AD';
+		ctx.fill();
+	}
+ };	
+	
+ // Clear all selections
+ $scope.ClearAllSelections = function() {
+	// Clear the selections on the main window
+	$scope.SelectTransition("", true);
+	$scope.SelectEffect("", true);
+
+	// Update scope
+	$scope.$apply(function() {
+		 for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++)
+			 $scope.project.clips[clip_index].selected = false;
+		 for (var effect_index = 0; effect_index < $scope.project.effects.length; effect_index++)
+			 $scope.project.effects[effect_index].selected = false;
+	});
+ };
  
+ // Select all clips and transitions
+ $scope.SelectAll = function() {
+	 $scope.$apply(function() {
+		 // Select all clips
+		 for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
+			 $scope.project.clips[clip_index].selected = true;
+			 timeline.addSelection($scope.project.clips[clip_index].id, "clip", false);
+		 }
+		 // Select all transitions
+		 for (var effect_index = 0; effect_index < $scope.project.effects.length; effect_index++) {
+			 $scope.project.effects[effect_index].selected = true;
+			 timeline.addSelection($scope.project.effects[effect_index].id, "transition", false);
+		 }
+	 });
+ };
+ 	
+	
  // Select clip in scope
  $scope.SelectClip = function(clip_id, clear_selections, event) {
  	// Trim clip_id
  	var id = clip_id.replace("clip_", "");
 
 	// Clear transitions also (if needed)
-	if (id != "" && clear_selections)
-		$scope.SelectTransition("", true);
+	if (id != "" && clear_selections) {
+		$scope.SelectTransition("", clear_selections);
+		$scope.SelectEffect("", clear_selections);
+	}
+
+	// Call slice method and exit (don't actually select the clip)
+	if (id != "" && $scope.enable_razor) {
+        if ($scope.Qt) {
+			cursor_seconds = $scope.GetJavaScriptPosition(event.clientX)
+            timeline.RazorSliceAtCursor(id, "", cursor_seconds)
+        }
+		// Don't actually select clip
+        return;
+    }
 
 	// Is CTRL pressed?
 	is_ctrl = false;
@@ -403,7 +628,7 @@ App.controller('TimelineCtrl',function($scope) {
 		if ($scope.project.clips[clip_index].id == id) {
 			$scope.project.clips[clip_index].selected = true;
 			if ($scope.Qt)
-	 			timeline.addSelection(id, "clip");
+				timeline.addSelection(id, "clip", clear_selections);
 		}
 		else if (clear_selections && !is_ctrl) {
 			$scope.project.clips[clip_index].selected = false;
@@ -418,8 +643,20 @@ App.controller('TimelineCtrl',function($scope) {
  	var id = tran_id.replace("transition_", "");
 
 	// Clear clips also (if needed)
-	if (id != "" && clear_selections)
+	if (id != "" && clear_selections) {
 		$scope.SelectClip("", true);
+		$scope.SelectEffect("", true);
+	}
+
+	// Call slice method and exit (don't actually select the transition)
+	if (id != "" && $scope.enable_razor) {
+        if ($scope.Qt) {
+			cursor_seconds = $scope.GetJavaScriptPosition(event.clientX)
+            timeline.RazorSliceAtCursor("", id, cursor_seconds)
+        }
+		// Don't actually select transition
+        return;
+    }
 
 	// Is CTRL pressed?
 	is_ctrl = false;
@@ -431,7 +668,7 @@ App.controller('TimelineCtrl',function($scope) {
 		if ($scope.project.effects[tran_index].id == id) {
 			$scope.project.effects[tran_index].selected = true;
 		 	if ($scope.Qt)
-			 	timeline.addSelection(id, "transition");
+				timeline.addSelection(id, "transition", clear_selections);
 		}
 		else if (clear_selections && !is_ctrl) {
 			$scope.project.effects[tran_index].selected = false;
@@ -450,10 +687,8 @@ App.controller('TimelineCtrl',function($scope) {
 
   // Select transition in scope
  $scope.SelectEffect = function(effect_id) {
- 	if ($scope.Qt) {
-	 	timeline.qt_log("$scope.SelectEffect");
+ 	if ($scope.Qt)
 	 	timeline.addSelection(effect_id, "effect", true);
- 	}
  };
 
 // Find the furthest right edge on the timeline (and resize it if too small)
@@ -525,6 +760,13 @@ App.controller('TimelineCtrl',function($scope) {
 	 }
  };
 
+  // Show timeline context menu
+ $scope.ShowTimelineMenu = function(e, layer_number) {
+ 	if ($scope.Qt) {
+	 	timeline.ShowTimelineMenu($scope.GetJavaScriptPosition(e.pageX), layer_number);
+	 }
+ };
+
  // Get the name of the track
  $scope.GetTrackName = function(layer_label, layer_number){
 	// Determine custom label or default track name
@@ -564,68 +806,156 @@ $scope.SetTrackLabel = function (label){
  // Get Track number of item (used by Qt)
  $scope.GetJavaScriptTrack = function(y){
 	// Adjust for scrollbar position
+	var scrolling_tracks_offset_top = $("#scrolling_tracks").offset().top;
   	var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
 	y += vert_scroll_offset;
 
 	// Return number of track
-	var track_number = parseInt($scope.GetTrackAtY(y).number);
+	var track_number = parseInt($scope.GetTrackAtY(y - scrolling_tracks_offset_top).number);
 	return track_number;
  };
  
  // Get JSON of most recent item (used by Qt)
- $scope.UpdateRecentItemJSON = function(item_type) {
+ $scope.UpdateRecentItemJSON = function(item_type, item_id) {
 
-		// update clip in Qt (very important =)
-		if (item_type == 'clip') {
-			var item_data = $scope.project.clips[$scope.project.clips.length - 1];
-			timeline.update_clip_data(JSON.stringify(item_data));
-		}
-		else if (item_type == 'transition') {
-			var item_data = $scope.project.effects[$scope.project.effects.length - 1];
-			timeline.update_transition_data(JSON.stringify(item_data));
-		}
+	 // Find item in JSON
+	 var item_object = null;
+	 if (item_type == 'clip') {
+		item_object = findElement($scope.project.clips, "id", item_id);
+	 } else if (item_type == 'transition') {
+		item_object = findElement($scope.project.effects, "id", item_id);
+	 } else {
+		 // Bail out if no id found
+		 return;
+	 }
 
-	    // Resize timeline if it's too small to contain all clips
-	    $scope.ResizeTimeline();
-		 	
+	// Get position of item
+	var scrolling_tracks_offset_top = $("#scrolling_tracks").offset().top;
+	var clip_position = parseFloat(bounding_box.left) / parseFloat($scope.pixelsPerSecond);
+	var layer_num = $scope.GetTrackAtY(bounding_box.track_position - scrolling_tracks_offset_top).number;
+
+	// update scope with final position of items
+	$scope.$apply(function() {
+		// update item
+		item_object.position = clip_position;
+		item_object.layer = layer_num;
+	});
+
+	// update clip in Qt (very important =)
+	if (item_type == 'clip')
+		timeline.update_clip_data(JSON.stringify(item_object));
+	else if (item_type == 'transition')
+		timeline.update_transition_data(JSON.stringify(item_object));
+
+	// Resize timeline if it's too small to contain all clips
+	$scope.ResizeTimeline();
+
+	// Hide snapline (if any)
+	$scope.HideSnapline();
+
+	// Check again for missing transitions
+	missing_transition_details = $scope.GetMissingTransitions(item_object);
+	if ($scope.Qt && missing_transition_details != null)
+		timeline.add_missing_transition(JSON.stringify(missing_transition_details));
+
+	// Remove manual move stylesheet
+	bounding_box.element.removeClass("manual-move");
+
+	// Remove CSS class (after the drag)
+	bounding_box = {};
+ };
+	
+ // Init bounding boxes for manual move
+ $scope.StartManualMove = function(item_type, item_id){
+	 // Select the item
+	 $scope.$apply(function() {
+		 if (item_type == 'clip')
+			 $scope.SelectClip(item_id, true);
+		 else if (item_type == 'transition')
+			 $scope.SelectTransition(item_id, true);
+	 });
+	 
+	 // JQuery selector for element (clip or transition)
+	 var element_id = "#" + item_type + "_" + item_id;
+
+	 // Init bounding box
+	 bounding_box = {};
+	 setBoundingBox($(element_id));
+
+	 // Init some variables to track the changing position
+	 bounding_box.previous_x = bounding_box.left;
+	 bounding_box.previous_y = bounding_box.top;
+	 bounding_box.offset_x = 0;
+	 bounding_box.offset_y = 0;
+	 bounding_box.element = $(element_id);
+	 bounding_box.track_position = 0;
+
+	 // Set z-order to be above other clips/transitions
+	 if (item_type != "os_drop")
+	 	bounding_box.element.addClass("manual-move");
  };
  
  // Move a new clip to the timeline
- $scope.MoveItem = function(x, y, item_type){
-	 $scope.$apply(function(){
-		 
-     	var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
-    	var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
-    	x += horz_scroll_offset;
-    	y += vert_scroll_offset;
-		 
-		 // Convert x and y into timeline vars
-		 var scrolling_tracks_offset_left = $("#scrolling_tracks").offset().left;
-		 var scrolling_tracks_offset_top = $("#scrolling_tracks").offset().top;
-		 var clip_position = parseFloat(x - scrolling_tracks_offset_left) / parseFloat($scope.pixelsPerSecond);
-		 if (clip_position < 0)
-			 clip_position = 0;
+ $scope.MoveItem = function(x, y, item_type) {
 
-		 // Update clip position & layer (based on x,y)
-		 if (item_type == "clip") {
-			 // move clip
-			 $scope.project.clips[$scope.project.clips.length - 1].position = clip_position;
-			 $scope.project.clips[$scope.project.clips.length - 1].layer = $scope.GetTrackAtY(y - scrolling_tracks_offset_top).number;
+	var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
+	var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
+	x += horz_scroll_offset;
+	y += vert_scroll_offset;
 
-			 // hide and show elements of the clip (based on size)
-			 handleVisibleClipElements($scope, $scope.project.clips[$scope.project.clips.length - 1].id);
-		 
-		 } else if (item_type == "transition") {
-			 // move transition
-			 $scope.project.effects[$scope.project.effects.length - 1].position = clip_position;
-			 $scope.project.effects[$scope.project.effects.length - 1].layer = $scope.GetTrackAtY(y - scrolling_tracks_offset_top).number;
-		 }
+	// Convert x and y into timeline vars
+	var scrolling_tracks_offset_left = $("#scrolling_tracks").offset().left;
+	var scrolling_tracks_offset_top = $("#scrolling_tracks").offset().top;
 
-	 });
+	// Calculate the x,y of cursor
+	var left = parseFloat(x - scrolling_tracks_offset_left);
+	var top = parseFloat(y - scrolling_tracks_offset_top);
+
+	// Calculate amount to move transitions
+	var x_offset = left - bounding_box.previous_x;
+	var y_offset = top - bounding_box.previous_y;
+
+	// Move the bounding box and apply snapping rules
+	results = moveBoundingBox($scope, bounding_box.previous_x, bounding_box.previous_y, x_offset, y_offset, left, top);
+
+	// Track previous values
+	bounding_box.previous_x = results.position.left;
+	bounding_box.previous_y = results.position.top;
+
+	var clip_position = parseFloat(results.position.left) / parseFloat($scope.pixelsPerSecond);
+	if (clip_position < 0)
+		clip_position = 0;
+
+	// Loop through each layer (looking for the closest track based on Y coordinate)
+	bounding_box.track_position = 0;
+	for (var layer_index = $scope.project.layers.length - 1; layer_index >= 0 ; layer_index--) {
+		var layer = $scope.project.layers[layer_index];
+
+		// Compare position of track to Y param (for unlocked tracks)
+		if (!layer.lock)
+			if ((top < layer.y && top > bounding_box.track_position) || bounding_box.track_position==0)
+				// return first matching layer
+				bounding_box.track_position = layer.y;
+	}
+
+	//change the element location
+	bounding_box.element.css('left', results.position.left);
+	bounding_box.element.css('top', bounding_box.track_position - scrolling_tracks_offset_top);
  };
  
  // Update X,Y indexes of tracks / layers (anytime the project.layers scope changes)
  $scope.UpdateLayerIndex = function(){
+
+	 if ($scope.Qt)
+		 timeline.qt_log('UpdateLayerIndex');
+
+	var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
+	var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
+
+	// Get scrollbar offsets
+	var scrolling_tracks_offset_left = $("#scrolling_tracks").offset().left;
+	var scrolling_tracks_offset_top = $("#scrolling_tracks").offset().top;
+
 	 $scope.$apply(function(){
 		 
 		 // Loop through each layer
@@ -636,18 +966,26 @@ $scope.SetTrackLabel = function (label){
 			var layer_elem = $("#track_" + layer.number);
 			if (layer_elem) {
 				// Update the top offset
-				layer.y = layer_elem.offset().top;
+				layer.y = layer_elem.offset().top + vert_scroll_offset;
 			}
 		}
-		
+
+		// Update playhead height
+		$scope.playhead_height = $("#track-container").height();
+		$(".playhead-line").height($scope.playhead_height);
 	 });
  };
- 
+
  // Sort clips and transitions by position
  $scope.SortItems = function(){
-	 console.log('Sorting clips and transitions');
+	 if (!$scope.enable_sorting)
+		 // Sorting is disabled, do nothing
+		 return;
+
+	 if ($scope.Qt)
+		 timeline.qt_log('SortItems');
+
 	 $scope.$apply(function(){
-	 	
 		 // Sort by position second
 		 $scope.project.clips = $scope.project.clips.sort(function(a,b) {
 			    if ( a.position < b.position )
@@ -656,13 +994,26 @@ $scope.SetTrackLabel = function (label){
 			        return 1;
 			    return 0;
 		  });
-	 
+
+		 // Sort transitions by position second
+		 $scope.project.effects = $scope.project.effects.sort(function(a,b) {
+			    if ( a.position < b.position )
+			        return -1;
+			    if ( a.position > b.position )
+			        return 1;
+			    return 0;
+		  });
+
+		 // Sort tracks by position second
+		 $scope.project.layers = $scope.project.layers.sort(function(a,b) {
+			    if ( a.number < b.number )
+			        return -1;
+			    if ( a.number > b.number )
+			        return 1;
+			    return 0;
+		  });
+
 	});
-	// Print clips 
-	//for (var index = 0; index < $scope.project.clips.length; index++) {
-	//	var clip = $scope.project.clips[index];
-	//	console.log('clip layer: ' + clip.layer + ', position: ' + clip.position);
-	//}
  };
  
  // Find overlapping clips
@@ -733,47 +1084,53 @@ $scope.SetTrackLabel = function (label){
 	var smallest_abs_diff = 900.0;
 	var snapping_position = 0.0;
 	var diffs = [];
-	
+
 	// Loop through each pixel position (supports multiple positions: i.e. left and right side of bounding box)
 	for (var pos_index = 0; pos_index < pixel_positions.length; pos_index++) {
-		var pixel_position = pixel_positions[pos_index];
-		var position = pixel_position / $scope.pixelsPerSecond;
-		 
+		var position = pixel_positions[pos_index];
+
 		// Add clip positions to array
 		for (var index = 0; index < $scope.project.clips.length; index++) {
 			var clip = $scope.project.clips[index];
+			var clip_left_position = clip.position * $scope.pixelsPerSecond;
+			var clip_right_position = (clip.position + (clip.end - clip.start)) * $scope.pixelsPerSecond;
 
 			// exit out if this item is in ignore_ids
 			if (ignore_ids.hasOwnProperty(clip.id))
 				continue;
 			
-			diffs.push({'diff' : position - clip.position, 'position' : clip.position}, // left side of clip
-			           {'diff' : position - (clip.position + (clip.end - clip.start)), 'position' : clip.position + (clip.end - clip.start)}); // right side of clip
+			diffs.push({'diff' : position - clip_left_position, 'position' : clip_left_position}, // left side of clip
+			           {'diff' : position - clip_right_position, 'position' : clip_right_position}); // right side of clip
 		}
 		
 		// Add transition positions to array
 		for (var index = 0; index < $scope.project.effects.length; index++) {
 			var transition = $scope.project.effects[index];
+			var tran_left_position = transition.position * $scope.pixelsPerSecond;
+			var tran_right_position = (transition.position + (transition.end - transition.start)) * $scope.pixelsPerSecond;
+
 
 			// exit out if this item is in ignore_ids
 			if (ignore_ids.hasOwnProperty(transition.id))
 				continue;
 			
-			diffs.push({'diff' : position - transition.position, 'position' : transition.position}, // left side of transition
-			           {'diff' : position - (transition.position + (transition.end - transition.start)), 'position' : transition.position + (transition.end - transition.start)}); // right side of transition
+			diffs.push({'diff' : position - tran_left_position, 'position' : tran_left_position}, // left side of transition
+			           {'diff' : position - tran_right_position, 'position' : tran_right_position}); // right side of transition
 		}
 
 		// Add marker positions to array
 		for (var index = 0; index < $scope.project.markers.length; index++) {
 			var marker = $scope.project.markers[index];
+			var marker_position = marker.position * $scope.pixelsPerSecond;
 
-			diffs.push({'diff' : position - marker.position, 'position' : marker.position}, // left side of marker
-			           {'diff' : position - (marker.position + (marker.end - marker.start)), 'position' : marker.position + (marker.end - marker.start)}); // right side of marker
+			diffs.push({'diff' : position - marker_position, 'position' : marker_position}, // left side of marker
+			           {'diff' : position - marker_position, 'position' : marker_position}); // right side of marker
 		}
 
 		// Add playhead position to array
-		var playhead_diff = position - $scope.project.playhead_position;
-		diffs.push({'diff' : playhead_diff, 'position' : $scope.project.playhead_position });
+		var playhead_pixel_position = $scope.project.playhead_position * $scope.pixelsPerSecond;
+		var playhead_diff = position - playhead_pixel_position;
+		diffs.push({'diff' : playhead_diff, 'position' : playhead_pixel_position });
 		
 		// Loop through diffs (and find the smallest one)
 		for (var diff_index = 0; diff_index < diffs.length; diff_index++) {
@@ -801,17 +1158,23 @@ $scope.SetTrackLabel = function (label){
  
   // Show the nearby snapping line
  $scope.ShowSnapline = function(position){
-	 $scope.$apply(function(){
-		$scope.snapline_position = position;
-		$scope.snapline = true; 
-	 });
+	 if (position != $scope.snapline_position || !$scope.snapline) {
+		 // Only update if value has changed
+		 $scope.$apply(function(){
+			$scope.snapline_position = position;
+			$scope.snapline = true;
+		 });
+	 }
  };
  
  // Hide the nearby snapping line
  $scope.HideSnapline = function(){
-	 $scope.$apply(function(){
-		$scope.snapline = false; 
-	 });
+	 if ($scope.snapline) {
+		 // Only hide if not already hidden
+		 $scope.$apply(function(){
+			$scope.snapline = false;
+		 });
+	 }
  };
  
  // Find a track JSON object at a given y coordinate (if any)
@@ -833,7 +1196,39 @@ $scope.SetTrackLabel = function (label){
 		else
 			return null;
  };
- 
+
+ // Determine which CSS classes are used on a track
+ $scope.GetTrackStyle = function(lock){
+
+		if (lock)
+			return "track track_disabled";
+	 	else
+			return "track";
+ };
+
+ // Determine which CSS classes are used on a clip
+ $scope.getClipStyle = function(clip){
+
+ 		style = "";
+		if (clip.selected)
+			style += "ui-selected ";
+
+		if ($scope.enable_razor)
+			style += "razor_cursor ";
+
+	 	return style;
+ };
+
+ // Determine which CSS classes are used on a clip label
+ $scope.getClipLabelStyle = function(clip){
+
+ 		style = "";
+		if ($scope.enable_razor)
+			style += "razor_cursor";
+
+	 	return style;
+ };
+
  // Apply JSON diff from UpdateManager (this is how the user interface communicates changes
  // to the timeline. A change can be an insert, update, or delete. The change is passed in
  // as JSON, which represents the change.
@@ -958,8 +1353,13 @@ $scope.SetTrackLabel = function (label){
 		    $scope.ResizeTimeline();
 		 	
 		    // Re-sort clips and transitions array
-		    scope.SortItems();
+		    $scope.SortItems();
 
+			// Re-index Layer Y values
+			$scope.UpdateLayerIndex();
+
+			// Lock / unlock any items
+			$scope.LockItems();
 	 	}
 	}	
 	 
@@ -979,11 +1379,36 @@ $scope.SetTrackLabel = function (label){
  		$scope.SelectClip("", true);
 	 });
 
-	// Re-index Layer Y values
-	$scope.UpdateLayerIndex();
+     // Re-sort clips and transitions array
+     $scope.SortItems;
+
+	 // Re-index Layer Y values
+	 $scope.UpdateLayerIndex();
+
+	 // Lock / unlock any items
+	 $scope.LockItems();
+
+	 // Scroll to top/left when loading a project
+	 $("#scrolling_tracks").animate({
+		scrollTop: 0,
+		scrollLeft: 0
+	 }, 'slow');
 	 
 	 // return true
 	 return true;
+ };
+
+ // Lock and unlock items
+ $scope.LockItems = function(){
+
+	// Enable all items
+	//$(".clip").draggable("enable")
+
+	// Disable any locked items
+	// for (layer in $scope.project.layers)
+	// {
+	// 	timeline.qt_log(layer);
+	// }
  };
   
 // ############# END QT FUNCTIONS #################### //   

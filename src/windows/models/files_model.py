@@ -28,7 +28,7 @@
 
 import os
 
-from PyQt5.QtCore import QMimeData, Qt
+from PyQt5.QtCore import QMimeData, Qt, pyqtSignal
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QMessageBox
 import openshot  # Python module for libopenshot (required video editing module installed separately)
@@ -46,6 +46,8 @@ except ImportError:
 
 
 class FileStandardItemModel(QStandardItemModel):
+    ModelRefreshed = pyqtSignal()
+
     def __init__(self, parent=None):
         QStandardItemModel.__init__(self)
 
@@ -97,7 +99,7 @@ class FilesModel(updates.UpdateInterface):
             self.model.clear()
 
         # Add Headers
-        self.model.setHorizontalHeaderLabels([_("Thumb"), _("Name"), _("Tags"), "", "", ""])
+        self.model.setHorizontalHeaderLabels(["", _("Name"), _("Tags"), "", "", ""])
 
         # Get list of files in project
         files = File.filter()  # get all files
@@ -170,7 +172,7 @@ class FilesModel(updates.UpdateInterface):
                     except:
                         # Handle exception
                         msg = QMessageBox()
-                        msg.setText(app._tr("{} is not a valid video, audio, or image file.".format(filename)))
+                        msg.setText(_("{} is not a valid video, audio, or image file.".format(filename)))
                         msg.exec_()
                         continue
 
@@ -184,7 +186,7 @@ class FilesModel(updates.UpdateInterface):
             # Append thumbnail
             col = QStandardItem()
             col.setIcon(QIcon(thumb_path))
-            col.setText((name[:9] + '...') if len(name) > 10 else name)
+            col.setText(name)
             col.setToolTip(filename)
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsDragEnabled)
             row.append(col)
@@ -192,7 +194,7 @@ class FilesModel(updates.UpdateInterface):
             # Append Filename
             col = QStandardItem("Name")
             col.setData(filename, Qt.DisplayRole)
-            col.setText((name[:20] + '...') if len(name) > 15 else name)
+            col.setText(name)
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsDragEnabled | Qt.ItemIsEditable)
             row.append(col)
 
@@ -234,6 +236,9 @@ class FilesModel(updates.UpdateInterface):
 
             # Refresh view and filters (to hide or show this new item)
             get_app().window.resize_contents()
+
+        # Emit signal
+        self.model.ModelRefreshed.emit()
 
     def __init__(self, *args):
 

@@ -86,7 +86,7 @@ text_object = bpy.data.curves["txtName1"]
 text_object.extrude = params["extrude"]
 text_object.bevel_depth = params["bevel_depth"]
 text_object.body = params["title"]
-text_object.align = params["spacemode"]
+text_object.align_x = params["spacemode"]
 text_object.size = params["text_size"]
 text_object.space_character = params["width"]
 
@@ -120,6 +120,7 @@ try:
 except:
 	bpy.context.scene.render.image_settings.file_format = params["file_format"]
 	bpy.context.scene.render.image_settings.color_mode = params["color_mode"]
+bpy.context.scene.render.alpha_mode = params["alpha_mode"]
 bpy.data.worlds[0].horizon_color = params["horizon_color"]
 bpy.context.scene.render.resolution_x = params["resolution_x"]
 bpy.context.scene.render.resolution_y = params["resolution_y"]

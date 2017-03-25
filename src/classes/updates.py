@@ -111,6 +111,8 @@ class UpdateManager:
         self.actionHistory = []  # List of actions performed to current state
         self.redoHistory = []  # List of actions undone
         self.currentStatus = [None, None]  # Status of Undo and Redo buttons (true/false for should be enabled)
+        self.ignore_history = False # Ignore saving actions to history, to prevent a huge undo/redo list
+        self.last_action = None
 
     def reset(self):
         """ Reset the UpdateManager, and clear all UpdateActions and History. This does not clear listeners and watchers. """
@@ -219,28 +221,42 @@ class UpdateManager:
     def load(self, values):
         """ Load all project data via an UpdateAction into the UpdateManager (this action will then be distributed to all listeners) """
 
+        self.last_action = UpdateAction('load', '', values)
         self.redoHistory.clear()
-        self.actionHistory.append(UpdateAction('load', '', values))
-        self.dispatch_action(self.actionHistory[-1])
+        if not self.ignore_history:
+            self.actionHistory.append(self.last_action)
+        self.dispatch_action(self.last_action)
 
     # Perform new actions, clearing redo history for taking a new path
     def insert(self, key, values):
         """ Insert a new UpdateAction into the UpdateManager (this action will then be distributed to all listeners) """
 
+        self.last_action = UpdateAction('insert', key, values)
         self.redoHistory.clear()
-        self.actionHistory.append(UpdateAction('insert', key, values))
-        self.dispatch_action(self.actionHistory[-1])
+        if not self.ignore_history:
+            self.actionHistory.append(self.last_action)
+        self.dispatch_action(self.last_action)
 
     def update(self, key, values, partial_update=False):
         """ Update the UpdateManager with an UpdateAction (this action will then be distributed to all listeners) """
 
+        self.last_action = UpdateAction('update', key, values, partial_update)
         self.redoHistory.clear()
-        self.actionHistory.append(UpdateAction('update', key, values, partial_update))
-        self.dispatch_action(self.actionHistory[-1])
+        if not self.ignore_history:
+            self.actionHistory.append(self.last_action)
+        self.dispatch_action(self.last_action)
 
     def delete(self, key):
         """ Delete an item from the UpdateManager with an UpdateAction (this action will then be distributed to all listeners) """
 
+        self.last_action = UpdateAction('delete', key)
         self.redoHistory.clear()
-        self.actionHistory.append(UpdateAction('delete', key))
-        self.dispatch_action(self.actionHistory[-1])
+        if not self.ignore_history:
+            self.actionHistory.append(self.last_action)
+        self.dispatch_action(self.last_action)
+
+    def apply_last_action_to_history(self, previous_value):
+        """ Apply the last action to the history """
+        if self.last_action:
+            self.last_action.set_old_values(previous_value)
+            self.actionHistory.append(self.last_action)
