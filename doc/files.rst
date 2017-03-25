@@ -95,3 +95,18 @@ all files you need to add, right click, and choose Add to Timeline.
 5   Zoom Options        Zoom in, zoom out, or none
 6   Transitions         Choose a specific transition to use between files, random, or none
 ==  ==================  ============
+
+Properties
+----------
+To view the properties of any imported file in your video project, right click on the file, and choose **File Properties**.
+This will launch the file properties dialog, which displays information about your media file. For certain types of images
+(i.e. image sequences), you can adjust the frame rate on this dialog also.
+
+.. image:: _static/file-properties.jpg
+
+==  ====================  ============
+#   Name                  Description
+==  ====================  ============
+1   File Properties       Select an image sequence in the **Project Files** panel, right click and choose **File Properties**
+2   Frame Rate            For image sequences, you can also adjust the frame rate of the animation
+==  ====================  ============

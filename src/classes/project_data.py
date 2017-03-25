@@ -354,6 +354,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Get app, and distribute all project data through update manager
         from classes.app import get_app
+        get_app().processEvents()
         get_app().updates.load(self._data)
 
         # Clear needs save flag

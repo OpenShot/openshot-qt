@@ -161,8 +161,6 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):
         # Send a JSON version of the UpdateAction to the timeline webview method: ApplyJsonDiff()
-        get_app().processEvents() # This allows the webview to accept our JS calls on launch
-
         if action.type == "load":
             # Initialize translated track name
             _ = get_app()._tr

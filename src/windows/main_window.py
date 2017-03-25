@@ -156,6 +156,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             msg.setText(_("Your most recent unsaved project has been recovered."))
             msg.exec_()
 
+        else:
+            # No backup project found
+            # Load a blank project (to propagate the default settings)
+            get_app().project.load("")
+
     def create_lock_file(self):
         """Create a lock file"""
         lock_path = os.path.join(info.USER_PATH, ".lock")
