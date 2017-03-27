@@ -8,19 +8,19 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-22 02:02+0000\n"
-"PO-Revision-Date: 2017-03-22 22:43+0000\n"
-"Last-Translator: Isidro Pisa <isidro@utils.info>\n"
+"PO-Revision-Date: 2017-03-26 20:22+0000\n"
+"Last-Translator: Robert Antoni Buj Gelonch <Unknown>\n"
 "Language-Team: Catalan <ca@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2017-03-24 06:25+0000\n"
+"X-Launchpad-Export-Date: 2017-03-27 04:42+0000\n"
 "X-Generator: Launchpad (build 18334)\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:605
 #, python-format
 msgid "Failed to load project file %(path)s: %(error)s"
-msgstr "Error carregant l'arxiu de projecte %(path)s: %(error)s"
+msgstr "No s'ha pogut carregar el fitxer del projecte %(path)s: %(error)s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:612
 #, python-format
@@ -28,19 +28,19 @@ msgid ""
 "Failed to load the following files:\n"
 "%s"
 msgstr ""
-"No s'han pogut carregar els arxius següents:\n"
+"No s'han pogut carregar els fitxers següents:\n"
 "%s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:908
 #, python-format
 msgid "Missing File (%s)"
-msgstr "Manca l'arxiu (%s)"
+msgstr "Falta el fitxer (%s)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:908
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:926
 #, python-format
 msgid "%s cannot be found."
-msgstr "%s no es troba."
+msgstr "%s no es pot trobar."
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:909
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:927
@@ -51,7 +51,7 @@ msgstr "Troba la carpeta que conté: %s"
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:926
 #, python-format
 msgid "Missing File in Clip (%s)"
-msgstr "Manca l'arxiu en el clip (%s)"
+msgstr "Falta el fitxer al clip (%s)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:479
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1460
@@ -90,14 +90,14 @@ msgstr "Aleatori"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:819
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:822
 msgid "Zoom In"
-msgstr "Amplia"
+msgstr "Amplia el zoom"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:491
 #: Settings for actionTimelineZoomOut
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:834
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:837
 msgid "Zoom Out"
-msgstr "Redueix"
+msgstr "Redueix el zoom"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:100
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:282
@@ -120,27 +120,27 @@ msgstr "S'ha recuperat el projecte no desat més recent"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:282
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:496
 msgid "Save changes to project first?"
-msgstr "Desar primer els canvis en el projecte?"
+msgstr "Voleu desar primer els canvis al projecte?"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:406
 msgid "Error Saving Project"
-msgstr "Error desant el projecte"
+msgstr "Error en desar el projecte"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:446
 msgid "Error Opening Project"
-msgstr "Error obrint el projecte"
+msgstr "Error en obrir el projecte"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:505 Settings
 #: for actionOpen
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:315
 msgid "Open Project..."
-msgstr "Obre un projecte..."
+msgstr "Obre el projecte..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:505
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:518
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:562
 msgid "OpenShot Project (*.osp)"
-msgstr "Projecte de l'OpenShot (*.osp)"
+msgstr "Projecte d'OpenShot (*.osp)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:517
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:561
@@ -162,15 +162,15 @@ msgstr "Anomena i desa el projecte..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:577
 msgid "Import File..."
-msgstr "Importa arxiu..."
+msgstr "Importa el fitxer..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1397
 msgid "Error Removing Track"
-msgstr "Error traient la pista"
+msgstr "Error en treure la pista"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1397
 msgid "You must keep at least 1 track"
-msgstr "Hi ha d'haber almenys 1 pista"
+msgstr "Heu de mantenir almenys 1 pista"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1462
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1239
@@ -356,7 +356,7 @@ msgstr "No"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/cutting.py:85
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/animation.ui:341
 msgid "Preview"
-msgstr "Previsualització"
+msgstr "Vista prèvia"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/cutting.py:236
 #: /home/jonathan/apps/openshot-qt-git/src/windows/cutting.py:270
@@ -394,6 +394,7 @@ msgstr ""
 "  Miquel Coll https://launchpad.net/~miquel6\n"
 "  RIco https://launchpad.net/~rico-rootscore-deactivatedaccount\n"
 "  Raül Cambeiro https://launchpad.net/~raulcambeiro\n"
+"  Robert Antoni Buj Gelonch https://launchpad.net/~robert-buj\n"
 "  TIMINeutron https://launchpad.net/~tfrascaroli\n"
 "  VPablo https://launchpad.net/~villumar\n"
 "  ferguweb https://launchpad.net/~ferguweb\n"
@@ -1062,7 +1063,7 @@ msgstr "Bézier"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:381
 msgid "Linear"
-msgstr "Linial"
+msgstr "Lineal"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:384
 msgid "Constant"
@@ -1439,7 +1440,7 @@ msgstr "Inici: Y"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Arrival Latitude (degrees)"
-msgstr "Latitud d'arrivada (graus)"
+msgstr "Latitud d'arribada (graus)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
 msgid "End Frame"
@@ -1471,7 +1472,7 @@ msgstr "Número de fotograma"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
 msgid "Title Diffuse Color"
-msgstr "Color de diufusión del títol"
+msgstr "Color difús del títol"
 
 #: libopenshot (Clip Properties)
 msgid "Scale X"
@@ -1876,7 +1877,7 @@ msgstr "Clave chroma (Pantalla verda)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
 msgid "Arrival Latitude (minutes)"
-msgstr "Latitud d'arrivada (minuts)"
+msgstr "Latitud d'arribada (minuts)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
 msgid "Line 3 Color"
@@ -2352,7 +2353,7 @@ msgstr "Web"
 
 #: Settings for blender_command
 msgid "Blender Command (path)"
-msgstr "Comando de Blender (ruta)"
+msgstr "Ordre de Blender (camí)"
 
 #: Settings Category for Profiles
 msgid "Profiles"

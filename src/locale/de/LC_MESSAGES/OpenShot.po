@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-22 02:02+0000\n"
-"PO-Revision-Date: 2017-01-29 12:26+0000\n"
-"Last-Translator: NeoTheThird <neo@neothethird.de>\n"
+"PO-Revision-Date: 2017-03-24 21:00+0000\n"
+"Last-Translator: schuko24 <gerdsaenger@t-online.de>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2017-03-24 06:25+0000\n"
+"X-Launchpad-Export-Date: 2017-03-27 04:41+0000\n"
 "X-Generator: Launchpad (build 18334)\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:605
@@ -219,12 +219,12 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:230
 #, python-format
 msgid "Line %s:"
-msgstr ""
+msgstr "Zeile %s:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:244
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:245
 msgid "Font:"
-msgstr "Schrift:"
+msgstr "Schriftart:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:247
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:347

@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-22 02:02+0000\n"
-"PO-Revision-Date: 2016-12-21 17:07+0000\n"
+"PO-Revision-Date: 2017-03-25 12:25+0000\n"
 "Last-Translator: Paulo Guzmán <white.hat@msn.com>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2017-03-24 06:29+0000\n"
+"X-Launchpad-Export-Date: 2017-03-27 04:41+0000\n"
 "X-Generator: Launchpad (build 18334)\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:999
@@ -38,24 +38,24 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:908
 #, python-format
 msgid "Missing File (%s)"
-msgstr ""
+msgstr "Arquivo (%s) Ausente"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:908
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:926
 #, python-format
 msgid "%s cannot be found."
-msgstr ""
+msgstr "%s não pode ser encontrado."
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:909
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:927
 #, python-format
 msgid "Find directory that contains: %s"
-msgstr ""
+msgstr "Localizar diretório que contém: %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:926
 #, python-format
 msgid "Missing File in Clip (%s)"
-msgstr ""
+msgstr "Arquivo (%s) Ausente no Clipe"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:479
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1460
@@ -124,7 +124,7 @@ msgstr "Seu projeto mais recente não salvo foi recuperado"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:282
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:496
 msgid "Save changes to project first?"
-msgstr ""
+msgstr "Salvar as alterações no projeto primeiro?"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:406
 msgid "Error Saving Project"
@@ -218,12 +218,12 @@ msgstr "Nome do arquivo:"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:216
 #, python-format
 msgid "TitleFileName-%d"
-msgstr ""
+msgstr "TítuloArquivoNome-%d"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:230
 #, python-format
 msgid "Line %s:"
-msgstr ""
+msgstr "Alinhar %s:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:244
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:245
@@ -247,7 +247,7 @@ msgstr "Cor do texto"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:262
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:263
 msgid "Background:"
-msgstr ""
+msgstr "Plano de fundo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:265
 msgid "Background Color"
@@ -447,7 +447,7 @@ msgstr "Você gostaria de importar %s como uma sequência de imagens?"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:141
 msgid "Yes, I would like to improve OpenShot!"
-msgstr ""
+msgstr "Sim, eu gostaria de melhorar o OpenShot!"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:156
 msgid "Hide Tutorial"
@@ -464,6 +464,10 @@ msgid ""
 "<br><br>Would you like to automatically send errors and metrics to help "
 "improve OpenShot?"
 msgstr ""
+"<b>Bem-vindo!</b> OpenShot Video Editor é um aplicativo de edição de vídeo "
+"de código aberto, premiado! Este tutorial irá guiá-lo através do básico."
+"<br><br>Você gostaria de enviar automaticamente erros e métricas para ajudar "
+"a melhorar o OpenShot?"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:334
 msgid ""
@@ -534,7 +538,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:414
 msgid "Slice All"
-msgstr ""
+msgstr "Cortar Tudo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:415
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:789
@@ -974,115 +978,115 @@ msgstr "Transição Reversa"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:334
 msgid "Ease (Default)"
-msgstr ""
+msgstr "Fácil (Padrão)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:335
 msgid "Ease In"
-msgstr ""
+msgstr "Facilitar Entrada"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:336
 msgid "Ease Out"
-msgstr ""
+msgstr "Facilitar Saída"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:337
 msgid "Ease In/Out"
-msgstr ""
+msgstr "Facilitar Entrada/Saída"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:339
 msgid "Ease In (Quad)"
-msgstr ""
+msgstr "Facilitar Entrada (Quadrilateral)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:340
 msgid "Ease In (Cubic)"
-msgstr ""
+msgstr "Facilitar Entrada (Cúbico)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:341
 msgid "Ease In (Quart)"
-msgstr ""
+msgstr "Facilitar Entrada (Um Quarto)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:342
 msgid "Ease In (Quint)"
-msgstr ""
+msgstr "Facilitar Entrada (Um Quinto)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:343
 msgid "Ease In (Sine)"
-msgstr ""
+msgstr "Facilitar Entrada (Seno)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:344
 msgid "Ease In (Expo)"
-msgstr ""
+msgstr "Entrada (Exposição)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:345
 msgid "Ease In (Circ)"
-msgstr ""
+msgstr "Entrada (Circular)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:346
 msgid "Ease In (Back)"
-msgstr ""
+msgstr "Entrada (Costas)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:348
 msgid "Ease Out (Quad)"
-msgstr ""
+msgstr "Entrada (Quadrilateral)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:349
 msgid "Ease Out (Cubic)"
-msgstr ""
+msgstr "Saída (Cúbica)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:350
 msgid "Ease Out (Quart)"
-msgstr ""
+msgstr "Saída (Um Quarto)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:351
 msgid "Ease Out (Quint)"
-msgstr ""
+msgstr "Saída (Um Quinto)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:352
 msgid "Ease Out (Sine)"
-msgstr ""
+msgstr "Saída (Seno)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:353
 msgid "Ease Out (Expo)"
-msgstr ""
+msgstr "Saída (Exposição)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:354
 msgid "Ease Out (Circ)"
-msgstr ""
+msgstr "Saída (Circular)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:355
 msgid "Ease Out (Back)"
-msgstr ""
+msgstr "Saída (Costas)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:357
 msgid "Ease In/Out (Quad)"
-msgstr ""
+msgstr "Entrada/Saída (Quadrilateral)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:358
 msgid "Ease In/Out (Cubic)"
-msgstr ""
+msgstr "Entrada/Saída (Cúbica)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:359
 msgid "Ease In/Out (Quart)"
-msgstr ""
+msgstr "Entrada/Saída (Um Quarto)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:360
 msgid "Ease In/Out (Quint)"
-msgstr ""
+msgstr "Entrada/Saída (Um Quinto)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:361
 msgid "Ease In/Out (Sine)"
-msgstr ""
+msgstr "Entrada/Saída (Seno)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:362
 msgid "Ease In/Out (Expo)"
-msgstr ""
+msgstr "Entrada/Saída (Exposição)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:363
 msgid "Ease In/Out (Circ)"
-msgstr ""
+msgstr "Entrada/Saída (Circular)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:364
 msgid "Ease In/Out (Back)"
-msgstr ""
+msgstr "Entrada/Saída (Costas)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:375
 msgid "Bezier"
@@ -1213,7 +1217,7 @@ msgstr "Contribuir com Bitcoin!"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:111
 msgid "Patreon Supporter!"
-msgstr ""
+msgstr "Doe via Patreon!"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:119
 msgid "Multiple Contributions!"
@@ -1847,7 +1851,7 @@ msgstr "Titulo 3"
 
 #: libopenshot (Clip Properties)
 msgid "Both"
-msgstr ""
+msgstr "Ambos"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
 msgid "Bevel Depth"
@@ -2077,7 +2081,7 @@ msgstr "Avanço Rápido"
 
 #: Settings for playToggle2
 msgid "Play/Pause Toggle (Alternate 2)"
-msgstr ""
+msgstr "Alternar Reproduzir/Pausar (Alternativa 2)"
 
 #: Settings for actionImportFiles
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:375
@@ -2086,7 +2090,7 @@ msgstr "Importar Arquivos..."
 
 #: Settings for playToggle1
 msgid "Play/Pause Toggle (Alternate 1)"
-msgstr ""
+msgstr "Alternar Reproduzir/Pausar (Alternativa 1)"
 
 #: Settings for default-channellayout
 msgid "Default Audio Channels"
@@ -2198,7 +2202,7 @@ msgstr "DVD"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:633
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:636
 msgid "Snapping Enabled"
-msgstr ""
+msgstr "Instantâneo Ativado"
 
 #: Settings for default-samplerate
 msgid "Default Audio Sample Rate"
@@ -2228,7 +2232,7 @@ msgstr "MOV (mpeg4)"
 
 #: Settings for playToggle3
 msgid "Play/Pause Toggle (Alternate 3)"
-msgstr ""
+msgstr "Alternar Reproduzir/Pausar (Alternativa 3)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/nokia_nHD.xml
 msgid "Nokia nHD"
@@ -2341,7 +2345,7 @@ msgstr "Propriedades"
 
 #: Settings for deleteItem1
 msgid "Delete Item (Alternate 1)"
-msgstr ""
+msgstr "Apagar Item (Alternativa 1)"
 
 #: Settings for actionQuit
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:492
@@ -2392,7 +2396,7 @@ msgstr "Tema Padrão"
 
 #: Settings for cache-quality
 msgid "Image Quality (Disk Only)"
-msgstr ""
+msgstr "Qualidade da Imagem (Só Disco)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml
 msgid "Metacafe"
@@ -2466,7 +2470,7 @@ msgstr "Habilitar Salvar Automaticamente"
 
 #: Settings for sliceAllKeepLeftSide
 msgid "Slice All: Keep Left Side"
-msgstr ""
+msgstr "Cortar Tudo: Manter o Lado Esquerdo"
 
 #: Settings for autosave-interval
 msgid "Autosave Interval (minutes)"
@@ -2474,7 +2478,7 @@ msgstr "Intervalo de salvamento automático  (minutos)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr.jpg
 msgid "Middle barr"
-msgstr ""
+msgstr "Barra Centralizada"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_losange.jpg
 msgid "Middle losange"
@@ -2486,11 +2490,11 @@ msgstr "Onda deixou-se"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_right_barr.jpg
 msgid "Blur right barr"
-msgstr ""
+msgstr "Barra Direita Borrada"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Flames.svg
 msgid "Flames"
-msgstr ""
+msgstr "Chamas"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_top_arrow.jpg
 msgid "Middle top arrow"
@@ -2498,11 +2502,11 @@ msgstr "Seta central superior"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Creative_Commons_2.svg
 msgid "Creative commons %s"
-msgstr ""
+msgstr "Creative commons %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Footer_1.svg
 msgid "Footer %s"
-msgstr ""
+msgstr "Rodapé %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_medium.jpg
 msgid "Spiral medium"
@@ -2510,7 +2514,7 @@ msgstr "Espiral média"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_top_arrow.jpg
 msgid "Ripple top arrow"
-msgstr ""
+msgstr "Seta superior ondulada"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/bubbles.jpg
 msgid "Bubbles"
@@ -2522,7 +2526,7 @@ msgstr "Barra cruzada"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_left_barr.jpg
 msgid "Big cross left barr"
-msgstr ""
+msgstr "Barra esquerda em forma de cruz grande"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_leftt_barr.jpg
 msgid "4 squares leftt barr"
@@ -2530,11 +2534,11 @@ msgstr "Barra de 4 quadrados à esquerda"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Sunset.svg
 msgid "Sunset"
-msgstr ""
+msgstr "Pôr do sol"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Bubbles_1.svg
 msgid "Bubbles %s"
-msgstr ""
+msgstr "Bolhas %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_top_arrow.jpg
 msgid "Small top arrow"
@@ -2546,7 +2550,7 @@ msgstr "Mozaico %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_low_arrow.jpg
 msgid "Ripple luminous low arrow"
-msgstr ""
+msgstr "Seta inferior luminosa e ondulada"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/fish-eyes_5.jpg
 msgid "Fish-eyes %s"
@@ -2554,7 +2558,7 @@ msgstr "Olho de peixe %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Smoke_1.svg
 msgid "Smoke %s"
-msgstr ""
+msgstr "Fumaça %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/central_mozaic.jpg
 msgid "Central mozaic"
@@ -2562,7 +2566,7 @@ msgstr "Mosaico central"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Gray_Box_4.svg
 msgid "Gray box %s"
-msgstr ""
+msgstr "Caixa cinza %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/openshot_logo.jpg
 msgid "Openshot logo"
@@ -2598,11 +2602,11 @@ msgstr "Borrão de raio certo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Gold_Top.svg
 msgid "Gold top"
-msgstr ""
+msgstr "Parte superior dourada"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Gold_2.svg
 msgid "Gold %s"
-msgstr ""
+msgstr "Dourado %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg
 msgid "Distortion %s"
@@ -2610,7 +2614,7 @@ msgstr "Distorsão %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_left.jpg
 msgid "Frame barr left"
-msgstr ""
+msgstr "Barra quadrada esquarda"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/checked_1.jpg
 msgid "Checked %s"
@@ -2644,7 +2648,7 @@ msgstr "Vagando %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_left_barr.jpg
 msgid "Small cross left barr"
-msgstr ""
+msgstr "Barra em pequena cruz esquerda"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_sliding.jpg
 msgid "Blinds sliding"
@@ -2664,19 +2668,19 @@ msgstr "Círculo de fora para dentro"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_right_barr.jpg
 msgid "Square right barr"
-msgstr ""
+msgstr "Barra direita quadrada"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Film_Rating_3.svg
 msgid "Film rating %s"
-msgstr ""
+msgstr "Classificação do filme %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Bar_1.svg
 msgid "Bar %s"
-msgstr ""
+msgstr "Barra %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Gold_Bottom.svg
 msgid "Gold bottom"
-msgstr ""
+msgstr "Fundo dourado"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ondulation_1.jpg
 msgid "Ondulation %s"
@@ -2692,7 +2696,7 @@ msgstr "Persiana vertical grande de dentro para fora"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_left_inspiration.jpg
 msgid "Little left inspiration"
-msgstr ""
+msgstr "Pouca inspiração esquerda"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_right.jpg
 msgid "Mozaic barr right"
@@ -2700,7 +2704,7 @@ msgstr "Mosaico barr direito"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/TV_Rating.svg
 msgid "Tv rating"
-msgstr ""
+msgstr "Classificação de TV"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out.jpg
 msgid "Blinds in to out"
@@ -2736,7 +2740,7 @@ msgstr "Raio de luz a direita"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/whirpool_2.jpg
 msgid "Whirpool %s"
-msgstr ""
+msgstr "Redemoinho de água %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_left.jpg
 msgid "Little rippling left"
@@ -2784,11 +2788,11 @@ msgstr "Caixas %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_left_barr.jpg
 msgid "Square left barr"
-msgstr ""
+msgstr "Barra esquarda quadrada"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_right_barr.jpg
 msgid "Big cross right barr"
-msgstr ""
+msgstr "Barra direita forma de cruz grande"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_5.jpg
 msgid "Mozaic %s"
@@ -2800,7 +2804,7 @@ msgstr "Esticada %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Solid_Color.svg
 msgid "Solid color"
-msgstr ""
+msgstr "Cor sólida"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small.jpg
 msgid "Spiral small"
@@ -2808,7 +2812,7 @@ msgstr "Espiral pequena"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Ribbon_2.svg
 msgid "Ribbon %s"
-msgstr ""
+msgstr "Laço de fita %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_left_barr.jpg
 msgid "Middle cross left barr"
@@ -2816,11 +2820,11 @@ msgstr "Cruz média de barr esquerda"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_inspiration_right.jpg
 msgid "Free inspiration right"
-msgstr ""
+msgstr "Livre inspiração direita"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_left_inspiration.jpg
 msgid "Free left inspiration"
-msgstr ""
+msgstr "Livre inspiração esquerda"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_left_to_right.svg
 msgid "Wipe left to right"
@@ -2832,7 +2836,7 @@ msgstr "Barra de 4 quadrados à direita"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Post_it.svg
 msgid "Post it"
-msgstr ""
+msgstr "Post it"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right_2.jpg
 msgid "Ray light right %s"
@@ -2840,7 +2844,7 @@ msgstr "Raio de luz a direita %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_right_barr.jpg
 msgid "Square middle right barr"
-msgstr ""
+msgstr "Barra direita meio quadrado"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_bars.jpg
 msgid "Vertical bars"
@@ -2852,7 +2856,7 @@ msgstr "Caixa luminosa %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/strange_barr_1.jpg
 msgid "Strange barr %s"
-msgstr ""
+msgstr "Barra alheia %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/future_11.jpg
 msgid "Future %s"
@@ -2864,23 +2868,23 @@ msgstr "Círculo de dentro para fora"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_low_arrow.jpg
 msgid "Ripple low arrow"
-msgstr ""
+msgstr "Seta inferior ondulação"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_down.jpg
 msgid "Wave right down"
-msgstr ""
+msgstr "Onda direita inferior"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Oval_3.svg
 msgid "Oval %s"
-msgstr ""
+msgstr "Oval %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/board_10.jpg
 msgid "Board %s"
-msgstr ""
+msgstr "Xadrez %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_left_barr.jpg
 msgid "Square middle left barr"
-msgstr ""
+msgstr "Barra esquerda meio quadrado"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_right_triangle.jpg
 msgid "Lateral right triangle"
@@ -2896,7 +2900,7 @@ msgstr "Onda %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Camera_Border.svg
 msgid "Camera border"
-msgstr ""
+msgstr "Borda da câmera"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_low_arrow.jpg
 msgid "Small low arrow"
@@ -2908,7 +2912,7 @@ msgstr "Grande Espiral"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_right_barr.jpg
 msgid "Middle cross right barr"
-msgstr ""
+msgstr "Barra direita forma de cruz"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_down.jpg
 msgid "Wave left down"
@@ -2916,7 +2920,7 @@ msgstr "Onda esquerda para baixo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_cross_left_barr.jpg
 msgid "Frame cross left barr"
-msgstr ""
+msgstr "Barra esquerda cruz quadro"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_left.jpg
 msgid "Blur ray left"
@@ -2948,7 +2952,7 @@ msgstr "Quadro luminoso %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_right.jpg
 msgid "Frame barr right"
-msgstr ""
+msgstr "Barra quadrada direita"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out_big.jpg
 msgid "Blinds in to out big"
@@ -2972,7 +2976,7 @@ msgstr "Mancha %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wipe_diagonal_3.jpg
 msgid "Wipe diagonal %s"
-msgstr ""
+msgstr "Limpar diagonal %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_right_to_left.svg
 msgid "Wipe right to left"
@@ -2984,7 +2988,7 @@ msgstr "Middle black barr"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Header_3.svg
 msgid "Header %s"
-msgstr ""
+msgstr "Cabeçalho %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_18.jpg
 msgid "Ray light %s"
@@ -3020,15 +3024,15 @@ msgstr "Espiral nebulosa %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr.jpg
 msgid "Big barr"
-msgstr ""
+msgstr "Barra grande"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Cloud_2.svg
 msgid "Cloud %s"
-msgstr ""
+msgstr "Nuvem %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr_ripple_2.jpg
 msgid "Middle barr ripple %s"
-msgstr ""
+msgstr "Barra média ondulada %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spots.jpg
 msgid "Spots"
@@ -3040,7 +3044,7 @@ msgstr "Pós tempo  %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking2.jpg
 msgid "Big barr shaking2"
-msgstr ""
+msgstr "Barra grande"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out.jpg
 msgid "Vertical blinds in to out"
@@ -3048,7 +3052,7 @@ msgstr "Persianas verticais de dentro para fora"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/horizontal_barr_1.jpg
 msgid "Horizontal barr %s"
-msgstr ""
+msgstr "Barra horizontal %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mountains.jpg
 msgid "Mountains"
@@ -3056,7 +3060,7 @@ msgstr "Montanhas"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Standard_1.svg
 msgid "Standard %s"
-msgstr ""
+msgstr "Padrão %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_top_to_bottom.svg
 msgid "Wipe top to bottom"
@@ -3080,7 +3084,7 @@ msgstr "Raio de luz a esquerda"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_top_arrow.jpg
 msgid "Ripple luminous top arrow"
-msgstr ""
+msgstr "Seta superior luminosa ondulada"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/fractal_5.jpg
 msgid "Fractal %s"
@@ -3237,7 +3241,7 @@ msgstr "Detalhes"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/animation.ui:60
 msgid "Loop (Repeat)"
-msgstr ""
+msgstr "Laço (Repetir)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/animation.ui:77
 msgid "# of Frames:"
@@ -3479,7 +3483,7 @@ msgstr "# de Canais:"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:996
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/file-properties.ui:785
 msgid "Channel Layout:"
-msgstr ""
+msgstr "Aparência do Canal:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/file-properties.ui:20
 msgid "File Properties"
@@ -3540,23 +3544,23 @@ msgstr "&Arquivo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:97
 msgid "&Edit"
-msgstr ""
+msgstr "&Editar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:113
 msgid "View"
-msgstr ""
+msgstr "Ver"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:117
 msgid "Views"
-msgstr ""
+msgstr "Visualizações"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:134
 msgid "Help"
-msgstr ""
+msgstr "Ajuda"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:155
 msgid "toolBar"
-msgstr ""
+msgstr "Barra de ferramentas"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:184
 msgid "Project Files"
@@ -3576,7 +3580,7 @@ msgstr "Novo projeto"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:306
 msgid "Ctrl+N"
-msgstr ""
+msgstr "Ctrl+N"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:318
 msgid "Open Project"
@@ -3584,19 +3588,19 @@ msgstr "Abrir projeto"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:321
 msgid "Ctrl+O"
-msgstr ""
+msgstr "Ctrl+O"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:336
 msgid "Ctrl+S"
-msgstr ""
+msgstr "Ctrl+S"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:351
 msgid "Ctrl+Z"
-msgstr ""
+msgstr "Ctrl+Z"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:366
 msgid "Ctrl+Shift+S"
-msgstr ""
+msgstr "Ctrl+Shift+S"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:378
 msgid "Import Files"
@@ -3604,7 +3608,7 @@ msgstr "Importar Arquivos"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:381
 msgid "Ctrl+F"
-msgstr ""
+msgstr "Ctrl+F"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:390
 msgid "Import Image Sequence..."
@@ -3612,7 +3616,7 @@ msgstr "Importar Sequência de Imagens"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:396
 msgid "Ctrl+I"
-msgstr ""
+msgstr "Ctrl+I"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:405
 msgid "Import New Transition..."
@@ -3624,11 +3628,11 @@ msgstr "Importar Nova Transição"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:411
 msgid "Ctrl+W"
-msgstr ""
+msgstr "Ctrl+W"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:426
 msgid "Ctrl+Y"
-msgstr ""
+msgstr "Ctrl+Y"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:435
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:438
@@ -3642,7 +3646,7 @@ msgstr "Remover Transição"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:465
 msgid "Ctrl+Shift+E"
-msgstr ""
+msgstr "Ctrl+Shift+E"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:474
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:477
@@ -3651,23 +3655,23 @@ msgstr "Enviar Vídeo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:480
 msgid "Ctrl+U"
-msgstr ""
+msgstr "Ctrl+U"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:489
 msgid "&Quit"
-msgstr ""
+msgstr "&Sair"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:495
 msgid "Ctrl+Q"
-msgstr ""
+msgstr "Ctrl+Q"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:519
 msgid "&Preferences"
-msgstr ""
+msgstr "&Preferências"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:525
 msgid "Ctrl+Shift+P"
-msgstr ""
+msgstr "Ctrl+Shift+P"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:537
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:540
@@ -3686,7 +3690,7 @@ msgstr "Ferramenta Estilete"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:651
 msgid "Ctrl+M"
-msgstr ""
+msgstr "Ctrl+M"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:683
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:686
@@ -3719,19 +3723,19 @@ msgstr "Imagem"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:825
 msgid "="
-msgstr ""
+msgstr "="
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:840
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:855
 msgid "Ctrl+T"
-msgstr ""
+msgstr "Ctrl+T"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:870
 msgid "Ctrl+B"
-msgstr ""
+msgstr "Ctrl+B"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:888
 msgid "F11"
@@ -3744,19 +3748,19 @@ msgstr "Exibir Barra de Ferramentas"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:918
 msgid "Ctrl+H"
-msgstr ""
+msgstr "Ctrl+H"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:936
 msgid "Ctrl+E"
-msgstr ""
+msgstr "Ctrl+E"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:951
 msgid "Ctrl+D"
-msgstr ""
+msgstr "Ctrl+D"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:960
 msgid "Report a Bug..."
-msgstr ""
+msgstr "Relatar um Erro..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:969
 msgid "Ask a Question..."
@@ -3764,11 +3768,11 @@ msgstr "Formule uma Pergunta..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:978
 msgid "Translate this Application..."
-msgstr ""
+msgstr "Traduzir esta Aplicação..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:987
 msgid "Donate"
-msgstr ""
+msgstr "Doar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:996
 msgid "Contents"
@@ -3792,15 +3796,15 @@ msgstr "Descongelar Visualização"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1059
 msgid "Recent Placeholder"
-msgstr ""
+msgstr "Marcador de posição recente"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1077
 msgid "Ctrl+P"
-msgstr ""
+msgstr "Ctrl+P"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1092
 msgid "Ctrl+A"
-msgstr ""
+msgstr "Ctrl+A"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1101
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1104
@@ -3842,59 +3846,59 @@ msgstr "Remover Efeito"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1215
 msgid "Ctrl+X"
-msgstr ""
+msgstr "Ctrl+X"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1224
 msgid "&Properties"
-msgstr ""
+msgstr "&Propriedades"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1251
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1254
 msgid "New Version Available"
-msgstr ""
+msgstr "Nova Versão Disponível"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1269
 msgid "Tutorial"
-msgstr ""
+msgstr "Tutorial"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1272
 msgid "Launch Tutorial"
-msgstr ""
+msgstr "Iniciar Tutorial"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1281
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1284
 msgid "Create Animation"
-msgstr ""
+msgstr "Criar Animação"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1293
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1296
 msgid "Lock Track"
-msgstr ""
+msgstr "Bloquear Faixa"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1305
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1308
 msgid "Unlock Track"
-msgstr ""
+msgstr "Desbloquear Faixa"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1317
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1320
 msgid "Transform"
-msgstr ""
+msgstr "Transformar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1329
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1332
 msgid "Edit Title"
-msgstr ""
+msgstr "Editar Título"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1335
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1350
 msgid "Ctrl+Shift+T"
-msgstr ""
+msgstr "Ctrl+Shift+T"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1344
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1347
 msgid "Duplicate Title"
-msgstr ""
+msgstr "Título Duplicado"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/profile.ui:30
 msgid "Size:"
@@ -3906,7 +3910,7 @@ msgstr "1920x1080"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/profile.ui:60
 msgid "24"
-msgstr ""
+msgstr "24"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/profile.ui:67
 msgid "FPS:"
@@ -3914,11 +3918,11 @@ msgstr "FPS:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/profile.ui:84
 msgid "Other:"
-msgstr ""
+msgstr "Outro:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:14
 msgid "Titles"
-msgstr ""
+msgstr "Títulos"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:41
 msgid "<html><head/><body><p>Upload To:</p></body></html>"

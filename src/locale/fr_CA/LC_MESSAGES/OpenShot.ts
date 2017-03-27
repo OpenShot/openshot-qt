@@ -2,13 +2,13 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="ca_ES">
     <extra-po-header-language_team>French (Canada) &lt;fr_CA@li.org&gt;</extra-po-header-language_team>
-    <extra-po-header-last_translator>Benjamin Ross &lt;benjamin.ross393@gmail.com&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-03-05 15:24+0000</extra-po-header-po_revision_date>
+    <extra-po-header-last_translator>Sirus &lt;Unknown&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2017-03-25 00:56+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2017-03-22 02:02+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
     <extra-po-header-x_generator>Launchpad (build 18334)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2017-03-24 06:29+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_launchpad_export_date>2017-03-27 04:41+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># French (Canada) translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -20,34 +20,35 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="605"/>
         <source>Failed to load project file %(path)s: %(error)s</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible de charger le fichier de projet %(path)s: %(error)s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="612"/>
         <source>Failed to load the following files:
 %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Le chargement des fichiers suivants a échoué :
+%s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="908"/>
         <source>Missing File (%s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier manquant (%s)</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="908"/>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="926"/>
         <source>%s cannot be found.</source>
-        <translation type="unfinished"></translation>
+        <translation>%s ne peut être trouvé.</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="909"/>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="927"/>
         <source>Find directory that contains: %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Trouver le répertoire qui contient : %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -92,14 +93,14 @@
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="501"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="646"/>
         <source>Random</source>
-        <translation type="unfinished"></translation>
+        <translation>Aléatoire</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="490"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="819"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="822"/>
         <source>Zoom In</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoom avant</translation>
         <extra-po-references>Settings for actionTimelineZoomIn</extra-po-references>
     </message>
     <message>
@@ -107,7 +108,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="834"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="837"/>
         <source>Zoom Out</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoom arrière</translation>
         <extra-po-references>Settings for actionTimelineZoomOut</extra-po-references>
     </message>
     <message>
@@ -130,7 +131,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="156"/>
         <source>Your most recent unsaved project has been recovered.</source>
-        <translation type="unfinished"></translation>
+        <translation>Votre dernier project non-sauvegardé a été récupéré.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="282"/>
@@ -186,7 +187,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="577"/>
         <source>Import File...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importer fichier...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1397"/>
@@ -196,24 +197,24 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1397"/>
         <source>You must keep at least 1 track</source>
-        <translation type="unfinished"></translation>
+        <translation>Vous devez avoir au moins 1 piste</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1462"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1239"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1242"/>
         <source>Rename Track</source>
-        <translation type="unfinished"></translation>
+        <translation>Renommer la poste</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1462"/>
         <source>Track Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom de piste</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1813"/>
         <source>Recent Projects</source>
-        <translation type="unfinished"></translation>
+        <translation>Projets récents</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1852"/>
@@ -222,19 +223,19 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="2172"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="287"/>
         <source>Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtre</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1943"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2203"/>
         <source>{} seconds</source>
-        <translation type="unfinished"></translation>
+        <translation>{} secondes</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1982"/>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1983"/>
         <source>New Version Available: %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Nouvelle version disponible : %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -242,7 +243,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="56"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="43"/>
         <source>File Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom de fichier :</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="216"/>
@@ -253,53 +254,53 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="230"/>
         <source>Line %s:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ligne %s :</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="244"/>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="245"/>
         <source>Font:</source>
-        <translation type="unfinished"></translation>
+        <translation>Police :</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="247"/>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="347"/>
         <source>Change Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Change la police</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="253"/>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="254"/>
         <source>Text:</source>
-        <translation type="unfinished"></translation>
+        <translation>Texte :</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="256"/>
         <source>Text Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur du texte</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="262"/>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="263"/>
         <source>Background:</source>
-        <translation type="unfinished"></translation>
+        <translation>Arrière-plan :</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="265"/>
         <source>Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur d&apos;arrière-plan</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="271"/>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="272"/>
         <source>Advanced:</source>
-        <translation type="unfinished"></translation>
+        <translation>Avancé :</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="274"/>
         <source>Use Advanced Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Utiliser l&apos;éditeur avancé</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="309"/>
@@ -310,7 +311,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="584"/>
         <source>Title Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Éditeur de titre</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="584"/>
@@ -332,27 +333,27 @@ Do you want to replace it?</source>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="665"/>
         <source>Please install {} to use this function</source>
-        <translation type="unfinished"></translation>
+        <translation>Veuillez installer {} pour utiliser cette fonction</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="211"/>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Par défaut</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="344"/>
         <source>Restart Required</source>
-        <translation type="unfinished"></translation>
+        <translation>Redémarrage requis</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="345"/>
         <source>Please restart OpenShot for all preferences to take effect.</source>
-        <translation type="unfinished"></translation>
+        <translation>Veuillez redémarrer OpenShot pour que les changements soient appliqués.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/file_properties.py" line="77"/>
         <source>Update</source>
-        <translation type="unfinished"></translation>
+        <translation>Mise à jour</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/file_properties.py" line="79"/>
@@ -360,7 +361,7 @@ Do you want to replace it?</source>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="81"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="34"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Annuler</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/file_properties.py" line="147"/>
@@ -438,7 +439,8 @@ Do you want to replace it?</source>
         <location filename="../../../../openshot-qt-git/src/windows/about.py" line="152"/>
         <source>translator-credits</source>
         <translation>Launchpad Contributions:
-  Benjamin Ross https://launchpad.net/~benjamin-ross</translation>
+  Benjamin Ross https://launchpad.net/~benjamin-ross
+  Sirus https://launchpad.net/~sirusdark</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/files_treeview.py" line="259"/>

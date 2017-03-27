@@ -2,13 +2,13 @@
 <!DOCTYPE TS>
 <TS version="2.1">
     <extra-po-header-language_team>French &lt;fr@li.org&gt;</extra-po-header-language_team>
-    <extra-po-header-last_translator>Olivier Girard &lt;eolinwen@gmail.com&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2017-03-23 16:35+0000</extra-po-header-po_revision_date>
+    <extra-po-header-last_translator>Debcool &lt;fabian.culot@debcool.net&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2017-03-26 20:12+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2017-03-22 02:02+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
     <extra-po-header-x_generator>Launchpad (build 18334)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2017-03-24 06:25+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_launchpad_export_date>2017-03-27 04:41+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># French translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -48,7 +48,7 @@
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="909"/>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="927"/>
         <source>Find directory that contains: %s</source>
-        <translation>trouver répertoire contenant: %s</translation>
+        <translation>Trouver répertoire contenant: %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -475,6 +475,7 @@ Voulez-vous le(la) remplacer ?</translation>
   Poussah https://launchpad.net/~poussah
   Quentin Grimaud https://launchpad.net/~quentin-grimaud
   Richard Leger https://launchpad.net/~richard-leger
+  Sirus https://launchpad.net/~sirusdark
   Stephane https://launchpad.net/~gueston-stephane
   Thibaut Panis https://launchpad.net/~thibaut-panis
   Tubuntu https://launchpad.net/~t-ubuntu
@@ -485,6 +486,7 @@ Voulez-vous le(la) remplacer ?</translation>
   ian57 https://launchpad.net/~ian-morere
   londumas https://launchpad.net/~helion331990
   manu https://launchpad.net/~manu.pintor
+  michael-germant https://launchpad.net/~michael-germant
   mimilus https://launchpad.net/~mimilubuntu
   moimael https://launchpad.net/~moimael
   qwerty800 https://launchpad.net/~qwerty8034
@@ -529,17 +531,17 @@ Voulez-vous le(la) remplacer ?</translation>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="334"/>
         <source>&lt;b&gt;Project Files:&lt;/b&gt; Get started with your project by adding video, audio, and image files here. Drag and drop files from your file system.</source>
-        <translation>&lt;b&gt;Fichiers du projet :&lt;/b&gt; Commencez votre projet en ajoutant des fichiers vidéo, audio et image ici. Glisser et déposer des fichiers à partir de explorateur de fichiers.</translation>
+        <translation>&lt;b&gt;Fichiers du projet :&lt;/b&gt; Commencez votre projet en ajoutant des fichiers vidéo, audio et image ici. Glisser et déposer des fichiers à partir de l&apos;explorateur de fichiers.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="335"/>
         <source>&lt;b&gt;Timeline:&lt;/b&gt; Arrange your clips on the timeline here. Overlap clips to create automatic transitions. Access lots of fun presets and options by right-clicking on clips.</source>
-        <translation>&lt;b&gt; Timeline : &lt;/b&gt; Organisez vos clips sur la timeline ici. Faites chevaucher les clips pour créer des transitions automatiques. Accédez à beaucoup de préréglages et options amusants en cliquant avec le bouton droit sur les clips.</translation>
+        <translation>&lt;b&gt; Ligne du temps : &lt;/b&gt; Organisez ici vos clips sur la ligne du temps. Faites chevaucher les clips pour créer des transitions automatiques. Accédez à beaucoup de préréglages et options amusantes en cliquant avec le bouton droit sur les clips.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="336"/>
         <source>&lt;b&gt;Video Preview:&lt;/b&gt; Watch your timeline video preview here. Use the buttons (play, rewind, fast-forward) to control the video playback.</source>
-        <translation>&lt;b&gt; Aperçu vidéo : &lt;/b&gt; Regardez votre timeline vidéo ici. Utilisez les boutons (lecture, rembobinage, avance rapide) pour contrôler la lecture vidéo.</translation>
+        <translation>&lt;b&gt; Aperçu vidéo : &lt;/b&gt; Regardez ici votre ligne du temps vidéo. Utilisez les boutons (lecture, rembobinage, avance rapide) pour contrôler la lecture vidéo.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="337"/>
@@ -549,17 +551,17 @@ Voulez-vous le(la) remplacer ?</translation>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="338"/>
         <source>&lt;b&gt;Transitions:&lt;/b&gt; Create a gradual fade from one clip to another. Drag and drop a transition onto the timeline and position it on top of a clip (usually at the beginning or ending).</source>
-        <translation>&lt;b&gt; Transitions : &lt;/ b&gt; Créez un fondu progressif d&apos;un clip à l&apos;autre. Glissez et déposez une transition sur la timeline et positionnez-la au dessus d&apos;un clip (généralement au début ou à la fin).</translation>
+        <translation>&lt;b&gt; Transitions : &lt;/ b&gt; Créez un fondu progressif d&apos;un clip à l&apos;autre. Glissez et déposez une transition sur la ligne du temps et positionnez-la au dessus d&apos;un clip (généralement au début ou à la fin).</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="339"/>
         <source>&lt;b&gt;Effects:&lt;/b&gt; Adjust brigthness, contrast, saturation, and add exciting special effects. Drag and drop an effect onto the timeline and position it on top of a clip (or track)</source>
-        <translation>&lt;b&gt; Effets : &lt;/b&gt; Réglez la luminosité, le contraste, la saturation, et ajoutez des effets spéciaux intéressants. Glissez et déposez un effet sur la timeline et positionnez-le au-dessus d&apos;un clip (ou piste)</translation>
+        <translation>&lt;b&gt; Effets : &lt;/b&gt; Réglez la luminosité, le contraste, la saturation, et ajoutez des effets spéciaux formidables. Glissez et déposez un effet sur la ligne du temps et positionnez-le au-dessus d&apos;un clip (ou piste)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="340"/>
         <source>&lt;b&gt;Export Video:&lt;/b&gt; When you are ready to create your finished video, click this button to export your timeline as a single video file.</source>
-        <translation>&lt;b&gt; Exporter vidéo : &lt;/b&gt; Lorsque vous êtes prêt à créer votre vidéo, cliquez sur ce bouton pour exporter votre timeline en tant que fichier vidéo unique.</translation>
+        <translation>&lt;b&gt; Exporter vidéo : &lt;/b&gt; Lorsque vous êtes prêt à créer votre vidéo final, cliquez sur ce bouton pour exporter votre ligne du temps dans un fichier vidéo unique.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="414"/>
@@ -1133,17 +1135,17 @@ Voulez-vous le(la) remplacer ?</translation>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="341"/>
         <source>Ease In (Quart)</source>
-        <translation type="unfinished"></translation>
+        <translation>Atténuation (Quart)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="342"/>
         <source>Ease In (Quint)</source>
-        <translation type="unfinished"></translation>
+        <translation>Atténuation (Quint)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="343"/>
         <source>Ease In (Sine)</source>
-        <translation type="unfinished"></translation>
+        <translation>Atténuation (Sine)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="344"/>
@@ -1178,12 +1180,12 @@ Voulez-vous le(la) remplacer ?</translation>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="351"/>
         <source>Ease Out (Quint)</source>
-        <translation type="unfinished"></translation>
+        <translation>Amélioration (Quint)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="352"/>
         <source>Ease Out (Sine)</source>
-        <translation type="unfinished"></translation>
+        <translation>Amélioration (Sine)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="353"/>
@@ -1218,12 +1220,12 @@ Voulez-vous le(la) remplacer ?</translation>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="360"/>
         <source>Ease In/Out (Quint)</source>
-        <translation type="unfinished"></translation>
+        <translation>Atténuation/Amélioration (Quint)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="361"/>
         <source>Ease In/Out (Sine)</source>
-        <translation type="unfinished"></translation>
+        <translation>Atténuation/Amélioration (Sine)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="362"/>
@@ -1375,7 +1377,7 @@ Chemin vers l&apos;exécutable de Blender :
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="111"/>
         <source>Patreon Supporter!</source>
-        <translation type="unfinished"></translation>
+        <translation>Supporter Patreon</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="119"/>
@@ -2953,7 +2955,7 @@ Chemin vers l&apos;exécutable de Blender :
     </message>
     <message>
         <source>Footer %s</source>
-        <translation type="unfinished"></translation>
+        <translation>En bas %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Footer_1.svg</extra-po-references>
     </message>
     <message>
@@ -3073,12 +3075,12 @@ Chemin vers l&apos;exécutable de Blender :
     </message>
     <message>
         <source>Gold top</source>
-        <translation type="unfinished"></translation>
+        <translation>En Or Tout en haut</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Gold_Top.svg</extra-po-references>
     </message>
     <message>
         <source>Gold %s</source>
-        <translation type="unfinished"></translation>
+        <translation>En Or %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Gold_2.svg</extra-po-references>
     </message>
     <message>
@@ -3160,7 +3162,7 @@ Chemin vers l&apos;exécutable de Blender :
     </message>
     <message>
         <source>Film rating %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Crédits %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Film_Rating_3.svg</extra-po-references>
     </message>
     <message>
@@ -3170,7 +3172,7 @@ Chemin vers l&apos;exécutable de Blender :
     </message>
     <message>
         <source>Gold bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>Tout en bas en Or</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Gold_Bottom.svg</extra-po-references>
     </message>
     <message>
@@ -3200,7 +3202,7 @@ Chemin vers l&apos;exécutable de Blender :
     </message>
     <message>
         <source>Tv rating</source>
-        <translation type="unfinished"></translation>
+        <translation>Tv Rating</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/TV_Rating.svg</extra-po-references>
     </message>
     <message>
@@ -3335,7 +3337,7 @@ Chemin vers l&apos;exécutable de Blender :
     </message>
     <message>
         <source>Ribbon %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Ruban %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Ribbon_2.svg</extra-po-references>
     </message>
     <message>
@@ -3445,7 +3447,7 @@ Chemin vers l&apos;exécutable de Blender :
     </message>
     <message>
         <source>Camera border</source>
-        <translation type="unfinished"></translation>
+        <translation>Plan fixe centré</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Camera_Border.svg</extra-po-references>
     </message>
     <message>
@@ -3555,7 +3557,7 @@ Chemin vers l&apos;exécutable de Blender :
     </message>
     <message>
         <source>Header %s</source>
-        <translation type="unfinished"></translation>
+        <translation>En-tête %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Header_3.svg</extra-po-references>
     </message>
     <message>

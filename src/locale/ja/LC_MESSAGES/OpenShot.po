@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-22 02:02+0000\n"
-"PO-Revision-Date: 2017-03-20 16:39+0000\n"
-"Last-Translator: NEAR <ginbafree@gmail.com>\n"
+"PO-Revision-Date: 2017-03-26 07:42+0000\n"
+"Last-Translator: Rockworld <sumoisrock@gmail.com>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2017-03-24 06:26+0000\n"
+"X-Launchpad-Export-Date: 2017-03-27 04:41+0000\n"
 "X-Generator: Launchpad (build 18334)\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:605
@@ -28,17 +28,19 @@ msgid ""
 "Failed to load the following files:\n"
 "%s"
 msgstr ""
+"以下のファイルの読み込みに失敗しました:\n"
+"%s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:908
 #, python-format
 msgid "Missing File (%s)"
-msgstr ""
+msgstr "不足しているファイル (%s)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:908
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:926
 #, python-format
 msgid "%s cannot be found."
-msgstr ""
+msgstr "%s は見つけることができません。"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:909
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:927
@@ -379,6 +381,7 @@ msgstr ""
 "  Masahumi https://launchpad.net/~surgkw\n"
 "  Masaki Tamakoshi https://launchpad.net/~daywalkerjp\n"
 "  NEAR https://launchpad.net/~ginbafree\n"
+"  Rockworld https://launchpad.net/~rockrock2222222\n"
 "  Sam L. https://launchpad.net/~somethinginteres\n"
 "  Shushi Kurose https://launchpad.net/~kuromabo\n"
 "  kakurasan https://launchpad.net/~kakurasan"

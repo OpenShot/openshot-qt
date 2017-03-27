@@ -3,12 +3,12 @@
 <TS version="2.1">
     <extra-po-header-language_team>Russian &lt;ru@li.org&gt;</extra-po-header-language_team>
     <extra-po-header-last_translator>ruslan &lt;Unknown&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2017-03-23 18:01+0000</extra-po-header-po_revision_date>
+    <extra-po-header-po_revision_date>2017-03-24 18:30+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2017-03-22 02:02+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
     <extra-po-header-x_generator>Launchpad (build 18334)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2017-03-24 06:27+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_launchpad_export_date>2017-03-27 04:41+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Russian translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -53,7 +53,7 @@
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="909"/>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="927"/>
         <source>Find directory that contains: %s</source>
-        <translation>Найти директорию содержащую: %s</translation>
+        <translation>Найти каталог содержащий: %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -121,7 +121,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="282"/>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="496"/>
         <source>Unsaved Changes</source>
-        <translation>Несохраненные изменения</translation>
+        <translation>Несохранённые изменения</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="100"/>
@@ -463,6 +463,7 @@ Do you want to replace it?</source>
   IntelOut https://launchpad.net/~intelout
   Ivan Pizhenko https://launchpad.net/~ivan-pizhenko
   Ivan Ysh https://launchpad.net/~gadjin
+  Jonathan Thomas https://launchpad.net/~jonoomph
   K-9 https://launchpad.net/~k-9
   Klim https://launchpad.net/~klim
   Maxim Kachur https://launchpad.net/~mcdebugger
@@ -515,7 +516,7 @@ Do you want to replace it?</source>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="156"/>
         <source>Hide Tutorial</source>
-        <translation>Спрятать Обучение</translation>
+        <translation>скрыть Обучение</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="158"/>
@@ -525,7 +526,7 @@ Do you want to replace it?</source>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="333"/>
         <source>&lt;b&gt;Welcome!&lt;/b&gt; OpenShot Video Editor is an award-winning, open-source video editing application! This tutorial will walk you through the basics.&lt;br&gt;&lt;br&gt;Would you like to automatically send errors and metrics to help improve OpenShot?</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Добро пожаловать!&lt;/b&gt; OpenShot Video Editor является лучшим приложением с открытым исходным кодом  для редактирования видео!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="334"/>
@@ -1104,7 +1105,7 @@ Do you want to replace it?</source>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="335"/>
         <source>Ease In</source>
-        <translation type="unfinished"></translation>
+        <translation>Произвольный вход</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="336"/>
@@ -2937,7 +2938,7 @@ Blender Path:
     </message>
     <message>
         <source>Middle top arrow</source>
-        <translation type="unfinished"></translation>
+        <translation>Средняя верхняя стрелка</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_top_arrow.jpg</extra-po-references>
     </message>
     <message>
@@ -3254,7 +3255,7 @@ Blender Path:
     </message>
     <message>
         <source>Hatched %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Заштрихованный %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/hatched_1.jpg</extra-po-references>
     </message>
     <message>
@@ -3614,7 +3615,7 @@ Blender Path:
     </message>
     <message>
         <source>Postime %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Время публикации %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/postime_1.jpg</extra-po-references>
     </message>
     <message>

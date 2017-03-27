@@ -494,14 +494,14 @@ class VideoWidget(QWidget):
         """Signal to refresh viewport (i.e. a property might have changed that effects the preview)"""
 
         # Update reference to clip
-        if self.transforming_clip:
+        if self and self.transforming_clip:
             self.transforming_clip = Clip.get(id=self.transforming_clip.id)
 
     def transformTriggered(self, clip_id):
         """Handle the transform signal when it's emitted"""
         need_refresh = False
         # Disable Transform UI
-        if self.transforming_clip:
+        if self and self.transforming_clip:
             # Is this the same clip_id already being transformed?
             if not clip_id:
                 # Clear transform

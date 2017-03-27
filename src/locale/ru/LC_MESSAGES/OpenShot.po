@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-22 02:02+0000\n"
-"PO-Revision-Date: 2017-03-23 18:01+0000\n"
+"PO-Revision-Date: 2017-03-24 18:30+0000\n"
 "Last-Translator: ruslan <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2017-03-24 06:27+0000\n"
+"X-Launchpad-Export-Date: 2017-03-27 04:41+0000\n"
 "X-Generator: Launchpad (build 18334)\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:808
@@ -50,7 +50,7 @@ msgstr "%s не найден."
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:927
 #, python-format
 msgid "Find directory that contains: %s"
-msgstr "Найти директорию содержащую: %s"
+msgstr "Найти каталог содержащий: %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:926
 #, python-format
@@ -107,7 +107,7 @@ msgstr "Уменьшить"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:282
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:496
 msgid "Unsaved Changes"
-msgstr "Несохраненные изменения"
+msgstr "Несохранённые изменения"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:100
 msgid "Save changes to project before closing?"
@@ -402,6 +402,7 @@ msgstr ""
 "  IntelOut https://launchpad.net/~intelout\n"
 "  Ivan Pizhenko https://launchpad.net/~ivan-pizhenko\n"
 "  Ivan Ysh https://launchpad.net/~gadjin\n"
+"  Jonathan Thomas https://launchpad.net/~jonoomph\n"
 "  K-9 https://launchpad.net/~k-9\n"
 "  Klim https://launchpad.net/~klim\n"
 "  Maxim Kachur https://launchpad.net/~mcdebugger\n"
@@ -451,7 +452,7 @@ msgstr "Да, я хочу улучшить OpenShot!"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:156
 msgid "Hide Tutorial"
-msgstr "Спрятать Обучение"
+msgstr "скрыть Обучение"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:158
 msgid "Next"
@@ -464,6 +465,8 @@ msgid ""
 "<br><br>Would you like to automatically send errors and metrics to help "
 "improve OpenShot?"
 msgstr ""
+"<b>Добро пожаловать!</b> OpenShot Video Editor является лучшим приложением с "
+"открытым исходным кодом  для редактирования видео!"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:334
 msgid ""
@@ -974,7 +977,7 @@ msgstr "Легко (по умолчанию)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:335
 msgid "Ease In"
-msgstr ""
+msgstr "Произвольный вход"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:336
 msgid "Ease Out"
@@ -2486,7 +2489,7 @@ msgstr "Пламя"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_top_arrow.jpg
 msgid "Middle top arrow"
-msgstr ""
+msgstr "Средняя верхняя стрелка"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Creative_Commons_2.svg
 msgid "Creative commons %s"
@@ -2740,7 +2743,7 @@ msgstr "Маленький ромб"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/hatched_1.jpg
 msgid "Hatched %s"
-msgstr ""
+msgstr "Заштрихованный %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_right.jpg
 msgid "Little rippling right"
@@ -3028,7 +3031,7 @@ msgstr "Пятна"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/postime_1.jpg
 msgid "Postime %s"
-msgstr ""
+msgstr "Время публикации %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking2.jpg
 msgid "Big barr shaking2"

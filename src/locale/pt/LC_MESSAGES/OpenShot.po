@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-22 02:02+0000\n"
-"PO-Revision-Date: 2016-12-21 02:24+0000\n"
-"Last-Translator: Ivo Xavier <ivoxavier.8@gmail.com>\n"
+"PO-Revision-Date: 2017-03-25 10:26+0000\n"
+"Last-Translator: manu <manu.fg@gmail.com>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2017-03-24 06:27+0000\n"
+"X-Launchpad-Export-Date: 2017-03-27 04:41+0000\n"
 "X-Generator: Launchpad (build 18334)\n"
 "Language: pt\n"
 
@@ -35,24 +35,24 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:908
 #, python-format
 msgid "Missing File (%s)"
-msgstr ""
+msgstr "Ficheiro em Falta (%s)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:908
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:926
 #, python-format
 msgid "%s cannot be found."
-msgstr ""
+msgstr "%s não foi encontrado."
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:909
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:927
 #, python-format
 msgid "Find directory that contains: %s"
-msgstr ""
+msgstr "Encontre o directório que contém: %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:926
 #, python-format
 msgid "Missing File in Clip (%s)"
-msgstr ""
+msgstr "Ficheiro em Falta no Clipe (%s)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:479
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1460
@@ -121,7 +121,7 @@ msgstr "Cópia de segurança recuperada"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:282
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:496
 msgid "Save changes to project first?"
-msgstr ""
+msgstr "Guardar alterações no projecto antes?"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:406
 msgid "Error Saving Project"
@@ -215,12 +215,12 @@ msgstr "Nome do Ficheiro:"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:216
 #, python-format
 msgid "TitleFileName-%d"
-msgstr ""
+msgstr "TítuloFicheiroNome-%d"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:230
 #, python-format
 msgid "Line %s:"
-msgstr ""
+msgstr "Linha %s:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:244
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:245
@@ -418,7 +418,7 @@ msgstr "Quer importar %s como uma sequência de imagens?"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:141
 msgid "Yes, I would like to improve OpenShot!"
-msgstr ""
+msgstr "Sim, gostaria de melhorar OpenShot!"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:156
 msgid "Hide Tutorial"
@@ -435,6 +435,10 @@ msgid ""
 "<br><br>Would you like to automatically send errors and metrics to help "
 "improve OpenShot?"
 msgstr ""
+"<B> Bem-vindo! </ B> O OpenShot Video Editor é um programa premiado, de "
+"código aberto para edição de vídeo! Este tutorial irá orientá-lo sobre o "
+"básico. <br> <br> Deseja enviar automaticamente erros e estatísticas para "
+"ajudar a melhorar o OpenShot?"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:334
 msgid ""
@@ -1184,7 +1188,7 @@ msgstr "Apoiante Bitcoin!"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:111
 msgid "Patreon Supporter!"
-msgstr ""
+msgstr "Apoiante de Patreon!"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:119
 msgid "Multiple Contributions!"
@@ -1818,7 +1822,7 @@ msgstr "Título 3"
 
 #: libopenshot (Clip Properties)
 msgid "Both"
-msgstr ""
+msgstr "Ambos"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
 msgid "Bevel Depth"
@@ -2460,7 +2464,7 @@ msgstr "Barra desfocada à direita"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Flames.svg
 msgid "Flames"
-msgstr ""
+msgstr "Chamas"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_top_arrow.jpg
 msgid "Middle top arrow"
@@ -2468,11 +2472,11 @@ msgstr "Μεσαίο βέλος προς επάνω"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Creative_Commons_2.svg
 msgid "Creative commons %s"
-msgstr ""
+msgstr "Creative commons %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Footer_1.svg
 msgid "Footer %s"
-msgstr ""
+msgstr "Rodapé %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_medium.jpg
 msgid "Spiral medium"
@@ -2500,11 +2504,11 @@ msgstr "Αριστερή μπάρα 4 τετραγώνων"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Sunset.svg
 msgid "Sunset"
-msgstr ""
+msgstr "Por do sol"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Bubbles_1.svg
 msgid "Bubbles %s"
-msgstr ""
+msgstr "Bolhas %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_top_arrow.jpg
 msgid "Small top arrow"
@@ -2524,7 +2528,7 @@ msgstr "Olho de peixe %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Smoke_1.svg
 msgid "Smoke %s"
-msgstr ""
+msgstr "Fumo %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/central_mozaic.jpg
 msgid "Central mozaic"
@@ -2532,7 +2536,7 @@ msgstr "Mosaico Central"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Gray_Box_4.svg
 msgid "Gray box %s"
-msgstr ""
+msgstr "Caixa cinza %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/openshot_logo.jpg
 msgid "Openshot logo"
@@ -2568,11 +2572,11 @@ msgstr "Raio desfocado à direita"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Gold_Top.svg
 msgid "Gold top"
-msgstr ""
+msgstr "Topo de Ouro"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Gold_2.svg
 msgid "Gold %s"
-msgstr ""
+msgstr "Ouro %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg
 msgid "Distortion %s"
@@ -2638,15 +2642,15 @@ msgstr "Barra quadrado à direita"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Film_Rating_3.svg
 msgid "Film rating %s"
-msgstr ""
+msgstr "Classificação do Filme %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Bar_1.svg
 msgid "Bar %s"
-msgstr ""
+msgstr "Barra %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Gold_Bottom.svg
 msgid "Gold bottom"
-msgstr ""
+msgstr "Fundo Dourado"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ondulation_1.jpg
 msgid "Ondulation %s"
@@ -2670,7 +2674,7 @@ msgstr "Barra mosaico direito"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/TV_Rating.svg
 msgid "Tv rating"
-msgstr ""
+msgstr "Classificação da TV"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out.jpg
 msgid "Blinds in to out"
@@ -2770,7 +2774,7 @@ msgstr "Esticada %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Solid_Color.svg
 msgid "Solid color"
-msgstr ""
+msgstr "Cor sólida"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small.jpg
 msgid "Spiral small"
@@ -2778,7 +2782,7 @@ msgstr "Espiral pequena"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Ribbon_2.svg
 msgid "Ribbon %s"
-msgstr ""
+msgstr "Fita %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_left_barr.jpg
 msgid "Middle cross left barr"
@@ -2802,7 +2806,7 @@ msgstr "Barra com 4 quadrados à direita"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Post_it.svg
 msgid "Post it"
-msgstr ""
+msgstr "Post it"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right_2.jpg
 msgid "Ray light right %s"
@@ -2842,7 +2846,7 @@ msgstr "Onda direita-baixo"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Oval_3.svg
 msgid "Oval %s"
-msgstr ""
+msgstr "Oval %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/board_10.jpg
 msgid "Board %s"
@@ -2866,7 +2870,7 @@ msgstr "Ondulação %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Camera_Border.svg
 msgid "Camera border"
-msgstr ""
+msgstr "Limite da Câmara"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_low_arrow.jpg
 msgid "Small low arrow"
@@ -2954,7 +2958,7 @@ msgstr "Barra preta ao meio"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Header_3.svg
 msgid "Header %s"
-msgstr ""
+msgstr "Cabeçalho %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_18.jpg
 msgid "Ray light %s"
@@ -2994,7 +2998,7 @@ msgstr "Barra grande"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Cloud_2.svg
 msgid "Cloud %s"
-msgstr ""
+msgstr "Nuvem %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr_ripple_2.jpg
 msgid "Middle barr ripple %s"
@@ -3026,7 +3030,7 @@ msgstr "Montanhas"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Standard_1.svg
 msgid "Standard %s"
-msgstr ""
+msgstr "Padrão %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_top_to_bottom.svg
 msgid "Wipe top to bottom"
@@ -3853,22 +3857,22 @@ msgstr "Desbloquear Faixa"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1317
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1320
 msgid "Transform"
-msgstr ""
+msgstr "Transformar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1329
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1332
 msgid "Edit Title"
-msgstr ""
+msgstr "Editar Título"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1335
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1350
 msgid "Ctrl+Shift+T"
-msgstr ""
+msgstr "Ctrl+Shift+T"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1344
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1347
 msgid "Duplicate Title"
-msgstr ""
+msgstr "Título Duplicado"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/profile.ui:30
 msgid "Size:"
@@ -3892,7 +3896,7 @@ msgstr "Outro:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:14
 msgid "Titles"
-msgstr ""
+msgstr "Títulos"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:41
 msgid "<html><head/><body><p>Upload To:</p></body></html>"

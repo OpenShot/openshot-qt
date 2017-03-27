@@ -3,12 +3,12 @@
 <TS version="2.1">
     <extra-po-header-language_team>Greek &lt;el@li.org&gt;</extra-po-header-language_team>
     <extra-po-header-last_translator>firewalker &lt;Unknown&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-11-12 16:22+0000</extra-po-header-po_revision_date>
+    <extra-po-header-po_revision_date>2017-03-25 20:10+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2017-03-22 02:02+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
     <extra-po-header-x_generator>Launchpad (build 18334)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2017-03-24 06:25+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_launchpad_export_date>2017-03-27 04:41+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Greek translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -34,27 +34,27 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="908"/>
         <source>Missing File (%s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Λείπει το Aρχείο (%s)</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="908"/>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="926"/>
         <source>%s cannot be found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Το %s δεν μπορεί να βρεθεί.</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="909"/>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="927"/>
         <source>Find directory that contains: %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Εύρεση φακέλου που περιέχει: %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="926"/>
         <source>Missing File in Clip (%s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Αρχείο που λείπει στο Κλιπ (%s)</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -137,7 +137,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="282"/>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="496"/>
         <source>Save changes to project first?</source>
-        <translation type="unfinished"></translation>
+        <translation>Αποθήκευση αλλαγών στο έργο πρώτα;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="406"/>
@@ -248,13 +248,13 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="216"/>
         <source>TitleFileName-%d</source>
-        <translation type="unfinished"></translation>
+        <translation>ΤίτλοςΌνομαΑρχείου-%d</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="230"/>
         <source>Line %s:</source>
-        <translation type="unfinished"></translation>
+        <translation>Γραμμή %s:</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -467,7 +467,7 @@ Do you want to replace it?</source>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="141"/>
         <source>Yes, I would like to improve OpenShot!</source>
-        <translation type="unfinished"></translation>
+        <translation>Ναι, θα ήθελα να βελτιώσω τον OpenShot!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="156"/>
@@ -482,7 +482,7 @@ Do you want to replace it?</source>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="333"/>
         <source>&lt;b&gt;Welcome!&lt;/b&gt; OpenShot Video Editor is an award-winning, open-source video editing application! This tutorial will walk you through the basics.&lt;br&gt;&lt;br&gt;Would you like to automatically send errors and metrics to help improve OpenShot?</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Καλωσορίσατε!&lt;/b&gt; Ο Επεξεργαστής Βίντεο OpenShot είναι μία βραβευμένη εφαρμογή, ανοικτού κώδικα, για την επεξεργασία βίντεο! Αυτό το βοήθημα θα σας καθοδηγήσει μέσα από τα βασικά.&lt;br&gt;&lt;br&gt;Θα θέλατε να στέλνετε αυτόματα σφάλματα και μετρήσεις, που βοηθούν στην βελτίωση του OpenShot;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="334"/>
@@ -1012,7 +1012,7 @@ Do you want to replace it?</source>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="777"/>
         <source>Multiple Clips (each channel)</source>
-        <translation>Πολλαπλά Κλιπ (κέθε κανάλι)</translation>
+        <translation>Πολλαπλά Κλιπ (κάθε κανάλι)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="788"/>
@@ -1061,142 +1061,142 @@ Do you want to replace it?</source>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="334"/>
         <source>Ease (Default)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ease (Προκαθορισμένο)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="335"/>
         <source>Ease In</source>
-        <translation type="unfinished"></translation>
+        <translation>Ease In</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="336"/>
         <source>Ease Out</source>
-        <translation type="unfinished"></translation>
+        <translation>Ease Out</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="337"/>
         <source>Ease In/Out</source>
-        <translation type="unfinished"></translation>
+        <translation>Ease In/Out</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="339"/>
         <source>Ease In (Quad)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ease In (Τετραγωνικό)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="340"/>
         <source>Ease In (Cubic)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ease In (Κυβικό)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="341"/>
         <source>Ease In (Quart)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ease In (Τέταρτο)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="342"/>
         <source>Ease In (Quint)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ease In (Πενταπλό)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="343"/>
         <source>Ease In (Sine)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ease In (Ημιτονικό)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="344"/>
         <source>Ease In (Expo)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ease In (Εκθετικά)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="345"/>
         <source>Ease In (Circ)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ease In (Κυκλικά)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="346"/>
         <source>Ease In (Back)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ease In (Πίσω)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="348"/>
         <source>Ease Out (Quad)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ease Out (Τετραγωνικό)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="349"/>
         <source>Ease Out (Cubic)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ease Out (Κυβικό)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="350"/>
         <source>Ease Out (Quart)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ease Out (Τέταρτο)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="351"/>
         <source>Ease Out (Quint)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ease Out (Πενταπλό)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="352"/>
         <source>Ease Out (Sine)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ease Out (Ημιτονικό)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="353"/>
         <source>Ease Out (Expo)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ease Out (Εκθετικό)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="354"/>
         <source>Ease Out (Circ)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ease Out (Κυκλικό)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="355"/>
         <source>Ease Out (Back)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ease Out (Πίσω)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="357"/>
         <source>Ease In/Out (Quad)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ease In/Out (Τετραγωνικό)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="358"/>
         <source>Ease In/Out (Cubic)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ease In/Out (Κυβικό)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="359"/>
         <source>Ease In/Out (Quart)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ease In/Out (Τέταρτο)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="360"/>
         <source>Ease In/Out (Quint)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ease In/Out (Πενταπλό)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="361"/>
         <source>Ease In/Out (Sine)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ease In/Out (Ημιτονικό)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="362"/>
         <source>Ease In/Out (Expo)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ease In/Out (Εκθετικό)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="363"/>
         <source>Ease In/Out (Circ)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ease In/Out (Κυκλικό)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="364"/>
         <source>Ease In/Out (Back)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ease In/Out (Πίσω)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="375"/>
@@ -1330,7 +1330,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="111"/>
         <source>Patreon Supporter!</source>
-        <translation type="unfinished"></translation>
+        <translation>Υποστηριχτής Patreon!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="119"/>
@@ -2110,7 +2110,7 @@ Blender Path:
     </message>
     <message>
         <source>Both</source>
-        <translation type="unfinished"></translation>
+        <translation>Και τα δύο</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2893,7 +2893,7 @@ Blender Path:
     </message>
     <message>
         <source>Flames</source>
-        <translation type="unfinished"></translation>
+        <translation>Φλόγες</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Flames.svg</extra-po-references>
     </message>
     <message>
@@ -2903,12 +2903,12 @@ Blender Path:
     </message>
     <message>
         <source>Creative commons %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Creative commons %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Creative_Commons_2.svg</extra-po-references>
     </message>
     <message>
         <source>Footer %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Υποσέλιδο %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Footer_1.svg</extra-po-references>
     </message>
     <message>
@@ -2943,12 +2943,12 @@ Blender Path:
     </message>
     <message>
         <source>Sunset</source>
-        <translation type="unfinished"></translation>
+        <translation>Ηλιοβασίλεμα</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Sunset.svg</extra-po-references>
     </message>
     <message>
         <source>Bubbles %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Φυσαλίδες %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Bubbles_1.svg</extra-po-references>
     </message>
     <message>
@@ -2973,7 +2973,7 @@ Blender Path:
     </message>
     <message>
         <source>Smoke %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Καπνός %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Smoke_1.svg</extra-po-references>
     </message>
     <message>
@@ -2983,7 +2983,7 @@ Blender Path:
     </message>
     <message>
         <source>Gray box %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Γκρι κουτί %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Gray_Box_4.svg</extra-po-references>
     </message>
     <message>
@@ -3028,12 +3028,12 @@ Blender Path:
     </message>
     <message>
         <source>Gold top</source>
-        <translation type="unfinished"></translation>
+        <translation>Χρυσή κορυφή %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Gold_Top.svg</extra-po-references>
     </message>
     <message>
         <source>Gold %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Χρυσό %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Gold_2.svg</extra-po-references>
     </message>
     <message>
@@ -3115,17 +3115,17 @@ Blender Path:
     </message>
     <message>
         <source>Film rating %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Ταξινόμηση ταινίας %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Film_Rating_3.svg</extra-po-references>
     </message>
     <message>
         <source>Bar %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Μπάρα %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Bar_1.svg</extra-po-references>
     </message>
     <message>
         <source>Gold bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>Χρυσή βάση</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Gold_Bottom.svg</extra-po-references>
     </message>
     <message>
@@ -3155,7 +3155,7 @@ Blender Path:
     </message>
     <message>
         <source>Tv rating</source>
-        <translation type="unfinished"></translation>
+        <translation>Ταξινόμηση τηλεόρασης %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/TV_Rating.svg</extra-po-references>
     </message>
     <message>
@@ -3280,7 +3280,7 @@ Blender Path:
     </message>
     <message>
         <source>Solid color</source>
-        <translation type="unfinished"></translation>
+        <translation>Συμπαγές χρώμα</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Solid_Color.svg</extra-po-references>
     </message>
     <message>
@@ -3290,7 +3290,7 @@ Blender Path:
     </message>
     <message>
         <source>Ribbon %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Κορδέλα %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Ribbon_2.svg</extra-po-references>
     </message>
     <message>
@@ -3320,7 +3320,7 @@ Blender Path:
     </message>
     <message>
         <source>Post it</source>
-        <translation type="unfinished"></translation>
+        <translation>Post it</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Post_it.svg</extra-po-references>
     </message>
     <message>
@@ -3370,7 +3370,7 @@ Blender Path:
     </message>
     <message>
         <source>Oval %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Οβάλ %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Oval_3.svg</extra-po-references>
     </message>
     <message>
@@ -3400,7 +3400,7 @@ Blender Path:
     </message>
     <message>
         <source>Camera border</source>
-        <translation type="unfinished"></translation>
+        <translation>Όριο κάμερας</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Camera_Border.svg</extra-po-references>
     </message>
     <message>
@@ -3510,7 +3510,7 @@ Blender Path:
     </message>
     <message>
         <source>Header %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Κεφαλίδα %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Header_3.svg</extra-po-references>
     </message>
     <message>
@@ -3560,7 +3560,7 @@ Blender Path:
     </message>
     <message>
         <source>Cloud %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Σύννεφο %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Cloud_2.svg</extra-po-references>
     </message>
     <message>
@@ -3600,7 +3600,7 @@ Blender Path:
     </message>
     <message>
         <source>Standard %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Πρότυπο %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Standard_1.svg</extra-po-references>
     </message>
     <message>
@@ -4593,25 +4593,25 @@ Blender Path:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1317"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1320"/>
         <source>Transform</source>
-        <translation type="unfinished"></translation>
+        <translation>Μετασχηματισμός</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1329"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1332"/>
         <source>Edit Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Επεξεργασία Τίτλου</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1335"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1350"/>
         <source>Ctrl+Shift+T</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+T</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1344"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1347"/>
         <source>Duplicate Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Διπλότυπος Τίτλος</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/profile.ui" line="30"/>
@@ -4641,7 +4641,7 @@ Blender Path:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="14"/>
         <source>Titles</source>
-        <translation type="unfinished"></translation>
+        <translation>Τίτλοι</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="41"/>

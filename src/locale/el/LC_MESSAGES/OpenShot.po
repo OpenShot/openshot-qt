@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-22 02:02+0000\n"
-"PO-Revision-Date: 2016-11-12 16:22+0000\n"
+"PO-Revision-Date: 2017-03-25 20:10+0000\n"
 "Last-Translator: firewalker <Unknown>\n"
 "Language-Team: Greek <el@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2017-03-24 06:25+0000\n"
+"X-Launchpad-Export-Date: 2017-03-27 04:41+0000\n"
 "X-Generator: Launchpad (build 18334)\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:605
@@ -34,24 +34,24 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:908
 #, python-format
 msgid "Missing File (%s)"
-msgstr ""
+msgstr "Λείπει το Aρχείο (%s)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:908
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:926
 #, python-format
 msgid "%s cannot be found."
-msgstr ""
+msgstr "Το %s δεν μπορεί να βρεθεί."
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:909
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:927
 #, python-format
 msgid "Find directory that contains: %s"
-msgstr ""
+msgstr "Εύρεση φακέλου που περιέχει: %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:926
 #, python-format
 msgid "Missing File in Clip (%s)"
-msgstr ""
+msgstr "Αρχείο που λείπει στο Κλιπ (%s)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:479
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1460
@@ -120,7 +120,7 @@ msgstr "Το πιο πρόσφατο νη αποθηκευμένο έργο σα
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:282
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:496
 msgid "Save changes to project first?"
-msgstr ""
+msgstr "Αποθήκευση αλλαγών στο έργο πρώτα;"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:406
 msgid "Error Saving Project"
@@ -214,12 +214,12 @@ msgstr "Όνομα Αρχείου:"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:216
 #, python-format
 msgid "TitleFileName-%d"
-msgstr ""
+msgstr "ΤίτλοςΌνομαΑρχείου-%d"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:230
 #, python-format
 msgid "Line %s:"
-msgstr ""
+msgstr "Γραμμή %s:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:244
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:245
@@ -404,7 +404,7 @@ msgstr "Θα θέλατε να εισάγετε το %s σαν μία ακολο
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:141
 msgid "Yes, I would like to improve OpenShot!"
-msgstr ""
+msgstr "Ναι, θα ήθελα να βελτιώσω τον OpenShot!"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:156
 msgid "Hide Tutorial"
@@ -421,6 +421,10 @@ msgid ""
 "<br><br>Would you like to automatically send errors and metrics to help "
 "improve OpenShot?"
 msgstr ""
+"<b>Καλωσορίσατε!</b> Ο Επεξεργαστής Βίντεο OpenShot είναι μία βραβευμένη "
+"εφαρμογή, ανοικτού κώδικα, για την επεξεργασία βίντεο! Αυτό το βοήθημα θα "
+"σας καθοδηγήσει μέσα από τα βασικά.<br><br>Θα θέλατε να στέλνετε αυτόματα "
+"σφάλματα και μετρήσεις, που βοηθούν στην βελτίωση του OpenShot;"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:334
 msgid ""
@@ -890,7 +894,7 @@ msgstr "Ένα Κλιπ (όλα τα κανάλια)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:777
 msgid "Multiple Clips (each channel)"
-msgstr "Πολλαπλά Κλιπ (κέθε κανάλι)"
+msgstr "Πολλαπλά Κλιπ (κάθε κανάλι)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:788
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:2070
@@ -930,115 +934,115 @@ msgstr "Αντίστροφη Μετάβαση"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:334
 msgid "Ease (Default)"
-msgstr ""
+msgstr "Ease (Προκαθορισμένο)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:335
 msgid "Ease In"
-msgstr ""
+msgstr "Ease In"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:336
 msgid "Ease Out"
-msgstr ""
+msgstr "Ease Out"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:337
 msgid "Ease In/Out"
-msgstr ""
+msgstr "Ease In/Out"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:339
 msgid "Ease In (Quad)"
-msgstr ""
+msgstr "Ease In (Τετραγωνικό)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:340
 msgid "Ease In (Cubic)"
-msgstr ""
+msgstr "Ease In (Κυβικό)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:341
 msgid "Ease In (Quart)"
-msgstr ""
+msgstr "Ease In (Τέταρτο)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:342
 msgid "Ease In (Quint)"
-msgstr ""
+msgstr "Ease In (Πενταπλό)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:343
 msgid "Ease In (Sine)"
-msgstr ""
+msgstr "Ease In (Ημιτονικό)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:344
 msgid "Ease In (Expo)"
-msgstr ""
+msgstr "Ease In (Εκθετικά)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:345
 msgid "Ease In (Circ)"
-msgstr ""
+msgstr "Ease In (Κυκλικά)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:346
 msgid "Ease In (Back)"
-msgstr ""
+msgstr "Ease In (Πίσω)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:348
 msgid "Ease Out (Quad)"
-msgstr ""
+msgstr "Ease Out (Τετραγωνικό)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:349
 msgid "Ease Out (Cubic)"
-msgstr ""
+msgstr "Ease Out (Κυβικό)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:350
 msgid "Ease Out (Quart)"
-msgstr ""
+msgstr "Ease Out (Τέταρτο)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:351
 msgid "Ease Out (Quint)"
-msgstr ""
+msgstr "Ease Out (Πενταπλό)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:352
 msgid "Ease Out (Sine)"
-msgstr ""
+msgstr "Ease Out (Ημιτονικό)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:353
 msgid "Ease Out (Expo)"
-msgstr ""
+msgstr "Ease Out (Εκθετικό)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:354
 msgid "Ease Out (Circ)"
-msgstr ""
+msgstr "Ease Out (Κυκλικό)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:355
 msgid "Ease Out (Back)"
-msgstr ""
+msgstr "Ease Out (Πίσω)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:357
 msgid "Ease In/Out (Quad)"
-msgstr ""
+msgstr "Ease In/Out (Τετραγωνικό)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:358
 msgid "Ease In/Out (Cubic)"
-msgstr ""
+msgstr "Ease In/Out (Κυβικό)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:359
 msgid "Ease In/Out (Quart)"
-msgstr ""
+msgstr "Ease In/Out (Τέταρτο)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:360
 msgid "Ease In/Out (Quint)"
-msgstr ""
+msgstr "Ease In/Out (Πενταπλό)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:361
 msgid "Ease In/Out (Sine)"
-msgstr ""
+msgstr "Ease In/Out (Ημιτονικό)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:362
 msgid "Ease In/Out (Expo)"
-msgstr ""
+msgstr "Ease In/Out (Εκθετικό)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:363
 msgid "Ease In/Out (Circ)"
-msgstr ""
+msgstr "Ease In/Out (Κυκλικό)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:364
 msgid "Ease In/Out (Back)"
-msgstr ""
+msgstr "Ease In/Out (Πίσω)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:375
 msgid "Bezier"
@@ -1168,7 +1172,7 @@ msgstr "Υποστηριχτής Bitcoin!"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:111
 msgid "Patreon Supporter!"
-msgstr ""
+msgstr "Υποστηριχτής Patreon!"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:119
 msgid "Multiple Contributions!"
@@ -1803,7 +1807,7 @@ msgstr "Τίτλος 3"
 
 #: libopenshot (Clip Properties)
 msgid "Both"
-msgstr ""
+msgstr "Και τα δύο"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
 msgid "Bevel Depth"
@@ -2445,7 +2449,7 @@ msgstr "Θολή δεξιά μπάρα"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Flames.svg
 msgid "Flames"
-msgstr ""
+msgstr "Φλόγες"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_top_arrow.jpg
 msgid "Middle top arrow"
@@ -2453,11 +2457,11 @@ msgstr "Μεσαίο βέλος προς επάνω"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Creative_Commons_2.svg
 msgid "Creative commons %s"
-msgstr ""
+msgstr "Creative commons %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Footer_1.svg
 msgid "Footer %s"
-msgstr ""
+msgstr "Υποσέλιδο %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_medium.jpg
 msgid "Spiral medium"
@@ -2485,11 +2489,11 @@ msgstr "Αριστερή μπάρα 4 τετραγώνων"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Sunset.svg
 msgid "Sunset"
-msgstr ""
+msgstr "Ηλιοβασίλεμα"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Bubbles_1.svg
 msgid "Bubbles %s"
-msgstr ""
+msgstr "Φυσαλίδες %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_top_arrow.jpg
 msgid "Small top arrow"
@@ -2509,7 +2513,7 @@ msgstr "Μάτι ψαριού %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Smoke_1.svg
 msgid "Smoke %s"
-msgstr ""
+msgstr "Καπνός %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/central_mozaic.jpg
 msgid "Central mozaic"
@@ -2517,7 +2521,7 @@ msgstr "Κεντρικό Ψηφιδωτό"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Gray_Box_4.svg
 msgid "Gray box %s"
-msgstr ""
+msgstr "Γκρι κουτί %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/openshot_logo.jpg
 msgid "Openshot logo"
@@ -2553,11 +2557,11 @@ msgstr "Θολή Ακτίνα δεξιά"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Gold_Top.svg
 msgid "Gold top"
-msgstr ""
+msgstr "Χρυσή κορυφή %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Gold_2.svg
 msgid "Gold %s"
-msgstr ""
+msgstr "Χρυσό %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg
 msgid "Distortion %s"
@@ -2623,15 +2627,15 @@ msgstr "Τετράγωνη αριστερή μπάρα"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Film_Rating_3.svg
 msgid "Film rating %s"
-msgstr ""
+msgstr "Ταξινόμηση ταινίας %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Bar_1.svg
 msgid "Bar %s"
-msgstr ""
+msgstr "Μπάρα %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Gold_Bottom.svg
 msgid "Gold bottom"
-msgstr ""
+msgstr "Χρυσή βάση"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ondulation_1.jpg
 msgid "Ondulation %s"
@@ -2655,7 +2659,7 @@ msgstr "Cηφιδωτή μπάρα δεξιά"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/TV_Rating.svg
 msgid "Tv rating"
-msgstr ""
+msgstr "Ταξινόμηση τηλεόρασης %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out.jpg
 msgid "Blinds in to out"
@@ -2755,7 +2759,7 @@ msgstr "Τέντωμα %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Solid_Color.svg
 msgid "Solid color"
-msgstr ""
+msgstr "Συμπαγές χρώμα"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small.jpg
 msgid "Spiral small"
@@ -2763,7 +2767,7 @@ msgstr "Σπείρα (μικρή)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Ribbon_2.svg
 msgid "Ribbon %s"
-msgstr ""
+msgstr "Κορδέλα %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_left_barr.jpg
 msgid "Middle cross left barr"
@@ -2787,7 +2791,7 @@ msgstr "Δεξιά μπάρα 4 τετραγώνων"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Post_it.svg
 msgid "Post it"
-msgstr ""
+msgstr "Post it"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right_2.jpg
 msgid "Ray light right %s"
@@ -2827,7 +2831,7 @@ msgstr "Κύμα προς δεξιά κάτω"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Oval_3.svg
 msgid "Oval %s"
-msgstr ""
+msgstr "Οβάλ %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/board_10.jpg
 msgid "Board %s"
@@ -2851,7 +2855,7 @@ msgstr "Ρυτίδωση %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Camera_Border.svg
 msgid "Camera border"
-msgstr ""
+msgstr "Όριο κάμερας"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_low_arrow.jpg
 msgid "Small low arrow"
@@ -2939,7 +2943,7 @@ msgstr "Μεσαία μαύρη μπάρα"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Header_3.svg
 msgid "Header %s"
-msgstr ""
+msgstr "Κεφαλίδα %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_18.jpg
 msgid "Ray light %s"
@@ -2979,7 +2983,7 @@ msgstr "Μεγάλη μπάρα"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Cloud_2.svg
 msgid "Cloud %s"
-msgstr ""
+msgstr "Σύννεφο %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr_ripple_2.jpg
 msgid "Middle barr ripple %s"
@@ -3011,7 +3015,7 @@ msgstr "Βουνά"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Standard_1.svg
 msgid "Standard %s"
-msgstr ""
+msgstr "Πρότυπο %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_top_to_bottom.svg
 msgid "Wipe top to bottom"
@@ -3838,22 +3842,22 @@ msgstr "Ξεκλείδωμα Ίχνους"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1317
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1320
 msgid "Transform"
-msgstr ""
+msgstr "Μετασχηματισμός"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1329
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1332
 msgid "Edit Title"
-msgstr ""
+msgstr "Επεξεργασία Τίτλου"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1335
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1350
 msgid "Ctrl+Shift+T"
-msgstr ""
+msgstr "Ctrl+Shift+T"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1344
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1347
 msgid "Duplicate Title"
-msgstr ""
+msgstr "Διπλότυπος Τίτλος"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/profile.ui:30
 msgid "Size:"
@@ -3877,7 +3881,7 @@ msgstr "Άλλο:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:14
 msgid "Titles"
-msgstr ""
+msgstr "Τίτλοι"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:41
 msgid "<html><head/><body><p>Upload To:</p></body></html>"

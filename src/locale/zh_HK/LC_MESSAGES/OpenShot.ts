@@ -4,12 +4,12 @@
     <extra-po-header-language>zh_HK</extra-po-header-language>
     <extra-po-header-language_team>Chinese (Hong Kong) &lt;zh_HK@li.org&gt;</extra-po-header-language_team>
     <extra-po-header-last_translator>Wingo Chan &lt;Unknown&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2017-03-09 10:52+0000</extra-po-header-po_revision_date>
+    <extra-po-header-po_revision_date>2017-03-26 06:08+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2017-03-22 02:02+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
     <extra-po-header-x_generator>Launchpad (build 18334)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2017-03-24 06:29+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_launchpad_export_date>2017-03-27 04:41+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Chinese (Hong Kong) translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -250,7 +250,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="216"/>
         <source>TitleFileName-%d</source>
-        <translation type="unfinished"></translation>
+        <translation>標題文件名稱-%d</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -463,7 +463,7 @@ Do you want to replace it?</source>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="141"/>
         <source>Yes, I would like to improve OpenShot!</source>
-        <translation type="unfinished"></translation>
+        <translation>是的，我想改進OpenShot！</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="156"/>
@@ -478,7 +478,7 @@ Do you want to replace it?</source>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="333"/>
         <source>&lt;b&gt;Welcome!&lt;/b&gt; OpenShot Video Editor is an award-winning, open-source video editing application! This tutorial will walk you through the basics.&lt;br&gt;&lt;br&gt;Would you like to automatically send errors and metrics to help improve OpenShot?</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;歡迎！&lt;/ b&gt; OpenShot 視頻編輯器是屢獲殊榮的開源視頻編輯應用程序！ 本教程將引導您了解基礎知識。&lt;br&gt; &lt;br&gt;您是否希望自動發送錯誤和規格以幫助改進OpenShot？</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="334"/>
@@ -1003,12 +1003,12 @@ Do you want to replace it?</source>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="775"/>
         <source>Single Clip (all channels)</source>
-        <translation type="unfinished"></translation>
+        <translation>單一剪輯（所有聲道）</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="777"/>
         <source>Multiple Clips (each channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>多重剪輯（各自聲道）</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="788"/>
@@ -1959,7 +1959,7 @@ Blender Path:
     </message>
     <message>
         <source>Timeline</source>
-        <translation type="unfinished"></translation>
+        <translation>時間軸</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2105,7 +2105,7 @@ Blender Path:
     </message>
     <message>
         <source>Both</source>
-        <translation type="unfinished"></translation>
+        <translation>兩者</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2841,7 +2841,7 @@ Blender Path:
     </message>
     <message>
         <source>MP4 (Xvid)</source>
-        <translation type="unfinished"></translation>
+        <translation>MP4 (Xvid)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_xvid.xml</extra-po-references>
     </message>
     <message>

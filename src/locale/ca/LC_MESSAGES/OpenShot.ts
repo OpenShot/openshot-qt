@@ -2,13 +2,13 @@
 <!DOCTYPE TS>
 <TS version="2.1">
     <extra-po-header-language_team>Catalan &lt;ca@li.org&gt;</extra-po-header-language_team>
-    <extra-po-header-last_translator>Isidro Pisa &lt;isidro@utils.info&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2017-03-22 22:43+0000</extra-po-header-po_revision_date>
+    <extra-po-header-last_translator>Robert Antoni Buj Gelonch &lt;Unknown&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2017-03-26 20:22+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2017-03-22 02:02+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
     <extra-po-header-x_generator>Launchpad (build 18334)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2017-03-24 06:25+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_launchpad_export_date>2017-03-27 04:42+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Catalan translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -20,28 +20,28 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="605"/>
         <source>Failed to load project file %(path)s: %(error)s</source>
-        <translation>Error carregant l&apos;arxiu de projecte %(path)s: %(error)s</translation>
+        <translation>No s&apos;ha pogut carregar el fitxer del projecte %(path)s: %(error)s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="612"/>
         <source>Failed to load the following files:
 %s</source>
-        <translation>No s&apos;han pogut carregar els arxius següents:
+        <translation>No s&apos;han pogut carregar els fitxers següents:
 %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="908"/>
         <source>Missing File (%s)</source>
-        <translation>Manca l&apos;arxiu (%s)</translation>
+        <translation>Falta el fitxer (%s)</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="908"/>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="926"/>
         <source>%s cannot be found.</source>
-        <translation>%s no es troba.</translation>
+        <translation>%s no es pot trobar.</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -54,7 +54,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="926"/>
         <source>Missing File in Clip (%s)</source>
-        <translation>Manca l&apos;arxiu en el clip (%s)</translation>
+        <translation>Falta el fitxer al clip (%s)</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -100,7 +100,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="819"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="822"/>
         <source>Zoom In</source>
-        <translation>Amplia</translation>
+        <translation>Amplia el zoom</translation>
         <extra-po-references>Settings for actionTimelineZoomIn</extra-po-references>
     </message>
     <message>
@@ -108,7 +108,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="834"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="837"/>
         <source>Zoom Out</source>
-        <translation>Redueix</translation>
+        <translation>Redueix el zoom</translation>
         <extra-po-references>Settings for actionTimelineZoomOut</extra-po-references>
     </message>
     <message>
@@ -137,23 +137,23 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="282"/>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="496"/>
         <source>Save changes to project first?</source>
-        <translation>Desar primer els canvis en el projecte?</translation>
+        <translation>Voleu desar primer els canvis al projecte?</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="406"/>
         <source>Error Saving Project</source>
-        <translation>Error desant el projecte</translation>
+        <translation>Error en desar el projecte</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="446"/>
         <source>Error Opening Project</source>
-        <translation>Error obrint el projecte</translation>
+        <translation>Error en obrir el projecte</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="505"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="315"/>
         <source>Open Project...</source>
-        <translation>Obre un projecte...</translation>
+        <translation>Obre el projecte...</translation>
         <extra-po-references>Settings for actionOpen</extra-po-references>
     </message>
     <message>
@@ -161,7 +161,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="518"/>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="562"/>
         <source>OpenShot Project (*.osp)</source>
-        <translation>Projecte de l&apos;OpenShot (*.osp)</translation>
+        <translation>Projecte d&apos;OpenShot (*.osp)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="517"/>
@@ -187,17 +187,17 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="577"/>
         <source>Import File...</source>
-        <translation>Importa arxiu...</translation>
+        <translation>Importa el fitxer...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1397"/>
         <source>Error Removing Track</source>
-        <translation>Error traient la pista</translation>
+        <translation>Error en treure la pista</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1397"/>
         <source>You must keep at least 1 track</source>
-        <translation>Hi ha d&apos;haber almenys 1 pista</translation>
+        <translation>Heu de mantenir almenys 1 pista</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1462"/>
@@ -417,7 +417,7 @@ Voleu reemplaçar-lo?</translation>
         <location filename="../../../../openshot-qt-git/src/windows/cutting.py" line="85"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/animation.ui" line="341"/>
         <source>Preview</source>
-        <translation>Previsualització</translation>
+        <translation>Vista prèvia</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/cutting.py" line="236"/>
@@ -458,6 +458,7 @@ Voleu reemplaçar-lo?</translation>
   Miquel Coll https://launchpad.net/~miquel6
   RIco https://launchpad.net/~rico-rootscore-deactivatedaccount
   Raül Cambeiro https://launchpad.net/~raulcambeiro
+  Robert Antoni Buj Gelonch https://launchpad.net/~robert-buj
   TIMINeutron https://launchpad.net/~tfrascaroli
   VPablo https://launchpad.net/~villumar
   ferguweb https://launchpad.net/~ferguweb
@@ -1222,7 +1223,7 @@ Voleu reemplaçar-lo?</translation>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="381"/>
         <source>Linear</source>
-        <translation>Linial</translation>
+        <translation>Lineal</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="384"/>
@@ -1658,7 +1659,7 @@ Ubicació de Blender:
     </message>
     <message>
         <source>Arrival Latitude (degrees)</source>
-        <translation>Latitud d&apos;arrivada (graus)</translation>
+        <translation>Latitud d&apos;arribada (graus)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
@@ -1698,7 +1699,7 @@ Ubicació de Blender:
     </message>
     <message>
         <source>Title Diffuse Color</source>
-        <translation>Color de diufusión del títol</translation>
+        <translation>Color difús del títol</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml</extra-po-references>
     </message>
     <message>
@@ -2200,7 +2201,7 @@ Ubicació de Blender:
     </message>
     <message>
         <source>Arrival Latitude (minutes)</source>
-        <translation>Latitud d&apos;arrivada (minuts)</translation>
+        <translation>Latitud d&apos;arribada (minuts)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
@@ -2778,7 +2779,7 @@ Ubicació de Blender:
     </message>
     <message>
         <source>Blender Command (path)</source>
-        <translation>Comando de Blender (ruta)</translation>
+        <translation>Ordre de Blender (camí)</translation>
         <extra-po-references>Settings for blender_command</extra-po-references>
     </message>
     <message>

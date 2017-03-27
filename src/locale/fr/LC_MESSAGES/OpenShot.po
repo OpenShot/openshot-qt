@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-22 02:02+0000\n"
-"PO-Revision-Date: 2017-03-23 16:35+0000\n"
-"Last-Translator: Olivier Girard <eolinwen@gmail.com>\n"
+"PO-Revision-Date: 2017-03-26 20:12+0000\n"
+"Last-Translator: Debcool <fabian.culot@debcool.net>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2017-03-24 06:25+0000\n"
+"X-Launchpad-Export-Date: 2017-03-27 04:41+0000\n"
 "X-Generator: Launchpad (build 18334)\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:605
@@ -46,7 +46,7 @@ msgstr "%s ne peut être trouvé."
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:927
 #, python-format
 msgid "Find directory that contains: %s"
-msgstr "trouver répertoire contenant: %s"
+msgstr "Trouver répertoire contenant: %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:926
 #, python-format
@@ -413,6 +413,7 @@ msgstr ""
 "  Poussah https://launchpad.net/~poussah\n"
 "  Quentin Grimaud https://launchpad.net/~quentin-grimaud\n"
 "  Richard Leger https://launchpad.net/~richard-leger\n"
+"  Sirus https://launchpad.net/~sirusdark\n"
 "  Stephane https://launchpad.net/~gueston-stephane\n"
 "  Thibaut Panis https://launchpad.net/~thibaut-panis\n"
 "  Tubuntu https://launchpad.net/~t-ubuntu\n"
@@ -423,6 +424,7 @@ msgstr ""
 "  ian57 https://launchpad.net/~ian-morere\n"
 "  londumas https://launchpad.net/~helion331990\n"
 "  manu https://launchpad.net/~manu.pintor\n"
+"  michael-germant https://launchpad.net/~michael-germant\n"
 "  mimilus https://launchpad.net/~mimilubuntu\n"
 "  moimael https://launchpad.net/~moimael\n"
 "  qwerty800 https://launchpad.net/~qwerty8034\n"
@@ -473,7 +475,7 @@ msgid ""
 msgstr ""
 "<b>Fichiers du projet :</b> Commencez votre projet en ajoutant des fichiers "
 "vidéo, audio et image ici. Glisser et déposer des fichiers à partir de "
-"explorateur de fichiers."
+"l'explorateur de fichiers."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:335
 msgid ""
@@ -481,18 +483,18 @@ msgid ""
 "create automatic transitions. Access lots of fun presets and options by "
 "right-clicking on clips."
 msgstr ""
-"<b> Timeline : </b> Organisez vos clips sur la timeline ici. Faites "
-"chevaucher les clips pour créer des transitions automatiques. Accédez à "
-"beaucoup de préréglages et options amusants en cliquant avec le bouton droit "
-"sur les clips."
+"<b> Ligne du temps : </b> Organisez ici vos clips sur la ligne du temps. "
+"Faites chevaucher les clips pour créer des transitions automatiques. Accédez "
+"à beaucoup de préréglages et options amusantes en cliquant avec le bouton "
+"droit sur les clips."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:336
 msgid ""
 "<b>Video Preview:</b> Watch your timeline video preview here. Use the "
 "buttons (play, rewind, fast-forward) to control the video playback."
 msgstr ""
-"<b> Aperçu vidéo : </b> Regardez votre timeline vidéo ici. Utilisez les "
-"boutons (lecture, rembobinage, avance rapide) pour contrôler la lecture "
+"<b> Aperçu vidéo : </b> Regardez ici votre ligne du temps vidéo. Utilisez "
+"les boutons (lecture, rembobinage, avance rapide) pour contrôler la lecture "
 "vidéo."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:337
@@ -512,7 +514,7 @@ msgid ""
 "(usually at the beginning or ending)."
 msgstr ""
 "<b> Transitions : </ b> Créez un fondu progressif d'un clip à l'autre. "
-"Glissez et déposez une transition sur la timeline et positionnez-la au "
+"Glissez et déposez une transition sur la ligne du temps et positionnez-la au "
 "dessus d'un clip (généralement au début ou à la fin)."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:339
@@ -522,17 +524,17 @@ msgid ""
 "on top of a clip (or track)"
 msgstr ""
 "<b> Effets : </b> Réglez la luminosité, le contraste, la saturation, et "
-"ajoutez des effets spéciaux intéressants. Glissez et déposez un effet sur la "
-"timeline et positionnez-le au-dessus d'un clip (ou piste)"
+"ajoutez des effets spéciaux formidables. Glissez et déposez un effet sur la "
+"ligne du temps et positionnez-le au-dessus d'un clip (ou piste)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:340
 msgid ""
 "<b>Export Video:</b> When you are ready to create your finished video, click "
 "this button to export your timeline as a single video file."
 msgstr ""
-"<b> Exporter vidéo : </b> Lorsque vous êtes prêt à créer votre vidéo, "
-"cliquez sur ce bouton pour exporter votre timeline en tant que fichier vidéo "
-"unique."
+"<b> Exporter vidéo : </b> Lorsque vous êtes prêt à créer votre vidéo final, "
+"cliquez sur ce bouton pour exporter votre ligne du temps dans un fichier "
+"vidéo unique."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:414
 msgid "Slice All"
@@ -1000,15 +1002,15 @@ msgstr "Atténuation (Cubique)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:341
 msgid "Ease In (Quart)"
-msgstr ""
+msgstr "Atténuation (Quart)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:342
 msgid "Ease In (Quint)"
-msgstr ""
+msgstr "Atténuation (Quint)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:343
 msgid "Ease In (Sine)"
-msgstr ""
+msgstr "Atténuation (Sine)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:344
 msgid "Ease In (Expo)"
@@ -1036,11 +1038,11 @@ msgstr "Amélioration (Quart)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:351
 msgid "Ease Out (Quint)"
-msgstr ""
+msgstr "Amélioration (Quint)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:352
 msgid "Ease Out (Sine)"
-msgstr ""
+msgstr "Amélioration (Sine)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:353
 msgid "Ease Out (Expo)"
@@ -1068,11 +1070,11 @@ msgstr "Atténuation/Amélioration (Quart)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:360
 msgid "Ease In/Out (Quint)"
-msgstr ""
+msgstr "Atténuation/Amélioration (Quint)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:361
 msgid "Ease In/Out (Sine)"
-msgstr ""
+msgstr "Atténuation/Amélioration (Sine)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:362
 msgid "Ease In/Out (Expo)"
@@ -1215,7 +1217,7 @@ msgstr "Contributeur Bitcoin"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:111
 msgid "Patreon Supporter!"
-msgstr ""
+msgstr "Supporter Patreon"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:119
 msgid "Multiple Contributions!"
@@ -2504,7 +2506,7 @@ msgstr "Créative commons %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Footer_1.svg
 msgid "Footer %s"
-msgstr ""
+msgstr "En bas %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_medium.jpg
 msgid "Spiral medium"
@@ -2600,11 +2602,11 @@ msgstr "Rayon flou droit"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Gold_Top.svg
 msgid "Gold top"
-msgstr ""
+msgstr "En Or Tout en haut"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Gold_2.svg
 msgid "Gold %s"
-msgstr ""
+msgstr "En Or %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg
 msgid "Distortion %s"
@@ -2670,7 +2672,7 @@ msgstr "Barre droite carrée"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Film_Rating_3.svg
 msgid "Film rating %s"
-msgstr ""
+msgstr "Crédits %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Bar_1.svg
 msgid "Bar %s"
@@ -2678,7 +2680,7 @@ msgstr "Barre %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Gold_Bottom.svg
 msgid "Gold bottom"
-msgstr ""
+msgstr "Tout en bas en Or"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ondulation_1.jpg
 msgid "Ondulation %s"
@@ -2702,7 +2704,7 @@ msgstr "Barre mozaïque droite"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/TV_Rating.svg
 msgid "Tv rating"
-msgstr ""
+msgstr "Tv Rating"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out.jpg
 msgid "Blinds in to out"
@@ -2810,7 +2812,7 @@ msgstr "Petite spirale"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Ribbon_2.svg
 msgid "Ribbon %s"
-msgstr ""
+msgstr "Ruban %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_left_barr.jpg
 msgid "Middle cross left barr"
@@ -2898,7 +2900,7 @@ msgstr "Ondulation %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Camera_Border.svg
 msgid "Camera border"
-msgstr ""
+msgstr "Plan fixe centré"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_low_arrow.jpg
 msgid "Small low arrow"
@@ -2986,7 +2988,7 @@ msgstr "Barre noir milieu"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Header_3.svg
 msgid "Header %s"
-msgstr ""
+msgstr "En-tête %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_18.jpg
 msgid "Ray light %s"
