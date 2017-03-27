@@ -120,6 +120,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         QCoreApplication.processEvents()
 
         # Stop preview thread (and wait for it to end)
+        self.preview_thread.player.CloseAudioDevice()
         self.preview_thread.kill()
         self.preview_parent.background.exit()
         self.preview_parent.background.wait(5000)
