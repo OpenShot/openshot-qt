@@ -211,7 +211,7 @@ class TitleEditor(QDialog):
         else:
             # Find an unused file name
             for i in range(1, 1000):
-                possible_path = os.path.join(info.ASSETS_PATH, "TitleFileName-%d.svg" % i)
+                possible_path = os.path.join(info.ASSETS_PATH, "%s.svg" % _("TitleFileName-%d") % i)
                 if not os.path.exists(possible_path):
                     self.txtFileName.setText(_("TitleFileName-%d") % i)
                     break
