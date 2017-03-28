@@ -2486,8 +2486,6 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 file_url = urlparse(uri.toString())
                 if file_url.scheme == "file":
                     filepath = file_url.path
-                    if filepath[0] == "/" and ":" in filepath:
-                        filepath = filepath[1:]
                     if os.path.exists(filepath.encode('UTF-8')) and os.path.isfile(filepath.encode('UTF-8')):
                         # Valid file, so create clip for it
                         for file in File.filter(path=filepath):

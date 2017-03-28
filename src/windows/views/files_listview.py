@@ -277,8 +277,6 @@ class FilesListView(QListView):
             file_url = urlparse(uri.toString())
             if file_url.scheme == "file":
                 filepath = file_url.path
-                if filepath[0] == "/" and ":" in filepath:
-                    filepath = filepath[1:]
                 if os.path.exists(filepath.encode('UTF-8')) and os.path.isfile(filepath.encode('UTF-8')):
                     log.info('Adding file: {}'.format(filepath))
                     if self.add_file(filepath):
