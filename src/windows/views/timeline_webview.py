@@ -28,6 +28,7 @@
  """
 
 import os
+import sys
 from copy import deepcopy
 from functools import partial
 from random import uniform
@@ -2486,6 +2487,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 file_url = urlparse(uri.toString())
                 if file_url.scheme == "file":
                     filepath = file_url.path
+                    if sys.platform == "win32":
+                        filepath = filepath[1:]  # Remove / at beginning of path (just for Windows)
                     if os.path.exists(filepath.encode('UTF-8')) and os.path.isfile(filepath.encode('UTF-8')):
                         # Valid file, so create clip for it
                         for file in File.filter(path=filepath):

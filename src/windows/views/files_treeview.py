@@ -30,6 +30,7 @@
 import os
 import glob
 import re
+import sys
 from urllib.parse import urlparse
 
 from PyQt5.QtCore import QSize, Qt, QPoint
@@ -276,6 +277,8 @@ class FilesTreeView(QTreeView):
             file_url = urlparse(uri.toString())
             if file_url.scheme == "file":
                 filepath = file_url.path
+                if sys.platform == "win32":
+                    filepath = filepath[1:] # Remove / at beginning of path (just for Windows)
                 if os.path.exists(filepath.encode('UTF-8')) and os.path.isfile(filepath.encode('UTF-8')):
                     log.info('Adding file: {}'.format(filepath))
                     if self.add_file(filepath):
