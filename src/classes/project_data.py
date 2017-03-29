@@ -395,6 +395,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         from classes.legacy.openshot.classes import keyframe as legacy_keyframe
         from classes.legacy.openshot.classes import files as legacy_files
         from classes.legacy.openshot.classes import transition as legacy_transition
+        from classes.legacy.openshot.classes import effect as legacy_effect
+        from classes.legacy.openshot.classes import marker as legacy_marker
         sys.modules['openshot.classes'] = legacy_classes
         sys.modules['classes.project'] = legacy_project
         sys.modules['classes.sequences'] = legacy_sequences
@@ -403,6 +405,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         sys.modules['classes.keyframe'] = legacy_keyframe
         sys.modules['classes.files'] = legacy_files
         sys.modules['classes.transition'] = legacy_transition
+        sys.modules['classes.effect'] = legacy_effect
+        sys.modules['classes.marker'] = legacy_marker
 
         # Keep track of files that failed to load
         failed_files = []
