@@ -42,4 +42,5 @@ Table of Contents:
    transitions
    animation
    titles
+   profiles
    learn_more

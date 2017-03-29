@@ -187,8 +187,9 @@ class Export(QDialog):
                 profile = openshot.Profile(profile_path)
 
                 # Add description of Profile to list
-                self.profile_names.append("%s (%sx%s)" % (profile.info.description, profile.info.width, profile.info.height))
-                self.profile_paths["%s (%sx%s)" % (profile.info.description, profile.info.width, profile.info.height)] = profile_path
+                profile_name = "%s (%sx%s)" % (profile.info.description, profile.info.width, profile.info.height)
+                self.profile_names.append(profile_name)
+                self.profile_paths[profile_name] = profile_path
 
         # Sort list
         self.profile_names.sort()
@@ -202,7 +203,7 @@ class Export(QDialog):
             self.cboProfile.addItem(profile_name, self.profile_paths[profile_name])
 
             # Set default (if it matches the project)
-            if app.project.get(['profile']) == profile_name:
+            if app.project.get(['profile']) in profile_name:
                 self.selected_profile_index = box_index
 
             # increment item counter

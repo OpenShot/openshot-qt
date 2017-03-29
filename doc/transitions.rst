@@ -56,8 +56,13 @@ Keep in mind that all of the above cutting methods also have :ref:`keyboard_shor
 Mask
 ----
 Like :ref:`clips_ref`, transitions also have properties which can be animated over time. The fade (or wipe) can be adjusted
-with the **Brightness** curve, or held at a constant value to create a transparency mask on top of a clip. Any greyscale
-image can be used as a transition (or mask), by adding it to your */.openshot_qt/transitions/* folder.
+with the **Brightness** curve, or held at a constant value to create a transparency mask on top of a clip.
+
+Custom Transition
+-----------------
+Any greyscale image can be used as a transition (or mask), by adding it to your */.openshot_qt/transitions/* folder. Just
+be sure to name your file something that is easily recognizable, and restart OpenShot. Your custom transition/mask will now show
+up in the list of transitions.
 
 Properties
 ----------
