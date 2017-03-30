@@ -393,7 +393,7 @@ class VideoWidget(QWidget):
             start_of_clip_frame = round(float(self.transforming_clip.data["start"]) * fps_float) + 1
             position_of_clip_frame = (float(self.transforming_clip.data["position"]) * fps_float) + 1
             playhead_position_frame = float(get_app().window.preview_thread.current_frame)
-            clip_frame_number = round(playhead_position_frame - position_of_clip_frame) + start_of_clip_frame + 1
+            clip_frame_number = round(playhead_position_frame - position_of_clip_frame) + start_of_clip_frame
 
             # Transform clip object
             if self.transform_mode:
