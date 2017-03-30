@@ -113,12 +113,8 @@ class TitleEditor(QDialog):
             # Hide list of templates
             self.widget.setVisible(False)
 
-            # Display title in graphicsView
-            self.filename = self.edit_file_path
-
-            if self.duplicate:
-                # Create temp version of title
-                self.create_temp_title(self.edit_file_path)
+            # Create temp version of title
+            self.create_temp_title(self.edit_file_path)
 
             # Add all widgets for editing
             self.load_svg_template()
@@ -570,6 +566,9 @@ class TitleEditor(QDialog):
 
         # If editing file, just update the existing file
         if self.edit_file_path and not self.duplicate:
+            # Update filename
+            self.filename = self.edit_file_path
+
             # Overwrite title svg file
             self.writeToFile(self.xmldoc)
 

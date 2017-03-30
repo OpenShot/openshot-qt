@@ -2,13 +2,13 @@
 <!DOCTYPE TS>
 <TS version="2.1">
     <extra-po-header-language_team>Dutch &lt;nl@li.org&gt;</extra-po-header-language_team>
-    <extra-po-header-last_translator>Sven Depoorter &lt;Unknown&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2017-03-23 21:27+0000</extra-po-header-po_revision_date>
+    <extra-po-header-last_translator>Johny Provoost &lt;johny.provoost@skynet.be&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2017-03-27 19:46+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2017-03-22 02:02+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 18334)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2017-03-27 04:42+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 18335)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2017-03-30 20:52+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Dutch translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -33,14 +33,14 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="908"/>
         <source>Missing File (%s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ontbrekend Bestand (%s)</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="908"/>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="926"/>
         <source>%s cannot be found.</source>
-        <translation>%s kan niet worden gevonden.</translation>
+        <translation type="unfinished"></translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -69,7 +69,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="488"/>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="500"/>
         <source>None</source>
-        <translation>geen</translation>
+        <translation>Niets</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -80,7 +80,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="484"/>
         <source>Fade Out</source>
-        <translation>Uitfaden</translation>
+        <translation>Vervagen</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="485"/>
@@ -136,7 +136,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="282"/>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="496"/>
         <source>Save changes to project first?</source>
-        <translation type="unfinished"></translation>
+        <translation>Eerst wijzigingen in project opslaan?</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="406"/>
@@ -191,12 +191,12 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1397"/>
         <source>Error Removing Track</source>
-        <translation type="unfinished"></translation>
+        <translation>Fout bij verwijderen spoor</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1397"/>
         <source>You must keep at least 1 track</source>
-        <translation type="unfinished"></translation>
+        <translation>U moet ten minste 1 spoor houden</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1462"/>
@@ -253,7 +253,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="230"/>
         <source>Line %s:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lijn %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -445,6 +445,7 @@ Do you want to replace it?</source>
   Harald Prasse https://launchpad.net/~harald-prasse
   Heureka https://launchpad.net/~jan-de-ridder
   Jef Damen https://launchpad.net/~jef-damen
+  Johny Provoost https://launchpad.net/~jepe
   Jonathan Thomas https://launchpad.net/~jonoomph
   Joop Mevissen https://launchpad.net/~jm
   Paulus Cocu https://launchpad.net/~paulus-e
@@ -476,7 +477,7 @@ Do you want to replace it?</source>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="141"/>
         <source>Yes, I would like to improve OpenShot!</source>
-        <translation type="unfinished"></translation>
+        <translation>Ja, ik wil OpenShot verbeteren!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="156"/>

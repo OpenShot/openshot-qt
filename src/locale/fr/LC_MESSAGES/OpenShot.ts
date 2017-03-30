@@ -3,12 +3,12 @@
 <TS version="2.1">
     <extra-po-header-language_team>French &lt;fr@li.org&gt;</extra-po-header-language_team>
     <extra-po-header-last_translator>Debcool &lt;fabian.culot@debcool.net&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2017-03-26 20:12+0000</extra-po-header-po_revision_date>
+    <extra-po-header-po_revision_date>2017-03-29 09:58+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2017-03-22 02:02+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 18334)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2017-03-27 04:41+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 18335)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2017-03-30 20:52+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># French translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -70,7 +70,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="488"/>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="500"/>
         <source>None</source>
-        <translation>Aucun(e)s</translation>
+        <translation>Aucun(e)</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>

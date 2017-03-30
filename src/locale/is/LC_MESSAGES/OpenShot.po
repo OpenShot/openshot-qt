@@ -3,20 +3,20 @@
 # This file is distributed under the same license as the openshot package.
 #
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
-# Sveinn í Felli <sv1@fellsnet.is>, 2016.
+# Sveinn í Felli <sv1@fellsnet.is>, 2016, 2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-22 02:02+0000\n"
-"PO-Revision-Date: 2016-12-28 23:06+0000\n"
+"PO-Revision-Date: 2017-03-29 10:04+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic <is@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2017-03-27 04:41+0000\n"
-"X-Generator: Launchpad (build 18334)\n"
+"X-Launchpad-Export-Date: 2017-03-30 20:53+0000\n"
+"X-Generator: Launchpad (build 18335)\n"
 "Language: is\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:605
@@ -36,24 +36,24 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:908
 #, python-format
 msgid "Missing File (%s)"
-msgstr ""
+msgstr "Skrá vantar (%s)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:908
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:926
 #, python-format
 msgid "%s cannot be found."
-msgstr ""
+msgstr "%s fannst ekki."
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:909
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:927
 #, python-format
 msgid "Find directory that contains: %s"
-msgstr ""
+msgstr "Finna möppu sem inniheldur: %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:926
 #, python-format
 msgid "Missing File in Clip (%s)"
-msgstr ""
+msgstr "Skrá vantar í myndskeið (%s)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:479
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1460
@@ -122,7 +122,7 @@ msgstr "Endurheimti síðasta óvistaða verkefnið þitt."
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:282
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:496
 msgid "Save changes to project first?"
-msgstr ""
+msgstr "Vista fyrst breytingar á verkefninu?"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:406
 msgid "Error Saving Project"
@@ -216,12 +216,12 @@ msgstr "Skáarheiti:"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:216
 #, python-format
 msgid "TitleFileName-%d"
-msgstr ""
+msgstr "TitilSkráarHeiti-%d"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:230
 #, python-format
 msgid "Line %s:"
-msgstr ""
+msgstr "Lína %s:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:244
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:245
@@ -396,7 +396,7 @@ msgstr "Viltu flytja %s inn sem myndaröð?"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:141
 msgid "Yes, I would like to improve OpenShot!"
-msgstr ""
+msgstr "Já, ég væri til í að hjálpa við að bæta OpenShot!"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:156
 msgid "Hide Tutorial"
@@ -413,6 +413,10 @@ msgid ""
 "<br><br>Would you like to automatically send errors and metrics to help "
 "improve OpenShot?"
 msgstr ""
+"<b>Velkomin!</b> OpenShot vídóvinnsluforritið er opinn og frjáls hugbúnaður "
+"sem unnið hefur til margra verðlauna! Þessi leiðarvísir mun leiða þig í "
+"gegnum helstu grunnatriðin.<br><br>Myndirðu vilja senda sjálfkrafa "
+"upplýsingar um villur og tölfræði til að hjálpa við að bæta OpenShot?"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:334
 msgid ""
@@ -1162,7 +1166,7 @@ msgstr "Stuðningsaðili með Bitcoin!"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:111
 msgid "Patreon Supporter!"
-msgstr ""
+msgstr "Stuðningsaðili í gegnum Patreon!"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:119
 msgid "Multiple Contributions!"
@@ -1795,7 +1799,7 @@ msgstr "Skjátitill 3"
 
 #: libopenshot (Clip Properties)
 msgid "Both"
-msgstr ""
+msgstr "Bæði"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
 msgid "Bevel Depth"
@@ -2438,7 +2442,7 @@ msgstr "Deyfðir strimlar til hægri"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Flames.svg
 msgid "Flames"
-msgstr ""
+msgstr "Logar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_top_arrow.jpg
 msgid "Middle top arrow"
@@ -2446,11 +2450,11 @@ msgstr "Miðlungs oddar upp"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Creative_Commons_2.svg
 msgid "Creative commons %s"
-msgstr ""
+msgstr "Creative Commons %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Footer_1.svg
 msgid "Footer %s"
-msgstr ""
+msgstr "Síðufótur %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_medium.jpg
 msgid "Spiral medium"
@@ -2478,11 +2482,11 @@ msgstr "4 ferningar strimlar til vinstri"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Sunset.svg
 msgid "Sunset"
-msgstr ""
+msgstr "Sólsetur"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Bubbles_1.svg
 msgid "Bubbles %s"
-msgstr ""
+msgstr "Blöðrur %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_top_arrow.jpg
 msgid "Small top arrow"
@@ -2502,7 +2506,7 @@ msgstr "Fiskaugu %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Smoke_1.svg
 msgid "Smoke %s"
-msgstr ""
+msgstr "Reykur %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/central_mozaic.jpg
 msgid "Central mozaic"
@@ -2510,7 +2514,7 @@ msgstr "Miðjuð mósaík"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Gray_Box_4.svg
 msgid "Gray box %s"
-msgstr ""
+msgstr "Grár kassi %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/openshot_logo.jpg
 msgid "Openshot logo"
@@ -2546,11 +2550,11 @@ msgstr "Deyfðir geislar hægri"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Gold_Top.svg
 msgid "Gold top"
-msgstr ""
+msgstr "Gulltoppur"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Gold_2.svg
 msgid "Gold %s"
-msgstr ""
+msgstr "Gull %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg
 msgid "Distortion %s"
@@ -2616,15 +2620,15 @@ msgstr "Ferkantaðir strimlar til hægri"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Film_Rating_3.svg
 msgid "Film rating %s"
-msgstr ""
+msgstr "Einkunn kvikmyndar %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Bar_1.svg
 msgid "Bar %s"
-msgstr ""
+msgstr "Stöpull %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Gold_Bottom.svg
 msgid "Gold bottom"
-msgstr ""
+msgstr "Gullbotn"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ondulation_1.jpg
 msgid "Ondulation %s"
@@ -2648,7 +2652,7 @@ msgstr "Mósaík strimlar hægri"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/TV_Rating.svg
 msgid "Tv rating"
-msgstr ""
+msgstr "Einkunn sjónvarps"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out.jpg
 msgid "Blinds in to out"
@@ -2748,7 +2752,7 @@ msgstr "Teygt %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Solid_Color.svg
 msgid "Solid color"
-msgstr ""
+msgstr "Heillitur"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small.jpg
 msgid "Spiral small"
@@ -2756,7 +2760,7 @@ msgstr "Spírall lítill"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Ribbon_2.svg
 msgid "Ribbon %s"
-msgstr ""
+msgstr "Borði %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_left_barr.jpg
 msgid "Middle cross left barr"
@@ -2780,7 +2784,7 @@ msgstr "4 ferningar strimlar til hægri"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Post_it.svg
 msgid "Post it"
-msgstr ""
+msgstr "Senda það"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right_2.jpg
 msgid "Ray light right %s"
@@ -2820,7 +2824,7 @@ msgstr "Bylgja hægri-niður"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Oval_3.svg
 msgid "Oval %s"
-msgstr ""
+msgstr "Sporaskja %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/board_10.jpg
 msgid "Board %s"
@@ -2844,7 +2848,7 @@ msgstr "Gárur %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Camera_Border.svg
 msgid "Camera border"
-msgstr ""
+msgstr "Myndavélarrammi"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_low_arrow.jpg
 msgid "Small low arrow"
@@ -2932,7 +2936,7 @@ msgstr "Miðlungs svartir strimlar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Header_3.svg
 msgid "Header %s"
-msgstr ""
+msgstr "Haus %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_18.jpg
 msgid "Ray light %s"
@@ -2972,7 +2976,7 @@ msgstr "Stórir strimlar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Cloud_2.svg
 msgid "Cloud %s"
-msgstr ""
+msgstr "Ský %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr_ripple_2.jpg
 msgid "Middle barr ripple %s"
@@ -3004,7 +3008,7 @@ msgstr "Fjöll"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Standard_1.svg
 msgid "Standard %s"
-msgstr ""
+msgstr "Staðlað %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_top_to_bottom.svg
 msgid "Wipe top to bottom"
@@ -3831,22 +3835,22 @@ msgstr "Aflæsa spori"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1317
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1320
 msgid "Transform"
-msgstr ""
+msgstr "Ummynda"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1329
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1332
 msgid "Edit Title"
-msgstr ""
+msgstr "Breyta titli"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1335
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1350
 msgid "Ctrl+Shift+T"
-msgstr ""
+msgstr "Ctrl+Shift+T"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1344
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1347
 msgid "Duplicate Title"
-msgstr ""
+msgstr "Tvítaka skjátitil"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/profile.ui:30
 msgid "Size:"
@@ -3870,7 +3874,7 @@ msgstr "Annað:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:14
 msgid "Titles"
-msgstr ""
+msgstr "Skjátitlar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:41
 msgid "<html><head/><body><p>Upload To:</p></body></html>"

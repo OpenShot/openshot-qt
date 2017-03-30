@@ -3,12 +3,12 @@
 <TS version="2.1">
     <extra-po-header-language_team>Czech &lt;cs@li.org&gt;</extra-po-header-language_team>
     <extra-po-header-last_translator>shost &lt;shost@seznam.cz&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-12-16 14:24+0000</extra-po-header-po_revision_date>
+    <extra-po-header-po_revision_date>2017-03-28 13:59+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2017-03-22 02:02+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 18334)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2017-03-27 04:42+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 18335)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2017-03-30 20:52+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Czech translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -34,14 +34,14 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="908"/>
         <source>Missing File (%s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Chybí soubor (%s)</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="908"/>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="926"/>
         <source>%s cannot be found.</source>
-        <translation type="unfinished"></translation>
+        <translation>%s nelze nalézt.</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>

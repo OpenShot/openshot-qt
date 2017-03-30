@@ -2,13 +2,13 @@
 <!DOCTYPE TS>
 <TS version="2.1">
     <extra-po-header-language_team>Basque &lt;eu@li.org&gt;</extra-po-header-language_team>
-    <extra-po-header-last_translator>Jonathan Thomas &lt;jonathan@openshot.org&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2017-03-24 07:45+0000</extra-po-header-po_revision_date>
+    <extra-po-header-last_translator>Asier Iturralde Sarasola &lt;Unknown&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2017-03-28 21:07+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2017-03-22 02:02+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 18334)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2017-03-27 04:42+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 18335)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2017-03-30 20:52+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Basque translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -34,27 +34,27 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="908"/>
         <source>Missing File (%s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fitxategia falta da (%s)</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="908"/>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="926"/>
         <source>%s cannot be found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezin izan da %s aurkitu.</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="909"/>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="927"/>
         <source>Find directory that contains: %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilatu hau daukan direktorioa: %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="926"/>
         <source>Missing File in Clip (%s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fitxategia falta da klipean (%s)</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -137,17 +137,17 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="282"/>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="496"/>
         <source>Save changes to project first?</source>
-        <translation type="unfinished"></translation>
+        <translation>Proiektuan egindako aldaketak gorde lehenik?</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="406"/>
         <source>Error Saving Project</source>
-        <translation>Errorea projektua gordetzean</translation>
+        <translation>Errorea proiektua gordetzean</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="446"/>
         <source>Error Opening Project</source>
-        <translation>Errorea projektua irekitzean</translation>
+        <translation>Errorea proiektua irekitzean</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="505"/>
@@ -169,12 +169,12 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1707"/>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="137"/>
         <source>Untitled Project</source>
-        <translation>Izenik gabeko projektua</translation>
+        <translation>Izenik gabeko proiektua</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="518"/>
         <source>Save Project...</source>
-        <translation>Gorde projektua...</translation>
+        <translation>Gorde proiektua...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="562"/>
@@ -248,13 +248,13 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="216"/>
         <source>TitleFileName-%d</source>
-        <translation type="unfinished"></translation>
+        <translation>IzenburuaFitxategiIzena-%d</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="230"/>
         <source>Line %s:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lerroa %s:</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -318,7 +318,8 @@
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="572"/>
         <source>%s already exists.
 Do you want to replace it?</source>
-        <translation>%s lehendik badago.</translation>
+        <translation>%s lehendik badago.
+Ordezkatu nahi duzu?</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -465,7 +466,7 @@ Do you want to replace it?</source>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="141"/>
         <source>Yes, I would like to improve OpenShot!</source>
-        <translation type="unfinished"></translation>
+        <translation>Bai, OpenShot hobetzen lagundu nahi dut!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="156"/>
@@ -480,7 +481,7 @@ Do you want to replace it?</source>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="333"/>
         <source>&lt;b&gt;Welcome!&lt;/b&gt; OpenShot Video Editor is an award-winning, open-source video editing application! This tutorial will walk you through the basics.&lt;br&gt;&lt;br&gt;Would you like to automatically send errors and metrics to help improve OpenShot?</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ongietorri!&lt;/b&gt; OpenShot bideo-editorea sariak irabazi dituen, kode irekiko bideo edizioko aplikazio bat da. Tutorial honek oinarriak erakutsiko dizkizu.&lt;br&gt;&lt;br&gt;Erroreak eta estatistikak automatikoki bidali nahi dituzu OpenShot hobetzeko?</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="334"/>
@@ -1331,7 +1332,7 @@ Blender bide-izena:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="111"/>
         <source>Patreon Supporter!</source>
-        <translation type="unfinished"></translation>
+        <translation>Patreon babeslea!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="119"/>
@@ -2111,7 +2112,7 @@ Blender bide-izena:
     </message>
     <message>
         <source>Both</source>
-        <translation type="unfinished"></translation>
+        <translation>Biak</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2512,7 +2513,7 @@ Blender bide-izena:
     </message>
     <message>
         <source>Next Frame</source>
-        <translation>Hurrengo markoa</translation>
+        <translation>Hurrengo fotograma</translation>
         <extra-po-references>Settings for seekNextFrame</extra-po-references>
     </message>
     <message>
@@ -2742,7 +2743,7 @@ Blender bide-izena:
     </message>
     <message>
         <source>Previous Frame</source>
-        <translation>Aurreko markoa</translation>
+        <translation>Aurreko fotograma</translation>
         <extra-po-references>Settings for seekPreviousFrame</extra-po-references>
     </message>
     <message>
@@ -2894,7 +2895,7 @@ Blender bide-izena:
     </message>
     <message>
         <source>Flames</source>
-        <translation type="unfinished"></translation>
+        <translation>Sugarrak</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Flames.svg</extra-po-references>
     </message>
     <message>
@@ -2904,12 +2905,12 @@ Blender bide-izena:
     </message>
     <message>
         <source>Creative commons %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Creative commons %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Creative_Commons_2.svg</extra-po-references>
     </message>
     <message>
         <source>Footer %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Oina %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Footer_1.svg</extra-po-references>
     </message>
     <message>
@@ -2944,22 +2945,22 @@ Blender bide-izena:
     </message>
     <message>
         <source>Sunset</source>
-        <translation type="unfinished"></translation>
+        <translation>Ilunabarra</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Sunset.svg</extra-po-references>
     </message>
     <message>
         <source>Bubbles %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Burbuilak %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Bubbles_1.svg</extra-po-references>
     </message>
     <message>
         <source>Small top arrow</source>
-        <translation type="unfinished"></translation>
+        <translation>Goranzko gezi txikia</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_top_arrow.jpg</extra-po-references>
     </message>
     <message>
         <source>Mosaic %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Mosaikoa %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mosaic_2.jpg</extra-po-references>
     </message>
     <message>
@@ -2974,7 +2975,7 @@ Blender bide-izena:
     </message>
     <message>
         <source>Smoke %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Kea %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Smoke_1.svg</extra-po-references>
     </message>
     <message>
@@ -2984,7 +2985,7 @@ Blender bide-izena:
     </message>
     <message>
         <source>Gray box %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaxa grisa %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Gray_Box_4.svg</extra-po-references>
     </message>
     <message>
@@ -3121,7 +3122,7 @@ Blender bide-izena:
     </message>
     <message>
         <source>Bar %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Barra %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Bar_1.svg</extra-po-references>
     </message>
     <message>
@@ -3131,7 +3132,7 @@ Blender bide-izena:
     </message>
     <message>
         <source>Ondulation %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Ondulazioa %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/ondulation_1.jpg</extra-po-references>
     </message>
     <message>
@@ -3226,7 +3227,7 @@ Blender bide-izena:
     </message>
     <message>
         <source>Frame %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Fotograma %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3281,7 +3282,7 @@ Blender bide-izena:
     </message>
     <message>
         <source>Solid color</source>
-        <translation type="unfinished"></translation>
+        <translation>Kolore lisoa</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Solid_Color.svg</extra-po-references>
     </message>
     <message>
@@ -3351,7 +3352,7 @@ Blender bide-izena:
     </message>
     <message>
         <source>Future %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Etorkizuna %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/future_11.jpg</extra-po-references>
     </message>
     <message>
@@ -3371,7 +3372,7 @@ Blender bide-izena:
     </message>
     <message>
         <source>Oval %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Obaloa %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Oval_3.svg</extra-po-references>
     </message>
     <message>
@@ -3401,7 +3402,7 @@ Blender bide-izena:
     </message>
     <message>
         <source>Camera border</source>
-        <translation type="unfinished"></translation>
+        <translation>Kameraren ertza</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Camera_Border.svg</extra-po-references>
     </message>
     <message>
@@ -3461,7 +3462,7 @@ Blender bide-izena:
     </message>
     <message>
         <source>Luminous frame %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Marko argitsua %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_frame_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3511,7 +3512,7 @@ Blender bide-izena:
     </message>
     <message>
         <source>Header %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Goiburua %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Header_3.svg</extra-po-references>
     </message>
     <message>
@@ -3561,7 +3562,7 @@ Blender bide-izena:
     </message>
     <message>
         <source>Cloud %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Hodeia %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Cloud_2.svg</extra-po-references>
     </message>
     <message>
@@ -3601,7 +3602,7 @@ Blender bide-izena:
     </message>
     <message>
         <source>Standard %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Estandarra %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Standard_1.svg</extra-po-references>
     </message>
     <message>
@@ -3813,7 +3814,7 @@ Blender bide-izena:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/animation.ui" line="77"/>
         <source># of Frames:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fotograma kopurua:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/animation.ui" line="141"/>
@@ -4097,7 +4098,7 @@ Blender bide-izena:
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="996"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="785"/>
         <source>Channel Layout:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalaren diseinua:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="20"/>
@@ -4122,7 +4123,7 @@ Blender bide-izena:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="100"/>
         <source>File Path:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fitxategiaren bidea:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="198"/>
@@ -4138,7 +4139,7 @@ Blender bide-izena:
         <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="531"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="561"/>
         <source>No video stream found</source>
-        <translation type="unfinished"></translation>
+        <translation>Ez da bideo jariorik aurkitu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="618"/>
@@ -4148,12 +4149,12 @@ Blender bide-izena:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="687"/>
         <source>No audio stream found</source>
-        <translation type="unfinished"></translation>
+        <translation>Ez da audio jariorik aurkitu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="816"/>
         <source>Frame Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Fotogramaren ezarpenak</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="895"/>
@@ -4570,7 +4571,7 @@ Blender bide-izena:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1272"/>
         <source>Launch Tutorial</source>
-        <translation type="unfinished"></translation>
+        <translation>Abiarazi tutoriala</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1281"/>
@@ -4594,25 +4595,25 @@ Blender bide-izena:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1317"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1320"/>
         <source>Transform</source>
-        <translation type="unfinished"></translation>
+        <translation>Eraldatu</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1329"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1332"/>
         <source>Edit Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Editatu izenburua</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1335"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1350"/>
         <source>Ctrl+Shift+T</source>
-        <translation type="unfinished"></translation>
+        <translation>Ktrl+Maius+T</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1344"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1347"/>
         <source>Duplicate Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Bikoiztu izenburua</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/profile.ui" line="30"/>
@@ -4642,7 +4643,7 @@ Blender bide-izena:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="14"/>
         <source>Titles</source>
-        <translation type="unfinished"></translation>
+        <translation>Izenburuak</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="41"/>

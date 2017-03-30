@@ -365,6 +365,13 @@
         "icons": [
             "p"
         ],
+        "name": "Beat",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Ben Kronenberg",
         "website": null
     },
@@ -423,6 +430,13 @@
         "icons": [
             "p"
         ],
+        "name": "Bjørn Sandåker",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Bradley Hardy",
         "website": null
     },
@@ -452,6 +466,13 @@
         "icons": [
             "p"
         ],
+        "name": "Bryan Delgado",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "C0Der{Free-Your-Mind=Linux}",
         "website": null
     },
@@ -467,6 +488,14 @@
             "p"
         ],
         "name": "Captain Quack",
+        "website": null
+    },
+    {
+        "icons": [
+            "p",
+            "s"
+        ],
+        "name": "Carl Andersen",
         "website": null
     },
     {
@@ -519,6 +548,13 @@
             "s"
         ],
         "name": "Charles Goldsmith",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Chris",
         "website": null
     },
     {
@@ -689,6 +725,13 @@
             "p"
         ],
         "name": "Condeguskoo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Copper Audio",
         "website": null
     },
     {
@@ -1242,7 +1285,21 @@
         "icons": [
             "p"
         ],
+        "name": "Giancarlo Piccinato",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Gianfranco Liporace",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Gibrán Majalca",
         "website": null
     },
     {
@@ -1357,6 +1414,13 @@
             "p"
         ],
         "name": "Henry Laxen",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Hintmic",
         "website": null
     },
     {
@@ -1489,7 +1553,8 @@
     },
     {
         "icons": [
-            "p"
+            "p",
+            "s"
         ],
         "name": "Jakub Klawiter",
         "website": null
@@ -1704,9 +1769,30 @@
     },
     {
         "icons": [
+            "p"
+        ],
+        "name": "Jonathan Neufeld",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Jonathan T",
+        "website": null
+    },
+    {
+        "icons": [
             "b"
         ],
         "name": "Jonathan Thomas",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Jon Holloway",
         "website": null
     },
     {
@@ -2454,6 +2540,13 @@
         "icons": [
             "p"
         ],
+        "name": "Olaf Brecht",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Olivier Lauprêtre",
         "website": null
     },
@@ -2534,6 +2627,13 @@
             "p"
         ],
         "name": "Perttiov",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Peter Bengtsson",
         "website": null
     },
     {
@@ -2701,6 +2801,20 @@
         "icons": [
             "p"
         ],
+        "name": "Rj Bos",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Robert Kenneryd",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Robert Klauco",
         "website": null
     },
@@ -2851,6 +2965,13 @@
         "icons": [
             "p"
         ],
+        "name": "Scott Thommpson",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Sebastian Schmitt",
         "website": null
     },
@@ -2866,6 +2987,13 @@
             "p"
         ],
         "name": "Shakeel Ahmed Shah",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Shy Zedaka",
         "website": null
     },
     {
@@ -2894,6 +3022,13 @@
             "p"
         ],
         "name": "Simon Newton",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Sine Botchen",
         "website": null
     },
     {
@@ -3212,6 +3347,13 @@
         "icons": [
             "p"
         ],
+        "name": "Ttarakanoff",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "T Tonino",
         "website": null
     },
@@ -3323,7 +3465,8 @@
     },
     {
         "icons": [
-            "p"
+            "p",
+            "s"
         ],
         "name": "Windsurfer",
         "website": null
@@ -3340,6 +3483,13 @@
             "p"
         ],
         "name": "Wirroj",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Wojciech",
         "website": null
     },
     {
@@ -5171,6 +5321,14 @@
     },
     {
         "icons": [
+            "n",
+            "s"
+        ],
+        "name": "Curtis Jemand",
+        "website": "http://www.patreon.com/user?u=631264"
+    },
+    {
+        "icons": [
             "k"
         ],
         "name": "Cyprien Devillez",
@@ -5956,6 +6114,13 @@
     },
     {
         "icons": [
+            "n"
+        ],
+        "name": "Eduardo Sanchez",
+        "website": "http://www.patreon.com/user?u=196616"
+    },
+    {
+        "icons": [
             "k"
         ],
         "name": "Edward Niestat",
@@ -6166,6 +6331,13 @@
     },
     {
         "icons": [
+            "n"
+        ],
+        "name": "Evert Guzman",
+        "website": "http://www.patreon.com/user?u=2585255"
+    },
+    {
+        "icons": [
             "k",
             "s"
         ],
@@ -6338,6 +6510,13 @@
         ],
         "name": "Frond",
         "website": null
+    },
+    {
+        "icons": [
+            "n"
+        ],
+        "name": "Gabriel",
+        "website": ""
     },
     {
         "icons": [
@@ -6796,6 +6975,13 @@
     },
     {
         "icons": [
+            "n"
+        ],
+        "name": "Inma De La Torre",
+        "website": "http://www.patreon.com/9999books"
+    },
+    {
+        "icons": [
             "k"
         ],
         "name": "Iris Und Sascha Brinkmann",
@@ -6978,6 +7164,14 @@
         ],
         "name": "Jared Kellenberger",
         "website": null
+    },
+    {
+        "icons": [
+            "n",
+            "s"
+        ],
+        "name": "Jarl Arntzen",
+        "website": "http://www.patreon.com/user?u=233897"
     },
     {
         "icons": [
@@ -7516,18 +7710,18 @@
     },
     {
         "icons": [
+            "k"
+        ],
+        "name": "John Jackson",
+        "website": null
+    },
+    {
+        "icons": [
             "k",
             "s"
         ],
         "name": "John Jackson",
         "website": "http://elearninguk.net"
-    },
-    {
-        "icons": [
-            "k"
-        ],
-        "name": "John Jackson",
-        "website": null
     },
     {
         "icons": [
@@ -7771,6 +7965,14 @@
         ],
         "name": "Joshua Turner",
         "website": null
+    },
+    {
+        "icons": [
+            "n",
+            "s"
+        ],
+        "name": "Jo Weiser",
+        "website": "http://www.patreon.com/joweiser"
     },
     {
         "icons": [
@@ -8326,6 +8528,13 @@
         ],
         "name": "Lion Studio",
         "website": "http://lionstudio.us"
+    },
+    {
+        "icons": [
+            "n"
+        ],
+        "name": "Loclhst",
+        "website": "http://www.patreon.com/loclhst"
     },
     {
         "icons": [

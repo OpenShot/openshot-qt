@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-22 02:02+0000\n"
-"PO-Revision-Date: 2016-12-16 14:24+0000\n"
+"PO-Revision-Date: 2017-03-28 13:59+0000\n"
 "Last-Translator: shost <shost@seznam.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2017-03-27 04:42+0000\n"
-"X-Generator: Launchpad (build 18334)\n"
+"X-Launchpad-Export-Date: 2017-03-30 20:52+0000\n"
+"X-Generator: Launchpad (build 18335)\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:605
 #, python-format
@@ -34,13 +34,13 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:908
 #, python-format
 msgid "Missing File (%s)"
-msgstr ""
+msgstr "Chybí soubor (%s)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:908
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:926
 #, python-format
 msgid "%s cannot be found."
-msgstr ""
+msgstr "%s nelze nalézt."
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:909
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:927

@@ -2,13 +2,13 @@
 <!DOCTYPE TS>
 <TS version="2.1">
     <extra-po-header-language_team>Polish &lt;pl@li.org&gt;</extra-po-header-language_team>
-    <extra-po-header-last_translator>pp/bs &lt;Unknown&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2017-03-24 01:35+0000</extra-po-header-po_revision_date>
+    <extra-po-header-last_translator>Jonathan Thomas &lt;jonathan@openshot.org&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2017-03-29 09:58+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2017-03-22 02:02+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 18334)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2017-03-27 04:41+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 18335)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2017-03-30 20:53+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Polish translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.

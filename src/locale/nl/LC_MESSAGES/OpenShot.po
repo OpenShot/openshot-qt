@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-22 02:02+0000\n"
-"PO-Revision-Date: 2017-03-23 21:27+0000\n"
-"Last-Translator: Sven Depoorter <Unknown>\n"
+"PO-Revision-Date: 2017-03-27 19:46+0000\n"
+"Last-Translator: Johny Provoost <johny.provoost@skynet.be>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2017-03-27 04:42+0000\n"
-"X-Generator: Launchpad (build 18334)\n"
+"X-Launchpad-Export-Date: 2017-03-30 20:52+0000\n"
+"X-Generator: Launchpad (build 18335)\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:605
 #, python-format
@@ -32,13 +32,13 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:908
 #, python-format
 msgid "Missing File (%s)"
-msgstr ""
+msgstr "Ontbrekend Bestand (%s)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:908
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:926
 #, python-format
 msgid "%s cannot be found."
-msgstr "%s kan niet worden gevonden."
+msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:909
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:927
@@ -63,7 +63,7 @@ msgstr "Spoor %s"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:500
 #: libopenshot (Clip Properties)
 msgid "None"
-msgstr "geen"
+msgstr "Niets"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:483
 msgid "Fade In"
@@ -71,7 +71,7 @@ msgstr "Infaden"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:484
 msgid "Fade Out"
-msgstr "Uitfaden"
+msgstr "Vervagen"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:485
 msgid "Fade In & Out"
@@ -118,7 +118,7 @@ msgstr "Uw meest recente opgeslagen project is hersteld"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:282
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:496
 msgid "Save changes to project first?"
-msgstr ""
+msgstr "Eerst wijzigingen in project opslaan?"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:406
 msgid "Error Saving Project"
@@ -164,11 +164,11 @@ msgstr "Importeer Bestand"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1397
 msgid "Error Removing Track"
-msgstr ""
+msgstr "Fout bij verwijderen spoor"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1397
 msgid "You must keep at least 1 track"
-msgstr ""
+msgstr "U moet ten minste 1 spoor houden"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1462
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1239
@@ -217,7 +217,7 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:230
 #, python-format
 msgid "Line %s:"
-msgstr ""
+msgstr "Lijn %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:244
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:245
@@ -379,6 +379,7 @@ msgstr ""
 "  Harald Prasse https://launchpad.net/~harald-prasse\n"
 "  Heureka https://launchpad.net/~jan-de-ridder\n"
 "  Jef Damen https://launchpad.net/~jef-damen\n"
+"  Johny Provoost https://launchpad.net/~jepe\n"
 "  Jonathan Thomas https://launchpad.net/~jonoomph\n"
 "  Joop Mevissen https://launchpad.net/~jm\n"
 "  Paulus Cocu https://launchpad.net/~paulus-e\n"
@@ -407,7 +408,7 @@ msgstr "Wilt u %s importeren als een afbeeldingsreeks?"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:141
 msgid "Yes, I would like to improve OpenShot!"
-msgstr ""
+msgstr "Ja, ik wil OpenShot verbeteren!"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:156
 msgid "Hide Tutorial"

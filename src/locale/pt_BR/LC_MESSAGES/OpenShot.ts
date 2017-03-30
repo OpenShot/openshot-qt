@@ -3,12 +3,12 @@
 <TS version="2.1" language="br_FR">
     <extra-po-header-language_team>Brazilian Portuguese &lt;pt_BR@li.org&gt;</extra-po-header-language_team>
     <extra-po-header-last_translator>Paulo Guzmán &lt;white.hat@msn.com&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2017-03-25 12:25+0000</extra-po-header-po_revision_date>
+    <extra-po-header-po_revision_date>2017-03-28 03:01+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2017-03-22 02:02+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 18334)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2017-03-27 04:41+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 18335)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2017-03-30 20:54+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Brazilian Portuguese translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -25,14 +25,14 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="605"/>
         <source>Failed to load project file %(path)s: %(error)s</source>
-        <translation>Failhou ao carregar o arquivo de projeto %(path)s: %(error)s</translation>
+        <translation>Falhou ao carregar o arquivo de projeto %(path)s: %(error)s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="612"/>
         <source>Failed to load the following files:
 %s</source>
-        <translation>Falha ao carregar os seguintes arquivos:
+        <translation>Falhou ao carregar os seguintes arquivos:
 %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
@@ -75,7 +75,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="488"/>
         <location filename="../../../../openshot-qt-git/src/windows/add_to_timeline.py" line="500"/>
         <source>None</source>
-        <translation>Nenhuma</translation>
+        <translation>Nenhum</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -105,7 +105,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="819"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="822"/>
         <source>Zoom In</source>
-        <translation>Aumentar zoom</translation>
+        <translation>Mais Zoom</translation>
         <extra-po-references>Settings for actionTimelineZoomIn</extra-po-references>
     </message>
     <message>
@@ -113,7 +113,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="834"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="837"/>
         <source>Zoom Out</source>
-        <translation>Diminuir zoom</translation>
+        <translation>Menos Zoom</translation>
         <extra-po-references>Settings for actionTimelineZoomOut</extra-po-references>
     </message>
     <message>
@@ -126,12 +126,12 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="100"/>
         <source>Save changes to project before closing?</source>
-        <translation>Salvar alterações no Projeto antes de Fechar?</translation>
+        <translation>Salvar alterações no projeto antes de fechar?</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="155"/>
         <source>Backup Recovered</source>
-        <translation>Cópia de segurança restaurada</translation>
+        <translation>Cópia de segurança Restaurada</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="156"/>
@@ -174,7 +174,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1707"/>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="137"/>
         <source>Untitled Project</source>
-        <translation>Projeto sem título</translation>
+        <translation>Projeto sem Título</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="518"/>
@@ -240,7 +240,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1982"/>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="1983"/>
         <source>New Version Available: %s</source>
-        <translation>Nova versão disponível: %s</translation>
+        <translation>Nova Versão Disponível: %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -248,7 +248,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="56"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="43"/>
         <source>File Name:</source>
-        <translation>Nome do arquivo:</translation>
+        <translation>Nome do Arquivo:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="216"/>
@@ -283,7 +283,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="256"/>
         <source>Text Color</source>
-        <translation>Cor do texto</translation>
+        <translation>Cor do Texto</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="262"/>
@@ -294,7 +294,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="265"/>
         <source>Background Color</source>
-        <translation>Cor de Fundo</translation>
+        <translation>Cor do Plano de fundo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="271"/>
@@ -311,12 +311,12 @@
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="309"/>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="328"/>
         <source>Select a Color</source>
-        <translation>Selecione uma cor</translation>
+        <translation>Selecione uma Cor</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="584"/>
         <source>Title Editor</source>
-        <translation>Editor de título</translation>
+        <translation>Editor de Título</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="584"/>
@@ -324,7 +324,7 @@
         <source>%s already exists.
 Do you want to replace it?</source>
         <translation>%s Já existe.
-Você gostaria de troca-lo?</translation>
+Você quer substituí-lo?</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -339,7 +339,7 @@ Você gostaria de troca-lo?</translation>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="665"/>
         <source>Please install {} to use this function</source>
-        <translation>Favor instalar {} para usar esta funcionalidade</translation>
+        <translation>Por favor, instale {} para usar esta função</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="211"/>
@@ -349,12 +349,12 @@ Você gostaria de troca-lo?</translation>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="344"/>
         <source>Restart Required</source>
-        <translation>Reinicialização necessária</translation>
+        <translation>Reinicialização Necessária</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/preferences.py" line="345"/>
         <source>Please restart OpenShot for all preferences to take effect.</source>
-        <translation>Por favor reinicie o Openshot para todas as preferências ter efeito.</translation>
+        <translation>Por favor, reinicie o OpenShot para que todas as preferências entrem em vigor.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/file_properties.py" line="77"/>
@@ -372,7 +372,7 @@ Você gostaria de troca-lo?</translation>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/file_properties.py" line="147"/>
         <source>Unknown</source>
-        <translation>Desconhecido(a)</translation>
+        <translation>Desconhecido</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/file_properties.py" line="148"/>
@@ -428,7 +428,7 @@ Você gostaria de troca-lo?</translation>
         <location filename="../../../../openshot-qt-git/src/windows/cutting.py" line="236"/>
         <location filename="../../../../openshot-qt-git/src/windows/cutting.py" line="270"/>
         <source>Please choose valid &apos;start&apos; and &apos;end&apos; values for your clip.</source>
-        <translation>Por favor escolha um valor válido de &apos;início&apos; e  &apos;fim&apos; para seu clipe.</translation>
+        <translation>Por favor, escolha um valor válido de &apos;início&apos; e  &apos;fim&apos; para seu clipe.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/animated_title.py" line="85"/>
@@ -534,7 +534,7 @@ Você gostaria de troca-lo?</translation>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="334"/>
         <source>&lt;b&gt;Project Files:&lt;/b&gt; Get started with your project by adding video, audio, and image files here. Drag and drop files from your file system.</source>
-        <translation>&lt;b&gt;Arquivos do projeto:&lt;/b&gt; Comece seu projeto adicionando arquivo de vídeo, áudio e imagens aqui. Arraste e solte arquivos vindos do seu sistema de arquivos.</translation>
+        <translation>&lt;b&gt;Arquivos do Projeto:&lt;/b&gt; Comece seu projeto adicionando arquivos de vídeo, áudio e imagem aqui. Arraste e solte arquivos de seu sistema de arquivos.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="335"/>
@@ -544,12 +544,12 @@ Você gostaria de troca-lo?</translation>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="336"/>
         <source>&lt;b&gt;Video Preview:&lt;/b&gt; Watch your timeline video preview here. Use the buttons (play, rewind, fast-forward) to control the video playback.</source>
-        <translation>&lt;b&gt;Pré-visualização do vídeo:&lt;/b&gt; Assista a pré-visualização da sua linha do tempo aqui. Use os botões (tocar, voltar e avançar) para controlar a reprodução do vídeo.</translation>
+        <translation>&lt;B&gt;Pré-visualização do Vídeo: &lt;/ b&gt; Assista a pré-visualização do vídeo da linha do tempo aqui. Use os botões (reproduzir, retroceder e avanço rápido) para controlar a reprodução do vídeo.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="337"/>
         <source>&lt;b&gt;Properties:&lt;/b&gt; View and change advanced properties of clips and effects here. Right-clicking on clips is usually faster than manually changing properties.</source>
-        <translation>&lt;b&gt;Propriedades:&lt;/b&gt; Visualize e altere propriedades avançadas de clipes e efeitos aqui. Clicar com o botão direito é, geralmente, mais rápido que alterar manualmente.</translation>
+        <translation>&lt;b&gt;Propriedades:&lt;/b&gt; Visualize e altere propriedades avançadas de clipes e efeitos aqui. Clicar com o botão direito nos clipes é geralmente mais rápido do que alterar manualmente as propriedades.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="338"/>
@@ -559,12 +559,12 @@ Você gostaria de troca-lo?</translation>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="339"/>
         <source>&lt;b&gt;Effects:&lt;/b&gt; Adjust brigthness, contrast, saturation, and add exciting special effects. Drag and drop an effect onto the timeline and position it on top of a clip (or track)</source>
-        <translation>&lt;b&gt;Efeitos&lt;\b&gt; Ajusta o brilho, contraste, saturação e adiciona efeitos visuais excitantes. Arraste e solte um efeito sobre a linha do tempo e posicione-o no topo de um clipe (ou linha)</translation>
+        <translation>&lt;B&gt;Efeitos:&lt;/b&gt; Ajusta brilho, contraste, saturação e adiciona efeitos especiais excitantes. Arraste e solte um efeito na linha do tempo e posicione-o sobre um clipe (ou faixa).</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="340"/>
         <source>&lt;b&gt;Export Video:&lt;/b&gt; When you are ready to create your finished video, click this button to export your timeline as a single video file.</source>
-        <translation>&lt;b&gt;Exportar vídeo:&lt;\b&gt; Quando você estiver pronto para criar o seu vídeo final, clique sobre este botão para exportar a sua linha do tempo como um único arquivo de vídeo.</translation>
+        <translation>&lt;b&gt;Exportar Vídeo:&lt;\b&gt; Quando você estiver pronto para criar o seu vídeo final, clique neste botão para exportar sua linha do tempo como um único arquivo de vídeo.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="414"/>
@@ -670,7 +670,7 @@ Você gostaria de troca-lo?</translation>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="507"/>
         <source>Alpha</source>
-        <translation>alfa</translation>
+        <translation>Alpha</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
@@ -740,7 +740,7 @@ Você gostaria de troca-lo?</translation>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="551"/>
         <source>No Fade</source>
-        <translation>sem desbotar</translation>
+        <translation>Sem Desvanecer</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="558"/>
@@ -758,25 +758,25 @@ Você gostaria de troca-lo?</translation>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="564"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="729"/>
         <source>Fade Out (Fast)</source>
-        <translation>Desaparecer (Rápido)</translation>
+        <translation>Desvanecer (Rápido)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="566"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="731"/>
         <source>Fade Out (Slow)</source>
-        <translation>Desaparecer (Lento)</translation>
+        <translation>Desvanecer (Lento)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="570"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="735"/>
         <source>Fade In and Out (Fast)</source>
-        <translation>Surgir e Desaparecer (Rápido)</translation>
+        <translation>Surgir e Desvanecer (Rápido)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="572"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="737"/>
         <source>Fade In and Out (Slow)</source>
-        <translation>Surgir e Desaparecer (Lento)</translation>
+        <translation>Surgir e Desvanecer (Lento)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="575"/>
@@ -788,7 +788,7 @@ Você gostaria de troca-lo?</translation>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="577"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="742"/>
         <source>Fade Out (Entire Clip)</source>
-        <translation>Desaparecer (Clipe Inteiro)</translation>
+        <translation>Desvanecer (Clipe Inteiro)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="585"/>
@@ -798,7 +798,7 @@ Você gostaria de troca-lo?</translation>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="586"/>
         <source>No Animation</source>
-        <translation>Sem animação</translation>
+        <translation>Sem Animação</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="593"/>
@@ -869,7 +869,7 @@ Você gostaria de troca-lo?</translation>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="622"/>
         <source>Top to Center</source>
-        <translation>Topo para o Centro</translation>
+        <translation>De Cima para Centro</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="624"/>
@@ -914,12 +914,12 @@ Você gostaria de troca-lo?</translation>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="656"/>
         <source>Rotate</source>
-        <translation>Girar</translation>
+        <translation>Rotacionar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="657"/>
         <source>No Rotation</source>
-        <translation>Sem rotação</translation>
+        <translation>Sem Rotação</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="660"/>
@@ -939,37 +939,37 @@ Você gostaria de troca-lo?</translation>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="669"/>
         <source>Layout</source>
-        <translation>Traçado</translation>
+        <translation>Aparência</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="670"/>
         <source>Reset Layout</source>
-        <translation>Resertar Traçado</translation>
+        <translation>Restabelecer Aparência</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="673"/>
         <source>1/4 Size - Center</source>
-        <translation>1/4 Size - Center</translation>
+        <translation>1/4 Tamanho - Centro</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="675"/>
         <source>1/4 Size - Top Left</source>
-        <translation>1/4 Tamanho - Superior esquerdo</translation>
+        <translation>1/4 Tamanho - Superior Esquerdo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="677"/>
         <source>1/4 Size - Top Right</source>
-        <translation>1/4 Tamanho - Superior direito</translation>
+        <translation>1/4 Tamanho - Superior Direito</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="679"/>
         <source>1/4 Size - Bottom Left</source>
-        <translation>1/4 Tamanho - Inferior esquerdo</translation>
+        <translation>1/4 Tamanho - Inferior Esquerdo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="681"/>
         <source>1/4 Size - Bottom Right</source>
-        <translation>1/4 Tamanho - Inferior direito</translation>
+        <translation>1/4 Tamanho - Inferior Direito</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="684"/>
@@ -1049,7 +1049,7 @@ Você gostaria de troca-lo?</translation>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="774"/>
         <source>Separate Audio</source>
-        <translation>Separar Audio</translation>
+        <translation>Separar Áudio</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="775"/>
@@ -1080,7 +1080,7 @@ Você gostaria de troca-lo?</translation>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="810"/>
         <source>Show Thumbnail</source>
-        <translation>Mostrar miniatura</translation>
+        <translation>Mostrar Miniatura</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2023"/>
@@ -1153,97 +1153,97 @@ Você gostaria de troca-lo?</translation>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="344"/>
         <source>Ease In (Expo)</source>
-        <translation>Entrada (Exposição)</translation>
+        <translation>Facilitar Entrada (Exposição)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="345"/>
         <source>Ease In (Circ)</source>
-        <translation>Entrada (Circular)</translation>
+        <translation>Facilitar Entrada (Circular)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="346"/>
         <source>Ease In (Back)</source>
-        <translation>Entrada (Costas)</translation>
+        <translation>Facilitar Entrada (Costas)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="348"/>
         <source>Ease Out (Quad)</source>
-        <translation>Entrada (Quadrilateral)</translation>
+        <translation>Facilitar Entrada (Quadrilateral)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="349"/>
         <source>Ease Out (Cubic)</source>
-        <translation>Saída (Cúbica)</translation>
+        <translation>Facilitar Saída (Cúbica)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="350"/>
         <source>Ease Out (Quart)</source>
-        <translation>Saída (Um Quarto)</translation>
+        <translation>Facilitar Saída (Um Quarto)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="351"/>
         <source>Ease Out (Quint)</source>
-        <translation>Saída (Um Quinto)</translation>
+        <translation>Facilitar Saída (Um Quinto)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="352"/>
         <source>Ease Out (Sine)</source>
-        <translation>Saída (Seno)</translation>
+        <translation>Facilitar Saída (Seno)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="353"/>
         <source>Ease Out (Expo)</source>
-        <translation>Saída (Exposição)</translation>
+        <translation>Facilitar Saída (Exposição)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="354"/>
         <source>Ease Out (Circ)</source>
-        <translation>Saída (Circular)</translation>
+        <translation>Facilitar Saída (Circular)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="355"/>
         <source>Ease Out (Back)</source>
-        <translation>Saída (Costas)</translation>
+        <translation>Facilitar Saída (Costas)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="357"/>
         <source>Ease In/Out (Quad)</source>
-        <translation>Entrada/Saída (Quadrilateral)</translation>
+        <translation>Facilitar Entrada/Saída (Quadrilateral)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="358"/>
         <source>Ease In/Out (Cubic)</source>
-        <translation>Entrada/Saída (Cúbica)</translation>
+        <translation>Facilitar Entrada/Saída (Cúbica)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="359"/>
         <source>Ease In/Out (Quart)</source>
-        <translation>Entrada/Saída (Um Quarto)</translation>
+        <translation>Facilitar Entrada/Saída (Um Quarto)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="360"/>
         <source>Ease In/Out (Quint)</source>
-        <translation>Entrada/Saída (Um Quinto)</translation>
+        <translation>Facilitar Entrada/Saída (Um Quinto)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="361"/>
         <source>Ease In/Out (Sine)</source>
-        <translation>Entrada/Saída (Seno)</translation>
+        <translation>Facilitar Entrada/Saída (Seno)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="362"/>
         <source>Ease In/Out (Expo)</source>
-        <translation>Entrada/Saída (Exposição)</translation>
+        <translation>Facilitar Entrada/Saída (Exposição)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="363"/>
         <source>Ease In/Out (Circ)</source>
-        <translation>Entrada/Saída (Circular)</translation>
+        <translation>Facilitar Entrada/Saída (Circular)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="364"/>
         <source>Ease In/Out (Back)</source>
-        <translation>Entrada/Saída (Costas)</translation>
+        <translation>Facilitar Entrada/Saída (Costas)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="375"/>
@@ -1360,27 +1360,27 @@ Caminho do Blander:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="69"/>
         <source>Website</source>
-        <translation>Página web</translation>
+        <translation>sítio eletrônico</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="102"/>
         <source>PayPal Supporter!</source>
-        <translation>Patrocinador PayPal!</translation>
+        <translation>Contribuir via PayPal!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="105"/>
         <source>Kickstarter Supporter!</source>
-        <translation>Patrocinador Kickstarter!</translation>
+        <translation>Contribuir via Kickstarter!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="108"/>
         <source>Bitcoin Supporter!</source>
-        <translation>Contribuir com Bitcoin!</translation>
+        <translation>Contribuir via Bitcoin!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="111"/>
         <source>Patreon Supporter!</source>
-        <translation>Doe via Patreon!</translation>
+        <translation>Contribuir via Patreon!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="119"/>
@@ -1448,7 +1448,7 @@ Caminho do Blander:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/export.py" line="226"/>
         <source>All Formats</source>
-        <translation>Todos os formatos</translation>
+        <translation>Todos os Formatos</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml</extra-po-references>
     </message>
     <message>
@@ -1543,12 +1543,12 @@ Caminho do Blander:
     </message>
     <message>
         <source>Space Movie Intro</source>
-        <translation>Introdução Filme do Espaço</translation>
+        <translation>Espaço na Introdução do Filme</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml</extra-po-references>
     </message>
     <message>
         <source>Depart Longitude (seconds)</source>
-        <translation>Latitude de partida (segundos)</translation>
+        <translation>Longitude de partida (segundos)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
@@ -1583,7 +1583,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Depart Latitude (degrees)</source>
-        <translation>Latitude de partida (graus)</translation>
+        <translation>Latitude de Partida (graus)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
@@ -1603,7 +1603,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Title 2</source>
-        <translation>Titulo 2</translation>
+        <translation>Título 2</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
@@ -1613,12 +1613,12 @@ Caminho do Blander:
     </message>
     <message>
         <source>Top Center</source>
-        <translation>Centro Superior</translation>
+        <translation>Topo Centro</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Arrival Longitude (seconds)</source>
-        <translation>Longitude de chegada (segundos)</translation>
+        <translation>Longitude de Cchegada (segundos)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
@@ -1633,12 +1633,12 @@ Caminho do Blander:
     </message>
     <message>
         <source>Channel Mapping</source>
-        <translation>Mapeamento de canal</translation>
+        <translation>Mapeamento de Canais</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
         <source>Number of Snow Flakes</source>
-        <translation>Número de flocos de neve</translation>
+        <translation>Número de Flocos de Neve</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
@@ -1658,7 +1658,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Picture 3 Path</source>
-        <translation>Trajeto da imagem 3</translation>
+        <translation>Caminho da Imagem 3</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
     </message>
     <message>
@@ -1673,7 +1673,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Halo: Use Flare</source>
-        <translation>Auréola: Uso Alargamento</translation>
+        <translation>Auréola: Usar Alargamento</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
@@ -1688,7 +1688,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Arrival Latitude (degrees)</source>
-        <translation>Latitude de chegada (graus)</translation>
+        <translation>Latitude de Chegada (graus)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
@@ -1703,17 +1703,17 @@ Caminho do Blander:
     </message>
     <message>
         <source>Color Tiles</source>
-        <translation>Paleta de cor</translation>
+        <translation>Paletas de Cores</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
         <source>Depart Latitude (minutes)</source>
-        <translation>Latitude de partida (minutos)</translation>
+        <translation>Latitude de Partida (minutos)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Picture Frames (4 pictures)</source>
-        <translation>Quadro de Imagem(4 imagens)</translation>
+        <translation>Quadro de Imagem (4 imagens)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
     </message>
     <message>
@@ -1753,7 +1753,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Track</source>
-        <translation>Trilha</translation>
+        <translation>Faixa</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1773,12 +1773,12 @@ Caminho do Blander:
     </message>
     <message>
         <source>World Map (Realistic)</source>
-        <translation>Mapa mundi (Realístico)</translation>
+        <translation>Mapa-Múndi (Realístico)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml</extra-po-references>
     </message>
     <message>
         <source>Sun: Number of Streaks</source>
-        <translation>Sol: número de faixas</translation>
+        <translation>Sol: Número de Raios</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
@@ -1788,7 +1788,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Tile 1: Diffuse Color</source>
-        <translation>Telha 1: Cor difusa</translation>
+        <translation>Paleta 1: Cor Difusa</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
@@ -1798,17 +1798,17 @@ Caminho do Blander:
     </message>
     <message>
         <source>Glass Slider</source>
-        <translation>Vidro deslizante</translation>
+        <translation>Vidro Deslizante</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
     </message>
     <message>
         <source>Picture 2 Path</source>
-        <translation>Trajeto da imagem 2</translation>
+        <translation>Caminho da Imagem 2</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
     </message>
     <message>
         <source>Is Odd Frame</source>
-        <translation>È estranho quadro</translation>
+        <translation>Quadro Avulso</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1818,7 +1818,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Halo: Use Rings</source>
-        <translation>Auréola: Usar anéis</translation>
+        <translation>Auréola: Usar Anéis</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
@@ -1828,12 +1828,12 @@ Caminho do Blander:
     </message>
     <message>
         <source>Wireframe Text</source>
-        <translation>Texto em aramado</translation>
+        <translation>Texto Aramado</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/wireframe_text.xml</extra-po-references>
     </message>
     <message>
         <source>Specular Color</source>
-        <translation>Cor especular</translation>
+        <translation>Cor Especular</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
@@ -1853,17 +1853,17 @@ Caminho do Blander:
     </message>
     <message>
         <source>Halo: Use Lines</source>
-        <translation>Auréola: Usar linhas</translation>
+        <translation>Auréola: Usar Linhas</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
         <source>Lens Flare</source>
-        <translation>Clarão de lente</translation>
+        <translation>Clarão de Lente</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
         <source>Halo: Ring Count</source>
-        <translation>Auréola: Contagem de anéis</translation>
+        <translation>Auréola: Contagem de Anéis</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
@@ -1898,7 +1898,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Channel Filter</source>
-        <translation>Filtro de canal</translation>
+        <translation>Filtro de Canal</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1913,7 +1913,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Adjust the color saturation.</source>
-        <translation>Ajusta a saturação das cores.</translation>
+        <translation>Ajustar a saturação da cor.</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -1923,7 +1923,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Sun: Angle Offset</source>
-        <translation>Sol: ângulo de deslocamento</translation>
+        <translation>Sol: Ângulo de Deslocamento</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
@@ -1933,12 +1933,12 @@ Caminho do Blander:
     </message>
     <message>
         <source>Font Name</source>
-        <translation>Nome da fonte</translation>
+        <translation>Nome da Fonte</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
         <source>Arrival Longitude (Prime Meridian)</source>
-        <translation>Longitude de Chegada ()Meridiano Primordial)</translation>
+        <translation>Longitude de Chegada (Meridiano Primordial)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
@@ -1953,27 +1953,27 @@ Caminho do Blander:
     </message>
     <message>
         <source>Halo Zoom Out</source>
-        <translation>Auréola Zoom para fora</translation>
+        <translation>Auréola: Menos Zoom</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/halo_zoom_out.xml</extra-po-references>
     </message>
     <message>
         <source>Custom Texture (Equirectangular)</source>
-        <translation>Textura personalizada (Equiretangular)</translation>
+        <translation>Textura Personalizada (Equirectangular)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Rotate 360 Degrees</source>
-        <translation>Girar 360 graus</translation>
+        <translation>Girar 360 Graus</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/rotate_360.xml</extra-po-references>
     </message>
     <message>
         <source>Background: Shadeless</source>
-        <translation>Plano de fundo: Pouca sombra</translation>
+        <translation>Plano de fundo: Sombreado</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
         <source>Scale Y</source>
-        <translation>Escala em Y</translation>
+        <translation>Escala Y</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -1983,12 +1983,12 @@ Caminho do Blander:
     </message>
     <message>
         <source>Arrival Title</source>
-        <translation>Título da chegada</translation>
+        <translation>Título da Chegada</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Wave Color</source>
-        <translation>Cor onda</translation>
+        <translation>Cor da Onda</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2009,12 +2009,12 @@ Caminho do Blander:
     </message>
     <message>
         <source>File Name</source>
-        <translation>Nome do arquivo</translation>
+        <translation>Nome do Arquivo</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
         <source>Timeline</source>
-        <translation>Linha do tempo</translation>
+        <translation>Linha do Tempo</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2024,7 +2024,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Zoom to Clapboard</source>
-        <translation>Zoom para claquete</translation>
+        <translation>Zoom para Claquete</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml</extra-po-references>
     </message>
     <message>
@@ -2034,7 +2034,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Text Width</source>
-        <translation>Largura do texto</translation>
+        <translation>Largura do Texto</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
@@ -2045,12 +2045,12 @@ Caminho do Blander:
     </message>
     <message>
         <source>Picture 1 Path</source>
-        <translation>Trajeto da imagem 1</translation>
+        <translation>Caminho da Imagem 1</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
     </message>
     <message>
         <source>Arrival Longitude (minutes)</source>
-        <translation>Latitude de chegada (minutos)</translation>
+        <translation>Latitude de Chegada (minutos)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
@@ -2060,12 +2060,12 @@ Caminho do Blander:
     </message>
     <message>
         <source>Depart Longitude (minutes)</source>
-        <translation>Longitude de partida (minutos)</translation>
+        <translation>Longitude de Partida (minutos)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Fly Towards Camera (Two Titles)</source>
-        <translation>Voar para câmera (Dois títulos)</translation>
+        <translation>Voar para câmera (Dois Títulos)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/fly_by_two_titles.xml</extra-po-references>
     </message>
     <message>
@@ -2080,7 +2080,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Picture 4 Path</source>
-        <translation>Trajeto da imagem 4</translation>
+        <translation>Caminho da Imagem 4</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml</extra-po-references>
     </message>
     <message>
@@ -2105,17 +2105,17 @@ Caminho do Blander:
     </message>
     <message>
         <source>Background: Diffuse Color</source>
-        <translation>Plano de fundo: Cor difusa</translation>
+        <translation>Plano de fundo: Cor Difusa</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml</extra-po-references>
     </message>
     <message>
         <source>Depart Longitude (degrees)</source>
-        <translation>Longitude de partida (graus)</translation>
+        <translation>Longitude de Partida (graus)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Arrival Latitude (seconds)</source>
-        <translation>Latitude de chegada (segundos)</translation>
+        <translation>Latitude de Chegada (segundos)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
@@ -2130,12 +2130,12 @@ Caminho do Blander:
     </message>
     <message>
         <source>Sun: Type of Glare</source>
-        <translation>Sol: Tipo de brilho intenso</translation>
+        <translation>Sol: Tipo de Brilho intenso</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
         <source>Background: Specular Color</source>
-        <translation>Fundo: Especificar cor</translation>
+        <translation>Fundo: Especificar Cor</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
@@ -2180,7 +2180,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Text Size</source>
-        <translation>Tamanho do texto</translation>
+        <translation>Tamanho do Texto</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml</extra-po-references>
     </message>
     <message>
@@ -2190,22 +2190,22 @@ Caminho do Blander:
     </message>
     <message>
         <source>Depart Longitude (Prime Meridian)</source>
-        <translation>Longitude de partida: (Meridiano Primordial)</translation>
+        <translation>Longitude de Partida: (Meridiano Primordial)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Arrival Latitude (Equator)</source>
-        <translation>Latitude de chegada (Equador)</translation>
+        <translation>Latitude de Chegada (Equador)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
         <source>Specular Intensity</source>
-        <translation>Intensidade especular</translation>
+        <translation>Intensidade Especular</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/snow.xml</extra-po-references>
     </message>
     <message>
         <source>Negates the colors, producing a negative of the image.</source>
-        <translation>Nega a cores, produzindo um negativo da imagem.</translation>
+        <translation>Negar as cores, produzindo um negativo da imagem.</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -2225,12 +2225,12 @@ Caminho do Blander:
     </message>
     <message>
         <source>Chroma Key (Greenscreen)</source>
-        <translation>Chave Croma (Tela Verde)</translation>
+        <translation>Chroma Key (Tela Verde)</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Arrival Latitude (minutes)</source>
-        <translation>Latitude de chegada (minutos)</translation>
+        <translation>Latitude de Chegada (minutos)</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/earth.xml</extra-po-references>
     </message>
     <message>
@@ -2240,7 +2240,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Canvas</source>
-        <translation>Lona</translation>
+        <translation>Tela</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2250,7 +2250,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Tile 2: Diffuse Color</source>
-        <translation>Telha 2: Cor difusa</translation>
+        <translation>Telha 2: Cor Difusa</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
@@ -2265,7 +2265,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Replaces the color (or chroma) of the frame with transparency (i.e. keys out the color).</source>
-        <translation>Substitui a cor (ou croma) do quadro com transparência (ou seja, as chaves para fora a cor).</translation>
+        <translation>Substitui a cor (ou chroma) do quadro com transparência (ou seja, quadro sem cor).</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
@@ -2315,7 +2315,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Slide Left to Right</source>
-        <translation>Deslizar da esquerda para direita</translation>
+        <translation>Deslizar da Esquerda para Direita</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/slide_left_to_right.xml</extra-po-references>
     </message>
     <message>
@@ -2333,7 +2333,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Vertical Radius</source>
-        <translation>Raio vertical</translation>
+        <translation>Raio Vertical</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2348,7 +2348,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Halo: Hardness</source>
-        <translation>Aréola:Dureza</translation>
+        <translation>Aréola: Dureza</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml</extra-po-references>
     </message>
     <message>
@@ -2373,12 +2373,12 @@ Caminho do Blander:
     </message>
     <message>
         <source>Remove interlacing from a video (i.e. even or odd horizontal lines)</source>
-        <translation>Remover entrelaçamento de um vídeo (ou seja, as linhas pares ou ímpares horizontais)</translation>
+        <translation>Remover entrelaçamento de um vídeo (ou seja, linhas horizontais pares ou ímpares)</translation>
         <extra-po-references>libopenshot (Effect Metadata)</extra-po-references>
     </message>
     <message>
         <source>Spots: Color Threshold</source>
-        <translation>Pontos: Limiar de Cores</translation>
+        <translation>Pontos: Limiar de Cor</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml</extra-po-references>
     </message>
     <message>
@@ -2413,19 +2413,19 @@ Caminho do Blander:
     </message>
     <message>
         <source>Tile 3: Diffuse Color</source>
-        <translation>Telha 3: Cor difusa</translation>
+        <translation>Telha 3: Cor Difusa</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/blender/colors.xml</extra-po-references>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1086"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1089"/>
         <source>Add to Timeline</source>
-        <translation>Adicionar à linha do tempo</translation>
+        <translation>Adicionar à Linha do tempo</translation>
         <extra-po-references>Settings for actionAdd_to_Timeline</extra-po-references>
     </message>
     <message>
         <source>Debug Mode (Verbose)</source>
-        <translation>Modo depuração (Verbose)</translation>
+        <translation>Modo Depuração (Verboso)</translation>
         <extra-po-references>Settings for debug-mode</extra-po-references>
     </message>
     <message>
@@ -2453,7 +2453,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Default Audio Channels</source>
-        <translation>Canais de áudios padrão</translation>
+        <translation>Canais de Áudio Padrão</translation>
         <extra-po-references>Settings for default-channellayout</extra-po-references>
     </message>
     <message>
@@ -2469,7 +2469,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Send Anonymous Metrics and Errors</source>
-        <translation>Enviar dados e erros anonimos</translation>
+        <translation>Enviar Anonimamente Métricas e Erros</translation>
         <extra-po-references>Settings for send_metrics</extra-po-references>
     </message>
     <message>
@@ -2496,7 +2496,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Wikipedia</source>
-        <translation>Wikipedia</translation>
+        <translation>Wikipédia</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/wikipedia.xml</extra-po-references>
     </message>
     <message>
@@ -2556,12 +2556,12 @@ Caminho do Blander:
     </message>
     <message>
         <source>AVCHD Disks</source>
-        <translation>AVCHD Disks</translation>
+        <translation>Discos AVCHD</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml</extra-po-references>
     </message>
     <message>
         <source>Next Frame</source>
-        <translation>Próximo quadro</translation>
+        <translation>Próximo Quadro</translation>
         <extra-po-references>Settings for seekNextFrame</extra-po-references>
     </message>
     <message>
@@ -2590,7 +2590,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Default Audio Sample Rate</source>
-        <translation>Padrão de áudio taxa de amostragem</translation>
+        <translation>Taxa de Amostragem de Áudio Padrão</translation>
         <extra-po-references>Settings for default-samplerate</extra-po-references>
     </message>
     <message>
@@ -2637,7 +2637,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Select All</source>
-        <translation>Selecionar tudo</translation>
+        <translation>Selecionar Tudo</translation>
         <extra-po-references>Settings for selectAll</extra-po-references>
     </message>
     <message>
@@ -2718,7 +2718,7 @@ Caminho do Blander:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="507"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="510"/>
         <source>Add Track</source>
-        <translation>Adicionar Trilha</translation>
+        <translation>Adicionar Faixa</translation>
         <extra-po-references>Settings for actionAddTrack</extra-po-references>
     </message>
     <message>
@@ -2776,7 +2776,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Debug Mode (Port)</source>
-        <translation>Modo de depuração (Porta)</translation>
+        <translation>Modo de Depuração (Porta)</translation>
         <extra-po-references>Settings for debug-port</extra-po-references>
     </message>
     <message>
@@ -2803,7 +2803,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Web</source>
-        <translation>Página Web</translation>
+        <translation>Web</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml</extra-po-references>
     </message>
     <message>
@@ -2835,12 +2835,12 @@ Caminho do Blander:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="660"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="663"/>
         <source>Previous Marker</source>
-        <translation>Marcador anterior</translation>
+        <translation>Marcador Anterior</translation>
         <extra-po-references>Settings for actionPreviousMarker</extra-po-references>
     </message>
     <message>
         <source>Slice All: Keep Both Sides</source>
-        <translation>Cortar Todos: Manter ambos os lados</translation>
+        <translation>Cortar Todos: Manter Ambos os Lados</translation>
         <extra-po-references>Settings for sliceAllKeepBothSides</extra-po-references>
     </message>
     <message>
@@ -2852,7 +2852,7 @@ Caminho do Blander:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="945"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="948"/>
         <source>Details View</source>
-        <translation>Visualização Detalhada</translation>
+        <translation>Ver Detalhes</translation>
         <extra-po-references>Settings for actionDetailsView</extra-po-references>
     </message>
     <message>
@@ -2918,12 +2918,12 @@ Caminho do Blander:
     </message>
     <message>
         <source>Autosave Interval (minutes)</source>
-        <translation>Intervalo de salvamento automático  (minutos)</translation>
+        <translation>Intervalo de Salvamento automático  (minutos)</translation>
         <extra-po-references>Settings for autosave-interval</extra-po-references>
     </message>
     <message>
         <source>Middle barr</source>
-        <translation>Barra Centralizada</translation>
+        <translation>Barra centralizada</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr.jpg</extra-po-references>
     </message>
     <message>
@@ -2933,12 +2933,12 @@ Caminho do Blander:
     </message>
     <message>
         <source>Wave left up</source>
-        <translation>Onda deixou-se</translation>
+        <translation>Onda esquerda acima</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_up.jpg</extra-po-references>
     </message>
     <message>
         <source>Blur right barr</source>
-        <translation>Barra Direita Borrada</translation>
+        <translation>Barra direita borrada</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_right_barr.jpg</extra-po-references>
     </message>
     <message>
@@ -3008,7 +3008,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Mosaic %s</source>
-        <translation>Mozaico %s</translation>
+        <translation>Mosaico %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mosaic_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3043,7 +3043,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Spiral small %s</source>
-        <translation>Espiral pequeno %s</translation>
+        <translation>Espiral pequena %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small_2.jpg</extra-po-references>
     </message>
     <message>
@@ -3053,7 +3053,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Little right inspiration</source>
-        <translation>Inspiração direita pouco</translation>
+        <translation>Pequena influência a direita</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_right_inspiration.jpg</extra-po-references>
     </message>
     <message>
@@ -3073,7 +3073,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Blur ray right</source>
-        <translation>Borrão de raio certo</translation>
+        <translation>Borrão de raio a direita</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_right.jpg</extra-po-references>
     </message>
     <message>
@@ -3140,7 +3140,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Blinds sliding</source>
-        <translation>persianas deslizantes</translation>
+        <translation>Persianas deslizantes</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_sliding.jpg</extra-po-references>
     </message>
     <message>
@@ -3195,12 +3195,12 @@ Caminho do Blander:
     </message>
     <message>
         <source>Little left inspiration</source>
-        <translation>Pouca inspiração esquerda</translation>
+        <translation>Pouca influência a esquerda</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_left_inspiration.jpg</extra-po-references>
     </message>
     <message>
         <source>Mozaic barr right</source>
-        <translation>Mosaico barr direito</translation>
+        <translation>Barra Mosaico a direita</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_right.jpg</extra-po-references>
     </message>
     <message>
@@ -3255,7 +3255,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Little rippling left</source>
-        <translation>Ondulação pequena a esquerda</translation>
+        <translation>Pequena ondulação a esquerda</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_left.jpg</extra-po-references>
     </message>
     <message>
@@ -3265,7 +3265,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Hatched %s</source>
-        <translation>Chocado %s</translation>
+        <translation>Hachurar %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/hatched_1.jpg</extra-po-references>
     </message>
     <message>
@@ -3280,7 +3280,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Small cross right barr</source>
-        <translation>Pequena barra de cruz à direita</translation>
+        <translation>Barra cruz pequena a direita</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_right_barr.jpg</extra-po-references>
     </message>
     <message>
@@ -3295,7 +3295,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Small barr</source>
-        <translation>Pequena barra</translation>
+        <translation>Barra pequena</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_barr.jpg</extra-po-references>
     </message>
     <message>
@@ -3310,12 +3310,12 @@ Caminho do Blander:
     </message>
     <message>
         <source>Square left barr</source>
-        <translation>Barra esquarda quadrada</translation>
+        <translation>Barra quadrada a esquerda</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_left_barr.jpg</extra-po-references>
     </message>
     <message>
         <source>Big cross right barr</source>
-        <translation>Barra direita forma de cruz grande</translation>
+        <translation>Barra cruz grande a direita</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_right_barr.jpg</extra-po-references>
     </message>
     <message>
@@ -3345,17 +3345,17 @@ Caminho do Blander:
     </message>
     <message>
         <source>Middle cross left barr</source>
-        <translation>Cruz média de barr esquerda</translation>
+        <translation>Barra cruz média a esquerda</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_left_barr.jpg</extra-po-references>
     </message>
     <message>
         <source>Free inspiration right</source>
-        <translation>Livre inspiração direita</translation>
+        <translation>Influência livre a direita</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_inspiration_right.jpg</extra-po-references>
     </message>
     <message>
         <source>Free left inspiration</source>
-        <translation>Livre inspiração esquerda</translation>
+        <translation>Influência livre a esquerda</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_left_inspiration.jpg</extra-po-references>
     </message>
     <message>
@@ -3365,7 +3365,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>4 squares right barr</source>
-        <translation>Barra de 4 quadrados à direita</translation>
+        <translation>Barra 4 quadrados à direita</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_right_barr.jpg</extra-po-references>
     </message>
     <message>
@@ -3380,7 +3380,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Square middle right barr</source>
-        <translation>Barra direita meio quadrado</translation>
+        <translation>Barra quadrado médio à direita</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_right_barr.jpg</extra-po-references>
     </message>
     <message>
@@ -3430,7 +3430,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Square middle left barr</source>
-        <translation>Barra esquerda meio quadrado</translation>
+        <translation>Barra quadrado médio à esquerda</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_left_barr.jpg</extra-po-references>
     </message>
     <message>
@@ -3455,17 +3455,17 @@ Caminho do Blander:
     </message>
     <message>
         <source>Small low arrow</source>
-        <translation>Pequeno baixo seta</translation>
+        <translation>Seta para baixo pequena</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_low_arrow.jpg</extra-po-references>
     </message>
     <message>
         <source>Spiral big</source>
-        <translation>Grande Espiral</translation>
+        <translation>Grande espiral</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big.jpg</extra-po-references>
     </message>
     <message>
         <source>Middle cross right barr</source>
-        <translation>Barra direita forma de cruz</translation>
+        <translation>Barra cruz média à direita</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_right_barr.jpg</extra-po-references>
     </message>
     <message>
@@ -3475,7 +3475,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Frame cross left barr</source>
-        <translation>Barra esquerda cruz quadro</translation>
+        <translation>Barra cruz quadro à esquerda</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_cross_left_barr.jpg</extra-po-references>
     </message>
     <message>
@@ -3490,7 +3490,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Mozaic barr left</source>
-        <translation>Mosaico barr esquerdo</translation>
+        <translation>Barra Mosaico à esquerda</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_left.jpg</extra-po-references>
     </message>
     <message>
@@ -3500,7 +3500,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Sun shaking</source>
-        <translation>Verão agitando</translation>
+        <translation>Sol tremido</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/sun_shaking.jpg</extra-po-references>
     </message>
     <message>
@@ -3515,7 +3515,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Frame barr right</source>
-        <translation>Barra quadrada direita</translation>
+        <translation>Barra quadrada à direita</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_right.jpg</extra-po-references>
     </message>
     <message>
@@ -3525,12 +3525,12 @@ Caminho do Blander:
     </message>
     <message>
         <source>Middle right inspiration</source>
-        <translation>Inspiração direito Médio</translation>
+        <translation>Influência média à direita</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_right_inspiration.jpg</extra-po-references>
     </message>
     <message>
         <source>Big barr shaking %s</source>
-        <translation>Grande barra de balanço %s</translation>
+        <translation>Barra grande tremida %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking_1.jpg</extra-po-references>
     </message>
     <message>
@@ -3555,7 +3555,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Middle black barr</source>
-        <translation>Middle black barr</translation>
+        <translation>Barra média preta</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_black_barr.jpg</extra-po-references>
     </message>
     <message>
@@ -3595,7 +3595,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Middle left inspiration</source>
-        <translation>Inspiração esquerda Oriente</translation>
+        <translation>Influência média à esquerda</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_left_inspiration.jpg</extra-po-references>
     </message>
     <message>
@@ -3620,7 +3620,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Spots</source>
-        <translation>Manchas</translation>
+        <translation>Pontos</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/spots.jpg</extra-po-references>
     </message>
     <message>
@@ -3630,7 +3630,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Big barr shaking2</source>
-        <translation>Barra grande</translation>
+        <translation>Barra grande tremida 2</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking2.jpg</extra-po-references>
     </message>
     <message>
@@ -3700,7 +3700,7 @@ Caminho do Blander:
     </message>
     <message>
         <source>Blur left barr</source>
-        <translation>Barra de borrão à esquerda</translation>
+        <translation>Barra borrão à esquerda</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_left_barr.jpg</extra-po-references>
     </message>
     <message>
@@ -3716,7 +3716,7 @@ Caminho do Blander:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/about.ui" line="67"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;hr/&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Create &amp;amp; Edit Amazing Videos and Movies&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;OpenShot Video Editor 2.x is the next generation of the award-winning &lt;br/&gt;OpenShot video editing platform. &lt;/span&gt;&lt;a href=&quot;http://www.openshot.org?r=about-us&quot;&gt;&lt;span style=&quot; font-size:10pt; text-decoration: none; color:#55aaff;&quot;&gt;Learn more&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;hr/&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Crie &amp;amp; Edite V&amp;iacuteç;deos e Filmes Incr&amp;iacute;veis&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;OpenShot Video Editor 2.x &amp;eacute; a nova gera&amp;ccedil;&amp;atilde;o da premiada &lt;br/&gt;plataforma de edi&amp;ccedil;&amp;atilde;o de v&amp;iacute;deo OpenShot. &lt;/span&gt;&lt;a href=&quot;http://www.openshot.org?r=about-us&quot;&gt;&lt;span style=&quot; font-size:10pt; text-decoration: none; color:#55aaff;&quot;&gt;Saiba mais&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;hr/&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Crie &amp;amp; Edite V&amp;iacute;deos e Filmes Incr&amp;iacute;veis&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;OpenShot Video Editor 2.x &amp;eacute; a nova gera&amp;ccedil;&amp;atilde;o da premiada &lt;br/&gt;plataforma de edi&amp;ccedil;&amp;atilde;o de v&amp;iacute;deo OpenShot. &lt;/span&gt;&lt;a href=&quot;http://www.openshot.org?r=about-us&quot;&gt;&lt;span style=&quot; font-size:10pt; text-decoration: none; color:#55aaff;&quot;&gt;Saiba mais&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/about.ui" line="100"/>
@@ -3740,7 +3740,7 @@ Caminho do Blander:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="14"/>
         <source>Add To Timeline</source>
-        <translation>Adicionar à linha do Tempo</translation>
+        <translation>Adicionar à Linha do Tempo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="37"/>
@@ -3775,7 +3775,7 @@ Caminho do Blander:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="179"/>
         <source>Track:</source>
-        <translation>Trilha:</translation>
+        <translation>Faixa:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/add-to-timeline.ui" line="209"/>
@@ -3934,7 +3934,7 @@ Caminho do Blander:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="91"/>
         <source>Filter Supporters</source>
-        <translation>Filtrar Colaboradores</translation>
+        <translation>Colaboradores de Filtros</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/credits.ui" line="106"/>
@@ -4053,7 +4053,7 @@ Caminho do Blander:
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="396"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="830"/>
         <source>End Frame:</source>
-        <translation>Quadro final</translation>
+        <translation>Quadro Final</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="429"/>
@@ -4082,17 +4082,17 @@ Caminho do Blander:
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="696"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="431"/>
         <source>Interlaced:</source>
-        <translation>Entrelaçado</translation>
+        <translation>Entrelaçado:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="757"/>
         <source>Image Sequence Settings</source>
-        <translation>Configuração da Sequência de Imagens</translation>
+        <translation>Configurações das Sequências de Imagens</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="774"/>
         <source>Image Format:</source>
-        <translation>Formato de Imagem:</translation>
+        <translation>Formato da Imagem:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="795"/>
@@ -4128,7 +4128,7 @@ Caminho do Blander:
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="887"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="632"/>
         <source>Sample Rate:</source>
-        <translation>Taxa de amostragem</translation>
+        <translation>Taxa de Amostragem</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="920"/>
@@ -4140,7 +4140,7 @@ Caminho do Blander:
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="960"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="740"/>
         <source># of Channels:</source>
-        <translation># de Canais:</translation>
+        <translation>Nº de Canais:</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/export.ui" line="996"/>
@@ -4151,7 +4151,7 @@ Caminho do Blander:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="20"/>
         <source>File Properties</source>
-        <translation>Propriedades do arquivo</translation>
+        <translation>Propriedades do Arquivo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/file-properties.ui" line="53"/>
@@ -4227,7 +4227,7 @@ Caminho do Blander:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="113"/>
         <source>View</source>
-        <translation>Ver</translation>
+        <translation>Exibir</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="117"/>
@@ -4252,7 +4252,7 @@ Caminho do Blander:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="208"/>
         <source>Video Preview</source>
-        <translation>Pré-visualização do vídeo</translation>
+        <translation>Pré-visualização do Vídeo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="226"/>
@@ -4262,7 +4262,7 @@ Caminho do Blander:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="303"/>
         <source>New Project</source>
-        <translation>Novo projeto</translation>
+        <translation>Novo Projeto</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="306"/>
@@ -4272,7 +4272,7 @@ Caminho do Blander:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="318"/>
         <source>Open Project</source>
-        <translation>Abrir projeto</translation>
+        <translation>Abrir Projeto</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="321"/>
@@ -4307,7 +4307,7 @@ Caminho do Blander:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="390"/>
         <source>Import Image Sequence...</source>
-        <translation>Importar Sequência de Imagens</translation>
+        <translation>Importar Sequência de Imagens...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="396"/>
@@ -4317,7 +4317,7 @@ Caminho do Blander:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="405"/>
         <source>Import New Transition...</source>
-        <translation>Importar nova transição...</translation>
+        <translation>Importar Nova Transição...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="408"/>
@@ -4414,7 +4414,7 @@ Caminho do Blander:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="776"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1047"/>
         <source>Show All</source>
-        <translation>Mostrar tudo</translation>
+        <translation>Mostrar Tudo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="694"/>
@@ -4492,7 +4492,7 @@ Caminho do Blander:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="969"/>
         <source>Ask a Question...</source>
-        <translation>Formule uma Pergunta...</translation>
+        <translation>Formular uma Pergunta...</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="978"/>
@@ -4553,7 +4553,7 @@ Caminho do Blander:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1113"/>
         <source>Remove from Project</source>
-        <translation>Remover do projeto</translation>
+        <translation>Remover do Projeto</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1116"/>
@@ -4564,7 +4564,7 @@ Caminho do Blander:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1149"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1152"/>
         <source>Remove Track</source>
-        <translation>Remover Trilha</translation>
+        <translation>Remover Faixa</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1161"/>
@@ -4576,13 +4576,13 @@ Caminho do Blander:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1173"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1176"/>
         <source>Add Track Above</source>
-        <translation>Adicionar Trilha Acima</translation>
+        <translation>Adicionar Faixa Acima</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1185"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1188"/>
         <source>Add Track Below</source>
-        <translation>Adicionar trilha Abaixo</translation>
+        <translation>Adicionar Faixa Abaixo</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1197"/>
@@ -4711,7 +4711,7 @@ Caminho do Blander:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="94"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Username:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Usuário:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Nome de usuário:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="101"/>

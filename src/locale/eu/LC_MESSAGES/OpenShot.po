@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-22 02:02+0000\n"
-"PO-Revision-Date: 2017-03-24 07:45+0000\n"
-"Last-Translator: Jonathan Thomas <jonathan@openshot.org>\n"
+"PO-Revision-Date: 2017-03-28 21:07+0000\n"
+"Last-Translator: Asier Iturralde Sarasola <Unknown>\n"
 "Language-Team: Basque <eu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2017-03-27 04:42+0000\n"
-"X-Generator: Launchpad (build 18334)\n"
+"X-Launchpad-Export-Date: 2017-03-30 20:52+0000\n"
+"X-Generator: Launchpad (build 18335)\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:605
 #, python-format
@@ -34,24 +34,24 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:908
 #, python-format
 msgid "Missing File (%s)"
-msgstr ""
+msgstr "Fitxategia falta da (%s)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:908
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:926
 #, python-format
 msgid "%s cannot be found."
-msgstr ""
+msgstr "Ezin izan da %s aurkitu."
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:909
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:927
 #, python-format
 msgid "Find directory that contains: %s"
-msgstr ""
+msgstr "Bilatu hau daukan direktorioa: %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:926
 #, python-format
 msgid "Missing File in Clip (%s)"
-msgstr ""
+msgstr "Fitxategia falta da klipean (%s)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:479
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1460
@@ -120,15 +120,15 @@ msgstr "Gorde gabeko zure azken proiektua berreskuratu da."
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:282
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:496
 msgid "Save changes to project first?"
-msgstr ""
+msgstr "Proiektuan egindako aldaketak gorde lehenik?"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:406
 msgid "Error Saving Project"
-msgstr "Errorea projektua gordetzean"
+msgstr "Errorea proiektua gordetzean"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:446
 msgid "Error Opening Project"
-msgstr "Errorea projektua irekitzean"
+msgstr "Errorea proiektua irekitzean"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:505 Settings
 #: for actionOpen
@@ -147,11 +147,11 @@ msgstr "OpenShot proiektua (*.osp)"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1707
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:137
 msgid "Untitled Project"
-msgstr "Izenik gabeko projektua"
+msgstr "Izenik gabeko proiektua"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:518
 msgid "Save Project..."
-msgstr "Gorde projektua..."
+msgstr "Gorde proiektua..."
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:562 Settings
 #: for actionSaveAs
@@ -214,12 +214,12 @@ msgstr "Fitxategi-izena:"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:216
 #, python-format
 msgid "TitleFileName-%d"
-msgstr ""
+msgstr "IzenburuaFitxategiIzena-%d"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:230
 #, python-format
 msgid "Line %s:"
-msgstr ""
+msgstr "Lerroa %s:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:244
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:245
@@ -273,7 +273,9 @@ msgstr "Titulu-editorea"
 msgid ""
 "%s already exists.\n"
 "Do you want to replace it?"
-msgstr "%s lehendik badago."
+msgstr ""
+"%s lehendik badago.\n"
+"Ordezkatu nahi duzu?"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:636
 #: /home/jonathan/apps/openshot-qt-git/src/windows/animated_title.py:165
@@ -397,7 +399,7 @@ msgstr "Inportatu nahi al duzu %s irudi-sekuentzia modura?"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:141
 msgid "Yes, I would like to improve OpenShot!"
-msgstr ""
+msgstr "Bai, OpenShot hobetzen lagundu nahi dut!"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:156
 msgid "Hide Tutorial"
@@ -414,6 +416,10 @@ msgid ""
 "<br><br>Would you like to automatically send errors and metrics to help "
 "improve OpenShot?"
 msgstr ""
+"<b>Ongietorri!</b> OpenShot bideo-editorea sariak irabazi dituen, kode "
+"irekiko bideo edizioko aplikazio bat da. Tutorial honek oinarriak erakutsiko "
+"dizkizu.<br><br>Erroreak eta estatistikak automatikoki bidali nahi dituzu "
+"OpenShot hobetzeko?"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:334
 msgid ""
@@ -1162,7 +1168,7 @@ msgstr "Onartzen da bitcoin!"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:111
 msgid "Patreon Supporter!"
-msgstr ""
+msgstr "Patreon babeslea!"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:119
 msgid "Multiple Contributions!"
@@ -1796,7 +1802,7 @@ msgstr "3. titulua"
 
 #: libopenshot (Clip Properties)
 msgid "Both"
-msgstr ""
+msgstr "Biak"
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
 msgid "Bevel Depth"
@@ -2125,7 +2131,7 @@ msgstr "AVCHD diskoak"
 
 #: Settings for seekNextFrame
 msgid "Next Frame"
-msgstr "Hurrengo markoa"
+msgstr "Hurrengo fotograma"
 
 #: Settings for selectNone
 msgid "Select None"
@@ -2313,7 +2319,7 @@ msgstr "AVI (h.264)"
 
 #: Settings for seekPreviousFrame
 msgid "Previous Frame"
-msgstr "Aurreko markoa"
+msgstr "Aurreko fotograma"
 
 #: Settings for actionRedo
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:420
@@ -2437,7 +2443,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Flames.svg
 msgid "Flames"
-msgstr ""
+msgstr "Sugarrak"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_top_arrow.jpg
 msgid "Middle top arrow"
@@ -2445,11 +2451,11 @@ msgstr "Erdiko goiko gezia"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Creative_Commons_2.svg
 msgid "Creative commons %s"
-msgstr ""
+msgstr "Creative commons %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Footer_1.svg
 msgid "Footer %s"
-msgstr ""
+msgstr "Oina %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_medium.jpg
 msgid "Spiral medium"
@@ -2477,19 +2483,19 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Sunset.svg
 msgid "Sunset"
-msgstr ""
+msgstr "Ilunabarra"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Bubbles_1.svg
 msgid "Bubbles %s"
-msgstr ""
+msgstr "Burbuilak %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_top_arrow.jpg
 msgid "Small top arrow"
-msgstr ""
+msgstr "Goranzko gezi txikia"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mosaic_2.jpg
 msgid "Mosaic %s"
-msgstr ""
+msgstr "Mosaikoa %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_low_arrow.jpg
 msgid "Ripple luminous low arrow"
@@ -2501,7 +2507,7 @@ msgstr "Arrain-begiak %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Smoke_1.svg
 msgid "Smoke %s"
-msgstr ""
+msgstr "Kea %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/central_mozaic.jpg
 msgid "Central mozaic"
@@ -2509,7 +2515,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Gray_Box_4.svg
 msgid "Gray box %s"
-msgstr ""
+msgstr "Kaxa grisa %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/openshot_logo.jpg
 msgid "Openshot logo"
@@ -2619,7 +2625,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Bar_1.svg
 msgid "Bar %s"
-msgstr ""
+msgstr "Barra %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Gold_Bottom.svg
 msgid "Gold bottom"
@@ -2627,7 +2633,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ondulation_1.jpg
 msgid "Ondulation %s"
-msgstr ""
+msgstr "Ondulazioa %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_left_triangle.jpg
 msgid "Lateral left triangle"
@@ -2703,7 +2709,7 @@ msgstr "Eskuineko izurtze txikia"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_2.jpg
 msgid "Frame %s"
-msgstr ""
+msgstr "Fotograma %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_right_barr.jpg
 msgid "Small cross right barr"
@@ -2747,7 +2753,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Solid_Color.svg
 msgid "Solid color"
-msgstr ""
+msgstr "Kolore lisoa"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small.jpg
 msgid "Spiral small"
@@ -2803,7 +2809,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/future_11.jpg
 msgid "Future %s"
-msgstr ""
+msgstr "Etorkizuna %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_in_to_out.svg
 msgid "Circle in to out"
@@ -2819,7 +2825,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Oval_3.svg
 msgid "Oval %s"
-msgstr ""
+msgstr "Obaloa %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/board_10.jpg
 msgid "Board %s"
@@ -2843,7 +2849,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Camera_Border.svg
 msgid "Camera border"
-msgstr ""
+msgstr "Kameraren ertza"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_low_arrow.jpg
 msgid "Small low arrow"
@@ -2891,7 +2897,7 @@ msgstr "Ezker-gezia"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_frame_2.jpg
 msgid "Luminous frame %s"
-msgstr ""
+msgstr "Marko argitsua %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_right.jpg
 msgid "Frame barr right"
@@ -2931,7 +2937,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Header_3.svg
 msgid "Header %s"
-msgstr ""
+msgstr "Goiburua %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_18.jpg
 msgid "Ray light %s"
@@ -2971,7 +2977,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Cloud_2.svg
 msgid "Cloud %s"
-msgstr ""
+msgstr "Hodeia %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr_ripple_2.jpg
 msgid "Middle barr ripple %s"
@@ -3003,7 +3009,7 @@ msgstr "Mendiak"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Standard_1.svg
 msgid "Standard %s"
-msgstr ""
+msgstr "Estandarra %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_top_to_bottom.svg
 msgid "Wipe top to bottom"
@@ -3180,7 +3186,7 @@ msgstr "Begizta (errepikatu)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/animation.ui:77
 msgid "# of Frames:"
-msgstr ""
+msgstr "Fotograma kopurua:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/animation.ui:141
 msgid "Name:"
@@ -3415,7 +3421,7 @@ msgstr "Kanal-kopurua:"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:996
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/file-properties.ui:785
 msgid "Channel Layout:"
-msgstr ""
+msgstr "Kanalaren diseinua:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/file-properties.ui:20
 msgid "File Properties"
@@ -3435,7 +3441,7 @@ msgstr "Bilatu etiketak"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/file-properties.ui:100
 msgid "File Path:"
-msgstr ""
+msgstr "Fitxategiaren bidea:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/file-properties.ui:198
 msgid "Video Details"
@@ -3448,7 +3454,7 @@ msgstr "Bideoaren formatua"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/file-properties.ui:531
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/file-properties.ui:561
 msgid "No video stream found"
-msgstr ""
+msgstr "Ez da bideo jariorik aurkitu"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/file-properties.ui:618
 msgid "Audio Format"
@@ -3456,11 +3462,11 @@ msgstr "Audioaren formatua"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/file-properties.ui:687
 msgid "No audio stream found"
-msgstr ""
+msgstr "Ez da audio jariorik aurkitu"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/file-properties.ui:816
 msgid "Frame Settings"
-msgstr ""
+msgstr "Fotogramaren ezarpenak"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/file-properties.ui:895
 msgid "Output"
@@ -3799,7 +3805,7 @@ msgstr "Tutoriala"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1272
 msgid "Launch Tutorial"
-msgstr ""
+msgstr "Abiarazi tutoriala"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1281
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1284
@@ -3819,22 +3825,22 @@ msgstr "Desblokeatu pista"
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1317
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1320
 msgid "Transform"
-msgstr ""
+msgstr "Eraldatu"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1329
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1332
 msgid "Edit Title"
-msgstr ""
+msgstr "Editatu izenburua"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1335
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1350
 msgid "Ctrl+Shift+T"
-msgstr ""
+msgstr "Ktrl+Maius+T"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1344
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1347
 msgid "Duplicate Title"
-msgstr ""
+msgstr "Bikoiztu izenburua"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/profile.ui:30
 msgid "Size:"
@@ -3858,7 +3864,7 @@ msgstr "Bestelakoa:"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/title-editor.ui:14
 msgid "Titles"
-msgstr ""
+msgstr "Izenburuak"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/upload-video.ui:41
 msgid "<html><head/><body><p>Upload To:</p></body></html>"

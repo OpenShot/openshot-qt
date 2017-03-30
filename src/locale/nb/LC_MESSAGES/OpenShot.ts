@@ -3,12 +3,12 @@
 <TS version="2.1">
     <extra-po-header-language_team>Norwegian Bokmal &lt;nb@li.org&gt;</extra-po-header-language_team>
     <extra-po-header-last_translator>Jarl Arntzen &lt;jarl.arntzen@gmail.com&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2017-03-21 21:49+0000</extra-po-header-po_revision_date>
+    <extra-po-header-po_revision_date>2017-03-30 20:38+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2017-03-22 02:02+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 18334)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2017-03-27 04:41+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 18335)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2017-03-30 20:53+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Norwegian Bokmal translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -491,17 +491,17 @@ Vil du erstatte?</translation>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="335"/>
         <source>&lt;b&gt;Timeline:&lt;/b&gt; Arrange your clips on the timeline here. Overlap clips to create automatic transitions. Access lots of fun presets and options by right-clicking on clips.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Tidslinje:&lt;/b&gt; Ordne dine klipp på tidslinjen her. Overlapp klipp for å lage overganger automatisk. Høyreklikk på et klipp for å se mange morsomme innstillinger og valg.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="336"/>
         <source>&lt;b&gt;Video Preview:&lt;/b&gt; Watch your timeline video preview here. Use the buttons (play, rewind, fast-forward) to control the video playback.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Video Forhåndsvisning&lt;/b&gt; Se forhåndsvisning av din tidslinje her. Bruk knappene (spill av, spol tilbake, spol frem) for å kontrollere avspillingen.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="337"/>
         <source>&lt;b&gt;Properties:&lt;/b&gt; View and change advanced properties of clips and effects here. Right-clicking on clips is usually faster than manually changing properties.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Egenskaper:&lt;/b&gt; Vis og endre avanserte egenskaper for klipp og effekter her. Høyreklikking på klipp er vanligvis raskere enn å manuelt endre egenskaper.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="338"/>

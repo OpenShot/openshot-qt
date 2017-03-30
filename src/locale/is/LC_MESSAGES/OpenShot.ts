@@ -4,18 +4,18 @@
     <extra-po-header-language>is</extra-po-header-language>
     <extra-po-header-language_team>Icelandic &lt;is@li.org&gt;</extra-po-header-language_team>
     <extra-po-header-last_translator>Sveinn í Felli &lt;sv1@fellsnet.is&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2016-12-28 23:06+0000</extra-po-header-po_revision_date>
+    <extra-po-header-po_revision_date>2017-03-29 10:04+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2017-03-22 02:02+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 18334)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2017-03-27 04:41+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_generator>Launchpad (build 18335)</extra-po-header-x_generator>
+    <extra-po-header-x_launchpad_export_date>2017-03-30 20:53+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Icelandic translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
 #
 # FIRST AUTHOR &lt;EMAIL@ADDRESS&gt;, 2016.
-# Sveinn í Felli &lt;sv1@fellsnet.is&gt;, 2016.</extra-po-header_comment>
+# Sveinn í Felli &lt;sv1@fellsnet.is&gt;, 2016, 2017.</extra-po-header_comment>
     <extra-po-headers>Project-Id-Version,Report-Msgid-Bugs-To,POT-Creation-Date,PO-Revision-Date,Last-Translator,Language-Team,MIME-Version,Content-Type,Content-Transfer-Encoding,X-Launchpad-Export-Date,X-Generator,Language</extra-po-headers>
 <context>
     <name></name>
@@ -36,27 +36,27 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="908"/>
         <source>Missing File (%s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Skrá vantar (%s)</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="908"/>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="926"/>
         <source>%s cannot be found.</source>
-        <translation type="unfinished"></translation>
+        <translation>%s fannst ekki.</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="909"/>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="927"/>
         <source>Find directory that contains: %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Finna möppu sem inniheldur: %s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="926"/>
         <source>Missing File in Clip (%s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Skrá vantar í myndskeið (%s)</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -139,7 +139,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="282"/>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="496"/>
         <source>Save changes to project first?</source>
-        <translation type="unfinished"></translation>
+        <translation>Vista fyrst breytingar á verkefninu?</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="406"/>
@@ -250,13 +250,13 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="216"/>
         <source>TitleFileName-%d</source>
-        <translation type="unfinished"></translation>
+        <translation>TitilSkráarHeiti-%d</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="230"/>
         <source>Line %s:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lína %s:</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -463,7 +463,7 @@ Viltu skipta henni út?</translation>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="141"/>
         <source>Yes, I would like to improve OpenShot!</source>
-        <translation type="unfinished"></translation>
+        <translation>Já, ég væri til í að hjálpa við að bæta OpenShot!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="156"/>
@@ -478,7 +478,7 @@ Viltu skipta henni út?</translation>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="333"/>
         <source>&lt;b&gt;Welcome!&lt;/b&gt; OpenShot Video Editor is an award-winning, open-source video editing application! This tutorial will walk you through the basics.&lt;br&gt;&lt;br&gt;Would you like to automatically send errors and metrics to help improve OpenShot?</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Velkomin!&lt;/b&gt; OpenShot vídóvinnsluforritið er opinn og frjáls hugbúnaður sem unnið hefur til margra verðlauna! Þessi leiðarvísir mun leiða þig í gegnum helstu grunnatriðin.&lt;br&gt;&lt;br&gt;Myndirðu vilja senda sjálfkrafa upplýsingar um villur og tölfræði til að hjálpa við að bæta OpenShot?</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="334"/>
@@ -1329,7 +1329,7 @@ Slóð á Blender forritið:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="111"/>
         <source>Patreon Supporter!</source>
-        <translation type="unfinished"></translation>
+        <translation>Stuðningsaðili í gegnum Patreon!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/models/credits_model.py" line="119"/>
@@ -2109,7 +2109,7 @@ Slóð á Blender forritið:
     </message>
     <message>
         <source>Both</source>
-        <translation type="unfinished"></translation>
+        <translation>Bæði</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2892,7 +2892,7 @@ Slóð á Blender forritið:
     </message>
     <message>
         <source>Flames</source>
-        <translation type="unfinished"></translation>
+        <translation>Logar</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Flames.svg</extra-po-references>
     </message>
     <message>
@@ -2902,12 +2902,12 @@ Slóð á Blender forritið:
     </message>
     <message>
         <source>Creative commons %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Creative Commons %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Creative_Commons_2.svg</extra-po-references>
     </message>
     <message>
         <source>Footer %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Síðufótur %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Footer_1.svg</extra-po-references>
     </message>
     <message>
@@ -2942,12 +2942,12 @@ Slóð á Blender forritið:
     </message>
     <message>
         <source>Sunset</source>
-        <translation type="unfinished"></translation>
+        <translation>Sólsetur</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Sunset.svg</extra-po-references>
     </message>
     <message>
         <source>Bubbles %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Blöðrur %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Bubbles_1.svg</extra-po-references>
     </message>
     <message>
@@ -2972,7 +2972,7 @@ Slóð á Blender forritið:
     </message>
     <message>
         <source>Smoke %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Reykur %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Smoke_1.svg</extra-po-references>
     </message>
     <message>
@@ -2982,7 +2982,7 @@ Slóð á Blender forritið:
     </message>
     <message>
         <source>Gray box %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Grár kassi %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Gray_Box_4.svg</extra-po-references>
     </message>
     <message>
@@ -3027,12 +3027,12 @@ Slóð á Blender forritið:
     </message>
     <message>
         <source>Gold top</source>
-        <translation type="unfinished"></translation>
+        <translation>Gulltoppur</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Gold_Top.svg</extra-po-references>
     </message>
     <message>
         <source>Gold %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Gull %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Gold_2.svg</extra-po-references>
     </message>
     <message>
@@ -3114,17 +3114,17 @@ Slóð á Blender forritið:
     </message>
     <message>
         <source>Film rating %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Einkunn kvikmyndar %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Film_Rating_3.svg</extra-po-references>
     </message>
     <message>
         <source>Bar %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Stöpull %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Bar_1.svg</extra-po-references>
     </message>
     <message>
         <source>Gold bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>Gullbotn</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Gold_Bottom.svg</extra-po-references>
     </message>
     <message>
@@ -3154,7 +3154,7 @@ Slóð á Blender forritið:
     </message>
     <message>
         <source>Tv rating</source>
-        <translation type="unfinished"></translation>
+        <translation>Einkunn sjónvarps</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/TV_Rating.svg</extra-po-references>
     </message>
     <message>
@@ -3279,7 +3279,7 @@ Slóð á Blender forritið:
     </message>
     <message>
         <source>Solid color</source>
-        <translation type="unfinished"></translation>
+        <translation>Heillitur</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Solid_Color.svg</extra-po-references>
     </message>
     <message>
@@ -3289,7 +3289,7 @@ Slóð á Blender forritið:
     </message>
     <message>
         <source>Ribbon %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Borði %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Ribbon_2.svg</extra-po-references>
     </message>
     <message>
@@ -3319,7 +3319,7 @@ Slóð á Blender forritið:
     </message>
     <message>
         <source>Post it</source>
-        <translation type="unfinished"></translation>
+        <translation>Senda það</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Post_it.svg</extra-po-references>
     </message>
     <message>
@@ -3369,7 +3369,7 @@ Slóð á Blender forritið:
     </message>
     <message>
         <source>Oval %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Sporaskja %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Oval_3.svg</extra-po-references>
     </message>
     <message>
@@ -3399,7 +3399,7 @@ Slóð á Blender forritið:
     </message>
     <message>
         <source>Camera border</source>
-        <translation type="unfinished"></translation>
+        <translation>Myndavélarrammi</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Camera_Border.svg</extra-po-references>
     </message>
     <message>
@@ -3509,7 +3509,7 @@ Slóð á Blender forritið:
     </message>
     <message>
         <source>Header %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Haus %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Header_3.svg</extra-po-references>
     </message>
     <message>
@@ -3559,7 +3559,7 @@ Slóð á Blender forritið:
     </message>
     <message>
         <source>Cloud %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Ský %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Cloud_2.svg</extra-po-references>
     </message>
     <message>
@@ -3599,7 +3599,7 @@ Slóð á Blender forritið:
     </message>
     <message>
         <source>Standard %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Staðlað %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Standard_1.svg</extra-po-references>
     </message>
     <message>
@@ -4592,25 +4592,25 @@ Slóð á Blender forritið:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1317"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1320"/>
         <source>Transform</source>
-        <translation type="unfinished"></translation>
+        <translation>Ummynda</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1329"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1332"/>
         <source>Edit Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Breyta titli</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1335"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1350"/>
         <source>Ctrl+Shift+T</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+T</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1344"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1347"/>
         <source>Duplicate Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Tvítaka skjátitil</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/profile.ui" line="30"/>
@@ -4640,7 +4640,7 @@ Slóð á Blender forritið:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="14"/>
         <source>Titles</source>
-        <translation type="unfinished"></translation>
+        <translation>Skjátitlar</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="41"/>
