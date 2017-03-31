@@ -166,6 +166,7 @@ class Cutting(QDialog):
         QTimer.singleShot(600, functools.partial(self.sliderVideo.setValue, start_frame))
 
         # Connect signals
+        self.actionPlay.triggered.connect(self.actionPlay_Triggered)
         self.btnPlay.clicked.connect(self.btnPlay_clicked)
         self.sliderVideo.valueChanged.connect(self.sliderVideo_valueChanged)
         self.btnStart.clicked.connect(self.btnStart_clicked)
@@ -173,6 +174,10 @@ class Cutting(QDialog):
         self.btnClear.clicked.connect(self.btnClear_clicked)
         self.btnAddClip.clicked.connect(self.btnAddClip_clicked)
         self.initialized = True
+
+    def actionPlay_Triggered(self):
+        # Trigger play button (This action is invoked from the preview thread, so it must exist here)
+        self.btnPlay.click()
 
     def movePlayhead(self, frame_number):
         """Update the playhead position"""

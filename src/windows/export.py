@@ -200,7 +200,7 @@ class Export(QDialog):
         for profile_name in self.profile_names:
 
             # Add to dropdown
-            self.cboProfile.addItem(profile_name, self.profile_paths[profile_name])
+            self.cboProfile.addItem(self.getProfileName(self.getProfilePath(profile_name)), self.getProfilePath(profile_name))
 
             # Set default (if it matches the project)
             if app.project.get(['profile']) in profile_name:
@@ -246,6 +246,18 @@ class Export(QDialog):
 
         # Determine the length of the timeline (in frames)
         self.updateFrameRate()
+
+    def getProfilePath(self, profile_name):
+        """Get the profile path that matches the name"""
+        for profile, path in self.profile_paths.items():
+            if profile_name in profile:
+                return path
+
+    def getProfileName(self, profile_path):
+        """Get the profile name that matches the name"""
+        for profile, path in self.profile_paths.items():
+            if profile_path == path:
+                return profile
 
     def updateProgressBar(self, path, start_frame, end_frame, current_frame):
         """Update progress bar during exporting"""
@@ -452,7 +464,7 @@ class Export(QDialog):
 
             # init the profiles combo
             for item in sorted(profiles_list):
-                self.cboSimpleVideoProfile.addItem(item, self.profile_paths[item])
+                self.cboSimpleVideoProfile.addItem(self.getProfileName(self.getProfilePath(item)), self.getProfilePath(item))
 
             if all_profiles:
                 # select the project's current profile
@@ -483,7 +495,7 @@ class Export(QDialog):
         profile_index = 0
         for profile_name in self.profile_names:
             # Check for matching profile
-            if self.profile_paths[profile_name] == selected_profile_path:
+            if self.getProfilePath(profile_name) == selected_profile_path:
                 # Matched!
                 self.cboProfile.setCurrentIndex(profile_index)
                 break

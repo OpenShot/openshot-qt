@@ -188,6 +188,17 @@
     </layout>
    </item>
   </layout>
+  <action name="actionPlay">
+   <property name="icon">
+    <iconset theme="media-playback-start"/>
+   </property>
+   <property name="text">
+    <string>Play</string>
+   </property>
+   <property name="toolTip">
+    <string>Play</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections>

@@ -22,7 +22,8 @@ Transitions
 
 A transition is used to gradually fade (or wipe) between two clips. In OpenShot, transitions are represented by blue,
 rounded rectangles on the timeline. They are automatically created when you overlap two clips, and can be added manually
-by dragging one onto the timeline from the **Transitions** panel.
+by dragging one onto the timeline from the **Transitions** panel. A transition must be placed on top of a clip (overlapping it),
+with the most common location being the beginning or end.
 
 Overview
 --------
@@ -36,6 +37,14 @@ Overview
 2   Transition          A gradual fade transition between the 2 clips, created automatically by overlapping the clips.
 3   Clip 2              An image clip
 ==  ==================  ============
+
+Direction
+---------
+Transitions adjust the alpha/transparency of the clip below it, and can either fade from opaque to transparent, or transparent
+to opaque. Right click and choose **Reverse Transition** to change the direction of the fade. You can also manually adjust
+the **Brightness** curve, animating the fade in any way you wish.
+
+.. image:: _static/transition-reverse.jpg
 
 Cutting & Slicing
 -----------------
