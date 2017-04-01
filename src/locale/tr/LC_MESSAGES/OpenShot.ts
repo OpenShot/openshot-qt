@@ -2,13 +2,13 @@
 <!DOCTYPE TS>
 <TS version="2.1">
     <extra-po-header-language_team>Turkish &lt;tr@li.org&gt;</extra-po-header-language_team>
-    <extra-po-header-last_translator>Jonathan Thomas &lt;jonathan@openshot.org&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2017-03-24 06:46+0000</extra-po-header-po_revision_date>
+    <extra-po-header-last_translator>İsmail Hakkı Şen &lt;Unknown&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2017-03-31 08:58+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2017-03-22 02:02+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
     <extra-po-header-x_generator>Launchpad (build 18335)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2017-03-30 20:54+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_launchpad_export_date>2017-04-01 01:05+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Turkish translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -2911,7 +2911,7 @@ Blender Dizini:
     </message>
     <message>
         <source>Flames</source>
-        <translation type="unfinished"></translation>
+        <translation>Alevler</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Flames.svg</extra-po-references>
     </message>
     <message>
@@ -2921,12 +2921,12 @@ Blender Dizini:
     </message>
     <message>
         <source>Creative commons %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Creative commons %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Creative_Commons_2.svg</extra-po-references>
     </message>
     <message>
         <source>Footer %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt Bilgi %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Footer_1.svg</extra-po-references>
     </message>
     <message>
@@ -2961,12 +2961,12 @@ Blender Dizini:
     </message>
     <message>
         <source>Sunset</source>
-        <translation type="unfinished"></translation>
+        <translation>Gün Batımı</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Sunset.svg</extra-po-references>
     </message>
     <message>
         <source>Bubbles %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Kabarcıklar %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Bubbles_1.svg</extra-po-references>
     </message>
     <message>
@@ -2991,7 +2991,7 @@ Blender Dizini:
     </message>
     <message>
         <source>Smoke %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Duman %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Smoke_1.svg</extra-po-references>
     </message>
     <message>
@@ -3001,7 +3001,7 @@ Blender Dizini:
     </message>
     <message>
         <source>Gray box %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Gri kutu %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Gray_Box_4.svg</extra-po-references>
     </message>
     <message>
@@ -3046,12 +3046,12 @@ Blender Dizini:
     </message>
     <message>
         <source>Gold top</source>
-        <translation type="unfinished"></translation>
+        <translation>Altın Üst</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Gold_Top.svg</extra-po-references>
     </message>
     <message>
         <source>Gold %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Altın %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Gold_2.svg</extra-po-references>
     </message>
     <message>
@@ -3133,17 +3133,17 @@ Blender Dizini:
     </message>
     <message>
         <source>Film rating %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Film oranı %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Film_Rating_3.svg</extra-po-references>
     </message>
     <message>
         <source>Bar %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Bar %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Bar_1.svg</extra-po-references>
     </message>
     <message>
         <source>Gold bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>Altın alt</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Gold_Bottom.svg</extra-po-references>
     </message>
     <message>
@@ -3173,7 +3173,7 @@ Blender Dizini:
     </message>
     <message>
         <source>Tv rating</source>
-        <translation type="unfinished"></translation>
+        <translation>Tv oranı</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/TV_Rating.svg</extra-po-references>
     </message>
     <message>
@@ -3298,7 +3298,7 @@ Blender Dizini:
     </message>
     <message>
         <source>Solid color</source>
-        <translation type="unfinished"></translation>
+        <translation>Sabit renk</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Solid_Color.svg</extra-po-references>
     </message>
     <message>
@@ -3308,7 +3308,7 @@ Blender Dizini:
     </message>
     <message>
         <source>Ribbon %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Kurdele %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Ribbon_2.svg</extra-po-references>
     </message>
     <message>
@@ -3338,7 +3338,7 @@ Blender Dizini:
     </message>
     <message>
         <source>Post it</source>
-        <translation type="unfinished"></translation>
+        <translation>Not Al</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Post_it.svg</extra-po-references>
     </message>
     <message>
@@ -3388,7 +3388,7 @@ Blender Dizini:
     </message>
     <message>
         <source>Oval %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Oval %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Oval_3.svg</extra-po-references>
     </message>
     <message>
@@ -3418,7 +3418,7 @@ Blender Dizini:
     </message>
     <message>
         <source>Camera border</source>
-        <translation type="unfinished"></translation>
+        <translation>Kamera kenarı</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Camera_Border.svg</extra-po-references>
     </message>
     <message>
@@ -3528,7 +3528,7 @@ Blender Dizini:
     </message>
     <message>
         <source>Header %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Üst Bilgi %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Header_3.svg</extra-po-references>
     </message>
     <message>
@@ -3578,7 +3578,7 @@ Blender Dizini:
     </message>
     <message>
         <source>Cloud %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Bulut %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Cloud_2.svg</extra-po-references>
     </message>
     <message>
@@ -3618,7 +3618,7 @@ Blender Dizini:
     </message>
     <message>
         <source>Standard %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Standart %s</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Standard_1.svg</extra-po-references>
     </message>
     <message>

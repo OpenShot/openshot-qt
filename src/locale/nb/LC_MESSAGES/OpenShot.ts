@@ -3,12 +3,12 @@
 <TS version="2.1">
     <extra-po-header-language_team>Norwegian Bokmal &lt;nb@li.org&gt;</extra-po-header-language_team>
     <extra-po-header-last_translator>Jarl Arntzen &lt;jarl.arntzen@gmail.com&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2017-03-30 20:38+0000</extra-po-header-po_revision_date>
+    <extra-po-header-po_revision_date>2017-03-31 20:39+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2017-03-22 02:02+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
     <extra-po-header-x_generator>Launchpad (build 18335)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2017-03-30 20:53+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_launchpad_export_date>2017-04-01 01:05+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Norwegian Bokmal translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -439,6 +439,7 @@ Vil du erstatte?</translation>
         <location filename="../../../../openshot-qt-git/src/windows/about.py" line="152"/>
         <source>translator-credits</source>
         <translation>Launchpad Contributions:
+  Allan Nordhøy https://launchpad.net/~comradekingu
   Anders https://launchpad.net/~andersja+launchpad-net
   Chi https://launchpad.net/~chivampir
   Hans Petter Birkeland https://launchpad.net/~hanspb
@@ -446,7 +447,6 @@ Vil du erstatte?</translation>
   Lars K. Rønes https://launchpad.net/~lars-rones
   atmos https://launchpad.net/~wilfwillow
   christian https://launchpad.net/~zenono
-  kingu https://launchpad.net/~comradekingu
   messo https://launchpad.net/~rsolvang</translation>
     </message>
     <message>
@@ -506,17 +506,17 @@ Vil du erstatte?</translation>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="338"/>
         <source>&lt;b&gt;Transitions:&lt;/b&gt; Create a gradual fade from one clip to another. Drag and drop a transition onto the timeline and position it on top of a clip (usually at the beginning or ending).</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Overganger:&lt;/b&gt; Lag en glidende overgang fra ett klipp til et annet. Dra og slipp en overgang i tidslinjen, over et klipp (som oftest på begynnelsen eller slutten).</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="339"/>
         <source>&lt;b&gt;Effects:&lt;/b&gt; Adjust brigthness, contrast, saturation, and add exciting special effects. Drag and drop an effect onto the timeline and position it on top of a clip (or track)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Effekter:&lt;/b&gt; Juster lysstyrke, kontrast, metning og legg til spennende spesialeffekter. Dra og slipp en effekt på tidslinjen, over et klipp (eller spor).</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="340"/>
         <source>&lt;b&gt;Export Video:&lt;/b&gt; When you are ready to create your finished video, click this button to export your timeline as a single video file.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Eksporter video:&lt;/b&gt; Klikk denne knappen for å eksportere hele din tidslinje som en enkelt video-fil.</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="414"/>

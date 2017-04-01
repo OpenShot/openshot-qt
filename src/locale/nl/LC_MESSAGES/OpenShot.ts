@@ -2,13 +2,13 @@
 <!DOCTYPE TS>
 <TS version="2.1">
     <extra-po-header-language_team>Dutch &lt;nl@li.org&gt;</extra-po-header-language_team>
-    <extra-po-header-last_translator>Johny Provoost &lt;johny.provoost@skynet.be&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2017-03-27 19:46+0000</extra-po-header-po_revision_date>
+    <extra-po-header-last_translator>DaVince &lt;VincentBeers@gmail.com&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2017-03-31 20:59+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2017-03-22 02:02+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
     <extra-po-header-x_generator>Launchpad (build 18335)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2017-03-30 20:52+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_launchpad_export_date>2017-04-01 01:04+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Dutch translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -20,14 +20,15 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="605"/>
         <source>Failed to load project file %(path)s: %(error)s</source>
-        <translation type="unfinished"></translation>
+        <translation>Laden project %(path)s mislukt: %(error)s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="612"/>
         <source>Failed to load the following files:
 %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Het laden van de volgende bestanden faalde:
+%s</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -40,7 +41,7 @@
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="908"/>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="926"/>
         <source>%s cannot be found.</source>
-        <translation type="unfinished"></translation>
+        <translation>%s kon niet worden gevonden.</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -53,7 +54,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="926"/>
         <source>Missing File in Clip (%s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ontbrekend Bestand in Clip (%s)</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -440,6 +441,7 @@ Do you want to replace it?</source>
         <translation>Launchpad Contributions:
   Bob https://launchpad.net/~bobstienen
   CBnation https://launchpad.net/~cedric-baelemans
+  DaVince https://launchpad.net/~vincentbeers
   Erwin van Rijsewijk https://launchpad.net/~erwin-van-rijsewijk
   Freeman https://launchpad.net/~brechtgijbels-gmail
   Harald Prasse https://launchpad.net/~harald-prasse
@@ -532,7 +534,7 @@ Do you want to replace it?</source>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="414"/>
         <source>Slice All</source>
-        <translation type="unfinished"></translation>
+        <translation>Alles Snijden</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="415"/>
@@ -1012,23 +1014,23 @@ Do you want to replace it?</source>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="774"/>
         <source>Separate Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio Scheiden</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="775"/>
         <source>Single Clip (all channels)</source>
-        <translation type="unfinished"></translation>
+        <translation>Enkele Clip (alle kanalen)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="777"/>
         <source>Multiple Clips (each channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Meerdere Clips (elk kanaal)</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="788"/>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2070"/>
         <source>Slice</source>
-        <translation type="unfinished"></translation>
+        <translation>Snijden</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="807"/>
@@ -1038,12 +1040,12 @@ Do you want to replace it?</source>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="808"/>
         <source>Show Waveform</source>
-        <translation type="unfinished"></translation>
+        <translation>Waveform geluid weergeven</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="810"/>
         <source>Show Thumbnail</source>
-        <translation type="unfinished"></translation>
+        <translation>Thumbnails weergeven</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2023"/>
@@ -1066,7 +1068,7 @@ Do you want to replace it?</source>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/timeline_webview.py" line="2080"/>
         <source>Reverse Transition</source>
-        <translation type="unfinished"></translation>
+        <translation>Omgekeerde transitie</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/properties_tableview.py" line="334"/>

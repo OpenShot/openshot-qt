@@ -8,19 +8,19 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-22 02:02+0000\n"
-"PO-Revision-Date: 2017-03-27 19:46+0000\n"
-"Last-Translator: Johny Provoost <johny.provoost@skynet.be>\n"
+"PO-Revision-Date: 2017-03-31 20:59+0000\n"
+"Last-Translator: DaVince <VincentBeers@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2017-03-30 20:52+0000\n"
+"X-Launchpad-Export-Date: 2017-04-01 01:04+0000\n"
 "X-Generator: Launchpad (build 18335)\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:605
 #, python-format
 msgid "Failed to load project file %(path)s: %(error)s"
-msgstr ""
+msgstr "Laden project %(path)s mislukt: %(error)s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:612
 #, python-format
@@ -28,6 +28,8 @@ msgid ""
 "Failed to load the following files:\n"
 "%s"
 msgstr ""
+"Het laden van de volgende bestanden faalde:\n"
+"%s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:908
 #, python-format
@@ -38,7 +40,7 @@ msgstr "Ontbrekend Bestand (%s)"
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:926
 #, python-format
 msgid "%s cannot be found."
-msgstr ""
+msgstr "%s kon niet worden gevonden."
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:909
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:927
@@ -49,7 +51,7 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:926
 #, python-format
 msgid "Missing File in Clip (%s)"
-msgstr ""
+msgstr "Ontbrekend Bestand in Clip (%s)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:479
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1460
@@ -374,6 +376,7 @@ msgstr ""
 "Launchpad Contributions:\n"
 "  Bob https://launchpad.net/~bobstienen\n"
 "  CBnation https://launchpad.net/~cedric-baelemans\n"
+"  DaVince https://launchpad.net/~vincentbeers\n"
 "  Erwin van Rijsewijk https://launchpad.net/~erwin-van-rijsewijk\n"
 "  Freeman https://launchpad.net/~brechtgijbels-gmail\n"
 "  Harald Prasse https://launchpad.net/~harald-prasse\n"
@@ -474,7 +477,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:414
 msgid "Slice All"
-msgstr ""
+msgstr "Alles Snijden"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:415
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:789
@@ -866,20 +869,20 @@ msgstr "0%"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:774
 msgid "Separate Audio"
-msgstr ""
+msgstr "Audio Scheiden"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:775
 msgid "Single Clip (all channels)"
-msgstr ""
+msgstr "Enkele Clip (alle kanalen)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:777
 msgid "Multiple Clips (each channel)"
-msgstr ""
+msgstr "Meerdere Clips (elk kanaal)"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:788
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:2070
 msgid "Slice"
-msgstr ""
+msgstr "Snijden"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:807
 msgid "Display"
@@ -887,11 +890,11 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:808
 msgid "Show Waveform"
-msgstr ""
+msgstr "Waveform geluid weergeven"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:810
 msgid "Show Thumbnail"
-msgstr ""
+msgstr "Thumbnails weergeven"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:2023
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:341
@@ -910,7 +913,7 @@ msgstr "Contrast"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:2080
 msgid "Reverse Transition"
-msgstr ""
+msgstr "Omgekeerde transitie"
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:334
 msgid "Ease (Default)"

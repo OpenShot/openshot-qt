@@ -8,7 +8,7 @@
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
     <extra-po-header-x_generator>Launchpad (build 18335)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2017-03-30 20:52+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_launchpad_export_date>2017-04-01 01:04+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Bulgarian translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.

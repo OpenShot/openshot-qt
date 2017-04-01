@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: openshot\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-22 02:02+0000\n"
-"PO-Revision-Date: 2017-03-24 06:46+0000\n"
-"Last-Translator: Jonathan Thomas <jonathan@openshot.org>\n"
+"PO-Revision-Date: 2017-03-31 08:58+0000\n"
+"Last-Translator: İsmail Hakkı Şen <Unknown>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2017-03-30 20:54+0000\n"
+"X-Launchpad-Export-Date: 2017-04-01 01:05+0000\n"
 "X-Generator: Launchpad (build 18335)\n"
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:605
@@ -2456,7 +2456,7 @@ msgstr "Bulanık sağ bar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Flames.svg
 msgid "Flames"
-msgstr ""
+msgstr "Alevler"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_top_arrow.jpg
 msgid "Middle top arrow"
@@ -2464,11 +2464,11 @@ msgstr "Orta üst ok"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Creative_Commons_2.svg
 msgid "Creative commons %s"
-msgstr ""
+msgstr "Creative commons %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Footer_1.svg
 msgid "Footer %s"
-msgstr ""
+msgstr "Alt Bilgi %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_medium.jpg
 msgid "Spiral medium"
@@ -2496,11 +2496,11 @@ msgstr "4 kare sol barr"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Sunset.svg
 msgid "Sunset"
-msgstr ""
+msgstr "Gün Batımı"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Bubbles_1.svg
 msgid "Bubbles %s"
-msgstr ""
+msgstr "Kabarcıklar %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_top_arrow.jpg
 msgid "Small top arrow"
@@ -2520,7 +2520,7 @@ msgstr "Balık gözü %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Smoke_1.svg
 msgid "Smoke %s"
-msgstr ""
+msgstr "Duman %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/central_mozaic.jpg
 msgid "Central mozaic"
@@ -2528,7 +2528,7 @@ msgstr "Merkezi Mozaik"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Gray_Box_4.svg
 msgid "Gray box %s"
-msgstr ""
+msgstr "Gri kutu %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/openshot_logo.jpg
 msgid "Openshot logo"
@@ -2564,11 +2564,11 @@ msgstr "Blur Ray ışığı"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Gold_Top.svg
 msgid "Gold top"
-msgstr ""
+msgstr "Altın Üst"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Gold_2.svg
 msgid "Gold %s"
-msgstr ""
+msgstr "Altın %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg
 msgid "Distortion %s"
@@ -2634,15 +2634,15 @@ msgstr "Kare sağ bar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Film_Rating_3.svg
 msgid "Film rating %s"
-msgstr ""
+msgstr "Film oranı %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Bar_1.svg
 msgid "Bar %s"
-msgstr ""
+msgstr "Bar %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Gold_Bottom.svg
 msgid "Gold bottom"
-msgstr ""
+msgstr "Altın alt"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ondulation_1.jpg
 msgid "Ondulation %s"
@@ -2666,7 +2666,7 @@ msgstr "Mozaik bar sağ"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/TV_Rating.svg
 msgid "Tv rating"
-msgstr ""
+msgstr "Tv oranı"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out.jpg
 msgid "Blinds in to out"
@@ -2766,7 +2766,7 @@ msgstr "Gerilmiş %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Solid_Color.svg
 msgid "Solid color"
-msgstr ""
+msgstr "Sabit renk"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small.jpg
 msgid "Spiral small"
@@ -2774,7 +2774,7 @@ msgstr "Küçük dairesel"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Ribbon_2.svg
 msgid "Ribbon %s"
-msgstr ""
+msgstr "Kurdele %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_left_barr.jpg
 msgid "Middle cross left barr"
@@ -2798,7 +2798,7 @@ msgstr "4 kareli sağ barr"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Post_it.svg
 msgid "Post it"
-msgstr ""
+msgstr "Not Al"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right_2.jpg
 msgid "Ray light right %s"
@@ -2838,7 +2838,7 @@ msgstr "Sağ aşağı dalga"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Oval_3.svg
 msgid "Oval %s"
-msgstr ""
+msgstr "Oval %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/board_10.jpg
 msgid "Board %s"
@@ -2862,7 +2862,7 @@ msgstr "Dalgalanma %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Camera_Border.svg
 msgid "Camera border"
-msgstr ""
+msgstr "Kamera kenarı"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_low_arrow.jpg
 msgid "Small low arrow"
@@ -2950,7 +2950,7 @@ msgstr "Orta siyah barr"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Header_3.svg
 msgid "Header %s"
-msgstr ""
+msgstr "Üst Bilgi %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_18.jpg
 msgid "Ray light %s"
@@ -2990,7 +2990,7 @@ msgstr "Büyük barr"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Cloud_2.svg
 msgid "Cloud %s"
-msgstr ""
+msgstr "Bulut %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr_ripple_2.jpg
 msgid "Middle barr ripple %s"
@@ -3022,7 +3022,7 @@ msgstr "Dağlar"
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Standard_1.svg
 msgid "Standard %s"
-msgstr ""
+msgstr "Standart %s"
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_top_to_bottom.svg
 msgid "Wipe top to bottom"

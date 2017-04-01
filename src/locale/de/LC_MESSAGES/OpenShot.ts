@@ -2,13 +2,13 @@
 <!DOCTYPE TS>
 <TS version="2.1">
     <extra-po-header-language_team>German &lt;de@li.org&gt;</extra-po-header-language_team>
-    <extra-po-header-last_translator>schuko24 &lt;gerdsaenger@t-online.de&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2017-03-29 09:57+0000</extra-po-header-po_revision_date>
+    <extra-po-header-last_translator>ConnyLo &lt;Unknown&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2017-03-31 17:13+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2017-03-22 02:02+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>openshot</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
     <extra-po-header-x_generator>Launchpad (build 18335)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2017-03-30 20:53+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_launchpad_export_date>2017-04-01 01:04+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># German translation for openshot
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the openshot package.
@@ -34,14 +34,14 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="908"/>
         <source>Missing File (%s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Datei  (%s)</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="908"/>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="926"/>
         <source>%s cannot be found.</source>
-        <translation type="unfinished"></translation>
+        <translation>%s kann nicht gefunden werden.</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -54,7 +54,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/classes/project_data.py" line="926"/>
         <source>Missing File in Clip (%s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehlende Datei in Clip (%s)</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -137,7 +137,7 @@
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="282"/>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="496"/>
         <source>Save changes to project first?</source>
-        <translation type="unfinished"></translation>
+        <translation>Erst die Änderungen des Projekts sichern?</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/main_window.py" line="406"/>
@@ -248,7 +248,7 @@
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/title_editor.py" line="216"/>
         <source>TitleFileName-%d</source>
-        <translation type="unfinished"></translation>
+        <translation>TitelDateiName-%d</translation>
         <extra-po-flags>python-format</extra-po-flags>
     </message>
     <message>
@@ -445,6 +445,7 @@ Soll die Datei ersetzt werden?</translation>
   Christian Rupp https://launchpad.net/~grissi
   Christian Weiske https://launchpad.net/~cweiske
   Christoph Buchner https://launchpad.net/~bilderbuchi
+  ConnyLo https://launchpad.net/~webmaster-333
   Dane Podzkiewitz https://launchpad.net/~dane93
   Daniel Winzen https://launchpad.net/~q-d
   Denis Graipel https://launchpad.net/~denis98
@@ -520,7 +521,7 @@ Soll die Datei ersetzt werden?</translation>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="141"/>
         <source>Yes, I would like to improve OpenShot!</source>
-        <translation type="unfinished"></translation>
+        <translation>Ja, ich möchte OpenShot verbessern!</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="156"/>
@@ -535,7 +536,7 @@ Soll die Datei ersetzt werden?</translation>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="333"/>
         <source>&lt;b&gt;Welcome!&lt;/b&gt; OpenShot Video Editor is an award-winning, open-source video editing application! This tutorial will walk you through the basics.&lt;br&gt;&lt;br&gt;Would you like to automatically send errors and metrics to help improve OpenShot?</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Hallo!&lt;/b&gt; Der OpenShot Video Editor ist eine preisgekrönte Videoschnitt Open-Source Anwendung. Diese Anleitung zeigt Dir die Grundlagen.&lt;br&gt;&lt;br&gt;Möchtest Du automatisiert Fehler- und metrische Daten versenden, um OpenShot zu verbessern?</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/views/tutorial.py" line="334"/>
@@ -2166,7 +2167,7 @@ Blender Pfad:
     </message>
     <message>
         <source>Both</source>
-        <translation type="unfinished"></translation>
+        <translation>Beides</translation>
         <extra-po-references>libopenshot (Clip Properties)</extra-po-references>
     </message>
     <message>
@@ -2999,7 +3000,7 @@ Blender Pfad:
     </message>
     <message>
         <source>Sunset</source>
-        <translation type="unfinished"></translation>
+        <translation>Sonnenuntergang</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Sunset.svg</extra-po-references>
     </message>
     <message>
@@ -3336,7 +3337,7 @@ Blender Pfad:
     </message>
     <message>
         <source>Solid color</source>
-        <translation type="unfinished"></translation>
+        <translation>Vollfarbe</translation>
         <extra-po-references>/home/jonathan/apps/openshot-qt-git/src/titles/Solid_Color.svg</extra-po-references>
     </message>
     <message>
@@ -4649,19 +4650,19 @@ Blender Pfad:
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1317"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1320"/>
         <source>Transform</source>
-        <translation type="unfinished"></translation>
+        <translation>Transformieren</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1329"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1332"/>
         <source>Edit Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Titel bearbeiten</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1335"/>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1350"/>
         <source>Ctrl+Shift+T</source>
-        <translation type="unfinished"></translation>
+        <translation>Strg+Umschalt+T</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/main-window.ui" line="1344"/>
@@ -4697,7 +4698,7 @@ Blender Pfad:
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/title-editor.ui" line="14"/>
         <source>Titles</source>
-        <translation type="unfinished"></translation>
+        <translation>Titel</translation>
     </message>
     <message>
         <location filename="../../../../openshot-qt-git/src/windows/ui/upload-video.ui" line="41"/>
