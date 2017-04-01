@@ -27,8 +27,8 @@
 
 import os
 
-VERSION = "2.3.0-dev"
-DATE = "20170330000000"
+VERSION = "2.3.1"
+DATE = "20170331000000"
 NAME = "openshot-qt"
 PRODUCT_NAME = "OpenShot Video Editor"
 GPL_VERSION = "3"
