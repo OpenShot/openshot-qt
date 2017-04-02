@@ -1957,12 +1957,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Add timeline toolbar to web frame
         self.frameWeb.addWidget(self.timelineToolbar)
 
-        # Add spacer and 'New Version Available' toolbar button (default hidden)
-        spacer = QWidget(self)
-        spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
-        self.toolBar.addWidget(spacer)
-        self.toolBar.addAction(self.actionUpdate)
-
     def clearSelections(self):
         """Clear all selection containers"""
         self.selected_files = []
@@ -1983,10 +1977,21 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Compare versions (alphabetical compare of version strings should work fine)
         if info.VERSION < version:
-            # Display upgrade toolbar button
+            # Add spacer and 'New Version Available' toolbar button (default hidden)
+            spacer = QWidget(self)
+            spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+            self.toolBar.addWidget(spacer)
+
+            # Update text for QAction
             self.actionUpdate.setVisible(True)
-            self.actionUpdate.setText(_("New Version Available: %s") % version)
-            self.actionUpdate.setToolTip(_("New Version Available: %s") % version)
+            self.actionUpdate.setText(_("Update Available"))
+            self.actionUpdate.setToolTip(_("Update Available: <b>%s</b>") % version)
+
+            # Add update available button (with icon and text)
+            updateButton = QToolButton()
+            updateButton.setDefaultAction(self.actionUpdate)
+            updateButton.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
+            self.toolBar.addWidget(updateButton)
 
     def moveEvent(self, event):
         """ Move tutorial dialogs also (if any)"""
