@@ -2106,7 +2106,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         menu.addAction(self.window.actionAddTrackAbove)
         menu.addAction(self.window.actionAddTrackBelow)
         menu.addAction(self.window.actionRenameTrack)
-        if track.data['lock']:
+        if track.data.get("lock", False):
             menu.addAction(self.window.actionUnlockTrack)
         else:
             menu.addAction(self.window.actionLockTrack)
