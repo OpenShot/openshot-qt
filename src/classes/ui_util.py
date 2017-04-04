@@ -30,7 +30,7 @@
 import os
 import xml.etree.ElementTree
 
-from PyQt5.QtCore import QDir, QLocale
+from PyQt5.QtCore import QDir, QLocale, QMutex
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
@@ -39,6 +39,7 @@ from classes.logger import log
 from classes import settings
 
 DEFAULT_THEME_NAME = "Humanity"
+loadUi_mutex = QMutex()
 
 
 def load_theme():
@@ -60,12 +61,18 @@ def load_theme():
 
 def load_ui(window, path):
     """ Load a Qt *.ui file, and also load an XML parsed version """
+    # Prevent loading multiple windows at the same time (to prevent a ZipImportError race condition when frozen
+    # with cx_Freeze)
+    loadUi_mutex.lock()
 
     # Load ui from configured path
     uic.loadUi(path, window)
 
     # Save xml tree for ui
     window.uiTree = xml.etree.ElementTree.parse(path)
+
+    # Unlock
+    loadUi_mutex.unlock()
 
 
 def get_default_icon(theme_name):
