@@ -79,9 +79,9 @@
 				</div>
 				
 				<!-- CLIPS -->
-				<div ng-hide tl-clip ng-repeat="clip in project.clips" id="clip_{{clip.id}}" ng-click="SelectClip(clip.id, true, $event)" ng-right-click="ShowClipMenu(clip.id)" class="clip droppable" ng-class="getClipStyle(clip)" style="width:{{(clip.end - clip.start) * pixelsPerSecond}}px; left:{{clip.position * pixelsPerSecond}}px; top:{{getTrackTop(clip.layer)}}px;z-index:{{1000 + $index}};">
+				<div ng-hide tl-clip ng-repeat="clip in project.clips" id="clip_{{clip.id}}" ng-click="SelectClip(clip.id, true, $event)" ng-right-click="ShowClipMenu(clip.id, $event)" class="clip droppable" ng-class="getClipStyle(clip)" style="width:{{(clip.end - clip.start) * pixelsPerSecond}}px; left:{{clip.position * pixelsPerSecond}}px; top:{{getTrackTop(clip.layer)}}px;z-index:{{1000 + $index}};">
 					<div class="clip_top">
-						<div tl-clip-menu class="clip_menu" ng-show="!enable_razor" ng-click="ShowClipMenu(clip.id)" tooltip-enable="!enable_razor" tooltip="{{clip.title}}" tooltip-placement="bottom" tooltip-popup-delay="400"></div>
+						<div tl-clip-menu class="clip_menu" ng-show="!enable_razor" ng-click="ShowClipMenu(clip.id, $event)" tooltip-enable="!enable_razor" tooltip="{{clip.title}}" tooltip-placement="bottom" tooltip-popup-delay="400"></div>
 
 						<!-- CLIP EFFECTS -->
 						<div ng-show="!enable_razor" class="effect-container" id="effects_{{clip.id}}">
@@ -107,9 +107,9 @@
 				</div>
 				
 				<!-- TRANSITIONS -->
-				<div ng-hide tl-transition ng-repeat="transition in project.effects" id="transition_{{transition.id}}" ng-click="SelectTransition(transition.id, true, $event)" ng-right-click="ShowTransitionMenu(transition.id)" class="transition droppable" ng-class="getClipStyle(transition)" style="width:{{ (transition.end - transition.start) * pixelsPerSecond}}px; left:{{transition.position * pixelsPerSecond}}px; top:{{getTrackTop(transition.layer)}}px;z-index:{{5000 + $index}};">
+				<div ng-hide tl-transition ng-repeat="transition in project.effects" id="transition_{{transition.id}}" ng-click="SelectTransition(transition.id, true, $event)" ng-right-click="ShowTransitionMenu(transition.id, $event)" class="transition droppable" ng-class="getClipStyle(transition)" style="width:{{ (transition.end - transition.start) * pixelsPerSecond}}px; left:{{transition.position * pixelsPerSecond}}px; top:{{getTrackTop(transition.layer)}}px;z-index:{{5000 + $index}};">
 					<div class="transition_top">
-						<div tl-clip-menu class="transition_menu" ng-show="!enable_razor" ng-click="ShowTransitionMenu(transition.id)"></div>
+						<div tl-clip-menu class="transition_menu" ng-show="!enable_razor" ng-click="ShowTransitionMenu(transition.id, $event)"></div>
 						<!-- TRANSITION KEYFRAME POINTS -->
 						<span class="keyframe_point" id="points_for_{{transition.id}}" ng-show="transition.selected">
 							<img ng-repeat="(point, value) in getKeyframes(transition)" id="point_{{point}}_{{$index}}" style="position: absolute; bottom: 0px; left: {{((point / (project.fps.num / project.fps.den) - clip.start) * pixelsPerSecond) - keyframePointOffset}}px;" class="point_icon" ng-src="media/images/keyframes/point.png"/>

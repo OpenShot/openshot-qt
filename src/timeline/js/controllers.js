@@ -713,9 +713,10 @@ App.controller('TimelineCtrl',function($scope) {
  };
  
  // Show clip context menu
- $scope.ShowClipMenu = function(clip_id) {
+ $scope.ShowClipMenu = function(clip_id, event) {
  	if ($scope.Qt) {
 	 	timeline.qt_log("$scope.ShowClipMenu");
+	 	$scope.SelectClip(clip_id, false, event);
 	 	timeline.ShowClipMenu(clip_id);
  	}
  };
@@ -729,9 +730,10 @@ App.controller('TimelineCtrl',function($scope) {
  };
  
  // Show transition context menu
- $scope.ShowTransitionMenu = function(tran_id) {
+ $scope.ShowTransitionMenu = function(tran_id, event) {
  	if ($scope.Qt) {
 	 	timeline.qt_log("$scope.ShowTransitionMenu");
+	 	$scope.SelectTransition(tran_id, false, event);
 	 	timeline.ShowTransitionMenu(tran_id);
  	}
  };
