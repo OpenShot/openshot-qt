@@ -31,7 +31,7 @@ import os
 import sys
 import platform
 from uuid import uuid4
-from PyQt5.QtWidgets import QApplication, QStyleFactory
+from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
 from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont
 from PyQt5.QtCore import Qt
 from PyQt5.QtCore import QT_VERSION_STR
@@ -93,6 +93,16 @@ class OpenShotApp(QApplication):
 
         # Init translation system
         language.init_language()
+
+        # Detect minimum libopenshot version
+        _ = self._tr
+        libopenshot_version = openshot.GetVersion().ToString()
+        if libopenshot_version < info.MINIMUM_LIBOPENSHOT_VERSION:
+            QMessageBox.warning(None, _("Wrong Version of libopenshot Detected"),
+                                      _("<b>Version %(minimum_version)s is required</b>, but %(current_version)s was detected. Please update libopenshot or download our latest installer.") %
+                                {"minimum_version": info.MINIMUM_LIBOPENSHOT_VERSION, "current_version": libopenshot_version})
+            # Stop launching and exit
+            sys.exit()
 
         # Tests of project data loading/saving
         self.project = project_data.ProjectDataStore()

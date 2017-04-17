@@ -28,6 +28,7 @@
  """
 
 from classes.logger import log
+import copy
 
 try:
     import json
@@ -186,7 +187,7 @@ class UpdateManager:
             self.redoHistory.append(last_action)
             # Get reverse of last action and perform it
             reverse_action = self.get_reverse_action(last_action)
-            self.dispatch_action(reverse_action)
+            self.dispatch_action(copy.deepcopy(reverse_action))
 
     def redo(self):
         """ Redo the last UpdateAction (and notify all listeners and watchers) """
@@ -201,7 +202,7 @@ class UpdateManager:
 
             self.actionHistory.append(next_action)
             # Perform next redo action
-            self.dispatch_action(next_action)
+            self.dispatch_action(copy.deepcopy(next_action))
 
     # Carry out an action on all listeners
     def dispatch_action(self, action):

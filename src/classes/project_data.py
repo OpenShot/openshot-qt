@@ -378,8 +378,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         # Append version info
         v = openshot.GetVersion()
         project_data = {}
-        project_data["version"] = { "openshot-qt" : info.VERSION,
-                                  "libopenshot" : v.ToString() }
+        project_data["version"] = {"openshot-qt" : info.VERSION,
+                                   "libopenshot" : v.ToString()}
 
         # Get FPS from project
         from classes.app import get_app
