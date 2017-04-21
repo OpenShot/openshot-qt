@@ -170,6 +170,9 @@ class UpdateManager:
         # On removes, setup add with old value
         elif action.type == "delete":
             reverse.type = "insert"
+            # Remove last item from key (usually the id of the inserted item)
+            if reverse.type == "insert" and isinstance(reverse.key[-1], dict) and "id" in reverse.key[-1]:
+                reverse.key = reverse.key[:-1]
 
         # On updates, just swap the old and new values data
         # Swap old and new values
@@ -183,18 +186,20 @@ class UpdateManager:
         """ Undo the last UpdateAction (and notify all listeners and watchers) """
 
         if len(self.actionHistory) > 0:
-            last_action = self.actionHistory.pop()
+            # Get last action from history (remove)
+            last_action = copy.deepcopy(self.actionHistory.pop())
+
             self.redoHistory.append(last_action)
             # Get reverse of last action and perform it
             reverse_action = self.get_reverse_action(last_action)
-            self.dispatch_action(copy.deepcopy(reverse_action))
+            self.dispatch_action(reverse_action)
 
     def redo(self):
         """ Redo the last UpdateAction (and notify all listeners and watchers) """
 
         if len(self.redoHistory) > 0:
             # Get last undone action off redo history (remove)
-            next_action = self.redoHistory.pop()
+            next_action = copy.deepcopy(self.redoHistory.pop())
 
             # Remove ID from insert (if found)
             if next_action.type == "insert" and isinstance(next_action.key[-1], dict) and "id" in next_action.key[-1]:
@@ -202,7 +207,7 @@ class UpdateManager:
 
             self.actionHistory.append(next_action)
             # Perform next redo action
-            self.dispatch_action(copy.deepcopy(next_action))
+            self.dispatch_action(next_action)
 
     # Carry out an action on all listeners
     def dispatch_action(self, action):
