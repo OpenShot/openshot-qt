@@ -116,8 +116,8 @@ class VideoWidget(QWidget):
             y = 0.0
 
             # Get scaled source image size (scale_x, scale_y)
-            sx = float(raw_properties.get('scale_x').get('value'))
-            sy = float(raw_properties.get('scale_y').get('value'))
+            sx = max(float(raw_properties.get('scale_x').get('value')), 0.001)
+            sy = max(float(raw_properties.get('scale_y').get('value')), 0.001)
             scaled_source_width = source_width * sx
             scaled_source_height = source_height * sy
 

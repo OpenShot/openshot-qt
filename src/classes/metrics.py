@@ -172,7 +172,7 @@ def send_exception(stacktrace, source):
 
         # Send exception HTTP data
         try:
-            resp, content = httplib2.Http(timeout=3, disable_ssl_certificate_validation=True).request(url, method="POST", body=data, headers={"user-agent": user_agent})
+            resp, content = httplib2.Http(timeout=3, disable_ssl_certificate_validation=True).request(url, method="POST", body=data, headers={"user-agent": user_agent, "content-type": "application/x-www-form-urlencoded"})
             log.info("Track exception: %s (%s)" % (resp, content))
 
         except Exception as Ex:
