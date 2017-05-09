@@ -304,6 +304,13 @@
     },
     {
         "icons": [
+            "p"
+        ],
+        "name": "Austin Sersen",
+        "website": null
+    },
+    {
+        "icons": [
             "p",
             "s"
         ],
@@ -366,6 +373,13 @@
             "p"
         ],
         "name": "Beat",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Benjamin Klettbach",
         "website": null
     },
     {
@@ -519,6 +533,13 @@
             "p"
         ],
         "name": "Carlos Solã­S",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Carl Stock",
         "website": null
     },
     {
@@ -1068,6 +1089,13 @@
         "icons": [
             "p"
         ],
+        "name": "Eposvox",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Eric M. Bouse",
         "website": null
     },
@@ -1146,6 +1174,13 @@
             "p"
         ],
         "name": "Fabrice Boesch",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Fahd Alrabiah",
         "website": null
     },
     {
@@ -1265,6 +1300,13 @@
         "icons": [
             "p"
         ],
+        "name": "Geekoutdoors",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Gennady Bogdanov",
         "website": null
     },
@@ -1329,6 +1371,20 @@
             "p"
         ],
         "name": "Giovanni Totaro",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Giraffeatfulspeed",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Github Issue #590",
         "website": null
     },
     {
@@ -1456,6 +1512,13 @@
         "icons": [
             "p"
         ],
+        "name": "Hussain",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Ian Elliman",
         "website": null
     },
@@ -1471,6 +1534,13 @@
             "p"
         ],
         "name": "Ignacio Rodriguez Fernandez",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Ilari Jakobsson",
         "website": null
     },
     {
@@ -1608,6 +1678,13 @@
             "p"
         ],
         "name": "Jason Tokarz",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Javier T",
         "website": null
     },
     {
@@ -2037,6 +2114,13 @@
         "icons": [
             "p"
         ],
+        "name": "Lolomeis",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Luc Tanguay",
         "website": null
     },
@@ -2300,6 +2384,13 @@
             "p"
         ],
         "name": "Michael Shallcrass",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Michael W. Brown",
         "website": null
     },
     {
@@ -2591,6 +2682,13 @@
         "icons": [
             "p"
         ],
+        "name": "Osvaldo Rosado Quiñones",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Ott Maaten",
         "website": null
     },
@@ -2599,6 +2697,13 @@
             "p"
         ],
         "name": "Pablo Estigarribia Davyt",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Page It Services",
         "website": null
     },
     {
@@ -2775,6 +2880,13 @@
             "p"
         ],
         "name": "Randall Oelerich",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Raymond E.",
         "website": null
     },
     {
@@ -3036,6 +3148,13 @@
         "icons": [
             "p"
         ],
+        "name": "Simion Chis",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Simon Newton",
         "website": null
     },
@@ -3163,6 +3282,13 @@
         "icons": [
             "p"
         ],
+        "name": "Stk32",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Styven",
         "website": null
     },
@@ -3262,6 +3388,13 @@
         "icons": [
             "p"
         ],
+        "name": "Timo Heister",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Tjfree",
         "website": null
     },
@@ -3328,6 +3461,13 @@
             "p"
         ],
         "name": "Tony Whitmore",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Torsten Krill",
         "website": null
     },
     {
@@ -6129,7 +6269,8 @@
     },
     {
         "icons": [
-            "n"
+            "n",
+            "s"
         ],
         "name": "Eduardo Sanchez",
         "website": "http://www.patreon.com/user?u=196616"
@@ -6754,6 +6895,13 @@
     },
     {
         "icons": [
+            "n"
+        ],
+        "name": "Gregory Ballantine",
+        "website": "http://www.patreon.com/user?u=251521"
+    },
+    {
+        "icons": [
             "k"
         ],
         "name": "Gregory Eagle",
@@ -7182,19 +7330,19 @@
     },
     {
         "icons": [
-            "n",
-            "s"
-        ],
-        "name": "Jarl Arntzen",
-        "website": "http://www.patreon.com/user?u=233897"
-    },
-    {
-        "icons": [
             "k",
             "s"
         ],
         "name": "Jarl Arntzen",
         "website": null
+    },
+    {
+        "icons": [
+            "n",
+            "s"
+        ],
+        "name": "Jarl Arntzen",
+        "website": "http://www.patreon.com/user?u=233897"
     },
     {
         "icons": [
@@ -7958,6 +8106,14 @@
         ],
         "name": "Joshua Kao",
         "website": null
+    },
+    {
+        "icons": [
+            "n",
+            "s"
+        ],
+        "name": "Joshua Kao",
+        "website": "http://www.patreon.com/user?u=4606876"
     },
     {
         "icons": [
@@ -10945,6 +11101,14 @@
         ],
         "name": "Smitty",
         "website": null
+    },
+    {
+        "icons": [
+            "n",
+            "s"
+        ],
+        "name": "Snorpey",
+        "website": "http://www.patreon.com/snorpey"
     },
     {
         "icons": [
