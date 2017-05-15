@@ -464,6 +464,9 @@ class VideoWidget(QWidget):
         clip_updated = False
 
         c = Clip.get(id=id)
+        if not c:
+            # No clip found
+            return
 
         for point in c.data[property_key]["Points"]:
             log.info("looping points: co.X = %s" % point["co"]["X"])
