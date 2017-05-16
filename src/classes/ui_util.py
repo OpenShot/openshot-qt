@@ -29,8 +29,9 @@
 
 import os
 import xml.etree.ElementTree
+import time
 
-from PyQt5.QtCore import QDir, QLocale, QMutex
+from PyQt5.QtCore import QDir, QLocale
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
@@ -39,7 +40,6 @@ from classes.logger import log
 from classes import settings
 
 DEFAULT_THEME_NAME = "Humanity"
-loadUi_mutex = QMutex()
 
 
 def load_theme():
@@ -61,18 +61,31 @@ def load_theme():
 
 def load_ui(window, path):
     """ Load a Qt *.ui file, and also load an XML parsed version """
-    # Prevent loading multiple windows at the same time (to prevent a ZipImportError race condition when frozen
-    # with cx_Freeze)
-    loadUi_mutex.lock()
+    # Attempt to load the UI file 5 times
+    # This is a hack, and I'm trying to avoid a really common error which might be a
+    # race condition. [zipimport.ZipImportError: can't decompress data; zlib not available]
+    # This error only happens when cx_Freeze is used, and the app is launched.
+    error = None
+    for attempt in range(1,6):
+        try:
+            # Load ui from configured path
+            uic.loadUi(path, window)
 
-    # Load ui from configured path
-    uic.loadUi(path, window)
+            # Successfully loaded UI file, so clear any previously encountered errors
+            error = None
+            break
+
+        except Exception as ex:
+            # Keep track of this error
+            error = ex
+            time.sleep(0.1)
+
+    # Raise error (if any)
+    if error:
+        raise error
 
     # Save xml tree for ui
     window.uiTree = xml.etree.ElementTree.parse(path)
-
-    # Unlock
-    loadUi_mutex.unlock()
 
 
 def get_default_icon(theme_name):

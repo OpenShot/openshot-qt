@@ -465,8 +465,10 @@ class TitleEditor(QDialog):
             # ignoring font-weight, as not sure what it represents in Qt.
             fs = self.find_in_list(ar, "font-style:")
             ff = self.find_in_list(ar, "font-family:")
-            ar[fs] = "font-style:" + self.font_style
-            ar[ff] = "font-family:" + self.font_family
+            if fs:
+                ar[fs] = "font-style:" + self.font_style
+            if ff:
+                ar[ff] = "font-family:" + self.font_family
             # rejoin the modified parts
             t = ";"
             self.title_style_string = t.join(ar)
@@ -486,8 +488,10 @@ class TitleEditor(QDialog):
             # ignoring font-weight, as not sure what it represents in Qt.
             fs = self.find_in_list(ar, "font-style:")
             ff = self.find_in_list(ar, "font-family:")
-            ar[fs] = "font-style:" + self.font_style
-            ar[ff] = "font-family:" + self.font_family
+            if fs:
+                ar[fs] = "font-style:" + self.font_style
+            if ff:
+                ar[ff] = "font-family:" + self.font_family
             # rejoin the modified parts
             t = ";"
             self.title_style_string = t.join(ar)
