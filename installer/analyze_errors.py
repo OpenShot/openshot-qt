@@ -13,7 +13,7 @@ openshot_version_regex = re.compile(r"\((.*)\)")
 # Message folder with exported archived error messages
 messages_folder = "python-exceptions"
 cache_path = local_path = os.path.join(messages_folder, "cache")
-version_starts_with = "2.3"
+version_starts_with = "2.3.2"
 scan_cache = True
 
 # Cache all error message attachments (download local files if missing)
@@ -56,38 +56,44 @@ error_dict = {}
 
 # Iterate through local message attachments
 for path in os.listdir(cache_path):
+    version = path.split("-")[0]
     attachment_path = os.path.join(cache_path, path)
-    with open(attachment_path, "r", encoding="utf-8") as f:
-        attachment_data = f.read()
+    if version.startswith(version_starts_with):
+        with open(attachment_path, "r", encoding="utf-8") as f:
+            attachment_data = f.read()
 
-        for r in error_regex.findall(attachment_data):
-            file_path = r[0]
-            line_num = r[1]
-            file_parts = []
+            for r in error_regex.findall(attachment_data):
+                file_path = r[0]
+                line_num = r[1]
+                file_parts = []
 
-            # Split file path, and only keep file name (cross platform path detection)
-            if "/" in file_path:
-                file_parts = file_path.split("/")
-            elif "\\" in file_path:
-                file_parts = file_path.split("\\")
+                # Split file path, and only keep file name (cross platform path detection)
+                if "/" in file_path:
+                    file_parts = file_path.split("/")
+                elif "\\" in file_path:
+                    file_parts = file_path.split("\\")
 
-            # If __init__.py, also append folder name
-            if file_parts:
-                if file_parts[-1] == "__init__.py":
-                    file_name = "%s/%s" % (file_parts[-2], file_parts[-1])
+                # If __init__.py, also append folder name
+                if file_parts:
+                    if file_parts[-1] == "__init__.py":
+                        file_name = "%s/%s" % (file_parts[-2], file_parts[-1])
+                    else:
+                        file_name = file_parts[-1]
                 else:
-                    file_name = file_parts[-1]
-            else:
-                # Not possible to split
-                file_name = file_path
+                    # Not possible to split
+                    file_name = file_path
 
-            # Add key / Increment key count
-            key = "%s:%s" % (file_name, line_num)
-            if error_dict.get(key):
-                error_dict[key] += 1
-            else:
-                error_dict[key] = 1
+                # Add key / Increment key count
+                key = "%s:%s" % (file_name, line_num)
+                if error_dict.get(key):
+                    error_dict[key] += 1
+                else:
+                    error_dict[key] = 1
+
+# Ignore the following keys
+ignore_keys = ["launch.py:70", "launch.py:77", "Console.py:21", "app.py:154", "app.py:164", "uic/__init__.py:224", "uic/__init__.py:220"]
 
 # Sort dict
 for error_key in OrderedDict(sorted(error_dict.items(), key=lambda t: t[1], reverse=True)):
-    print("%s\t%s" % (error_key, error_dict[error_key]))
+    if error_key not in ignore_keys:
+        print("%s\t%s" % (error_key, error_dict[error_key]))
