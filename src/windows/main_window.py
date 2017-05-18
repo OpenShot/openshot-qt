@@ -233,11 +233,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             log.error("Unhandled crash detected... will attempt to recover backup project: %s" % info.BACKUP_PATH)
             track_metric_error("unhandled-crash%s" % last_log_line, True)
 
-            # Remove file
-            os.remove(lock_path)
-
             # Recover backup file (this can't happen until after the Main Window has completely loaded)
-            QTimer.singleShot(0, self.RecoverBackup.emit)
+            QTimer.singleShot(250, self.RecoverBackup.emit)
+
+            # Remove file
+            self.destroy_lock_file()
 
         else:
             # Normal startup, clear thumbnails
