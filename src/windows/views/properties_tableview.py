@@ -171,7 +171,13 @@ class PropertiesTableView(QTableView):
             cursor_value = event.x() - value_column_x
             cursor_value_percent = cursor_value / self.columnWidth(1)
 
-            property = self.selected_label.data()
+            try:
+                property = self.selected_label.data()
+            except Exception as ex:
+                # If item is deleted during this drag... an exception can occur
+                # Just ignore, since this is harmless
+                return
+
             property_key = property[0]
             property_name = property[1]["name"]
             property_type = property[1]["type"]
