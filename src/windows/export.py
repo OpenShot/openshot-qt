@@ -613,6 +613,9 @@ class Export(QDialog):
                           "audio_bitrate": int(self.convert_to_bytes(self.txtAudioBitrate.text()))
                           }
 
+        # Set MaxSize (so we don't have any downsampling)
+        self.timeline.SetMaxSize(video_settings.get("width"), video_settings.get("height"))
+
         # Set lossless cache settings (temporarily)
         export_cache_object = openshot.CacheMemory(250)
         self.timeline.SetCache(export_cache_object)
