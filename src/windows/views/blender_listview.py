@@ -422,16 +422,6 @@ class BlenderListView(QListView):
         # Return animation dictionary
         return animation
 
-    def contextMenuEvent(self, event):
-        menu = QMenu(self)
-        menu.addAction(self.win.actionDetailsView)
-        menu.addAction(self.win.actionThumbnailView)
-        menu.exec_(QCursor.pos())
-
-        # Ignore event, propagate to parent
-        event.ignore()
-        super().mouseMoveEvent(event)
-
     def mousePressEvent(self, event):
 
         # Ignore event, propagate to parent
