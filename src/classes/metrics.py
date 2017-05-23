@@ -25,7 +25,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import httplib2
+import requests
 import platform
 import threading
 import urllib.parse
@@ -152,8 +152,8 @@ def send_metric(params):
 
         # Send metric HTTP data
         try:
-            resp, content = httplib2.Http(timeout=3, disable_ssl_certificate_validation=True).request(url, headers={"user-agent": user_agent})
-            log.info("Track metric: %s (%s)" % (resp, content))
+            r = requests.get(url, headers={"user-agent": user_agent})
+            log.info("Track metric: [%s] %s | %s" % (r.status_code, r.url, r.text))
 
         except Exception as Ex:
             log.error("Failed to Track metric: %s" % (Ex))
@@ -172,8 +172,8 @@ def send_exception(stacktrace, source):
 
         # Send exception HTTP data
         try:
-            resp, content = httplib2.Http(timeout=3, disable_ssl_certificate_validation=True).request(url, method="POST", body=data, headers={"user-agent": user_agent, "content-type": "application/x-www-form-urlencoded"})
-            log.info("Track exception: %s (%s)" % (resp, content))
+            r = requests.post(url, data=data, headers={"user-agent": user_agent, "content-type": "application/x-www-form-urlencoded"})
+            log.info("Track exception: [%s] %s | %s" % (r.status_code, r.url, r.text))
 
         except Exception as Ex:
             log.error("Failed to Track exception: %s" % (Ex))

@@ -25,7 +25,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import httplib2
+import requests
 import threading
 from classes.app import get_app
 from classes import info
@@ -48,11 +48,11 @@ def get_version_from_http():
 
     # Send metric HTTP data
     try:
-        resp, content = httplib2.Http(timeout=3, disable_ssl_certificate_validation=True).request(url, headers={"user-agent": "openshot-qt-%s" % info.VERSION})
-        log.info("Found current version: %s (%s)" % (resp, content))
+        r = requests.get(url, headers={"user-agent": "openshot-qt-%s" % info.VERSION})
+        log.info("Found current version: %s" % r.text)
 
         # Parse version
-        openshot_version = json.loads(content.decode("utf-8"))["openshot_version"]
+        openshot_version = r.json()["openshot_version"]
 
         # Emit signal for the UI
         get_app().window.FoundVersionSignal.emit(openshot_version)

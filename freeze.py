@@ -211,7 +211,7 @@ for filename in find_files("openshot_qt", ["*"]):
 
 # Dependencies are automatically detected, but it might need fine tuning.
 build_exe_options["packages"] = ["os", "sys", "PyQt5", "openshot", "time", "uuid", "shutil", "threading", "subprocess",
-                                 "re", "math", "subprocess", "xml", "logging", "urllib", "httplib2", "webbrowser", "zmq", json_library]
+                                 "re", "math", "subprocess", "xml", "logging", "urllib", "requests", "webbrowser", "zmq", json_library]
 build_exe_options["include_files"] = src_files + external_so_files
 
 # Set options
