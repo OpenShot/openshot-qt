@@ -139,7 +139,7 @@ def createDissolveText(title,extrude,bevel_depth,spacemode,textsize,width,font):
 	ActiveObjectText.modifiers['Remesh'].scale=0.99
 	ActiveObjectText.modifiers['Remesh'].mode='SMOOTH'
 	ActiveObjectText.modifiers['Remesh'].use_remove_disconnected=False
-	#apply this mofifier
+	#apply this modifier
 	bpy.ops.object.modifier_apply(apply_as='DATA', modifier="Remesh")
 	
 	#Nb quads for particle system be careful of API version

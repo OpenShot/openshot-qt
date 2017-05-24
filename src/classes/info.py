@@ -60,7 +60,7 @@ for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH, ASSETS_PATH,
     if not os.path.exists(folder.encode("UTF-8")):
         os.makedirs(folder, exist_ok=True)
 
-# names of all contributers, using "u" for unicode encoding
+# names of all contributors, using "u" for unicode encoding
 AF = {"name": u"Andy Finch", "email": "andy@openshot.org", "website":"http://openshot.org/developers/andy"}
 NF = {"name": u"Noah Figg", "email": "eggmunkee@hotmail.com"}
 JT = {"name": u"Jonathan Thomas", "email": "jonathan@openshot.org", "website":"http://openshot.org/developers/jonathan"}

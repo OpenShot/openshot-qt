@@ -518,7 +518,7 @@ class TitleEditor(QDialog):
             else:
                 ar[opacity] = "opacity:" + str(alpha)
 
-            # rejoin the modifed parts
+            # rejoin the modified parts
             t = ";"
             self.bg_style_string = t.join(ar)
             # set the node in the xml doc

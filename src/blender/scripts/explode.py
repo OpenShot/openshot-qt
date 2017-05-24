@@ -133,7 +133,7 @@ def createExplodeTxt(title,particle_number,extrude,bevel_depth,spacemode,textsiz
 	#affect an existing material
 	bpy.data.objects['Text'].material_slots[0].material = bpy.data.materials['TextMaterial']
 	
-	#solidifiy parameter
+	#solidify parameter
 	bpy.data.objects['Text'].modifiers['Solidify'].edge_crease_inner=0.01
 	bpy.data.objects['Text'].modifiers['Solidify'].thickness = 0.02
 	#ground management
