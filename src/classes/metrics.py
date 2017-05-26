@@ -25,6 +25,8 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+# idna encoding import required to prevent bug (unknown encoding: idna)
+import encodings.idna
 import requests
 import platform
 import threading
