@@ -252,6 +252,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             # Get file object
             file = File.get(id=clip_data["file_id"])
 
+            if not file:
+                # File not found, do nothing
+                return
+
             # Convert path to the correct relative path (based on this folder)
             file_path = file.absolute_path()
 
@@ -2377,6 +2381,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Search for matching file in project data (if any)
         file_id = data[0]
         file = File.get(id=file_id)
+
+        if not file:
+            # File not found, do nothing
+            return
 
         if (file.data["media_type"] == "video" or file.data["media_type"] == "image"):
             # Determine thumb path

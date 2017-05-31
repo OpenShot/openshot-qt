@@ -59,10 +59,13 @@ class AddToTimeline(QDialog):
 
         # Get selected file
         files = self.treeFiles.timeline_model.files
-        selected_index = self.treeFiles.selected.row()
+
+        selected_index = None
+        if self.treeFiles.selected:
+            selected_index = self.treeFiles.selected.row()
 
         # Ignore if empty files
-        if not files:
+        if not files or selected_index == None:
             return
 
         # New index
@@ -85,10 +88,13 @@ class AddToTimeline(QDialog):
 
         # Get selected file
         files = self.treeFiles.timeline_model.files
-        selected_index = self.treeFiles.selected.row()
+
+        selected_index = None
+        if self.treeFiles.selected:
+            selected_index = self.treeFiles.selected.row()
 
         # Ignore if empty files
-        if not files:
+        if not files or selected_index == None:
             return
 
         # New index
@@ -121,10 +127,13 @@ class AddToTimeline(QDialog):
 
         # Get selected file
         files = self.treeFiles.timeline_model.files
-        selected_index = self.treeFiles.selected.row()
+
+        selected_index = None
+        if self.treeFiles.selected:
+            selected_index = self.treeFiles.selected.row()
 
         # Ignore if empty files
-        if not files:
+        if not files or selected_index == None:
             return
 
         # Remove item
