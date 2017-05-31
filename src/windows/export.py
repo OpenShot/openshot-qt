@@ -372,8 +372,8 @@ class Export(QDialog):
         # Load profile settings into advanced editor
         self.txtWidth.setValue(profile.info.width)
         self.txtHeight.setValue(profile.info.height)
-        self.txtFrameRateNum.setValue(profile.info.fps.num)
         self.txtFrameRateDen.setValue(profile.info.fps.den)
+        self.txtFrameRateNum.setValue(profile.info.fps.num)
         self.txtAspectRatioNum.setValue(profile.info.display_ratio.num)
         self.txtAspectRatioDen.setValue(profile.info.display_ratio.den)
         self.txtPixelRatioNum.setValue(profile.info.pixel_ratio.num)
