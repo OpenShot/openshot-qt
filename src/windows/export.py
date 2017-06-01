@@ -81,6 +81,14 @@ class Export(QDialog):
         self.buttonBox.addButton(QPushButton(_('Cancel')), QDialogButtonBox.RejectRole)
         self.exporting = False
 
+        # Update FPS / Profile timer
+        # Timer to use a delay before applying new profile/fps data (so we don't spam libopenshot)
+        self.delayed_fps_timer = None
+        self.delayed_fps_timer = QTimer()
+        self.delayed_fps_timer.setInterval(200)
+        self.delayed_fps_timer.timeout.connect(self.delayed_fps_callback)
+        self.delayed_fps_timer.stop()
+
         # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
         get_app().window.actionPlay_trigger(None, force="pause")
 
@@ -247,6 +255,21 @@ class Export(QDialog):
         # Determine the length of the timeline (in frames)
         self.updateFrameRate()
 
+    def delayed_fps_callback(self):
+        """Callback for fps/profile changed event timer (to delay the timeline mapping so we don't spam libopenshot)"""
+        # Stop timer
+        self.delayed_fps_timer.stop()
+
+        # Calculate fps
+        fps_double = self.timeline.info.fps.ToDouble()
+
+        # Apply mapping if valid fps detected (anything larger than 300 fps is considered invalid)
+        if self.timeline and fps_double <= 300.0:
+            log.info("Valid framerate detected, sending to libopenshot: %s" % fps_double)
+            self.timeline.ApplyMapperToClips()
+        else:
+            log.warning("Invalid framerate detected, not sending it to libopenshot: %s" % fps_double)
+
     def getProfilePath(self, profile_name):
         """Get the profile path that matches the name"""
         for profile, path in self.profile_paths.items():
@@ -294,8 +317,8 @@ class Export(QDialog):
         self.timeline.info.channels = self.txtChannels.value()
         self.timeline.info.channel_layout = self.cboChannelLayout.currentData()
 
-        # Force ApplyMapperToClips to apply these changes
-        self.timeline.ApplyMapperToClips()
+        # Send changes to libopenshot (apply mappings to all framemappers)... after a small delay
+        self.delayed_fps_timer.start()
 
         # Determine max frame (based on clips)
         timeline_length = 0.0
