@@ -52,6 +52,7 @@ except ImportError:
 class FilesTreeView(QTreeView):
     """ A TreeView QWidget used on the main window """
     drag_item_size = 48
+    ignore_image_sequence_paths = []
 
     def updateSelection(self):
 
