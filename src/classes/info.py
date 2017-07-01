@@ -27,12 +27,13 @@
 
 import os
 
-VERSION = "2.2.0-dev"
-DATE = "20161220000000"
+VERSION = "2.3.4-dev1"
+MINIMUM_LIBOPENSHOT_VERSION = "0.1.7"
+DATE = "20170509000000"
 NAME = "openshot-qt"
 PRODUCT_NAME = "OpenShot Video Editor"
 GPL_VERSION = "3"
-DESCRIPTION = "Create and edit videos and movies"
+DESCRIPTION = "Create and edit stunning videos, movies, and animations"
 COMPANY_NAME = "OpenShot Studios, LLC"
 COPYRIGHT = "Copyright (c) 2008-2016 %s" % COMPANY_NAME
 CWD = os.getcwd()

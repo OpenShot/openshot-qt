@@ -22,7 +22,8 @@ Transitions
 
 A transition is used to gradually fade (or wipe) between two clips. In OpenShot, transitions are represented by blue,
 rounded rectangles on the timeline. They are automatically created when you overlap two clips, and can be added manually
-by dragging one onto the timeline from the **Transitions** panel.
+by dragging one onto the timeline from the **Transitions** panel. A transition must be placed on top of a clip (overlapping it),
+with the most common location being the beginning or end.
 
 Overview
 --------
@@ -36,6 +37,14 @@ Overview
 2   Transition          A gradual fade transition between the 2 clips, created automatically by overlapping the clips.
 3   Clip 2              An image clip
 ==  ==================  ============
+
+Direction
+---------
+Transitions adjust the alpha/transparency of the clip below it, and can either fade from opaque to transparent, or transparent
+to opaque. Right click and choose **Reverse Transition** to change the direction of the fade. You can also manually adjust
+the **Brightness** curve, animating the fade in any way you wish.
+
+.. image:: _static/transition-reverse.jpg
 
 Cutting & Slicing
 -----------------
@@ -56,8 +65,13 @@ Keep in mind that all of the above cutting methods also have :ref:`keyboard_shor
 Mask
 ----
 Like :ref:`clips_ref`, transitions also have properties which can be animated over time. The fade (or wipe) can be adjusted
-with the **Brightness** curve, or held at a constant value to create a transparency mask on top of a clip. Any greyscale
-image can be used as a transition (or mask), by adding it to your */.openshot_qt/transitions/* folder.
+with the **Brightness** curve, or held at a constant value to create a transparency mask on top of a clip.
+
+Custom Transition
+-----------------
+Any greyscale image can be used as a transition (or mask), by adding it to your */.openshot_qt/transitions/* folder. Just
+be sure to name your file something that is easily recognizable, and restart OpenShot. Your custom transition/mask will now show
+up in the list of transitions.
 
 Properties
 ----------

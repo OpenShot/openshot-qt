@@ -171,7 +171,13 @@ class PropertiesTableView(QTableView):
             cursor_value = event.x() - value_column_x
             cursor_value_percent = cursor_value / self.columnWidth(1)
 
-            property = self.selected_label.data()
+            try:
+                property = self.selected_label.data()
+            except Exception as ex:
+                # If item is deleted during this drag... an exception can occur
+                # Just ignore, since this is harmless
+                return
+
             property_key = property[0]
             property_name = property[1]["name"]
             property_type = property[1]["type"]
@@ -519,41 +525,46 @@ class SelectionLabel(QFrame):
         # Add selected clips
         for item_id in get_app().window.selected_clips:
             clip = Clip.get(id=item_id)
-            item_name = clip.title()
-            item_icon = QIcon(QPixmap(clip.data.get('image')))
-            action = menu.addAction(item_name)
-            action.setIcon(item_icon)
-            action.setData({'item_id':item_id, 'item_type':'clip'})
-            action.triggered.connect(self.Action_Triggered)
-
-            # Add effects for these clips (if any)
-            for effect in clip.data.get('effects'):
-                item_name = Effect.get(id=effect.get('id')).title()
-                item_icon = QIcon(QPixmap(os.path.join(info.PATH, "effects", "icons", "%s.png" % effect.get('class_name').lower())))
-                action = menu.addAction('  >  %s' % _(item_name))
+            if clip:
+                item_name = clip.title()
+                item_icon = QIcon(QPixmap(clip.data.get('image')))
+                action = menu.addAction(item_name)
                 action.setIcon(item_icon)
-                action.setData({'item_id': effect.get('id'), 'item_type': 'effect'})
+                action.setData({'item_id':item_id, 'item_type':'clip'})
                 action.triggered.connect(self.Action_Triggered)
+
+                # Add effects for these clips (if any)
+                for effect in clip.data.get('effects'):
+                    effect = Effect.get(id=effect.get('id'))
+                    if effect:
+                        item_name = effect.title()
+                        item_icon = QIcon(QPixmap(os.path.join(info.PATH, "effects", "icons", "%s.png" % effect.data.get('class_name').lower())))
+                        action = menu.addAction('  >  %s' % _(item_name))
+                        action.setIcon(item_icon)
+                        action.setData({'item_id': effect.id, 'item_type': 'effect'})
+                        action.triggered.connect(self.Action_Triggered)
 
         # Add selected transitions
         for item_id in get_app().window.selected_transitions:
             trans = Transition.get(id=item_id)
-            item_name = _(trans.title())
-            item_icon = QIcon(QPixmap(trans.data.get('reader',{}).get('path')))
-            action = menu.addAction(_(item_name))
-            action.setIcon(item_icon)
-            action.setData({'item_id': item_id, 'item_type': 'transition'})
-            action.triggered.connect(self.Action_Triggered)
+            if trans:
+                item_name = _(trans.title())
+                item_icon = QIcon(QPixmap(trans.data.get('reader',{}).get('path')))
+                action = menu.addAction(_(item_name))
+                action.setIcon(item_icon)
+                action.setData({'item_id': item_id, 'item_type': 'transition'})
+                action.triggered.connect(self.Action_Triggered)
 
         # Add selected effects
         for item_id in get_app().window.selected_effects:
             effect = Effect.get(id=item_id)
-            item_name = _(effect.title())
-            item_icon = QIcon(QPixmap(os.path.join(info.PATH, "effects", "icons", "%s.png" % effect.data.get('class_name').lower())))
-            action = menu.addAction(_(item_name))
-            action.setIcon(item_icon)
-            action.setData({'item_id': item_id, 'item_type': 'effect'})
-            action.triggered.connect(self.Action_Triggered)
+            if effect:
+                item_name = _(effect.title())
+                item_icon = QIcon(QPixmap(os.path.join(info.PATH, "effects", "icons", "%s.png" % effect.data.get('class_name').lower())))
+                action = menu.addAction(_(item_name))
+                action.setIcon(item_icon)
+                action.setData({'item_id': item_id, 'item_type': 'effect'})
+                action.triggered.connect(self.Action_Triggered)
 
         # Return the menu object
         return menu

@@ -28,6 +28,7 @@
  """
 
 import os
+import sys
 from copy import deepcopy
 from functools import partial
 from random import uniform
@@ -161,8 +162,6 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):
         # Send a JSON version of the UpdateAction to the timeline webview method: ApplyJsonDiff()
-        get_app().processEvents() # This allows the webview to accept our JS calls on launch
-
         if action.type == "load":
             # Initialize translated track name
             _ = get_app()._tr
@@ -252,6 +251,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
             # Get file object
             file = File.get(id=clip_data["file_id"])
+
+            if not file:
+                # File not found, do nothing
+                return
 
             # Convert path to the correct relative path (based on this folder)
             file_path = file.absolute_path()
@@ -468,6 +471,12 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Get translation method
         _ = get_app()._tr
 
+        # Get existing clip object
+        clip = Clip.get(id=clip_id)
+        if not clip:
+            # Not a valid clip id
+            return
+
         # Set the selected clip (if needed)
         if clip_id not in self.window.selected_clips:
             self.window.addSelection(clip_id, 'clip')
@@ -479,8 +488,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         fps = get_app().project.get(["fps"])
         fps_float = float(fps["num"]) / float(fps["den"])
 
-        # Get existing clip object
-        clip = Clip.get(id=clip_id)
+        # Get playhead position
         playhead_position = float(self.window.preview_thread.current_frame) / fps_float
 
         # Mark these strings for translation
@@ -842,6 +850,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
             # Get existing clip object
             clip = Clip.get(id=clip_id)
+            if not clip:
+                # Invalid clip, skip to next item
+                continue
+
             file_path = clip.data["reader"]["path"]
 
             # Find actual clip object from libopenshot
@@ -871,9 +883,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             # Get existing clip object
             clip = Clip.get(id=clip_id)
 
-            # Pass to javascript timeline (and render)
-            cmd = JS_SCOPE_SELECTOR + ".hideAudioData('" + clip_id + "');"
-            self.page().mainFrame().evaluateJavaScript(cmd)
+            if clip:
+                # Pass to javascript timeline (and render)
+                cmd = JS_SCOPE_SELECTOR + ".hideAudioData('" + clip_id + "');"
+                self.page().mainFrame().evaluateJavaScript(cmd)
 
     def Waveform_Ready(self, clip_id, audio_data):
         """Callback when audio waveform is ready"""
@@ -898,6 +911,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
             # Get existing clip object
             clip = Clip.get(id=clip_id)
+            if not clip:
+                # Invalid clip, skip to next item
+                continue
 
             # Filter out audio on the original clip
             p = openshot.Point(1, 0.0, openshot.CONSTANT) # Override has_audio keyframe to False
@@ -979,6 +995,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
             # Get existing clip object
             clip = Clip.get(id=clip_id)
+            if not clip:
+                # Invalid clip, skip to next item
+                continue
 
             new_gravity = openshot.GRAVITY_CENTER
             if action == MENU_LAYOUT_CENTER:
@@ -1052,13 +1071,15 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
             # Get existing clip object
             clip = Clip.get(id=clip_id)
+            if not clip:
+                # Invalid clip, skip to next item
+                continue
 
             # Get framerate
             fps = get_app().project.get(["fps"])
             fps_float = float(fps["num"]) / float(fps["den"])
 
             # Get existing clip object
-            clip = Clip.get(id=clip_id)
             start_of_clip = round(float(clip.data["start"]) * fps_float) + 1
             end_of_clip = round(float(clip.data["end"]) * fps_float) + 1
 
@@ -1224,6 +1245,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
             # Get existing clip object
             clip = Clip.get(id=clip_id)
+            if not clip:
+                # Invalid clip, skip to next item
+                continue
+
             self.copy_clipboard[clip_id] = {}
 
             if action == MENU_COPY_CLIP or action == MENU_COPY_ALL:
@@ -1263,6 +1288,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
             # Get existing transition object
             tran = Transition.get(id=tran_id)
+            if not tran:
+                # Invalid transition, skip to next item
+                continue
+
             self.copy_transition_clipboard[tran_id] = {}
 
             if action == MENU_COPY_TRANSITION or action == MENU_COPY_ALL:
@@ -1355,6 +1384,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
                 # Get existing clip object
                 clip = Clip.get(id=clip_id)
+                if not clip:
+                    # Invalid clip, skip to next item
+                    continue
 
                 # Apply clipboard to clip (there should only be a single key in this dict)
                 for k,v in self.copy_clipboard[list(self.copy_clipboard)[0]].items():
@@ -1371,6 +1403,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
                 # Get existing transition object
                 tran = Transition.get(id=tran_id)
+                if not tran:
+                    # Invalid transition, skip to next item
+                    continue
 
                 # Apply clipboard to transition (there should only be a single key in this dict)
                 for k, v in self.copy_transition_clipboard[list(self.copy_transition_clipboard)[0]].items():
@@ -1392,6 +1427,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         for clip_id in clip_ids:
             # Get existing clip object
             clip = Clip.get(id=clip_id)
+            if not clip:
+                # Invalid clip, skip to next item
+                continue
+
             position = float(clip.data["position"])
             start_of_clip = float(clip.data["start"])
             end_of_clip = float(clip.data["end"])
@@ -1405,6 +1444,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         for tran_id in tran_ids:
             # Get existing transition object
             tran = Transition.get(id=tran_id)
+            if not tran:
+                # Invalid transition, skip to next item
+                continue
+
             position = float(tran.data["position"])
             start_of_tran = float(tran.data["start"])
             end_of_tran = float(tran.data["end"])
@@ -1419,6 +1462,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         for clip_id in clip_ids:
             # Get existing clip object
             clip = Clip.get(id=clip_id)
+            if not clip:
+                # Invalid clip, skip to next item
+                continue
 
             if action == MENU_ALIGN_LEFT:
                 clip.data['position'] = left_edge
@@ -1437,6 +1483,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         for tran_id in tran_ids:
             # Get existing transition object
             tran = Transition.get(id=tran_id)
+            if not tran:
+                # Invalid transition, skip to next item
+                continue
 
             if action == MENU_ALIGN_LEFT:
                 tran.data['position'] = left_edge
@@ -1465,6 +1514,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
             # Get existing clip object
             clip = Clip.get(id=clip_id)
+            if not clip:
+                # Invalid clip, skip to next item
+                continue
+
             start_of_clip = round(float(clip.data["start"]) * fps_float) + 1
             end_of_clip = round(float(clip.data["end"]) * fps_float) + 1
 
@@ -1550,6 +1603,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
             # Get existing clip object
             clip = Clip.get(id=clip_id)
+            if not clip:
+                # Invalid clip, skip to next item
+                continue
 
             # Determine if waveform needs to be redrawn
             has_audio_data = bool(self.eval_js(JS_SCOPE_SELECTOR + ".hasAudioData('" + clip_id + "');"))
@@ -1578,6 +1634,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 # Add the 2nd clip (the right side, since the left side has already been adjusted above)
                 # Get right side clip object
                 right_clip = Clip.get(id=clip_id)
+                if not right_clip:
+                    # Invalid clip, skip to next item
+                    continue
 
                 # Remove the ID property from the clip (so it becomes a new one)
                 right_clip.id = None
@@ -1620,6 +1679,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         for trans_id in trans_ids:
             # Get existing transition object
             trans = Transition.get(id=trans_id)
+            if not trans:
+                # Invalid transition, skip to next item
+                continue
 
             if action == MENU_SLICE_KEEP_LEFT or action == MENU_SLICE_KEEP_BOTH:
                 # Get details of original transition
@@ -1641,6 +1703,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 # Add the 2nd transition (the right side, since the left side has already been adjusted above)
                 # Get right side transition object
                 right_tran = Transition.get(id=trans_id)
+                if not right_tran:
+                    # Invalid transition, skip to next item
+                    continue
 
                 # Remove the ID property from the transition (so it becomes a new one)
                 right_tran.id = None
@@ -1679,6 +1744,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
             # Get existing clip object
             clip = Clip.get(id=clip_id)
+            if not clip:
+                # Invalid clip, skip to next item
+                continue
+
             start_of_clip = round(float(clip.data["start"]) * fps_float) + 1
             end_of_clip = round(float(clip.data["end"]) * fps_float) + 1
 
@@ -1774,6 +1843,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
             # Get existing clip object
             clip = Clip.get(id=clip_id)
+            if not clip:
+                # Invalid clip, skip to next item
+                continue
 
             if action == MENU_ROTATE_NONE:
                 # Clear all keyframes
@@ -1816,6 +1888,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
             # Get existing clip object
             clip = Clip.get(id=clip_id)
+            if not clip:
+                # Invalid clip, skip to next item
+                continue
 
             # Determine the beginning and ending of this animation
             start_animation = 1
@@ -1975,6 +2050,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
             # Get existing clip object
             tran = Transition.get(id=tran_id)
+            if not tran:
+                # Invalid transition, skip to next item
+                continue
 
             # Loop through brightness keyframes
             tran_data_copy = deepcopy(tran.data)
@@ -1996,6 +2074,12 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Get translation method
         _ = get_app()._tr
 
+        # Get existing transition object
+        tran = Transition.get(id=tran_id)
+        if not tran:
+            # Not a valid transition id
+            return
+
         # Set the selected transition (if needed)
         if tran_id not in self.window.selected_transitions:
             self.window.addSelection(tran_id, 'transition')
@@ -2007,8 +2091,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         fps = get_app().project.get(["fps"])
         fps_float = float(fps["num"]) / float(fps["den"])
 
-        # Get existing transition object
-        tran = Transition.get(id=tran_id)
+        # Get playhead position
         playhead_position = float(self.window.preview_thread.current_frame) / fps_float
 
         menu = QMenu(self)
@@ -2107,7 +2190,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         menu.addAction(self.window.actionAddTrackAbove)
         menu.addAction(self.window.actionAddTrackBelow)
         menu.addAction(self.window.actionRenameTrack)
-        if track.data['lock']:
+        if track.data.get("lock", False):
             menu.addAction(self.window.actionUnlockTrack)
         else:
             menu.addAction(self.window.actionLockTrack)
@@ -2131,6 +2214,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Get existing clip object
         clip = Clip.get(id=clip_id)
+        if not clip:
+            # Invalid clip
+            return
+
         path = clip.data['reader']['path']
 
         # Adjust frame # to valid range
@@ -2294,6 +2381,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Search for matching file in project data (if any)
         file_id = data[0]
         file = File.get(id=file_id)
+
+        if not file:
+            # File not found, do nothing
+            return
 
         if (file.data["media_type"] == "video" or file.data["media_type"] == "image"):
             # Determine thumb path
@@ -2488,8 +2579,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 file_url = urlparse(uri.toString())
                 if file_url.scheme == "file":
                     filepath = file_url.path
-                    if filepath[0] == "/" and ":" in filepath:
-                        filepath = filepath[1:]
+                    if sys.platform == "win32":
+                        filepath = filepath[1:]  # Remove / at beginning of path (just for Windows)
                     if os.path.exists(filepath.encode('UTF-8')) and os.path.isfile(filepath.encode('UTF-8')):
                         # Valid file, so create clip for it
                         for file in File.filter(path=filepath):

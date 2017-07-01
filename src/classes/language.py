@@ -176,9 +176,13 @@ def get_all_languages():
     # Loop through all supported language locale codes
     all_languages = []
     for locale_name in info.SUPPORTED_LANGUAGES:
-        native_lang_name = QLocale(locale_name).nativeLanguageName().title()
-        country_name = QLocale(locale_name).nativeCountryName().title()
-        all_languages.append((locale_name, native_lang_name, country_name))
+        try:
+            native_lang_name = QLocale(locale_name).nativeLanguageName().title()
+            country_name = QLocale(locale_name).nativeCountryName().title()
+            all_languages.append((locale_name, native_lang_name, country_name))
+        except:
+            # Ignore failed parsing of language
+            pass
 
     # Return list
     return all_languages

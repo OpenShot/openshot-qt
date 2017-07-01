@@ -116,8 +116,8 @@ class VideoWidget(QWidget):
             y = 0.0
 
             # Get scaled source image size (scale_x, scale_y)
-            sx = float(raw_properties.get('scale_x').get('value'))
-            sy = float(raw_properties.get('scale_y').get('value'))
+            sx = max(float(raw_properties.get('scale_x').get('value')), 0.001)
+            sy = max(float(raw_properties.get('scale_y').get('value')), 0.001)
             scaled_source_width = source_width * sx
             scaled_source_height = source_height * sy
 
@@ -393,7 +393,7 @@ class VideoWidget(QWidget):
             start_of_clip_frame = round(float(self.transforming_clip.data["start"]) * fps_float) + 1
             position_of_clip_frame = (float(self.transforming_clip.data["position"]) * fps_float) + 1
             playhead_position_frame = float(get_app().window.preview_thread.current_frame)
-            clip_frame_number = round(playhead_position_frame - position_of_clip_frame) + start_of_clip_frame + 1
+            clip_frame_number = round(playhead_position_frame - position_of_clip_frame) + start_of_clip_frame
 
             # Transform clip object
             if self.transform_mode:
@@ -464,6 +464,9 @@ class VideoWidget(QWidget):
         clip_updated = False
 
         c = Clip.get(id=id)
+        if not c:
+            # No clip found
+            return
 
         for point in c.data[property_key]["Points"]:
             log.info("looping points: co.X = %s" % point["co"]["X"])
@@ -494,14 +497,14 @@ class VideoWidget(QWidget):
         """Signal to refresh viewport (i.e. a property might have changed that effects the preview)"""
 
         # Update reference to clip
-        if self.transforming_clip:
+        if self and self.transforming_clip:
             self.transforming_clip = Clip.get(id=self.transforming_clip.id)
 
     def transformTriggered(self, clip_id):
         """Handle the transform signal when it's emitted"""
         need_refresh = False
         # Disable Transform UI
-        if self.transforming_clip:
+        if self and self.transforming_clip:
             # Is this the same clip_id already being transformed?
             if not clip_id:
                 # Clear transform

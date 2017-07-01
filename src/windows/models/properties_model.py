@@ -154,7 +154,12 @@ class PropertiesModel(updates.UpdateInterface):
             # If effect, find the position of the parent clip
             if item_type == "effect":
                 # find parent clip
-                parent_clip_id = Effect.get(id=clip.Id()).parent["id"]
+                effect = Effect.get(id=clip.Id())
+                if not effect:
+                    # Invalid effect
+                    return
+
+                parent_clip_id = effect.parent["id"]
 
                 # Find this clip object
                 clips = get_app().window.timeline_sync.timeline.Clips()

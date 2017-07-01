@@ -6,6 +6,8 @@
 	<string>VERSION</string>
 	<key>CFBundleName</key>
 	<string>OpenShot Video Editor</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>

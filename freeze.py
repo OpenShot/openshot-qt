@@ -172,6 +172,7 @@ elif sys.platform == "linux":
                     libpath_folder, libpath_file = os.path.split(libpath)
                     if (libpath \
                         and not libpath.startswith("/lib") \
+                        and not "libnvidia-glcore.so" in libpath \
                         and not libpath_file in ["libstdc++.so.6", "libGL.so.1", "libxcb.so.1", "libX11.so.6", "libasound.so.2", "libfontconfig.so.1", "libgcc_s.so.1 ", "libICE.so.6", "libp11-kit.so.0", "libSM.so.6", "libgobject-2.0.so.0"]) \
                             or libpath_file in ["libgcrypt.so.11", "libQt5DBus.so.5", "libpng12.so.0", "libbz2.so.1.0", "libqxcb.so"]:
 
@@ -210,7 +211,7 @@ for filename in find_files("openshot_qt", ["*"]):
 
 # Dependencies are automatically detected, but it might need fine tuning.
 build_exe_options["packages"] = ["os", "sys", "PyQt5", "openshot", "time", "uuid", "shutil", "threading", "subprocess",
-                                 "re", "math", "subprocess", "xml", "logging", "urllib", "httplib2", "webbrowser", "zmq", json_library]
+                                 "re", "math", "subprocess", "xml", "logging", "urllib", "requests", "webbrowser", "zmq", json_library]
 build_exe_options["include_files"] = src_files + external_so_files
 
 # Set options

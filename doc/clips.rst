@@ -84,6 +84,19 @@ Copy / Paste        Copy and paste key frames or duplicate an entire clip (with 
 Remove Clip         Remove a clip from the timeline
 ==================  ============
 
+.. _clip_transform_ref:
+
+Transform
+---------
+To quickly adjust the location and scale of a clip, select a clip on the timeline, right click and choose **Transform**.
+Grab any of the small blue handles to adjust scale, and grab the middle circle to move the image. Note: Pay close
+attention to where the play-head (i.e. red playback line) is. Key frames are automatically created at the current playback
+position, to help create animations.
+
+.. image:: _static/clip-transform.jpg
+
+For more info on key frames and animation, see :ref:`animation_ref`.
+
 Effects
 -------
 In addition to the many clip properties which can be animated and adjusted, you can also drop an effect directly onto
@@ -97,7 +110,7 @@ effect, and allow you to edit (and animate) them.
 Properties
 ----------
 Below is a list of clip properties which can be edited, and in most cases, animated over time. To view a clip's properties,
-right click and choose **Properties**. The property editor will appear, where you can change these properties. NOTE: Pay
+right click and choose **Properties**. The property editor will appear, where you can change these properties. Note: Pay
 close attention to where the play-head (i.e. red playback line) is. Key frames are automatically created at the current playback
 position, to help create animations.
 
@@ -124,3 +137,5 @@ Has Video           An optional override to determine if this clip has video (-1
 Waveform            Should a waveform be used instead of the clip's image
 Waveform Color      Curve representing the color of the audio wave form
 ==================  ============
+
+For more info on key frames and animation, see :ref:`animation_ref`.

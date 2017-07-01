@@ -91,7 +91,7 @@ params = {
 bpy.data.objects['Alongtimeago'].data.body = params['Alongtimeago']
 bpy.data.objects['Episode'].data.body = params['Episode']
 bpy.data.objects['EpisodeTitle'].data.body = params['EpisodeTitle']
-bpy.data.objects['TitleStarWars'].data.body = params['TitleSpaceMovie']
+bpy.data.objects['TitleSpaceMovie'].data.body = params['TitleSpaceMovie']
 bpy.data.objects['MainText'].data.body = params['MainText']
 
 # Set the render options.  It is important that these are set

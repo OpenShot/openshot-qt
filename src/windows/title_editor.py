@@ -113,12 +113,8 @@ class TitleEditor(QDialog):
             # Hide list of templates
             self.widget.setVisible(False)
 
-            # Display title in graphicsView
-            self.filename = self.edit_file_path
-
-            if self.duplicate:
-                # Create temp version of title
-                self.create_temp_title(self.edit_file_path)
+            # Create temp version of title
+            self.create_temp_title(self.edit_file_path)
 
             # Add all widgets for editing
             self.load_svg_template()
@@ -211,7 +207,7 @@ class TitleEditor(QDialog):
         else:
             # Find an unused file name
             for i in range(1, 1000):
-                possible_path = os.path.join(info.ASSETS_PATH, "TitleFileName-%d.svg" % i)
+                possible_path = os.path.join(info.ASSETS_PATH, "%s.svg" % _("TitleFileName-%d") % i)
                 if not os.path.exists(possible_path):
                     self.txtFileName.setText(_("TitleFileName-%d") % i)
                     break
@@ -469,8 +465,10 @@ class TitleEditor(QDialog):
             # ignoring font-weight, as not sure what it represents in Qt.
             fs = self.find_in_list(ar, "font-style:")
             ff = self.find_in_list(ar, "font-family:")
-            ar[fs] = "font-style:" + self.font_style
-            ar[ff] = "font-family:" + self.font_family
+            if fs:
+                ar[fs] = "font-style:" + self.font_style
+            if ff:
+                ar[ff] = "font-family:" + self.font_family
             # rejoin the modified parts
             t = ";"
             self.title_style_string = t.join(ar)
@@ -490,8 +488,10 @@ class TitleEditor(QDialog):
             # ignoring font-weight, as not sure what it represents in Qt.
             fs = self.find_in_list(ar, "font-style:")
             ff = self.find_in_list(ar, "font-family:")
-            ar[fs] = "font-style:" + self.font_style
-            ar[ff] = "font-family:" + self.font_family
+            if fs:
+                ar[fs] = "font-style:" + self.font_style
+            if ff:
+                ar[ff] = "font-family:" + self.font_family
             # rejoin the modified parts
             t = ";"
             self.title_style_string = t.join(ar)
@@ -570,6 +570,9 @@ class TitleEditor(QDialog):
 
         # If editing file, just update the existing file
         if self.edit_file_path and not self.duplicate:
+            # Update filename
+            self.filename = self.edit_file_path
+
             # Overwrite title svg file
             self.writeToFile(self.xmldoc)
 

@@ -17,13 +17,14 @@
 .. You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
 
+.. _animation_ref:
+
 Animation
 =========
 
 OpenShot has been designed specifically with animation in mind. The powerful curve-based animation framework can
 handle most jobs with ease, and is flexible enough to create just about any animation. Key frames specify
 values at certain points on a clip, and OpenShot does the hard work of interpolating the in-between values.
-
 
 Overview
 --------
@@ -58,6 +59,18 @@ Constant            Interpolated values stay the same until the next key frame, 
 ==================  ============
 
 For more info on clip properties, see :ref:`clip_properties_ref`. For more info on preset animations, see :ref:`clip_presets_ref`.
+For more info on creating key frames for location and scale, see :ref:`clip_transform_ref`.
+
+Bézier Presets
+--------------
+When using a Bézier curve for animation, OpenShot includes more than 20 curve presets (which affect the shape
+of the curve). For example, **Ease-In** has a more gradual slope at the beginning, making an animation move slower at
+the beginning, and faster at the end. **Ease-In/Out (Back)** has a gradual beginning and ending, but actually goes past
+the expected value and then back (producing a bounce effect).
+
+To choose a curve preset, right click on the small graph icon next to a key frame.
+
+.. image:: _static/curve-presets.jpg
 
 Image Sequences
 ---------------
@@ -66,3 +79,12 @@ drag and drop one of them into OpenShot, and you will be prompted to import the 
 
 To adjust the frame rate of the animation, right click and choose **File Properties** in the **Project Files** panel,
 and adjust the frame rate. Once you have set the correct frame rate, drag the animation onto the timeline.
+
+.. image:: _static/file-properties.jpg
+
+==  ====================  ============
+#   Name                  Description
+==  ====================  ============
+1   File Properties       Select an image sequence in the **Project Files** panel, right click and choose **File Properties**
+2   Frame Rate            Adjust the frame rate of the animation. Typically, hand-drawn animations use 12 frames per second.
+==  ====================  ============

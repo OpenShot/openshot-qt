@@ -29,6 +29,7 @@
 import os
 import glob
 import re
+import sys
 from urllib.parse import urlparse
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
@@ -277,8 +278,8 @@ class FilesListView(QListView):
             file_url = urlparse(uri.toString())
             if file_url.scheme == "file":
                 filepath = file_url.path
-                if filepath[0] == "/" and ":" in filepath:
-                    filepath = filepath[1:]
+                if sys.platform == "win32":
+                    filepath = filepath[1:] # Remove / at beginning of path (just for Windows)
                 if os.path.exists(filepath.encode('UTF-8')) and os.path.isfile(filepath.encode('UTF-8')):
                     log.info('Adding file: {}'.format(filepath))
                     if self.add_file(filepath):

@@ -29,6 +29,7 @@
 
 import os
 import xml.etree.ElementTree
+import time
 
 from PyQt5.QtCore import QDir, QLocale
 from PyQt5.QtGui import QIcon
@@ -60,9 +61,28 @@ def load_theme():
 
 def load_ui(window, path):
     """ Load a Qt *.ui file, and also load an XML parsed version """
+    # Attempt to load the UI file 5 times
+    # This is a hack, and I'm trying to avoid a really common error which might be a
+    # race condition. [zipimport.ZipImportError: can't decompress data; zlib not available]
+    # This error only happens when cx_Freeze is used, and the app is launched.
+    error = None
+    for attempt in range(1,6):
+        try:
+            # Load ui from configured path
+            uic.loadUi(path, window)
 
-    # Load ui from configured path
-    uic.loadUi(path, window)
+            # Successfully loaded UI file, so clear any previously encountered errors
+            error = None
+            break
+
+        except Exception as ex:
+            # Keep track of this error
+            error = ex
+            time.sleep(0.1)
+
+    # Raise error (if any)
+    if error:
+        raise error
 
     # Save xml tree for ui
     window.uiTree = xml.etree.ElementTree.parse(path)

@@ -152,7 +152,7 @@
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
    <property name="windowTitle">
-    <string>toolBar</string>
+    <string>Toolbar</string>
    </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
@@ -1266,10 +1266,10 @@
      <normaloff>:/icons/Humanity/actions/16/package-upgrade.svg</normaloff>:/icons/Humanity/actions/16/package-upgrade.svg</iconset>
    </property>
    <property name="text">
-    <string>New Version Available</string>
+    <string>Update Available</string>
    </property>
    <property name="toolTip">
-    <string>New Version Available</string>
+    <string>Update Available</string>
    </property>
    <property name="visible">
     <bool>false</bool>

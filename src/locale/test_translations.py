@@ -56,9 +56,9 @@ for language_code in os.listdir(locale_path):
 
         # Loop through all test strings
         for source_string in all_strings:
-            if "%s" in source_string:
+            if "%s" in source_string or "%s(" in source_string or "%d" in source_string:
                 translated_string = app.translate("", source_string)
-                if source_string.count('%') != translated_string.count('%s'):
+                if source_string.count('%') != translated_string.count('%'):
                     print('  Invalid string replacement found: %s  (source: %s)' % (translated_string, source_string))
 
         # Remove translator

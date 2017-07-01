@@ -120,6 +120,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         QCoreApplication.processEvents()
 
         # Stop preview thread (and wait for it to end)
+        self.preview_thread.player.CloseAudioDevice()
         self.preview_thread.kill()
         self.preview_parent.background.exit()
         self.preview_parent.background.wait(5000)
@@ -155,6 +156,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             msg.setWindowTitle(_("Backup Recovered"))
             msg.setText(_("Your most recent unsaved project has been recovered."))
             msg.exec_()
+
+        else:
+            # No backup project found
+            # Load a blank project (to propagate the default settings)
+            get_app().project.load("")
 
     def create_lock_file(self):
         """Create a lock file"""
@@ -227,11 +233,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             log.error("Unhandled crash detected... will attempt to recover backup project: %s" % info.BACKUP_PATH)
             track_metric_error("unhandled-crash%s" % last_log_line, True)
 
-            # Remove file
-            os.remove(lock_path)
-
             # Recover backup file (this can't happen until after the Main Window has completely loaded)
-            QTimer.singleShot(0, self.RecoverBackup.emit)
+            QTimer.singleShot(250, self.RecoverBackup.emit)
+
+            # Remove file
+            self.destroy_lock_file()
 
         else:
             # Normal startup, clear thumbnails
@@ -1959,12 +1965,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         # Add timeline toolbar to web frame
         self.frameWeb.addWidget(self.timelineToolbar)
 
-        # Add spacer and 'New Version Available' toolbar button (default hidden)
-        spacer = QWidget(self)
-        spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
-        self.toolBar.addWidget(spacer)
-        self.toolBar.addAction(self.actionUpdate)
-
     def clearSelections(self):
         """Clear all selection containers"""
         self.selected_files = []
@@ -1985,10 +1985,21 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
         # Compare versions (alphabetical compare of version strings should work fine)
         if info.VERSION < version:
-            # Display upgrade toolbar button
+            # Add spacer and 'New Version Available' toolbar button (default hidden)
+            spacer = QWidget(self)
+            spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+            self.toolBar.addWidget(spacer)
+
+            # Update text for QAction
             self.actionUpdate.setVisible(True)
-            self.actionUpdate.setText(_("New Version Available: %s") % version)
-            self.actionUpdate.setToolTip(_("New Version Available: %s") % version)
+            self.actionUpdate.setText(_("Update Available"))
+            self.actionUpdate.setToolTip(_("Update Available: <b>%s</b>") % version)
+
+            # Add update available button (with icon and text)
+            updateButton = QToolButton()
+            updateButton.setDefaultAction(self.actionUpdate)
+            updateButton.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
+            self.toolBar.addWidget(updateButton)
 
     def moveEvent(self, event):
         """ Move tutorial dialogs also (if any)"""
