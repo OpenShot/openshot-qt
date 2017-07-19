@@ -125,6 +125,8 @@ MENU_TRANSFORM = 0
 MENU_TIME_NONE = 0
 MENU_TIME_FORWARD = 1
 MENU_TIME_BACKWARD = 2
+MENU_TIME_FREEZE = 3
+MENU_TIME_FREEZE_ZOOM = 4
 
 MENU_COPY_ALL = -1
 MENU_COPY_CLIP = 0
@@ -718,6 +720,19 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             # Add menu to parent
             Time_Menu.addMenu(Speed_Menu)
 
+        # Add Freeze menu options
+        Time_Menu.addSeparator()
+        for freeze_type, trigger_type in [(_("Freeze"), MENU_TIME_FREEZE), (_("Freeze && Zoom"), MENU_TIME_FREEZE_ZOOM)]:
+            Freeze_Menu = QMenu(freeze_type, self)
+
+            for freeze_seconds in [2, 4, 6, 8, 10, 20, 30]:
+                # Add menu option
+                Time_Option = Freeze_Menu.addAction(_('{} seconds').format(freeze_seconds))
+                Time_Option.triggered.connect(partial(self.Time_Triggered, trigger_type, clip_ids, freeze_seconds, playhead_position))
+
+            # Add menu to parent
+            Time_Menu.addMenu(Freeze_Menu)
+
         # Add menu to parent
         menu.addMenu(Time_Menu)
 
@@ -906,6 +921,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         """Callback for split audio context menus"""
         log.info("Split_Audio_Triggered")
 
+        # Get translation method
+        _ = get_app()._tr
+
         # Loop through each selected clip
         for clip_id in clip_ids:
 
@@ -934,6 +952,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             clip.data.pop('id')
             clip.key.pop(1)
 
+            # Get title of clip
+            clip_title = clip.data["title"]
+
             if action == MENU_SPLIT_AUDIO_SINGLE:
                 # Clear channel filter on new clip
                 p = openshot.Point(1, -1.0, openshot.CONSTANT)
@@ -948,11 +969,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 # Adjust the layer, so this new audio clip doesn't overlap the parent
                 clip.data['layer'] = clip.data['layer'] - 1 # Add to layer below clip
 
+                # Adjust the clip title
+                channel_label = _("(all channels)")
+                clip.data["title"] = clip_title + " " + channel_label
                 # Save changes
                 clip.save()
-
-                # Generate waveform for clip
-                self.Show_Waveform_Triggered([clip.id])
 
             if action == MENU_SPLIT_AUDIO_MULTIPLE:
                 # Get # of channels on clip
@@ -975,11 +996,12 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                     # Adjust the layer, so this new audio clip doesn't overlap the parent
                     clip.data['layer'] = max(clip.data['layer'] - 1, 0) # Add to layer below clip
 
+                    # Adjust the clip title
+                    channel_label = _("(channel %s)") % (channel + 1)
+                    clip.data["title"] = clip_title + " " + channel_label
+
                     # Save changes
                     clip.save()
-
-                    # Generate waveform for clip
-                    self.Show_Waveform_Triggered([clip.id])
 
                     # Remove the ID property from the clip (so next time, it will create a new clip)
                     clip.id = None
@@ -1874,7 +1896,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             # Save changes
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
-    def Time_Triggered(self, action, clip_ids, speed="1X"):
+    def Time_Triggered(self, action, clip_ids, speed="1X", playhead_position=0.0):
         """Callback for rotate context menus"""
         log.info(action)
         prop_name = "time"
@@ -1892,75 +1914,185 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 # Invalid clip, skip to next item
                 continue
 
+            # Keep original 'end' and 'duration'
+            if "original_data" not in clip.data.keys():
+                clip.data["original_data"] = {"end": clip.data["end"],
+                                              "duration": clip.data["duration"],
+                                              "video_length": clip.data["reader"]["video_length"]}
+
             # Determine the beginning and ending of this animation
             start_animation = 1
 
-            # Calculate speed factor
-            speed_label = speed.replace('X', '')
-            speed_parts = speed_label.split('/')
-            even_multiple = 1
-            if len(speed_parts) == 2:
-                speed_factor = float(speed_parts[0]) / float(speed_parts[1])
-                even_multiple = int(speed_parts[1])
+            # Freeze or Speed?
+            if action in [MENU_TIME_FREEZE, MENU_TIME_FREEZE_ZOOM]:
+                # Get freeze details
+                freeze_seconds = float(speed)
+
+                original_duration = clip.data["duration"]
+                if "original_data" in clip.data.keys():
+                    original_duration = clip.data["original_data"]["duration"]
+
+                print('ORIGINAL DURATION: %s' % original_duration)
+                print(clip.data)
+
+                # Extend end & duration (due to freeze)
+                clip.data["end"] = float(clip.data["end"]) + freeze_seconds
+                clip.data["duration"] = float(clip.data["duration"]) + freeze_seconds
+                clip.data["reader"]["video_length"] = float(clip.data["reader"]["video_length"]) + freeze_seconds
+
+                # Determine start frame from position
+                freeze_length_frames = round(freeze_seconds * fps_float) + 1
+                start_animation_seconds = float(clip.data["start"]) + (playhead_position - float(clip.data["position"]))
+                start_animation_frames = round(start_animation_seconds * fps_float) + 1
+                start_animation_frames_value = start_animation_frames
+                end_animation_seconds = start_animation_seconds + freeze_seconds
+                end_animation_frames = round(end_animation_seconds * fps_float) + 1
+                end_of_clip_seconds = float(clip.data["duration"])
+                end_of_clip_frames = round((end_of_clip_seconds) * fps_float) + 1
+                end_of_clip_frames_value = round((original_duration) * fps_float) + 1
+
+                # Determine volume start and end
+                start_volume_value = 1.0
+
+                # Do we already have a time curve? Look up intersecting frame # from time curve
+                if len(clip.data["time"]["Points"]) > 1:
+                    # Delete last time point (which should be the end of the clip). We have a new end of the clip
+                    # after inserting this freeze.
+                    del clip.data["time"]["Points"][-1]
+
+                    # Find actual clip object from libopenshot
+                    c = None
+                    clips = get_app().window.timeline_sync.timeline.Clips()
+                    for clip_object in clips:
+                        if clip_object.Id() == clip_id:
+                            c = clip_object
+                            break
+                    if c:
+                        # Look up correct position from time curve
+                        start_animation_frames_value = c.time.GetLong(start_animation_frames)
+
+                # Do we already have a volume curve? Look up intersecting frame # from volume curve
+                if len(clip.data["volume"]["Points"]) > 1:
+                    # Find actual clip object from libopenshot
+                    c = None
+                    clips = get_app().window.timeline_sync.timeline.Clips()
+                    for clip_object in clips:
+                        if clip_object.Id() == clip_id:
+                            c = clip_object
+                            break
+                    if c:
+                        # Look up correct volume from time curve
+                        start_volume_value = c.volume.GetValue(start_animation_frames)
+
+                # Create Time Freeze keyframe points
+                p = openshot.Point(start_animation_frames, start_animation_frames_value, openshot.LINEAR)
+                p_object = json.loads(p.Json())
+                clip.data[prop_name]["Points"].append(p_object)
+                p1 = openshot.Point(end_animation_frames, start_animation_frames_value, openshot.LINEAR)
+                p1_object = json.loads(p1.Json())
+                clip.data[prop_name]["Points"].append(p1_object)
+                p2 = openshot.Point(end_of_clip_frames, end_of_clip_frames_value, openshot.LINEAR)
+                p2_object = json.loads(p2.Json())
+                clip.data[prop_name]["Points"].append(p2_object)
+
+                # Create Volume mute keyframe points (so the freeze is silent)
+                p = openshot.Point(start_animation_frames - 1, start_volume_value, openshot.LINEAR)
+                p_object = json.loads(p.Json())
+                clip.data['volume']["Points"].append(p_object)
+                p = openshot.Point(start_animation_frames, 0.0, openshot.LINEAR)
+                p_object = json.loads(p.Json())
+                clip.data['volume']["Points"].append(p_object)
+                p2 = openshot.Point(end_animation_frames - 1, 0.0, openshot.LINEAR)
+                p2_object = json.loads(p2.Json())
+                clip.data['volume']["Points"].append(p2_object)
+                p3 = openshot.Point(end_animation_frames, start_volume_value, openshot.LINEAR)
+                p3_object = json.loads(p3.Json())
+                clip.data['volume']["Points"].append(p3_object)
+
+                # Create zoom keyframe points
+                if action == MENU_TIME_FREEZE_ZOOM:
+                    p = openshot.Point(start_animation_frames, 1.0, openshot.BEZIER)
+                    p_object = json.loads(p.Json())
+                    clip.data['scale_x']["Points"].append(p_object)
+                    p = openshot.Point(start_animation_frames, 1.0, openshot.BEZIER)
+                    p_object = json.loads(p.Json())
+                    clip.data['scale_y']["Points"].append(p_object)
+
+                    diff_halfed = (end_animation_frames - start_animation_frames) / 2.0
+                    p1 = openshot.Point(start_animation_frames + diff_halfed, 1.05, openshot.BEZIER)
+                    p1_object = json.loads(p1.Json())
+                    clip.data['scale_x']["Points"].append(p1_object)
+                    p1 = openshot.Point(start_animation_frames + diff_halfed, 1.05, openshot.BEZIER)
+                    p1_object = json.loads(p1.Json())
+                    clip.data['scale_y']["Points"].append(p1_object)
+
+                    p1 = openshot.Point(end_animation_frames, 1.0, openshot.BEZIER)
+                    p1_object = json.loads(p1.Json())
+                    clip.data['scale_x']["Points"].append(p1_object)
+                    p1 = openshot.Point(end_animation_frames, 1.0, openshot.BEZIER)
+                    p1_object = json.loads(p1.Json())
+                    clip.data['scale_y']["Points"].append(p1_object)
+
             else:
-                speed_factor = float(speed_label)
-                even_multiple = int(speed_factor)
 
-            # Clear all keyframes
-            p = openshot.Point(start_animation, 0.0, openshot.LINEAR)
-            p_object = json.loads(p.Json())
-            clip.data[prop_name] = { "Points" : [p_object]}
+                # Calculate speed factor
+                speed_label = speed.replace('X', '')
+                speed_parts = speed_label.split('/')
+                even_multiple = 1
+                if len(speed_parts) == 2:
+                    speed_factor = float(speed_parts[0]) / float(speed_parts[1])
+                    even_multiple = int(speed_parts[1])
+                else:
+                    speed_factor = float(speed_label)
+                    even_multiple = int(speed_factor)
 
-            # Reset original end & duration (if available)
-            if "original_data" in clip.data.keys():
-                clip.data["end"] = clip.data["original_data"]["end"]
-                clip.data["duration"] = clip.data["original_data"]["duration"]
-                clip.data["reader"]["video_length"] = clip.data["original_data"]["video_length"]
-                clip.data.pop("original_data")
+                # Clear all keyframes
+                p = openshot.Point(start_animation, 0.0, openshot.LINEAR)
+                p_object = json.loads(p.Json())
+                clip.data[prop_name] = { "Points" : [p_object]}
 
-            # Get the ending frame
-            end_of_clip = round(float(clip.data["end"]) * fps_float) + 1
+                # Reset original end & duration (if available)
+                if "original_data" in clip.data.keys():
+                    clip.data["end"] = clip.data["original_data"]["end"]
+                    clip.data["duration"] = clip.data["original_data"]["duration"]
+                    clip.data["reader"]["video_length"] = clip.data["original_data"]["video_length"]
+                    clip.data.pop("original_data")
 
-            # Determine the beginning and ending of this animation
-            start_animation = round(float(clip.data["start"]) * fps_float) + 1
-            duration_animation = self.round_to_multiple(end_of_clip - start_animation, even_multiple)
-            end_animation = start_animation + duration_animation
+                # Get the ending frame
+                end_of_clip = round(float(clip.data["end"]) * fps_float) + 1
 
-            if action == MENU_TIME_FORWARD:
-                # Add keyframes
-                start = openshot.Point(start_animation, start_animation, openshot.LINEAR)
-                start_object = json.loads(start.Json())
-                clip.data[prop_name] = { "Points" : [start_object]}
-                end = openshot.Point(start_animation + (duration_animation / speed_factor), end_animation, openshot.LINEAR)
-                end_object = json.loads(end.Json())
-                clip.data[prop_name]["Points"].append(end_object)
-                # Keep original 'end' and 'duration'
-                if "original_data" not in clip.data.keys():
-                    clip.data["original_data"] = { "end" : clip.data["end"],
-                                                   "duration" : clip.data["duration"],
-                                                   "video_length" : clip.data["reader"]["video_length"] }
-                # Adjust end & duration
-                clip.data["end"] = (start_animation + (duration_animation / speed_factor)) / fps_float
-                clip.data["duration"] = self.round_to_multiple(clip.data["duration"] / speed_factor, even_multiple)
-                clip.data["reader"]["video_length"] = str(self.round_to_multiple(float(clip.data["reader"]["video_length"]) / speed_factor, even_multiple))
+                # Determine the beginning and ending of this animation
+                start_animation = round(float(clip.data["start"]) * fps_float) + 1
+                duration_animation = self.round_to_multiple(end_of_clip - start_animation, even_multiple)
+                end_animation = start_animation + duration_animation
 
-            if action == MENU_TIME_BACKWARD:
-                # Add keyframes
-                start = openshot.Point(start_animation, end_animation, openshot.LINEAR)
-                start_object = json.loads(start.Json())
-                clip.data[prop_name] = { "Points" : [start_object]}
-                end = openshot.Point(start_animation + (duration_animation / speed_factor), start_animation, openshot.LINEAR)
-                end_object = json.loads(end.Json())
-                clip.data[prop_name]["Points"].append(end_object)
-                # Keep original 'end' and 'duration'
-                if "original_data" not in clip.data.keys():
-                    clip.data["original_data"] = { "end" : clip.data["end"],
-                                                   "duration" : clip.data["duration"],
-                                                   "video_length" : clip.data["reader"]["video_length"] }
-                # Adjust end & duration
-                clip.data["end"] = (start_animation + (duration_animation / speed_factor)) / fps_float
-                clip.data["duration"] = self.round_to_multiple(clip.data["duration"] / speed_factor, even_multiple)
-                clip.data["reader"]["video_length"] = str(self.round_to_multiple(float(clip.data["reader"]["video_length"]) / speed_factor, even_multiple))
+                if action == MENU_TIME_FORWARD:
+                    # Add keyframes
+                    start = openshot.Point(start_animation, start_animation, openshot.LINEAR)
+                    start_object = json.loads(start.Json())
+                    clip.data[prop_name] = { "Points" : [start_object]}
+                    end = openshot.Point(start_animation + (duration_animation / speed_factor), end_animation, openshot.LINEAR)
+                    end_object = json.loads(end.Json())
+                    clip.data[prop_name]["Points"].append(end_object)
+
+                    # Adjust end & duration
+                    clip.data["end"] = (start_animation + (duration_animation / speed_factor)) / fps_float
+                    clip.data["duration"] = self.round_to_multiple(clip.data["duration"] / speed_factor, even_multiple)
+                    clip.data["reader"]["video_length"] = str(self.round_to_multiple(float(clip.data["reader"]["video_length"]) / speed_factor, even_multiple))
+
+                if action == MENU_TIME_BACKWARD:
+                    # Add keyframes
+                    start = openshot.Point(start_animation, end_animation, openshot.LINEAR)
+                    start_object = json.loads(start.Json())
+                    clip.data[prop_name] = { "Points" : [start_object]}
+                    end = openshot.Point(start_animation + (duration_animation / speed_factor), start_animation, openshot.LINEAR)
+                    end_object = json.loads(end.Json())
+                    clip.data[prop_name]["Points"].append(end_object)
+
+                    # Adjust end & duration
+                    clip.data["end"] = (start_animation + (duration_animation / speed_factor)) / fps_float
+                    clip.data["duration"] = self.round_to_multiple(clip.data["duration"] / speed_factor, even_multiple)
+                    clip.data["reader"]["video_length"] = str(self.round_to_multiple(float(clip.data["reader"]["video_length"]) / speed_factor, even_multiple))
 
             # Save changes
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
