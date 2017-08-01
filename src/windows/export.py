@@ -151,10 +151,10 @@ class Export(QDialog):
             self.txtFileName.setText(filename.replace("_", " ").replace("-", " ").capitalize())
 
         # Default image type
-        self.txtImageFormat.setText("%05.png")
+        self.txtImageFormat.setText("-%05d.png")
 
         # Loop through Export To options
-        export_options = [_("Video & Audio"), _("Image Sequence")]
+        export_options = [_("Video & Audio"), _("Video Only"), _("Audio Only"), _("Image Sequence")]
         for option in export_options:
             # append profile to list
             self.cboExportTo.addItem(option)
@@ -587,6 +587,10 @@ class Export(QDialog):
     def accept(self):
         """ Start exporting video """
 
+        # get translations
+        app = get_app()
+        _ = app._tr
+
         # Disable controls
         self.txtFileName.setEnabled(False)
         self.txtExportFolder.setEnabled(False)
@@ -594,8 +598,15 @@ class Export(QDialog):
         self.export_button.setEnabled(False)
         self.exporting = True
 
+        # Determine type of export (video+audio, video, audio, image sequences)
+        # _("Video & Audio"), _("Video Only"), _("Audio Only"), _("Image Sequence")
+        export_type = self.cboExportTo.currentText()
+
         # Determine final exported file path
-        file_name_with_ext = "%s.%s" % (self.txtFileName.text().strip(), self.txtVideoFormat.text().strip())
+        if export_type != _("Image Sequence"):
+            file_name_with_ext = "%s.%s" % (self.txtFileName.text().strip(), self.txtVideoFormat.text().strip())
+        else:
+            file_name_with_ext = "%s%s" % (self.txtFileName.text().strip(), self.txtImageFormat.text().strip())
         export_file_path = os.path.join(self.txtExportFolder.text().strip(), file_name_with_ext)
         log.info(export_file_path)
 
@@ -603,7 +614,7 @@ class Export(QDialog):
         _ = get_app()._tr
 
         # Handle exception
-        if os.path.exists(export_file_path):
+        if os.path.exists(export_file_path) and export_type in [_("Video & Audio"), _("Video Only"), _("Audio Only")]:
             # File already exists! Prompt user
             ret = QMessageBox.question(self, _("Export Video"), _("%s already exists.\nDo you want to replace it?") % file_name_with_ext,
                                        QMessageBox.No | QMessageBox.Yes)
@@ -636,6 +647,15 @@ class Export(QDialog):
                           "audio_bitrate": int(self.convert_to_bytes(self.txtAudioBitrate.text()))
                           }
 
+        # Override vcodec and format for Image Sequences
+        if export_type == _("Image Sequence"):
+            image_ext = os.path.splitext(self.txtImageFormat.text().strip())[1].replace(".", "")
+            video_settings["vformat"] = image_ext
+            if image_ext in ["jpg", "jpeg"]:
+                video_settings["vcodec"] = "mjpeg"
+            else:
+                video_settings["vcodec"] = image_ext
+
         # Set MaxSize (so we don't have any downsampling)
         self.timeline.SetMaxSize(video_settings.get("width"), video_settings.get("height"))
 
@@ -648,25 +668,27 @@ class Export(QDialog):
             w = openshot.FFmpegWriter(export_file_path)
 
             # Set video options
-            w.SetVideoOptions(True,
-                              video_settings.get("vcodec"),
-                              openshot.Fraction(video_settings.get("fps").get("num"),
-                                                video_settings.get("fps").get("den")),
-                              video_settings.get("width"),
-                              video_settings.get("height"),
-                              openshot.Fraction(video_settings.get("pixel_ratio").get("num"),
-                                                video_settings.get("pixel_ratio").get("den")),
-                              False,
-                              False,
-                              video_settings.get("video_bitrate"))
+            if export_type in [_("Video & Audio"), _("Video Only"), _("Image Sequence")]:
+                w.SetVideoOptions(True,
+                                  video_settings.get("vcodec"),
+                                  openshot.Fraction(video_settings.get("fps").get("num"),
+                                                    video_settings.get("fps").get("den")),
+                                  video_settings.get("width"),
+                                  video_settings.get("height"),
+                                  openshot.Fraction(video_settings.get("pixel_ratio").get("num"),
+                                                    video_settings.get("pixel_ratio").get("den")),
+                                  False,
+                                  False,
+                                  video_settings.get("video_bitrate"))
 
             # Set audio options
-            w.SetAudioOptions(True,
-                              audio_settings.get("acodec"),
-                              audio_settings.get("sample_rate"),
-                              audio_settings.get("channels"),
-                              audio_settings.get("channel_layout"),
-                              audio_settings.get("audio_bitrate"))
+            if export_type in [_("Video & Audio"), _("Audio Only")]:
+                w.SetAudioOptions(True,
+                                  audio_settings.get("acodec"),
+                                  audio_settings.get("sample_rate"),
+                                  audio_settings.get("channels"),
+                                  audio_settings.get("channel_layout"),
+                                  audio_settings.get("audio_bitrate"))
 
             # Open the writer
             w.Open()

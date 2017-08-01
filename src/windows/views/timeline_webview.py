@@ -1,28 +1,28 @@
-""" 
+"""
  @file
  @brief This file loads the interactive HTML timeline
  @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
  @author Olivier Girard <eolinwen@gmail.com>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2016 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
@@ -934,12 +934,12 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 continue
 
             # Filter out audio on the original clip
-            p = openshot.Point(1, 0.0, openshot.CONSTANT) # Override has_audio keyframe to False
-            p_object = json.loads(p.Json())
-            clip.data["has_audio"] = { "Points" : [p_object]}
+            #p = openshot.Point(1, 0.0, openshot.CONSTANT) # Override has_audio keyframe to False
+            #p_object = json.loads(p.Json())
+            #clip.data["has_audio"] = { "Points" : [p_object]}
 
             # Save filter on original clip
-            clip.save()
+            #clip.save()
 
             # Clear audio override
             p = openshot.Point(1, -1.0, openshot.CONSTANT) # Override has_audio keyframe to False
@@ -1007,6 +1007,24 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                     clip.id = None
                     clip.type = 'insert'
                     clip.data.pop('id')
+
+        for clip_id in clip_ids:
+
+            # Get existing clip object
+            clip = Clip.get(id=clip_id)
+            if not clip:
+                # Invalid clip, skip to next item
+                continue
+
+            # Filter out audio on the original clip
+            p = openshot.Point(1, 0.0, openshot.CONSTANT) # Override has_audio keyframe to False
+            p_object = json.loads(p.Json())
+            clip.data["has_audio"] = { "Points" : [p_object]}
+
+            # Save filter on original clip
+            #clip.save()
+            self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+            clip.save()
 
     def Layout_Triggered(self, action, clip_ids):
         """Callback for the layout context menus"""
