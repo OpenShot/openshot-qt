@@ -76,7 +76,8 @@ class UpdateAction:
             data_dict = {"type": self.type,
                          "key": self.key,
                          "value": self.values,
-                         "partial": self.partial_update}
+                         "partial": self.partial_update,
+                         "old_values": self.old_values}
 
         if not is_array:
             # Use a JSON Object as the root object
@@ -95,11 +96,11 @@ class UpdateAction:
         update_action_dict = json.loads(value)
 
         # Set the Update Action properties
-        self.type = update_action_dict["type"]
-        self.key = update_action_dict["key"]
-        self.values = update_action_dict["value"]
-        self.old_values = update_action_dict["old_value"]
-        self.partial_update = update_action_dict["partial"]
+        self.type = update_action_dict.get("type")
+        self.key = update_action_dict.get("key")
+        self.values = update_action_dict.get("value")
+        self.old_values = update_action_dict.get("old_values")
+        self.partial_update = update_action_dict.get("partial")
 
 
 class UpdateManager:
@@ -114,6 +115,44 @@ class UpdateManager:
         self.currentStatus = [None, None]  # Status of Undo and Redo buttons (true/false for should be enabled)
         self.ignore_history = False # Ignore saving actions to history, to prevent a huge undo/redo list
         self.last_action = None
+
+    def load_history(self, project):
+        """Load history from project"""
+        self.redoHistory.clear()
+        self.actionHistory.clear()
+
+        # Get history from project data
+        history = project.get(["history"])
+
+        # Loop through each, and load serialized data into updateAction objects
+        for actionDict in history.get("redo", []):
+            action = UpdateAction()
+            action.load_json(json.dumps(actionDict))
+            self.redoHistory.append(action)
+        for actionDict in history.get("undo", []):
+            action = UpdateAction()
+            action.load_json(json.dumps(actionDict))
+            self.actionHistory.append(action)
+
+        # Notify watchers of new status
+        self.update_watchers()
+
+    def save_history(self, project, history_length):
+        """Save history to project"""
+        redo_list = []
+        undo_list = []
+
+        # Loop through each, and serialize
+        history_length_int = int(history_length)
+        for action in self.redoHistory[-history_length_int:]:
+            redo_list.append(json.loads(action.json()))
+        for action in self.actionHistory[-history_length_int:]:
+            undo_list.append(json.loads(action.json()))
+
+        # Set history data in project
+        self.ignore_history = True
+        self.update(["history"], { "redo": redo_list, "undo": undo_list})
+        self.ignore_history = False
 
     def reset(self):
         """ Reset the UpdateManager, and clear all UpdateActions and History. This does not clear listeners and watchers. """

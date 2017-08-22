@@ -99,6 +99,8 @@
     <addaction name="actionUndo"/>
     <addaction name="actionRedo"/>
     <addaction name="separator"/>
+    <addaction name="actionClearHistory"/>
+    <addaction name="separator"/>
     <addaction name="actionPreferences"/>
    </widget>
    <widget class="QMenu" name="menuTitle">
@@ -1348,6 +1350,18 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+T</string>
+   </property>
+  </action>
+  <action name="actionClearHistory">
+   <property name="icon">
+    <iconset theme="edit-clear" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/edit-clear.svg</normaloff>:/icons/Humanity/actions/16/edit-clear.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Clear History</string>
+   </property>
+   <property name="toolTip">
+    <string>Clear History</string>
    </property>
   </action>
  </widget>

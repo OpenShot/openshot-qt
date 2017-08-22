@@ -390,12 +390,22 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         else:
             log.info('Import image sequence add cancelled')
 
+    def actionClearHistory_trigger(self, event):
+        """Clear history for current project"""
+        app = get_app()
+        app.updates.reset()
+        log.info('History cleared')
+
     def save_project(self, file_path):
         """ Save a project to a file path, and refresh the screen """
         app = get_app()
         _ = app._tr  # Get translation function
 
         try:
+            # Update history in project data
+            s = settings.get_settings()
+            app.updates.save_history(app.project, s.get("history-limit"))
+
             # Save project to file
             app.project.save(file_path)
 
@@ -434,7 +444,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
 
                 # Reset undo/redo history
                 app.updates.reset()
-                self.updateStatusChanged(False, False)
+                app.updates.load_history(app.project)
 
                 # Reset selections
                 self.clearSelections()

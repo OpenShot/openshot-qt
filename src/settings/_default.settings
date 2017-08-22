@@ -214,6 +214,15 @@
     "type": "spinner"
   },
   {
+    "max": 999,
+    "title": "History Limit (# of undo/redo)",
+    "category": "Autosave",
+    "min": 0,
+    "setting": "history-limit",
+    "value": 20,
+    "type": "spinner-int"
+  },
+  {
     "title": "Cache Mode",
     "category": "Cache",
     "setting": "cache-mode",
@@ -329,8 +338,6 @@
     "category": "Tutorial",
     "setting": "tutorial_ids"
   },
-
-
 
   {
     "category": "Keyboard",

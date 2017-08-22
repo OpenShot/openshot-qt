@@ -58,6 +58,10 @@
   ],
   "markers": [  ],
   "progress": [  ],
+  "history": {
+    "undo": [],
+    "redo": []
+  },
   "version" : { "openshot-qt" : "0.0.0",
                 "libopenshot" : "0.0.0" }
 }

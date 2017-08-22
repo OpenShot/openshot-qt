@@ -27,7 +27,7 @@
 
 import os
 
-VERSION = "2.3.4-dev4"
+VERSION = "2.3.4-dev5"
 MINIMUM_LIBOPENSHOT_VERSION = "0.1.7"
 DATE = "20170509000000"
 NAME = "openshot-qt"
