@@ -2711,7 +2711,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Get position of cursor
         pos = event.posF()
 
-        if self.item_type in ["clip", "transition"]:
+        if self.item_type in ["clip", "transition"] and self.item_id:
             # Update most recent clip
             self.eval_js(JS_SCOPE_SELECTOR + ".UpdateRecentItemJSON('" + self.item_type + "', '" + self.item_id + "');")
 
