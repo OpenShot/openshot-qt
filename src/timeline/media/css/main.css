@@ -147,3 +147,7 @@ img {
 ::-webkit-scrollbar {width: 6px; height: 6px; background: #000000; }
 ::-webkit-scrollbar-thumb { background-color: #4b92ad; -webkit-border-radius: 1ex; }
 
+/* Hide timeline until Angular is loaded */
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
