@@ -86,7 +86,7 @@ class FilesListView(QListView):
             # Add edit title option (if svg file)
             selected_file_id = self.win.selected_files[0]
             file = File.get(id=selected_file_id)
-            if file.data.get("path").endswith(".svg"):
+            if file and file.data.get("path").endswith(".svg"):
                 menu.addAction(self.win.actionEditTitle)
                 menu.addAction(self.win.actionDuplicateTitle)
                 menu.addSeparator()
