@@ -27,8 +27,8 @@
 
 import os
 
-VERSION = "2.3.4-dev5"
-MINIMUM_LIBOPENSHOT_VERSION = "0.1.7"
+VERSION = "2.4.0"
+MINIMUM_LIBOPENSHOT_VERSION = "0.1.8"
 DATE = "20170509000000"
 NAME = "openshot-qt"
 PRODUCT_NAME = "OpenShot Video Editor"
