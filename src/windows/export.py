@@ -36,6 +36,7 @@ import openshot  # Python module for libopenshot (required video editing module 
 
 from classes import info, ui_util, settings
 from classes.app import get_app
+from classes.query import File
 from classes.logger import log
 from classes.metrics import *
 
@@ -285,6 +286,8 @@ class Export(QDialog):
     def updateProgressBar(self, path, start_frame, end_frame, current_frame):
         """Update progress bar during exporting"""
         self.progressExportVideo.setValue(current_frame)
+        #TODO: Simplify this percentage logic
+        self.setWindowTitle("%d %% %s" % ((100.1*(current_frame - self.progressExportVideo.minimum())/(self.progressExportVideo.maximum() - self.progressExportVideo.minimum()))-1, "Export Window"))
 
     def updateChannels(self):
         """Update the # of channels to match the channel layout"""
@@ -612,6 +615,17 @@ class Export(QDialog):
 
         # Translate object
         _ = get_app()._tr
+
+        file = File.get(path=export_file_path)
+        if file:
+            ret = QMessageBox.question(self, _("Export Video"), _("%s is an input file.\nPlease choose a different name.") % file_name_with_ext,
+                                       QMessageBox.Ok)
+            self.txtFileName.setEnabled(True)
+            self.txtExportFolder.setEnabled(True)
+            self.tabWidget.setEnabled(True)
+            self.export_button.setEnabled(True)
+            self.exporting = False
+            return
 
         # Handle exception
         if os.path.exists(export_file_path) and export_type in [_("Video & Audio"), _("Video Only"), _("Audio Only")]:
