@@ -260,6 +260,14 @@ class PropertiesTableView(QTableView):
         # Clear original data
         self.original_data = None
 
+        # Get data model and selection
+        model = self.clip_properties_model.model
+        row = self.indexAt(event.pos()).row()
+        column = self.indexAt(event.pos()).column()
+        if model.item(row, 0):
+            self.selected_label = model.item(row, 0)
+            self.selected_item = model.item(row, 1)
+
     def doubleClickedCB(self, model_index):
         """Double click handler for the property table"""
         # Get data model and selection
@@ -391,11 +399,15 @@ class PropertiesTableView(QTableView):
                 Constant_Action.setIcon(constant_icon)
                 Constant_Action.triggered.connect(self.Constant_Action_Triggered)
                 menu.addSeparator()
+                Insert_Action = menu.addAction(_("Insert Keyframe"))
+                Insert_Action.triggered.connect(self.Insert_Action_Triggered)
                 Remove_Action = menu.addAction(_("Remove Keyframe"))
                 Remove_Action.triggered.connect(self.Remove_Action_Triggered)
                 menu.popup(QCursor.pos())
             elif points == 1:
                 # Menu for a single point
+                Insert_Action = menu.addAction(_("Insert Keyframe"))
+                Insert_Action.triggered.connect(self.Insert_Action_Triggered)
                 Remove_Action = menu.addAction(_("Remove Keyframe"))
                 Remove_Action.triggered.connect(self.Remove_Action_Triggered)
                 menu.popup(QCursor.pos())
@@ -425,7 +437,7 @@ class PropertiesTableView(QTableView):
             self.clip_properties_model.value_updated(self.selected_item, interpolation=1)
         else:
             # Update colors interpolation mode
-            self.clip_properties_model.color_update(self.selected_item, QColor("#000"), interpolation=1, interpolation_details=preset)
+            self.clip_properties_model.color_update(self.selected_item, QColor("#000"), interpolation=1, interpolation_details=[])
 
     def Constant_Action_Triggered(self, event):
         log.info("Constant_Action_Triggered")
@@ -434,7 +446,13 @@ class PropertiesTableView(QTableView):
             self.clip_properties_model.value_updated(self.selected_item, interpolation=2)
         else:
             # Update colors interpolation mode
-            self.clip_properties_model.color_update(self.selected_item, QColor("#000"), interpolation=2, interpolation_details=preset)
+            self.clip_properties_model.color_update(self.selected_item, QColor("#000"), interpolation=2, interpolation_details=[])
+
+    def Insert_Action_Triggered(self, event):
+        log.info("Insert_Action_Triggered")
+        if self.selected_item:
+            current_value = QLocale().system().toDouble(self.selected_item.text())[0]
+            self.clip_properties_model.value_updated(self.selected_item, value=current_value)
 
     def Remove_Action_Triggered(self, event):
         log.info("Remove_Action_Triggered")
@@ -490,6 +508,7 @@ class PropertiesTableView(QTableView):
 
         # Connect filter signals
         get_app().window.txtPropertyFilter.textChanged.connect(self.filter_changed)
+        get_app().window.InsertKeyframe.connect(self.Insert_Action_Triggered)
         self.doubleClicked.connect(self.doubleClickedCB)
         self.loadProperties.connect(self.select_item)
 

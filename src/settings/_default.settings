@@ -711,5 +711,21 @@
     "setting": "actionProperties",
     "value": "Ctrl+I",
     "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Transform",
+    "restart": true,
+    "setting": "actionTransform",
+    "value": "Ctrl+R",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Insert Keyframe",
+    "restart": true,
+    "setting": "actionInsertKeyframe",
+    "value": "Ctrl+Shift+E",
+    "type": "text"
   }
 ]

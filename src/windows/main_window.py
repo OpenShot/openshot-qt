@@ -83,6 +83,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
     ExportFrame = pyqtSignal(str, int, int, int)
     ExportEnded = pyqtSignal(str)
     MaxSizeChanged = pyqtSignal(object)
+    InsertKeyframe = pyqtSignal(object)
 
     # Save window settings on close
     def closeEvent(self, event):
@@ -1231,6 +1232,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             self.actionJumpEnd.trigger()
         elif key.matches(self.getShortcutByName("actionProperties")) == QKeySequence.ExactMatch:
             self.actionProperties.trigger()
+        elif key.matches(self.getShortcutByName("actionTransform")) == QKeySequence.ExactMatch:
+            if not self.is_transforming and self.selected_clips:
+                self.TransformSignal.emit(self.selected_clips[0])
+            else:
+                self.TransformSignal.emit("")
+
+        elif key.matches(self.getShortcutByName("actionInsertKeyframe")) == QKeySequence.ExactMatch:
+            print("actionInsertKeyframe")
+            if self.selected_clips or self.selected_transitions:
+                self.InsertKeyframe.emit(event)
 
         # Timeline keyboard shortcuts
         elif key.matches(self.getShortcutByName("sliceAllKeepBothSides")) == QKeySequence.ExactMatch:
@@ -2102,6 +2113,13 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         except:
             pass
 
+    def transformTriggered(self, clip_id):
+        """Handle transform signal (to keep track of whether a transform is happening or not)"""
+        if clip_id and clip_id in self.selected_clips:
+            self.is_transforming = True
+        else:
+            self.is_transforming = False
+
 
     def __init__(self, mode=None):
 
@@ -2154,6 +2172,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
         get_current_Version()
 
         # Connect signals
+        self.is_transforming = False
+        self.TransformSignal.connect(self.transformTriggered)
         if not self.mode == "unittest":
             self.RecoverBackup.connect(self.recover_backup)
 
