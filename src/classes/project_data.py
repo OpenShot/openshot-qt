@@ -274,6 +274,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     self._data["width"] = profile.info.width
                     self._data["height"] = profile.info.height
                     self._data["fps"] = {"num" : profile.info.fps.num, "den" : profile.info.fps.den}
+                    break
 
         # Get the default audio settings for the timeline (and preview playback)
         default_sample_rate = int(s.get("default-samplerate"))
@@ -354,7 +355,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Get app, and distribute all project data through update manager
         from classes.app import get_app
-        get_app().processEvents()
         get_app().updates.load(self._data)
 
         # Clear needs save flag

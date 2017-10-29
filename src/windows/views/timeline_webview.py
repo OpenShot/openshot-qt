@@ -158,8 +158,21 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
     # Path to html file
     html_path = os.path.join(info.PATH, 'timeline', 'index.html')
 
+    @pyqtSlot()
+    def page_ready(self):
+        """Document.Ready event has fired, and is initialized"""
+        self.document_is_ready = True
+
     def eval_js(self, code):
-        return self.page().mainFrame().evaluateJavaScript(code)
+        # Check if document.Ready has fired in JS
+        if not self.document_is_ready:
+            # Not ready, try again in a few milliseconds
+            log.error("TimelineWebView::eval_js() called before document ready event. Script queued: %s" % code)
+            QTimer.singleShot(50, partial(self.eval_js, code))
+            return None
+        else:
+            # Execute JS code
+            return self.page().mainFrame().evaluateJavaScript(code)
 
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):
@@ -2817,6 +2830,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         self.window = window
         self.setAcceptDrops(True)
         self.last_position_frames = None
+        self.document_is_ready = False
 
         # Get settings
         self.settings = settings.get_settings()

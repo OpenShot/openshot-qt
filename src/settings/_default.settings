@@ -131,7 +131,8 @@
     "category": "Profiles",
     "setting": "default-profile",
     "type": "dropdown",
-    "values": []
+    "values": [],
+    "restart": true
   },
   {
     "max": 128000,

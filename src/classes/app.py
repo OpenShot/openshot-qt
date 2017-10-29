@@ -163,6 +163,10 @@ class OpenShotApp(QApplication):
         from windows.main_window import MainWindow
         self.window = MainWindow(mode)
 
+        # Reset undo/redo history
+        self.updates.reset()
+        self.window.updateStatusChanged(False, False)
+
         log.info('Process command-line arguments: %s' % args)
         if len(args[0]) == 2:
             path = args[0][1]
@@ -172,10 +176,9 @@ class OpenShotApp(QApplication):
             else:
                 # Auto import media file
                 self.window.filesTreeView.add_file(path)
-
-        # Reset undo/redo history
-        self.updates.reset()
-        self.window.updateStatusChanged(False, False)
+        else:
+            # Recover backup file (this can't happen until after the Main Window has completely loaded)
+            self.window.RecoverBackup.emit()
 
     def _tr(self, message):
         return self.translate("", message)

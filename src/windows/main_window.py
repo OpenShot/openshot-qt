@@ -61,7 +61,7 @@ from windows.video_widget import VideoWidget
 from windows.preview_thread import PreviewParent
 
 
-class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
+class MainWindow(QMainWindow, updates.UpdateWatcher):
     """ This class contains the logic for the main window widget """
 
     # Path to ui file
@@ -234,18 +234,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher, updates.UpdateInterface):
             log.error("Unhandled crash detected... will attempt to recover backup project: %s" % info.BACKUP_PATH)
             track_metric_error("unhandled-crash%s" % last_log_line, True)
 
-            # Recover backup file (this can't happen until after the Main Window has completely loaded)
-            QTimer.singleShot(250, self.RecoverBackup.emit)
-
             # Remove file
             self.destroy_lock_file()
 
         else:
             # Normal startup, clear thumbnails
             self.clear_all_thumbnails()
-
-            # Load a blank project (to propagate the default settings)
-            get_app().project.load("")
 
         # Create lock file
         with open(lock_path, 'w') as f:
