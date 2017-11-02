@@ -426,7 +426,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
 
         try:
-            if os.path.exists(file_path.encode('UTF-8')):
+            if os.path.exists(file_path):
                 # Clear any previous thumbnails
                 if clear_thumbnails:
                     self.clear_all_thumbnails()
