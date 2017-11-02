@@ -100,6 +100,7 @@ def init_language():
         # Exit if found language
         if found_language:
             log.info("Exiting translation system (since we successfully loaded: {})".format(locale_name))
+            info.CURRENT_LANGUAGE = locale_name
             break
 
 

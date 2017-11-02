@@ -701,11 +701,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionHelpContents_trigger(self, event):
         try:
-            webbrowser.open("http://www.openshot.org/files/user-guide/?app-menu")
+            webbrowser.open("http://%s.openshot.org/files/user-guide/?app-menu" % info.website_language())
             log.info("Help Contents is open")
         except:
-            QMessageBox.information(self, "Error !",
-                                    "Unable to open the Help Contents. Please ensure the openshot-doc package is installed.")
+            QMessageBox.information(self, "Error !", "Unable to open the Help Contents. Please ensure the openshot-doc package is installed.")
             log.info("Unable to open the Help Contents")
 
     def actionAbout_trigger(self, event):
@@ -745,7 +744,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionDonate_trigger(self, event):
         try:
-            webbrowser.open("http://openshot.org/donate/?app-menu")
+            webbrowser.open("http://%s.openshot.org/donate/?app-menu" % info.website_language())
             log.info("Open the Donate web page with success")
         except:
             QMessageBox.information(self, "Error !", "Unable to open the Donate web page")
@@ -753,7 +752,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionUpdate_trigger(self, event):
         try:
-            webbrowser.open("http://openshot.org/download/?app-toolbar")
+            webbrowser.open("http://%s.openshot.org/download/?app-toolbar" % info.website_language())
             log.info("Open the Download web page with success")
         except:
             QMessageBox.information(self, "Error !", "Unable to open the Download web page")
