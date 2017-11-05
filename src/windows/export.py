@@ -286,8 +286,7 @@ class Export(QDialog):
     def updateProgressBar(self, path, start_frame, end_frame, current_frame):
         """Update progress bar during exporting"""
         self.progressExportVideo.setValue(current_frame)
-        #TODO: Simplify this percentage logic
-        self.setWindowTitle("%d %% %s" % ((100.1*(current_frame - self.progressExportVideo.minimum())/(self.progressExportVideo.maximum() - self.progressExportVideo.minimum()))-1, "Export Window"))
+        self.setWindowTitle("%s - %s" % (self.progressExportVideo.text(), "Export Window"))
 
     def updateChannels(self):
         """Update the # of channels to match the channel layout"""
@@ -710,10 +709,12 @@ class Export(QDialog):
             # Notify window of export started
             get_app().window.ExportStarted.emit(export_file_path, video_settings.get("start_frame"), video_settings.get("end_frame"))
 
+            progressstep = max(1 , round(( video_settings.get("end_frame") - video_settings.get("start_frame") ) / 100));
             # Write each frame in the selected range
             for frame in range(video_settings.get("start_frame"), video_settings.get("end_frame")):
                 # Update progress bar (emit signal to main window)
-                get_app().window.ExportFrame.emit(export_file_path, video_settings.get("start_frame"), video_settings.get("end_frame"), frame)
+                if (frame % progressstep) == 0:
+                    get_app().window.ExportFrame.emit(export_file_path, video_settings.get("start_frame"), video_settings.get("end_frame"), frame)
 
                 # Process events (to show the progress bar moving)
                 QCoreApplication.processEvents()
