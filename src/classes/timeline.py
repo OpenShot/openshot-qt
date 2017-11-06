@@ -76,7 +76,7 @@ class TimelineSync(UpdateInterface):
         """ This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """
 
         # Ignore changes that don't affect libopenshot
-        if len(action.key) >= 1 and action.key[0].lower() in ["files", "markers", "layers", "export_path", "scale"]:
+        if len(action.key) >= 1 and action.key[0].lower() in ["files", "history", "markers", "layers", "export_path", "scale"]:
             return
 
         elif len(action.key) >= 1 and action.key[0].lower() in ["profile"]:
@@ -100,7 +100,7 @@ class TimelineSync(UpdateInterface):
                 self.timeline.ApplyJsonDiff(action.json(is_array=True))
 
         except Exception as e:
-            log.info("Error applying JSON to timeline object in libopenshot: %s" % e)
+            log.info("Error applying JSON to timeline object in libopenshot: %s. %s" % (e, action.json(is_array=True)))
 
     def MaxSizeChangedCB(self, new_size):
         """Callback for max sized change (i.e. max size of video widget)"""
