@@ -417,18 +417,23 @@ class Export(QDialog):
         selected_target = widget.itemData(index)
         log.info(selected_target)
 
-        # Clear the following options
-        self.cboSimpleVideoProfile.clear()
-        self.cboSimpleQuality.clear()
-
         # get translations
         app = get_app()
         _ = app._tr
 
-
         # don't do anything if the combo has been cleared
         if selected_target:
             profiles_list = []
+
+            # Clear the following options (and remember current settings)
+            previous_quality = self.cboSimpleQuality.currentIndex()
+            if previous_quality < 0:
+                previous_quality = self.cboSimpleQuality.count() - 1
+            previous_profile = self.cboSimpleVideoProfile.currentIndex()
+            if previous_profile < 0:
+                previous_profile = self.selected_profile_index
+            self.cboSimpleVideoProfile.clear()
+            self.cboSimpleQuality.clear()
 
             # parse the xml to return suggested profiles
             profile_index = 0
@@ -493,7 +498,7 @@ class Export(QDialog):
 
             if all_profiles:
                 # select the project's current profile
-                self.cboSimpleVideoProfile.setCurrentIndex(self.selected_profile_index)
+                self.cboSimpleVideoProfile.setCurrentIndex(previous_profile)
 
             # set the quality combo
             # only populate with quality settings that exist
@@ -505,7 +510,7 @@ class Export(QDialog):
                 self.cboSimpleQuality.addItem(_("High"), "High")
 
             # Default to the highest quality setting
-            self.cboSimpleQuality.setCurrentIndex(self.cboSimpleQuality.count() - 1)
+            self.cboSimpleQuality.setCurrentIndex(previous_quality)
 
     def cboSimpleVideoProfile_index_changed(self, widget, index):
         selected_profile_path = widget.itemData(index)
