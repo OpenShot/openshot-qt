@@ -68,7 +68,7 @@ OG = {"name": u"Olivier Girard", "email": "olivier@openshot.org", "website":"htt
 CP = {"name": u"Cody Parker", "email": "cody@yourcodepro.com", "website":"http://openshot.org/developers/cody_parker"}
 
 # Languages
-CURRENT_LANGUAGE = ['en_US']
+CURRENT_LANGUAGE = 'en_US'
 SUPPORTED_LANGUAGES = ['en_US']
 for lang in os.listdir(os.path.join(PATH, 'locale')):
     if lang not in ["OpenShot"] and not os.path.isfile(os.path.join(PATH, 'locale', lang)):
