@@ -31,6 +31,7 @@
 import os
 
 from PyQt5.QtCore import QStandardPaths, QCoreApplication
+from PyQt5.QtWidgets import QMessageBox
 
 from classes.logger import log
 from classes import info
@@ -91,7 +92,14 @@ class SettingStore(JsonDataStore):
         if os.path.exists(file_path.encode('UTF-8')):
 
             # Will raise exception to caller on failure to read
-            user_settings = self.read_from_file(file_path)
+            try:
+                user_settings = self.read_from_file(file_path)
+            except Exception as ex:
+                log.error("Error loading settings file: %s" % ex)
+
+                _ = QCoreApplication.instance()._tr
+                QMessageBox.warning(None, _("Settings Error"),
+                                          _("Error loading settings file: %(file_path)s. Settings will be reset.") % { "file_path": file_path})
 
         # Merge default and user settings, excluding settings not in default, Save settings
         self._data = self.merge_settings(default_settings, user_settings)
