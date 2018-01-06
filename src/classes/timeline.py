@@ -92,6 +92,9 @@ class TimelineSync(UpdateInterface):
                 self.timeline.SetJson(action.json(only_value=True))
                 self.timeline.Open()  # Re-Open the Timeline reader
 
+                # The timeline's profile changed, so update all clips
+                self.timeline.ApplyMapperToClips()
+
                 # Refresh current frame (since the entire timeline was updated)
                 self.window.refreshFrameSignal.emit()
 
