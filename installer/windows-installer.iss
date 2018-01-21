@@ -78,11 +78,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 [InstallDelete]
 ; Remove previous installed versions of OpenShot
 Type: filesandordirs; Name: "{app}\*"
-Type: filesandordirs; Name: "{pf32}\OpenShot Video Editor\*"
-Type: filesandordirs; Name: "{pf64}\OpenShot Video Editor\*"
 Type: dirifempty; Name: "{app}\*"
-Type: dirifempty; Name: "{pf32}\OpenShot Video Editor\"
-Type: dirifempty; Name: "{pf64}\OpenShot Video Editor\"
 Type: files; Name: "{group}\OpenShot Video Editor"
 
 [Registry]
