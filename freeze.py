@@ -51,6 +51,7 @@
 #  NOTE: Install Windows 10 SDK first
 #  signtool sign /v /f OSStudiosSPC.pfx "OpenShot Video Editor-2.0.0-win32.msi"
 
+import inspect
 import os
 import sys
 import fnmatch
@@ -68,6 +69,9 @@ except ImportError:
 
     json_library = "simplejson"
 
+# Packages to include
+python_packages = ["os", "sys", "PyQt5", "openshot", "time", "uuid", "shutil", "threading", "subprocess",
+                                 "re", "math", "xml", "logging", "urllib", "requests", "idna", "zmq", "webbrowser", json_library]
 
 # Determine absolute PATH of OpenShot folder
 PATH = os.path.dirname(os.path.realpath(__file__))  # Primary openshot folder
@@ -124,6 +128,13 @@ if sys.platform == "win32":
 
     # Append some additional files for Windows (this is a debug launcher)
     src_files.append((os.path.join(PATH, "installer", "launch-win.bat"), "launch-win.bat"))
+
+    # Manually add zmq dependency (windows does not freeze it correctly)
+    import zmq
+    python_packages.remove('zmq')
+    zmq_path = os.path.dirname(inspect.getfile(zmq))
+    for filename in find_files(zmq_path, ["*"]):
+        src_files.append((filename, os.path.join("lib", "zmq", filename.replace(zmq_path + "\\", ""))))
 
 elif sys.platform == "linux":
     # Find all related SO files
@@ -210,8 +221,7 @@ for filename in find_files("openshot_qt", ["*"]):
     src_files.append((filename, filename.replace("openshot_qt/", "").replace("openshot_qt\\", "")))
 
 # Dependencies are automatically detected, but it might need fine tuning.
-build_exe_options["packages"] = ["os", "sys", "PyQt5", "openshot", "time", "uuid", "shutil", "threading", "subprocess",
-                                 "re", "math", "subprocess", "xml", "logging", "urllib", "requests", "webbrowser", "zmq", json_library]
+build_exe_options["packages"] = python_packages
 build_exe_options["include_files"] = src_files + external_so_files
 
 # Set options

@@ -58,6 +58,7 @@ windows_key_password = None
 github_user = None
 github_pass = None
 github_release = None
+windows_32bit = False
 commit_data = {}
 
 # Create temp log
@@ -81,9 +82,9 @@ elif platform.system() == "Darwin":
 elif platform.system() == "Windows":
     make_command = "mingw32-make"
     freeze_command = "python3 C:\\Users\\Jonathan\\apps\\openshot-qt-git\\freeze.py build"
-    project_paths = [("C:\\Users\\Jonathan\\apps\\libopenshot-audio-git", '-G "MinGW Makefiles" ../ -D"CMAKE_BUILD_TYPE:STRING=Release"'),
-                     ("C:\\Users\\Jonathan\\apps\\libopenshot-git", '-G "MinGW Makefiles" ../ -D"CMAKE_BUILD_TYPE:STRING=Release"'),
-                     ("C:\\Users\\Jonathan\\apps\\openshot-qt-git", "")]
+    project_paths = [["C:\\Users\\Jonathan\\apps\\libopenshot-audio-git", '-G "MinGW Makefiles" ../ -D"CMAKE_BUILD_TYPE:STRING=Release"'],
+                     ["C:\\Users\\Jonathan\\apps\\libopenshot-git", '-G "MinGW Makefiles" ../ -D"CMAKE_BUILD_TYPE:STRING=Release"'],
+                     ["C:\\Users\\Jonathan\\apps\\openshot-qt-git", ""]]
 
 
 def run_command(command, working_dir=None):
@@ -194,10 +195,38 @@ try:
         gh = login(github_user, github_pass)
         repo = gh.repository("OpenShot", "openshot-qt")
 
+    if len(sys.argv) >=9:
+        windows_32bit = False
+        if sys.argv[8] == 'True':
+            windows_32bit = True
+
+        # Set some Windows specific environment variables
+        if windows_32bit:
+            # 32-bit windows
+            os.environ['LIBOPENSHOT_AUDIO_DIR'] = r'C:\\msys32\\usr'
+            os.environ['UNITTEST_DIR'] = r'C:\\msys32\\usr'
+            os.environ['ZMQDIR'] = r'C:\\msys32\\usr'
+            os.environ['PATH'] = r'C:\msys32\mingw32\bin;C:\msys32\mingw32\lib;C:\msys32\usr\lib\cmake\UnitTest++;C:\msys32\home\jonathan\depot_tools;C:\msys32\usr;C:\msys32\usr\lib;' + os.environ['PATH']
+
+            # Append path onto project list
+            project_paths[0][-1] += ' -D"CMAKE_INSTALL_PREFIX:PATH=C:\\msys32\\usr"'
+            project_paths[1][-1] += ' -D"CMAKE_INSTALL_PREFIX:PATH=C:\\msys32\\usr"'
+
+        else:
+            # 64-bit windows
+            os.environ['LIBOPENSHOT_AUDIO_DIR'] = r'C:\\msys64\\usr'
+            os.environ['UNITTEST_DIR'] = r'C:\\msys64\\usr'
+            os.environ['ZMQDIR'] = r'C:\\msys64\\usr'
+            os.environ['PATH'] = r'C:\msys64\msys64\bin;C:\msys64\msys64\lib;C:\msys64\usr\lib\cmake\UnitTest++;C:\msys64\home\jonathan\depot_tools;C:\msys64\usr;C:\msys64\usr\lib;' + os.environ['PATH']
+
+            # Append path onto project list
+            project_paths[0][-1] += ' -D"CMAKE_INSTALL_PREFIX:PATH=C:\\msys64\\usr"'
+            project_paths[1][-1] += ' -D"CMAKE_INSTALL_PREFIX:PATH=C:\\msys64\\usr"'
+
     # Start log
     output("%s Build Log for %s" % (platform.system(), datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
-    # Loop through projects
+    # Get latest version of all projects (git pull)
     for project_path, cmake_args in project_paths:
         # Change os directory
         os.chdir(project_path)
@@ -208,26 +237,114 @@ try:
             output("# of commits found for %s: %s" % (project_path, commit_data[project_path]))
 
         # Check for new version in git
-        needs_update = True
         for line in run_command("git fetch -v --dry-run"):
             output(line)
             if "[up to date]".encode("UTF-8") in line:
-                needs_update = False
                 break
 
-        if needs_update:
-            # Get latest from git
-            for line in run_command("git pull origin master"):
+        # Get latest from git
+        for line in run_command("git pull origin master"):
+            output(line)
+
+        # Get latest tags from git
+        for line in run_command("git fetch --tags"):
+            output(line)
+
+        # Sync these changes to bzr (if build-server running on linux)
+        if platform.system() == "Linux":
+            for line in run_command("git bzr push"):
                 output(line)
 
-            # Get latest tags from git
-            for line in run_command("git fetch --tags"):
-                output(line)
+    # Get GIT description of openshot-qt-git branch (i.e. v2.0.6-18-ga01a98c)
+    openshot_qt_git_desc = ""
+    for line in run_command("git describe --tags"):
+        git_description = line.decode("utf-8").strip()
+        openshot_qt_git_desc = "OpenShot-%s" % git_description
 
-            # Sync these changes to bzr (if build-server running on linux)
-            if platform.system() == "Linux":
-                for line in run_command("git bzr push"):
-                    output(line)
+        # Add num of commits from libopenshot and libopenshot-audio (for naming purposes)
+        # If not an official release
+        if "-" in git_description:
+            # Make filename more descriptive for daily builds
+            openshot_qt_git_desc = "%s-%s-%s" % (
+            openshot_qt_git_desc, commit_data[project_paths[0][0]], commit_data[project_paths[1][0]])
+            output("git description of openshot-qt-git: %s" % openshot_qt_git_desc)
+
+            # Get daily git_release object
+            github_release = get_release(repo, "daily")
+        else:
+            # Get official version release (i.e. v2.1.0, v2.x.x)
+            github_release = get_release(repo, git_description)
+
+            # If no release is found, create a new one
+            if not github_release:
+                # Create a new release if one if missing
+                github_release = repo.create_release(git_description, target_commitish="master", prerelease=True)
+
+    # Detect version number from git description
+    version = re.search('v(.+?)($|-)', openshot_qt_git_desc).groups()[0]
+
+    # Create uploads path (if not found)
+    upload_path = os.path.join(project_path, "s3-uploads")
+    if not os.path.exists(upload_path):
+        os.mkdir(upload_path)
+    builds_path = os.path.join(project_path, "s3-builds")
+    if not os.path.exists(builds_path):
+        os.mkdir(builds_path)
+
+    # Determine the name and path of the final installer
+    app_name = openshot_qt_git_desc
+    app_upload_bucket = ""
+    if platform.system() == "Linux":
+        app_name += "-x86_64.AppImage"
+        app_upload_bucket = "releases.openshot.org/linux"
+    elif platform.system() == "Darwin":
+        app_name += "-x86_64.dmg"
+        app_upload_bucket = "releases.openshot.org/mac"
+    elif platform.system() == "Windows" and not windows_32bit:
+        app_name += "-x86_64.exe"
+        app_upload_bucket = "releases.openshot.org/windows"
+    elif platform.system() == "Windows" and windows_32bit:
+        app_name += "-x86.exe"
+        app_upload_bucket = "releases.openshot.org/windows"
+    app_build_path = os.path.join(builds_path, app_name)
+    app_upload_path = os.path.join(upload_path, app_name)
+
+    # Does this version need to be built?
+    needs_build = False
+    if not os.path.exists(app_build_path) and not os.path.exists(app_upload_path):
+        needs_build = True
+
+    # Does this version need to be uploaded?
+    needs_upload = False
+    if not os.path.exists(app_upload_path):
+        needs_upload = True
+
+    if needs_build:
+        # Check for left over build folders
+        if os.path.exists(os.path.join(project_path, "openshot_qt")):
+            shutil.rmtree(os.path.join(project_path, "openshot_qt"))
+        if os.path.exists(os.path.join(project_path, "build")):
+            shutil.rmtree(os.path.join(project_path, "build"))
+        if os.path.exists(os.path.join(project_path, "dist")):
+            shutil.rmtree(os.path.join(project_path, "dist"))
+
+        # Copy QT translations to local folder (to be packaged)
+        qt_local_path = os.path.join(project_path, "src", "locale", "QT")
+        qt_system_path = QLibraryInfo.location(QLibraryInfo.TranslationsPath)
+        if os.path.exists(qt_system_path):
+            # Create local QT translation folder (if needed)
+            if not os.path.exists(qt_local_path):
+                os.mkdir(qt_local_path)
+            # Loop through QT translation files and copy them
+            for file in os.listdir(qt_system_path):
+                # Copy QT locale files
+                if file.startswith("qt_") and file.endswith(".qm"):
+                    shutil.copyfile(os.path.join(qt_system_path, file), os.path.join(qt_local_path, file))
+
+        # Loop through projects
+        for project_path, cmake_args in project_paths:
+            # Change os directory
+            os.chdir(project_path)
 
             # Remove build folder & re-create it
             build_folder = os.path.join(project_path, "build")
@@ -262,95 +379,12 @@ try:
                     error("Make Install Error: %s" % line)
 
 
-    # Now that everything is updated, let's create the installers
-    if not errors_detected:
-        # Change to openshot-qt dir
-        project_path = project_paths[2][0]
-        os.chdir(project_path)
+        # Now that everything is updated, let's create the installers
+        if not errors_detected:
+            # Change to openshot-qt dir
+            project_path = project_paths[2][0]
+            os.chdir(project_path)
 
-        # Get GIT description of openshot-qt-git branch (i.e. v2.0.6-18-ga01a98c)
-        openshot_qt_git_desc = ""
-        for line in run_command("git describe --tags"):
-            git_description = line.decode("utf-8").strip()
-            openshot_qt_git_desc = "OpenShot-%s" % git_description
-
-            # Add num of commits from libopenshot and libopenshot-audio (for naming purposes)
-            # If not an official release
-            if "-" in git_description:
-                # Make filename more descriptive for daily builds
-                openshot_qt_git_desc = "%s-%s-%s" % (openshot_qt_git_desc, commit_data[project_paths[0][0]], commit_data[project_paths[1][0]])
-                output("git description of openshot-qt-git: %s" % openshot_qt_git_desc)
-
-                # Get daily git_release object
-                github_release = get_release(repo, "daily")
-            else:
-                # Get official version release (i.e. v2.1.0, v2.x.x)
-                github_release = get_release(repo, git_description)
-
-                # If no release is found, create a new one
-                if not github_release:
-                    # Create a new release if one if missing
-                    github_release = repo.create_release(git_description, target_commitish="master", prerelease=True)
-
-        # Detect version number from git description
-        version = re.search('v(.+?)($|-)', openshot_qt_git_desc).groups()[0]
-
-        # Check for left over openshot-qt dupe folder
-        if os.path.exists(os.path.join(project_path, "openshot_qt")):
-            shutil.rmtree(os.path.join(project_path, "openshot_qt"))
-        if os.path.exists(os.path.join(project_path, "build")):
-            shutil.rmtree(os.path.join(project_path, "build"))
-        if os.path.exists(os.path.join(project_path, "dist")):
-            shutil.rmtree(os.path.join(project_path, "dist"))
-
-        # Copy QT translations to local folder (to be packaged)
-        qt_local_path = os.path.join(project_path, "src", "locale", "QT")
-        qt_system_path = QLibraryInfo.location(QLibraryInfo.TranslationsPath)
-        if os.path.exists(qt_system_path):
-            # Create local QT translation folder (if needed)
-            if not os.path.exists(qt_local_path):
-                os.mkdir(qt_local_path)
-            # Loop through QT translation files and copy them
-            for file in os.listdir(qt_system_path):
-                # Copy QT locale files
-                if file.startswith("qt_") and file.endswith(".qm"):
-                    shutil.copyfile(os.path.join(qt_system_path, file), os.path.join(qt_local_path, file))
-
-        # Create uploads path (if not found)
-        upload_path = os.path.join(project_path, "s3-uploads")
-        if not os.path.exists(upload_path):
-            os.mkdir(upload_path)
-        builds_path = os.path.join(project_path, "s3-builds")
-        if not os.path.exists(builds_path):
-            os.mkdir(builds_path)
-
-        # Determine the name and path of the final installer
-        app_name = openshot_qt_git_desc
-        app_upload_bucket = ""
-        if platform.system() == "Linux":
-            app_name += "-x86_64.AppImage"
-            app_upload_bucket = "releases.openshot.org/linux"
-        elif platform.system() == "Darwin":
-            app_name += "-x86_64.dmg"
-            app_upload_bucket = "releases.openshot.org/mac"
-        elif platform.system() == "Windows":
-            app_name += "-x86_64.exe"
-            app_upload_bucket = "releases.openshot.org/windows"
-        app_build_path = os.path.join(builds_path, app_name)
-        app_upload_path = os.path.join(upload_path, app_name)
-
-        # Does this version need to be built?
-        needs_build = False
-        if not os.path.exists(app_build_path) and not os.path.exists(app_upload_path):
-            needs_build = True
-
-        # Does this version need to be uploaded?
-        needs_upload = False
-        if not os.path.exists(app_upload_path):
-            needs_upload = True
-
-
-        if needs_build:
             # Freeze it (if needed)
             for line in run_command(freeze_command):
                 output(line)
@@ -455,29 +489,36 @@ try:
 
             if platform.system() == "Windows":
 
-                # Move python3.5 folder structure, since Cx_Freeze doesn't put it in the correct place
-                exe_dir = os.path.join(PATH, 'build', 'exe.mingw-3.5')
-                python35_dir = os.path.join(exe_dir, 'lib', 'python3.5')
-                if not os.path.exists(python35_dir):
-                    os.mkdir(python35_dir)
+                # Move python folder structure, since Cx_Freeze doesn't put it in the correct place
+                exe_dir = os.path.join(PATH, 'build', 'exe.mingw-3.6')
+                python_dir = os.path.join(exe_dir, 'lib', 'python3.6')
+                if not os.path.exists(python_dir):
+                    os.mkdir(python_dir)
 
-                    # Copy all non-zip files from /lib/ into /python3.5/
+                    # Copy all non-zip files from /lib/ into /python3.X/
                     for lib_file in os.listdir(os.path.join(exe_dir, 'lib')):
-                        if not ".zip" in lib_file:
+                        if not ".zip" in lib_file and not lib_file == "python3.6":
                             lib_src_path = os.path.join(os.path.join(exe_dir, 'lib'), lib_file)
-                            lib_dst_path = os.path.join(os.path.join(python35_dir), lib_file)
-                            if not os.path.isdir(lib_src_path):
-                                shutil.move(lib_src_path, lib_dst_path)
+                            lib_dst_path = os.path.join(os.path.join(python_dir), lib_file)
+                            shutil.move(lib_src_path, lib_dst_path)
 
                 # Delete debug Qt libraries (since they are not needed, and cx_Freeze grabs them)
-                for debug_qt_lib in os.listdir(exe_dir):
-                    if debug_qt_lib.endswith("d.dll"):
-                        # Delete the debug dll
-                        os.remove(os.path.join(exe_dir, debug_qt_lib))
+                for sub_folder in ['', 'platforms', 'imageformats']:
+                    parent_path = exe_dir
+                    if sub_folder:
+                        parent_path = os.path.join(parent_path, sub_folder)
+                    for debug_qt_lib in os.listdir(parent_path):
+                        if debug_qt_lib.endswith("d.dll"):
+                            # Delete the debug dll
+                            os.remove(os.path.join(parent_path, debug_qt_lib))
+
+                only_64_bit = "x64"
+                if windows_32bit:
+                    only_64_bit = ""
 
                 # Create Installer (OpenShot-%s-x86_64.exe)
                 inno_success = True
-                inno_command = '"C:\Program Files (x86)\Inno Setup 5\iscc.exe" /Q /DVERSION=%s "%s"' % (version, os.path.join(PATH, 'installer', 'windows-installer.iss'))
+                inno_command = '"C:\Program Files (x86)\Inno Setup 5\iscc.exe" /Q /DVERSION=%s /DONLY_64_BIT=%s "%s"' % (version, only_64_bit, os.path.join(PATH, 'installer', 'windows-installer.iss'))
                 inno_output = ""
                 # Compile Inno installer
                 for line in run_command(inno_command):
@@ -487,7 +528,7 @@ try:
                         inno_output = line
 
                 # Was the Inno Installer successful
-                inno_output_exe = os.path.join(project_path, "installer", "Output", "OpenShot-x86_64.exe")
+                inno_output_exe = os.path.join(project_path, "installer", "Output", "OpenShot.exe")
                 if not inno_success or not os.path.exists(inno_output_exe):
                     # Installer failed
                     error("Inno Compiler Error: Had output when none was expected (%s)" % inno_output)
@@ -518,48 +559,48 @@ try:
                     # Delete build (since key signing might have failed)
                     os.remove(app_build_path)
 
-
-        if needs_upload:
-            # Check if app exists
-            if os.path.exists(app_build_path):
-                # Upload file to GitHub
-                output("GitHub: Uploading %s to GitHub Release: %s" % (app_build_path, github_release.tag_name))
-                download_url = upload(app_build_path, github_release)
-
-                # Create torrent and upload
-                torrent_path = "%s.torrent" % app_build_path
-                torrent_command = 'mktorrent -a "udp://tracker.openbittorrent.com:80/announce, udp://tracker.publicbt.com:80/announce, udp://tracker.opentrackr.org:1337" -c "OpenShot Video Editor %s" -w "%s" -o "%s" "%s"' % (version, download_url, "%s.torrent" % app_name, app_name)
-                torrent_output = ""
-                # Create torrent
-                for line in run_command(torrent_command, builds_path):
-                    output(line)
-                    if line:
-                        torrent_output = line.decode('UTF-8').strip()
-
-                if not torrent_output.endswith("Writing metainfo file... done."):
-                    # Torrent failed
-                    error("Torrent Error: Unexpected output (%s)" % torrent_output)
-
-                else:
-                    # Torrent succeeded! Upload the torrent to github
-                    url = upload(torrent_path, github_release)
-
-                    # Notify Slack
-                    slack_upload_log(log, "%s: Build logs for %s" % (platform.system(), app_name), "Successful build: %s" % download_url)
-
-                    # Move app to uploads folder, and remove from build folder (so it will be skipped next time)
-                    shutil.copyfile(app_build_path, app_upload_path)
-                    os.remove(app_build_path)
-                    shutil.copyfile(torrent_path, "%s.torrent" % app_upload_path)
-                    os.remove(torrent_path)
-
-            else:
-                # App doesn't exist (something went wrong)
-                error("App Missing Error: %s does not exist" % app_build_path)
-
         # Remove temporary files
         if os.path.exists(qt_local_path):
             shutil.rmtree(qt_local_path)
+
+
+    if needs_upload:
+        # Check if app exists
+        if os.path.exists(app_build_path):
+            # Upload file to GitHub
+            output("GitHub: Uploading %s to GitHub Release: %s" % (app_build_path, github_release.tag_name))
+            download_url = upload(app_build_path, github_release)
+
+            # Create torrent and upload
+            torrent_path = "%s.torrent" % app_build_path
+            torrent_command = 'mktorrent -a "udp://tracker.openbittorrent.com:80/announce, udp://tracker.publicbt.com:80/announce, udp://tracker.opentrackr.org:1337" -c "OpenShot Video Editor %s" -w "%s" -o "%s" "%s"' % (version, download_url, "%s.torrent" % app_name, app_name)
+            torrent_output = ""
+            # Create torrent
+            for line in run_command(torrent_command, builds_path):
+                output(line)
+                if line:
+                    torrent_output = line.decode('UTF-8').strip()
+
+            if not torrent_output.endswith("Writing metainfo file... done."):
+                # Torrent failed
+                error("Torrent Error: Unexpected output (%s)" % torrent_output)
+
+            else:
+                # Torrent succeeded! Upload the torrent to github
+                url = upload(torrent_path, github_release)
+
+                # Notify Slack
+                slack_upload_log(log, "%s: Build logs for %s" % (platform.system(), app_name), "Successful build: %s" % download_url)
+
+                # Move app to uploads folder, and remove from build folder (so it will be skipped next time)
+                shutil.copyfile(app_build_path, app_upload_path)
+                os.remove(app_build_path)
+                shutil.copyfile(torrent_path, "%s.torrent" % app_upload_path)
+                os.remove(torrent_path)
+
+        else:
+            # App doesn't exist (something went wrong)
+            error("App Missing Error: %s does not exist" % app_build_path)
 
 except Exception as ex:
     tb = traceback.format_exc()
