@@ -71,7 +71,7 @@ except ImportError:
 
 # Packages to include
 python_packages = ["os", "sys", "PyQt5", "openshot", "time", "uuid", "shutil", "threading", "subprocess",
-                                 "re", "math", "xml", "logging", "urllib", "requests", "idna", "zmq", "webbrowser", json_library]
+                                 "re", "math", "xml", "logging", "urllib", "requests", "zmq", "webbrowser", json_library]
 
 # Determine absolute PATH of OpenShot folder
 PATH = os.path.dirname(os.path.realpath(__file__))  # Primary openshot folder
@@ -128,6 +128,9 @@ if sys.platform == "win32":
 
     # Append some additional files for Windows (this is a debug launcher)
     src_files.append((os.path.join(PATH, "installer", "launch-win.bat"), "launch-win.bat"))
+
+    # Add additional package
+    python_packages.append('idna')
 
     # Manually add zmq dependency (windows does not freeze it correctly)
     import zmq
