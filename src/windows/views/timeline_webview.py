@@ -46,6 +46,7 @@ from classes.app import get_app
 from classes.logger import log
 from classes.query import File, Clip, Transition, Track
 from classes.waveform import get_audio_data
+from classes.thumbnail import GenerateThumbnail
 
 try:
     import json
@@ -274,23 +275,13 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             # Convert path to the correct relative path (based on this folder)
             file_path = file.absolute_path()
 
-            # Reload this reader
-            clip = openshot.Clip(file_path)
-            reader = clip.Reader()
-
-            # Open reader
-            reader.Open()
-
             # Determine if video overlay should be applied to thumbnail
             overlay_path = ""
             if file.data["media_type"] == "video":
                 overlay_path = os.path.join(info.IMAGES_PATH, "overlay.png")
 
-            # Save thumbnail
-            reader.GetFrame(start_frame).Thumbnail(thumb_path, 98, 64, os.path.join(info.IMAGES_PATH, "mask.png"),
-                                         overlay_path, "#000", False)
-            reader.Close()
-            clip.Close()
+            # Create thumbnail image
+            GenerateThumbnail(file_path, thumb_path, start_frame, 98, 64, os.path.join(info.IMAGES_PATH, "mask.png"), overlay_path)
 
             # Update clip_data to point to new thumbnail image
             clip_data["image"] = thumb_path

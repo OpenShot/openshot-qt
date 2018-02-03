@@ -38,6 +38,7 @@ from classes import info
 from classes.query import File
 from classes.logger import log
 from classes.app import get_app
+from classes.thumbnail import GenerateThumbnail
 
 try:
     import json
@@ -144,13 +145,6 @@ class FilesModel(updates.UpdateInterface):
                         # Convert path to the correct relative path (based on this folder)
                         file_path = file.absolute_path()
 
-                        # Reload this reader
-                        clip = openshot.Clip(file_path)
-                        reader = clip.Reader()
-
-                        # Open reader
-                        reader.Open()
-
                         # Determine if video overlay should be applied to thumbnail
                         overlay_path = ""
                         if file.data["media_type"] == "video":
@@ -163,11 +157,8 @@ class FilesModel(updates.UpdateInterface):
                             fps_float = float(fps["num"]) / float(fps["den"])
                             thumbnail_frame = round(float(file.data['start']) * fps_float) + 1
 
-                        # Save thumbnail
-                        reader.GetFrame(thumbnail_frame).Thumbnail(thumb_path, 98, 64, os.path.join(info.IMAGES_PATH, "mask.png"),
-                                                     overlay_path, "#000", False)
-                        reader.Close()
-                        clip.Close()
+                        # Create thumbnail image
+                        GenerateThumbnail(file_path, thumb_path, thumbnail_frame, 98, 64, os.path.join(info.IMAGES_PATH, "mask.png"), overlay_path)
 
                     except:
                         # Handle exception
@@ -175,7 +166,6 @@ class FilesModel(updates.UpdateInterface):
                         msg.setText(_("{} is not a valid video, audio, or image file.".format(filename)))
                         msg.exec_()
                         continue
-
 
             else:
                 # Audio file
