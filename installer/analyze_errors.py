@@ -13,10 +13,14 @@ c_mangled_regex = re.compile(r"ZN(\w*)\s")
 openshot_version_regex = re.compile(r"\((.*)\)")
 
 # Message folder with exported archived error messages
-messages_folder = "/home/jonathan/Downloads/OpenShot Project Slack export May 15 2017/python-exceptions"
+messages_folder = "/home/jonathan/Downloads/OpenShot Project Slack export Jan 21 2018/library-exceptions"
 cache_path = local_path = os.path.join(messages_folder, "cache")
-version_starts_with = "2.3.2"
+version_starts_with = "2.4.1"
 scan_cache = True
+
+# Create cache folder (if needed)
+if not os.path.exists(cache_path):
+    os.mkdir(cache_path)
 
 # Cache all error message attachments (download local files if missing)
 if scan_cache:
@@ -145,7 +149,13 @@ for path in os.listdir(cache_path):
 # Ignore the following keys
 ignore_keys = ["launch.py:70", "launch.py:77", "Console.py:21", "app.py:154", "app.py:164", "uic/__init__.py:224", "uic/__init__.py:220"]
 
-# Sort dict
-for error_key in OrderedDict(sorted(error_dict.items(), key=lambda t: t[1], reverse=True)):
-    if error_key not in ignore_keys:
-        print("%s\t%s" % (error_key, error_dict[error_key]))
+# Write to output file and display the errors
+parent_folder = os.path.dirname(messages_folder)
+output_name = os.path.split(messages_folder)[1]
+output_path = os.path.join(parent_folder, "%s.txt" % output_name)
+with open(output_path, "w") as f:
+    for error_key in OrderedDict(sorted(error_dict.items(), key=lambda t: t[1], reverse=True)):
+        if error_key not in ignore_keys:
+            error_line = "%s\t%s" % (error_key, error_dict[error_key])
+            f.write(error_line + "\n")
+            print(error_line)
