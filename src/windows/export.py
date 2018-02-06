@@ -336,8 +336,6 @@ class Export(QDialog):
         self.timeline_length_int = round(timeline_length * fps) + 1
 
         # Set the min and max frame numbers for this project
-        self.txtStartFrame.setMaximum(self.timeline_length_int)
-        self.txtEndFrame.setMaximum(self.timeline_length_int)
         self.txtStartFrame.setValue(1)
         self.txtEndFrame.setValue(self.timeline_length_int)
 
