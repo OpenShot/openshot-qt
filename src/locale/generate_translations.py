@@ -173,7 +173,7 @@ for file in os.listdir(effects_path):
 
 # Append on properties from libopenshot
 objects = [openshot.Clip(), openshot.Blur(), openshot.Brightness(),
-           openshot.ChromaKey(), openshot.Deinterlace(), openshot.Mask(),
+           openshot.ChromaKey(), openshot.Deinterlace(), openshot.Hue(), openshot.Mask(),
            openshot.Negate(), openshot.Saturation(), openshot.Shift()]
 
 # Loop through each libopenshot object
