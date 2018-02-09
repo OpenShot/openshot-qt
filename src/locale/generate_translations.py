@@ -172,7 +172,7 @@ for file in os.listdir(effects_path):
                 effects_text[param.attributes["title"].value] = full_file_path
 
 # Append on properties from libopenshot
-objects = [openshot.Clip(), openshot.Blur(), openshot.Brightness(),
+objects = [openshot.Clip(), openshot.Bars(), openshot.Blur(), openshot.Brightness(),
            openshot.ChromaKey(), openshot.Deinterlace(), openshot.Hue(), openshot.Mask(),
            openshot.Negate(), openshot.Saturation(), openshot.Shift(), openshot.Wave()]
 
