@@ -31,8 +31,8 @@ There are many ways to import media files into OpenShot.
 Name                  Description
 ====================  ============
 Drag and Drop         Drag and drop the files from your file manager (file explorer, finder, etc...)
-Right Click->Import   Right click in the **Project Files** panel, choose **Import Files...**
-File Menu->Import     File menu->Import Files...
+Right Click\→Import   Right click in the **Project Files** panel, choose **Import Files...**
+File Menu\→Import     File menu\→Import Files...
 Import Files Toolbar  Click the **Import Files...** toolbar button (on the top menu)
 ====================  ============
 

@@ -48,7 +48,7 @@ For step-by-step instructions on the basic usage of OpenShot, be sure to read th
 Built-in Tutorial
 -----------------
 When you first launch OpenShot, you will be presented with a friendly built-in tutorial. It will point out and explain
-the basics. Clicking **Next** will jump to the next topic. You can always view this tutorial again from the **Help->Tutorial** menu.
+the basics. Clicking **Next** will jump to the next topic. You can always view this tutorial again from the **Help\→Tutorial** menu.
 
 .. image:: _static/built-in-tutorial.jpg
 
