@@ -1,0 +1,122 @@
+== COPYRIGHT
+....
+Copyright (c) 2008-2016 OpenShot Studios, LLC
+(http://www.openshotstudios.com). This file is part of
+OpenShot Video Editor (http://www.openshot.org), an open-source project
+dedicated to delivering high quality video editing and animation solutions
+to the world.
+
+OpenShot Video Editor is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+OpenShot Video Editor is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
+....
+
+== INSTRUCTIONS
+
+OpenShot Video Editor 2.0 supports Linux, Mac, and Windows. But due to 
+the many dependencies required to run OpenShot, we recommend using an 
+installer for your operating system. Please visit 
+http://www.openshot.org/download/ to find your correct installer.
+
+== DOCUMENTATION
+
+Documenation for OpenShot 2.0 can be generated with Doxygen, a popular
+command-line application for scanning source code and generating readable
+documention. OpenShot contains a Doxygen input file (Doxyfile.in), but
+you must first install the following Python filter for Doxygen: doxypy.
+Then, run the following command:
+....
+$ doxygen Doxyfile.in
+....
+
+== DEPENDENCIES
+
+Although installers are much easier to use, if you must build from 
+source, here are some tips: 
+
+OpenShot 2.0 is programmed in Python, and thus does not need
+to be compiled to run.  However, be sure you have the following 
+dependencies in order to run OpenShot successfully: 
+
+. Python 3.0+ (http://www.python.org)
+. PyQt5 (http://www.riverbankcomputing.co.uk/software/pyqt/download5)
+. libopenshot: OpenShot Library (http://www.openshot.org)
+. FFmpeg or Libav (http://www.ffmpeg.org/ or http://libav.org/)
+. GCC build tools (or MinGW on Windows)
+
+To run OpenShot from the command line, use the following syntax:
+(be sure the change the path to match the install location of OpenShot)
+....
+$ cd /home/USER/openshot_qt
+$ python3 src/launch.py
+....
+
+== HOW TO INSTALL
+
+If you would like to install OpenShot, use this command:
+....
+$ sudo python3 setup.py install
+....
+Installing OpenShot using this command does a few extra things that
+the build wizard doesn't do.  It adds MIME Types, adds an icon to your
+Application menu, registers icons, adds a /usr/bin/openshot command, and
+copies all the code files to the /site-packages/ folder.
+
+== TUTORIAL
+
+Here is a tutorial of the current development features:
+
+.	DO YOU HAVE A HELP MANUAL?
+- Yes, go to http://www.openshotusers.com/help/en/
+
+. HOW DO I ADD MEDIA TO MY VIDEO PROJECT?
+- Drag and drop videos or music files from gnome into the "Project Files" tree.
+- Click the File / Import Files... menu
+- Click the "Import Files" icon on the toolbar (at the top of the screen)
+		
+. HOW DO I ADD MEDIA TO MY TIMELINE
+- Click on any file in your "Project Files" tree, and drag it onto the timeline (at the bottom of the screen)
+		
+. HOW DO I POSITION CLIPS ON THE TIMELINE
+- Simply click on any clips already on the timeline, and drag them to their new location
+- Use the magnet icon to have your clips magically stick to their closest neighbor clips.
+		
+. HOW DO I TRIM / UN-TRIM CLIPS
+- Click and drag the edge of the clip to it's new location.
+
+. THE AUDIO / VIDEO IS OUT OF SYNC.  WHAT CAN I DO?
+- This is usually related to a bug in libopenshot or FFmpeg.  To resolve this, re-encode the video using the ffmpeg command line tool.
+- Here is an example command to convert a folder full of Canon MTS files to MP4:
+		   `$ find '/home/jonathan/Desktop/Caveman Movie/Videos' -iname "*.MTS" -exec ffmpeg -i {} -acodec libfaac -ab 128k -ac 2 -r 60 -vcodec mpeg4 -f mp4 -y -sameq {}.mp4 \;`
+- Usually the reason the A/V are out of sync is related to the frame rate (i.e. the -r parameter on the ffmpeg command).
+		   Try a variety of frame rates and OpenShot project types to find one that doesn't have A/V sync issues.
+		   Some common rates are:  -r 29.97  -r 25  -r 30  -r 60
+
+==  WEBSITES
+
+. http://www.openshot.org/  (PROJECT WEBSITE and BLOG)
+. http://launchpad.net/openshot/ (SOURCE CODE, BUG TRACKER, TRANSLATIONS)
+. http://freshmeat.net/projects/openshot-video-editor/
+. https://sourceforge.net/projects/openshotvideo/
+. https://www.ohloh.net/p/openshot-video-editor/
+
+==  REPORT A BUG
+
+https://bugs.launchpad.net/openshot
+
+==  TRANSLATIONS
+
+https://translations.launchpad.net/openshot
+
+== ASK A QUESTION
+
+https://answers.launchpad.net/openshot
