@@ -32,28 +32,34 @@ Overview
 
 .. image:: _static/clip-overview.jpg
 
-==  ==================  ============
-#   Name                Description
-==  ==================  ============
-1   Clip 1              A video clip
-2   Transition          A gradual fade transition between the 2 clips
-3   Clip 2              An image clip
-==  ==================  ============
+.. table::
+     :widths: 5 10 35
+     
+     ==  ==================  ============
+     #   Name                Description
+     ==  ==================  ============
+     1   Clip 1              A video clip
+     2   Transition          A gradual fade transition between the 2 clips
+     3   Clip 2              An image clip
+     ==  ==================  ============
 
 Cutting & Slicing
 -----------------
 OpenShot has many easy ways to adjust the start and end positions of a clip (otherwise known as cutting). The most common
 method is simply grabbing the left (or right) edge of the clip and dragging. Here is a list of methods for cutting clips in OpenShot:
 
-==================  ============
-Name                Description
-==================  ============
-Slice               When the play-head (i.e. red playback line) is overlapping a clip, right click on the clip, and choose Slice
-Slice All           When the play-head is overlapping many clips, right click on the play-head, and choose Slice All (it will cut all intersecting clips)
-Resizing Edge       Mouse over the edge of a clip, and resize the edge
-Split Dialog        Right click on a file, and choose **Split Clip**. A dialog will appear which allows for creating lots of small cuts in a single video file.
-Razor Tool          The razor tool cuts a clip wherever you click, so be careful. Easy and dangerous.
-==================  ============
+.. table::
+     :widths: 30
+     
+     ==================  ============
+     Name                Description
+     ==================  ============
+     Slice               When the play-head (i.e. red playback line) is overlapping a clip, right click on the clip, and choose Slice
+     Slice All           When the play-head is overlapping many clips, right click on the play-head, and choose Slice All (it will cut all intersecting clips)
+     Resizing Edge       Mouse over the edge of a clip, and resize the edge
+     Split Dialog        Right click on a file, and choose **Split Clip**. A dialog will appear which allows for creating lots of small cuts in a single video file.
+     Razor Tool          The razor tool cuts a clip wherever you click, so be careful. Easy and dangerous.
+     ==================  ============
 
 Keep in mind that all of the above cutting methods also have :ref:`keyboard_shortcut_ref`, to save even more time.
 
@@ -66,23 +72,26 @@ These presets can be accessed by right clicking on a clip.
 
 .. image:: _static/clip-presets.jpg
 
-==================  ============
-Name                Description
-==================  ============
-Fade                Fade in or out a clip (often easier than using a transition)
-Animate             Zoom and slide a clip
-Rotate              Rotate or flip a video
-Layout              Make a video smaller or larger, and snap to any corner
-Time                Reverse and speed up or slow down video
-Volume              Fade in or out the volume for a clip
-Separate Audio      Create a clip for each audio track
-Slice               Cut the clip at the play-head position
-Transform           Enable transform mode
-Display             Show waveform or thumbnail for a clip
-Properties          Show the properties panel for a clip
-Copy / Paste        Copy and paste key frames or duplicate an entire clip (with all key frames)
-Remove Clip         Remove a clip from the timeline
-==================  ============
+.. table::
+     :widths: 20
+     
+     ==================  ============
+     Name                Description
+     ==================  ============
+     Fade                Fade in or out a clip (often easier than using a transition)
+     Animate             Zoom and slide a clip
+     Rotate              Rotate or flip a video
+     Layout              Make a video smaller or larger, and snap to any corner
+     Time                Reverse and speed up or slow down video
+     Volume              Fade in or out the volume for a clip
+     Separate Audio      Create a clip for each audio track
+     Slice               Cut the clip at the play-head position
+     Transform           Enable transform mode
+     Display             Show waveform or thumbnail for a clip
+     Properties          Show the properties panel for a clip
+     Copy / Paste        Copy and paste key frames or duplicate an entire clip (with all key frames)
+     Remove Clip         Remove a clip from the timeline
+     ==================  ============
 
 .. _clip_transform_ref:
 
@@ -114,28 +123,31 @@ right click and choose **Properties**. The property editor will appear, where yo
 close attention to where the play-head (i.e. red playback line) is. Key frames are automatically created at the current playback
 position, to help create animations.
 
-==================  ============
-Name                Description
-==================  ============
-Gravity Type        The gravity of a clip determines where it snaps to it's parent
-Scale Type          The scale determines how a clip should be resized to fit it's parent
-Frame Display Type  The format to display the frame number (if any)
-Scale X             Curve representing the horizontal scaling in percent (0 to 1)
-Scale Y             Curve representing the vertical scaling in percent (0 to 1)
-Location X          Curve representing the relative X position in percent based on the gravity (-1 to 1)
-Location Y          Curve representing the relative Y position in percent based on the gravity (-1 to 1)
-Rotation            Curve representing the rotation (0 to 360)
-Alpha               Curve representing the alpha (1 to 0)
-Time                Curve representing the frames over time to play (used for speed and direction of video)
-Volume              Curve representing the volume (0 to 1)
-Shear X             Curve representing X shear angle in degrees (-45.0=left, 45.0=right)
-Shear Y             Curve representing Y shear angle in degrees (-45.0=down, 45.0=up)
-Channel Filter      A number representing an audio channel to filter (clears all other channels)
-Channel Mapping     A number representing an audio channel to output (only works when filtering a channel)
-Has Audio           An optional override to determine if this clip has audio (-1=undefined, 0=no, 1=yes)
-Has Video           An optional override to determine if this clip has video (-1=undefined, 0=no, 1=yes)
-Waveform            Should a waveform be used instead of the clip's image
-Waveform Color      Curve representing the color of the audio wave form
-==================  ============
+.. table::
+     :widths: 20
+
+     ==================  ============
+     Name                Description
+     ==================  ============
+     Gravity Type        The gravity of a clip determines where it snaps to it's parent
+     Scale Type          The scale determines how a clip should be resized to fit it's parent
+     Frame Display Type  The format to display the frame number (if any)
+     Scale X             Curve representing the horizontal scaling in percent (0 to 1)
+     Scale Y             Curve representing the vertical scaling in percent (0 to 1)
+     Location X          Curve representing the relative X position in percent based on the gravity (-1 to 1)
+     Location Y          Curve representing the relative Y position in percent based on the gravity (-1 to 1)
+     Rotation            Curve representing the rotation (0 to 360)
+     Alpha               Curve representing the alpha (1 to 0)
+     Time                Curve representing the frames over time to play (used for speed and direction of video)
+     Volume              Curve representing the volume (0 to 1)
+     Shear X             Curve representing X shear angle in degrees (-45.0=left, 45.0=right)
+     Shear Y             Curve representing Y shear angle in degrees (-45.0=down, 45.0=up)
+     Channel Filter      A number representing an audio channel to filter (clears all other channels)
+     Channel Mapping     A number representing an audio channel to output (only works when filtering a channel)
+     Has Audio           An optional override to determine if this clip has audio (-1=undefined, 0=no, 1=yes)
+     Has Video           An optional override to determine if this clip has video (-1=undefined, 0=no, 1=yes)
+     Waveform            Should a waveform be used instead of the clip's image
+     Waveform Color      Curve representing the color of the audio wave form
+     ==================  ============
 
 For more info on key frames and animation, see :ref:`animation_ref`.

@@ -29,14 +29,17 @@ Overview
 
 .. image:: _static/title-editor.jpg
 
-==  ==================  ============
-#   Name                Description
-==  ==================  ============
-1   Choose a Template   Choose from any available vector title template
-2   Preview Title       Preview your title as you make changes
-3   Title Properties    Change the text, colors, or edit in an advanced SVG image editor (such as Inkscape)
-3   Save                Save and add the title to your project
-==  ==================  ============
+.. table::
+     :widths: 5 26
+
+     ==  ==================  ============
+     #   Name                Description
+     ==  ==================  ============
+     1   Choose a Template   Choose from any available vector title template
+     2   Preview Title       Preview your title as you make changes
+     3   Title Properties    Change the text, colors, or edit in an advanced SVG image editor (such as Inkscape)
+     3   Save                Save and add the title to your project
+     ==  ==================  ============
 
 Custom Titles
 -------------
