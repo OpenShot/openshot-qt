@@ -229,7 +229,7 @@ App.directive('tlClip', function($timeout){
 		        snapMode: "inner", 
 		        snapTolerance: 20,
 		        scroll: true,
-				cancel: '.effect-container',
+				cancel: '.effect-container,.clip_menu',
 		        start: function(event, ui) {
 		        	previous_drag_position = null;
 		        	dragging = true;
@@ -369,7 +369,7 @@ App.directive('tlMultiSelectable', function(){
 			element.selectable({
 				filter: '.droppable',
 				distance: 0,
-				cancel: '.effect-container',
+				cancel: '.effect-container,.transition_menu,.clip_menu',
 				selected: function( event, ui ) {
 
 					// Identify the selected ID and TYPE
