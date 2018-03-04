@@ -110,7 +110,7 @@ class TestQueryClass(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         "Hook method for deconstructing the class fixture after running all tests in the class."
-        print ('Exiting Unittests: Quiting QApplication')
+        print ('Exiting Unittests: Quitting QApplication')
         TestQueryClass.app.window.actionQuit.trigger()
 
     def test_add_clip(self):

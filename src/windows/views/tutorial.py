@@ -250,7 +250,7 @@ class TutorialManager(object):
         # Hide matching tutorial
         self.hide_tips(tid)
 
-        # Process the next tipe
+        # Process the next type
         self.process()
 
     def hide_tips(self, tid, user_clicked=False):
@@ -336,7 +336,7 @@ class TutorialManager(object):
                                      {"id":"3", "x":150, "y":100, "object_id":"dockVideoContents", "text":_("<b>Video Preview:</b> Watch your timeline video preview here. Use the buttons (play, rewind, fast-forward) to control the video playback."), "arrow":True},
                                      {"id":"4", "x":20, "y":-35, "object_id":"propertyTableView", "text":_("<b>Properties:</b> View and change advanced properties of clips and effects here. Right-clicking on clips is usually faster than manually changing properties."), "arrow":True},
                                      {"id":"5", "x":20, "y":10, "object_id":"transitionsTreeView", "text":_("<b>Transitions:</b> Create a gradual fade from one clip to another. Drag and drop a transition onto the timeline and position it on top of a clip (usually at the beginning or ending)."), "arrow":True},
-                                     {"id":"6", "x":20, "y":20, "object_id":"effectsTreeView", "text":_("<b>Effects:</b> Adjust brigthness, contrast, saturation, and add exciting special effects. Drag and drop an effect onto the timeline and position it on top of a clip (or track)"), "arrow":True},
+                                     {"id":"6", "x":20, "y":20, "object_id":"effectsTreeView", "text":_("<b>Effects:</b> Adjust brightness, contrast, saturation, and add exciting special effects. Drag and drop an effect onto the timeline and position it on top of a clip (or track)"), "arrow":True},
                                      {"id":"7", "x":-265, "y":-22, "object_id":"export_button", "text":_("<b>Export Video:</b> When you are ready to create your finished video, click this button to export your timeline as a single video file."), "arrow":True}
                                 ]
 

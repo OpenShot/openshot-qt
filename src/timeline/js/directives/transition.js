@@ -183,6 +183,7 @@ App.directive('tlTransition', function(){
 		        snapTolerance: 20,
 		        scroll: true,
 		        revert: 'invalid',
+				cancel : '.transition_menu',
 		        start: function(event, ui) {
 		        	previous_drag_position = null;
 		        	dragging = true;

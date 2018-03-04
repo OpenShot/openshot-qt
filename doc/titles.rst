@@ -38,7 +38,7 @@ Overview
      1   Choose a Template   Choose from any available vector title template
      2   Preview Title       Preview your title as you make changes
      3   Title Properties    Change the text, colors, or edit in an advanced SVG image editor (such as Inkscape)
-     3   Save                Save and add the title to your project
+     4   Save                Save and add the title to your project
      ==  ==================  ============
 
 Custom Titles
@@ -60,7 +60,7 @@ in the main menu of OpenShot) to launch the Animated Title editor. You can also 
 1   Choose a Template   Choose from any available 3D title templates
 2   Preview Title       Preview your title as you make changes
 3   Title Properties    Change the text, colors, and advanced properties
-3   Render              Render the 3D animation, and add it to your project
+4   Render              Render the 3D animation, and add it to your project
 ==  ==================  ============
 
 This feature requires the latest version of Blender (https://www.blender.org/download/) be installed, and the OpenShot

@@ -46,7 +46,7 @@ try:
     # Enable High-DPI resolutions
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
 except AttributeError:
-    pass # Quitely fail for older Qt5 versions
+    pass # Quietly fail for older Qt5 versions
 
 
 def get_app():
@@ -75,7 +75,7 @@ class OpenShotApp(QApplication):
         except:
             pass
 
-        # Setup appication
+        # Setup application
         self.setApplicationName('openshot')
         self.setApplicationVersion(info.SETUP['version'])
 

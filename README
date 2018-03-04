@@ -38,9 +38,9 @@ http://www.openshot.org/download/ to find your correct installer.
  DOCUMENTATION
 #################
 
-Documenation for OpenShot 2.0 can be generated with Doxygen, a popular
+Documentation for OpenShot 2.0 can be generated with Doxygen, a popular
 command-line application for scanning source code and generating readable
-documention. OpenShot contains a Doxygen input file (Doxyfile.in), but
+documentation. OpenShot contains a Doxygen input file (Doxyfile.in), but
 you must first install the following Python filter for Doxygen: doxypy.
 Then, run the following command:
 
