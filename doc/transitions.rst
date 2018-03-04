@@ -51,14 +51,17 @@ Cutting & Slicing
 OpenShot has many easy ways to adjust the start and end positions of a transition (otherwise known as cutting). The most common
 method is simply grabbing the left (or right) edge of the transition and dragging. Here is a list of methods for cutting transitions in OpenShot:
 
-==================  ============
-Name                Description
-==================  ============
-Slice               When the play-head (i.e. red playback line) is overlapping a transition, right click on the transition, and choose Slice
-Slice All           When the play-head is overlapping many transitions, right click on the play-head, and choose Slice All (it will cut all intersecting transitions)
-Resizing Edge       Mouse over the edge of a transition, and resize the edge
-Razor Tool          The razor tool cuts a transition wherever you click, so be careful. Easy and dangerous.
-==================  ============
+.. table::
+     :widths: 32
+
+     ==================  ============
+     Name                Description
+     ==================  ============
+     Slice               When the play-head (i.e. red playback line) is overlapping a transition, right click on the transition, and choose Slice
+     Slice All           When the play-head is overlapping many transitions, right click on the play-head, and choose Slice All (it will cut all intersecting transitions)
+     Resizing Edge       Mouse over the edge of a transition, and resize the edge
+     Razor Tool          The razor tool cuts a transition wherever you click, so be careful. Easy and dangerous.
+     ==================  ============
 
 Keep in mind that all of the above cutting methods also have :ref:`keyboard_shortcut_ref`.
 
@@ -80,10 +83,14 @@ right click and choose **Properties**. The property editor will appear, where yo
 close attention to where the play-head (i.e. red playback line) is. Key frames are automatically created at the current playback
 position, to help create animations.
 
-==================  ============
-Name                Description
-==================  ============
-Brightness          Curve representing the brightness of the transition image, which affects the fade/wipe (-1 to 1)
-Contrast            Curve representing the contrast of the transition image, which affects the softness/hardness of the fade/wipe (0 to 20)
-Replace Image       For debugging a problem, this property displays the transition image (instead of becoming a transparency)
-==================  ============
+.. table::
+     :widths: 28
+
+     ==================  ============
+     Name                Description
+     ==================  ============
+     Brightness          Curve representing the brightness of the transition image, which affects the fade/wipe (-1 to 1)
+     Contrast            Curve representing the contrast of the transition image, which affects the softness/hardness of the fade/wipe (0 to 20)
+     Replace Image       For debugging a problem, this property displays the transition image (instead of becoming a transparency)
+     ==================  ============
+
