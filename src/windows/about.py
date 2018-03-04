@@ -86,7 +86,7 @@ class About(QDialog):
         track_metric_screen("about-screen")
 
     def load_credit(self):
-        """ Load Credits for everybody who has contribuated in several domain for Openshot """
+        """ Load Credits for everybody who has contributed in several domain for Openshot """
         log.info('Credit screen has been opened')
         windo = Credits()
         windo.exec_()

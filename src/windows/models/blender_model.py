@@ -1,6 +1,6 @@
 """ 
  @file
- @brief This file contains the blender model, used by the 3d anmiated titles screen
+ @brief This file contains the blender model, used by the 3d animated titles screen
  @author Jonathan Thomas <jonathan@openshot.org>
  
  @section LICENSE

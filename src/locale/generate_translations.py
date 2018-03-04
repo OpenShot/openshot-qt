@@ -6,7 +6,7 @@
  This file helps you generate the POT file that contains all of the translatable
  strings / text in OpenShot.  Because some of our text is in custom XML files,
  the xgettext command can't correctly generate the POT file.  Thus... the 
- existance of this file. =)
+ existence of this file. =)
 
  Command to create the individual language PO files (Ascii files)
 		$ msginit --input=OpenShot.pot --locale=fr_FR
@@ -118,7 +118,7 @@ output.close()
 shutil.copy(os.path.join(langage_folder_path, "clean.po"), os.path.join(langage_folder_path, 'OpenShot_QtUi.pot'))
 os.remove(os.path.join(langage_folder_path, "clean.po"))
 
-# Remove duplciates (if any found)
+# Remove duplicates (if any found)
 subprocess.call('msguniq %s --use-first -o %s' % (os.path.join(langage_folder_path, 'OpenShot_QtUi.pot'),
                                       os.path.join(langage_folder_path, 'clean.po')), shell=True)
 shutil.copy(os.path.join(langage_folder_path, "clean.po"), os.path.join(langage_folder_path, 'OpenShot_QtUi.pot'))

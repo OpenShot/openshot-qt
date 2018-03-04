@@ -446,7 +446,7 @@ try:
                         output(line)
                         if "error".encode("UTF-8") in line:
                             error("AppImageKit Error: %s" % line)
-                        if "completed sucessfully".encode("UTF-8") in line:
+                        if "completed successfully".encode("UTF-8") in line:
                             app_image_success = True
 
                     # Was the AppImage creation successful
