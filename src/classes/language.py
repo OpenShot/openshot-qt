@@ -85,7 +85,7 @@ def init_language():
     for locale_name in locale_names:
 
         # Don't try on default locale, since it fails to load what is the default language
-        if 'en_US' in locale_name:
+        if QLocale().system().name() in locale_name:
             log.info("Skipping English language (no need for translation): {}".format(locale_name))
             continue
 
