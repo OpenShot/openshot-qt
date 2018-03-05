@@ -1725,6 +1725,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         save_indicator = ""
         if get_app().project.needs_save() or not get_app().project.current_filepath:
             save_indicator = "*"
+            self.actionSave.setEnabled(True)
+        else:
+            self.actionSave.setEnabled(False)
 
         # Is this a saved project?
         if not get_app().project.current_filepath:
