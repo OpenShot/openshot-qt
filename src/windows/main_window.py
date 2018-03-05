@@ -1721,23 +1721,29 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if not profile:
             profile = get_app().project.get(["profile"])
 
+        # Determine if the project needs saving (has any unsaved changes)
+        save_indicator = ""
+        if get_app().project.needs_save() or not get_app().project.current_filepath:
+            save_indicator = "*"
+
         # Is this a saved project?
         if not get_app().project.current_filepath:
             # Not saved yet
-            self.setWindowTitle("%s [%s] - %s" % (_("Untitled Project"), profile, "OpenShot Video Editor"))
+            self.setWindowTitle("%s %s [%s] - %s" % (save_indicator, _("Untitled Project"), profile, "OpenShot Video Editor"))
         else:
             # Yes, project is saved
             # Get just the filename
             parent_path, filename = os.path.split(get_app().project.current_filepath)
             filename, ext = os.path.splitext(filename)
             filename = filename.replace("_", " ").replace("-", " ").capitalize()
-            self.setWindowTitle("%s [%s] - %s" % (filename, profile, "OpenShot Video Editor"))
+            self.setWindowTitle("%s %s [%s] - %s" % (save_indicator, filename, profile, "OpenShot Video Editor"))
 
     # Update undo and redo buttons enabled/disabled to available changes
     def updateStatusChanged(self, undo_status, redo_status):
         log.info('updateStatusChanged')
         self.actionUndo.setEnabled(undo_status)
         self.actionRedo.setEnabled(redo_status)
+        self.SetWindowTitle()
 
     # Add to the selected items
     def addSelection(self, item_id, item_type, clear_existing=False):
