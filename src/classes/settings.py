@@ -100,6 +100,7 @@ class SettingStore(JsonDataStore):
                 _ = QCoreApplication.instance()._tr
                 QMessageBox.warning(None, _("Settings Error"),
                                           _("Error loading settings file: %(file_path)s. Settings will be reset.") % { "file_path": file_path})
+                user_settings = {}
 
         # Merge default and user settings, excluding settings not in default, Save settings
         self._data = self.merge_settings(default_settings, user_settings)
