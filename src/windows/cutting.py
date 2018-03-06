@@ -214,6 +214,9 @@ class Cutting(QDialog):
             ui_util.setup_icon(self, self.btnPlay, "actionPlay", "media-playback-start")  # to default
             self.preview_thread.Pause()
 
+        # Send focus back to toolbar
+        self.sliderVideo.setFocus()
+
     def sliderVideo_valueChanged(self, new_frame):
         if self.preview_thread and not self.sliderIgnoreSignal:
             log.info('sliderVideo_valueChanged')
@@ -256,6 +259,9 @@ class Cutting(QDialog):
         self.btnEnd.setEnabled(True)
         self.btnClear.setEnabled(True)
 
+        # Send focus back to toolbar
+        self.sliderVideo.setFocus()
+
         log.info('btnStart_clicked, current frame: %s' % self.start_frame)
 
     def btnEnd_clicked(self):
@@ -288,6 +294,9 @@ class Cutting(QDialog):
 
         # Enable create button
         self.btnAddClip.setEnabled(True)
+
+        # Send focus back to toolbar
+        self.sliderVideo.setFocus()
 
         log.info('btnEnd_clicked, current frame: %s' % self.end_frame)
 
