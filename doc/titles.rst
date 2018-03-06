@@ -27,7 +27,7 @@ the Title menu (located in the main menu of OpenShot) to launch the Title Editor
 Overview
 --------
 
-.. image:: _static/title-editor.jpg
+.. image:: images/title-editor.jpg
 
 .. table::
      :widths: 5 26
@@ -52,7 +52,7 @@ files in your **Project Files** panel, and choose **Edit Title** or **Duplicate 
 Adding a 3D animated title is just as easy, using our **Animated Title** dialog. Use the Title menu (located
 in the main menu of OpenShot) to launch the Animated Title editor. You can also use the keyboard shortcut **Ctrl+B**.
 
-.. image:: _static/animated-title.jpg
+.. image:: images/animated-title.jpg
 
 ==  ==================  ============
 #   Name                Description

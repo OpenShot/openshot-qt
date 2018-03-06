@@ -47,7 +47,7 @@ Features
 
 Screenshot
 ----------
-.. image:: _static/ui-example.jpg
+.. image:: images/ui-example.jpg
 
 System Requirements
 -------------------
