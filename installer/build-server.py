@@ -444,7 +444,7 @@ try:
                     app_image_success = False
                     for line in run_command('/home/jonathan/apps/AppImageKit/AppImageAssistant "%s" "%s"' % (app_dir_path, app_build_path)):
                         output(line)
-                        if "completed successfully".encode("UTF-8") in line:
+                        if "completed sucessfully".encode("UTF-8") in line:
                             app_image_success = True
 
                     # Was the AppImage creation successful
