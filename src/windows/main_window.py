@@ -162,6 +162,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             # No backup project found
             # Load a blank project (to propagate the default settings)
             get_app().project.load("")
+            self.actionUndo.setEnabled(False)
+            self.actionRedo.setEnabled(False)
+            self.SetWindowTitle()
 
     def create_lock_file(self):
         """Create a lock file"""
@@ -1723,7 +1726,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Determine if the project needs saving (has any unsaved changes)
         save_indicator = ""
-        if get_app().project.needs_save() or not get_app().project.current_filepath:
+        if get_app().project.needs_save():
             save_indicator = "*"
             self.actionSave.setEnabled(True)
         else:
@@ -2185,9 +2188,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Setup timeline
         self.timeline = TimelineWebView(self)
         self.frameWeb.layout().addWidget(self.timeline)
-
-        # Set Window title
-        self.SetWindowTitle()
 
         # Setup files tree
         if s.get("file_view") == "details":
