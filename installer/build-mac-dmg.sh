@@ -1,5 +1,5 @@
 #!/bin/sh
-PATH=/Library/Frameworks/Python.framework/Versions/3.5/bin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/qt5/5.5/clang_64/bin:/opt/X11/bin
+PATH=/Library/Frameworks/Python.framework/Versions/3.6/bin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/qt5/5.5/clang_64/bin:/opt/X11/bin
 
 # Get Version
 VERSION=$(grep -E '^VERSION = "(.*)"' src/classes/info.py | awk '{print $3}' | tr -d '"')
@@ -45,10 +45,10 @@ mv "$OS_PATH/MacOS/openshot.py" "$OS_PATH/Resources/openshot.py"; ln -s "../Reso
 mv "$OS_PATH/MacOS/openshot-qt.hqx" "$OS_PATH/Resources/openshot-qt.hqx"; ln -s "../Resources/openshot-qt.hqx" "$OS_PATH/MacOS/openshot-qt.hqx";
 mv "$OS_PATH/MacOS/launch.py" "$OS_PATH/Resources/launch.py"; ln -s "../Resources/launch.py" "$OS_PATH/MacOS/launch.py";
 mv "$OS_PATH/MacOS/PyQt5.uic.widget-plugins" "$OS_PATH/Resources/PyQt5.uic.widget-plugins"; ln -s "../Resources/PyQt5.uic.widget-plugins" "$OS_PATH/MacOS/PyQt5.uic.widget-plugins";
-if [ -d "$OS_PATH/MacOS/python3.5" ]; then
-  echo "Symlink python35.zip and python3.5 folder"
-  mv "$OS_PATH/MacOS/python3.5" "$OS_PATH/Resources/python3.5"; ln -s "../../Resources/python3.5" "$OS_PATH/MacOS/lib/python3.5";
-  mv "$OS_PATH/MacOS/python35.zip" "$OS_PATH/Resources/python35.zip"; ln -s "../../Resources/python35.zip" "$OS_PATH/MacOS/lib/python35.zip";
+if [ -d "$OS_PATH/MacOS/python3.6" ]; then
+  echo "Symlink python36.zip and python3.6 folder"
+  mv "$OS_PATH/MacOS/python3.6" "$OS_PATH/Resources/python3.6"; ln -s "../../Resources/python3.6" "$OS_PATH/MacOS/lib/python3.6";
+  mv "$OS_PATH/MacOS/python36.zip" "$OS_PATH/Resources/python36.zip"; ln -s "../../Resources/python36.zip" "$OS_PATH/MacOS/lib/python36.zip";
 fi
 
 echo "Code Sign App Bundle (deep)"

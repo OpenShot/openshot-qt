@@ -3,16 +3,17 @@ import os
 import subprocess
 from subprocess import call
 
-PATH = "/usr/local/qt5/5.5/clang_64/lib"
-
-# Find files matching patterns
+# # Symbolic Link Qt Frameworks into Python3/PyQt5 Framework
+# # IMPORTANT to run after installing PyQt5
+# PATH = "/usr/local/qt5/5.5/clang_64/lib"
+#
+# # Find files matching patterns
 # for file in os.listdir(PATH):
 #     if file.endswith(".framework"):
 #         file_path = os.path.join(PATH, file)
 #         file_parts = file_path.split("/")
-#         #print(file_path)
-#         #print(os.path.join("/Library/Frameworks/Python.framework/Versions/3.5/lib", file_parts[-1]))
-#         call(["ln", "-s", file_path, os.path.join("/Library/Frameworks/Python.framework/Versions/3.5/lib", file_parts[-1])])
+#         print(os.path.join("/Library/Frameworks/Python.framework/Versions/3.5/lib", file_parts[-1]))
+#         call(["ln", "-s", file_path, os.path.join("/Library/Frameworks/Python.framework/Versions/3.6/lib", file_parts[-1])])
 
 
 
@@ -38,8 +39,9 @@ PATH = "/usr/local/qt5/5.5/clang_64/lib"
 #                         print (command)
 #                         #call(["install_name_tool", file_path, "-change", dependency_path, dependency_path.replace("@rpath", PATH)])
 
-
-PATH = "/usr/local/qt5/5.5/clang_64"
+# FIX PyQt5 library paths
+# This is not required anymore (leaving here as an example)
+PATH = "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/PyQt5/"
 
 # Find files matching patterns
 for root, dirs, files in os.walk(PATH):
