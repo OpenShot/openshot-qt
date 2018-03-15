@@ -963,7 +963,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         fps_float = float(fps["num"]) / float(fps["den"])
 
         # Calculate position in seconds
-        position = player.Position() / fps_float
+        position = (player.Position() - 1) / fps_float
 
         # Look for existing Marker
         marker = Marker()
@@ -976,7 +976,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Calculate current position (in seconds)
         fps = get_app().project.get(["fps"])
         fps_float = float(fps["num"]) / float(fps["den"])
-        current_position = self.preview_thread.current_frame / fps_float
+        current_position = (self.preview_thread.current_frame - 1) / fps_float
         all_marker_positions = []
 
         # Get list of marker and important positions (like selected clip bounds)
@@ -1029,7 +1029,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Calculate current position (in seconds)
         fps = get_app().project.get(["fps"])
         fps_float = float(fps["num"]) / float(fps["den"])
-        current_position = self.preview_thread.current_frame / fps_float
+        current_position = (self.preview_thread.current_frame - 1) / fps_float
         all_marker_positions = []
 
         # Get list of marker and important positions (like selected clip bounds)
@@ -1113,7 +1113,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Get framerate
         fps = get_app().project.get(["fps"])
         fps_float = float(fps["num"]) / float(fps["den"])
-        playhead_position = float(self.preview_thread.current_frame) / fps_float
+        playhead_position = float(self.preview_thread.current_frame - 1) / fps_float
 
         # Basic shortcuts i.e just a letter
         if key.matches(self.getShortcutByName("seekPreviousFrame")) == QKeySequence.ExactMatch:
