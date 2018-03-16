@@ -2,3 +2,4 @@
 .idea
 .settings
 idea/*
+*__pycache__

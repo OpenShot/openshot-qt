@@ -723,8 +723,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionReportBug_trigger(self, event):
         try:
-            webbrowser.open("https://github.com/OpenShot/openshot-qt/issues/?app-menu-bug")
-            log.info("Open the Bug Report GitHub Issues web page with success")
+            webbrowser.open("https://github.com/OpenShot/openshot-qt/issues")
+            log.info("Open the Report Bug github web page with success")
+        except:
+            QMessageBox.information(self, "Error !", "Unable to open the github web page")
+            log.info("Unable to open the Report Bug github web page")
+
+    def actionAskQuestion_trigger(self, event):
+        try:
+            webbrowser.open("https://github.com/OpenShot/openshot-qt/issues")
+            log.info("Open the Question github web page with success")          
         except:
             QMessageBox.information(self, "Error !", "Unable to open the Bug Report GitHub Issues web page")
             log.info("Unable to open the Bug Report GitHub Issues web page")
@@ -1975,9 +1983,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.zoomScaleLabel = QLabel(_("{} seconds").format(self.sliderZoom.value()))
 
         # add zoom widgets
-        self.timelineToolbar.addAction(self.actionTimelineZoomIn)
-        self.timelineToolbar.addWidget(self.sliderZoom)
         self.timelineToolbar.addAction(self.actionTimelineZoomOut)
+        self.timelineToolbar.addWidget(self.sliderZoom)
+        self.timelineToolbar.addAction(self.actionTimelineZoomIn)
         self.timelineToolbar.addWidget(self.zoomScaleLabel)
 
         # Add timeline toolbar to web frame

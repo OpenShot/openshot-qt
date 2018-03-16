@@ -72,7 +72,7 @@
      <x>0</x>
      <y>0</y>
      <width>808</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -888,6 +888,24 @@
    </property>
    <property name="shortcut">
     <string>F11</string>
+   </property>
+  </action>
+  <action name="actionExit_Fullscreen">
+   <property name="icon">
+    <iconset theme="view-restore">
+     <normaloff>.</normaloff>.</iconset>
+   </property>
+   <property name="text">
+    <string>Exit Fullscreen</string>
+   </property>
+   <property name="toolTip">
+    <string>Exit Fullscreen</string>
+   </property>
+   <property name="shortcut">
+    <string>Esc</string>
+   </property>
+   <property name="visible">
+    <bool>true</bool>
    </property>
   </action>
   <action name="actionView_Toolbar">
