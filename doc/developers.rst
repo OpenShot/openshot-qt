@@ -64,6 +64,8 @@ unofficial Ubuntu repository, which has our software packages available to downl
    sudo add-apt-repository ppa:openshot.developers/libopenshot-daily
    sudo apt-get update
    sudo apt-get install openshot-qt \
+                        cmake \
+                        libx11-dev \
                         libasound2-dev \
                         libavcodec-dev \
                         libavdevice-dev \
