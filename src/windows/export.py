@@ -603,6 +603,37 @@ class Export(QDialog):
         self.export_button.setEnabled(False)
         self.exporting = True
 
+        # Check if file name contains invalid characters
+        invalidFileChars = set("\\/:*?\"<>|")
+        if any((char in invalidFileChars) for char in self.txtFileName.text()):
+            # Alert user
+            msg = QMessageBox()
+            msg.setWindowTitle("Export Error")
+            msg.setText("File name can't contain any of the the following characters: \\ / : * ? \" < > |")
+            msg.exec_()
+            # Cancel export
+            self.txtFileName.setEnabled(True)
+            self.txtExportFolder.setEnabled(True)
+            self.tabWidget.setEnabled(True)
+            self.export_button.setEnabled(True)
+            self.exporting = False
+            return
+        
+        # Check if file name is just an empty string
+        if self.txtFileName.text() == "":
+            # Alert user
+            msg = QMessageBox()
+            msg.setWindowTitle("Export Error")
+            msg.setText("You must set a name for the file being exported.")
+            msg.exec_()
+            # Cancel export
+            self.txtFileName.setEnabled(True)
+            self.txtExportFolder.setEnabled(True)
+            self.tabWidget.setEnabled(True)
+            self.export_button.setEnabled(True)
+            self.exporting = False
+            return
+        
         # Determine type of export (video+audio, video, audio, image sequences)
         # _("Video & Audio"), _("Video Only"), _("Audio Only"), _("Image Sequence")
         export_type = self.cboExportTo.currentText()
