@@ -544,8 +544,8 @@
   </action>
   <action name="actionJumpStart">
    <property name="icon">
-    <iconset theme="go-first" resource="../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/16/go-first.svg</normaloff>:/icons/Humanity/actions/16/go-first.svg</iconset>
+    <iconset theme="media-skip-backward" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/media-skip-backward.svg</normaloff>:/icons/Humanity/actions/16/media-skip-backward.svg</iconset>
    </property>
    <property name="text">
     <string>Jump To Start</string>
@@ -580,8 +580,8 @@
   </action>
   <action name="actionJumpEnd">
    <property name="icon">
-    <iconset theme="go-last" resource="../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/16/go-last.svg</normaloff>:/icons/Humanity/actions/16/go-last.svg</iconset>
+    <iconset theme="media-skip-forward" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/media-skip-forward.svg</normaloff>:/icons/Humanity/actions/16/media-skip-forward.svg</iconset>
    </property>
    <property name="text">
     <string>Jump To End</string>
