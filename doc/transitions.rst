@@ -28,7 +28,7 @@ with the most common location being the beginning or end.
 Overview
 --------
 
-.. image:: _static/clip-overview.jpg
+.. image:: images/clip-overview.jpg
 
 ==  ==================  ============
 #   Name                Description
@@ -44,7 +44,7 @@ Transitions adjust the alpha/transparency of the clip below it, and can either f
 to opaque. Right click and choose **Reverse Transition** to change the direction of the fade. You can also manually adjust
 the **Brightness** curve, animating the fade in any way you wish.
 
-.. image:: _static/transition-reverse.jpg
+.. image:: images/transition-reverse.jpg
 
 Cutting & Slicing
 -----------------

@@ -29,7 +29,7 @@ values at certain points on a clip, and OpenShot does the hard work of interpola
 Overview
 --------
 
-.. image:: _static/animation-overview.jpg
+.. image:: images/animation-overview.jpg
 
 .. table::
      :widths: 5 32
@@ -76,7 +76,7 @@ the expected value and then back (producing a bounce effect).
 
 To choose a curve preset, right click on the small graph icon next to a key frame.
 
-.. image:: _static/curve-presets.jpg
+.. image:: images/curve-presets.jpg
 
 Image Sequences
 ---------------
@@ -86,7 +86,7 @@ drag and drop one of them into OpenShot, and you will be prompted to import the 
 To adjust the frame rate of the animation, right click and choose **File Properties** in the **Project Files** panel,
 and adjust the frame rate. Once you have set the correct frame rate, drag the animation onto the timeline.
 
-.. image:: _static/file-properties.jpg
+.. image:: images/file-properties.jpg
 
 .. table::
      :widths: 5 25
