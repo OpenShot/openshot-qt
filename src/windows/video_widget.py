@@ -245,10 +245,25 @@ class VideoWidget(QWidget):
 
         self.mutex.unlock()
 
-    def SetAspectRatio(self, new_aspect_ratio, new_pixel_ratio):
+    #def SetAspectRatio(self, new_aspect_ratio, new_pixel_ratio):
+    #    """ Set a new aspect ratio """
+    #    self.aspect_ratio = new_aspect_ratio
+    #    self.pixel_ratio = new_pixel_ratio
+    #
+    #    # Force repaint on this widget
+    #    self.repaint()
+
+    def SetAspectRatio(self, new_aspect_ratio_num, new_aspect_ratio_den, new_pixel_ratio_num, new_pixel_ratio_den):
         """ Set a new aspect ratio """
-        self.aspect_ratio = new_aspect_ratio
-        self.pixel_ratio = new_pixel_ratio
+        self.aspect_ratio.num = new_aspect_ratio_num
+        self.aspect_ratio.den = new_aspect_ratio_den
+
+        """ Set a new pixel ratio """
+        self.pixel_ratio.num = new_pixel_ratio_num
+        self.pixel_ratio.den = new_pixel_ratio_den
+
+        # Force repaint on this widget
+        self.repaint()
 
     def centeredViewport(self, width, height):
         """ Calculate size of viewport to maintain apsect ratio """
