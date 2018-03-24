@@ -48,6 +48,7 @@ from classes.timeline import TimelineSync
 from classes.query import File, Clip, Transition, Marker, Track
 from classes.metrics import *
 from classes.version import *
+from classes.conversion import zoomToSeconds, secondsToZoom
 from images import openshot_rc
 from windows.views.files_treeview import FilesTreeView
 from windows.views.files_listview import FilesListView
@@ -1963,17 +1964,19 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.timelineToolbar.addSeparator()
 
         # Get project's initial zoom value
-        initial_scale = get_app().project.get(["scale"]) or 20
+        initial_scale = get_app().project.get(["scale"]) or 16
+        # Round non-exponential scale down to next lowest power of 2
+        initial_zoom = secondsToZoom(initial_scale)
 
         # Setup Zoom slider
         self.sliderZoom = QSlider(Qt.Horizontal, self)
         self.sliderZoom.setPageStep(2)
-        self.sliderZoom.setRange(1, 800)
-        self.sliderZoom.setValue(initial_scale)
+        self.sliderZoom.setRange(0, 15)
+        self.sliderZoom.setValue(initial_zoom)
         self.sliderZoom.setInvertedControls(True)
         self.sliderZoom.resize(100, 16)
 
-        self.zoomScaleLabel = QLabel(_("{} seconds").format(self.sliderZoom.value()))
+        self.zoomScaleLabel = QLabel( _("{} seconds").format(zoomToSeconds(self.sliderZoom.value())) )
 
         # add zoom widgets
         self.timelineToolbar.addAction(self.actionTimelineZoomIn)
