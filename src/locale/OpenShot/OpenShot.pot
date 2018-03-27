@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor (version: 2.4.1-dev1)\n"
 "Report-Msgid-Bugs-To: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
-"POT-Creation-Date: 2018-03-05 02:14:05.501151\n"
+"POT-Creation-Date: 2018-03-27 00:27:54.133916\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
 "Language-Team: https://translations.launchpad.net/+groups/launchpad-translators\n"
@@ -37,24 +37,24 @@ msgid ""
 "%s"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:913
+#: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:915
 #, python-format
 msgid "Missing File (%s)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:913
-#: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:931
+#: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:915
+#: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:934
 #, python-format
 msgid "%s cannot be found."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:914
-#: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:932
+#: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:916
+#: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:935
 #, python-format
 msgid "Find directory that contains: %s"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:931
+#: /home/jonathan/apps/openshot-qt-git/src/classes/project_data.py:934
 #, python-format
 msgid "Missing File in Clip (%s)"
 msgstr ""
@@ -71,7 +71,7 @@ msgid ""
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:488
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1480
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1484
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:184
 #, python-format
 msgid "Track %s"
@@ -117,8 +117,8 @@ msgid "Zoom Out"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:101
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:283
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:507
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:286
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:510
 msgid "Unsaved Changes"
 msgstr ""
 
@@ -134,96 +134,96 @@ msgstr ""
 msgid "Your most recent unsaved project has been recovered."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:283
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:507
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:286
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:510
 msgid "Save changes to project first?"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:417
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:420
 msgid "Error Saving Project"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:457
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:460
 msgid "Error Opening Project"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:516 Settings
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:519 Settings
 #: for actionOpen
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:317
 msgid "Open Project..."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:516
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:529
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:573
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:519
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:532
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:576
 msgid "OpenShot Project (*.osp)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:528
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:572
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1735
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:531
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:575
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1739
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:146
 msgid "Untitled Project"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:529
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:532
 msgid "Save Project..."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:573 Settings
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:576 Settings
 #: for actionSaveAs
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:362
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:365
 msgid "Save Project As..."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:588
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:591
 msgid "Import File..."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1417
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1421
 msgid "Error Removing Track"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1417
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1421
 msgid "You must keep at least 1 track"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1482
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1486
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1241
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1244
 msgid "Rename Track"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1482
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1486
 msgid "Track Name:"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1842
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1846
 msgid "Recent Projects"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1881
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1898
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1917
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2219
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1885
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1902
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1921
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2220
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:289
 msgid "Filter"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1972
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1976
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:734
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline_webview.py:2446
 msgid "{} seconds"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2010
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2014
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1253
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1256
 msgid "Update Available"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2011
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2015
 #, python-format
 msgid "Update Available: <b>%s</b>"
 msgstr ""
@@ -292,7 +292,7 @@ msgid "Title Editor"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:587
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:635
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:637
 #, python-format
 msgid ""
 "%s already exists.\n"
@@ -363,13 +363,13 @@ msgid "Surround (7.1 Channel)"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/file_properties.py:165
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:407 libopenshot
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:409 libopenshot
 #: (Clip Properties)
 msgid "Yes"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/file_properties.py:166
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:408 libopenshot
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:410 libopenshot
 #: (Clip Properties)
 msgid "No"
 msgstr ""
@@ -379,8 +379,8 @@ msgstr ""
 msgid "Preview"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/cutting.py:241
-#: /home/jonathan/apps/openshot-qt-git/src/windows/cutting.py:275
+#: /home/jonathan/apps/openshot-qt-git/src/windows/cutting.py:244
+#: /home/jonathan/apps/openshot-qt-git/src/windows/cutting.py:281
 msgid "Please choose valid 'start' and 'end' values for your clip."
 msgstr ""
 
@@ -1223,36 +1223,36 @@ msgid "Description"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:80
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:623
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:635 Settings for
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:625
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:637 Settings for
 #: actionExportVideo
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:20
 msgid "Export Video"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:158
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:633
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:687
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:701
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:635
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:689
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:703
 msgid "Video & Audio"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:158
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:633
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:687
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:635
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:689
 msgid "Video Only"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:158
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:633
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:701
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:635
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:703
 msgid "Audio Only"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:158
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:611
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:667
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:687
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:613
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:669
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:689
 msgid "Image Sequence"
 msgstr ""
 
@@ -1261,118 +1261,139 @@ msgstr ""
 msgid "All Formats"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:376
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:378
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_x264.xml
 msgid "MP4 (h.264)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:463
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:471
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:504
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:465
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:473
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:506
 msgid "Low"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:463
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:471
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:506
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:465
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:473
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:508
 msgid "Med"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:463
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:471
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:508
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:465
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:473
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:510
 msgid "High"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:555
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:557
 msgid "Choose a Folder..."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:623
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:625
 #, python-format
 msgid ""
 "%s is an input file.\n"
 "Please choose a different name."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:768
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:730
+#, python-format
+msgid "%d:%02d:%02d Remaining (%5.2f FPS)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:779
 msgid "Export Error"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:769
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:780
 #, python-format
 msgid ""
 "Sorry, there was an error exporting your video: \n"
 "%s"
 msgstr ""
 
-#: libopenshot (Clip Properties)
-msgid "Wave Color"
+#: libopenshot (Effect Metadata)
+msgid "Brightness & Contrast"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/explode.xml
-msgid "Display Ground"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
+msgid "Color Tiles"
 msgstr ""
 
-#: libopenshot (Clip Properties)
-msgid "Top Center"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
-msgid "Background: Diffuse Color"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
-msgid "Picture 4 Path"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml
-msgid "Display Clouds"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Halo: Use Flare"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
+msgid "Sun: Angle Offset"
 msgstr ""
 
 #: libopenshot (Clip Properties)
-msgid "Anchor"
+msgid "X Shift"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "Start Frame"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Red Y Shift"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "File Name"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Arrival Title"
+msgid "Arrival Latitude (seconds)"
 msgstr ""
 
 #: libopenshot (Clip Properties)
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:97
-msgid "Start"
+msgid "Horizontal Radius"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Depart Latitude (minutes)"
 msgstr ""
 
 #: libopenshot (Clip Properties)
-msgid "Blue X Shift"
+msgid "Enable Audio"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:116
+msgid "End"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
+msgid "Sun: Number of Streaks"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "World Map"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
+msgid "First Title"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Depart Longitude (degrees)"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Chroma Key (Greenscreen)"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Negative"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
+msgid "Line 1 Color"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Y Shift"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
 msgid "Main Text"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Right Margin"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Bar Color"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Snow"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Particles: Amount"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Channel Filter"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/slide_left_to_right.xml
@@ -1380,59 +1401,120 @@ msgid "Slide Left to Right"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Animation Length"
+msgid "Number of Snow Flakes"
 msgstr ""
 
 #: libopenshot (Clip Properties)
-msgid "Duration"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Horizontal Radius"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
-msgid "Picture 1 Path"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Depart Longitude (minutes)"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Location X"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/rotate_360.xml
-msgid "Rotate 360 Degrees"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Magic Wand"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Saturation"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Channel Mapping"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Left Size"
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:97
+msgid "Start"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Gravity: Y"
+msgid "Mirror Color"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Adjust the brightness and contrast of the frame's image."
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Green Y Shift"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
+msgid "Background: Fresnel"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Wave"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Enable Video"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "Gravity: X"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Red X Shift"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Frame Number"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/trees.xml
+msgid "Trees"
 msgstr ""
 
 #: libopenshot (Clip Properties)
 msgid "Gravity"
 msgstr ""
 
+#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
+msgid "Halo: Ending Size"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Depart Longitude (seconds)"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Adjust the blur of the frame's image."
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Arrival Latitude (degrees)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
+msgid "Z Coordinate"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Depart Longitude (Prime Meridian)"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Remove interlacing from a video (i.e. even or odd horizontal lines)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
+msgid "Flying Title"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Start: X"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml Settings for
+#: actionTitle
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:108
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:851
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:854
+msgid "Title"
+msgstr ""
+
 #: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Background: Specular Intensity"
+msgid "Title 1"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Left Margin"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Top Size"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
+msgid "Background: Blend"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Shift the image up, down, left, and right (with infinite wrapping)."
 msgstr ""
 
 #: libopenshot (Clip Properties)
@@ -1440,43 +1522,161 @@ msgid "Location Y"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Particles: Gravity"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Tile 2: Diffuse Color"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Color Shift"
+msgid "Halo: Use Rings"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Arrival Longitude (Prime Meridian)"
+msgid "Depart Longitude (minutes)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Depart Latitude (Equator)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
+msgid "Text Width"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/blur.xml
+msgid "Blur"
 msgstr ""
 
 #: libopenshot (Clip Properties)
-msgid "Frame Number"
+msgid "Vertical Radius"
 msgstr ""
 
-#: libopenshot (Clip Properties)
-msgid "Center"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Arrival Longitude (degrees)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
+msgid "Picture Frames (4 pictures)"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Adjust the color saturation."
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/explode.xml
+msgid "Particle Number"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml
+msgid "Sub Title"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Arrival Title"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Start: X"
+msgid "Halo: Size"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Depart Title"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Top Margin"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Bottom Left"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Blue X Shift"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Magic Wand"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
+msgid "Halo: Starting Size"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "Snow"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Title 1"
+msgid "Background: Specular Color"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/glare.xml
 msgid "Glare"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
-msgid "Sun: Type of Glare"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Depart Latitude (degrees)"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Waveform"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Wave length"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
+msgid "Picture 4 Path"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml
+msgid "Zoom to Clapboard"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Halo: Star Count"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Start: Z"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Shift"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Shear X"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/rotate_360.xml
+msgid "Rotate 360 Degrees"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid ""
+"Shift the colors of an image up, down, left, and right (with infinite "
+"wrapping)."
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
+msgid "Episode"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Track"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Velocity: Z"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Halo: Use Lines"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Add colored bars around your video."
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Duration"
 msgstr ""
 
 #: libopenshot (Effect Metadata)
@@ -1485,268 +1685,80 @@ msgid ""
 "the color)."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
-msgid "Spots: Color Threshold"
-msgstr ""
-
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "World Map"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Color Tiles"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Pixelization"
+msgid "Arrival Longitude (minutes)"
 msgstr ""
 
 #: libopenshot (Clip Properties)
 msgid "Amplitude"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Halo: Size"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Bars"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Background: Specular Color"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Alpha Y Shift"
-msgstr ""
-
 #: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Mirror Color"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Remove interlacing from a video (i.e. even or odd horizontal lines)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Depart Latitude (minutes)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml
-msgid "Zoom to Clapboard"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Color Saturation"
+msgid "Diffuse Color"
 msgstr ""
 
 #: libopenshot (Clip Properties)
-msgid "Scale Y"
+msgid "Key Color"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
 msgid "Background: Shadeless"
 msgstr ""
 
-#: libopenshot (Clip Properties)
-msgid "Green Y Shift"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
-msgid "Neon Curves"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
-msgid "Episode"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
-msgid "Text Size"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Sigma"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Depart Longitude (seconds)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Depart Latitude (seconds)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
-msgid "Space Movie Intro"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Title 3"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Bottom Left"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Number of Snow Flakes"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Distort the frame's image into a wave pattern."
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Alpha Mask / Wipe Transition"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Depart Latitude (Equator)"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Left Margin"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Shift the image up, down, left, and right (with infinite wrapping)."
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Title 2"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Custom Texture (Equirectangular)"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Wave length"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Fuzz"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/blur.xml
-msgid "Blur"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Bottom Margin"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Hue"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Vertical speed"
-msgstr ""
-
 #: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
-msgid "Background: Alpha"
+msgid "Background: Diffuse Color"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Alpha Y Shift"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Halo: Use Stars"
+msgid "Particles: Amount"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Halo: Line Count"
+#: libopenshot (Clip Properties)
+msgid "Both"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "End Frame"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Deinterlace"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/halo_zoom_out.xml
-msgid "Halo Zoom Out"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Crop out any part of your video."
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Specular Intensity"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Depart Longitude (degrees)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
-msgid "Title Diffuse Color"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Arrival Latitude (degrees)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
-msgid "Halo: Starting Size"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
-msgid "Background: Fresnel"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/dissolve.xml
-msgid "Dissolving Text"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Halo: Star Count"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Negative"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
-msgid "Bevel Depth"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Arrival Longitude (degrees)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Specular Color"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
+msgid "Picture 1 Path"
 msgstr ""
 
 #: libopenshot (Clip Properties)
 msgid "Blue Y Shift"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
-msgid "Flying Title"
-msgstr ""
-
 #: libopenshot (Clip Properties)
-msgid "Canvas"
+msgid "Location X"
 msgstr ""
 
-#: libopenshot (Clip Properties)
-msgid "Red Y Shift"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Scale X"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/explode.xml
-msgid "Exploding Text"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
+msgid "Font Name"
 msgstr ""
 
 #: libopenshot (Effect Metadata)
-msgid "Add colored bars around your video."
+msgid "Color Shift"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Halo: Ring Count"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Color Saturation"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "Gravity: Y"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
+msgid "Title 3"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
+msgid "Episode Title"
 msgstr ""
 
 #: libopenshot (Clip Properties)
@@ -1757,32 +1769,232 @@ msgstr ""
 msgid "Line 3 Color"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Halo: Use Rings"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
+msgid "Tile 4: Diffuse Color"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Start Frame"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Depart Latitude (seconds)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
-msgid "Glass Slider"
+#: libopenshot (Clip Properties)
+msgid "Right Size"
 msgstr ""
 
 #: libopenshot (Clip Properties)
 msgid "Alpha X Shift"
 msgstr ""
 
+#: libopenshot (Clip Properties)
+msgid "Top Right"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Pixelate"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Bar Color"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Scale X"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
+msgid "Background: Specular Intensity"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Best Fit"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Fuzz"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Arrival Longitude (seconds)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Halo: Use Stars"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Custom Texture (Equirectangular)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
+msgid "Text Alignment"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "Specular Color"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/dissolve.xml
+msgid "Dissolving Text"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
+msgid "X Coordinate"
+msgstr ""
+
 #: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
-msgid "Line 1 Color"
+msgid "Neon Curves"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
+msgid "Lens Flare"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
+msgid "Picture 2 Path"
 msgstr ""
 
 #: libopenshot (Clip Properties)
-msgid "Key Color"
+msgid "Center"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
+msgid "Tile 1: Diffuse Color"
 msgstr ""
 
 #: libopenshot (Clip Properties)
-msgid "Shear X"
+msgid "Position"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Canvas"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "ID"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Wave Color"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Bottom Margin"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Start: Y"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "Animation Length"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Top Left"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Bottom Center"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Alpha Mask / Wipe Transition"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
+msgid "Picture 3 Path"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Arrival Latitude (minutes)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/explode.xml
+msgid "Exploding Text"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Bottom Size"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
+msgid "Sun: Color Threshold"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
+msgid "Defocus"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
+msgid "Title Specular Color"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Viewport"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
+msgid "Arrival Longitude (Prime Meridian)"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Is Odd Frame"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Deinterlace"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Negates the colors, producing a negative of the image."
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Distort the frame's image into a wave pattern."
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Stretch"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml
+msgid "Use Alpha"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Top Center"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "Gravity: Z"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
+msgid "Spots: Color Threshold"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Halo: Hardness"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "End: X"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Channel Mapping"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
+msgid "Line 2 Color"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
+msgid "Sun: Type of Glare"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/fly_by_two_titles.xml
+msgid "Fly Towards Camera (Two Titles)"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/fly_by_1.xml
@@ -1794,363 +2006,31 @@ msgid "End: Y"
 msgstr ""
 
 #: libopenshot (Clip Properties)
-msgid "Replace Image"
+msgid "Left Size"
 msgstr ""
 
 #: libopenshot (Clip Properties)
-msgid "Enable Audio"
+msgid "Sigma"
 msgstr ""
 
 #: libopenshot (Clip Properties)
-msgid "Is Odd Frame"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Vertical Radius"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Red X Shift"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:116
-msgid "End"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Top Size"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Chroma Key (Greenscreen)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
-msgid "Picture 2 Path"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Green X Shift"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
-msgid "X Coordinate"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
-msgid "First Title"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
-msgid "Halo: Ending Size"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Timeline"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Velocity: Z"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Viewport"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Best Fit"
+msgid "Channel Filter"
 msgstr ""
 
 #: libopenshot (Effect Metadata)
 msgid "Adjust the hue / color of the frame's image."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
-msgid "Background: Blend"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Bottom Size"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
-msgid "Defocus"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Arrival Latitude (minutes)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "End: X"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
-msgid "Extrude"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Velocity: Y"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Gravity: X"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Tile 3: Diffuse Color"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml
-msgid "Sub Title"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Tile 1: Diffuse Color"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/trees.xml
-msgid "Trees"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
-msgid "Episode Title"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Shift"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Diffuse Color"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Right Size"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
-msgid "Sun: Angle Offset"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid ""
-"Shift the colors of an image up, down, left, and right (with infinite "
-"wrapping)."
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Halo: Use Lines"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
-msgid "Lens Flare"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Top Right"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "Gravity: Z"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Waveform"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
-msgid "Picture 3 Path"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml Settings for
-#: actionTitle
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:108
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:851
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:854
-msgid "Title"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Top Left"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/picture_frames_4.xml
-msgid "Picture Frames (4 pictures)"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Track"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Stretch"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "ID"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
-msgid "Sun: Color Threshold"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Arrival Latitude (seconds)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/wireframe_text.xml
-msgid "Wireframe Text"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
-msgid "Text Width"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "X Shift"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Depart Longitude (Prime Meridian)"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Pixelate (increase or decrease) the number of visible pixels."
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Adjust the blur of the frame's image."
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Y Shift"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Halo: Ring Count"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Start: Z"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Adjust the color saturation."
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
-msgid "Line 2 Color"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Arrival Longitude (minutes)"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Bottom Right"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Depart Title"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid ""
-"Uses a grayscale mask image to gradually wipe / transition between 2 images."
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
-msgid "Z Coordinate"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Top Margin"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/zoom_clapboard.xml
-msgid "Use Alpha"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Crop"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Iterations"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Bottom Center"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Both"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/fly_by_two_titles.xml
-msgid "Fly Towards Camera (Two Titles)"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Position"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
-msgid "File Name"
-msgstr ""
-
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "End: Z"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml
-msgid "Blinds (Two Titles)"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "End Frame"
 msgstr ""
 
-#: libopenshot (Clip Properties)
-msgid "Multiplier"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Negates the colors, producing a negative of the image."
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Depart Latitude (degrees)"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Pixelate"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Start: Y"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Wave"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
-msgid "Halo: Hardness"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
-msgid "Text Alignment"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/explode.xml
-msgid "Particle Number"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/lens_flare.xml
-msgid "Sun: Number of Streaks"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Enable Video"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
+msgid "Background: Alpha"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
@@ -2158,55 +2038,568 @@ msgid "Particles: Lifetime"
 msgstr ""
 
 #: libopenshot (Effect Metadata)
-msgid "Brightness & Contrast"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml
-msgid "World Map (Realistic)"
+msgid "Pixelate (increase or decrease) the number of visible pixels."
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
 msgid "Velocity: X"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
-msgid "Font Name"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
-msgid "Title Specular Color"
+#: libopenshot (Clip Properties)
+msgid "Pixelization"
 msgstr ""
 
 #: libopenshot (Effect Metadata)
-msgid "Adjust the brightness and contrast of the frame's image."
+msgid "Crop"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/spacemovie_intro.xml
+msgid "Space Movie Intro"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/snow.xml
+msgid "Specular Intensity"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Saturation"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
-msgid "Tile 4: Diffuse Color"
+msgid "Title 2"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Arrival Latitude (Equator)"
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml
+msgid "World Map (Realistic)"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Bottom Right"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
+msgid "Tile 2: Diffuse Color"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
+msgid "Title Diffuse Color"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Particles: Gravity"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/blender/neon_curves.xml
 msgid "Line 4 Color"
 msgstr ""
 
+#: /home/jonathan/apps/openshot-qt-git/src/blender/earth_real.xml
+msgid "Display Clouds"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Multiplier"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
+msgid "Extrude"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Timeline"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Halo: Line Count"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/halo_zoom_out.xml
+msgid "Halo Zoom Out"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Hue"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Crop out any part of your video."
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
+msgid "Bevel Depth"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Velocity: Y"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/blinds.xml
+msgid "Blinds (Two Titles)"
+msgstr ""
+
 #: /home/jonathan/apps/openshot-qt-git/src/blender/earth.xml
-msgid "Arrival Longitude (seconds)"
+msgid "Arrival Latitude (Equator)"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Vertical speed"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Anchor"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/glass_slider.xml
+msgid "Glass Slider"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/wireframe_text.xml
+msgid "Wireframe Text"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Replace Image"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Green X Shift"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/explode.xml
+msgid "Display Ground"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Bars"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/magic_wand.xml
+msgid "Halo: Use Flare"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Right Margin"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Iterations"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/defocus.xml
+msgid "Text Size"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid ""
+"Uses a grayscale mask image to gradually wipe / transition between 2 images."
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/blender/colors.xml
+msgid "Tile 3: Diffuse Color"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Scale Y"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml
+msgid "Device"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml
+msgid "Apple TV"
+msgstr ""
+
+#: Settings for actionThumbnailView
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:932
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:935
+msgid "Thumbnail View"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_pal.xml
+msgid "DVD-PAL"
+msgstr ""
+
+#: Settings Category for General
+msgid "General"
+msgstr ""
+
+#: Settings for actionSplitClip
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1211
+msgid "Split Clip..."
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/vimeo_HD.xml
 msgid "Vimeo-HD"
 msgstr ""
 
+#: Settings for actionRedo
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:422
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:425
+msgid "Redo"
+msgstr ""
+
+#: Settings for actionJumpEnd
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:587
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:590
+msgid "Jump To End"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/picasa.xml
+msgid "Picasa"
+msgstr ""
+
+#: Settings Category for Autosave
+msgid "Autosave"
+msgstr ""
+
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_libvorbis.xml
 msgid "OGG (theora/vorbis)"
 msgstr ""
 
+#: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml
+msgid "DVD"
+msgstr ""
+
+#: Settings for cache-mode
+msgid "Cache Mode"
+msgstr ""
+
+#: Settings for default-language
+msgid "Language"
+msgstr ""
+
+#: Settings for actionNew
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:302
+msgid "New Project..."
+msgstr ""
+
+#: Settings for actionSave
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:332
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:335
+msgid "Save Project"
+msgstr ""
+
+#: Settings for actionFullscreen
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:884
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:887
+msgid "Fullscreen"
+msgstr ""
+
+#: Settings for default-image-length
+msgid "Image Length (seconds)"
+msgstr ""
+
+#: Settings for title_editor
+msgid "Advanced Title Editor (path)"
+msgstr ""
+
+#: Settings for blender_command
+msgid "Blender Command (path)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml
+msgid "Metacafe"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/youtube.xml
+msgid "YouTube"
+msgstr ""
+
+#: Settings for cache-quality
+msgid "Image Quality (Disk Only)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml
+msgid "Web"
+msgstr ""
+
+#: Settings for send_metrics
+msgid "Send Anonymous Metrics and Errors"
+msgstr ""
+
+#: Settings for default-samplerate
+msgid "Default Audio Sample Rate"
+msgstr ""
+
+#: Settings for selectAll
+msgid "Select All"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_xvid.xml
+msgid "MP4 (Xvid)"
+msgstr ""
+
+#: Settings for actionImportFiles
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:377
+msgid "Import Files..."
+msgstr ""
+
+#: Settings for actionProfile
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1073
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1076
+msgid "Choose Profile"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/chromebook.xml
+msgid "Chromebook"
+msgstr ""
+
+#: Settings Category for Debug
+msgid "Debug"
+msgstr ""
+
+#: Settings for cache-image-format
+msgid "Image Format (Disk Only)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/flickr_HD.xml
+msgid "Flickr-HD"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mpeg_mpeg2.xml
+msgid "MPEG (mpeg2)"
+msgstr ""
+
+#: Settings for seekNextFrame
+msgid "Next Frame"
+msgstr ""
+
+#: Settings Category for Cache
+msgid "Cache"
+msgstr ""
+
+#: Settings for actionPreviousMarker
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:662
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:665
+msgid "Previous Marker"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mpeg2.xml
+msgid "AVI (mpeg2)"
+msgstr ""
+
+#: Settings for sliceAllKeepRightSide
+msgid "Slice All: Keep Right Side"
+msgstr ""
+
+#: Settings for actionQuit
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:494
+msgid "Quit"
+msgstr ""
+
+#: Settings for deleteItem1
+msgid "Delete Item (Alternate 1)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mov_mpeg4.xml
+msgid "MOV (mpeg4)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/nokia_nHD.xml
+msgid "Nokia nHD"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/xbox360.xml
+msgid "Xbox 360"
+msgstr ""
+
+#: Settings for default-channellayout
+msgid "Default Audio Channels"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_mpeg4.xml
+msgid "MP4 (mpeg4)"
+msgstr ""
+
+#: Settings for actionPreferences
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:524
+msgid "Preferences"
+msgstr ""
+
+#: Settings for actionProperties
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:270
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1229
+msgid "Properties"
+msgstr ""
+
+#: Settings for playToggle3
+msgid "Play/Pause Toggle (Alternate 3)"
+msgstr ""
+
+#: Settings for actionUndo
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:347
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:350
+msgid "Undo"
+msgstr ""
+
+#: Settings for actionAnimatedTitle
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:866
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:869
+msgid "Animated Title"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mp4.xml
+msgid "AVI (mpeg4)"
+msgstr ""
+
+#: Settings for selectNone
+msgid "Select None"
+msgstr ""
+
+#: Settings for playToggle2
+msgid "Play/Pause Toggle (Alternate 2)"
+msgstr ""
+
+#: Settings for enable-auto-save
+msgid "Enable Autosave"
+msgstr ""
+
+#: Settings for playToggle
+msgid "Play/Pause Toggle"
+msgstr ""
+
+#: Settings for sliceAllKeepLeftSide
+msgid "Slice All: Keep Left Side"
+msgstr ""
+
+#: Settings for actionDetailsView
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:947
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:950
+msgid "Details View"
+msgstr ""
+
+#: Settings for actionSnappingTool
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:635
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:638
+msgid "Snapping Enabled"
+msgstr ""
+
+#: Settings for autosave-interval
+msgid "Autosave Interval (minutes)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml
+msgid "Blu-Ray/AVCHD"
+msgstr ""
+
+#: Settings for fastforwardVideo
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:575
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:578
+msgid "Fast Forward"
+msgstr ""
+
+#: Settings for theme
+msgid "Default Theme"
+msgstr ""
+
+#: Settings for playToggle1
+msgid "Play/Pause Toggle (Alternate 1)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/wikipedia.xml
+msgid "Wikipedia"
+msgstr ""
+
+#: Settings Category for Keyboard
+msgid "Keyboard"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_avi_x264.xml
+msgid "AVI (h.264)"
+msgstr ""
+
+#: Settings for debug-port
+msgid "Debug Mode (Port)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/vimeo.xml
+msgid "Vimeo"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_flv_x264.xml
+msgid "FLV (h.264)"
+msgstr ""
+
+#: Settings for rewindVideo
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:563
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:566
+msgid "Rewind"
+msgstr ""
+
+#: Settings for actionAbout
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/about.ui:23
+msgid "About OpenShot"
+msgstr ""
+
+#: Settings for actionAddTrack
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:509
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:512
+msgid "Add Track"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml
+msgid "DVD-NTSC"
+msgstr ""
+
+#: Settings Category for Profiles
+msgid "Profiles"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_flac.xml
+msgid "OGG (theora/flac)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/youtube_HD.xml
+msgid "YouTube-HD"
+msgstr ""
+
+#: Settings for actionJumpStart
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:551
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:554
+msgid "Jump To Start"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml
+msgid "WEBM (vpx)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml
+msgid "AVCHD Disks"
+msgstr ""
+
+#: Settings for history-limit
+msgid "History Limit (# of undo/redo)"
+msgstr ""
+
+#: Settings for actionAddMarker
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:647
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:650
+msgid "Add Marker"
+msgstr ""
+
 #: Settings for seekPreviousFrame
 msgid "Previous Frame"
+msgstr ""
+
+#: Settings for default-profile
+msgid "Default Profile"
+msgstr ""
+
+#: Settings for deleteItem
+msgid "Delete Item"
+msgstr ""
+
+#: Settings for actionAdd_to_Timeline
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1088
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1091
+msgid "Add to Timeline"
+msgstr ""
+
+#: Settings for actionNextMarker
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:674
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:677
+msgid "Next Marker"
 msgstr ""
 
 #: Settings for actionTransform
@@ -2215,16 +2608,16 @@ msgstr ""
 msgid "Transform"
 msgstr ""
 
-#: Settings for deleteItem1
-msgid "Delete Item (Alternate 1)"
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mov_x264.xml
+msgid "MOV (h.264)"
 msgstr ""
 
-#: Settings for playToggle2
-msgid "Play/Pause Toggle (Alternate 2)"
+#: Settings for cache-limit-mb
+msgid "Cache Limit (MB)"
 msgstr ""
 
-#: Settings for autosave-interval
-msgid "Autosave Interval (minutes)"
+#: Settings for cache-scale
+msgid "Scale Factor (Disk Only)"
 msgstr ""
 
 #: Settings for debug-mode
@@ -2235,840 +2628,420 @@ msgstr ""
 msgid "Slice All: Keep Both Sides"
 msgstr ""
 
-#: Settings for seekNextFrame
-msgid "Next Frame"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/nokia_nHD.xml
-msgid "Nokia nHD"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mp4.xml
-msgid "AVI (mpeg4)"
-msgstr ""
-
-#: Settings for actionSnappingTool
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:635
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:638
-msgid "Snapping Enabled"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml
-msgid "Metacafe"
-msgstr ""
-
-#: Settings for actionQuit
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:494
-msgid "Quit"
-msgstr ""
-
-#: Settings for actionDetailsView
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:947
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:950
-msgid "Details View"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_avi_x264.xml
-msgid "AVI (h.264)"
-msgstr ""
-
-#: Settings for actionPreferences
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:524
-msgid "Preferences"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/youtube_HD.xml
-msgid "YouTube-HD"
-msgstr ""
-
-#: Settings for actionAbout
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/about.ui:23
-msgid "About OpenShot"
-msgstr ""
-
-#: Settings for cache-quality
-msgid "Image Quality (Disk Only)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml
-msgid "WEBM (vpx)"
-msgstr ""
-
-#: Settings for actionFullscreen
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:884
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:887
-msgid "Fullscreen"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml
-msgid "DVD-NTSC"
-msgstr ""
-
-#: Settings for deleteItem
-msgid "Delete Item"
-msgstr ""
-
-#: Settings for actionNextMarker
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:674
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:677
-msgid "Next Marker"
-msgstr ""
-
-#: Settings for default-image-length
-msgid "Image Length (seconds)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_pal.xml
-msgid "DVD-PAL"
-msgstr ""
-
-#: Settings for cache-limit-mb
-msgid "Cache Limit (MB)"
-msgstr ""
-
-#: Settings for selectNone
-msgid "Select None"
-msgstr ""
-
-#: Settings for playToggle1
-msgid "Play/Pause Toggle (Alternate 1)"
-msgstr ""
-
-#: Settings Category for Debug
-msgid "Debug"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/xbox360.xml
-msgid "Xbox 360"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml
-msgid "Web"
-msgstr ""
-
-#: Settings Category for General
-msgid "General"
-msgstr ""
-
-#: Settings for selectAll
-msgid "Select All"
-msgstr ""
-
-#: Settings for cache-image-format
-msgid "Image Format (Disk Only)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml
-msgid "AVCHD Disks"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mpeg_mpeg2.xml
-msgid "MPEG (mpeg2)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml
-msgid "Device"
-msgstr ""
-
-#: Settings for default-samplerate
-msgid "Default Audio Sample Rate"
-msgstr ""
-
-#: Settings for sliceAllKeepRightSide
-msgid "Slice All: Keep Right Side"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/vimeo.xml
-msgid "Vimeo"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/picasa.xml
-msgid "Picasa"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml
-msgid "Apple TV"
-msgstr ""
-
-#: Settings for actionNew
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:302
-msgid "New Project..."
-msgstr ""
-
-#: Settings for fastforwardVideo
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:575
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:578
-msgid "Fast Forward"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_flac.xml
-msgid "OGG (theora/flac)"
-msgstr ""
-
-#: Settings for default-profile
-msgid "Default Profile"
-msgstr ""
-
-#: Settings for actionAnimatedTitle
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:866
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:869
-msgid "Animated Title"
-msgstr ""
-
-#: Settings for send_metrics
-msgid "Send Anonymous Metrics and Errors"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/flickr_HD.xml
-msgid "Flickr-HD"
-msgstr ""
-
-#: Settings for rewindVideo
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:563
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:566
-msgid "Rewind"
-msgstr ""
-
-#: Settings for sliceAllKeepLeftSide
-msgid "Slice All: Keep Left Side"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_xvid.xml
-msgid "MP4 (Xvid)"
-msgstr ""
-
-#: Settings for actionAddMarker
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:647
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:650
-msgid "Add Marker"
-msgstr ""
-
-#: Settings for actionPreviousMarker
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:662
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:665
-msgid "Previous Marker"
-msgstr ""
-
-#: Settings for actionJumpEnd
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:587
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:590
-msgid "Jump To End"
-msgstr ""
-
-#: Settings for playToggle3
-msgid "Play/Pause Toggle (Alternate 3)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_flv_x264.xml
-msgid "FLV (h.264)"
-msgstr ""
-
-#: Settings for cache-scale
-msgid "Scale Factor (Disk Only)"
-msgstr ""
-
-#: Settings for blender_command
-msgid "Blender Command (path)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/wikipedia.xml
-msgid "Wikipedia"
-msgstr ""
-
-#: Settings for actionThumbnailView
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:932
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:935
-msgid "Thumbnail View"
-msgstr ""
-
-#: Settings for theme
-msgid "Default Theme"
-msgstr ""
-
-#: Settings for actionProperties
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:270
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1229
-msgid "Properties"
-msgstr ""
-
-#: Settings Category for Profiles
-msgid "Profiles"
-msgstr ""
-
-#: Settings for playToggle
-msgid "Play/Pause Toggle"
-msgstr ""
-
-#: Settings for actionUndo
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:347
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:350
-msgid "Undo"
-msgstr ""
-
-#: Settings for actionProfile
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1073
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1076
-msgid "Choose Profile"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mov_mpeg4.xml
-msgid "MOV (mpeg4)"
-msgstr ""
-
-#: Settings for default-language
-msgid "Language"
-msgstr ""
-
-#: Settings for actionAdd_to_Timeline
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1088
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1091
-msgid "Add to Timeline"
-msgstr ""
-
-#: Settings for actionAddTrack
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:509
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:512
-msgid "Add Track"
-msgstr ""
-
-#: Settings for actionJumpStart
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:551
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:554
-msgid "Jump To Start"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml
-msgid "DVD"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_mpeg4.xml
-msgid "MP4 (mpeg4)"
-msgstr ""
-
-#: Settings for cache-mode
-msgid "Cache Mode"
-msgstr ""
-
-#: Settings for enable-auto-save
-msgid "Enable Autosave"
-msgstr ""
-
-#: Settings for actionRedo
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:422
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:425
-msgid "Redo"
-msgstr ""
-
-#: Settings for debug-port
-msgid "Debug Mode (Port)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mov_x264.xml
-msgid "MOV (h.264)"
-msgstr ""
-
-#: Settings for actionSave
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:332
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:335
-msgid "Save Project"
-msgstr ""
-
-#: Settings for history-limit
-msgid "History Limit (# of undo/redo)"
-msgstr ""
-
-#: Settings for actionSplitClip
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1211
-msgid "Split Clip..."
-msgstr ""
-
-#: Settings Category for Cache
-msgid "Cache"
-msgstr ""
-
-#: Settings Category for Autosave
-msgid "Autosave"
-msgstr ""
-
-#: Settings for actionImportFiles
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:377
-msgid "Import Files..."
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/youtube.xml
-msgid "YouTube"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml
-msgid "Blu-Ray/AVCHD"
-msgstr ""
-
-#: Settings for default-channellayout
-msgid "Default Audio Channels"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mpeg2.xml
-msgid "AVI (mpeg2)"
-msgstr ""
-
-#: Settings for title_editor
-msgid "Advanced Title Editor (path)"
-msgstr ""
-
-#: Settings Category for Keyboard
-msgid "Keyboard"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_right_inspiration.jpg
-msgid "Little right inspiration"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_left_barr.jpg
-msgid "Blur left barr"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds.jpg
-msgid "Clouds"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic_2.jpg
-msgid "Right mozaic %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out_big.jpg
-msgid "Vertical blinds in to out big"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_losange.jpg
-msgid "Middle losange"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr_ripple_2.jpg
-msgid "Middle barr ripple %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/titles/Header_3.svg
-msgid "Header %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wandering_12.jpg
-msgid "Wandering %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/titles/Smoke_1.svg
-msgid "Smoke %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_abstract_2.jpg
-msgid "Spiral abstract %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/titles/Ribbon_2.svg
-msgid "Ribbon %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/titles/Gold_2.svg
-msgid "Gold %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_boxes_19.jpg
-msgid "Luminous boxes %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/bubbles.jpg
-msgid "Bubbles"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_5.jpg
-msgid "Mozaic %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/titles/Bar_1.svg
-msgid "Bar %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/future_11.jpg
-msgid "Future %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/titles/Cloud_2.svg
-msgid "Cloud %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_frame_2.jpg
-msgid "Luminous frame %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/boxes_12.jpg
-msgid "Boxes %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/titles/TV_Rating.svg
-msgid "Tv rating"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/titles/Standard_1.svg
-msgid "Standard %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_out_to_in.svg
-msgid "Circle out to in"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_right_barr.jpg
-msgid "Big cross right barr"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_left.jpg
-msgid "Frame barr left"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/titles/Bubbles_1.svg
-msgid "Bubbles %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/dissolve.jpg
-msgid "Dissolve"
-msgstr ""
-
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/hatched_1.jpg
 msgid "Hatched %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_right_triangle.jpg
-msgid "Lateral right triangle"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_top_arrow.jpg
-msgid "Middle top arrow"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ondulation_1.jpg
-msgid "Ondulation %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr.jpg
-msgid "Big barr"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/titles/Camera_Border.svg
-msgid "Camera border"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/titles/Post_it.svg
-msgid "Post it"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_top_to_bottom.svg
-msgid "Wipe top to bottom"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking_1.jpg
-msgid "Big barr shaking %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/openshot_logo.jpg
-msgid "Openshot logo"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_left_triangle.jpg
-msgid "Lateral left triangle"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/flower_4.jpg
-msgid "Flower %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/sunlight_2.jpg
-msgid "Sunlight %s"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_out_to_in.jpg
 msgid "Rectangle out to in"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_left_to_right.svg
-msgid "Wipe left to right"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mosaic_2.jpg
-msgid "Mosaic %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_mozaic.jpg
-msgid "Left mozaic"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_18.jpg
-msgid "Ray light %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_right_barr.jpg
-msgid "Middle cross right barr"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big.jpg
-msgid "Spiral big"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_top_arrow.jpg
-msgid "Ripple top arrow"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_right_to_left.jpg
-msgid "Clock right to left"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_1.jpg
-msgid "Spiral %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/foggy_spiral_1.jpg
-msgid "Foggy spiral %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_right_inspiration.jpg
-msgid "Middle right inspiration"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_right_barr.jpg
-msgid "Blur right barr"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/postime_1.jpg
-msgid "Postime %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_bars.jpg
-msgid "Vertical bars"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_left_inspiration.jpg
-msgid "Free left inspiration"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic.jpg
-msgid "Right mozaic"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_1.jpg
-msgid "Ray %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_right_to_left.svg
-msgid "Wipe right to left"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_in_to_out.jpg
-msgid "Rectangle in to out"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_in_to_out.svg
-msgid "Circle in to out"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small_2.jpg
-msgid "Spiral small %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/titles/Gold_Bottom.svg
-msgid "Gold bottom"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spots.jpg
-msgid "Spots"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_left.jpg
-msgid "Mozaic barr left"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_medium.jpg
-msgid "Spiral medium"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/titles/Oval_3.svg
-msgid "Oval %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/titles/Sunset.svg
-msgid "Sunset"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_2.jpg
-msgid "Frame %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds_2.jpg
-msgid "Clouds %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg
-msgid "Distortion %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/puzzle.jpg
-msgid "Puzzle"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/titles/Gold_Top.svg
-msgid "Gold top"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_low_arrow.jpg
-msgid "Ripple low arrow"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/titles/Gray_Box_4.svg
-msgid "Gray box %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_low_arrow.jpg
-msgid "Ripple luminous low arrow"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right_2.jpg
-msgid "Ray light right %s"
-msgstr ""
-
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Solid_Color.svg
 msgid "Solid color"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/fogg_3.jpg
-msgid "Fogg %s"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/triangle_3.jpg
+msgid "Triangle %s"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_left_barr.jpg
-msgid "Middle cross left barr"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_low_arrow.jpg
-msgid "Small low arrow"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/fractal_5.jpg
-msgid "Fractal %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mountains.jpg
-msgid "Mountains"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere_2.jpg
-msgid "Sphere %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_up.jpg
-msgid "Wave left up"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra
-msgid "Extra"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/titles/Creative_Commons_2.svg
-msgid "Creative commons %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr.jpg
-msgid "Middle barr"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right.jpg
-msgid "Ray light right"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_inspiration_right.jpg
-msgid "Free inspiration right"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_left_barr.jpg
-msgid "Small cross left barr"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out.jpg
+msgid "Vertical blinds in to out"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_down.jpg
 msgid "Wave right down"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_right.jpg
-msgid "Mozaic barr right"
+#: /home/jonathan/apps/openshot-qt-git/src/titles/TV_Rating.svg
+msgid "Tv rating"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_right_barr.jpg
-msgid "Small cross right barr"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_sliding.jpg
-msgid "Blinds sliding"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small.jpg
-msgid "Spiral small"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/central_mozaic.jpg
-msgid "Central mozaic"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_left.jpg
-msgid "Little rippling left"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out_big.jpg
-msgid "Blinds in to out big"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/strange_barr_1.jpg
-msgid "Strange barr %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_barr.jpg
-msgid "Small barr"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_4.jpg
-msgid "Ripple %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_left_to_right.jpg
-msgid "Clock left to right"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/sun_shaking.jpg
-msgid "Sun shaking"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/twirl_26.jpg
-msgid "Twirl %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/barr_ripple_2.jpg
-msgid "Barr ripple %s"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/board_10.jpg
+msgid "Board %s"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/titles/Footer_1.svg
 msgid "Footer %s"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/crossed_barr.jpg
-msgid "Crossed barr"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_top_arrow.jpg
+msgid "Ripple luminous top arrow"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_right_barr.jpg
-msgid "Square middle right barr"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mountains.jpg
+msgid "Mountains"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_down.jpg
 msgid "Wave left down"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_left_inspiration.jpg
-msgid "Little left inspiration"
+#: /home/jonathan/apps/openshot-qt-git/src/titles/Smoke_1.svg
+msgid "Smoke %s"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_arrow.jpg
-msgid "Right arrow"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ondulation_1.jpg
+msgid "Ondulation %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small_2.jpg
+msgid "Spiral small %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere.jpg
+msgid "Sphere"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_leftt_barr.jpg
+msgid "4 squares leftt barr"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds_2.jpg
+msgid "Clouds %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_medium.jpg
+msgid "Spiral medium"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking_1.jpg
+msgid "Big barr shaking %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic_2.jpg
+msgid "Right mozaic %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_left_barr.jpg
+msgid "Blur left barr"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/star_2.jpg
+msgid "Star %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/titles/Gray_Box_4.svg
+msgid "Gray box %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_barr.jpg
+msgid "Small barr"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/titles/Flames.svg
+msgid "Flames"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_left_barr.jpg
+msgid "Square middle left barr"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra
+msgid "Extra"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_bars.jpg
+msgid "Vertical bars"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_right_barr.jpg
+msgid "Square middle right barr"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_left_barr.jpg
+msgid "Square left barr"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_low_arrow.jpg
+msgid "Ripple luminous low arrow"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere_2.jpg
+msgid "Sphere %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_abstract_2.jpg
+msgid "Spiral abstract %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/hourglass_1.jpg
+msgid "Hourglass %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/titles/Creative_Commons_2.svg
+msgid "Creative commons %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr_ripple_2.jpg
+msgid "Middle barr ripple %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_black_barr.jpg
+msgid "Middle black barr"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/sun_shaking.jpg
+msgid "Sun shaking"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_1.jpg
+msgid "Spiral %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wipe_diagonal_3.jpg
+msgid "Wipe diagonal %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_left.jpg
+msgid "Blur ray left"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_right_triangle.jpg
+msgid "Lateral right triangle"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/checked_1.jpg
+msgid "Checked %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_left.jpg
+msgid "Frame barr left"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/distortion_1.jpg
+msgid "Distortion %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_cross_left_barr.jpg
+msgid "Frame cross left barr"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left_2.jpg
+msgid "Ray light left %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/crossed_barr.jpg
+msgid "Crossed barr"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/titles/Gold_Top.svg
+msgid "Gold top"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/boxes_12.jpg
+msgid "Boxes %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/titles/Camera_Border.svg
+msgid "Camera border"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_right_barr.jpg
+msgid "Big cross right barr"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_left_barr.jpg
+msgid "Big cross left barr"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_right_to_left.jpg
+msgid "Clock right to left"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big_2.jpg
+msgid "Spiral big %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/openshot_logo.jpg
+msgid "Openshot logo"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/bubbles.jpg
+msgid "Bubbles"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out_big.jpg
+msgid "Blinds in to out big"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/titles/Sunset.svg
+msgid "Sunset"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_barr.jpg
+msgid "Middle barr"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/clouds.jpg
+msgid "Clouds"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/titles/Gold_2.svg
+msgid "Gold %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/titles/Ribbon_2.svg
+msgid "Ribbon %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_right_barr.jpg
+msgid "Blur right barr"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/future_11.jpg
+msgid "Future %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/stretched_3.jpg
+msgid "Stretched %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_low_arrow.jpg
+msgid "Ripple low arrow"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big.jpg
+msgid "Spiral big"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/titles/Header_3.svg
+msgid "Header %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_left_up.jpg
+msgid "Wave left up"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr.jpg
+msgid "Big barr"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_right_barr.jpg
+msgid "Middle cross right barr"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/flower_4.jpg
+msgid "Flower %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/deform_8.jpg
+msgid "Deform %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/sunlight_2.jpg
+msgid "Sunlight %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_1.jpg
+msgid "Ray %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_losange.jpg
+msgid "Small losange"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_right.jpg
+msgid "Blur ray right"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/barr_ripple_2.jpg
+msgid "Barr ripple %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_spiral_9.jpg
+msgid "Luminous spiral %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/clock_left_to_right.jpg
+msgid "Clock left to right"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_4.jpg
+msgid "Ripple %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/strange_barr_1.jpg
+msgid "Strange barr %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/fogg_3.jpg
+msgid "Fogg %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left.jpg
+msgid "Ray light left"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spots.jpg
+msgid "Spots"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/titles/Standard_1.svg
+msgid "Standard %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_left_inspiration.jpg
+msgid "Free left inspiration"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_right.jpg
+msgid "Frame barr right"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_left_inspiration.jpg
+msgid "Middle left inspiration"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_right_to_left.svg
+msgid "Wipe right to left"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_top_to_bottom.svg
+msgid "Wipe top to bottom"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/titles/Gold_Bottom.svg
+msgid "Gold bottom"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/dissolve.jpg
+msgid "Dissolve"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_low_arrow.jpg
+msgid "Small low arrow"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_mozaic.jpg
+msgid "Right mozaic"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_cross_left_barr.jpg
+msgid "Middle cross left barr"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/cross_15.jpg
+msgid "Cross %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/titles/Oval_3.svg
+msgid "Oval %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/postime_1.jpg
+msgid "Postime %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/fish-eyes_5.jpg
+msgid "Fish-eyes %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_in_to_out.svg
+msgid "Circle in to out"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_18.jpg
+msgid "Ray light %s"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/common
@@ -3077,180 +3050,216 @@ msgstr ""
 msgid "Common"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/stain_1.jpg
-msgid "Stain %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_right_barr.jpg
-msgid "4 squares right barr"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/titles/Film_Rating_3.svg
-msgid "Film rating %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_right_barr.jpg
-msgid "Square right barr"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking2.jpg
-msgid "Big barr shaking2"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/triangle_3.jpg
-msgid "Triangle %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg
-msgid "Left arrow"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/stretched_3.jpg
-msgid "Stretched %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_leftt_barr.jpg
-msgid "4 squares leftt barr"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_losange.jpg
-msgid "Small losange"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/titles/Flames.svg
-msgid "Flames"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_low_arrow.jpg
-msgid "Middle low arrow"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_cross_left_barr.jpg
-msgid "Frame cross left barr"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left.jpg
-msgid "Ray light left"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/whirpool_2.jpg
-msgid "Whirpool %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_right.jpg
-msgid "Blur ray right"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/horizontal_barr_1.jpg
-msgid "Horizontal barr %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/star_2.jpg
-msgid "Star %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_bottom_to_top.svg
-msgid "Wipe bottom to top"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blur_ray_left.jpg
-msgid "Blur ray left"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_black_barr.jpg
-msgid "Middle black barr"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_losange.jpg
-msgid "Big losange"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wipe_diagonal_3.jpg
-msgid "Wipe diagonal %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_left_inspiration.jpg
-msgid "Middle left inspiration"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_left_to_right.svg
+msgid "Wipe left to right"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_in_to_out.jpg
 msgid "Blinds in to out"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/cross_15.jpg
-msgid "Cross %s"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_left_barr.jpg
-msgid "Square left barr"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/checked_1.jpg
-msgid "Checked %s"
-msgstr ""
-
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_right.jpg
 msgid "Little rippling right"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_middle_left_barr.jpg
-msgid "Square middle left barr"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_frame_2.jpg
+msgid "Luminous frame %s"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/hourglass_1.jpg
-msgid "Hourglass %s"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_right.jpg
+msgid "Mozaic barr right"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_spiral_9.jpg
-msgid "Luminous spiral %s"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/foggy_spiral_1.jpg
+msgid "Foggy spiral %s"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/fish-eyes_5.jpg
-msgid "Fish-eyes %s"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/whirpool_2.jpg
+msgid "Whirpool %s"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_big_2.jpg
-msgid "Spiral big %s"
+#: /home/jonathan/apps/openshot-qt-git/src/titles/Film_Rating_3.svg
+msgid "Film rating %s"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/deform_8.jpg
-msgid "Deform %s"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/blinds_sliding.jpg
+msgid "Blinds sliding"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_top_arrow.jpg
-msgid "Small top arrow"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/lateral_left_triangle.jpg
+msgid "Lateral left triangle"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_luminous_top_arrow.jpg
-msgid "Ripple luminous top arrow"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/horizontal_barr_1.jpg
+msgid "Horizontal barr %s"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out.jpg
-msgid "Vertical blinds in to out"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_right_inspiration.jpg
+msgid "Middle right inspiration"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/sphere.jpg
-msgid "Sphere"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/central_mozaic.jpg
+msgid "Central mozaic"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/fractal_5.jpg
+msgid "Fractal %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_left_barr.jpg
+msgid "Small cross left barr"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/titles/Post_it.svg
+msgid "Post it"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/luminous_boxes_19.jpg
+msgid "Luminous boxes %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/titles/Bar_1.svg
+msgid "Bar %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/vertical_blinds_in_to_out_big.jpg
+msgid "Vertical blinds in to out big"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right.jpg
+msgid "Ray light right"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_left_inspiration.jpg
+msgid "Little left inspiration"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/square_right_barr.jpg
+msgid "Square right barr"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/rectangle_in_to_out.jpg
+msgid "Rectangle in to out"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/circle_out_to_in.svg
+msgid "Circle out to in"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_barr_shaking2.jpg
+msgid "Big barr shaking2"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_low_arrow.jpg
+msgid "Middle low arrow"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/right_arrow.jpg
+msgid "Right arrow"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/stain_1.jpg
+msgid "Stain %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_right_2.jpg
+msgid "Ray light right %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wandering_12.jpg
+msgid "Wandering %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_barr_left.jpg
+msgid "Mozaic barr left"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ripple_top_arrow.jpg
+msgid "Ripple top arrow"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/common/wipe_bottom_to_top.svg
+msgid "Wipe bottom to top"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/titles/Cloud_2.svg
+msgid "Cloud %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_rippling_left.jpg
+msgid "Little rippling left"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_top_arrow.jpg
+msgid "Middle top arrow"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_losange.jpg
+msgid "Big losange"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/puzzle.jpg
+msgid "Puzzle"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/little_right_inspiration.jpg
+msgid "Little right inspiration"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_mozaic.jpg
+msgid "Left mozaic"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mozaic_5.jpg
+msgid "Mozaic %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/spiral_small.jpg
+msgid "Spiral small"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/mosaic_2.jpg
+msgid "Mosaic %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_2.jpg
+msgid "Frame %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/free_inspiration_right.jpg
+msgid "Free inspiration right"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/wave_right_up.jpg
 msgid "Wave right up"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/big_cross_left_barr.jpg
-msgid "Big cross left barr"
+#: /home/jonathan/apps/openshot-qt-git/src/titles/Bubbles_1.svg
+msgid "Bubbles %s"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/frame_barr_right.jpg
-msgid "Frame barr right"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_right_barr.jpg
+msgid "4 squares right barr"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/ray_light_left_2.jpg
-msgid "Ray light left %s"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_top_arrow.jpg
+msgid "Small top arrow"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/board_10.jpg
-msgid "Board %s"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/small_cross_right_barr.jpg
+msgid "Small cross right barr"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/left_arrow.jpg
+msgid "Left arrow"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/middle_losange.jpg
+msgid "Middle losange"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/twirl_26.jpg
+msgid "Twirl %s"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/about.ui:95
