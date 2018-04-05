@@ -7,7 +7,7 @@
  
  @section LICENSE
  
- Copyright (c) 2008-2016 OpenShot Studios, LLC
+ Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -893,9 +893,11 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
     def check_if_paths_are_valid(self):
         """Check if all paths are valid, and prompt to update them if needed"""
-        # Get project folder
+        # Get import path or project folder
         starting_folder = None
-        if self.current_filepath:
+        if self._data["import_path"]:
+            starting_folder = os.path.join(self._data["import_path"])
+        elif self.current_filepath:
             starting_folder = os.path.dirname(self.current_filepath)
 
         # Get translation method
@@ -914,9 +916,10 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 starting_folder = QFileDialog.getExistingDirectory(None, _("Find directory that contains: %s" % file_name_with_ext), starting_folder)
                 log.info("Missing folder chosen by user: %s" % starting_folder)
                 if starting_folder:
-                    # Update file path
+                    # Update file path and import_path
                     path = os.path.join(starting_folder, file_name_with_ext)
                     file["path"] = path
+                    get_app().updates.update(["import_path"], os.path.dirname(path))
                 else:
                     log.info('Removed missing file: %s' % file_name_with_ext)
                     self._data["files"].remove(file)

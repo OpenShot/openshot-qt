@@ -7,7 +7,7 @@
 
  @section LICENSE
 
- Copyright (c) 2008-2016 OpenShot Studios, LLC
+ Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -162,6 +162,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             # No backup project found
             # Load a blank project (to propagate the default settings)
             get_app().project.load("")
+            self.actionUndo.setEnabled(False)
+            self.actionRedo.setEnabled(False)
+            self.SetWindowTitle()
 
     def create_lock_file(self):
         """Create a lock file"""
@@ -582,13 +585,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def actionImportFiles_trigger(self, event):
         app = get_app()
         _ = app._tr
-        recommended_path = app.project.current_filepath
-        if not recommended_path:
+        recommended_path = app.project.get(["import_path"])
+        if not recommended_path or not os.path.exists(recommended_path):
             recommended_path = os.path.join(info.HOME_PATH)
         files = QFileDialog.getOpenFileNames(self, _("Import File..."), recommended_path)[0]
         for file_path in files:
             self.filesTreeView.add_file(file_path)
             self.filesTreeView.refresh_view()
+            app.updates.update(["import_path"], os.path.dirname(file_path))
             log.info("Imported media file {}".format(file_path))
 
     def actionAdd_to_Timeline_trigger(self, event):
@@ -1723,7 +1727,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Determine if the project needs saving (has any unsaved changes)
         save_indicator = ""
-        if get_app().project.needs_save() or not get_app().project.current_filepath:
+        if get_app().project.needs_save():
             save_indicator = "*"
             self.actionSave.setEnabled(True)
         else:
@@ -2185,9 +2189,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Setup timeline
         self.timeline = TimelineWebView(self)
         self.frameWeb.layout().addWidget(self.timeline)
-
-        # Set Window title
-        self.SetWindowTitle()
 
         # Setup files tree
         if s.get("file_view") == "details":

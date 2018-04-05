@@ -39,14 +39,14 @@ There are many ways to import media files into OpenShot.
      Import Files Toolbar  Click the **Import Files...** toolbar button (on the top menu)
      ====================  ============
 
-.. image:: _static/quick-start-drop-files.jpg
+.. image:: images/quick-start-drop-files.jpg
 
 File Menu
 ---------
 To view the file menu, right click on a file (in the **Project Files** panel). Here are the actions you can use from the
 file menu.
 
-.. image:: _static/file-menu.jpg
+.. image:: images/file-menu.jpg
 
 ====================  ============
 Name                  Description
@@ -69,7 +69,7 @@ purpose. Right click on a file, and choose Split Clip... from the file menu. Thi
 dialog to quickly cut out as many small clips as you need. The dialog stays open after you create a clip, to allow you
 to repeat the steps for your next clip. When you are finished, simply close the dialog.
 
-.. image:: _static/file-split-dialog.jpg
+.. image:: images/file-split-dialog.jpg
 
 .. table::
      :widths: 5 20
@@ -89,7 +89,7 @@ In certain cases, you might need to add many files to the timeline at the same t
 or a large number of short video clips. The **Add to Timeline** dialog can automate this task for you. First, select
 all files you need to add, right click, and choose Add to Timeline.
 
-.. image:: _static/file-add-to-timeline.jpg
+.. image:: images/file-add-to-timeline.jpg
 
 .. table::
      :widths: 5 28
@@ -111,7 +111,7 @@ To view the properties of any imported file in your video project, right click o
 This will launch the file properties dialog, which displays information about your media file. For certain types of images
 (i.e. image sequences), you can adjust the frame rate on this dialog also.
 
-.. image:: _static/file-properties.jpg
+.. image:: images/file-properties.jpg
 
 .. table::
      :widths: 5 24

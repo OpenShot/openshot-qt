@@ -2,3 +2,5 @@
 .idea
 .settings
 idea/*
+doc/_build
+**/__pycache__/

@@ -43,4 +43,5 @@ Table of Contents:
    animation
    titles
    profiles
+   developers
    learn_more
