@@ -32,7 +32,7 @@ The project profile is used when previewing your project and editing. The defaul
 It is best practice to always switch to your target profile before you begin editing. For example, if you are targeting
 1080p 30fps, switch to that profile before you begin editing your project.
 
-.. image:: _static/profiles.jpg
+.. image:: images/profiles.jpg
 
 ==  ==================  ============
 #   Name                Description
@@ -47,7 +47,7 @@ Export Profile
 
 The export profile always defaults to your current project profile, but can be changed to target different profiles.
 
-.. image:: _static/export-profiles.jpg
+.. image:: images/export-profiles.jpg
 
 ==  ==================  ============
 #   Name                Description

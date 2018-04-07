@@ -33,7 +33,7 @@ drop a few images (\*.JPG, \*.PNG, etc...) and a music file (most formats will w
 from your Desktop to OpenShot. Be sure to drop the files where the
 arrow in the illustration is pointing to.
 
-.. image:: _static/quick-start-drop-files.jpg
+.. image:: images/quick-start-drop-files.jpg
 
 Step 2 – Arrange Photos on Timeline
 ------------------------------------
@@ -43,7 +43,7 @@ video. If you overlap two clips, OpenShot will automatically create a smooth fad
 displayed by blue rounded rectangles between the clips. Remember, you can rearrange the clips
 as many times as needed by simply dragging and dropping them.
 
-.. image:: _static/quick-start-timeline-drop.jpg
+.. image:: images/quick-start-timeline-drop.jpg
 
 Step 3 – Add Music to Timeline
 ------------------------------
@@ -51,7 +51,7 @@ To make our photo slide-show more interesting, we need to add some music. You sh
 imported a music file in step 1. Click on the music file, and drag it onto the timeline. If
 the song is too long, grab the right edge of your music clip, and resize it smaller.
 
-.. image:: _static/quick-start-music.jpg
+.. image:: images/quick-start-music.jpg
 
 Step 4 – Preview your Project
 ------------------------------
@@ -59,7 +59,7 @@ To preview what our video looks & sounds like, click the Play button under the p
 You can also pause, rewind, and fast-forward your video project by clicking the corresponding
 buttons.
 
-.. image:: _static/quick-start-play.jpg
+.. image:: images/quick-start-play.jpg
 
 Step 5 – Export your Video
 ---------------------------
@@ -70,7 +70,7 @@ media players (such as VLC) or websites (such as YouTube, Vimeo, etc...).
 Click on the Export Video icon at the top of the screen (or use the **File > Export Video** menu).
 Choose from one of the many preset export options, and click the *Export Video* button.
 
-.. image:: _static/quick-start-export.jpg
+.. image:: images/quick-start-export.jpg
 
 You should now have a basic understanding of how OpenShot works. Importing, Arranging,
 Previewing, and Exporting. Hopefully this tutorial took less than 5 minutes for you to

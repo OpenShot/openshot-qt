@@ -26,7 +26,7 @@ and menus needed to edit your video project.
 Overview
 --------
 
-.. image:: _static/main-window.jpg
+.. image:: images/main-window.jpg
 
 .. table::
      :widths: 5 22 73
@@ -53,7 +53,7 @@ Built-in Tutorial
 When you first launch OpenShot, you will be presented with a friendly built-in tutorial. It will point out and explain
 the basics. Clicking **Next** will jump to the next topic. You can always view this tutorial again from the **Help\→Tutorial** menu.
 
-.. image:: _static/built-in-tutorial.jpg
+.. image:: images/built-in-tutorial.jpg
 
 
 Tracks & Layers
@@ -66,7 +66,7 @@ typically a video project will not need more than 10 (or so) tracks.
 
 For example, imagine a 3 track video project
 
-.. image:: _static/tracks.jpg
+.. image:: images/tracks.jpg
 
 .. table::
      :widths: 5 18 77

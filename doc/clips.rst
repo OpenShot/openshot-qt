@@ -30,7 +30,7 @@ and when combined together, can create some amazing effects.
 Overview
 --------
 
-.. image:: _static/clip-overview.jpg
+.. image:: images/clip-overview.jpg
 
 .. table::
      :widths: 5 10 35
@@ -70,7 +70,7 @@ Preset Menu
 OpenShot has tons of great preset animations and clip properties, such as fading, sliding, zooming, etc...
 These presets can be accessed by right clicking on a clip.
 
-.. image:: _static/clip-presets.jpg
+.. image:: images/clip-presets.jpg
 
 .. table::
      :widths: 20
@@ -102,7 +102,7 @@ Grab any of the small blue handles to adjust scale, and grab the middle circle t
 attention to where the play-head (i.e. red playback line) is. Key frames are automatically created at the current playback
 position, to help create animations.
 
-.. image:: _static/clip-transform.jpg
+.. image:: images/clip-transform.jpg
 
 For more info on key frames and animation, see :ref:`animation_ref`.
 
@@ -112,7 +112,7 @@ In addition to the many clip properties which can be animated and adjusted, you 
 a clip. Each effect is represented by a small letter icon. Clicking the effect icon will populate the properties of that
 effect, and allow you to edit (and animate) them.
 
-.. image:: _static/clip-effects.jpg
+.. image:: images/clip-effects.jpg
 
 .. _clip_properties_ref:
 
