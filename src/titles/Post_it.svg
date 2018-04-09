@@ -14,8 +14,8 @@
    height="1080"
    id="svg3863"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
-   sodipodi:docname="post-it.svg">
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   sodipodi:docname="Post_it.svg">
   <defs
      id="defs3865">
     <linearGradient
@@ -431,7 +431,7 @@
      inkscape:pageopacity="0.79215686"
      inkscape:pageshadow="2"
      inkscape:zoom="0.71614583"
-     inkscape:cx="871.11833"
+     inkscape:cx="636.52924"
      inkscape:cy="703.71038"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -485,55 +485,51 @@
        style="fill:#f2f2f2;fill-opacity:0.26666667;stroke:#ffffff;stroke-width:0.38601875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:0.52941165;stroke-dashoffset:0.12954716" />
     <text
        xml:space="preserve"
-       style="font-size:116.20991515999999422px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter3998-6);font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter3998-6)"
        x="497.38654"
        y="164.25645"
        id="text2395"
-       sodipodi:linespacing="125%"
        transform="matrix(0.7314748,0,0,0.7314748,132.38928,101.94691)"><tspan
          sodipodi:role="line"
          id="tspan2397"
          x="497.38654"
          y="164.25645"
-         style="font-size:82.35334777999999289px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold">Line 1</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:82.35334778px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'Sans Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none">Line 1</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:116.20991515999999422px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter3998-6-8);font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter3998-6-8)"
        x="497.38654"
        y="164.25645"
        id="text2395-5"
-       sodipodi:linespacing="125%"
        transform="matrix(0.7314748,0,0,0.7314748,132.38928,260.51527)"><tspan
          sodipodi:role="line"
          id="tspan2397-7"
          x="497.38654"
          y="164.25645"
-         style="font-size:82.35334777999999289px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold">Line 2</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:82.35334778px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'Sans Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none">Line 2</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:116.20991515999999422px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter3998-6-7);font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter3998-6-7)"
        x="497.38654"
        y="164.25645"
        id="text2395-3"
-       sodipodi:linespacing="125%"
        transform="matrix(0.7314748,0,0,0.7314748,132.38928,419.08363)"><tspan
          sodipodi:role="line"
          id="tspan2397-9"
          x="497.38654"
          y="164.25645"
-         style="font-size:82.35334777999999289px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold">Line 3</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:82.35334778px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'Sans Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none">Line 3</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:116.20991515999999422px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter3998-6-4);font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter3998-6-4)"
        x="497.38654"
        y="164.25645"
        id="text2395-7"
-       sodipodi:linespacing="125%"
        transform="matrix(0.7314748,0,0,0.7314748,132.38928,577.65196)"><tspan
          sodipodi:role="line"
          id="tspan2397-3"
          x="497.38654"
          y="164.25645"
-         style="font-size:82.35334777999999289px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold">Line 4</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:82.35334778px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'Sans Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none">Line 4</tspan></text>
   </g>
 </svg>

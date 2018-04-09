@@ -13,8 +13,8 @@
    height="1080"
    id="svg2383"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:version="0.48.4 r9939"
-   sodipodi:docname="CameraBorder.svg"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   sodipodi:docname="Camera_Border.svg"
    sodipodi:version="0.32"
    version="1.0"
    width="1920">
@@ -317,7 +317,7 @@
      guidetolerance="10"
      id="base"
      inkscape:current-layer="layer1"
-     inkscape:cx="770.3708"
+     inkscape:cx="98.3708"
      inkscape:cy="764.37791"
      inkscape:document-units="px"
      inkscape:pageopacity="0.0"
@@ -339,7 +339,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -397,15 +397,14 @@
     </g>
     <text
        xml:space="preserve"
-       style="font-size:96.42027283000000182px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none"
        x="959.99811"
        y="575.09833"
-       id="text3005"
-       sodipodi:linespacing="125%"><tspan
+       id="text3005"><tspan
          sodipodi:role="line"
          id="tspan3007"
          x="959.99811"
          y="575.09833"
-         style="font-weight:bold;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1">TITLE</tspan></text>
+         style="font-weight:bold;font-size:96.42027283px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1">TITLE</tspan></text>
   </g>
 </svg>

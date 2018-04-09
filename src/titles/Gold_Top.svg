@@ -14,7 +14,7 @@
    height="1080"
    id="svg2383"
    sodipodi:version="0.32"
-   inkscape:version="0.48.4 r9939"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
    version="1.0"
    sodipodi:docname="Gold_Top.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape">
@@ -313,7 +313,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.5"
-     inkscape:cx="774.1766"
+     inkscape:cx="438.1766"
      inkscape:cy="490.30763"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -350,15 +350,14 @@
        ry="0" />
     <text
        xml:space="preserve"
-       style="font-size:116.20991516px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:url(#radialGradient3654);fill-opacity:1;stroke:none;filter:url(#filter3998);font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:url(#radialGradient3654);fill-opacity:1;stroke:none;filter:url(#filter3998)"
        x="961.7674"
        y="122.90002"
-       id="text2395"
-       sodipodi:linespacing="125%"><tspan
+       id="text2395"><tspan
          sodipodi:role="line"
          id="tspan2397"
          x="961.7674"
          y="122.90002"
-         style="font-size:82.35334778px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:url(#radialGradient3654);fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold">The Title</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:82.35334778px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'Sans Bold';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:url(#radialGradient3654);fill-opacity:1;stroke:none">The Title</tspan></text>
   </g>
 </svg>
