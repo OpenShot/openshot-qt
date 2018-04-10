@@ -141,7 +141,7 @@ to run. To launch openshot-qt from the source code, use the following commands:
    python3 src/launch.py
 
 This should launch the OpenShot user interface, and include any changes you have made to the source code
-files (*.py Python files, *.ui PyQt UI files, etc...). This requires the `libopenshot-audio` and
+files (`*.py` Python files, `*.ui` PyQt UI files, etc...). This requires the `libopenshot-audio` and
 `libopenshot` libraries, and if anything went wrong with the steps above, OpenShot will likely not launch.
 
 If OpenShot launches at this point, congratulations, you now have a working local version of OpenShot,
