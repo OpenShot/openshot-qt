@@ -1,8 +1,28 @@
-How to contribute to OpenShot Video Editor
-------------------------------------------
+.. Copyright (c) 2008-2018 OpenShot Studios, LLC
+ (http://www.openshotstudios.com). This file is part of
+ OpenShot Video Editor (http://www.openshot.org), an open-source project
+ dedicated to delivering high quality video editing and animation solutions
+ to the world.
 
-**Did you find a bug?**
-^^^^^^^^^^^^^^^^^^^^^^^
+.. OpenShot Video Editor is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+.. OpenShot Video Editor is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+.. You should have received a copy of the GNU General Public License
+ along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
+
+
+Contributing
+============
+
+Did you find a bug?
+-------------------
 
 -  **Please check if this bug was already reported** by searching on
    GitHub under
@@ -17,31 +37,30 @@ How to contribute to OpenShot Video Editor
 -  Please **attach log files** if you are reporting a crash. Otherwise,
    we will not be able to determine the cause of the crash.
 
-*Please download our latest daily installer:*
-
-1. www.openshot.org/download - click '**Other Downloads**' link and grab
-   the newest one
+Please download our latest daily installer:
+"""""""""""""""""""""""""""""""""""""""""""
+1. `www.openshot.org/download <https://www.openshot.org/download>`__ - grab the newest one from the 'Daily Build Installer' list. (Use the buttons below to download installers for a different Operating System.)
 2. Then enable 'Debug Mode (Verbose)' in the Preferences
 3. Quit OpenShot and delete both log files:
 
    -  **Windows**: OpenShot stores its logs in your user profile
       directory (``%USERPROFILE%``, e.g. ``C:\Users\username\``)
 
-      -  **``%USERPROFILE%/.openshot_qt/openshot_qt.log``**
-      -  **``%USERPROFILE%/.openshot_qt/libopenshot.log``**
+      -  ``%USERPROFILE%/.openshot_qt/openshot_qt.log``
+      -  ``%USERPROFILE%/.openshot_qt/libopenshot.log``
 
    -  **Linux/MacOS**: OpenShot stores its logs in your home directory
       (``$HOME``, e.g. ``/home/username/``)
 
-      -  **``$HOME/.openshot_qt/openshot_qt.log``**
-      -  **``$HOME/.openshot_qt/libopenshot.log``**
+      -  ``$HOME/.openshot_qt/openshot_qt.log``
+      -  ``$HOME/.openshot_qt/libopenshot.log``
 
 4. Re-launch OpenShot and trigger the crash as quickly as possible (to
    keep the log files small)
 5. Attach **both** log files
 
-**Did you write a patch that fixes a bug?**
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Did you write a patch that fixes a bug?
+---------------------------------------
 
 -  Open a new GitHub pull request with the patch.
 
