@@ -10,7 +10,8 @@
 
   _Please download our latest daily installer:_
 
-  1. www.openshot.org/download - click '**Other Downloads**' link and grab the newest one
+  1. www.openshot.org/download - grab the newest one from the '**Daily Build Installer**' list.
+     (Use the buttons below to download installers for a different Operating System.)
   2. Then enable 'Debug Mode (Verbose)' in the Preferences
   3. Quit OpenShot and delete both log files:
       * **Windows**: OpenShot stores its logs in your user profile directory (`%USERPROFILE%`, e.g. `C:\Users\username\`)
