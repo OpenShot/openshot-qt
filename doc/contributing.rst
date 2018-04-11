@@ -39,7 +39,8 @@ Did you find a bug?
 
 Please download our latest daily installer:
 """""""""""""""""""""""""""""""""""""""""""
-1. `www.openshot.org/download <https://www.openshot.org/download>`__ - grab the newest one from the 'Daily Build Installer' list. (Use the buttons below to download installers for a different Operating System.)
+1. `www.openshot.org/download <https://www.openshot.org/download>`__ - click the '**DAILY BUILDS**' button, then grab the latest build from the list.
+   (Use the buttons below to download installers for a different Operating System.)
 2. Then enable 'Debug Mode (Verbose)' in the Preferences
 3. Quit OpenShot and delete both log files:
 
