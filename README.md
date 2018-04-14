@@ -1,8 +1,6 @@
-#################
-    COPYRIGHT
-#################
+## Copyright
 
- Copyright (c) 2008-2016 OpenShot Studios, LLC
+ Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -21,22 +19,14 @@
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
 
-
-
-#################
-  INSTRUCTIONS
-#################
+## Instructions
 
 OpenShot Video Editor 2.0 supports Linux, Mac, and Windows. But due to 
 the many dependencies required to run OpenShot, we recommend using an 
 installer for your operating system. Please visit 
 http://www.openshot.org/download/ to find your correct installer.
 
-
-
-#################
- DOCUMENTATION
-#################
+## Documentation
 
 Documentation for OpenShot 2.0 can be generated with Doxygen, a popular
 command-line application for scanning source code and generating readable
@@ -46,11 +36,7 @@ Then, run the following command:
 
 $ doxygen Doxyfile.in
 
-
-
-#################
-  DEPENDENCIES
-#################
+## Dependencies
 
 Although installers are much easier to use, if you must build from 
 source, here are some tips: 
@@ -65,18 +51,13 @@ dependencies in order to run OpenShot successfully:
 4) FFmpeg or Libav (http://www.ffmpeg.org/ or http://libav.org/)
 5) GCC build tools (or MinGW on Windows)
 
-
-
 To run OpenShot from the command line, use the following syntax:
 (be sure the change the path to match the install location of OpenShot)
 
 $ cd /home/USER/openshot_qt
 $ python3 src/launch.py
 
-
-#################
-  HOW TO INSTALL
-#################
+## How to install
 
 If you would like to install OpenShot, use this command:
 
@@ -87,11 +68,7 @@ the build wizard doesn't do.  It adds MIME Types, adds an icon to your
 Application menu, registers icons, adds a /usr/bin/openshot command, and
 copies all the code files to the /site-packages/ folder.
 
-
-
-#################
-    TUTORIAL
-#################
+## Tutorial
 
 Here is a tutorial of the current development features:
 
@@ -125,9 +102,7 @@ Here is a tutorial of the current development features:
 		   Some common rates are:  -r 29.97  -r 25  -r 30  -r 60
 
 
-#################
-    WEBSITES
-#################
+## Websites
 
 http://www.openshot.org/  (PROJECT WEBSITE and BLOG)
 http://launchpad.net/openshot/ (SOURCE CODE, BUG TRACKER, TRANSLATIONS)
@@ -135,30 +110,14 @@ http://freshmeat.net/projects/openshot-video-editor/
 https://sourceforge.net/projects/openshotvideo/
 https://www.ohloh.net/p/openshot-video-editor/
 
-
-
-####################
-    REPORT A BUG
-####################
+## Report a bug
 
 https://bugs.launchpad.net/openshot
 
-
-
-####################
-    TRANSLATIONS
-####################
+## Translations
 
 https://translations.launchpad.net/openshot
 
-
-
-####################
-   ASK A QUESTION  
-####################
+## Ask a question  
 
 https://answers.launchpad.net/openshot
-
-
-
-
