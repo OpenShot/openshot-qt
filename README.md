@@ -1,3 +1,5 @@
+<img src="https://www.openshot.org/static/img/gallery/tracks.jpg"/>
+
 ## Copyright
 
  Copyright (c) 2008-2018 OpenShot Studios, LLC
