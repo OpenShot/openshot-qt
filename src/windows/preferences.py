@@ -278,6 +278,14 @@ class Preferences(QDialog):
                 # Stop autosave timer
                 get_app().window.auto_save_timer.stop()
 
+        elif param["setting"] == "hardware_decode":
+            if (state == Qt.Checked):
+                # Enable hardware decode environment variable
+                os.environ['OS2_DECODE_HW'] = "1"
+            else:
+                # Disable hardware decode environment variable
+                os.environ['OS2_DECODE_HW'] = "0"
+
         # Check for restart
         self.check_for_restart(param)
 

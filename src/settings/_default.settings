@@ -326,6 +326,13 @@
     "setting": "send_metrics"
   },
   {
+    "value": false,
+    "title": "Enable Hardware Decode",
+    "type": "bool",
+    "category": "Performance",
+    "setting": "hardware_decode"
+  },
+  {
     "value": true,
     "title": "",
     "type": "hidden",

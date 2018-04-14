@@ -2262,6 +2262,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if s.get("enable-auto-save"):
             self.auto_save_timer.start()
 
+        # Set hardware decode environment variable
+        if s.get("hardware_decode"):
+            os.environ['OS2_DECODE_HW'] = "1"
+        else:
+            os.environ['OS2_DECODE_HW'] = "0"
+
         # Create lock file
         self.create_lock_file()
 
