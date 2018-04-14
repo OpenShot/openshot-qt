@@ -72,25 +72,25 @@ copies all the code files to the /site-packages/ folder.
 
 Here is a tutorial of the current development features:
 
-	DO YOU HAVE A HELP MANUAL?
+	Do you have a help manual?
 		1) Yes, go to http://www.openshotusers.com/help/en/
 
-	HOW DO I ADD MEDIA TO MY VIDEO PROJECT?
+	How do I add media to my project?
 		1) Drag and drop videos or music files from gnome into the "Project Files" tree.
 		2) Click the File / Import Files... menu
 		3) Click the "Import Files" icon on the toolbar (at the top of the screen)
 		
-	HOW DO I ADD MEDIA TO MY TIMELINE
+	How do I add media to my timeline?
 		1) Click on any file in your "Project Files" tree, and drag it onto the timeline (at the bottom of the screen)
 		
-	HOW DO I POSITION CLIPS ON THE TIMELINE
+	How do I position clips on my timeline?
 		1) Simply click on any clips already on the timeline, and drag them to their new location
 		2) Use the magnet icon to have your clips magically stick to their closest neighbor clips.
 		
-	HOW DO I TRIM / UN-TRIM CLIPS
+	How do I trim / un-trim clips
 		1) Click and drag the edge of the clip to it's new location.
 
-	THE AUDIO / VIDEO IS OUT OF SYNC.  WHAT CAN I DO?
+	The audio / video is out of sync. What can I do?
 		1) This is usually related to a bug in libopenshot or FFmpeg.  To resolve this, re-encode the video using the 
 		   ffmpeg command line tool.
 		   
@@ -104,15 +104,15 @@ Here is a tutorial of the current development features:
 
 ## Websites
 
-http://www.openshot.org/  (PROJECT WEBSITE and BLOG)
-http://launchpad.net/openshot/ (SOURCE CODE, BUG TRACKER, TRANSLATIONS)
-http://freshmeat.net/projects/openshot-video-editor/
-https://sourceforge.net/projects/openshotvideo/
-https://www.ohloh.net/p/openshot-video-editor/
+- http://www.openshot.org/  (Official website and blog)
+- http://launchpad.net/openshot/ (source code, bug tracker and translations)
+- http://freshmeat.net/projects/openshot-video-editor/
+- https://sourceforge.net/projects/openshotvideo/
+- https://www.ohloh.net/p/openshot-video-editor/
 
 ## Report a bug
 
-https://bugs.launchpad.net/openshot
+You can add a bug here on GitHub but make sure to add plenty of detail about the issue and logs if possible.
 
 ## Translations
 
@@ -120,4 +120,4 @@ https://translations.launchpad.net/openshot
 
 ## Ask a question  
 
-https://answers.launchpad.net/openshot
+You can ask a question here on GitHub if you need/want to.
