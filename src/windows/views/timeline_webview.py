@@ -1467,13 +1467,13 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         left_edge = -1.0
         right_edge = -1.0
 
-        # Determine how far we're going to nudge (1 frame or 0.01s, whichever is larger)
+        # Determine how far we're going to nudge (1/2 frame or 0.01s, whichever is larger)
         fps = get_app().project.get(["fps"])
         fps_float = float(fps["num"]) / float(fps["den"])
-        nudgeDistance = action / fps_float	# result is milliseconds
-        nudgeDistance /= 1000.0			# convert milliseconds to seconds
+        nudgeDistance = float(action) / float(fps_float)
+        nudgeDistance =/ 2.0	# 1/2 frame
         if abs(nudgeDistance) < 0.01:
-            nudgeDistance = 0.01 * action
+            nudgeDistance = 0.01 * action	# nudge is less than the minimum of +/- 0.01s
         log.info("Nudging by %s sec" % nudgeDistance)
 
         # Loop through each selected clip (find furthest left and right edge)
