@@ -170,7 +170,7 @@ def upload(file_path, github_release):
                     output("Upload failed... trying again")
                 else:
                     # Throw loud exception
-                    raise ex
+                    raise Exception('Upload failed. Verify that this file is not already uploaded: %s' % file_path, ex)
 
     return url
 
