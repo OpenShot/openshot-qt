@@ -1471,7 +1471,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         fps = get_app().project.get(["fps"])
         fps_float = float(fps["num"]) / float(fps["den"])
         nudgeDistance = float(action) / float(fps_float)
-        nudgeDistance =/ 2.0	# 1/2 frame
+        nudgeDistance /= 2.0	# 1/2 frame
         if abs(nudgeDistance) < 0.01:
             nudgeDistance = 0.01 * action	# nudge is less than the minimum of +/- 0.01s
         log.info("Nudging by %s sec" % nudgeDistance)
