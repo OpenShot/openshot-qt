@@ -44,4 +44,5 @@ Table of Contents:
    titles
    profiles
    developers
+   contributing
    learn_more
