@@ -166,6 +166,12 @@ def upload(file_path, github_release):
     url = None
     if s3_connection:
         folder_path, file_name = os.path.split(file_path)
+
+        # Check if this asset is already uploaded
+        for asset in github_release.assets:
+            if asset.name == file_name:
+                return asset.to_json()["browser_download_url"]
+
         for attempt in range(3):
             try:
                 # Attempt the upload
@@ -603,14 +609,14 @@ try:
                 # Torrent succeeded! Upload the torrent to github
                 url = upload(torrent_path, github_release)
 
-                # Notify Slack
-                slack_upload_log(log, "%s: Build logs for %s" % (platform.system(), app_name), "Successful build: %s" % download_url)
-
                 # Move app to uploads folder, and remove from build folder (so it will be skipped next time)
                 shutil.copyfile(app_build_path, app_upload_path)
-                os.remove(app_build_path)
                 shutil.copyfile(torrent_path, "%s.torrent" % app_upload_path)
+                os.remove(app_build_path)
                 os.remove(torrent_path)
+
+                # Notify Slack
+                slack_upload_log(log, "%s: Build logs for %s" % (platform.system(), app_name), "Successful build: %s" % download_url)
 
         else:
             # App doesn't exist (something went wrong)
