@@ -584,6 +584,11 @@ try:
             torrent_path = "%s.torrent" % app_build_path
             torrent_command = 'mktorrent -a "udp://tracker.openbittorrent.com:80/announce, udp://tracker.publicbt.com:80/announce, udp://tracker.opentrackr.org:1337" -c "OpenShot Video Editor %s" -w "%s" -o "%s" "%s"' % (version, download_url, "%s.torrent" % app_name, app_name)
             torrent_output = ""
+
+            # Remove existing torrents (if any found)
+            if os.path.exists(torrent_path):
+                os.remove(torrent_path)
+
             # Create torrent
             for line in run_command(torrent_command, builds_path):
                 output(line)
