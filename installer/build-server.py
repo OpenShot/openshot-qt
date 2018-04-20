@@ -134,9 +134,20 @@ def slack_upload_log(log, title, comment=None):
 
     print("Slack Upload: %s" % log_path)
     if slack_object:
-        # Upload build log to slack (and append platform icon to comment [:linux:, :windows:, or :darwin:])
-        slack_object.files.upload(log_path, filetype="txt", filename="%s-build-server.txt" % platform.system(),
-                                  title=title, initial_comment=':%s: %s' % (platform.system().lower(), comment), channels="#build-server")
+        for attempt in range(3):
+            try:
+                # Upload build log to slack (and append platform icon to comment [:linux:, :windows:, or :darwin:])
+                slack_object.files.upload(log_path, filetype="txt", filename="%s-build-server.txt" % platform.system(),
+                                          title=title, initial_comment=':%s: %s' % (platform.system().lower(), comment), channels="#build-server")
+                # Successfully uploaded!
+                break
+            except Exception as ex:
+                # Quietly fail, and try again
+                if attempt < 2:
+                    output("Upload log to Slack failed... trying again")
+                else:
+                    # Throw loud exception
+                    raise Exception('Log upload to Slack failed: %s' % log_path, ex)
 
     # Re-open the log (for append)
     log = open(log_path, "a")
