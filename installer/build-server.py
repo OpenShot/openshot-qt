@@ -617,6 +617,7 @@ try:
 
                 # Notify Slack
                 slack_upload_log(log, "%s: Build logs for %s" % (platform.system(), app_name), "Successful build: %s" % download_url)
+                shutil.copyfile(log_path, "%s.log" % app_upload_path)
 
         else:
             # App doesn't exist (something went wrong)
