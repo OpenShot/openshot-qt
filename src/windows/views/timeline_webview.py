@@ -2734,16 +2734,13 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
             # Add clips for each file dropped
             for uri in event.mimeData().urls():
-                file_url = urlparse(uri.toString())
-                if file_url.scheme == "file":
-                    filepath = file_url.path
-                    if sys.platform == "win32":
-                        filepath = filepath[1:]  # Remove / at beginning of path (just for Windows)
-                    if os.path.exists(filepath.encode('UTF-8')) and os.path.isfile(filepath.encode('UTF-8')):
-                        # Valid file, so create clip for it
-                        for file in File.filter(path=filepath):
-                            # Insert clip for this file at this position
-                            self.addClip([file.id], pos)
+                filepath = uri.toLocalFile()
+                if os.path.exists(filepath) and os.path.isfile(filepath):
+                    # Valid file, so create clip for it
+                    log.info('Adding clip for {}'.format(os.path.basename(filepath)))
+                    for file in File.filter(path=filepath):
+                        # Insert clip for this file at this position
+                        self.addClip([file.id], pos)
 
         # Clear new clip
         self.new_item = False
