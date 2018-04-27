@@ -735,5 +735,13 @@
     "setting": "actionInsertKeyframe",
     "value": "Ctrl+Shift+E",
     "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Save Current Frame",
+    "restart": true,
+    "setting": "actionSaveFrame",
+    "value": "",
+    "type": "text"
   }
 ]

@@ -879,6 +879,60 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Seek to the 1st frame
         self.SeekSignal.emit(timeline_length_int)
 
+    def actionSaveFrame_trigger(self, event):
+        log.info("actionSaveFrame_trigger")
+
+        # Determine path for saved frame - save in project's current path or fail back to user's home directory
+        recommended_path = get_app().project.current_filepath
+        if recommended_path:
+            recommended_path = os.path.dirname(recommended_path)
+        else:
+            recommended_path = info.HOME_PATH
+
+        #log.info("Saving frame to %s/%s.png" % (recommended_path, self.preview_thread.current_frame))
+        framePath = "%s/%s.png" % (recommended_path, self.preview_thread.current_frame)
+        log.info("Saving frame to %s" % framePath )
+
+        # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
+        get_app().window.actionPlay_trigger(None, force="pause")
+
+        # Save current cache object and create a new CacheMemory object (ignore quality and scale prefs)
+        old_cache_object = self.cache_object
+        new_cache_object = openshot.CacheMemory(settings.get_settings().get("cache-limit-mb") * 1024 * 1024)
+        self.timeline_sync.timeline.SetCache(new_cache_object)
+
+        # Set MaxSize to full project resolution and clear preview cache so we get a full resolution frame
+        self.timeline_sync.timeline.SetMaxSize(get_app().project.get(["width"]), get_app().project.get(["height"]))
+        self.cache_object.Clear()
+
+        # Check if file exists, if it does, get the lastModified time
+        if os.path.exists(framePath):
+            framePathTime = QFileInfo(framePath).lastModified()
+        else:
+            framePathTime = QDateTime()
+
+	# Get and Save the frame (return is void, so we cannot check for success/fail here - must use file modification timestamp)
+        openshot.Timeline.GetFrame(self.timeline_sync.timeline,self.preview_thread.current_frame).Save("%s/%s.png" % (recommended_path, self.preview_thread.current_frame), 1.0)
+
+        #log.info("orig framePathTime %s" % framePathTime.toString("yyMMdd hh:mm:ss.zzz") )
+        #log.info("new framePathTime %s" % QFileInfo(framePath).lastModified().toString("yyMMdd hh:mm:ss.zzz") )
+
+	# Show message to user
+        _ = get_app()._tr # Get translation function
+        if os.path.exists(framePath) and (QFileInfo(framePath).lastModified() > framePathTime): 
+            QMessageBox.information(self, "Save Frame Successful", "Saved image to %s/%s.png" % (recommended_path, self.preview_thread.current_frame))
+        else:
+            QMessageBox.warning(self, "Save Frame Failed", "Failed to save image to %s/%s.png" % (recommended_path, self.preview_thread.current_frame))
+
+	# Reset the MaxSize to match the preview and reset the preview cache
+        viewport_rect = self.videoPreview.centeredViewport(self.videoPreview.width(), self.videoPreview.height())
+        self.timeline_sync.timeline.SetMaxSize(viewport_rect.width(), viewport_rect.height())
+        self.cache_object.Clear()
+        self.timeline_sync.timeline.SetCache(old_cache_object)
+        self.cache_object = old_cache_object
+        old_cache_object = None
+        new_cache_object = None
+
     def actionAddTrack_trigger(self, event):
         log.info("actionAddTrack_trigger")
 
@@ -1252,6 +1306,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.actionJumpStart.trigger()
         elif key.matches(self.getShortcutByName("actionJumpEnd")) == QKeySequence.ExactMatch:
             self.actionJumpEnd.trigger()
+        elif key.matches(self.getShortcutByName("actionSaveFrame")) == QKeySequence.ExactMatch:
+            self.actionSaveFrame.trigger()
         elif key.matches(self.getShortcutByName("actionProperties")) == QKeySequence.ExactMatch:
             self.actionProperties.trigger()
         elif key.matches(self.getShortcutByName("actionTransform")) == QKeySequence.ExactMatch:
@@ -1968,6 +2024,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.videoToolbar.addAction(self.actionFastForward)
         self.videoToolbar.addAction(self.actionJumpEnd)
         self.actionPlay.setCheckable(True)
+        self.videoToolbar.addAction(self.actionSaveFrame)
 
         # Add right spacer
         spacer = QWidget(self)
