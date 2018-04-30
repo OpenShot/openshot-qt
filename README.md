@@ -21,14 +21,14 @@
 
 ## Instructions
 
-OpenShot Video Editor 2.0 supports Linux, Mac, and Windows. But due to 
+OpenShot Video Editor 2.x supports Linux, Mac, and Windows. But due to 
 the many dependencies required to run OpenShot, we recommend using an 
 installer for your operating system. Please visit 
 http://www.openshot.org/download/ to find your correct installer.
 
 ## Documentation
 
-Documentation for OpenShot 2.0 can be generated with Doxygen, a popular
+Documentation for OpenShot 2.x can be generated with Doxygen, a popular
 command-line application for scanning source code and generating readable
 documentation. OpenShot contains a Doxygen input file (Doxyfile.in), but
 you must first install the following Python filter for Doxygen: doxypy.
@@ -41,7 +41,7 @@ $ doxygen Doxyfile.in
 Although installers are much easier to use, if you must build from 
 source, here are some tips: 
 
-OpenShot 2.0 is programmed in Python, and thus does not need
+OpenShot 2.x is programmed in Python, and thus does not need
 to be compiled to run.  However, be sure you have the following 
 dependencies in order to run OpenShot successfully: 
 
@@ -105,14 +105,15 @@ Here is a tutorial of the current development features:
 ## Websites
 
 - http://www.openshot.org/  (Official website and blog)
-- http://launchpad.net/openshot/ (source code, bug tracker and translations)
+- https://github.com/OpenShot/openshot-qt (source code and issue tracker)
 - http://freshmeat.net/projects/openshot-video-editor/
 - https://sourceforge.net/projects/openshotvideo/
 - https://www.ohloh.net/p/openshot-video-editor/
+- http://launchpad.net/openshot/
 
 ## Report a bug
 
-You can add a bug here on GitHub but make sure to add plenty of detail about the issue and logs if possible.
+You can file an Issue in the OpenShot/openshot-qt project on Github https://github.com/OpenShot/openshot-qt/issues. Make sure to add plenty of detail about the issue and logs if possible.
 
 ## Translations
 
@@ -120,4 +121,4 @@ https://translations.launchpad.net/openshot
 
 ## Ask a question  
 
-You can ask a question here on GitHub if you need/want to.
+You can ask any question you have here https://github.com/OpenShot/openshot-qt/issues.
