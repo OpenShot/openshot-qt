@@ -47,6 +47,7 @@ from classes.logger import log
 from classes.query import File, Clip, Transition, Track
 from classes.waveform import get_audio_data
 from classes.thumbnail import GenerateThumbnail
+from classes.conversion import zoomToSeconds, secondsToZoom
 
 try:
     import json
@@ -193,8 +194,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Reset the scale when loading new JSON
         if action.type == "load":
             # Set the scale again (to project setting)
-            initial_scale = get_app().project.get(["scale"]) or 20
-            get_app().window.sliderZoom.setValue(initial_scale)
+            initial_scale = get_app().project.get(["scale"]) or 16
+            get_app().window.sliderZoom.setValue(secondsToZoom(initial_scale))
 
     # Javascript callable function to update the project data when a clip changes
     @pyqtSlot(str)
@@ -2442,8 +2443,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
     def update_zoom(self, newValue):
         _ = get_app()._tr
 
+        # Convert slider value (passed in) to a scale (in seconds)
+        newScale = zoomToSeconds(newValue)
+
         # Set zoom label
-        self.window.zoomScaleLabel.setText(_("{} seconds").format(newValue))
+        self.window.zoomScaleLabel.setText(_("{} seconds").format(newScale))
 
         # Determine X coordinate of cursor (to center zoom on)
         cursor_y = self.mapFromGlobal(self.cursor().pos()).y()
@@ -2452,15 +2456,15 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         else:
             cursor_x = 0
 
-        # Get access to timeline scope and set scale to zoom slider value (passed in)
-        cmd = JS_SCOPE_SELECTOR + ".setScale(" + str(newValue) + "," + str(cursor_x) + ");"
+        # Get access to timeline scope and set scale to new computed value
+        cmd = JS_SCOPE_SELECTOR + ".setScale(" + str(newScale) + "," + str(cursor_x) + ");"
         self.page().mainFrame().evaluateJavaScript(cmd)
 
         # Start timer to redraw audio
         self.redraw_audio_timer.start()
 
         # Save current zoom
-        get_app().updates.update(["scale"], newValue)
+        get_app().updates.update(["scale"], newScale)
 
     def keyPressEvent(self, event):
         """ Keypress callback for timeline """

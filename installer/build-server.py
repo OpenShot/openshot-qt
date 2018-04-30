@@ -134,9 +134,20 @@ def slack_upload_log(log, title, comment=None):
 
     print("Slack Upload: %s" % log_path)
     if slack_object:
-        # Upload build log to slack (and append platform icon to comment [:linux:, :windows:, or :darwin:])
-        slack_object.files.upload(log_path, filetype="txt", filename="%s-build-server.txt" % platform.system(),
-                                  title=title, initial_comment=':%s: %s' % (platform.system().lower(), comment), channels="#build-server")
+        for attempt in range(3):
+            try:
+                # Upload build log to slack (and append platform icon to comment [:linux:, :windows:, or :darwin:])
+                slack_object.files.upload(log_path, filetype="txt", filename="%s-build-server.txt" % platform.system(),
+                                          title=title, initial_comment=':%s: %s' % (platform.system().lower(), comment), channels="#build-server")
+                # Successfully uploaded!
+                break
+            except Exception as ex:
+                # Quietly fail, and try again
+                if attempt < 2:
+                    output("Upload log to Slack failed... trying again")
+                else:
+                    # Throw loud exception
+                    raise Exception('Log upload to Slack failed: %s' % log_path, ex)
 
     # Re-open the log (for append)
     log = open(log_path, "a")
@@ -155,6 +166,12 @@ def upload(file_path, github_release):
     url = None
     if s3_connection:
         folder_path, file_name = os.path.split(file_path)
+
+        # Check if this asset is already uploaded
+        for asset in github_release.assets:
+            if asset.name == file_name:
+                return asset.to_json()["browser_download_url"]
+
         for attempt in range(3):
             try:
                 # Attempt the upload
@@ -170,7 +187,7 @@ def upload(file_path, github_release):
                     output("Upload failed... trying again")
                 else:
                     # Throw loud exception
-                    raise ex
+                    raise Exception('Upload failed. Verify that this file is not already uploaded: %s' % file_path, ex)
 
     return url
 
@@ -573,6 +590,11 @@ try:
             torrent_path = "%s.torrent" % app_build_path
             torrent_command = 'mktorrent -a "udp://tracker.openbittorrent.com:80/announce, udp://tracker.publicbt.com:80/announce, udp://tracker.opentrackr.org:1337" -c "OpenShot Video Editor %s" -w "%s" -o "%s" "%s"' % (version, download_url, "%s.torrent" % app_name, app_name)
             torrent_output = ""
+
+            # Remove existing torrents (if any found)
+            if os.path.exists(torrent_path):
+                os.remove(torrent_path)
+
             # Create torrent
             for line in run_command(torrent_command, builds_path):
                 output(line)
@@ -587,14 +609,15 @@ try:
                 # Torrent succeeded! Upload the torrent to github
                 url = upload(torrent_path, github_release)
 
-                # Notify Slack
-                slack_upload_log(log, "%s: Build logs for %s" % (platform.system(), app_name), "Successful build: %s" % download_url)
-
                 # Move app to uploads folder, and remove from build folder (so it will be skipped next time)
                 shutil.copyfile(app_build_path, app_upload_path)
-                os.remove(app_build_path)
                 shutil.copyfile(torrent_path, "%s.torrent" % app_upload_path)
+                os.remove(app_build_path)
                 os.remove(torrent_path)
+
+                # Notify Slack
+                slack_upload_log(log, "%s: Build logs for %s" % (platform.system(), app_name), "Successful build: %s" % download_url)
+                shutil.copyfile(log_path, "%s.log" % app_upload_path)
 
         else:
             # App doesn't exist (something went wrong)
