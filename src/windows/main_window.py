@@ -882,6 +882,13 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def actionSaveFrame_trigger(self, event):
         log.info("actionSaveFrame_trigger")
 
+        # Translate object
+        _ = get_app()._tr
+
+	# Prepare to use the status bar
+        self.statusBar = QStatusBar()
+        self.setStatusBar(self.statusBar)
+
         # Determine path for saved frame - save in project's current path or fail back to user's home directory
         recommended_path = get_app().project.current_filepath
         if recommended_path:
@@ -890,8 +897,21 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             recommended_path = info.HOME_PATH
 
         #log.info("Saving frame to %s/%s.png" % (recommended_path, self.preview_thread.current_frame))
-        framePath = "%s/%s.png" % (recommended_path, self.preview_thread.current_frame)
-        log.info("Saving frame to %s" % framePath )
+        framePath = _("%s/Frame%04d.png" % (recommended_path, self.preview_thread.current_frame))
+
+        # Ask user to confirm or update framePath
+        framePath, file_type = QFileDialog.getSaveFileName(self, _("Save Frame..."), framePath, _("Image files (*.png)"))
+
+        if framePath:
+            # Append .osp if needed
+            if ".png" not in framePath:
+                framePath = "%s.osp" % framePath
+        else:
+            # No path specified (save frame cancelled)
+            self.statusBar.showMessage(_("Save Frame cancelled..."), 5000);
+            return
+
+        log.info(_("Saving frame to %s" % framePath ))
 
         # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
         get_app().window.actionPlay_trigger(None, force="pause")
@@ -912,17 +932,18 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             framePathTime = QDateTime()
 
 	# Get and Save the frame (return is void, so we cannot check for success/fail here - must use file modification timestamp)
-        openshot.Timeline.GetFrame(self.timeline_sync.timeline,self.preview_thread.current_frame).Save("%s/%s.png" % (recommended_path, self.preview_thread.current_frame), 1.0)
+        openshot.Timeline.GetFrame(self.timeline_sync.timeline,self.preview_thread.current_frame).Save(framePath, 1.0)
 
         #log.info("orig framePathTime %s" % framePathTime.toString("yyMMdd hh:mm:ss.zzz") )
         #log.info("new framePathTime %s" % QFileInfo(framePath).lastModified().toString("yyMMdd hh:mm:ss.zzz") )
 
 	# Show message to user
-        _ = get_app()._tr # Get translation function
         if os.path.exists(framePath) and (QFileInfo(framePath).lastModified() > framePathTime): 
-            QMessageBox.information(self, "Save Frame Successful", "Saved image to %s/%s.png" % (recommended_path, self.preview_thread.current_frame))
+            #QMessageBox.information(self, _("Save Frame Successful"), _("Saved image to %s" % framePath))
+            self.statusBar.showMessage(_("Saved Frame to %s" % framePath), 5000);
         else:
-            QMessageBox.warning(self, "Save Frame Failed", "Failed to save image to %s/%s.png" % (recommended_path, self.preview_thread.current_frame))
+            #QMessageBox.warning(self, _("Save Frame Failed"), _("Failed to save image to %s" % framePath))
+            self.statusBar.showMessage( _("Failed to save image to %s" % framePath), 5000);
 
 	# Reset the MaxSize to match the preview and reset the preview cache
         viewport_rect = self.videoPreview.centeredViewport(self.videoPreview.width(), self.videoPreview.height())
