@@ -122,3 +122,8 @@ https://translations.launchpad.net/openshot
 ## Ask a question  
 
 You can ask any question you have here https://github.com/OpenShot/openshot-qt/issues.
+
+## Contributing
+
+If you would like to help reporting issues or commit fixes to the project please see our guidelines:
+https://github.com/OpenShot/openshot-qt/blob/master/CONTRIBUTING.md
