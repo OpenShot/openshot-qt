@@ -34,7 +34,7 @@ documentation. OpenShot contains a Doxygen input file (Doxyfile.in), but
 you must first install the following Python filter for Doxygen: doxypy.
 Then, run the following command:
 
-$ doxygen Doxyfile.in
+    $ doxygen Doxyfile.in
 
 ## Dependencies
 
@@ -54,14 +54,14 @@ dependencies in order to run OpenShot successfully:
 To run OpenShot from the command line, use the following syntax:
 (be sure the change the path to match the install location of OpenShot)
 
-$ cd /home/USER/openshot_qt
-$ python3 src/launch.py
+    $ cd /home/USER/openshot_qt
+    $ python3 src/launch.py
 
 ## How to install
 
 If you would like to install OpenShot, use this command:
 
-$ sudo python3 setup.py install
+    $ sudo python3 setup.py install
 
 Installing OpenShot using this command does a few extra things that
 the build wizard doesn't do.  It adds MIME Types, adds an icon to your
@@ -72,34 +72,31 @@ copies all the code files to the /site-packages/ folder.
 
 Here is a tutorial of the current development features:
 
-	Do you have a help manual?
-		1) Yes, go to http://www.openshotusers.com/help/en/
+#### Do you have a help manual?
+1) Yes, go to http://www.openshotusers.com/help/en/
 
-	How do I add media to my project?
-		1) Drag and drop videos or music files from gnome into the "Project Files" tree.
-		2) Click the File / Import Files... menu
-		3) Click the "Import Files" icon on the toolbar (at the top of the screen)
-		
-	How do I add media to my timeline?
-		1) Click on any file in your "Project Files" tree, and drag it onto the timeline (at the bottom of the screen)
-		
-	How do I position clips on my timeline?
-		1) Simply click on any clips already on the timeline, and drag them to their new location
-		2) Use the magnet icon to have your clips magically stick to their closest neighbor clips.
-		
-	How do I trim / un-trim clips
-		1) Click and drag the edge of the clip to it's new location.
+#### How do I add media to my project?
+1) Drag and drop videos or music files from gnome into the "Project Files" tree.
+2) Click the File / Import Files... menu
+3) Click the "Import Files" icon on the toolbar (at the top of the screen)
 
-	The audio / video is out of sync. What can I do?
-		1) This is usually related to a bug in libopenshot or FFmpeg.  To resolve this, re-encode the video using the 
-		   ffmpeg command line tool.
-		   
-		2) Here is an example command to convert a folder full of Canon MTS files to MP4:
-		   $ find '/home/jonathan/Desktop/Caveman Movie/Videos' -iname "*.MTS" -exec ffmpeg -i {} -acodec libfaac -ab 128k -ac 2 -r 60 -vcodec mpeg4 -f mp4 -y -sameq {}.mp4 \;
+#### How do I add media to my timeline?
+1) Click on any file in your "Project Files" tree, and drag it onto the timeline (at the bottom of the screen)
 
-		3) Usually the reason the A/V are out of sync is related to the frame rate (i.e. the -r parameter on the ffmpeg command).
-		   Try a variety of frame rates and OpenShot project types to find one that doesn't have A/V sync issues.
-		   Some common rates are:  -r 29.97  -r 25  -r 30  -r 60
+#### How do I position clips on my timeline?
+1) Simply click on any clips already on the timeline, and drag them to their new location
+2) Use the magnet icon to have your clips magically stick to their closest neighbor clips.
+
+#### How do I trim / un-trim clips
+1) Click and drag the edge of the clip to it's new location.
+
+#### The audio / video is out of sync. What can I do?
+1) This is usually related to a bug in libopenshot or FFmpeg.  To resolve this, re-encode the video using the ffmpeg command line tool.
+2) Here is an example command to convert a folder full of Canon MTS files to MP4:
+    $ find '/home/jonathan/Desktop/Caveman Movie/Videos' -iname "*.MTS" -exec ffmpeg -i {} -acodec libfaac -ab 128k -ac 2 
+    -r 60 -vcodec mpeg4 -f mp4 -y -sameq {}.mp4 \;
+3) Usually the reason the A/V are out of sync is related to the frame rate (i.e. the -r parameter on the ffmpeg command).
+Try a variety of frame rates and OpenShot project types to find one that doesn't have A/V sync issues. Some common rates are:  -r 29.97  -r 25  -r 30  -r 60
 
 
 ## Websites
@@ -125,5 +122,4 @@ You can ask any question you have here https://github.com/OpenShot/openshot-qt/i
 
 ## Contributing
 
-If you would like to help reporting issues or commit fixes to the project please see our guidelines:
-https://github.com/OpenShot/openshot-qt/blob/master/CONTRIBUTING.md
+If you would like to help reporting issues or commit fixes to the project please see our [contributor guidelines](CONTRIBUTING.md).
