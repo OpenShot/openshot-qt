@@ -885,7 +885,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Get # of tracks
         track_number = len(get_app().project.get(["layers"]))
 
-        # Look for existing Marker
+        # Create new track above existing layer(s)
         track = Track()
         track.data = {"number": track_number, "y": 0, "label": "", "lock": False}
         track.save()
