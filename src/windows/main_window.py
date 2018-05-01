@@ -901,22 +901,29 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         existing_track = Track.get(id=selected_layer_id)
         selected_layer_number = int(existing_track.data["number"])
 
-        # Create new track
-        track = Track()
-        track.data = {"number": max_track_number, "y": 0, "label": "", "lock": False}
-        track.save()
+        # log.info("Adding track above #{} (id {})".format(selected_layer_number, selected_layer_id))
 
-        # Loop through all clips on higher layers, and move to new layer (in reverse order)
-        for existing_layer in list(reversed(range(selected_layer_number + 1, max_track_number))):
-            existing_track.data["label"] = ""
+        # Loop through tracks above insert point (in descending order), renumbering layers
+        for existing_layer in list(reversed(range(selected_layer_number+1, max_track_number))):
+            existing_track = Track.get(number=existing_layer)
+            # log.info("Renumbering track id {} from {} to {}".format(existing_track.data["id"], existing_layer, existing_layer+1))
+            existing_track.data["number"] = existing_layer + 1
             existing_track.save()
 
+            # Loop through clips for track, moving up to new layer
             for clip in Clip.filter(layer=existing_layer):
+                # log.info("Moving clip id {} from layer {} to {}".format(clip.data["id"], int(clip.data["layer"]), int(clip.data["layer"])+1))
                 clip.data["layer"] = int(clip.data["layer"]) + 1
                 clip.save()
 
+        # Create new track at vacated layer
+        track = Track()
+        track.data = {"number": selected_layer_number+1, "y": 0, "label": "", "lock": False}
+        track.save()
+        # log.info("Created new track id {} at layer number {}".format(track.data["id"], track.data["number"]))
+
     def actionAddTrackBelow_trigger(self, event):
-        log.info("actionAddTrackAbove_trigger")
+        log.info("actionAddTrackBelow_trigger")
 
         # Get # of tracks
         max_track_number = len(get_app().project.get(["layers"]))
@@ -926,19 +933,26 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         existing_track = Track.get(id=selected_layer_id)
         selected_layer_number = int(existing_track.data["number"])
 
-        # Create new track
-        track = Track()
-        track.data = {"number": max_track_number, "y": 0, "label": "", "lock": False}
-        track.save()
+        # log.info("Adding track below #{} (id {})".format(selected_layer_number, selected_layer_id))
 
-        # Loop through all clips on higher layers, and move to new layer (in reverse order)
+        # Loop through tracks from insert point up (in descending order), renumbering layers
         for existing_layer in list(reversed(range(selected_layer_number, max_track_number))):
-            existing_track.data["label"] = ""
+            existing_track = Track.get(number=existing_layer)
+            # log.info("Renumbering track id {} from {} to {}".format(existing_track.data["id"], existing_layer, existing_layer+1))
+            existing_track.data["number"] = existing_layer + 1
             existing_track.save()
 
+            # Loop through clips for track, moving up to new layer
             for clip in Clip.filter(layer=existing_layer):
+                # log.info("Moving clip id {} from layer {} to {}".format(clip.data["id"], int(clip.data["layer"]), int(clip.data["layer"])+1))
                 clip.data["layer"] = int(clip.data["layer"]) + 1
                 clip.save()
+
+        # Create new track at vacated layer
+        track = Track()
+        track.data = {"number": selected_layer_number, "y": 0, "label": "", "lock": False}
+        track.save()
+        # log.info("Created new track id {} at layer number {}".format(track.data["id"], track.data["number"]))
 
     def actionArrowTool_trigger(self, event):
         log.info("actionArrowTool_trigger")
@@ -1438,7 +1452,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             # Update existing layer #
             track = Track.get(number=existing_layer)
             track.data["number"] = existing_layer - 1
-            track.data["label"] = ""
             track.save()
 
             for clip in Clip.filter(layer=existing_layer):
