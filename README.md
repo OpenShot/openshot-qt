@@ -93,10 +93,13 @@ Here is a tutorial of the current development features:
 #### The audio / video is out of sync. What can I do?
 1) This is usually related to a bug in libopenshot or FFmpeg.  To resolve this, re-encode the video using the ffmpeg command line tool.
 2) Here is an example command to convert a folder full of Canon MTS files to MP4:
-    $ find '/home/jonathan/Desktop/Caveman Movie/Videos' -iname "*.MTS" -exec ffmpeg -i {} -acodec libfaac -ab 128k -ac 2 
-    -r 60 -vcodec mpeg4 -f mp4 -y -sameq {}.mp4 \;
+
+       $ find '/home/jonathan/Desktop/Caveman Movie/Videos' -iname "*.MTS" -exec \
+       ffmpeg -i {} -acodec libfaac -ab 128k -ac 2 -r 60 -vcodec mpeg4 -f mp4 -y -sameq {}.mp4 \;
+
 3) Usually the reason the A/V are out of sync is related to the frame rate (i.e. the -r parameter on the ffmpeg command).
-Try a variety of frame rates and OpenShot project types to find one that doesn't have A/V sync issues. Some common rates are:  -r 29.97  -r 25  -r 30  -r 60
+Try a variety of frame rates and OpenShot project types to find one that doesn't have A/V sync issues. 
+   Some common rates are:  -r 29.97  -r 25  -r 30  -r 60
 
 
 ## Websites
