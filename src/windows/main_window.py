@@ -910,11 +910,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             existing_track.data["number"] = existing_layer + 1
             existing_track.save()
 
-            # Loop through clips for track, moving up to new layer
+            # Loop through clips and transitions for track, moving up to new layer
             for clip in Clip.filter(layer=existing_layer):
                 # log.info("Moving clip id {} from layer {} to {}".format(clip.data["id"], int(clip.data["layer"]), int(clip.data["layer"])+1))
                 clip.data["layer"] = int(clip.data["layer"]) + 1
                 clip.save()
+
+            for trans in Transition.filter(layer=existing_layer):
+                # log.info("Moving transition id {} from layer {} to {}".format(trans.data["id"], int(trans.data["layer"]), int(trans.data["layer"])+1))
+                trans.data["layer"] = int(trans.data["layer"]) + 1
+                trans.save()
 
         # Create new track at vacated layer
         track = Track()
@@ -942,11 +947,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             existing_track.data["number"] = existing_layer + 1
             existing_track.save()
 
-            # Loop through clips for track, moving up to new layer
+            # Loop through clips and transitions for track, moving up to new layer
             for clip in Clip.filter(layer=existing_layer):
                 # log.info("Moving clip id {} from layer {} to {}".format(clip.data["id"], int(clip.data["layer"]), int(clip.data["layer"])+1))
                 clip.data["layer"] = int(clip.data["layer"]) + 1
                 clip.save()
+
+            for trans in Transition.filter(layer=existing_layer):
+                # log.info("Moving transition id {} from layer {} to {}".format(trans.data["id"], int(trans.data["layer"]), int(trans.data["layer"])+1))
+                trans.data["layer"] = int(trans.data["layer"]) + 1
+                trans.save()
 
         # Create new track at vacated layer
         track = Track()
@@ -1447,9 +1457,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Remove track
         selected_track.delete()
 
-        # Loop through all tracks, and renumber (to keep thing in numerical order)
+        # Loop through all layers above, and renumber elements (to keep thing in numerical order)
         for existing_layer in list(range(selected_track_number + 1, max_track_number)):
-            # Update existing layer #
+            # Update existing layer number
             track = Track.get(number=existing_layer)
             track.data["number"] = existing_layer - 1
             track.save()
@@ -1457,6 +1467,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             for clip in Clip.filter(layer=existing_layer):
                 clip.data["layer"] = int(clip.data["layer"]) - 1
                 clip.save()
+
+            for trans in Transition.filter(layer=existing_layer):
+                trans.data["layer"] = int(trans.data["layer"]) - 1
+                trans.save()
+
 
         # Clear selected track
         self.selected_tracks = []
