@@ -889,12 +889,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.statusBar = QStatusBar()
         self.setStatusBar(self.statusBar)
 
-        # Determine path for saved frame - save in project's current path or fail back to user's home directory
-        recommended_path = get_app().project.current_filepath
-        if recommended_path:
-            recommended_path = os.path.dirname(recommended_path)
-        else:
-            recommended_path = info.HOME_PATH
+        # Determine path for saved frame - save in project's current export path or fail back to user's home directory
+        recommended_path = get_app().project.get(["export_path"])
+        if not recommended_path or not os.path.exists(recommended_path):
+            recommended_path = os.path.join(info.HOME_PATH)
 
         #log.info("Saving frame to %s/%s.png" % (recommended_path, self.preview_thread.current_frame))
         framePath = _("%s/Frame%04d.png" % (recommended_path, self.preview_thread.current_frame))
@@ -911,6 +909,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.statusBar.showMessage(_("Save Frame cancelled..."), 5000);
             return
 
+        get_app().updates.update(["export_path"], os.path.dirname(framePath))
         log.info(_("Saving frame to %s" % framePath ))
 
         # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
