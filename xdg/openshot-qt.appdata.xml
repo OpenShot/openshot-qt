@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+	<id>openshot-qt.desktop</id>
+	<metadata_license>CC0-1.0</metadata_license>
+	<project_license>GPL-3.0+</project_license>
+	<name>OpenShot</name>
+	<url type="homepage">https://www.openshot.org</url>
+	<summary>Video Editor</summary>
+	<description>
+		<p>We designed OpenShot Video Editor to be an easy to use, quick to learn, and surprisingly powerful video editor.</p>
+	</description>
+	<screenshots>
+		<screenshot type="default">
+			<image>https://www.openshot.org/static/img/gallery/ui-example.jpg</image>
+		</screenshot>
+		<screenshot>
+			<image>https://www.openshot.org/static/img/gallery/title-editor.jpg</image>
+		</screenshot>
+	</screenshots>
+	<releases>
+		<release version="2.4.1" date="2017-11-12"/>
+  	</releases>
+	<content_rating type="oars-1.0">
+		<content_attribute id="violence-cartoon">none</content_attribute>
+		<content_attribute id="violence-fantasy">none</content_attribute>
+		<content_attribute id="violence-realistic">none</content_attribute>
+		<content_attribute id="violence-bloodshed">none</content_attribute>
+		<content_attribute id="violence-sexual">none</content_attribute>
+		<content_attribute id="drugs-alcohol">none</content_attribute>
+		<content_attribute id="drugs-narcotics">none</content_attribute>
+		<content_attribute id="drugs-tobacco">none</content_attribute>
+		<content_attribute id="sex-nudity">none</content_attribute>
+		<content_attribute id="sex-themes">none</content_attribute>
+		<content_attribute id="language-profanity">none</content_attribute>
+		<content_attribute id="language-humor">none</content_attribute>
+		<content_attribute id="language-discrimination">none</content_attribute>
+		<content_attribute id="social-chat">none</content_attribute>
+		<content_attribute id="social-info">none</content_attribute>
+		<content_attribute id="social-audio">none</content_attribute>
+		<content_attribute id="social-location">none</content_attribute>
+		<content_attribute id="social-contacts">none</content_attribute>
+		<content_attribute id="money-purchasing">none</content_attribute>
+		<content_attribute id="money-gambling">none</content_attribute>
+	</content_rating>
+</component>
