@@ -894,8 +894,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if not recommended_path or not os.path.exists(recommended_path):
             recommended_path = os.path.join(info.HOME_PATH)
 
-        #log.info("Saving frame to %s/%s.png" % (recommended_path, self.preview_thread.current_frame))
-        framePath = _("%s/Frame%04d.png" % (recommended_path, self.preview_thread.current_frame))
+        # Is this a saved project?
+        if get_app().project.current_filepath:
+            # Yes, project is saved
+            # Get just the filename
+            recommended_path = os.path.dirname(get_app().project.current_filepath)
+
+        framePath = _("%s/Frame-%05d.png" % (recommended_path, self.preview_thread.current_frame))
+        #log.info("Saving frame to %" % framePath)
 
         # Ask user to confirm or update framePath
         framePath, file_type = QFileDialog.getSaveFileName(self, _("Save Frame..."), framePath, _("Image files (*.png)"))
@@ -2032,24 +2038,34 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Add Video Preview toolbar ==========================================================================
         self.videoToolbar = QToolBar("Video Toolbar")
 
+        # Add fixed spacer(s) (one for each "Other control" to keep playback controls centered)
+        ospacer1 = QWidget(self)
+        ospacer1.setMinimumSize(32, 1) # actionSaveFrame
+        self.videoToolbar.addWidget(ospacer1)
+        #ospacer2 = QWidget(self)
+        #ospacer2.setMinimumSize(32, 1) # ???
+        #self.videoToolbar.addWidget(ospacer2)
+
         # Add left spacer
         spacer = QWidget(self)
         spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.videoToolbar.addWidget(spacer)
 
-        # Playback controls
+        # Playback controls (centered)
         self.videoToolbar.addAction(self.actionJumpStart)
         self.videoToolbar.addAction(self.actionRewind)
         self.videoToolbar.addAction(self.actionPlay)
         self.videoToolbar.addAction(self.actionFastForward)
         self.videoToolbar.addAction(self.actionJumpEnd)
         self.actionPlay.setCheckable(True)
-        self.videoToolbar.addAction(self.actionSaveFrame)
 
         # Add right spacer
         spacer = QWidget(self)
         spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.videoToolbar.addWidget(spacer)
+
+        # Other controls (right-justified)
+        self.videoToolbar.addAction(self.actionSaveFrame)
 
         self.tabVideo.layout().addWidget(self.videoToolbar)
 

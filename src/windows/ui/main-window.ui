@@ -592,8 +592,8 @@
   </action>
   <action name="actionSaveFrame">
    <property name="icon">
-    <iconset theme="camera-photo" resource="../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/22/camera-photo.svg</normaloff>:/icons/Humanity/actions/22/camera-photo.svg</iconset>
+    <iconset theme="snapshot" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/custom/snapshot.svg</normaloff>:/icons/Humanity/actions/custom/snapshot.svg</iconset>
    </property>
    <property name="text">
     <string>Save Current Frame</string>
