@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<component type="desktop">
-  <id>openshot-qt.desktop</id>
+<component type="desktop-application">
+  <id>org.openshot.OpenShot</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0+</project_license>
   <name>OpenShot</name>
-  <url type="homepage">https://www.openshot.org</url>
   <developer_name>OpenShot Studios, LLC</developer_name>
   <summary>Video Editor</summary>
   <description>
@@ -13,6 +12,12 @@
       quick to learn, and surprisingly powerful video editor.
     </p>
   </description>
+  <launchable type="desktop-id">org.openshot.OpenShot.desktop</launchable>
+  <provides>
+    <binary>openshot-qt</binary>
+  </provides>
+  <url type="homepage">https://www.openshot.org</url>
+  <url type="bugtracker">https://github.com/OpenShot/openshot-qt/issues</url>
   <screenshots>
     <screenshot type="default">
       <image>https://www.openshot.org/static/img/gallery/ui-example.jpg</image>
