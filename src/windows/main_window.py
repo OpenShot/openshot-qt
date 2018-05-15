@@ -889,16 +889,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.statusBar = QStatusBar()
         self.setStatusBar(self.statusBar)
 
-        # Determine path for saved frame - save in project's current export path or fail back to user's home directory
-        recommended_path = get_app().project.get(["export_path"])
-        if not recommended_path or not os.path.exists(recommended_path):
-            recommended_path = os.path.join(info.HOME_PATH)
-
-        # Is this a saved project?
+        # Determine path for saved frame - Default export path
+        recommended_path = recommended_path = os.path.join(info.HOME_PATH)
         if get_app().project.current_filepath:
-            # Yes, project is saved
-            # Get just the filename
             recommended_path = os.path.dirname(get_app().project.current_filepath)
+
+        # Determine path for saved frame - Project's export path
+        if get_app().project.get(["export_path"]):
+            recommended_path = get_app().project.get(["export_path"])
 
         framePath = _("%s/Frame-%05d.png" % (recommended_path, self.preview_thread.current_frame))
         #log.info("Saving frame to %" % framePath)
