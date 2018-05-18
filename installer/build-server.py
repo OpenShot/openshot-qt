@@ -267,9 +267,9 @@ try:
         for line in run_command("git fetch --tags"):
             output(line)
 
-        # Sync these changes to bzr (if build-server running on linux)
+        # Sync these changes to LaunchPad (if build-server running on linux)
         if platform.system() == "Linux":
-            for line in run_command("git bzr push"):
+            for line in run_command("git push launchpad master"):
                 output(line)
 
     # Get GIT description of openshot-qt-git branch (i.e. v2.0.6-18-ga01a98c)
