@@ -455,6 +455,23 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 self.load_recent_menu()
 
                 log.info("Loaded project {}".format(file_path))
+            else:
+                # If statement is required, as if the user hits "Cancel"
+                # on the load file dialog, it is interepreted as trying
+                # to open a file with a blank name. This could use
+                # some improvement.
+                if file_path != "":
+                    log.info("File not found at {}".format(file_path))
+                    ret = QMessageBox.question(self, 
+                                        _("Error Opening Project"), 
+                                        _("Could not find project {}. Would you like to remove it from the Recent Projects menu?".format(file_path)),
+                                        QMessageBox.No | QMessageBox.Yes)
+                    if ret == QMessageBox.Yes:
+                        self.remove_recent_project(file_path)
+                        log.info("Removing {} from Recent Projects.".format(file_path))
+                        
+                        # Load recent projects again
+                        self.load_recent_menu()
 
         except Exception as ex:
             log.error("Couldn't open project {}".format(file_path))
@@ -1882,6 +1899,15 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         for file_path in reversed(recent_projects):
             new_action = self.recent_menu.addAction(file_path)
             new_action.triggered.connect(functools.partial(self.recent_project_clicked, file_path))
+            
+    # Remove a project from the Recent menu if it cannot be found by OpenShot.
+    def remove_recent_project(self, file_path):
+        s = settings.get_settings()
+        recent_projects = s.get("recent_projects")      
+        if file_path in recent_projects:
+            recent_projects.remove(file_path)
+        s.set("recent_projects", recent_projects)
+        s.save()
 
     def recent_project_clicked(self, file_path):
         """ Load a recent project when clicked """
