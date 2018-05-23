@@ -169,7 +169,7 @@ elif sys.platform == "linux":
 
     # Find all related SO files
     for filename in find_files(libopenshot_path, ["*openshot*.so*"]):
-        if "python" not in filename:
+        if '_' in filename or filename.count(".") == 2:
             external_so_files.append((filename, filename.replace("/usr/local/lib/", "").replace(libopenshot_path + "/", "")))
 
     # Append Linux ICON file
