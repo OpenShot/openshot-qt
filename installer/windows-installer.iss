@@ -40,7 +40,7 @@ WizardSmallImageFile=installer-logo.bmp
 SetupIconFile=..\xdg\openshot-qt.ico
 UninstallDisplayIcon={app}\{#MyAppExeName}
 SignedUninstaller=yes
-SignedUninstallerDir=..\s3-builds\
+SignedUninstallerDir=..\build\
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
