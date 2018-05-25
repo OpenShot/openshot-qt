@@ -5,7 +5,7 @@
 	<title translatable="True">MP4 (h.264)</title>
 	<videoformat>mp4</videoformat>
 	<videocodec>libx264</videocodec>
-	<audiocodec>aac</audiocodec>
+	<audiocodec>ac3</audiocodec>
 	<audiochannels>2</audiochannels>
 	<audiochannellayout>3</audiochannellayout>
 	<videobitrate
