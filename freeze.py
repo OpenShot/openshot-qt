@@ -57,6 +57,9 @@ import sys
 import fnmatch
 from shutil import copytree, rmtree, copy
 from cx_Freeze import setup, Executable
+from PyQt5.QtCore import QLibraryInfo
+import shutil
+
 
 # Determine which JSON library is installed
 json_library = None
@@ -90,6 +93,10 @@ if os.path.exists(os.path.join(PATH, "openshot_qt")):
     sys.path.append(os.path.join(PATH, "openshot_qt"))
     print("Loaded modules from openshot_qt directory: %s" % os.path.join(PATH, "openshot_qt"))
 
+# Append possible build server paths
+sys.path.insert(0, os.path.join(PATH, "build", "install-x86", "lib"))
+sys.path.insert(0, os.path.join(PATH, "build", "install-x64", "lib"))
+
 
 from classes import info
 from classes.logger import log
@@ -117,6 +124,18 @@ external_so_files = []
 build_options = {}
 build_exe_options = {}
 
+# Copy QT translations to local folder (to be packaged)
+qt_local_path = os.path.join(PATH, "openshot_qt", "locale", "QT")
+qt_system_path = QLibraryInfo.location(QLibraryInfo.TranslationsPath)
+if os.path.exists(qt_system_path):
+    # Create local QT translation folder (if needed)
+    if not os.path.exists(qt_local_path):
+        os.mkdir(qt_local_path)
+    # Loop through QT translation files and copy them
+    for file in os.listdir(qt_system_path):
+        # Copy QT locale files
+        if file.startswith("qt_") and file.endswith(".qm"):
+            shutil.copyfile(os.path.join(qt_system_path, file), os.path.join(qt_local_path, file))
 
 if sys.platform == "win32":
     base = "Win32GUI"
@@ -140,10 +159,18 @@ if sys.platform == "win32":
         src_files.append((filename, os.path.join("lib", "zmq", filename.replace(zmq_path + "\\", ""))))
 
 elif sys.platform == "linux":
+    # Find libopenshot.so path (GitLab copies artifacts into local build/install folder)
+    libopenshot_path = os.path.join(PATH, "build", "install-x64", "lib")
+    if not os.path.exists(libopenshot_path):
+        libopenshot_path = os.path.join(PATH, "build", "install-x86", "lib")
+    if not os.path.exists(libopenshot_path):
+        # Default to user install path
+        libopenshot_path = "/usr/local/lib"
+
     # Find all related SO files
-    for filename in find_files("/usr/local/lib/", ["*openshot*.so*"]):
-        if "python" not in filename:
-            external_so_files.append((filename, filename.replace("/usr/local/lib/", "")))
+    for filename in find_files(libopenshot_path, ["*openshot*.so*"]):
+        if '_' in filename or filename.count(".") == 2:
+            external_so_files.append((filename, filename.replace("/usr/local/lib/", "").replace(libopenshot_path + "/", "")))
 
     # Append Linux ICON file
     iconFile += ".svg"
@@ -157,7 +184,7 @@ elif sys.platform == "linux":
 
     # Get a list of all openshot.so dependencies (scan these libraries for their dependencies)
     import subprocess
-    for library in ["/usr/local/lib/libopenshot.so",
+    for library in [os.path.join(libopenshot_path, "libopenshot.so"),
                     "/usr/lib/python3/dist-packages/PyQt5/QtWebKit.cpython-34m-x86_64-linux-gnu.so",
                     "/usr/lib/python3/dist-packages/PyQt5/QtSvg.cpython-34m-x86_64-linux-gnu.so",
                     "/usr/lib/python3/dist-packages/PyQt5/QtWebKitWidgets.cpython-34m-x86_64-linux-gnu.so",
@@ -187,7 +214,7 @@ elif sys.platform == "linux":
                     if (libpath \
                         and not libpath.startswith("/lib") \
                         and not "libnvidia-glcore.so" in libpath \
-                        and not libpath_file in ["libstdc++.so.6", "libGL.so.1", "libxcb.so.1", "libX11.so.6", "libasound.so.2", "libfontconfig.so.1", "libgcc_s.so.1 ", "libICE.so.6", "libp11-kit.so.0", "libSM.so.6", "libgobject-2.0.so.0"]) \
+                        and not libpath_file in ["libstdc++.so.6", "libGL.so.1", "libxcb.so.1", "libX11.so.6", "libasound.so.2", "libgcc_s.so.1 ", "libICE.so.6", "libp11-kit.so.0", "libSM.so.6", "libgobject-2.0.so.0"]) \
                             or libpath_file in ["libgcrypt.so.11", "libQt5DBus.so.5", "libpng12.so.0", "libbz2.so.1.0", "libqxcb.so"]:
 
                         # Ignore paths that start with /lib

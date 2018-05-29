@@ -48,6 +48,7 @@ from classes.timeline import TimelineSync
 from classes.query import File, Clip, Transition, Marker, Track
 from classes.metrics import *
 from classes.version import *
+from classes.conversion import zoomToSeconds, secondsToZoom
 from images import openshot_rc
 from windows.views.files_treeview import FilesTreeView
 from windows.views.files_listview import FilesListView
@@ -884,7 +885,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Get # of tracks
         track_number = len(get_app().project.get(["layers"]))
 
-        # Look for existing Marker
+        # Create new track above existing layer(s)
         track = Track()
         track.data = {"number": track_number, "y": 0, "label": "", "lock": False}
         track.save()
@@ -900,22 +901,34 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         existing_track = Track.get(id=selected_layer_id)
         selected_layer_number = int(existing_track.data["number"])
 
-        # Create new track
-        track = Track()
-        track.data = {"number": max_track_number, "y": 0, "label": "", "lock": False}
-        track.save()
+        # log.info("Adding track above #{} (id {})".format(selected_layer_number, selected_layer_id))
 
-        # Loop through all clips on higher layers, and move to new layer (in reverse order)
-        for existing_layer in list(reversed(range(selected_layer_number + 1, max_track_number))):
-            existing_track.data["label"] = ""
+        # Loop through tracks above insert point (in descending order), renumbering layers
+        for existing_layer in list(reversed(range(selected_layer_number+1, max_track_number))):
+            existing_track = Track.get(number=existing_layer)
+            # log.info("Renumbering track id {} from {} to {}".format(existing_track.data["id"], existing_layer, existing_layer+1))
+            existing_track.data["number"] = existing_layer + 1
             existing_track.save()
 
+            # Loop through clips and transitions for track, moving up to new layer
             for clip in Clip.filter(layer=existing_layer):
+                # log.info("Moving clip id {} from layer {} to {}".format(clip.data["id"], int(clip.data["layer"]), int(clip.data["layer"])+1))
                 clip.data["layer"] = int(clip.data["layer"]) + 1
                 clip.save()
 
+            for trans in Transition.filter(layer=existing_layer):
+                # log.info("Moving transition id {} from layer {} to {}".format(trans.data["id"], int(trans.data["layer"]), int(trans.data["layer"])+1))
+                trans.data["layer"] = int(trans.data["layer"]) + 1
+                trans.save()
+
+        # Create new track at vacated layer
+        track = Track()
+        track.data = {"number": selected_layer_number+1, "y": 0, "label": "", "lock": False}
+        track.save()
+        # log.info("Created new track id {} at layer number {}".format(track.data["id"], track.data["number"]))
+
     def actionAddTrackBelow_trigger(self, event):
-        log.info("actionAddTrackAbove_trigger")
+        log.info("actionAddTrackBelow_trigger")
 
         # Get # of tracks
         max_track_number = len(get_app().project.get(["layers"]))
@@ -925,19 +938,31 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         existing_track = Track.get(id=selected_layer_id)
         selected_layer_number = int(existing_track.data["number"])
 
-        # Create new track
-        track = Track()
-        track.data = {"number": max_track_number, "y": 0, "label": "", "lock": False}
-        track.save()
+        # log.info("Adding track below #{} (id {})".format(selected_layer_number, selected_layer_id))
 
-        # Loop through all clips on higher layers, and move to new layer (in reverse order)
+        # Loop through tracks from insert point up (in descending order), renumbering layers
         for existing_layer in list(reversed(range(selected_layer_number, max_track_number))):
-            existing_track.data["label"] = ""
+            existing_track = Track.get(number=existing_layer)
+            # log.info("Renumbering track id {} from {} to {}".format(existing_track.data["id"], existing_layer, existing_layer+1))
+            existing_track.data["number"] = existing_layer + 1
             existing_track.save()
 
+            # Loop through clips and transitions for track, moving up to new layer
             for clip in Clip.filter(layer=existing_layer):
+                # log.info("Moving clip id {} from layer {} to {}".format(clip.data["id"], int(clip.data["layer"]), int(clip.data["layer"])+1))
                 clip.data["layer"] = int(clip.data["layer"]) + 1
                 clip.save()
+
+            for trans in Transition.filter(layer=existing_layer):
+                # log.info("Moving transition id {} from layer {} to {}".format(trans.data["id"], int(trans.data["layer"]), int(trans.data["layer"])+1))
+                trans.data["layer"] = int(trans.data["layer"]) + 1
+                trans.save()
+
+        # Create new track at vacated layer
+        track = Track()
+        track.data = {"number": selected_layer_number, "y": 0, "label": "", "lock": False}
+        track.save()
+        # log.info("Created new track id {} at layer number {}".format(track.data["id"], track.data["number"]))
 
     def actionArrowTool_trigger(self, event):
         log.info("actionArrowTool_trigger")
@@ -967,7 +992,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         fps_float = float(fps["num"]) / float(fps["den"])
 
         # Calculate position in seconds
-        position = player.Position() / fps_float
+        position = (player.Position() - 1) / fps_float
 
         # Look for existing Marker
         marker = Marker()
@@ -980,7 +1005,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Calculate current position (in seconds)
         fps = get_app().project.get(["fps"])
         fps_float = float(fps["num"]) / float(fps["den"])
-        current_position = self.preview_thread.current_frame / fps_float
+        current_position = (self.preview_thread.current_frame - 1) / fps_float
         all_marker_positions = []
 
         # Get list of marker and important positions (like selected clip bounds)
@@ -1033,7 +1058,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Calculate current position (in seconds)
         fps = get_app().project.get(["fps"])
         fps_float = float(fps["num"]) / float(fps["den"])
-        current_position = self.preview_thread.current_frame / fps_float
+        current_position = (self.preview_thread.current_frame - 1) / fps_float
         all_marker_positions = []
 
         # Get list of marker and important positions (like selected clip bounds)
@@ -1117,7 +1142,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Get framerate
         fps = get_app().project.get(["fps"])
         fps_float = float(fps["num"]) / float(fps["den"])
-        playhead_position = float(self.preview_thread.current_frame) / fps_float
+        playhead_position = float(self.preview_thread.current_frame - 1) / fps_float
 
         # Basic shortcuts i.e just a letter
         if key.matches(self.getShortcutByName("seekPreviousFrame")) == QKeySequence.ExactMatch:
@@ -1432,17 +1457,21 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Remove track
         selected_track.delete()
 
-        # Loop through all tracks, and renumber (to keep thing in numerical order)
+        # Loop through all layers above, and renumber elements (to keep thing in numerical order)
         for existing_layer in list(range(selected_track_number + 1, max_track_number)):
-            # Update existing layer #
+            # Update existing layer number
             track = Track.get(number=existing_layer)
             track.data["number"] = existing_layer - 1
-            track.data["label"] = ""
             track.save()
 
             for clip in Clip.filter(layer=existing_layer):
                 clip.data["layer"] = int(clip.data["layer"]) - 1
                 clip.save()
+
+            for trans in Transition.filter(layer=existing_layer):
+                trans.data["layer"] = int(trans.data["layer"]) - 1
+                trans.save()
+
 
         # Clear selected track
         self.selected_tracks = []
@@ -1963,17 +1992,19 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.timelineToolbar.addSeparator()
 
         # Get project's initial zoom value
-        initial_scale = get_app().project.get(["scale"]) or 20
+        initial_scale = get_app().project.get(["scale"]) or 16
+        # Round non-exponential scale down to next lowest power of 2
+        initial_zoom = secondsToZoom(initial_scale)
 
         # Setup Zoom slider
         self.sliderZoom = QSlider(Qt.Horizontal, self)
-        self.sliderZoom.setPageStep(2)
-        self.sliderZoom.setRange(1, 800)
-        self.sliderZoom.setValue(initial_scale)
+        self.sliderZoom.setPageStep(1)
+        self.sliderZoom.setRange(0, 30)
+        self.sliderZoom.setValue(initial_zoom)
         self.sliderZoom.setInvertedControls(True)
         self.sliderZoom.resize(100, 16)
 
-        self.zoomScaleLabel = QLabel(_("{} seconds").format(self.sliderZoom.value()))
+        self.zoomScaleLabel = QLabel( _("{} seconds").format(zoomToSeconds(self.sliderZoom.value())) )
 
         # add zoom widgets
         self.timelineToolbar.addAction(self.actionTimelineZoomIn)

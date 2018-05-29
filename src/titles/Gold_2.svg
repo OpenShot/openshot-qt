@@ -369,7 +369,7 @@
          id="tspan2397"
          x="961.7674"
          y="438.48804"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:82.35334778px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'Sans Bold';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:url(#radialGradient3654);fill-opacity:1;stroke:none">The Title</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:82.35334778px;line-height:125%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Sans Bold';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:url(#radialGradient3654);fill-opacity:1;stroke:none">The Title</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:url(#radialGradient3039);fill-opacity:1;stroke:none;filter:url(#filter3984)"
@@ -380,6 +380,6 @@
          id="tspan2397-3"
          x="959.01288"
          y="544.8371"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:82.35334778px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'Sans Bold';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:url(#radialGradient3039);fill-opacity:1;stroke:none">Sub-Title</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:82.35334778px;line-height:125%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Sans Bold';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:url(#radialGradient3039);fill-opacity:1;stroke:none">Sub-Title</tspan></text>
   </g>
 </svg>

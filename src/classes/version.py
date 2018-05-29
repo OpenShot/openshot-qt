@@ -48,7 +48,7 @@ def get_version_from_http():
 
     # Send metric HTTP data
     try:
-        r = requests.get(url, headers={"user-agent": "openshot-qt-%s" % info.VERSION})
+        r = requests.get(url, headers={"user-agent": "openshot-qt-%s" % info.VERSION}, verify=False)
         log.info("Found current version: %s" % r.text)
 
         # Parse version

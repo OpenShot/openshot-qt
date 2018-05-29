@@ -326,9 +326,9 @@
     "setting": "send_metrics"
   },
   {
-    "value": false,
+    "value": true,
     "title": "Enable Hardware Decode",
-    "type": "bool",
+    "type": "hidden",
     "category": "Performance",
     "setting": "hardware_decode"
   },
