@@ -1642,6 +1642,14 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
     def Slice_Triggered(self, action, clip_ids, trans_ids, playhead_position=0):
         """Callback for slice context menus"""
+        # Get FPS from project
+        fps = get_app().project.get(["fps"])
+        fps_num = fps["num"]
+        fps_den = fps["den"]
+
+        # Get the nearest starting frame position to the playhead (this helps to prevent cutting
+        # in-between frames, and thus less likely to repeat or skip a frame).
+        playhead_position = float(round((playhead_position * fps_num) / fps_den ) * fps_den ) / fps_num
 
         # Loop through each clip (using the list of ids)
         for clip_id in clip_ids:
