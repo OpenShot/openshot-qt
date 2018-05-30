@@ -695,15 +695,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def actionTransitionsShowCommon_trigger(self, event):
         self.transitionsTreeView.refresh_view()
 
-    def actionEffectsShowAll_trigger(self, event):
-        self.effectsTreeView.refresh_view()
-
-    def actionEffectsShowVideo_trigger(self, event):
-        self.effectsTreeView.refresh_view()
-
-    def actionEffectsShowAudio_trigger(self, event):
-        self.effectsTreeView.refresh_view()
-
     def actionHelpContents_trigger(self, event):
         try:
             webbrowser.open("http://%s.openshot.org/files/user-guide/?app-menu" % info.website_language())
@@ -1936,15 +1927,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Add effects toolbar =================================================================================
         self.effectsToolbar = QToolBar("Effects Toolbar")
-        self.effectsActionGroup = QActionGroup(self)
-        self.effectsActionGroup.setExclusive(True)
-        self.effectsActionGroup.addAction(self.actionEffectsShowAll)
-        self.effectsActionGroup.addAction(self.actionEffectsShowVideo)
-        self.effectsActionGroup.addAction(self.actionEffectsShowAudio)
-        self.actionEffectsShowAll.setChecked(True)
-        self.effectsToolbar.addAction(self.actionEffectsShowAll)
-        self.effectsToolbar.addAction(self.actionEffectsShowVideo)
-        self.effectsToolbar.addAction(self.actionEffectsShowAudio)
         self.effectsFilter = QLineEdit()
         self.effectsFilter.setObjectName("effectsFilter")
         self.effectsFilter.setPlaceholderText(_("Filter"))
