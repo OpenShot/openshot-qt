@@ -9,17 +9,18 @@ linux-builder:
     - build/*.AppImage
     - build/*.torrent
   script:
-    - "curl -O -J -L --header PRIVATE-TOKEN:$ACCESS_TOKEN 'http://gitlab.openshot.org/jonathan/libopenshot/-/jobs/artifacts/master/download?job=linux-builder'"
+    - "curl -O -J -L --header PRIVATE-TOKEN:$ACCESS_TOKEN http://gitlab.openshot.org/jonathan/libopenshot/-/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=linux-builder"
     - unzip artifacts.zip
     - export LD_LIBRARY_PATH=$CI_PROJECT_DIR/build/install-x64/lib:$LD_LIBRARY_PATH
     - echo -e "CI_PROJECT_NAME:$CI_PROJECT_NAME\nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME\nCI_COMMIT_SHA:$CI_COMMIT_SHA\nCI_JOB_ID:$CI_JOB_ID" > "build/install-x64/share/$CI_PROJECT_NAME"
     - python3 freeze.py build
-    - python3 installer/build-server.py "$SLACK_TOKEN" "$S3_ACCESS_KEY" "$S3_SECRET_KEY" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "False"
+    - python3 installer/build-server.py "$SLACK_TOKEN" "$S3_ACCESS_KEY" "$S3_SECRET_KEY" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "False" "$CI_COMMIT_REF_NAME"
   when: always
   tags:
     - linux
   only:
     - master
+    - release
 
 mac-builder:
   stage: build-openshot-qt
@@ -29,18 +30,19 @@ mac-builder:
     - build/*.dmg
     - build/*.torrent
   script:
-    - "curl -O -J -L --header PRIVATE-TOKEN:$ACCESS_TOKEN 'http://gitlab.openshot.org/jonathan/libopenshot/-/jobs/artifacts/master/download?job=mac-builder'"
+    - "curl -O -J -L --header PRIVATE-TOKEN:$ACCESS_TOKEN http://gitlab.openshot.org/jonathan/libopenshot/-/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=mac-builder"
     - unzip artifacts.zip
     - export LD_LIBRARY_PATH=$CI_PROJECT_DIR/build/install-x64/lib:$LD_LIBRARY_PATH
     - export DYLD_LIBRARY_PATH=$CI_PROJECT_DIR/build/install-x64/lib:DYLD_LIBRARY_PATH
     - echo -e "CI_PROJECT_NAME:$CI_PROJECT_NAME\nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME\nCI_COMMIT_SHA:$CI_COMMIT_SHA\nCI_JOB_ID:$CI_JOB_ID" > "build/install-x64/share/$CI_PROJECT_NAME"
     - /Library/Frameworks/Python.Framework/Versions/3.6/bin/python3.6 freeze.py bdist_mac --iconfile=installer/openshot.icns --custom-info-plist=installer/Info.plist --bundle-name="OpenShot Video Editor"
-    - /Library/Frameworks/Python.Framework/Versions/3.6/bin/python3.6 installer/build-server.py "$SLACK_TOKEN" "$S3_ACCESS_KEY" "$S3_SECRET_KEY" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "False"
+    - /Library/Frameworks/Python.Framework/Versions/3.6/bin/python3.6 installer/build-server.py "$SLACK_TOKEN" "$S3_ACCESS_KEY" "$S3_SECRET_KEY" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "False" "$CI_COMMIT_REF_NAME"
   when: always
   tags:
     - mac
   only:
     - master
+    - release
 
 windows-builder-x86:
   stage: build-openshot-qt
@@ -50,17 +52,18 @@ windows-builder-x86:
     - build\*.exe
     - build\*.torrent
   script:
-    - Invoke-WebRequest -Uri "http://gitlab.openshot.org/jonathan/libopenshot/-/jobs/artifacts/master/download?job=windows-builder-x86" -Headers @{"PRIVATE-TOKEN"="$ACCESS_TOKEN"} -OutFile "artifacts.zip"
+    - Invoke-WebRequest -Uri "http://gitlab.openshot.org/jonathan/libopenshot/-/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=windows-builder-x86" -Headers @{"PRIVATE-TOKEN"="$ACCESS_TOKEN"} -OutFile "artifacts.zip"
     - Expand-Archive -Path artifacts.zip -DestinationPath .
     - $env:Path = "$CI_PROJECT_DIR\build\install-x86\lib;C:\msys32\mingw32\bin;C:\msys32\mingw32\lib;C:\msys32\usr\lib\cmake\UnitTest++;C:\msys32\home\jonathan\depot_tools;C:\msys32\usr;C:\msys32\usr\lib;" + $env:Path;
     - New-Item -path "build/install-x86/share/" -Name "$CI_PROJECT_NAME" -Value "CI_PROJECT_NAME:$CI_PROJECT_NAME`nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME`nCI_COMMIT_SHA:$CI_COMMIT_SHA`nCI_JOB_ID:$CI_JOB_ID" -ItemType file -force
     - python3 freeze.py build
-    - python3 installer/build-server.py "$SLACK_TOKEN" "$S3_ACCESS_KEY" "$S3_SECRET_KEY" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "True"
+    - python3 installer/build-server.py "$SLACK_TOKEN" "$S3_ACCESS_KEY" "$S3_SECRET_KEY" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "True" "$CI_COMMIT_REF_NAME"
   when: always
   tags:
     - windows
   only:
     - master
+    - release
 
 windows-builder-x64:
   stage: build-openshot-qt
@@ -70,14 +73,15 @@ windows-builder-x64:
     - build\*.exe
     - build\*.torrent
   script:
-    - Invoke-WebRequest -Uri "http://gitlab.openshot.org/jonathan/libopenshot/-/jobs/artifacts/master/download?job=windows-builder-x64" -Headers @{"PRIVATE-TOKEN"="$ACCESS_TOKEN"} -OutFile "artifacts.zip"
+    - Invoke-WebRequest -Uri "http://gitlab.openshot.org/jonathan/libopenshot/-/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=windows-builder-x64" -Headers @{"PRIVATE-TOKEN"="$ACCESS_TOKEN"} -OutFile "artifacts.zip"
     - Expand-Archive -Path artifacts.zip -DestinationPath .
     - $env:Path = "$CI_PROJECT_DIR\build\install-x64\lib;C:\msys64\mingw64\bin;C:\msys64\mingw64\lib;C:\msys64\usr\lib\cmake\UnitTest++;C:\msys64\home\jonathan\depot_tools;C:\msys64\usr;C:\msys64\usr\lib;" + $env:Path;
     - New-Item -path "build/install-x64/share/" -Name "$CI_PROJECT_NAME" -Value "CI_PROJECT_NAME:$CI_PROJECT_NAME`nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME`nCI_COMMIT_SHA:$CI_COMMIT_SHA`nCI_JOB_ID:$CI_JOB_ID" -ItemType file -force
     - python3 freeze.py build
-    - python3 installer/build-server.py "$SLACK_TOKEN" "$S3_ACCESS_KEY" "$S3_SECRET_KEY" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "False"
+    - python3 installer/build-server.py "$SLACK_TOKEN" "$S3_ACCESS_KEY" "$S3_SECRET_KEY" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "False" "$CI_COMMIT_REF_NAME"
   when: always
   tags:
     - windows
   only:
     - master
+    - release
