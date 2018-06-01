@@ -212,7 +212,7 @@ try:
         if sys.argv[8] == 'True':
             windows_32bit = True
 
-    git_branch_name = "master"
+    git_branch_name = "develop"
     if len(sys.argv) >= 10:
         git_branch_name = sys.argv[9]
 
@@ -241,16 +241,16 @@ try:
 
         # Add num of commits from libopenshot and libopenshot-audio (for naming purposes)
         # If not an official release
-        if git_branch_name == "master":
+        if git_branch_name == "develop":
             # Make filename more descriptive for daily builds
             openshot_qt_git_desc = "%s-%s-%s" % (openshot_qt_git_desc, version_info.get('libopenshot').get('CI_COMMIT_SHA')[:8], version_info.get('libopenshot-audio').get('CI_COMMIT_SHA')[:8])
             # Get daily git_release object
             github_release = get_release(repo, "daily")
-        elif git_branch_name == "release" and ("-" in info.VERSION or "-" in openshot_qt_git_desc):
+        elif git_branch_name == "release":
             # Get daily git_release object
             openshot_qt_git_desc = "OpenShot-v%s" % info.VERSION
             github_release = get_release(repo, "daily")
-        elif git_branch_name == "release":
+        elif git_branch_name == "master":
             # Get official version release (i.e. v2.1.0, v2.x.x)
             github_release = get_release(repo, git_description)
 

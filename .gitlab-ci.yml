@@ -19,8 +19,9 @@ linux-builder:
   tags:
     - linux
   only:
-    - master
+    - develop
     - release
+    - tags
 
 mac-builder:
   stage: build-openshot-qt
@@ -41,8 +42,9 @@ mac-builder:
   tags:
     - mac
   only:
-    - master
+    - develop
     - release
+    - tags
 
 windows-builder-x86:
   stage: build-openshot-qt
@@ -62,8 +64,9 @@ windows-builder-x86:
   tags:
     - windows
   only:
-    - master
+    - develop
     - release
+    - tags
 
 windows-builder-x64:
   stage: build-openshot-qt
@@ -83,5 +86,6 @@ windows-builder-x64:
   tags:
     - windows
   only:
-    - master
+    - develop
     - release
+    - tags
