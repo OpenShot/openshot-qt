@@ -16,6 +16,6 @@
 	 low=""
 	 med=""
 	 high="256 kb/s"></audiobitrate>
-	<samplerate>44100</samplerate>
+	<samplerate>48000</samplerate>
 	<projectprofile>HD 720p 30 fps</projectprofile>
 </export-option>
