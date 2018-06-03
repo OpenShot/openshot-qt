@@ -736,21 +736,49 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         Time_None = Time_Menu.addAction(_("Reset Time"))
         Time_None.triggered.connect(partial(self.Time_Triggered, MENU_TIME_NONE, clip_ids, '1X'))
         Time_Menu.addSeparator()
-        for speed, speed_values in [("Normal", ['1X']), ("Fast", ['2X', '4X', '8X', '16X', '32X']), ("Slow", ['1/2X', '1/4X', '1/8X', '1/16X', '1/32X'])]:
-            Speed_Menu = QMenu(_(speed), self)
+
+        if not use_new_menus:
+            for speed, speed_values in [("Normal", ['1X']), ("Fast", ['2X', '4X', '8X', '16X', '32X']), ("Slow", ['1/2X', '1/4X', '1/8X', '1/16X', '1/32X'])]:
+                Speed_Menu = QMenu(_(speed), self)
+
+                for direction, direction_value in [("Forward", MENU_TIME_FORWARD), ("Backward", MENU_TIME_BACKWARD)]:
+                    Direction_Menu = QMenu(_(direction), self)
+
+                    for actual_speed in speed_values:
+                        # Add menu option
+                        Time_Option = Direction_Menu.addAction(_(actual_speed))
+                        Time_Option.triggered.connect(partial(self.Time_Triggered, direction_value, clip_ids, actual_speed))
+
+                    # Add menu to parent
+                    Speed_Menu.addMenu(Direction_Menu)
+                # Add menu to parent
+                Time_Menu.addMenu(Speed_Menu)
+
+        else: #use_new_menus is enabled
+            Time_Forward = Time_Menu.addAction(_("Forward Normal"))
+            Time_Forward.triggered.connect(partial(self.Time_Triggered, MENU_TIME_FORWARD, clip_ids, '1X'))
+            Time_Reverse = Time_Menu.addAction(_("Reverse Normal"))
+            Time_Reverse.triggered.connect(partial(self.Time_Triggered, MENU_TIME_BACKWARD, clip_ids, '1X'))
+
+            Time_Menu.addSeparator()
 
             for direction, direction_value in [("Forward", MENU_TIME_FORWARD), ("Backward", MENU_TIME_BACKWARD)]:
                 Direction_Menu = QMenu(_(direction), self)
 
-                for actual_speed in speed_values:
-                    # Add menu option
-                    Time_Option = Direction_Menu.addAction(_(actual_speed))
-                    Time_Option.triggered.connect(partial(self.Time_Triggered, direction_value, clip_ids, actual_speed))
+                # Add slow-speed section (descending by slowness)
+                Direction_Menu.addSection(_("Slow"))
+                for speed_value in ['1/32X', '1/16X', '1/8X', '1/4X', '1/2X']:
+                    Time_Option = Direction_Menu.addAction(_(speed_value))
+                    Time_Option.triggered.connect(partial(self.Time_Triggered, direction_value, clip_ids, speed_value))
+
+                # Add fast-speed section (ascending by fastness)
+                Direction_Menu.addSection(_("Fast"))
+                for speed_value in ['2X', '4X', '8X', '16X', '32X']:
+                    Time_Option = Direction_Menu.addAction(_(speed_value))
+                    Time_Option.triggered.connect(partial(self.Time_Triggered, direction_value, clip_ids, speed_value))
 
                 # Add menu to parent
-                Speed_Menu.addMenu(Direction_Menu)
-            # Add menu to parent
-            Time_Menu.addMenu(Speed_Menu)
+                Time_Menu.addMenu(Direction_Menu)
 
         # Add Freeze menu options
         Time_Menu.addSeparator()
