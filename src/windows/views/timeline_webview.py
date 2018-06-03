@@ -570,9 +570,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         Fade_Menu = QMenu(_("Fade"), self)
         Fade_None = Fade_Menu.addAction(_("No Fade"))
         Fade_None.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_NONE, clip_ids))
-        Fade_Menu.addSeparator()
 
         if not use_new_menus:
+            Fade_Menu.addSeparator()
+
             for position in ["Start of Clip", "End of Clip", "Entire Clip"]:
                 Position_Menu = QMenu(_(position), self)
 
@@ -602,26 +603,29 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 Fade_Menu.addMenu(Position_Menu)
         else: # use_new_menus is enabled
             position = "Start of Clip"
-            Fade_In_Fast = Fade_Menu.addAction(_("Fast Fade In at Start"))
+            Fade_Menu.addSection(_(position))
+            Fade_In_Fast = Fade_Menu.addAction(_("Fade In (Fast)"))
             Fade_In_Fast.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_IN_FAST, clip_ids, position))
-            Fade_In_Slow = Fade_Menu.addAction(_("Slow Fade In at Start"))
+            Fade_In_Slow = Fade_Menu.addAction(_("Fade In (Slow)"))
             Fade_In_Slow.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_IN_SLOW, clip_ids, position))
 
-            Fade_Menu.addSeparator()
-
             position = "End of Clip"
-            Fade_Out_Fast = Fade_Menu.addAction(_("Fast Fade Out at End"))
+            Fade_Menu.addSection(_(position))
+            Fade_Out_Fast = Fade_Menu.addAction(_("Fade Out (Fast)"))
             Fade_Out_Fast.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_OUT_FAST, clip_ids, position))
-            Fade_Out_Slow = Fade_Menu.addAction(_("Slow Fade Out at End"))
+            Fade_Out_Slow = Fade_Menu.addAction(_("Fade Out (Slow)"))
             Fade_Out_Slow.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_OUT_SLOW, clip_ids, position))
 
-            Fade_Menu.addSeparator()
-
             position = "Entire Clip"
-            Fade_In_Out_Fast = Fade_Menu.addAction(_("Fast Fade In at Start, Out at End"))
+            Fade_Menu.addSection(_(position))
+            Fade_In_Out_Fast = Fade_Menu.addAction(_("Fade In and Out (Fast)"))
             Fade_In_Out_Fast.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_IN_OUT_FAST, clip_ids, position))
-            Fade_In_Out_Slow = Fade_Menu.addAction(_("Slow Fade In at Start, Out at End"))
+            Fade_In_Out_Slow = Fade_Menu.addAction(_("Fade In and Out (Slow)"))
             Fade_In_Out_Slow.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_IN_OUT_SLOW, clip_ids, position))
+            Fade_In_Slow = Fade_Menu.addAction(_("Fade In (Entire Clip)"))
+            Fade_In_Slow.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_IN_SLOW, clip_ids, position))
+            Fade_Out_Slow = Fade_Menu.addAction(_("Fade Out (Entire Clip)"))
+            Fade_Out_Slow.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_OUT_SLOW, clip_ids, position))
 
         menu.addMenu(Fade_Menu)
 
