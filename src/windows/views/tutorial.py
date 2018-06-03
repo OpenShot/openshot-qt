@@ -74,7 +74,7 @@ class TutorialDialog(QWidget):
     def eventFilter(self, object, e):
         if e.type() == QEvent.WindowActivate:
             # Raise parent window, and then this tutorial
-            get_app().window.showNormal()
+            get_app().window.show()
             get_app().window.raise_()
             self.raise_()
 
