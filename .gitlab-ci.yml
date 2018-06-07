@@ -21,8 +21,6 @@ linux-builder:
   when: always
   tags:
     - linux
-  except:
-    - master
 
 mac-builder:
   stage: build-openshot-qt
@@ -45,8 +43,6 @@ mac-builder:
   when: always
   tags:
     - mac
-  except:
-    - master
 
 windows-builder-x86:
   stage: build-openshot-qt
@@ -66,8 +62,6 @@ windows-builder-x86:
   when: always
   tags:
     - windows
-  except:
-    - master
 
 windows-builder-x64:
   stage: build-openshot-qt
@@ -87,5 +81,3 @@ windows-builder-x64:
   when: always
   tags:
     - windows
-  except:
-    - master
