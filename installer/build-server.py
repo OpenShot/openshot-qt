@@ -494,10 +494,6 @@ try:
             # Notify Slack
             slack_upload_log(log, "%s: Build logs for %s" % (platform.system(), app_name), "Successful *%s* build: %s" % (git_branch_name, download_url))
 
-    else:
-        # App doesn't exist (something went wrong)
-        error("App Missing Error: %s does not exist" % app_build_path)
-
 except Exception as ex:
     tb = traceback.format_exc()
     error("Unhandled exception: %s - %s" % (str(ex), str(tb)))
