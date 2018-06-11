@@ -235,6 +235,7 @@ try:
 
     # Get GIT description of openshot-qt-git branch (i.e. v2.0.6-18-ga01a98c)
     openshot_qt_git_desc = ""
+    needs_upload = True
     for line in run_command("git describe --tags"):
         git_description = line.decode("utf-8").strip()
         openshot_qt_git_desc = "OpenShot-%s" % git_description
@@ -258,6 +259,12 @@ try:
             if not github_release:
                 # Create a new release if one if missing
                 github_release = repo.create_release(git_description, target_commitish="master", prerelease=True)
+        else:
+            # Make filename more descriptive for daily builds
+            openshot_qt_git_desc = "%s-%s-%s" % (openshot_qt_git_desc, version_info.get('libopenshot').get('CI_COMMIT_SHA')[:8], version_info.get('libopenshot-audio').get('CI_COMMIT_SHA')[:8])
+            # Get daily git_release object
+            github_release = get_release(repo, "daily")
+            needs_upload = False
 
     # Output git desription
     output("git description of openshot-qt-git: %s" % openshot_qt_git_desc)
@@ -456,7 +463,7 @@ try:
 
 
     # Upload Installer to GitHub (if build path exists)
-    if os.path.exists(app_build_path):
+    if needs_upload and os.path.exists(app_build_path):
         # Upload file to GitHub
         output("GitHub: Uploading %s to GitHub Release: %s" % (app_build_path, github_release.tag_name))
         download_url = upload(app_build_path, github_release)
