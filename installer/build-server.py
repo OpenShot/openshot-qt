@@ -269,6 +269,9 @@ try:
     # Output git desription
     output("git description of openshot-qt-git: %s" % openshot_qt_git_desc)
 
+    # Output git desription
+    output("git description of openshot-qt-git: %s" % openshot_qt_git_desc)
+
     # Detect version number from git description
     version = re.search('v(.+?)($|-)', openshot_qt_git_desc).groups()[0]
 
@@ -503,3 +506,4 @@ except Exception as ex:
 if errors_detected:
     slack_upload_log(log, "%s: Error log for *%s* build" % (platform.system(), git_branch_name), ":skull_and_crossbones: %s" % truncate(errors_detected[0], 150))
     exit(1)
+
