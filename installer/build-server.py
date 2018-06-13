@@ -347,13 +347,12 @@ try:
         app_image_success = False
         for line in run_command('/home/ubuntu/apps/AppImageKit/AppImageAssistant "%s" "%s"' % (app_dir_path, app_build_path)):
             output(line)
-            if "completed sucessfully".encode("UTF-8") in line:
-                app_image_success = True
+        app_image_success = os.path.exists(app_build_path)
 
         # Was the AppImage creation successful
         if not app_image_success or errors_detected:
             # AppImage failed
-            error("AppImageKit Error: AppImageAssistant did not output 'completed successfully'")
+            error("AppImageKit Error: AppImageAssistant did not output the AppImage file")
             needs_upload = False
 
             # Delete build (since something failed)
