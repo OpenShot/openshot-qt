@@ -316,7 +316,7 @@ try:
 
         # Create AppRun file
         app_run_path = os.path.join(app_dir_path, "AppRun")
-        shutil.copyfile("/home/jonathan/apps/AppImageKit/AppRun", app_run_path)
+        shutil.copyfile("/home/ubuntu/apps/AppImageKit/AppRun", app_run_path)
 
         # Create .desktop file
         with open(os.path.join(app_dir_path, "openshot-qt.desktop"), "w") as f:
@@ -335,7 +335,7 @@ try:
         launcher_path = os.path.join(app_dir_path, "usr", "bin", "openshot-qt")
         os.rename(os.path.join(app_dir_path, "usr", "bin", "launch-linux.sh"), launcher_path)
         desktop_wrapper = os.path.join(app_dir_path, "usr", "bin", "openshot-qt.wrapper")
-        shutil.copyfile("/home/jonathan/apps/AppImageKit/desktopintegration", desktop_wrapper)
+        shutil.copyfile("/home/ubuntu/apps/AppImageKit/desktopintegration", desktop_wrapper)
 
         # Change permission of AppRun (and desktop.wrapper) file (add execute permission)
         st = os.stat(app_run_path)
@@ -345,7 +345,7 @@ try:
 
         # Create AppImage (OpenShot-%s-x86_64.AppImage)
         app_image_success = False
-        for line in run_command('/home/jonathan/apps/AppImageKit/AppImageAssistant "%s" "%s"' % (app_dir_path, app_build_path)):
+        for line in run_command('/home/ubuntu/apps/AppImageKit/AppImageAssistant "%s" "%s"' % (app_dir_path, app_build_path)):
             output(line)
             if "completed sucessfully".encode("UTF-8") in line:
                 app_image_success = True
