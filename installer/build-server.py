@@ -235,6 +235,7 @@ try:
 
     # Get GIT description of openshot-qt-git branch (i.e. v2.0.6-18-ga01a98c)
     openshot_qt_git_desc = ""
+    needs_upload = True
     for line in run_command("git describe --tags"):
         git_description = line.decode("utf-8").strip()
         openshot_qt_git_desc = "OpenShot-%s" % git_description
@@ -258,6 +259,15 @@ try:
             if not github_release:
                 # Create a new release if one if missing
                 github_release = repo.create_release(git_description, target_commitish="master", prerelease=True)
+        else:
+            # Make filename more descriptive for daily builds
+            openshot_qt_git_desc = "%s-%s-%s" % (openshot_qt_git_desc, version_info.get('libopenshot').get('CI_COMMIT_SHA')[:8], version_info.get('libopenshot-audio').get('CI_COMMIT_SHA')[:8])
+            # Get daily git_release object
+            github_release = get_release(repo, "daily")
+            needs_upload = False
+
+    # Output git desription
+    output("git description of openshot-qt-git: %s" % openshot_qt_git_desc)
 
     # Output git desription
     output("git description of openshot-qt-git: %s" % openshot_qt_git_desc)
@@ -306,7 +316,7 @@ try:
 
         # Create AppRun file
         app_run_path = os.path.join(app_dir_path, "AppRun")
-        shutil.copyfile("/home/jonathan/apps/AppImageKit/AppRun", app_run_path)
+        shutil.copyfile("/home/ubuntu/apps/AppImageKit/AppRun", app_run_path)
 
         # Create .desktop file
         with open(os.path.join(app_dir_path, "openshot-qt.desktop"), "w") as f:
@@ -325,7 +335,7 @@ try:
         launcher_path = os.path.join(app_dir_path, "usr", "bin", "openshot-qt")
         os.rename(os.path.join(app_dir_path, "usr", "bin", "launch-linux.sh"), launcher_path)
         desktop_wrapper = os.path.join(app_dir_path, "usr", "bin", "openshot-qt.wrapper")
-        shutil.copyfile("/home/jonathan/apps/AppImageKit/desktopintegration", desktop_wrapper)
+        shutil.copyfile("/home/ubuntu/apps/AppImageKit/desktopintegration", desktop_wrapper)
 
         # Change permission of AppRun (and desktop.wrapper) file (add execute permission)
         st = os.stat(app_run_path)
@@ -335,15 +345,14 @@ try:
 
         # Create AppImage (OpenShot-%s-x86_64.AppImage)
         app_image_success = False
-        for line in run_command('/home/jonathan/apps/AppImageKit/AppImageAssistant "%s" "%s"' % (app_dir_path, app_build_path)):
+        for line in run_command('/home/ubuntu/apps/AppImageKit/AppImageAssistant "%s" "%s"' % (app_dir_path, app_build_path)):
             output(line)
-            if "completed sucessfully".encode("UTF-8") in line:
-                app_image_success = True
+        app_image_success = os.path.exists(app_build_path)
 
         # Was the AppImage creation successful
         if not app_image_success or errors_detected:
             # AppImage failed
-            error("AppImageKit Error: AppImageAssistant did not output 'completed successfully'")
+            error("AppImageKit Error: AppImageAssistant did not output the AppImage file")
             needs_upload = False
 
             # Delete build (since something failed)
@@ -456,7 +465,7 @@ try:
 
 
     # Upload Installer to GitHub (if build path exists)
-    if os.path.exists(app_build_path):
+    if needs_upload and os.path.exists(app_build_path):
         # Upload file to GitHub
         output("GitHub: Uploading %s to GitHub Release: %s" % (app_build_path, github_release.tag_name))
         download_url = upload(app_build_path, github_release)
@@ -487,10 +496,6 @@ try:
             # Notify Slack
             slack_upload_log(log, "%s: Build logs for %s" % (platform.system(), app_name), "Successful *%s* build: %s" % (git_branch_name, download_url))
 
-    else:
-        # App doesn't exist (something went wrong)
-        error("App Missing Error: %s does not exist" % app_build_path)
-
 except Exception as ex:
     tb = traceback.format_exc()
     error("Unhandled exception: %s - %s" % (str(ex), str(tb)))
@@ -500,3 +505,4 @@ except Exception as ex:
 if errors_detected:
     slack_upload_log(log, "%s: Error log for *%s* build" % (platform.system(), git_branch_name), ":skull_and_crossbones: %s" % truncate(errors_detected[0], 150))
     exit(1)
+
