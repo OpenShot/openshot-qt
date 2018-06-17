@@ -269,6 +269,9 @@ try:
     # Output git desription
     output("git description of openshot-qt-git: %s" % openshot_qt_git_desc)
 
+    # Output git desription
+    output("git description of openshot-qt-git: %s" % openshot_qt_git_desc)
+
     # Detect version number from git description
     version = re.search('v(.+?)($|-)', openshot_qt_git_desc).groups()[0]
 
@@ -313,7 +316,7 @@ try:
 
         # Create AppRun file
         app_run_path = os.path.join(app_dir_path, "AppRun")
-        shutil.copyfile("/home/jonathan/apps/AppImageKit/AppRun", app_run_path)
+        shutil.copyfile("/home/ubuntu/apps/AppImageKit/AppRun", app_run_path)
 
         # Create .desktop file
         with open(os.path.join(app_dir_path, "openshot-qt.desktop"), "w") as f:
@@ -332,7 +335,7 @@ try:
         launcher_path = os.path.join(app_dir_path, "usr", "bin", "openshot-qt")
         os.rename(os.path.join(app_dir_path, "usr", "bin", "launch-linux.sh"), launcher_path)
         desktop_wrapper = os.path.join(app_dir_path, "usr", "bin", "openshot-qt.wrapper")
-        shutil.copyfile("/home/jonathan/apps/AppImageKit/desktopintegration", desktop_wrapper)
+        shutil.copyfile("/home/ubuntu/apps/AppImageKit/desktopintegration", desktop_wrapper)
 
         # Change permission of AppRun (and desktop.wrapper) file (add execute permission)
         st = os.stat(app_run_path)
@@ -342,15 +345,14 @@ try:
 
         # Create AppImage (OpenShot-%s-x86_64.AppImage)
         app_image_success = False
-        for line in run_command('/home/jonathan/apps/AppImageKit/AppImageAssistant "%s" "%s"' % (app_dir_path, app_build_path)):
+        for line in run_command('/home/ubuntu/apps/AppImageKit/AppImageAssistant "%s" "%s"' % (app_dir_path, app_build_path)):
             output(line)
-            if "completed sucessfully".encode("UTF-8") in line:
-                app_image_success = True
+        app_image_success = os.path.exists(app_build_path)
 
         # Was the AppImage creation successful
         if not app_image_success or errors_detected:
             # AppImage failed
-            error("AppImageKit Error: AppImageAssistant did not output 'completed successfully'")
+            error("AppImageKit Error: AppImageAssistant did not output the AppImage file")
             needs_upload = False
 
             # Delete build (since something failed)
@@ -503,3 +505,4 @@ except Exception as ex:
 if errors_detected:
     slack_upload_log(log, "%s: Error log for *%s* build" % (platform.system(), git_branch_name), ":skull_and_crossbones: %s" % truncate(errors_detected[0], 150))
     exit(1)
+
