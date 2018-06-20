@@ -36,6 +36,18 @@ mac-builder:
     -    "curl -O -J -L --header PRIVATE-TOKEN:$ACCESS_TOKEN http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/develop/download?job=mac-builder"
     - fi
     - unzip artifacts.zip
+    - echo "Update extracted dependencies using install_name_tool (for Mac only)"
+    - libraries=$( find ./build/install-x64 -type f \( -name *.dylib -or -name *.so \) | sed 's/\.\/*//' )
+    - for f in $libraries; do
+    -   echo "file f = $f"
+    -   dependencies=$(oTool -L $f | grep libopenshot | sed 's/ .*//' | xargs)
+    -   for d in $dependencies; do
+    -     echo "dependency d = $d"
+    -     dname="$(basename $d)"
+    -     echo "dependency fullpath = $CI_PROJECT_DIR/build/install-x64/lib/$dname"
+    -     install_name_tool -change "$d" "$CI_PROJECT_DIR/build/install-x64/lib/$dname" "$f"
+    -   done
+    - done
     - cp -r "$CI_PROJECT_DIR/build/install-x64/python/." "$CI_PROJECT_DIR"
     - export LD_LIBRARY_PATH=$CI_PROJECT_DIR/build/install-x64/lib:$LD_LIBRARY_PATH
     - export DYLD_LIBRARY_PATH=$CI_PROJECT_DIR/build/install-x64/lib:DYLD_LIBRARY_PATH
