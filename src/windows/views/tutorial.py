@@ -321,7 +321,6 @@ class TutorialManager(object):
 
     def __init__(self, win):
         """ Constructor """
-        self.tutorials = []
         self.win = win
         self.current_dialog = None
 
