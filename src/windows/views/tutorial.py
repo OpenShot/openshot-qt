@@ -74,11 +74,16 @@ class TutorialDialog(QWidget):
     def eventFilter(self, object, e):
         if e.type() == QEvent.WindowActivate:
             # Raise parent window, and then this tutorial
-            get_app().window.showNormal()
+            #log.info("Raising main app and tutorial popup")
+            get_app().window.show()
             get_app().window.raise_()
+            self.moveWidget()
+            self.show()
             self.raise_()
-
-        return False
+            # Filter event out (prevent further handling)
+            return True
+        else:
+            return False
 
     def moveWidget(self):
         """ Move widget next to its position widget """
@@ -170,9 +175,9 @@ class TutorialDialog(QWidget):
 
         # Make it's own window
         self.setWindowTitle("Tutorial")
-        self.setWindowFlags(Qt.Window | Qt.FramelessWindowHint)
+        self.setWindowFlags(Qt.Dialog | Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground, True)
-        self.setFocusPolicy(Qt.NoFocus)
+        self.setFocusPolicy(Qt.ClickFocus)
 
         # Position window next to other widget
         self.moveWidget()
