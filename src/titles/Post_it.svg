@@ -494,7 +494,7 @@
          id="tspan2397"
          x="497.38654"
          y="164.25645"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:82.35334778px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'Sans Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none">Line 1</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:82.35334778px;line-height:125%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Sans Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none">Line 1</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter3998-6-8)"
@@ -506,7 +506,7 @@
          id="tspan2397-7"
          x="497.38654"
          y="164.25645"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:82.35334778px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'Sans Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none">Line 2</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:82.35334778px;line-height:125%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Sans Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none">Line 2</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter3998-6-7)"
@@ -518,7 +518,7 @@
          id="tspan2397-9"
          x="497.38654"
          y="164.25645"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:82.35334778px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'Sans Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none">Line 3</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:82.35334778px;line-height:125%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Sans Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none">Line 3</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter3998-6-4)"
@@ -530,6 +530,6 @@
          id="tspan2397-3"
          x="497.38654"
          y="164.25645"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:82.35334778px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'Sans Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none">Line 4</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:82.35334778px;line-height:125%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Sans Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none">Line 4</tspan></text>
   </g>
 </svg>
