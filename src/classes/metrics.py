@@ -5,7 +5,7 @@
 
  @section LICENSE
 
- Copyright (c) 2008-2016 OpenShot Studios, LLC
+ Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -154,7 +154,7 @@ def send_metric(params):
 
         # Send metric HTTP data
         try:
-            r = requests.get(url, headers={"user-agent": user_agent})
+            r = requests.get(url, headers={"user-agent": user_agent}, verify=False)
             log.info("Track metric: [%s] %s | (%s bytes)" % (r.status_code, r.url, len(r.content)))
 
         except Exception as Ex:
@@ -174,7 +174,7 @@ def send_exception(stacktrace, source):
 
         # Send exception HTTP data
         try:
-            r = requests.post(url, data=data, headers={"user-agent": user_agent, "content-type": "application/x-www-form-urlencoded"})
+            r = requests.post(url, data=data, headers={"user-agent": user_agent, "content-type": "application/x-www-form-urlencoded"}, verify=False)
             log.info("Track exception: [%s] %s | %s" % (r.status_code, r.url, r.text))
 
         except Exception as Ex:

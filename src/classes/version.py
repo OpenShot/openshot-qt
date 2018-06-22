@@ -5,7 +5,7 @@
 
  @section LICENSE
 
- Copyright (c) 2008-2016 OpenShot Studios, LLC
+ Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -48,7 +48,7 @@ def get_version_from_http():
 
     # Send metric HTTP data
     try:
-        r = requests.get(url, headers={"user-agent": "openshot-qt-%s" % info.VERSION})
+        r = requests.get(url, headers={"user-agent": "openshot-qt-%s" % info.VERSION}, verify=False)
         log.info("Found current version: %s" % r.text)
 
         # Parse version

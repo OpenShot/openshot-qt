@@ -327,6 +327,13 @@
   },
   {
     "value": true,
+    "title": "Enable Hardware Decode",
+    "type": "hidden",
+    "category": "Performance",
+    "setting": "hardware_decode"
+  },
+  {
+    "value": true,
     "title": "",
     "type": "hidden",
     "category": "Tutorial",

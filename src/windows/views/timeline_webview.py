@@ -7,7 +7,7 @@
 
  @section LICENSE
 
- Copyright (c) 2008-2016 OpenShot Studios, LLC
+ Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -47,6 +47,7 @@ from classes.logger import log
 from classes.query import File, Clip, Transition, Track
 from classes.waveform import get_audio_data
 from classes.thumbnail import GenerateThumbnail
+from classes.conversion import zoomToSeconds, secondsToZoom
 
 try:
     import json
@@ -193,8 +194,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Reset the scale when loading new JSON
         if action.type == "load":
             # Set the scale again (to project setting)
-            initial_scale = get_app().project.get(["scale"]) or 20
-            get_app().window.sliderZoom.setValue(initial_scale)
+            initial_scale = get_app().project.get(["scale"]) or 16
+            get_app().window.sliderZoom.setValue(secondsToZoom(initial_scale))
 
     # Javascript callable function to update the project data when a clip changes
     @pyqtSlot(str)
@@ -1641,6 +1642,14 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
     def Slice_Triggered(self, action, clip_ids, trans_ids, playhead_position=0):
         """Callback for slice context menus"""
+        # Get FPS from project
+        fps = get_app().project.get(["fps"])
+        fps_num = fps["num"]
+        fps_den = fps["den"]
+
+        # Get the nearest starting frame position to the playhead (this helps to prevent cutting
+        # in-between frames, and thus less likely to repeat or skip a frame).
+        playhead_position = float(round((playhead_position * fps_num) / fps_den ) * fps_den ) / fps_num
 
         # Loop through each clip (using the list of ids)
         for clip_id in clip_ids:
@@ -2442,8 +2451,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
     def update_zoom(self, newValue):
         _ = get_app()._tr
 
+        # Convert slider value (passed in) to a scale (in seconds)
+        newScale = zoomToSeconds(newValue)
+
         # Set zoom label
-        self.window.zoomScaleLabel.setText(_("{} seconds").format(newValue))
+        self.window.zoomScaleLabel.setText(_("{} seconds").format(newScale))
 
         # Determine X coordinate of cursor (to center zoom on)
         cursor_y = self.mapFromGlobal(self.cursor().pos()).y()
@@ -2452,15 +2464,15 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         else:
             cursor_x = 0
 
-        # Get access to timeline scope and set scale to zoom slider value (passed in)
-        cmd = JS_SCOPE_SELECTOR + ".setScale(" + str(newValue) + "," + str(cursor_x) + ");"
+        # Get access to timeline scope and set scale to new computed value
+        cmd = JS_SCOPE_SELECTOR + ".setScale(" + str(newScale) + "," + str(cursor_x) + ");"
         self.page().mainFrame().evaluateJavaScript(cmd)
 
         # Start timer to redraw audio
         self.redraw_audio_timer.start()
 
         # Save current zoom
-        get_app().updates.update(["scale"], newValue)
+        get_app().updates.update(["scale"], newScale)
 
     def keyPressEvent(self, event):
         """ Keypress callback for timeline """
@@ -2730,16 +2742,13 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
             # Add clips for each file dropped
             for uri in event.mimeData().urls():
-                file_url = urlparse(uri.toString())
-                if file_url.scheme == "file":
-                    filepath = file_url.path
-                    if sys.platform == "win32":
-                        filepath = filepath[1:]  # Remove / at beginning of path (just for Windows)
-                    if os.path.exists(filepath.encode('UTF-8')) and os.path.isfile(filepath.encode('UTF-8')):
-                        # Valid file, so create clip for it
-                        for file in File.filter(path=filepath):
-                            # Insert clip for this file at this position
-                            self.addClip([file.id], pos)
+                filepath = uri.toLocalFile()
+                if os.path.exists(filepath) and os.path.isfile(filepath):
+                    # Valid file, so create clip for it
+                    log.info('Adding clip for {}'.format(os.path.basename(filepath)))
+                    for file in File.filter(path=filepath):
+                        # Insert clip for this file at this position
+                        self.addClip([file.id], pos)
 
         # Clear new clip
         self.new_item = False

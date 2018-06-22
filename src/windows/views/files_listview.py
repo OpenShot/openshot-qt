@@ -6,7 +6,7 @@
  
  @section LICENSE
  
- Copyright (c) 2008-2016 OpenShot Studios, LLC
+ Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -273,17 +273,13 @@ class FilesListView(QListView):
         # Reset list of ignored image sequences paths
         self.ignore_image_sequence_paths = []
 
-        # log.info('Dropping file(s) on files tree.')
         for uri in event.mimeData().urls():
-            file_url = urlparse(uri.toString())
-            if file_url.scheme == "file":
-                filepath = file_url.path
-                if sys.platform == "win32":
-                    filepath = filepath[1:] # Remove / at beginning of path (just for Windows)
-                if os.path.exists(filepath.encode('UTF-8')) and os.path.isfile(filepath.encode('UTF-8')):
-                    log.info('Adding file: {}'.format(filepath))
-                    if self.add_file(filepath):
-                        event.accept()
+            log.info('Processing drop event for {}'.format(uri))
+            filepath = uri.toLocalFile()
+            if os.path.exists(filepath) and os.path.isfile(filepath):
+                log.info('Adding file: {}'.format(filepath))
+                if self.add_file(filepath):
+                    event.accept()
 
     def clear_filter(self):
         if self:

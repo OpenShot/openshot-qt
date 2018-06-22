@@ -5,7 +5,7 @@
 
  @section LICENSE
 
- Copyright (c) 2008-2016 OpenShot Studios, LLC
+ Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -24,7 +24,7 @@
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
-
+import time
 import os
 import locale
 import xml.dom.minidom as xml
@@ -285,8 +285,10 @@ class Export(QDialog):
 
     def updateProgressBar(self, path, start_frame, end_frame, current_frame):
         """Update progress bar during exporting"""
+        percentage_string = "%4.1f%% " % (( current_frame - start_frame ) / ( end_frame - start_frame ) * 100)
         self.progressExportVideo.setValue(current_frame)
-        self.setWindowTitle("%s - %s" % (self.progressExportVideo.text(), "Export Window"))
+        self.progressExportVideo.setFormat(percentage_string)
+        self.setWindowTitle("%s %s" % (percentage_string, path))
 
     def updateChannels(self):
         """Update the # of channels to match the channel layout"""
@@ -710,13 +712,22 @@ class Export(QDialog):
             w.Open()
 
             # Notify window of export started
+            export_file_path = ""
             get_app().window.ExportStarted.emit(export_file_path, video_settings.get("start_frame"), video_settings.get("end_frame"))
 
-            progressstep = max(1 , round(( video_settings.get("end_frame") - video_settings.get("start_frame") ) / 100));
+            progressstep = max(1 , round(( video_settings.get("end_frame") - video_settings.get("start_frame") ) / 1000))
+            start_time_export = time.time()
+            start_frame_export = video_settings.get("start_frame")
+            end_frame_export = video_settings.get("end_frame")
             # Write each frame in the selected range
             for frame in range(video_settings.get("start_frame"), video_settings.get("end_frame")):
                 # Update progress bar (emit signal to main window)
                 if (frame % progressstep) == 0:
+                    end_time_export = time.time()
+                    if ((( frame - start_frame_export ) != 0) & (( end_time_export - start_time_export ) != 0)):
+                        seconds_left = round(( start_time_export - end_time_export )*( frame - end_frame_export )/( frame - start_frame_export ))
+                        fps_encode = ((frame - start_frame_export)/(end_time_export-start_time_export))
+                        export_file_path =  _("%d:%02d:%02d Remaining (%5.2f FPS)") % (seconds_left / 3600, (seconds_left / 60) % 60, seconds_left % 60, fps_encode)
                     get_app().window.ExportFrame.emit(export_file_path, video_settings.get("start_frame"), video_settings.get("end_frame"), frame)
 
                 # Process events (to show the progress bar moving)
