@@ -2053,17 +2053,37 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def moveEvent(self, event):
         """ Move tutorial dialogs also (if any)"""
+        QMainWindow.moveEvent(self, event)
         if self.tutorial_manager:
+            #log.info("Sending move event to tutorial manager")
             self.tutorial_manager.re_position_dialog()
 
-    def eventFilter(self, object, e):
-        """ Filter out certain types of window events """
-        if e.type() == QEvent.WindowActivate:
-            self.tutorial_manager.re_show_dialog()
-        elif e.type() == QEvent.WindowStateChange and self.isMinimized():
-            self.tutorial_manager.minimize()
+    def resizeEvent(self, event):
+        QMainWindow.resizeEvent(self, event)
+        if self.tutorial_manager:
+            #log.info("Sending resize event to tutorial manager")
+            self.tutorial_manager.re_position_dialog()
 
-        return False
+    def showEvent(self, event):
+        """ Have any child windows follow main-window state """
+        #log.info("Showing main window")
+        QMainWindow.showEvent(self, event)
+        for child in self.findChildren(QDockWidget):
+            if child.isFloating() and child.isEnabled():
+                # child.setWindowState(self.windowState())
+                #log.info("Showing child {}".format(child.windowTitle()))
+                child.raise_()
+                child.show()
+
+    def hideEvent(self, event):
+        """ Have any child windows hide with main window """
+        #log.info("Hiding main window")
+        QMainWindow.hideEvent(self, event)
+        for child in self.findChildren(QDockWidget):
+            if child.isFloating() and child.isVisible():
+                #log.info("Hiding child {}".format(child.windowTitle()))
+                child.hide()
+
 
     def show_property_timeout(self):
         """Callback for show property timer"""
@@ -2315,9 +2335,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.has_launcher = True
             self.ExportFrame.connect(self.FrameExported)
             self.ExportEnded.connect(self.ExportFinished)
-
-        # Install event filter
-        self.installEventFilter(self)
 
         # Save settings
         s.save()
