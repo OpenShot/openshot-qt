@@ -29,7 +29,7 @@ import functools
 
 from PyQt5.QtCore import Qt, QPoint, QRectF, QEvent
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QLabel, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QToolButton, QCheckBox
+from PyQt5.QtWidgets import QLabel, QWidget, QDockWidget, QVBoxLayout, QHBoxLayout, QPushButton, QToolButton, QCheckBox
 
 from classes.logger import log
 from classes.settings import get_settings
@@ -38,7 +38,7 @@ from classes.metrics import *
 
 
 class TutorialDialog(QWidget):
-    """ A QWidget used to instruct a user how to use a certain feature """
+    """ A customized QWidget used to instruct a user how to use a certain feature """
 
     def paintEvent(self, event, *args):
         """ Custom paint event """
@@ -71,26 +71,6 @@ class TutorialDialog(QWidget):
             painter.fillPath(path, QColor("#53a0ed"))
             painter.drawPath(path)
 
-    def eventFilter(self, object, e):
-        if e.type() == QEvent.WindowActivate:
-            # Raise parent window, and then this tutorial
-            #log.info("Raising main app and tutorial popup")
-            get_app().window.show()
-            get_app().window.raise_()
-            self.moveWidget()
-            self.show()
-            self.raise_()
-            # Filter event out (prevent further handling)
-            return True
-        else:
-            return False
-
-    def moveWidget(self):
-        """ Move widget next to its position widget """
-        x = self.position_widget.mapToGlobal(self.position_widget.pos()).x()
-        y = self.position_widget.mapToGlobal(self.position_widget.pos()).y()
-        self.move(QPoint(x + self.x_offset, y + self.y_offset))
-
     def checkbox_metrics_callback(self, state):
         """ Callback for error and anonymous usage checkbox"""
         s = get_settings()
@@ -107,7 +87,7 @@ class TutorialDialog(QWidget):
             # Disable metric sending
             s.set("send_metrics", False)
 
-    def __init__(self, id, text, position_widget, x_offset, y_offset, arrow, *args):
+    def __init__(self, id, text, arrow, *args):
         # Invoke parent init
         QWidget.__init__(self, *args)
 
@@ -117,9 +97,6 @@ class TutorialDialog(QWidget):
 
         # Keep track of widget to position next to
         self.id = id
-        self.position_widget = position_widget
-        self.x_offset = x_offset
-        self.y_offset = y_offset
         self.arrow = arrow
 
         # Create vertical box
@@ -173,17 +150,9 @@ class TutorialDialog(QWidget):
         self.setMinimumWidth(350)
         self.setMinimumHeight(100)
 
-        # Make it's own window
-        self.setWindowTitle("Tutorial")
-        self.setWindowFlags(Qt.Dialog | Qt.FramelessWindowHint)
+        # Make transparent
         self.setAttribute(Qt.WA_TranslucentBackground, True)
-        self.setFocusPolicy(Qt.ClickFocus)
-
-        # Position window next to other widget
-        self.moveWidget()
-
-        # Install event filter
-        self.installEventFilter(self)
+        #self.setWindowFlags(Qt.FramelessWindowHint)
 
 
 class TutorialManager(object):
@@ -191,11 +160,12 @@ class TutorialManager(object):
 
     def process(self, parent_name=None):
         """ Process and show the first non-completed tutorial """
-        log.info("process tutorial dialogs")
 
         # Do nothing if a tutorial is already visible
         if self.current_dialog:
-            self.re_show_dialog()
+            # XXX: Respond to possible dock floats/moves
+            self.dock.raise_()
+            self.re_position_dialog()
             return
 
         # Loop through and add each tutorial dialog
@@ -216,15 +186,25 @@ class TutorialManager(object):
                 continue
 
             # Create tutorial
-            tutorial_dialog = TutorialDialog(tutorial_id, tutorial_text, tutorial_object, tutorial_x_offset, tutorial_y_offset, turorial_arrow)
+            self.position_widget = tutorial_object
+            self.x_offset = tutorial_x_offset
+            self.y_offset = tutorial_y_offset
+            tutorial_dialog = TutorialDialog(tutorial_id, tutorial_text, turorial_arrow)
 
             # Connect signals
             tutorial_dialog.btn_next_tip.clicked.connect(functools.partial(self.next_tip, tutorial_id))
             tutorial_dialog.btn_close_tips.clicked.connect(functools.partial(self.hide_tips, tutorial_id, True))
 
-            # Show dialog
+            # Insert into tutorial dock
+            self.dock.setWidget(tutorial_dialog)
             self.current_dialog = tutorial_dialog
-            self.current_dialog.show()
+
+            # Show dialog
+            self.dock.adjustSize()
+            self.dock.setEnabled(True)
+            self.re_position_dialog()
+            #self.current_dialog.show()
+            self.dock.show()
             break
 
     def get_object(self, object_id):
@@ -250,17 +230,14 @@ class TutorialManager(object):
 
     def next_tip(self, tid):
         """ Mark the current tip completed, and show the next one """
-        log.info("next_tip")
-
         # Hide matching tutorial
         self.hide_tips(tid)
 
-        # Process the next type
+        # Advance to the next one
         self.process()
 
     def hide_tips(self, tid, user_clicked=False):
         """ Hide the current tip, and don't show anymore """
-        log.info("hide_tips")
         s = get_settings()
 
         # Loop through and find current tid
@@ -284,7 +261,8 @@ class TutorialManager(object):
     def close_dialogs(self):
         """ Close any open tutorial dialogs """
         if self.current_dialog:
-            self.current_dialog.hide()
+            self.dock.hide()
+            self.dock.setEnabled(False)
             self.current_dialog = None
 
     def exit_manager(self):
@@ -305,23 +283,21 @@ class TutorialManager(object):
     def re_show_dialog(self):
         """ Re show an active dialog """
         if self.current_dialog:
-            self.current_dialog.showNormal()
-            self.current_dialog.raise_()
+            self.dock.raise_()
+            self.dock.show()
 
     def re_position_dialog(self):
         """ Reposition a tutorial dialog next to another widget """
         if self.current_dialog:
-            self.current_dialog.moveWidget()
-
-    def minimize(self):
-        """ Minimize any visible tutorial dialog """
-        log.info("minimize tutorial")
-        if self.current_dialog:
-            self.current_dialog.showMinimized()
+            """ Move widget next to its position widget """
+            x = self.position_widget.mapToGlobal(self.position_widget.pos()).x()
+            y = self.position_widget.mapToGlobal(self.position_widget.pos()).y()
+            self.dock.move(QPoint(x + self.x_offset, y + self.y_offset))
 
     def __init__(self, win):
         """ Constructor """
         self.win = win
+        self.dock = win.dockTutorial
         self.current_dialog = None
 
         # get translations
@@ -344,7 +320,14 @@ class TutorialManager(object):
                                      {"id":"7", "x":-265, "y":-22, "object_id":"export_button", "text":_("<b>Export Video:</b> When you are ready to create your finished video, click this button to export your timeline as a single video file."), "arrow":True}
                                 ]
 
-        # Connect to dock widgets
+        # Configure tutorial frame
+        self.dock.setTitleBarWidget(QWidget()) # Prevents window decoration
+        self.dock.setAttribute(Qt.WA_TranslucentBackground, True)
+        self.dock.setWindowFlags(Qt.FramelessWindowHint)
+        self.dock.setFloating(True)
+
+
+        # Connect to interface dock widgets
         self.win.dockFiles.visibilityChanged.connect(functools.partial(self.process, "dockFiles"))
         self.win.dockTransitions.visibilityChanged.connect(functools.partial(self.process, "dockTransitions"))
         self.win.dockEffects.visibilityChanged.connect(functools.partial(self.process, "dockEffects"))
