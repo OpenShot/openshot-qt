@@ -727,7 +727,10 @@ class Export(QDialog):
                     if ((( frame - start_frame_export ) != 0) & (( end_time_export - start_time_export ) != 0)):
                         seconds_left = round(( start_time_export - end_time_export )*( frame - end_frame_export )/( frame - start_frame_export ))
                         fps_encode = ((frame - start_frame_export)/(end_time_export-start_time_export))
-                        export_file_path =  _("%d:%02d:%02d Remaining (%5.2f FPS)") % (seconds_left / 3600, (seconds_left / 60) % 60, seconds_left % 60, fps_encode)
+                        export_file_path =  _("%(hours)d:%(minutes)02d:%(seconds)02d Remaining (%(fps)5.2f FPS)") % { 'hours' : seconds_left / 3600,
+                                                                                                                      'minutes': (seconds_left / 60) % 60,
+                                                                                                                      'seconds': seconds_left % 60,
+                                                                                                                      'fps': fps_encode }
                     get_app().window.ExportFrame.emit(export_file_path, video_settings.get("start_frame"), video_settings.get("end_frame"), frame)
 
                 # Process events (to show the progress bar moving)
