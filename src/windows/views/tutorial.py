@@ -45,19 +45,20 @@ class TutorialDialog(QWidget):
         # Paint custom frame image on QWidget
         painter = QPainter(self)
         painter.setRenderHint(QPainter.Antialiasing)
+        frameColor = QColor("#53a0ed")
 
         # Paint blue rounded rectangle
         path = QPainterPath()
         path.addRoundedRect(QRectF(31, 0, self.width()-31, self.height()), 10, 10)
         painter.setPen(Qt.NoPen)
-        painter.fillPath(path, QColor("#53a0ed"))
+        painter.fillPath(path, frameColor)
         painter.drawPath(path)
 
         # Paint gray rounded rectangle
         path = QPainterPath()
         path.addRoundedRect(QRectF(32, 1, self.width()-33, self.height()-2), 10, 10)
         painter.setPen(Qt.NoPen)
-        painter.fillPath(path, QColor("#424242"))
+        painter.fillPath(path, self.palette().color(QPalette.Window))
         painter.drawPath(path)
 
         # Paint blue triangle (if needed)
@@ -68,7 +69,7 @@ class TutorialDialog(QWidget):
             path.lineTo (31, 35 - arrow_height)
             path.lineTo (31, (35 - arrow_height) + (arrow_height * 2))
             path.lineTo (0, 35)
-            painter.fillPath(path, QColor("#53a0ed"))
+            painter.fillPath(path, frameColor)
             painter.drawPath(path)
 
     def checkbox_metrics_callback(self, state):
