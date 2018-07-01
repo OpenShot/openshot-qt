@@ -27,9 +27,9 @@
 
 import os
 
-VERSION = "2.4.1-dev1"
-MINIMUM_LIBOPENSHOT_VERSION = "0.1.9"
-DATE = "20170509000000"
+VERSION = "2.4.2"
+MINIMUM_LIBOPENSHOT_VERSION = "0.2.0"
+DATE = "20180630000000"
 NAME = "openshot-qt"
 PRODUCT_NAME = "OpenShot Video Editor"
 GPL_VERSION = "3"
@@ -61,11 +61,7 @@ for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH, ASSETS_PATH,
         os.makedirs(folder, exist_ok=True)
 
 # names of all contributors, using "u" for unicode encoding
-AF = {"name": u"Andy Finch", "email": "andy@openshot.org", "website":"http://openshot.org/developers/andy"}
-NF = {"name": u"Noah Figg", "email": "eggmunkee@hotmail.com"}
 JT = {"name": u"Jonathan Thomas", "email": "jonathan@openshot.org", "website":"http://openshot.org/developers/jonathan"}
-OG = {"name": u"Olivier Girard", "email": "olivier@openshot.org", "website":"http://openshot.org/developers/olivier"}
-CP = {"name": u"Cody Parker", "email": "cody@yourcodepro.com", "website":"http://openshot.org/developers/cody_parker"}
 
 # Languages
 CURRENT_LANGUAGE = 'en_US'
@@ -73,14 +69,6 @@ SUPPORTED_LANGUAGES = ['en_US']
 for lang in os.listdir(os.path.join(PATH, 'locale')):
     if lang not in ["OpenShot"] and not os.path.isfile(os.path.join(PATH, 'locale', lang)):
         SUPPORTED_LANGUAGES.append(lang)
-
-# credits
-CREDITS = {
-    "code": [JT, NF, AF, CP, OG],
-    "artwork": [JT],
-    "documentation": [JT],
-    "translation": [OG],
-}
 
 SETUP = {
     "name": NAME,
