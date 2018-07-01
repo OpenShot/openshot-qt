@@ -1436,7 +1436,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 # Apply clipboard to clip (there should only be a single key in this dict)
                 for k,v in self.copy_clipboard[list(self.copy_clipboard)[0]].items():
                     if k != 'id':
-                        # Overwrite clips propeties (which are in the clipboard)
+                        # Overwrite clips properties (which are in the clipboard)
                         clip.data[k] = v
 
                 # Save changes
@@ -1455,7 +1455,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 # Apply clipboard to transition (there should only be a single key in this dict)
                 for k, v in self.copy_transition_clipboard[list(self.copy_transition_clipboard)[0]].items():
                     if k != 'id':
-                        # Overwrite transition propeties (which are in the clipboard)
+                        # Overwrite transition properties (which are in the clipboard)
                         tran.data[k] = v
 
                 # Save changes
