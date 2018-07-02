@@ -5,7 +5,7 @@
 	<title translatable="True">MP4 (Xvid)</title>
 	<videoformat>mp4</videoformat>
 	<videocodec>libxvid</videocodec>
-	<audiocodec>ac3</audiocodec>
+	<audiocodec>aac</audiocodec>
 	<audiochannels>2</audiochannels>
 	<audiochannellayout>3</audiochannellayout>
 	<videobitrate

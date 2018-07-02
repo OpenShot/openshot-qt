@@ -5,7 +5,7 @@
 	<title translatable="True">AVI (h.264)</title>
 	<videoformat>avi</videoformat>
 	<videocodec>libx264</videocodec>
-	<audiocodec>mp2</audiocodec>
+	<audiocodec>aac</audiocodec>
 	<audiochannels>2</audiochannels>
 	<audiochannellayout>3</audiochannellayout>
 	<videobitrate

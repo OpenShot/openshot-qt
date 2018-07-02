@@ -295,9 +295,13 @@ App.controller('TimelineCtrl',function($scope) {
 
   // Move the playhead to a specific time
   $scope.PreviewClipFrame = function(clip_id, position_seconds) {
-	  // Determine frame
+	  // Get the nearest starting frame position to the playhead (this helps to prevent cutting
+	  // in-between frames, and thus less likely to repeat or skip a frame).
+	  position_seconds_rounded = (Math.round((playhead_position * $scope.project.fps.num) / $scope.project.fps.den ) * $scope.project.fps.den ) / $scope.project.fps.num;
+
+  	  // Determine frame
 	  var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
-	  var frame = Math.round(position_seconds * frames_per_second) + 1;
+	  var frame = Math.round(position_seconds_rounded * frames_per_second) + 1;
 
 	  // Update GUI with position (to the preview can be updated)
 	  if ($scope.Qt)
@@ -521,6 +525,11 @@ App.controller('TimelineCtrl',function($scope) {
 		 // Convert x and y into timeline vars
 		 var scrolling_tracks_offset = $("#scrolling_tracks").offset().left;
 		 var clip_position = parseFloat(x - scrolling_tracks_offset) / parseFloat($scope.pixelsPerSecond);
+
+         // Get the nearest starting frame position to the clip position (this helps to prevent cutting
+         // in-between frames, and thus less likely to repeat or skip a frame).
+         clip_position = (Math.round((clip_position * $scope.project.fps.num) / $scope.project.fps.den ) * $scope.project.fps.den ) / $scope.project.fps.num;
+
 		 clip_json.position = clip_position;
 		 clip_json.layer = $scope.GetTrackAtY(y).number;
 		 
