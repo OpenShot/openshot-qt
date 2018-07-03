@@ -16,5 +16,5 @@
 	 low="96 kb/s"
 	 med="128 kb/s"
 	 high="192 kb/s"></audiobitrate>
-	<samplerate>44100</samplerate>
+	<samplerate>48000</samplerate>
 </export-option>
