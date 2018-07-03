@@ -123,7 +123,6 @@ class OpenShotApp(QApplication):
         if self.settings.get("theme") != "No Theme":
             # Load embedded font
             try:
-                log.info("Setting font to %s" % os.path.join(info.IMAGES_PATH, "fonts", "Ubuntu-R.ttf"))
                 font_id = QFontDatabase.addApplicationFont(os.path.join(info.IMAGES_PATH, "fonts", "Ubuntu-R.ttf"))
                 font_family = QFontDatabase.applicationFontFamilies(font_id)[0]
                 font = QFont(font_family)
@@ -135,7 +134,6 @@ class OpenShotApp(QApplication):
         # Set Experimental Dark Theme
         if self.settings.get("theme") == "Humanity: Dark":
             # Only set if dark theme selected
-            log.info("Setting custom dark theme")
             self.setStyle(QStyleFactory.create("Fusion"))
 
             darkPalette = self.palette()
@@ -163,7 +161,7 @@ class OpenShotApp(QApplication):
         self.updates.reset()
         self.window.updateStatusChanged(False, False)
 
-        log.info('Process command-line arguments: %s' % args)
+        log.debug('Process command-line arguments: %s' % args)
         if len(args[0]) == 2:
             path = args[0][1]
             if ".osp" in path:
