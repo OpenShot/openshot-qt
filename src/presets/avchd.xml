@@ -5,7 +5,7 @@
 	<title translatable="True">AVCHD Disks</title>
 	<videoformat>mp4</videoformat>
 	<videocodec>libx264</videocodec>
-	<audiocodec>ac3</audiocodec>
+	<audiocodec>aac</audiocodec>
 	<audiochannels>2</audiochannels>
 	<audiochannellayout>3</audiochannellayout>
 	<videobitrate

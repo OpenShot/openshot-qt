@@ -477,13 +477,29 @@ class Export(QDialog):
                     self.txtVideoFormat.setText(vf[0].childNodes[0].data)
                     vc = xmldoc.getElementsByTagName("videocodec")
                     self.txtVideoCodec.setText(vc[0].childNodes[0].data)
-                    ac = xmldoc.getElementsByTagName("audiocodec")
-                    self.txtAudioCodec.setText(ac[0].childNodes[0].data)
                     sr = xmldoc.getElementsByTagName("samplerate")
                     self.txtSampleRate.setValue(int(sr[0].childNodes[0].data))
                     c = xmldoc.getElementsByTagName("audiochannels")
                     self.txtChannels.setValue(int(c[0].childNodes[0].data))
                     c = xmldoc.getElementsByTagName("audiochannellayout")
+
+                    # check for compatible audio codec
+                    ac = xmldoc.getElementsByTagName("audiocodec")
+                    audio_codec_name = ac[0].childNodes[0].data
+                    if audio_codec_name == "aac":
+                        # Determine which version of AAC encoder is available
+                        if openshot.FFmpegWriter.IsValidCodec("libfaac"):
+                            self.txtAudioCodec.setText("libfaac")
+                        elif openshot.FFmpegWriter.IsValidCodec("libvo_aacenc"):
+                            self.txtAudioCodec.setText("libvo_aacenc")
+                        elif openshot.FFmpegWriter.IsValidCodec("aac"):
+                            self.txtAudioCodec.setText("aac")
+                        else:
+                            # fallback audio codec
+                            self.txtAudioCodec.setText("ac3")
+                    else:
+                        # fallback audio codec
+                        self.txtAudioCodec.setText(audio_codec_name)
 
                     layout_index = 0
                     for layout in self.channel_layout_choices:
@@ -727,7 +743,10 @@ class Export(QDialog):
                     if ((( frame - start_frame_export ) != 0) & (( end_time_export - start_time_export ) != 0)):
                         seconds_left = round(( start_time_export - end_time_export )*( frame - end_frame_export )/( frame - start_frame_export ))
                         fps_encode = ((frame - start_frame_export)/(end_time_export-start_time_export))
-                        export_file_path =  _("%d:%02d:%02d Remaining (%5.2f FPS)") % (seconds_left / 3600, (seconds_left / 60) % 60, seconds_left % 60, fps_encode)
+                        export_file_path =  _("%(hours)d:%(minutes)02d:%(seconds)02d Remaining (%(fps)5.2f FPS)") % { 'hours' : seconds_left / 3600,
+                                                                                                                      'minutes': (seconds_left / 60) % 60,
+                                                                                                                      'seconds': seconds_left % 60,
+                                                                                                                      'fps': fps_encode }
                     get_app().window.ExportFrame.emit(export_file_path, video_settings.get("start_frame"), video_settings.get("end_frame"), frame)
 
                 # Process events (to show the progress bar moving)

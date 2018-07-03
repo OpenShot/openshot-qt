@@ -5,7 +5,7 @@
 	<title translatable="True">Nokia nHD</title>
 	<videoformat>avi</videoformat>
 	<videocodec>libxvid</videocodec>
-	<audiocodec>ac3</audiocodec>
+	<audiocodec>aac</audiocodec>
 	<audiochannels>2</audiochannels>
 	<audiochannellayout>3</audiochannellayout>
 	<videobitrate

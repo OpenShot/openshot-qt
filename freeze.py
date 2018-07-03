@@ -238,7 +238,7 @@ elif sys.platform == "darwin":
         external_so_files.append((filename, filename.replace("/usr/local/Cellar/jpeg/8d/lib/", "")))
 
     # Copy openshot.py Python bindings
-    src_files.append(("/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/openshot.py", "openshot.py"))
+    src_files.append((os.path.join(PATH, "openshot.py"), "openshot.py"))
     src_files.append((os.path.join(PATH, "installer", "launch-mac.sh"), "launch-mac.sh"))
 
     # Append Mac ICON file
