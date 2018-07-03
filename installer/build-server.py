@@ -266,10 +266,10 @@ try:
             github_release = get_release(repo, "daily")
             needs_upload = False
 
-    # Output git desription
+    # Output git description
     output("git description of openshot-qt-git: %s" % openshot_qt_git_desc)
 
-    # Output git desription
+    # Output git description
     output("git description of openshot-qt-git: %s" % openshot_qt_git_desc)
 
     # Detect version number from git description

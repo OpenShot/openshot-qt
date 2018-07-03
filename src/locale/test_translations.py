@@ -45,7 +45,7 @@ all_strings = re.findall('^msgid \"(.*)\"', POT_source, re.MULTILINE)
 for language_code in os.listdir(locale_path):
     folder_path = os.path.join(locale_path, language_code)
     if language_code not in ['OpenShot', 'QT'] and os.path.isdir(folder_path):
-        # Install langauge
+        # Install language
         translator = QTranslator(app)
         app.installTranslator(translator)
 
