@@ -128,7 +128,6 @@ def find_language_match(prefix, path, translator, locale_name):
     """ Match all combinations of locale, language, and country """
 
     filename = prefix + locale_name
-    log.debug('Attempting to load {} in \'{}\''.format(filename,path))
     success = translator.load(filename, path)
     if success:
         log.debug('Successfully loaded {} in \'{}\''.format(filename, path))
