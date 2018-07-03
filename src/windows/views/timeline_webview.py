@@ -425,10 +425,13 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             # Add split clip menu
             Slice_Menu = QMenu(_("Slice All"), self)
             Slice_Keep_Both = Slice_Menu.addAction(_("Keep Both Sides"))
+            Slice_Keep_Both.setShortcut(QKeySequence(self.window.getShortcutByName("sliceAllKeepBothSides")))
             Slice_Keep_Both.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_BOTH, clip_ids, trans_ids, position))
             Slice_Keep_Left = Slice_Menu.addAction(_("Keep Left Side"))
+            Slice_Keep_Left.setShortcut(QKeySequence(self.window.getShortcutByName("sliceAllKeepLeftSide")))
             Slice_Keep_Left.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_LEFT, clip_ids, trans_ids, position))
             Slice_Keep_Right = Slice_Menu.addAction(_("Keep Right Side"))
+            Slice_Keep_Right.setShortcut(QKeySequence(self.window.getShortcutByName("sliceAllKeepRightSide")))
             Slice_Keep_Right.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_RIGHT, clip_ids, trans_ids, position))
             menu.addMenu(Slice_Menu)
             return menu.popup(QCursor.pos())
@@ -817,13 +820,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 # Add split clip menu
                 Slice_Menu = QMenu(_("Slice"), self)
                 Slice_Keep_Both = Slice_Menu.addAction(_("Keep Both Sides"))
-                Slice_Keep_Both.setShortcut(QKeySequence(self.window.getShortcutByName("sliceAllKeepBothSides")))
                 Slice_Keep_Both.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_BOTH, [clip_id], [], playhead_position))
                 Slice_Keep_Left = Slice_Menu.addAction(_("Keep Left Side"))
-                Slice_Keep_Left.setShortcut(QKeySequence(self.window.getShortcutByName("sliceAllKeepLeftSide")))
                 Slice_Keep_Left.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_LEFT, [clip_id], [], playhead_position))
                 Slice_Keep_Right = Slice_Menu.addAction(_("Keep Right Side"))
-                Slice_Keep_Right.setShortcut(QKeySequence(self.window.getShortcutByName("sliceAllKeepRightSide")))
                 Slice_Keep_Right.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_RIGHT, [clip_id], [], playhead_position))
                 menu.addMenu(Slice_Menu)
 
