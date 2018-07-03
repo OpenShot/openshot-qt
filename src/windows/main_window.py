@@ -695,15 +695,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def actionTransitionsShowCommon_trigger(self, event):
         self.transitionsTreeView.refresh_view()
 
-    def actionEffectsShowAll_trigger(self, event):
-        self.effectsTreeView.refresh_view()
-
-    def actionEffectsShowVideo_trigger(self, event):
-        self.effectsTreeView.refresh_view()
-
-    def actionEffectsShowAudio_trigger(self, event):
-        self.effectsTreeView.refresh_view()
-
     def actionHelpContents_trigger(self, event):
         try:
             webbrowser.open("http://%s.openshot.org/files/user-guide/?app-menu" % info.website_language())
@@ -1712,7 +1703,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.showDocks([self.dockFiles, self.dockTransitions, self.dockVideo, self.dockEffects, self.dockProperties])
 
         # Set initial size of docks
-        advanced_state = "AAAA/wAAAAD9AAAAAwAAAAAAAAD8AAABQPwCAAAAAfwAAAG/AAABQAAAAKEA////+gAAAAACAAAAAvsAAAAcAGQAbwBjAGsAUAByAG8AcABlAHIAdABpAGUAcwEAAAAA/////wAAAKEA////+wAAABgAZABvAGMAawBLAGUAeQBmAHIAYQBtAGUAAAAAAP////8AAAATAP///wAAAAEAAAEcAAABQPwCAAAAAvsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAD7AAAAFgBkAG8AYwBrAEUAZgBmAGUAYwB0AHMBAAABvwAAAUAAAACYAP///wAAAAIAAASrAAABkvwBAAAAA/sAAAASAGQAbwBjAGsARgBpAGwAZQBzAQAAAAAAAAFeAAAAcAD////7AAAAHgBkAG8AYwBrAFQAcgBhAG4AcwBpAHQAaQBvAG4AcwEAAAFkAAABAAAAAHAA////+wAAABIAZABvAGMAawBWAGkAZABlAG8BAAACagAAAkEAAAA6AP///wAAAocAAAFAAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAHQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAA=="
+        advanced_state = "AAAA/wAAAAD9AAAAAwAAAAAAAAD8AAAB5fwCAAAAAfwAAAHVAAAB5QAAAKEA////+gAAAAACAAAAAvsAAAAcAGQAbwBjAGsAUAByAG8AcABlAHIAdABpAGUAcwEAAAAA/////wAAAKEA////+wAAABgAZABvAGMAawBLAGUAeQBmAHIAYQBtAGUAAAAAAP////8AAAAAAAAAAAAAAAEAAAD2AAAB5fwCAAAAAvsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAD7AAAAFgBkAG8AYwBrAEUAZgBmAGUAYwB0AHMBAAAB1QAAAeUAAACYAP///wAAAAIAAAVmAAABkvwBAAAAA/sAAAASAGQAbwBjAGsARgBpAGwAZQBzAQAAAAAAAAIZAAAAbAD////7AAAAHgBkAG8AYwBrAFQAcgBhAG4AcwBpAHQAaQBvAG4AcwEAAAIfAAABAAAAAGwA////+wAAABIAZABvAGMAawBWAGkAZABlAG8BAAADJQAAAkEAAAA6AP///wAAA2gAAAHlAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAHQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAA=="
         self.restoreState(qt_types.str_to_bytes(advanced_state))
         QCoreApplication.processEvents()
 
@@ -1936,15 +1927,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Add effects toolbar =================================================================================
         self.effectsToolbar = QToolBar("Effects Toolbar")
-        self.effectsActionGroup = QActionGroup(self)
-        self.effectsActionGroup.setExclusive(True)
-        self.effectsActionGroup.addAction(self.actionEffectsShowAll)
-        self.effectsActionGroup.addAction(self.actionEffectsShowVideo)
-        self.effectsActionGroup.addAction(self.actionEffectsShowAudio)
-        self.actionEffectsShowAll.setChecked(True)
-        self.effectsToolbar.addAction(self.actionEffectsShowAll)
-        self.effectsToolbar.addAction(self.actionEffectsShowVideo)
-        self.effectsToolbar.addAction(self.actionEffectsShowAudio)
         self.effectsFilter = QLineEdit()
         self.effectsFilter.setObjectName("effectsFilter")
         self.effectsFilter.setPlaceholderText(_("Filter"))
