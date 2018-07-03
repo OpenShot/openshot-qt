@@ -6,7 +6,7 @@
   },
   "width": 1280,
   "height": 720,
-  "sample_rate": 44100,
+  "sample_rate": 48000,
   "channels": 2,
   "channel_layout": 3,
   "settings": {},
