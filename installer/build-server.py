@@ -263,6 +263,7 @@ try:
                 github_release = repo.create_release(git_description, target_commitish="master", prerelease=True)
         else:
             # Make filename more descriptive for daily builds
+            openshot_qt_git_desc = "OpenShot-v%s-%d" % (info.VERSION, int(time.time()))
             openshot_qt_git_desc = "%s-%s-%s" % (openshot_qt_git_desc, version_info.get('libopenshot').get('CI_COMMIT_SHA')[:8], version_info.get('libopenshot-audio').get('CI_COMMIT_SHA')[:8])
             # Get daily git_release object
             github_release = get_release(repo, "daily")
