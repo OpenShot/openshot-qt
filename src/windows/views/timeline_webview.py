@@ -2537,6 +2537,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
     def qt_log(self, message=None):
         log.info(message)
 
+    @pyqtSlot(str)
+    def qt_debug(self, message=None):
+        log.debug(message)
+
     # Handle changes to zoom level, update js
     def update_zoom(self, newValue):
         _ = get_app()._tr
