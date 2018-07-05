@@ -74,8 +74,8 @@ def init_language():
 
     # Output all system languages detected
     log.info("Qt Detected Languages: {}".format(QLocale().system().uiLanguages()))
-    log.info("LANG Environment Variable: {}".format(os.environ.get('LANG', QLocale().system().name())))
-    log.info("LOCALE Environment Variable: {}".format(os.environ.get('LOCALE', QLocale().system().name())))
+    log.info("LANG Environment Variable: {}".format(os.environ.get('LANG', "")))
+    log.info("LOCALE Environment Variable: {}".format(os.environ.get('LOCALE', "")))
 
     # Default the locale to C, for number formatting
     locale.setlocale(locale.LC_ALL, 'C')
