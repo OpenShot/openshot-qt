@@ -323,6 +323,7 @@ class TutorialManager(object):
 
         # Configure tutorial frame
         self.dock.setTitleBarWidget(QWidget()) # Prevents window decoration
+        self.dock.setAttribute(Qt.WA_NoSystemBackground, True)
         self.dock.setAttribute(Qt.WA_TranslucentBackground, True)
         self.dock.setWindowFlags(Qt.FramelessWindowHint)
         self.dock.setFloating(True)
