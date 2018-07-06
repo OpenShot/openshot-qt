@@ -188,7 +188,7 @@ class Credits(QDialog):
             self.vboxTranslators.addWidget(self.translatorsListView)
             self.txtTranslatorFilter.textChanged.connect(partial(self.Filter_Triggered, self.txtTranslatorFilter, self.translatorsListView))
         else:
-            # No translations for this langauge, hide credits
+            # No translations for this language, hide credits
             self.tabCredits.removeTab(1)
 
         # Get list of supporters
