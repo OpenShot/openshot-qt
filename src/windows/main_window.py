@@ -2062,7 +2062,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.videoToolbar.addWidget(spacer)
 
-        # Other controls (right-justified)
+        # Other controls (right-aligned)
         self.videoToolbar.addAction(self.actionSaveFrame)
 
         self.tabVideo.layout().addWidget(self.videoToolbar)
