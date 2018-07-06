@@ -152,6 +152,7 @@ class TutorialDialog(QWidget):
         self.setMinimumHeight(100)
 
         # Make transparent
+        self.setAttribute(Qt.WA_NoSystemBackground, True)
         self.setAttribute(Qt.WA_TranslucentBackground, True)
         #self.setWindowFlags(Qt.FramelessWindowHint)
 
