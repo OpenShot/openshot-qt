@@ -1436,7 +1436,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 # Apply clipboard to clip (there should only be a single key in this dict)
                 for k,v in self.copy_clipboard[list(self.copy_clipboard)[0]].items():
                     if k != 'id':
-                        # Overwrite clips propeties (which are in the clipboard)
+                        # Overwrite clips properties (which are in the clipboard)
                         clip.data[k] = v
 
                 # Save changes
@@ -1455,7 +1455,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 # Apply clipboard to transition (there should only be a single key in this dict)
                 for k, v in self.copy_transition_clipboard[list(self.copy_transition_clipboard)[0]].items():
                     if k != 'id':
-                        # Overwrite transition propeties (which are in the clipboard)
+                        # Overwrite transition properties (which are in the clipboard)
                         tran.data[k] = v
 
                 # Save changes
@@ -1644,8 +1644,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         """Callback for slice context menus"""
         # Get FPS from project
         fps = get_app().project.get(["fps"])
-        fps_num = fps["num"]
-        fps_den = fps["den"]
+        fps_num = float(fps["num"])
+        fps_den = float(fps["den"])
+        fps_float = fps_num / fps_den
+        frame_duration = fps_den / fps_num
 
         # Get the nearest starting frame position to the playhead (this helps to prevent cutting
         # in-between frames, and thus less likely to repeat or skip a frame).
@@ -1701,9 +1703,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 position_of_clip = float(right_clip.data["position"])
                 start_of_clip = float(right_clip.data["start"])
 
-                # Set new 'end' of right_clip
-                right_clip.data["position"] = playhead_position
-                right_clip.data["start"] = start_of_clip + (playhead_position - position_of_clip)
+                # Set new 'start' of right_clip (need to bump 1 frame duration more, so we don't repeat a frame)
+                right_clip.data["position"] = float(clip.data["position"]) + float(clip.data["end"]) + frame_duration
+                right_clip.data["start"] = (round(float(clip.data["end"]) * fps_float) + 2) / fps_float
 
                 # Save changes
                 right_clip.save()
@@ -1771,8 +1773,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 end_of_tran = float(right_tran.data["end"])
 
                 # Set new 'end' of right_tran
-                right_tran.data["position"] = playhead_position
-                right_tran.data["end"] = end_of_tran - (playhead_position - position_of_tran)
+                right_tran.data["position"] = playhead_position + frame_duration
+                right_tran.data["end"] = end_of_tran - (playhead_position - position_of_tran) + frame_duration
 
                 # Save changes
                 right_tran.save()
