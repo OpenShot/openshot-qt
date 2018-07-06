@@ -32,7 +32,7 @@ import openshot
 def GenerateThumbnail(file_path, thumb_path, thumbnail_frame, width, height, mask, overlay):
     """Create thumbnail image, and check for rotate metadata (if any)"""
 
-    # Craete a clip object and get the reader
+    # Create a clip object and get the reader
     clip = openshot.Clip(file_path)
     reader = clip.Reader()
 
