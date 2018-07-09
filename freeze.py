@@ -214,7 +214,7 @@ elif sys.platform == "linux":
                     if (libpath \
                         and not libpath.startswith("/lib") \
                         and not "libnvidia-glcore.so" in libpath \
-                        and not libpath_file in ["libstdc++.so.6", "libGL.so.1", "libxcb.so.1", "libX11.so.6", "libasound.so.2", "libgcc_s.so.1 ", "libICE.so.6", "libp11-kit.so.0", "libSM.so.6", "libgobject-2.0.so.0"]) \
+                        and not libpath_file in ["libstdc++.so.6", "libGL.so.1", "libxcb.so.1", "libX11.so.6", "libasound.so.2", "libgcc_s.so.1 ", "libICE.so.6", "libp11-kit.so.0", "libSM.so.6", "libgobject-2.0.so.0", "libdrm.so.2"]) \
                             or libpath_file in ["libgcrypt.so.11", "libQt5DBus.so.5", "libpng12.so.0", "libbz2.so.1.0", "libqxcb.so"]:
 
                         # Ignore paths that start with /lib
