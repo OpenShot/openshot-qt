@@ -735,5 +735,21 @@
     "setting": "actionInsertKeyframe",
     "value": "Ctrl+Shift+E",
     "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Nudge left",
+    "restart": true,
+    "setting": "nudgeLeft",
+    "value": "Shift+Left",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Nudge right",
+    "restart": true,
+    "setting": "nudgeRight",
+    "value": "Shift+Right",
+    "type": "text"
   }
 ]

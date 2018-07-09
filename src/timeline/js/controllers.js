@@ -1088,8 +1088,8 @@ $scope.SetTrackLabel = function (label){
  	return transition_size;
  };
  
- // Search through clips and transitions to find the closest element within a given threashold
- $scope.GetNearbyPosition = function(pixel_positions, threashold, ignore_ids){
+ // Search through clips and transitions to find the closest element within a given threshold
+ $scope.GetNearbyPosition = function(pixel_positions, threshold, ignore_ids){
 	// init some vars
 	var smallest_diff = 900.0;
 	var smallest_abs_diff = 900.0;
@@ -1150,7 +1150,7 @@ $scope.SetTrackLabel = function (label){
 			var abs_diff = Math.abs(diff);
 			
 			// Check if this clip is nearby
-			if (abs_diff < smallest_abs_diff && abs_diff <= threashold) {
+			if (abs_diff < smallest_abs_diff && abs_diff <= threshold) {
 				// This one is smaller
 				smallest_diff = diff;
 				smallest_abs_diff = abs_diff;
