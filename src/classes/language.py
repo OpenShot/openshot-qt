@@ -34,7 +34,7 @@ from PyQt5.QtCore import QLocale, QLibraryInfo, QTranslator, QCoreApplication
 from classes.logger import log
 from classes import info
 from classes import settings
-
+from language import openshot_lang
 
 def init_language():
     """ Find the current locale, and install the correct translators """
@@ -45,20 +45,20 @@ def init_language():
     # Setup of our list of translators and paths
     translator_types = (
         {"type": 'QT',
-         "pattern": 'qt_%s',        # Older versions of Qt use this file (built-in translations)
+         "prefix": 'qt_',        # Older versions of Qt use this file (built-in translations)
          "path": QLibraryInfo.location(QLibraryInfo.TranslationsPath)},
         {"type": 'QT',
-         "pattern": 'qtbase_%s',    # Newer versions of Qt use this file (built-in translations)
+         "prefix": 'qtbase_',    # Newer versions of Qt use this file (built-in translations)
          "path": QLibraryInfo.location(QLibraryInfo.TranslationsPath)},
         {"type": 'QT',
-         "pattern": 'qt_%s',
+         "prefix": 'qt_',
          "path": os.path.join(info.PATH, 'locale', 'QT')}, # Optional path where we package QT translations
         {"type": 'QT',
-         "pattern": 'qtbase_%s',
+         "prefix": 'qtbase_',
          "path": os.path.join(info.PATH, 'locale', 'QT')}, # Optional path where we package QT translations
         {"type": 'OpenShot',
-         "pattern": os.path.join('%s', 'LC_MESSAGES', 'OpenShot'),  # Our custom translations
-         "path": os.path.join(info.PATH, 'locale')},
+         "prefix": 'OpenShot.',  # Our custom translations
+         "path": ":/locale"},
     )
 
     # Determine the environment locale, or default to system locale name
@@ -87,7 +87,7 @@ def init_language():
         # Go through each translator and try to add for current locale
         for type in translator_types:
             trans = QTranslator(app)
-            if find_language_match(type["pattern"], type["path"], trans, locale_name):
+            if find_language_match(type["prefix"], type["path"], trans, locale_name):
                 # Install translation
                 app.installTranslator(trans)
                 found_language = True
@@ -146,21 +146,14 @@ def get_current_locale():
 #  pattern - a string expected to have one pipe to be filled by locale strings
 #  path - base path for file (pattern may contain more path)
 #  
-def find_language_match(pattern, path, translator, locale_name):
+def find_language_match(prefix, path, translator, locale_name):
     """ Match all combinations of locale, language, and country """
 
-    success = False
-    locale_parts = locale_name.split('_')
-
-    i = len(locale_parts)
-    while not success and i > 0:
-        formatted_name = pattern % "_".join(locale_parts[:i])
-        log.info('Attempting to load {} in \'{}\''.format(formatted_name, path))
-        success = translator.load(formatted_name, path)
-        if success:
-            log.info('Successfully loaded {} in \'{}\''.format(formatted_name, path))
-        i -= 1
-
+    filename = prefix + locale_name
+    log.info('Attempting to load {} in \'{}\''.format(filename,path))
+    success = translator.load(filename, path)
+    if success:
+        log.info('Successfully loaded {} in \'{}\''.format(filename, path))
     return success
 
 def get_all_languages():

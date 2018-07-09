@@ -26,6 +26,8 @@
  """
 
 import os
+from language import openshot_lang
+from PyQt5.QtCore import QDirIterator
 
 VERSION = "2.4.2"
 MINIMUM_LIBOPENSHOT_VERSION = "0.2.0"
@@ -66,9 +68,12 @@ JT = {"name": u"Jonathan Thomas", "email": "jonathan@openshot.org", "website":"h
 # Languages
 CURRENT_LANGUAGE = 'en_US'
 SUPPORTED_LANGUAGES = ['en_US']
-for lang in os.listdir(os.path.join(PATH, 'locale')):
-    if lang not in ["OpenShot"] and not os.path.isfile(os.path.join(PATH, 'locale', lang)):
-        SUPPORTED_LANGUAGES.append(lang)
+
+# Compile language list from :/locale resource
+it = QDirIterator(":/locale")
+while it.hasNext():
+    trpath = it.next()
+    SUPPORTED_LANGUAGES.append(trpath.split('.')[1])
 
 SETUP = {
     "name": NAME,
