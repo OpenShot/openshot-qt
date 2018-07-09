@@ -1374,6 +1374,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.timeline.Copy_Triggered(-1, self.selected_clips, self.selected_transitions)
         elif key.matches(self.getShortcutByName("pasteAll")) == QKeySequence.ExactMatch:
             self.timeline.Paste_Triggered(9, float(playhead_position), -1, [], [])
+        elif key.matches(self.getShortcutByName("nudgeLeft")) == QKeySequence.ExactMatch:
+            self.timeline.Nudge_Triggered(-1, self.selected_clips, self.selected_transitions)
+        elif key.matches(self.getShortcutByName("nudgeRight")) == QKeySequence.ExactMatch:
+            self.timeline.Nudge_Triggered(1, self.selected_clips, self.selected_transitions)
 
         # Select All / None
         elif key.matches(self.getShortcutByName("selectAll")) == QKeySequence.ExactMatch:
