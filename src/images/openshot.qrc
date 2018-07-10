@@ -320,5 +320,6 @@
         <file>Humanity/actions/16/locked.svg</file>
         <file>Humanity/actions/16/transform-move.png</file>
         <file>Humanity/actions/16/view-list-icons.png</file>
+        <file>Humanity/actions/custom/camera-photo-symbolic.svg</file>
     </qresource>
 </RCC>
