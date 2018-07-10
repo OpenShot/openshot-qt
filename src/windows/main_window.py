@@ -879,6 +879,84 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Seek to the 1st frame
         self.SeekSignal.emit(timeline_length_int)
 
+    def actionSaveFrame_trigger(self, event):
+        log.info("actionSaveFrame_trigger")
+
+        # Translate object
+        _ = get_app()._tr
+
+	# Prepare to use the status bar
+        self.statusBar = QStatusBar()
+        self.setStatusBar(self.statusBar)
+
+        # Determine path for saved frame - Default export path
+        recommended_path = recommended_path = os.path.join(info.HOME_PATH)
+        if get_app().project.current_filepath:
+            recommended_path = os.path.dirname(get_app().project.current_filepath)
+
+        # Determine path for saved frame - Project's export path
+        if get_app().project.get(["export_path"]):
+            recommended_path = get_app().project.get(["export_path"])
+
+        framePath = _("%s/Frame-%05d.png" % (recommended_path, self.preview_thread.current_frame))
+        #log.info("Saving frame to %" % framePath)
+
+        # Ask user to confirm or update framePath
+        framePath, file_type = QFileDialog.getSaveFileName(self, _("Save Frame..."), framePath, _("Image files (*.png)"))
+
+        if framePath:
+            # Append .osp if needed
+            if ".png" not in framePath:
+                framePath = "%s.osp" % framePath
+        else:
+            # No path specified (save frame cancelled)
+            self.statusBar.showMessage(_("Save Frame cancelled..."), 5000);
+            return
+
+        get_app().updates.update(["export_path"], os.path.dirname(framePath))
+        log.info(_("Saving frame to %s" % framePath ))
+
+        # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
+        get_app().window.actionPlay_trigger(None, force="pause")
+
+        # Save current cache object and create a new CacheMemory object (ignore quality and scale prefs)
+        old_cache_object = self.cache_object
+        new_cache_object = openshot.CacheMemory(settings.get_settings().get("cache-limit-mb") * 1024 * 1024)
+        self.timeline_sync.timeline.SetCache(new_cache_object)
+
+        # Set MaxSize to full project resolution and clear preview cache so we get a full resolution frame
+        self.timeline_sync.timeline.SetMaxSize(get_app().project.get(["width"]), get_app().project.get(["height"]))
+        self.cache_object.Clear()
+
+        # Check if file exists, if it does, get the lastModified time
+        if os.path.exists(framePath):
+            framePathTime = QFileInfo(framePath).lastModified()
+        else:
+            framePathTime = QDateTime()
+
+	# Get and Save the frame (return is void, so we cannot check for success/fail here - must use file modification timestamp)
+        openshot.Timeline.GetFrame(self.timeline_sync.timeline,self.preview_thread.current_frame).Save(framePath, 1.0)
+
+        #log.info("orig framePathTime %s" % framePathTime.toString("yyMMdd hh:mm:ss.zzz") )
+        #log.info("new framePathTime %s" % QFileInfo(framePath).lastModified().toString("yyMMdd hh:mm:ss.zzz") )
+
+	# Show message to user
+        if os.path.exists(framePath) and (QFileInfo(framePath).lastModified() > framePathTime): 
+            #QMessageBox.information(self, _("Save Frame Successful"), _("Saved image to %s" % framePath))
+            self.statusBar.showMessage(_("Saved Frame to %s" % framePath), 5000);
+        else:
+            #QMessageBox.warning(self, _("Save Frame Failed"), _("Failed to save image to %s" % framePath))
+            self.statusBar.showMessage( _("Failed to save image to %s" % framePath), 5000);
+
+	# Reset the MaxSize to match the preview and reset the preview cache
+        viewport_rect = self.videoPreview.centeredViewport(self.videoPreview.width(), self.videoPreview.height())
+        self.timeline_sync.timeline.SetMaxSize(viewport_rect.width(), viewport_rect.height())
+        self.cache_object.Clear()
+        self.timeline_sync.timeline.SetCache(old_cache_object)
+        self.cache_object = old_cache_object
+        old_cache_object = None
+        new_cache_object = None
+
     def actionAddTrack_trigger(self, event):
         log.info("actionAddTrack_trigger")
 
@@ -1252,6 +1330,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.actionJumpStart.trigger()
         elif key.matches(self.getShortcutByName("actionJumpEnd")) == QKeySequence.ExactMatch:
             self.actionJumpEnd.trigger()
+        elif key.matches(self.getShortcutByName("actionSaveFrame")) == QKeySequence.ExactMatch:
+            self.actionSaveFrame.trigger()
         elif key.matches(self.getShortcutByName("actionProperties")) == QKeySequence.ExactMatch:
             self.actionProperties.trigger()
         elif key.matches(self.getShortcutByName("actionTransform")) == QKeySequence.ExactMatch:
@@ -1960,12 +2040,20 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Add Video Preview toolbar ==========================================================================
         self.videoToolbar = QToolBar("Video Toolbar")
 
+        # Add fixed spacer(s) (one for each "Other control" to keep playback controls centered)
+        ospacer1 = QWidget(self)
+        ospacer1.setMinimumSize(32, 1) # actionSaveFrame
+        self.videoToolbar.addWidget(ospacer1)
+        #ospacer2 = QWidget(self)
+        #ospacer2.setMinimumSize(32, 1) # ???
+        #self.videoToolbar.addWidget(ospacer2)
+
         # Add left spacer
         spacer = QWidget(self)
         spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.videoToolbar.addWidget(spacer)
 
-        # Playback controls
+        # Playback controls (centered)
         self.videoToolbar.addAction(self.actionJumpStart)
         self.videoToolbar.addAction(self.actionRewind)
         self.videoToolbar.addAction(self.actionPlay)
@@ -1977,6 +2065,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         spacer = QWidget(self)
         spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.videoToolbar.addWidget(spacer)
+
+        # Other controls (right-aligned)
+        self.videoToolbar.addAction(self.actionSaveFrame)
 
         self.tabVideo.layout().addWidget(self.videoToolbar)
 
