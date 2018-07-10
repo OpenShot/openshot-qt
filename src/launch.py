@@ -64,7 +64,8 @@ def main():
     #                     help='language code for interface (overrides '
     #                     'preferences and system environment)')
     parser.add_argument('--list-languages', dest='list_languages',
-                        action='store_true')
+                        action='store_true', help='List all language '
+                        'codes supported by OpenShot')
     parser.add_argument('-V', '--version', action='store_true')
 
     args = parser.parse_args()
