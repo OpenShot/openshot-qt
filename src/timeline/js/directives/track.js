@@ -133,6 +133,7 @@ App.directive('tlTrack', function($timeout) {
 		            			//set track
 		            			item_data.layer = drop_track_num;
 		            			item_data.position += position_diff;
+		            			item_data.position = (Math.round((item_data.position * scope.project.fps.num) / scope.project.fps.den ) * scope.project.fps.den ) / scope.project.fps.num;
 		            		});	
 
 							// Resize timeline if it's too small to contain all clips
