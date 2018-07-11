@@ -5,7 +5,7 @@
 	<title translatable="True">Nokia nHD</title>
 	<videoformat>avi</videoformat>
 	<videocodec>libxvid</videocodec>
-	<audiocodec>ac3</audiocodec>
+	<audiocodec>aac</audiocodec>
 	<audiochannels>2</audiochannels>
 	<audiochannellayout>3</audiochannellayout>
 	<videobitrate
@@ -16,6 +16,6 @@
 	 low="128 kb/s"
 	 med="256 kb/s"
 	 high="320 kb/s"></audiobitrate>
-	<samplerate>44100</samplerate>
+	<samplerate>48000</samplerate>
 	<projectprofile>Mobile 360p</projectprofile>
 </export-option>

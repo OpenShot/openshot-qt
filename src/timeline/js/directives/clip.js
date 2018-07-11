@@ -126,6 +126,12 @@ App.directive('tlClip', function($timeout){
 					//apply the new start, end and length to the clip's scope
 					scope.$apply(function(){
 
+						// Get the nearest starting frame position to the clip position (this helps to prevent cutting
+						// in-between frames, and thus less likely to repeat or skip a frame).
+						new_position = (Math.round((new_position * scope.project.fps.num) / scope.project.fps.den ) * scope.project.fps.den ) / scope.project.fps.num;
+						new_right = (Math.round((new_right * scope.project.fps.num) / scope.project.fps.den ) * scope.project.fps.den ) / scope.project.fps.num;
+						new_left = (Math.round((new_left * scope.project.fps.num) / scope.project.fps.den ) * scope.project.fps.den ) / scope.project.fps.num;
+
 						if (scope.clip.end != new_right){
 							scope.clip.end = new_right;
 						}

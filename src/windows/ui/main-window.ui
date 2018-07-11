@@ -590,6 +590,18 @@
     <string>Jump To End</string>
    </property>
   </action>
+  <action name="actionSaveFrame">
+   <property name="icon">
+    <iconset theme="camera-photo-symbolic" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/custom/camera-photo-symbolic.svg</normaloff>:/icons/Humanity/actions/custom/camera-photo-symbolic.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Save Current Frame</string>
+   </property>
+   <property name="toolTip">
+    <string>Save Current Frame</string>
+   </property>
+  </action>
   <action name="actionArrowTool">
    <property name="checkable">
     <bool>true</bool>
