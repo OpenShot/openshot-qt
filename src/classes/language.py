@@ -69,7 +69,7 @@ def init_language():
     # Determine if the user has overwritten the language (in the preferences)
     preference_lang = settings.get_settings().get('default-language')
     if preference_lang != "Default":
-        # Append preference lang to top of list
+        # Prepend preference lang to list
         locale_names.insert(0, preference_lang)
 
     # Output all system languages detected
@@ -92,7 +92,7 @@ def init_language():
                 app.installTranslator(trans)
                 found_language = True
 
-        # Exit if found language
+        # Exit if found language for type: "OpenShot"
         if found_language:
             log.info("Exiting translation system (since we successfully loaded: {})".format(locale_name))
             info.CURRENT_LANGUAGE = locale_name
