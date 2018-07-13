@@ -41,6 +41,7 @@
  """
 
 import sys
+from argparse import ArgumentParser
 
 try:
     from classes import info
@@ -51,16 +52,39 @@ except ImportError:
     print("Loaded modules from installed directory: %s" % info.PATH)
 
 from classes.app import OpenShotApp
-from classes.logger import log
+from classes.logger import log, reroute_output
+from classes.language import get_all_languages
 
 
 def main():
     """"Initialize settings (not implemented) and create main window/application."""
 
+    parser = ArgumentParser(description = 'OpenShot version ' + info.SETUP['version'])
+    # parser.add_argument('-l', '--lang', action='store',
+    #                     help='language code for interface (overrides '
+    #                     'preferences and system environment)')
+    parser.add_argument('--list-languages', dest='list_languages',
+                        action='store_true', help='List all language '
+                        'codes supported by OpenShot')
+    parser.add_argument('-V', '--version', action='store_true')
+
+    args = parser.parse_args()
+
     # Display version and exit (if requested)
-    if "--version" in sys.argv:
+    if args.version:
         print("OpenShot version %s" % info.SETUP['version'])
         exit()
+
+    if args.list_languages:
+        print("Supported Languages:")
+        for lang in get_all_languages():
+            print("  {:>12}  {}".format(lang[0],lang[1]))
+        exit()
+
+    # if args.lang:
+    #     info.CMDLINE_LANG = args.lang
+
+    reroute_output()
 
     log.info("------------------------------------------------")
     log.info("   OpenShot (version %s)" % info.SETUP['version'])
