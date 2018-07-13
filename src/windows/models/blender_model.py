@@ -76,20 +76,6 @@ class BlenderModel():
                 category = xmldoc.getElementsByTagName("category")[0].childNodes[0].data
                 service = xmldoc.getElementsByTagName("service")[0].childNodes[0].data
 
-                if not win.actionEffectsShowAll.isChecked():
-                    if win.actionEffectsShowVideo.isChecked():
-                        if not category == "Video":
-                            continue  # to next file, didn't match filter
-                    elif win.actionEffectsShowAudio.isChecked():
-                        if not category == "Audio":
-                            continue  # to next file, didn't match filter
-
-                if win.effectsFilter.text() != "":
-                    if not win.effectsFilter.text().lower() in self.app._tr(
-                            title).lower() and not win.effectsFilter.text().lower() in self.app._tr(
-                            description).lower():
-                        continue
-
                 # Generate thumbnail for file (if needed)
                 thumb_path = os.path.join(info.CACHE_PATH, icon_name)
 
