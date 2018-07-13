@@ -779,39 +779,6 @@
     <string>Clear</string>
    </property>
   </action>
-  <action name="actionEffectsShowAll">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Show All</string>
-   </property>
-   <property name="toolTip">
-    <string>Show All</string>
-   </property>
-  </action>
-  <action name="actionEffectsShowVideo">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Video</string>
-   </property>
-   <property name="toolTip">
-    <string>Video</string>
-   </property>
-  </action>
-  <action name="actionEffectsShowAudio">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Audio</string>
-   </property>
-   <property name="toolTip">
-    <string>Audio</string>
-   </property>
-  </action>
   <action name="actionEffectsClear">
    <property name="icon">
     <iconset theme="edit-clear" resource="../../images/openshot.qrc">
