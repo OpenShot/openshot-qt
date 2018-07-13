@@ -106,14 +106,6 @@ class EffectsModel():
                 category = "Video"
 
             # Filter out effect (if needed)
-            if not win.actionEffectsShowAll.isChecked():
-                if win.actionEffectsShowVideo.isChecked():
-                    if not category == "Video":
-                        continue  # to next file, didn't match filter
-                elif win.actionEffectsShowAudio.isChecked():
-                    if not category == "Audio":
-                        continue  # to next file, didn't match filter
-
             if win.effectsFilter.text() != "":
                 if not win.effectsFilter.text().lower() in self.app._tr(title).lower() and not win.effectsFilter.text().lower() in self.app._tr(description).lower():
                     continue

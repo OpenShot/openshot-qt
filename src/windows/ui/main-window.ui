@@ -590,6 +590,18 @@
     <string>Jump To End</string>
    </property>
   </action>
+  <action name="actionSaveFrame">
+   <property name="icon">
+    <iconset theme="camera-photo-symbolic" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/custom/camera-photo-symbolic.svg</normaloff>:/icons/Humanity/actions/custom/camera-photo-symbolic.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Save Current Frame</string>
+   </property>
+   <property name="toolTip">
+    <string>Save Current Frame</string>
+   </property>
+  </action>
   <action name="actionArrowTool">
    <property name="checkable">
     <bool>true</bool>
@@ -765,39 +777,6 @@
    </property>
    <property name="toolTip">
     <string>Clear</string>
-   </property>
-  </action>
-  <action name="actionEffectsShowAll">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Show All</string>
-   </property>
-   <property name="toolTip">
-    <string>Show All</string>
-   </property>
-  </action>
-  <action name="actionEffectsShowVideo">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Video</string>
-   </property>
-   <property name="toolTip">
-    <string>Video</string>
-   </property>
-  </action>
-  <action name="actionEffectsShowAudio">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Audio</string>
-   </property>
-   <property name="toolTip">
-    <string>Audio</string>
    </property>
   </action>
   <action name="actionEffectsClear">

@@ -169,9 +169,6 @@ def find_language_match(pattern, path, translator, locale_name):
 def get_all_languages():
     """Get all language names and countries packaged with OpenShot"""
 
-    # Get app instance
-    app = QCoreApplication.instance()
-
     # Loop through all supported language locale codes
     all_languages = []
     for locale_name in info.SUPPORTED_LANGUAGES:
