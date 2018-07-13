@@ -29,7 +29,7 @@ import os
 from language import openshot_lang
 from PyQt5.QtCore import QDirIterator
 
-VERSION = "2.4.2"
+VERSION = "2.4.2-dev1"
 MINIMUM_LIBOPENSHOT_VERSION = "0.2.0"
 DATE = "20180630000000"
 NAME = "openshot-qt"
