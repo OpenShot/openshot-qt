@@ -27,7 +27,7 @@
 
 import os
 from language import openshot_lang
-from PyQt5.QtCore import QDirIterator
+from PyQt5.QtCore import QDir
 
 VERSION = "2.4.2-dev1"
 MINIMUM_LIBOPENSHOT_VERSION = "0.2.0"
@@ -71,9 +71,9 @@ CURRENT_LANGUAGE = 'en_US'
 SUPPORTED_LANGUAGES = ['en_US']
 
 # Compile language list from :/locale resource
-it = QDirIterator(":/locale")
-while it.hasNext():
-    trpath = it.next()
+langdir = QDir(":/locale")
+langs = langdir.entryList(sort=QDir.Name)
+for trpath in langs:
     SUPPORTED_LANGUAGES.append(trpath.split('.')[1])
 
 SETUP = {
