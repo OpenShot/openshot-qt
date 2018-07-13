@@ -66,21 +66,28 @@ def init_language():
                     os.environ.get('LOCALE', QLocale().system().name())
                     ]
 
-    # Determine if the user has overwritten the language (in the preferences)
+    # Get the user's configured language preference
     preference_lang = settings.get_settings().get('default-language')
-
-    if preference_lang == "en_US":
-        # Override language list, don't add to it
-        locale_names = [ "en_US" ]
-    elif preference_lang != "Default":
-        # Prepend preference lang to list
-        locale_names.insert(0, preference_lang)
 
     # Output all languages detected from various sources
     log.info("Qt Detected Languages: {}".format(QLocale().system().uiLanguages()))
     log.info("LANG Environment Variable: {}".format(os.environ.get('LANG', "")))
     log.info("LOCALE Environment Variable: {}".format(os.environ.get('LOCALE', "")))
     log.info("OpenShot Preference Language: {}".format(preference_lang))
+
+    # Check if the language preference is something other than "Default"
+    if preference_lang == "en_US":
+        # Override language list with en_US, don't add to it
+        locale_names = [ "en_US" ]
+    elif preference_lang != "Default":
+        # Prepend preference setting to list
+        locale_names.insert(0, preference_lang)
+
+    # If the user has used the --lang command line arg, override with that
+    # (We've already checked that it's in SUPPORTED_LANGUAGES)
+    if info.CMDLINE_LANGUAGE:
+        locale_names = [ info.CMDLINE_LANGUAGE ]
+        log.info("Language overridden on command line, using: {}".format(info.CMDLINE_LANGUAGE))
 
     # Default the locale to C, for number formatting
     locale.setlocale(locale.LC_ALL, 'C')

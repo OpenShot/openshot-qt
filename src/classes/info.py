@@ -66,6 +66,7 @@ for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH, ASSETS_PATH,
 JT = {"name": u"Jonathan Thomas", "email": "jonathan@openshot.org", "website":"http://openshot.org/developers/jonathan"}
 
 # Languages
+CMDLINE_LANGUAGE = None
 CURRENT_LANGUAGE = 'en_US'
 SUPPORTED_LANGUAGES = ['en_US']
 
