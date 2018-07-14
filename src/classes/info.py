@@ -26,7 +26,7 @@
  """
 
 import os
-from language import openshot_lang
+
 from PyQt5.QtCore import QDir
 
 VERSION = "2.4.2-dev1"
@@ -70,9 +70,18 @@ CMDLINE_LANGUAGE = None
 CURRENT_LANGUAGE = 'en_US'
 SUPPORTED_LANGUAGES = ['en_US']
 
+try:
+    from language import openshot_lang
+    language_path=":/locale/"
+except ImportError:
+    language_path=os.path.join(PATH, 'language')
+    print("Compiled translation resources missing!")
+    print("Loading translations from: {}".format(language_path))
+
 # Compile language list from :/locale resource
-langdir = QDir(":/locale")
-langs = langdir.entryList(sort=QDir.Name)
+langdir = QDir(language_path)
+langs = langdir.entryList(['OpenShot.*.qm'], QDir.NoDotAndDotDot|QDir.Files,
+                          sort=QDir.Name)
 for trpath in langs:
     SUPPORTED_LANGUAGES.append(trpath.split('.')[1])
 

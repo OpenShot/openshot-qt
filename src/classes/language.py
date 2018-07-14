@@ -34,7 +34,15 @@ from PyQt5.QtCore import QLocale, QLibraryInfo, QTranslator, QCoreApplication
 from classes.logger import log
 from classes import info
 from classes import settings
-from language import openshot_lang
+
+
+try:
+    from language import openshot_lang
+    language_path=":/locale/"
+    log.debug("Using compiled translation resources")
+except ImportError:
+    language_path=os.path.join(info.PATH, 'language')
+    log.debug("Loading translations from: {}".format(language_path))
 
 def init_language():
     """ Find the current locale, and install the correct translators """
@@ -58,7 +66,7 @@ def init_language():
          "path": os.path.join(info.PATH, 'locale', 'QT')}, # Optional path where we package QT translations
         {"type": 'OpenShot',
          "prefix": 'OpenShot.',  # Our custom translations
-         "path": ":/locale"},
+         "path": language_path},
     )
 
     # Determine the environment locale, or default to system locale name
