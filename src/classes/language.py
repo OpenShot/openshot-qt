@@ -114,7 +114,7 @@ def init_language():
 
         # Exit if found language for type: "OpenShot"
         if found_language:
-            log.info("Exiting translation system (since we successfully loaded: {})".format(locale_name))
+            log.debug("Exiting translation system (since we successfully loaded: {})".format(locale_name))
             info.CURRENT_LANGUAGE = locale_name
             break
 
@@ -128,10 +128,10 @@ def find_language_match(prefix, path, translator, locale_name):
     """ Match all combinations of locale, language, and country """
 
     filename = prefix + locale_name
-    log.info('Attempting to load {} in \'{}\''.format(filename,path))
+    log.debug('Attempting to load {} in \'{}\''.format(filename,path))
     success = translator.load(filename, path)
     if success:
-        log.info('Successfully loaded {} in \'{}\''.format(filename, path))
+        log.debug('Successfully loaded {} in \'{}\''.format(filename, path))
     return success
 
 def get_all_languages():
