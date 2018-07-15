@@ -104,7 +104,12 @@ def init_language():
     found_language = False
     for locale_name in locale_names:
 
-        # Go through each translator and try to add for current locale
+        # Don't try on default locale, since it fails to load what is the default language
+        if QLocale().system().name() in locale_name:
+            log.info("Skipping English language (no need for translation): {}".format(locale_name))
+            continue
+
+         # Go through each translator and try to add for current locale
         for type in translator_types:
             trans = QTranslator(app)
             if find_language_match(type["prefix"], type["path"], trans, locale_name):
