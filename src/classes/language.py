@@ -86,6 +86,7 @@ def init_language():
 
         # Don't try on default locale, since it fails to load what is the default language
         if QLocale().system().name() in locale_name:
+            log.info("Skipping English language (no need for translation): {}".format(locale_name))
             continue
 
         # Go through each translator and try to add for current locale
@@ -159,9 +160,10 @@ def find_language_match(pattern, path, translator, locale_name):
     i = len(locale_parts)
     while not success and i > 0:
         formatted_name = pattern % "_".join(locale_parts[:i])
+        log.info('Attempting to load {} in \'{}\''.format(formatted_name, path))
         success = translator.load(formatted_name, path)
         if success:
-            log.debug('Successfully loaded {} in \'{}\''.format(formatted_name, path))
+            log.info('Successfully loaded {} in \'{}\''.format(formatted_name, path))
         i -= 1
 
     return success
