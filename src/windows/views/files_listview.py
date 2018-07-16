@@ -53,8 +53,6 @@ class FilesListView(QListView):
     drag_item_size = 48
 
     def updateSelection(self):
-        log.info('updateSelection')
-
         # Track selected items
         self.selected = self.selectionModel().selectedIndexes()
 
@@ -250,7 +248,6 @@ class FilesListView(QListView):
                 is_sequence = False
 
             if is_sequence and dirName not in self.ignore_image_sequence_paths:
-                log.info('Prompt user to import image sequence')
                 # Ignore this path (temporarily)
                 self.ignore_image_sequence_paths.append(dirName)
 
@@ -274,10 +271,10 @@ class FilesListView(QListView):
         self.ignore_image_sequence_paths = []
 
         for uri in event.mimeData().urls():
-            log.info('Processing drop event for {}'.format(uri))
+            log.debug('Processing drop event for {}'.format(uri))
             filepath = uri.toLocalFile()
             if os.path.exists(filepath) and os.path.isfile(filepath):
-                log.info('Adding file: {}'.format(filepath))
+                log.debug('Adding file: {}'.format(filepath))
                 if self.add_file(filepath):
                     event.accept()
 
@@ -297,7 +294,6 @@ class FilesListView(QListView):
         self.files_model.update_model()
 
     def currentChanged(self, selected, deselected):
-        log.info('currentChanged')
         self.updateSelection()
 
     def resize_contents(self):
