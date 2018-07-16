@@ -40,7 +40,6 @@ from classes.app import get_app
 
 class BlenderModel():
     def update_model(self, clear=True):
-        log.info("updating effects model.")
         app = get_app()
 
         # Get window to check filters

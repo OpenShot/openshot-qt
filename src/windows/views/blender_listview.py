@@ -89,8 +89,6 @@ class BlenderListView(QListView):
 
         # Loop through params
         for param in animation.get("params",[]):
-            log.info(param["title"])
-
             # Is Hidden Param?
             if param["name"] == "start_frame" or param["name"] == "end_frame":
                 # add value to dictionary
@@ -198,7 +196,6 @@ class BlenderListView(QListView):
 
     def spinner_value_changed(self, param, value):
         self.params[param["name"]] = value
-        log.info(value)
 
     def text_value_changed(self, widget, param, value=None):
         try:
@@ -208,28 +205,22 @@ class BlenderListView(QListView):
         except:
             pass
         self.params[param["name"]] = value.replace("\n", "\\n")
-        log.info(value)
 
     def dropdown_index_changed(self, widget, param, index):
         value = widget.itemData(index)
         self.params[param["name"]] = value
-        log.info(value)
 
     def color_button_clicked(self, widget, param, index):
         # Show color dialog
-        log.info('Animation param being changed: %s' % param["name"])
         color_value = self.params[param["name"]]
-        log.info('Value of param: %s' % color_value)
         currentColor = QColor("#FFFFFF")
         if len(color_value) == 3:
-            log.info('Using previous color: %s' % color_value)
             #currentColor = QColor(color_value[0], color_value[1], color_value[2])
             currentColor.setRgbF(color_value[0], color_value[1], color_value[2])
         newColor = QColorDialog.getColor(currentColor)
         if newColor.isValid():
             widget.setStyleSheet("background-color: {}".format(newColor.name()))
             self.params[param["name"]] = [newColor.redF(), newColor.greenF(), newColor.blueF()]
-            log.info(newColor.name())
 
     def generateUniqueFolder(self):
         """ Generate a new, unique folder name to contain Blender frames """
@@ -262,7 +253,6 @@ class BlenderListView(QListView):
 
     def init_slider_values(self):
         """ Init the slider and preview frame label to the currently selected animation """
-        log.info("init_slider_values")
 
         # Get current preview slider frame
         preview_frame_number = self.win.sliderPreview.value()
@@ -291,16 +281,14 @@ class BlenderListView(QListView):
     def btnRefresh_clicked(self, checked):
 
         # Render current frame
-        log.info("btnRefresh_clicked")
         preview_frame_number = self.win.sliderPreview.value()
         self.Render(preview_frame_number)
 
     def render_finished(self):
-        log.info("RENDER FINISHED!")
+        log.debug("RENDER FINISHED!")
 
         # Add file to project
         final_path = os.path.join(info.BLENDER_PATH, self.unique_folder_name, self.params["file_name"] + "%04d.png")
-        log.info(final_path)
 
         # Add to project files
         self.win.add_file(final_path)
@@ -309,8 +297,6 @@ class BlenderListView(QListView):
         self.win.close()
 
     def close_window(self):
-        log.info("CLOSING WINDOW")
-
         # Close window
         self.close()
 
@@ -324,7 +310,6 @@ class BlenderListView(QListView):
 
     def sliderPreview_valueChanged(self, new_value):
         """Get new value of preview slider, and start timer to Render frame"""
-        log.info('sliderPreview_valueChanged: %s' % new_value)
         if self.win.sliderPreview.isEnabled():
             self.preview_timer.start()
 
@@ -335,7 +320,6 @@ class BlenderListView(QListView):
 
     def preview_timer_onTimeout(self):
         """Timer is ready to Render frame"""
-        log.info('preview_timer_onTimeout')
         self.preview_timer.stop()
 
         # Update preview label
@@ -641,42 +625,34 @@ class BlenderListView(QListView):
 
     # Signal when to close window (1001)
     def onCloseWindow(self):
-        log.info('onCloseWindow')
         self.close()
 
     # Signal when render is finished (1002)
     def onRenderFinish(self):
-        log.info('onRenderFinish')
         self.render_finished()
 
     # Error from blender (with version number) (1003)
     def onBlenderVersionError(self, version):
-        log.info('onBlenderVersionError')
         self.error_with_blender(version)
 
     # Error from blender (with no data) (1004)
     def onBlenderErrorNoData(self):
-        log.info('onBlenderErrorNoData')
         self.error_with_blender()
 
     # Signal when to update progress bar (1005)
     def onUpdateProgress(self, current_frame, current_part, max_parts):
-        # log.info ('onUpdateProgress')
         self.update_progress_bar(current_frame, current_part, max_parts)
 
     # Signal when to update preview image (1006)
     def onUpdateImage(self, image_path):
-        # log.info ('onUpdateImage: %s' % image_path)
         self.update_image(image_path)
 
     # Signal error from blender (with custom message) (1007)
     def onBlenderErrorMessage(self, error):
-        log.info('onBlenderErrorMessage')
         self.error_with_blender(None, error)
 
     # Signal when to re-enable interface (1008)
     def onRenableInterface(self):
-        log.info('onRenableInterface')
         self.enable_interface()
 
 
@@ -695,7 +671,7 @@ class Worker(QObject):
     @pyqtSlot(str, str, bool)
     def Render(self, blend_file_path, target_script, preview_mode=False):
         """ Worker's Render method which invokes the Blender rendering commands """
-        log.info("QThread Render Method Invoked")
+        log.debug("Rendering {}".format(blend_file_path))
 
         # Init regex expression used to determine blender's render progress
         s = settings.get_settings()
@@ -734,7 +710,7 @@ class Worker(QObject):
                     return
 
             # debug info
-            log.info(
+            log.debug(
                 "Blender command: {} {} '{}' {} '{}'".format(command_render[0], command_render[1], command_render[2],
                                                              command_render[3], command_render[4]))
 
@@ -771,7 +747,8 @@ class Worker(QObject):
 
             # Look for progress info in the Blender Output
             output_saved = self.blender_saved_expression.findall(str(line))
-            log.info("Image detected from blender regex: %s" % output_saved)
+            if output_saved:
+                log.debug("Image detected from blender regex: %s" % output_saved)
 
             # Does it have a match?
             if output_saved:
@@ -799,7 +776,6 @@ class Worker(QObject):
             self.finished.emit()
 
         # Thread finished
-        log.info("Blender render thread finished")
         if self.is_running == False:
             # close window if thread was killed
             self.closed.emit()
