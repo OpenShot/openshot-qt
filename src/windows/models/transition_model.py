@@ -64,7 +64,6 @@ class TransitionStandardItemModel(QStandardItemModel):
 
 class TransitionsModel():
     def update_model(self, clear=True):
-        log.info("updating transitions model.")
         app = get_app()
 
         # Get window to check filters

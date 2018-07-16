@@ -65,7 +65,6 @@ class TitleStandardItemModel(QStandardItemModel):
 
 class TitlesModel():
     def update_model(self, clear=True):
-        log.info("updating title model.")
         app = get_app()
 
         # Get window to check filters
