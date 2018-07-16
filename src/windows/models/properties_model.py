@@ -188,8 +188,7 @@ class PropertiesModel(updates.UpdateInterface):
             if self.frame_number > max_frame_number:
                 self.frame_number = max_frame_number
 
-            log.debug("{}[{}] update frame to {}".format(
-                     item_type.capitalize(), clip_id, self.frame_number))
+            log.debug("Update frame to {}".format(self.frame_number))
 
             # Update the model data
             if reload_model:
