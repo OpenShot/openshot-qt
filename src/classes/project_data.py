@@ -141,7 +141,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
     def _set(self, key, values=None, add=False, partial_update=False, remove=False):
         """ Store setting, but adding isn't allowed. All possible settings must be in default settings file. """
 
-        log.info(
+        log.debug(
             "_set key: {} values: {} add: {} partial: {} remove: {}".format(key, values, add, partial_update, remove))
         parent, my_key = None, ""
 
@@ -473,7 +473,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                                 file = file_lookup[clip.file_object.unique_id]
                             else:
                                 # Skip missing file
-                                log.info("Skipping importing missing file: %s" % clip.file_object.unique_id)
+                                log.info("Clip contains missing file, skipped: {}".format(clip.file_object.unique_id))
                                 continue
 
                             # Create clip
@@ -912,7 +912,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     path = os.path.join(starting_folder, file_name_with_ext)
                     file["path"] = path
                     get_app().updates.update(["import_path"], os.path.dirname(path))
-                    log.info ('Updated File path: {}'.format(path))
+                    log.debug('Updated File path: {}'.format(path))
                 else:
                     self._data["files"].remove(file)
                     log.info('Removed missing file: {}'.format(file_name_with_ext))
@@ -930,7 +930,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     # Update clip path
                     path = os.path.join(starting_folder, file_name_with_ext)
                     clip["reader"]["path"] = path
-                    log.info ('Updated file path for Clip: {}'.format(path))
+                    log.debug('Updated file path for Clip: {}'.format(path))
                 else:
                     log.info('Removed missing Clip: {}'.format(file_name_with_ext))
                     self._data["clips"].remove(clip)
