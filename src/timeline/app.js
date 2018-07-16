@@ -53,7 +53,7 @@ var App = angular.module('openshot-timeline', ['ui.bootstrap','ngAnimate']);
 	
 	// Check for Qt Integration
 	if(typeof timeline != 'undefined') {
-		timeline.qt_log("Qt Found!");
+		timeline.qt_debug("Qt Found!");
 		$('body').scope().EnableQt();
 		timeline.page_ready();
 	} else {
