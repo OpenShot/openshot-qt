@@ -50,29 +50,47 @@ class StreamToLogger(object):
         pass
 
 # Initialize logging module, give basic formats and level we want to report
-logging.basicConfig(format="%(module)12s:%(levelname)s %(message)s",
-                    datefmt='%H:%M:%S',
-                    level=logging.INFO)
+#logging.basicConfig(format="%(module)12s:%(levelname)s %(message)s",
+#                    datefmt='%H:%M:%S',
+#                    level=logging.NOTSET)
 
 # Create a formatter
 formatter = logging.Formatter('%(module)12s:%(levelname)s %(message)s')
 
 # Get logger instance & set level
 log = logging.getLogger('OpenShot')
-log.setLevel(logging.INFO)
+log.setLevel(logging.DEBUG)
+
+# create console handler, set level to INFO, add formatter
+ch = logging.StreamHandler()
+ch.setLevel(logging.INFO)
+ch.setFormatter(formatter)
+log.addHandler(ch)
 
 # Add rotation file handler
 fh = RotatingFileHandler(
     os.path.join(info.USER_PATH, 'openshot-qt.log'), encoding="utf-8", maxBytes=25*1024*1024, backupCount=3)
+fh.setLevel(logging.INFO)
 fh.setFormatter(formatter)
 log.addHandler(fh)
 
 def reroute_output():
     """Route stdout and stderr to logger (custom handler)"""
-    if not getattr(sys, 'frozen', False):
-        so = StreamToLogger(log, logging.INFO)
+    if True or not getattr(sys, 'frozen', False):
+        so = StreamToLogger(log, logging.DEBUG)
         sys.stdout = so
 
         se = StreamToLogger(log, logging.ERROR)
         sys.stderr = se
+
+        print("Redirected console output to logger")
+
+def debug_logging(enable=True):
+    """Enable/disable debug logging to the logfile"""
+    if enable:
+        fh.setLevel(logging.DEBUG)
+        #log.info("Enabled DEBUG message logging")
+    else:
+        fh.setLevel(logging.INFO)
+        #log.info("Disabled DEBUG message logging")
 

@@ -38,7 +38,7 @@ from PyQt5 import uic
 from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.language import get_all_languages
-from classes.logger import log
+from classes.logger import log, debug_logging
 from classes.metrics import *
 import openshot
 
@@ -266,7 +266,10 @@ class Preferences(QDialog):
             log.info("Setting debug-mode to %s" % (state == Qt.Checked))
             debug_enabled = (state == Qt.Checked)
 
-            # Enable / Disable logger
+            # Enable/disable debug logging to our logfile
+            debug_logging(debug_enabled)
+
+            # Enable / Disable libopenshot debug logger
             openshot.ZmqLogger.Instance().Enable(debug_enabled)
 
         elif param["setting"] == "enable-auto-save":

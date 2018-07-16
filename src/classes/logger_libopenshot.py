@@ -27,7 +27,7 @@
 
 from threading import Thread
 from classes import settings, info
-from classes.logger import log
+from classes.logger import log, debug_logging
 import openshot
 import os
 import zmq
@@ -55,8 +55,9 @@ class LoggerLibOpenShot(Thread):
         # Set filepath for ZmqLogger also
         openshot.ZmqLogger.Instance().Path(os.path.join(info.USER_PATH, 'libopenshot.log'))
 
-        # Enable / Disable logger
+        # Enable / Disable debug loggers
         openshot.ZmqLogger.Instance().Enable(debug_enabled)
+        debug_logging(debug_enabled)
 
         # Socket to talk to server
         context = zmq.Context()
@@ -80,4 +81,4 @@ class LoggerLibOpenShot(Thread):
 
             # Log the message (if any)
             if msg:
-                log.info(msg.strip().decode('UTF-8'))
+                log.debug(msg.strip().decode('UTF-8'))
