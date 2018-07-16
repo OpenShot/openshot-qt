@@ -1368,9 +1368,6 @@ $scope.SetTrackLabel = function (label){
 
 			// Re-index Layer Y values
 			$scope.UpdateLayerIndex();
-
-			// Lock / unlock any items
-			$scope.LockItems();
 	 	}
 	}	
 	 
@@ -1396,9 +1393,6 @@ $scope.SetTrackLabel = function (label){
 	 // Re-index Layer Y values
 	 $scope.UpdateLayerIndex();
 
-	 // Lock / unlock any items
-	 $scope.LockItems();
-
 	 // Scroll to top/left when loading a project
 	 $("#scrolling_tracks").animate({
 		scrollTop: 0,
@@ -1407,19 +1401,6 @@ $scope.SetTrackLabel = function (label){
 	 
 	 // return true
 	 return true;
- };
-
- // Lock and unlock items
- $scope.LockItems = function(){
-
-	// Enable all items
-	//$(".clip").draggable("enable")
-
-	// Disable any locked items
-	// for (layer in $scope.project.layers)
-	// {
-	// 	timeline.qt_log(layer);
-	// }
  };
   
 // ############# END QT FUNCTIONS #################### //   
