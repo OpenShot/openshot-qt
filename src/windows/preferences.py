@@ -292,7 +292,7 @@ class Preferences(QDialog):
     def spinner_value_changed(self, param, value):
         # Save setting
         self.s.set(param["setting"], value)
-        log.info(value)
+        log.debug('{} set to {}'.format(param["setting"], value))
 
         if param["setting"] == "autosave-interval":
             # Update autosave interval (# of minutes)
@@ -317,11 +317,11 @@ class Preferences(QDialog):
         if param.get("category") == "Keyboard":
             previous_value = value
             value = QKeySequence(value).toString()
-            log.info("Parsing keyboard mapping via QKeySequence from %s to %s" % (previous_value, value))
+            log.debug("Parsing keyboard mapping via QKeySequence from %s to %s" % (previous_value, value))
 
         # Save setting
         self.s.set(param["setting"], value)
-        log.info(value)
+        log.debug('{} set to {}'.format(param["setting"], value))
 
         # Check for restart
         self.check_for_restart(param)
@@ -330,7 +330,7 @@ class Preferences(QDialog):
         # Save setting
         value = widget.itemData(index)
         self.s.set(param["setting"], value)
-        log.info(value)
+        log.debug('{} set to {}'.format(param["setting"], value))
 
         # Apply cache settings (if needed)
         if param["setting"] in ["cache-mode", "cache-image-format"]:
