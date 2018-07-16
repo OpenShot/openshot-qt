@@ -297,7 +297,7 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.PreviewClipFrame = function(clip_id, position_seconds) {
 	  // Get the nearest starting frame position to the playhead (this helps to prevent cutting
 	  // in-between frames, and thus less likely to repeat or skip a frame).
-	  position_seconds_rounded = (Math.round((playhead_position * $scope.project.fps.num) / $scope.project.fps.den ) * $scope.project.fps.den ) / $scope.project.fps.num;
+	  position_seconds_rounded = (Math.round(($scope.project.playhead_position * $scope.project.fps.num) / $scope.project.fps.den ) * $scope.project.fps.den ) / $scope.project.fps.num;
 
   	  // Determine frame
 	  var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
@@ -1454,7 +1454,7 @@ $scope.SetTrackLabel = function (label){
   // Debug method to add effects to a clip's $scope
   $scope.addEffect = function(clipNum){
 	    //find the clip in the json data
-	    elm = findElement($scope.project.clips, "number", clipNum);
+	    elm = findElement($scope.project.clips, "id", clipNum);
 	    elm.effects.push({
 	       effect : 'Old Movie',
 	       icon : 'om.png'
