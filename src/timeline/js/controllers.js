@@ -958,7 +958,7 @@ $scope.SetTrackLabel = function (label){
  $scope.UpdateLayerIndex = function(){
 
 	 if ($scope.Qt)
-		 timeline.qt_log('UpdateLayerIndex');
+		 timeline.qt_debug('UpdateLayerIndex');
 
 	var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
 	var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
@@ -994,7 +994,7 @@ $scope.SetTrackLabel = function (label){
 		 return;
 
 	 if ($scope.Qt)
-		 timeline.qt_log('SortItems');
+		 timeline.qt_debug('SortItems');
 
 	 $scope.$apply(function(){
 		 // Sort by position second
