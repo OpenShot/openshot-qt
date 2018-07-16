@@ -252,7 +252,7 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.Qt = false;
   $scope.EnableQt = function() { 
 	  	$scope.Qt = true;
-	  	timeline.qt_log("$scope.Qt = true;"); 
+	  	timeline.qt_debug("$scope.Qt = true;");
   };
 
   // Move the playhead to a specific time
@@ -431,7 +431,7 @@ App.controller('TimelineCtrl',function($scope) {
 				$scope.project.clips[clip_index].audio_data = audio_data;
 				$scope.project.clips[clip_index].show_audio = true;
 			});
-			timeline.qt_log("Audio data successful set on clip JSON");
+			timeline.qt_debug("Audio data successful set on clip JSON");
 			break;
 		}
 
@@ -724,7 +724,7 @@ App.controller('TimelineCtrl',function($scope) {
  // Show clip context menu
  $scope.ShowClipMenu = function(clip_id, event) {
  	if ($scope.Qt) {
-	 	timeline.qt_log("$scope.ShowClipMenu");
+	 	timeline.qt_debug("$scope.ShowClipMenu");
 	 	$scope.SelectClip(clip_id, false, event);
 	 	timeline.ShowClipMenu(clip_id);
  	}
@@ -733,7 +733,7 @@ App.controller('TimelineCtrl',function($scope) {
  // Show clip context menu
  $scope.ShowEffectMenu = function(effect_id) {
  	if ($scope.Qt) {
-	 	timeline.qt_log("$scope.ShowEffectMenu");
+	 	timeline.qt_debug("$scope.ShowEffectMenu");
 	 	timeline.ShowEffectMenu(effect_id);
  	}
  };
@@ -741,7 +741,7 @@ App.controller('TimelineCtrl',function($scope) {
  // Show transition context menu
  $scope.ShowTransitionMenu = function(tran_id, event) {
  	if ($scope.Qt) {
-	 	timeline.qt_log("$scope.ShowTransitionMenu");
+	 	timeline.qt_debug("$scope.ShowTransitionMenu");
 	 	$scope.SelectTransition(tran_id, false, event);
 	 	timeline.ShowTransitionMenu(tran_id);
  	}
@@ -750,7 +750,7 @@ App.controller('TimelineCtrl',function($scope) {
  // Show track context menu
  $scope.ShowTrackMenu = function(layer_id) {
  	if ($scope.Qt) {
-	 	timeline.qt_log("$scope.ShowTrackMenu");
+	 	timeline.qt_debug("$scope.ShowTrackMenu");
 	 	timeline.ShowTrackMenu(layer_id);
  	}
  };
@@ -758,7 +758,7 @@ App.controller('TimelineCtrl',function($scope) {
  // Show marker context menu
  $scope.ShowMarkerMenu = function(marker_id) {
  	if ($scope.Qt) {
-	 	timeline.qt_log("$scope.ShowMarkerMenu");
+	 	timeline.qt_debug("$scope.ShowMarkerMenu");
 	 	timeline.ShowMarkerMenu(marker_id);
  	}
  };
@@ -766,7 +766,7 @@ App.controller('TimelineCtrl',function($scope) {
   // Show playhead context menu
  $scope.ShowPlayheadMenu = function(position) {
  	if ($scope.Qt) {
-	 	timeline.qt_log("$scope.ShowPlayheadMenu");
+	 	timeline.qt_debug("$scope.ShowPlayheadMenu");
 	 	timeline.ShowPlayheadMenu(position);
 	 }
  };

@@ -54,7 +54,6 @@ class CreditsModel():
     developer_icon = QIcon(os.path.join(info.IMAGES_PATH, "python-icon.png"))
 
     def update_model(self, filter=None, clear=True):
-        log.info("updating credits model.")
         app = get_app()
         _ = app._tr
 
@@ -63,7 +62,6 @@ class CreditsModel():
 
         # Clear all items
         if clear:
-            log.info('cleared credits model')
             self.model.clear()
 
         # Add Headers

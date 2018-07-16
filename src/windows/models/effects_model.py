@@ -64,7 +64,6 @@ class EffectsStandardItemModel(QStandardItemModel):
 
 class EffectsModel():
     def update_model(self, clear=True):
-        log.info("updating effects model.")
         app = get_app()
 
         # Get window to check filters
@@ -104,8 +103,6 @@ class EffectsModel():
                 icon_path = os.path.join(icons_dir, "audio.png")
             elif effect_info["has_video"] and not effect_info["has_audio"]:
                 category = "Video"
-
-            log.info("category: %s" % category)
 
             # Filter out effect (if needed)
             if win.effectsFilter.text() != "":
