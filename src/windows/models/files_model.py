@@ -83,7 +83,6 @@ class FilesModel(updates.UpdateInterface):
                 self.update_model(clear=True)
 
     def update_model(self, clear=True):
-        log.info("updating files model.")
         app = get_app()
 
         # Get window to check filters

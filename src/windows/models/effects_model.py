@@ -64,7 +64,6 @@ class EffectsStandardItemModel(QStandardItemModel):
 
 class EffectsModel():
     def update_model(self, clear=True):
-        log.info("updating effects model.")
         app = get_app()
 
         # Get window to check filters
