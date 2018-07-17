@@ -338,10 +338,12 @@ class PropertiesTableView(QTableView):
             property_key = property[0]
             clip_id, item_type = selected_value.data()
 
-            log.info("Context menu shown for %s (%s) for clip %s on frame %s" % (
-                property_name, property_key, clip_id, frame_number))
-            log.info("Points: %s" % points)
-            log.info("Property: %s" % str(property))
+            log.debug("Clip[{}].frame[{}].{}: Show context menu for {} ({} points)".format(
+                      clip_id, frame_number, property_key, property_name, points))
+            # log.info("Context menu shown for %s (%s) for clip %s on frame %s" % (
+            #     property_name, property_key, clip_id, frame_number))
+            # log.info("Points: %s" % points)
+            log.info("Clip[{}].frame[{}].{}: {}".format(clip_id, frame_number, property_key, str(property)))
 
             # Define bezier presets
             bezier_presets = [
@@ -422,7 +424,7 @@ class PropertiesTableView(QTableView):
                 menu.popup(QCursor.pos())
 
     def Bezier_Action_Triggered(self, preset=[]):
-        log.info("Bezier_Action_Triggered: %s" % str(preset))
+        log.debug("Bezier_Action_Triggered, preset: {}".format(str(preset)))
         if self.property_type != "color":
             # Update keyframe interpolation mode
             self.clip_properties_model.value_updated(self.selected_item, interpolation=0, interpolation_details=preset)
@@ -431,7 +433,6 @@ class PropertiesTableView(QTableView):
             self.clip_properties_model.color_update(self.selected_item, QColor("#000"), interpolation=0, interpolation_details=preset)
 
     def Linear_Action_Triggered(self, event):
-        log.info("Linear_Action_Triggered")
         if self.property_type != "color":
             # Update keyframe interpolation mode
             self.clip_properties_model.value_updated(self.selected_item, interpolation=1)
@@ -440,7 +441,6 @@ class PropertiesTableView(QTableView):
             self.clip_properties_model.color_update(self.selected_item, QColor("#000"), interpolation=1, interpolation_details=[])
 
     def Constant_Action_Triggered(self, event):
-        log.info("Constant_Action_Triggered")
         if self.property_type != "color":
             # Update keyframe interpolation mode
             self.clip_properties_model.value_updated(self.selected_item, interpolation=2)
@@ -449,17 +449,14 @@ class PropertiesTableView(QTableView):
             self.clip_properties_model.color_update(self.selected_item, QColor("#000"), interpolation=2, interpolation_details=[])
 
     def Insert_Action_Triggered(self, event):
-        log.info("Insert_Action_Triggered")
         if self.selected_item:
             current_value = QLocale().system().toDouble(self.selected_item.text())[0]
             self.clip_properties_model.value_updated(self.selected_item, value=current_value)
 
     def Remove_Action_Triggered(self, event):
-        log.info("Remove_Action_Triggered")
         self.clip_properties_model.remove_keyframe(self.selected_item)
 
     def Choice_Action_Triggered(self, event):
-        log.info("Choice_Action_Triggered")
         choice_value = self.sender().data()
 
         # Update value of dropdown item
@@ -592,7 +589,7 @@ class SelectionLabel(QFrame):
         # Switch selection
         item_id = self.sender().data()['item_id']
         item_type = self.sender().data()['item_type']
-        log.info('switch selection to %s:%s' % (item_id, item_type))
+        log.debug('switch selection to {}:{}'.format(item_id, item_type))
 
         # Set the property tableview to the new item
         get_app().window.propertyTableView.loadProperties.emit(item_id, item_type)
