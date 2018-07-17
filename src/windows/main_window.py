@@ -1064,7 +1064,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             get_app().window.propertyTableView.select_frame(frame_to_seek)
 
     def actionNextMarker_trigger(self, event):
-        log.info(self.preview_thread.current_frame)
+        log.debug("Next Marker called from frame {}".format(self.preview_thread.current_frame))
 
         # Calculate current position (in seconds)
         fps = get_app().project.get(["fps"])
@@ -1450,11 +1450,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             QMessageBox.warning(self, _("Error Removing Track"), _("You must keep at least 1 track"))
             return
 
-        # Revove all clips on this track first
+        # Remove all clips on this track first
         for clip in Clip.filter(layer=selected_track_number):
             clip.delete()
 
-        # Revove all transitions on this track first
+        # Remove all transitions on this track first
         for trans in Transition.filter(layer=selected_track_number):
             trans.delete()
 
@@ -1775,7 +1775,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     # Add to the selected items
     def addSelection(self, item_id, item_type, clear_existing=False):
-        log.debug('main::addSelection: {}[{}], clear_existing: {}' % (item_type.capitalize(), item_id, clear_existing))
+        log.debug('main::addSelection: {}[{}], clear_existing: {}'.format(item_type.capitalize(), item_id, clear_existing))
 
         # Clear existing selection (if needed)
         if clear_existing:
