@@ -57,7 +57,7 @@ class PreviewParent(QObject):
 
     # Signal when the playback mode changes in the preview player (i.e PLAY, PAUSE, STOP)
     def onModeChanged(self, current_mode):
-        log.info('onModeChanged')
+        return
 
     @pyqtSlot(object, object)
     def Init(self, parent, timeline, video_widget):
@@ -123,7 +123,7 @@ class PlayerWorker(QObject):
     @pyqtSlot()
     def Start(self):
         """ This method starts the video player """
-        log.info("QThread Start Method Invoked")
+        log.debug("Starting video preview engine in a new thread")
 
         # Init new player
         self.initPlayer()
@@ -158,11 +158,10 @@ class PlayerWorker(QObject):
             QCoreApplication.processEvents()
 
         self.finished.emit()
-        log.info('exiting thread')
+        log.debug('Terminating video preview thread')
 
     @pyqtSlot()
     def initPlayer(self):
-        log.info("initPlayer")
 
         # Get the address of the player's renderer (a QObject that emits signals when frames are ready)
         self.renderer_address = self.player.GetRendererQObject()
@@ -176,16 +175,15 @@ class PlayerWorker(QObject):
 
     def previewFrame(self, number):
         """ Preview a certain frame """
-        log.info("previewFrame: %s" % number)
+        log.debug("previewFrame: {}".format(number))
 
         # Mark frame number for processing
         self.Seek(number)
 
-        log.info("self.player.Position(): %s" % self.player.Position())
+        log.debug("self.player.Position(): {}".format(self.player.Position()))
 
     def refreshFrame(self):
         """ Refresh a certain frame """
-        log.info("refreshFrame")
 
         # Always load back in the timeline reader
         self.parent.LoadFileSignal.emit('')
@@ -193,7 +191,7 @@ class PlayerWorker(QObject):
         # Mark frame number for processing (if parent is done initializing)
         self.Seek(self.player.Position())
 
-        log.info("self.player.Position(): %s" % self.player.Position())
+        log.debug("self.player.Position(): {}".format(self.player.Position()))
 
     def LoadFile(self, path=None):
         """ Load a media file into the video player """
@@ -202,7 +200,7 @@ class PlayerWorker(QObject):
         if path == self.clip_path or (not path and not self.clip_path):
             return
 
-        log.info("LoadFile %s" % path)
+        log.info("Load file: {}".format(path))
         s = settings.get_settings()
 
         # Determine the current frame of the timeline (when switching to a clip)
@@ -214,7 +212,7 @@ class PlayerWorker(QObject):
         # If blank path, switch back to self.timeline reader
         if not path:
             # Return to self.timeline reader
-            log.info("Set timeline reader again in player: %s" % self.timeline)
+            log.debug("Set timeline reader again in player: {}".format(self.timeline))
             self.player.Reader(self.timeline)
 
             # Clear clip reader reference
@@ -253,8 +251,8 @@ class PlayerWorker(QObject):
                 # Add clip for current preview file
                 new_clip = openshot.Clip(path)
                 self.clip_reader.AddClip(new_clip)
-            except:
-                log.error('Failed to load media file into video player: %s' % path)
+            except Exception as ex:
+                log.error('Previewer failed to load file {}: {}'.format(path, str(ex)))
                 return
 
             # Assign new clip_reader
@@ -270,7 +268,7 @@ class PlayerWorker(QObject):
 
         # Close and destroy old clip readers (leaving the 3 most recent)
         while len(self.previous_clip_readers) > 3:
-            log.info('Removing old clips from preview: %s' % self.previous_clip_readers[0])
+            log.debug('Removing old clips from preview: {}'.format(self.previous_clip_readers[0]))
             previous_clip = self.previous_clips.pop(0)
             previous_clip.Close()
             previous_reader = self.previous_clip_readers.pop(0)
