@@ -1485,7 +1485,7 @@ $scope.SetTrackLabel = function (label){
   // Debug method to add a marker to the $scope
   $scope.addMarker = function(markLoc){
         $scope.project.markers.push({
-          location: parseInt(markLoc),
+          position: parseInt(markLoc),
           icon: 'blue.png'
         });
         $scope.markLoc = "";
