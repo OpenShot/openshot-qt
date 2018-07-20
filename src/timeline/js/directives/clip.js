@@ -269,16 +269,14 @@ App.directive('tlClip', function($timeout){
 
                     bounding_box = {};
 
-		        	// Init all other selected clips (prepare to drag them)
-		        	$(".ui-selected").each(function(){
-		        		start_clips[$(this).attr('id')] = {"top": $(this).position().top + vert_scroll_offset,
-                                						   "left": $(this).position().left + horz_scroll_offset};
-                        move_clips[$(this).attr('id')] = {"top": $(this).position().top + vert_scroll_offset,
-                               							  "left": $(this).position().left + horz_scroll_offset};
+		        	// Init all clips whether selected or not
+	        		start_clips[$(this).attr('id')] = {"top": $(this).position().top + vert_scroll_offset,
+                            						   "left": $(this).position().left + horz_scroll_offset};
+                    move_clips[$(this).attr('id')] = {"top": $(this).position().top + vert_scroll_offset,
+                           							  "left": $(this).position().left + horz_scroll_offset};
 
-                        //send clip to bounding box builder
-                        setBoundingBox($(this));
-                    });
+                    //send clip to bounding box builder
+                    setBoundingBox($(this));
 					
 					// Does this bounding box overlap a locked track?
 					if (hasLockedTrack(scope, bounding_box.top, bounding_box.bottom) || scope.enable_razor)
