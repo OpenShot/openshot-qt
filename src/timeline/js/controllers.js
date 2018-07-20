@@ -34,9 +34,9 @@ App.controller('TimelineCtrl',function($scope) {
 	$scope.project =
     {
 	  fps: {
-		    num : 24,
-		    den : 1
-		   },
+	    num : 24,
+	    den : 1
+	   },
       duration : 300,			//length of project in seconds
       scale : 16.0,				//seconds per tick
       tick_pixels : 100,		//pixels between tick mark
@@ -1446,9 +1446,7 @@ $scope.SetTrackLabel = function (label){
             startNum++;
 			positionNum+=50;
         };
-      
         $scope.numClips = "";
-
     };
 
   // Debug method to add effects to a clip's $scope
@@ -1460,7 +1458,6 @@ $scope.SetTrackLabel = function (label){
 	       icon : 'om.png'
 	    });
 	    $scope.clipNum = "";
-                    
   };
 
   // Debug method to add a marker to the $scope
