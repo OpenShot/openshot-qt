@@ -46,8 +46,8 @@ img {
 #scrolling_ruler { overflow: hidden; position: relative;line-height: 4px; }
 #scrolling_tracks { height: 316px; overflow: scroll; position: relative; }
 #ruler_label { height: 39px; width: 140px; float: left; margin-bottom: 4px; }
-#ruler_ticks { background-color:#000; }
-#ruler_time { font-size: 13pt; color: #c8c8c8; padding-top: 14px; padding-left: 17px; }
+#ruler_ticks, #ruler_time { color: #ddd; }
+#ruler_time { font-size: 13pt; padding-top: 14px; padding-left: 17px; }
 #progress_container {margin-left:140px; overflow: hidden; height: 13px;}
 .drag_cursor { cursor: move; }
 
