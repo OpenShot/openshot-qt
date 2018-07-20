@@ -1426,9 +1426,9 @@ $scope.SetTrackLabel = function (label){
 	                 layer : 0,
 	                 image : './media/images/thumbnail.png',
 	                 locked : false,
-	                 duration : 5,
+	                 duration : 50,
 	                 start : 0,
-	                 end : 5,
+	                 end : 50,
 	                 position : positionNum,
 	                 title : 'Clip B',
 	                 effects : [],
@@ -1444,7 +1444,7 @@ $scope.SetTrackLabel = function (label){
 					 volume: { Points: [] }
 	               });
             startNum++;
-			positionNum+=5;
+			positionNum+=50;
         };
       
         $scope.numClips = "";
@@ -1466,7 +1466,7 @@ $scope.SetTrackLabel = function (label){
   // Debug method to add a marker to the $scope
   $scope.addMarker = function(markLoc){
         $scope.project.markers.push({
-          location: parseInt(markLoc),
+          position: parseInt(markLoc),
           icon: 'blue.png'
         });
         $scope.markLoc = "";

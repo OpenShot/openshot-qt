@@ -324,21 +324,21 @@ App.directive('tlClip', function($timeout){
 					ui.position.left = results.position.left;
 					ui.position.top = results.position.top;
 
-    				// Move all other selected clips with this one
-	                $(".ui-selected").each(function(){
-	                	var newY = move_clips[$(this).attr('id')]["top"] + y_offset;
-                        var newX = move_clips[$(this).attr('id')]["left"] + x_offset;
+    				// Move all other selected clips with this one if we have more than one clip
+    				if($(".ui-selected").length > 1) {
+		                $(".ui-selected").each(function() {
+		                	var newY = move_clips[$(this).attr('id')]["top"] + y_offset;
+	                        var newX = move_clips[$(this).attr('id')]["left"] + x_offset;
 
-						//update the clip location in the array
-	                	move_clips[$(this).attr('id')]['top'] = newY;
-                        move_clips[$(this).attr('id')]['left'] = newX;
+							//update the clip location in the array
+		                	move_clips[$(this).attr('id')]['top'] = newY;
+	                        move_clips[$(this).attr('id')]['left'] = newX;
 
-						//change the element location
-						$(this).css('left', newX);
-				    	$(this).css('top', newY);
-
-				    });
-
+							//change the element location
+							$(this).css('left', newX);
+					    	$(this).css('top', newY);
+					    });
+    				}
                 },
                 revert: function(valid) {
                     if(!valid) {
