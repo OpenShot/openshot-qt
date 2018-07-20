@@ -5,7 +5,7 @@
 	<title translatable="True">Apple TV</title>
 	<videoformat>mp4</videoformat>
 	<videocodec>libx264</videocodec>
-	<audiocodec>ac3</audiocodec>
+	<audiocodec>aac</audiocodec>
 	<audiochannels>2</audiochannels>
 	<audiochannellayout>3</audiochannellayout>
 	<videobitrate
@@ -16,6 +16,6 @@
 	 low=""
 	 med=""
 	 high="256 kb/s"></audiobitrate>
-	<samplerate>44100</samplerate>
+	<samplerate>48000</samplerate>
 	<projectprofile>HD 720p 30 fps</projectprofile>
 </export-option>
