@@ -135,7 +135,7 @@ img {
 }
 
 /* Snapping / snapline */
-.snapping-line { z-index: 9999; position: absolute; height:316px; top:0px; width:1px; background-color:#32b7ea; opacity:0.75; -webkit-transition: 0.3s linear all; }
+.snapping-line { z-index: 9999; position: absolute; height:316px; top:0px; width:1px; background-color:yellow; opacity:0.75; -webkit-transition: 0.3s linear all; }
 
 /* Snap line Animations */
 .snapping-line.ng-hide-add { display: block !important; }
