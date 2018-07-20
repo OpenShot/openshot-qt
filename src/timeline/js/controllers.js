@@ -1473,7 +1473,7 @@ $scope.SetTrackLabel = function (label){
   // Debug method to add effects to a clip's $scope
   $scope.addEffect = function(clipNum){
 	    //find the clip in the json data
-	    elm = findElement($scope.project.clips, "number", clipNum);
+	    elm = findElement($scope.project.clips, "id", clipNum);
 	    elm.effects.push({
 	       effect : 'Old Movie',
 	       icon : 'om.png'
