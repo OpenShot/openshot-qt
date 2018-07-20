@@ -485,7 +485,8 @@ class AddToTimeline(QDialog):
         tracks = Track.filter()
         for track in reversed(tracks):
             # Add to dropdown
-            self.cmbTrack.addItem(_('Track %s' % track.data['number']), track.data['number'])
+            track_name = track.data['label'] or _("Track %s") % track.data['number']
+            self.cmbTrack.addItem(track_name, track.data['number'])
 
         # Add all fade options
         self.cmbFade.addItem(_('None'), None)
