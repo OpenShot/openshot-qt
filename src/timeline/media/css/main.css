@@ -6,7 +6,7 @@ body {
   margin: 0;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background: #444;
+  background-color: #353535;
   overflow: hidden; /* prevent document scrollbars (the timeline handles it's own overflow) */
   -webkit-user-select: none;
   line-height: 10px;
