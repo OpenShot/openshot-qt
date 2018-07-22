@@ -48,8 +48,8 @@ App.directive('dbSlider', function () {
 		link: function (scope, element, attrs) {
 			element.slider({
 			    value: 30,
-			    step: 2,
-			    min: 8,
+			    step: 1,
+			    min: 1,
 			    max: 210,
 			    slide: function(event, ui) {
 			        $("#scaleVal").val(ui.value);

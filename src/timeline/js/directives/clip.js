@@ -40,7 +40,7 @@ var track_container_height = -1;
 // 1: can be dragged
 // 2: can be resized
 // 3: class change when hovered over
-var dragLog = null;
+var dragLoc = null;
 
 App.directive('tlClip', function($timeout){
 	return {
