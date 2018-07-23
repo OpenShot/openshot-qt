@@ -1,0 +1,8 @@
+To compile a Qt resource file with new translations, follow these steps:
+
+1) Edit the resource file and add the translations to it, using QtCreator
+2) Compile this into a Python file, either:
+     $ make
+   or, if make is unavailable:
+     $ pyrcc5 openshot_lang.qrc -o openshot_lang.py
+
