@@ -4,3 +4,6 @@
 idea/*
 doc/_build
 **/__pycache__/
+build
+dist
+openshot_qt.egg-info
