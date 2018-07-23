@@ -27,6 +27,8 @@
 
 import os
 
+from PyQt5.QtCore import QDir
+
 VERSION = "2.4.2-dev1"
 MINIMUM_LIBOPENSHOT_VERSION = "0.2.0"
 DATE = "20180630000000"
@@ -64,11 +66,24 @@ for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH, ASSETS_PATH,
 JT = {"name": u"Jonathan Thomas", "email": "jonathan@openshot.org", "website":"http://openshot.org/developers/jonathan"}
 
 # Languages
+CMDLINE_LANGUAGE = None
 CURRENT_LANGUAGE = 'en_US'
 SUPPORTED_LANGUAGES = ['en_US']
-for lang in os.listdir(os.path.join(PATH, 'locale')):
-    if lang not in ["OpenShot"] and not os.path.isfile(os.path.join(PATH, 'locale', lang)):
-        SUPPORTED_LANGUAGES.append(lang)
+
+try:
+    from language import openshot_lang
+    language_path=":/locale/"
+except ImportError:
+    language_path=os.path.join(PATH, 'language')
+    print("Compiled translation resources missing!")
+    print("Loading translations from: {}".format(language_path))
+
+# Compile language list from :/locale resource
+langdir = QDir(language_path)
+langs = langdir.entryList(['OpenShot.*.qm'], QDir.NoDotAndDotDot|QDir.Files,
+                          sort=QDir.Name)
+for trpath in langs:
+    SUPPORTED_LANGUAGES.append(trpath.split('.')[1])
 
 SETUP = {
     "name": NAME,
