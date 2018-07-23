@@ -60,9 +60,9 @@ def main():
     """"Initialize settings (not implemented) and create main window/application."""
 
     parser = ArgumentParser(description = 'OpenShot version ' + info.SETUP['version'])
-    # parser.add_argument('-l', '--lang', action='store',
-    #                     help='language code for interface (overrides '
-    #                     'preferences and system environment)')
+    parser.add_argument('-l', '--lang', action='store',
+                        help='language code for interface (overrides '
+                        'preferences and system environment)')
     parser.add_argument('--list-languages', dest='list_languages',
                         action='store_true', help='List all language '
                         'codes supported by OpenShot')
@@ -81,8 +81,12 @@ def main():
             print("  {:>12}  {}".format(lang[0],lang[1]))
         exit()
 
-    # if args.lang:
-    #     info.CMDLINE_LANG = args.lang
+    if args.lang:
+        if args.lang in info.SUPPORTED_LANGUAGES:
+            info.CMDLINE_LANGUAGE = args.lang
+        else:
+            print("Unsupported language '{}'! (See --list-languages)".format(args.lang))
+            exit(-1)
 
     reroute_output()
 
