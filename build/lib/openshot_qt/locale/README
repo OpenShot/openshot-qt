@@ -1,0 +1,65 @@
+OpenShot Video Editor is a program that creates, modifies, and edits video files.
+Copyright (C) 2009  Jonathan Thomas
+
+OpenShot Video Editor is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+OpenShot Video Editor is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with OpenShot Video Editor.  If not, see <http://www.gnu.org/licenses/>.
+
+TODO: This file becomes redundant if languages are included with the application...
+TODO: or are separated into separate language packages in the case of Debian/Ubuntu (e.g. openshot-lang-fr)
+
+##############################
+  HOW TO INSTALL LANGUAGES?
+##############################
+
+Follow these easy steps to install a new language in OpenShot Video Editor
+
+1) Create a folder for the language, examples:
+   /usr/local/share/openshot/openshot/language/fr_FR/
+   /usr/local/share/openshot/openshot/language/es_ES/
+   /usr/local/share/openshot/openshot/language/nl_NL/
+
+2) Create a LC_MESSAGES folder inside this new folder, examples:
+   /usr/local/share/openshot/openshot/language/fr_FR/LC_MESSAGES/
+
+3) Drop the MO file for your language into the LC_MESSAGES folder as "OpenShot.mo"
+   The name is case-sensitive, so be sure to call it "OpenShot.mo"
+
+   Where can you find an MO file for your language you ask?  You can download them here:
+   https://translations.launchpad.net/openshot
+
+4) Run OpenShot (i.e. $ openshot) and it should now be in a new language!!!
+
+
+##############################
+  STILL NEED HELP?
+##############################
+
+1) You can force OpenShot to use a specific language with this syntax, example:
+   $ LANG=fr_FR openshot
+
+2) You must have the language installed (via the Language Support option in Ubuntu)
+
+3) If you get this error message: 
+   "Gtk-WARNING **: Locale not supported by C library. Using the fallback 'C' locale."
+
+   SOLUTION:  Step 1) Modify this file and add your language: /var/lib/locales/supported.d/local
+              Step 2) sudo dpkg-reconfigure locales
+              Step 3) Be sure the correct translation file localted at /usr/local/share/openshot/openshot/language/
+
+4) fr <> fr_FR. You must match the language code exactly. If it can't find the language or locale,
+   you might try experimenting with different locale strings (such as fr, fr_FR, etc...)
+
+
+
+   
+

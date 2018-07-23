@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-export-option>
+<export-option>
+	<type translatable="True">Device</type>
+	<title translatable="True">Apple TV</title>
+	<videoformat>mp4</videoformat>
+	<videocodec>libx264</videocodec>
+	<audiocodec>aac</audiocodec>
+	<audiochannels>2</audiochannels>
+	<audiochannellayout>3</audiochannellayout>
+	<videobitrate
+	 low=""
+	 med=""
+	 high="5 Mb/s"></videobitrate>
+	<audiobitrate
+	 low=""
+	 med=""
+	 high="256 kb/s"></audiobitrate>
+	<samplerate>48000</samplerate>
+	<projectprofile>HD 720p 30 fps</projectprofile>
+</export-option>

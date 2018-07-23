@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">World Map</title>
+	<description translatable="True">World Map</description>
+	<icon>earth.png</icon>
+	<category>Video</category>
+	<service>earth.blend</service>
+	
+	<param name="file_name" type="text" title="File Name" description="">
+		<default>TitleFileName</default>
+	</param>
+
+	<!-- DEPART COORDINATES -->
+	<param name="depart_title" type="text" title="Depart Title" description="">
+		<default>New York</default>
+	</param>
+	<param name="depart_lat_dir" type="dropdown" title="Depart Latitude (Equator)" description="">
+		<values>
+			<value name="North" num="N"/>
+			<value name="South" num="S"/>
+		</values>
+		<default>N</default>
+	</param>
+	<param name="depart_lat_deg" type="spinner" title="Depart Latitude (degrees)" description="">
+		<min>0</min>
+		<max>90</max>
+		<default>40</default>
+	</param>
+	<param name="depart_lat_min" type="spinner" title="Depart Latitude (minutes)" description="">
+		<min>0</min>
+		<max>60</max>
+		<default>42</default>
+	</param>
+	<param name="depart_lat_sec" type="spinner" title="Depart Latitude (seconds)" description="">
+		<min>0</min>
+		<max>60</max>
+		<default>51</default>
+	</param>
+	<param name="depart_lon_dir" type="dropdown" title="Depart Longitude (Prime Meridian)" description="">
+		<values>
+			<value name="East" num="E"/>
+			<value name="West" num="W"/>
+		</values>
+		<default>W</default>
+	</param>
+	<param name="depart_lon_deg" type="spinner" title="Depart Longitude (degrees)" description="">
+		<min>0</min>
+		<max>180</max>
+		<default>74</default>
+	</param>
+	<param name="depart_lon_min" type="spinner" title="Depart Longitude (minutes)" description="">
+		<min>0</min>
+		<max>180</max>
+		<default>0</default>
+	</param>
+	<param name="depart_lon_sec" type="spinner" title="Depart Longitude (seconds)" description="">
+		<min>0</min>
+		<max>180</max>
+		<default>23</default>
+	</param>
+
+	<!-- ARRIVAL COORDINATES -->
+	<param name="arrive_title" type="text" title="Arrival Title" description="">
+		<default>Paris</default>
+	</param>
+	<param name="arrive_lat_dir" type="dropdown" title="Arrival Latitude (Equator)" description="">
+		<values>
+			<value name="North" num="N"/>
+			<value name="South" num="S"/>
+		</values>
+		<default>N</default>
+	</param>
+	<param name="arrive_lat_deg" type="spinner" title="Arrival Latitude (degrees)" description="">
+		<min>0</min>
+		<max>90</max>
+		<default>48</default>
+	</param>
+	<param name="arrive_lat_min" type="spinner" title="Arrival Latitude (minutes)" description="">
+		<min>0</min>
+		<max>60</max>
+		<default>51</default>
+	</param>
+	<param name="arrive_lat_sec" type="spinner" title="Arrival Latitude (seconds)" description="">
+		<min>0</min>
+		<max>60</max>
+		<default>24</default>
+	</param>
+	<param name="arrive_lon_dir" type="dropdown" title="Arrival Longitude (Prime Meridian)" description="">
+		<values>
+			<value name="East" num="E"/>
+			<value name="West" num="W"/>
+		</values>
+		<default>E</default>
+	</param>
+	<param name="arrive_lon_deg" type="spinner" title="Arrival Longitude (degrees)" description="">
+		<min>0</min>
+		<max>180</max>
+		<default>2</default>
+	</param>
+	<param name="arrive_lon_min" type="spinner" title="Arrival Longitude (minutes)" description="">
+		<min>0</min>
+		<max>180</max>
+		<default>21</default>
+	</param>
+	<param name="arrive_lon_sec" type="spinner" title="Arrival Longitude (seconds)" description="">
+		<min>0</min>
+		<max>180</max>
+		<default>7</default>
+	</param>
+	
+	
+	<!-- TEXTURE SETTINGS -->
+	<param name="map_texture" type="text" title="Custom Texture (Equirectangular)" description="">
+		<default></default>
+	</param>
+	
+	
+	<!-- FONT / MATERIAL SETTINGS -->
+	<param name="extrude" type="spinner" title="Extrude" description="">
+		<min>0.0</min>
+		<max>1.0</max>
+		<default>0.1</default>
+	</param>
+
+	<param name="bevel_depth" type="spinner" title="Bevel Depth" description="">
+		<min>0.0</min>
+		<max>1.0</max>
+		<default>0.02</default>
+	</param>
+
+	<param name="text_size" type="spinner" title="Text Size" description="">
+		<min>0.0</min>
+		<max>10.0</max>
+		<default>1.0</default>
+	</param>
+	
+	<param name="fontname" type="dropdown" title="Font Name" description="">
+		<values>
+			<value name="Bfont" num="Bfont"/>
+			<value name="WenQuanYiMicroHei (Unicode)" num="WenQuanYiMicroHei"/>
+		</values>
+		<default>Bfont</default>
+	</param>
+	
+	<param name="width" type="spinner" title="Text Width" description="">
+		<min>0.0</min>
+		<max>10.0</max>
+		<default>1.0</default>
+	</param>
+
+	<param name="diffuse_color" type="color" title="Diffuse Color" description="">
+		<default>#FF0000</default>
+	</param>
+	
+	<param name="specular_color" type="color" title="Specular Color" description="">
+		<default>#ffffff</default>
+	</param>
+	
+	<param name="specular_intensity" type="spinner" title="Specular Intensity" description="">
+		<min>0.0</min>
+		<max>1.0</max>
+		<default>0.5</default>
+	</param>
+	
+	
+	<param name="start_frame" type="spinner" title="Start Frame" description="">
+		<min>1</min>
+		<max>1</max>
+		<default>1</default>
+	</param>
+	
+	<param name="end_frame" type="spinner" title="End Frame" description="">
+		<min>100</min>
+		<max>100</max>
+		<default>100</default>
+	</param>
+
+	<!-- SPEED -->
+	<param name="animation_speed" type="dropdown" title="Animation Length" description="">
+		<values>
+			<value name="Default" num="1"/>
+			<value name="2X" num="2"/>
+			<value name="3X" num="3"/>
+			<value name="4X" num="4"/>
+			<value name="5X" num="5"/>
+		</values>
+		<default>1</default>
+	</param>
+</effect>

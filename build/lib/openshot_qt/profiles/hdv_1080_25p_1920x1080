@@ -1,0 +1,10 @@
+description=HDV 1080 25p 1920x1080
+frame_rate_num=25
+frame_rate_den=1
+width=1920
+height=1080
+progressive=1
+sample_aspect_num=1
+sample_aspect_den=1
+display_aspect_num=16
+display_aspect_den=9

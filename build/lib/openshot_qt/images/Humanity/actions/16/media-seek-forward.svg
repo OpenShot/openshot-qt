@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg2415" xmlns="http://www.w3.org/2000/svg" height="16" width="16" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs2417">
+  <linearGradient id="linearGradient3703">
+   <stop id="stop3705" style="stop-color:#fff" offset="0"/>
+   <stop id="stop3707" style="stop-color:#fff;stop-opacity:0" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient3689" y2="11.622" gradientUnits="userSpaceOnUse" x2="4.5012" gradientTransform="translate(-.002651)" y1="5" x1=".76404">
+   <stop id="stop2858" style="stop-color:#eeeeec" offset="0"/>
+   <stop id="stop2860" style="stop-color:#babdb6" offset=".78131"/>
+   <stop id="stop2862" style="stop-color:#a1a59b" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient3713" y2="11.562" gradientUnits="userSpaceOnUse" x2="10.501" gradientTransform="translate(.99701)" y1="5.1798" x1="7.4232">
+   <stop id="stop3617" style="stop-color:#eeeeec" offset="0"/>
+   <stop id="stop3619" style="stop-color:#babdb6" offset=".69580"/>
+   <stop id="stop3621" style="stop-color:#a1a59b" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient3721" y2="13" xlink:href="#linearGradient3703" gradientUnits="userSpaceOnUse" x2="8" gradientTransform="translate(.99701)" y1="4" x1="8"/>
+  <linearGradient id="linearGradient3725" y2="13" xlink:href="#linearGradient3703" gradientUnits="userSpaceOnUse" x2="8" gradientTransform="translate(-6.0027)" y1="4" x1="8"/>
+ </defs>
+ <path id="path5566" style="stroke-linejoin:round;stroke-width:1.0053;stroke:#888a86;display:block;fill:url(#linearGradient3689)" d="m0.5 3.502v9.9951l7.997-4.997-7.997-4.998z"/>
+ <path id="path2854" style="stroke-linejoin:round;stroke-width:1.0053;stroke:#888a86;display:block;fill:url(#linearGradient3713)" d="m7.4997 3.502v9.9951l7.9973-4.997-7.9973-4.998z"/>
+ <path id="path3711" style="opacity:.5;stroke-linejoin:round;stroke-width:1.0053;stroke:url(#linearGradient3721);display:block;fill:none" d="m8.497 5.4375v6.125l5.282-3.062-5.282-3.0625z"/>
+ <path id="path3723" style="opacity:.5;stroke-linejoin:round;stroke-width:1.0053;stroke:url(#linearGradient3725);display:block;fill:none" d="m1.4973 5.4375v6.125l5.2817-3.062-5.2817-3.0625z"/>
+</svg>

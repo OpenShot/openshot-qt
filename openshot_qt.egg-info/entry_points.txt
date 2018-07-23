@@ -1,0 +1,3 @@
+[gui_scripts]
+openshot-qt = openshot_qt.launch:main
+
