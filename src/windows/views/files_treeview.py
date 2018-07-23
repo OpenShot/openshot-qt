@@ -249,7 +249,6 @@ class FilesTreeView(QTreeView):
                 is_sequence = False
 
             if is_sequence and dirName not in self.ignore_image_sequence_paths:
-                log.info('Prompt user to import image sequence')
                 # Ignore this path (temporarily)
                 self.ignore_image_sequence_paths.append(dirName)
 
@@ -273,10 +272,10 @@ class FilesTreeView(QTreeView):
         self.ignore_image_sequence_paths = []
 
         for uri in event.mimeData().urls():
-            log.info('Processing drop event for {}'.format(uri))
+            log.debug('Processing drop event for {}'.format(uri))
             filepath = uri.toLocalFile()
             if os.path.exists(filepath) and os.path.isfile(filepath):
-                log.info('Adding file: {}'.format(filepath))
+                log.debug('Adding file: {}'.format(filepath))
                 if self.add_file(filepath):
                     event.accept()
 
@@ -319,7 +318,6 @@ class FilesTreeView(QTreeView):
         self.header().setSectionResizeMode(2, QHeaderView.Interactive)
 
     def currentChanged(self, selected, deselected):
-        log.info('currentChanged')
         self.updateSelection()
 
     def value_updated(self, item):

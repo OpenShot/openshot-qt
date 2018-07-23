@@ -74,7 +74,6 @@ class TutorialDialog(QWidget):
     def eventFilter(self, object, e):
         if e.type() == QEvent.WindowActivate:
             # Raise parent window, and then this tutorial
-            #log.info("Raising main app and tutorial popup")
             get_app().window.show()
             get_app().window.raise_()
             self.moveWidget()
@@ -191,7 +190,6 @@ class TutorialManager(object):
 
     def process(self, parent_name=None):
         """ Process and show the first non-completed tutorial """
-        log.info("process tutorial dialogs")
 
         # Do nothing if a tutorial is already visible
         if self.current_dialog:
@@ -222,6 +220,8 @@ class TutorialManager(object):
             tutorial_dialog.btn_next_tip.clicked.connect(functools.partial(self.next_tip, tutorial_id))
             tutorial_dialog.btn_close_tips.clicked.connect(functools.partial(self.hide_tips, tutorial_id, True))
 
+            log.debug("Showing tutorial {}".format(tutorial_id))
+
             # Show dialog
             self.current_dialog = tutorial_dialog
             self.current_dialog.show()
@@ -250,7 +250,6 @@ class TutorialManager(object):
 
     def next_tip(self, tid):
         """ Mark the current tip completed, and show the next one """
-        log.info("next_tip")
 
         # Hide matching tutorial
         self.hide_tips(tid)
@@ -260,7 +259,6 @@ class TutorialManager(object):
 
     def hide_tips(self, tid, user_clicked=False):
         """ Hide the current tip, and don't show anymore """
-        log.info("hide_tips")
         s = get_settings()
 
         # Loop through and find current tid
@@ -315,7 +313,6 @@ class TutorialManager(object):
 
     def minimize(self):
         """ Minimize any visible tutorial dialog """
-        log.info("minimize tutorial")
         if self.current_dialog:
             self.current_dialog.showMinimized()
 

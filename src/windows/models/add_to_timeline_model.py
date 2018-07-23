@@ -37,7 +37,6 @@ from classes.app import get_app
 
 class TimelineModel():
     def update_model(self, files=[], clear=True):
-        log.info("updating timeline model.")
         app = get_app()
 
         # Get window to check filters
@@ -46,7 +45,7 @@ class TimelineModel():
 
         # Set files list (if found)
         if files:
-            log.info('set files to %s' % files)
+            log.debug('Adding to timeline: {}'.format(files))
             self.files = files
 
         # Clear all items
@@ -55,8 +54,6 @@ class TimelineModel():
 
         # Add Headers
         self.model.setHorizontalHeaderLabels([_("Thumb"), _("Name")])
-
-        log.info(self.files)
 
         for file in self.files:
             # Get attributes from file

@@ -633,11 +633,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         openshot_version = self._data["version"]["openshot-qt"]
         libopenshot_version = self._data["version"]["libopenshot"]
 
-        log.info(openshot_version)
-        log.info(libopenshot_version)
-
         if openshot_version == "0.0.0":
             # If version = 0.0.0, this is the beta of OpenShot
+            log.info('Upgrading OpenShot 0.0.0 project data')
             # Fix alpha values (they are now flipped)
             for clip in self._data["clips"]:
                 # Loop through keyframes for alpha
@@ -651,6 +649,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                         point["handle_right"]["Y"] = 1.0 - point["handle_right"]["Y"]
 
         elif openshot_version <= "2.1.0-dev":
+            log.info('Upgrading OpenShot 2.1.0-dev project data')
             # Fix handle_left and handle_right coordinates and default to ease in/out bezier curve
             # using the new percent based keyframes
             for clip_type in ["clips", "effects"]:
@@ -737,7 +736,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
                 # Find any temp BLENDER file paths
                 if info.BLENDER_PATH in path or info.ASSETS_PATH in path:
-                    log.info("Temp blender file path detected in file")
 
                     # Get folder of file
                     folder_path, file_name = os.path.split(path)
@@ -770,7 +768,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
                 # Find any temp BLENDER file paths
                 if info.BLENDER_PATH in path or info.ASSETS_PATH in path:
-                    log.info("Temp blender file path detected in clip")
 
                     # Get folder of file
                     folder_path, file_name = os.path.split(path)
@@ -787,7 +784,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
                 # Find any temp BLENDER file paths
                 if info.BLENDER_PATH in path or info.ASSETS_PATH in path:
-                    log.info("Temp blender file path detected in clip thumbnail")
 
                     # Get folder of file
                     folder_path, file_name = os.path.split(path)
@@ -911,18 +907,18 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             path = file["path"]
             parent_path, file_name_with_ext = os.path.split(path)
             while not os.path.exists(path) and "%" not in path:
-                # File already exists! Prompt user to find missing file
+                # Prompt user to find missing media file
                 QMessageBox.warning(None, _("Missing File (%s)") % file["id"], _("%s cannot be found.") % file_name_with_ext)
                 starting_folder = QFileDialog.getExistingDirectory(None, _("Find directory that contains: %s" % file_name_with_ext), starting_folder)
-                log.info("Missing folder chosen by user: %s" % starting_folder)
                 if starting_folder:
                     # Update file path and import_path
                     path = os.path.join(starting_folder, file_name_with_ext)
                     file["path"] = path
                     get_app().updates.update(["import_path"], os.path.dirname(path))
+                    log.info('Updated File path: {}'.format(path))
                 else:
-                    log.info('Removed missing file: %s' % file_name_with_ext)
                     self._data["files"].remove(file)
+                    log.info('Removed missing file: {}'.format(file_name_with_ext))
                     break
 
         # Loop through each clip (in reverse order)
@@ -930,16 +926,16 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             path = clip["reader"]["path"]
             parent_path, file_name_with_ext = os.path.split(path)
             while not os.path.exists(path) and "%" not in path:
-                # Clip already exists! Prompt user to find missing file
-                QMessageBox.warning(None, _("Missing File in Clip (%s)") % clip["id"], _("%s cannot be found.") % file_name_with_ext)
+                # Prompt user to find missing file for Clip
+                QMessageBox.warning(None, _("Missing file in Clip (%s)") % clip["id"], _("%s cannot be found.") % file_name_with_ext)
                 starting_folder = QFileDialog.getExistingDirectory(None, _("Find directory that contains: %s" % file_name_with_ext), starting_folder)
-                log.info("Missing folder chosen by user: %s" % starting_folder)
                 if starting_folder:
                     # Update clip path
                     path = os.path.join(starting_folder, file_name_with_ext)
                     clip["reader"]["path"] = path
+                    log.info('Updated file path for Clip: {}'.format(path))
                 else:
-                    log.info('Removed missing clip: %s' % file_name_with_ext)
+                    log.info('Removed missing Clip: {}'.format(file_name_with_ext))
                     self._data["clips"].remove(clip)
                     break
 

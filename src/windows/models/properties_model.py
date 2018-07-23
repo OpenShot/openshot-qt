@@ -68,7 +68,7 @@ class PropertiesModel(updates.UpdateInterface):
 
         # Handle change
         if action.key and action.key[0] in ["clips", "effects"] and action.type in ["update", "insert"]:
-            log.info(action.values)
+            log.debug(action.values)
             # Update the model data
             self.update_model(get_app().window.txtPropertyFilter.text())
 
@@ -90,8 +90,6 @@ class PropertiesModel(updates.UpdateInterface):
         # Clear previous selection
         self.selected = []
         self.filter_base_properties = []
-
-        log.info("Update item: %s" % item_type)
 
         if item_type == "clip":
             c = None
@@ -190,7 +188,7 @@ class PropertiesModel(updates.UpdateInterface):
             if self.frame_number > max_frame_number:
                 self.frame_number = max_frame_number
 
-            log.info("Update frame to %s" % self.frame_number)
+            log.debug("Update frame to {}".format(self.frame_number))
 
             # Update the model data
             if reload_model:
@@ -225,7 +223,8 @@ class PropertiesModel(updates.UpdateInterface):
         if c:
             # Update clip attribute
             if property_key in c.data:
-                log.info("remove keyframe: %s" % c.data)
+                log.debug("{}[{}] remove keyframe: {}".format(
+                          item_type.capitalize(), clip_id, c.data))
 
                 # Determine type of keyframe (normal or color)
                 keyframe_list = []
@@ -257,7 +256,8 @@ class PropertiesModel(updates.UpdateInterface):
                     # Delete point (if needed)
                     if point_to_delete:
                         clip_updated = True
-                        log.info("Found point to delete at X=%s" % point_to_delete["co"]["X"])
+                        log.debug("{}[{}] found point to delete at X={}".format(
+                                  item_type.capitalize(), clip_id, point_to_delete["co"]["X"]))
                         keyframe["Points"].remove(point_to_delete)
 
                 # Reduce # of clip properties we are saving (performance boost)
@@ -303,7 +303,7 @@ class PropertiesModel(updates.UpdateInterface):
             if c:
                 # Update clip attribute
                 if property_key in c.data:
-                    log.info("color update: %s" % c.data)
+                    log.debug("{}[{}] color update: {}".format(item_type.capitalize(), clip_id, c.data))
 
                     # Loop through each keyframe (red, blue, and green)
                     for color, new_value in [("red", new_color.red()), ("blue", new_color.blue()),  ("green", new_color.green())]:
@@ -312,14 +312,14 @@ class PropertiesModel(updates.UpdateInterface):
                         # Loop through points, find a matching points on this frame
                         found_point = False
                         for point in c.data[property_key][color]["Points"]:
-                            log.info("looping points: co.X = %s" % point["co"]["X"])
                             if interpolation == -1 and point["co"]["X"] == self.frame_number:
                                 # Found point, Update value
                                 found_point = True
                                 clip_updated = True
                                 # Update point
                                 point["co"]["Y"] = new_value
-                                log.info("updating point: co.X = %s to value: %s" % (point["co"]["X"], float(new_value)))
+                                log.debug("{}[{}].frame[{}] new color value: {}".format(
+                                          item_type.capitalize(), clip_id, point["co"]["X"], float(new_value)))
                                 break
 
                             elif interpolation > -1 and point["co"]["X"] == previous_point_x:
@@ -332,8 +332,9 @@ class PropertiesModel(updates.UpdateInterface):
                                     point["handle_right"]["X"] = interpolation_details[0]
                                     point["handle_right"]["Y"] = interpolation_details[1]
 
-                                log.info("updating interpolation mode point: co.X = %s to %s" % (point["co"]["X"], interpolation))
-                                log.info("use interpolation preset: %s" % str(interpolation_details))
+                                log.debug("{}[{}].frame[{}] update color interpolation: {} (preset {})".format(
+                                          item_type.capitalize(), clip_id, point["co"]["X"], interpolation,
+                                          str(interpolation_details)))
 
                             elif interpolation > -1 and point["co"]["X"] == closest_point_x:
                                 # Only update interpolation type (and the RIGHT side of the curve)
@@ -345,13 +346,15 @@ class PropertiesModel(updates.UpdateInterface):
                                     point["handle_left"]["X"] = interpolation_details[2]
                                     point["handle_left"]["Y"] = interpolation_details[3]
 
-                                log.info("updating interpolation mode point: co.X = %s to %s" % (point["co"]["X"], interpolation))
-                                log.info("use interpolation preset: %s" % str(interpolation_details))
+                                log.debug("{}[{}].frame[{}] update color interpolation: {} (preset {})".format(
+                                          item_type.capitalize(), clip_id, point["co"]["X"], interpolation,
+                                          str(interpolation_details)))
 
                         # Create new point (if needed)
                         if not found_point:
                             clip_updated = True
-                            log.info("Created new point at X=%s" % self.frame_number)
+                            log.debug("{}[{}].frame[{}] color point created".format(
+                                      item_type.capitalize(), clip_id, self.frame_number))
                             c.data[property_key][color]["Points"].append({'co': {'X': self.frame_number, 'Y': new_value}, 'interpolation': 1})
 
                 # Reduce # of clip properties we are saving (performance boost)
@@ -410,7 +413,9 @@ class PropertiesModel(updates.UpdateInterface):
         else:
             new_value = None
 
-        log.info("%s for %s changed to %s at frame %s with interpolation: %s at closest x: %s" % (property_key, clip_id, new_value, self.frame_number, interpolation, closest_point_x))
+        log.debug("{}[{}].frame[{}]: set {} = {} with interpolation: {} at nearest x: {}".format(
+                  item_type.capitalize(), clip_id, self.frame_number, property_key, new_value,
+                  interpolation, closest_point_x))
 
 
         # Find this clip
@@ -430,7 +435,7 @@ class PropertiesModel(updates.UpdateInterface):
         if c:
             # Update clip attribute
             if property_key in c.data:
-                log.info("value updated: %s" % c.data)
+                log.debug("{}[{}]: value update: {}".format(item_type.capitalize(), clip_id, c.data))
 
                 # Check the type of property (some are keyframe, and some are not)
                 if type(c.data[property_key]) == dict:
@@ -439,7 +444,6 @@ class PropertiesModel(updates.UpdateInterface):
                     found_point = False
                     point_to_delete = None
                     for point in c.data[property_key]["Points"]:
-                        log.info("looping points: co.X = %s" % point["co"]["X"])
                         if interpolation == -1 and point["co"]["X"] == self.frame_number:
                             # Found point, Update value
                             found_point = True
@@ -447,7 +451,8 @@ class PropertiesModel(updates.UpdateInterface):
                             # Update or delete point
                             if new_value != None:
                                 point["co"]["Y"] = float(new_value)
-                                log.info("updating point: co.X = %s to value: %s" % (point["co"]["X"], float(new_value)))
+                                log.debug("{}[{}].frame[{}] new point value: {}".format(
+                                          item_type.capitalize(), clip_id, point["co"]["X"], float(new_value)))
                             else:
                                 point_to_delete = point
                             break
@@ -462,8 +467,9 @@ class PropertiesModel(updates.UpdateInterface):
                                 point["handle_right"]["X"] = interpolation_details[0]
                                 point["handle_right"]["Y"] = interpolation_details[1]
 
-                            log.info("updating interpolation mode point: co.X = %s to %s" % (point["co"]["X"], interpolation))
-                            log.info("use interpolation preset: %s" % str(interpolation_details))
+                            log.debug("{}[{}].frame[{}] update value interpolation: {} (preset {})".format(
+                                      item_type.capitalize(), clip_id, point["co"]["X"], interpolation,
+                                      str(interpolation_details)))
 
                         elif interpolation > -1 and point["co"]["X"] == closest_point_x:
                             # Only update interpolation type (and the RIGHT side of the curve)
@@ -475,19 +481,23 @@ class PropertiesModel(updates.UpdateInterface):
                                 point["handle_left"]["X"] = interpolation_details[2]
                                 point["handle_left"]["Y"] = interpolation_details[3]
 
-                            log.info("updating interpolation mode point: co.X = %s to %s" % (point["co"]["X"], interpolation))
-                            log.info("use interpolation preset: %s" % str(interpolation_details))
+                            log.debug("{}[{}].frame[{}] update value interpolation: {} (preset {})".format(
+                                      item_type.capitalize(), clip_id, point["co"]["X"], interpolation,
+                                      str(interpolation_details)))
+
 
                     # Delete point (if needed)
                     if point_to_delete:
                         clip_updated = True
-                        log.info("Found point to delete at X=%s" % point_to_delete["co"]["X"])
+                        log.debug("{}[{}].frame[{}] found point to delete".format(
+                                  item_type.capitalize(), clip_id, point_to_delete["co"]["X"]))
                         c.data[property_key]["Points"].remove(point_to_delete)
 
                     # Create new point (if needed)
                     elif not found_point and new_value != None:
                         clip_updated = True
-                        log.info("Created new point at X=%s" % self.frame_number)
+                        log.debug("{}[{}].frame[{}] value point created".format(
+                                  item_type.capitalize(), clip_id, self.frame_number))
                         c.data[property_key]["Points"].append({'co': {'X': self.frame_number, 'Y': new_value}, 'interpolation': 1})
 
             if not clip_updated:
@@ -528,7 +538,6 @@ class PropertiesModel(updates.UpdateInterface):
             self.parent.clearSelection()
 
     def update_model(self, filter=""):
-        log.info("updating clip properties model.")
         app = get_app()
         _ = app._tr
 
@@ -547,7 +556,8 @@ class PropertiesModel(updates.UpdateInterface):
             # Get raw unordered JSON properties
             raw_properties = json.loads(c.PropertiesJSON(self.frame_number))
             all_properties = OrderedDict(sorted(raw_properties.items(), key=lambda x: x[1]['name']))
-            log.info("Getting properties for frame %s: %s" % (self.frame_number, str(all_properties)))
+            log.debug("Getting {} properties for frame {}: {}".format(
+                      item_type.capitalize(), self.frame_number, str(all_properties)))
 
             # Check if filter was changed (if so, wipe previous model data)
             if self.previous_filter != filter:

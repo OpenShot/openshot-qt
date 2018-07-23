@@ -38,7 +38,7 @@ from PyQt5 import uic
 from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.language import get_all_languages
-from classes.logger import log
+from classes.logger import log, debug_logging
 from classes.metrics import *
 import openshot
 
@@ -266,7 +266,10 @@ class Preferences(QDialog):
             log.info("Setting debug-mode to %s" % (state == Qt.Checked))
             debug_enabled = (state == Qt.Checked)
 
-            # Enable / Disable logger
+            # Enable/disable debug logging to our logfile
+            debug_logging(debug_enabled)
+
+            # Enable / Disable libopenshot debug logger
             openshot.ZmqLogger.Instance().Enable(debug_enabled)
 
         elif param["setting"] == "enable-auto-save":
@@ -292,7 +295,7 @@ class Preferences(QDialog):
     def spinner_value_changed(self, param, value):
         # Save setting
         self.s.set(param["setting"], value)
-        log.info(value)
+        log.debug('{} set to {}'.format(param["setting"], value))
 
         if param["setting"] == "autosave-interval":
             # Update autosave interval (# of minutes)
@@ -317,11 +320,11 @@ class Preferences(QDialog):
         if param.get("category") == "Keyboard":
             previous_value = value
             value = QKeySequence(value).toString()
-            log.info("Parsing keyboard mapping via QKeySequence from %s to %s" % (previous_value, value))
+            log.debug("Parsing keyboard mapping via QKeySequence from %s to %s" % (previous_value, value))
 
         # Save setting
         self.s.set(param["setting"], value)
-        log.info(value)
+        log.debug('{} set to {}'.format(param["setting"], value))
 
         # Check for restart
         self.check_for_restart(param)
@@ -330,7 +333,7 @@ class Preferences(QDialog):
         # Save setting
         value = widget.itemData(index)
         self.s.set(param["setting"], value)
-        log.info(value)
+        log.debug('{} set to {}'.format(param["setting"], value))
 
         # Apply cache settings (if needed)
         if param["setting"] in ["cache-mode", "cache-image-format"]:
