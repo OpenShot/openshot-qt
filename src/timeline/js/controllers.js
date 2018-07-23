@@ -31,17 +31,16 @@
 App.controller('TimelineCtrl',function($scope) {
 
 	// DEMO DATA (used when debugging outside of Qt using Chrome)
-	$scope.project =
-    {
-	  fps: {
-	    num : 24,
-	    den : 1
-	   },
-      duration : 300,			//length of project in seconds
-      scale : 16.0,				//seconds per tick
-      tick_pixels : 100,		//pixels between tick mark
-      playhead_position : 10,	//position of play head
-      clips : [],
+	$scope.project = {
+		fps: {
+			num : 24,
+			den : 1
+		},
+      	duration : 300, //length of project in seconds
+      	scale : 16.0, //seconds per tick
+      	tick_pixels : 100, //pixels between tick mark
+      	playhead_position : 10, //position of play head
+      	clips : [],
 		  	// [
 	          //      {
 	          //        id : '1',
@@ -147,8 +146,7 @@ App.controller('TimelineCtrl',function($scope) {
 				// 	 volume: { Points: [] }
 	          //      },
              // ],
-             
-	  effects : [],
+  		effects : [],
 		  		// [
 	               //  	{
 	   	        //          id : '5',
@@ -176,17 +174,14 @@ App.controller('TimelineCtrl',function($scope) {
 	               //  	}
                    //
                    //  ],
-             
-	  layers : [
-	  				{id: 'L0', number:0, y:0, label: '', lock: false},
-					{id: 'L1', number:1, y:0, label: '', lock: false},
-					{id: 'L2', number:2, y:0, label: '', lock: false},
-					{id: 'L3', number:3, y:0, label: '', lock: false},
-					{id: 'L4', number:4, y:0, label: '', lock: false}
-	  				
+	  	layers : [
+  				{id: 'L0', number:0, y:0, label: '', lock: false},
+				{id: 'L1', number:1, y:0, label: '', lock: false},
+				{id: 'L2', number:2, y:0, label: '', lock: false},
+				{id: 'L3', number:3, y:0, label: '', lock: false},
+				{id: 'L4', number:4, y:0, label: '', lock: false}
              ],
-             
-	  markers : [],
+	  	markers : [],
               // [
 	           //      {
 	           //        id : 'M1',
@@ -209,8 +204,7 @@ App.controller('TimelineCtrl',function($scope) {
 	           //        icon : 'purple.png'
 	           //      },
               // ],
-              
-	  progress : {}
+	  	progress : {}
 	  			// {
 				//    max_bytes : "0",
 				//    ranges : [
@@ -270,8 +264,9 @@ App.controller('TimelineCtrl',function($scope) {
   // Move the playhead to a specific frame
   $scope.MovePlayheadToFrame = function(position_frames) {
 	  // Don't move the playhead if it's currently animating
-	  if ($scope.playhead_animating)
-	  		return;
+	  if ($scope.playhead_animating) {
+			return;
+	  }
 	  
 	  // Determine seconds
 	  var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
@@ -288,10 +283,10 @@ App.controller('TimelineCtrl',function($scope) {
 	  var frame = Math.round(position_seconds * frames_per_second) + 1;
 	  
 	  // Update GUI with position (to the preview can be updated)
-	  if ($scope.Qt)
+	  if ($scope.Qt) {
 		  timeline.PlayheadMoved(position_seconds, frame, secondsToTime(position_seconds, $scope.project.fps.num, $scope.project.fps.den));
+	  }
   };
-
 
   // Move the playhead to a specific time
   $scope.PreviewClipFrame = function(clip_id, position_seconds) {
@@ -304,12 +299,13 @@ App.controller('TimelineCtrl',function($scope) {
 	  var frame = Math.round(position_seconds_rounded * frames_per_second) + 1;
 
 	  // Update GUI with position (to the preview can be updated)
-	  if ($scope.Qt)
+	  if ($scope.Qt) {
 		  timeline.PreviewClipFrame(clip_id, frame);
+	  }
   };
 
   // Get an array of keyframe points for the selected clips
-  $scope.getKeyframes = function(object){
+  $scope.getKeyframes = function(object) {
   	// List of keyframes
   	keyframes = {};
 
@@ -323,95 +319,93 @@ App.controller('TimelineCtrl',function($scope) {
 	        //The current property is not a direct property of p
 	        continue;
 	    }
-
 	    // Determine if this property is a Keyframe
-	 	if (typeof object[child] == "object" && "Points" in object[child])
+	 	if (typeof object[child] == "object" && "Points" in object[child]) {
 			for (var point = 0; point < object[child].Points.length; point++) {
 				var co = object[child].Points[point].co;
 				if (co.X >= clip_start_x && co.X <= clip_end_x)
 					// Only add keyframe coordinates that are within the bounds of the clip
 					keyframes[co.X] = co.Y;
 			}
-
+		}
 	    // Determine if this property is a Color Keyframe
-	 	if (typeof object[child] == "object" && "red" in object[child])
+	 	if (typeof object[child] == "object" && "red" in object[child]) {
 			for (var point = 0; point < object[child]["red"].Points.length; point++) {
 				var co = object[child]["red"].Points[point].co;
 				if (co.X >= clip_start_x && co.X <= clip_end_x)
 					// Only add keyframe coordinates that are within the bounds of the clip
 					keyframes[co.X] = co.Y;
 			}
+		}
 	}
-
 	// Determine if this property contains effects (i.e. clips have their own effects)
-	if ("effects" in object)
+	if ("effects" in object) {
 		for (effect in object["effects"]) {
-			
 			// Loop through properties of an effect, looking for keyframe points
 			for (child in object["effects"][effect]) {
 				if (!object["effects"][effect].hasOwnProperty(child)) {
 					//The current property is not a direct property of p
 					continue;
 				}
-
 				// Determine if this property is a Keyframe
-				if (typeof object["effects"][effect][child] == "object" && "Points" in object["effects"][effect][child])
+				if (typeof object["effects"][effect][child] == "object" && "Points" in object["effects"][effect][child]) {
 					for (var point = 0; point < object["effects"][effect][child].Points.length; point++) {
 						var co = object["effects"][effect][child].Points[point].co;
 						if (co.X >= clip_start_x && co.X <= clip_end_x)
 							// Only add keyframe coordinates that are within the bounds of the clip
 							keyframes[co.X] = co.Y;
 					}
-
+				}
 				// Determine if this property is a Color Keyframe
-				if (typeof object["effects"][effect][child] == "object" && "red" in object["effects"][effect][child])
+				if (typeof object["effects"][effect][child] == "object" && "red" in object["effects"][effect][child]) {
 					for (var point = 0; point < object["effects"][effect][child]["red"].Points.length; point++) {
 						var co = object["effects"][effect][child]["red"].Points[point].co;
 						if (co.X >= clip_start_x && co.X <= clip_end_x)
 							// Only add keyframe coordinates that are within the bounds of the clip
 							keyframes[co.X] = co.Y;
 					}
+				}
 			}
 		}
-	
+	}
 	// Return keyframe array
 	return keyframes;
   };
   
-  
   // Determine track top (in vertical pixels)
-  $scope.getTrackTop = function(layer){
+  $scope.getTrackTop = function(layer) {
 	  // Get scrollbar position
 	  var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
 	  var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
 
 	  // Find this tracks Y location
 	  var track_id = "div#track_" + layer;
-	  if ($(track_id).length)
+	  if ($(track_id).length) {
 		  return $(track_id).position().top + vert_scroll_offset;
-	  else
+	  }
+	  else {
 		  return 0;
+	  }
   };
-
 
 // ############# QT FUNCTIONS #################### //
 
  // Change the scale and apply to scope
- $scope.setScale = function(scaleVal, cursor_x){
-
+ $scope.setScale = function(scaleVal, cursor_x) {
 	  // Get scrollbar positions
 	  var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
 	  var track_labels_width = $("#track_controls").width();
 
 	  // Determine actual x coordinate (over timeline)
       var center_x = Math.max(cursor_x - track_labels_width, 0);
-      if (cursor_x == 0)
-      	center_x = 0;
+      if (cursor_x == 0) {
+		center_x = 0;
+      }
 
       // Determine time of cursor position
       var cursor_time = parseFloat(center_x + horz_scroll_offset) / $scope.pixelsPerSecond;
 
-      $scope.$apply(function(){
+      $scope.$apply(function() {
          $scope.project.scale = parseFloat(scaleVal);
          $scope.pixelsPerSecond = parseFloat($scope.project.tick_pixels) / parseFloat($scope.project.scale);
       });
@@ -422,9 +416,9 @@ App.controller('TimelineCtrl',function($scope) {
  };
 
  // Set the audio data for a clip
- $scope.setAudioData = function(clip_id, audio_data){
+ $scope.setAudioData = function(clip_id, audio_data) {
  	// Find matching clip
-	for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++)
+	for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
 		if ($scope.project.clips[clip_index].id == clip_id) {
 			// Set audio data
 			$scope.$apply(function(){
@@ -437,12 +431,13 @@ App.controller('TimelineCtrl',function($scope) {
 
 	 // Draw audio data
 	 drawAudio($scope, clip_id);
+	}
  };
 
  // Hide the audio waveform for a clip
- $scope.hideAudioData = function(clip_id, audio_data){
+ $scope.hideAudioData = function(clip_id, audio_data) {
  	// Find matching clip
-	for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++)
+	for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
 		if ($scope.project.clips[clip_index].id == clip_id) {
 			// Set audio data
 			$scope.$apply(function(){
@@ -451,10 +446,11 @@ App.controller('TimelineCtrl',function($scope) {
 			});
 			break;
 		}
+	}
  };
 
  // Redraw all audio waveforms on the timeline (if any)
- $scope.reDrawAllAudioData = function(){
+ $scope.reDrawAllAudioData = function() {
  	// Find matching clip
 	for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
 		if ("audio_data" in $scope.project.clips[clip_index] && $scope.project.clips[clip_index].audio_data.length > 0) {
@@ -465,7 +461,7 @@ App.controller('TimelineCtrl',function($scope) {
  };
 
  // Does clip have audio_data?
- $scope.hasAudioData = function(clip_id){
+ $scope.hasAudioData = function(clip_id) {
  	// Find matching clip
 	for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
 		if ($scope.project.clips[clip_index].id == clip_id && "audio_data" in $scope.project.clips[clip_index] && $scope.project.clips[clip_index].audio_data.length > 0) {
@@ -473,32 +469,32 @@ App.controller('TimelineCtrl',function($scope) {
 			break;
 		}
 	}
-
-	 return false;
+	return false;
  };
 
  // Change the snapping mode
- $scope.SetSnappingMode = function(enable_snapping){
-      $scope.$apply(function(){
+ $scope.SetSnappingMode = function(enable_snapping) {
+      $scope.$apply(function() {
          $scope.enable_snapping = enable_snapping;
-		 if (enable_snapping)
+		 if (enable_snapping) {
 		 	$(".droppable").draggable("option", "snapTolerance", 20);
-		 else
+		 }
+		 else {
 		 	$(".droppable").draggable("option", "snapTolerance", 0);
+		 }
      });
  };
 
  // Change the razor mode
- $scope.SetRazorMode = function(enable_razor){
-      $scope.$apply(function(){
+ $scope.SetRazorMode = function(enable_razor) {
+      $scope.$apply(function() {
          $scope.enable_razor = enable_razor;
      });
  };
 
  // Get the color of an effect
- $scope.GetEffectColor = function(effect_type){
-	switch (effect_type)
-	{
+ $scope.GetEffectColor = function(effect_type) {
+	switch (effect_type) {
 		case "Blur":
 			return "#0095bf";
 		case "Brightness":
@@ -519,9 +515,8 @@ App.controller('TimelineCtrl',function($scope) {
  };
 
  // Add a new clip to the timeline
- $scope.AddClip = function(x, y, clip_json){
-	 $scope.$apply(function(){
-		 
+ $scope.AddClip = function(x, y, clip_json) {
+	 $scope.$apply(function() {
 		 // Convert x and y into timeline vars
 		 var scrolling_tracks_offset = $("#scrolling_tracks").offset().left;
 		 var clip_position = parseFloat(x - scrolling_tracks_offset) / parseFloat($scope.pixelsPerSecond);
@@ -535,13 +530,11 @@ App.controller('TimelineCtrl',function($scope) {
 		 
 		 // Push new clip onto stack
 		 $scope.project.clips.push(clip_json);
-
 	 });
  };
 	
  // Update cache json
- $scope.RenderCache = function(cache_json){
-
+ $scope.RenderCache = function(cache_json) {
 	 // Push new clip onto stack
 	 $scope.project.progress = cache_json;
 	 
@@ -556,7 +549,6 @@ App.controller('TimelineCtrl',function($scope) {
 
 	// Loop through each cached range of frames, and draw rect
 	for(p=0;p<progress.length;p++) {
-
 		//get the progress item details
 		var start_second = parseFloat(progress[p]["start"]) / fps;
 		var stop_second = parseFloat(progress[p]["end"]) / fps;
@@ -582,10 +574,12 @@ App.controller('TimelineCtrl',function($scope) {
 
 	// Update scope
 	$scope.$apply(function() {
-		 for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++)
-			 $scope.project.clips[clip_index].selected = false;
-		 for (var effect_index = 0; effect_index < $scope.project.effects.length; effect_index++)
-			 $scope.project.effects[effect_index].selected = false;
+		for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
+			$scope.project.clips[clip_index].selected = false;
+		}
+		for (var effect_index = 0; effect_index < $scope.project.effects.length; effect_index++) {
+			$scope.project.effects[effect_index].selected = false;
+		}
 	});
  };
  
@@ -604,7 +598,6 @@ App.controller('TimelineCtrl',function($scope) {
 		 }
 	 });
  };
- 	
 	
  // Select clip in scope
  $scope.SelectClip = function(clip_id, clear_selections, event) {
@@ -616,7 +609,6 @@ App.controller('TimelineCtrl',function($scope) {
 		$scope.SelectTransition("", clear_selections);
 		$scope.SelectEffect("", clear_selections);
 	}
-
 	// Call slice method and exit (don't actually select the clip)
 	if (id != "" && $scope.enable_razor) {
         if ($scope.Qt) {
@@ -626,24 +618,27 @@ App.controller('TimelineCtrl',function($scope) {
 		// Don't actually select clip
         return;
     }
-
 	// Is CTRL pressed?
 	is_ctrl = false;
-	if (event && event.ctrlKey)
+	if (event && event.ctrlKey) {
 		is_ctrl = true;
+	}
  	
  	// Unselect all clips
-	for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++)
+	for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
 		if ($scope.project.clips[clip_index].id == id) {
 			$scope.project.clips[clip_index].selected = true;
-			if ($scope.Qt)
+			if ($scope.Qt) {
 				timeline.addSelection(id, "clip", clear_selections);
+			}
 		}
 		else if (clear_selections && !is_ctrl) {
 			$scope.project.clips[clip_index].selected = false;
-			if ($scope.Qt)
+			if ($scope.Qt) {
 	 			timeline.removeSelection($scope.project.clips[clip_index].id, "clip");
+			}
 		}
+	}
  };
  
   // Select transition in scope
@@ -656,7 +651,6 @@ App.controller('TimelineCtrl',function($scope) {
 		$scope.SelectClip("", true);
 		$scope.SelectEffect("", true);
 	}
-
 	// Call slice method and exit (don't actually select the transition)
 	if (id != "" && $scope.enable_razor) {
         if ($scope.Qt) {
@@ -669,11 +663,12 @@ App.controller('TimelineCtrl',function($scope) {
 
 	// Is CTRL pressed?
 	is_ctrl = false;
-	if (event && event.ctrlKey)
+	if (event && event.ctrlKey) {
 		is_ctrl = true;
+	}
 
  	// Unselect all transitions
-	for (var tran_index = 0; tran_index < $scope.project.effects.length; tran_index++)
+	for (var tran_index = 0; tran_index < $scope.project.effects.length; tran_index++) {
 		if ($scope.project.effects[tran_index].id == id) {
 			$scope.project.effects[tran_index].selected = true;
 		 	if ($scope.Qt)
@@ -684,41 +679,43 @@ App.controller('TimelineCtrl',function($scope) {
 		 	if ($scope.Qt)
 			 	timeline.removeSelection($scope.project.effects[tran_index].id, "transition");
 		}
+	}
  };
 
   // Format the thumbnail path
  $scope.FormatThumbPath = function(image_url) {
- 	if (image_url.charAt(0) == ".")
+ 	if (image_url.charAt(0) == ".") {
 		return image_url;
-	else
+ 	}
+	else {
 		return "file:///" + image_url;
+	}
  };
 
   // Select transition in scope
  $scope.SelectEffect = function(effect_id) {
- 	if ($scope.Qt)
+ 	if ($scope.Qt) {
 	 	timeline.addSelection(effect_id, "effect", true);
+ 	}
  };
 
 // Find the furthest right edge on the timeline (and resize it if too small)
  $scope.ResizeTimeline = function() {
-
  	// Unselect all clips
 	var furthest_right_edge = 0;
-	for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++)
-	{
+	for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
 		var clip = $scope.project.clips[clip_index];
 		var right_edge = clip.position + (clip.end - clip.start);
 		if (right_edge > furthest_right_edge)
 			furthest_right_edge = right_edge;
 	}
-
 	// Resize timeline
-	if (furthest_right_edge > $scope.project.duration)
+	if (furthest_right_edge > $scope.project.duration) {
 		if ($scope.Qt) {
 			timeline.resizeTimeline(furthest_right_edge + 10)
 			$scope.project.duration = furthest_right_edge + 10;
 		}
+	}
  };
  
  // Show clip context menu
@@ -779,27 +776,29 @@ App.controller('TimelineCtrl',function($scope) {
  };
 
  // Get the name of the track
- $scope.GetTrackName = function(layer_label, layer_number){
+ $scope.GetTrackName = function(layer_label, layer_number) {
 	// Determine custom label or default track name
-	if (layer_label.length > 0)
+	if (layer_label.length > 0) {
 		return layer_label;
-	else
+	}
+	else {
 		return $scope.track_label.replace('%s', layer_number.toString());
+	}
  };
 
-$scope.SetTrackLabel = function (label){
+$scope.SetTrackLabel = function (label) {
 	$scope.track_label = label;
 };
 
  // Get the width of the timeline in pixels
- $scope.GetTimelineWidth = function(min_value){
+ $scope.GetTimelineWidth = function(min_value) {
 	// Adjust for minimim length
 	return Math.max(min_value, $scope.project.duration * $scope.pixelsPerSecond);
  };
 
  
  // Get Position of item (used by Qt)
- $scope.GetJavaScriptPosition = function(x){
+ $scope.GetJavaScriptPosition = function(x) {
 	// Adjust for scrollbar position
 	var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
 	var scrolling_tracks_offset_left = $("#scrolling_tracks").offset().left;
@@ -807,15 +806,16 @@ $scope.SetTrackLabel = function (label){
 
 	 // Convert x into position in seconds
 	 var clip_position = parseFloat(x - scrolling_tracks_offset_left) / parseFloat($scope.pixelsPerSecond);
-	 if (clip_position < 0)
+	 if (clip_position < 0) {
 		 clip_position = 0;
+	 }
 	 
 	 // Return position in seconds
 	 return clip_position;
  };
  
  // Get Track number of item (used by Qt)
- $scope.GetJavaScriptTrack = function(y){
+ $scope.GetJavaScriptTrack = function(y) {
 	// Adjust for scrollbar position
 	var scrolling_tracks_offset_top = $("#scrolling_tracks").offset().top;
   	var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
@@ -829,17 +829,18 @@ $scope.SetTrackLabel = function (label){
  // Get JSON of most recent item (used by Qt)
  $scope.UpdateRecentItemJSON = function(item_type, item_id) {
 
-	 // Find item in JSON
-	 var item_object = null;
-	 if (item_type == 'clip') {
+	// Find item in JSON
+	var item_object = null;
+	if (item_type == 'clip') {
 		item_object = findElement($scope.project.clips, "id", item_id);
-	 } else if (item_type == 'transition') {
+	} 
+	else if (item_type == 'transition') {
 		item_object = findElement($scope.project.effects, "id", item_id);
-	 } else {
-		 // Bail out if no id found
-		 return;
-	 }
-
+	} 
+	else {
+		// Bail out if no id found
+		return;
+	}
 	// Get position of item
 	var scrolling_tracks_offset_top = $("#scrolling_tracks").offset().top;
 	var clip_position = parseFloat(bounding_box.left) / parseFloat($scope.pixelsPerSecond);
@@ -853,10 +854,12 @@ $scope.SetTrackLabel = function (label){
 	});
 
 	// update clip in Qt (very important =)
-	if (item_type == 'clip')
+	if (item_type == 'clip') {
 		timeline.update_clip_data(JSON.stringify(item_object));
-	else if (item_type == 'transition')
+	}
+	else if (item_type == 'transition') {
 		timeline.update_transition_data(JSON.stringify(item_object));
+	}
 
 	// Resize timeline if it's too small to contain all clips
 	$scope.ResizeTimeline();
@@ -866,9 +869,9 @@ $scope.SetTrackLabel = function (label){
 
 	// Check again for missing transitions
 	missing_transition_details = $scope.GetMissingTransitions(item_object);
-	if ($scope.Qt && missing_transition_details != null)
+	if ($scope.Qt && missing_transition_details != null) {
 		timeline.add_missing_transition(JSON.stringify(missing_transition_details));
-
+	}
 	// Remove manual move stylesheet
 	bounding_box.element.removeClass("manual-move");
 
@@ -877,13 +880,15 @@ $scope.SetTrackLabel = function (label){
  };
 	
  // Init bounding boxes for manual move
- $scope.StartManualMove = function(item_type, item_id){
+ $scope.StartManualMove = function(item_type, item_id) {
 	 // Select the item
 	 $scope.$apply(function() {
-		 if (item_type == 'clip')
+		 if (item_type == 'clip') {
 			 $scope.SelectClip(item_id, true);
-		 else if (item_type == 'transition')
+		 }
+		 else if (item_type == 'transition') {
 			 $scope.SelectTransition(item_id, true);
+		 }
 	 });
 	 
 	 // JQuery selector for element (clip or transition)
@@ -902,8 +907,9 @@ $scope.SetTrackLabel = function (label){
 	 bounding_box.track_position = 0;
 
 	 // Set z-order to be above other clips/transitions
-	 if (item_type != "os_drop")
+	 if (item_type != "os_drop") {
 	 	bounding_box.element.addClass("manual-move");
+	 }
  };
  
  // Move a new clip to the timeline
@@ -934,21 +940,22 @@ $scope.SetTrackLabel = function (label){
 	bounding_box.previous_y = results.position.top;
 
 	var clip_position = parseFloat(results.position.left) / parseFloat($scope.pixelsPerSecond);
-	if (clip_position < 0)
+	if (clip_position < 0) {
 		clip_position = 0;
-
+	}
 	// Loop through each layer (looking for the closest track based on Y coordinate)
 	bounding_box.track_position = 0;
 	for (var layer_index = $scope.project.layers.length - 1; layer_index >= 0 ; layer_index--) {
 		var layer = $scope.project.layers[layer_index];
 
 		// Compare position of track to Y param (for unlocked tracks)
-		if (!layer.lock)
-			if ((top < layer.y && top > bounding_box.track_position) || bounding_box.track_position==0)
+		if (!layer.lock) {
+			if ((top < layer.y && top > bounding_box.track_position) || bounding_box.track_position==0) {
 				// return first matching layer
 				bounding_box.track_position = layer.y;
+			}
+		}
 	}
-
 	//change the element location
 	bounding_box.element.css('left', results.position.left);
 	bounding_box.element.css('top', bounding_box.track_position - scrolling_tracks_offset_top);
@@ -957,8 +964,9 @@ $scope.SetTrackLabel = function (label){
  // Update X,Y indexes of tracks / layers (anytime the project.layers scope changes)
  $scope.UpdateLayerIndex = function(){
 
-	 if ($scope.Qt)
+	 if ($scope.Qt) {
 		 timeline.qt_log('UpdateLayerIndex');
+	 }
 
 	var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
 	var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
@@ -967,8 +975,7 @@ $scope.SetTrackLabel = function (label){
 	var scrolling_tracks_offset_left = $("#scrolling_tracks").offset().left;
 	var scrolling_tracks_offset_top = $("#scrolling_tracks").offset().top;
 
-	 $scope.$apply(function(){
-		 
+	 $scope.$apply(function() {
 		 // Loop through each layer
 		for (var layer_index = 0; layer_index < $scope.project.layers.length; layer_index++) {
 			var layer = $scope.project.layers[layer_index];
@@ -980,7 +987,6 @@ $scope.SetTrackLabel = function (label){
 				layer.y = layer_elem.offset().top + vert_scroll_offset;
 			}
 		}
-
 		// Update playhead height
 		$scope.playhead_height = $("#track-container").height();
 		$(".playhead-line").height($scope.playhead_height);
@@ -988,43 +994,48 @@ $scope.SetTrackLabel = function (label){
  };
 
  // Sort clips and transitions by position
- $scope.SortItems = function(){
-	 if (!$scope.enable_sorting)
+ $scope.SortItems = function() {
+	if (!$scope.enable_sorting) {
 		 // Sorting is disabled, do nothing
 		 return;
+	}
 
-	 if ($scope.Qt)
+	if ($scope.Qt) {
 		 timeline.qt_log('SortItems');
 
-	 $scope.$apply(function(){
-		 // Sort by position second
-		 $scope.project.clips = $scope.project.clips.sort(function(a,b) {
-			    if ( a.position < b.position )
-			        return -1;
-			    if ( a.position > b.position )
-			        return 1;
-			    return 0;
-		  });
-
-		 // Sort transitions by position second
-		 $scope.project.effects = $scope.project.effects.sort(function(a,b) {
-			    if ( a.position < b.position )
-			        return -1;
-			    if ( a.position > b.position )
-			        return 1;
-			    return 0;
-		  });
-
-		 // Sort tracks by position second
-		 $scope.project.layers = $scope.project.layers.sort(function(a,b) {
-			    if ( a.number < b.number )
-			        return -1;
-			    if ( a.number > b.number )
-			        return 1;
-			    return 0;
-		  });
-
-	});
+		 $scope.$apply(function() {
+			 // Sort by position second
+			 $scope.project.clips = $scope.project.clips.sort(function(a,b) {
+				    if ( a.position < b.position ) {
+				        return -1;
+				    }
+				    if ( a.position > b.position ) {
+				        return 1;
+				    }
+				    return 0;
+			  });
+			 // Sort transitions by position second
+			 $scope.project.effects = $scope.project.effects.sort(function(a,b) {
+				    if ( a.position < b.position ) {
+				        return -1;
+				    }
+				    if ( a.position > b.position ) {
+				        return 1;
+				    }
+				    return 0;
+			  });
+			 // Sort tracks by position second
+			 $scope.project.layers = $scope.project.layers.sort(function(a,b) {
+				    if ( a.number < b.number ) {
+				        return -1;
+				    }
+				    if ( a.number > b.number ) {
+				        return 1;
+				    }
+				    return 0;
+			  });
+		});
+	}
  };
  
  // Find overlapping clips
@@ -1041,35 +1052,39 @@ $scope.SetTrackLabel = function (label){
 		var clip = $scope.project.clips[index];
 
 		// skip clips that are not on the same layer
-		if (original_clip.layer != clip.layer)
+		if (original_clip.layer != clip.layer) {
 			continue;
+		}
 		
 		// is clip overlapping
 		var clip_left = clip.position;
 		var clip_right = clip.position + (clip.end - clip.start);
 		
-		if (original_left < clip_right && original_left > clip_left)
+		if (original_left < clip_right && original_left > clip_left) {
 			transition_size = { "position" : original_left, "layer" : clip.layer, "start" : 0, "end" : (clip_right - original_left) };
-		else if (original_right > clip_left && original_right < clip_right)
+		}
+		else if (original_right > clip_left && original_right < clip_right) {
 			transition_size = { "position" : clip_left, "layer" : clip.layer, "start" : 0, "end" : (original_right - clip_left) };
+		}
 
-		if (transition_size != null && transition_size.end >= 0.5)
+		if (transition_size != null && transition_size.end >= 0.5) {
 			// Found a possible missing transition
 			break;
-		else if (transition_size != null && transition_size.end < 0.5)
+		}
+		else if (transition_size != null && transition_size.end < 0.5) {
 			// Too small to be a missing transitions, clear and continue looking
 			transition_size = null;
-
+		}
 	}
-
 	// Search through all existing transitions, and don't overlap an existing one
-	if (transition_size != null)
+	if (transition_size != null) {
 		for (var tran_index = 0; tran_index < $scope.project.effects.length; tran_index++) {
 			var tran = $scope.project.effects[tran_index];
 
 			// skip transitions that are not on the same layer
-			if (tran.layer != transition_size.layer)
+			if (tran.layer != transition_size.layer) {
 				continue;
+			}
 
 			var tran_left = tran.position;
 			var tran_right = tran.position + (tran.end - tran.start);
@@ -1084,12 +1099,13 @@ $scope.SetTrackLabel = function (label){
 				break;
 			}
 		}
+	}
 
  	return transition_size;
  };
  
  // Search through clips and transitions to find the closest element within a given threshold
- $scope.GetNearbyPosition = function(pixel_positions, threshold, ignore_ids){
+ $scope.GetNearbyPosition = function(pixel_positions, threshold, ignore_ids) {
 	// init some vars
 	var smallest_diff = 900.0;
 	var smallest_abs_diff = 900.0;
@@ -1107,8 +1123,9 @@ $scope.SetTrackLabel = function (label){
 			var clip_right_position = (clip.position + (clip.end - clip.start)) * $scope.pixelsPerSecond;
 
 			// exit out if this item is in ignore_ids
-			if (ignore_ids.hasOwnProperty(clip.id))
+			if (ignore_ids.hasOwnProperty(clip.id)) {
 				continue;
+			}
 			
 			diffs.push({'diff' : position - clip_left_position, 'position' : clip_left_position}, // left side of clip
 			           {'diff' : position - clip_right_position, 'position' : clip_right_position}); // right side of clip
@@ -1122,8 +1139,9 @@ $scope.SetTrackLabel = function (label){
 
 
 			// exit out if this item is in ignore_ids
-			if (ignore_ids.hasOwnProperty(transition.id))
+			if (ignore_ids.hasOwnProperty(transition.id)) {
 				continue;
+			}
 			
 			diffs.push({'diff' : position - tran_left_position, 'position' : tran_left_position}, // left side of transition
 			           {'diff' : position - tran_right_position, 'position' : tran_right_position}); // right side of transition
@@ -1160,18 +1178,19 @@ $scope.SetTrackLabel = function (label){
 	}
 	
 	// no nearby found?
-	if (smallest_diff == 900.0)
+	if (smallest_diff == 900.0) {
 		smallest_diff = 0.0;
+	}
 	
 	// Return closest nearby position
 	return [smallest_diff, snapping_position];
  };
  
   // Show the nearby snapping line
- $scope.ShowSnapline = function(position){
+ $scope.ShowSnapline = function(position) {
 	 if (position != $scope.snapline_position || !$scope.snapline) {
 		 // Only update if value has changed
-		 $scope.$apply(function(){
+		 $scope.$apply(function() {
 			$scope.snapline_position = position;
 			$scope.snapline = true;
 		 });
@@ -1179,71 +1198,73 @@ $scope.SetTrackLabel = function (label){
  };
  
  // Hide the nearby snapping line
- $scope.HideSnapline = function(){
+ $scope.HideSnapline = function() {
 	 if ($scope.snapline) {
 		 // Only hide if not already hidden
-		 $scope.$apply(function(){
+		 $scope.$apply(function() {
 			$scope.snapline = false;
 		 });
 	 }
  };
  
  // Find a track JSON object at a given y coordinate (if any)
- $scope.GetTrackAtY = function(y){
-
+ $scope.GetTrackAtY = function(y) {
 		// Loop through each layer (looking for the closest track based on Y coordinate)
 		for (var layer_index = $scope.project.layers.length - 1; layer_index >= 0 ; layer_index--) {
 			var layer = $scope.project.layers[layer_index];
 
-			// Compare position of track to Y param
-			if (layer.y > y)
-				// return first matching layer
+			// Compare position of track to Y param and return first matching layer
+			if (layer.y > y) {
 				return layer;
+			}
 		}
 
 		// no layer found (return top layer... if any)
-		if ($scope.project.layers.length > 0)
+		if ($scope.project.layers.length > 0) {
 			return $scope.project.layers[0];
-		else
+		}
+		else {
 			return null;
+		}
  };
 
  // Determine which CSS classes are used on a track
- $scope.GetTrackStyle = function(lock){
-
-		if (lock)
-			return "track track_disabled";
-	 	else
-			return "track";
+ $scope.GetTrackStyle = function(lock) {
+	if (lock) {
+		return "track track_disabled";
+	}
+ 	else {
+		return "track";
+ 	}
  };
 
  // Determine which CSS classes are used on a clip
- $scope.getClipStyle = function(clip){
+ $scope.getClipStyle = function(clip) {
 
- 		style = "";
-		if (clip.selected)
-			style += "ui-selected ";
+	style = "";
+	if (clip.selected) {
+		style += "ui-selected ";
+	}
+	if ($scope.enable_razor) {
+		style += "razor_cursor ";
+	}
 
-		if ($scope.enable_razor)
-			style += "razor_cursor ";
-
-	 	return style;
+ 	return style;
  };
 
  // Determine which CSS classes are used on a clip label
- $scope.getClipLabelStyle = function(clip){
-
- 		style = "";
-		if ($scope.enable_razor)
-			style += "razor_cursor";
-
-	 	return style;
+ $scope.getClipLabelStyle = function(clip) {
+	style = "";
+	if ($scope.enable_razor) {
+		style += "razor_cursor";
+	}
+ 	return style;
  };
 
  // Apply JSON diff from UpdateManager (this is how the user interface communicates changes
  // to the timeline. A change can be an insert, update, or delete. The change is passed in
  // as JSON, which represents the change.
- $scope.ApplyJsonDiff = function(jsonDiff){
+ $scope.ApplyJsonDiff = function(jsonDiff) {
 
 	 // Loop through each UpdateAction
 	for (var action_index = 0; action_index < jsonDiff.length; action_index++) {
@@ -1259,22 +1280,22 @@ $scope.SetTrackLabel = function (label){
 
 		 	// Check the key type
 		 	if (key_value.constructor == String) {
-		 		// Does the key value exist in scope
-		 		if (!current_object.hasOwnProperty(key_value))
-		 			// No match, bail out
+		 		// Does the key value exist in scope?, No match, bail out
+		 		if (!current_object.hasOwnProperty(key_value)) {
 		 			return false;
-		 		
+		 		}
 	 			// set current level and previous level
 	 			previous_object = current_object;
 	 			current_object = current_object[key_value];
 	 			current_key = key_value;
 		 		
-		 	} else if (key_value.constructor == Object) {
+		 	}
+		 	else if (key_value.constructor == Object) {
 		 		// Get the id from the object (if any)
 		 		var id = null;
-		 		if ("id" in key_value)
+		 		if ("id" in key_value) {
 		 			id = key_value["id"];
-		 			
+		 		}
 		 		// Be sure the current_object is an Array
 		 		if (current_object.constructor == Array) {
 			 		// Filter the current_object for a specific id
@@ -1289,77 +1310,74 @@ $scope.SetTrackLabel = function (label){
 				 			current_object = child_object;
 				 			break; // found child, stop looping
 				 		}
-				 		
 				 		// increment index
 				 		current_position++;
 			 		}
 		 		}
 		 	}
 		}
-
 	 	// Now that we have a matching object in the $scope.project...
-	 	if (current_object){ 
+	 	if (current_object) { 
 	 		// INSERT OBJECT
 		 	if (action.type == "insert") {
-
 		 		// Insert action's value into current_object
-		 		if (current_object.constructor == Array)
+		 		if (current_object.constructor == Array) {
 		 			// push new element into array
 		 			$scope.$apply(function(){
 		 				current_object.push(action.value);
 		 			});
+		 		}
 		 		else {
 			 		// replace the entire value
 			 		if (previous_object.constructor == Array) {
 			 			// replace entire value in OBJECT
-			 			$scope.$apply(function(){
+			 			$scope.$apply(function() {
 			 				previous_object[current_position] = action.value;
 			 			});
-			 			
-			 		} else if (previous_object.constructor == Object) {
+			 		} 
+			 		else if (previous_object.constructor == Object) {
 			 			// replace entire value in OBJECT
-			 			$scope.$apply(function(){
+			 			$scope.$apply(function() {
 			 				previous_object[current_key] = action.value;
 			 			});
 			 		}
 		 		}
-		 		
-		 	} else if (action.type == "update") {
+		 	} 
+		 	else if (action.type == "update") {
 				// UPDATE OBJECT
 				// Update: If action and current object are Objects
 				if (current_object.constructor == Object && action.value.constructor == Object) {
-					for (var update_key in action.value)
+					for (var update_key in action.value) {
 						if (update_key in current_object)
 						// Only copy over keys that exist in both action and current_object
 						$scope.$apply(function () {
 							current_object[update_key] = action.value[update_key];
 						});
+					}
 				}
 			 	else {
 			 		// replace the entire value
 			 		if (previous_object.constructor == Array) {
 			 			// replace entire value in OBJECT
-			 			$scope.$apply(function(){
+			 			$scope.$apply(function() {
 			 				previous_object[current_position] = action.value;
 			 			});
-			 			
-			 		} else if (previous_object.constructor == Object) {
+			 		} 
+			 		else if (previous_object.constructor == Object) {
 			 			// replace entire value in OBJECT
-			 			$scope.$apply(function(){
+			 			$scope.$apply(function() {
 			 				previous_object[current_key] = action.value;
 			 			});
 			 		}
-			 	}
-
-		 		
-		 	} else if (action.type == "delete") {
+			 	}		 		
+		 	} 
+		 	else if (action.type == "delete") {
 		 		// DELETE OBJECT
 		 		// delete current object from it's parent (previous object)
-		 		$scope.$apply(function(){
+		 		$scope.$apply(function() {
 		 			previous_object.splice(current_position, 1);
 		 		});
 		 	}
-
 		    // Resize timeline if it's too small to contain all clips
 		    $scope.ResizeTimeline();
 		 	
@@ -1369,20 +1387,17 @@ $scope.SetTrackLabel = function (label){
 			// Re-index Layer Y values
 			$scope.UpdateLayerIndex();
 	 	}
-	}	
-	 
+	}
 	// return true
 	return true;
  };
  
- 
  // Load entire project data JSON from UpdateManager (i.e. user opened an existing project)
- $scope.LoadJson = function(EntireProjectJson){
+ $scope.LoadJson = function(EntireProjectJson) {
  	
-	 $scope.$apply(function(){
+	 $scope.$apply(function() {
  		// Update the entire JSON object for the entire timeline
  		$scope.project = EntireProjectJson.value;
- 		
  		// Un-select any selected items
  		$scope.SelectClip("", true);
 	 });
@@ -1410,10 +1425,12 @@ $scope.SetTrackLabel = function (label){
 // ############ DEBUG STUFFS ################## //
  
  $scope.ToggleDebug = function() {
-	 if ($scope.debug == true)
+	 if ($scope.debug == true) {
 		 $scope.debug = false;
-	 else
+	 }
+	 else {
 		 $scope.debug = true;
+	 }
  };
 
   // Debug method to add clips to the $scope
@@ -1450,7 +1467,7 @@ $scope.SetTrackLabel = function (label){
     };
 
   // Debug method to add effects to a clip's $scope
-  $scope.addEffect = function(clipNum){
+  $scope.addEffect = function(clipNum) {
 	    //find the clip in the json data
 	    elm = findElement($scope.project.clips, "id", clipNum);
 	    elm.effects.push({
@@ -1461,7 +1478,7 @@ $scope.SetTrackLabel = function (label){
   };
 
   // Debug method to add a marker to the $scope
-  $scope.addMarker = function(markLoc){
+  $scope.addMarker = function(markLoc) {
         $scope.project.markers.push({
           position: parseInt(markLoc),
           icon: 'blue.png'
@@ -1470,9 +1487,8 @@ $scope.SetTrackLabel = function (label){
   };
 
   // Debug method to change a clip's image
-  $scope.changeImage = function(startImage){
-      console.log(startImage);
-        $scope.project.clips[2].images.start=startImage;
+  $scope.changeImage = function(startImage) {
+        $scope.project.clips[2].images.start = startImage;
         $scope.startImage = "";
   };
 

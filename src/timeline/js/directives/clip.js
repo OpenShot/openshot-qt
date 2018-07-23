@@ -354,7 +354,7 @@ App.directive('tlClip', function($timeout) {
 });
 
 // Handle clip effects
-App.directive('tlClipEffects', function(){
+App.directive('tlClipEffects', function() {
 	return{
 		link: function(scope, element, attrs){
 
