@@ -34,9 +34,9 @@ App.controller('TimelineCtrl',function($scope) {
 	$scope.project =
     {
 	  fps: {
-		    num : 24,
-		    den : 1
-		   },
+	    num : 24,
+	    den : 1
+	   },
       duration : 300,			//length of project in seconds
       scale : 16.0,				//seconds per tick
       tick_pixels : 100,		//pixels between tick mark
@@ -297,7 +297,7 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.PreviewClipFrame = function(clip_id, position_seconds) {
 	  // Get the nearest starting frame position to the playhead (this helps to prevent cutting
 	  // in-between frames, and thus less likely to repeat or skip a frame).
-	  position_seconds_rounded = (Math.round((playhead_position * $scope.project.fps.num) / $scope.project.fps.den ) * $scope.project.fps.den ) / $scope.project.fps.num;
+	  position_seconds_rounded = (Math.round(($scope.project.playhead_position * $scope.project.fps.num) / $scope.project.fps.den ) * $scope.project.fps.den ) / $scope.project.fps.num;
 
   	  // Determine frame
 	  var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
@@ -1368,9 +1368,6 @@ $scope.SetTrackLabel = function (label){
 
 			// Re-index Layer Y values
 			$scope.UpdateLayerIndex();
-
-			// Lock / unlock any items
-			$scope.LockItems();
 	 	}
 	}	
 	 
@@ -1396,9 +1393,6 @@ $scope.SetTrackLabel = function (label){
 	 // Re-index Layer Y values
 	 $scope.UpdateLayerIndex();
 
-	 // Lock / unlock any items
-	 $scope.LockItems();
-
 	 // Scroll to top/left when loading a project
 	 $("#scrolling_tracks").animate({
 		scrollTop: 0,
@@ -1407,19 +1401,6 @@ $scope.SetTrackLabel = function (label){
 	 
 	 // return true
 	 return true;
- };
-
- // Lock and unlock items
- $scope.LockItems = function(){
-
-	// Enable all items
-	//$(".clip").draggable("enable")
-
-	// Disable any locked items
-	// for (layer in $scope.project.layers)
-	// {
-	// 	timeline.qt_log(layer);
-	// }
  };
   
 // ############# END QT FUNCTIONS #################### //   
@@ -1465,9 +1446,7 @@ $scope.SetTrackLabel = function (label){
             startNum++;
 			positionNum+=50;
         };
-      
         $scope.numClips = "";
-
     };
 
   // Debug method to add effects to a clip's $scope
@@ -1479,7 +1458,6 @@ $scope.SetTrackLabel = function (label){
 	       icon : 'om.png'
 	    });
 	    $scope.clipNum = "";
-                    
   };
 
   // Debug method to add a marker to the $scope
