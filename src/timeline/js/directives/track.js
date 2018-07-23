@@ -37,13 +37,12 @@ App.directive('tlTrack', function($timeout) {
         	
 			scope.$watch('project.layers.length', function (val) {
                 if (val) {
-                	$timeout(function(){
+                	$timeout(function() {
 				        // Update track indexes if tracks change
                 		scope.UpdateLayerIndex();
 						scope.playhead_height = $("#track-container").height();
 						$(".playhead-line").height(scope.playhead_height);
                 	}, 0);
-                		
                 }
             });
 
@@ -89,10 +88,12 @@ App.directive('tlTrack', function($timeout) {
 						
 						// Determine type of item
 						item_type = null;
-						if (item.hasClass('clip'))
+						if (item.hasClass('clip')) {
 							item_type = 'clip';
-						else if(item.hasClass('transition'))
+						}
+						else if(item.hasClass('transition')) {
 							item_type = 'transition';
+						}
 						else
 							// Unknown drop type
 							return;
@@ -108,28 +109,33 @@ App.directive('tlTrack', function($timeout) {
 						item_middle = parseFloat(item_middle - scrolling_tracks_offset_top + vert_scroll_offset);
 
 						// make sure the item isn't dropped off too far to the left
-						if (item_left < 0) item_left = 0;
+						if (item_left < 0) {
+							item_left = 0;
+						}
 
 		            	// get track the item was dropped on 
 						drop_track_num = findTrackAtLocation(scope, parseInt(item_middle));
 
 		            	// if the droptrack was found, update the json
-		            	if (drop_track_num != -1){ 
+		            	if (drop_track_num != -1) {
 
 		            		// find the item in the json data
 		            		item_data = null;
-		            		if (item_type == 'clip')
+		            		if (item_type == 'clip') {
 		            			item_data = findElement(scope.project.clips, "id", item_num);
-		            		else if (item_type == 'transition')
+		            		}
+		            		else if (item_type == 'transition') {
 		            			item_data = findElement(scope.project.effects, "id", item_num);
+		            		}
 
 							// set time diff (if not already determined)
-							if (position_diff == 0.0)
+							if (position_diff == 0.0) {
 								// once calculated, we want to apply the exact same time diff to each clip/trans
 		            			position_diff = (item_left / scope.pixelsPerSecond) - item_data.position;
+							}
 
 		            		// change the clip's track and position in the json data
-		            		scope.$apply(function(){
+		            		scope.$apply(function() {
 		            			//set track
 		            			item_data.layer = drop_track_num;
 		            			item_data.position += position_diff;
@@ -143,35 +149,34 @@ App.directive('tlTrack', function($timeout) {
 							dropped_clips.push(item_data);
 
 							// update clip in Qt (very important =)
-	            			if (scope.Qt && item_type == 'clip')
+	            			if (scope.Qt && item_type == 'clip') {
 	            				timeline.update_clip_data(JSON.stringify(item_data));
-
-	            			else if (scope.Qt && item_type == 'transition')
+	            			}
+	            			else if (scope.Qt && item_type == 'transition') {
 	            				timeline.update_transition_data(JSON.stringify(item_data));
-							
-
+	            			}
 		            	}
 		            });
-
 					// Add missing transitions (if any)
-					if (dropped_clips.length == 1)
+					if (dropped_clips.length == 1) {
 						// Hack to only add missing transitions if a single clip is being dropped
 						for (var clip_index = 0; clip_index < dropped_clips.length; clip_index++) {
 							var item_data = dropped_clips[clip_index];
 
 							// Check again for missing transitions
 							missing_transition_details = scope.GetMissingTransitions(item_data);
-							if (scope.Qt && missing_transition_details != null)
+							if (scope.Qt && missing_transition_details != null) {
 								timeline.add_missing_transition(JSON.stringify(missing_transition_details));
+							}
 						}
-
+					}
 					// Clear dropped clips
 					dropped_clips = [];
 
 		            // Re-sort clips
 					scope.enable_sorting = true;
 		            scope.SortItems();
-		        }	
+		        }
 		    });
     	}    
     };

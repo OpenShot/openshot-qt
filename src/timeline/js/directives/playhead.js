@@ -31,7 +31,7 @@
 var playhead_y_max = null;
 var playhead_x_min = null;
 
-App.directive('tlPlayhead', function(){
+App.directive('tlPlayhead', function() {
 	return {
 		link: function(scope, element, attrs) {
 			// get the default top position so we can lock it in place vertically
@@ -42,7 +42,7 @@ App.directive('tlPlayhead', function(){
 			scope.playheadOffset = 0.0 - (playhead_top_w / 2.0);
 
 			// Move playhead to new position (if it's not currently being animated)
-			element.on('mousemove', function(e){
+			element.on('mousemove', function(e) {
 				if (e.which == 1 && !scope.playhead_animating) { // left button
 					var playhead_seconds = (e.pageX - $("#ruler").offset().left) / scope.pixelsPerSecond;
 					scope.MovePlayhead(playhead_seconds);
@@ -53,5 +53,3 @@ App.directive('tlPlayhead', function(){
 		}
 	};
 });
-
-

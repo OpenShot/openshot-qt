@@ -53,14 +53,12 @@ App.directive('dbSlider', function () {
 			    max: 210,
 			    slide: function(event, ui) {
 			        $("#scaleVal").val(ui.value);
-			        scope.$apply(function(){
+			        scope.$apply(function() {
 			        	scope.project.scale = ui.value;
 	            		scope.pixelsPerSecond =  parseFloat(scope.project.tick_pixels) / parseFloat(scope.project.scale);
 	            	});
-
 			    }
 			});	
 		}
 	};
 });
-

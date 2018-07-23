@@ -42,7 +42,7 @@ var track_container_height = -1;
 // 3: class change when hovered over
 var dragLoc = null;
 
-App.directive('tlClip', function($timeout){
+App.directive('tlClip', function($timeout) {
 	return {
 		scope: "@",
 		link: function(scope, element, attrs) {
@@ -60,20 +60,23 @@ App.directive('tlClip', function($timeout){
 					var mouseLoc = e.pageX - parentOffset.left;
 					if (mouseLoc < 5) {
 						dragLoc = 'left';
-					} else {
+					} 
+					else {
 						dragLoc = 'right';
 					}
 
 					// Does this bounding box overlap a locked track?
-					if (hasLockedTrack(scope, e.pageY, e.pageY))
+					if (hasLockedTrack(scope, e.pageY, e.pageY)) {
 						return !event; // yes, do nothing
+					}
 
 					// Does this bounding box overlap a locked track?
 					var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
 					var track_top = (parseInt(element.position().top) + parseInt(vert_scroll_offset));
 					var track_bottom = (parseInt(element.position().top) + parseInt(element.height()) + parseInt(vert_scroll_offset));
-					if (hasLockedTrack(scope, track_top, track_bottom))
+					if (hasLockedTrack(scope, track_top, track_bottom)) {
 						resize_disabled = true;
+					}
 
 					// Hide keyframe points
 					element.find('.point_icon').fadeOut('fast');
@@ -112,7 +115,8 @@ App.directive('tlClip', function($timeout){
 							// prevent less than zero
 							new_left = 0.0;
 							new_position -= scope.clip.start
-						} else {
+						} 
+						else {
 							new_position += delta_time
 						}
 					} 
@@ -132,10 +136,10 @@ App.directive('tlClip', function($timeout){
 						new_right = (Math.round((new_right * scope.project.fps.num) / scope.project.fps.den ) * scope.project.fps.den ) / scope.project.fps.num;
 						new_left = (Math.round((new_left * scope.project.fps.num) / scope.project.fps.den ) * scope.project.fps.den ) / scope.project.fps.num;
 
-						if (scope.clip.end != new_right){
+						if (scope.clip.end != new_right) {
 							scope.clip.end = new_right;
 						}
-						if (scope.clip.start != new_left){
+						if (scope.clip.start != new_left) {
 							scope.clip.start = new_left;
 							scope.clip.position = new_position;
 						}
@@ -144,9 +148,9 @@ App.directive('tlClip', function($timeout){
 					scope.ResizeTimeline();
 
 						// update clip in Qt (very important =)
-            			if (scope.Qt)
+            			if (scope.Qt) {
             				timeline.update_clip_data(JSON.stringify(scope.clip));
-
+            			}
 					});
 
 					//resize the audio canvas to match the new clip width
@@ -156,7 +160,6 @@ App.directive('tlClip', function($timeout){
 						drawAudio(scope, scope.clip.id);
 					}
 					dragLoc = null;
-
 				},
 				resize: function(e, ui) {
 					if (resize_disabled) {
@@ -165,7 +168,6 @@ App.directive('tlClip', function($timeout){
 						$(this).width(ui.originalSize.width);
 						return;
 					}
-
 					// get amount changed in width
 					var delta_x = parseFloat(ui.originalSize.width) - ui.size.width;
 					var delta_time = delta_x / scope.pixelsPerSecond;
@@ -180,7 +182,8 @@ App.directive('tlClip', function($timeout){
 						if (new_left < 0) {
 							ui.element.width(ui.size.width + (new_left * scope.pixelsPerSecond));
 							ui.element.css("left", ui.position.left - (new_left * scope.pixelsPerSecond));
-						} else {
+						} 
+						else {
 							ui.element.width(ui.size.width);
 						}
 					} 
@@ -193,16 +196,18 @@ App.directive('tlClip', function($timeout){
 
 							// change back to actual duration (for the preview below)
 							new_right = scope.clip.duration;
-						} else {
+						} 
+						else {
 							ui.element.width(ui.size.width);
 						}
 					}
 
 					// Preview frame during resize
-					if (dragLoc == 'left'){
+					if (dragLoc == 'left') {
 						// Preview the left side of the clip
 						scope.PreviewClipFrame(scope.clip.id, new_left);
-					} else {
+					} 
+					else {
 						// Preview the right side of the clip
 						scope.PreviewClipFrame(scope.clip.id, new_right);
 					}
@@ -235,27 +240,25 @@ App.directive('tlClip', function($timeout){
 		        start: function(event, ui) {
 		        	previous_drag_position = null;
 		        	dragging = true;
-		        	if (!element.hasClass('ui-selected')) 
-		        	{
+		        	if (!element.hasClass('ui-selected')) {
 		        		// Clear previous selections?
 		        		var clear_selections = false;
-		        		if ($(".ui-selected").length > 0)
+		        		if ($(".ui-selected").length > 0) {
 		        			clear_selections = true;
-		        		
+		        		}
 		        		// SelectClip, SelectTransition
 		        		var id = $(this).attr("id");
 		        		if (element.hasClass('clip')) {
 							// Select this clip, unselect all others
 		        			scope.SelectTransition("", clear_selections);
 		        			scope.SelectClip(id, clear_selections);
-		        			
-		        		} else if (element.hasClass('transition')) {
+		        		} 
+		        		else if (element.hasClass('transition')) {
 							// Select this transition, unselect all others
 		        			scope.SelectClip("", clear_selections);
 		        			scope.SelectTransition(id, clear_selections);
 		        		}
 					}
-					
 				 	// Apply scope up to this point
 				 	scope.$apply(function(){});
 
@@ -275,13 +278,15 @@ App.directive('tlClip', function($timeout){
                     setBoundingBox($(this));
 					
 					// Does this bounding box overlap a locked track?
-					if (hasLockedTrack(scope, bounding_box.top, bounding_box.bottom) || scope.enable_razor)
+					if (hasLockedTrack(scope, bounding_box.top, bounding_box.bottom) || scope.enable_razor) {
 						return !event; // yes, do nothing
-		        	
+					}
 		        },
                 stop: function(event, ui) {
 					// Ignore clip-menu click
-					$( event.toElement ).one('.clip_menu', function(e){ e.stopImmediatePropagation(); } );
+					$( event.toElement ).one('.clip_menu', function(e) {
+						e.stopImmediatePropagation(); 
+					});
 
                 	// Hide snapline (if any)
                 	scope.HideSnapline();
@@ -334,7 +339,7 @@ App.directive('tlClip', function($timeout){
                 revert: function(valid) {
                     if(!valid) {
                         //the drop spot was invalid, so we're going to move all clips to their original position
-                        $(".ui-selected").each(function(){
+                        $(".ui-selected").each(function() {
                         	var oldY = start_clips[$(this).attr('id')]['top'];
                         	var oldX = start_clips[$(this).attr('id')]['left'];
 
@@ -358,9 +363,9 @@ App.directive('tlClipEffects', function(){
 });
 
 // Handle multiple selections
-App.directive('tlMultiSelectable', function(){
+App.directive('tlMultiSelectable', function() {
 	return {
-		link: function(scope, element, attrs){
+		link: function(scope, element, attrs) {
 			element.selectable({
 				filter: '.droppable',
 				distance: 0,
@@ -375,7 +380,8 @@ App.directive('tlMultiSelectable', function(){
 						id = id.replace("clip_", "");
 						type = "clip";
 						item = findElement(scope.project.clips, "id", id);
-					} else if (id.match("^transition_")) {
+					} 
+					else if (id.match("^transition_")) {
 						id = id.replace("transition_", "");
 						type = "transition";
 						item = findElement(scope.project.effects, "id", id);
@@ -383,7 +389,6 @@ App.directive('tlMultiSelectable', function(){
 					
 					if (scope.Qt) {
 						timeline.addSelection(id, type, false);
-
 						// Clear effect selections (if any)
 						timeline.addSelection("", "effect", true);
 					}
@@ -401,7 +406,8 @@ App.directive('tlMultiSelectable', function(){
 						id = id.replace("clip_", "");
 						type = "clip";
 						item = findElement(scope.project.clips, "id", id);
-					} else if (id.match("^transition_")) {
+					} 
+					else if (id.match("^transition_")) {
 						id = id.replace("transition_", "");
 						type = "transition";
 						item = findElement(scope.project.effects, "id", id);
@@ -410,7 +416,6 @@ App.directive('tlMultiSelectable', function(){
 					if (scope.Qt) {
 						timeline.removeSelection(id, type);
 					}
-
 					// Update item state
 					item.selected = false;
 				},
@@ -424,8 +429,3 @@ App.directive('tlMultiSelectable', function(){
 		}
 	};
 });
-
-
-
-
-

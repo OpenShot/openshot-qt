@@ -42,10 +42,10 @@ var track_container_height = -1;
 // 3: class change when hovered over
 var dragLoc = null;
 
-App.directive('tlTransition', function(){
+App.directive('tlTransition', function() {
 	return {
 		scope: "@",
-		link: function(scope, element, attrs){
+		link: function(scope, element, attrs) {
 
 			//handle resizability of transition
 			element.resizable({ 
@@ -60,7 +60,8 @@ App.directive('tlTransition', function(){
 					var mouseLoc = e.pageX - parentOffset.left;
 					if (mouseLoc < 5) {
 						dragLoc = 'left';
-					} else {
+					} 
+					else {
 						dragLoc = 'right';
 					}
 
@@ -68,12 +69,12 @@ App.directive('tlTransition', function(){
 					var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
 					var track_top = (parseInt(element.position().top) + parseInt(vert_scroll_offset));
 					var track_bottom = (parseInt(element.position().top) + parseInt(element.height()) + parseInt(vert_scroll_offset));
-					if (hasLockedTrack(scope, track_top, track_bottom))
+					if (hasLockedTrack(scope, track_top, track_bottom)) {
 						resize_disabled = true;
+					}
 
 					// Hide keyframe points
-					element.find('.point_icon').hide()
-
+					element.find('.point_icon').hide();
 				},
 				stop: function(e, ui) {
 					dragging = false;
@@ -95,16 +96,19 @@ App.directive('tlTransition', function(){
 					new_left = scope.transition.position;
 					new_right = (scope.transition.end - scope.transition.start);
 
-					if (dragLoc == 'left'){
+					if (dragLoc == 'left') {
 						//changing the start of the transition
 						new_left += delta_time;
-						if (new_left < 0) new_left = 0; // prevent less than zero
-					} else {
+						if (new_left < 0) {
+							new_left = 0; // prevent less than zero
+						}
+					} 
+					else {
 						new_right -= delta_time;
 					}
 
 					//apply the new start, end and length to the transition's scope
-					scope.$apply(function(){
+					scope.$apply(function() {
 
 						// Get the nearest starting frame position to the transition position (this helps to prevent cutting
 						// in-between frames, and thus less likely to repeat or skip a frame).
@@ -112,22 +116,21 @@ App.directive('tlTransition', function(){
 						new_right = (Math.round((new_right * scope.project.fps.num) / scope.project.fps.den ) * scope.project.fps.den ) / scope.project.fps.num;
 						new_left = (Math.round((new_left * scope.project.fps.num) / scope.project.fps.den ) * scope.project.fps.den ) / scope.project.fps.num;
 
-						if (dragLoc == 'right'){
+						if (dragLoc == 'right') {
 							scope.transition.end = new_right;
 						}
-						if (dragLoc == 'left'){
+						if (dragLoc == 'left') {
 							scope.transition.position = new_left;
 							scope.transition.end -= delta_time;
 						}
 						
 						// update transition in Qt (very important =)
-            			if (scope.Qt)
+            			if (scope.Qt) {
             				timeline.update_transition_data(JSON.stringify(scope.transition));
-
+            			}
 					});
 				
 					dragLoc = null;
-
 				},
 				resize: function(e, ui) {
 
@@ -146,23 +149,23 @@ App.directive('tlTransition', function(){
 					new_left = scope.transition.position;
 					new_right = (scope.transition.end - scope.transition.start);
 
-					if (dragLoc == 'left'){
+					if (dragLoc == 'left') {
 						// changing the start of the transition
 						new_left += delta_time;
 						if (new_left < 0) { 
 							ui.element.width(ui.size.width + (new_left * scope.pixelsPerSecond));
 							ui.element.css("left", ui.position.left - (new_left * scope.pixelsPerSecond));
-						} else {
+						} 
+						else {
 							ui.element.width(ui.size.width);
 						}
-					} else {
+					} 
+					else {
 						// changing the end of the transitions
 						new_right -= delta_time;
 						ui.element.width(ui.size.width);
 					}
-
-				},
-
+				}
 			});
 	
 			//handle hover over on the transition
@@ -181,7 +184,6 @@ App.directive('tlTransition', function(){
 			  	}
 			);
 			
-
 			//handle draggability of transition
 			element.draggable({
 		        snap: ".track", // snaps to a track
@@ -193,12 +195,12 @@ App.directive('tlTransition', function(){
 		        start: function(event, ui) {
 		        	previous_drag_position = null;
 		        	dragging = true;
-		        	if (!element.hasClass('ui-selected')) 
-		        	{
+		        	if (!element.hasClass('ui-selected')) {
 		        		// Clear previous selections?
 		        		var clear_selections = false;
-		        		if ($(".ui-selected").length > 0)
+		        		if ($(".ui-selected").length > 0) {
 		        			clear_selections = true;
+		        		}
 		        		
 		        		// SelectClip, SelectTransition
 		        		var id = $(this).attr("id");
@@ -207,7 +209,8 @@ App.directive('tlTransition', function(){
 		        			scope.SelectTransition("", clear_selections);
 		        			scope.SelectClip(id, clear_selections);
 		        			
-		        		} else if (element.hasClass('transition')) {
+		        		} 
+		        		else if (element.hasClass('transition')) {
 							// Select this transition, unselect all others
 		        			scope.SelectClip("", clear_selections);
 		        			scope.SelectTransition(id, clear_selections);
@@ -224,25 +227,31 @@ App.directive('tlTransition', function(){
                     bounding_box = {};
 
 		        	// Init all other selected transitions (prepare to drag them)
-		        	$(".ui-selected").each(function(){
-		        		start_transitions[$(this).attr('id')] = {"top": $(this).position().top + vert_scroll_offset,
-                                						   "left": $(this).position().left + horz_scroll_offset};
-                        move_transitions[$(this).attr('id')] = {"top": $(this).position().top + vert_scroll_offset,
-                               							  "left": $(this).position().left + horz_scroll_offset};
+		        	$(".ui-selected").each(function() {
+		        		start_transitions[$(this).attr('id')] = {
+		        			"top": $(this).position().top + vert_scroll_offset,
+                            "left": $(this).position().left + horz_scroll_offset
+                        };
+                        move_transitions[$(this).attr('id')] = {
+                        	"top": $(this).position().top + vert_scroll_offset,
+                            "left": $(this).position().left + horz_scroll_offset
+                        };
 
                         //send transition to bounding box builder
                         setBoundingBox($(this));
                     });
 
 					// Does this bounding box overlap a locked track?
-					if (hasLockedTrack(scope, bounding_box.top, bounding_box.bottom) || scope.enable_razor)
+					if (hasLockedTrack(scope, bounding_box.top, bounding_box.bottom) || scope.enable_razor) {
 						return !event; // yes, do nothing
-
+					}
 		        },
                 stop: function(event, ui) {
-
 					// Ignore transition-menu click
-					$( event.toElement ).one('.transition_menu', function(e){ e.stopImmediatePropagation(); } );
+					$( event.toElement ).one('.transition_menu', function(e) { 
+							e.stopImmediatePropagation(); 
+						}
+					);
                 	
                 	// Hide snapline (if any)
                 	scope.HideSnapline();
@@ -250,13 +259,11 @@ App.directive('tlTransition', function(){
                 	// Clear previous drag position
 					previous_drag_position = null;
 					dragging = false;
-
 				},
                 drag: function(e, ui) {
                 	var previous_x = ui.originalPosition.left;
 					var previous_y = ui.originalPosition.top;
-					if (previous_drag_position != null)
-					{
+					if (previous_drag_position != null) {
 						// if available, override with previous drag position
 						previous_x = previous_drag_position.left;
 						previous_y = previous_drag_position.top;
@@ -279,7 +286,7 @@ App.directive('tlTransition', function(){
 					ui.position.top = results.position.top;
 
     				// Move all other selected transitions with this one
-	                $(".ui-selected").each(function(){
+	                $(".ui-selected").each(function() {
 	                	var pos = $(this).position();
 	                	var newY = move_transitions[$(this).attr('id')]["top"] + y_offset;
                         var newX = move_transitions[$(this).attr('id')]["left"] + x_offset;
@@ -291,14 +298,12 @@ App.directive('tlTransition', function(){
 						//change the element location
 						$(this).css('left', newX);
 				    	$(this).css('top', newY);
-
 				    });
-		        	
                 },
                 revert: function(valid) {
                     if(!valid) {
                         //the drop spot was invalid, so we're going to move all transitions to their original position
-                        $(".ui-selected").each(function(){
+                        $(".ui-selected").each(function() {
                         	var oldY = start_transitions[$(this).attr('id')]['top'];
                         	var oldX = start_transitions[$(this).attr('id')]['left'];
 
@@ -308,12 +313,6 @@ App.directive('tlTransition', function(){
                     }
                 }
 		      });
-
-
 		}
 	};
 });
-
-
-
-
