@@ -43,7 +43,6 @@ App.directive('tlScrollableTracks', function () {
 		restrict: 'A',
 
 		link: function (scope, element, attrs) {
-
 			// Sync ruler to track scrolling
 			element.on('scroll', function () {
 				//set amount scrolled
@@ -66,7 +65,7 @@ App.directive('tlScrollableTracks', function () {
 			});
 
 			// Pans the timeline (on middle mouse clip and drag)
-			element.on('mousemove', function(e){
+			element.on('mousemove', function(e) {
 				if (is_scrolling) {
 					// Calculate difference from last position
 					difference = { x: starting_mouse_position.x-e.pageX, y: starting_mouse_position.y-e.pageY};
@@ -81,8 +80,6 @@ App.directive('tlScrollableTracks', function () {
 			element.on('mouseup', function(e) {
 				element.removeClass('drag_cursor');
 			});
-
-
 		}
 	};
 });
@@ -90,18 +87,16 @@ App.directive('tlScrollableTracks', function () {
 // Track scrolling mode on body tag... allows for capture of released middle mouse button
 App.directive('tlBody', function () {
 	return {
-		link: function (scope, element, attrs){
-
-			element.on('mouseup', function(e){
-				if (e.which == 2) // middle button
+		link: function (scope, element, attrs) {
+			element.on('mouseup', function(e) {
+				// middle button
+				if (e.which == 2) {
 					is_scrolling = false;
+				}
 			});
-
-
 		}
 	};
 });
-
 
 // The HTML5 canvas ruler
 App.directive('tlRuler', function ($timeout) {
@@ -109,7 +104,7 @@ App.directive('tlRuler', function ($timeout) {
 		restrict: 'A',
 		link: function (scope, element, attrs) {
 			//on click of the ruler canvas, jump playhead to the clicked spot
-			element.on('mousedown', function(e){
+			element.on('mousedown', function(e) {
 				// Get playhead position
 				var playhead_left = e.pageX - element.offset().left;
 				var playhead_seconds = playhead_left / scope.pixelsPerSecond;
@@ -129,11 +124,10 @@ App.directive('tlRuler', function ($timeout) {
 						scope.playhead_animating = false;
 					});
 				});
-
 			});
 
 			// Move playhead to new position (if it's not currently being animated)
-			element.on('mousemove', function(e){
+			element.on('mousemove', function(e) {
 				if (e.which == 1 && !scope.playhead_animating) { // left button
 					var playhead_seconds = (e.pageX - element.offset().left) / scope.pixelsPerSecond;
 					// Update playhead
@@ -145,63 +139,58 @@ App.directive('tlRuler', function ($timeout) {
 			//watch the scale value so it will be able to draw the ruler after changes,
 			//otherwise the canvas is just reset to blank
 			scope.$watch('project.scale + markers.length + project.duration', function (val) {
-             if (val){
+             if (val) {
+	        	 $timeout(function() {
+					//get all scope variables we need for the ruler
+					var scale = scope.project.scale;
+					var tick_pixels = scope.project.tick_pixels;
+					var each_tick = tick_pixels / 2;
+					var pixel_length = scope.GetTimelineWidth(1024);
 
-	            	 $timeout(function(){
-						//get all scope variables we need for the ruler
-						var scale = scope.project.scale;
-						var tick_pixels = scope.project.tick_pixels;
-						var each_tick = tick_pixels / 2;
-						var pixel_length = scope.GetTimelineWidth(1024);
+			    	//draw the ruler
+			    	var ctx = element[0].getContext('2d');
+			    	//clear the canvas first
+			    	ctx.clearRect(0, 0, element.width(), element.height());
+			    	//set number of ticks based 2 for each pixel_length
+			    	num_ticks = pixel_length / 50;
 
-				    	//draw the ruler
-				    	var ctx = element[0].getContext('2d');
-				    	//clear the canvas first
-				    	ctx.clearRect(0, 0, element.width(), element.height());
-				    	//set number of ticks based 2 for each pixel_length
-				    	num_ticks = pixel_length / 50;
+					ctx.lineWidth = 1;
+					ctx.strokeStyle = "#c8c8c8";
+					ctx.lineCap = "round";
 
-						ctx.lineWidth = 1;
-						ctx.strokeStyle = "#c8c8c8";
-						ctx.lineCap = "round";
+			    	//loop em and draw em
+					for (x=0;x<num_ticks+1;x++) {
+						ctx.beginPath();
 
-				    	//loop em and draw em
-						for (x=0;x<num_ticks+1;x++){
-							ctx.beginPath();
+						//if it's even, make the line longer
+						if (x%2 == 0) {
+							line_top = 18;
+							//if it's not the first line, set the time text
+							if (x != 0) {
+								//get time for this tick
+								time = (scale * x) /2;
+								time_text = secondsToTime(time, scope.project.fps.num, scope.project.fps.den);
 
-							//if it's even, make the line longer
-							if (x%2 == 0){
-								line_top = 18;
-								//if it's not the first line, set the time text
-								if (x != 0){
-									//get time for this tick
-									time = (scale * x) /2;
-									time_text = secondsToTime(time, scope.project.fps.num, scope.project.fps.den);
-
-									//write time on the canvas, centered above long tick
-									ctx.fillStyle = "#c8c8c8";
-									ctx.font = "0.9em";
-									ctx.fillText(time_text["hour"] +":"+ time_text["min"] +":"+ time_text["sec"], x*each_tick-22, 11);
-								}
-							} else {
-								//shorter line
-								line_top = 28;
+								//write time on the canvas, centered above long tick
+								ctx.fillStyle = "#c8c8c8";
+								ctx.font = "0.9em";
+								ctx.fillText(time_text["hour"] +":"+ time_text["min"] +":"+ time_text["sec"], x*each_tick-22, 11);
 							}
-
-							ctx.moveTo(x*each_tick, 39);
-							ctx.lineTo(x*each_tick, line_top);
-							ctx.stroke();
+						} 
+						else {
+							//shorter line
+							line_top = 28;
 						}
-				    }, 0);
-
+						ctx.moveTo(x*each_tick, 39);
+						ctx.lineTo(x*each_tick, line_top);
+						ctx.stroke();
+					}
+			    }, 0);
              }
          });
-
 		}
-
 	};
 });
-
 
 // The HTML5 canvas ruler
 App.directive('tlRulertime', function () {
@@ -209,16 +198,15 @@ App.directive('tlRulertime', function () {
 		restrict: 'A',
 		link: function (scope, element, attrs) {
 			//on click of the ruler canvas, jump playhead to the clicked spot
-			element.on('mousedown', function(e){
+			element.on('mousedown', function(e) {
 				var playhead_seconds = 0.0;
 				// Update playhead
 				scope.MovePlayhead(playhead_seconds);
 				scope.PreviewFrame(playhead_seconds);
-
 			});
 
 			// Move playhead to new position (if it's not currently being animated)
-			element.on('mousemove', function(e){
+			element.on('mousemove', function(e) {
 				if (e.which == 1 && !scope.playhead_animating) { // left button
 					var playhead_seconds = 0.0;
 					// Update playhead
@@ -226,13 +214,6 @@ App.directive('tlRulertime', function () {
 					scope.PreviewFrame(playhead_seconds);
 				}
 			});
-
-
 		}
 	};
 });
-
-
-
-
-
