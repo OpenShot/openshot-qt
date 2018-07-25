@@ -5,7 +5,7 @@
 	<title translatable="True">DVD-NTSC</title>
 	<videoformat>dvd</videoformat>
 	<videocodec>mpeg2video</videocodec>
-	<audiocodec>ac3</audiocodec>
+	<audiocodec>aac</audiocodec>
 	<audiochannels>2</audiochannels>
 	<audiochannellayout>3</audiochannellayout>
 	<videobitrate

@@ -40,12 +40,12 @@ var track_container_height = -1;
 // 1: can be dragged
 // 2: can be resized
 // 3: class change when hovered over
-var dragLog = null;
+var dragLoc = null;
 
 App.directive('tlClip', function($timeout){
 	return {
 		scope: "@",
-		link: function(scope, element, attrs){
+		link: function(scope, element, attrs) {
 
 			//handle resizability of clip
 			element.resizable({ 
@@ -105,7 +105,7 @@ App.directive('tlClip', function($timeout){
 					new_left = scope.clip.start;
 					new_right = scope.clip.end;
 
-					if (dragLoc == 'left'){
+					if (dragLoc == 'left') {
 						// changing the start of the clip
 						new_left += delta_time;
 						if (new_left < 0) {
@@ -115,7 +115,8 @@ App.directive('tlClip', function($timeout){
 						} else {
 							new_position += delta_time
 						}
-					} else {
+					} 
+					else {
 						// changing the end of the clips
 						new_right -= delta_time;
 						if (new_right > scope.clip.duration)
@@ -124,7 +125,12 @@ App.directive('tlClip', function($timeout){
 					}
 
 					//apply the new start, end and length to the clip's scope
-					scope.$apply(function(){
+					scope.$apply(function() {
+						// Get the nearest starting frame position to the clip position (this helps to prevent cutting
+						// in-between frames, and thus less likely to repeat or skip a frame).
+						new_position = (Math.round((new_position * scope.project.fps.num) / scope.project.fps.den ) * scope.project.fps.den ) / scope.project.fps.num;
+						new_right = (Math.round((new_right * scope.project.fps.num) / scope.project.fps.den ) * scope.project.fps.den ) / scope.project.fps.num;
+						new_left = (Math.round((new_left * scope.project.fps.num) / scope.project.fps.den ) * scope.project.fps.den ) / scope.project.fps.num;
 
 						if (scope.clip.end != new_right){
 							scope.clip.end = new_right;
@@ -144,17 +150,15 @@ App.directive('tlClip', function($timeout){
 					});
 
 					//resize the audio canvas to match the new clip width
-					if (scope.clip.show_audio){
+					if (scope.clip.show_audio) {
 						element.find(".audio-container").show();
 						//redraw audio as the resize cleared the canvas
 						drawAudio(scope, scope.clip.id);
 					}
-
 					dragLoc = null;
 
 				},
 				resize: function(e, ui) {
-
 					if (resize_disabled) {
 						// disabled, keep the item the same size
 						$(this).css(ui.originalPosition);
@@ -170,7 +174,7 @@ App.directive('tlClip', function($timeout){
 					new_left = scope.clip.start;
 					new_right = scope.clip.end;
 
-					if (dragLoc == 'left'){
+					if (dragLoc == 'left') {
 						// changing the start of the clip
 						new_left += delta_time;
 						if (new_left < 0) {
@@ -179,7 +183,8 @@ App.directive('tlClip', function($timeout){
 						} else {
 							ui.element.width(ui.size.width);
 						}
-					} else {
+					} 
+					else {
 						// changing the end of the clips
 						new_right -= delta_time;
 						if (new_right > scope.clip.duration) {
@@ -193,7 +198,6 @@ App.directive('tlClip', function($timeout){
 						}
 					}
 
-
 					// Preview frame during resize
 					if (dragLoc == 'left'){
 						// Preview the left side of the clip
@@ -202,9 +206,7 @@ App.directive('tlClip', function($timeout){
 						// Preview the right side of the clip
 						scope.PreviewClipFrame(scope.clip.id, new_right);
 					}
-
-				},
-
+				}
 			});
 	
 			//handle hover over on the clip
@@ -263,16 +265,14 @@ App.directive('tlClip', function($timeout){
 
                     bounding_box = {};
 
-		        	// Init all other selected clips (prepare to drag them)
-		        	$(".ui-selected").each(function(){
-		        		start_clips[$(this).attr('id')] = {"top": $(this).position().top + vert_scroll_offset,
-                                						   "left": $(this).position().left + horz_scroll_offset};
-                        move_clips[$(this).attr('id')] = {"top": $(this).position().top + vert_scroll_offset,
-                               							  "left": $(this).position().left + horz_scroll_offset};
+		        	// Init all clips whether selected or not
+	        		start_clips[$(this).attr('id')] = {"top": $(this).position().top + vert_scroll_offset,
+                            						   "left": $(this).position().left + horz_scroll_offset};
+                    move_clips[$(this).attr('id')] = {"top": $(this).position().top + vert_scroll_offset,
+                           							  "left": $(this).position().left + horz_scroll_offset};
 
-                        //send clip to bounding box builder
-                        setBoundingBox($(this));
-                    });
+                    //send clip to bounding box builder
+                    setBoundingBox($(this));
 					
 					// Does this bounding box overlap a locked track?
 					if (hasLockedTrack(scope, bounding_box.top, bounding_box.bottom) || scope.enable_razor)
@@ -280,7 +280,6 @@ App.directive('tlClip', function($timeout){
 		        	
 		        },
                 stop: function(event, ui) {
-
 					// Ignore clip-menu click
 					$( event.toElement ).one('.clip_menu', function(e){ e.stopImmediatePropagation(); } );
 
@@ -290,13 +289,11 @@ App.directive('tlClip', function($timeout){
                 	// Clear previous drag position
 					previous_drag_position = null;
 					dragging = false;
-
 				},
                 drag: function(e, ui) {
                 	var previous_x = ui.originalPosition.left;
 					var previous_y = ui.originalPosition.top;
-					if (previous_drag_position != null)
-					{
+					if (previous_drag_position != null) {
 						// if available, override with previous drag position
 						previous_x = previous_drag_position.left;
 						previous_y = previous_drag_position.top;
@@ -318,21 +315,21 @@ App.directive('tlClip', function($timeout){
 					ui.position.left = results.position.left;
 					ui.position.top = results.position.top;
 
-    				// Move all other selected clips with this one
-	                $(".ui-selected").each(function(){
-	                	var newY = move_clips[$(this).attr('id')]["top"] + y_offset;
-                        var newX = move_clips[$(this).attr('id')]["left"] + x_offset;
+    				// Move all other selected clips with this one if we have more than one clip
+    				if($(".ui-selected").length > 1) {
+		                $(".ui-selected").each(function() {
+		                	var newY = move_clips[$(this).attr('id')]["top"] + y_offset;
+	                        var newX = move_clips[$(this).attr('id')]["left"] + x_offset;
 
-						//update the clip location in the array
-	                	move_clips[$(this).attr('id')]['top'] = newY;
-                        move_clips[$(this).attr('id')]['left'] = newX;
+							//update the clip location in the array
+		                	move_clips[$(this).attr('id')]['top'] = newY;
+	                        move_clips[$(this).attr('id')]['left'] = newX;
 
-						//change the element location
-						$(this).css('left', newX);
-				    	$(this).css('top', newY);
-
-				    });
-
+							//change the element location
+							$(this).css('left', newX);
+					    	$(this).css('top', newY);
+					    });
+    				}
                 },
                 revert: function(valid) {
                     if(!valid) {
@@ -347,8 +344,6 @@ App.directive('tlClip', function($timeout){
                     }
                 }
 		      });
-
-
 		}
 	};
 });
@@ -371,7 +366,6 @@ App.directive('tlMultiSelectable', function(){
 				distance: 0,
 				cancel: '.effect-container,.transition_menu,.clip_menu',
 				selected: function( event, ui ) {
-
 					// Identify the selected ID and TYPE
 					var id = ui.selected.id;
 					var type = "";
@@ -387,8 +381,7 @@ App.directive('tlMultiSelectable', function(){
 						item = findElement(scope.project.effects, "id", id);
 					}
 					
-					if (scope.Qt)
-					{
+					if (scope.Qt) {
 						timeline.addSelection(id, type, false);
 
 						// Clear effect selections (if any)
@@ -399,7 +392,6 @@ App.directive('tlMultiSelectable', function(){
 					item.selected = true;
 				},
 				unselected: function( event, ui ) {
-
 					// Identify the selected ID and TYPE
 					var id = ui.unselected.id;
 					var type = "";
@@ -415,8 +407,9 @@ App.directive('tlMultiSelectable', function(){
 						item = findElement(scope.project.effects, "id", id);
 					}
 					
-					if (scope.Qt)
+					if (scope.Qt) {
 						timeline.removeSelection(id, type);
+					}
 
 					// Update item state
 					item.selected = false;

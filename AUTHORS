@@ -1,30 +1,15 @@
 OpenShot 2.0 is the result of work by (in no particular order):
 
-Coders: 
+Contributors / Developers:
 
-Jonathan Thomas <jonathan@openshot.org>
-Noah Figg <eggmunkee@hotmail.com>
-Andy Finch <andy@openshot.org>
-Cody Parker <cody@yourcodepro.com>
-Olivier Girard <olivier@openshot.org>
-
-
-Documentation:
-
-Jonathan Thomas <jonathan@openshot.org>
-Olivier Girard <olivier@openshot.org>
+See src/settings/contributors.json for details on contributors and
+developer credits.
 
 
 Translation:
 See src/locale/ folders for details on translation credits. Each
 translation contains a "translator-credits" key containing the
 details of each translator that contributed to that language.
-
-
-Packaging:
-
-Jonathan Thomas <jonathan@openshot.org>
-Foster McLane <fmkclane@gmail.com>
 
 
 Artists:
@@ -39,17 +24,15 @@ Fonts:
 Canonical / Ubuntu (Ubuntu-R.ttf font)
 
 
-Website:
-
-Jonathan Thomas <jonathan@openshot.org>
-
-
 Supporters
 
-A big thanks to all the financial backers and supporters from PayPay
-and Kickstarter! Details can be found in src/settings/supporters.json
+A big thanks to all the financial backers and supporters from PayPay,
+Kickstarter, and Patreon! Details can be found in src/settings/supporters.json
 
 
 For the full list of developers and technical contributors, please visit:
+https://github.com/OpenShot/openshot-qt/graphs/contributors
+https://github.com/OpenShot/libopenshot/graphs/contributors
+https://github.com/OpenShot/libopenshot-audio/graphs/contributors
 http://openshot.org/developers
 https://launchpad.net/~openshot.developers

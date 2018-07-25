@@ -425,10 +425,13 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             # Add split clip menu
             Slice_Menu = QMenu(_("Slice All"), self)
             Slice_Keep_Both = Slice_Menu.addAction(_("Keep Both Sides"))
+            Slice_Keep_Both.setShortcut(QKeySequence(self.window.getShortcutByName("sliceAllKeepBothSides")))
             Slice_Keep_Both.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_BOTH, clip_ids, trans_ids, position))
             Slice_Keep_Left = Slice_Menu.addAction(_("Keep Left Side"))
+            Slice_Keep_Left.setShortcut(QKeySequence(self.window.getShortcutByName("sliceAllKeepLeftSide")))
             Slice_Keep_Left.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_LEFT, clip_ids, trans_ids, position))
             Slice_Keep_Right = Slice_Menu.addAction(_("Keep Right Side"))
+            Slice_Keep_Right.setShortcut(QKeySequence(self.window.getShortcutByName("sliceAllKeepRightSide")))
             Slice_Keep_Right.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_RIGHT, clip_ids, trans_ids, position))
             menu.addMenu(Slice_Menu)
             return menu.popup(QCursor.pos())
@@ -876,13 +879,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 # Add split clip menu
                 Slice_Menu = QMenu(_("Slice"), self)
                 Slice_Keep_Both = Slice_Menu.addAction(_("Keep Both Sides"))
-                Slice_Keep_Both.setShortcut(QKeySequence(self.window.getShortcutByName("sliceAllKeepBothSides")))
                 Slice_Keep_Both.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_BOTH, [clip_id], [], playhead_position))
                 Slice_Keep_Left = Slice_Menu.addAction(_("Keep Left Side"))
-                Slice_Keep_Left.setShortcut(QKeySequence(self.window.getShortcutByName("sliceAllKeepLeftSide")))
                 Slice_Keep_Left.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_LEFT, [clip_id], [], playhead_position))
                 Slice_Keep_Right = Slice_Menu.addAction(_("Keep Right Side"))
-                Slice_Keep_Right.setShortcut(QKeySequence(self.window.getShortcutByName("sliceAllKeepRightSide")))
                 Slice_Keep_Right.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_RIGHT, [clip_id], [], playhead_position))
                 menu.addMenu(Slice_Menu)
 
@@ -1495,7 +1495,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 # Apply clipboard to clip (there should only be a single key in this dict)
                 for k,v in self.copy_clipboard[list(self.copy_clipboard)[0]].items():
                     if k != 'id':
-                        # Overwrite clips propeties (which are in the clipboard)
+                        # Overwrite clips properties (which are in the clipboard)
                         clip.data[k] = v
 
                 # Save changes
@@ -1514,11 +1514,99 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 # Apply clipboard to transition (there should only be a single key in this dict)
                 for k, v in self.copy_transition_clipboard[list(self.copy_transition_clipboard)[0]].items():
                     if k != 'id':
-                        # Overwrite transition propeties (which are in the clipboard)
+                        # Overwrite transition properties (which are in the clipboard)
                         tran.data[k] = v
 
                 # Save changes
                 tran.save()
+
+    def Nudge_Triggered(self, action, clip_ids, tran_ids):
+        """Callback for clip nudges"""
+        log.info("Nudging clip(s) and/or transition(s)")
+        left_edge = -1.0
+        right_edge = -1.0
+
+        # Determine how far we're going to nudge (1/2 frame or 0.01s, whichever is larger)
+        fps = get_app().project.get(["fps"])
+        fps_float = float(fps["num"]) / float(fps["den"])
+        nudgeDistance = float(action) / float(fps_float)
+        nudgeDistance /= 2.0	# 1/2 frame
+        if abs(nudgeDistance) < 0.01:
+            nudgeDistance = 0.01 * action	# nudge is less than the minimum of +/- 0.01s
+        log.info("Nudging by %s sec" % nudgeDistance)
+
+        # Loop through each selected clip (find furthest left and right edge)
+        for clip_id in clip_ids:
+            # Get existing clip object
+            clip = Clip.get(id=clip_id)
+            if not clip:
+                # Invalid clip, skip to next item
+                continue
+
+            position = float(clip.data["position"])
+            start_of_clip = float(clip.data["start"])
+            end_of_clip = float(clip.data["end"])
+
+            if position < left_edge or left_edge == -1.0:
+                left_edge = position
+            if position + (end_of_clip - start_of_clip) > right_edge or right_edge == -1.0:
+                right_edge = position + (end_of_clip - start_of_clip)
+
+            # Do not nudge beyond the start of the timeline
+            if left_edge + nudgeDistance < 0.0:
+                log.info("Cannot nudge beyond start of timeline")
+                nudgeDistance = 0
+
+        # Loop through each selected transition (find furthest left and right edge)
+        for tran_id in tran_ids:
+            # Get existing transition object
+            tran = Transition.get(id=tran_id)
+            if not tran:
+                # Invalid transition, skip to next item
+                continue
+
+            position = float(tran.data["position"])
+            start_of_tran = float(tran.data["start"])
+            end_of_tran = float(tran.data["end"])
+
+            if position < left_edge or left_edge == -1.0:
+                left_edge = position
+            if position + (end_of_tran - start_of_tran) > right_edge or right_edge == -1.0:
+                right_edge = position + (end_of_tran - start_of_tran)
+
+            # Do not nudge beyond the start of the timeline
+            if left_edge + nudgeDistance < 0.0:
+                log.info("Cannot nudge beyond start of timeline")
+                nudgeDistance = 0
+
+        # Loop through each selected clip (update position to align clips)
+        for clip_id in clip_ids:
+            # Get existing clip object
+            clip = Clip.get(id=clip_id)
+            if not clip:
+                # Invalid clip, skip to next item
+                continue
+
+            # Do the nudge
+            clip.data['position'] += nudgeDistance
+
+            # Save changes
+            self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+
+        # Loop through each selected transition (update position to align clips)
+        for tran_id in tran_ids:
+            # Get existing transition object
+            tran = Transition.get(id=tran_id)
+            if not tran:
+                # Invalid transition, skip to next item
+                continue
+
+            # Do the nudge
+            tran.data['position'] += nudgeDistance
+
+            # Save changes
+            self.update_transition_data(tran.data, only_basic_props=False)
+
 
     def Align_Triggered(self, action, clip_ids, tran_ids):
         """Callback for alignment context menus"""
@@ -1703,8 +1791,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         """Callback for slice context menus"""
         # Get FPS from project
         fps = get_app().project.get(["fps"])
-        fps_num = fps["num"]
-        fps_den = fps["den"]
+        fps_num = float(fps["num"])
+        fps_den = float(fps["den"])
+        fps_float = fps_num / fps_den
+        frame_duration = fps_den / fps_num
 
         # Get the nearest starting frame position to the playhead (this helps to prevent cutting
         # in-between frames, and thus less likely to repeat or skip a frame).
@@ -1760,9 +1850,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 position_of_clip = float(right_clip.data["position"])
                 start_of_clip = float(right_clip.data["start"])
 
-                # Set new 'end' of right_clip
-                right_clip.data["position"] = playhead_position
-                right_clip.data["start"] = start_of_clip + (playhead_position - position_of_clip)
+                # Set new 'start' of right_clip (need to bump 1 frame duration more, so we don't repeat a frame)
+                right_clip.data["position"] = float(clip.data["position"]) + float(clip.data["end"]) + frame_duration
+                right_clip.data["start"] = (round(float(clip.data["end"]) * fps_float) + 2) / fps_float
 
                 # Save changes
                 right_clip.save()
@@ -1830,8 +1920,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 end_of_tran = float(right_tran.data["end"])
 
                 # Set new 'end' of right_tran
-                right_tran.data["position"] = playhead_position
-                right_tran.data["end"] = end_of_tran - (playhead_position - position_of_tran)
+                right_tran.data["position"] = playhead_position + frame_duration
+                right_tran.data["end"] = end_of_tran - (playhead_position - position_of_tran) + frame_duration
 
                 # Save changes
                 right_tran.save()

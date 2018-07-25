@@ -34,9 +34,9 @@ App.controller('TimelineCtrl',function($scope) {
 	$scope.project =
     {
 	  fps: {
-		    num : 24,
-		    den : 1
-		   },
+	    num : 24,
+	    den : 1
+	   },
       duration : 300,			//length of project in seconds
       scale : 16.0,				//seconds per tick
       tick_pixels : 100,		//pixels between tick mark
@@ -295,9 +295,13 @@ App.controller('TimelineCtrl',function($scope) {
 
   // Move the playhead to a specific time
   $scope.PreviewClipFrame = function(clip_id, position_seconds) {
-	  // Determine frame
+	  // Get the nearest starting frame position to the playhead (this helps to prevent cutting
+	  // in-between frames, and thus less likely to repeat or skip a frame).
+	  position_seconds_rounded = (Math.round(($scope.project.playhead_position * $scope.project.fps.num) / $scope.project.fps.den ) * $scope.project.fps.den ) / $scope.project.fps.num;
+
+  	  // Determine frame
 	  var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
-	  var frame = Math.round(position_seconds * frames_per_second) + 1;
+	  var frame = Math.round(position_seconds_rounded * frames_per_second) + 1;
 
 	  // Update GUI with position (to the preview can be updated)
 	  if ($scope.Qt)
@@ -521,6 +525,11 @@ App.controller('TimelineCtrl',function($scope) {
 		 // Convert x and y into timeline vars
 		 var scrolling_tracks_offset = $("#scrolling_tracks").offset().left;
 		 var clip_position = parseFloat(x - scrolling_tracks_offset) / parseFloat($scope.pixelsPerSecond);
+
+         // Get the nearest starting frame position to the clip position (this helps to prevent cutting
+         // in-between frames, and thus less likely to repeat or skip a frame).
+         clip_position = (Math.round((clip_position * $scope.project.fps.num) / $scope.project.fps.den ) * $scope.project.fps.den ) / $scope.project.fps.num;
+
 		 clip_json.position = clip_position;
 		 clip_json.layer = $scope.GetTrackAtY(y).number;
 		 
@@ -1079,8 +1088,8 @@ $scope.SetTrackLabel = function (label){
  	return transition_size;
  };
  
- // Search through clips and transitions to find the closest element within a given threashold
- $scope.GetNearbyPosition = function(pixel_positions, threashold, ignore_ids){
+ // Search through clips and transitions to find the closest element within a given threshold
+ $scope.GetNearbyPosition = function(pixel_positions, threshold, ignore_ids){
 	// init some vars
 	var smallest_diff = 900.0;
 	var smallest_abs_diff = 900.0;
@@ -1141,7 +1150,7 @@ $scope.SetTrackLabel = function (label){
 			var abs_diff = Math.abs(diff);
 			
 			// Check if this clip is nearby
-			if (abs_diff < smallest_abs_diff && abs_diff <= threashold) {
+			if (abs_diff < smallest_abs_diff && abs_diff <= threshold) {
 				// This one is smaller
 				smallest_diff = diff;
 				smallest_abs_diff = abs_diff;
@@ -1359,9 +1368,6 @@ $scope.SetTrackLabel = function (label){
 
 			// Re-index Layer Y values
 			$scope.UpdateLayerIndex();
-
-			// Lock / unlock any items
-			$scope.LockItems();
 	 	}
 	}	
 	 
@@ -1387,9 +1393,6 @@ $scope.SetTrackLabel = function (label){
 	 // Re-index Layer Y values
 	 $scope.UpdateLayerIndex();
 
-	 // Lock / unlock any items
-	 $scope.LockItems();
-
 	 // Scroll to top/left when loading a project
 	 $("#scrolling_tracks").animate({
 		scrollTop: 0,
@@ -1398,19 +1401,6 @@ $scope.SetTrackLabel = function (label){
 	 
 	 // return true
 	 return true;
- };
-
- // Lock and unlock items
- $scope.LockItems = function(){
-
-	// Enable all items
-	//$(".clip").draggable("enable")
-
-	// Disable any locked items
-	// for (layer in $scope.project.layers)
-	// {
-	// 	timeline.qt_log(layer);
-	// }
  };
   
 // ############# END QT FUNCTIONS #################### //   
@@ -1436,9 +1426,9 @@ $scope.SetTrackLabel = function (label){
 	                 layer : 0,
 	                 image : './media/images/thumbnail.png',
 	                 locked : false,
-	                 duration : 5,
+	                 duration : 50,
 	                 start : 0,
-	                 end : 5,
+	                 end : 50,
 	                 position : positionNum,
 	                 title : 'Clip B',
 	                 effects : [],
@@ -1454,29 +1444,26 @@ $scope.SetTrackLabel = function (label){
 					 volume: { Points: [] }
 	               });
             startNum++;
-			positionNum+=5;
+			positionNum+=50;
         };
-      
         $scope.numClips = "";
-
     };
 
   // Debug method to add effects to a clip's $scope
   $scope.addEffect = function(clipNum){
 	    //find the clip in the json data
-	    elm = findElement($scope.project.clips, "number", clipNum);
+	    elm = findElement($scope.project.clips, "id", clipNum);
 	    elm.effects.push({
 	       effect : 'Old Movie',
 	       icon : 'om.png'
 	    });
 	    $scope.clipNum = "";
-                    
   };
 
   // Debug method to add a marker to the $scope
   $scope.addMarker = function(markLoc){
         $scope.project.markers.push({
-          location: parseInt(markLoc),
+          position: parseInt(markLoc),
           icon: 'blue.png'
         });
         $scope.markLoc = "";
