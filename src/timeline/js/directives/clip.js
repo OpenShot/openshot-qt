@@ -191,11 +191,10 @@ App.directive('tlClip', function($timeout){
 						// changing the end of the clips
 						new_right -= delta_time;
 						if (new_right > scope.clip.duration) {
-							new_right = scope.clip.duration - new_right; // difference from duration
-							ui.element.width(ui.size.width + (new_right * scope.pixelsPerSecond));
 
 							// change back to actual duration (for the preview below)
 							new_right = scope.clip.duration;
+							ui.element.width(new_right * scope.pixelsPerSecond);
 						} 
 						else {
 							ui.element.width(ui.size.width);
