@@ -774,13 +774,13 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
                 # Add slow-speed section (descending by slowness)
                 Direction_Menu.addSection(_("Slow"))
-                for speed_value in ['1/32X', '1/16X', '1/8X', '1/4X', '1/2X']:
+                for speed_value in ['1/32×', '1/16×', '1/8×', '1/4×', '1/2×']:
                     Time_Option = Direction_Menu.addAction(_(speed_value))
                     Time_Option.triggered.connect(partial(self.Time_Triggered, direction_value, clip_ids, speed_value))
 
                 # Add fast-speed section (ascending by fastness)
                 Direction_Menu.addSection(_("Fast"))
-                for speed_value in ['2X', '4X', '8X', '16X', '32X']:
+                for speed_value in ['2×', '4×', '8×', '16×', '32×']:
                     Time_Option = Direction_Menu.addAction(_(speed_value))
                     Time_Option.triggered.connect(partial(self.Time_Triggered, direction_value, clip_ids, speed_value))
 
@@ -2216,7 +2216,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             else:
 
                 # Calculate speed factor
-                speed_label = speed.replace('X', '')
+                speed_label = speed.replace('X', '').replace('×', '')
                 speed_parts = speed_label.split('/')
                 even_multiple = 1
                 if len(speed_parts) == 2:
