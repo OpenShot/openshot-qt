@@ -911,7 +911,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         return menu.popup(QCursor.pos())
 
     def Transform_Triggered(self, action, clip_ids):
-        print("Transform_Triggered")
+        """Callback for Transform context menus"""
+        log.info("Transform_Triggered")
 
         # Emit signal to transform this clip (for the 1st clip id)
         if clip_ids:
@@ -2077,7 +2078,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
     def Time_Triggered(self, action, clip_ids, speed="1X", playhead_position=0.0):
-        """Callback for rotate context menus"""
+        """Callback for Time context menus"""
         log.info(action)
         prop_name = "time"
 
@@ -2112,8 +2113,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 if "original_data" in clip.data.keys():
                     original_duration = clip.data["original_data"]["duration"]
 
-                print('ORIGINAL DURATION: %s' % original_duration)
-                print(clip.data)
+                log.info('ORIGINAL DURATION: %s' % original_duration)
+                log.info(clip.data)
 
                 # Extend end & duration (due to freeze)
                 clip.data["end"] = float(clip.data["end"]) + freeze_seconds
