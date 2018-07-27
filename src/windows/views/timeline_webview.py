@@ -764,7 +764,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         else: #use_new_menus is enabled
             Time_Forward = Time_Menu.addAction(_("Forward Normal"))
             Time_Forward.triggered.connect(partial(self.Time_Triggered, MENU_TIME_FORWARD, clip_ids, '1X'))
-            Time_Reverse = Time_Menu.addAction(_("Reverse Normal"))
+            Time_Reverse = Time_Menu.addAction(_("Backward Normal"))
             Time_Reverse.triggered.connect(partial(self.Time_Triggered, MENU_TIME_BACKWARD, clip_ids, '1X'))
 
             Time_Menu.addSeparator()
