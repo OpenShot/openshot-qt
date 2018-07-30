@@ -2,14 +2,14 @@ html {
     height: 100%;
 }
 body { 
-	height: 100%;
-    margin: 0;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(14,14,14,1)), color-stop(100%,rgba(125,126,125,1)));
-	overflow: hidden; /* prevent document scrollbars (the timeline handles it's own overflow) */
-	-webkit-user-select: none;
-	line-height: 10px;
+  height: 100%;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: #353535;
+  overflow: hidden; /* prevent document scrollbars (the timeline handles it's own overflow) */
+  -webkit-user-select: none;
+  line-height: 10px;
 }
 
 /* General */
@@ -46,21 +46,21 @@ img {
 #scrolling_ruler { overflow: hidden; position: relative;line-height: 4px; }
 #scrolling_tracks { height: 316px; overflow: scroll; position: relative; }
 #ruler_label { height: 39px; width: 140px; float: left; margin-bottom: 4px; }
-#ruler_ticks { background-color:#000; }
-#ruler_time { font-size: 13pt; color: #c8c8c8; padding-top: 14px; padding-left: 17px; }
+#ruler_ticks, #ruler_time { color: #ddd; }
+#ruler_time { font-size: 13pt; padding-top: 14px; padding-left: 17px; }
 #progress_container {margin-left:140px; overflow: hidden; height: 13px;}
 .drag_cursor { cursor: move; }
 
 /* Tracks */
 #track_controls { width: 140px; position: relative; float: left; height: 316px; overflow: hidden;}
-.track_top { background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.20)), color-stop(100%,rgba(255,255,255,0))); border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
+.track_top { border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
 .track_menu { cursor: pointer; float:left;margin-top:4px;margin-left:4px;margin-right:4px;width:12px;height:12px;background-image: url(../images/menu.png);}
 .track_menu:hover { background-image: url(../images/menu_hover.png); }
 .track_lock { float: left; background-image: url(../images/lock.png); width:14px;height:14px; margin-top: 2px; }
-.track_label { padding-top: 2px; padding-left: 2px; padding-left: 4px; text-shadow: 0 0 10px #ffffff; }
-.track_name { width: 140px; height: 64px; color: #fff; font-size: 9pt; margin-left: 5px; margin-bottom: 8px; background-color: #000; border: 1px solid #4B92AD; border-top-left-radius: 8px; border-bottom-left-radius: 8px; box-shadow: 0px 0px 10px #000; }
+.track_label { padding-top: 2px; padding-left: 2px; padding-left: 4px; }
+.track_name { width: 140px; height: 64px; color: #fff; font-size: 9pt; margin-left: 5px; margin-bottom: 8px; background-color: #1C1C1C; border: 1px solid #1c1c1c; border-top-left-radius: 8px; border-bottom-left-radius: 8px; box-shadow: 0px 0px 10px #222; }
 .track_disabled { background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(20,20,20,1)), color-stop(100%,rgba(6,6,6,1))) !important; }
-.track { height: 64px; background-color: #000; margin-bottom: 8px; background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(50,50,50,1)), color-stop(100%,rgba(6,6,6,1))); border-top: 1px solid #4b92ad; border-bottom: 1px solid #4b92ad; border-right: 1px solid #4B92AD; border-top-right-radius: 8px; border-bottom-right-radius: 8px; box-shadow: 0px 0px 10px #000; }
+.track { height: 64px; background-color: #060606; margin-bottom: 8px; border-top: 1px solid #1c1c1c; border-bottom: 1px solid #1c1c1c; border-right: 1px solid #1c1c1c; border-top-right-radius: 8px; border-bottom-right-radius: 8px; box-shadow: 0px 0px 10px #222; }
 
 /* Playhead */
 .playhead-line { z-index: 9998; position: absolute; height:316px; top:0px; margin-left: 8px; width:1px; background-color:#ff0024; opacity:1;}
@@ -83,8 +83,8 @@ img {
 .left_edge_stop { border-left: 2px solid #4b92ad; }
 .right_edge_stop { border-right: 2px solid #4b92ad; }
 .highlight_clip { border-color: #32b7ea; }
-.ui-selecting { border-left: 2px solid yellow!important; border-right: 2px solid yellow!important; box-sizing: border-box; }
-.ui-selected { border-left: 2px solid red!important; border-right: 2px solid red!important; box-sizing: border-box; }
+.ui-selecting { border: 1px solid yellow; border-left: 2px solid yellow; border-right: 2px solid yellow; box-sizing: border-box; }
+.ui-selected { border: 1px solid red; border-left: 2px solid red; border-right: 2px solid red; box-sizing: border-box; }
 .thumb { margin-left: 5px; width: 66px; height: 38px;}
 .thumb-start { float:left; }
 .thumb-end {float:right; }
@@ -135,7 +135,7 @@ img {
 }
 
 /* Snapping / snapline */
-.snapping-line { z-index: 9999; position: absolute; height:316px; top:0px; width:1px; background-color:#32b7ea; opacity:0.75; -webkit-transition: 0.3s linear all; }
+.snapping-line { z-index: 9999; position: absolute; height:316px; top:0px; width:1px; background-color:yellow; opacity:0.75; -webkit-transition: 0.3s linear all; }
 
 /* Snap line Animations */
 .snapping-line.ng-hide-add { display: block !important; }
@@ -144,7 +144,7 @@ img {
 .snapping-line.ng-hide-add.ng-hide-add-active { opacity:0.0; }
 
 /* Scrollbar style */
-::-webkit-scrollbar {width: 6px; height: 6px; background: #000000; }
+::-webkit-scrollbar {width: 6px; height: 6px; }
 ::-webkit-scrollbar-thumb { background-color: #4b92ad; -webkit-border-radius: 1ex; }
 
 /* Hide timeline until Angular is loaded */
