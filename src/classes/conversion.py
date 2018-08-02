@@ -26,37 +26,9 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-zoomSeconds = [1,
-               7,
-               14,
-               24,
-               54,
-               94,
-               118,
-               174,
-               205,
-               276,
-               356,
-               445,
-               542,
-               648,
-               761,
-               881,
-               1075,
-               1212,
-               1428,
-               1578,
-               1813,
-               2141,
-               2396,
-               2745,
-               3192,
-               3645,
-               4187,
-               4890,
-               5988,
-               7200
-               ]
+zoomSeconds = [1, 3, 5, 10, 15, 20, 30, 45, 60, 75,
+               90, 120, 150, 180, 240, 300, 360, 480, 600, 720,
+               900, 1200, 1500, 1800, 2400, 2700, 3600, 4800, 6000, 7200]
 
 def zoomToSeconds(zoomValue):
     """ Convert zoom factor (slider position) into scale-seconds """
