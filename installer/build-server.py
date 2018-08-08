@@ -42,6 +42,9 @@ import tinys3
 import traceback
 from github3 import login
 
+# Access info class (for version info)
+sys.path.append(os.path.join(PATH, 'src', 'classes'))
+import info
 
 freeze_command = None
 errors_detected = []
@@ -147,7 +150,7 @@ def upload(file_path, github_release):
         # Check if this asset is already uploaded
         for asset in github_release.assets:
             if asset.name == file_name:
-                return asset.to_json()["browser_download_url"]
+                raise Exception('Duplicate asset already uploaded: %s (%s)' % (file_path, asset.to_json()["browser_download_url"]))
 
         for attempt in range(3):
             try:
@@ -209,8 +212,12 @@ try:
         if sys.argv[8] == 'True':
             windows_32bit = True
 
+    git_branch_name = "develop"
+    if len(sys.argv) >= 10:
+        git_branch_name = sys.argv[9]
+
     # Start log
-    output("%s Build Log for %s" % (platform.system(), datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+    output("%s Build Log for %s (branch: %s)" % (platform.system(), datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), git_branch_name))
 
     # Detect artifact folder (if any)
     artifact_path = os.path.join(PATH, "build", "install-x64")
@@ -228,21 +235,23 @@ try:
 
     # Get GIT description of openshot-qt-git branch (i.e. v2.0.6-18-ga01a98c)
     openshot_qt_git_desc = ""
+    needs_upload = True
     for line in run_command("git describe --tags"):
         git_description = line.decode("utf-8").strip()
         openshot_qt_git_desc = "OpenShot-%s" % git_description
 
         # Add num of commits from libopenshot and libopenshot-audio (for naming purposes)
         # If not an official release
-        if "-" in git_description:
+        if git_branch_name == "develop":
             # Make filename more descriptive for daily builds
-            openshot_qt_git_desc = "%s-%s-%s" % (
-            openshot_qt_git_desc, version_info.get('libopenshot').get('CI_COMMIT_SHA')[:8], version_info.get('libopenshot-audio').get('CI_COMMIT_SHA')[:8])
-            output("git description of openshot-qt-git: %s" % openshot_qt_git_desc)
-
+            openshot_qt_git_desc = "%s-%s-%s" % (openshot_qt_git_desc, version_info.get('libopenshot').get('CI_COMMIT_SHA')[:8], version_info.get('libopenshot-audio').get('CI_COMMIT_SHA')[:8])
             # Get daily git_release object
             github_release = get_release(repo, "daily")
-        else:
+        elif git_branch_name == "release":
+            # Get daily git_release object
+            openshot_qt_git_desc = "OpenShot-v%s" % info.VERSION
+            github_release = get_release(repo, "daily")
+        elif git_branch_name == "master":
             # Get official version release (i.e. v2.1.0, v2.x.x)
             github_release = get_release(repo, git_description)
 
@@ -250,6 +259,18 @@ try:
             if not github_release:
                 # Create a new release if one if missing
                 github_release = repo.create_release(git_description, target_commitish="master", prerelease=True)
+        else:
+            # Make filename more descriptive for daily builds
+            openshot_qt_git_desc = "%s-%s-%s" % (openshot_qt_git_desc, version_info.get('libopenshot').get('CI_COMMIT_SHA')[:8], version_info.get('libopenshot-audio').get('CI_COMMIT_SHA')[:8])
+            # Get daily git_release object
+            github_release = get_release(repo, "daily")
+            needs_upload = False
+
+    # Output git desription
+    output("git description of openshot-qt-git: %s" % openshot_qt_git_desc)
+
+    # Output git desription
+    output("git description of openshot-qt-git: %s" % openshot_qt_git_desc)
 
     # Detect version number from git description
     version = re.search('v(.+?)($|-)', openshot_qt_git_desc).groups()[0]
@@ -295,7 +316,7 @@ try:
 
         # Create AppRun file
         app_run_path = os.path.join(app_dir_path, "AppRun")
-        shutil.copyfile("/home/jonathan/apps/AppImageKit/AppRun", app_run_path)
+        shutil.copyfile("/home/ubuntu/apps/AppImageKit/AppRun", app_run_path)
 
         # Create .desktop file
         with open(os.path.join(app_dir_path, "openshot-qt.desktop"), "w") as f:
@@ -314,7 +335,7 @@ try:
         launcher_path = os.path.join(app_dir_path, "usr", "bin", "openshot-qt")
         os.rename(os.path.join(app_dir_path, "usr", "bin", "launch-linux.sh"), launcher_path)
         desktop_wrapper = os.path.join(app_dir_path, "usr", "bin", "openshot-qt.wrapper")
-        shutil.copyfile("/home/jonathan/apps/AppImageKit/desktopintegration", desktop_wrapper)
+        shutil.copyfile("/home/ubuntu/apps/AppImageKit/desktopintegration", desktop_wrapper)
 
         # Change permission of AppRun (and desktop.wrapper) file (add execute permission)
         st = os.stat(app_run_path)
@@ -324,15 +345,14 @@ try:
 
         # Create AppImage (OpenShot-%s-x86_64.AppImage)
         app_image_success = False
-        for line in run_command('/home/jonathan/apps/AppImageKit/AppImageAssistant "%s" "%s"' % (app_dir_path, app_build_path)):
+        for line in run_command('/home/ubuntu/apps/AppImageKit/AppImageAssistant "%s" "%s"' % (app_dir_path, app_build_path)):
             output(line)
-            if "completed sucessfully".encode("UTF-8") in line:
-                app_image_success = True
+        app_image_success = os.path.exists(app_build_path)
 
         # Was the AppImage creation successful
         if not app_image_success or errors_detected:
             # AppImage failed
-            error("AppImageKit Error: AppImageAssistant did not output 'completed successfully'")
+            error("AppImageKit Error: AppImageAssistant did not output the AppImage file")
             needs_upload = False
 
             # Delete build (since something failed)
@@ -445,7 +465,7 @@ try:
 
 
     # Upload Installer to GitHub (if build path exists)
-    if os.path.exists(app_build_path):
+    if needs_upload and os.path.exists(app_build_path):
         # Upload file to GitHub
         output("GitHub: Uploading %s to GitHub Release: %s" % (app_build_path, github_release.tag_name))
         download_url = upload(app_build_path, github_release)
@@ -474,11 +494,7 @@ try:
             url = upload(torrent_path, github_release)
 
             # Notify Slack
-            slack_upload_log(log, "%s: Build logs for %s" % (platform.system(), app_name), "Successful build: %s" % download_url)
-
-    else:
-        # App doesn't exist (something went wrong)
-        error("App Missing Error: %s does not exist" % app_build_path)
+            slack_upload_log(log, "%s: Build logs for %s" % (platform.system(), app_name), "Successful *%s* build: %s" % (git_branch_name, download_url))
 
 except Exception as ex:
     tb = traceback.format_exc()
@@ -487,4 +503,6 @@ except Exception as ex:
 
 # Report any errors detected
 if errors_detected:
-    slack_upload_log(log, "%s: Error log" % platform.system(), ":skull_and_crossbones: %s" % truncate(errors_detected[0], 150))
+    slack_upload_log(log, "%s: Error log for *%s* build" % (platform.system(), git_branch_name), ":skull_and_crossbones: %s" % truncate(errors_detected[0], 150))
+    exit(1)
+

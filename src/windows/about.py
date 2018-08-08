@@ -27,6 +27,7 @@
  """
 
 import os
+import codecs
 from functools import partial
 
 from PyQt5.QtCore import *
@@ -159,8 +160,13 @@ class Credits(QDialog):
         supporter_html = '<html><head/><body><p align="center"><a href="http://%s.openshot.org/donate/?app-about-us"><span style=" text-decoration: underline; color:#55aaff;">%s</span></a></p></body></html>' % (info.website_language(), supporter_text)
         self.lblBecomeSupporter.setText(supporter_html)
 
-        # Add credits listview
-        self.developersListView = CreditsTreeView(credits=info.CREDITS['code'], columns=["email", "website"])
+        # Get list of developers
+        developer_list = []
+        with codecs.open(os.path.join(info.PATH, 'settings', 'contributors.json'), 'r', 'utf-8') as contributors_file:
+            developer_string = contributors_file.read()
+            developer_list = json.loads(developer_string)
+
+        self.developersListView = CreditsTreeView(credits=developer_list, columns=["email", "website"])
         self.vboxDevelopers.addWidget(self.developersListView)
         self.txtDeveloperFilter.textChanged.connect(partial(self.Filter_Triggered, self.txtDeveloperFilter, self.developersListView))
 
@@ -187,7 +193,6 @@ class Credits(QDialog):
 
         # Get list of supporters
         supporter_list = []
-        import codecs
         with codecs.open(os.path.join(info.PATH, 'settings', 'supporters.json'), 'r', 'utf-8') as supporter_file:
             supporter_string = supporter_file.read()
             supporter_list = json.loads(supporter_string)
