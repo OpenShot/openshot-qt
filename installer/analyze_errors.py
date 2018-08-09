@@ -1,10 +1,14 @@
 """Analyze archived/exported error messages and aggregate data"""
 import re
+import sys
 import os
 import json
-import urllib.request
+from urllib.request import Request, urlopen
 from collections import OrderedDict
 
+# Read in slack token
+if len(sys.argv) >= 2:
+    slack_token = sys.argv[1]
 
 # Compile error message matching regex (file path, line number)
 error_regex = re.compile(r"([\\|/].*.py).*line (.*),")
@@ -13,10 +17,10 @@ c_mangled_regex = re.compile(r"ZN(\w*)\s")
 openshot_version_regex = re.compile(r"\((.*)\)")
 
 # Message folder with exported archived error messages
-messages_folder = "/home/jonathan/Downloads/OpenShot Project Slack export Jan 21 2018/library-exceptions"
+messages_folder = "/home/jonathan/Downloads/OpenShot Project Slack export Jul 9 2018 - Aug 8 2018/python-exceptions"
 cache_path = local_path = os.path.join(messages_folder, "cache")
-version_starts_with = "2.4.1"
-scan_cache = True
+version_starts_with = "2.4.2"
+scan_cache = False
 
 # Create cache folder (if needed)
 if not os.path.exists(cache_path):
@@ -29,9 +33,9 @@ if scan_cache:
         if os.path.isfile(message_path):
             with open(message_path, "r") as f:
                 for message in json.load(f):
-                    if message.get("file"):
-                        file_title = message.get("file").get("title")
-                        file_id = message.get("file").get("id")
+                    for file_details in message.get("files", []):
+                        file_title = file_details.get("title")
+                        file_id = file_details.get("id")
 
                         # Parse openshot version (if any)
                         version = "Unknown"
@@ -47,9 +51,10 @@ if scan_cache:
                         # Cache attachment (if needed)
                         local_path = os.path.join(cache_path, "%s-%s" % (version, file_id))
                         if not os.path.exists(local_path):
-                            attachment_url = message.get("file").get("url_private_download")
-                            response = urllib.request.urlopen(attachment_url)
-                            data = response.read()
+                            attachment_url = file_details.get("url_private_download").split("?")[0]
+                            q = Request(attachment_url)
+                            q.add_header('Authorization', slack_token)
+                            data = urlopen(q).read()
 
                             with open(local_path, "wb") as f1:
                                 print("Writing local file: %s-%s" % (version, file_id))
