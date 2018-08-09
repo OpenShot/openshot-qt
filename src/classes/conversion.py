@@ -32,8 +32,10 @@ zoomSeconds = [1, 3, 5, 10, 15, 20, 30, 45, 60, 75,
 
 def zoomToSeconds(zoomValue):
     """ Convert zoom factor (slider position) into scale-seconds """
-    return zoomSeconds[zoomValue] or 1
-
+    if zoomValue < len(zoomSeconds):
+        return zoomSeconds[zoomValue]
+    else:
+        return zoomSeconds[-1]
 
 def secondsToZoom(scaleValue):
     """ Convert a number of seconds to a timeline zoom factor """
