@@ -329,8 +329,17 @@
     "value": true,
     "title": "Enable Hardware Decode",
     "type": "hidden",
+    "restart": true,
     "category": "Performance",
     "setting": "hardware_decode"
+  },
+  {
+    "value": true,
+    "title": "Enable Multiple Threads",
+    "type": "bool",
+    "restart": true,
+    "category": "Performance",
+    "setting": "omp_threads_enabled"
   },
   {
     "value": true,

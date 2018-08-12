@@ -2396,6 +2396,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             os.environ['OS2_DECODE_HW'] = "0"
 
+        # Set hardware decode environment variable
+        if s.get("omp_threads_enabled"):
+            os.environ['OS2_OMP_THREADS'] = "1"
+        else:
+            os.environ['OS2_OMP_THREADS'] = "0"
+
         # Create lock file
         self.create_lock_file()
 
