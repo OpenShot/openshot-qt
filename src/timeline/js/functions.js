@@ -72,7 +72,7 @@ function drawAudio(scope, clip_id){
         var ctx = audio_canvas[0].getContext('2d');
 
         // Clear canvas
-        ctx.canvas.width = ctx.canvas.width;
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
         // Offset the coordinates for thinner lines
         ctx.translate(0.5, 0.5);
