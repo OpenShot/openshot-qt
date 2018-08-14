@@ -53,7 +53,7 @@ function drawAudio(scope, clip_id){
     //get the clip in the scope
     clip = findElement(scope.project.clips, "id", clip_id);
 
-    if (clip.show_audio){
+    if (clip.show_audio) {
         element = $("#clip_"+clip_id);
 
         // Determine start and stop samples
@@ -69,7 +69,7 @@ function drawAudio(scope, clip_id){
 
         // Get audio canvas context
         var audio_canvas = element.find(".audio");
-        var ctx = audio_canvas[0].getContext('2d');
+        var ctx = audio_canvas[0].getContext('2d', { alpha: false });
 
         // Clear canvas
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -77,6 +77,7 @@ function drawAudio(scope, clip_id){
         // Offset the coordinates for thinner lines
         ctx.translate(0.5, 0.5);
         ctx.beginPath();
+        ctx.strokeStyle = "#2a82da";
 
         // Find the midpoint
         var mid_point = audio_canvas.height() - 8;
@@ -86,14 +87,13 @@ function drawAudio(scope, clip_id){
         ctx.lineWidth = 1;
         ctx.moveTo(0, mid_point);
         ctx.lineTo(audio_canvas.width(), mid_point);
-        ctx.strokeStyle = "#2a82da";
         ctx.stroke();
+        ctx.closePath(); // Close path to go back to start
 
         //for each point of audio data, draw a line
         var sample_index = 0;
-        for (var i = 1; i < audio_canvas.width(); i+=1) {
+        for (var i = 1; i < audio_canvas.width(); i++) {
             //increase the 'x' axis draw point
-            ctx.beginPath();
             line_spot += 1;
             ctx.moveTo(line_spot, mid_point);
             sample_index = Math.round(start_sample + (sample_divisor * i));
@@ -101,8 +101,12 @@ function drawAudio(scope, clip_id){
             //set the point to draw to
             var draw_to = (audio_point * mid_point);
             //handle the 'draw to' point based on positive or negative audio point
-            if (audio_point >= 0.0) draw_to = mid_point - draw_to;
-            if (audio_point < 0.0) draw_to = mid_point + (draw_to * -1.0);
+            if (audio_point >= 0.0) {
+                draw_to = mid_point - draw_to;
+            }
+            else {
+                draw_to = mid_point + (draw_to * -1.0)
+            }
             //draw it
             ctx.lineTo(line_spot, draw_to);
             ctx.stroke();
