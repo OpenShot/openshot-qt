@@ -922,6 +922,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Restore normal cursor
         get_app().restoreOverrideCursor()
 
+        # Start timer to redraw audio
+        self.redraw_audio_timer.start()
+
     def Split_Audio_Triggered(self, action, clip_ids):
         """Callback for split audio context menus"""
         log.info("Split_Audio_Triggered")
