@@ -194,7 +194,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Reset the scale when loading new JSON
         if action.type == "load":
             # Set the scale again (to project setting)
-            initial_scale = get_app().project.get(["scale"]) or 16
+            initial_scale = get_app().project.get(["scale"]) or 15
             get_app().window.sliderZoom.setValue(secondsToZoom(initial_scale))
 
     # Javascript callable function to update the project data when a clip changes
@@ -2562,7 +2562,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         self.redraw_audio_timer.start()
 
         # Save current zoom
+        get_app().updates.ignore_history = True
         get_app().updates.update(["scale"], newScale)
+        get_app().updates.ignore_history = False
 
     def keyPressEvent(self, event):
         """ Keypress callback for timeline """
