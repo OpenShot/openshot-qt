@@ -58,6 +58,7 @@ function drawAudio(scope, clip_id){
 
         // Determine start and stop samples
         var samples_per_second = 20;
+        var block_width = 2; // 2 pixel wide blocks as smallest size
         var start_sample = clip.start * samples_per_second;
         var end_sample = clip.end * samples_per_second;
 
@@ -73,46 +74,62 @@ function drawAudio(scope, clip_id){
 
         // Clear canvas
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-
-        // Offset the coordinates for thinner lines
-        ctx.translate(0.5, 0.5);
-        ctx.beginPath();
-        ctx.strokeStyle = "#2a82da";
+        
+        color = "#2a82da"; // rgb(42,130,218)
+        color_transp = "rgba(42,130,218,0.5)";
+        
+        ctx.strokeStyle = color;
 
         // Find the midpoint
         var mid_point = audio_canvas.height() - 8;
-        var line_spot = 0;
+        var scale = mid_point;
 
         // Draw the mid-point line
+        ctx.beginPath();
         ctx.lineWidth = 1;
         ctx.moveTo(0, mid_point);
         ctx.lineTo(audio_canvas.width(), mid_point);
         ctx.stroke();
-        ctx.closePath(); // Close path to go back to start
-
-        //for each point of audio data, draw a line
-        var sample_index = 0;
-        for (var i = 1; i < audio_canvas.width(); i++) {
-            //increase the 'x' axis draw point
-            line_spot += 1;
-            ctx.moveTo(line_spot, mid_point);
-            sample_index = Math.round(start_sample + (sample_divisor * i));
-            var audio_point = clip.audio_data[sample_index];
-            //set the point to draw to
-            var draw_to = (audio_point * mid_point);
-            //handle the 'draw to' point based on positive or negative audio point
-            if (audio_point >= 0.0) {
-                draw_to = mid_point - draw_to;
+        
+        
+        var sample = 0,
+            // Variables for accumulation
+            avg = 0,
+            avg_cnt = 0,
+            max = 0,
+            last_x = 0;
+        
+        // Go through all of the (reduced) samples
+        // And whenever enough are "collected", draw a block
+        for (var i = start_sample; i < end_sample; i++) {
+            // Flip negative values up
+            sample = Math.abs(clip.audio_data[i]);
+            // X-Position of *next* sample
+            x = Math.floor((i + 1 - start_sample) / sample_divisor);
+            
+            avg += sample;
+            avg_cnt++;
+            max = Math.max(max, sample);
+            
+            if(x >= last_x + block_width || i == end_sample-1){
+                // Block wide enough or last block -> draw it
+                
+                // Draw the slightly transparent max-bar
+                ctx.fillStyle = color_transp;
+                ctx.fillRect(last_x, mid_point, x-last_x, -(max * scale));
+                
+                // Draw the fully visible average-bar
+                ctx.fillStyle = color;
+                ctx.fillRect(last_x, mid_point, x-last_x, -(avg/avg_cnt * scale));
+                
+                // Reset all the variables for accumulation 
+                last_x = x;
+                avg = 0;
+                avg_cnt = 0;
+                max = 0;
             }
-            else {
-                draw_to = mid_point + (draw_to * -1.0)
-            }
-            //draw it
-            ctx.lineTo(line_spot, draw_to);
-            ctx.stroke();
         }
     }
-    
 }
 
 function padNumber(value, pad_length)
