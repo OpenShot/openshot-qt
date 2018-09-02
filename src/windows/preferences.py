@@ -306,6 +306,22 @@ class Preferences(QDialog):
             # Update autosave interval (# of minutes)
             get_app().window.auto_save_timer.setInterval(value * 1000 * 60)
 
+        elif param["setting"] == "omp_threads_number":
+            if value == "0":
+                if os.environ.get('LIMIT_OMP_THREADS') != None:
+                    del os.environ['LIMIT_OMP_THREADS']
+            elif value == "1":
+                os.environ['LIMIT_OMP_THREADS'] = 2
+            else:
+                os.environ['LIMIT_OMP_THREADS'] = str(value)
+
+        elif param["setting"] == "ff_threads_number":
+            if value == "0":
+                if os.environ.get('LIMIT_FF_THREADS') != None:
+                    del os.environ['LIMIT_FF_THREADS']
+            else:
+                os.environ['LIMIT_FF_THREADS'] = str(value)
+
         # Apply cache settings (if needed)
         if param["setting"] in ["cache-limit-mb", "cache-scale", "cache-quality"]:
             get_app().window.InitCacheSettings()

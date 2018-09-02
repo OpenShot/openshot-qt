@@ -932,7 +932,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         #log.info("new framePathTime %s" % QFileInfo(framePath).lastModified().toString("yyMMdd hh:mm:ss.zzz") )
 
 	# Show message to user
-        if os.path.exists(framePath) and (QFileInfo(framePath).lastModified() > framePathTime): 
+        if os.path.exists(framePath) and (QFileInfo(framePath).lastModified() > framePathTime):
             #QMessageBox.information(self, _("Save Frame Successful"), _("Saved image to %s" % framePath))
             self.statusBar.showMessage(_("Saved Frame to %s" % framePath), 5000);
         else:
@@ -2396,11 +2396,28 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             os.environ['OS2_DECODE_HW'] = "0"
 
-        # Set hardware decode environment variable
+        # Set use omp threads environment variable
         if s.get("omp_threads_enabled"):
             os.environ['OS2_OMP_THREADS'] = "1"
         else:
             os.environ['OS2_OMP_THREADS'] = "0"
+
+        # Set use omp threads number environment variable
+        if s.get("omp_threads_number") and s.get("omp_threads_number") != 0:
+            if  s.get("omp_threads_number") == 1:
+                os.environ['LIMIT_OMP_THREADS'] = "2"
+            else:
+                os.environ['LIMIT_OMP_THREADS'] = str(s.get("omp_threads_number"))
+        else:
+            if os.environ.get('LIMIT_OMP_THREADS') != None:
+                del os.environ['LIMIT_OMP_THREADS']
+
+        # Set use ffmpeg threads number environment variable
+        if s.get("ff_threads_number") and s.get("ff_threads_number") != 0:
+            os.environ['LIMIT_FF_THREADS'] = str(s.get("ff_threads_number"))
+        else:
+            if os.environ.get('LIMIT_FF_THREADS') != None:
+                del os.environ['LIMIT_FF_THREADS']
 
         # Create lock file
         self.create_lock_file()

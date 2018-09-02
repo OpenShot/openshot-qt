@@ -342,6 +342,26 @@
     "setting": "omp_threads_enabled"
   },
   {
+    "min": 0,
+    "max": 128,
+    "value": 12,
+    "title": "OMP Threads (0 = Default)",
+    "type": "spinner-int",
+    "restart": true,
+    "category": "Performance",
+    "setting": "omp_threads_number"
+  },
+  {
+    "min": 0,
+    "max": 16,
+    "value": 8,
+    "title": "FFmpeg Threads (0 = Default)",
+    "type": "spinner-int",
+    "restart": true,
+    "category": "Performance",
+    "setting": "ff_threads_number"
+  },
+  {
     "value": true,
     "title": "",
     "type": "hidden",
