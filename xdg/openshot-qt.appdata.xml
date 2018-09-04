@@ -16,6 +16,8 @@
   <provides>
     <binary>openshot-qt</binary>
   </provides>
+  <url type="donation">https://www.openshot.org/donate</url>
+  <url type="help">https://www.openshot.org/user-guide</url>
   <url type="homepage">https://www.openshot.org</url>
   <url type="bugtracker">https://github.com/OpenShot/openshot-qt/issues</url>
   <screenshots>
