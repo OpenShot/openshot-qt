@@ -20,10 +20,10 @@
   <url type="bugtracker">https://github.com/OpenShot/openshot-qt/issues</url>
   <screenshots>
     <screenshot type="default">
-      <image>https://www.openshot.org/static/img/gallery/ui-example.jpg</image>
+      <image  height="637" width="975">https://www.openshot.org/static/img/gallery/ui-example.jpg</image>
     </screenshot>
     <screenshot>
-      <image>https://www.openshot.org/static/img/gallery/title-editor.jpg</image>
+      <image height="555" width="780">https://www.openshot.org/static/img/gallery/title-editor.jpg</image>
     </screenshot>
   </screenshots>
   <content_rating type="oars-1.0">
