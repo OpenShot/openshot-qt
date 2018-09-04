@@ -3,8 +3,8 @@
   <id>openshot-qt</id>
   <launchable type="desktop-id">openshot-qt.desktop</launchable>
   <metadata_license>CC0-1.0</metadata_license>
-  <project_license>GPL-3.0+</project_license>
-  <name>OpenShot</name>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>OpenShot Video Editor</name>
   <developer_name>OpenShot Studios, LLC</developer_name>
   <summary>Video Editor</summary>
   <description>
