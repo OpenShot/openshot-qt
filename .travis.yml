@@ -1,5 +1,10 @@
 language: python
 dist: trusty
+python:
+  - "3.5"
+
+install:
+  - pip install cx_freeze pyzmq requests
 
 before_install:
   - sudo add-apt-repository ppa:openshot.developers/libopenshot-daily -y
