@@ -1,4 +1,4 @@
-language: python
+language: cpp
 dist: trusty
 
 before_install:
