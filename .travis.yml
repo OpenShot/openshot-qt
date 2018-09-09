@@ -12,8 +12,8 @@ before_install:
   - pwd
 
 script:
-  - python3 freeze.py build
-  - xvfb-run --auto-servernum --server-num=1 --server-args "-screen 0 1920x1080x24"python3 src/tests/query_tests.py
+  - python3 freeze.py build;
+  - xvfb-run --auto-servernum --server-num=1 --server-args "-screen 0 1920x1080x24" python3 src/tests/query_tests.py
 
 notifications:
   email: true
