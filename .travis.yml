@@ -8,7 +8,7 @@ before_install:
   - sudo apt autoremove -y
   - wget https://files.pythonhosted.org/packages/d0/6d/9492644452727094543575de9846af5a2b9c764f760e2d414af7c876618c/cx_Freeze-5.0.1.tar.gz
   - tar xf cx_Freeze-5.0.1.tar.gz
-  - cd cx_Freeze-5.0.1; python3 setup.py build; python3 setup.py install; cd ..;
+  - cd cx_Freeze-5.0.1; python3 setup.py build; sudo python3 setup.py install; cd ..;
   - pwd
 
 script:
