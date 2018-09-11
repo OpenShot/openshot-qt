@@ -65,6 +65,8 @@ if not os.getenv("FAKEROOTKEY") == None:
 os_files = [
     # XDG application description
     ('share/applications', ['xdg/openshot-qt.desktop']),
+    # AppStream metadata
+    ('share/metainfo', ['xdg/openshot-qt.appdata.xml']),
     # XDG application icon
     ('share/pixmaps', ['xdg/openshot-qt.svg']),
     # XDG desktop mime types cache
