@@ -2069,7 +2069,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.timelineToolbar.addSeparator()
 
         # Get project's initial zoom value
-        initial_scale = get_app().project.get(["scale"]) or 16
+        initial_scale = get_app().project.get(["scale"]) or 15
         # Round non-exponential scale down to next lowest power of 2
         initial_zoom = secondsToZoom(initial_scale)
 
