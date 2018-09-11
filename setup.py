@@ -67,8 +67,13 @@ os_files = [
     ('share/applications', ['xdg/openshot-qt.desktop']),
     # AppStream metadata
     ('share/metainfo', ['xdg/openshot-qt.appdata.xml']),
-    # XDG application icon
+    # Debian menu system application icon
     ('share/pixmaps', ['xdg/openshot-qt.svg']),
+    # XDG Freedesktop icon paths
+    ('share/icons/hicolor/scalable/apps', ['xdg/openshot-qt.svg']),
+    ('share/icons/hicolor/64/apps', ['xdg/icon/64/openshot-qt.png']),
+    ('share/icons/hicolor/256/apps', ['xdg/icon/256/openshot-qt.png']),
+    ('share/icons/hicolor/512/apps', ['xdg/icon/512/openshot-qt.png']),
     # XDG desktop mime types cache
     ('share/mime/packages', ['xdg/openshot-qt.xml']),
     # launcher (mime.types)
