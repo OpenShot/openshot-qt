@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 """
  @file
- @brief This file verifies all translations are correctly formatted and have the correct # of string replacements
+ @brief Display all available string translations for each translation file
  @author Jonathan Thomas <jonathan@openshot.org>
+ @author Frank Dana <ferdnyc AT gmail com>
 
  @section LICENSE
 
@@ -62,6 +63,6 @@ for filename in fnmatch.filter(os.listdir(language_path), 'OpenShot.*.qm'):
         for source_string in all_strings:
             translated_string = app.translate("", source_string)
             if source_string != translated_string:
-                print('  {} => {}'.format(source_string,app.translate("", source_string)))
+                print('  {} => {}'.format(source_string,translated_string))
         # Remove translator
         app.removeTranslator(translator)
