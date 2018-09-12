@@ -133,7 +133,7 @@ if os.path.exists(qt_system_path):
         os.mkdir(qt_local_path)
     # Loop through QT translation files and copy them
     for file in os.listdir(qt_system_path):
-        # Copy QT locale files
+        # Copy QT translation files
         if (file.startswith("qt_") or file.startswith("qtbase_")) and file.endswith(".qm"):
             shutil.copyfile(os.path.join(qt_system_path, file), os.path.join(qt_local_path, file))
 
