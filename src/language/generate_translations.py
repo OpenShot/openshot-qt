@@ -67,25 +67,24 @@ import classes.info as info
 from classes.logger import log
 
 # get the path of the main OpenShot folder
-langage_folder_path = os.path.dirname(os.path.abspath(__file__))
-openshot_path = os.path.dirname(langage_folder_path)
+language_folder_path = os.path.dirname(os.path.abspath(__file__))
+openshot_path = os.path.dirname(language_folder_path)
 effects_path = os.path.join(openshot_path, 'effects')
 blender_path = os.path.join(openshot_path, 'blender')
 transitions_path = os.path.join(openshot_path, 'transitions')
 titles_path = os.path.join(openshot_path, 'titles')
 export_path = os.path.join(openshot_path, 'presets')
 windows_ui_path = os.path.join(openshot_path, 'windows', 'ui')
-locale_path = os.path.join(openshot_path, 'locale', 'OpenShot')
 
 log.info("-----------------------------------------------------")
 log.info(" Creating temp POT files")
 log.info("-----------------------------------------------------")
 
-# create empty temp files in the /openshot/language folder (these are used as temp POT files)
+# create empty temp POT files
 temp_files = ['OpenShot_source.pot', 'OpenShot_glade.pot', 'OpenShot_effects.pot', 'OpenShot_export.pot',
               'OpenShot_transitions.pot', 'OpenShot_QtUi.pot']
 for temp_file_name in temp_files:
-    temp_file_path = os.path.join(langage_folder_path, temp_file_name)
+    temp_file_path = os.path.join(language_folder_path, temp_file_name)
     if os.path.exists(temp_file_path):
         os.remove(temp_file_path)
     f = open(temp_file_path, "w")
@@ -97,7 +96,7 @@ log.info("-----------------------------------------------------")
 
 # Generate POT for Source Code strings (i.e. strings marked with a _("translate me"))
 subprocess.call('find %s -iname "*.py" -exec xgettext -j -o %s --keyword=_ {} \;' % (
-openshot_path, os.path.join(langage_folder_path, 'OpenShot_source.pot')), shell=True)
+openshot_path, os.path.join(language_folder_path, 'OpenShot_source.pot')), shell=True)
 
 log.info("-----------------------------------------------------")
 log.info(" Using Qt's lupdate to generate .ui POT files")
@@ -105,25 +104,25 @@ log.info("-----------------------------------------------------")
 
 # Generate POT for Qt *.ui files (which require the lupdate command, and ts2po command)
 os.chdir(windows_ui_path)
-subprocess.call('lupdate *.ui -ts %s' % (os.path.join(langage_folder_path, 'OpenShot_QtUi.ts')), shell=True)
-subprocess.call('lupdate *.ui -ts %s' % (os.path.join(langage_folder_path, 'OpenShot_QtUi.pot')), shell=True)
-os.chdir(langage_folder_path)
+subprocess.call('lupdate *.ui -ts %s' % (os.path.join(language_folder_path, 'OpenShot_QtUi.ts')), shell=True)
+subprocess.call('lupdate *.ui -ts %s' % (os.path.join(language_folder_path, 'OpenShot_QtUi.pot')), shell=True)
+os.chdir(language_folder_path)
 
 # Rewrite the UI POT, removing msgctxt
-output = open(os.path.join(langage_folder_path, "clean.po"), 'w')
-for line in open(os.path.join(langage_folder_path, 'OpenShot_QtUi.pot'), 'r'):
+output = open(os.path.join(language_folder_path, "clean.po"), 'w')
+for line in open(os.path.join(language_folder_path, 'OpenShot_QtUi.pot'), 'r'):
     if not line.startswith('msgctxt'):
         output.write(line)
 # Overwrite original PO file
 output.close()
-shutil.copy(os.path.join(langage_folder_path, "clean.po"), os.path.join(langage_folder_path, 'OpenShot_QtUi.pot'))
-os.remove(os.path.join(langage_folder_path, "clean.po"))
+shutil.copy(os.path.join(language_folder_path, "clean.po"), os.path.join(language_folder_path, 'OpenShot_QtUi.pot'))
+os.remove(os.path.join(language_folder_path, "clean.po"))
 
 # Remove duplicates (if any found)
-subprocess.call('msguniq %s --use-first -o %s' % (os.path.join(langage_folder_path, 'OpenShot_QtUi.pot'),
-                                      os.path.join(langage_folder_path, 'clean.po')), shell=True)
-shutil.copy(os.path.join(langage_folder_path, "clean.po"), os.path.join(langage_folder_path, 'OpenShot_QtUi.pot'))
-os.remove(os.path.join(langage_folder_path, "clean.po"))
+subprocess.call('msguniq %s --use-first -o %s' % (os.path.join(language_folder_path, 'OpenShot_QtUi.pot'),
+                                                  os.path.join(language_folder_path, 'clean.po')), shell=True)
+shutil.copy(os.path.join(language_folder_path, "clean.po"), os.path.join(language_folder_path, 'OpenShot_QtUi.pot'))
+os.remove(os.path.join(language_folder_path, "clean.po"))
 
 
 log.info("-----------------------------------------------------")
@@ -133,7 +132,7 @@ log.info("-----------------------------------------------------")
 temp_files = ['OpenShot_source.pot', 'OpenShot_glade.pot']
 for temp_file in temp_files:
     # get the entire text
-    f = open(os.path.join(langage_folder_path, temp_file), "r")
+    f = open(os.path.join(language_folder_path, temp_file), "r")
     # read entire text of file
     entire_source = f.read()
     f.close()
@@ -142,9 +141,9 @@ for temp_file in temp_files:
     entire_source = entire_source.replace("charset=CHARSET", "charset=UTF-8")
 
     # Create Updated POT Output File
-    if os.path.exists(os.path.join(langage_folder_path, temp_file)):
-        os.remove(os.path.join(langage_folder_path, temp_file))
-    f = open(os.path.join(langage_folder_path, temp_file), "w")
+    if os.path.exists(os.path.join(language_folder_path, temp_file)):
+        os.remove(os.path.join(language_folder_path, temp_file))
+    f = open(os.path.join(language_folder_path, temp_file), "w")
     f.write(entire_source)
     f.close()
 
@@ -310,9 +309,9 @@ log.info("-----------------------------------------------------")
 # header of POT file
 header_text = ""
 header_text = header_text + '# OpenShot Video Editor POT Template File.\n'
-header_text = header_text + '# Copyright (C) 2008-2016 OpenShot Studios, LLC\n'
+header_text = header_text + '# Copyright (C) 2008-2018 OpenShot Studios, LLC\n'
 header_text = header_text + '# This file is distributed under the same license as OpenShot.\n'
-header_text = header_text + '# Jonathan Thomas <Jonathan.Oomph@gmail.com>, 2016.\n'
+header_text = header_text + '# Jonathan Thomas <Jonathan.Oomph@gmail.com>, 2018.\n'
 header_text = header_text + '#\n'
 header_text = header_text + '#, fuzzy\n'
 header_text = header_text + 'msgid ""\n'
@@ -348,7 +347,8 @@ for temp_file, text_dict in temp_files:
     f.close()
 
 log.info("-----------------------------------------------------")
-log.info(" Combine all temp POT files using msgcat command (this removes dupes) ")
+log.info(" Combine all temp POT files using msgcat command ")
+log.info(" (this removes dupes) ")
 log.info("-----------------------------------------------------")
 
 temp_files = ['OpenShot_source.pot', 'OpenShot_glade.pot', 'OpenShot_effects.pot', 'OpenShot_export.pot',
@@ -356,8 +356,8 @@ temp_files = ['OpenShot_source.pot', 'OpenShot_glade.pot', 'OpenShot_effects.pot
 command = "msgcat"
 for temp_file in temp_files:
     # append files
-    command = command + " " + os.path.join(langage_folder_path, temp_file)
-command = command + " -o " + os.path.join(locale_path, "OpenShot.pot")
+    command = command + " " + os.path.join(language_folder_path, temp_file)
+command = command + " -o " + os.path.join(language_folder_path, "OpenShot.pot")
 
 log.info(command)
 
@@ -369,15 +369,15 @@ log.info(" Create FINAL POT File from all temp POT files ")
 log.info("-----------------------------------------------------")
 
 # get the entire text of OpenShot.POT
-f = open(os.path.join(locale_path, "OpenShot.pot"), "r")
+f = open(os.path.join(language_folder_path, "OpenShot.pot"), "r")
 # read entire text of file
 entire_source = f.read()
 f.close()
 
 # Create Final POT Output File
-if os.path.exists(os.path.join(locale_path, "OpenShot.pot")):
-    os.remove(os.path.join(locale_path, "OpenShot.pot"))
-final = open(os.path.join(locale_path, "OpenShot.pot"), "w")
+if os.path.exists(os.path.join(language_folder_path, "OpenShot.pot")):
+    os.remove(os.path.join(language_folder_path, "OpenShot.pot"))
+final = open(os.path.join(language_folder_path, "OpenShot.pot"), "w")
 final.write(header_text)
 final.write("\n")
 
@@ -400,12 +400,12 @@ log.info("-----------------------------------------------------")
 temp_files = ['OpenShot_source.pot', 'OpenShot_glade.pot', 'OpenShot_effects.pot', 'OpenShot_export.pot',
               'OpenShot_transitions.pot', 'OpenShot_QtUi.pot', 'OpenShot_QtUi.ts']
 for temp_file_name in temp_files:
-    temp_file_path = os.path.join(langage_folder_path, temp_file_name)
+    temp_file_path = os.path.join(language_folder_path, temp_file_name)
     if os.path.exists(temp_file_path):
         os.remove(temp_file_path)
 
 # output success
 log.info("-----------------------------------------------------")
-log.info(" The /openshot/locale/OpenShot/OpenShot.pot file has")
-log.info(" been successfully created with all text in OpenShot.")
+log.info(" The OpenShot.pot file has been successfully created ")
+log.info(" with all text in OpenShot.")
 log.info("-----------------------------------------------------")
