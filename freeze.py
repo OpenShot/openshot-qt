@@ -125,7 +125,7 @@ build_options = {}
 build_exe_options = {}
 
 # Copy QT translations to local folder (to be packaged)
-qt_local_path = os.path.join(PATH, "openshot_qt", "locale", "QT")
+qt_local_path = os.path.join(PATH, "openshot_qt", "language")
 qt_system_path = QLibraryInfo.location(QLibraryInfo.TranslationsPath)
 if os.path.exists(qt_system_path):
     # Create local QT translation folder (if needed)
