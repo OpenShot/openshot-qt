@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """ 
  @file
  @brief This file updates the OpenShot.POT (language translation template) by scanning all source files.

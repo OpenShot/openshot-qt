@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
  @file
  @brief This file verifies all translations are correctly formatted and have the correct # of string replacements
