@@ -43,25 +43,25 @@ app = QCoreApplication(sys.argv)
 POT_source = open(os.path.join(language_path, 'OpenShot.pot')).read()
 all_strings = re.findall('^msgid \"(.*)\"', POT_source, re.MULTILINE)
 
-print("Testing {} strings in all translation files...\n".format(len(all_strings)))
+print("Scanning {} strings in all translation files...".format(len(all_strings)))
 
 # Loop through folders/languages
 for filename in fnmatch.filter(os.listdir(language_path), 'OpenShot.*.qm'):
     lang_code = filename[:-3]
     # Install language
     translator = QTranslator(app)
-    app.installTranslator(translator)
 
     # Load translation
-    success = translator.load(lang_code, language_path)
-    print('%s\t%s' % (success, lang_code))
-
-    # Loop through all test strings
-    for source_string in all_strings:
-        if "%s" in source_string or "%s(" in source_string or "%d" in source_string:
+    if translator.load(lang_code, language_path):
+        app.installTranslator(translator)
+        
+        print("\n=================================================")
+        print("Showing translations for {}".format(filename))
+        print("=================================================")
+        # Loop through all test strings
+        for source_string in all_strings:
             translated_string = app.translate("", source_string)
-            if source_string.count('%') != translated_string.count('%'):
-                print('  Invalid string replacement found: %s  (source: %s)' % (translated_string, source_string))
-
-    # Remove translator
-    app.removeTranslator(translator)
+            if source_string != translated_string:
+                print('  {} => {}'.format(source_string,app.translate("", source_string)))
+        # Remove translator
+        app.removeTranslator(translator)
