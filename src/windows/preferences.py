@@ -322,6 +322,20 @@ class Preferences(QDialog):
             else:
                 os.environ['LIMIT_FF_THREADS'] = str(value)
 
+        elif param["setting"] == "decode_hw_max_width":
+            if value == "0":
+                if os.environ.get('LIMIT_WIDTH_MAX') != None:
+                    del os.environ['LIMIT_WIDTH_MAX']
+            else:
+                os.environ['LIMIT_WIDTH_MAX'] = str(value)
+
+        elif param["setting"] == "decode_hw_max_height":
+            if value == "0":
+                if os.environ.get('LIMIT_HEIGHT_MAX') != None:
+                    del os.environ['LIMIT_HEIGHT_MAX']
+            else:
+                os.environ['LIMIT_HEIGHT_MAX'] = str(value)
+
         # Apply cache settings (if needed)
         if param["setting"] in ["cache-limit-mb", "cache-scale", "cache-quality"]:
             get_app().window.InitCacheSettings()

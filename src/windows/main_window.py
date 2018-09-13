@@ -2419,6 +2419,20 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             if os.environ.get('LIMIT_FF_THREADS') != None:
                 del os.environ['LIMIT_FF_THREADS']
 
+        # Set use max width decode hw environment variable
+        if s.get("decode_hw_max_width") and s.get("decode_hw_max_width") != 0:
+            os.environ['LIMIT_WIDTH_MAX'] = str(s.get("decode_hw_max_width"))
+        else:
+            if os.environ.get('LIMIT_WIDTH_MAX') != None:
+                del os.environ['LIMIT_WIDTH_MAX']
+
+        # Set use max height decode hw environment variable
+        if s.get("decode_hw_max_height") and s.get("decode_hw_max_height") != 0:
+            os.environ['LIMIT_HEIGHT_MAX'] = str(s.get("decode_hw_max_height"))
+        else:
+            if os.environ.get('LIMIT_HEIGHT_MAX') != None:
+                del os.environ['LIMIT_HEIGHT_MAX']
+
         # Create lock file
         self.create_lock_file()
 

@@ -362,6 +362,26 @@
     "setting": "ff_threads_number"
   },
   {
+    "min": 0,
+    "max": 16000,
+    "value": 1950,
+    "title": "Decode HW max Width (0 = Default)",
+    "type": "spinner-int",
+    "restart": true,
+    "category": "Performance",
+    "setting": "decode_hw_max_width"
+  },
+  {
+    "min": 0,
+    "max": 16000,
+    "value": 1100,
+    "title": "Decode HW max height (0 = Default)",
+    "type": "spinner-int",
+    "restart": true,
+    "category": "Performance",
+    "setting": "decode_hw_max_height"
+  },
+  {
     "value": true,
     "title": "",
     "type": "hidden",
