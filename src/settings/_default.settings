@@ -335,7 +335,7 @@
   },
   {
     "value": true,
-    "title": "Enable Multiple Threads",
+    "title": "Process Video Frames in Parallel (Experimental)",
     "type": "bool",
     "restart": true,
     "category": "Performance",
