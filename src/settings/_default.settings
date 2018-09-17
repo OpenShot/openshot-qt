@@ -126,7 +126,7 @@
     "setting": "recent_projects"
   },
   {
-    "value": "HDV 720 24p",
+    "value": "HD 720p 30 fps",
     "title": "Default Profile",
     "category": "Profiles",
     "setting": "default-profile",
@@ -140,7 +140,7 @@
     "category": "Profiles",
     "min": 22050,
     "setting": "default-samplerate",
-    "value": 48000,
+    "value": 44100,
     "values": [
       {
         "value": 22050,
