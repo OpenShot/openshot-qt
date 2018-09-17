@@ -251,7 +251,7 @@ try:
             github_release = get_release(repo, "daily")
         elif git_branch_name == "release":
             # Get daily git_release object
-            openshot_qt_git_desc = "OpenShot-v%s-%d" % (info.VERSION, int(time.time()))
+            openshot_qt_git_desc = "OpenShot-v%s-release-candidate-%d" % (info.VERSION, int(time.time()))
             github_release = get_release(repo, "daily")
         elif git_branch_name == "master":
             # Get official version release (i.e. v2.1.0, v2.x.x)
