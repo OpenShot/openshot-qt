@@ -601,6 +601,14 @@ class Export(QDialog):
                     measurement = "mb"
                     bit_rate_bytes = raw_number * 1000.0 * 1000.0
 
+                elif "crf" in raw_measurement:
+                    measurement = "crf"
+                    if raw_number > 63:
+                        raw_number = 63
+                    if raw_number < 0:
+                        raw_number = 0
+                    bit_rate_bytes = raw_number
+
         except:
             pass
 
