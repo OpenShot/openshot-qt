@@ -9,8 +9,8 @@
 	<audiochannels>2</audiochannels>
 	<audiochannellayout>3</audiochannellayout>
 	<videobitrate
-	 low="30 crf"
-	 med="20 crf"
+	 low="50 crf"
+	 med="30 crf"
 	 high="5 crf"></videobitrate>
 	<audiobitrate
 	 low="96 kb/s"
