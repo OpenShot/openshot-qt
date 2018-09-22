@@ -29,7 +29,7 @@ import functools
 
 from PyQt5.QtCore import Qt, QPoint, QRectF, QEvent
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QLabel, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QToolButton, QCheckBox
+from PyQt5.QtWidgets import QLabel, QWidget, QDockWidget, QVBoxLayout, QHBoxLayout, QPushButton, QToolButton, QCheckBox
 
 from classes.logger import log
 from classes.settings import get_settings
@@ -38,26 +38,27 @@ from classes.metrics import *
 
 
 class TutorialDialog(QWidget):
-    """ A QWidget used to instruct a user how to use a certain feature """
+    """ A customized QWidget used to instruct a user how to use a certain feature """
 
     def paintEvent(self, event, *args):
         """ Custom paint event """
         # Paint custom frame image on QWidget
         painter = QPainter(self)
         painter.setRenderHint(QPainter.Antialiasing)
+        frameColor = QColor("#53a0ed")
 
         # Paint blue rounded rectangle
         path = QPainterPath()
         path.addRoundedRect(QRectF(31, 0, self.width()-31, self.height()), 10, 10)
         painter.setPen(Qt.NoPen)
-        painter.fillPath(path, QColor("#53a0ed"))
+        painter.fillPath(path, frameColor)
         painter.drawPath(path)
 
         # Paint gray rounded rectangle
         path = QPainterPath()
         path.addRoundedRect(QRectF(32, 1, self.width()-33, self.height()-2), 10, 10)
         painter.setPen(Qt.NoPen)
-        painter.fillPath(path, QColor("#424242"))
+        painter.fillPath(path, self.palette().color(QPalette.Window))
         painter.drawPath(path)
 
         # Paint blue triangle (if needed)
@@ -68,23 +69,8 @@ class TutorialDialog(QWidget):
             path.lineTo (31, 35 - arrow_height)
             path.lineTo (31, (35 - arrow_height) + (arrow_height * 2))
             path.lineTo (0, 35)
-            painter.fillPath(path, QColor("#53a0ed"))
+            painter.fillPath(path, frameColor)
             painter.drawPath(path)
-
-    def eventFilter(self, object, e):
-        if e.type() == QEvent.WindowActivate:
-            # Raise parent window, and then this tutorial
-            get_app().window.showNormal()
-            get_app().window.raise_()
-            self.raise_()
-
-        return False
-
-    def moveWidget(self):
-        """ Move widget next to its position widget """
-        x = self.position_widget.mapToGlobal(self.position_widget.pos()).x()
-        y = self.position_widget.mapToGlobal(self.position_widget.pos()).y()
-        self.move(QPoint(x + self.x_offset, y + self.y_offset))
 
     def checkbox_metrics_callback(self, state):
         """ Callback for error and anonymous usage checkbox"""
@@ -102,7 +88,7 @@ class TutorialDialog(QWidget):
             # Disable metric sending
             s.set("send_metrics", False)
 
-    def __init__(self, id, text, position_widget, x_offset, y_offset, arrow, *args):
+    def __init__(self, id, text, arrow, *args):
         # Invoke parent init
         QWidget.__init__(self, *args)
 
@@ -112,9 +98,6 @@ class TutorialDialog(QWidget):
 
         # Keep track of widget to position next to
         self.id = id
-        self.position_widget = position_widget
-        self.x_offset = x_offset
-        self.y_offset = y_offset
         self.arrow = arrow
 
         # Create vertical box
@@ -168,17 +151,10 @@ class TutorialDialog(QWidget):
         self.setMinimumWidth(350)
         self.setMinimumHeight(100)
 
-        # Make it's own window
-        self.setWindowTitle("Tutorial")
-        self.setWindowFlags(Qt.Window | Qt.FramelessWindowHint)
+        # Make transparent
+        self.setAttribute(Qt.WA_NoSystemBackground, True)
         self.setAttribute(Qt.WA_TranslucentBackground, True)
-        self.setFocusPolicy(Qt.NoFocus)
-
-        # Position window next to other widget
-        self.moveWidget()
-
-        # Install event filter
-        self.installEventFilter(self)
+        #self.setWindowFlags(Qt.FramelessWindowHint)
 
 
 class TutorialManager(object):
@@ -186,11 +162,12 @@ class TutorialManager(object):
 
     def process(self, parent_name=None):
         """ Process and show the first non-completed tutorial """
-        log.info("process tutorial dialogs")
 
         # Do nothing if a tutorial is already visible
         if self.current_dialog:
-            self.re_show_dialog()
+            # XXX: Respond to possible dock floats/moves
+            self.dock.raise_()
+            self.re_position_dialog()
             return
 
         # Loop through and add each tutorial dialog
@@ -211,15 +188,25 @@ class TutorialManager(object):
                 continue
 
             # Create tutorial
-            tutorial_dialog = TutorialDialog(tutorial_id, tutorial_text, tutorial_object, tutorial_x_offset, tutorial_y_offset, turorial_arrow)
+            self.position_widget = tutorial_object
+            self.x_offset = tutorial_x_offset
+            self.y_offset = tutorial_y_offset
+            tutorial_dialog = TutorialDialog(tutorial_id, tutorial_text, turorial_arrow)
 
             # Connect signals
             tutorial_dialog.btn_next_tip.clicked.connect(functools.partial(self.next_tip, tutorial_id))
             tutorial_dialog.btn_close_tips.clicked.connect(functools.partial(self.hide_tips, tutorial_id, True))
 
-            # Show dialog
+            # Insert into tutorial dock
+            self.dock.setWidget(tutorial_dialog)
             self.current_dialog = tutorial_dialog
-            self.current_dialog.show()
+
+            # Show dialog
+            self.dock.adjustSize()
+            self.dock.setEnabled(True)
+            self.re_position_dialog()
+            #self.current_dialog.show()
+            self.dock.show()
             break
 
     def get_object(self, object_id):
@@ -245,17 +232,14 @@ class TutorialManager(object):
 
     def next_tip(self, tid):
         """ Mark the current tip completed, and show the next one """
-        log.info("next_tip")
-
         # Hide matching tutorial
         self.hide_tips(tid)
 
-        # Process the next type
+        # Advance to the next one
         self.process()
 
     def hide_tips(self, tid, user_clicked=False):
         """ Hide the current tip, and don't show anymore """
-        log.info("hide_tips")
         s = get_settings()
 
         # Loop through and find current tid
@@ -279,7 +263,8 @@ class TutorialManager(object):
     def close_dialogs(self):
         """ Close any open tutorial dialogs """
         if self.current_dialog:
-            self.current_dialog.hide()
+            self.dock.hide()
+            self.dock.setEnabled(False)
             self.current_dialog = None
 
     def exit_manager(self):
@@ -300,24 +285,21 @@ class TutorialManager(object):
     def re_show_dialog(self):
         """ Re show an active dialog """
         if self.current_dialog:
-            self.current_dialog.showNormal()
-            self.current_dialog.raise_()
+            self.dock.raise_()
+            self.dock.show()
 
     def re_position_dialog(self):
         """ Reposition a tutorial dialog next to another widget """
         if self.current_dialog:
-            self.current_dialog.moveWidget()
-
-    def minimize(self):
-        """ Minimize any visible tutorial dialog """
-        log.info("minimize tutorial")
-        if self.current_dialog:
-            self.current_dialog.showMinimized()
+            """ Move widget next to its position widget """
+            x = self.position_widget.mapToGlobal(self.position_widget.pos()).x()
+            y = self.position_widget.mapToGlobal(self.position_widget.pos()).y()
+            self.dock.move(QPoint(x + self.x_offset, y + self.y_offset))
 
     def __init__(self, win):
         """ Constructor """
-        self.tutorials = []
         self.win = win
+        self.dock = win.dockTutorial
         self.current_dialog = None
 
         # get translations
@@ -333,14 +315,22 @@ class TutorialManager(object):
         self.tutorial_objects = [    {"id":"0", "x":400, "y":0, "object_id":"filesTreeView", "text":_("<b>Welcome!</b> OpenShot Video Editor is an award-winning, open-source video editing application! This tutorial will walk you through the basics.<br><br>Would you like to automatically send errors and metrics to help improve OpenShot?"), "arrow":False},
                                      {"id":"1", "x":20, "y":0, "object_id":"filesTreeView", "text":_("<b>Project Files:</b> Get started with your project by adding video, audio, and image files here. Drag and drop files from your file system."), "arrow":True},
                                      {"id":"2", "x":200, "y":-15, "object_id":"timeline", "text":_("<b>Timeline:</b> Arrange your clips on the timeline here. Overlap clips to create automatic transitions. Access lots of fun presets and options by right-clicking on clips."), "arrow":True},
-                                     {"id":"3", "x":150, "y":100, "object_id":"dockVideoContents", "text":_("<b>Video Preview:</b> Watch your timeline video preview here. Use the buttons (play, rewind, fast-forward) to control the video playback."), "arrow":True},
+                                     {"id":"3", "x":200, "y":100, "object_id":"dockVideoContents", "text":_("<b>Video Preview:</b> Watch your timeline video preview here. Use the buttons (play, rewind, fast-forward) to control the video playback."), "arrow":True},
                                      {"id":"4", "x":20, "y":-35, "object_id":"propertyTableView", "text":_("<b>Properties:</b> View and change advanced properties of clips and effects here. Right-clicking on clips is usually faster than manually changing properties."), "arrow":True},
                                      {"id":"5", "x":20, "y":10, "object_id":"transitionsTreeView", "text":_("<b>Transitions:</b> Create a gradual fade from one clip to another. Drag and drop a transition onto the timeline and position it on top of a clip (usually at the beginning or ending)."), "arrow":True},
                                      {"id":"6", "x":20, "y":20, "object_id":"effectsTreeView", "text":_("<b>Effects:</b> Adjust brightness, contrast, saturation, and add exciting special effects. Drag and drop an effect onto the timeline and position it on top of a clip (or track)"), "arrow":True},
                                      {"id":"7", "x":-265, "y":-22, "object_id":"export_button", "text":_("<b>Export Video:</b> When you are ready to create your finished video, click this button to export your timeline as a single video file."), "arrow":True}
                                 ]
 
-        # Connect to dock widgets
+        # Configure tutorial frame
+        self.dock.setTitleBarWidget(QWidget()) # Prevents window decoration
+        self.dock.setAttribute(Qt.WA_NoSystemBackground, True)
+        self.dock.setAttribute(Qt.WA_TranslucentBackground, True)
+        self.dock.setWindowFlags(Qt.FramelessWindowHint)
+        self.dock.setFloating(True)
+
+
+        # Connect to interface dock widgets
         self.win.dockFiles.visibilityChanged.connect(functools.partial(self.process, "dockFiles"))
         self.win.dockTransitions.visibilityChanged.connect(functools.partial(self.process, "dockTransitions"))
         self.win.dockEffects.visibilityChanged.connect(functools.partial(self.process, "dockEffects"))

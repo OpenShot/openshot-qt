@@ -286,6 +286,14 @@ class Preferences(QDialog):
                 # Disable hardware decode environment variable
                 os.environ['OS2_DECODE_HW'] = "0"
 
+        elif param["setting"] == "omp_threads_enabled":
+            if (state == Qt.Checked):
+                # Enable OMP multi-threading
+                os.environ['OS2_OMP_THREADS'] = "1"
+            else:
+                # Disable OMP multi-threading
+                os.environ['OS2_OMP_THREADS'] = "0"
+
         # Check for restart
         self.check_for_restart(param)
 

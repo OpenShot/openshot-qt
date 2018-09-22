@@ -73,7 +73,7 @@ copies all the code files to the /site-packages/ folder.
 Here is a tutorial of the current development features:
 
 #### Do you have a help manual?
-1) Yes, go to http://www.openshotusers.com/help/en/
+1) Yes, read it online at https://www.openshot.org/user-guide/
 
 #### How do I add media to my project?
 1) Drag and drop videos or music files from gnome into the "Project Files" tree.

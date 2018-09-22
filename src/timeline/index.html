@@ -26,7 +26,6 @@
     	<script type="text/javascript" src="js/directives/clip.js"></script>
     	<script type="text/javascript" src="js/directives/transition.js"></script>
     	<script type="text/javascript" src="js/directives/misc.js"></script> 	
-		<script type="text/javascript" src="media/js/debug.js"></script>
 		<script type="text/javascript" src="media/js/ui-bootstrap-tpls-0.7.0.min.js"></script>
 
 		<!-- OpenShot StyleSheets -->
@@ -52,7 +51,7 @@
 
 			<!-- MARKERS --> 
 			<span class="ruler_marker" id="marker_for_{{marker.id}}">
-				<img ng-repeat="marker in project.markers" id="marker_{{marker.id}}_{{$index}}" ng-right-click="ShowMarkerMenu(marker.id)" style="position: absolute; bottom: 0px; left: {{(marker.position * pixelsPerSecond) - 6 }}px;" class="marker_icon" ng-src="media/images/markers/{{ marker.icon }}"/>
+				<img ng-repeat="marker in project.markers" id="marker_{{marker.id}}_{{$index}}" ng-right-click="ShowMarkerMenu(marker.id)" style="position: absolute; bottom: 0px; left: {{(marker.position * pixelsPerSecond) - 6 }}px;" class="marker_icon" ng-src="media/images/markers/{{ marker.icon }}" draggable="false"/>
 			</span>
 			<br class="cleared">
 			

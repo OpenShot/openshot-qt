@@ -67,11 +67,12 @@ fh = RotatingFileHandler(
 fh.setFormatter(formatter)
 log.addHandler(fh)
 
-# Route stdout and stderr to logger (custom handler)
-if not getattr(sys, 'frozen', False):
-    so = StreamToLogger(log, logging.INFO)
-    sys.stdout = so
+def reroute_output():
+    """Route stdout and stderr to logger (custom handler)"""
+    if not getattr(sys, 'frozen', False):
+        so = StreamToLogger(log, logging.INFO)
+        sys.stdout = so
 
-    se = StreamToLogger(log, logging.ERROR)
-    sys.stderr = se
+        se = StreamToLogger(log, logging.ERROR)
+        sys.stderr = se
 

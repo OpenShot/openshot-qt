@@ -695,15 +695,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def actionTransitionsShowCommon_trigger(self, event):
         self.transitionsTreeView.refresh_view()
 
-    def actionEffectsShowAll_trigger(self, event):
-        self.effectsTreeView.refresh_view()
-
-    def actionEffectsShowVideo_trigger(self, event):
-        self.effectsTreeView.refresh_view()
-
-    def actionEffectsShowAudio_trigger(self, event):
-        self.effectsTreeView.refresh_view()
-
     def actionHelpContents_trigger(self, event):
         try:
             webbrowser.open("http://%s.openshot.org/files/user-guide/?app-menu" % info.website_language())
@@ -878,6 +869,84 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Seek to the 1st frame
         self.SeekSignal.emit(timeline_length_int)
+
+    def actionSaveFrame_trigger(self, event):
+        log.info("actionSaveFrame_trigger")
+
+        # Translate object
+        _ = get_app()._tr
+
+	# Prepare to use the status bar
+        self.statusBar = QStatusBar()
+        self.setStatusBar(self.statusBar)
+
+        # Determine path for saved frame - Default export path
+        recommended_path = recommended_path = os.path.join(info.HOME_PATH)
+        if get_app().project.current_filepath:
+            recommended_path = os.path.dirname(get_app().project.current_filepath)
+
+        # Determine path for saved frame - Project's export path
+        if get_app().project.get(["export_path"]):
+            recommended_path = get_app().project.get(["export_path"])
+
+        framePath = _("%s/Frame-%05d.png" % (recommended_path, self.preview_thread.current_frame))
+        #log.info("Saving frame to %" % framePath)
+
+        # Ask user to confirm or update framePath
+        framePath, file_type = QFileDialog.getSaveFileName(self, _("Save Frame..."), framePath, _("Image files (*.png)"))
+
+        if framePath:
+            # Append .osp if needed
+            if ".png" not in framePath:
+                framePath = "%s.osp" % framePath
+        else:
+            # No path specified (save frame cancelled)
+            self.statusBar.showMessage(_("Save Frame cancelled..."), 5000);
+            return
+
+        get_app().updates.update(["export_path"], os.path.dirname(framePath))
+        log.info(_("Saving frame to %s" % framePath ))
+
+        # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
+        get_app().window.actionPlay_trigger(None, force="pause")
+
+        # Save current cache object and create a new CacheMemory object (ignore quality and scale prefs)
+        old_cache_object = self.cache_object
+        new_cache_object = openshot.CacheMemory(settings.get_settings().get("cache-limit-mb") * 1024 * 1024)
+        self.timeline_sync.timeline.SetCache(new_cache_object)
+
+        # Set MaxSize to full project resolution and clear preview cache so we get a full resolution frame
+        self.timeline_sync.timeline.SetMaxSize(get_app().project.get(["width"]), get_app().project.get(["height"]))
+        self.cache_object.Clear()
+
+        # Check if file exists, if it does, get the lastModified time
+        if os.path.exists(framePath):
+            framePathTime = QFileInfo(framePath).lastModified()
+        else:
+            framePathTime = QDateTime()
+
+	# Get and Save the frame (return is void, so we cannot check for success/fail here - must use file modification timestamp)
+        openshot.Timeline.GetFrame(self.timeline_sync.timeline,self.preview_thread.current_frame).Save(framePath, 1.0)
+
+        #log.info("orig framePathTime %s" % framePathTime.toString("yyMMdd hh:mm:ss.zzz") )
+        #log.info("new framePathTime %s" % QFileInfo(framePath).lastModified().toString("yyMMdd hh:mm:ss.zzz") )
+
+	# Show message to user
+        if os.path.exists(framePath) and (QFileInfo(framePath).lastModified() > framePathTime): 
+            #QMessageBox.information(self, _("Save Frame Successful"), _("Saved image to %s" % framePath))
+            self.statusBar.showMessage(_("Saved Frame to %s" % framePath), 5000);
+        else:
+            #QMessageBox.warning(self, _("Save Frame Failed"), _("Failed to save image to %s" % framePath))
+            self.statusBar.showMessage( _("Failed to save image to %s" % framePath), 5000);
+
+	# Reset the MaxSize to match the preview and reset the preview cache
+        viewport_rect = self.videoPreview.centeredViewport(self.videoPreview.width(), self.videoPreview.height())
+        self.timeline_sync.timeline.SetMaxSize(viewport_rect.width(), viewport_rect.height())
+        self.cache_object.Clear()
+        self.timeline_sync.timeline.SetCache(old_cache_object)
+        self.cache_object = old_cache_object
+        old_cache_object = None
+        new_cache_object = None
 
     def actionAddTrack_trigger(self, event):
         log.info("actionAddTrack_trigger")
@@ -1252,6 +1321,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.actionJumpStart.trigger()
         elif key.matches(self.getShortcutByName("actionJumpEnd")) == QKeySequence.ExactMatch:
             self.actionJumpEnd.trigger()
+        elif key.matches(self.getShortcutByName("actionSaveFrame")) == QKeySequence.ExactMatch:
+            self.actionSaveFrame.trigger()
         elif key.matches(self.getShortcutByName("actionProperties")) == QKeySequence.ExactMatch:
             self.actionProperties.trigger()
         elif key.matches(self.getShortcutByName("actionTransform")) == QKeySequence.ExactMatch:
@@ -1294,6 +1365,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.timeline.Copy_Triggered(-1, self.selected_clips, self.selected_transitions)
         elif key.matches(self.getShortcutByName("pasteAll")) == QKeySequence.ExactMatch:
             self.timeline.Paste_Triggered(9, float(playhead_position), -1, [], [])
+        elif key.matches(self.getShortcutByName("nudgeLeft")) == QKeySequence.ExactMatch:
+            self.timeline.Nudge_Triggered(-1, self.selected_clips, self.selected_transitions)
+        elif key.matches(self.getShortcutByName("nudgeRight")) == QKeySequence.ExactMatch:
+            self.timeline.Nudge_Triggered(1, self.selected_clips, self.selected_transitions)
 
         # Select All / None
         elif key.matches(self.getShortcutByName("selectAll")) == QKeySequence.ExactMatch:
@@ -1712,7 +1787,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.showDocks([self.dockFiles, self.dockTransitions, self.dockVideo, self.dockEffects, self.dockProperties])
 
         # Set initial size of docks
-        advanced_state = "AAAA/wAAAAD9AAAAAwAAAAAAAAD8AAABQPwCAAAAAfwAAAG/AAABQAAAAKEA////+gAAAAACAAAAAvsAAAAcAGQAbwBjAGsAUAByAG8AcABlAHIAdABpAGUAcwEAAAAA/////wAAAKEA////+wAAABgAZABvAGMAawBLAGUAeQBmAHIAYQBtAGUAAAAAAP////8AAAATAP///wAAAAEAAAEcAAABQPwCAAAAAvsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAD7AAAAFgBkAG8AYwBrAEUAZgBmAGUAYwB0AHMBAAABvwAAAUAAAACYAP///wAAAAIAAASrAAABkvwBAAAAA/sAAAASAGQAbwBjAGsARgBpAGwAZQBzAQAAAAAAAAFeAAAAcAD////7AAAAHgBkAG8AYwBrAFQAcgBhAG4AcwBpAHQAaQBvAG4AcwEAAAFkAAABAAAAAHAA////+wAAABIAZABvAGMAawBWAGkAZABlAG8BAAACagAAAkEAAAA6AP///wAAAocAAAFAAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAHQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAA=="
+        advanced_state = "AAAA/wAAAAD9AAAAAwAAAAAAAAD8AAAB5fwCAAAAAfwAAAHVAAAB5QAAAKEA////+gAAAAACAAAAAvsAAAAcAGQAbwBjAGsAUAByAG8AcABlAHIAdABpAGUAcwEAAAAA/////wAAAKEA////+wAAABgAZABvAGMAawBLAGUAeQBmAHIAYQBtAGUAAAAAAP////8AAAAAAAAAAAAAAAEAAAD2AAAB5fwCAAAAAvsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAD7AAAAFgBkAG8AYwBrAEUAZgBmAGUAYwB0AHMBAAAB1QAAAeUAAACYAP///wAAAAIAAAVmAAABkvwBAAAAA/sAAAASAGQAbwBjAGsARgBpAGwAZQBzAQAAAAAAAAIZAAAAbAD////7AAAAHgBkAG8AYwBrAFQAcgBhAG4AcwBpAHQAaQBvAG4AcwEAAAIfAAABAAAAAGwA////+wAAABIAZABvAGMAawBWAGkAZABlAG8BAAADJQAAAkEAAAA6AP///wAAA2gAAAHlAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAHQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAA=="
         self.restoreState(qt_types.str_to_bytes(advanced_state))
         QCoreApplication.processEvents()
 
@@ -1936,15 +2011,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Add effects toolbar =================================================================================
         self.effectsToolbar = QToolBar("Effects Toolbar")
-        self.effectsActionGroup = QActionGroup(self)
-        self.effectsActionGroup.setExclusive(True)
-        self.effectsActionGroup.addAction(self.actionEffectsShowAll)
-        self.effectsActionGroup.addAction(self.actionEffectsShowVideo)
-        self.effectsActionGroup.addAction(self.actionEffectsShowAudio)
-        self.actionEffectsShowAll.setChecked(True)
-        self.effectsToolbar.addAction(self.actionEffectsShowAll)
-        self.effectsToolbar.addAction(self.actionEffectsShowVideo)
-        self.effectsToolbar.addAction(self.actionEffectsShowAudio)
         self.effectsFilter = QLineEdit()
         self.effectsFilter.setObjectName("effectsFilter")
         self.effectsFilter.setPlaceholderText(_("Filter"))
@@ -1956,12 +2022,20 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Add Video Preview toolbar ==========================================================================
         self.videoToolbar = QToolBar("Video Toolbar")
 
+        # Add fixed spacer(s) (one for each "Other control" to keep playback controls centered)
+        ospacer1 = QWidget(self)
+        ospacer1.setMinimumSize(32, 1) # actionSaveFrame
+        self.videoToolbar.addWidget(ospacer1)
+        #ospacer2 = QWidget(self)
+        #ospacer2.setMinimumSize(32, 1) # ???
+        #self.videoToolbar.addWidget(ospacer2)
+
         # Add left spacer
         spacer = QWidget(self)
         spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.videoToolbar.addWidget(spacer)
 
-        # Playback controls
+        # Playback controls (centered)
         self.videoToolbar.addAction(self.actionJumpStart)
         self.videoToolbar.addAction(self.actionRewind)
         self.videoToolbar.addAction(self.actionPlay)
@@ -1973,6 +2047,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         spacer = QWidget(self)
         spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.videoToolbar.addWidget(spacer)
+
+        # Other controls (right-aligned)
+        self.videoToolbar.addAction(self.actionSaveFrame)
 
         self.tabVideo.layout().addWidget(self.videoToolbar)
 
@@ -1992,7 +2069,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.timelineToolbar.addSeparator()
 
         # Get project's initial zoom value
-        initial_scale = get_app().project.get(["scale"]) or 16
+        initial_scale = get_app().project.get(["scale"]) or 15
         # Round non-exponential scale down to next lowest power of 2
         initial_zoom = secondsToZoom(initial_scale)
 
@@ -2053,17 +2130,37 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def moveEvent(self, event):
         """ Move tutorial dialogs also (if any)"""
+        QMainWindow.moveEvent(self, event)
         if self.tutorial_manager:
+            #log.info("Sending move event to tutorial manager")
             self.tutorial_manager.re_position_dialog()
 
-    def eventFilter(self, object, e):
-        """ Filter out certain types of window events """
-        if e.type() == QEvent.WindowActivate:
-            self.tutorial_manager.re_show_dialog()
-        elif e.type() == QEvent.WindowStateChange and self.isMinimized():
-            self.tutorial_manager.minimize()
+    def resizeEvent(self, event):
+        QMainWindow.resizeEvent(self, event)
+        if self.tutorial_manager:
+            #log.info("Sending resize event to tutorial manager")
+            self.tutorial_manager.re_position_dialog()
 
-        return False
+    def showEvent(self, event):
+        """ Have any child windows follow main-window state """
+        #log.info("Showing main window")
+        QMainWindow.showEvent(self, event)
+        for child in self.findChildren(QDockWidget):
+            if child.isFloating() and child.isEnabled():
+                # child.setWindowState(self.windowState())
+                #log.info("Showing child {}".format(child.windowTitle()))
+                child.raise_()
+                child.show()
+
+    def hideEvent(self, event):
+        """ Have any child windows hide with main window """
+        #log.info("Hiding main window")
+        QMainWindow.hideEvent(self, event)
+        for child in self.findChildren(QDockWidget):
+            if child.isFloating() and child.isVisible():
+                #log.info("Hiding child {}".format(child.windowTitle()))
+                child.hide()
+
 
     def show_property_timeout(self):
         """Callback for show property timer"""
@@ -2299,6 +2396,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             os.environ['OS2_DECODE_HW'] = "0"
 
+        # Set OMP thread enabled flag (for stability)
+        if s.get("omp_threads_enabled"):
+            os.environ['OS2_OMP_THREADS'] = "1"
+        else:
+            os.environ['OS2_OMP_THREADS'] = "0"
+
         # Create lock file
         self.create_lock_file()
 
@@ -2315,9 +2418,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.has_launcher = True
             self.ExportFrame.connect(self.FrameExported)
             self.ExportEnded.connect(self.ExportFinished)
-
-        # Install event filter
-        self.installEventFilter(self)
 
         # Save settings
         s.save()
