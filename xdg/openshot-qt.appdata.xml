@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>openshot-qt</id>
+  <launchable type="desktop-id">openshot-qt.desktop</launchable>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>OpenShot Video Editor</name>
+  <developer_name>OpenShot Studios, LLC</developer_name>
+  <summary>
+    An easy to use, quick to learn, and surprisingly powerful video editor
+  </summary>
+  <description>
+    <p>
+      OpenShot Video Editor is a free, open-source, non-linear video editor. It
+      can create and edit videos and movies using many popular video, audio,
+      image formats. Create videos for YouTube, Flickr, Vimeo, Metacafe, iPod,
+      Xbox, and more!
+    </p>
+    <p>
+      Features include:
+      <ul>
+      <li>Multiple tracks (layers)</li>
+      <li>Compositing, image overlays, and watermarks</li>
+      <li>Audio mixing and editing</li>
+      <li>Support for image sequences (rotoscoping)</li>
+      <li>Key-frame animation</li>
+      <li>Video effects (chroma-key)</li>
+      <li>Transitions (lumas and masks)</li>
+      <li>Titles with integrated editor and templates</li>
+      <li>3D animation (titles and effects)</li>
+      </ul>
+    </p>
+  </description>
+  <provides>
+    <binary>openshot-qt</binary>
+  </provides>
+  <url type="donation">https://www.openshot.org/donate</url>
+  <url type="help">https://www.openshot.org/user-guide</url>
+  <url type="homepage">https://www.openshot.org</url>
+  <url type="bugtracker">https://github.com/OpenShot/openshot-qt/issues</url>
+  <screenshots>
+    <screenshot type="default">
+      <image  height="637" width="975">https://www.openshot.org/static/img/gallery/ui-example.jpg</image>
+    </screenshot>
+    <screenshot>
+      <image height="555" width="780">https://www.openshot.org/static/img/gallery/title-editor.jpg</image>
+    </screenshot>
+  </screenshots>
+  <content_rating type="oars-1.0">
+    <content_attribute id="violence-cartoon">none</content_attribute>
+    <content_attribute id="violence-fantasy">none</content_attribute>
+    <content_attribute id="violence-realistic">none</content_attribute>
+    <content_attribute id="violence-bloodshed">none</content_attribute>
+    <content_attribute id="violence-sexual">none</content_attribute>
+    <content_attribute id="drugs-alcohol">none</content_attribute>
+    <content_attribute id="drugs-narcotics">none</content_attribute>
+    <content_attribute id="drugs-tobacco">none</content_attribute>
+    <content_attribute id="sex-nudity">none</content_attribute>
+    <content_attribute id="sex-themes">none</content_attribute>
+    <content_attribute id="language-profanity">none</content_attribute>
+    <content_attribute id="language-humor">none</content_attribute>
+    <content_attribute id="language-discrimination">none</content_attribute>
+    <content_attribute id="social-chat">none</content_attribute>
+    <content_attribute id="social-info">none</content_attribute>
+    <content_attribute id="social-audio">none</content_attribute>
+    <content_attribute id="social-location">none</content_attribute>
+    <content_attribute id="social-contacts">none</content_attribute>
+    <content_attribute id="money-purchasing">none</content_attribute>
+    <content_attribute id="money-gambling">none</content_attribute>
+  </content_rating>
+  <releases>
+    <release version="2.4.3" date="2018-09-22"/>
+    <release version="2.4.2" date="2018-06-30"/>
+    <release version="2.4.1" date="2017-11-12"/>
+  </releases>
+</component>

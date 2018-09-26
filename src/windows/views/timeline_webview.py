@@ -922,6 +922,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Restore normal cursor
         get_app().restoreOverrideCursor()
 
+        # Start timer to redraw audio
+        self.redraw_audio_timer.start()
+
     def Split_Audio_Triggered(self, action, clip_ids):
         """Callback for split audio context menus"""
         log.info("Split_Audio_Triggered")
@@ -1793,7 +1796,6 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
                 # Set new 'start' of right_clip (need to bump 1 frame duration more, so we don't repeat a frame)
                 right_clip.data["position"] = (round(float(playhead_position) * fps_float) + 1) / fps_float
-                #right_clip.data["position"] = float(clip.data["position"]) + float(clip.data["end"]) + frame_duration
                 right_clip.data["start"] = (round(float(clip.data["end"]) * fps_float) + 2) / fps_float
 
                 # Save changes

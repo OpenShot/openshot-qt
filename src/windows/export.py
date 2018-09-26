@@ -100,6 +100,9 @@ class Export(QDialog):
         self.lblChannels.setVisible(False)
         self.txtChannels.setVisible(False)
 
+        # Set OMP thread disabled flag (for stability)
+        os.environ['OS2_OMP_THREADS'] = "0"
+
         # Get the original timeline settings
         width = get_app().window.timeline_sync.timeline.info.width
         height = get_app().window.timeline_sync.timeline.info.height
@@ -816,10 +819,22 @@ class Export(QDialog):
         # Clear all cache
         self.timeline.ClearAllCache()
 
+        # Re-set OMP thread enabled flag
+        if self.s.get("omp_threads_enabled"):
+            os.environ['OS2_OMP_THREADS'] = "1"
+        else:
+            os.environ['OS2_OMP_THREADS'] = "0"
+
         # Accept dialog
         super(Export, self).accept()
 
     def reject(self):
+        # Re-set OMP thread enabled flag
+        if self.s.get("omp_threads_enabled"):
+            os.environ['OS2_OMP_THREADS'] = "1"
+        else:
+            os.environ['OS2_OMP_THREADS'] = "0"
+
         # Cancel dialog
         self.exporting = False
         super(Export, self).reject()

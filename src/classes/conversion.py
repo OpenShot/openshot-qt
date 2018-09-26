@@ -48,4 +48,3 @@ def secondsToZoom(scaleValue):
             if zoomValue < scaleValue:
                 closestValue = zoomValue
         return zoomSeconds.index(closestValue)
-

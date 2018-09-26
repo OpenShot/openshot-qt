@@ -2396,7 +2396,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             os.environ['OS2_DECODE_HW'] = "0"
 
-        # Set use omp threads environment variable
+        # Set OMP thread enabled flag (for stability)
         if s.get("omp_threads_enabled"):
             os.environ['OS2_OMP_THREADS'] = "1"
         else:

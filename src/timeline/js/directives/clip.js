@@ -154,7 +154,6 @@ App.directive('tlClip', function($timeout){
 					});
 					//resize the audio canvas to match the new clip width
 					if (scope.clip.show_audio) {
-						element.find(".audio-container").show();
 						//redraw audio as the resize cleared the canvas
 						drawAudio(scope, scope.clip.id);
 					}
@@ -269,14 +268,17 @@ App.directive('tlClip', function($timeout){
 
                     bounding_box = {};
 
-		        	// Init all clips whether selected or not
-	        		start_clips[$(this).attr('id')] = {"top": $(this).position().top + vert_scroll_offset,
-                            						   "left": $(this).position().left + horz_scroll_offset};
-                    move_clips[$(this).attr('id')] = {"top": $(this).position().top + vert_scroll_offset,
-                           							  "left": $(this).position().left + horz_scroll_offset};
+		        	// Init all other selected clips (prepare to drag them)
+		        	$(".ui-selected").each(function(){
+						// Init all clips whether selected or not
+						start_clips[$(this).attr('id')] = {"top": $(this).position().top + vert_scroll_offset,
+														   "left": $(this).position().left + horz_scroll_offset};
+						move_clips[$(this).attr('id')] = {"top": $(this).position().top + vert_scroll_offset,
+														  "left": $(this).position().left + horz_scroll_offset};
 
-                    //send clip to bounding box builder
-                    setBoundingBox($(this));
+						//send clip to bounding box builder
+						setBoundingBox($(this));
+                    });
 					
 					// Does this bounding box overlap a locked track?
 					if (hasLockedTrack(scope, bounding_box.top, bounding_box.bottom) || scope.enable_razor) {
@@ -322,20 +324,16 @@ App.directive('tlClip', function($timeout){
 					ui.position.top = results.position.top;
 
     				// Move all other selected clips with this one if we have more than one clip
-    				if($(".ui-selected").length > 1) {
-		                $(".ui-selected").each(function() {
-		                	var newY = move_clips[$(this).attr('id')]["top"] + y_offset;
-	                        var newX = move_clips[$(this).attr('id')]["left"] + x_offset;
-
-							//update the clip location in the array
-		                	move_clips[$(this).attr('id')]['top'] = newY;
-	                        move_clips[$(this).attr('id')]['left'] = newX;
-
-							//change the element location
-							$(this).css('left', newX);
-					    	$(this).css('top', newY);
-					    });
-    				}
+	                $(".ui-selected").each(function(){
+	                	var newY = move_clips[$(this).attr('id')]["top"] + y_offset;
+                        var newX = move_clips[$(this).attr('id')]["left"] + x_offset;
+ 						//update the clip location in the array
+	                	move_clips[$(this).attr('id')]['top'] = newY;
+                        move_clips[$(this).attr('id')]['left'] = newX;
+ 						//change the element location
+						$(this).css('left', newX);
+				    	$(this).css('top', newY);
+ 				    });
                 },
                 revert: function(valid) {
                     if(!valid) {
