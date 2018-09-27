@@ -89,7 +89,7 @@ class BlenderListView(QListView):
 
         # Loop through params
         for param in animation.get("params",[]):
-            log.info(param["title"])
+            log.info('Using parameter %s: %s' % (param["name"], param["title"]))
 
             # Is Hidden Param?
             if param["name"] == "start_frame" or param["name"] == "end_frame":
@@ -302,7 +302,7 @@ class BlenderListView(QListView):
 
         # Add file to project
         final_path = os.path.join(info.BLENDER_PATH, self.unique_folder_name, self.params["file_name"] + "%04d.png")
-        log.info(final_path)
+        log.info('Adding to project files: %s' % final_path)
 
         # Add to project files
         self.win.add_file(final_path)
