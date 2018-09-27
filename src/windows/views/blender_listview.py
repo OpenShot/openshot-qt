@@ -653,7 +653,7 @@ class BlenderListView(QListView):
 
     # Error from blender (with version number) (1003)
     def onBlenderVersionError(self, version):
-        log.info('onBlenderVersionError')
+        log.info('onBlenderVersionError: %s' % version)
         self.error_with_blender(version)
 
     # Error from blender (with no data) (1004)
