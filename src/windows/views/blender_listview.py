@@ -197,8 +197,9 @@ class BlenderListView(QListView):
         self.init_slider_values()
 
     def spinner_value_changed(self, param, value):
+        log.info('Animation param being changed: %s' % param["name"])
         self.params[param["name"]] = value
-        log.info(value)
+        log.info('New value of param: %s' % value)
 
     def text_value_changed(self, widget, param, value=None):
         try:
@@ -207,13 +208,15 @@ class BlenderListView(QListView):
                 value = widget.toPlainText()
         except:
             pass
+        log.info('Animation param being changed: %s' % param["name"])
         self.params[param["name"]] = value.replace("\n", "\\n")
-        log.info(value)
+        log.info('New value of param: %s' % value)
 
     def dropdown_index_changed(self, widget, param, index):
+        log.info('Animation param being changed: %s' % param["name"])
         value = widget.itemData(index)
         self.params[param["name"]] = value
-        log.info(value)
+        log.info('New value of param: %s' % value)
 
     def color_button_clicked(self, widget, param, index):
         # Show color dialog
@@ -222,14 +225,13 @@ class BlenderListView(QListView):
         log.info('Value of param: %s' % color_value)
         currentColor = QColor("#FFFFFF")
         if len(color_value) == 3:
-            log.info('Using previous color: %s' % color_value)
             #currentColor = QColor(color_value[0], color_value[1], color_value[2])
             currentColor.setRgbF(color_value[0], color_value[1], color_value[2])
         newColor = QColorDialog.getColor(currentColor)
         if newColor.isValid():
             widget.setStyleSheet("background-color: {}".format(newColor.name()))
             self.params[param["name"]] = [newColor.redF(), newColor.greenF(), newColor.blueF()]
-            log.info(newColor.name())
+            log.info('New value of param: %s' % newColor.name())
 
     def generateUniqueFolder(self):
         """ Generate a new, unique folder name to contain Blender frames """
