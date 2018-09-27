@@ -773,11 +773,11 @@ class Worker(QObject):
 
             # Look for progress info in the Blender Output
             output_saved = self.blender_saved_expression.findall(str(line))
-            log.info("Image detected from blender regex: %s" % output_saved)
 
             # Does it have a match?
             if output_saved:
                 # Yes, we have a match
+                log.info("Image detected from blender regex: %s" % output_saved)
                 self.frame_detected = True
                 image_path = output_saved[0][0]
                 time_saved = output_saved[0][1]
