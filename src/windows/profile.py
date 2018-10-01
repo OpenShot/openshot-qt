@@ -74,6 +74,7 @@ class Profile(QDialog):
         # Loop through profiles
         self.profile_names = []
         self.profile_paths = {}
+        self.profile_fps = {}
         for profile_folder in [info.USER_PROFILES_PATH, info.PROFILES_PATH]:
             for file in os.listdir(profile_folder):
                 # Load Profile
@@ -84,6 +85,7 @@ class Profile(QDialog):
                 profile_name = "%s (%sx%s)" % (profile.info.description, profile.info.width, profile.info.height)
                 self.profile_names.append(profile_name)
                 self.profile_paths[profile_name] = profile_path
+                self.profile_fps[profile_name] = profile.info.fps.num / profile.info.fps.den
 
         # Sort list
         self.profile_names.sort()
@@ -99,10 +101,22 @@ class Profile(QDialog):
             # Set default (if it matches the project)
             if app.project.get(['profile']) in profile_name:
                 selected_index = box_index
+                selected_fps = self.profile_fps[profile_name]
 
             # increment item counter
             box_index += 1
 
+        # Is this a new project?  If so, we can change the profile at will.  If not, restrict to compatible profiles
+        if get_app().project.current_filepath:
+            # A Real project file exists, so loop through sorted profiles again to disable profiles with incompatible frame rates
+            box_index = 0
+            for profile_name in self.profile_names:
+                if self.profile_fps[profile_name] != selected_fps:
+                    self.cboProfile.model().item(box_index).setEnabled(False)
+                    log.info("Profile '%s' has frame rate of %s FPS, which doesn't match current project frame rate of %s FPS... disabling profile." % (profile_name, profile.info.fps.num/profile.info.fps.den, selected_fps))
+                else:
+                    self.cboProfile.model().item(box_index).setEnabled(True)
+                box_index += 1
 
         # Connect signal
         self.cboProfile.currentIndexChanged.connect(functools.partial(self.dropdown_index_changed, self.cboProfile))
