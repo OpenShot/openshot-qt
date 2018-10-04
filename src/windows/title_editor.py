@@ -418,9 +418,22 @@ class TitleEditor(QDialog):
                 opacity = 1.0
 
             color = QtGui.QColor(color)
+
+            # Compute perceptive luminance of background color
+            colrgb = color.getRgbF()
+            lum = (0.299 * colrgb[0] + 0.587 * colrgb[1] + 0.114 * colrgb[2])
+            if (lum < 0.5):
+              text_color = QtGui.QColor(Qt.white)
+            else:
+              text_color = QtGui.QColor(Qt.black)
+
             # Convert the opacity into the alpha value
             alpha = int(opacity * 65535.0)
-            self.btnFontColor.setStyleSheet("background-color: %s; opacity %s" % (color.name(), alpha))
+
+            # Set the colors of the button
+            self.btnFontColor.setStyleSheet(
+                "background-color: %s; opacity: %s; color: %s;"
+                % (color.name(), alpha, text_color.name()))
             self.font_color_code = color
 
     def update_background_color_button(self):
@@ -463,10 +476,22 @@ class TitleEditor(QDialog):
                 opacity = 1.0
 
             color = QtGui.QColor(color)
+
+            # Compute perceptive luminance of background color
+            colrgb = color.getRgbF()
+            lum = (0.299 * colrgb[0] + 0.587 * colrgb[1] + 0.114 * colrgb[2])
+            if (lum < 0.5):
+              text_color = QtGui.QColor(Qt.white)
+            else:
+              text_color = QtGui.QColor(Qt.black)
+
             # Convert the opacity into the alpha value
             alpha = int(opacity * 65535.0)
-            # Set the alpha value of the button
-            self.btnBackgroundColor.setStyleSheet("background-color: %s; opacity %s" % (color.name(), alpha))
+
+            # Set the colors of the button
+            self.btnBackgroundColor.setStyleSheet(
+                "background-color: %s; opacity: %s; color: %s;"
+                % (color.name(), alpha, text_color.name()))
             self.bg_color_code = color
 
     def set_font_style(self):
