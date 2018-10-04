@@ -322,8 +322,8 @@ class TitleEditor(QDialog):
 
         # Update SVG colors
         if col.isValid():
-            self.btnFontColor.setStyleSheet("background-color: %s" % col.name())
             self.set_font_color_elements(col.name(), col.alphaF())
+            self.update_font_color_button()
             self.font_color_code = col
 
         # Something changed, so update temp SVG
@@ -342,8 +342,8 @@ class TitleEditor(QDialog):
 
         # Update SVG colors
         if col.isValid():
-            self.btnBackgroundColor.setStyleSheet("background-color: %s" % col.name())
             self.set_bg_style(col.name(), col.alphaF())
+            self.update_background_color_button()
             self.bg_color_code = col
 
         # Something changed, so update temp SVG
