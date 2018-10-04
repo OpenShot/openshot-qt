@@ -40,7 +40,7 @@ def zoomToSeconds(zoomValue):
 def secondsToZoom(scaleValue):
     """ Convert a number of seconds to a timeline zoom factor """
     if scaleValue in zoomSeconds:
-        return zoomSeconds[scaleValue]
+        return zoomSeconds.index(scaleValue)
     else:
         # Find closest zoom
         closestValue = zoomSeconds[0]
@@ -48,4 +48,3 @@ def secondsToZoom(scaleValue):
             if zoomValue < scaleValue:
                 closestValue = zoomValue
         return zoomSeconds.index(closestValue)
-

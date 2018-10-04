@@ -60,10 +60,10 @@ def init_language():
          "path": QLibraryInfo.location(QLibraryInfo.TranslationsPath)},
         {"type": 'QT',
          "prefix": 'qt_',
-         "path": os.path.join(info.PATH, 'locale', 'QT')}, # Optional path where we package QT translations
+         "path": os.path.join(info.PATH, 'language')}, # Optional path where we package QT translations
         {"type": 'QT',
          "prefix": 'qtbase_',
-         "path": os.path.join(info.PATH, 'locale', 'QT')}, # Optional path where we package QT translations
+         "path": os.path.join(info.PATH, 'language')}, # Optional path where we package QT translations
         {"type": 'OpenShot',
          "prefix": 'OpenShot.',  # Our custom translations
          "path": language_path},

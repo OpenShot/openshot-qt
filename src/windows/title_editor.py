@@ -1,33 +1,34 @@
-""" 
+"""
  @file
  @brief This file loads the title editor dialog (i.e SVG creator)
  @author Jonathan Thomas <jonathan@openshot.org>
  @author Andy Finch <andy@openshot.org>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
 import sys
 import os
+import re
 import shutil
 import functools
 import subprocess
@@ -37,7 +38,6 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem, QFont
 from PyQt5.QtWidgets import *
 from PyQt5 import uic, QtSvg, QtGui
-from PyQt5.QtWebKitWidgets import QWebView
 import openshot
 
 from classes import info, ui_util, settings, qt_types, updates
@@ -205,11 +205,26 @@ class TitleEditor(QDialog):
             self.txtFileName.setText(os.path.split(self.edit_file_path)[1])
             self.txtFileName.setEnabled(False)
         else:
+            name = _("TitleFileName-%d")
+            offset = 0
+            if self.duplicate and self.edit_file_path:
+                # Re-use current name
+                name = os.path.split(self.edit_file_path)[1]
+                # Splits the filename into (base-part)(optional "-")(number)(.svg)
+                match = re.match(r"^(.*?)(-?)([0-9]*)(\.svg)?$", name)
+                # Make sure the new title ends with "-%d" by default
+                name = match.group(1) + "-%d"
+                if match.group(3):
+                    # Filename already contained a number -> start counting from there
+                    offset = int(match.group(3))
+                    # -> only use "-" if it was there before
+                    name = match.group(1) + match.group(2) + "%d"
             # Find an unused file name
             for i in range(1, 1000):
-                possible_path = os.path.join(info.ASSETS_PATH, "%s.svg" % _("TitleFileName-%d") % i)
+                curname = name % (offset + i)
+                possible_path = os.path.join(info.ASSETS_PATH, "%s.svg" % curname)
                 if not os.path.exists(possible_path):
-                    self.txtFileName.setText(_("TitleFileName-%d") % i)
+                    self.txtFileName.setText(curname)
                     break
         self.txtFileName.setFixedHeight(28)
         self.settingsContainer.layout().addRow(label, self.txtFileName)

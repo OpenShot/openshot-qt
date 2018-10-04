@@ -29,9 +29,9 @@ import os
 
 from PyQt5.QtCore import QDir
 
-VERSION = "2.4.2-dev1"
-MINIMUM_LIBOPENSHOT_VERSION = "0.2.0"
-DATE = "20180630000000"
+VERSION = "2.4.3-dev1"
+MINIMUM_LIBOPENSHOT_VERSION = "0.2.2"
+DATE = "20180922000000"
 NAME = "openshot-qt"
 PRODUCT_NAME = "OpenShot Video Editor"
 GPL_VERSION = "3"
