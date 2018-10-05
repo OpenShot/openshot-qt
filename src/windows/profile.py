@@ -132,5 +132,8 @@ class Profile(QDialog):
         # Force ApplyMapperToClips to apply these changes
         get_app().window.timeline_sync.timeline.ApplyMapperToClips()
 
+        # Force SetAspectRatio to apply display_ratio and pixel_ratio changes
+        get_app().window.videoPreview.SetAspectRatio(profile.info.display_ratio.num, profile.info.display_ratio.den, profile.info.pixel_ratio.num, profile.info.pixel_ratio.den)
+
         # Update Window Title
         get_app().window.SetWindowTitle(profile.info.description)

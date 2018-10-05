@@ -463,6 +463,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Restore normal cursor
         get_app().restoreOverrideCursor()
 
+	# Call up the profile selection dialog to verify aspect ratio for loaded project
+        self.actionProfile.trigger()
+
     def clear_all_thumbnails(self):
         """Clear all user thumbnails"""
         try:
