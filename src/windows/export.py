@@ -186,6 +186,7 @@ class Export(QDialog):
         self.cboSimpleQuality.currentIndexChanged.connect(
             functools.partial(self.cboSimpleQuality_index_changed, self.cboSimpleQuality))
         self.cboChannelLayout.currentIndexChanged.connect(self.updateChannels)
+        self.chkShutdownAfterExport.toggled.connect(functools.partial(self.chkShutdownAfterExport_toggled))
         get_app().window.ExportFrame.connect(self.updateProgressBar)
 
         # ********* Advanced Profile List **********
@@ -579,6 +580,12 @@ class Export(QDialog):
 
             # update export folder path in project file
             get_app().updates.update(["export_path"], file_path)
+            
+    def chkShutdownAfterExport_toggled(self):
+        if self.chkShutdownAfterExport.isChecked():
+            log.info("chkShutdownAfterExport_toggled, is currently checked")
+        else:
+            log.info("chkShutdownAfterExport_toggled, is currently unchecked")        
 
     def convert_to_bytes(self, BitRateString):
         bit_rate_bytes = 0
@@ -763,7 +770,7 @@ class Export(QDialog):
                     break
 
             # Close writer
-            w.Close()
+            w.Close()         
 
 
         except Exception as e:
@@ -818,7 +825,13 @@ class Export(QDialog):
             os.environ['OS2_OMP_THREADS'] = "0"
 
         # Accept dialog
-        super(Export, self).accept()
+        super(Export, self).accept()          
+        
+        # If "Shutdown" option is checked, shutdown the computer after export
+        shutdown_after_export = self.chkShutdownAfterExport.isChecked()
+        if shutdown_after_export:
+            log.info("Shutting down in 60 seconds as shutdown after export option was checked.")
+            self.shutdown()
 
     def reject(self):
         # Re-set OMP thread enabled flag
@@ -830,3 +843,19 @@ class Export(QDialog):
         # Cancel dialog
         self.exporting = False
         super(Export, self).reject()
+        
+    def shutdown(self):
+        # Shutdown the system after export (if option is selected)
+        import platform
+        if platform.system()=="Windows":
+            os.system("shutdown -s -t 60")
+        else:
+            os.system("shutdown -h +1")
+        
+        # Give a courtesy warning message
+        msg = QMessageBox()
+        _ = get_app().tr
+        msg.setWindowTitle(_("Export Complete"))
+        msg.setText(_("Your video has finished exporting. The system will shut down in 1 minute."))
+        msg.exec_()
+        
