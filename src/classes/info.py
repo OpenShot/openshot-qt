@@ -29,7 +29,7 @@ import os
 
 from PyQt5.QtCore import QDir
 
-VERSION = "2.4.3"
+VERSION = "2.4.3-dev1"
 MINIMUM_LIBOPENSHOT_VERSION = "0.2.2"
 DATE = "20180922000000"
 NAME = "openshot-qt"
