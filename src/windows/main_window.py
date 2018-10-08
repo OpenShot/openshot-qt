@@ -461,17 +461,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 # to open a file with a blank name. This could use some
                 # improvement.
                 if file_path != "":
-                    log.info("File not found at {}".format(file_path))
-                    ret = QMessageBox.question(self,
-                                            _("Error Opening Project"),
-                                            _("Could not find project {}. It may have been moved or deleted.\n\nWould you like to remove it from the Recent Projects menu?".format(file_path)),
-                                            QMessageBox.No | QMessageBox.Yes)
-                    if ret == QMessageBox.Yes:
-                        self.remove_recent_project(file_path)
-                        log.info("Removing {} from Recent Projects.".format(file_path))
+                    # Prepare to use status bar
+                    self.statusBar = QStatusBar()
+                    self.setStatusBar(self.statusBar)
 
-                        # Reload recent projects menu
-                        self.load_recent_menu()
+                    log.info("File not found at {}".format(file_path))
+                    self.statusBar.showMessage(_("Project {} is missing (it may have been moved or deleted). It has been removed from the Recent Projects menu.".format(file_path)), 5000)
+                    self.remove_recent_project(file_path)
+                    self.load_recent_menu()
 
         except Exception as ex:
             log.error("Couldn't open project {}".format(file_path))
@@ -893,7 +890,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Translate object
         _ = get_app()._tr
 
-	# Prepare to use the status bar
+	    # Prepare to use the status bar
         self.statusBar = QStatusBar()
         self.setStatusBar(self.statusBar)
 
@@ -918,7 +915,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 framePath = "%s.osp" % framePath
         else:
             # No path specified (save frame cancelled)
-            self.statusBar.showMessage(_("Save Frame cancelled..."), 5000);
+            self.statusBar.showMessage(_("Save Frame cancelled..."), 5000)
             return
 
         get_app().updates.update(["export_path"], os.path.dirname(framePath))
@@ -951,10 +948,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 	# Show message to user
         if os.path.exists(framePath) and (QFileInfo(framePath).lastModified() > framePathTime): 
             #QMessageBox.information(self, _("Save Frame Successful"), _("Saved image to %s" % framePath))
-            self.statusBar.showMessage(_("Saved Frame to %s" % framePath), 5000);
+            self.statusBar.showMessage(_("Saved Frame to %s" % framePath), 5000)
         else:
             #QMessageBox.warning(self, _("Save Frame Failed"), _("Failed to save image to %s" % framePath))
-            self.statusBar.showMessage( _("Failed to save image to %s" % framePath), 5000);
+            self.statusBar.showMessage( _("Failed to save image to %s" % framePath), 5000)
 
 	# Reset the MaxSize to match the preview and reset the preview cache
         viewport_rect = self.videoPreview.centeredViewport(self.videoPreview.width(), self.videoPreview.height())
