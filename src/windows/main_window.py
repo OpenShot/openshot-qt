@@ -2095,7 +2095,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.timelineToolbar.addSeparator()
 
         # Get project's initial zoom value
-        initial_scale = get_app().project.get(["scale"]) or 16
+        initial_scale = get_app().project.get(["scale"]) or 15
         # Round non-exponential scale down to next lowest power of 2
         initial_zoom = secondsToZoom(initial_scale)
 
@@ -2422,7 +2422,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             os.environ['OS2_DECODE_HW'] = "0"
 
-        # Set hardware decode environment variable
+        # Set OMP thread enabled flag (for stability)
         if s.get("omp_threads_enabled"):
             os.environ['OS2_OMP_THREADS'] = "1"
         else:

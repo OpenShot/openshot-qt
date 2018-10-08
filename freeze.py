@@ -125,7 +125,7 @@ build_options = {}
 build_exe_options = {}
 
 # Copy QT translations to local folder (to be packaged)
-qt_local_path = os.path.join(PATH, "openshot_qt", "locale", "QT")
+qt_local_path = os.path.join(PATH, "openshot_qt", "language")
 qt_system_path = QLibraryInfo.location(QLibraryInfo.TranslationsPath)
 if os.path.exists(qt_system_path):
     # Create local QT translation folder (if needed)
@@ -133,8 +133,8 @@ if os.path.exists(qt_system_path):
         os.mkdir(qt_local_path)
     # Loop through QT translation files and copy them
     for file in os.listdir(qt_system_path):
-        # Copy QT locale files
-        if file.startswith("qt_") and file.endswith(".qm"):
+        # Copy QT translation files
+        if (file.startswith("qt_") or file.startswith("qtbase_")) and file.endswith(".qm"):
             shutil.copyfile(os.path.join(qt_system_path, file), os.path.join(qt_local_path, file))
 
 if sys.platform == "win32":

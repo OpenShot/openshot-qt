@@ -7,7 +7,7 @@ developer credits.
 
 
 Translation:
-See src/locale/ folders for details on translation credits. Each
+See src/language/ folder for details on translation credits. Each
 translation contains a "translator-credits" key containing the
 details of each translator that contributed to that language.
 

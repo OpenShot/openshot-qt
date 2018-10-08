@@ -237,37 +237,36 @@ try:
     # Get GIT description of openshot-qt-git branch (i.e. v2.0.6-18-ga01a98c)
     openshot_qt_git_desc = ""
     needs_upload = True
-    for line in run_command("git describe --tags"):
-        git_description = line.decode("utf-8").strip()
-        openshot_qt_git_desc = "OpenShot-%s" % git_description
 
-        # Add num of commits from libopenshot and libopenshot-audio (for naming purposes)
-        # If not an official release
-        if git_branch_name == "develop":
-            # Make filename more descriptive for daily builds (add time epoch)
-            openshot_qt_git_desc = "OpenShot-v%s-%d" % (info.VERSION, int(time.time()))
-            openshot_qt_git_desc = "%s-%s-%s" % (openshot_qt_git_desc, version_info.get('libopenshot').get('CI_COMMIT_SHA')[:8], version_info.get('libopenshot-audio').get('CI_COMMIT_SHA')[:8])
-            # Get daily git_release object
-            github_release = get_release(repo, "daily")
-        elif git_branch_name == "release":
-            # Get daily git_release object
-            openshot_qt_git_desc = "OpenShot-v%s-%d" % (info.VERSION, int(time.time()))
-            github_release = get_release(repo, "daily")
-        elif git_branch_name == "master":
-            # Get official version release (i.e. v2.1.0, v2.x.x)
-            github_release = get_release(repo, git_description)
+    # Add num of commits from libopenshot and libopenshot-audio (for naming purposes)
+    # If not an official release
+    if git_branch_name == "develop":
+        # Make filename more descriptive for daily builds (add time epoch)
+        openshot_qt_git_desc = "OpenShot-v%s-%d" % (info.VERSION, int(time.time()))
+        openshot_qt_git_desc = "%s-%s-%s" % (openshot_qt_git_desc, version_info.get('libopenshot').get('CI_COMMIT_SHA')[:8], version_info.get('libopenshot-audio').get('CI_COMMIT_SHA')[:8])
+        # Get daily git_release object
+        github_release = get_release(repo, "daily")
+    elif git_branch_name == "release":
+        # Get daily git_release object
+        openshot_qt_git_desc = "OpenShot-v%s-release-candidate-%d" % (info.VERSION, int(time.time()))
+        github_release = get_release(repo, "daily")
+    elif git_branch_name == "master":
+        # Get official version release (i.e. v2.1.0, v2.x.x)
+        openshot_qt_git_desc = "OpenShot-v%s" % info.VERSION
+        github_release_name = "v%s" % info.VERSION
+        github_release = get_release(repo, github_release_name)
 
-            # If no release is found, create a new one
-            if not github_release:
-                # Create a new release if one if missing
-                github_release = repo.create_release(git_description, target_commitish="master", prerelease=True)
-        else:
-            # Make filename more descriptive for daily builds
-            openshot_qt_git_desc = "OpenShot-v%s-%d" % (info.VERSION, int(time.time()))
-            openshot_qt_git_desc = "%s-%s-%s" % (openshot_qt_git_desc, version_info.get('libopenshot').get('CI_COMMIT_SHA')[:8], version_info.get('libopenshot-audio').get('CI_COMMIT_SHA')[:8])
-            # Get daily git_release object
-            github_release = get_release(repo, "daily")
-            needs_upload = False
+        # If no release is found, create a new one
+        if not github_release:
+            # Create a new release if one if missing
+            github_release = repo.create_release(github_release_name, target_commitish="master", prerelease=True)
+    else:
+        # Make filename more descriptive for daily builds
+        openshot_qt_git_desc = "OpenShot-v%s-%d" % (info.VERSION, int(time.time()))
+        openshot_qt_git_desc = "%s-%s-%s" % (openshot_qt_git_desc, version_info.get('libopenshot').get('CI_COMMIT_SHA')[:8], version_info.get('libopenshot-audio').get('CI_COMMIT_SHA')[:8])
+        # Get daily git_release object
+        github_release = get_release(repo, "daily")
+        needs_upload = False
 
     # Output git description
     output("git description of openshot-qt-git: %s" % openshot_qt_git_desc)
