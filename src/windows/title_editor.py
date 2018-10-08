@@ -86,8 +86,8 @@ class TitleEditor(QDialog):
         imp = minidom.getDOMImplementation()
         self.xmldoc = imp.createDocument(None, "any", None)
 
-        self.bg_color_code = ""
-        self.font_color_code = "#ffffff"
+        self.bg_color_code = QtGui.QColor(Qt.black)
+        self.font_color_code = QtGui.QColor(Qt.white)
 
         self.bg_style_string = ""
         self.title_style_string = ""
@@ -317,13 +317,14 @@ class TitleEditor(QDialog):
         _ = app._tr
 
         # Get color from user
-        col = QColorDialog.getColor(Qt.white, self, _("Select a Color"),
+        col = QColorDialog.getColor(self.font_color_code, self, _("Select a Color"),
                                     QColorDialog.DontUseNativeDialog | QColorDialog.ShowAlphaChannel)
 
         # Update SVG colors
         if col.isValid():
-            self.btnFontColor.setStyleSheet("background-color: %s" % col.name())
             self.set_font_color_elements(col.name(), col.alphaF())
+            self.update_font_color_button()
+            self.font_color_code = col
 
         # Something changed, so update temp SVG
         self.writeToFile(self.xmldoc)
@@ -336,13 +337,14 @@ class TitleEditor(QDialog):
         _ = app._tr
 
         # Get color from user
-        col = QColorDialog.getColor(Qt.white, self, _("Select a Color"),
+        col = QColorDialog.getColor(self.bg_color_code, self, _("Select a Color"),
                                     QColorDialog.DontUseNativeDialog | QColorDialog.ShowAlphaChannel)
 
         # Update SVG colors
         if col.isValid():
-            self.btnBackgroundColor.setStyleSheet("background-color: %s" % col.name())
             self.set_bg_style(col.name(), col.alphaF())
+            self.update_background_color_button()
+            self.bg_color_code = col
 
         # Something changed, so update temp SVG
         self.writeToFile(self.xmldoc)
@@ -416,9 +418,23 @@ class TitleEditor(QDialog):
                 opacity = 1.0
 
             color = QtGui.QColor(color)
+
+            # Compute perceptive luminance of background color
+            colrgb = color.getRgbF()
+            lum = (0.299 * colrgb[0] + 0.587 * colrgb[1] + 0.114 * colrgb[2])
+            if (lum < 0.5):
+              text_color = QtGui.QColor(Qt.white)
+            else:
+              text_color = QtGui.QColor(Qt.black)
+
             # Convert the opacity into the alpha value
             alpha = int(opacity * 65535.0)
-            self.btnFontColor.setStyleSheet("background-color: %s; opacity %s" % (color.name(), alpha))
+
+            # Set the colors of the button
+            self.btnFontColor.setStyleSheet(
+                "background-color: %s; opacity: %s; color: %s;"
+                % (color.name(), alpha, text_color.name()))
+            self.font_color_code = color
 
     def update_background_color_button(self):
         """Updates the color shown on the background color button"""
@@ -460,10 +476,23 @@ class TitleEditor(QDialog):
                 opacity = 1.0
 
             color = QtGui.QColor(color)
+
+            # Compute perceptive luminance of background color
+            colrgb = color.getRgbF()
+            lum = (0.299 * colrgb[0] + 0.587 * colrgb[1] + 0.114 * colrgb[2])
+            if (lum < 0.5):
+              text_color = QtGui.QColor(Qt.white)
+            else:
+              text_color = QtGui.QColor(Qt.black)
+
             # Convert the opacity into the alpha value
             alpha = int(opacity * 65535.0)
-            # Set the alpha value of the button
-            self.btnBackgroundColor.setStyleSheet("background-color: %s; opacity %s" % (color.name(), alpha))
+
+            # Set the colors of the button
+            self.btnBackgroundColor.setStyleSheet(
+                "background-color: %s; opacity: %s; color: %s;"
+                % (color.name(), alpha, text_color.name()))
+            self.bg_color_code = color
 
     def set_font_style(self):
         '''sets the font properties'''
