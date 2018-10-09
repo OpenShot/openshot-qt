@@ -120,6 +120,7 @@
      </property>
      <addaction name="actionSimple_View"/>
      <addaction name="actionAdvanced_View"/>
+     <addaction name="actionProperties_View"/>
      <addaction name="separator"/>
      <addaction name="actionFreeze_View"/>
      <addaction name="actionUn_Freeze_View"/>
@@ -1161,6 +1162,15 @@
    </property>
    <property name="text">
     <string>Advanced View</string>
+   </property>
+  </action>
+  <action name="actionProperties_View">
+   <property name="icon">
+    <iconset theme="view-list-symbolic" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/custom/properties-view.svg</normaloff>:/icons/Humanity/actions/custom/properties-view.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Properties View</string>
    </property>
   </action>
   <action name="actionFreeze_View">
