@@ -1764,7 +1764,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.removeDocks()
 
         # In case it's been changed by Properties View
-        self.setCorner(Qt.TopLeftCorner, Qt.TopDockWidgetArea)
+        #self.setCorner(Qt.TopLeftCorner, Qt.TopDockWidgetArea)
 
         self.addDocks([self.dockFiles, self.dockTransitions, self.dockEffects, self.dockVideo], Qt.TopDockWidgetArea)
         self.floatDocks(False)
@@ -1783,7 +1783,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.removeDocks()
 
         # In case it's been changed by Properties View
-        self.setCorner(Qt.TopLeftCorner, Qt.TopDockWidgetArea)
+        #self.setCorner(Qt.TopLeftCorner, Qt.TopDockWidgetArea)
 
         # Add Docks
         self.addDocks([self.dockFiles, self.dockTransitions, self.dockVideo], Qt.TopDockWidgetArea)
@@ -1804,8 +1804,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         log.info("actionProperties_View_trigger() called")
 
-        # Give top-left corner to LeftDockWidgetArea
+        # Configure the side docks to full-height
         self.setCorner(Qt.TopLeftCorner, Qt.LeftDockWidgetArea)
+        self.setCorner(Qt.BottomLeftCorner, Qt.LeftDockWidgetArea)
+        self.setCorner(Qt.TopRightCorner, Qt.RightDockWidgetArea)
+        self.setCorner(Qt.BottomRightCorner, Qt.RightDockWidgetArea)
 
         # Place the Properties dock and reveal it
         self.addDocks([self.dockProperties], Qt.LeftDockWidgetArea)
@@ -2337,6 +2340,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Setup timeline
         self.timeline = TimelineWebView(self)
         self.frameWeb.layout().addWidget(self.timeline)
+
+        # Configure the side docks to full-height
+        self.setCorner(Qt.TopLeftCorner, Qt.LeftDockWidgetArea)
+        self.setCorner(Qt.BottomLeftCorner, Qt.LeftDockWidgetArea)
+        self.setCorner(Qt.TopRightCorner, Qt.RightDockWidgetArea)
+        self.setCorner(Qt.BottomRightCorner, Qt.RightDockWidgetArea)
 
         # Setup files tree
         if s.get("file_view") == "details":
