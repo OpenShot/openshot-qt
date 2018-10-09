@@ -61,22 +61,21 @@
  		<div class="cleared"></div>
 
 		<!-- TRACKS NAMES (left of screen) -->
-		<div id="track_controls">
+		<div id="track_controls">			
 			<div ng-repeat="layer in project.layers.slice().reverse()" id="track_static_{{layer.number}}" ng-right-click="ShowTrackMenu(layer.id)" class="track_name">
 				<div class="track_top">
 					<div tl-clip-menu class="track_menu" ng-mousedown="ShowTrackMenu(layer.id)"></div>
 					<span class="track_label">{{GetTrackName(layer.label, layer.number)}}</span><span ng-show="layer.lock" class="track_lock"></span>
 				</div>
+						<div class="audio_toggle" >
+							<button>Audio</button>	
+						</div>
+		
+						<div class="video_toggle" >
+							<button>Video</button>
+						</div>
 			</div>
 			<br>
-
-			<div class="audio_toggle"   >
-				<button>Audio</button>	
-			</div>
-
-			<div class="video_toggle"  >
-				<button>Video</button>
-			</div>
 
 		</div>
 		<!-- TRACKS CONTAINER (right of screen) -->
