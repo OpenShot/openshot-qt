@@ -442,6 +442,18 @@
    </widget>
   </widget>
   <widget class="QDockWidget" name="dockTimeline">
+   <property name="minimumSize">
+    <size>
+     <width>250</width>
+     <height>150</height>
+    </size>
+   </property>
+   <property name="features">
+    <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
+   </property>
+   <property name="windowTitle">
+    <string>Ti&amp;meline</string>
+   </property>
    <attribute name="dockWidgetArea">
     <number>8</number>
    </attribute>
