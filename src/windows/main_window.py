@@ -896,9 +896,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         framePath, file_type = QFileDialog.getSaveFileName(self, _("Save Frame..."), framePath, _("Image files (*.png)"))
 
         if framePath:
-            # Append .osp if needed
+            # Append .png if needed
             if ".png" not in framePath:
-                framePath = "%s.osp" % framePath
+                framePath = "%s.png" % framePath
         else:
             # No path specified (save frame cancelled)
             self.statusBar.showMessage(_("Save Frame cancelled..."), 5000);

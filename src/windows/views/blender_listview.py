@@ -89,7 +89,7 @@ class BlenderListView(QListView):
 
         # Loop through params
         for param in animation.get("params",[]):
-            log.info(param["title"])
+            log.info('Using parameter %s: %s' % (param["name"], param["title"]))
 
             # Is Hidden Param?
             if param["name"] == "start_frame" or param["name"] == "end_frame":
@@ -197,8 +197,9 @@ class BlenderListView(QListView):
         self.init_slider_values()
 
     def spinner_value_changed(self, param, value):
+        log.info('Animation param being changed: %s' % param["name"])
         self.params[param["name"]] = value
-        log.info(value)
+        log.info('New value of param: %s' % value)
 
     def text_value_changed(self, widget, param, value=None):
         try:
@@ -207,13 +208,15 @@ class BlenderListView(QListView):
                 value = widget.toPlainText()
         except:
             pass
+        log.info('Animation param being changed: %s' % param["name"])
         self.params[param["name"]] = value.replace("\n", "\\n")
-        log.info(value)
+        log.info('New value of param: %s' % value)
 
     def dropdown_index_changed(self, widget, param, index):
+        log.info('Animation param being changed: %s' % param["name"])
         value = widget.itemData(index)
         self.params[param["name"]] = value
-        log.info(value)
+        log.info('New value of param: %s' % value)
 
     def color_button_clicked(self, widget, param, index):
         # Show color dialog
@@ -222,14 +225,13 @@ class BlenderListView(QListView):
         log.info('Value of param: %s' % color_value)
         currentColor = QColor("#FFFFFF")
         if len(color_value) == 3:
-            log.info('Using previous color: %s' % color_value)
             #currentColor = QColor(color_value[0], color_value[1], color_value[2])
             currentColor.setRgbF(color_value[0], color_value[1], color_value[2])
         newColor = QColorDialog.getColor(currentColor)
         if newColor.isValid():
             widget.setStyleSheet("background-color: {}".format(newColor.name()))
             self.params[param["name"]] = [newColor.redF(), newColor.greenF(), newColor.blueF()]
-            log.info(newColor.name())
+            log.info('New value of param: %s' % newColor.name())
 
     def generateUniqueFolder(self):
         """ Generate a new, unique folder name to contain Blender frames """
@@ -300,7 +302,7 @@ class BlenderListView(QListView):
 
         # Add file to project
         final_path = os.path.join(info.BLENDER_PATH, self.unique_folder_name, self.params["file_name"] + "%04d.png")
-        log.info(final_path)
+        log.info('Adding to project files: %s' % final_path)
 
         # Add to project files
         self.win.add_file(final_path)
@@ -651,7 +653,7 @@ class BlenderListView(QListView):
 
     # Error from blender (with version number) (1003)
     def onBlenderVersionError(self, version):
-        log.info('onBlenderVersionError')
+        log.info('onBlenderVersionError: %s' % version)
         self.error_with_blender(version)
 
     # Error from blender (with no data) (1004)
@@ -771,11 +773,11 @@ class Worker(QObject):
 
             # Look for progress info in the Blender Output
             output_saved = self.blender_saved_expression.findall(str(line))
-            log.info("Image detected from blender regex: %s" % output_saved)
 
             # Does it have a match?
             if output_saved:
                 # Yes, we have a match
+                log.info("Image detected from blender regex: %s" % output_saved)
                 self.frame_detected = True
                 image_path = output_saved[0][0]
                 time_saved = output_saved[0][1]
