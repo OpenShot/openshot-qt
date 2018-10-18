@@ -137,6 +137,7 @@ class Preferences(QDialog):
 
                 # Create Label
                 widget = None
+                extraWidget = None
                 label = QLabel()
                 label.setText(_(param["title"]))
                 label.setToolTip(_(param["title"]))
@@ -166,6 +167,13 @@ class Preferences(QDialog):
                     widget = QLineEdit()
                     widget.setText(_(param["value"]))
                     widget.textChanged.connect(functools.partial(self.text_value_changed, widget, param))
+
+                elif param["type"] == "browse":
+                    # create QLineEdit
+                    widget = QLineEdit()
+                    widget.setText(_(param["value"]))
+                    widget.textChanged.connect(functools.partial(self.text_value_changed, widget, param))
+                    extraWidget = QPushButton("Browse")
 
                 elif param["type"] == "bool":
                     # create spinner
@@ -238,6 +246,7 @@ class Preferences(QDialog):
                     layout_hbox = QHBoxLayout()
                     layout_hbox.addWidget(label)
                     layout_hbox.addWidget(widget)
+                    layout_hbox.addWidget(extraWidget)
 
                     # Add widget to layout
                     tabWidget.layout().addLayout(layout_hbox)
