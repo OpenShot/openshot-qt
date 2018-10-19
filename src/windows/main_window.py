@@ -896,9 +896,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         framePath, file_type = QFileDialog.getSaveFileName(self, _("Save Frame..."), framePath, _("Image files (*.png)"))
 
         if framePath:
-            # Append .osp if needed
+            # Append .png if needed
             if ".png" not in framePath:
-                framePath = "%s.osp" % framePath
+                framePath = "%s.png" % framePath
         else:
             # No path specified (save frame cancelled)
             self.statusBar.showMessage(_("Save Frame cancelled..."), 5000);
@@ -932,7 +932,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         #log.info("new framePathTime %s" % QFileInfo(framePath).lastModified().toString("yyMMdd hh:mm:ss.zzz") )
 
 	# Show message to user
-        if os.path.exists(framePath) and (QFileInfo(framePath).lastModified() > framePathTime): 
+        if os.path.exists(framePath) and (QFileInfo(framePath).lastModified() > framePathTime):
             #QMessageBox.information(self, _("Save Frame Successful"), _("Saved image to %s" % framePath))
             self.statusBar.showMessage(_("Saved Frame to %s" % framePath), 5000);
         else:
