@@ -174,7 +174,7 @@ class Preferences(QDialog):
                     widget.setText(_(param["value"]))
                     widget.textChanged.connect(functools.partial(self.text_value_changed, widget, param))
                     extraWidget = QPushButton("Browse")
-                    extraWidget.clicked.connect(functools.partial(self.selectExecutable, param))
+                    extraWidget.clicked.connect(functools.partial(self.selectExecutable, widget, param))
 
                 elif param["type"] == "bool":
                     # create spinner
@@ -258,10 +258,12 @@ class Preferences(QDialog):
             # Add stretch to bottom of layout
             tabWidget.layout().addStretch()
 
-    def selectExecutable(self, param):
+    def selectExecutable(self, widget, param):
         fileName, _ = QFileDialog.getOpenFileName(self,"Select Blender executable", "","All Files (*)")
         if fileName:
             log.info(fileName)
+            self.s.set(param["setting"], fileName)
+            widget.setText(fileName)
 
     def check_for_restart(self, param):
         """Check if the app needs to restart"""
