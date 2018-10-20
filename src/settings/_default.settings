@@ -65,7 +65,7 @@
   {
     "value": "inkscape",
     "title": "Advanced Title Editor (path)",
-    "type": "text",
+    "type": "browse",
     "category": "General",
     "setting": "title_editor"
   },
