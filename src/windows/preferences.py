@@ -259,7 +259,7 @@ class Preferences(QDialog):
             tabWidget.layout().addStretch()
 
     def selectExecutable(self, widget, param):
-        fileName, _ = QFileDialog.getOpenFileName(self,"Select executable file", QDir.rootPath(),"All Files (*)")
+        fileName = QFileDialog.getOpenFileName(self,"Select executable file", QDir.rootPath(),"All Files (*)")
         if fileName:
             self.s.set(param["setting"], fileName)
             widget.setText(fileName)
