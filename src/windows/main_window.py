@@ -455,6 +455,20 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 self.load_recent_menu()
 
                 log.info("Loaded project {}".format(file_path))
+            else:
+                # If statement is required, as if the user hits "Cancel"
+                # on the "load file" dialog, it is interpreted as trying
+                # to open a file with a blank name. This could use some
+                # improvement.
+                if file_path != "":
+                    # Prepare to use status bar
+                    self.statusBar = QStatusBar()
+                    self.setStatusBar(self.statusBar)
+
+                    log.info("File not found at {}".format(file_path))
+                    self.statusBar.showMessage(_("Project {} is missing (it may have been moved or deleted). It has been removed from the Recent Projects menu.".format(file_path)), 5000)
+                    self.remove_recent_project(file_path)
+                    self.load_recent_menu()
 
         except Exception as ex:
             log.error("Couldn't open project {}".format(file_path))
@@ -876,7 +890,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Translate object
         _ = get_app()._tr
 
-	# Prepare to use the status bar
+	    # Prepare to use the status bar
         self.statusBar = QStatusBar()
         self.setStatusBar(self.statusBar)
 
@@ -901,7 +915,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 framePath = "%s.png" % framePath
         else:
             # No path specified (save frame cancelled)
-            self.statusBar.showMessage(_("Save Frame cancelled..."), 5000);
+            self.statusBar.showMessage(_("Save Frame cancelled..."), 5000)
             return
 
         get_app().updates.update(["export_path"], os.path.dirname(framePath))
@@ -934,10 +948,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 	# Show message to user
         if os.path.exists(framePath) and (QFileInfo(framePath).lastModified() > framePathTime):
             #QMessageBox.information(self, _("Save Frame Successful"), _("Saved image to %s" % framePath))
-            self.statusBar.showMessage(_("Saved Frame to %s" % framePath), 5000);
+            self.statusBar.showMessage(_("Saved Frame to %s" % framePath), 5000)
         else:
             #QMessageBox.warning(self, _("Save Frame Failed"), _("Failed to save image to %s" % framePath))
-            self.statusBar.showMessage( _("Failed to save image to %s" % framePath), 5000);
+            self.statusBar.showMessage( _("Failed to save image to %s" % framePath), 5000)
 
 	# Reset the MaxSize to match the preview and reset the preview cache
         viewport_rect = self.videoPreview.centeredViewport(self.videoPreview.width(), self.videoPreview.height())
@@ -1957,6 +1971,15 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         for file_path in reversed(recent_projects):
             new_action = self.recent_menu.addAction(file_path)
             new_action.triggered.connect(functools.partial(self.recent_project_clicked, file_path))
+
+    # Remove a project from the Recent menu if OpenShot can't find it
+    def remove_recent_project(self, file_path):
+        s = settings.get_settings()
+        recent_projects = s.get("recent_projects")
+        if file_path in recent_projects:
+            recent_projects.remove(file_path)
+        s.set("recent_projects", recent_projects)
+        s.save()
 
     def recent_project_clicked(self, file_path):
         """ Load a recent project when clicked """
