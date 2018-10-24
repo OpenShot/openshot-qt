@@ -58,14 +58,14 @@
   {
     "value": "blender",
     "title": "Blender Command (path)",
-    "type": "text",
+    "type": "browse",
     "category": "General",
     "setting": "blender_command"
   },
   {
     "value": "inkscape",
     "title": "Advanced Title Editor (path)",
-    "type": "text",
+    "type": "browse",
     "category": "General",
     "setting": "title_editor"
   },
