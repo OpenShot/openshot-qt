@@ -165,7 +165,8 @@ class Clip(QueryObject):
         """ Get the translated display title of this item """
         path = self.data.get("reader", {}).get("path")
         folder_path, filename = os.path.split(path)
-        return os.path.splitext(filename)[0]
+        #return os.path.splitext(filename)[0]
+        return filename
 
 class Transition(QueryObject):
     """ This class allows Transitions (i.e. timeline effects) to be queried, updated, and deleted from the project data. """
