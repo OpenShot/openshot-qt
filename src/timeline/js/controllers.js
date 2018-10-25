@@ -796,7 +796,10 @@ $scope.SetTrackLabel = function (label) {
 	return Math.max(min_value, $scope.project.duration * $scope.pixelsPerSecond);
  };
 
- 
+ //Toggles audio (timeline)
+
+ //Toggles video (timeline)
+
  // Get Position of item (used by Qt)
  $scope.GetJavaScriptPosition = function(x) {
 	// Adjust for scrollbar position
