@@ -105,8 +105,6 @@ class EffectsModel():
             elif effect_info["has_video"] and not effect_info["has_audio"]:
                 category = "Video"
 
-            log.info("category: %s" % category)
-
             # Filter out effect (if needed)
             if win.effectsFilter.text() != "":
                 if not win.effectsFilter.text().lower() in self.app._tr(title).lower() and not win.effectsFilter.text().lower() in self.app._tr(description).lower():
