@@ -915,16 +915,17 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
             log.info("checking file %s" % path)
             while not os.path.exists(path) and "%" not in path:
-                # File already exists! Prompt user to find missing file
-                # try to find clip with previous starting folder:
+                # File already exists!
+                # try to find file with previous starting folder:
                 if starting_folder and os.path.exists(os.path.join(starting_folder, file_name_with_ext)):
-                    # Update clip path
+                    # Update file path
                     path = os.path.join(starting_folder, file_name_with_ext)
                     file["path"] = path
                     get_app().updates.update(["import_path"], os.path.dirname(path))
                     log.info("Auto-updated missing file: %s" % path)
                     break
                 else:
+                    # Prompt user to find missing file
                     QMessageBox.warning(None, _("Missing File (%s)") % file["id"], _("%s cannot be found.") % file_name_with_ext)
                     starting_folder = QFileDialog.getExistingDirectory(None, _("Find directory that contains: %s" % file_name_with_ext), starting_folder)
                     log.info("Missing folder chosen by user: %s" % starting_folder)
