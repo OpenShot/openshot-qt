@@ -858,6 +858,12 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
                 # Update clip image path
                 path = clip["image"]
+                # Check if our path is in the USER_PATH
+                folder_path, file_path = os.path.split(path)
+                if info.THUMBNAIL_PATH in folder_path:
+                    # Yes, this is a user thumbnail path
+                    clip["image"] = os.path.join("@thumbnail", file_path)
+                    continue
                 # Find absolute path of file (if needed)
                 if not os.path.isabs(path):
                     # Convert path to the correct relative path (based on the existing folder)
@@ -997,6 +1003,11 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
                 # Update clip image path
                 path = clip["image"]
+
+                # Determine if @thumbnail path is found
+                if "@thumbnail" in path:
+                    path = path.replace("@thumbnail", info.THUMBNAIL_PATH)
+
                 # Find absolute path of file (if needed)
                 if not os.path.isabs(path):
                     # Convert path to the correct relative path (based on the existing folder)
