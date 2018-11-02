@@ -129,10 +129,7 @@ def get_icon(theme_name):
 
     if theme_name:
         has_icon = QIcon.hasThemeIcon(theme_name)
-        if not has_icon:
-            log.warn('Icon theme {} not found. Will use backup icon.'.format(theme_name))
         fallback_icon, fallback_path = get_default_icon(theme_name)
-        # log.info('Fallback icon path for {} is {}'.format(theme_name, fallback_path))
         if has_icon or fallback_icon:
             return QIcon.fromTheme(theme_name, fallback_icon)
     return None
