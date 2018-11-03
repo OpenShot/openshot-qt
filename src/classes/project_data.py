@@ -1,28 +1,28 @@
-""" 
+"""
  @file
  @brief This file listens to changes, and updates the primary project data
  @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
  @author Olivier Girard <eolinwen@gmail.com>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
@@ -921,15 +921,17 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
             log.info("checking file %s" % path)
             while not os.path.exists(path) and "%" not in path:
-                # File already exists! Prompt user to find missing file
-                # try to find clip with previous starting folder:
+                # File already exists!
+                # try to find file with previous starting folder:
                 if starting_folder and os.path.exists(os.path.join(starting_folder, file_name_with_ext)):
-                    # Update clip path
+                    # Update file path
+                    path = os.path.join(starting_folder, file_name_with_ext)
                     file["path"] = path
                     get_app().updates.update(["import_path"], os.path.dirname(path))
-                    log.info("Auto-updated missing file: %s" % file["path"])
+                    log.info("Auto-updated missing file: %s" % path)
                     break
                 else:
+                    # Prompt user to find missing file
                     QMessageBox.warning(None, _("Missing File (%s)") % file["id"], _("%s cannot be found.") % file_name_with_ext)
                     starting_folder = QFileDialog.getExistingDirectory(None, _("Find directory that contains: %s" % file_name_with_ext), starting_folder)
                     log.info("Missing folder chosen by user: %s" % starting_folder)
