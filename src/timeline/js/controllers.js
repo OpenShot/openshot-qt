@@ -797,8 +797,35 @@ $scope.SetTrackLabel = function (label) {
  };
 
  //Toggles audio (timeline)
+ $(document).ready(function(){
+	$(".toggle").click(function(){
+	$(this).toggleClass("active");
+	});
 
+	
+  $(".audio_on").click(function(){
+    return confirm("Audio Is Now On")
+  });
+
+  $(".audio_off").click(function(){
+    return confirm("Audio Is Now Off")
+  });
+});
  //Toggles video (timeline)
+ $(document).ready(function(){
+	$(".toggle").click(function(){
+	$(this).toggleClass("active");
+	});
+
+	
+  $(".video_on").click(function(){
+    return confirm("Video Is Now On")
+  });
+
+  $(".video_off").click(function(){
+    return confirm("Video Is Now Off")
+  });
+});
 
  // Get Position of item (used by Qt)
  $scope.GetJavaScriptPosition = function(x) {
