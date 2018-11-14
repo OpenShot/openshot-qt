@@ -41,7 +41,7 @@
  """
 
 import sys
-from argparse import ArgumentParser
+from argparse import ArgumentParser, REMAINDER
 
 try:
     from classes import info
@@ -67,6 +67,7 @@ def main():
                         action='store_true', help='List all language '
                         'codes supported by OpenShot')
     parser.add_argument('-V', '--version', action='store_true')
+    parser.add_argument('remain', nargs=REMAINDER)
 
     args = parser.parse_args()
 
@@ -94,8 +95,11 @@ def main():
     log.info("   OpenShot (version %s)" % info.SETUP['version'])
     log.info("------------------------------------------------")
 
-    # Create Qt application
-    app = OpenShotApp(sys.argv)
+    # Create Qt application, pass any unprocessed arguments
+    argv = [sys.argv[0]]
+    for arg in args.remain:
+        argv.append(arg)
+    app = OpenShotApp(argv)
 
     # Run and return result
     sys.exit(app.run())
