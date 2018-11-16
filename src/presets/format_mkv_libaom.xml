@@ -9,9 +9,9 @@
 	<audiochannels>2</audiochannels>
 	<audiochannellayout>3</audiochannellayout>
 	<videobitrate
-	 low="384 kb/s"
-	 med="5 Mb/s"
-	 high="15.00 Mb/s"></videobitrate>
+	 low="50 crf"
+	 med="23 crf"
+	 high="1 crf"></videobitrate>
 	<audiobitrate
 	 low="96 kb/s"
 	 med="128 kb/s"
