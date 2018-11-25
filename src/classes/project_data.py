@@ -309,6 +309,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         self.new()
 
         if file_path:
+            log.info("Loading project file: {}".format(file_path))
+
             # Default project data
             default_project = self._data
 
@@ -686,6 +688,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
     def save(self, file_path, move_temp_files=True, make_paths_relative=True):
         """ Save project file to disk """
         import openshot
+
+        log.info("Saving project file: {}".format(file_path))
 
         # Move all temp files (i.e. Blender animations) to the project folder
         if move_temp_files:
