@@ -247,7 +247,9 @@ class Preferences(QDialog):
                     layout_hbox = QHBoxLayout()
                     layout_hbox.addWidget(label)
                     layout_hbox.addWidget(widget)
-                    layout_hbox.addWidget(extraWidget)
+
+                    if (extraWidget):
+                        layout_hbox.addWidget(extraWidget)
 
                     # Add widget to layout
                     tabWidget.layout().addLayout(layout_hbox)
