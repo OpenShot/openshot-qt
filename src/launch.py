@@ -47,8 +47,9 @@ try:
     from classes import info
     print("Loaded modules from current directory: %s" % info.PATH)
 except ImportError:
-    from openshot_qt.classes import info
-    sys.path.append(info.PATH)
+    import openshot_qt
+    sys.path.append(openshot_qt.OPENSHOT_PATH)
+    from classes import info
     print("Loaded modules from installed directory: %s" % info.PATH)
 
 from classes.app import OpenShotApp
