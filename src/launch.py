@@ -75,20 +75,20 @@ def main():
     # Display version and exit (if requested)
     if args.version:
         print("OpenShot version %s" % info.SETUP['version'])
-        exit()
+        sys.exit()
 
     if args.list_languages:
         print("Supported Languages:")
         for lang in get_all_languages():
             print("  {:>12}  {}".format(lang[0],lang[1]))
-        exit()
+        sys.exit()
 
     if args.lang:
         if args.lang in info.SUPPORTED_LANGUAGES:
             info.CMDLINE_LANGUAGE = args.lang
         else:
             print("Unsupported language '{}'! (See --list-languages)".format(args.lang))
-            exit(-1)
+            sys.exit(-1)
 
     reroute_output()
 
