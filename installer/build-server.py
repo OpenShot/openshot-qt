@@ -111,7 +111,7 @@ def zulip_upload_log(log, title, comment=None):
     # Close log file
     log.close()
 
-    print("Zulip Upload: %s" % log_path)
+    output("Zulip Upload: %s" % log_path)
 
     # Authentication for Zulip
     zulip_auth = HTTPBasicAuth('builder-bot@openshot.zulipchat.com', zulip_token)
@@ -140,7 +140,7 @@ def zulip_upload_log(log, title, comment=None):
 
     resp = post(zulip_url, data=zulip_data, auth=zulip_auth)
     if resp.ok:
-        print(resp)
+        output(resp)
 
     # Re-open the log (for append)
     log = open(log_path, "a")
