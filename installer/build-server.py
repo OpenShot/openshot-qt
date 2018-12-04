@@ -108,10 +108,10 @@ def truncate(message, max=256):
 
 def zulip_upload_log(log, title, comment=None):
     """Upload a file to zulip and notify a zulip channel"""
+    output("Zulip Upload: %s" % log_path)
+
     # Close log file
     log.close()
-
-    output("Zulip Upload: %s" % log_path)
 
     # Authentication for Zulip
     zulip_auth = HTTPBasicAuth('builder-bot@openshot.zulipchat.com', zulip_token)
@@ -123,6 +123,7 @@ def zulip_upload_log(log, title, comment=None):
     resp = post(zulip_url, data={}, auth=zulip_auth, files={filename: (filename, open(log_path, "rb"))})
     if resp.ok:
         zulip_upload_url = resp.json().get("uri", "")
+    print(resp)
 
     # Determine topic
     topic = "Successful Builds"
@@ -139,11 +140,10 @@ def zulip_upload_log(log, title, comment=None):
     }
 
     resp = post(zulip_url, data=zulip_data, auth=zulip_auth)
-    if resp.ok:
-        output(resp)
 
     # Re-open the log (for append)
     log = open(log_path, "a")
+    print(resp)
 
 def get_release(repo, tag_name):
     """Fetch the GitHub release tagged with the given tag and return it
