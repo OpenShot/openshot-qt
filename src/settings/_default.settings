@@ -327,13 +327,65 @@
   },
   {
     "value": false,
-    "title": "Enable Hardware Decode",
+    "title": "Enable Hardware Decode (disabled)",
     "type": "bool",
     "restart": true,
     "category": "Performance",
     "setting": "hardware_decode"
   },
   {
+    "max": 4,
+    "title": "Decode hw accel",
+    "category": "Performance",
+    "min": 0,
+    "setting": "hw-decoder",
+    "type": "dropdown",
+    "value": "NONE",
+    "values": [
+      {
+        "value": "NONE",
+        "name": "No acceleration"
+      },
+      {
+        "value": "HW_DE_VAAPI",
+        "name": "Linux VAAPI"
+      },
+      {
+        "value": "HW_DE_NVDEC",
+        "name": "Linux nvdec"
+      },
+      {
+        "value": "HW_DE_WINDOWS",
+        "name": "Windows"
+      },
+      {
+        "value": "HW_DE_MACOS",
+        "name": "MacOS"
+      }
+    ],
+    "restart": true
+  },
+  {
+    "min": 0,
+    "max": 3,
+    "value": 0,
+    "title": "Decode Graphics Card",
+    "type": "spinner-int",
+    "category": "Performance",
+    "setting": "graca_number_de",
+    "restart": true
+  },
+  {
+    "min": 0,
+    "max": 3,
+    "value": 0,
+    "title": "Encode Graphics Card",
+    "type": "spinner-int",
+    "category": "Performance",
+    "setting": "graca_number_en",
+    "restart": true
+  },
+{
     "value": true,
     "title": "Process Video Frames in Parallel (Experimental)",
     "type": "bool",

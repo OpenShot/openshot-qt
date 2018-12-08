@@ -2419,6 +2419,31 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             os.environ['OS2_DECODE_HW'] = "0"
 
+        # The new version
+        if s.get("hw-decoder") and s.get("hw-decoder") != "NONE":
+            os.environ['OS2_DECODE_HW'] = "1"
+            os.environ['HW_DECODER'] = s.get("hw-decoder")
+        else:
+            os.environ['OS2_DECODE_HW'] = "0"
+
+        # Only first (0) and second (1) card for now
+        if s.get("graca_number_de"):
+            if s.get("graca_number_de") != 0:
+                os.environ['HW_DE_DEVICE_SET'] = "1"
+            else:
+                os.environ['HW_DE_DEVICE_SET'] = "0"
+        else:
+            os.environ['HW_DE_DEVICE_SET'] = "0"
+
+        if s.get("graca_number_en"):
+            if s.get("graca_number_en") != 0:
+                os.environ['HW_EN_DEVICE_SET'] = "1"
+            else:
+                os.environ['HW_EN_DEVICE_SET'] = "0"
+        else:
+            os.environ['HW_EN_DEVICE_SET'] = "0"
+
+
         # Set OMP thread enabled flag (for stability)
         if s.get("omp_threads_enabled"):
             os.environ['OS2_OMP_THREADS'] = "1"
