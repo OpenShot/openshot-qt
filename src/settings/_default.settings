@@ -326,14 +326,6 @@
     "setting": "send_metrics"
   },
   {
-    "value": false,
-    "title": "Enable Hardware Decode (disabled)",
-    "type": "bool",
-    "restart": true,
-    "category": "Performance",
-    "setting": "hardware_decode"
-  },
-  {
     "max": 4,
     "title": "Decode hw accel",
     "category": "Performance",
