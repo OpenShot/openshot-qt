@@ -347,8 +347,12 @@
         "name": "Linux nvdec"
       },
       {
-        "value": "HW_DE_WINDOWS",
-        "name": "Windows"
+        "value": "HW_DE_WINDOWS_DXVA2",
+        "name": "Windows D3D9"
+      },
+      {
+        "value": "HW_DE_WINDOWS_D3D11",
+        "name": "Windows D3D11"
       },
       {
         "value": "HW_DE_MACOS",
