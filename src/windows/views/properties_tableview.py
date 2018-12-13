@@ -272,6 +272,10 @@ class PropertiesTableView(QTableView):
 
     def doubleClickedCB(self, model_index):
         """Double click handler for the property table"""
+
+        # Get translation object
+        _ = get_app()._tr
+
         # Get data model and selection
         model = self.clip_properties_model.model
 
@@ -291,7 +295,8 @@ class PropertiesTableView(QTableView):
 
                 # Show color dialog
                 currentColor = QColor(red, green, blue)
-                newColor = QColorDialog.getColor(currentColor)
+                newColor = QColorDialog.getColor(currentColor, self, _("Select a Color"),
+                                                 QColorDialog.DontUseNativeDialog)
 
                 # Set the new color keyframe
                 self.clip_properties_model.color_update(self.selected_item, newColor)
