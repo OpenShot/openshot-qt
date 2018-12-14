@@ -165,7 +165,6 @@ class Clip(QueryObject):
         """ Get the translated display title of this item """
         path = self.data.get("reader", {}).get("path")
         folder_path, filename = os.path.split(path)
-        #return os.path.splitext(filename)[0]
         return filename
 
 class Transition(QueryObject):
