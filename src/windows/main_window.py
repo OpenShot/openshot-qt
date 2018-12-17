@@ -365,6 +365,13 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Force update of files model (which will rebuild missing thumbnails)
         get_app().window.filesTreeView.refresh_view()
 
+        # Force update of clips
+        clips = Clip.filter(file_id=selected_file_id)
+        for c in clips:
+            # update clip
+            c.data["reader"]["path"] = file_path
+            c.save()
+
     def actionDuplicateTitle_trigger(self, event):
 
         # Get selected svg title file
@@ -1644,6 +1651,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Run the dialog event loop - blocking interaction on this window during that time
         result = win.exec_()
         if result == QDialog.Accepted:
+
+            # BRUTE FORCE approach: go through all clips and update file path
+            clips = Clip.filter(file_id=file_id)
+            for c in clips:
+                # update clip
+                c.data["reader"]["path"] = f.data["path"]
+                c.save()
+
             log.info('File Properties Finished')
         else:
             log.info('File Properties Cancelled')

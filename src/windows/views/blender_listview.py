@@ -219,6 +219,9 @@ class BlenderListView(QListView):
         log.info('New value of param: %s' % value)
 
     def color_button_clicked(self, widget, param, index):
+        # Get translation object
+        _ = get_app()._tr
+
         # Show color dialog
         log.info('Animation param being changed: %s' % param["name"])
         color_value = self.params[param["name"]]
@@ -227,7 +230,8 @@ class BlenderListView(QListView):
         if len(color_value) == 3:
             #currentColor = QColor(color_value[0], color_value[1], color_value[2])
             currentColor.setRgbF(color_value[0], color_value[1], color_value[2])
-        newColor = QColorDialog.getColor(currentColor)
+        newColor = QColorDialog.getColor(currentColor, self, _("Select a Color"),
+                                         QColorDialog.DontUseNativeDialog)
         if newColor.isValid():
             widget.setStyleSheet("background-color: {}".format(newColor.name()))
             self.params[param["name"]] = [newColor.redF(), newColor.greenF(), newColor.blueF()]
