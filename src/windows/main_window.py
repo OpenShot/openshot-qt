@@ -365,8 +365,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Force update of files model (which will rebuild missing thumbnails)
         get_app().window.filesTreeView.refresh_view()
 
-        # force update of clips
-
+        # Force update of clips
         clips = Clip.filter(file_id=selected_file_id)
         for c in clips:
             # update clip
@@ -1654,7 +1653,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if result == QDialog.Accepted:
 
             # BRUTE FORCE approach: go through all clips and update file path
-
             clips = Clip.filter(file_id=file_id)
             for c in clips:
                 # update clip

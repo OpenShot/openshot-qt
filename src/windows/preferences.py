@@ -173,7 +173,7 @@ class Preferences(QDialog):
                     widget = QLineEdit()
                     widget.setText(_(param["value"]))
                     widget.textChanged.connect(functools.partial(self.text_value_changed, widget, param))
-                    extraWidget = QPushButton("Browse")
+                    extraWidget = QPushButton(_("Browse..."))
                     extraWidget.clicked.connect(functools.partial(self.selectExecutable, widget, param))
 
                 elif param["type"] == "bool":

@@ -97,7 +97,6 @@ class FileProperties(QDialog):
         self.txtFileName.setText(name)
         self.txtTags.setText(tags)
         self.txtFilePath.setText(os.path.join(path, filename))
-
         self.btnBrowse.clicked.connect(self.browsePath)
 
         # Populate video fields
@@ -175,9 +174,12 @@ class FileProperties(QDialog):
         self.toolBox.setCurrentIndex(0)
 
     def browsePath(self):
+        # get translations
+        app = get_app()
+        _ = app._tr
+
         starting_folder, filename = os.path.split(self.file.data["path"])
-        newFilePath = QFileDialog.getOpenFileName(None,("Locate media file: %s" % filename),
-                                                           starting_folder)
+        newFilePath = QFileDialog.getOpenFileName(None,(_("Locate media file: %s") % filename), starting_folder)
         self.txtFilePath.setText(newFilePath[0])
 
     def accept(self):
