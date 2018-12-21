@@ -37,7 +37,6 @@ from classes.json_data import JsonDataStore
 from classes.updates import UpdateInterface
 from classes import info, settings
 from classes.logger import log
-from classes.conversion import total_size
 
 
 class ProjectDataStore(JsonDataStore, UpdateInterface):
@@ -341,8 +340,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             self.check_if_paths_are_valid()
 
             # Discard history
-            log.info("Discarding history of size {} bytes".format(
-                total_size(self._data["history"])))
+            log.info("Discarding history")
             self._data["history"] = { "undo": [], "redo": [] }
 
             # Copy any project thumbnails to main THUMBNAILS folder
@@ -706,8 +704,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             self.convert_paths_to_relative(file_path)
 
         # Discard history
-        log.info("Discarding history of size {} bytes".format(
-            total_size(self._data["history"])))
+        log.info("Discarding history")
         self._data["history"] = { "undo": [], "redo": [] }
 
         # Append version info
