@@ -309,6 +309,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         self.new()
 
         if file_path:
+            log.info("Loading project file: {}".format(file_path))
+
             # Default project data
             default_project = self._data
 
@@ -336,6 +338,10 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
             # Check if paths are all valid
             self.check_if_paths_are_valid()
+
+            # Discard history
+            log.info("Discarding history")
+            self._data["history"] = { "undo": [], "redo": [] }
 
             # Copy any project thumbnails to main THUMBNAILS folder
             loaded_project_folder = os.path.dirname(self.current_filepath)
@@ -687,6 +693,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         """ Save project file to disk """
         import openshot
 
+        log.info("Saving project file: {}".format(file_path))
+
         # Move all temp files (i.e. Blender animations) to the project folder
         if move_temp_files:
             self.move_temp_paths_to_project_folder(file_path)
@@ -694,6 +702,10 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         # Convert all file paths to relative based on this new project file's directory
         if make_paths_relative:
             self.convert_paths_to_relative(file_path)
+
+        # Discard history
+        log.info("Discarding history")
+        self._data["history"] = { "undo": [], "redo": [] }
 
         # Append version info
         v = openshot.GetVersion()
