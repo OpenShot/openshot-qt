@@ -58,14 +58,14 @@
   {
     "value": "blender",
     "title": "Blender Command (path)",
-    "type": "text",
+    "type": "browse",
     "category": "General",
     "setting": "blender_command"
   },
   {
     "value": "inkscape",
     "title": "Advanced Title Editor (path)",
-    "type": "text",
+    "type": "browse",
     "category": "General",
     "setting": "title_editor"
   },
@@ -126,7 +126,7 @@
     "setting": "recent_projects"
   },
   {
-    "value": "HDV 720 24p",
+    "value": "HD 720p 30 fps",
     "title": "Default Profile",
     "category": "Profiles",
     "setting": "default-profile",
@@ -140,7 +140,7 @@
     "category": "Profiles",
     "min": 22050,
     "setting": "default-samplerate",
-    "value": 48000,
+    "value": 44100,
     "values": [
       {
         "value": 22050,
@@ -329,8 +329,17 @@
     "value": true,
     "title": "Enable Hardware Decode",
     "type": "hidden",
+    "restart": true,
     "category": "Performance",
     "setting": "hardware_decode"
+  },
+  {
+    "value": true,
+    "title": "Process Video Frames in Parallel (Experimental)",
+    "type": "bool",
+    "restart": true,
+    "category": "Performance",
+    "setting": "omp_threads_enabled"
   },
   {
     "value": true,

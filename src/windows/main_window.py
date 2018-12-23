@@ -365,6 +365,13 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Force update of files model (which will rebuild missing thumbnails)
         get_app().window.filesTreeView.refresh_view()
 
+        # Force update of clips
+        clips = Clip.filter(file_id=selected_file_id)
+        for c in clips:
+            # update clip
+            c.data["reader"]["path"] = file_path
+            c.save()
+
     def actionDuplicateTitle_trigger(self, event):
 
         # Get selected svg title file
@@ -455,6 +462,20 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 self.load_recent_menu()
 
                 log.info("Loaded project {}".format(file_path))
+            else:
+                # If statement is required, as if the user hits "Cancel"
+                # on the "load file" dialog, it is interpreted as trying
+                # to open a file with a blank name. This could use some
+                # improvement.
+                if file_path != "":
+                    # Prepare to use status bar
+                    self.statusBar = QStatusBar()
+                    self.setStatusBar(self.statusBar)
+
+                    log.info("File not found at {}".format(file_path))
+                    self.statusBar.showMessage(_("Project {} is missing (it may have been moved or deleted). It has been removed from the Recent Projects menu.".format(file_path)), 5000)
+                    self.remove_recent_project(file_path)
+                    self.load_recent_menu()
 
         except Exception as ex:
             log.error("Couldn't open project {}".format(file_path))
@@ -876,7 +897,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Translate object
         _ = get_app()._tr
 
-	# Prepare to use the status bar
+	    # Prepare to use the status bar
         self.statusBar = QStatusBar()
         self.setStatusBar(self.statusBar)
 
@@ -896,12 +917,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         framePath, file_type = QFileDialog.getSaveFileName(self, _("Save Frame..."), framePath, _("Image files (*.png)"))
 
         if framePath:
-            # Append .osp if needed
+            # Append .png if needed
             if ".png" not in framePath:
-                framePath = "%s.osp" % framePath
+                framePath = "%s.png" % framePath
         else:
             # No path specified (save frame cancelled)
-            self.statusBar.showMessage(_("Save Frame cancelled..."), 5000);
+            self.statusBar.showMessage(_("Save Frame cancelled..."), 5000)
             return
 
         get_app().updates.update(["export_path"], os.path.dirname(framePath))
@@ -932,12 +953,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         #log.info("new framePathTime %s" % QFileInfo(framePath).lastModified().toString("yyMMdd hh:mm:ss.zzz") )
 
 	# Show message to user
-        if os.path.exists(framePath) and (QFileInfo(framePath).lastModified() > framePathTime): 
+        if os.path.exists(framePath) and (QFileInfo(framePath).lastModified() > framePathTime):
             #QMessageBox.information(self, _("Save Frame Successful"), _("Saved image to %s" % framePath))
-            self.statusBar.showMessage(_("Saved Frame to %s" % framePath), 5000);
+            self.statusBar.showMessage(_("Saved Frame to %s" % framePath), 5000)
         else:
             #QMessageBox.warning(self, _("Save Frame Failed"), _("Failed to save image to %s" % framePath))
-            self.statusBar.showMessage( _("Failed to save image to %s" % framePath), 5000);
+            self.statusBar.showMessage( _("Failed to save image to %s" % framePath), 5000)
 
 	# Reset the MaxSize to match the preview and reset the preview cache
         viewport_rect = self.videoPreview.centeredViewport(self.videoPreview.width(), self.videoPreview.height())
@@ -1630,6 +1651,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Run the dialog event loop - blocking interaction on this window during that time
         result = win.exec_()
         if result == QDialog.Accepted:
+
+            # BRUTE FORCE approach: go through all clips and update file path
+            clips = Clip.filter(file_id=file_id)
+            for c in clips:
+                # update clip
+                c.data["reader"]["path"] = f.data["path"]
+                c.save()
+
             log.info('File Properties Finished')
         else:
             log.info('File Properties Cancelled')
@@ -1958,6 +1987,15 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             new_action = self.recent_menu.addAction(file_path)
             new_action.triggered.connect(functools.partial(self.recent_project_clicked, file_path))
 
+    # Remove a project from the Recent menu if OpenShot can't find it
+    def remove_recent_project(self, file_path):
+        s = settings.get_settings()
+        recent_projects = s.get("recent_projects")
+        if file_path in recent_projects:
+            recent_projects.remove(file_path)
+        s.set("recent_projects", recent_projects)
+        s.save()
+
     def recent_project_clicked(self, file_path):
         """ Load a recent project when clicked """
 
@@ -2069,7 +2107,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.timelineToolbar.addSeparator()
 
         # Get project's initial zoom value
-        initial_scale = get_app().project.get(["scale"]) or 16
+        initial_scale = get_app().project.get(["scale"]) or 15
         # Round non-exponential scale down to next lowest power of 2
         initial_zoom = secondsToZoom(initial_scale)
 
@@ -2130,17 +2168,37 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def moveEvent(self, event):
         """ Move tutorial dialogs also (if any)"""
+        QMainWindow.moveEvent(self, event)
         if self.tutorial_manager:
+            #log.info("Sending move event to tutorial manager")
             self.tutorial_manager.re_position_dialog()
 
-    def eventFilter(self, object, e):
-        """ Filter out certain types of window events """
-        if e.type() == QEvent.WindowActivate:
-            self.tutorial_manager.re_show_dialog()
-        elif e.type() == QEvent.WindowStateChange and self.isMinimized():
-            self.tutorial_manager.minimize()
+    def resizeEvent(self, event):
+        QMainWindow.resizeEvent(self, event)
+        if self.tutorial_manager:
+            #log.info("Sending resize event to tutorial manager")
+            self.tutorial_manager.re_position_dialog()
 
-        return False
+    def showEvent(self, event):
+        """ Have any child windows follow main-window state """
+        #log.info("Showing main window")
+        QMainWindow.showEvent(self, event)
+        for child in self.findChildren(QDockWidget):
+            if child.isFloating() and child.isEnabled():
+                # child.setWindowState(self.windowState())
+                #log.info("Showing child {}".format(child.windowTitle()))
+                child.raise_()
+                child.show()
+
+    def hideEvent(self, event):
+        """ Have any child windows hide with main window """
+        #log.info("Hiding main window")
+        QMainWindow.hideEvent(self, event)
+        for child in self.findChildren(QDockWidget):
+            if child.isFloating() and child.isVisible():
+                #log.info("Hiding child {}".format(child.windowTitle()))
+                child.hide()
+
 
     def show_property_timeout(self):
         """Callback for show property timer"""
@@ -2376,6 +2434,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             os.environ['OS2_DECODE_HW'] = "0"
 
+        # Set OMP thread enabled flag (for stability)
+        if s.get("omp_threads_enabled"):
+            os.environ['OS2_OMP_THREADS'] = "1"
+        else:
+            os.environ['OS2_OMP_THREADS'] = "0"
+
         # Create lock file
         self.create_lock_file()
 
@@ -2392,9 +2456,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.has_launcher = True
             self.ExportFrame.connect(self.FrameExported)
             self.ExportEnded.connect(self.ExportFinished)
-
-        # Install event filter
-        self.installEventFilter(self)
 
         # Save settings
         s.save()

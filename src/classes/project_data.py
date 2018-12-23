@@ -1,28 +1,28 @@
-""" 
+"""
  @file
  @brief This file listens to changes, and updates the primary project data
  @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
  @author Olivier Girard <eolinwen@gmail.com>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
@@ -309,6 +309,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         self.new()
 
         if file_path:
+            log.info("Loading project file: {}".format(file_path))
+
             # Default project data
             default_project = self._data
 
@@ -336,6 +338,10 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
             # Check if paths are all valid
             self.check_if_paths_are_valid()
+
+            # Discard history
+            log.info("Discarding history")
+            self._data["history"] = { "undo": [], "redo": [] }
 
             # Copy any project thumbnails to main THUMBNAILS folder
             loaded_project_folder = os.path.dirname(self.current_filepath)
@@ -687,6 +693,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         """ Save project file to disk """
         import openshot
 
+        log.info("Saving project file: {}".format(file_path))
+
         # Move all temp files (i.e. Blender animations) to the project folder
         if move_temp_files:
             self.move_temp_paths_to_project_folder(file_path)
@@ -694,6 +702,10 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         # Convert all file paths to relative based on this new project file's directory
         if make_paths_relative:
             self.convert_paths_to_relative(file_path)
+
+        # Discard history
+        log.info("Discarding history")
+        self._data["history"] = { "undo": [], "redo": [] }
 
         # Append version info
         v = openshot.GetVersion()
@@ -906,42 +918,66 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
+        log.info("checking project files...")
+
         # Loop through each files (in reverse order)
         for file in reversed(self._data["files"]):
             path = file["path"]
             parent_path, file_name_with_ext = os.path.split(path)
+
+            log.info("checking file %s" % path)
             while not os.path.exists(path) and "%" not in path:
-                # File already exists! Prompt user to find missing file
-                QMessageBox.warning(None, _("Missing File (%s)") % file["id"], _("%s cannot be found.") % file_name_with_ext)
-                starting_folder = QFileDialog.getExistingDirectory(None, _("Find directory that contains: %s" % file_name_with_ext), starting_folder)
-                log.info("Missing folder chosen by user: %s" % starting_folder)
-                if starting_folder:
-                    # Update file path and import_path
+                # File already exists!
+                # try to find file with previous starting folder:
+                if starting_folder and os.path.exists(os.path.join(starting_folder, file_name_with_ext)):
+                    # Update file path
                     path = os.path.join(starting_folder, file_name_with_ext)
                     file["path"] = path
                     get_app().updates.update(["import_path"], os.path.dirname(path))
-                else:
-                    log.info('Removed missing file: %s' % file_name_with_ext)
-                    self._data["files"].remove(file)
+                    log.info("Auto-updated missing file: %s" % path)
                     break
+                else:
+                    # Prompt user to find missing file
+                    QMessageBox.warning(None, _("Missing File (%s)") % file["id"], _("%s cannot be found.") % file_name_with_ext)
+                    starting_folder = QFileDialog.getExistingDirectory(None, _("Find directory that contains: %s" % file_name_with_ext), starting_folder)
+                    log.info("Missing folder chosen by user: %s" % starting_folder)
+                    if starting_folder:
+                        # Update file path and import_path
+                        path = os.path.join(starting_folder, file_name_with_ext)
+                        file["path"] = path
+                        get_app().updates.update(["import_path"], os.path.dirname(path))
+                    else:
+                        log.info('Removed missing file: %s' % file_name_with_ext)
+                        self._data["files"].remove(file)
+                        break
 
         # Loop through each clip (in reverse order)
         for clip in reversed(self._data["clips"]):
             path = clip["reader"]["path"]
             parent_path, file_name_with_ext = os.path.split(path)
+
+            log.info("checking file %s" % path)
             while not os.path.exists(path) and "%" not in path:
                 # Clip already exists! Prompt user to find missing file
-                QMessageBox.warning(None, _("Missing File in Clip (%s)") % clip["id"], _("%s cannot be found.") % file_name_with_ext)
-                starting_folder = QFileDialog.getExistingDirectory(None, _("Find directory that contains: %s" % file_name_with_ext), starting_folder)
-                log.info("Missing folder chosen by user: %s" % starting_folder)
-                if starting_folder:
+                # try to find clip with previous starting folder:
+                if starting_folder and os.path.exists(os.path.join(starting_folder, file_name_with_ext)):
                     # Update clip path
                     path = os.path.join(starting_folder, file_name_with_ext)
                     clip["reader"]["path"] = path
-                else:
-                    log.info('Removed missing clip: %s' % file_name_with_ext)
-                    self._data["clips"].remove(clip)
+                    log.info("Auto-updated missing file: %s" % clip["reader"]["path"])
                     break
+                else:
+                    QMessageBox.warning(None, _("Missing File in Clip (%s)") % clip["id"], _("%s cannot be found.") % file_name_with_ext)
+                    starting_folder = QFileDialog.getExistingDirectory(None, _("Find directory that contains: %s" % file_name_with_ext), starting_folder)
+                    log.info("Missing folder chosen by user: %s" % starting_folder)
+                    if starting_folder:
+                        # Update clip path
+                        path = os.path.join(starting_folder, file_name_with_ext)
+                        clip["reader"]["path"] = path
+                    else:
+                        log.info('Removed missing clip: %s' % file_name_with_ext)
+                        self._data["clips"].remove(clip)
+                        break
 
     def convert_paths_to_absolute(self):
         """ Convert all paths to absolute """

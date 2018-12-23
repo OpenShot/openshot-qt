@@ -71,13 +71,17 @@ class UpdateAction:
 
         # Build the dictionary to be serialized
         if only_value:
-            data_dict = self.values
+            data_dict = copy.deepcopy(self.values)
         else:
             data_dict = {"type": self.type,
                          "key": self.key,
-                         "value": self.values,
+                         "value": copy.deepcopy(self.values),
                          "partial": self.partial_update,
-                         "old_values": self.old_values}
+                         "old_values": copy.deepcopy(self.old_values)}
+
+        # Always remove 'history' key (if found)
+        if "history" in data_dict:
+            data_dict.pop("history")
 
         if not is_array:
             # Use a JSON Object as the root object
@@ -126,13 +130,15 @@ class UpdateManager:
 
         # Loop through each, and load serialized data into updateAction objects
         for actionDict in history.get("redo", []):
-            action = UpdateAction()
-            action.load_json(json.dumps(actionDict))
-            self.redoHistory.append(action)
+            if "history" not in actionDict.keys():
+                action = UpdateAction()
+                action.load_json(json.dumps(actionDict))
+                self.redoHistory.append(action)
         for actionDict in history.get("undo", []):
-            action = UpdateAction()
-            action.load_json(json.dumps(actionDict))
-            self.actionHistory.append(action)
+            if "history" not in actionDict.keys():
+                action = UpdateAction()
+                action.load_json(json.dumps(actionDict))
+                self.actionHistory.append(action)
 
         # Notify watchers of new status
         self.update_watchers()
@@ -268,8 +274,6 @@ class UpdateManager:
 
         self.last_action = UpdateAction('load', '', values)
         self.redoHistory.clear()
-        if not self.ignore_history:
-            self.actionHistory.append(self.last_action)
         self.dispatch_action(self.last_action)
 
     # Perform new actions, clearing redo history for taking a new path

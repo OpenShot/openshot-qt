@@ -41,14 +41,15 @@
  """
 
 import sys
-from argparse import ArgumentParser
+from argparse import ArgumentParser, REMAINDER
 
 try:
     from classes import info
     print("Loaded modules from current directory: %s" % info.PATH)
 except ImportError:
-    from openshot_qt.classes import info
-    sys.path.append(info.PATH)
+    import openshot_qt
+    sys.path.append(openshot_qt.OPENSHOT_PATH)
+    from classes import info
     print("Loaded modules from installed directory: %s" % info.PATH)
 
 from classes.app import OpenShotApp
@@ -60,29 +61,34 @@ def main():
     """"Initialize settings (not implemented) and create main window/application."""
 
     parser = ArgumentParser(description = 'OpenShot version ' + info.SETUP['version'])
-    # parser.add_argument('-l', '--lang', action='store',
-    #                     help='language code for interface (overrides '
-    #                     'preferences and system environment)')
+    parser.add_argument('-l', '--lang', action='store',
+                        help='language code for interface (overrides '
+                        'preferences and system environment)')
     parser.add_argument('--list-languages', dest='list_languages',
                         action='store_true', help='List all language '
                         'codes supported by OpenShot')
     parser.add_argument('-V', '--version', action='store_true')
+    parser.add_argument('remain', nargs=REMAINDER)
 
     args = parser.parse_args()
 
     # Display version and exit (if requested)
     if args.version:
         print("OpenShot version %s" % info.SETUP['version'])
-        exit()
+        sys.exit()
 
     if args.list_languages:
         print("Supported Languages:")
         for lang in get_all_languages():
             print("  {:>12}  {}".format(lang[0],lang[1]))
-        exit()
+        sys.exit()
 
-    # if args.lang:
-    #     info.CMDLINE_LANG = args.lang
+    if args.lang:
+        if args.lang in info.SUPPORTED_LANGUAGES:
+            info.CMDLINE_LANGUAGE = args.lang
+        else:
+            print("Unsupported language '{}'! (See --list-languages)".format(args.lang))
+            sys.exit(-1)
 
     reroute_output()
 
@@ -90,8 +96,11 @@ def main():
     log.info("   OpenShot (version %s)" % info.SETUP['version'])
     log.info("------------------------------------------------")
 
-    # Create Qt application
-    app = OpenShotApp(sys.argv)
+    # Create Qt application, pass any unprocessed arguments
+    argv = [sys.argv[0]]
+    for arg in args.remain:
+        argv.append(arg)
+    app = OpenShotApp(argv)
 
     # Run and return result
     sys.exit(app.run())

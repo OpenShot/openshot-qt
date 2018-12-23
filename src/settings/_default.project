@@ -16,10 +16,10 @@
   "import_path": "",
   "files": [],
   "duration": 300,
-  "scale": 16,
+  "scale": 15,
   "tick_pixels": 100,
   "playhead_position": 0,
-  "profile": "HDV 720 24p",
+  "profile": "HD 720p 30 fps",
   "layers": [
     {
       "id": "L0",

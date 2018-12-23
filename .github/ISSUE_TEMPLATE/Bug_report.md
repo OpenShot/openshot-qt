@@ -4,12 +4,14 @@ about: Create a report to help us improve OpenShot
 
 ---
 
+**Please fill out this template** 
+
 **Describe the bug**
 A clear and concise description of what the bug is.
 
 **System Details (please complete the following information):**
  - Operating System / Distro: [e.g. Windows 10, Linux Mint 17.1]
- - OpenShot Version [e.g. 2.4.1]
+ - OpenShot Version [e.g. 2.4.3]
 
 **To Reproduce**
 Steps to reproduce the behavior:

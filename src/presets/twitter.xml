@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-export-option>
+<export-option>
+	<type translatable="True">Web</type>
+	<title translatable="True">Twitter</title>
+	<videoformat>mp4</videoformat>
+	<videocodec>libx264</videocodec>
+	<audiocodec>aac</audiocodec>
+	<audiochannels>2</audiochannels>
+	<audiochannellayout>3</audiochannellayout>
+	<videobitrate
+	 low="384 kb/s"
+	 med="1.7 Mb/s"
+	 high="3.5 Mb/s"></videobitrate>
+	<audiobitrate
+	 low="96 kb/s"
+	 med="128 kb/s"
+	 high="192 kb/s"></audiobitrate>
+	<samplerate>48000</samplerate>
+	<projectprofile>HD 720p 25 fps</projectprofile>
+	<projectprofile>HD 720p 30 fps</projectprofile>
+	<projectprofile>HD 1080p 25 fps</projectprofile>
+	<projectprofile>HD 1080p 30 fps</projectprofile>
+	<projectprofile>HD Vertical 720p 30fps</projectprofile> 
+        <projectprofile>HD Vertical 1080p 30fps</projectprofile>
+
+
+
+</export-option>
