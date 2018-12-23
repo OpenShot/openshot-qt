@@ -309,8 +309,8 @@ class UpdateManager:
         """ Update the UpdateManager with an UpdateAction (this action will then be distributed to all listeners) """
 
         self.last_action = UpdateAction('update', key, values, partial_update)
-        self.redoHistory.clear()
         if not self.ignore_history:
+            self.redoHistory.clear()
             self.actionHistory.append(self.last_action)
         self.dispatch_action(self.last_action)
 
