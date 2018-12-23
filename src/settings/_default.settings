@@ -220,7 +220,7 @@
     "category": "Autosave",
     "min": 0,
     "setting": "history-limit",
-    "value": 20,
+    "value": 15,
     "type": "spinner-int"
   },
   {
