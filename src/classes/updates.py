@@ -79,9 +79,15 @@ class UpdateAction:
                          "partial": self.partial_update,
                          "old_values": copy.deepcopy(self.old_values)}
 
-        # Always remove 'history' key (if found)
-        if "history" in data_dict:
-            data_dict.pop("history")
+        # Always remove 'history' key (if found). This prevents nested "history"
+        # attributes when a project dict is loaded.
+        try:
+            if data_dict.get("value") and "history" in data_dict.get("value"):
+                data_dict.get("value").pop("history", None)
+            if data_dict.get("old_values") and "history" in data_dict.get("old_values"):
+                data_dict.get("old_values").pop("history", None)
+        except Exception:
+            log.info('Warning: failed to clear history attribute from undo/redo data.')
 
         if not is_array:
             # Use a JSON Object as the root object
@@ -105,6 +111,16 @@ class UpdateAction:
         self.values = update_action_dict.get("value")
         self.old_values = update_action_dict.get("old_values")
         self.partial_update = update_action_dict.get("partial")
+
+        # Always remove 'history' key (if found). This prevents nested "history"
+        # attributes when a project dict is loaded.
+        try:
+            if self.values and "history" in self.values:
+                self.values.pop("history", None)
+            if self.old_values and "history" in self.old_values:
+                self.old_values.pop("history", None)
+        except Exception:
+            log.info('Warning: failed to clear history attribute from undo/redo data.')
 
 
 class UpdateManager:
@@ -130,14 +146,14 @@ class UpdateManager:
 
         # Loop through each, and load serialized data into updateAction objects
         for actionDict in history.get("redo", []):
-            if "history" not in actionDict.keys():
-                action = UpdateAction()
-                action.load_json(json.dumps(actionDict))
+            action = UpdateAction()
+            action.load_json(json.dumps(actionDict))
+            if action.type != "load":
                 self.redoHistory.append(action)
         for actionDict in history.get("undo", []):
-            if "history" not in actionDict.keys():
-                action = UpdateAction()
-                action.load_json(json.dumps(actionDict))
+            action = UpdateAction()
+            action.load_json(json.dumps(actionDict))
+            if action.type != "load":
                 self.actionHistory.append(action)
 
         # Notify watchers of new status
@@ -151,9 +167,11 @@ class UpdateManager:
         # Loop through each, and serialize
         history_length_int = int(history_length)
         for action in self.redoHistory[-history_length_int:]:
-            redo_list.append(json.loads(action.json()))
+            if action.type != "load":
+                redo_list.append(json.loads(action.json()))
         for action in self.actionHistory[-history_length_int:]:
-            undo_list.append(json.loads(action.json()))
+            if action.type != "load":
+                undo_list.append(json.loads(action.json()))
 
         # Set history data in project
         self.ignore_history = True
@@ -274,6 +292,7 @@ class UpdateManager:
 
         self.last_action = UpdateAction('load', '', values)
         self.redoHistory.clear()
+        self.actionHistory.clear()
         self.dispatch_action(self.last_action)
 
     # Perform new actions, clearing redo history for taking a new path
@@ -290,7 +309,9 @@ class UpdateManager:
         """ Update the UpdateManager with an UpdateAction (this action will then be distributed to all listeners) """
 
         self.last_action = UpdateAction('update', key, values, partial_update)
-        self.redoHistory.clear()
+        if self.last_action.key and self.last_action.key[0] != "history":
+            # Clear redo history for any update except a "history" update
+            self.redoHistory.clear()
         if not self.ignore_history:
             self.actionHistory.append(self.last_action)
         self.dispatch_action(self.last_action)
