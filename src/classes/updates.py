@@ -28,7 +28,9 @@
  """
 
 from classes.logger import log
+from classes import info
 import copy
+import os
 
 try:
     import json
@@ -147,11 +149,15 @@ class UpdateManager:
         # Loop through each, and load serialized data into updateAction objects
         for actionDict in history.get("redo", []):
             action = UpdateAction()
+            self.convert_paths_to_absolute(actionDict.get("value"))
+            self.convert_paths_to_absolute(actionDict.get("old_values"))
             action.load_json(json.dumps(actionDict))
             if action.type != "load":
                 self.redoHistory.append(action)
         for actionDict in history.get("undo", []):
             action = UpdateAction()
+            self.convert_paths_to_absolute(actionDict.get("value"))
+            self.convert_paths_to_absolute(actionDict.get("old_values"))
             action.load_json(json.dumps(actionDict))
             if action.type != "load":
                 self.actionHistory.append(action)
@@ -168,15 +174,55 @@ class UpdateManager:
         history_length_int = int(history_length)
         for action in self.redoHistory[-history_length_int:]:
             if action.type != "load":
-                redo_list.append(json.loads(action.json()))
+                actionDict = json.loads(action.json())
+                self.convert_paths_to_relative(actionDict.get("value"))
+                self.convert_paths_to_relative(actionDict.get("old_values"))
+                redo_list.append(actionDict)
         for action in self.actionHistory[-history_length_int:]:
             if action.type != "load":
-                undo_list.append(json.loads(action.json()))
+                actionDict = json.loads(action.json())
+                self.convert_paths_to_relative(actionDict.get("value"))
+                self.convert_paths_to_relative(actionDict.get("old_values"))
+                undo_list.append(actionDict)
 
         # Set history data in project
         self.ignore_history = True
         self.update(["history"], { "redo": redo_list, "undo": undo_list})
         self.ignore_history = False
+
+    def convert_paths_to_relative(self, action_value):
+        """Convert transition paths to relative placeholders (if found)"""
+        if type(action_value) != dict:
+            return action_value
+        # Update reader path
+        path = action_value.get("reader", {}).get("path")
+
+        # Determine if this path is the official transition path
+        if path:
+            folder_path, file_path = os.path.split(path)
+            if os.path.join(info.PATH, "transitions") in folder_path:
+                # Yes, this is an OpenShot transitions
+                folder_path, category_path = os.path.split(folder_path)
+
+                # Convert path to @transitions/ path
+                action_value["reader"]["path"] = os.path.join("@transitions", category_path, file_path)
+        return action_value
+
+    def convert_paths_to_absolute(self, action_value):
+        """ Convert all transition paths to absolute (if found) """
+        if type(action_value) != dict:
+            return action_value
+        # Update reader path
+        path = action_value.get("reader", {}).get("path")
+
+        # Determine if this path is the official transition path
+        if path:
+            # Determine if @transitions path is found
+            if "@transitions" in path:
+                path = path.replace("@transitions", os.path.join(info.PATH, "transitions"))
+            # Convert absolute path to relavite
+            action_value["reader"]["path"] = path
+        return action_value
 
     def reset(self):
         """ Reset the UpdateManager, and clear all UpdateActions and History. This does not clear listeners and watchers. """
