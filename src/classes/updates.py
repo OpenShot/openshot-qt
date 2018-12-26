@@ -147,15 +147,16 @@ class UpdateManager:
         history = project.get(["history"])
 
         # Loop through each, and load serialized data into updateAction objects
+        # Ignore any load actions or history update actions
         for actionDict in history.get("redo", []):
             action = UpdateAction()
             action.load_json(json.dumps(actionDict))
-            if action.type != "load":
+            if action.type != "load" and action.key[0] != "history":
                 self.redoHistory.append(action)
         for actionDict in history.get("undo", []):
             action = UpdateAction()
             action.load_json(json.dumps(actionDict))
-            if action.type != "load":
+            if action.type != "load" and action.key[0] != "history":
                 self.actionHistory.append(action)
 
         # Notify watchers of new status
@@ -166,14 +167,15 @@ class UpdateManager:
         redo_list = []
         undo_list = []
 
-        # Loop through each, and serialize
+        # Loop through each updateAction object and serialize
+        # Ignore any load actions or history update actions
         history_length_int = int(history_length)
         for action in self.redoHistory[-history_length_int:]:
-            if action.type != "load":
+            if action.type != "load" and action.key[0] != "history":
                 actionDict = json.loads(action.json())
                 redo_list.append(actionDict)
         for action in self.actionHistory[-history_length_int:]:
-            if action.type != "load":
+            if action.type != "load" and action.key[0] != "history":
                 actionDict = json.loads(action.json())
                 undo_list.append(actionDict)
 
