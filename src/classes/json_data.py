@@ -33,8 +33,14 @@ except ImportError:
     import simplejson as json
 
 import copy
+import os
+import re
 
 from classes.logger import log
+from classes import info
+
+# Compiled path regex
+path_regex = re.compile(r'\"(?:image|path)\":.*?\"(.*?)\"')
 
 
 class JsonDataStore:
@@ -119,14 +125,15 @@ class JsonDataStore:
             # Return merged dictionary
             return user
 
-    def read_from_file(self, file_path):
+    def read_from_file(self, file_path, path_mode="ignore"):
         """ Load JSON settings from a file """
-        # log.debug("loading {}".format(file_path))
         try:
             with open(file_path, 'r') as f:
                 contents = f.read()
                 if contents:
-                    # log.debug("loaded", contents)
+                    if path_mode == "absolute":
+                        # Convert any paths to absolute
+                        contents = self.convert_paths_to_absolute(file_path, contents)
                     return json.loads(contents)
         except Exception as ex:
             msg = ("Couldn't load {} file: {}".format(self.data_type, ex))
@@ -136,13 +143,76 @@ class JsonDataStore:
         log.warning(msg)
         raise Exception(msg)
 
-    def write_to_file(self, file_path, data):
+    def write_to_file(self, file_path, data, path_mode="ignore", previous_path=None):
         """ Save JSON settings to a file """
-        # log.debug(json.dumps(data))
         try:
+            contents = json.dumps(data)
+            if path_mode == "relative":
+                # Convert any paths to relative
+                contents = self.convert_paths_to_relative(file_path, previous_path, contents)
             with open(file_path, 'w') as f:
-                f.write(json.dumps(data))
+                f.write(contents)
         except Exception as ex:
             msg = ("Couldn't save {} file:\n{}\n{}".format(self.data_type, file_path, ex))
             log.error(msg)
             raise Exception(msg)
+
+    def convert_paths_to_absolute(self, file_path, data):
+        """ Convert all paths to absolute using regex """
+        try:
+            # Get project folder
+            existing_project_folder = os.path.dirname(file_path)
+
+            # Find all "path" attributes in the JSON string
+            for path in path_regex.findall(data):
+                # Find absolute path of file (if needed)
+                if "@transitions" not in path and not os.path.isabs(path):
+                    # Convert path to the correct relative path (based on the existing folder)
+                    new_path = os.path.abspath(os.path.join(existing_project_folder, path))
+                    data = data.replace('"%s"' % path, '"%s"' % new_path)
+
+                # Determine if @transitions path is found
+                elif "@transitions" in path:
+                    new_path = path.replace("@transitions", os.path.join(info.PATH, "transitions"))
+                    data = data.replace('"%s"' % path, '"%s"' % new_path)
+
+        except Exception as ex:
+            log.error("Error while converting relative paths to absolute paths: %s" % str(ex))
+
+        return data
+
+    def convert_paths_to_relative(self, file_path, previous_path, data):
+        """ Convert all paths relative to this filepath """
+        try:
+            # Get project folder
+            new_project_folder = os.path.dirname(file_path)
+            existing_project_folder = os.path.dirname(file_path)
+            if previous_path:
+                existing_project_folder = os.path.dirname(previous_path)
+
+            # Find all "path" attributes in the JSON string
+            for path in path_regex.findall(data):
+                folder_path, file_path = os.path.split(path)
+
+                # Find absolute path of file (if needed)
+                if not os.path.join(info.PATH, "transitions") in folder_path:
+                    # Convert path to the correct relative path (based on the existing folder)
+                    orig_abs_path = path
+                    if not os.path.isabs(path):
+                        orig_abs_path = os.path.abspath(os.path.join(existing_project_folder, path))
+                    new_rel_path = os.path.relpath(orig_abs_path, new_project_folder)
+                    data = data.replace('"%s"' % path, '"%s"' % new_rel_path)
+
+                # Determine if @transitions path is found
+                else:
+                    # Yes, this is an OpenShot transitions
+                    folder_path, category_path = os.path.split(folder_path)
+
+                    # Convert path to @transitions/ path
+                    new_path = os.path.join("@transitions", category_path, file_path)
+                    data = data.replace('"%s"' % path, '"%s"' % new_path)
+
+        except Exception as ex:
+            log.error("Error while converting absolute paths to relative paths: %s" % str(ex))
+
+        return data
