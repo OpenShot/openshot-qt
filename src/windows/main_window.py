@@ -1820,7 +1820,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.showDocks([self.dockFiles, self.dockTransitions, self.dockEffects, self.dockVideo])
 
         # Set initial size of docks
-        simple_state = "AAAA/wAAAAD9AAAAAwAAAAAAAAD8AAAC3vwCAAAAAvwAAAJeAAAApwAAAAAA////+gAAAAACAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAAAAAAD/////AAAAAAAAAAD7AAAAHABkAG8AYwBrAFAAcgBvAHAAZQByAHQAaQBlAHMAAAAAJwAAAt4AAACnAP///wAAAAEAAAEcAAABQPwCAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAAAAAACAAAERwAAAtf8AQAAAAH8AAAAAAAABEcAAAD6AP////wCAAAAAvwAAAAnAAABrgAAALQA/////AEAAAAC/AAAAAAAAAHHAAAAewD////6AAAAAAIAAAAD+wAAABIAZABvAGMAawBGAGkAbABlAHMBAAAAAP////8AAACYAP////sAAAAeAGQAbwBjAGsAVAByAGEAbgBzAGkAdABpAG8AbgBzAQAAAAD/////AAAAmAD////7AAAAFgBkAG8AYwBrAEUAZgBmAGUAYwB0AHMBAAAAAP////8AAACYAP////sAAAASAGQAbwBjAGsAVgBpAGQAZQBvAQAAAc0AAAJ6AAAARwD////7AAAAGABkAG8AYwBrAFQAaQBtAGUAbABpAG4AZQEAAAHbAAABIwAAAJYA////AAAERwAAAAEAAAABAAAAAgAAAAEAAAAC/AAAAAEAAAACAAAAAQAAAA4AdABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAA"
+        simple_state = "AAAA/wAAAAD9AAAAAwAAAAAAAAEnAAAC3/wCAAAAAvwAAAJeAAAApwAAAAAA////+gAAAAACAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAAAAAAD/////AAAAAAAAAAD7AAAAHABkAG8AYwBrAFAAcgBvAHAAZQByAHQAaQBlAHMAAAAAJwAAAt8AAACnAP///wAAAAEAAAEcAAABQPwCAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAAAAAACAAAERgAAAtj8AQAAAAH8AAAAAAAABEYAAAD6AP////wCAAAAAvwAAAAnAAABwAAAALQA/////AEAAAAC/AAAAAAAAAFcAAAAewD////6AAAAAAIAAAAD+wAAABIAZABvAGMAawBGAGkAbABlAHMBAAAAAP////8AAACYAP////sAAAAeAGQAbwBjAGsAVAByAGEAbgBzAGkAdABpAG8AbgBzAQAAAAD/////AAAAmAD////7AAAAFgBkAG8AYwBrAEUAZgBmAGUAYwB0AHMBAAAAAP////8AAACYAP////sAAAASAGQAbwBjAGsAVgBpAGQAZQBvAQAAAWIAAALkAAAARwD////7AAAAGABkAG8AYwBrAFQAaQBtAGUAbABpAG4AZQEAAAHtAAABEgAAAJYA////AAAERgAAAAEAAAABAAAAAgAAAAEAAAAC/AAAAAEAAAACAAAAAQAAAA4AdABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAA"
         self.restoreState(qt_types.str_to_bytes(simple_state))
         QCoreApplication.processEvents()
 
@@ -1839,7 +1839,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.showDocks([self.dockFiles, self.dockTransitions, self.dockVideo, self.dockEffects, self.dockProperties])
 
         # Set initial size of docks
-        advanced_state = "AAAA/wAAAAD9AAAAAwAAAAAAAACNAAAC3vwCAAAAAvsAAAAeAGQAbwBjAGsAVAByAGEAbgBzAGkAdABpAG8AbgBzAQAAACcAAALeAAAAmAD////8AAACXgAAAKcAAAAAAP////oAAAAAAgAAAAH7AAAAGABkAG8AYwBrAEsAZQB5AGYAcgBhAG0AZQAAAAAA/////wAAAAAAAAAAAAAAAQAAAPIAAALe/AIAAAAC+wAAABwAZABvAGMAawBQAHIAbwBwAGUAcgB0AGkAZQBzAQAAACcAAALeAAAAnwD////7AAAAGABkAG8AYwBrAEsAZQB5AGYAcgBhAG0AZQEAAAFYAAAAFQAAAAAAAAAAAAAAAgAAArwAAALX/AEAAAAB/AAAAJMAAAK8AAABWgD////8AgAAAAL8AAAAJwAAAXIAAACYAP////wBAAAAAvsAAAASAGQAbwBjAGsARgBpAGwAZQBzAQAAAJMAAADxAAAAbAD////7AAAAEgBkAG8AYwBrAFYAaQBkAGUAbwEAAAGKAAABxQAAAEcA/////AAAAZ8AAAFfAAAAmAD////8AQAAAAL7AAAAGABkAG8AYwBrAFQAaQBtAGUAbABpAG4AZQEAAACTAAACMAAAAPoA////+wAAABYAZABvAGMAawBFAGYAZgBlAGMAdABzAQAAAskAAACGAAAAWgD///8AAAK8AAAAAQAAAAEAAAACAAAAAQAAAAL8AAAAAQAAAAIAAAABAAAADgB0AG8AbwBsAEIAYQByAQAAAAD/////AAAAAAAAAAA="
+        advanced_state = "AAAA/wAAAAD9AAAAAwAAAAAAAACCAAAC3/wCAAAAAvsAAAASAGQAbwBjAGsARgBpAGwAZQBzAQAAACcAAALfAAAAmAD////8AAACXgAAAKcAAAAAAP////oAAAAAAgAAAAH7AAAAGABkAG8AYwBrAEsAZQB5AGYAcgBhAG0AZQAAAAAA/////wAAAAAAAAAAAAAAAQAAANUAAALf/AIAAAAC+wAAABwAZABvAGMAawBQAHIAbwBwAGUAcgB0AGkAZQBzAQAAACcAAALfAAAAnwD////7AAAAGABkAG8AYwBrAEsAZQB5AGYAcgBhAG0AZQEAAAFYAAAAFQAAAAAAAAAAAAAAAgAAAuMAAALY/AEAAAAB/AAAAIgAAALjAAABWgD////8AgAAAAL8AAAAJwAAAe8AAACYAP////wBAAAAAvsAAAAeAGQAbwBjAGsAVAByAGEAbgBzAGkAdABpAG8AbgBzAQAAAIgAAACKAAAAbAD////7AAAAEgBkAG8AYwBrAFYAaQBkAGUAbwEAAAEYAAACUwAAAEcA/////AAAAhwAAADjAAAAmAD////8AQAAAAL7AAAAGABkAG8AYwBrAFQAaQBtAGUAbABpAG4AZQEAAACIAAACUgAAAPoA////+wAAABYAZABvAGMAawBFAGYAZgBlAGMAdABzAQAAAuAAAACLAAAAWgD///8AAALjAAAAAQAAAAEAAAACAAAAAQAAAAL8AAAAAQAAAAIAAAABAAAADgB0AG8AbwBsAEIAYQByAQAAAAD/////AAAAAAAAAAA="
         self.restoreState(qt_types.str_to_bytes(advanced_state))
         QCoreApplication.processEvents()
 
@@ -1981,8 +1981,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         s = settings.get_settings()
 
         # Window state and geometry (also toolbar and dock locations)
-        if s.get('window_geometry_v2'): self.restoreGeometry(qt_types.str_to_bytes(s.get('window_geometry_v2')))
         if s.get('window_state_v2'): self.restoreState(qt_types.str_to_bytes(s.get('window_state_v2')))
+        if s.get('window_geometry_v2'): self.restoreGeometry(qt_types.str_to_bytes(s.get('window_geometry_v2')))
 
         # Load Recent Projects
         self.load_recent_menu()
@@ -2193,35 +2193,27 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         """ Move tutorial dialogs also (if any)"""
         QMainWindow.moveEvent(self, event)
         if self.tutorial_manager:
-            #log.info("Sending move event to tutorial manager")
             self.tutorial_manager.re_position_dialog()
 
     def resizeEvent(self, event):
         QMainWindow.resizeEvent(self, event)
         if self.tutorial_manager:
-            #log.info("Sending resize event to tutorial manager")
             self.tutorial_manager.re_position_dialog()
 
     def showEvent(self, event):
         """ Have any child windows follow main-window state """
-        #log.info("Showing main window")
         QMainWindow.showEvent(self, event)
         for child in self.findChildren(QDockWidget):
             if child.isFloating() and child.isEnabled():
-                # child.setWindowState(self.windowState())
-                #log.info("Showing child {}".format(child.windowTitle()))
                 child.raise_()
                 child.show()
 
     def hideEvent(self, event):
         """ Have any child windows hide with main window """
-        #log.info("Hiding main window")
         QMainWindow.hideEvent(self, event)
         for child in self.findChildren(QDockWidget):
             if child.isFloating() and child.isVisible():
-                #log.info("Hiding child {}".format(child.windowTitle()))
                 child.hide()
-
 
     def show_property_timeout(self):
         """Callback for show property timer"""
