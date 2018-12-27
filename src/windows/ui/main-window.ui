@@ -37,13 +37,31 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">
-    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
      <horstretch>0</horstretch>
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>1</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>16777215</width>
+     <height>1</height>
+    </size>
+   </property>
+   <property name="cursor">
+    <cursorShape>SplitVCursor</cursorShape>
+   </property>
+   <property name="contextMenuPolicy">
+    <enum>Qt::DefaultContextMenu</enum>
+   </property>
    <property name="autoFillBackground">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <layout class="QGridLayout" name="gridLayout">
     <property name="leftMargin">
@@ -61,9 +79,6 @@
     <property name="spacing">
      <number>3</number>
     </property>
-    <item row="0" column="0">
-     <layout class="QVBoxLayout" name="frameWeb"/>
-    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -71,7 +86,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>808</width>
+     <width>1200</width>
      <height>25</height>
     </rect>
    </property>
@@ -116,10 +131,11 @@
     </property>
     <widget class="QMenu" name="menuViews">
      <property name="title">
-      <string>Views</string>
+      <string>V&amp;iews</string>
      </property>
      <addaction name="actionSimple_View"/>
      <addaction name="actionAdvanced_View"/>
+     <addaction name="actionProperties_View"/>
      <addaction name="separator"/>
      <addaction name="actionFreeze_View"/>
      <addaction name="actionUn_Freeze_View"/>
@@ -133,7 +149,7 @@
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
-     <string>Help</string>
+     <string>He&amp;lp</string>
     </property>
     <addaction name="actionHelpContents"/>
     <addaction name="separator"/>
@@ -183,7 +199,7 @@
     </sizepolicy>
    </property>
    <property name="windowTitle">
-    <string>Project Files</string>
+    <string>P&amp;roject Files</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>4</number>
@@ -216,7 +232,7 @@
     </sizepolicy>
    </property>
    <property name="windowTitle">
-    <string>Video Preview</string>
+    <string>&amp;Video Preview</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>4</number>
@@ -243,7 +259,7 @@
   </widget>
   <widget class="QDockWidget" name="dockTransitions">
    <property name="windowTitle">
-    <string>Transitions</string>
+    <string>Tra&amp;nsitions</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>4</number>
@@ -273,7 +289,7 @@
     <string>Effects</string>
    </property>
    <attribute name="dockWidgetArea">
-    <number>4</number>
+    <number>8</number>
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_4">
     <layout class="QGridLayout" name="gridLayout_5">
@@ -306,7 +322,7 @@
     <string>Properties</string>
    </property>
    <attribute name="dockWidgetArea">
-    <number>1</number>
+    <number>8</number>
    </attribute>
    <widget class="QWidget" name="dockPropertiesContent">
     <layout class="QGridLayout" name="gridLayout_6">
@@ -350,8 +366,8 @@
    </property>
    <property name="minimumSize">
     <size>
-     <width>10</width>
-     <height>10</height>
+     <width>61</width>
+     <height>38</height>
     </size>
    </property>
    <property name="cursor">
@@ -373,7 +389,7 @@
     <bool>true</bool>
    </property>
    <property name="features">
-    <set>QDockWidget::DockWidgetFloatable</set>
+    <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
    </property>
    <property name="allowedAreas">
     <set>Qt::NoDockWidgetArea</set>
@@ -401,7 +417,7 @@
      <enum>Qt::NoContextMenu</enum>
     </property>
     <property name="visible">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="autoFillBackground">
      <bool>false</bool>
@@ -425,13 +441,43 @@
     </layout>
    </widget>
   </widget>
+  <widget class="QDockWidget" name="dockTimeline">
+   <property name="minimumSize">
+    <size>
+     <width>250</width>
+     <height>150</height>
+    </size>
+   </property>
+   <property name="features">
+    <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
+   </property>
+   <property name="windowTitle">
+    <string>Ti&amp;meline</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>8</number>
+   </attribute>
+   <widget class="QWidget" name="dockTimelineContents">
+    <property name="focusPolicy">
+     <enum>Qt::ClickFocus</enum>
+    </property>
+    <property name="contextMenuPolicy">
+     <enum>Qt::NoContextMenu</enum>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_7">
+     <item row="0" column="0">
+      <layout class="QVBoxLayout" name="frameWeb"/>
+     </item>
+    </layout>
+   </widget>
+  </widget>
   <action name="actionNew">
    <property name="icon">
     <iconset theme="document-new" resource="../../images/openshot.qrc">
      <normaloff>:/icons/Humanity/actions/16/document-new.svg</normaloff>:/icons/Humanity/actions/16/document-new.svg</iconset>
    </property>
    <property name="text">
-    <string>New Project...</string>
+    <string>&amp;New Project...</string>
    </property>
    <property name="toolTip">
     <string>New Project</string>
@@ -446,7 +492,7 @@
      <normaloff>:/icons/Humanity/actions/16/document-open.svg</normaloff>:/icons/Humanity/actions/16/document-open.svg</iconset>
    </property>
    <property name="text">
-    <string>Open Project...</string>
+    <string>&amp;Open Project...</string>
    </property>
    <property name="toolTip">
     <string>Open Project</string>
@@ -461,7 +507,7 @@
      <normaloff>:/icons/Humanity/actions/16/document-save.svg</normaloff>:/icons/Humanity/actions/16/document-save.svg</iconset>
    </property>
    <property name="text">
-    <string>Save Project</string>
+    <string>&amp;Save Project</string>
    </property>
    <property name="toolTip">
     <string>Save Project</string>
@@ -476,7 +522,7 @@
      <normaloff>:/icons/Humanity/actions/16/edit-undo.svg</normaloff>:/icons/Humanity/actions/16/edit-undo.svg</iconset>
    </property>
    <property name="text">
-    <string>Undo</string>
+    <string>&amp;Undo</string>
    </property>
    <property name="toolTip">
     <string>Undo</string>
@@ -491,7 +537,7 @@
      <normaloff>:/icons/Humanity/actions/16/document-save-as.svg</normaloff>:/icons/Humanity/actions/16/document-save-as.svg</iconset>
    </property>
    <property name="text">
-    <string>Save Project As...</string>
+    <string>Save &amp;Project As...</string>
    </property>
    <property name="toolTip">
     <string>Save Project As...</string>
@@ -506,7 +552,7 @@
      <normaloff>:/icons/Humanity/actions/16/list-add.svg</normaloff>:/icons/Humanity/actions/16/list-add.svg</iconset>
    </property>
    <property name="text">
-    <string>Import Files...</string>
+    <string>&amp;Import Files...</string>
    </property>
    <property name="toolTip">
     <string>Import Files</string>
@@ -551,7 +597,7 @@
      <normaloff>:/icons/Humanity/actions/16/edit-redo.svg</normaloff>:/icons/Humanity/actions/16/edit-redo.svg</iconset>
    </property>
    <property name="text">
-    <string>Redo</string>
+    <string>&amp;Redo</string>
    </property>
    <property name="toolTip">
     <string>Redo</string>
@@ -590,7 +636,7 @@
      <normaloff>:/icons/Humanity/actions/16/media-record.svg</normaloff>:/icons/Humanity/actions/16/media-record.svg</iconset>
    </property>
    <property name="text">
-    <string>Export Video</string>
+    <string>&amp;Export Video</string>
    </property>
    <property name="toolTip">
     <string>Export Video</string>
@@ -992,7 +1038,7 @@
      <normaloff>:/icons/Humanity/mimes/16/font-x-generic.svg</normaloff>:/icons/Humanity/mimes/16/font-x-generic.svg</iconset>
    </property>
    <property name="text">
-    <string>Title</string>
+    <string>&amp;Title</string>
    </property>
    <property name="toolTip">
     <string>Title</string>
@@ -1007,7 +1053,7 @@
      <normaloff>:/icons/Humanity/mimes/16/video-x-generic.svg</normaloff>:/icons/Humanity/mimes/16/video-x-generic.svg</iconset>
    </property>
    <property name="text">
-    <string>Animated Title</string>
+    <string>&amp;Animated Title</string>
    </property>
    <property name="toolTip">
     <string>Animated Title</string>
@@ -1025,7 +1071,7 @@
      <normaloff>:/icons/Humanity/actions/16/view-fullscreen.svg</normaloff>:/icons/Humanity/actions/16/view-fullscreen.svg</iconset>
    </property>
    <property name="text">
-    <string>Fullscreen</string>
+    <string>&amp;Fullscreen</string>
    </property>
    <property name="toolTip">
     <string>Fullscreen</string>
@@ -1043,7 +1089,7 @@
      <normaloff>:/icons/Humanity/actions/16/zoom-in.png</normaloff>:/icons/Humanity/actions/16/zoom-in.png</iconset>
    </property>
    <property name="text">
-    <string>View Toolbar</string>
+    <string>&amp;View Toolbar</string>
    </property>
    <property name="toolTip">
     <string>View Toolbar</string>
@@ -1055,7 +1101,7 @@
      <normaloff>:/icons/Humanity/actions/16/gtk-info.svg</normaloff>:/icons/Humanity/actions/16/gtk-info.svg</iconset>
    </property>
    <property name="text">
-    <string>About OpenShot</string>
+    <string>About &amp;OpenShot</string>
    </property>
    <property name="toolTip">
     <string>About OpenShot</string>
@@ -1103,7 +1149,7 @@
      <normaloff>:/icons/Humanity/status/16/dialog-error.svg</normaloff>:/icons/Humanity/status/16/dialog-error.svg</iconset>
    </property>
    <property name="text">
-    <string>Report a Bug...</string>
+    <string>&amp;Report a Bug...</string>
    </property>
   </action>
   <action name="actionAskQuestion">
@@ -1112,7 +1158,7 @@
      <normaloff>:/icons/Humanity/actions/16/im-message-new.svg</normaloff>:/icons/Humanity/actions/16/im-message-new.svg</iconset>
    </property>
    <property name="text">
-    <string>Ask a Question...</string>
+    <string>&amp;Ask a Question...</string>
    </property>
   </action>
   <action name="actionTranslate">
@@ -1121,7 +1167,7 @@
      <normaloff>:/icons/Humanity/stock/16/stock_person.svg</normaloff>:/icons/Humanity/stock/16/stock_person.svg</iconset>
    </property>
    <property name="text">
-    <string>Translate this Application...</string>
+    <string>Tra&amp;nslate this Application...</string>
    </property>
   </action>
   <action name="actionDonate">
@@ -1130,7 +1176,7 @@
      <normaloff>:/icons/Humanity/actions/16/bookmark-new.svg</normaloff>:/icons/Humanity/actions/16/bookmark-new.svg</iconset>
    </property>
    <property name="text">
-    <string>Donate</string>
+    <string>&amp;Donate</string>
    </property>
   </action>
   <action name="actionHelpContents">
@@ -1139,7 +1185,7 @@
      <normaloff>:/icons/Humanity/actions/16/help-contents.svg</normaloff>:/icons/Humanity/actions/16/help-contents.svg</iconset>
    </property>
    <property name="text">
-    <string>Contents</string>
+    <string>&amp;Contents</string>
    </property>
    <property name="toolTip">
     <string>Open Help Contents</string>
@@ -1151,7 +1197,7 @@
      <normaloff>:/icons/Humanity/actions/16/go-home.svg</normaloff>:/icons/Humanity/actions/16/go-home.svg</iconset>
    </property>
    <property name="text">
-    <string>Simple View</string>
+    <string>&amp;Simple View</string>
    </property>
   </action>
   <action name="actionAdvanced_View">
@@ -1160,7 +1206,16 @@
      <normaloff>:/icons/Humanity/actions/16/get-hot-new-stuff.png</normaloff>:/icons/Humanity/actions/16/get-hot-new-stuff.png</iconset>
    </property>
    <property name="text">
-    <string>Advanced View</string>
+    <string>&amp;Advanced View</string>
+   </property>
+  </action>
+  <action name="actionProperties_View">
+   <property name="icon">
+    <iconset theme="view-list-symbolic" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/custom/properties-view.svg</normaloff>:/icons/Humanity/actions/custom/properties-view.svg</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Properties View</string>
    </property>
   </action>
   <action name="actionFreeze_View">
@@ -1169,7 +1224,7 @@
      <normaloff>:/icons/Humanity/actions/16/locked.svg</normaloff>:/icons/Humanity/actions/16/locked.svg</iconset>
    </property>
    <property name="text">
-    <string>Freeze View</string>
+    <string>&amp;Freeze View</string>
    </property>
   </action>
   <action name="actionUn_Freeze_View">
@@ -1178,7 +1233,7 @@
      <normaloff>:/icons/Humanity/actions/16/locked.svg</normaloff>:/icons/Humanity/actions/16/locked.svg</iconset>
    </property>
    <property name="text">
-    <string>Un-Freeze View</string>
+    <string>&amp;Un-Freeze View</string>
    </property>
    <property name="visible">
     <bool>false</bool>
@@ -1190,7 +1245,7 @@
      <normaloff>:/icons/Humanity/actions/16/zoom-in.png</normaloff>:/icons/Humanity/actions/16/zoom-in.png</iconset>
    </property>
    <property name="text">
-    <string>Show All</string>
+    <string>S&amp;how All</string>
    </property>
   </action>
   <action name="actionRecent_Placeholder">
@@ -1202,7 +1257,7 @@
      <normaloff>:/icons/Humanity/actions/16/document-open-recent.svg</normaloff>:/icons/Humanity/actions/16/document-open-recent.svg</iconset>
    </property>
    <property name="text">
-    <string>Recent Placeholder</string>
+    <string>&amp;Recent Placeholder</string>
    </property>
    <property name="visible">
     <bool>false</bool>
@@ -1214,7 +1269,7 @@
      <normaloff>:/icons/Humanity/mimes/16/video-x-generic.svg</normaloff>:/icons/Humanity/mimes/16/video-x-generic.svg</iconset>
    </property>
    <property name="text">
-    <string>Choose Profile</string>
+    <string>&amp;Choose Profile</string>
    </property>
    <property name="toolTip">
     <string>Choose Profile</string>
@@ -1412,7 +1467,7 @@
      <normaloff>:/icons/Humanity/actions/16/im-message-new.svg</normaloff>:/icons/Humanity/actions/16/im-message-new.svg</iconset>
    </property>
    <property name="text">
-    <string>Tutorial</string>
+    <string>&amp;Tutorial</string>
    </property>
    <property name="toolTip">
     <string>Launch Tutorial</string>
@@ -1502,7 +1557,7 @@
      <normaloff>:/icons/Humanity/actions/16/edit-clear.svg</normaloff>:/icons/Humanity/actions/16/edit-clear.svg</iconset>
    </property>
    <property name="text">
-    <string>Clear History</string>
+    <string>&amp;Clear History</string>
    </property>
    <property name="toolTip">
     <string>Clear History</string>

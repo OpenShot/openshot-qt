@@ -1809,6 +1809,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def actionSimple_View_trigger(self, event):
         """ Switch to the default / simple view  """
         self.removeDocks()
+
+        # In case it's been changed by Properties View
+        #self.setCorner(Qt.TopLeftCorner, Qt.TopDockWidgetArea)
+
         self.addDocks([self.dockFiles, self.dockTransitions, self.dockEffects, self.dockVideo], Qt.TopDockWidgetArea)
         self.floatDocks(False)
         self.tabifyDockWidget(self.dockFiles, self.dockTransitions)
@@ -1825,6 +1829,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         """ Switch to an alternative view """
         self.removeDocks()
 
+        # In case it's been changed by Properties View
+        #self.setCorner(Qt.TopLeftCorner, Qt.TopDockWidgetArea)
+
         # Add Docks
         self.addDocks([self.dockFiles, self.dockTransitions, self.dockVideo], Qt.TopDockWidgetArea)
         self.addDocks([self.dockEffects], Qt.RightDockWidgetArea)
@@ -1837,6 +1844,22 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         advanced_state = "AAAA/wAAAAD9AAAAAwAAAAAAAAD8AAAB5fwCAAAAAfwAAAHVAAAB5QAAAKEA////+gAAAAACAAAAAvsAAAAcAGQAbwBjAGsAUAByAG8AcABlAHIAdABpAGUAcwEAAAAA/////wAAAKEA////+wAAABgAZABvAGMAawBLAGUAeQBmAHIAYQBtAGUAAAAAAP////8AAAAAAAAAAAAAAAEAAAD2AAAB5fwCAAAAAvsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAD7AAAAFgBkAG8AYwBrAEUAZgBmAGUAYwB0AHMBAAAB1QAAAeUAAACYAP///wAAAAIAAAVmAAABkvwBAAAAA/sAAAASAGQAbwBjAGsARgBpAGwAZQBzAQAAAAAAAAIZAAAAbAD////7AAAAHgBkAG8AYwBrAFQAcgBhAG4AcwBpAHQAaQBvAG4AcwEAAAIfAAABAAAAAGwA////+wAAABIAZABvAGMAawBWAGkAZABlAG8BAAADJQAAAkEAAAA6AP///wAAA2gAAAHlAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAHQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAA=="
         self.restoreState(qt_types.str_to_bytes(advanced_state))
         QCoreApplication.processEvents()
+
+    def actionProperties_View_trigger(self, event):
+        """ Switch to full-height left dock (containing Properties) """
+        # self.removeDocks()
+
+        log.info("actionProperties_View_trigger() called")
+
+        # Configure the side docks to full-height
+        self.setCorner(Qt.TopLeftCorner, Qt.LeftDockWidgetArea)
+        self.setCorner(Qt.BottomLeftCorner, Qt.LeftDockWidgetArea)
+        self.setCorner(Qt.TopRightCorner, Qt.RightDockWidgetArea)
+        self.setCorner(Qt.BottomRightCorner, Qt.RightDockWidgetArea)
+
+        # Place the Properties dock and reveal it
+        self.addDocks([self.dockProperties], Qt.LeftDockWidgetArea)
+        self.showDocks([self.dockProperties])
 
     def actionFreeze_View_trigger(self, event):
         """ Freeze all dockable widgets on the main screen """
@@ -2373,6 +2396,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Setup timeline
         self.timeline = TimelineWebView(self)
         self.frameWeb.layout().addWidget(self.timeline)
+
+        # Configure the side docks to full-height
+        self.setCorner(Qt.TopLeftCorner, Qt.LeftDockWidgetArea)
+        self.setCorner(Qt.BottomLeftCorner, Qt.LeftDockWidgetArea)
+        self.setCorner(Qt.TopRightCorner, Qt.RightDockWidgetArea)
+        self.setCorner(Qt.BottomRightCorner, Qt.RightDockWidgetArea)
 
         # Setup files tree
         if s.get("file_view") == "details":
