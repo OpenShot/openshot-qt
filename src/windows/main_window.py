@@ -1839,7 +1839,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.showDocks([self.dockFiles, self.dockTransitions, self.dockVideo, self.dockEffects, self.dockProperties])
 
         # Set initial size of docks
-        advanced_state = "AAAA/wAAAAD9AAAAAwAAAAAAAADgAAAC3vwCAAAAAvwAAAJeAAAApwAAAAAA////+gAAAAACAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAAAAAAD/////AAAAAAAAAAD7AAAAHABkAG8AYwBrAFAAcgBvAHAAZQByAHQAaQBlAHMBAAAAJwAAAt4AAACnAP///wAAAAEAAAEcAAABQPwCAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAAAAAACAAADYQAAAtf8AQAAAAH8AAAA5gAAA2EAAAFaAP////wCAAAAAvwAAAAnAAABcgAAAJgA/////AEAAAAD+wAAABIAZABvAGMAawBGAGkAbABlAHMBAAAA5gAAAPQAAABsAP////sAAAASAGQAbwBjAGsAVgBpAGQAZQBvAQAAAeAAAAHNAAAARwD////7AAAAHgBkAG8AYwBrAFQAcgBhAG4AcwBpAHQAaQBvAG4AcwEAAAOzAAAAlAAAAGwA/////AAAAZ8AAAFfAAAAmAD////8AQAAAAL7AAAAGABkAG8AYwBrAFQAaQBtAGUAbABpAG4AZQEAAADmAAACxwAAAPoA////+wAAABYAZABvAGMAawBFAGYAZgBlAGMAdABzAQAAA7MAAACUAAAAWgD///8AAANhAAAAAQAAAAEAAAACAAAAAQAAAAL8AAAAAQAAAAIAAAABAAAADgB0AG8AbwBsAEIAYQByAQAAAAD/////AAAAAAAAAAA="
+        advanced_state = "AAAA/wAAAAD9AAAAAwAAAAAAAACNAAAC3vwCAAAAAvsAAAAeAGQAbwBjAGsAVAByAGEAbgBzAGkAdABpAG8AbgBzAQAAACcAAALeAAAAmAD////8AAACXgAAAKcAAAAAAP////oAAAAAAgAAAAH7AAAAGABkAG8AYwBrAEsAZQB5AGYAcgBhAG0AZQAAAAAA/////wAAAAAAAAAAAAAAAQAAAPIAAALe/AIAAAAC+wAAABwAZABvAGMAawBQAHIAbwBwAGUAcgB0AGkAZQBzAQAAACcAAALeAAAAnwD////7AAAAGABkAG8AYwBrAEsAZQB5AGYAcgBhAG0AZQEAAAFYAAAAFQAAAAAAAAAAAAAAAgAAArwAAALX/AEAAAAB/AAAAJMAAAK8AAABWgD////8AgAAAAL8AAAAJwAAAXIAAACYAP////wBAAAAAvsAAAASAGQAbwBjAGsARgBpAGwAZQBzAQAAAJMAAADxAAAAbAD////7AAAAEgBkAG8AYwBrAFYAaQBkAGUAbwEAAAGKAAABxQAAAEcA/////AAAAZ8AAAFfAAAAmAD////8AQAAAAL7AAAAGABkAG8AYwBrAFQAaQBtAGUAbABpAG4AZQEAAACTAAACMAAAAPoA////+wAAABYAZABvAGMAawBFAGYAZgBlAGMAdABzAQAAAskAAACGAAAAWgD///8AAAK8AAAAAQAAAAEAAAACAAAAAQAAAAL8AAAAAQAAAAIAAAABAAAADgB0AG8AbwBsAEIAYQByAQAAAAD/////AAAAAAAAAAA="
         self.restoreState(qt_types.str_to_bytes(advanced_state))
         QCoreApplication.processEvents()
 
@@ -2038,7 +2038,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.actionUndo.setEnabled(False)
         self.actionRedo.setEnabled(False)
 
-        # Add files toolbar =================================================================================
+        # Add files toolbar
         self.filesToolbar = QToolBar("Files Toolbar")
         self.filesActionGroup = QActionGroup(self)
         self.filesActionGroup.setExclusive(True)
@@ -2059,7 +2059,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.filesToolbar.addAction(self.actionFilesClear)
         self.tabFiles.layout().addWidget(self.filesToolbar)
 
-        # Add transitions toolbar =================================================================================
+        # Add transitions toolbar
         self.transitionsToolbar = QToolBar("Transitions Toolbar")
         self.transitionsActionGroup = QActionGroup(self)
         self.transitionsActionGroup.setExclusive(True)
@@ -2076,7 +2076,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.transitionsToolbar.addAction(self.actionTransitionsClear)
         self.tabTransitions.layout().addWidget(self.transitionsToolbar)
 
-        # Add effects toolbar =================================================================================
+        # Add effects toolbar
         self.effectsToolbar = QToolBar("Effects Toolbar")
         self.effectsFilter = QLineEdit()
         self.effectsFilter.setObjectName("effectsFilter")
@@ -2086,7 +2086,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.effectsToolbar.addAction(self.actionEffectsClear)
         self.tabEffects.layout().addWidget(self.effectsToolbar)
 
-        # Add Video Preview toolbar ==========================================================================
+        # Add Video Preview toolbar
         self.videoToolbar = QToolBar("Video Toolbar")
 
         # Add fixed spacer(s) (one for each "Other control" to keep playback controls centered)
@@ -2120,7 +2120,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         self.tabVideo.layout().addWidget(self.videoToolbar)
 
-        # Add Timeline toolbar ================================================================================
+        # Add Timeline toolbar
         self.timelineToolbar = QToolBar("Timeline Toolbar", self)
 
         self.timelineToolbar.addAction(self.actionAddTrack)
