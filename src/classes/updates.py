@@ -153,11 +153,15 @@ class UpdateManager:
             action.load_json(json.dumps(actionDict))
             if action.type != "load" and action.key[0] != "history":
                 self.redoHistory.append(action)
+            else:
+                log.info("Loading redo history, skipped key: %s" % str(action.key))
         for actionDict in history.get("undo", []):
             action = UpdateAction()
             action.load_json(json.dumps(actionDict))
             if action.type != "load" and action.key[0] != "history":
                 self.actionHistory.append(action)
+            else:
+                log.info("Loading undo history, skipped key: %s" % str(action.key))
 
         # Notify watchers of new status
         self.update_watchers()
@@ -174,10 +178,14 @@ class UpdateManager:
             if action.type != "load" and action.key[0] != "history":
                 actionDict = json.loads(action.json())
                 redo_list.append(actionDict)
+            else:
+                log.info("Saving redo history, skipped key: %s" % str(action.key))
         for action in self.actionHistory[-history_length_int:]:
             if action.type != "load" and action.key[0] != "history":
                 actionDict = json.loads(action.json())
                 undo_list.append(actionDict)
+            else:
+                log.info("Saving undo, skipped key: %s" % str(action.key))
 
         # Set history data in project
         self.ignore_history = True

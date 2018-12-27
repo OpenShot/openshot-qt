@@ -108,6 +108,9 @@ class TitleEditor(QDialog):
         self.titlesTreeView = TitlesListView(self)
         self.verticalLayout.addWidget(self.titlesTreeView)
 
+        # Disable Save button on window load
+        self.buttonBox.button(self.buttonBox.Save).setEnabled(False)
+
         # If editing existing title svg file
         if self.edit_file_path:
             # Hide list of templates
@@ -299,6 +302,9 @@ class TitleEditor(QDialog):
         else:
             self.btnFont.setEnabled(False)
             self.btnFontColor.setEnabled(False)
+
+        # Enable Save button when a template is selected
+        self.buttonBox.button(self.buttonBox.Save).setEnabled(True)
 
     def writeToFile(self, xmldoc):
         '''writes a new svg file containing the user edited data'''
