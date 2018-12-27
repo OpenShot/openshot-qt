@@ -253,10 +253,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         """Destroy the lock file"""
         lock_path = os.path.join(info.USER_PATH, ".lock")
 
-        # Check if it already exists
-        if os.path.exists(lock_path):
-            # Remove file
+        # Remove file
+        try:
             os.remove(lock_path)
+        except OSError:
+            pass
 
     def tail_file(self, f, n, offset=None):
         """Read the end of a file (n number of lines)"""
