@@ -1003,25 +1003,28 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Get selected track data
         existing_track = Track.get(id=selected_layer_id)
+        if not existing_track:
+            # Log error and fail silently
+            log.error('No track object found with id: %s' % selected_layer_id)
+            return
         selected_layer_number = int(existing_track.data["number"])
-
-        # log.info("Adding track above #{} (id {})".format(selected_layer_number, selected_layer_id))
 
         # Loop through tracks above insert point (in descending order), renumbering layers
         for existing_layer in list(reversed(range(selected_layer_number+1, max_track_number))):
             existing_track = Track.get(number=existing_layer)
-            # log.info("Renumbering track id {} from {} to {}".format(existing_track.data["id"], existing_layer, existing_layer+1))
+            if not existing_track:
+                # Log error and fail silently, and continue
+                log.error('No track object found with number: %s' % existing_layer)
+                continue
             existing_track.data["number"] = existing_layer + 1
             existing_track.save()
 
             # Loop through clips and transitions for track, moving up to new layer
             for clip in Clip.filter(layer=existing_layer):
-                # log.info("Moving clip id {} from layer {} to {}".format(clip.data["id"], int(clip.data["layer"]), int(clip.data["layer"])+1))
                 clip.data["layer"] = int(clip.data["layer"]) + 1
                 clip.save()
 
             for trans in Transition.filter(layer=existing_layer):
-                # log.info("Moving transition id {} from layer {} to {}".format(trans.data["id"], int(trans.data["layer"]), int(trans.data["layer"])+1))
                 trans.data["layer"] = int(trans.data["layer"]) + 1
                 trans.save()
 
@@ -1029,7 +1032,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         track = Track()
         track.data = {"number": selected_layer_number+1, "y": 0, "label": "", "lock": False}
         track.save()
-        # log.info("Created new track id {} at layer number {}".format(track.data["id"], track.data["number"]))
 
     def actionAddTrackBelow_trigger(self, event):
         log.info("actionAddTrackBelow_trigger")
@@ -1040,25 +1042,28 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Get selected track data
         existing_track = Track.get(id=selected_layer_id)
+        if not existing_track:
+            # Log error and fail silently
+            log.error('No track object found with id: %s' % selected_layer_id)
+            return
         selected_layer_number = int(existing_track.data["number"])
-
-        # log.info("Adding track below #{} (id {})".format(selected_layer_number, selected_layer_id))
 
         # Loop through tracks from insert point up (in descending order), renumbering layers
         for existing_layer in list(reversed(range(selected_layer_number, max_track_number))):
             existing_track = Track.get(number=existing_layer)
-            # log.info("Renumbering track id {} from {} to {}".format(existing_track.data["id"], existing_layer, existing_layer+1))
+            if not existing_track:
+                # Log error and fail silently, and continue
+                log.error('No track object found with number: %s' % existing_layer)
+                continue
             existing_track.data["number"] = existing_layer + 1
             existing_track.save()
 
             # Loop through clips and transitions for track, moving up to new layer
             for clip in Clip.filter(layer=existing_layer):
-                # log.info("Moving clip id {} from layer {} to {}".format(clip.data["id"], int(clip.data["layer"]), int(clip.data["layer"])+1))
                 clip.data["layer"] = int(clip.data["layer"]) + 1
                 clip.save()
 
             for trans in Transition.filter(layer=existing_layer):
-                # log.info("Moving transition id {} from layer {} to {}".format(trans.data["id"], int(trans.data["layer"]), int(trans.data["layer"])+1))
                 trans.data["layer"] = int(trans.data["layer"]) + 1
                 trans.save()
 
@@ -1066,7 +1071,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         track = Track()
         track.data = {"number": selected_layer_number, "y": 0, "label": "", "lock": False}
         track.save()
-        # log.info("Created new track id {} at layer number {}".format(track.data["id"], track.data["number"]))
 
     def actionArrowTool_trigger(self, event):
         log.info("actionArrowTool_trigger")
