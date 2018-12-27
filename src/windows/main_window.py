@@ -34,6 +34,7 @@ import shutil
 import webbrowser
 from uuid import uuid4
 from copy import deepcopy
+from time import sleep
 
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QIcon, QCursor, QKeySequence
@@ -245,19 +246,31 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             # Normal startup, clear thumbnails
             self.clear_all_thumbnails()
 
-        # Create lock file
-        with open(lock_path, 'w') as f:
-            f.write(lock_value)
+        # Write lock file (try a few times if failure)
+        attempts = 5
+        while attempts > 0:
+            try:
+                # Create lock file
+                with open(lock_path, 'w') as f:
+                    f.write(lock_value)
+                break
+            except Exception:
+                attempts -= 1
+                sleep(0.25)
 
     def destroy_lock_file(self):
         """Destroy the lock file"""
         lock_path = os.path.join(info.USER_PATH, ".lock")
 
-        # Remove file
-        try:
-            os.remove(lock_path)
-        except OSError:
-            pass
+        # Remove file (try a few times if failure)
+        attempts = 5
+        while attempts > 0:
+            try:
+                os.remove(lock_path)
+                break
+            except Exception:
+                attempts -= 1
+                sleep(0.25)
 
     def tail_file(self, f, n, offset=None):
         """Read the end of a file (n number of lines)"""
