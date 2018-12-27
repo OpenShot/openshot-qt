@@ -1767,7 +1767,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 self.dockTransitions,
                 self.dockEffects,
                 self.dockVideo,
-                self.dockProperties]
+                self.dockProperties,
+                self.dockTimeline]
 
     def removeDocks(self):
         """ Remove all dockable widgets on main screen """
@@ -1810,17 +1811,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         """ Switch to the default / simple view  """
         self.removeDocks()
 
-        # In case it's been changed by Properties View
-        #self.setCorner(Qt.TopLeftCorner, Qt.TopDockWidgetArea)
-
+        # Add Docks
         self.addDocks([self.dockFiles, self.dockTransitions, self.dockEffects, self.dockVideo], Qt.TopDockWidgetArea)
+
         self.floatDocks(False)
         self.tabifyDockWidget(self.dockFiles, self.dockTransitions)
         self.tabifyDockWidget(self.dockTransitions, self.dockEffects)
         self.showDocks([self.dockFiles, self.dockTransitions, self.dockEffects, self.dockVideo])
 
         # Set initial size of docks
-        simple_state = "AAAA/wAAAAD9AAAAAwAAAAAAAAD8AAAA9PwCAAAAAfwAAAILAAAA9AAAAAAA////+v////8CAAAAAvsAAAAcAGQAbwBjAGsAUAByAG8AcABlAHIAdABpAGUAcwAAAAAA/////wAAAKEA////+wAAABgAZABvAGMAawBLAGUAeQBmAHIAYQBtAGUAAAAAAP////8AAAATAP///wAAAAEAAAEcAAABQPwCAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAAAAAACAAAEqwAAAdz8AQAAAAL8AAAAAAAAAWQAAAB7AP////oAAAAAAgAAAAP7AAAAEgBkAG8AYwBrAEYAaQBsAGUAcwEAAAAA/////wAAAJgA////+wAAAB4AZABvAGMAawBUAHIAYQBuAHMAaQB0AGkAbwBuAHMBAAAAAP////8AAACYAP////sAAAAWAGQAbwBjAGsARQBmAGYAZQBjAHQAcwEAAAAA/////wAAAJgA////+wAAABIAZABvAGMAawBWAGkAZABlAG8BAAABagAAA0EAAAA6AP///wAABKsAAAD2AAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAHQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAA=="
+        simple_state = "AAAA/wAAAAD9AAAAAwAAAAAAAAD8AAAC3vwCAAAAAvwAAAJeAAAApwAAAAAA////+gAAAAACAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAAAAAAD/////AAAAAAAAAAD7AAAAHABkAG8AYwBrAFAAcgBvAHAAZQByAHQAaQBlAHMAAAAAJwAAAt4AAACnAP///wAAAAEAAAEcAAABQPwCAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAAAAAACAAAERwAAAtf8AQAAAAH8AAAAAAAABEcAAAD6AP////wCAAAAAvwAAAAnAAABrgAAALQA/////AEAAAAC/AAAAAAAAAHHAAAAewD////6AAAAAAIAAAAD+wAAABIAZABvAGMAawBGAGkAbABlAHMBAAAAAP////8AAACYAP////sAAAAeAGQAbwBjAGsAVAByAGEAbgBzAGkAdABpAG8AbgBzAQAAAAD/////AAAAmAD////7AAAAFgBkAG8AYwBrAEUAZgBmAGUAYwB0AHMBAAAAAP////8AAACYAP////sAAAASAGQAbwBjAGsAVgBpAGQAZQBvAQAAAc0AAAJ6AAAARwD////7AAAAGABkAG8AYwBrAFQAaQBtAGUAbABpAG4AZQEAAAHbAAABIwAAAJYA////AAAERwAAAAEAAAABAAAAAgAAAAEAAAAC/AAAAAEAAAACAAAAAQAAAA4AdABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAA"
         self.restoreState(qt_types.str_to_bytes(simple_state))
         QCoreApplication.processEvents()
 
@@ -1829,34 +1829,22 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         """ Switch to an alternative view """
         self.removeDocks()
 
-        # In case it's been changed by Properties View
-        #self.setCorner(Qt.TopLeftCorner, Qt.TopDockWidgetArea)
-
         # Add Docks
         self.addDocks([self.dockFiles, self.dockTransitions, self.dockVideo], Qt.TopDockWidgetArea)
         self.addDocks([self.dockEffects], Qt.RightDockWidgetArea)
         self.addDocks([self.dockProperties], Qt.LeftDockWidgetArea)
 
         self.floatDocks(False)
+        self.tabifyDockWidget(self.dockTransitions, self.dockEffects)
         self.showDocks([self.dockFiles, self.dockTransitions, self.dockVideo, self.dockEffects, self.dockProperties])
 
         # Set initial size of docks
-        advanced_state = "AAAA/wAAAAD9AAAAAwAAAAAAAAD8AAAB5fwCAAAAAfwAAAHVAAAB5QAAAKEA////+gAAAAACAAAAAvsAAAAcAGQAbwBjAGsAUAByAG8AcABlAHIAdABpAGUAcwEAAAAA/////wAAAKEA////+wAAABgAZABvAGMAawBLAGUAeQBmAHIAYQBtAGUAAAAAAP////8AAAAAAAAAAAAAAAEAAAD2AAAB5fwCAAAAAvsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAD7AAAAFgBkAG8AYwBrAEUAZgBmAGUAYwB0AHMBAAAB1QAAAeUAAACYAP///wAAAAIAAAVmAAABkvwBAAAAA/sAAAASAGQAbwBjAGsARgBpAGwAZQBzAQAAAAAAAAIZAAAAbAD////7AAAAHgBkAG8AYwBrAFQAcgBhAG4AcwBpAHQAaQBvAG4AcwEAAAIfAAABAAAAAGwA////+wAAABIAZABvAGMAawBWAGkAZABlAG8BAAADJQAAAkEAAAA6AP///wAAA2gAAAHlAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAHQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAA=="
+        advanced_state = "AAAA/wAAAAD9AAAAAwAAAAAAAADgAAAC3vwCAAAAAvwAAAJeAAAApwAAAAAA////+gAAAAACAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAAAAAAD/////AAAAAAAAAAD7AAAAHABkAG8AYwBrAFAAcgBvAHAAZQByAHQAaQBlAHMBAAAAJwAAAt4AAACnAP///wAAAAEAAAEcAAABQPwCAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAAAAAACAAADYQAAAtf8AQAAAAH8AAAA5gAAA2EAAAFaAP////wCAAAAAvwAAAAnAAABcgAAAJgA/////AEAAAAD+wAAABIAZABvAGMAawBGAGkAbABlAHMBAAAA5gAAAPQAAABsAP////sAAAASAGQAbwBjAGsAVgBpAGQAZQBvAQAAAeAAAAHNAAAARwD////7AAAAHgBkAG8AYwBrAFQAcgBhAG4AcwBpAHQAaQBvAG4AcwEAAAOzAAAAlAAAAGwA/////AAAAZ8AAAFfAAAAmAD////8AQAAAAL7AAAAGABkAG8AYwBrAFQAaQBtAGUAbABpAG4AZQEAAADmAAACxwAAAPoA////+wAAABYAZABvAGMAawBFAGYAZgBlAGMAdABzAQAAA7MAAACUAAAAWgD///8AAANhAAAAAQAAAAEAAAACAAAAAQAAAAL8AAAAAQAAAAIAAAABAAAADgB0AG8AbwBsAEIAYQByAQAAAAD/////AAAAAAAAAAA="
         self.restoreState(qt_types.str_to_bytes(advanced_state))
         QCoreApplication.processEvents()
 
     def actionProperties_View_trigger(self, event):
         """ Switch to full-height left dock (containing Properties) """
-        # self.removeDocks()
-
-        log.info("actionProperties_View_trigger() called")
-
-        # Configure the side docks to full-height
-        self.setCorner(Qt.TopLeftCorner, Qt.LeftDockWidgetArea)
-        self.setCorner(Qt.BottomLeftCorner, Qt.LeftDockWidgetArea)
-        self.setCorner(Qt.TopRightCorner, Qt.RightDockWidgetArea)
-        self.setCorner(Qt.BottomRightCorner, Qt.RightDockWidgetArea)
-
         # Place the Properties dock and reveal it
         self.addDocks([self.dockProperties], Qt.LeftDockWidgetArea)
         self.showDocks([self.dockProperties])
@@ -1991,16 +1979,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         s = settings.get_settings()
 
         # Save window state and geometry (saves toolbar and dock locations)
-        s.set('window_state', qt_types.bytes_to_str(self.saveState()))
-        s.set('window_geometry', qt_types.bytes_to_str(self.saveGeometry()))
+        s.set('window_state_v2', qt_types.bytes_to_str(self.saveState()))
+        s.set('window_geometry_v2', qt_types.bytes_to_str(self.saveGeometry()))
 
     # Get window settings from setting store
     def load_settings(self):
         s = settings.get_settings()
 
         # Window state and geometry (also toolbar and dock locations)
-        if s.get('window_geometry'): self.restoreGeometry(qt_types.str_to_bytes(s.get('window_geometry')))
-        if s.get('window_state'): self.restoreState(qt_types.str_to_bytes(s.get('window_state')))
+        if s.get('window_geometry_v2'): self.restoreGeometry(qt_types.str_to_bytes(s.get('window_geometry_v2')))
+        if s.get('window_state_v2'): self.restoreState(qt_types.str_to_bytes(s.get('window_state_v2')))
 
         # Load Recent Projects
         self.load_recent_menu()
