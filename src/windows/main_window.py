@@ -1843,12 +1843,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.restoreState(qt_types.str_to_bytes(advanced_state))
         QCoreApplication.processEvents()
 
-    def actionProperties_View_trigger(self, event):
-        """ Switch to full-height left dock (containing Properties) """
-        # Place the Properties dock and reveal it
-        self.addDocks([self.dockProperties], Qt.LeftDockWidgetArea)
-        self.showDocks([self.dockProperties])
-
     def actionFreeze_View_trigger(self, event):
         """ Freeze all dockable widgets on the main screen """
         self.freezeDocks()

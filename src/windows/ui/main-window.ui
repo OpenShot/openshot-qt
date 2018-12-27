@@ -131,11 +131,10 @@
     </property>
     <widget class="QMenu" name="menuViews">
      <property name="title">
-      <string>V&amp;iews</string>
+      <string>Views</string>
      </property>
      <addaction name="actionSimple_View"/>
      <addaction name="actionAdvanced_View"/>
-     <addaction name="actionProperties_View"/>
      <addaction name="separator"/>
      <addaction name="actionFreeze_View"/>
      <addaction name="actionUn_Freeze_View"/>
@@ -149,7 +148,7 @@
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
-     <string>He&amp;lp</string>
+     <string>Help</string>
     </property>
     <addaction name="actionHelpContents"/>
     <addaction name="separator"/>
@@ -199,7 +198,7 @@
     </sizepolicy>
    </property>
    <property name="windowTitle">
-    <string>P&amp;roject Files</string>
+    <string>Project Files</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>4</number>
@@ -232,7 +231,7 @@
     </sizepolicy>
    </property>
    <property name="windowTitle">
-    <string>&amp;Video Preview</string>
+    <string>Video Preview</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>4</number>
@@ -259,7 +258,7 @@
   </widget>
   <widget class="QDockWidget" name="dockTransitions">
    <property name="windowTitle">
-    <string>Tra&amp;nsitions</string>
+    <string>Transitions</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>4</number>
@@ -452,7 +451,7 @@
     <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
    </property>
    <property name="windowTitle">
-    <string>Ti&amp;meline</string>
+    <string>Timeline</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>8</number>
@@ -477,7 +476,7 @@
      <normaloff>:/icons/Humanity/actions/16/document-new.svg</normaloff>:/icons/Humanity/actions/16/document-new.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;New Project...</string>
+    <string>New Project...</string>
    </property>
    <property name="toolTip">
     <string>New Project</string>
@@ -492,7 +491,7 @@
      <normaloff>:/icons/Humanity/actions/16/document-open.svg</normaloff>:/icons/Humanity/actions/16/document-open.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Open Project...</string>
+    <string>Open Project...</string>
    </property>
    <property name="toolTip">
     <string>Open Project</string>
@@ -507,7 +506,7 @@
      <normaloff>:/icons/Humanity/actions/16/document-save.svg</normaloff>:/icons/Humanity/actions/16/document-save.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Save Project</string>
+    <string>Save Project</string>
    </property>
    <property name="toolTip">
     <string>Save Project</string>
@@ -522,7 +521,7 @@
      <normaloff>:/icons/Humanity/actions/16/edit-undo.svg</normaloff>:/icons/Humanity/actions/16/edit-undo.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Undo</string>
+    <string>Undo</string>
    </property>
    <property name="toolTip">
     <string>Undo</string>
@@ -537,7 +536,7 @@
      <normaloff>:/icons/Humanity/actions/16/document-save-as.svg</normaloff>:/icons/Humanity/actions/16/document-save-as.svg</iconset>
    </property>
    <property name="text">
-    <string>Save &amp;Project As...</string>
+    <string>Save Project As...</string>
    </property>
    <property name="toolTip">
     <string>Save Project As...</string>
@@ -552,7 +551,7 @@
      <normaloff>:/icons/Humanity/actions/16/list-add.svg</normaloff>:/icons/Humanity/actions/16/list-add.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Import Files...</string>
+    <string>Import Files...</string>
    </property>
    <property name="toolTip">
     <string>Import Files</string>
@@ -597,7 +596,7 @@
      <normaloff>:/icons/Humanity/actions/16/edit-redo.svg</normaloff>:/icons/Humanity/actions/16/edit-redo.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Redo</string>
+    <string>Redo</string>
    </property>
    <property name="toolTip">
     <string>Redo</string>
@@ -636,7 +635,7 @@
      <normaloff>:/icons/Humanity/actions/16/media-record.svg</normaloff>:/icons/Humanity/actions/16/media-record.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Export Video</string>
+    <string>Export Video</string>
    </property>
    <property name="toolTip">
     <string>Export Video</string>
@@ -1038,7 +1037,7 @@
      <normaloff>:/icons/Humanity/mimes/16/font-x-generic.svg</normaloff>:/icons/Humanity/mimes/16/font-x-generic.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Title</string>
+    <string>Title</string>
    </property>
    <property name="toolTip">
     <string>Title</string>
@@ -1053,7 +1052,7 @@
      <normaloff>:/icons/Humanity/mimes/16/video-x-generic.svg</normaloff>:/icons/Humanity/mimes/16/video-x-generic.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Animated Title</string>
+    <string>Animated Title</string>
    </property>
    <property name="toolTip">
     <string>Animated Title</string>
@@ -1071,7 +1070,7 @@
      <normaloff>:/icons/Humanity/actions/16/view-fullscreen.svg</normaloff>:/icons/Humanity/actions/16/view-fullscreen.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Fullscreen</string>
+    <string>Fullscreen</string>
    </property>
    <property name="toolTip">
     <string>Fullscreen</string>
@@ -1089,7 +1088,7 @@
      <normaloff>:/icons/Humanity/actions/16/zoom-in.png</normaloff>:/icons/Humanity/actions/16/zoom-in.png</iconset>
    </property>
    <property name="text">
-    <string>&amp;View Toolbar</string>
+    <string>View Toolbar</string>
    </property>
    <property name="toolTip">
     <string>View Toolbar</string>
@@ -1101,7 +1100,7 @@
      <normaloff>:/icons/Humanity/actions/16/gtk-info.svg</normaloff>:/icons/Humanity/actions/16/gtk-info.svg</iconset>
    </property>
    <property name="text">
-    <string>About &amp;OpenShot</string>
+    <string>About OpenShot</string>
    </property>
    <property name="toolTip">
     <string>About OpenShot</string>
@@ -1149,7 +1148,7 @@
      <normaloff>:/icons/Humanity/status/16/dialog-error.svg</normaloff>:/icons/Humanity/status/16/dialog-error.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Report a Bug...</string>
+    <string>Report a Bug...</string>
    </property>
   </action>
   <action name="actionAskQuestion">
@@ -1158,7 +1157,7 @@
      <normaloff>:/icons/Humanity/actions/16/im-message-new.svg</normaloff>:/icons/Humanity/actions/16/im-message-new.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Ask a Question...</string>
+    <string>Ask a Question...</string>
    </property>
   </action>
   <action name="actionTranslate">
@@ -1167,7 +1166,7 @@
      <normaloff>:/icons/Humanity/stock/16/stock_person.svg</normaloff>:/icons/Humanity/stock/16/stock_person.svg</iconset>
    </property>
    <property name="text">
-    <string>Tra&amp;nslate this Application...</string>
+    <string>Translate this Application...</string>
    </property>
   </action>
   <action name="actionDonate">
@@ -1176,7 +1175,7 @@
      <normaloff>:/icons/Humanity/actions/16/bookmark-new.svg</normaloff>:/icons/Humanity/actions/16/bookmark-new.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Donate</string>
+    <string>Donate</string>
    </property>
   </action>
   <action name="actionHelpContents">
@@ -1185,7 +1184,7 @@
      <normaloff>:/icons/Humanity/actions/16/help-contents.svg</normaloff>:/icons/Humanity/actions/16/help-contents.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Contents</string>
+    <string>Contents</string>
    </property>
    <property name="toolTip">
     <string>Open Help Contents</string>
@@ -1197,7 +1196,7 @@
      <normaloff>:/icons/Humanity/actions/16/go-home.svg</normaloff>:/icons/Humanity/actions/16/go-home.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Simple View</string>
+    <string>Simple View</string>
    </property>
   </action>
   <action name="actionAdvanced_View">
@@ -1206,16 +1205,7 @@
      <normaloff>:/icons/Humanity/actions/16/get-hot-new-stuff.png</normaloff>:/icons/Humanity/actions/16/get-hot-new-stuff.png</iconset>
    </property>
    <property name="text">
-    <string>&amp;Advanced View</string>
-   </property>
-  </action>
-  <action name="actionProperties_View">
-   <property name="icon">
-    <iconset theme="view-list-symbolic" resource="../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/custom/properties-view.svg</normaloff>:/icons/Humanity/actions/custom/properties-view.svg</iconset>
-   </property>
-   <property name="text">
-    <string>&amp;Properties View</string>
+    <string>Advanced View</string>
    </property>
   </action>
   <action name="actionFreeze_View">
@@ -1224,7 +1214,7 @@
      <normaloff>:/icons/Humanity/actions/16/locked.svg</normaloff>:/icons/Humanity/actions/16/locked.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Freeze View</string>
+    <string>Freeze View</string>
    </property>
   </action>
   <action name="actionUn_Freeze_View">
@@ -1233,7 +1223,7 @@
      <normaloff>:/icons/Humanity/actions/16/locked.svg</normaloff>:/icons/Humanity/actions/16/locked.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Un-Freeze View</string>
+    <string>Un-Freeze View</string>
    </property>
    <property name="visible">
     <bool>false</bool>
@@ -1245,7 +1235,7 @@
      <normaloff>:/icons/Humanity/actions/16/zoom-in.png</normaloff>:/icons/Humanity/actions/16/zoom-in.png</iconset>
    </property>
    <property name="text">
-    <string>S&amp;how All</string>
+    <string>Show All</string>
    </property>
   </action>
   <action name="actionRecent_Placeholder">
@@ -1257,7 +1247,7 @@
      <normaloff>:/icons/Humanity/actions/16/document-open-recent.svg</normaloff>:/icons/Humanity/actions/16/document-open-recent.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Recent Placeholder</string>
+    <string>Recent Placeholder</string>
    </property>
    <property name="visible">
     <bool>false</bool>
@@ -1269,7 +1259,7 @@
      <normaloff>:/icons/Humanity/mimes/16/video-x-generic.svg</normaloff>:/icons/Humanity/mimes/16/video-x-generic.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Choose Profile</string>
+    <string>Choose Profile</string>
    </property>
    <property name="toolTip">
     <string>Choose Profile</string>
@@ -1467,7 +1457,7 @@
      <normaloff>:/icons/Humanity/actions/16/im-message-new.svg</normaloff>:/icons/Humanity/actions/16/im-message-new.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Tutorial</string>
+    <string>Tutorial</string>
    </property>
    <property name="toolTip">
     <string>Launch Tutorial</string>
@@ -1557,7 +1547,7 @@
      <normaloff>:/icons/Humanity/actions/16/edit-clear.svg</normaloff>:/icons/Humanity/actions/16/edit-clear.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Clear History</string>
+    <string>Clear History</string>
    </property>
    <property name="toolTip">
     <string>Clear History</string>
