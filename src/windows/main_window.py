@@ -1767,7 +1767,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 self.dockTransitions,
                 self.dockEffects,
                 self.dockVideo,
-                self.dockProperties]
+                self.dockProperties,
+                self.dockTimeline]
 
     def removeDocks(self):
         """ Remove all dockable widgets on main screen """
@@ -1809,14 +1810,17 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def actionSimple_View_trigger(self, event):
         """ Switch to the default / simple view  """
         self.removeDocks()
+
+        # Add Docks
         self.addDocks([self.dockFiles, self.dockTransitions, self.dockEffects, self.dockVideo], Qt.TopDockWidgetArea)
+
         self.floatDocks(False)
         self.tabifyDockWidget(self.dockFiles, self.dockTransitions)
         self.tabifyDockWidget(self.dockTransitions, self.dockEffects)
         self.showDocks([self.dockFiles, self.dockTransitions, self.dockEffects, self.dockVideo])
 
         # Set initial size of docks
-        simple_state = "AAAA/wAAAAD9AAAAAwAAAAAAAAD8AAAA9PwCAAAAAfwAAAILAAAA9AAAAAAA////+v////8CAAAAAvsAAAAcAGQAbwBjAGsAUAByAG8AcABlAHIAdABpAGUAcwAAAAAA/////wAAAKEA////+wAAABgAZABvAGMAawBLAGUAeQBmAHIAYQBtAGUAAAAAAP////8AAAATAP///wAAAAEAAAEcAAABQPwCAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAAAAAACAAAEqwAAAdz8AQAAAAL8AAAAAAAAAWQAAAB7AP////oAAAAAAgAAAAP7AAAAEgBkAG8AYwBrAEYAaQBsAGUAcwEAAAAA/////wAAAJgA////+wAAAB4AZABvAGMAawBUAHIAYQBuAHMAaQB0AGkAbwBuAHMBAAAAAP////8AAACYAP////sAAAAWAGQAbwBjAGsARQBmAGYAZQBjAHQAcwEAAAAA/////wAAAJgA////+wAAABIAZABvAGMAawBWAGkAZABlAG8BAAABagAAA0EAAAA6AP///wAABKsAAAD2AAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAHQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAA=="
+        simple_state = "AAAA/wAAAAD9AAAAAwAAAAAAAAEnAAAC3/wCAAAAAvwAAAJeAAAApwAAAAAA////+gAAAAACAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAAAAAAD/////AAAAAAAAAAD7AAAAHABkAG8AYwBrAFAAcgBvAHAAZQByAHQAaQBlAHMAAAAAJwAAAt8AAACnAP///wAAAAEAAAEcAAABQPwCAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAAAAAACAAAERgAAAtj8AQAAAAH8AAAAAAAABEYAAAD6AP////wCAAAAAvwAAAAnAAABwAAAALQA/////AEAAAAC/AAAAAAAAAFcAAAAewD////6AAAAAAIAAAAD+wAAABIAZABvAGMAawBGAGkAbABlAHMBAAAAAP////8AAACYAP////sAAAAeAGQAbwBjAGsAVAByAGEAbgBzAGkAdABpAG8AbgBzAQAAAAD/////AAAAmAD////7AAAAFgBkAG8AYwBrAEUAZgBmAGUAYwB0AHMBAAAAAP////8AAACYAP////sAAAASAGQAbwBjAGsAVgBpAGQAZQBvAQAAAWIAAALkAAAARwD////7AAAAGABkAG8AYwBrAFQAaQBtAGUAbABpAG4AZQEAAAHtAAABEgAAAJYA////AAAERgAAAAEAAAABAAAAAgAAAAEAAAAC/AAAAAEAAAACAAAAAQAAAA4AdABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAA"
         self.restoreState(qt_types.str_to_bytes(simple_state))
         QCoreApplication.processEvents()
 
@@ -1831,10 +1835,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.addDocks([self.dockProperties], Qt.LeftDockWidgetArea)
 
         self.floatDocks(False)
+        self.tabifyDockWidget(self.dockTransitions, self.dockEffects)
         self.showDocks([self.dockFiles, self.dockTransitions, self.dockVideo, self.dockEffects, self.dockProperties])
 
         # Set initial size of docks
-        advanced_state = "AAAA/wAAAAD9AAAAAwAAAAAAAAD8AAAB5fwCAAAAAfwAAAHVAAAB5QAAAKEA////+gAAAAACAAAAAvsAAAAcAGQAbwBjAGsAUAByAG8AcABlAHIAdABpAGUAcwEAAAAA/////wAAAKEA////+wAAABgAZABvAGMAawBLAGUAeQBmAHIAYQBtAGUAAAAAAP////8AAAAAAAAAAAAAAAEAAAD2AAAB5fwCAAAAAvsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAD7AAAAFgBkAG8AYwBrAEUAZgBmAGUAYwB0AHMBAAAB1QAAAeUAAACYAP///wAAAAIAAAVmAAABkvwBAAAAA/sAAAASAGQAbwBjAGsARgBpAGwAZQBzAQAAAAAAAAIZAAAAbAD////7AAAAHgBkAG8AYwBrAFQAcgBhAG4AcwBpAHQAaQBvAG4AcwEAAAIfAAABAAAAAGwA////+wAAABIAZABvAGMAawBWAGkAZABlAG8BAAADJQAAAkEAAAA6AP///wAAA2gAAAHlAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAHQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAA=="
+        advanced_state = "AAAA/wAAAAD9AAAAAwAAAAAAAACCAAAC3/wCAAAAAvsAAAASAGQAbwBjAGsARgBpAGwAZQBzAQAAACcAAALfAAAAmAD////8AAACXgAAAKcAAAAAAP////oAAAAAAgAAAAH7AAAAGABkAG8AYwBrAEsAZQB5AGYAcgBhAG0AZQAAAAAA/////wAAAAAAAAAAAAAAAQAAANUAAALf/AIAAAAC+wAAABwAZABvAGMAawBQAHIAbwBwAGUAcgB0AGkAZQBzAQAAACcAAALfAAAAnwD////7AAAAGABkAG8AYwBrAEsAZQB5AGYAcgBhAG0AZQEAAAFYAAAAFQAAAAAAAAAAAAAAAgAAAuMAAALY/AEAAAAB/AAAAIgAAALjAAABWgD////8AgAAAAL8AAAAJwAAAe8AAACYAP////wBAAAAAvsAAAAeAGQAbwBjAGsAVAByAGEAbgBzAGkAdABpAG8AbgBzAQAAAIgAAACKAAAAbAD////7AAAAEgBkAG8AYwBrAFYAaQBkAGUAbwEAAAEYAAACUwAAAEcA/////AAAAhwAAADjAAAAmAD////8AQAAAAL7AAAAGABkAG8AYwBrAFQAaQBtAGUAbABpAG4AZQEAAACIAAACUgAAAPoA////+wAAABYAZABvAGMAawBFAGYAZgBlAGMAdABzAQAAAuAAAACLAAAAWgD///8AAALjAAAAAQAAAAEAAAACAAAAAQAAAAL8AAAAAQAAAAIAAAABAAAADgB0AG8AbwBsAEIAYQByAQAAAAD/////AAAAAAAAAAA="
         self.restoreState(qt_types.str_to_bytes(advanced_state))
         QCoreApplication.processEvents()
 
@@ -1968,16 +1973,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         s = settings.get_settings()
 
         # Save window state and geometry (saves toolbar and dock locations)
-        s.set('window_state', qt_types.bytes_to_str(self.saveState()))
-        s.set('window_geometry', qt_types.bytes_to_str(self.saveGeometry()))
+        s.set('window_state_v2', qt_types.bytes_to_str(self.saveState()))
+        s.set('window_geometry_v2', qt_types.bytes_to_str(self.saveGeometry()))
 
     # Get window settings from setting store
     def load_settings(self):
         s = settings.get_settings()
 
         # Window state and geometry (also toolbar and dock locations)
-        if s.get('window_geometry'): self.restoreGeometry(qt_types.str_to_bytes(s.get('window_geometry')))
-        if s.get('window_state'): self.restoreState(qt_types.str_to_bytes(s.get('window_state')))
+        if s.get('window_state_v2'): self.restoreState(qt_types.str_to_bytes(s.get('window_state_v2')))
+        if s.get('window_geometry_v2'): self.restoreGeometry(qt_types.str_to_bytes(s.get('window_geometry_v2')))
 
         # Load Recent Projects
         self.load_recent_menu()
@@ -2027,7 +2032,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.actionUndo.setEnabled(False)
         self.actionRedo.setEnabled(False)
 
-        # Add files toolbar =================================================================================
+        # Add files toolbar
         self.filesToolbar = QToolBar("Files Toolbar")
         self.filesActionGroup = QActionGroup(self)
         self.filesActionGroup.setExclusive(True)
@@ -2048,7 +2053,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.filesToolbar.addAction(self.actionFilesClear)
         self.tabFiles.layout().addWidget(self.filesToolbar)
 
-        # Add transitions toolbar =================================================================================
+        # Add transitions toolbar
         self.transitionsToolbar = QToolBar("Transitions Toolbar")
         self.transitionsActionGroup = QActionGroup(self)
         self.transitionsActionGroup.setExclusive(True)
@@ -2065,7 +2070,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.transitionsToolbar.addAction(self.actionTransitionsClear)
         self.tabTransitions.layout().addWidget(self.transitionsToolbar)
 
-        # Add effects toolbar =================================================================================
+        # Add effects toolbar
         self.effectsToolbar = QToolBar("Effects Toolbar")
         self.effectsFilter = QLineEdit()
         self.effectsFilter.setObjectName("effectsFilter")
@@ -2075,7 +2080,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.effectsToolbar.addAction(self.actionEffectsClear)
         self.tabEffects.layout().addWidget(self.effectsToolbar)
 
-        # Add Video Preview toolbar ==========================================================================
+        # Add Video Preview toolbar
         self.videoToolbar = QToolBar("Video Toolbar")
 
         # Add fixed spacer(s) (one for each "Other control" to keep playback controls centered)
@@ -2109,7 +2114,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         self.tabVideo.layout().addWidget(self.videoToolbar)
 
-        # Add Timeline toolbar ================================================================================
+        # Add Timeline toolbar
         self.timelineToolbar = QToolBar("Timeline Toolbar", self)
 
         self.timelineToolbar.addAction(self.actionAddTrack)
@@ -2188,35 +2193,27 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         """ Move tutorial dialogs also (if any)"""
         QMainWindow.moveEvent(self, event)
         if self.tutorial_manager:
-            #log.info("Sending move event to tutorial manager")
             self.tutorial_manager.re_position_dialog()
 
     def resizeEvent(self, event):
         QMainWindow.resizeEvent(self, event)
         if self.tutorial_manager:
-            #log.info("Sending resize event to tutorial manager")
             self.tutorial_manager.re_position_dialog()
 
     def showEvent(self, event):
         """ Have any child windows follow main-window state """
-        #log.info("Showing main window")
         QMainWindow.showEvent(self, event)
         for child in self.findChildren(QDockWidget):
             if child.isFloating() and child.isEnabled():
-                # child.setWindowState(self.windowState())
-                #log.info("Showing child {}".format(child.windowTitle()))
                 child.raise_()
                 child.show()
 
     def hideEvent(self, event):
         """ Have any child windows hide with main window """
-        #log.info("Hiding main window")
         QMainWindow.hideEvent(self, event)
         for child in self.findChildren(QDockWidget):
             if child.isFloating() and child.isVisible():
-                #log.info("Hiding child {}".format(child.windowTitle()))
                 child.hide()
-
 
     def show_property_timeout(self):
         """Callback for show property timer"""
@@ -2373,6 +2370,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Setup timeline
         self.timeline = TimelineWebView(self)
         self.frameWeb.layout().addWidget(self.timeline)
+
+        # Configure the side docks to full-height
+        self.setCorner(Qt.TopLeftCorner, Qt.LeftDockWidgetArea)
+        self.setCorner(Qt.BottomLeftCorner, Qt.LeftDockWidgetArea)
+        self.setCorner(Qt.TopRightCorner, Qt.RightDockWidgetArea)
+        self.setCorner(Qt.BottomRightCorner, Qt.RightDockWidgetArea)
 
         # Setup files tree
         if s.get("file_view") == "details":
