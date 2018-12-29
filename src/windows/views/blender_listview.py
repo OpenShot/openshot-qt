@@ -667,12 +667,10 @@ class BlenderListView(QListView):
 
     # Signal when to update progress bar (1005)
     def onUpdateProgress(self, current_frame, current_part, max_parts):
-        # log.info ('onUpdateProgress')
         self.update_progress_bar(current_frame, current_part, max_parts)
 
     # Signal when to update preview image (1006)
     def onUpdateImage(self, image_path):
-        # log.info ('onUpdateImage: %s' % image_path)
         self.update_image(image_path)
 
     # Signal error from blender (with custom message) (1007)

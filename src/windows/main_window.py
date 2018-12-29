@@ -912,7 +912,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Translate object
         _ = get_app()._tr
 
-	    # Prepare to use the status bar
+        # Prepare to use the status bar
         self.statusBar = QStatusBar()
         self.setStatusBar(self.statusBar)
 
@@ -926,7 +926,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             recommended_path = get_app().project.get(["export_path"])
 
         framePath = _("%s/Frame-%05d.png" % (recommended_path, self.preview_thread.current_frame))
-        #log.info("Saving frame to %" % framePath)
 
         # Ask user to confirm or update framePath
         framePath, file_type = QFileDialog.getSaveFileName(self, _("Save Frame..."), framePath, _("Image files (*.png)"))
@@ -961,21 +960,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             framePathTime = QDateTime()
 
-	# Get and Save the frame (return is void, so we cannot check for success/fail here - must use file modification timestamp)
+        # Get and Save the frame (return is void, so we cannot check for success/fail here - must use file modification timestamp)
         openshot.Timeline.GetFrame(self.timeline_sync.timeline,self.preview_thread.current_frame).Save(framePath, 1.0)
 
-        #log.info("orig framePathTime %s" % framePathTime.toString("yyMMdd hh:mm:ss.zzz") )
-        #log.info("new framePathTime %s" % QFileInfo(framePath).lastModified().toString("yyMMdd hh:mm:ss.zzz") )
-
-	# Show message to user
+        # Show message to user
         if os.path.exists(framePath) and (QFileInfo(framePath).lastModified() > framePathTime):
-            #QMessageBox.information(self, _("Save Frame Successful"), _("Saved image to %s" % framePath))
             self.statusBar.showMessage(_("Saved Frame to %s" % framePath), 5000)
         else:
-            #QMessageBox.warning(self, _("Save Frame Failed"), _("Failed to save image to %s" % framePath))
             self.statusBar.showMessage( _("Failed to save image to %s" % framePath), 5000)
 
-	# Reset the MaxSize to match the preview and reset the preview cache
+        # Reset the MaxSize to match the preview and reset the preview cache
         viewport_rect = self.videoPreview.centeredViewport(self.videoPreview.width(), self.videoPreview.height())
         self.timeline_sync.timeline.SetMaxSize(viewport_rect.width(), viewport_rect.height())
         self.cache_object.Clear()
