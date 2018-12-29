@@ -22,37 +22,37 @@
   "profile": "HD 720p 30 fps",
   "layers": [
     {
-      "id": "L0",
-      "label" : "",
-      "number": 0,
-      "y": 0,
-      "lock": false
-    },
-    {
       "id": "L1",
       "label" : "",
-      "number": 1,
+      "number": 1000000,
       "y": 0,
       "lock": false
     },
     {
       "id": "L2",
       "label" : "",
-      "number": 2,
+      "number": 2000000,
       "y": 0,
       "lock": false
     },
     {
       "id": "L3",
       "label" : "",
-      "number": 3,
+      "number": 3000000,
       "y": 0,
       "lock": false
     },
     {
       "id": "L4",
       "label" : "",
-      "number": 4,
+      "number": 4000000,
+      "y": 0,
+      "lock": false
+    },
+    {
+      "id": "L5",
+      "label" : "",
+      "number": 5000000,
       "y": 0,
       "lock": false
     }
