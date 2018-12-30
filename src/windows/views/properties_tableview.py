@@ -27,6 +27,7 @@
 
 import os
 from functools import partial
+from operator import itemgetter
 from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, Qt, QObject, QTimer
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QTableView, QAbstractItemView, QMenu, QSizePolicy, QHeaderView, QColorDialog, QItemDelegate, QStyle, QLabel, QPushButton, QHBoxLayout, QFrame
@@ -216,7 +217,7 @@ class PropertiesTableView(QTableView):
                         self.original_data = c.data
 
             # Calculate percentage value
-            if property_type in ["float", "int"]:
+            if property_type in ["float", "int"] and property_name != "Track":
                 min_max_range = float(property_max) - float(property_min)
 
                 # Determine if range is unreasonably long (such as position, start, end, etc.... which can be huge #'s)
@@ -385,6 +386,18 @@ class PropertiesTableView(QTableView):
 
                 # Add root transitions choice
                 self.choices.append({"name": _("Transitions"), "value": trans_choices, "selected": False})
+
+            # Handle reader type values
+            if property_name =="Track" and self.property_type == "int" and not self.choices:
+                # Populate all display track names
+                track_choices = []
+                all_tracks = get_app().project.get(["layers"])
+                display_count = len(all_tracks)
+                for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
+                    # Append track choice
+                    track_name = track.get("label") or _("Track %s") % display_count
+                    self.choices.append({"name": track_name, "value": track.get("number"), "selected": False })
+                    display_count -= 1
 
             # Define bezier presets
             bezier_presets = [

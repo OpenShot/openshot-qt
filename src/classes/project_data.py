@@ -231,7 +231,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             # Add or Full Update
             # For adds to list perform an insert to index or the end if not specified
             if add and isinstance(parent, list):
-                # log.info("adding to list")
                 parent.append(values)
 
             # Otherwise, set the given index

@@ -233,8 +233,6 @@ class UpdateManager:
     # caused by actions.
     def get_reverse_action(self, action):
         """ Convert an UpdateAction into the opposite type (i.e. 'insert' becomes an 'delete') """
-
-        # log.info("Reversing action: {}, {}, {}, {}".format(action.type, action.key, action.values, action.partial_update))
         reverse = UpdateAction(action.type, action.key, action.values, action.partial_update)
         # On adds, setup remove
         if action.type == "insert":
@@ -256,7 +254,6 @@ class UpdateManager:
         reverse.old_values = action.values
         reverse.values = action.old_values
 
-        # log.info("Reversed values: {}, {}, {}, {}".format(reverse.type, reverse.key, reverse.values, reverse.partial_update))
         return reverse
 
     def undo(self):

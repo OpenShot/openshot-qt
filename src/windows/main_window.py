@@ -32,6 +32,7 @@ import sys
 import platform
 import shutil
 import webbrowser
+from operator import itemgetter
 from uuid import uuid4
 from copy import deepcopy
 from time import sleep
@@ -911,7 +912,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Translate object
         _ = get_app()._tr
 
-	    # Prepare to use the status bar
+        # Prepare to use the status bar
         self.statusBar = QStatusBar()
         self.setStatusBar(self.statusBar)
 
@@ -925,7 +926,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             recommended_path = get_app().project.get(["export_path"])
 
         framePath = _("%s/Frame-%05d.png" % (recommended_path, self.preview_thread.current_frame))
-        #log.info("Saving frame to %" % framePath)
 
         # Ask user to confirm or update framePath
         framePath, file_type = QFileDialog.getSaveFileName(self, _("Save Frame..."), framePath, _("Image files (*.png)"))
@@ -960,21 +960,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             framePathTime = QDateTime()
 
-	# Get and Save the frame (return is void, so we cannot check for success/fail here - must use file modification timestamp)
+        # Get and Save the frame (return is void, so we cannot check for success/fail here - must use file modification timestamp)
         openshot.Timeline.GetFrame(self.timeline_sync.timeline,self.preview_thread.current_frame).Save(framePath, 1.0)
 
-        #log.info("orig framePathTime %s" % framePathTime.toString("yyMMdd hh:mm:ss.zzz") )
-        #log.info("new framePathTime %s" % QFileInfo(framePath).lastModified().toString("yyMMdd hh:mm:ss.zzz") )
-
-	# Show message to user
+        # Show message to user
         if os.path.exists(framePath) and (QFileInfo(framePath).lastModified() > framePathTime):
-            #QMessageBox.information(self, _("Save Frame Successful"), _("Saved image to %s" % framePath))
             self.statusBar.showMessage(_("Saved Frame to %s" % framePath), 5000)
         else:
-            #QMessageBox.warning(self, _("Save Frame Failed"), _("Failed to save image to %s" % framePath))
             self.statusBar.showMessage( _("Failed to save image to %s" % framePath), 5000)
 
-	# Reset the MaxSize to match the preview and reset the preview cache
+        # Reset the MaxSize to match the preview and reset the preview cache
         viewport_rect = self.videoPreview.centeredViewport(self.videoPreview.width(), self.videoPreview.height())
         self.timeline_sync.timeline.SetMaxSize(viewport_rect.width(), viewport_rect.height())
         self.cache_object.Clear()
@@ -987,7 +982,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         log.info("actionAddTrack_trigger")
 
         # Get # of tracks
-        track_number = len(get_app().project.get(["layers"]))
+        all_tracks = get_app().project.get(["layers"])
+        track_number = list(reversed(sorted(all_tracks, key=itemgetter('number'))))[0].get("number") + 1000000
 
         # Create new track above existing layer(s)
         track = Track()
@@ -998,7 +994,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         log.info("actionAddTrackAbove_trigger")
 
         # Get # of tracks
-        max_track_number = len(get_app().project.get(["layers"]))
+        all_tracks = get_app().project.get(["layers"])
         selected_layer_id = self.selected_tracks[0]
 
         # Get selected track data
@@ -1009,35 +1005,52 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             return
         selected_layer_number = int(existing_track.data["number"])
 
-        # Loop through tracks above insert point (in descending order), renumbering layers
-        for existing_layer in list(reversed(range(selected_layer_number+1, max_track_number))):
-            existing_track = Track.get(number=existing_layer)
-            if not existing_track:
-                # Log error and fail silently, and continue
-                log.error('No track object found with number: %s' % existing_layer)
-                continue
-            existing_track.data["number"] = existing_layer + 1
-            existing_track.save()
+        # Get track above selected track (if any)
+        previous_track_number = 0
+        track_number_delta = 0
+        for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
+            if track.get("number") == selected_layer_number:
+                track_number_delta = previous_track_number - selected_layer_number
+                break
+            previous_track_number = track.get("number")
 
-            # Loop through clips and transitions for track, moving up to new layer
-            for clip in Clip.filter(layer=existing_layer):
-                clip.data["layer"] = int(clip.data["layer"]) + 1
-                clip.save()
+        # Calculate new track number (based on gap delta)
+        new_track_number = selected_layer_number + 1000000
+        if track_number_delta > 2:
+            # New track number (pick mid point in track number gap)
+            new_track_number = selected_layer_number + int(round(track_number_delta / 2.0))
+        else:
+            # Loop through tracks above insert point
+            for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
+                if track.get("number") > selected_layer_number:
+                    existing_track = Track.get(number=track.get("number"))
+                    if not existing_track:
+                        # Log error and fail silently, and continue
+                        log.error('No track object found with number: %s' % track.get("number"))
+                        continue
+                    existing_layer = existing_track.data["number"]
+                    existing_track.data["number"] = existing_layer + 1000000
+                    existing_track.save()
 
-            for trans in Transition.filter(layer=existing_layer):
-                trans.data["layer"] = int(trans.data["layer"]) + 1
-                trans.save()
+                    # Loop through clips and transitions for track, moving up to new layer
+                    for clip in Clip.filter(layer=existing_layer):
+                        clip.data["layer"] = int(clip.data["layer"]) + 1000000
+                        clip.save()
+
+                    for trans in Transition.filter(layer=existing_layer):
+                        trans.data["layer"] = int(trans.data["layer"]) + 1000000
+                        trans.save()
 
         # Create new track at vacated layer
         track = Track()
-        track.data = {"number": selected_layer_number+1, "y": 0, "label": "", "lock": False}
+        track.data = {"number": new_track_number, "y": 0, "label": "", "lock": False}
         track.save()
 
     def actionAddTrackBelow_trigger(self, event):
         log.info("actionAddTrackBelow_trigger")
 
         # Get # of tracks
-        max_track_number = len(get_app().project.get(["layers"]))
+        all_tracks = get_app().project.get(["layers"])
         selected_layer_id = self.selected_tracks[0]
 
         # Get selected track data
@@ -1048,28 +1061,49 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             return
         selected_layer_number = int(existing_track.data["number"])
 
-        # Loop through tracks from insert point up (in descending order), renumbering layers
-        for existing_layer in list(reversed(range(selected_layer_number, max_track_number))):
-            existing_track = Track.get(number=existing_layer)
-            if not existing_track:
-                # Log error and fail silently, and continue
-                log.error('No track object found with number: %s' % existing_layer)
+        # Get track below selected track (if any)
+        next_track_number = 0
+        track_number_delta = 0
+        found_track = False
+        for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
+            if found_track:
+                next_track_number = track.get("number")
+                track_number_delta = selected_layer_number - next_track_number
+                break
+            if track.get("number") == selected_layer_number:
+                found_track = True
                 continue
-            existing_track.data["number"] = existing_layer + 1
-            existing_track.save()
 
-            # Loop through clips and transitions for track, moving up to new layer
-            for clip in Clip.filter(layer=existing_layer):
-                clip.data["layer"] = int(clip.data["layer"]) + 1
-                clip.save()
+        # Calculate new track number (based on gap delta)
+        new_track_number = selected_layer_number
+        if track_number_delta > 2:
+            # New track number (pick mid point in track number gap)
+            new_track_number = selected_layer_number - int(round(track_number_delta / 2.0))
+        else:
+            # Loop through tracks from insert point and above
+            for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
+                if track.get("number") >= selected_layer_number:
+                    existing_track = Track.get(number=track.get("number"))
+                    if not existing_track:
+                        # Log error and fail silently, and continue
+                        log.error('No track object found with number: %s' % track.get("number"))
+                        continue
+                    existing_layer = existing_track.data["number"]
+                    existing_track.data["number"] = existing_layer + 1000000
+                    existing_track.save()
 
-            for trans in Transition.filter(layer=existing_layer):
-                trans.data["layer"] = int(trans.data["layer"]) + 1
-                trans.save()
+                    # Loop through clips and transitions for track, moving up to new layer
+                    for clip in Clip.filter(layer=existing_layer):
+                        clip.data["layer"] = int(clip.data["layer"]) + 1000000
+                        clip.save()
+
+                    for trans in Transition.filter(layer=existing_layer):
+                        trans.data["layer"] = int(trans.data["layer"]) + 1000000
+                        trans.save()
 
         # Create new track at vacated layer
         track = Track()
-        track.data = {"number": selected_layer_number, "y": 0, "label": "", "lock": False}
+        track.data = {"number": new_track_number, "y": 0, "label": "", "lock": False}
         track.save()
 
     def actionArrowTool_trigger(self, event):
@@ -1571,22 +1605,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Remove track
         selected_track.delete()
 
-        # Loop through all layers above, and renumber elements (to keep thing in numerical order)
-        for existing_layer in list(range(selected_track_number + 1, max_track_number)):
-            # Update existing layer number
-            track = Track.get(number=existing_layer)
-            track.data["number"] = existing_layer - 1
-            track.save()
-
-            for clip in Clip.filter(layer=existing_layer):
-                clip.data["layer"] = int(clip.data["layer"]) - 1
-                clip.save()
-
-            for trans in Transition.filter(layer=existing_layer):
-                trans.data["layer"] = int(trans.data["layer"]) - 1
-                trans.save()
-
-
         # Clear selected track
         self.selected_tracks = []
 
@@ -1624,7 +1642,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Get details of track
         track_id = self.selected_tracks[0]
         selected_track = Track.get(id=track_id)
-        track_name = selected_track.data["label"] or _("Track %s") % selected_track.data["number"]
+
+        # Find display track number
+        all_tracks = get_app().project.get(["layers"])
+        display_count = len(all_tracks)
+        for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
+            if track.get("id") == track_id:
+                break
+            display_count -= 1
+
+        track_name = selected_track.data["label"] or _("Track %s") % display_count
 
         text, ok = QInputDialog.getText(self, _('Rename Track'), _('Track Name:'), text=track_name)
         if ok:

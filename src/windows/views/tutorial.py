@@ -205,7 +205,6 @@ class TutorialManager(object):
             self.dock.adjustSize()
             self.dock.setEnabled(True)
             self.re_position_dialog()
-            #self.current_dialog.show()
             self.dock.show()
             break
 

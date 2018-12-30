@@ -220,7 +220,6 @@ def init_ui(window):
 
         # Loop through all actions
         for action in window.findChildren(QAction):
-            # log.info('Initializing element: {}'.format(action))
             init_element(window, action)
     except:
         log.info('Failed to initialize an element on {}'.format(window.objectName()))

@@ -2441,15 +2441,18 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Get track object
         track = Track.get(id=layer_id)
+        locked = track.data.get("lock", False)
 
         menu = QMenu(self)
         menu.addAction(self.window.actionAddTrackAbove)
         menu.addAction(self.window.actionAddTrackBelow)
         menu.addAction(self.window.actionRenameTrack)
-        if track.data.get("lock", False):
+        if locked:
             menu.addAction(self.window.actionUnlockTrack)
+            self.window.actionRemoveTrack.setEnabled(False)
         else:
             menu.addAction(self.window.actionLockTrack)
+            self.window.actionRemoveTrack.setEnabled(True)
         menu.addSeparator()
         menu.addAction(self.window.actionRemoveTrack)
         return menu.popup(QCursor.pos())
