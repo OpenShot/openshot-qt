@@ -27,6 +27,7 @@
 
 import os
 from collections import OrderedDict
+from operator import itemgetter
 
 from PyQt5.QtCore import QMimeData, Qt, QLocale, QTimer
 from PyQt5.QtGui import *
@@ -649,6 +650,18 @@ class PropertiesModel(updates.UpdateInterface):
                         reader_path = reader_json.get("path", "/")
                         (dirName, fileName) = os.path.split(reader_path)
                         col.setText(fileName)
+                    elif type == "int" and label == "Track":
+                        # Find track display name
+                        all_tracks = get_app().project.get(["layers"])
+                        display_count = len(all_tracks)
+                        display_label = None
+                        for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
+                            if track.get("number") == value:
+                                display_label = track.get("label")
+                                break
+                            display_count -= 1
+                        track_name = display_label or _("Track %s") % display_count
+                        col.setText(track_name)
 
                     elif type == "int":
                         col.setText("%d" % value)
@@ -716,6 +729,18 @@ class PropertiesModel(updates.UpdateInterface):
                     elif type == "color":
                         # Don't output a value for colors
                         col.setText("")
+                    elif type == "int" and label == "Track":
+                        # Find track display name
+                        all_tracks = get_app().project.get(["layers"])
+                        display_count = len(all_tracks)
+                        display_label = None
+                        for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
+                            if track.get("number") == value:
+                                display_label = track.get("label")
+                                break
+                            display_count -= 1
+                        track_name = display_label or _("Track %s") % display_count
+                        col.setText(track_name)
                     elif type == "int":
                         col.setText("%d" % value)
                     elif type == "reader":

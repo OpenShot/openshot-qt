@@ -173,7 +173,7 @@ class Preferences(QDialog):
                     widget = QLineEdit()
                     widget.setText(_(param["value"]))
                     widget.textChanged.connect(functools.partial(self.text_value_changed, widget, param))
-                    extraWidget = QPushButton("Browse")
+                    extraWidget = QPushButton(_("Browse..."))
                     extraWidget.clicked.connect(functools.partial(self.selectExecutable, widget, param))
 
                 elif param["type"] == "bool":
@@ -247,7 +247,9 @@ class Preferences(QDialog):
                     layout_hbox = QHBoxLayout()
                     layout_hbox.addWidget(label)
                     layout_hbox.addWidget(widget)
-                    layout_hbox.addWidget(extraWidget)
+
+                    if (extraWidget):
+                        layout_hbox.addWidget(extraWidget)
 
                     # Add widget to layout
                     tabWidget.layout().addLayout(layout_hbox)
