@@ -185,9 +185,9 @@ elif sys.platform == "linux":
     # Get a list of all openshot.so dependencies (scan these libraries for their dependencies)
     import subprocess
     for library in [os.path.join(libopenshot_path, "libopenshot.so"),
-                    "/usr/lib/python3/dist-packages/PyQt5/QtWebKit.cpython-34m-x86_64-linux-gnu.so",
+                    "/usr/lib/python3/dist-packages/PyQt5/QtWebEngine.cpython-33m-x86_64-linux-gnu.so",
+                    "/usr/lib/python3/dist-packages/PyQt5/QtWebEngineWidgets.cpython-34m-x86_64-linux-gnu.so",
                     "/usr/lib/python3/dist-packages/PyQt5/QtSvg.cpython-34m-x86_64-linux-gnu.so",
-                    "/usr/lib/python3/dist-packages/PyQt5/QtWebKitWidgets.cpython-34m-x86_64-linux-gnu.so",
                     "/usr/lib/python3/dist-packages/PyQt5/QtWidgets.cpython-34m-x86_64-linux-gnu.so",
                     "/usr/lib/python3/dist-packages/PyQt5/QtCore.cpython-34m-x86_64-linux-gnu.so",
                     "/usr/lib/python3/dist-packages/PyQt5/QtGui.cpython-34dm-x86_64-linux-gnu.so",
