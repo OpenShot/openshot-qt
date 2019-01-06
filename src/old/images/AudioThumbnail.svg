@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   width="98.03125"
+   height="64.03125"
+   sodipodi:docname="AudioThumbnail.svg"
+   inkscape:export-filename="/home/jonathan/apps/openshot_qt/src/images/AudioThumbnail.png"
+   inkscape:export-xdpi="89.956078"
+   inkscape:export-ydpi="89.956078">
+  <metadata
+     id="metadata8">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs6">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient3606">
+      <stop
+         style="stop-color:#f1f1f1;stop-opacity:1"
+         offset="0"
+         id="stop3608" />
+      <stop
+         style="stop-color:#2a2829;stop-opacity:1"
+         offset="1"
+         id="stop3610" />
+    </linearGradient>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       id="perspective10" />
+    <inkscape:perspective
+       id="perspective3600"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3606"
+       id="radialGradient3612"
+       cx="39.194912"
+       cy="37.156776"
+       fx="39.194912"
+       fy="37.156776"
+       r="39.067795"
+       gradientTransform="matrix(1.8328988,0,0,1.278359,-22.840309,-15.468449)"
+       gradientUnits="userSpaceOnUse" />
+    <inkscape:perspective
+       id="perspective3628"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3656"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+  </defs>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="920"
+     inkscape:window-height="705"
+     id="namedview4"
+     showgrid="false"
+     inkscape:zoom="3.1891892"
+     inkscape:cx="51.21357"
+     inkscape:cy="27.953957"
+     inkscape:window-x="879"
+     inkscape:window-y="80"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <rect
+     style="fill:url(#radialGradient3612);fill-opacity:1;stroke:none"
+     id="rect2818"
+     width="98"
+     height="64"
+     x="0"
+     y="0.03125"
+     ry="12.072653"
+     rx="12.072653"
+     inkscape:export-filename="/home/jonathan/openshot/openshot/images/AudioThumbnail.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90" />
+  <g
+     id="g3783"
+     transform="translate(-2.1949152,-0.94067796)">
+    <path
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccsssscccccssscccsscc"
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/jonathan/openshot/openshot/images/AudioThumbnail.png"
+       id="path3616"
+       d="m 72.135827,5.815698 -37.437446,8.045867 0,28.147269 c -1.133825,-0.372318 -2.344008,-0.593711 -3.635114,-0.593711 -5.546385,0 -10.068944,3.793994 -10.068944,8.44688 0,4.652885 4.522559,8.419892 10.068944,8.419892 5.546383,0 10.036774,-3.767007 10.036774,-8.419892 0,-0.394328 -0.06619,-0.780522 -0.128678,-1.160434 l 0.128678,0 -0.450369,-31.214734 26.0174,-5.545125 0.675552,24.962822 C 66.028746,36.375361 64.55465,36.06794 62.999789,36.06794 c -5.546384,0 -10.036774,3.767007 -10.036774,8.419893 0,4.652885 4.49039,8.419892 10.036774,8.419892 5.243024,0 9.549407,-3.36514 10.004604,-7.664261 l 0.03217,0 0,-0.458776 c 0.0042,-0.09902 0,-0.196988 0,-0.296855 0,-0.290806 -0.03217,-0.578902 -0.03217,-0.86358 0,0 0,-0.02699 0,-0.02699 L 72.135827,5.815698 z"
+       style="fill:#000000;fill-opacity:1;stroke:#555555;stroke-width:0.75;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <path
+       inkscape:connector-curvature="0"
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/jonathan/openshot/openshot/images/AudioThumbnail.png"
+       sodipodi:nodetypes="ccsc"
+       id="path3646"
+       d="m 24.204852,51.766925 c -0.774183,-5.70992 2.780646,-7.604333 7.988445,-8.041851 0,0 -2.722567,1.118428 -4.821597,3.063563 -1.940928,1.798622 -3.166848,4.978288 -3.166848,4.978288 z"
+       style="opacity:0.62962964;fill:#ffffff;fill-opacity:1;stroke:none" />
+    <path
+       inkscape:connector-curvature="0"
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/jonathan/openshot/openshot/images/AudioThumbnail.png"
+       sodipodi:nodetypes="ccsc"
+       id="path3646-5"
+       d="m 56.325673,46.022747 c -0.774183,-5.70992 2.780646,-7.604332 7.988445,-8.04185 0,0 -2.722567,1.118428 -4.821597,3.063563 -1.940928,1.798622 -3.166848,4.978287 -3.166848,4.978287 z"
+       style="opacity:0.62962964;fill:#ffffff;fill-opacity:1;stroke:none" />
+  </g>
+</svg>

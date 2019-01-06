@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">Space Movie Intro</title>
+	<description translatable="True">Space Movie Intro</description>
+	<icon>spacemovie_intro.png</icon>
+	<category>Video</category>
+	<service>spacemovie_intro.blend</service>
+	
+	<param name="file_name" type="text" title="File Name" description="">
+		<default>TitleFileName</default>
+	</param>
+	
+	<param name="Alongtimeago" type="text" title="First Title" description="">
+		<default>A long time ago in a video\neditor far, far away...</default>
+	</param>
+
+	<param name="TitleSpaceMovie" type="text" title="Flying Title" description="">
+		<default>open\nshot</default>
+	</param>
+
+	<param name="Episode" type="text" title="Episode" description="">
+		<default>Episode IV</default>
+	</param>
+
+	<param name="EpisodeTitle" type="text" title="Episode Title" description="">
+		<default>A NEW OPENSHOT</default>
+	</param>
+
+	<param name="MainText" type="multiline" title="Main Text" description="">
+		<default>It is a period of software war. Free software developers have won some battles with free, and open-source applications. They leave the source code available for everybody in the Galaxy, allowing people to access software knowledge and truth.\n\nBut the EULA Galactic Empire is not dead and prepares its revenge with an ultimate weapon: the blue screen of DEATH. This armored system can anihilate an entire device by a simple segfault.\n\nBut the rebel hackers have a secret weapon too: an atomic penguin which protects them from almost all digital injuries...</default>
+	</param>
+	<param name="start_frame" type="spinner" title="Start Frame" description="">
+		<min>1</min>
+		<max>1</max>
+		<default>1</default>
+	</param>
+	
+	<param name="end_frame" type="spinner" title="End Frame" description="">
+		<min>2232</min>
+		<max>2232</max>
+		<default>2232</default>
+	</param>
+
+	<!-- SPEED -->
+	<param name="animation_speed" type="dropdown" title="Animation Length" description="">
+		<values>
+			<value name="Default" num="1"/>
+			<value name="2X" num="2"/>
+			<value name="3X" num="3"/>
+			<value name="4X" num="4"/>
+			<value name="5X" num="5"/>
+		</values>
+		<default>1</default>
+	</param>
+</effect>

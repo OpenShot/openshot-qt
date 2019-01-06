@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html ng-app="openshot-timeline">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<META name="author" content="OpenShot Studios, LLC">
+  		<META name="copyright" content="Copyright (c) 2008-2018 OpenShot Studios, LLC">
+  		<META name="license" content="GPLv3">
+		<link rel="icon" type="image/png" href="../../xdg/openshot.png" />
+		<script type="text/javascript" src="js/qwebchannel.js"></script>
+		<title>OpenShot Timeline</title>
+		
+		<!-- JQuery & Angular -->
+		<link type="text/css" rel="stylesheet" href="media/css/jquery-ui.css" />
+		<link type="text/css" rel="stylesheet" href="media/css/ui-darkness/jquery-ui.theme.css" />
+		<script type="text/javascript" src="media/js/jquery.js"></script>
+		<script type="text/javascript" src="media/js/jquery-ui.js"></script>
+		<script type="text/javascript" src="media/js/angular.min.js"></script>
+		<script type="text/javascript" src="media/js/angular-animate.min.js"></script>
+		
+		<!-- OpenShot JavaScript Sources -->
+		<script type="text/javascript" src="app.js"></script>
+		<script type="text/javascript" src="js/functions.js"></script>
+    	<script type="text/javascript" src="js/controllers.js"></script>
+    	<script type="text/javascript" src="js/directives/ruler.js"></script>
+    	<script type="text/javascript" src="js/directives/playhead.js"></script>
+    	<script type="text/javascript" src="js/directives/track.js"></script>
+    	<script type="text/javascript" src="js/directives/clip.js"></script>
+    	<script type="text/javascript" src="js/directives/transition.js"></script>
+    	<script type="text/javascript" src="js/directives/misc.js"></script> 	
+		<script type="text/javascript" src="media/js/ui-bootstrap-tpls-0.7.0.min.js"></script>
+
+		<!-- OpenShot StyleSheets -->
+		<link type="text/css" rel="stylesheet" href="media/css/main.css" />
+		<link type="text/css" rel="stylesheet" href="media/css/debug.css" />		
+		
+		<!-- JQuery & Bootstrap StyleSheets -->
+		<link type="text/css" rel="stylesheet" href="media/css/bootstrap.min.css">
+	</head>
+	<body tl-body ng-controller="TimelineCtrl" ng-cloak>
+		
+		<!-- RULER NAME (left of screen) -->
+		<div tl-rulertime id="ruler_label">
+			<div id="ruler_time">{{playheadTime.hour}}:{{playheadTime.min}}:{{playheadTime.sec}}:{{playheadTime.frame}}</div>
+		</div>
+		<!-- RULER (right of screen) -->
+		<div id="scrolling_ruler">
+			<!-- PLAYHEAD TOP -->
+			<div tl-playhead class="playhead playhead-top" ng-right-click="ShowPlayheadMenu(project.playhead_position)" style="left:{{(project.playhead_position * pixelsPerSecond) + playheadOffset}}px;">
+				<div class="playhead-line-small"></div>
+			</div>
+			<canvas tl-ruler id="ruler" width="{{GetTimelineWidth(1024)+7}}" height="39"></canvas>
+
+			<!-- MARKERS --> 
+			<span class="ruler_marker" id="marker_for_{{marker.id}}">
+				<img ng-repeat="marker in project.markers" id="marker_{{marker.id}}_{{$index}}" ng-right-click="ShowMarkerMenu(marker.id)" style="position: absolute; bottom: 0px; left: {{(marker.position * pixelsPerSecond) - 6 }}px;" class="marker_icon" ng-src="media/images/markers/{{ marker.icon }}" draggable="false"/>
+			</span>
+			<br class="cleared">
+			
+			<!-- PROGRESS BAR -->
+			<canvas id="progress" width="{{project.duration * pixelsPerSecond}}px" height="3px"></canvas>
+ 		</div>
+ 		<div class="cleared"></div>
+
+		<!-- TRACKS NAMES (left of screen) -->
+		<div id="track_controls">
+			<div ng-repeat="layer in project.layers.slice().reverse()" id="track_static_{{layer.number}}" ng-right-click="ShowTrackMenu(layer.id)" class="track_name">
+				<div class="track_top">
+					<div tl-clip-menu class="track_menu" ng-mousedown="ShowTrackMenu(layer.id)"></div>
+					<span class="track_label">{{GetTrackName(layer.label, layer.number)}}</span><span ng-show="layer.lock" class="track_lock"></span>
+				</div>
+			</div>
+			<br>
+		</div>
+		<!-- TRACKS CONTAINER (right of screen) -->
+		<div tl-scrollable-tracks id="scrolling_tracks">
+			<div id="track-container" tl-track tl-multi-selectable style="width: {{GetTimelineWidth(1024)}}px; padding-bottom: 2px;">
+				<!-- TRACKS -->
+				<div ng-repeat="layer in project.layers.slice().reverse()" id="track_{{layer.number}}" ng-right-click="ShowTimelineMenu($event, layer.number)"  class="{{GetTrackStyle(layer.lock)}}" style="width:{{GetTimelineWidth(1024)}}px;">
+				</div>
+				
+				<!-- CLIPS -->
+				<div ng-hide tl-clip ng-repeat="clip in project.clips" id="clip_{{clip.id}}" ng-click="SelectClip(clip.id, true, $event)" ng-right-click="ShowClipMenu(clip.id, $event)" class="clip droppable" ng-class="getClipStyle(clip)" style="width:{{(clip.end - clip.start) * pixelsPerSecond}}px; left:{{clip.position * pixelsPerSecond}}px; top:{{getTrackTop(clip.layer)}}px;z-index:{{1000 + $index}};">
+					<div class="clip_top">
+						<div tl-clip-menu class="clip_menu" ng-show="!enable_razor" ng-mousedown="ShowClipMenu(clip.id, $event)" tooltip-enable="!enable_razor" tooltip="{{clip.title}}" tooltip-placement="bottom" tooltip-popup-delay="400"></div>
+
+						<!-- CLIP EFFECTS -->
+						<div ng-show="!enable_razor" class="effect-container" id="effects_{{clip.id}}">
+							<div class="clip_effects" ng-repeat="effect in clip.effects" id="effect_{{effect.id}}" style="background-color: {{ GetEffectColor(effect.type); }};" ng-click="SelectEffect(effect.id); $event.stopPropagation();" ng-right-click="ShowEffectMenu(effect.id); $event.stopPropagation();" tooltip="{{effect.type}} ({{$index+1}}/{{clip.effects.length}})"  tooltip-placement="bottom" tooltip-popup-delay="400">
+								{{effect.type[0]}}
+							</div>
+						</div>
+
+						<!-- CLIP KEYFRAME POINTS -->
+						<img ng-repeat="(point, value) in getKeyframes(clip)" id="point_{{point}}_{{$index}}" style="position: absolute; bottom: 0px; left: {{(((point - 1) / (project.fps.num / project.fps.den) - clip.start) * pixelsPerSecond) - keyframePointOffset}}px;" class="point_icon" ng-src="media/images/keyframes/point.png"/>
+
+						<!-- CLIP LABEL -->
+						<div class="clip_label" ng-class="getClipLabelStyle(clip)" tooltip-enable="!enable_razor" tooltip="{{clip.title}}" tooltip-placement="bottom" tooltip-popup-delay="400">{{clip.title}}</div>
+						<br class="cleared">
+					</div>
+					<br class="cleared">
+					<div ng-show="!clip.show_audio" class="thumb-container">
+						<img class="thumb thumb-start" ng-src="{{ FormatThumbPath(clip.image) }}"/>
+					</div>
+					<div ng-show="clip.show_audio" class="audio-container">
+						<canvas tl-audio height="46px" width="{{ (clip.end - clip.start) * pixelsPerSecond}}px" class="audio"></canvas>
+					</div>
+				</div>
+				
+				<!-- TRANSITIONS -->
+				<div ng-hide tl-transition ng-repeat="transition in project.effects" id="transition_{{transition.id}}" ng-click="SelectTransition(transition.id, true, $event)" ng-right-click="ShowTransitionMenu(transition.id, $event)" class="transition droppable" ng-class="getClipStyle(transition)" style="width:{{ (transition.end - transition.start) * pixelsPerSecond}}px; left:{{transition.position * pixelsPerSecond}}px; top:{{getTrackTop(transition.layer)}}px;z-index:{{5000 + $index}};">
+					<div class="transition_top">
+						<div tl-clip-menu class="transition_menu" ng-show="!enable_razor" ng-mousedown="ShowTransitionMenu(transition.id, $event)"></div>
+						<!-- TRANSITION KEYFRAME POINTS -->
+						<span class="keyframe_point" id="points_for_{{transition.id}}" ng-show="transition.selected">
+							<img ng-repeat="(point, value) in getKeyframes(transition)" id="point_{{point}}_{{$index}}" style="position: absolute; bottom: 0px; left: {{(((point - 1) / (project.fps.num / project.fps.den) - clip.start) * pixelsPerSecond) - keyframePointOffset}}px;" class="point_icon" ng-src="media/images/keyframes/point.png"/>
+						</span>
+						<!--div class="transition_label">{{transition.title}}</div-->
+						<br class="cleared">
+					</div>
+					<br class="cleared">
+				</div>					
+
+			</div>
+
+			<!-- FLOATING PLAYHEAD LINE -->
+			<div class="playhead playhead-line" style="height: {{ playhead_height }}px; left:{{(project.playhead_position * pixelsPerSecond) + playheadOffset}}px;"></div>
+
+			<!-- SNAPPING HINT LINE -->
+			<div ng-show="snapline" class="snapping-line" style="height: {{ playhead_height }}px; left:{{ snapline_position}}px;"></div>
+
+		</div>
+		
+		
+		<!-- HIDDEN DEBUG SECTION -->
+		<script language="javascript">
+			
+		</script>
+		
+		<div ng-show="!Qt" class="gear" ng-click="ToggleDebug()">
+			<img src="media/images/gear.png" width="40">
+		</div>
+		
+		<div ng-show="debug" class="debug-window ui-corner-all">
+				<div class="debug-text ui-corner-all" style="width: 20%;">PROJECT DATA: <pre>pixels per second: {{pixelsPerSecond}} <br> playhead offset: {{playheadOffset}} <br> {{project | json}}</pre></div>
+				<div class="debug-text ui-corner-all" style="width: 70%;">ACTIONS:<br><br>
+					<div>
+						<p>Add Clips:</p>	
+						<input type="text" name="numClips" ng-model="numClips" size="5" style="width:100px;" placeholder="# of clips"/>
+    					<button ng-click="addClips(numClips)">add clips</button> <br/>
+    				
+	    				<div style="height:1px;background-color:#cfcfcf;margin:15px;"></div>
+	    				<div>
+	    					<p>Scale:</p>	
+	    					<input id="scaleVal" ng-model="project.scale" style="width:100px;"><br><br>
+	    					<div db-slider></div>
+	    				</div>
+	    				<div style="height:1px;background-color:#cfcfcf;margin:15px;"></div>
+	    				<div>
+							<p>Add Marker:</p>	
+							<input type="text" name="markLoc" ng-model="markLoc" size="5" style="width:100px;" placeholder="loc of marker"/>
+	    					<button ng-click="addMarker(markLoc)">add marker</button> <br/>
+	    				</div>
+	    				<div style="height:1px;background-color:#cfcfcf;margin:15px;"></div>
+						<div>
+							<p>Add Effect:</p>	
+							<input type="text" name="clipNum" ng-model="clipNum" size="5" style="width:100px;" placeholder="clip #"/>
+	    					<button ng-click="addEffect(clipNum)">add effect</button> <br/>
+	    				</div>
+	    				<div style="height:1px;background-color:#cfcfcf;margin:15px;"></div>
+						<div>
+							<p>Change clip image:</p>	
+							<input type="text" name="startImage" ng-model="startImage" size="5" style="width:100px;" placeholder="start clip for #3"/>
+	    					<button ng-click="changeImage(startImage)">change img</button> <br/>
+	    				</div>
+					</div>
+					<div class="cleared"></div>
+				</div>
+		</div>
+		<!-- END DEBUG SECTION -->
+	</body>
+</html>
+
+

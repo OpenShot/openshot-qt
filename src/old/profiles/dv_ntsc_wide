@@ -1,0 +1,11 @@
+description=DV/DVD Widescreen NTSC
+frame_rate_num=30000
+frame_rate_den=1001
+width=720
+height=480
+progressive=0
+sample_aspect_num=32
+sample_aspect_den=27
+display_aspect_num=16
+display_aspect_den=9
+colorspace=601

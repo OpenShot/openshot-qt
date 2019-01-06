@@ -37,7 +37,11 @@ from urllib.parse import urlparse
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication, QTimer
 from PyQt5.QtGui import QCursor, QKeySequence
-from PyQt5.QtWebKitWidgets import QWebView
+
+from PyQt5.QtWebChannel import QWebChannel
+
+from PyQt5.QtWebEngineWidgets import QWebEngineView as QWebView
+
 from PyQt5.QtWidgets import QMenu
 
 from classes import info, updates
@@ -165,16 +169,19 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         """Document.Ready event has fired, and is initialized"""
         self.document_is_ready = True
 
-    def eval_js(self, code):
+    def eval_js(self, code, callback = None):
         # Check if document.Ready has fired in JS
         if not self.document_is_ready:
             # Not ready, try again in a few milliseconds
             log.error("TimelineWebView::eval_js() called before document ready event. Script queued: %s" % code)
-            QTimer.singleShot(50, partial(self.eval_js, code))
+            QTimer.singleShot(50, partial(self.eval_js, code, callback))
             return None
         else:
             # Execute JS code
-            return self.page().mainFrame().evaluateJavaScript(code)
+            if callback:
+                return self.page().runJavaScript(code,callback)
+            else:
+                return self.page().runJavaScript(code)
 
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):
@@ -197,7 +204,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             initial_scale = get_app().project.get(["scale"]) or 15
             get_app().window.sliderZoom.setValue(secondsToZoom(initial_scale))
 
-    # Javascript callable function to update the project data when a clip changes
+    # JavaScript callable function to update the project data when a clip changes
     @pyqtSlot(str)
     def update_clip_data(self, clip_json, only_basic_props=True, ignore_reader=False):
         """ Create an updateAction and send it to the update manager """
@@ -328,7 +335,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Send to update manager
         self.update_transition_data(transitions_data, only_basic_props=False)
 
-    # Javascript callable function to update the project data when a transition changes
+    # JavaScript callable function to update the project data when a transition changes
     @pyqtSlot(str)
     def update_transition_data(self, transition_json, only_basic_props=True):
         """ Create an updateAction and send it to the update manager """
@@ -404,7 +411,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
     def contextMenuEvent(self, event):
         event.ignore()
 
-    # Javascript callable function to show clip or transition content menus, passing in type to show
+    # JavaScript callable function to show clip or transition content menus, passing in type to show
     @pyqtSlot(float)
     def ShowPlayheadMenu(self, position=None):
         log.info('ShowPlayheadMenu: %s' % position)
@@ -906,7 +913,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             if clip:
                 # Pass to javascript timeline (and render)
                 cmd = JS_SCOPE_SELECTOR + ".hideAudioData('" + clip_id + "');"
-                self.page().mainFrame().evaluateJavaScript(cmd)
+                self.page().runJavaScript(cmd)
 
     def Waveform_Ready(self, clip_id, audio_data):
         """Callback when audio waveform is ready"""
@@ -917,7 +924,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Pass to javascript timeline (and render)
         cmd = JS_SCOPE_SELECTOR + ".setAudioData('" + clip_id + "', " + serialized_audio_data + ");"
-        self.page().mainFrame().evaluateJavaScript(cmd)
+        self.page().runJavaScript(cmd)
 
         # Restore normal cursor
         get_app().restoreOverrideCursor()
@@ -1754,7 +1761,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 continue
 
             # Determine if waveform needs to be redrawn
-            has_audio_data = bool(self.eval_js(JS_SCOPE_SELECTOR + ".hasAudioData('" + clip_id + "');"))
+            has_audio_data = self.eval_js(JS_SCOPE_SELECTOR + ".hasAudioData('" + clip_id + "');",bool)
 
             if action == MENU_SLICE_KEEP_LEFT or action == MENU_SLICE_KEEP_BOTH:
                 # Get details of original clip
@@ -1970,7 +1977,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
             # Determine if waveform needs to be redrawn
-            has_audio_data = bool(self.eval_js(JS_SCOPE_SELECTOR + ".hasAudioData('" + clip.id + "');"))
+            has_audio_data = self.eval_js(JS_SCOPE_SELECTOR + ".hasAudioData('" + clip.id + "');",bool)
             if has_audio_data:
                 # Re-generate waveform since volume curve has changed
                 self.Show_Waveform_Triggered(clip.id)
@@ -2562,7 +2569,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Get access to timeline scope and set scale to new computed value
         cmd = JS_SCOPE_SELECTOR + ".setScale(" + str(newScale) + "," + str(cursor_x) + ");"
-        self.page().mainFrame().evaluateJavaScript(cmd)
+        self.page().runJavaScript(cmd)
 
         # Start timer to redraw audio
         self.redraw_audio_timer.start()
@@ -2597,8 +2604,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
     def setup_js_data(self):
         # Export self as a javascript object in webview
-        self.page().mainFrame().addToJavaScriptWindowObject('timeline', self)
-        self.page().mainFrame().addToJavaScriptWindowObject('mainWindow', self.window)
+        self.webchannel.registerObject('timeline',self)
+        self.webchannel.registerObject('mainWindow',self.window)
 
         # Initialize snapping mode
         self.SetSnappingMode(self.window.actionSnappingTool.isChecked())
@@ -2686,7 +2693,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             new_clip["end"] = file.data['end']
 
         # Find the closest track (from javascript)
-        top_layer = int(self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack(" + str(position.y()) + ");"))
+        top_layer = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack(" + str(position.y()) + ");",int)
         new_clip["layer"] = top_layer
 
         # Find position from javascript
@@ -2730,7 +2737,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         log.info("addTransition...")
 
         # Find the closest track (from javascript)
-        top_layer = int(self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack(" + str(position.y()) + ");"))
+        top_layer = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack(" + str(position.y()) + ");",int)
 
         # Find position from javascript
         js_position = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition(" + str(position.x()) + ");")
@@ -2779,7 +2786,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         name = effect_names[0]
 
         # Find the closest track (from javascript)
-        closest_layer = int(self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack(" + str(position.y()) + ");"))
+        closest_layer = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack(" + str(position.y()) + ");",int)
 
         # Find position from javascript
         js_position = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition(" + str(position.x()) + ");")
@@ -2885,21 +2892,27 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Pass to javascript timeline (and render)
         cmd = JS_SCOPE_SELECTOR + ".reDrawAllAudioData();"
-        self.page().mainFrame().evaluateJavaScript(cmd)
+        self.page().runJavaScript(cmd)
 
     def ClearAllSelections(self):
         """Clear all selections in JavaScript"""
 
         # Call javascript command
         cmd = JS_SCOPE_SELECTOR + ".ClearAllSelections();"
-        self.page().mainFrame().evaluateJavaScript(cmd)
+        self.page().runJavaScript(cmd)
+
+    def runJavaScript(self,cmd,callback):
+        if callback:
+            self.page().runJavaScript(cmd,callback)
+        else:
+            self.page().runJavaScript(cmd)
 
     def SelectAll(self):
         """Select all clips and transitions in JavaScript"""
 
         # Call javascript command
         cmd = JS_SCOPE_SELECTOR + ".SelectAll();"
-        self.page().mainFrame().evaluateJavaScript(cmd)
+        self.page().runJavaScript(cmd)
 
     def render_cache_json(self):
         """Render the cached frames to the timeline (called every X seconds), and only if changed"""
@@ -2918,7 +2931,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                     self.cache_renderer_version = cache_version
 
                     cmd = JS_SCOPE_SELECTOR + ".RenderCache(" + cache_json + ");"
-                    self.page().mainFrame().evaluateJavaScript(cmd)
+                    self.page().runJavaScript(cmd)
         finally:
             # ignore any errors inside the cache rendering
             pass
@@ -2930,17 +2943,22 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         self.last_position_frames = None
         self.document_is_ready = False
 
+
+
+
         # Get settings
         self.settings = settings.get_settings()
 
         # Add self as listener to project data updates (used to update the timeline)
         get_app().updates.add_listener(self)
 
+        self.webchannel = QWebChannel(self.page())
         # set url from configuration (QUrl takes absolute paths for file system paths, create from QFileInfo)
         self.setUrl(QUrl.fromLocalFile(QFileInfo(self.html_path).absoluteFilePath()))
+        self.page().setWebChannel(self.webchannel)
 
         # Connect signal of javascript initialization to our javascript reference init function
-        self.page().mainFrame().javaScriptWindowObjectCleared.connect(self.setup_js_data)
+        self.page().loadStarted.connect(self.setup_js_data)
 
         # Connect zoom functionality
         window.sliderZoom.valueChanged.connect(self.update_zoom)

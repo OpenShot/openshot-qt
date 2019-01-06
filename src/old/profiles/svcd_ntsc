@@ -1,0 +1,11 @@
+description=SVCD NTSC
+frame_rate_num=30000
+frame_rate_den=1001
+width=480
+height=480
+progressive=0
+sample_aspect_num=15
+sample_aspect_den=11
+display_aspect_num=4
+display_aspect_den=3
+colorspace=601

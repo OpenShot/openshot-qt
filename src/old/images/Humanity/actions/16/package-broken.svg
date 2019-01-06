@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1.0"
+   width="16"
+   height="16"
+   id="svg4002">
+  <defs
+     id="defs4004">
+    <linearGradient
+       x1="8"
+       y1="1052.3622"
+       x2="8"
+       y2="1039.6725"
+       id="linearGradient3201"
+       xlink:href="#linearGradient3195"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       id="linearGradient2490">
+      <stop
+         id="stop2492"
+         style="stop-color:#791235;stop-opacity:1"
+         offset="0" />
+      <stop
+         id="stop2494"
+         style="stop-color:#dd3b27;stop-opacity:1"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       x1="11.375383"
+       y1="1051.4489"
+       x2="11.375383"
+       y2="1037.3622"
+       id="linearGradient3998"
+       xlink:href="#linearGradient2490"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       id="linearGradient3242">
+      <stop
+         id="stop3244"
+         style="stop-color:#f8b17e;stop-opacity:1"
+         offset="0" />
+      <stop
+         id="stop3246"
+         style="stop-color:#e35d4f;stop-opacity:1"
+         offset="0.31209752" />
+      <stop
+         id="stop3248"
+         style="stop-color:#c6262e;stop-opacity:1"
+         offset="0.57054454" />
+      <stop
+         id="stop3250"
+         style="stop-color:#690b54;stop-opacity:1"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       x1="5.6815348"
+       y1="1038.5883"
+       x2="5.6815348"
+       y2="1054.8181"
+       id="linearGradient4000"
+       xlink:href="#linearGradient3242"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       id="linearGradient3195">
+      <stop
+         id="stop3197"
+         style="stop-color:#ffffff;stop-opacity:1"
+         offset="0" />
+      <stop
+         id="stop3199"
+         style="stop-color:#ffffff;stop-opacity:0"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       x1="8"
+       y1="1037.3622"
+       x2="8"
+       y2="1051.3622"
+       id="linearGradient3930"
+       xlink:href="#linearGradient3195"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.8461539,0,0,0.8461527,1.2307693,-875.68989)" />
+  </defs>
+  <g
+     id="layer1">
+    <rect
+       width="15.000001"
+       height="15"
+       rx="3.0206895"
+       ry="3.0206895"
+       x="0.5"
+       y="1036.8622"
+       transform="translate(0,-1036.3622)"
+       id="rect3180"
+       style="opacity:0.3;fill:none;stroke:url(#linearGradient3201);stroke-width:0.99999988;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <rect
+       width="13"
+       height="13.000017"
+       rx="2"
+       ry="2"
+       x="1.5"
+       y="1037.8622"
+       transform="translate(0,-1036.3622)"
+       id="rect7169"
+       style="fill:url(#linearGradient4000);fill-opacity:1;stroke:url(#linearGradient3998);stroke-width:0.99999994;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <rect
+       width="11.000001"
+       height="11"
+       rx="1.0364971"
+       ry="1.0364971"
+       x="2.5000002"
+       y="2.5"
+       id="rect3419"
+       style="opacity:0.3;fill:none;stroke:url(#linearGradient3930);stroke-width:0.99999994;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <rect
+       width="2"
+       height="2"
+       rx="1"
+       ry="1"
+       x="7"
+       y="11"
+       id="rect4230"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    <rect
+       width="2"
+       height="7"
+       rx="1"
+       ry="1"
+       x="7"
+       y="3"
+       id="rect4232"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+  </g>
+</svg>

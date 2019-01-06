@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg3082" xmlns="http://www.w3.org/2000/svg" height="16" width="16" version="1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs3084">
+  <linearGradient id="linearGradient6457">
+   <stop id="stop6459" style="stop-color:#fff;stop-opacity:.94118" offset="0"/>
+   <stop id="stop6461" style="stop-color:#fff;stop-opacity:.70588" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient2781">
+   <stop id="stop2783" style="stop-color:#505050" offset="0"/>
+   <stop id="stop6301" style="stop-color:#6e6e6e" offset=".13216"/>
+   <stop id="stop2785" style="stop-color:#8c8c8c" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient3690">
+   <stop id="stop3692" style="stop-color:#fff" offset="0"/>
+   <stop id="stop3694" style="stop-color:#fff;stop-opacity:.46875" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient5508" y2="40" xlink:href="#linearGradient6457" gradientUnits="userSpaceOnUse" x2="24" gradientTransform="matrix(.26316 0 0 .25926 -.31579 4.6296)" y1="13" x1="24"/>
+  <linearGradient id="linearGradient5511" y2="15.044" xlink:href="#linearGradient3690" gradientUnits="userSpaceOnUse" x2="16.075" gradientTransform="matrix(.29033 0 0 .27587 -1.2583 3.8791)" y1="9.0735" x1="16.034"/>
+  <linearGradient id="linearGradient5514" y2="39.924" xlink:href="#linearGradient2781" gradientUnits="userSpaceOnUse" x2="21.78" gradientTransform="matrix(.33334 0 0 .32787 -2.3334 2.5491)" y1="8.5763" x1="21.866"/>
+  <linearGradient id="linearGradient6306" y2="39.924" xlink:href="#linearGradient2781" gradientUnits="userSpaceOnUse" x2="21.78" gradientTransform="matrix(.33334 0 0 .32787 1.6666 -2.4509)" y1="8.5763" x1="21.866"/>
+  <linearGradient id="linearGradient6308" y2="15.044" xlink:href="#linearGradient3690" gradientUnits="userSpaceOnUse" x2="16.075" gradientTransform="matrix(.29033 0 0 .27587 2.7417 -1.1209)" y1="9.0735" x1="16.034"/>
+  <linearGradient id="linearGradient6310" y2="40" xlink:href="#linearGradient6457" gradientUnits="userSpaceOnUse" x2="24" gradientTransform="matrix(.26316 0 0 .25926 3.6842 -.37037)" y1="13" x1="24"/>
+ </defs>
+ <g id="g6312">
+  <rect id="rect6300" style="stroke-linejoin:round;stroke:#565853;stroke-width:.99987;fill:url(#linearGradient6306)" height="10" width="11" y=".49993" x="4.4999"/>
+  <rect id="rect6302" style="opacity:.2;stroke:url(#linearGradient6308);stroke-width:.99972;fill:none" height="8.0003" width="9.0003" y="1.4999" x="5.4999"/>
+  <rect id="rect6304" style="fill:url(#linearGradient6310)" height="7" width="10" y="3" x="5"/>
+  <rect id="rect1887" style="stroke-linejoin:round;stroke:#565853;stroke-width:.99987;fill:url(#linearGradient5514)" height="10" width="11" y="5.4999" x=".49993"/>
+  <rect id="rect2779" style="opacity:.2;stroke:url(#linearGradient5511);stroke-width:.99972;fill:none" height="8.0003" width="9.0003" y="6.4999" x="1.4999"/>
+  <rect id="rect6287" style="fill:url(#linearGradient5508)" height="7" width="10" y="8" x="1"/>
+ </g>
+</svg>
