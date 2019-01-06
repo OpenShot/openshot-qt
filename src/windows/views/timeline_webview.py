@@ -38,9 +38,8 @@ import openshot  # Python module for libopenshot (required video editing module 
 from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication, QTimer
 from PyQt5.QtGui import QCursor, QKeySequence
 
-from PyQt5.QtWebChannel import QWebChannel
-
 from PyQt5.QtWebEngineWidgets import QWebEngineView as QWebView
+from PyQt5.QtWebChannel import QWebChannel
 
 from PyQt5.QtWidgets import QMenu
 
@@ -157,12 +156,26 @@ MENU_SLICE_KEEP_RIGHT = 2
 MENU_SPLIT_AUDIO_SINGLE = 0
 MENU_SPLIT_AUDIO_MULTIPLE = 1
 
+import time
 
 class TimelineWebView(QWebView, updates.UpdateInterface):
     """ A WebView QWidget used to load the Timeline """
 
     # Path to html file
     html_path = os.path.join(info.PATH, 'timeline', 'index.html')
+
+    def store(self,val):
+        self._last_js_var = val
+    
+    def consume(self):
+        self._start_time = time.time()
+        while not self._last_js_var:
+            if time.time() - self._start_time  > 0.02: 
+                break
+            pass
+        ret = self._last_js_var
+        self._last_js_var = None
+        return ret
 
     @pyqtSlot()
     def page_ready(self):
@@ -1481,9 +1494,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         fps = get_app().project.get(["fps"])
         fps_float = float(fps["num"]) / float(fps["den"])
         nudgeDistance = float(action) / float(fps_float)
-        nudgeDistance /= 2.0	# 1/2 frame
+        nudgeDistance /= 2.0    # 1/2 frame
         if abs(nudgeDistance) < 0.01:
-            nudgeDistance = 0.01 * action	# nudge is less than the minimum of +/- 0.01s
+            nudgeDistance = 0.01 * action    # nudge is less than the minimum of +/- 0.01s
         log.info("Nudging by %s sec" % nudgeDistance)
 
         # Loop through each selected clip (find furthest left and right edge)
@@ -1761,7 +1774,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 continue
 
             # Determine if waveform needs to be redrawn
-            has_audio_data = self.eval_js(JS_SCOPE_SELECTOR + ".hasAudioData('" + clip_id + "');",bool)
+            self.eval_js(JS_SCOPE_SELECTOR + ".hasAudioData('" + clip_id + "');",self.store)
+            has_audio_data = self.consume()
 
             if action == MENU_SLICE_KEEP_LEFT or action == MENU_SLICE_KEEP_BOTH:
                 # Get details of original clip
@@ -1977,7 +1991,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
             # Determine if waveform needs to be redrawn
-            has_audio_data = self.eval_js(JS_SCOPE_SELECTOR + ".hasAudioData('" + clip.id + "');",bool)
+            self.eval_js(JS_SCOPE_SELECTOR + ".hasAudioData('" + clip.id + "');",self.store)
+            has_audio_data = self.consume()
+
             if has_audio_data:
                 # Re-generate waveform since volume curve has changed
                 self.Show_Waveform_Triggered(clip.id)
@@ -2693,11 +2709,13 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             new_clip["end"] = file.data['end']
 
         # Find the closest track (from javascript)
-        top_layer = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack(" + str(position.y()) + ");",int)
+        self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack(" + str(position.y()) + ");",self.store)
+        top_layer = self.consume()
         new_clip["layer"] = top_layer
 
         # Find position from javascript
-        js_position = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition(" + str(position.x()) + ");")
+        self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition(" + str(position.x()) + ");",self.store)
+        js_position = self.consume()
         new_clip["position"] = js_position
 
         # Adjust clip duration, start, and end
@@ -2737,10 +2755,12 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         log.info("addTransition...")
 
         # Find the closest track (from javascript)
-        top_layer = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack(" + str(position.y()) + ");",int)
+        self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack(" + str(position.y()) + ");",self.store)
+        top_layer = self.consume()
 
         # Find position from javascript
-        js_position = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition(" + str(position.x()) + ");")
+        self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition(" + str(position.x()) + ");",self.store)
+        js_position = self.consume()
 
         # Get FPS from project
         fps = get_app().project.get(["fps"])
@@ -2786,10 +2806,12 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         name = effect_names[0]
 
         # Find the closest track (from javascript)
-        closest_layer = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack(" + str(position.y()) + ");",int)
+        self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack(" + str(position.y()) + ");",self.store)
+        closest_layer = self.consume()
 
         # Find position from javascript
-        js_position = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition(" + str(position.x()) + ");")
+        self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition(" + str(position.x()) + ");",self.store)
+        js_positoin = self.consume()
 
         # Loop through clips on the closest layer
         possible_clips = Clip.filter(layer=closest_layer)
@@ -2942,6 +2964,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         self.setAcceptDrops(True)
         self.last_position_frames = None
         self.document_is_ready = False
+        self._last_js_var = None
+        self._start_time = time.time()
 
 
 
