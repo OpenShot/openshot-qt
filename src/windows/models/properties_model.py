@@ -134,7 +134,7 @@ class PropertiesModel(updates.UpdateInterface):
 
 
         # Update frame # from timeline
-        self.update_frame(get_app().window.preview_thread.player.Position(), reload_model=False)
+        self.update_frame(get_app().window.preview_thread.player.Position(), reload_model=True)
 
         # Get ID of item
         self.new_item = True

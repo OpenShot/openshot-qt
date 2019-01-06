@@ -323,7 +323,7 @@ class BlenderListView(QListView):
     def update_progress_bar(self, current_frame, current_part, max_parts):
 
         # update label and preview slider
-        self.win.sliderPreview.setValue(current_frame)
+        #self.win.sliderPreview.setValue(current_frame)
 
         length = int(self.params["end_frame"])
         self.win.lblFrame.setText("{}/{}".format(current_frame, length))

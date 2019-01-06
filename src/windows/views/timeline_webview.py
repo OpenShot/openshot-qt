@@ -35,7 +35,7 @@ from random import uniform
 from urllib.parse import urlparse
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
-from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication, QTimer
+from PyQt5.QtCore import QFileInfo, pyqtSlot, pyqtSignal, QUrl, Qt, QCoreApplication, QTimer, QEventLoop
 from PyQt5.QtGui import QCursor, QKeySequence
 
 from PyQt5.QtWebEngineWidgets import QWebEngineView as QWebView
@@ -156,7 +156,8 @@ MENU_SLICE_KEEP_RIGHT = 2
 MENU_SPLIT_AUDIO_SINGLE = 0
 MENU_SPLIT_AUDIO_MULTIPLE = 1
 
-import time
+
+
 
 class TimelineWebView(QWebView, updates.UpdateInterface):
     """ A WebView QWidget used to load the Timeline """
@@ -164,17 +165,23 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
     # Path to html file
     html_path = os.path.join(info.PATH, 'timeline', 'index.html')
 
+    storeChanged = pyqtSignal(str)
+
     def store(self,val):
+        log.error('storing val {}'.format(val))
         self._last_js_var = val
+        self.storeChanged.emit(str(val))
+
     
     def consume(self):
-        self._start_time = time.time()
-        while not self._last_js_var:
-            if time.time() - self._start_time  > 0.02: 
-                break
-            pass
+        if not self._last_js_var:
+            loop = QEventLoop()
+            self.storeChanged.connect(loop.exit)
+            loop.exec_()            
+            
         ret = self._last_js_var
-        self._last_js_var = None
+        log.error('returning val {}'.format(ret))
+        self.store(None)
         return ret
 
     @pyqtSlot()
@@ -2965,7 +2972,6 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         self.last_position_frames = None
         self.document_is_ready = False
         self._last_js_var = None
-        self._start_time = time.time()
 
 
 
