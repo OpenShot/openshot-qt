@@ -2476,17 +2476,26 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if s.get("enable-auto-save"):
             self.auto_save_timer.start()
 
-        # Set hardware decode environment variable
+        # Set hardware decode
         if s.get("hardware_decode"):
-            os.environ['OS2_DECODE_HW'] = "1"
+            openshot.Settings.Instance().HARDWARE_DECODE = True
         else:
-            os.environ['OS2_DECODE_HW'] = "0"
+            openshot.Settings.Instance().HARDWARE_DECODE = False
+
+        # Set hardware encode
+        if s.get("hardware_encode"):
+            openshot.Settings.Instance().HARDWARE_ENCODE = True
+        else:
+            openshot.Settings.Instance().HARDWARE_ENCODE = False
 
         # Set OMP thread enabled flag (for stability)
         if s.get("omp_threads_enabled"):
-            os.environ['OS2_OMP_THREADS'] = "1"
+            openshot.Settings.Instance().WAIT_FOR_VIDEO_PROCESSING_TASK = False
         else:
-            os.environ['OS2_OMP_THREADS'] = "0"
+            openshot.Settings.Instance().WAIT_FOR_VIDEO_PROCESSING_TASK = True
+
+        # Set scaling mode to lower quality scaling (for faster previews)
+        openshot.Settings.Instance().HIGH_QUALITY_SCALING = False
 
         # Create lock file
         self.create_lock_file()

@@ -300,19 +300,27 @@ class Preferences(QDialog):
 
         elif param["setting"] == "hardware_decode":
             if (state == Qt.Checked):
-                # Enable hardware decode environment variable
-                os.environ['OS2_DECODE_HW'] = "1"
+                # Enable hardware decode
+                openshot.Settings.Instance().HARDWARE_DECODE = True
             else:
-                # Disable hardware decode environment variable
-                os.environ['OS2_DECODE_HW'] = "0"
+                # Disable hardware decode
+                openshot.Settings.Instance().HARDWARE_DECODE = False
+
+        elif param["setting"] == "hardware_encode":
+            if (state == Qt.Checked):
+                # Enable hardware encode
+                openshot.Settings.Instance().HARDWARE_ENCODE = True
+            else:
+                # Disable hardware encode
+                openshot.Settings.Instance().HARDWARE_ENCODE = False
 
         elif param["setting"] == "omp_threads_enabled":
             if (state == Qt.Checked):
                 # Enable OMP multi-threading
-                os.environ['OS2_OMP_THREADS'] = "1"
+                openshot.Settings.Instance().WAIT_FOR_VIDEO_PROCESSING_TASK = False
             else:
                 # Disable OMP multi-threading
-                os.environ['OS2_OMP_THREADS'] = "0"
+                openshot.Settings.Instance().WAIT_FOR_VIDEO_PROCESSING_TASK = True
 
         # Check for restart
         self.check_for_restart(param)

@@ -326,7 +326,7 @@
     "setting": "send_metrics"
   },
   {
-    "value": true,
+    "value": false,
     "title": "Enable Hardware Decode",
     "type": "hidden",
     "restart": true,
@@ -334,10 +334,18 @@
     "setting": "hardware_decode"
   },
   {
+    "value": false,
+    "title": "Enable Hardware Encode",
+    "type": "hidden",
+    "restart": true,
+    "category": "Performance",
+    "setting": "hardware_encode"
+  },
+  {
     "value": true,
     "title": "Process Video Frames in Parallel (Experimental)",
     "type": "bool",
-    "restart": true,
+    "restart": false,
     "category": "Performance",
     "setting": "omp_threads_enabled"
   },
