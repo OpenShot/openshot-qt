@@ -128,7 +128,7 @@ class JsonDataStore:
     def read_from_file(self, file_path, path_mode="ignore"):
         """ Load JSON settings from a file """
         try:
-            with open(file_path, 'r', encoding="utf-8") as f:
+            with open(file_path, 'r') as f:
                 contents = f.read()
                 if contents:
                     if path_mode == "absolute":
@@ -150,7 +150,7 @@ class JsonDataStore:
             if path_mode == "relative":
                 # Convert any paths to relative
                 contents = self.convert_paths_to_relative(file_path, previous_path, contents)
-            with open(file_path, 'w', encoding='utf-8') as f:
+            with open(file_path, 'w') as f:
                 f.write(contents)
         except Exception as ex:
             msg = ("Couldn't save {} file:\n{}\n{}".format(self.data_type, file_path, ex))
