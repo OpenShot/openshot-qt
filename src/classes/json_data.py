@@ -40,7 +40,7 @@ from classes.logger import log
 from classes import info
 
 # Compiled path regex
-path_regex = re.compile(r'\"(?:image|path)\":.*?\"(.*?)\"')
+path_regex = re.compile(r'\"(?:image|path)\":.*?\"(.*?)\"', re.UNICODE)
 
 
 class JsonDataStore:
@@ -128,7 +128,7 @@ class JsonDataStore:
     def read_from_file(self, file_path, path_mode="ignore"):
         """ Load JSON settings from a file """
         try:
-            with open(file_path, 'r') as f:
+            with open(file_path, 'r', encoding="utf-8") as f:
                 contents = f.read()
                 if contents:
                     if path_mode == "absolute":
@@ -150,7 +150,7 @@ class JsonDataStore:
             if path_mode == "relative":
                 # Convert any paths to relative
                 contents = self.convert_paths_to_relative(file_path, previous_path, contents)
-            with open(file_path, 'w') as f:
+            with open(file_path, 'w', encoding='utf-8') as f:
                 f.write(contents)
         except Exception as ex:
             msg = ("Couldn't save {} file:\n{}\n{}".format(self.data_type, file_path, ex))
@@ -194,23 +194,37 @@ class JsonDataStore:
             for path in path_regex.findall(data):
                 folder_path, file_path = os.path.split(path)
 
-                # Find absolute path of file (if needed)
-                if not os.path.join(info.PATH, "transitions") in folder_path:
-                    # Convert path to the correct relative path (based on the existing folder)
-                    orig_abs_path = path
-                    if not os.path.isabs(path):
-                        orig_abs_path = os.path.abspath(os.path.join(existing_project_folder, path))
-                    new_rel_path = os.path.relpath(orig_abs_path, new_project_folder)
-                    data = data.replace('"%s"' % path, '"%s"' % new_rel_path)
+                # Determine if thumbnail path is found
+                if info.THUMBNAIL_PATH in folder_path:
+                    # Convert path to relative thumbnail path
+                    new_path = os.path.join("thumbnail", file_path)
+                    data = data.replace('"%s"' % path, '"%s"' % new_path)
 
                 # Determine if @transitions path is found
-                else:
+                elif os.path.join(info.PATH, "transitions") in folder_path:
                     # Yes, this is an OpenShot transitions
                     folder_path, category_path = os.path.split(folder_path)
 
                     # Convert path to @transitions/ path
                     new_path = os.path.join("@transitions", category_path, file_path)
                     data = data.replace('"%s"' % path, '"%s"' % new_path)
+
+
+                # Find absolute path of file (if needed)
+                else:
+                    # Convert path to the correct relative path (based on the existing folder)
+                    if not os.path.isabs(path):
+                        orig_abs_path = os.path.abspath(os.path.join(existing_project_folder, path))
+                    else:
+                        orig_abs_path = path
+
+                    # Remove file from abs path
+                    orig_abs_folder = os.path.split(orig_abs_path)[0]
+
+                    # Calculate new relateive path
+                    new_rel_path_folder = os.path.relpath(orig_abs_folder, new_project_folder)
+                    new_rel_path = os.path.join(new_rel_path_folder, file_path)
+                    data = data.replace('"%s"' % path, '"%s"' % new_rel_path)
 
         except Exception as ex:
             log.error("Error while converting absolute paths to relative paths: %s" % str(ex))
