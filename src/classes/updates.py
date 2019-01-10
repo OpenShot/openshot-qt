@@ -105,7 +105,7 @@ class UpdateAction:
         """ Load this UpdateAction from a JSON string """
 
         # Load JSON string
-        update_action_dict = json.loads(value)
+        update_action_dict = json.loads(value, strict=False)
 
         # Set the Update Action properties
         self.type = update_action_dict.get("type")
@@ -176,13 +176,13 @@ class UpdateManager:
         history_length_int = int(history_length)
         for action in self.redoHistory[-history_length_int:]:
             if action.type != "load" and action.key[0] != "history":
-                actionDict = json.loads(action.json())
+                actionDict = json.loads(action.json(), strict=False)
                 redo_list.append(actionDict)
             else:
                 log.info("Saving redo history, skipped key: %s" % str(action.key))
         for action in self.actionHistory[-history_length_int:]:
             if action.type != "load" and action.key[0] != "history":
-                actionDict = json.loads(action.json())
+                actionDict = json.loads(action.json(), strict=False)
                 undo_list.append(actionDict)
             else:
                 log.info("Saving undo, skipped key: %s" % str(action.key))

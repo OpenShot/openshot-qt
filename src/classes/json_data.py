@@ -134,7 +134,7 @@ class JsonDataStore:
                     if path_mode == "absolute":
                         # Convert any paths to absolute
                         contents = self.convert_paths_to_absolute(file_path, contents)
-                    return json.loads(contents)
+                    return json.loads(contents, strict=False)
         except Exception as ex:
             msg = ("Couldn't load {} file: {}".format(self.data_type, ex))
             log.error(msg)
@@ -146,7 +146,7 @@ class JsonDataStore:
     def write_to_file(self, file_path, data, path_mode="ignore", previous_path=None):
         """ Save JSON settings to a file """
         try:
-            contents = json.dumps(data)
+            contents = json.dumps(data, indent=4, sort_keys=True)
             if path_mode == "relative":
                 # Convert any paths to relative
                 contents = self.convert_paths_to_relative(file_path, previous_path, contents)
