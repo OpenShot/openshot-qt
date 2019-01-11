@@ -284,7 +284,7 @@ App.controller('TimelineCtrl',function($scope) {
 	  
 	  // Update GUI with position (to the preview can be updated)
 	  if ($scope.Qt) {
-		  timeline.PlayheadMoved(position_seconds, frame, secondsToTime(position_seconds, $scope.project.fps.num, $scope.project.fps.den));
+		  timeline.PlayheadMoved(position_seconds, frame);
 	  }
   };
 

@@ -2520,8 +2520,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Seek to frame
         self.window.SeekSignal.emit(frame_number)
 
-    @pyqtSlot(float, int, str)
-    def PlayheadMoved(self, position_seconds, position_frames, time_code):
+    @pyqtSlot(float, int)
+    def PlayheadMoved(self, position_seconds, position_frames):
 
         # Load the timeline into the Player (ignored if this has already happened)
         self.window.LoadFileSignal.emit('')
@@ -2531,7 +2531,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             self.last_position_frames = position_frames
 
             # Notify main window of current frame
-            self.window.previewFrame(position_seconds, position_frames, time_code)
+            self.window.previewFrame(position_seconds, position_frames)
 
     @pyqtSlot(int)
     def movePlayhead(self, position_frames):
@@ -2818,7 +2818,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Find position from javascript
         self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition(" + str(position.x()) + ");",self.store)
-        js_positoin = self.consume()
+        js_position = self.consume()
 
         # Loop through clips on the closest layer
         possible_clips = Clip.filter(layer=closest_layer)

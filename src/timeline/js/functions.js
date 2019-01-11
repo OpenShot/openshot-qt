@@ -154,7 +154,7 @@ function secondsToTime(secs, fps_num, fps_den)
 	var day = day % 7;
 
 	var frame = Math.round((milli / 1000.0) * (fps_num / fps_den)) + 1;
-    return { "week":padNumber(week,2), "day":padNumber(day,2), "hour":padNumber(hour,2), "min":padNumber(min,2), "sec":padNumber(sec,2), "milli":padNumber(milli,2), "frame":padNumber(frame,2) }.toString();
+    return { "week":padNumber(week,2), "day":padNumber(day,2), "hour":padNumber(hour,2), "min":padNumber(min,2), "sec":padNumber(sec,2), "milli":padNumber(milli,2), "frame":padNumber(frame,2) };
 }
 
 // Find the closest track number (based on a Y coordinate)
