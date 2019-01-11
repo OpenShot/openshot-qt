@@ -166,6 +166,7 @@ class JsonDataStore:
             # Find all "path" attributes in the JSON string
             for path in path_regex.findall(data):
                 # Find absolute path of file (if needed)
+                path = json.loads('"%s"' % path, encoding="utf-8") # parse bytestring into unicode string
                 if "@transitions" not in path and not os.path.isabs(path):
                     # Convert path to the correct relative path (based on the existing folder)
                     new_path = os.path.abspath(os.path.join(existing_project_folder, path))
@@ -192,13 +193,14 @@ class JsonDataStore:
 
             # Find all "path" attributes in the JSON string
             for path in path_regex.findall(data):
+                path = json.loads('"%s"' % path, encoding="utf-8") # parse bytestring into unicode string
                 folder_path, file_path = os.path.split(path)
 
                 # Determine if thumbnail path is found
                 if info.THUMBNAIL_PATH in folder_path:
                     # Convert path to relative thumbnail path
-                    new_path = os.path.join("thumbnail", file_path)
-                    new_path = new_path.replace("\\", "\\\\") # Escape backslashes
+                    new_path = json.dumps(os.path.join("thumbnail", file_path))
+                    new_path = json.dumps(new_path) # Escape backslashes
                     data = data.replace('"%s"' % path, '"%s"' % new_path)
 
                 # Determine if @transitions path is found
@@ -208,7 +210,7 @@ class JsonDataStore:
 
                     # Convert path to @transitions/ path
                     new_path = os.path.join("@transitions", category_path, file_path)
-                    new_path = new_path.replace("\\", "\\\\")  # Escape backslashes
+                    new_path = json.dumps(new_path)  # Escape backslashes
                     data = data.replace('"%s"' % path, '"%s"' % new_path)
 
                 # Find absolute path of file (if needed)
@@ -225,7 +227,7 @@ class JsonDataStore:
                     # Calculate new relateive path
                     new_rel_path_folder = os.path.relpath(orig_abs_folder, new_project_folder)
                     new_rel_path = os.path.join(new_rel_path_folder, file_path)
-                    new_rel_path = new_rel_path.replace("\\", "\\\\")  # Escape backslashes
+                    new_rel_path = json.dumps(new_rel_path)  # Escape backslashes
                     data = data.replace('"%s"' % path, '"%s"' % new_rel_path)
 
         except Exception as ex:
