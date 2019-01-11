@@ -845,7 +845,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 # try to find file with previous starting folder:
                 if starting_folder and os.path.exists(os.path.join(starting_folder, file_name_with_ext)):
                     # Update file path
-                    path = os.path.join(starting_folder, file_name_with_ext)
+                    path = os.path.abspath(os.path.join(starting_folder, file_name_with_ext))
                     file["path"] = path
                     get_app().updates.update(["import_path"], os.path.dirname(path))
                     log.info("Auto-updated missing file: %s" % path)
@@ -857,7 +857,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     log.info("Missing folder chosen by user: %s" % starting_folder)
                     if starting_folder:
                         # Update file path and import_path
-                        path = os.path.join(starting_folder, file_name_with_ext)
+                        path = os.path.abspath(os.path.join(starting_folder, file_name_with_ext))
                         file["path"] = path
                         get_app().updates.update(["import_path"], os.path.dirname(path))
                     else:
@@ -876,7 +876,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 # try to find clip with previous starting folder:
                 if starting_folder and os.path.exists(os.path.join(starting_folder, file_name_with_ext)):
                     # Update clip path
-                    path = os.path.join(starting_folder, file_name_with_ext)
+                    path = os.path.abspath(os.path.join(starting_folder, file_name_with_ext))
                     clip["reader"]["path"] = path
                     log.info("Auto-updated missing file: %s" % clip["reader"]["path"])
                     break
@@ -886,7 +886,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     log.info("Missing folder chosen by user: %s" % starting_folder)
                     if starting_folder:
                         # Update clip path
-                        path = os.path.join(starting_folder, file_name_with_ext)
+                        path = os.path.abspath(os.path.join(starting_folder, file_name_with_ext))
                         clip["reader"]["path"] = path
                     else:
                         log.info('Removed missing clip: %s' % file_name_with_ext)
