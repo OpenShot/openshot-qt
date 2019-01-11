@@ -198,6 +198,7 @@ class JsonDataStore:
                 if info.THUMBNAIL_PATH in folder_path:
                     # Convert path to relative thumbnail path
                     new_path = os.path.join("thumbnail", file_path)
+                    new_path = new_path.replace("\\", "\\\\") # Escape backslashes
                     data = data.replace('"%s"' % path, '"%s"' % new_path)
 
                 # Determine if @transitions path is found
@@ -207,8 +208,8 @@ class JsonDataStore:
 
                     # Convert path to @transitions/ path
                     new_path = os.path.join("@transitions", category_path, file_path)
+                    new_path = new_path.replace("\\", "\\\\")  # Escape backslashes
                     data = data.replace('"%s"' % path, '"%s"' % new_path)
-
 
                 # Find absolute path of file (if needed)
                 else:
@@ -224,6 +225,7 @@ class JsonDataStore:
                     # Calculate new relateive path
                     new_rel_path_folder = os.path.relpath(orig_abs_folder, new_project_folder)
                     new_rel_path = os.path.join(new_rel_path_folder, file_path)
+                    new_rel_path = new_rel_path.replace("\\", "\\\\")  # Escape backslashes
                     data = data.replace('"%s"' % path, '"%s"' % new_rel_path)
 
         except Exception as ex:
