@@ -170,12 +170,14 @@ class JsonDataStore:
                 if "@transitions" not in path and not os.path.isabs(path):
                     # Convert path to the correct relative path (based on the existing folder)
                     new_path = os.path.abspath(os.path.join(existing_project_folder, path))
-                    data = data.replace('"%s"' % path, '"%s"' % new_path)
+                    new_path = json.dumps(new_path)  # Escape backslashes
+                    data = data.replace('"%s"' % path, new_path)
 
                 # Determine if @transitions path is found
                 elif "@transitions" in path:
                     new_path = path.replace("@transitions", os.path.join(info.PATH, "transitions"))
-                    data = data.replace('"%s"' % path, '"%s"' % new_path)
+                    new_path = json.dumps(new_path)  # Escape backslashes
+                    data = data.replace('"%s"' % path, new_path)
 
         except Exception as ex:
             log.error("Error while converting relative paths to absolute paths: %s" % str(ex))
