@@ -40,7 +40,8 @@ from classes.logger import log
 from classes import info
 
 # Compiled path regex
-path_regex = re.compile(r'\"(?:image|path)\":.*?\"(.*?)\"', re.UNICODE)
+path_regex = re.compile(r'\"(image|path)\":.*?\"(.*?)\"', re.UNICODE)
+path_context = {}
 
 
 class JsonDataStore:
@@ -157,81 +158,89 @@ class JsonDataStore:
             log.error(msg)
             raise Exception(msg)
 
+    def replace_string_to_absolute(self, match):
+        """Replace matched string for converting paths to relative paths"""
+        key = match.groups(0)[0]
+        path = match.groups(0)[1]
+
+        # Find absolute path of file (if needed)
+        utf_path = json.loads('"%s"' % path, encoding="utf-8")  # parse bytestring into unicode string
+        if "@transitions" not in utf_path and not os.path.isabs(utf_path):
+            # Convert path to the correct relative path (based on the existing folder)
+            new_path = os.path.abspath(os.path.join(path_context.get("existing_project_folder", ""), utf_path))
+            new_path = json.dumps(new_path)  # Escape backslashes
+            return '"%s": %s' % (key, new_path)
+
+        # Determine if @transitions path is found
+        elif "@transitions" in path:
+            new_path = path.replace("@transitions", os.path.join(info.PATH, "transitions"))
+            new_path = json.dumps(new_path)  # Escape backslashes
+            return '"%s": %s' % (key, new_path)
+
     def convert_paths_to_absolute(self, file_path, data):
         """ Convert all paths to absolute using regex """
         try:
             # Get project folder
-            existing_project_folder = os.path.dirname(file_path)
+            path_context["new_project_folder"] = os.path.dirname(file_path)
+            path_context["existing_project_folder"] = os.path.dirname(file_path)
 
-            # Find all "path" attributes in the JSON string
-            for path in path_regex.findall(data):
-                # Find absolute path of file (if needed)
-                utf_path = json.loads('"%s"' % path, encoding="utf-8") # parse bytestring into unicode string
-                if "@transitions" not in utf_path and not os.path.isabs(utf_path):
-                    # Convert path to the correct relative path (based on the existing folder)
-                    new_path = os.path.abspath(os.path.join(existing_project_folder, utf_path))
-                    new_path = json.dumps(new_path)  # Escape backslashes
-                    data = data.replace('"%s"' % path, new_path)
-
-                # Determine if @transitions path is found
-                elif "@transitions" in path:
-                    new_path = path.replace("@transitions", os.path.join(info.PATH, "transitions"))
-                    new_path = json.dumps(new_path)  # Escape backslashes
-                    data = data.replace('"%s"' % path, new_path)
+            # Optimized regex replacement
+            data = re.sub(path_regex, self.replace_string_to_absolute, data)
 
         except Exception as ex:
             log.error("Error while converting relative paths to absolute paths: %s" % str(ex))
 
         return data
 
+    def replace_string_to_relative(self, match):
+        """Replace matched string for converting paths to relative paths"""
+        key = match.groups(0)[0]
+        path = match.groups(0)[1]
+        utf_path = json.loads('"%s"' % path, encoding="utf-8")  # parse bytestring into unicode string
+        folder_path, file_path = os.path.split(os.path.abspath(utf_path))
+
+        # Determine if thumbnail path is found
+        if info.THUMBNAIL_PATH in folder_path:
+            # Convert path to relative thumbnail path
+            new_path = os.path.join("thumbnail", file_path).replace("\\", "/")
+            new_path = json.dumps(new_path)  # Escape backslashes
+            return '"%s": %s' % (key, new_path)
+
+        # Determine if @transitions path is found
+        elif os.path.join(info.PATH, "transitions") in folder_path:
+            # Yes, this is an OpenShot transitions
+            folder_path, category_path = os.path.split(folder_path)
+
+            # Convert path to @transitions/ path
+            new_path = os.path.join("@transitions", category_path, file_path).replace("\\", "/")
+            new_path = json.dumps(new_path)  # Escape backslashes
+            return '"%s": %s' % (key, new_path)
+
+        # Find absolute path of file (if needed)
+        else:
+            # Convert path to the correct relative path (based on the existing folder)
+            orig_abs_path = os.path.abspath(utf_path)
+
+            # Remove file from abs path
+            orig_abs_folder = os.path.split(orig_abs_path)[0]
+
+            # Calculate new relateive path
+            new_rel_path_folder = os.path.relpath(orig_abs_folder, path_context.get("new_project_folder", ""))
+            new_rel_path = os.path.join(new_rel_path_folder, file_path).replace("\\", "/")
+            new_rel_path = json.dumps(new_rel_path)  # Escape backslashes
+            return '"%s": %s' % (key, new_rel_path)
+
     def convert_paths_to_relative(self, file_path, previous_path, data):
         """ Convert all paths relative to this filepath """
         try:
             # Get project folder
-            new_project_folder = os.path.dirname(file_path)
-            existing_project_folder = os.path.dirname(file_path)
+            path_context["new_project_folder"] = os.path.dirname(file_path)
+            path_context["existing_project_folder"] = os.path.dirname(file_path)
             if previous_path:
-                existing_project_folder = os.path.dirname(previous_path)
+                path_context["existing_project_folder"] = os.path.dirname(previous_path)
 
-            log.info('info.THUMBNAIL_PATH: %s' % info.THUMBNAIL_PATH)
-
-            # Find all "path" attributes in the JSON string
-            for path in path_regex.findall(data):
-                utf_path = json.loads('"%s"' % path, encoding="utf-8") # parse bytestring into unicode string
-                folder_path, file_path = os.path.split(os.path.abspath(utf_path))
-
-                log.info('folder_path: %s' % folder_path)
-
-                # Determine if thumbnail path is found
-                if info.THUMBNAIL_PATH in folder_path:
-                    # Convert path to relative thumbnail path
-                    new_path = os.path.join("thumbnail", file_path).replace("\\", "/")
-                    new_path = json.dumps(new_path) # Escape backslashes
-                    data = data.replace('"%s"' % path, new_path)
-
-                # Determine if @transitions path is found
-                elif os.path.join(info.PATH, "transitions") in folder_path:
-                    # Yes, this is an OpenShot transitions
-                    folder_path, category_path = os.path.split(folder_path)
-
-                    # Convert path to @transitions/ path
-                    new_path = os.path.join("@transitions", category_path, file_path).replace("\\", "/")
-                    new_path = json.dumps(new_path)  # Escape backslashes
-                    data = data.replace('"%s"' % path, new_path)
-
-                # Find absolute path of file (if needed)
-                else:
-                    # Convert path to the correct relative path (based on the existing folder)
-                    orig_abs_path = utf_path
-
-                    # Remove file from abs path
-                    orig_abs_folder = os.path.split(orig_abs_path)[0]
-
-                    # Calculate new relateive path
-                    new_rel_path_folder = os.path.relpath(orig_abs_folder, new_project_folder)
-                    new_rel_path = os.path.join(new_rel_path_folder, file_path).replace("\\", "/")
-                    new_rel_path = json.dumps(new_rel_path)  # Escape backslashes
-                    data = data.replace('"%s"' % path, new_rel_path)
+            # Optimized regex replacement
+            data = re.sub(path_regex, self.replace_string_to_relative, data)
 
         except Exception as ex:
             log.error("Error while converting absolute paths to relative paths: %s" % str(ex))
