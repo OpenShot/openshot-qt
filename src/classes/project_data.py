@@ -423,7 +423,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                         try:
                             clip = openshot.Clip(item.name)
                             reader = clip.Reader()
-                            file_data = json.loads(reader.Json())
+                            file_data = json.loads(reader.Json(), strict=False)
 
                             # Determine media type
                             if file_data["has_video"] and not self.is_image(file_data):
@@ -492,7 +492,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             c = openshot.Clip(file_path)
 
                             # Append missing attributes to Clip JSON
-                            new_clip = json.loads(c.Json())
+                            new_clip = json.loads(c.Json(), strict=False)
                             new_clip["file_id"] = file.id
                             new_clip["title"] = filename
                             new_clip["image"] = thumb_path
@@ -511,9 +511,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             if clip.video_fade_in:
                                 # Add keyframes
                                 start = openshot.Point(round(clip.start_time * fps_float) + 1, 0.0, openshot.BEZIER)
-                                start_object = json.loads(start.Json())
+                                start_object = json.loads(start.Json(), strict=False)
                                 end = openshot.Point(round((clip.start_time + clip.video_fade_in_amount) * fps_float) + 1, 1.0, openshot.BEZIER)
-                                end_object = json.loads(end.Json())
+                                end_object = json.loads(end.Json(), strict=False)
                                 new_clip["alpha"]["Points"].append(start_object)
                                 new_clip["alpha"]["Points"].append(end_object)
 
@@ -521,9 +521,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             if clip.video_fade_out:
                                 # Add keyframes
                                 start = openshot.Point(round((clip.end_time - clip.video_fade_out_amount) * fps_float) + 1, 1.0, openshot.BEZIER)
-                                start_object = json.loads(start.Json())
+                                start_object = json.loads(start.Json(), strict=False)
                                 end = openshot.Point(round(clip.end_time * fps_float) + 1, 0.0, openshot.BEZIER)
-                                end_object = json.loads(end.Json())
+                                end_object = json.loads(end.Json(), strict=False)
                                 new_clip["alpha"]["Points"].append(start_object)
                                 new_clip["alpha"]["Points"].append(end_object)
 
@@ -532,16 +532,16 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                                 new_clip["volume"]["Points"] = []
                             else:
                                 p = openshot.Point(1, clip.volume / 100.0, openshot.BEZIER)
-                                p_object = json.loads(p.Json())
+                                p_object = json.loads(p.Json(), strict=False)
                                 new_clip["volume"] = { "Points" : [p_object]}
 
                             # Audio Fade IN
                             if clip.audio_fade_in:
                                 # Add keyframes
                                 start = openshot.Point(round(clip.start_time * fps_float) + 1, 0.0, openshot.BEZIER)
-                                start_object = json.loads(start.Json())
+                                start_object = json.loads(start.Json(), strict=False)
                                 end = openshot.Point(round((clip.start_time + clip.video_fade_in_amount) * fps_float) + 1, clip.volume / 100.0, openshot.BEZIER)
-                                end_object = json.loads(end.Json())
+                                end_object = json.loads(end.Json(), strict=False)
                                 new_clip["volume"]["Points"].append(start_object)
                                 new_clip["volume"]["Points"].append(end_object)
 
@@ -549,9 +549,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             if clip.audio_fade_out:
                                 # Add keyframes
                                 start = openshot.Point(round((clip.end_time - clip.video_fade_out_amount) * fps_float) + 1, clip.volume / 100.0, openshot.BEZIER)
-                                start_object = json.loads(start.Json())
+                                start_object = json.loads(start.Json(), strict=False)
                                 end = openshot.Point(round(clip.end_time * fps_float) + 1, 0.0, openshot.BEZIER)
-                                end_object = json.loads(end.Json())
+                                end_object = json.loads(end.Json(), strict=False)
                                 new_clip["volume"]["Points"].append(start_object)
                                 new_clip["volume"]["Points"].append(end_object)
 
@@ -589,9 +589,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                                 "position": trans.position_on_track,
                                 "start": 0,
                                 "end": trans.length,
-                                "brightness": json.loads(brightness.Json()),
-                                "contrast": json.loads(contrast.Json()),
-                                "reader": json.loads(transition_reader.Json()),
+                                "brightness": json.loads(brightness.Json(), strict=False),
+                                "contrast": json.loads(contrast.Json(), strict=False),
+                                "reader": json.loads(transition_reader.Json(), strict=False),
                                 "replace_image": False
                             }
 
@@ -845,7 +845,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 # try to find file with previous starting folder:
                 if starting_folder and os.path.exists(os.path.join(starting_folder, file_name_with_ext)):
                     # Update file path
-                    path = os.path.join(starting_folder, file_name_with_ext)
+                    path = os.path.abspath(os.path.join(starting_folder, file_name_with_ext))
                     file["path"] = path
                     get_app().updates.update(["import_path"], os.path.dirname(path))
                     log.info("Auto-updated missing file: %s" % path)
@@ -857,7 +857,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     log.info("Missing folder chosen by user: %s" % starting_folder)
                     if starting_folder:
                         # Update file path and import_path
-                        path = os.path.join(starting_folder, file_name_with_ext)
+                        path = os.path.abspath(os.path.join(starting_folder, file_name_with_ext))
                         file["path"] = path
                         get_app().updates.update(["import_path"], os.path.dirname(path))
                     else:
@@ -876,7 +876,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 # try to find clip with previous starting folder:
                 if starting_folder and os.path.exists(os.path.join(starting_folder, file_name_with_ext)):
                     # Update clip path
-                    path = os.path.join(starting_folder, file_name_with_ext)
+                    path = os.path.abspath(os.path.join(starting_folder, file_name_with_ext))
                     clip["reader"]["path"] = path
                     log.info("Auto-updated missing file: %s" % clip["reader"]["path"])
                     break
@@ -886,7 +886,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     log.info("Missing folder chosen by user: %s" % starting_folder)
                     if starting_folder:
                         # Update clip path
-                        path = os.path.join(starting_folder, file_name_with_ext)
+                        path = os.path.abspath(os.path.join(starting_folder, file_name_with_ext))
                         clip["reader"]["path"] = path
                     else:
                         log.info('Removed missing clip: %s' % file_name_with_ext)

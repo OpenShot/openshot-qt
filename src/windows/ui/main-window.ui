@@ -379,7 +379,7 @@
     <enum>Qt::NoContextMenu</enum>
    </property>
    <property name="visible">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="autoFillBackground">
     <bool>false</bool>
@@ -416,7 +416,7 @@
      <enum>Qt::NoContextMenu</enum>
     </property>
     <property name="visible">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="autoFillBackground">
      <bool>false</bool>
