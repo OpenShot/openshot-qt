@@ -178,6 +178,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):
+        # Remove unused action attribute (old_values)
+        action = deepcopy(action)
+        action.old_values = {}
+
         # Send a JSON version of the UpdateAction to the timeline webview method: ApplyJsonDiff()
         if action.type == "load":
             # Initialize translated track name
@@ -198,8 +202,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             get_app().window.sliderZoom.setValue(secondsToZoom(initial_scale))
 
     # Javascript callable function to update the project data when a clip changes
-    @pyqtSlot(str)
-    def update_clip_data(self, clip_json, only_basic_props=True, ignore_reader=False):
+    @pyqtSlot(str, bool, bool, bool)
+    def update_clip_data(self, clip_json, only_basic_props=True, ignore_reader=False, ignore_refresh=False):
         """ Create an updateAction and send it to the update manager """
 
         # read clip json
@@ -219,7 +223,6 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             existing_clip = Clip()
 
         # Determine if "start" changed
-        start_changed = False
         if existing_clip.data and existing_clip.data["start"] != clip_data["start"] and clip_data["reader"]["has_video"] and not clip_data["reader"]["has_single_image"]:
             # Update thumbnail
             self.UpdateClipThumbnail(clip_data)
@@ -244,9 +247,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Save clip
         existing_clip.save()
 
-        # Update the preview and reselct current frame in properties
-        get_app().window.refreshFrameSignal.emit()
-        get_app().window.propertyTableView.select_frame(self.window.preview_thread.player.Position())
+        # Update the preview and reselect current frame in properties
+        if not ignore_refresh:
+            get_app().window.refreshFrameSignal.emit()
+            get_app().window.propertyTableView.select_frame(self.window.preview_thread.player.Position())
 
     # Update Thumbnails for modified clips
     def UpdateClipThumbnail(self, clip_data):
@@ -329,8 +333,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         self.update_transition_data(transitions_data, only_basic_props=False)
 
     # Javascript callable function to update the project data when a transition changes
-    @pyqtSlot(str)
-    def update_transition_data(self, transition_json, only_basic_props=True):
+    @pyqtSlot(str, bool, bool)
+    def update_transition_data(self, transition_json, only_basic_props=True, ignore_refresh=False):
         """ Create an updateAction and send it to the update manager """
 
         # read clip json
@@ -397,8 +401,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         existing_item.save()
 
         # Update the preview and reselct current frame in properties
-        get_app().window.refreshFrameSignal.emit()
-        get_app().window.propertyTableView.select_frame(self.window.preview_thread.player.Position())
+        if not ignore_refresh:
+            get_app().window.refreshFrameSignal.emit()
+            get_app().window.propertyTableView.select_frame(self.window.preview_thread.player.Position())
 
     # Prevent default context menu, and ignore, so that javascript can intercept
     def contextMenuEvent(self, event):
@@ -2477,14 +2482,14 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             # Invalid clip
             return
 
-        path = clip.data['reader']['path']
+        preview_path = clip.data['reader']['path']
 
         # Adjust frame # to valid range
         frame_number = max(frame_number, 1)
         frame_number = min(frame_number, int(clip.data['reader']['video_length']))
 
         # Load the clip into the Player (ignored if this has already happened)
-        self.window.LoadFileSignal.emit(path)
+        self.window.LoadFileSignal.emit(preview_path)
         self.window.SpeedSignal.emit(0)
 
         # Seek to frame
