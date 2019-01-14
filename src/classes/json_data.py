@@ -165,14 +165,14 @@ class JsonDataStore:
 
         # Find absolute path of file (if needed)
         utf_path = json.loads('"%s"' % path, encoding="utf-8")  # parse bytestring into unicode string
-        if "@transitions" not in utf_path and not os.path.isabs(utf_path):
+        if "@transitions" not in utf_path:
             # Convert path to the correct relative path (based on the existing folder)
             new_path = os.path.abspath(os.path.join(path_context.get("existing_project_folder", ""), utf_path))
             new_path = json.dumps(new_path)  # Escape backslashes
             return '"%s": %s' % (key, new_path)
 
         # Determine if @transitions path is found
-        elif "@transitions" in path:
+        else:
             new_path = path.replace("@transitions", os.path.join(info.PATH, "transitions"))
             new_path = json.dumps(new_path)  # Escape backslashes
             return '"%s": %s' % (key, new_path)
