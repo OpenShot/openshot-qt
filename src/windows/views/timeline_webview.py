@@ -354,8 +354,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         self.update_transition_data(transitions_data, only_basic_props=False)
 
     # JavaScript callable function to update the project data when a transition changes
-    @pyqtSlot(str)
-    def update_transition_data(self, transition_json, only_basic_props=True):
+    @pyqtSlot(str, bool, bool)
+    def update_transition_data(self, transition_json, only_basic_props=True, ignore_refresh=False):
         """ Create an updateAction and send it to the update manager """
 
         # read clip json
