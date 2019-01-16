@@ -35,7 +35,7 @@ from random import uniform
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from PyQt5.QtCore import QFileInfo, pyqtSlot, pyqtSignal, QUrl, Qt, QCoreApplication, QTimer, QEventLoop
 from PyQt5.QtGui import QCursor, QKeySequence
-from PyQt5.QtWebEngineWidgets import QWebEngineView as QWebView
+from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWebChannel import QWebChannel
 from PyQt5.QtWidgets import QMenu
 
@@ -153,8 +153,8 @@ MENU_SPLIT_AUDIO_SINGLE = 0
 MENU_SPLIT_AUDIO_MULTIPLE = 1
 
 
-class TimelineWebView(QWebView, updates.UpdateInterface):
-    """ A WebView QWidget used to load the Timeline """
+class TimelineWebView(QWebEngineView, updates.UpdateInterface):
+    """ A Web(Engine)View QWidget used to load the Timeline """
 
     # Path to html file
     html_path = os.path.join(info.PATH, 'timeline', 'index.html')
@@ -2603,7 +2603,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         if (key_value == Qt.Key_Shift or key_value == Qt.Key_Control):
 
             # Only pass a few keystrokes to the webview (CTRL and SHIFT)
-            return QWebView.keyPressEvent(self, event)
+            return QWebEngineView.keyPressEvent(self, event)
 
         else:
             # Ignore most keypresses
@@ -2617,7 +2617,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             steps = int(event.angleDelta().y() / tick_scale)
             self.window.sliderZoom.setValue(self.window.sliderZoom.value() - self.window.sliderZoom.pageStep() * steps)
         else:
-            # Otherwise pass on to implement default functionality (scroll in QWebView)
+            # Otherwise pass on to implement default functionality (scroll in QWebEngineView)
             super(type(self), self).wheelEvent(event)
 
     def setup_js_data(self):
@@ -2954,7 +2954,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             pass
 
     def __init__(self, window):
-        QWebView.__init__(self)
+        QWebEngineView.__init__(self)
         self.window = window
         self.setAcceptDrops(True)
         self.last_position_frames = None
