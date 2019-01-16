@@ -37,10 +37,8 @@ from urllib.parse import urlparse
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from PyQt5.QtCore import QFileInfo, pyqtSlot, pyqtSignal, QUrl, Qt, QCoreApplication, QTimer, QEventLoop
 from PyQt5.QtGui import QCursor, QKeySequence
-
 from PyQt5.QtWebEngineWidgets import QWebEngineView as QWebView
 from PyQt5.QtWebChannel import QWebChannel
-
 from PyQt5.QtWidgets import QMenu
 
 from classes import info, updates
@@ -2718,7 +2716,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Find the closest track (from javascript)
         self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack(" + str(position.y()) + ");",self.store)
         top_layer = self.consume()
-        new_clip["layer"] = top_layer
+        
+		new_clip["layer"] = top_layer
 
         # Find position from javascript
         self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition(" + str(position.x()) + ");",self.store)
@@ -2972,6 +2971,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         self.last_position_frames = None
         self.document_is_ready = False
         self._last_js_var = None
+
+
+
 
 
 

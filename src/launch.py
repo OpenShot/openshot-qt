@@ -56,7 +56,6 @@ from classes.app import OpenShotApp
 from classes.logger import log, reroute_output
 from classes.language import get_all_languages
 
-
 def main():
     """"Initialize settings (not implemented) and create main window/application."""
 
