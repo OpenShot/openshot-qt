@@ -26,8 +26,6 @@
  * along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 var timeline = null;
-var mainWindow = null;
-
 
 // Initialize Angular application
 var App = angular.module('openshot-timeline', ['ui.bootstrap','ngAnimate']);
@@ -35,16 +33,12 @@ var App = angular.module('openshot-timeline', ['ui.bootstrap','ngAnimate']);
 // Wait for document ready event
 $( document ).ready(function() {
 
-
 	new QWebChannel(qt.webChannelTransport, function (channel) {
 		timeline = channel.objects.timeline;
-		mainWindow = channel.objects.mainWindow;
 
-		timeline.qt_log("QT READY!");
+		timeline.qt_log("Qt Ready!");
 		$('body').scope().EnableQt();
-
 		timeline.page_ready();
-
 	});
 
 	/// Capture window resize event, and resize scrollable divs (i.e. track container)

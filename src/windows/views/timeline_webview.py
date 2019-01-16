@@ -28,11 +28,9 @@
  """
 
 import os
-import sys
 from copy import deepcopy
 from functools import partial
 from random import uniform
-from urllib.parse import urlparse
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from PyQt5.QtCore import QFileInfo, pyqtSlot, pyqtSignal, QUrl, Qt, QCoreApplication, QTimer, QEventLoop
@@ -155,31 +153,30 @@ MENU_SPLIT_AUDIO_SINGLE = 0
 MENU_SPLIT_AUDIO_MULTIPLE = 1
 
 
-
-
 class TimelineWebView(QWebView, updates.UpdateInterface):
     """ A WebView QWidget used to load the Timeline """
 
     # Path to html file
     html_path = os.path.join(info.PATH, 'timeline', 'index.html')
 
+    # store/consume model for JS variables
     storeChanged = pyqtSignal(str)
 
-    def store(self,val):
-        log.error('storing val {}'.format(val))
-        self._last_js_var = val
-        self.storeChanged.emit(str(val))
+    def _store(self, value):
+        self._jsvar = value
+        self.storeChanged.emit(str(self._jsvar))
 
-    
-    def consume(self):
-        if not self._last_js_var:
+    def _consume(self):
+        ''' Wait until we can consume the last JS variable '''
+
+        if not self._jsvar:
+            # start an event loop to do nothing, wait until storeChanged signal
             loop = QEventLoop()
             self.storeChanged.connect(loop.exit)
-            loop.exec_()            
+            loop.exec_()
             
-        ret = self._last_js_var
-        log.error('returning val {}'.format(ret))
-        self.store(None)
+        ret = self._jsvar
+        self._store(None)
         return ret
 
     @pyqtSlot()
@@ -187,17 +184,23 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         """Document.Ready event has fired, and is initialized"""
         self.document_is_ready = True
 
-    def eval_js(self, code, callback = None):
+    def eval_js(self, code):
+        '''Run JS code and wait for value to return'''
+        self.run_js(code, self._store)
+        return self._consume()
+
+    def run_js(self, code, callback=None):
+        '''Run JS code async and optionally have a callback for response'''
         # Check if document.Ready has fired in JS
         if not self.document_is_ready:
             # Not ready, try again in a few milliseconds
-            log.error("TimelineWebView::eval_js() called before document ready event. Script queued: %s" % code)
-            QTimer.singleShot(50, partial(self.eval_js, code, callback))
+            log.error("TimelineWebView::run_js() called before document ready event. Script queued: %s" % code)
+            QTimer.singleShot(50, partial(self.run_js, code, callback))
             return None
         else:
             # Execute JS code
             if callback:
-                return self.page().runJavaScript(code,callback)
+                return self.page().runJavaScript(code, callback)
             else:
                 return self.page().runJavaScript(code)
 
@@ -207,14 +210,14 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         if action.type == "load":
             # Initialize translated track name
             _ = get_app()._tr
-            self.eval_js(JS_SCOPE_SELECTOR + ".SetTrackLabel('" + _("Track %s") + "');")
+            self.run_js(JS_SCOPE_SELECTOR + ".SetTrackLabel('" + _("Track %s") + "');")
 
             # Load entire project data
             code = JS_SCOPE_SELECTOR + ".LoadJson(" + action.json() + ");"
         else:
             # Apply diff to part of project data
             code = JS_SCOPE_SELECTOR + ".ApplyJsonDiff([" + action.json() + "]);"
-        self.eval_js(code)
+        self.run_js(code)
 
         # Reset the scale when loading new JSON
         if action.type == "load":
@@ -625,7 +628,6 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             Fade_Menu.addMenu(Position_Menu)
         menu.addMenu(Fade_Menu)
 
-
         # Animate Menu
         Animate_Menu = QMenu(_("Animate"), self)
         Animate_None = Animate_Menu.addAction(_("No Animation"))
@@ -967,15 +969,15 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 continue
 
             # Filter out audio on the original clip
-            #p = openshot.Point(1, 0.0, openshot.CONSTANT) # Override has_audio keyframe to False
-            #p_object = json.loads(p.Json())
-            #clip.data["has_audio"] = { "Points" : [p_object]}
+            # p = openshot.Point(1, 0.0, openshot.CONSTANT) # Override has_audio keyframe to False
+            # p_object = json.loads(p.Json())
+            # clip.data["has_audio"] = { "Points" : [p_object]}
 
             # Save filter on original clip
-            #clip.save()
+            # clip.save()
 
             # Clear audio override
-            p = openshot.Point(1, -1.0, openshot.CONSTANT) # Override has_audio keyframe to False
+            p = openshot.Point(1, -1.0, openshot.CONSTANT)  # Override has_audio keyframe to False
             p_object = json.loads(p.Json())
             clip.data["has_audio"] = { "Points" : [p_object]}
 
@@ -1102,10 +1104,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 clip.data["location_y"] = { "Points" : [p_object]}
 
             if action == MENU_LAYOUT_CENTER or \
-                   action == MENU_LAYOUT_TOP_LEFT or \
-                   action == MENU_LAYOUT_TOP_RIGHT or \
-                   action == MENU_LAYOUT_BOTTOM_LEFT or \
-                   action == MENU_LAYOUT_BOTTOM_RIGHT:
+                action == MENU_LAYOUT_TOP_LEFT or \
+                action == MENU_LAYOUT_TOP_RIGHT or \
+                action == MENU_LAYOUT_BOTTOM_LEFT or \
+                action == MENU_LAYOUT_BOTTOM_RIGHT:
                 # Reset scale mode
                 clip.data["scale"] = openshot.SCALE_FIT
                 clip.data["gravity"] = new_gravity
@@ -1121,7 +1123,6 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 p_object = json.loads(p.Json())
                 clip.data["location_x"] = { "Points" : [p_object]}
                 clip.data["location_y"] = { "Points" : [p_object]}
-
 
             if action == MENU_LAYOUT_ALL_WITH_ASPECT:
                 # Update all intersecting clips
@@ -1206,7 +1207,6 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 clip.data["scale_x"]["Points"].append(end_object)
                 clip.data["scale_y"]["Points"].append(start_object)
                 clip.data["scale_y"]["Points"].append(end_object)
-
 
             if action in [MENU_ANIMATE_CENTER_TOP, MENU_ANIMATE_CENTER_LEFT, MENU_ANIMATE_CENTER_RIGHT, MENU_ANIMATE_CENTER_BOTTOM,
                           MENU_ANIMATE_TOP_CENTER, MENU_ANIMATE_LEFT_CENTER, MENU_ANIMATE_RIGHT_CENTER, MENU_ANIMATE_BOTTOM_CENTER,
@@ -1462,7 +1462,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                     continue
 
                 # Apply clipboard to clip (there should only be a single key in this dict)
-                for k,v in self.copy_clipboard[list(self.copy_clipboard)[0]].items():
+                for k, v in self.copy_clipboard[list(self.copy_clipboard)[0]].items():
                     if k != 'id':
                         # Overwrite clips properties (which are in the clipboard)
                         clip.data[k] = v
@@ -1575,7 +1575,6 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
             # Save changes
             self.update_transition_data(tran.data, only_basic_props=False)
-
 
     def Align_Triggered(self, action, clip_ids, tran_ids):
         """Callback for alignment context menus"""
@@ -1779,8 +1778,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 continue
 
             # Determine if waveform needs to be redrawn
-            self.eval_js(JS_SCOPE_SELECTOR + ".hasAudioData('" + clip_id + "');",self.store)
-            has_audio_data = self.consume()
+            has_audio_data = self.eval_js(JS_SCOPE_SELECTOR + ".hasAudioData('" + clip_id + "');")
 
             if action == MENU_SLICE_KEEP_LEFT or action == MENU_SLICE_KEEP_BOTH:
                 # Get details of original clip
@@ -1996,8 +1994,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
             # Determine if waveform needs to be redrawn
-            self.eval_js(JS_SCOPE_SELECTOR + ".hasAudioData('" + clip.id + "');",self.store)
-            has_audio_data = self.consume()
+            has_audio_data = self.eval_js(JS_SCOPE_SELECTOR + ".hasAudioData('" + clip.id + "');")
 
             if has_audio_data:
                 # Re-generate waveform since volume curve has changed
@@ -2537,21 +2534,21 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Get access to timeline scope and set scale to zoom slider value (passed in)
         code = JS_SCOPE_SELECTOR + ".MovePlayheadToFrame(" + str(position_frames) + ");"
-        self.eval_js(code)
+        self.run_js(code)
 
     @pyqtSlot(int)
     def SetSnappingMode(self, enable_snapping):
         """ Enable / Disable snapping mode """
 
         # Init snapping state (1 = snapping, 0 = no snapping)
-        self.eval_js(JS_SCOPE_SELECTOR + ".SetSnappingMode(%s);" % int(enable_snapping))
+        self.run_js(JS_SCOPE_SELECTOR + ".SetSnappingMode(%s);" % int(enable_snapping))
 
     @pyqtSlot(int)
     def SetRazorMode(self, enable_razor):
         """ Enable / Disable razor mode """
 
         # Init razor state (1 = razor, 0 = no razor)
-        self.eval_js(JS_SCOPE_SELECTOR + ".SetRazorMode(%s);" % int(enable_razor))
+        self.run_js(JS_SCOPE_SELECTOR + ".SetRazorMode(%s);" % int(enable_razor))
 
     @pyqtSlot(str, str, bool)
     def addSelection(self, item_id, item_type, clear_existing=False):
@@ -2626,7 +2623,6 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
     def setup_js_data(self):
         # Export self as a javascript object in webview
         self.webchannel.registerObject('timeline',self)
-        self.webchannel.registerObject('mainWindow',self.window)
 
         # Initialize snapping mode
         self.SetSnappingMode(self.window.actionSnappingTool.isChecked())
@@ -2714,14 +2710,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             new_clip["end"] = file.data['end']
 
         # Find the closest track (from javascript)
-        self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack(" + str(position.y()) + ");",self.store)
-        top_layer = self.consume()
-        
-		new_clip["layer"] = top_layer
+        top_layer = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack(" + str(position.y()) + ");")
+        new_clip["layer"] = top_layer
 
         # Find position from javascript
-        self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition(" + str(position.x()) + ");",self.store)
-        js_position = self.consume()
+        js_position = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition(" + str(position.x()) + ");")
         new_clip["position"] = js_position
 
         # Adjust clip duration, start, and end
@@ -2748,7 +2741,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Init javascript bounding box (for snapping support)
         code = JS_SCOPE_SELECTOR + ".StartManualMove('" + self.item_type + "', '" + self.item_id + "');"
-        self.eval_js(code)
+        self.run_js(code)
 
     # Resize timeline
     @pyqtSlot(float)
@@ -2761,12 +2754,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         log.info("addTransition...")
 
         # Find the closest track (from javascript)
-        self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack(" + str(position.y()) + ");",self.store)
-        top_layer = self.consume()
+        top_layer = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack(" + str(position.y()) + ");")
 
         # Find position from javascript
-        self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition(" + str(position.x()) + ");",self.store)
-        js_position = self.consume()
+        js_position = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition(" + str(position.x()) + ");")
 
         # Get FPS from project
         fps = get_app().project.get(["fps"])
@@ -2803,7 +2794,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Init javascript bounding box (for snapping support)
         code = JS_SCOPE_SELECTOR + ".StartManualMove('" + self.item_type + "', '" + self.item_id + "');"
-        self.eval_js(code)
+        self.run_js(code)
 
     # Add Effect
     def addEffect(self, effect_names, position):
@@ -2812,12 +2803,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         name = effect_names[0]
 
         # Find the closest track (from javascript)
-        self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack(" + str(position.y()) + ");",self.store)
-        closest_layer = self.consume()
+        closest_layer = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack(" + str(position.y()) + ");")
 
         # Find position from javascript
-        self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition(" + str(position.x()) + ");",self.store)
-        js_position = self.consume()
+        js_position = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition(" + str(position.x()) + ");")
 
         # Loop through clips on the closest layer
         possible_clips = Clip.filter(layer=closest_layer)
@@ -2851,7 +2840,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Move clip on timeline
         if self.item_type in ["clip", "transition"]:
             code = JS_SCOPE_SELECTOR + ".MoveItem(" + str(pos.x()) + ", " + str(pos.y()) + ", '" + self.item_type + "');"
-            self.eval_js(code)
+            self.run_js(code)
 
     # Drop an item on the timeline
     def dropEvent(self, event):
@@ -2862,7 +2851,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         if self.item_type in ["clip", "transition"] and self.item_id:
             # Update most recent clip
-            self.eval_js(JS_SCOPE_SELECTOR + ".UpdateRecentItemJSON('" + self.item_type + "', '" + self.item_id + "');")
+            self.run_js(JS_SCOPE_SELECTOR + ".UpdateRecentItemJSON('" + self.item_type + "', '" + self.item_id + "');")
 
         elif self.item_type == "effect":
             # Add effect only on drop
@@ -2970,13 +2959,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         self.setAcceptDrops(True)
         self.last_position_frames = None
         self.document_is_ready = False
-        self._last_js_var = None
-
-
-
-
-
-
+        self._jsvar = None
 
         # Get settings
         self.settings = settings.get_settings()
