@@ -65,13 +65,14 @@ App.directive('tlTrack', function($timeout) {
 					// Keep track of each dropped clip (to check for missing transitions below, after they have been dropped)
 					var dropped_clips = [];
 					var position_diff = 0; // the time diff to apply to multiple selections (if any)
+					var selected_item_count = $(".ui-selected").length;
 
 		       		// with each dragged clip, find out which track they landed on
 		       		// Loop through each selected item, and remove the selection if multiple items are selected
 		       		// If only 1 item is selected, leave it selected
-		       		$(".ui-selected").each(function() {
+		       		$(".ui-selected").each(function(index) {
 		       			var item = $(this);
-						
+
 		       			// Remove all selections
 						if ($(".ui-selected").length > 1)
 						{
@@ -142,12 +143,15 @@ App.directive('tlTrack', function($timeout) {
 							// Keep track of dropped clips (we'll check for missing transitions in a sec)
 							dropped_clips.push(item_data);
 
+							// Determine if this is the last iteration
+							var needs_refresh = (index == selected_item_count - 1);
+
 							// update clip in Qt (very important =)
 	            			if (scope.Qt && item_type == 'clip')
-	            				timeline.update_clip_data(JSON.stringify(item_data));
+	            				timeline.update_clip_data(JSON.stringify(item_data), true, true, !needs_refresh);
 
 	            			else if (scope.Qt && item_type == 'transition')
-	            				timeline.update_transition_data(JSON.stringify(item_data));
+	            				timeline.update_transition_data(JSON.stringify(item_data), true, !needs_refresh);
 							
 
 		            	}

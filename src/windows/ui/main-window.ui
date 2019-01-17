@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1200</width>
-    <height>800</height>
+    <width>1096</width>
+    <height>823</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -37,13 +37,31 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">
-    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
      <horstretch>0</horstretch>
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>1</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>16777215</width>
+     <height>1</height>
+    </size>
+   </property>
+   <property name="cursor">
+    <cursorShape>SplitVCursor</cursorShape>
+   </property>
+   <property name="contextMenuPolicy">
+    <enum>Qt::DefaultContextMenu</enum>
+   </property>
    <property name="autoFillBackground">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <layout class="QGridLayout" name="gridLayout">
     <property name="leftMargin">
@@ -61,9 +79,6 @@
     <property name="spacing">
      <number>3</number>
     </property>
-    <item row="0" column="0">
-     <layout class="QVBoxLayout" name="frameWeb"/>
-    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -71,7 +86,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>808</width>
+     <width>1200</width>
      <height>25</height>
     </rect>
    </property>
@@ -273,7 +288,7 @@
     <string>Effects</string>
    </property>
    <attribute name="dockWidgetArea">
-    <number>4</number>
+    <number>8</number>
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_4">
     <layout class="QGridLayout" name="gridLayout_5">
@@ -306,7 +321,7 @@
     <string>Properties</string>
    </property>
    <attribute name="dockWidgetArea">
-    <number>1</number>
+    <number>8</number>
    </attribute>
    <widget class="QWidget" name="dockPropertiesContent">
     <layout class="QGridLayout" name="gridLayout_6">
@@ -350,8 +365,8 @@
    </property>
    <property name="minimumSize">
     <size>
-     <width>10</width>
-     <height>10</height>
+     <width>61</width>
+     <height>38</height>
     </size>
    </property>
    <property name="cursor">
@@ -364,7 +379,7 @@
     <enum>Qt::NoContextMenu</enum>
    </property>
    <property name="visible">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="autoFillBackground">
     <bool>false</bool>
@@ -373,7 +388,7 @@
     <bool>true</bool>
    </property>
    <property name="features">
-    <set>QDockWidget::DockWidgetFloatable</set>
+    <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
    </property>
    <property name="allowedAreas">
     <set>Qt::NoDockWidgetArea</set>
@@ -421,6 +436,36 @@
      </property>
      <item row="0" column="0">
       <layout class="QVBoxLayout" name="verticalLayout"/>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockTimeline">
+   <property name="minimumSize">
+    <size>
+     <width>250</width>
+     <height>150</height>
+    </size>
+   </property>
+   <property name="features">
+    <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
+   </property>
+   <property name="windowTitle">
+    <string>Timeline</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>8</number>
+   </attribute>
+   <widget class="QWidget" name="dockTimelineContents">
+    <property name="focusPolicy">
+     <enum>Qt::ClickFocus</enum>
+    </property>
+    <property name="contextMenuPolicy">
+     <enum>Qt::NoContextMenu</enum>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_7">
+     <item row="0" column="0">
+      <layout class="QVBoxLayout" name="frameWeb"/>
      </item>
     </layout>
    </widget>

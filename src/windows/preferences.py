@@ -137,6 +137,7 @@ class Preferences(QDialog):
 
                 # Create Label
                 widget = None
+                extraWidget = None
                 label = QLabel()
                 label.setText(_(param["title"]))
                 label.setToolTip(_(param["title"]))
@@ -166,6 +167,14 @@ class Preferences(QDialog):
                     widget = QLineEdit()
                     widget.setText(_(param["value"]))
                     widget.textChanged.connect(functools.partial(self.text_value_changed, widget, param))
+
+                elif param["type"] == "browse":
+                    # create QLineEdit
+                    widget = QLineEdit()
+                    widget.setText(_(param["value"]))
+                    widget.textChanged.connect(functools.partial(self.text_value_changed, widget, param))
+                    extraWidget = QPushButton(_("Browse..."))
+                    extraWidget.clicked.connect(functools.partial(self.selectExecutable, widget, param))
 
                 elif param["type"] == "bool":
                     # create spinner
@@ -239,6 +248,9 @@ class Preferences(QDialog):
                     layout_hbox.addWidget(label)
                     layout_hbox.addWidget(widget)
 
+                    if (extraWidget):
+                        layout_hbox.addWidget(extraWidget)
+
                     # Add widget to layout
                     tabWidget.layout().addLayout(layout_hbox)
                 elif (label):
@@ -247,6 +259,14 @@ class Preferences(QDialog):
 
             # Add stretch to bottom of layout
             tabWidget.layout().addStretch()
+
+    def selectExecutable(self, widget, param):
+        _ = get_app()._tr
+
+        fileName, fileType = QFileDialog.getOpenFileName(self, _("Select executable file"), QDir.rootPath(), _("All Files (*)"))
+        if fileName:
+            self.s.set(param["setting"], fileName)
+            widget.setText(fileName)
 
     def check_for_restart(self, param):
         """Check if the app needs to restart"""
@@ -280,19 +300,27 @@ class Preferences(QDialog):
 
         elif param["setting"] == "hardware_decode":
             if (state == Qt.Checked):
-                # Enable hardware decode environment variable
-                os.environ['OS2_DECODE_HW'] = "1"
+                # Enable hardware decode
+                openshot.Settings.Instance().HARDWARE_DECODE = True
             else:
-                # Disable hardware decode environment variable
-                os.environ['OS2_DECODE_HW'] = "0"
+                # Disable hardware decode
+                openshot.Settings.Instance().HARDWARE_DECODE = False
+
+        elif param["setting"] == "hardware_encode":
+            if (state == Qt.Checked):
+                # Enable hardware encode
+                openshot.Settings.Instance().HARDWARE_ENCODE = True
+            else:
+                # Disable hardware encode
+                openshot.Settings.Instance().HARDWARE_ENCODE = False
 
         elif param["setting"] == "omp_threads_enabled":
             if (state == Qt.Checked):
                 # Enable OMP multi-threading
-                os.environ['OS2_OMP_THREADS'] = "1"
+                openshot.Settings.Instance().WAIT_FOR_VIDEO_PROCESSING_TASK = False
             else:
                 # Disable OMP multi-threading
-                os.environ['OS2_OMP_THREADS'] = "0"
+                openshot.Settings.Instance().WAIT_FOR_VIDEO_PROCESSING_TASK = True
 
         # Check for restart
         self.check_for_restart(param)

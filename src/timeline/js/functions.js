@@ -200,7 +200,7 @@ function hasLockedTrack(scope, top, bottom){
 var bounding_box = Object();
 
 // Build bounding box (since multiple items can be selected)
-function setBoundingBox(item){
+function setBoundingBox(scope, item){
 	var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
 	var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
 	
@@ -228,6 +228,19 @@ function setBoundingBox(item){
         var width = bounding_box.right - bounding_box.left;
         if (height > bounding_box.height) bounding_box.height = height;
         if (width > bounding_box.width) bounding_box.width = width;
+    }
+
+    // Get list of current selected ids (so we can ignore their snapping x coordinates)
+    bounding_box.selected_ids = {};
+    for (var clip_index = 0; clip_index < scope.project.clips.length; clip_index++) {
+        if (scope.project.clips[clip_index].selected) {
+            bounding_box.selected_ids[scope.project.clips[clip_index].id] = true;
+        }
+    }
+    for (var effect_index = 0; effect_index < scope.project.effects.length; effect_index++) {
+        if (scope.project.effects[effect_index].selected) {
+            bounding_box.selected_ids[scope.project.effects[effect_index].id] = true;
+        }
     }
 }
 
@@ -273,17 +286,10 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
     	bounding_box.top = bounding_box.bottom - bounding_box.height;
         snapping_result.top = previous_y + y_offset;
     }
-    
-    // Get list of current selected ids (so we can ignore their snapping x coordinates)
-    selected_ids = {};
-	$(".ui-selected").each(function() {
-		var item_id = $(this).attr('id');
-		selected_ids[item_id.substr(item_id.indexOf("_") + 1)] = true;
-	});
-    
+
     // Find closest nearby object, if any (for snapping)
     var bounding_box_padding = 3; // not sure why this is needed, but it helps line everything up
-    var results = scope.GetNearbyPosition([bounding_box.left, bounding_box.right + bounding_box_padding], 10.0, selected_ids);
+    var results = scope.GetNearbyPosition([bounding_box.left, bounding_box.right + bounding_box_padding], 10.0, bounding_box.selected_ids);
     var nearby_offset = results[0];
     var snapline_position = results[1];
 

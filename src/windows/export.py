@@ -101,7 +101,8 @@ class Export(QDialog):
         self.txtChannels.setVisible(False)
 
         # Set OMP thread disabled flag (for stability)
-        os.environ['OS2_OMP_THREADS'] = "0"
+        openshot.Settings.Instance().WAIT_FOR_VIDEO_PROCESSING_TASK = True
+        openshot.Settings.Instance().HIGH_QUALITY_SCALING = True
 
         # Get the original timeline settings
         width = get_app().window.timeline_sync.timeline.info.width
@@ -829,9 +830,12 @@ class Export(QDialog):
 
         # Re-set OMP thread enabled flag
         if self.s.get("omp_threads_enabled"):
-            os.environ['OS2_OMP_THREADS'] = "1"
+            openshot.Settings.Instance().WAIT_FOR_VIDEO_PROCESSING_TASK = False
         else:
-            os.environ['OS2_OMP_THREADS'] = "0"
+            openshot.Settings.Instance().WAIT_FOR_VIDEO_PROCESSING_TASK = True
+
+            # Return scale mode to lower quality scaling (for faster previews)
+        openshot.Settings.Instance().HIGH_QUALITY_SCALING = False
 
         # Accept dialog
         super(Export, self).accept()
@@ -839,9 +843,12 @@ class Export(QDialog):
     def reject(self):
         # Re-set OMP thread enabled flag
         if self.s.get("omp_threads_enabled"):
-            os.environ['OS2_OMP_THREADS'] = "1"
+            openshot.Settings.Instance().WAIT_FOR_VIDEO_PROCESSING_TASK = False
         else:
-            os.environ['OS2_OMP_THREADS'] = "0"
+            openshot.Settings.Instance().WAIT_FOR_VIDEO_PROCESSING_TASK = True
+
+        # Return scale mode to lower quality scaling (for faster previews)
+        openshot.Settings.Instance().HIGH_QUALITY_SCALING = False
 
         # Cancel dialog
         self.exporting = False

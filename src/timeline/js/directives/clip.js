@@ -149,7 +149,7 @@ App.directive('tlClip', function($timeout){
 
 						// update clip in Qt (very important =)
             			if (scope.Qt) {
-            				timeline.update_clip_data(JSON.stringify(scope.clip));
+            				timeline.update_clip_data(JSON.stringify(scope.clip), true, true, false);
             			}
 					});
 					//resize the audio canvas to match the new clip width
@@ -277,7 +277,7 @@ App.directive('tlClip', function($timeout){
 														  "left": $(this).position().left + horz_scroll_offset};
 
 						//send clip to bounding box builder
-						setBoundingBox($(this));
+						setBoundingBox(scope, $(this));
                     });
 					
 					// Does this bounding box overlap a locked track?
