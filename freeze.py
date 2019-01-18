@@ -172,6 +172,11 @@ elif sys.platform == "linux":
         if '_' in filename or filename.count(".") == 2:
             external_so_files.append((filename, filename.replace("/usr/local/lib/", "").replace(libopenshot_path + "/", "")))
 
+    # Add libresvg (if found)
+    resvg_path = "/usr/local/lib/libresvg.so"
+    if os.path.exists(resvg_path):
+        external_so_files.append((resvg_path, resvg_path.replace("/usr/local/lib/", "")))
+
     # Append Linux ICON file
     iconFile += ".svg"
     src_files.append((os.path.join(PATH, "xdg", iconFile), iconFile))
