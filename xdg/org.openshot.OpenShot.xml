@@ -3,7 +3,7 @@
   <mime-type type="application/vnd.openshot-qt-project">
     <comment>OpenShot 2.0 project</comment>
     <glob pattern="*.osp"/>
-    <icon name="openshot"/>
+    <icon name="org.openshot.OpenShot"/>
   </mime-type>
 </mime-info>
 
