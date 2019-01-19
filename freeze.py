@@ -148,6 +148,11 @@ if sys.platform == "win32":
     # Append some additional files for Windows (this is a debug launcher)
     src_files.append((os.path.join(PATH, "installer", "launch-win.bat"), "launch-win.bat"))
 
+    # Add libresvg (if found)
+    resvg_path = "C:\\msys64\\usr\\local\\lib\\libresvg.dll"
+    if os.path.exists(resvg_path):
+        external_so_files.append((resvg_path, resvg_path.replace("C:\\msys32\\usr\\local\\lib\\", "")))
+
     # Add additional package
     python_packages.append('idna')
 
@@ -244,6 +249,11 @@ elif sys.platform == "darwin":
     # JPEG library
     for filename in find_files("/usr/local/Cellar/jpeg/8d/lib", ["libjpeg.8.dylib"]):
         external_so_files.append((filename, filename.replace("/usr/local/Cellar/jpeg/8d/lib/", "")))
+
+    # Add libresvg (if found)
+    resvg_path = "/usr/local/lib/libresvg.dylib"
+    if os.path.exists(resvg_path):
+        external_so_files.append((resvg_path, resvg_path.replace("/usr/local/lib/", "")))
 
     # Copy openshot.py Python bindings
     src_files.append((os.path.join(PATH, "openshot.py"), "openshot.py"))
