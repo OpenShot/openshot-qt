@@ -149,7 +149,7 @@ if sys.platform == "win32":
     src_files.append((os.path.join(PATH, "installer", "launch-win.bat"), "launch-win.bat"))
 
     # Add libresvg (if found)
-    resvg_path = "C:\\msys64\\usr\\local\\lib\\libresvg.dll"
+    resvg_path = "C:\\msys64\\usr\\local\\lib\\resvg.dll"
     if os.path.exists(resvg_path):
         external_so_files.append((resvg_path, resvg_path.replace("C:\\msys32\\usr\\local\\lib\\", "")))
 
