@@ -148,6 +148,11 @@ if sys.platform == "win32":
     # Append some additional files for Windows (this is a debug launcher)
     src_files.append((os.path.join(PATH, "installer", "launch-win.bat"), "launch-win.bat"))
 
+    # Add libresvg (if found)
+    resvg_path = "C:\\msys64\\usr\\local\\lib\\resvg.dll"
+    if os.path.exists(resvg_path):
+        external_so_files.append((resvg_path, resvg_path.replace("C:\\msys64\\usr\\local\\lib\\", "")))
+
     # Add additional package
     python_packages.append('idna')
 
@@ -172,6 +177,11 @@ elif sys.platform == "linux":
         if '_' in filename or filename.count(".") == 2:
             external_so_files.append((filename, filename.replace("/usr/local/lib/", "").replace(libopenshot_path + "/", "")))
 
+    # Add libresvg (if found)
+    resvg_path = "/usr/local/lib/libresvg.so"
+    if os.path.exists(resvg_path):
+        external_so_files.append((resvg_path, resvg_path.replace("/usr/local/lib/", "")))
+
     # Append Linux ICON file
     iconFile += ".svg"
     src_files.append((os.path.join(PATH, "xdg", iconFile), iconFile))
@@ -192,7 +202,8 @@ elif sys.platform == "linux":
                     "/usr/lib/python3/dist-packages/PyQt5/QtCore.cpython-34m-x86_64-linux-gnu.so",
                     "/usr/lib/python3/dist-packages/PyQt5/QtGui.cpython-34dm-x86_64-linux-gnu.so",
                     "/usr/lib/python3/dist-packages/PyQt5/QtDBus.cpython-34dm-x86_64-linux-gnu.so",
-                    "/usr/lib/x86_64-linux-gnu/qt5/plugins/platforms/libqxcb.so"]:
+                    "/usr/lib/x86_64-linux-gnu/qt5/plugins/platforms/libqxcb.so",
+                    "/usr/local/lib/libresvg.so"]:
         p = subprocess.Popen(["ldd", library], stdout=subprocess.PIPE)
         out, err = p.communicate()
         depends = str(out).replace("\\t","").replace("\\n","\n").replace("\'","").split("\n")
@@ -209,6 +220,7 @@ elif sys.platform == "linux":
                 if len(libdetailsparts) > 1:
                     # Determine if dependency is usr installed (or system installed)
                     # Or if the dependency matches one of the following exceptions
+                    # And ignore paths that start with /lib
                     libpath = libdetailsparts[0].strip()
                     libpath_folder, libpath_file = os.path.split(libpath)
                     if (libpath \
@@ -217,9 +229,10 @@ elif sys.platform == "linux":
                         and not libpath_file in ["libstdc++.so.6", "libGL.so.1", "libxcb.so.1", "libX11.so.6", "libasound.so.2", "libgcc_s.so.1 ", "libICE.so.6", "libp11-kit.so.0", "libSM.so.6", "libgobject-2.0.so.0", "libdrm.so.2"]) \
                             or libpath_file in ["libgcrypt.so.11", "libQt5DBus.so.5", "libpng12.so.0", "libbz2.so.1.0", "libqxcb.so"]:
 
-                        # Ignore paths that start with /lib
-                        filepath, filename = os.path.split(libpath)
-                        external_so_files.append((libpath, filename))
+                        # Ignore missing files
+                        if os.path.exists(libpath):
+                            filepath, filename = os.path.split(libpath)
+                            external_so_files.append((libpath, filename))
 
     # Manually add missing files (that were missed in the above step). These files are required
     # for certain distros (like Fedora, openSUSE, Debian, etc...)
@@ -236,6 +249,11 @@ elif sys.platform == "darwin":
     # JPEG library
     for filename in find_files("/usr/local/Cellar/jpeg/8d/lib", ["libjpeg.8.dylib"]):
         external_so_files.append((filename, filename.replace("/usr/local/Cellar/jpeg/8d/lib/", "")))
+
+    # Add libresvg (if found)
+    resvg_path = "/usr/local/lib/libresvg.dylib"
+    if os.path.exists(resvg_path):
+        external_so_files.append((resvg_path, resvg_path.replace("/usr/local/lib/", "")))
 
     # Copy openshot.py Python bindings
     src_files.append((os.path.join(PATH, "openshot.py"), "openshot.py"))
