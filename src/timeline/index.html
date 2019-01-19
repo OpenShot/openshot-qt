@@ -65,7 +65,7 @@
 			<div ng-repeat="layer in project.layers.slice().reverse()" id="track_static_{{layer.number}}" ng-right-click="ShowTrackMenu(layer.id)" class="track_name">
 				<div class="track_top">
 					<div tl-clip-menu class="track_menu" ng-mousedown="ShowTrackMenu(layer.id)"></div>
-					<span class="track_label">{{GetTrackName(layer.label, layer.number)}}</span><span ng-show="layer.lock" class="track_lock"></span>
+					<span class="track_label">{{GetTrackName(layer.label, project.layers.length - $index)}}</span><span ng-show="layer.lock" class="track_lock"></span>
 				</div>
 			</div>
 			<br>
@@ -90,7 +90,7 @@
 						</div>
 
 						<!-- CLIP KEYFRAME POINTS -->
-						<img ng-repeat="(point, value) in getKeyframes(clip)" id="point_{{point}}_{{$index}}" style="position: absolute; bottom: 0px; left: {{(((point - 1) / (project.fps.num / project.fps.den) - clip.start) * pixelsPerSecond) - keyframePointOffset}}px;" class="point_icon" ng-src="media/images/keyframes/point.png"/>
+						<img ng-repeat="(point, value) in getKeyframes(clip)" id="point_{{point}}_{{$index}}" style="position: absolute; bottom: 0px; left: {{(((point - 1) / (project.fps.num / project.fps.den) - clip.start) * pixelsPerSecond) - keyframePointOffset}}px;" class="point_icon" ng-src="media/images/keyframes/point.png" ng-show="clip.selected "/>
 
 						<!-- CLIP LABEL -->
 						<div class="clip_label" ng-class="getClipLabelStyle(clip)" tooltip-enable="!enable_razor" tooltip="{{clip.title}}" tooltip-placement="bottom" tooltip-popup-delay="400">{{clip.title}}</div>
