@@ -740,7 +740,6 @@ class Export(QDialog):
             w.Open()
 
             # Notify window of export started
-            export_file_with_path = export_file_path
             export_file_path = ""
             get_app().window.ExportStarted.emit(export_file_path, video_settings.get("start_frame"), video_settings.get("end_frame"))
 
@@ -774,13 +773,6 @@ class Export(QDialog):
 
             # Close writer
             w.Close()
-            seconds_left = end_time_export - start_time_export
-            statistics_output_text =  _("Time %(hours)d:%(minutes)02d:%(seconds)02d\n(%(fps)5.2f FPS)") % { 'hours' : seconds_left / 3600,
-                                                                                                                      'minutes': (seconds_left / 60) % 60,
-                                                                                                                      'seconds': seconds_left % 60,
-                                                                                                                      'fps': fps_encode }
-            ret = QMessageBox.question(self, _("Export Video finished"), _("Video exported to\n %s\n%s") % (export_file_with_path , statistics_output_text),
-                                       QMessageBox.Ok)
 
 
         except Exception as e:
