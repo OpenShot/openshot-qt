@@ -612,7 +612,7 @@ class Export(QDialog):
                     if raw_number < 0:
                         raw_number = 0
                     bit_rate_bytes = raw_number
-                    openshot.SetOption(VIDEO_STREAM,"crf",str(int(bit_rate_bytes)));
+                    openshot.FFmpegWriter.SetOption(openshot.VIDEO_STREAM,"crf",str(int(bit_rate_bytes)))
 
         except:
             pass
