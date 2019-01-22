@@ -605,14 +605,6 @@ class Export(QDialog):
                     measurement = "mb"
                     bit_rate_bytes = raw_number * 1000.0 * 1000.0
 
-#                elif "crf" in raw_measurement:
-#                    measurement = "crf"
-#                    if raw_number > 63:
-#                        raw_number = 63
-#                    if raw_number < 0:
-#                        raw_number = 0
-#                    bit_rate_bytes = raw_number
-
         except:
             pass
 
@@ -738,8 +730,9 @@ class Export(QDialog):
 
             # Open the writer
             w.Open()
-            fff = self.txtVideoBitRate.text()
-            s = fff.lower().split(" ")
+            # Set the quality in case crf was selected
+            crf_bitrate = self.txtVideoBitRate.text()
+            s = crf_bitrate.lower().split(" ")
             if len(s) >= 2:
                 raw_number_string = s[0]
                 raw_measurement = s[1]
