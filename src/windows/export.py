@@ -226,10 +226,11 @@ class Export(QDialog):
         # ********* Simple Project Type **********
         # load the simple project type dropdown
         presets = []
-        for file in os.listdir(info.EXPORT_PRESETS_DIR):
-            xmldoc = xml.parse(os.path.join(info.EXPORT_PRESETS_DIR, file))
-            type = xmldoc.getElementsByTagName("type")
-            presets.append(_(type[0].childNodes[0].data))
+        for preset_path in [info.EXPORT_PRESETS_PATH, info.USER_PRESETS_PATH]:
+            for file in os.listdir(preset_path):
+                xmldoc = xml.parse(os.path.join(preset_path, file))
+                type = xmldoc.getElementsByTagName("type")
+                presets.append(_(type[0].childNodes[0].data))
 
         # Exclude duplicates
         type_index = 0
@@ -363,14 +364,15 @@ class Export(QDialog):
 
         # parse the xml files and get targets that match the project type
         project_types = []
-        for file in os.listdir(info.EXPORT_PRESETS_DIR):
-            xmldoc = xml.parse(os.path.join(info.EXPORT_PRESETS_DIR, file))
-            type = xmldoc.getElementsByTagName("type")
+        for preset_path in [info.EXPORT_PRESETS_PATH, info.USER_PRESETS_PATH]:
+            for file in os.listdir(preset_path):
+                xmldoc = xml.parse(os.path.join(preset_path, file))
+                type = xmldoc.getElementsByTagName("type")
 
-            if _(type[0].childNodes[0].data) == selected_project:
-                titles = xmldoc.getElementsByTagName("title")
-                for title in titles:
-                    project_types.append(_(title.childNodes[0].data))
+                if _(type[0].childNodes[0].data) == selected_project:
+                    titles = xmldoc.getElementsByTagName("title")
+                    for title in titles:
+                        project_types.append(_(title.childNodes[0].data))
 
         # Add all targets for selected project type
         preset_index = 0
@@ -442,75 +444,76 @@ class Export(QDialog):
             # parse the xml to return suggested profiles
             profile_index = 0
             all_profiles = False
-            for file in os.listdir(info.EXPORT_PRESETS_DIR):
-                xmldoc = xml.parse(os.path.join(info.EXPORT_PRESETS_DIR, file))
-                title = xmldoc.getElementsByTagName("title")
-                if _(title[0].childNodes[0].data) == selected_target:
-                    profiles = xmldoc.getElementsByTagName("projectprofile")
+            for preset_path in [info.EXPORT_PRESETS_PATH, info.USER_PRESETS_PATH]:
+                for file in os.listdir(preset_path):
+                    xmldoc = xml.parse(os.path.join(preset_path, file))
+                    title = xmldoc.getElementsByTagName("title")
+                    if _(title[0].childNodes[0].data) == selected_target:
+                        profiles = xmldoc.getElementsByTagName("projectprofile")
 
-                    # get the basic profile
-                    all_profiles = False
-                    if profiles:
-                        # if profiles are defined, show them
-                        for profile in profiles:
-                            profiles_list.append(_(profile.childNodes[0].data))
-                    else:
-                        # show all profiles
-                        all_profiles = True
-                        for profile_name in self.profile_names:
-                            profiles_list.append(profile_name)
+                        # get the basic profile
+                        all_profiles = False
+                        if profiles:
+                            # if profiles are defined, show them
+                            for profile in profiles:
+                                profiles_list.append(_(profile.childNodes[0].data))
+                        else:
+                            # show all profiles
+                            all_profiles = True
+                            for profile_name in self.profile_names:
+                                profiles_list.append(profile_name)
 
-                    # get the video bit rate(s)
-                    videobitrate = xmldoc.getElementsByTagName("videobitrate")
-                    for rate in videobitrate:
-                        v_l = rate.attributes["low"].value
-                        v_m = rate.attributes["med"].value
-                        v_h = rate.attributes["high"].value
-                        self.vbr = {_("Low"): v_l, _("Med"): v_m, _("High"): v_h}
+                        # get the video bit rate(s)
+                        videobitrate = xmldoc.getElementsByTagName("videobitrate")
+                        for rate in videobitrate:
+                            v_l = rate.attributes["low"].value
+                            v_m = rate.attributes["med"].value
+                            v_h = rate.attributes["high"].value
+                            self.vbr = {_("Low"): v_l, _("Med"): v_m, _("High"): v_h}
 
-                    # get the audio bit rates
-                    audiobitrate = xmldoc.getElementsByTagName("audiobitrate")
-                    for audiorate in audiobitrate:
-                        a_l = audiorate.attributes["low"].value
-                        a_m = audiorate.attributes["med"].value
-                        a_h = audiorate.attributes["high"].value
-                        self.abr = {_("Low"): a_l, _("Med"): a_m, _("High"): a_h}
+                        # get the audio bit rates
+                        audiobitrate = xmldoc.getElementsByTagName("audiobitrate")
+                        for audiorate in audiobitrate:
+                            a_l = audiorate.attributes["low"].value
+                            a_m = audiorate.attributes["med"].value
+                            a_h = audiorate.attributes["high"].value
+                            self.abr = {_("Low"): a_l, _("Med"): a_m, _("High"): a_h}
 
-                    # get the remaining values
-                    vf = xmldoc.getElementsByTagName("videoformat")
-                    self.txtVideoFormat.setText(vf[0].childNodes[0].data)
-                    vc = xmldoc.getElementsByTagName("videocodec")
-                    self.txtVideoCodec.setText(vc[0].childNodes[0].data)
-                    sr = xmldoc.getElementsByTagName("samplerate")
-                    self.txtSampleRate.setValue(int(sr[0].childNodes[0].data))
-                    c = xmldoc.getElementsByTagName("audiochannels")
-                    self.txtChannels.setValue(int(c[0].childNodes[0].data))
-                    c = xmldoc.getElementsByTagName("audiochannellayout")
+                        # get the remaining values
+                        vf = xmldoc.getElementsByTagName("videoformat")
+                        self.txtVideoFormat.setText(vf[0].childNodes[0].data)
+                        vc = xmldoc.getElementsByTagName("videocodec")
+                        self.txtVideoCodec.setText(vc[0].childNodes[0].data)
+                        sr = xmldoc.getElementsByTagName("samplerate")
+                        self.txtSampleRate.setValue(int(sr[0].childNodes[0].data))
+                        c = xmldoc.getElementsByTagName("audiochannels")
+                        self.txtChannels.setValue(int(c[0].childNodes[0].data))
+                        c = xmldoc.getElementsByTagName("audiochannellayout")
 
-                    # check for compatible audio codec
-                    ac = xmldoc.getElementsByTagName("audiocodec")
-                    audio_codec_name = ac[0].childNodes[0].data
-                    if audio_codec_name == "aac":
-                        # Determine which version of AAC encoder is available
-                        if openshot.FFmpegWriter.IsValidCodec("libfaac"):
-                            self.txtAudioCodec.setText("libfaac")
-                        elif openshot.FFmpegWriter.IsValidCodec("libvo_aacenc"):
-                            self.txtAudioCodec.setText("libvo_aacenc")
-                        elif openshot.FFmpegWriter.IsValidCodec("aac"):
-                            self.txtAudioCodec.setText("aac")
+                        # check for compatible audio codec
+                        ac = xmldoc.getElementsByTagName("audiocodec")
+                        audio_codec_name = ac[0].childNodes[0].data
+                        if audio_codec_name == "aac":
+                            # Determine which version of AAC encoder is available
+                            if openshot.FFmpegWriter.IsValidCodec("libfaac"):
+                                self.txtAudioCodec.setText("libfaac")
+                            elif openshot.FFmpegWriter.IsValidCodec("libvo_aacenc"):
+                                self.txtAudioCodec.setText("libvo_aacenc")
+                            elif openshot.FFmpegWriter.IsValidCodec("aac"):
+                                self.txtAudioCodec.setText("aac")
+                            else:
+                                # fallback audio codec
+                                self.txtAudioCodec.setText("ac3")
                         else:
                             # fallback audio codec
-                            self.txtAudioCodec.setText("ac3")
-                    else:
-                        # fallback audio codec
-                        self.txtAudioCodec.setText(audio_codec_name)
+                            self.txtAudioCodec.setText(audio_codec_name)
 
-                    layout_index = 0
-                    for layout in self.channel_layout_choices:
-                        if layout == int(c[0].childNodes[0].data):
-                            self.cboChannelLayout.setCurrentIndex(layout_index)
-                            break
-                        layout_index += 1
+                        layout_index = 0
+                        for layout in self.channel_layout_choices:
+                            if layout == int(c[0].childNodes[0].data):
+                                self.cboChannelLayout.setCurrentIndex(layout_index)
+                                break
+                            layout_index += 1
 
             # init the profiles combo
             for item in sorted(profiles_list):
@@ -529,8 +532,11 @@ class Export(QDialog):
             if v_h or a_h:
                 self.cboSimpleQuality.addItem(_("High"), "High")
 
-            # Default to the highest quality setting
-            self.cboSimpleQuality.setCurrentIndex(previous_quality)
+            # Default to the highest quality setting (or previous quality setting)
+            if previous_quality <= self.cboSimpleQuality.count() - 1:
+                self.cboSimpleQuality.setCurrentIndex(previous_quality)
+            else:
+                self.cboSimpleQuality.setCurrentIndex(self.cboSimpleQuality.count() - 1)
 
     def cboSimpleVideoProfile_index_changed(self, widget, index):
         selected_profile_path = widget.itemData(index)
@@ -738,6 +744,26 @@ class Export(QDialog):
 
             # Open the writer
             w.Open()
+            # These extra options should be set in an extra method
+            # No feedback is given to the user
+            # TODO: Tell user if option is not avaliable
+            # Set the quality in case crf was selected
+            crf_bitrate = self.txtVideoBitRate.text()
+            s = crf_bitrate.lower().split(" ")
+            if len(s) >= 2:
+                raw_number_string = s[0]
+                raw_measurement = s[1]
+                raw_number = locale.atof(raw_number_string)
+                # Only the range for all crf settings is checked here
+                # The main check is in libopenshot FFmpegWriter.cpp
+                if "crf" in raw_measurement:
+                    measurement = "crf"
+                    if raw_number > 63:
+                        raw_number = 63
+                    if raw_number < 0:
+                        raw_number = 0
+                    bit_rate_bytes = raw_number
+                    w.SetOption(openshot.VIDEO_STREAM, "crf", str(int(bit_rate_bytes)) )
 
             # Notify window of export started
             export_file_with_path = export_file_path

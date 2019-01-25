@@ -118,3 +118,6 @@ class TimelineSync(UpdateInterface):
 
         # Set new max video size (Based on preview widget size)
         self.timeline.SetMaxSize(new_size.width(), new_size.height())
+
+        # Refresh current frame (since the entire timeline was updated)
+        self.window.refreshFrameSignal.emit()
