@@ -801,13 +801,10 @@ class Export(QDialog):
             # Close writer
             w.Close()
             seconds_left = end_time_export - start_time_export
-            statistics_output_text =  _("Time %(hours)d:%(minutes)02d:%(seconds)02d\n(%(fps)5.2f FPS)") % { 'hours' : seconds_left / 3600,
+            statistics_output_text =  _("Encodingtime %(hours)d:%(minutes)02d:%(seconds)02d\nequal to %(fps)5.2f FPS") % { 'hours' : seconds_left / 3600,
                                                                                                                       'minutes': (seconds_left / 60) % 60,
                                                                                                                       'seconds': seconds_left % 60,
                                                                                                                       'fps': fps_encode }
-            ret = QMessageBox.question(self, _("Export Video finished"), _("Video exported to\n %s\n%s") % (export_file_with_path , statistics_output_text),
-                                       QMessageBox.Ok)
-
 
         except Exception as e:
             # TODO: Find a better way to catch the error. This is the only way I have found that
@@ -865,6 +862,13 @@ class Export(QDialog):
 
         # Accept dialog
         super(Export, self).accept()
+
+        msg = QMessageBox()
+        msg.setText(_("Video exported to file:\n     %s\n%s") % (export_file_with_path , statistics_output_text))
+        msg.setWindowTitle("Export Video finished")
+        msg.setIcon(QMessageBox.Information)
+        msg.setStyleSheet("background-color: rgb(0, 80, 0); color: rgb(255, 255, 255)")
+        msg.exec_()
 
     def reject(self):
         # Re-set OMP thread enabled flag
