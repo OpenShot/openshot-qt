@@ -736,6 +736,26 @@ class Export(QDialog):
 
             # Open the writer
             w.Open()
+            # These extra options should be set in an extra method
+            # No feedback is given to the user
+            # TODO: Tell user if option is not avaliable
+            # Set the quality in case crf was selected
+            crf_bitrate = self.txtVideoBitRate.text()
+            s = crf_bitrate.lower().split(" ")
+            if len(s) >= 2:
+                raw_number_string = s[0]
+                raw_measurement = s[1]
+                raw_number = locale.atof(raw_number_string)
+                # Only the range for all crf settings is checked here
+                # The main check is in libopenshot FFmpegWriter.cpp
+                if "crf" in raw_measurement:
+                    measurement = "crf"
+                    if raw_number > 63:
+                        raw_number = 63
+                    if raw_number < 0:
+                        raw_number = 0
+                    bit_rate_bytes = raw_number
+                    w.SetOption(openshot.VIDEO_STREAM, "crf", str(int(bit_rate_bytes)) )
 
             # Notify window of export started
             export_file_path = ""
