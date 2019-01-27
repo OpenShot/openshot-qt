@@ -332,30 +332,30 @@
     "min": 0,
     "setting": "hw-decoder",
     "type": "dropdown",
-    "value": "NONE",
+    "value": "0",
     "values": [
       {
-        "value": "NONE",
+        "value": "0",
         "name": "No acceleration"
       },
       {
-        "value": "HW_DE_VAAPI",
+        "value": "1",
         "name": "Linux VAAPI"
       },
       {
-        "value": "HW_DE_NVDEC",
+        "value": "2",
         "name": "Linux nvdec"
       },
       {
-        "value": "HW_DE_WINDOWS_DXVA2",
+        "value": "3",
         "name": "Windows D3D9"
       },
       {
-        "value": "HW_DE_WINDOWS_D3D11",
+        "value": "4",
         "name": "Windows D3D11"
       },
       {
-        "value": "HW_DE_MACOS",
+        "value": "5",
         "name": "MacOS"
       }
     ],

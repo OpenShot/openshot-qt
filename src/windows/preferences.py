@@ -356,6 +356,7 @@ class Preferences(QDialog):
                     del os.environ['LIMIT_WIDTH_MAX']
             else:
                 os.environ['LIMIT_WIDTH_MAX'] = str(value)
+                #openshot.Settings.Instance().MAX_WIDTH = int(str(value))
 
         elif param["setting"] == "decode_hw_max_height":
             if value == "0":
@@ -363,6 +364,7 @@ class Preferences(QDialog):
                     del os.environ['LIMIT_HEIGHT_MAX']
             else:
                 os.environ['LIMIT_HEIGHT_MAX'] = str(value)
+                #openshot.Settings.Instance().MAX_HEIGHT = int(str(value))
 
         # Apply cache settings (if needed)
         if param["setting"] in ["cache-limit-mb", "cache-scale", "cache-quality"]:
