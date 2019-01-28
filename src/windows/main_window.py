@@ -925,7 +925,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if get_app().project.get(["export_path"]):
             recommended_path = get_app().project.get(["export_path"])
 
-        framePath = _("%s/Frame-%05d.png" % (recommended_path, self.preview_thread.current_frame))
+        framePath = "%s/Frame-%05d.png" % (recommended_path, self.preview_thread.current_frame)
 
         # Ask user to confirm or update framePath
         framePath, file_type = QFileDialog.getSaveFileName(self, _("Save Frame..."), framePath, _("Image files (*.png)"))

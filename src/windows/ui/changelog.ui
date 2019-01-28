@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Changelogs</string>
+   <string>Changelog</string>
   </property>
   <property name="windowIcon">
    <iconset>
@@ -28,7 +28,7 @@
      </property>
      <widget class="QWidget" name="tab_openshot_qt">
       <attribute name="title">
-       <string>openshot-qt</string>
+       <string notr="true">openshot-qt</string>
       </attribute>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
@@ -56,7 +56,7 @@
      </widget>
      <widget class="QWidget" name="tab_libopenshot">
       <attribute name="title">
-       <string>libopenshot</string>
+       <string notr="true">libopenshot</string>
       </attribute>
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
@@ -78,7 +78,7 @@
      </widget>
      <widget class="QWidget" name="tab_libopenshot_audio">
       <attribute name="title">
-       <string>libopenshot-audio</string>
+       <string notr="true">libopenshot-audio</string>
       </attribute>
       <layout class="QHBoxLayout" name="horizontalLayout_6">
        <item>
