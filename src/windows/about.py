@@ -69,9 +69,12 @@ class About(QDialog):
         # Hide chnagelog button by default
         self.btnchangelog.setVisible(False)
         for project in ['openshot-qt', 'libopenshot', 'libopenshot-audio']:
-            if os.path.exists(os.path.join(info.PATH, 'settings', '%s.log' % project)):
-                self.btnchangelog.setVisible(True)
-                break
+            changelog_path = os.path.join(info.PATH, 'settings', '%s.log' % project)
+            if os.path.exists(changelog_path):
+                with codecs.open(changelog_path, 'r', 'utf-8') as changelog_file:
+                    if changelog_file.read():
+                        self.btnchangelog.setVisible(True)
+                        break
 
         create_text = _('Create &amp; Edit Amazing Videos and Movies')
         description_text = _('OpenShot Video Editor 2.x is the next generation of the award-winning <br/>OpenShot video editing platform.')
@@ -249,43 +252,43 @@ class Changelog(QDialog):
         self.lblGitHubLink.setText(github_html)
 
         # Get changelog for openshot-qt (if any)
+        changelog_list = []
         changelog_path = os.path.join(info.PATH, 'settings', 'openshot-qt.log')
         if os.path.exists(changelog_path):
-            changelog_list = []
             with codecs.open(changelog_path, 'r', 'utf-8') as changelog_file:
                 for line in changelog_file:
                     changelog_list.append({'hash': line[:9].strip(),
                                            'date': line[9:20].strip(),
                                            'author': line[20:45].strip(),
                                            'subject': line[45:].strip() })
-            self.openshot_qt_ListView = ChangelogTreeView(commits=changelog_list, commit_url="https://github.com/OpenShot/openshot-qt/commit/%s/")
-            self.vbox_openshot_qt.addWidget(self.openshot_qt_ListView)
-            self.txtChangeLogFilter_openshot_qt.textChanged.connect(partial(self.Filter_Triggered, self.txtChangeLogFilter_openshot_qt, self.openshot_qt_ListView))
+        self.openshot_qt_ListView = ChangelogTreeView(commits=changelog_list, commit_url="https://github.com/OpenShot/openshot-qt/commit/%s/")
+        self.vbox_openshot_qt.addWidget(self.openshot_qt_ListView)
+        self.txtChangeLogFilter_openshot_qt.textChanged.connect(partial(self.Filter_Triggered, self.txtChangeLogFilter_openshot_qt, self.openshot_qt_ListView))
 
         # Get changelog for libopenshot (if any)
+        changelog_list = []
         changelog_path = os.path.join(info.PATH, 'settings', 'libopenshot.log')
         if os.path.exists(changelog_path):
-            changelog_list = []
             with codecs.open(changelog_path, 'r', 'utf-8') as changelog_file:
                 for line in changelog_file:
                     changelog_list.append({'hash': line[:9].strip(),
                                            'date': line[9:20].strip(),
                                            'author': line[20:45].strip(),
                                            'subject': line[45:].strip() })
-            self.libopenshot_ListView = ChangelogTreeView(commits=changelog_list, commit_url="https://github.com/OpenShot/libopenshot/commit/%s/")
-            self.vbox_libopenshot.addWidget(self.libopenshot_ListView)
-            self.txtChangeLogFilter_libopenshot.textChanged.connect(partial(self.Filter_Triggered, self.txtChangeLogFilter_libopenshot, self.libopenshot_ListView))
+        self.libopenshot_ListView = ChangelogTreeView(commits=changelog_list, commit_url="https://github.com/OpenShot/libopenshot/commit/%s/")
+        self.vbox_libopenshot.addWidget(self.libopenshot_ListView)
+        self.txtChangeLogFilter_libopenshot.textChanged.connect(partial(self.Filter_Triggered, self.txtChangeLogFilter_libopenshot, self.libopenshot_ListView))
 
         # Get changelog for libopenshot-audio (if any)
+        changelog_list = []
         changelog_path = os.path.join(info.PATH, 'settings', 'libopenshot-audio.log')
         if os.path.exists(changelog_path):
-            changelog_list = []
             with codecs.open(changelog_path, 'r', 'utf-8') as changelog_file:
                 for line in changelog_file:
                     changelog_list.append({'hash': line[:9].strip(),
                                            'date': line[9:20].strip(),
                                            'author': line[20:45].strip(),
                                            'subject': line[45:].strip() })
-            self.libopenshot_audio_ListView = ChangelogTreeView(commits=changelog_list, commit_url="https://github.com/OpenShot/libopenshot-audio/commit/%s/")
-            self.vbox_libopenshot_audio.addWidget(self.libopenshot_audio_ListView)
-            self.txtChangeLogFilter_libopenshot_audio.textChanged.connect(partial(self.Filter_Triggered, self.txtChangeLogFilter_libopenshot_audio, self.libopenshot_audio_ListView))
+        self.libopenshot_audio_ListView = ChangelogTreeView(commits=changelog_list, commit_url="https://github.com/OpenShot/libopenshot-audio/commit/%s/")
+        self.vbox_libopenshot_audio.addWidget(self.libopenshot_audio_ListView)
+        self.txtChangeLogFilter_libopenshot_audio.textChanged.connect(partial(self.Filter_Triggered, self.txtChangeLogFilter_libopenshot_audio, self.libopenshot_audio_ListView))

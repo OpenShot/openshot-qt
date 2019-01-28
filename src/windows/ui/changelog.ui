@@ -19,7 +19,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QTabWidget" name="tabCredits">
+    <widget class="QTabWidget" name="tabChangelog">
      <property name="locale">
       <locale language="English" country="UnitedStates"/>
      </property>
