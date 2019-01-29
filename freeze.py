@@ -137,6 +137,12 @@ if os.path.exists(qt_system_path):
         if (file.startswith("qt_") or file.startswith("qtbase_")) and file.endswith(".qm"):
             shutil.copyfile(os.path.join(qt_system_path, file), os.path.join(qt_local_path, file))
 
+# Copy git log files into src files (if found)
+for project in ["libopenshot-audio", "libopenshot", "openshot-qt"]:
+    git_log_path = os.path.join(PATH, "build", "install-x64", "share", "%s.log" % project)
+    if os.path.exists(git_log_path):
+        src_files.append((git_log_path, "settings/%s.log" % project))
+
 if sys.platform == "win32":
     base = "Win32GUI"
     build_exe_options["include_msvcr"] = True
