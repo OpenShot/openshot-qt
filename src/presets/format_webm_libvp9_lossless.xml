@@ -2,7 +2,7 @@
 <!DOCTYPE openshot-export-option>
 <export-option>
 	<type translatable="True">All Formats</type>
-	<title translatable="True">WEBM (vp9)</title>
+	<title translatable="True">WEBM (vp9) lossless</title>
 	<videoformat>webm</videoformat>
 	<videocodec>libvpx-vp9</videocodec>
 	<audiocodec>libvorbis</audiocodec>
