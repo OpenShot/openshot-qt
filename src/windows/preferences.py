@@ -336,21 +336,9 @@ class Preferences(QDialog):
 
         elif param["setting"] == "omp_threads_number":
             openshot.Settings.Instance().OMP_THREADS = max(2,int(str(value)))
-            #if value == "0":
-            #    if os.environ.get('LIMIT_OMP_THREADS') != None:
-            #        del os.environ['LIMIT_OMP_THREADS']
-            #elif value == "1":
-            #    os.environ['LIMIT_OMP_THREADS'] = 2
-            #else:
-            #    os.environ['LIMIT_OMP_THREADS'] = str(value)
 
         elif param["setting"] == "ff_threads_number":
             openshot.Settings.Instance().FF_THREADS = int(str(value))
-            #if value == "0":
-            #    if os.environ.get('LIMIT_FF_THREADS') != None:
-            #        del os.environ['LIMIT_FF_THREADS']
-            #else:
-            #    os.environ['LIMIT_FF_THREADS'] = str(value)
 
         elif param["setting"] == "decode_hw_max_width":
             openshot.Settings.Instance().DE_LIMIT_WIDTH_MAX = int(str(value))
