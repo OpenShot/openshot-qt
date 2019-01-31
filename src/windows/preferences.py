@@ -335,36 +335,34 @@ class Preferences(QDialog):
             get_app().window.auto_save_timer.setInterval(value * 1000 * 60)
 
         elif param["setting"] == "omp_threads_number":
-            if value == "0":
-                if os.environ.get('LIMIT_OMP_THREADS') != None:
-                    del os.environ['LIMIT_OMP_THREADS']
-            elif value == "1":
-                os.environ['LIMIT_OMP_THREADS'] = 2
-            else:
-                os.environ['LIMIT_OMP_THREADS'] = str(value)
+            openshot.Settings.Instance().OMP_THREADS = max(2,int(str(value)))
+            #if value == "0":
+            #    if os.environ.get('LIMIT_OMP_THREADS') != None:
+            #        del os.environ['LIMIT_OMP_THREADS']
+            #elif value == "1":
+            #    os.environ['LIMIT_OMP_THREADS'] = 2
+            #else:
+            #    os.environ['LIMIT_OMP_THREADS'] = str(value)
 
         elif param["setting"] == "ff_threads_number":
-            if value == "0":
-                if os.environ.get('LIMIT_FF_THREADS') != None:
-                    del os.environ['LIMIT_FF_THREADS']
-            else:
-                os.environ['LIMIT_FF_THREADS'] = str(value)
+            openshot.Settings.Instance().FF_THREADS = int(str(value))
+            #if value == "0":
+            #    if os.environ.get('LIMIT_FF_THREADS') != None:
+            #        del os.environ['LIMIT_FF_THREADS']
+            #else:
+            #    os.environ['LIMIT_FF_THREADS'] = str(value)
 
         elif param["setting"] == "decode_hw_max_width":
             openshot.Settings.Instance().DE_LIMIT_WIDTH_MAX = int(str(value))
-#            if value == "0":
-#                if os.environ.get('LIMIT_WIDTH_MAX') != None:
-#                    del os.environ['LIMIT_WIDTH_MAX']
-#            else:
-#                os.environ['LIMIT_WIDTH_MAX'] = str(value)
 
         elif param["setting"] == "decode_hw_max_height":
             openshot.Settings.Instance().DE_LIMIT_HEIGHT_MAX = int(str(value))
-#            if value == "0":
-#                if os.environ.get('LIMIT_HEIGHT_MAX') != None:
-#                    del os.environ['LIMIT_HEIGHT_MAX']
-#            else:
-#                os.environ['LIMIT_HEIGHT_MAX'] = str(value)
+
+        elif param["setting"] == "graca_number_de":
+            openshot.Settings.Instance().HW_DE_DEVICE_SET = int(str(value))
+
+        elif param["setting"] == "graca_number_en":
+            openshot.Settings.Instance().HW_EN_DEVICE_SET = int(str(value))
 
         # Apply cache settings (if needed)
         if param["setting"] in ["cache-limit-mb", "cache-scale", "cache-quality"]:

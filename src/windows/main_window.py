@@ -2489,28 +2489,38 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             openshot.Settings.Instance().HARDWARE_ENCODE = False
 
         # The new version
-        if s.get("hw-decoder") and s.get("hw-decoder") != "NONE":
-            os.environ['OS2_DECODE_HW'] = "1"
-            os.environ['HW_DECODER'] = s.get("hw-decoder")
+        #if s.get("hw-decoder") and s.get("hw-decoder") != "NONE":
+        #    os.environ['OS2_DECODE_HW'] = "1"
+        #    os.environ['HW_DECODER'] = s.get("hw-decoder")
+        #else:
+        #    os.environ['OS2_DECODE_HW'] = "0"
+        if s.get("hw-decoder"):
+                openshot.Settings.Instance().HW_DECODER = int(str(s.get("hw-decoder")))
         else:
-            os.environ['OS2_DECODE_HW'] = "0"
+                openshot.Settings.Instance().HW_DECODER = 0
 
-        # Only first (0) and second (1) card for now
+        # Set graphics card for hardware support
         if s.get("graca_number_de"):
             if s.get("graca_number_de") != 0:
-                os.environ['HW_DE_DEVICE_SET'] = "1"
+                openshot.Settings.Instance().HW_DE_DEVICE_SET = int(str(s.get("graca_number_de")))
+                #os.environ['HW_DE_DEVICE_SET'] = "1"
             else:
-                os.environ['HW_DE_DEVICE_SET'] = "0"
+                openshot.Settings.Instance().HW_DE_DEVICE_SET = 0
+                #os.environ['HW_DE_DEVICE_SET'] = "0"
         else:
-            os.environ['HW_DE_DEVICE_SET'] = "0"
+            #os.environ['HW_DE_DEVICE_SET'] = "0"
+            openshot.Settings.Instance().HW_DE_DEVICE_SET = 0
 
         if s.get("graca_number_en"):
             if s.get("graca_number_en") != 0:
-                os.environ['HW_EN_DEVICE_SET'] = "1"
+                #os.environ['HW_EN_DEVICE_SET'] = "1"
+                openshot.Settings.Instance().HW_EN_DEVICE_SET = int(str(s.get("graca_number_en")))
             else:
                 os.environ['HW_EN_DEVICE_SET'] = "0"
+                openshot.Settings.Instance().HW_EN_DEVICE_SET = 0
         else:
-            os.environ['HW_EN_DEVICE_SET'] = "0"
+            #os.environ['HW_EN_DEVICE_SET'] = "0"
+            openshot.Settings.Instance().HW_EN_DEVICE_SET = 0
 
 
         # Set OMP thread enabled flag (for stability)
@@ -2523,35 +2533,45 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         openshot.Settings.Instance().HIGH_QUALITY_SCALING = False
 
         # Set use omp threads number environment variable
-        if s.get("omp_threads_number") and s.get("omp_threads_number") != 0:
-            if  s.get("omp_threads_number") == 1:
-                os.environ['LIMIT_OMP_THREADS'] = "2"
-            else:
-                os.environ['LIMIT_OMP_THREADS'] = str(s.get("omp_threads_number"))
+        #if s.get("omp_threads_number") and s.get("omp_threads_number") != 0:
+        if s.get("omp_threads_number"):
+            openshot.Settings.Instance().OMP_THREADS = max(2,int(str(s.get("omp_threads_number"))))
+            #if  s.get("omp_threads_number") == 1:
+            #    os.environ['LIMIT_OMP_THREADS'] = "2"
+            #else:
+            #    os.environ['LIMIT_OMP_THREADS'] = str(s.get("omp_threads_number"))
         else:
-            if os.environ.get('LIMIT_OMP_THREADS') != None:
-                del os.environ['LIMIT_OMP_THREADS']
+            openshot.Settings.Instance().OMP_THREADS = 12
+            #if os.environ.get('LIMIT_OMP_THREADS') != None:
+            #    del os.environ['LIMIT_OMP_THREADS']
 
         # Set use ffmpeg threads number environment variable
-        if s.get("ff_threads_number") and s.get("ff_threads_number") != 0:
-            os.environ['LIMIT_FF_THREADS'] = str(s.get("ff_threads_number"))
+        #if s.get("ff_threads_number") and s.get("ff_threads_number") != 0:
+        if s.get("ff_threads_number"):
+            openshot.Settings.Instance().FF_THREADS = max(1,int(str(s.get("ff_threads_number"))))
+            #os.environ['LIMIT_FF_THREADS'] = str(s.get("ff_threads_number"))
         else:
-            if os.environ.get('LIMIT_FF_THREADS') != None:
-                del os.environ['LIMIT_FF_THREADS']
+            openshot.Settings.Instance().FF_THREADS = 8
+            #if os.environ.get('LIMIT_FF_THREADS') != None:
+            #    del os.environ['LIMIT_FF_THREADS']
 
         # Set use max width decode hw environment variable
-        if s.get("decode_hw_max_width") and s.get("decode_hw_max_width") != 0:
-            os.environ['LIMIT_WIDTH_MAX'] = str(s.get("decode_hw_max_width"))
-        else:
-            if os.environ.get('LIMIT_WIDTH_MAX') != None:
-                del os.environ['LIMIT_WIDTH_MAX']
+        #if s.get("decode_hw_max_width") and s.get("decode_hw_max_width") != 0:
+        if s.get("decode_hw_max_width"):
+            openshot.Settings.Instance().DE_LIMIT_WIDTH_MAX = int(str(s.get("decode_hw_max_width")))
+        #    os.environ['LIMIT_WIDTH_MAX'] = str(s.get("decode_hw_max_width"))
+        #else:
+        #    if os.environ.get('LIMIT_WIDTH_MAX') != None:
+        #        del os.environ['LIMIT_WIDTH_MAX']
 
         # Set use max height decode hw environment variable
-        if s.get("decode_hw_max_height") and s.get("decode_hw_max_height") != 0:
-            os.environ['LIMIT_HEIGHT_MAX'] = str(s.get("decode_hw_max_height"))
-        else:
-            if os.environ.get('LIMIT_HEIGHT_MAX') != None:
-                del os.environ['LIMIT_HEIGHT_MAX']
+        #if s.get("decode_hw_max_height") and s.get("decode_hw_max_height") != 0:
+        if s.get("decode_hw_max_height"):
+            openshot.Settings.Instance().DE_LIMIT_HEIGHT_MAX = int(str(s.get("decode_hw_max_height")))
+        #    os.environ['LIMIT_HEIGHT_MAX'] = str(s.get("decode_hw_max_height"))
+        #else:
+        #    if os.environ.get('LIMIT_HEIGHT_MAX') != None:
+        #        del os.environ['LIMIT_HEIGHT_MAX']
 
         # Create lock file
         self.create_lock_file()
