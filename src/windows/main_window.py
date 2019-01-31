@@ -2516,7 +2516,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 #os.environ['HW_EN_DEVICE_SET'] = "1"
                 openshot.Settings.Instance().HW_EN_DEVICE_SET = int(str(s.get("graca_number_en")))
             else:
-                os.environ['HW_EN_DEVICE_SET'] = "0"
+                #os.environ['HW_EN_DEVICE_SET'] = "0"
                 openshot.Settings.Instance().HW_EN_DEVICE_SET = 0
         else:
             #os.environ['HW_EN_DEVICE_SET'] = "0"
