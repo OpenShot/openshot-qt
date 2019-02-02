@@ -2490,13 +2490,13 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # The new version
         if s.get("hw-decoder"):
-                openshot.Settings.Instance().HW_DECODER = int(str(s.get("hw-decoder")))
+                openshot.Settings.Instance().HARDWARE_DECODER = int(str(s.get("hw-decoder")))
         else:
-                openshot.Settings.Instance().HW_DECODER = 0
+                openshot.Settings.Instance().HARDWARE_DECODER = 0
 
         # Set graphics card for hardware support
         if s.get("graca_number_de"):
-            if s.get("graca_number_de") != 0:
+            if int(str(s.get("graca_number_de"))) != 0:
                 openshot.Settings.Instance().HW_DE_DEVICE_SET = int(str(s.get("graca_number_de")))
             else:
                 openshot.Settings.Instance().HW_DE_DEVICE_SET = 0
@@ -2504,7 +2504,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             openshot.Settings.Instance().HW_DE_DEVICE_SET = 0
 
         if s.get("graca_number_en"):
-            if s.get("graca_number_en") != 0:
+            if int(str(s.get("graca_number_en"))) != 0:
                 openshot.Settings.Instance().HW_EN_DEVICE_SET = int(str(s.get("graca_number_en")))
             else:
                 openshot.Settings.Instance().HW_EN_DEVICE_SET = 0
