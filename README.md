@@ -76,17 +76,17 @@ of openshot-qt)
 
 ## Websites
 
-- http://www.openshot.org/  (Official website and blog)
+- https://www.openshot.org/  (Official website and blog)
 - https://github.com/OpenShot/openshot-qt (source code and issue tracker)
 - https://github.com/OpenShot/libopenshot-audio (source code for audio library)
 - https://github.com/OpenShot/libopenshot (source code for video library)
-- http://launchpad.net/openshot/
+- https://launchpad.net/openshot/
 
 ## Copyright
 
 Copyright (c) 2008-2018 OpenShot Studios, LLC
 (http://www.openshotstudios.com). This file is part of
-OpenShot Video Editor (http://www.openshot.org), an open-source project
+OpenShot Video Editor (https://www.openshot.org), an open-source project
 dedicated to delivering high quality video editing and animation solutions
 to the world.
 
