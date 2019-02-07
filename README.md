@@ -6,17 +6,15 @@ editor for Linux, Mac, and Windows.
 ## Getting Started
 
 The quickest way to get started using OpenShot is to download one of 
-our pre-built installers:
+our pre-built installers. On our download page, click the **Daily Builds** 
+button to view the latest, experimental builds, which are created for each 
+new commit to this repo.
 
 https://www.openshot.org/download/
 
-**Tip:** On our download page, click the **Daily Builds** button to view 
-the latest, experimental builds, which are created for each new commit 
-to this repo.
-
 ## Tutorial
 
-Watch the official [step-by-step tutorial](https://www.youtube.com/watch?list=PLymupH2aoNQNezYzv2lhSwvoyZgLp1Q0T&v=1k-ISfd-YBE) video, or read the official user-guide:
+Watch the official [step-by-step video tutorial](https://www.youtube.com/watch?list=PLymupH2aoNQNezYzv2lhSwvoyZgLp1Q0T&v=1k-ISfd-YBE) video, or read the official user-guide:
 
 https://www.openshot.org/user-guide/
 
@@ -58,8 +56,8 @@ https://translations.launchpad.net/openshot/2.0/+translations
 Although installers are much easier to use, if you must build from 
 source, here are some tips: 
 
-OpenShot is programmed in Python3, and thus does not need
-to be compiled to run.  However, be sure you have the following 
+OpenShot is programmed in Python (version 3+), and thus does not need
+to be compiled to run. However, be sure you have the following 
 dependencies in order to run OpenShot successfully: 
 
 *  Python 3.0+ (http://www.python.org)
