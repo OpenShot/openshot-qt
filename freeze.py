@@ -141,7 +141,7 @@ if os.path.exists(qt_system_path):
 for project in ["libopenshot-audio", "libopenshot", "openshot-qt"]:
     git_log_path = os.path.join(PATH, "build", "install-x64", "share", "%s.log" % project)
     if os.path.exists(git_log_path):
-        src_files.append((git_log_path, "src/settings/%s.log" % project))
+        src_files.append((git_log_path, "settings/%s.log" % project))
 
 if sys.platform == "win32":
     base = "Win32GUI"
