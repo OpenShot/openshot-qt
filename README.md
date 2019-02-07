@@ -21,8 +21,8 @@ Watch the official [step-by-step video tutorial](https://www.youtube.com/watch?l
 
 ## Developers
 
-Are you interested in getting more involved in the development of 
-OpenShot? Build exciting new features, fix bugs, and become a hero! 
+Are you interested in becoming more involved in the development of 
+OpenShot? Build exciting new features, fix bugs, make friends, and become a hero! 
 Please read the [step-by-step](https://github.com/OpenShot/openshot-qt/wiki/Become-a-Developer) 
 instructions for getting source code, configuring dependencies, and building OpenShot.
 
