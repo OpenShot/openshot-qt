@@ -38,8 +38,8 @@ make html
 ## Report a bug
 
 Please report bugs using the official [Report a Bug](https://www.openshot.org/issues/new/) 
-feature on our website. This is a step-by-step guide for creating a high-quality
-bug report for the OpenShot community.
+feature on our website. This walks you through the bug reporting process, and helps 
+to create a high-quality bug report for the OpenShot community.
 
 Or you can report a new issue directly on GitHub:
 
