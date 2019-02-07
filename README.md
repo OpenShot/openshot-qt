@@ -14,9 +14,7 @@ https://www.openshot.org/download/
 
 ## Tutorial
 
-Watch the official [step-by-step video tutorial](https://www.youtube.com/watch?list=PLymupH2aoNQNezYzv2lhSwvoyZgLp1Q0T&v=1k-ISfd-YBE) video, or read the official user-guide:
-
-https://www.openshot.org/user-guide/
+Watch the official [step-by-step video tutorial](https://www.youtube.com/watch?list=PLymupH2aoNQNezYzv2lhSwvoyZgLp1Q0T&v=1k-ISfd-YBE), or read the official [user-guide](https://www.openshot.org/user-guide/):
 
 ## Developers
 
