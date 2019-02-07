@@ -1,8 +1,10 @@
+OpenShot Video Editor is an award-winning free and open-source video 
+editor for Linux, Mac, and Windows. 
+
 ## Getting Started
 
-OpenShot Video Editor is an award-winning free and open-source video 
-editor for Linux, Mac, and Windows. The quickest way to get started
-using OpenShot is to download one of our pre-built **installers**:
+The quickest way to get started using OpenShot is to download one of 
+our pre-built installers:
 
 https://www.openshot.org/download/
 
@@ -12,12 +14,16 @@ to this repo.
 
 ## Tutorial
 
-Watch the official [step-by-step tutorial](https://www.youtube.com/watch?list=PLymupH2aoNQNezYzv2lhSwvoyZgLp1Q0T&v=1k-ISfd-YBE) video, or read the official [user-guide](https://www.openshot.org/user-guide/).
+Watch the official [step-by-step tutorial](https://www.youtube.com/watch?list=PLymupH2aoNQNezYzv2lhSwvoyZgLp1Q0T&v=1k-ISfd-YBE) video, or read the official user-guide:
+
+https://www.openshot.org/user-guide/
 
 ## Developers
 
 Are you interested in getting more involved in the development of 
-OpenShot? Build exciting new features, fix bugs, and become a hero! [Learn More](https://github.com/OpenShot/openshot-qt/wiki/Become-a-Developer)
+OpenShot? Build exciting new features, fix bugs, and become a hero! 
+Please read the [step-by-step](https://github.com/OpenShot/openshot-qt/wiki/Become-a-Developer) 
+instructions for getting source code, configuring dependencies, and building OpenShot.
 
 ## Documentation
 
@@ -28,37 +34,47 @@ cd doc
 make html
 ```
 
+## Report a bug
+
+Please report bugs using the official [Report a Bug](https://www.openshot.org/issues/new/) 
+feature on our website. This is a step-by-step guide for creating a high-quality
+bug report for the OpenShot community.
+
+Or you can report a new issue directly on GitHub:
+
+https://github.com/OpenShot/openshot-qt/issues
+
+## Translations
+
+Translating OpenShot into other languages is very easy! Please read the [step-by-step](https://github.com/OpenShot/openshot-qt/wiki/Become-a-Translator) instructions or login to LaunchPad and get started.
+All you need is a web browser.
+
+https://translations.launchpad.net/openshot/2.0/+translations
+
 ## Dependencies
 
 Although installers are much easier to use, if you must build from 
 source, here are some tips: 
 
-OpenShot 2.x is programmed in Python, and thus does not need
+OpenShot is programmed in Python3, and thus does not need
 to be compiled to run.  However, be sure you have the following 
 dependencies in order to run OpenShot successfully: 
 
-1) Python 3.0+ (http://www.python.org)
-2) PyQt5 (http://www.riverbankcomputing.co.uk/software/pyqt/download5)
-3) libopenshot: OpenShot Library (http://www.openshot.org)
-4) FFmpeg or Libav (http://www.ffmpeg.org/ or http://libav.org/)
-5) GCC build tools (or MinGW on Windows)
+*  Python 3.0+ (http://www.python.org)
+*  PyQt5 (http://www.riverbankcomputing.co.uk/software/pyqt/download5)
+*  libopenshot: OpenShot Library (https://github.com/OpenShot/libopenshot)
+*  libopenshot-audio: OpenShot Audio Library (https://github.com/OpenShot/libopenshot-audio)
+*  FFmpeg or Libav (http://www.ffmpeg.org/ or http://libav.org/)
+*  GCC build tools (or MinGW on Windows)
+
+## Launch
 
 To run OpenShot from the command line, use the following syntax:
-(be sure the change the path to match the install location of OpenShot)
+(be sure the change the path to match the install or repo location 
+of openshot-qt)
 
-    $ cd /home/USER/openshot_qt
+    $ cd [openshot-qt folder]
     $ python3 src/launch.py
-
-## How to install
-
-If you would like to install OpenShot, use this command:
-
-    $ sudo python3 setup.py install
-
-Installing OpenShot using this command does a few extra things that
-the build wizard doesn't do.  It adds MIME Types, adds an icon to your
-Application menu, registers icons, adds a /usr/bin/openshot command, and
-copies all the code files to the /site-packages/ folder.
 
 ## Websites
 
@@ -67,25 +83,6 @@ copies all the code files to the /site-packages/ folder.
 - https://github.com/OpenShot/libopenshot-audio (source code for audio library)
 - https://github.com/OpenShot/libopenshot (source code for video library)
 - http://launchpad.net/openshot/
-
-## Report a bug
-
-Please report bugs using the official [Report a Bug](https://www.openshot.org/issues/new/) 
-feature on our website. This is a step-by-step guide on creating a high-quality
-bug report for the OpenShot community.
-
-## Translations
-
-https://translations.launchpad.net/openshot
-
-## Ask a question  
-
-You can ask any question you have here https://github.com/OpenShot/openshot-qt/issues.
-
-## Contributing
-
-If you would like to help reporting issues or commit fixes to the project please see our [contributor guidelines](CONTRIBUTING.md).
-
 
 ## Copyright
 
