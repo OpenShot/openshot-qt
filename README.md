@@ -4,7 +4,28 @@ video editing and animation solutions to the world.
 
 ## Build Status
 
-[![Build Status](https://travis-ci.org/OpenShot/openshot-qt.svg?branch=develop)](https://travis-ci.org/OpenShot/openshot-qt)
+[![Build Status](https://img.shields.io/travis/OpenShot/openshot-qt/develop.svg?label=openshot-qt)](https://travis-ci.org/OpenShot/openshot-qt) [![Build Status](https://img.shields.io/travis/OpenShot/libopenshot/develop.svg?label=libopenshot)](https://travis-ci.org/OpenShot/libopenshot) [![Build Status](https://img.shields.io/travis/OpenShot/libopenshot-audio/develop.svg?label=libopenshot-audio)](https://travis-ci.org/OpenShot/libopenshot-audio)
+
+## Features
+
+* Cross-platform (Linux, Mac, and Windows)
+* Support for many video, audio, and image formats (based on FFmpeg)
+* Powerful curve-based Key frame animations
+* Desktop integration (drag and drop support)
+* Unlimited tracks / layers
+* Clip resizing, scaling, trimming, snapping, rotation, and cutting
+* Video transitions with real-time previews
+* Compositing, image overlays, watermarks
+* Title templates, title creation, sub-titles
+* 2D animation support (image sequences)
+* 3D animated titles (and effects)
+* SVG friendly, to create and include vector titles and credits
+* Scrolling motion picture credits
+* Advanced Timeline (including Drag & drop, scrolling, panning, zooming, and snapping)
+* Frame accuracy (step through each frame of video)
+* Time-mapping and speed changes on clips (slow/fast, forward/backward, etc...)
+* Audio mixing and editing
+* Digital video effects, including brightness, gamma, hue, greyscale, chroma key, and many more!
 
 ## Getting Started
 
@@ -50,7 +71,8 @@ https://github.com/OpenShot/openshot-qt/issues
 Translating OpenShot into other languages is very easy! Please read the [step-by-step](https://github.com/OpenShot/openshot-qt/wiki/Become-a-Translator) instructions or login to LaunchPad and get started.
 All you need is a web browser.
 
-https://translations.launchpad.net/openshot/2.0/+translations
+* Application Translations: https://translations.launchpad.net/openshot/2.0/+translations
+* Website Translations: https://translations.launchpad.net/openshot/website/+pots/django
 
 ## Dependencies
 
