@@ -357,7 +357,7 @@ command = "msgcat"
 for temp_file in temp_files:
     # append files
     command = command + " " + os.path.join(language_folder_path, temp_file)
-command = command + " -o " + os.path.join(language_folder_path, "OpenShot.pot")
+command = command + " -o " + os.path.join(language_folder_path, "OpenShot", "OpenShot.pot")
 
 log.info(command)
 
@@ -369,15 +369,15 @@ log.info(" Create FINAL POT File from all temp POT files ")
 log.info("-----------------------------------------------------")
 
 # get the entire text of OpenShot.POT
-f = open(os.path.join(language_folder_path, "OpenShot.pot"), "r")
+f = open(os.path.join(language_folder_path, "OpenShot", "OpenShot.pot"), "r")
 # read entire text of file
 entire_source = f.read()
 f.close()
 
 # Create Final POT Output File
-if os.path.exists(os.path.join(language_folder_path, "OpenShot.pot")):
-    os.remove(os.path.join(language_folder_path, "OpenShot.pot"))
-final = open(os.path.join(language_folder_path, "OpenShot.pot"), "w")
+if os.path.exists(os.path.join(language_folder_path, "OpenShot", "OpenShot.pot")):
+    os.remove(os.path.join(language_folder_path, "OpenShot", "OpenShot.pot"))
+final = open(os.path.join(language_folder_path, "OpenShot", "OpenShot.pot"), "w")
 final.write(header_text)
 final.write("\n")
 
