@@ -434,6 +434,13 @@
         "icons": [
             "p"
         ],
+        "name": "Anoniem",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Anonim",
         "website": null
     },
@@ -481,6 +488,13 @@
     },
     {
         "icons": [
+            "p"
+        ],
+        "name": "Anonimo",
+        "website": null
+    },
+    {
+        "icons": [
             "p",
             "s"
         ],
@@ -552,15 +566,15 @@
     },
     {
         "icons": [
-            "p"
+            "p",
+            "s"
         ],
         "name": "Anonym",
         "website": null
     },
     {
         "icons": [
-            "p",
-            "s"
+            "p"
         ],
         "name": "Anonym",
         "website": null
@@ -1791,6 +1805,13 @@
         "icons": [
             "p"
         ],
+        "name": "Dátil Whippet",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Dave Dumanis",
         "website": null
     },
@@ -2422,6 +2443,13 @@
             "p"
         ],
         "name": "Eugene Lyzo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Eugenio Fava",
         "website": null
     },
     {
@@ -3803,6 +3831,13 @@
     },
     {
         "icons": [
+            "p"
+        ],
+        "name": "John J. Shade",
+        "website": null
+    },
+    {
+        "icons": [
             "p",
             "s"
         ],
@@ -3898,6 +3933,13 @@
             "p"
         ],
         "name": "Jorge Talancon",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Jose Alberto Salazar Jimenez",
         "website": null
     },
     {
@@ -5532,6 +5574,13 @@
         "icons": [
             "p"
         ],
+        "name": "Oleg",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Olivier Lauprêtre",
         "website": null
     },
@@ -6983,6 +7032,13 @@
         "icons": [
             "p"
         ],
+        "name": "Termote",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Tetsu Iriyama",
         "website": null
     },
@@ -7076,6 +7132,13 @@
             "p"
         ],
         "name": "Thomas Kumlehn, Truecolor3D The Open Source Mobile 3-D Project",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Thomas Wunderlich,Braunschweig",
         "website": null
     },
     {
