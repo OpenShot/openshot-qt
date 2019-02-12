@@ -3,7 +3,7 @@ name: Feature Request
 about: Suggest a new idea to improve OpenShot. Please verify this idea has not already
        been suggested: https://github.com/OpenShot/openshot-qt/issues
 labels: Enhancement
-title: Give your feature request a very descriptive title
+title: Give your feature request a descriptive title
 
 ---
 
