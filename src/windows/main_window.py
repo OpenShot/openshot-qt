@@ -733,7 +733,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionHelpContents_trigger(self, event):
         try:
-            webbrowser.open("http://%s.openshot.org/files/user-guide/?app-menu" % info.website_language())
+            webbrowser.open("https://www.openshot.org/%s/files/user-guide/?app-menu" % info.website_language())
             log.info("Help Contents is open")
         except:
             QMessageBox.information(self, "Error !", "Unable to open the Help Contents. Please ensure the openshot-doc package is installed.")
@@ -752,7 +752,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionReportBug_trigger(self, event):
         try:
-            webbrowser.open("https://github.com/OpenShot/openshot-qt/issues/?app-menu-bug")
+            webbrowser.open("https://www.openshot.org/%s/issues/new/?app-menu" % info.website_language())
             log.info("Open the Bug Report GitHub Issues web page with success")
         except:
             QMessageBox.information(self, "Error !", "Unable to open the Bug Report GitHub Issues web page")
@@ -760,7 +760,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionAskQuestion_trigger(self, event):
         try:
-            webbrowser.open("https://github.com/OpenShot/openshot-qt/issues/?app-menu-question")
+            webbrowser.open("https://github.com/OpenShot/openshot-qt/issues/new?template=Question.md")
             log.info("Open the Questions GitHub Issues web page with success")
         except:
             QMessageBox.information(self, "Error !", "Unable to open the Questions GitHub Issues web page")
@@ -776,7 +776,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionDonate_trigger(self, event):
         try:
-            webbrowser.open("http://%s.openshot.org/donate/?app-menu" % info.website_language())
+            webbrowser.open("https://www.openshot.org/%s/donate/?app-menu" % info.website_language())
             log.info("Open the Donate web page with success")
         except:
             QMessageBox.information(self, "Error !", "Unable to open the Donate web page")
@@ -784,7 +784,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionUpdate_trigger(self, event):
         try:
-            webbrowser.open("http://%s.openshot.org/download/?app-toolbar" % info.website_language())
+            webbrowser.open("https://www.openshot.org/%s/download/?app-toolbar" % info.website_language())
             log.info("Open the Download web page with success")
         except:
             QMessageBox.information(self, "Error !", "Unable to open the Download web page")
