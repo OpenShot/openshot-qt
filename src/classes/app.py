@@ -168,7 +168,7 @@ class OpenShotApp(QApplication):
             path = args[0][1]
             if ".osp" in path:
                 # Auto load project passed as argument
-                self.window.open_project(path)
+                self.window.OpenProjectSignal.emit(path)
             else:
                 # Auto import media file
                 self.window.filesTreeView.add_file(path)
