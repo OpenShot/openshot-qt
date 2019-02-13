@@ -5,12 +5,6 @@ about: Need information, instructions, or help with OpenShot? Please verify this
 labels: Question
 title: Give your question a descriptive title
 
-name: Report Bug
-about: Describe this issue template's purpose here.
-title: ''
-labels: bug, Missing Info
-assignees: ''
-
 ---
 
 **Question:**
