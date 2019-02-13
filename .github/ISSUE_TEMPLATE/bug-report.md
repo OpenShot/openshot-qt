@@ -1,9 +1,10 @@
 ---
 name: Bug Report
-about: Create a bug report for a new issue. Please verify this bug has not already
-       been reported: https://github.com/OpenShot/openshot-qt/issues
-labels: Bug
+about: 'Create a bug report for a new issue. Please verify this bug has not already
+  been reported: https://github.com/OpenShot/openshot-qt/issues'
 title: Give your bug report a descriptive title
+labels: bug
+assignees: ''
 
 ---
 

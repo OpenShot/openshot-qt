@@ -1,9 +1,10 @@
 ---
 name: Question
-about: Need information, instructions, or help with OpenShot? Please verify this question
-       has not already been asked: https://github.com/OpenShot/openshot-qt/issues
-labels: Question
+about: 'Need information, instructions, or help with OpenShot? Please verify this
+  question has not already been asked: https://github.com/OpenShot/openshot-qt/issues'
 title: Give your question a descriptive title
+labels: question
+assignees: ''
 
 ---
 
