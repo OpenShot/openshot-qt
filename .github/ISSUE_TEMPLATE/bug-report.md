@@ -6,7 +6,7 @@ labels: bug
 assignees: ''
 
 ---
-<!-- Please verify this bug has not already been reported: https://github.com/OpenShot/openshot-qt/issues' -->
+<!-- Please verify this bug has not already been reported: https://github.com/OpenShot/openshot-qt/issues -->
 
 **Describe the bug:**
 A clear and concise description of what the bug is.
