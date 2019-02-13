@@ -1,5 +1,5 @@
 ---
-name: Ask a Question
+name: Question
 about: Need information, instructions, or help with OpenShot? Please verify this question
        has not already been asked: https://github.com/OpenShot/openshot-qt/issues
 labels: Question
