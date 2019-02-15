@@ -87,6 +87,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     ExportEnded = pyqtSignal(str)
     MaxSizeChanged = pyqtSignal(object)
     InsertKeyframe = pyqtSignal(object)
+    OpenProjectSignal = pyqtSignal(str)
 
     # Save window settings on close
     def closeEvent(self, event):
@@ -448,6 +449,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         app = get_app()
         _ = app._tr  # Get translation function
 
+        # Do we have unsaved changes?
+        if get_app().project.needs_save():
+            ret = QMessageBox.question(self, _("Unsaved Changes"), _("Save changes to project first?"), QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
+            if ret == QMessageBox.Yes:
+                # Save project
+                self.actionSave.trigger()
+            elif ret == QMessageBox.Cancel:
+                # User canceled prompt
+                return
+
         # Set cursor to waiting
         get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
 
@@ -556,7 +567,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         file_path, file_type = QFileDialog.getOpenFileName(self, _("Open Project..."), recommended_path, _("OpenShot Project (*.osp)"))
 
         # Load project file
-        self.open_project(file_path)
+        self.OpenProjectSignal.emit(file_path)
 
     def actionSave_trigger(self, event):
         app = get_app()
@@ -733,7 +744,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionHelpContents_trigger(self, event):
         try:
-            webbrowser.open("http://%s.openshot.org/files/user-guide/?app-menu" % info.website_language())
+            webbrowser.open("https://www.openshot.org/%s/files/user-guide/?app-menu" % info.website_language())
             log.info("Help Contents is open")
         except:
             QMessageBox.information(self, "Error !", "Unable to open the Help Contents. Please ensure the openshot-doc package is installed.")
@@ -752,7 +763,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionReportBug_trigger(self, event):
         try:
-            webbrowser.open("https://github.com/OpenShot/openshot-qt/issues/?app-menu-bug")
+            webbrowser.open("https://www.openshot.org/%s/issues/new/?app-menu" % info.website_language())
             log.info("Open the Bug Report GitHub Issues web page with success")
         except:
             QMessageBox.information(self, "Error !", "Unable to open the Bug Report GitHub Issues web page")
@@ -760,7 +771,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionAskQuestion_trigger(self, event):
         try:
-            webbrowser.open("https://github.com/OpenShot/openshot-qt/issues/?app-menu-question")
+            webbrowser.open("https://github.com/OpenShot/openshot-qt/issues/new?template=Question.md")
             log.info("Open the Questions GitHub Issues web page with success")
         except:
             QMessageBox.information(self, "Error !", "Unable to open the Questions GitHub Issues web page")
@@ -776,7 +787,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionDonate_trigger(self, event):
         try:
-            webbrowser.open("http://%s.openshot.org/donate/?app-menu" % info.website_language())
+            webbrowser.open("https://www.openshot.org/%s/donate/?app-menu" % info.website_language())
             log.info("Open the Donate web page with success")
         except:
             QMessageBox.information(self, "Error !", "Unable to open the Donate web page")
@@ -784,7 +795,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionUpdate_trigger(self, event):
         try:
-            webbrowser.open("http://%s.openshot.org/download/?app-toolbar" % info.website_language())
+            webbrowser.open("https://www.openshot.org/%s/download/?app-toolbar" % info.website_language())
             log.info("Open the Download web page with success")
         except:
             QMessageBox.information(self, "Error !", "Unable to open the Download web page")
@@ -2050,7 +2061,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         """ Load a recent project when clicked """
 
         # Load project file
-        self.open_project(file_path)
+        self.OpenProjectSignal.emit(file_path)
 
     def setup_toolbars(self):
         _ = get_app()._tr  # Get translation function
@@ -2543,6 +2554,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Create lock file
         self.create_lock_file()
+
+        # Connect OpenProject Signal
+        self.OpenProjectSignal.connect(self.open_project)
 
         # Show window
         if not self.mode == "unittest":

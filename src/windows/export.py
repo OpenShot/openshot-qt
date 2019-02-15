@@ -112,6 +112,9 @@ class Export(QDialog):
         channels = get_app().window.timeline_sync.timeline.info.channels
         channel_layout = get_app().window.timeline_sync.timeline.info.channel_layout
 
+        # No keyframe rescaling has happened yet (due to differences in FPS)
+        self.keyframes_rescaled = False
+
         # Create new "export" openshot.Timeline object
         self.timeline = openshot.Timeline(width, height, openshot.Fraction(fps.num, fps.den),
                                           sample_rate, channels, channel_layout)
@@ -350,6 +353,13 @@ class Export(QDialog):
         self.progressExportVideo.setMinimum(self.txtStartFrame.value())
         self.progressExportVideo.setMaximum(self.txtEndFrame.value())
         self.progressExportVideo.setValue(self.txtStartFrame.value())
+
+        # Calculate differences between editing/preview FPS and export FPS
+        current_fps = get_app().project.get(["fps"])
+        current_fps_float = float(current_fps["num"]) / float(current_fps["den"])
+        new_fps_float = float(self.txtFrameRateNum.value()) / float(self.txtFrameRateDen.value())
+        self.export_fps_factor = new_fps_float / current_fps_float
+        self.original_fps_factor = current_fps_float / new_fps_float
 
     def cboSimpleProjectType_index_changed(self, widget, index):
         selected_project = widget.itemData(index)
@@ -715,6 +725,18 @@ class Export(QDialog):
         export_cache_object = openshot.CacheMemory(250)
         self.timeline.SetCache(export_cache_object)
 
+        # Rescale all keyframes and reload project
+        if self.export_fps_factor != 1.0:
+            self.keyframes_rescaled = True
+            get_app().project.rescale_keyframes(self.export_fps_factor)
+
+            # Load the "export" Timeline reader with the JSON from the real timeline
+            json_timeline = json.dumps(get_app().project._data)
+            self.timeline.SetJson(json_timeline)
+
+            # Re-update the timeline FPS again (since the timeline just got clobbered)
+            self.updateFrameRate()
+
         # Create FFmpegWriter
         try:
             w = openshot.FFmpegWriter(export_file_path)
@@ -847,8 +869,12 @@ class Export(QDialog):
         else:
             openshot.Settings.Instance().WAIT_FOR_VIDEO_PROCESSING_TASK = True
 
-            # Return scale mode to lower quality scaling (for faster previews)
+        # Return scale mode to lower quality scaling (for faster previews)
         openshot.Settings.Instance().HIGH_QUALITY_SCALING = False
+
+        # Return keyframes to preview scaling
+        if self.keyframes_rescaled:
+            get_app().project.rescale_keyframes(self.original_fps_factor)
 
         # Accept dialog
         super(Export, self).accept()
@@ -869,6 +895,10 @@ class Export(QDialog):
 
         # Return scale mode to lower quality scaling (for faster previews)
         openshot.Settings.Instance().HIGH_QUALITY_SCALING = False
+
+        # Return keyframes to preview scaling
+        if self.keyframes_rescaled:
+            get_app().project.rescale_keyframes(self.original_fps_factor)
 
         # Cancel dialog
         self.exporting = False
