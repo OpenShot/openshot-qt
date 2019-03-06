@@ -33,6 +33,7 @@ from copy import deepcopy
 from functools import partial
 from random import uniform
 from urllib.parse import urlparse
+from operator import itemgetter
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication, QTimer
@@ -717,7 +718,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         Time_None = Time_Menu.addAction(_("Reset Time"))
         Time_None.triggered.connect(partial(self.Time_Triggered, MENU_TIME_NONE, clip_ids, '1X'))
         Time_Menu.addSeparator()
-        for speed, speed_values in [("Normal", ['1X']), ("Fast", ['2X', '4X', '8X', '16X', '32X']), ("Slow", ['1/2X', '1/4X', '1/8X', '1/16X', '1/32X'])]:
+        for speed, speed_values in [("Normal", ['1X']), ("Fast", ['2X', '4X', '8X', '16X']), ("Slow", ['1/2X', '1/4X', '1/8X', '1/16X'])]:
             Speed_Menu = QMenu(_(speed), self)
 
             for direction, direction_value in [("Forward", MENU_TIME_FORWARD), ("Backward", MENU_TIME_BACKWARD)]:
@@ -946,13 +947,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 # Invalid clip, skip to next item
                 continue
 
-            # Filter out audio on the original clip
-            #p = openshot.Point(1, 0.0, openshot.CONSTANT) # Override has_audio keyframe to False
-            #p_object = json.loads(p.Json())
-            #clip.data["has_audio"] = { "Points" : [p_object]}
-
-            # Save filter on original clip
-            #clip.save()
+            # Get # of tracks
+            all_tracks = get_app().project.get(["layers"])
 
             # Clear audio override
             p = openshot.Point(1, -1.0, openshot.CONSTANT) # Override has_audio keyframe to False
@@ -979,14 +975,29 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 p_object = json.loads(p.Json())
                 clip.data["has_video"] = { "Points" : [p_object]}
 
+                # Get track below selected track (if any)
+                next_track_number = clip.data['layer']
+                found_track = False
+                for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
+                    if found_track:
+                        next_track_number = track.get("number")
+                        break
+                    if track.get("number") == clip.data['layer']:
+                        found_track = True
+                        continue
+
                 # Adjust the layer, so this new audio clip doesn't overlap the parent
-                clip.data['layer'] = clip.data['layer'] - 1 # Add to layer below clip
+                clip.data['layer'] = next_track_number # Add to layer below clip
 
                 # Adjust the clip title
                 channel_label = _("(all channels)")
                 clip.data["title"] = clip_title + " " + channel_label
                 # Save changes
                 clip.save()
+
+                # Generate waveform for new clip
+                log.info("Generate waveform for split audio track clip id: %s" % clip.id)
+                self.Show_Waveform_Triggered([clip.id])
 
             if action == MENU_SPLIT_AUDIO_MULTIPLE:
                 # Get # of channels on clip
@@ -1006,8 +1017,19 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                     p_object = json.loads(p.Json())
                     clip.data["has_video"] = { "Points" : [p_object]}
 
+                    # Get track below selected track (if any)
+                    next_track_number = clip.data['layer']
+                    found_track = False
+                    for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
+                        if found_track:
+                            next_track_number = track.get("number")
+                            break
+                        if track.get("number") == clip.data['layer']:
+                            found_track = True
+                            continue
+
                     # Adjust the layer, so this new audio clip doesn't overlap the parent
-                    clip.data['layer'] = max(clip.data['layer'] - 1, 0) # Add to layer below clip
+                    clip.data['layer'] = max(next_track_number, 0) # Add to layer below clip
 
                     # Adjust the clip title
                     channel_label = _("(channel %s)") % (channel + 1)
@@ -1015,6 +1037,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
                     # Save changes
                     clip.save()
+
+                    # Generate waveform for new clip
+                    log.info("Generate waveform for split audio track clip id: %s" % clip.id)
+                    self.Show_Waveform_Triggered([clip.id])
 
                     # Remove the ID property from the clip (so next time, it will create a new clip)
                     clip.id = None
@@ -1035,7 +1061,6 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             clip.data["has_audio"] = { "Points" : [p_object]}
 
             # Save filter on original clip
-            #clip.save()
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
             clip.save()
 
