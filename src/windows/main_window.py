@@ -1514,6 +1514,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Clear selected files
         self.selected_files = []
 
+        # Refresh preview
+        get_app().window.refreshFrameSignal.emit()
+
     def actionRemoveClip_trigger(self, event):
         log.info('actionRemoveClip_trigger')
 
@@ -1527,6 +1530,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
                 # Remove clip
                 c.delete()
+
+        # Refresh preview
+        get_app().window.refreshFrameSignal.emit()
 
     def actionProperties_trigger(self, event):
         log.info('actionProperties_trigger')
@@ -1567,6 +1573,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                     # Clear selected effects
                     self.removeSelection(effect_id, "effect")
 
+        # Refresh preview
+        get_app().window.refreshFrameSignal.emit()
+
     def actionRemoveTransition_trigger(self, event):
         log.info('actionRemoveTransition_trigger')
 
@@ -1580,6 +1589,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
                 # Remove transition
                 t.delete()
+
+        # Refresh preview
+        get_app().window.refreshFrameSignal.emit()
 
     def actionRemoveTrack_trigger(self, event):
         log.info('actionRemoveTrack_trigger')
@@ -1613,6 +1625,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Clear selected track
         self.selected_tracks = []
+
+        # Refresh preview
+        get_app().window.refreshFrameSignal.emit()
 
     def actionLockTrack_trigger(self, event):
         """Callback for locking a track"""
