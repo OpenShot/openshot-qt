@@ -744,7 +744,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionHelpContents_trigger(self, event):
         try:
-            webbrowser.open("https://www.openshot.org/%s/files/user-guide/?app-menu" % info.website_language())
+            webbrowser.open("https://www.openshot.org/%suser-guide/?app-menu" % info.website_language())
             log.info("Help Contents is open")
         except:
             QMessageBox.information(self, "Error !", "Unable to open the Help Contents. Please ensure the openshot-doc package is installed.")
@@ -763,19 +763,17 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionReportBug_trigger(self, event):
         try:
-            webbrowser.open("https://www.openshot.org/%s/issues/new/?app-menu" % info.website_language())
+            webbrowser.open("https://www.openshot.org/%sissues/new/?app-menu" % info.website_language())
             log.info("Open the Bug Report GitHub Issues web page with success")
         except:
             QMessageBox.information(self, "Error !", "Unable to open the Bug Report GitHub Issues web page")
-            log.info("Unable to open the Bug Report GitHub Issues web page")
 
     def actionAskQuestion_trigger(self, event):
         try:
-            webbrowser.open("https://github.com/OpenShot/openshot-qt/issues/new?template=Question.md")
-            log.info("Open the Questions GitHub Issues web page with success")
+            webbrowser.open("https://www.reddit.com/r/OpenShot/")
+            log.info("Open the official OpenShot subreddit web page with success")
         except:
-            QMessageBox.information(self, "Error !", "Unable to open the Questions GitHub Issues web page")
-            log.info("Unable to open the Questions GitHub Issues web page")
+            QMessageBox.information(self, "Error !", "Unable to open the official OpenShot subreddit web page")
 
     def actionTranslate_trigger(self, event):
         try:
@@ -783,23 +781,20 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             log.info("Open the Translate launchpad web page with success")
         except:
             QMessageBox.information(self, "Error !", "Unable to open the Translation web page")
-            log.info("Unable to open the Translation web page")
 
     def actionDonate_trigger(self, event):
         try:
-            webbrowser.open("https://www.openshot.org/%s/donate/?app-menu" % info.website_language())
+            webbrowser.open("https://www.openshot.org/%sdonate/?app-menu" % info.website_language())
             log.info("Open the Donate web page with success")
         except:
             QMessageBox.information(self, "Error !", "Unable to open the Donate web page")
-            log.info("Unable to open the Donate web page")
 
     def actionUpdate_trigger(self, event):
         try:
-            webbrowser.open("https://www.openshot.org/%s/download/?app-toolbar" % info.website_language())
+            webbrowser.open("https://www.openshot.org/%sdownload/?app-toolbar" % info.website_language())
             log.info("Open the Download web page with success")
         except:
             QMessageBox.information(self, "Error !", "Unable to open the Download web page")
-            log.info("Unable to open the Download web page")
 
     def actionPlay_trigger(self, event, force=None):
 
