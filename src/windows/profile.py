@@ -144,3 +144,10 @@ class Profile(QDialog):
 
         # Update Window Title
         get_app().window.SetWindowTitle(profile.info.description)
+
+        # Update max size (to size of video preview viewport)
+        viewport_rect = get_app().window.videoPreview.centeredViewport(get_app().window.videoPreview.width(), get_app().window.videoPreview.height())
+        get_app().window.timeline_sync.timeline.SetMaxSize(viewport_rect.width(), viewport_rect.height())
+
+        # Refresh frame (since size of preview might have changed)
+        QTimer.singleShot(500, get_app().window.refreshFrameSignal.emit)
