@@ -175,7 +175,7 @@ class Credits(QDialog):
 
         # Update supporter button
         supporter_text = _("Become a Supporter")
-        supporter_html = '<html><head/><body><p align="center"><a href="http://%s.openshot.org/donate/?app-about-us"><span style=" text-decoration: underline; color:#55aaff;">%s</span></a></p></body></html>' % (info.website_language(), supporter_text)
+        supporter_html = '<html><head/><body><p align="center"><a href="https://www.openshot.org/%sdonate/?app-about-us"><span style=" text-decoration: underline; color:#55aaff;">%s</span></a></p></body></html>' % (info.website_language(), supporter_text)
         self.lblBecomeSupporter.setText(supporter_html)
 
         # Get list of developers

@@ -325,6 +325,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Set Window title
         self.SetWindowTitle()
 
+        # Seek to frame 0
+        self.SeekSignal.emit(1)
+
     def actionAnimatedTitle_trigger(self, event):
         # show dialog
         from windows.animated_title import AnimatedTitle
