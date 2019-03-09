@@ -414,6 +414,14 @@ App.controller('TimelineCtrl',function($scope) {
 	 $("#scrolling_tracks").scrollLeft(new_cursor_x);
  };
 
+ // Update thumbnail for clip
+ $scope.updateThumbnail = function(clip_id) {
+ 	// Find matching clip, update thumbnail to same path (to force reload)
+	var existing_thumb_path = $("#clip_" + clip_id + " .thumb").attr("src");
+	timeline.qt_log(existing_thumb_path);
+	$("#clip_" + clip_id + " .thumb").attr("src", existing_thumb_path);
+ };
+
  // Set the audio data for a clip
  $scope.setAudioData = function(clip_id, audio_data) {
  	// Find matching clip

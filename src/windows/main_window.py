@@ -88,6 +88,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     MaxSizeChanged = pyqtSignal(object)
     InsertKeyframe = pyqtSignal(object)
     OpenProjectSignal = pyqtSignal(str)
+    ThumbnailUpdated = pyqtSignal(str)
 
     # Save window settings on close
     def closeEvent(self, event):
@@ -325,6 +326,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Set Window title
         self.SetWindowTitle()
 
+        # Seek to frame 0
+        self.SeekSignal.emit(1)
+
     def actionAnimatedTitle_trigger(self, event):
         # show dialog
         from windows.animated_title import AnimatedTitle
@@ -387,6 +391,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             # update clip
             c.data["reader"]["path"] = file_path
             c.save()
+
+            # Emit thumbnail update signal (to update timeline thumb image)
+            self.ThumbnailUpdated.emit(c.id)
 
     def actionDuplicateTitle_trigger(self, event):
 
@@ -744,7 +751,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionHelpContents_trigger(self, event):
         try:
-            webbrowser.open("https://www.openshot.org/%s/files/user-guide/?app-menu" % info.website_language())
+            webbrowser.open("https://www.openshot.org/%suser-guide/?app-menu" % info.website_language())
             log.info("Help Contents is open")
         except:
             QMessageBox.information(self, "Error !", "Unable to open the Help Contents. Please ensure the openshot-doc package is installed.")
@@ -763,19 +770,17 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionReportBug_trigger(self, event):
         try:
-            webbrowser.open("https://www.openshot.org/%s/issues/new/?app-menu" % info.website_language())
+            webbrowser.open("https://www.openshot.org/%sissues/new/?app-menu" % info.website_language())
             log.info("Open the Bug Report GitHub Issues web page with success")
         except:
             QMessageBox.information(self, "Error !", "Unable to open the Bug Report GitHub Issues web page")
-            log.info("Unable to open the Bug Report GitHub Issues web page")
 
     def actionAskQuestion_trigger(self, event):
         try:
-            webbrowser.open("https://github.com/OpenShot/openshot-qt/issues/new?template=Question.md")
-            log.info("Open the Questions GitHub Issues web page with success")
+            webbrowser.open("https://www.reddit.com/r/OpenShot/")
+            log.info("Open the official OpenShot subreddit web page with success")
         except:
-            QMessageBox.information(self, "Error !", "Unable to open the Questions GitHub Issues web page")
-            log.info("Unable to open the Questions GitHub Issues web page")
+            QMessageBox.information(self, "Error !", "Unable to open the official OpenShot subreddit web page")
 
     def actionTranslate_trigger(self, event):
         try:
@@ -783,23 +788,20 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             log.info("Open the Translate launchpad web page with success")
         except:
             QMessageBox.information(self, "Error !", "Unable to open the Translation web page")
-            log.info("Unable to open the Translation web page")
 
     def actionDonate_trigger(self, event):
         try:
-            webbrowser.open("https://www.openshot.org/%s/donate/?app-menu" % info.website_language())
+            webbrowser.open("https://www.openshot.org/%sdonate/?app-menu" % info.website_language())
             log.info("Open the Donate web page with success")
         except:
             QMessageBox.information(self, "Error !", "Unable to open the Donate web page")
-            log.info("Unable to open the Donate web page")
 
     def actionUpdate_trigger(self, event):
         try:
-            webbrowser.open("https://www.openshot.org/%s/download/?app-toolbar" % info.website_language())
+            webbrowser.open("https://www.openshot.org/%sdownload/?app-toolbar" % info.website_language())
             log.info("Open the Download web page with success")
         except:
             QMessageBox.information(self, "Error !", "Unable to open the Download web page")
-            log.info("Unable to open the Download web page")
 
     def actionPlay_trigger(self, event, force=None):
 
@@ -1519,6 +1521,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Clear selected files
         self.selected_files = []
 
+        # Refresh preview
+        get_app().window.refreshFrameSignal.emit()
+
     def actionRemoveClip_trigger(self, event):
         log.info('actionRemoveClip_trigger')
 
@@ -1532,6 +1537,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
                 # Remove clip
                 c.delete()
+
+        # Refresh preview
+        get_app().window.refreshFrameSignal.emit()
 
     def actionProperties_trigger(self, event):
         log.info('actionProperties_trigger')
@@ -1572,6 +1580,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                     # Clear selected effects
                     self.removeSelection(effect_id, "effect")
 
+        # Refresh preview
+        get_app().window.refreshFrameSignal.emit()
+
     def actionRemoveTransition_trigger(self, event):
         log.info('actionRemoveTransition_trigger')
 
@@ -1585,6 +1596,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
                 # Remove transition
                 t.delete()
+
+        # Refresh preview
+        get_app().window.refreshFrameSignal.emit()
 
     def actionRemoveTrack_trigger(self, event):
         log.info('actionRemoveTrack_trigger')
@@ -1618,6 +1632,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Clear selected track
         self.selected_tracks = []
+
+        # Refresh preview
+        get_app().window.refreshFrameSignal.emit()
 
     def actionLockTrack_trigger(self, event):
         """Callback for locking a track"""
