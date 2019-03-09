@@ -931,6 +931,12 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Start timer to redraw audio
         self.redraw_audio_timer.start()
 
+    def Thumbnail_Updated(self, clip_id):
+        """Callback when thumbnail needs to be updated"""
+        # Pass to javascript timeline (and render)
+        cmd = JS_SCOPE_SELECTOR + ".updateThumbnail('" + clip_id + "');"
+        self.page().mainFrame().evaluateJavaScript(cmd)
+
     def Split_Audio_Triggered(self, action, clip_ids):
         """Callback for split audio context menus"""
         log.info("Split_Audio_Triggered")
@@ -2726,7 +2732,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Adjust clip duration, start, and end
         new_clip["duration"] = new_clip["reader"]["duration"]
         if file.data["media_type"] == "image":
-            new_clip["end"] = self.settings.get("default-image-length")  # default to 8 seconds
+            new_clip["end"] = self.settings_obj.get("default-image-length")  # default to 8 seconds
 
         # Overwrite frame rate (incase the user changed it in the File Properties)
         file_properties_fps = float(file.data["fps"]["num"]) / float(file.data["fps"]["den"])
@@ -2960,8 +2966,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         self.last_position_frames = None
         self.document_is_ready = False
 
+        # Disable image caching on timeline
+        self.settings().setObjectCacheCapacities(0, 0, 0);
+
         # Get settings
-        self.settings = settings.get_settings()
+        self.settings_obj = settings.get_settings()
 
         # Add self as listener to project data updates (used to update the timeline)
         get_app().updates.add_listener(self)
@@ -2977,6 +2986,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Connect waveform generation signal
         get_app().window.WaveformReady.connect(self.Waveform_Ready)
+
+        # Connect update thumbnail signal
+        get_app().window.ThumbnailUpdated.connect(self.Thumbnail_Updated)
 
         # Copy clipboard
         self.copy_clipboard = {}

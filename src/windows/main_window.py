@@ -88,6 +88,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     MaxSizeChanged = pyqtSignal(object)
     InsertKeyframe = pyqtSignal(object)
     OpenProjectSignal = pyqtSignal(str)
+    ThumbnailUpdated = pyqtSignal(str)
 
     # Save window settings on close
     def closeEvent(self, event):
@@ -390,6 +391,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             # update clip
             c.data["reader"]["path"] = file_path
             c.save()
+
+            # Emit thumbnail update signal (to update timeline thumb image)
+            self.ThumbnailUpdated.emit(c.id)
 
     def actionDuplicateTitle_trigger(self, event):
 
