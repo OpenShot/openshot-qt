@@ -89,7 +89,7 @@ class TitlesListView(QListView):
         self.setUniformItemSizes(True)
         self.setWordWrap(True)
         self.setTextElideMode(Qt.ElideRight)
-        self.setStyleSheet('QListView::item { padding-top: 2px; }')
+        self.setStyleSheet('QListView::item { padding-top: 10px; }')
 
         # Refresh view
         self.refresh_view()

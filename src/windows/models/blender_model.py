@@ -148,5 +148,5 @@ class BlenderModel():
         # Create standard model
         self.app = get_app()
         self.model = QStandardItemModel()
-        self.model.setColumnCount(4)
+        self.model.setColumnCount(3)
         self.model_paths = {}
