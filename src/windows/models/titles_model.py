@@ -28,7 +28,7 @@
 import os
 import fnmatch
 
-from PyQt5.QtCore import QMimeData, Qt
+from PyQt5.QtCore import QMimeData, Qt, QSize
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QMessageBox
 import openshot  # Python module for libopenshot (required video editing module installed separately)
@@ -153,7 +153,9 @@ class TitlesModel():
 
             # Append thumbnail
             col = QStandardItem()
-            col.setIcon(QIcon(thumb_path))
+            icon_pixmap = QPixmap(thumb_path)
+            scaled_pixmap = icon_pixmap.scaled(QSize(93, 62), Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
+            col.setIcon(QIcon(scaled_pixmap))
             col.setText(title_name)
             col.setToolTip(title_name)
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)

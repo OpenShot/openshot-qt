@@ -618,7 +618,6 @@ class BlenderListView(QListView):
         self.setUniformItemSizes(True)
         self.setWordWrap(True)
         self.setTextElideMode(Qt.ElideRight)
-        self.setStyleSheet('QListView::item { padding-top: 10px; }')
 
         # Hook up button
         self.win.btnRefresh.clicked.connect(functools.partial(self.btnRefresh_clicked))
