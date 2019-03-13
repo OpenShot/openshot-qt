@@ -79,7 +79,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 ; Remove previous installed versions of OpenShot
 Type: filesandordirs; Name: "{app}\*"
 Type: dirifempty; Name: "{app}\*"
-Type: files; Name: "{group}\OpenShot Video Editor"
+Type: files; Name: "{group}\OpenShot Video Editor"; BeforeInstall: DeleteInvalidFiles
 
 [Registry]
 ; Remove previously installed registry keys (no longer needed)
@@ -97,3 +97,20 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: 
 [Run]
 ; Launch after installation
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+
+[Code]
+procedure DeleteInvalidFiles();
+begin
+  if (FileExists (ExpandConstant('{sys}\zlib1.dll'))) then
+  begin
+    RenameFile(ExpandConstant('{sys}\zlib1.dll'), ExpandConstant('{sys}\zlib1.DELETE'));
+  end;
+  if (FileExists (ExpandConstant('{win}\system32\zlib1.dll'))) then
+  begin
+    RenameFile(ExpandConstant('{win}\system32\zlib1.dll'), ExpandConstant('{win}\system32\zlib1.DELETE'));
+  end;
+  if (FileExists (ExpandConstant('{syswow64}\zlib1.dll'))) then
+  begin
+    RenameFile(ExpandConstant('{syswow64}\zlib1.dll'), ExpandConstant('{syswow64}\zlib1.DELETE'));
+  end;
+end;
