@@ -105,4 +105,12 @@ begin
   begin
     RenameFile(ExpandConstant('{sys}\zlib1.dll'), ExpandConstant('{sys}\zlib1.DELETE'));
   end;
+  if (FileExists (ExpandConstant('{win}\system32\zlib1.dll'))) then
+  begin
+    RenameFile(ExpandConstant('{win}\system32\zlib1.dll'), ExpandConstant('{win}\system32\zlib1.DELETE'));
+  end;
+  if (FileExists (ExpandConstant('{syswow64}\zlib1.dll'))) then
+  begin
+    RenameFile(ExpandConstant('{syswow64}\zlib1.dll'), ExpandConstant('{syswow64}\zlib1.DELETE'));
+  end;
 end;
