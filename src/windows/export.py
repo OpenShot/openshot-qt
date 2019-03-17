@@ -813,10 +813,12 @@ class Export(QDialog):
             # Close writer
             w.Close()
             seconds_left = end_time_export - start_time_export
-            statistics_output_text =  _("Duration %(hours)d:%(minutes)02d:%(seconds)02d\nequates %(fps)5.2f FPS") % { 'hours' : seconds_left / 3600,
+            statistics_output_text =  _("in %(hours)d:%(minutes)02d:%(seconds)02d   (%(fps)5.2f FPS) \nat %(timee)s\nCodec : %(vcodec)s") % { 'hours' : seconds_left / 3600,
                                                                                                                       'minutes': (seconds_left / 60) % 60,
                                                                                                                       'seconds': seconds_left % 60,
-                                                                                                                      'fps': fps_encode }
+                                                                                                                      'fps': fps_encode,
+                                                                                                                      'timee': time.asctime(),
+                                                                                                                      'vcodec': video_settings.get("vcodec") }
 
         except Exception as e:
             # TODO: Find a better way to catch the error. This is the only way I have found that
@@ -881,10 +883,10 @@ class Export(QDialog):
 
         if self.s.get("show_finished_window"):
 	        msg = QMessageBox()
-	        msg.setText(_("Video exported to file:\n     %s\n%s") % (export_file_with_path , statistics_output_text))
+	        msg.setText(_("to %s\n%s") % (export_file_with_path , statistics_output_text))
 	        msg.setWindowTitle("Export Video finished")
 	        msg.setIcon(QMessageBox.Information)
-	        msg.setStyleSheet("background-color: rgb(0, 70, 0); color: rgb(255, 255, 255)")
+	        msg.setStyleSheet("background-color: rgb(50, 127, 50); color: rgb(255, 255, 255)")
 	        msg.exec_()
 
     def reject(self):
