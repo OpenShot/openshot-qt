@@ -879,12 +879,13 @@ class Export(QDialog):
         # Accept dialog
         super(Export, self).accept()
 
-        msg = QMessageBox()
-        msg.setText(_("Video exported to file:\n     %s\n%s") % (export_file_with_path , statistics_output_text))
-        msg.setWindowTitle("Export Video finished")
-        msg.setIcon(QMessageBox.Information)
-        msg.setStyleSheet("background-color: rgb(0, 70, 0); color: rgb(255, 255, 255)")
-        msg.exec_()
+        if self.s.get("show_finished_window"):
+	        msg = QMessageBox()
+	        msg.setText(_("Video exported to file:\n     %s\n%s") % (export_file_with_path , statistics_output_text))
+	        msg.setWindowTitle("Export Video finished")
+	        msg.setIcon(QMessageBox.Information)
+	        msg.setStyleSheet("background-color: rgb(0, 70, 0); color: rgb(255, 255, 255)")
+	        msg.exec_()
 
     def reject(self):
         # Re-set OMP thread enabled flag

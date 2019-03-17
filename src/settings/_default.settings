@@ -326,6 +326,14 @@
     "setting": "send_metrics"
   },
   {
+    "value": false,
+    "title": "Show Window when Encode is finished",
+    "type": "bool",
+    "restart": false,
+    "category": "Debug",
+    "setting": "show_finished_window"
+  },
+  {
     "max": 4,
     "title": "Decode hw accel",
     "category": "Performance",
