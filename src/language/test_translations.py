@@ -40,7 +40,7 @@ language_path = os.path.dirname(os.path.abspath(__file__))
 app = QCoreApplication(sys.argv)
 
 # Load POT template (all English strings)
-POT_source = open(os.path.join(language_path, 'OpenShot.pot')).read()
+POT_source = open(os.path.join(language_path, 'OpenShot', 'OpenShot.pot')).read()
 all_strings = re.findall('^msgid \"(.*)\"', POT_source, re.MULTILINE)
 
 print("Testing {} strings in all translation files...\n".format(len(all_strings)))

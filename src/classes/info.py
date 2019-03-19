@@ -135,11 +135,11 @@ SETUP = {
 
 def website_language():
     """Get the current website language code for URLs"""
-    website_lang = "www"
     if CURRENT_LANGUAGE == "zh_CN":
-        website_lang = "zh-hans"
+        return "zh-hans/"
     elif CURRENT_LANGUAGE == "zh_TW":
-        website_lang = "zh-hant"
-    elif CURRENT_LANGUAGE != "en_US":
-        website_lang = CURRENT_LANGUAGE
-    return website_lang
+        return "zh-hant/"
+    elif CURRENT_LANGUAGE == "en_US":
+        return ""
+    else:
+        return "%s/" % CURRENT_LANGUAGE.split("_")[0].lower()
