@@ -292,9 +292,8 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.PreviewClipFrame = function(clip_id, position_seconds) {
 	  // Get the nearest starting frame position to the playhead (this helps to prevent cutting
 	  // in-between frames, and thus less likely to repeat or skip a frame).
-	  position_seconds_rounded = (Math.round(($scope.project.playhead_position * $scope.project.fps.num) / $scope.project.fps.den ) * $scope.project.fps.den ) / $scope.project.fps.num;
-
   	  // Determine frame
+  	  position_seconds_rounded = (Math.round((position_seconds * $scope.project.fps.num) / $scope.project.fps.den ) * $scope.project.fps.den ) / $scope.project.fps.num;
 	  var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
 	  var frame = Math.round(position_seconds_rounded * frames_per_second) + 1;
 
@@ -413,6 +412,14 @@ App.controller('TimelineCtrl',function($scope) {
 	 // Scroll back to correct cursor time (minus the difference of the cursor location)
 	 var new_cursor_x = Math.round((cursor_time * $scope.pixelsPerSecond) - center_x);
 	 $("#scrolling_tracks").scrollLeft(new_cursor_x);
+ };
+
+ // Update thumbnail for clip
+ $scope.updateThumbnail = function(clip_id) {
+ 	// Find matching clip, update thumbnail to same path (to force reload)
+	var existing_thumb_path = $("#clip_" + clip_id + " .thumb").attr("src");
+	timeline.qt_log(existing_thumb_path);
+	$("#clip_" + clip_id + " .thumb").attr("src", existing_thumb_path);
  };
 
  // Set the audio data for a clip
@@ -612,8 +619,8 @@ App.controller('TimelineCtrl',function($scope) {
 	// Call slice method and exit (don't actually select the clip)
 	if (id != "" && $scope.enable_razor) {
         if ($scope.Qt) {
-			cursor_seconds = $scope.GetJavaScriptPosition(event.clientX)
-            timeline.RazorSliceAtCursor(id, "", cursor_seconds)
+			cursor_seconds = $scope.GetJavaScriptPosition(event.clientX);
+            timeline.RazorSliceAtCursor(id, "", cursor_seconds);
         }
 		// Don't actually select clip
         return;
@@ -778,7 +785,7 @@ App.controller('TimelineCtrl',function($scope) {
  // Get the name of the track
  $scope.GetTrackName = function(layer_label, layer_number) {
 	// Determine custom label or default track name
-	if (layer_label.length > 0) {
+	if (layer_label && layer_label.length > 0) {
 		return layer_label;
 	}
 	else {
@@ -833,10 +840,10 @@ $scope.SetTrackLabel = function (label) {
 	var item_object = null;
 	if (item_type == 'clip') {
 		item_object = findElement($scope.project.clips, "id", item_id);
-	} 
+	}
 	else if (item_type == 'transition') {
 		item_object = findElement($scope.project.effects, "id", item_id);
-	} 
+	}
 	else {
 		// Bail out if no id found
 		return;
@@ -855,10 +862,10 @@ $scope.SetTrackLabel = function (label) {
 
 	// update clip in Qt (very important =)
 	if (item_type == 'clip') {
-		timeline.update_clip_data(JSON.stringify(item_object));
+		timeline.update_clip_data(JSON.stringify(item_object), true, true, false);
 	}
 	else if (item_type == 'transition') {
-		timeline.update_transition_data(JSON.stringify(item_object));
+		timeline.update_transition_data(JSON.stringify(item_object), true, false);
 	}
 
 	// Resize timeline if it's too small to contain all clips
@@ -890,13 +897,33 @@ $scope.SetTrackLabel = function (label) {
 			 $scope.SelectTransition(item_id, true);
 		 }
 	 });
-	 
+
+ 	// Select new clip object (and unselect others)
+	// This needs to be done inline due to async issues with the
+	// above calls to SelectClip/SelectTransition
+	for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
+		if ($scope.project.clips[clip_index].id == item_id) {
+			$scope.project.clips[clip_index].selected = true;
+		} else {
+			$scope.project.clips[clip_index].selected = false;
+		}
+	}
+
+	// Select new transition object (and unselect others)
+	for (var tran_index = 0; tran_index < $scope.project.effects.length; tran_index++) {
+		if ($scope.project.effects[tran_index].id == item_id) {
+			$scope.project.effects[tran_index].selected = true;
+		} else {
+			$scope.project.effects[tran_index].selected = false;
+		}
+	}
+
 	 // JQuery selector for element (clip or transition)
 	 var element_id = "#" + item_type + "_" + item_id;
 
 	 // Init bounding box
 	 bounding_box = {};
-	 setBoundingBox($(element_id));
+	 setBoundingBox($scope, $(element_id));
 
 	 // Init some variables to track the changing position
 	 bounding_box.previous_x = bounding_box.left;
@@ -1003,7 +1030,7 @@ $scope.SetTrackLabel = function (label) {
 	if ($scope.Qt) {
 		 timeline.qt_log('SortItems');
 
-		 $scope.$apply(function() {
+		 $scope.$evalAsync(function() {
 			 // Sort by position second
 			 $scope.project.clips = $scope.project.clips.sort(function(a,b) {
 				    if ( a.position < b.position ) {
@@ -1316,77 +1343,65 @@ $scope.SetTrackLabel = function (label) {
 		 		}
 		 	}
 		}
-	 	// Now that we have a matching object in the $scope.project...
-	 	if (current_object) { 
-	 		// INSERT OBJECT
-		 	if (action.type == "insert") {
-		 		// Insert action's value into current_object
-		 		if (current_object.constructor == Array) {
-		 			// push new element into array
-		 			$scope.$apply(function(){
-		 				current_object.push(action.value);
-		 			});
-		 		}
-		 		else {
-			 		// replace the entire value
-			 		if (previous_object.constructor == Array) {
-			 			// replace entire value in OBJECT
-			 			$scope.$apply(function() {
-			 				previous_object[current_position] = action.value;
-			 			});
-			 		} 
-			 		else if (previous_object.constructor == Object) {
-			 			// replace entire value in OBJECT
-			 			$scope.$apply(function() {
-			 				previous_object[current_key] = action.value;
-			 			});
-			 		}
-		 		}
-		 	} 
-		 	else if (action.type == "update") {
-				// UPDATE OBJECT
-				// Update: If action and current object are Objects
-				if (current_object.constructor == Object && action.value.constructor == Object) {
-					for (var update_key in action.value) {
-						if (update_key in current_object)
-						// Only copy over keys that exist in both action and current_object
-						$scope.$apply(function () {
-							current_object[update_key] = action.value[update_key];
-						});
-					}
-				}
-			 	else {
-			 		// replace the entire value
-			 		if (previous_object.constructor == Array) {
-			 			// replace entire value in OBJECT
-			 			$scope.$apply(function() {
-			 				previous_object[current_position] = action.value;
-			 			});
-			 		} 
-			 		else if (previous_object.constructor == Object) {
-			 			// replace entire value in OBJECT
-			 			$scope.$apply(function() {
-			 				previous_object[current_key] = action.value;
-			 			});
-			 		}
-			 	}		 		
-		 	} 
-		 	else if (action.type == "delete") {
-		 		// DELETE OBJECT
-		 		// delete current object from it's parent (previous object)
-		 		$scope.$apply(function() {
-		 			previous_object.splice(current_position, 1);
-		 		});
-		 	}
-		    // Resize timeline if it's too small to contain all clips
-		    $scope.ResizeTimeline();
-		 	
-		    // Re-sort clips and transitions array
-		    $scope.SortItems();
 
-			// Re-index Layer Y values
-			$scope.UpdateLayerIndex();
-	 	}
+        // Now that we have a matching object in the $scope.project...
+        if (current_object) {
+            // INSERT OBJECT
+            if (action.type == "insert") {
+                // Insert action's value into current_object
+                if (current_object.constructor == Array) {
+                    // push new element into array
+                    current_object.push(action.value);
+                }
+                else {
+                    // replace the entire value
+                    if (previous_object.constructor == Array) {
+                        // replace entire value in OBJECT
+                        previous_object[current_position] = action.value;
+                    }
+                    else if (previous_object.constructor == Object) {
+                        // replace entire value in OBJECT
+                        previous_object[current_key] = action.value;
+                    }
+                }
+            }
+            else if (action.type == "update") {
+                // UPDATE OBJECT
+                // Update: If action and current object are Objects
+                if (current_object.constructor == Object && action.value.constructor == Object) {
+                    for (var update_key in action.value) {
+                        if (update_key in current_object)
+                        // Only copy over keys that exist in both action and current_object
+                        current_object[update_key] = action.value[update_key];
+                    }
+                }
+                else {
+                    // replace the entire value
+                    if (previous_object.constructor == Array) {
+                        // replace entire value in OBJECT
+                        previous_object[current_position] = action.value;
+                    }
+                    else if (previous_object.constructor == Object) {
+                        // replace entire value in OBJECT
+                        previous_object[current_key] = action.value;
+                    }
+                }
+            }
+            else if (action.type == "delete") {
+                // DELETE OBJECT
+                // delete current object from it's parent (previous object)
+                previous_object.splice(current_position, 1);
+            }
+            // Resize timeline if it's too small to contain all clips
+            $scope.ResizeTimeline();
+
+            // Re-sort clips and transitions array
+            $scope.SortItems();
+
+            // Re-index Layer Y values
+            $scope.UpdateLayerIndex();
+        }
+		$scope.$digest();
 	}
 	// return true
 	return true;
@@ -1403,7 +1418,7 @@ $scope.SetTrackLabel = function (label) {
 	 });
 
      // Re-sort clips and transitions array
-     $scope.SortItems;
+     $scope.SortItems();
 
 	 // Re-index Layer Y values
 	 $scope.UpdateLayerIndex();

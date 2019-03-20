@@ -1,42 +1,42 @@
-""" 
+"""
  @file
  @brief This file listens to changes, and updates the primary project data
  @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
  @author Olivier Girard <eolinwen@gmail.com>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+import copy
+import glob
 import os
 import random
-import copy
 import shutil
-import glob
 
-from classes.json_data import JsonDataStore
-from classes.updates import UpdateInterface
 from classes import info, settings
+from classes.json_data import JsonDataStore
 from classes.logger import log
+from classes.updates import UpdateInterface
 
 
 class ProjectDataStore(JsonDataStore, UpdateInterface):
@@ -231,7 +231,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             # Add or Full Update
             # For adds to list perform an insert to index or the end if not specified
             if add and isinstance(parent, list):
-                # log.info("adding to list")
                 parent.append(values)
 
             # Otherwise, set the given index
@@ -309,12 +308,14 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         self.new()
 
         if file_path:
+            log.info("Loading project file: {}".format(file_path))
+
             # Default project data
             default_project = self._data
 
             try:
                 # Attempt to load v2.X project file
-                project_data = self.read_from_file(file_path)
+                project_data = self.read_from_file(file_path, path_mode="absolute")
 
             except Exception as ex:
                 try:
@@ -330,9 +331,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
             # On success, save current filepath
             self.current_filepath = file_path
-
-            # Convert all paths back to absolute
-            self.convert_paths_to_absolute()
 
             # Check if paths are all valid
             self.check_if_paths_are_valid()
@@ -359,6 +357,62 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Clear needs save flag
         self.has_unsaved_changes = False
+
+    def scale_keyframe_value(self, original_value, scale_factor):
+        """Scale keyframe X coordinate by some factor, except for 1 (leave that alone)"""
+        if original_value == 1.0:
+            # This represents the first frame of a clip (so we want to maintain that)
+            return original_value
+        else:
+            # Round to nearest INT
+            return round(original_value * scale_factor)
+
+    def rescale_keyframes(self, scale_factor):
+        """Adjust all keyframe coordinates from previous FPS to new FPS (using a scale factor)"""
+        log.info('Scale all keyframes by a factor of %s' % scale_factor)
+
+        # Loop through all clips (and look for Keyframe objects)
+        # Scale the X coordinate by factor (which represents the frame #)
+        for clip in self._data.get('clips', []):
+            for attribute in clip:
+                if type(clip.get(attribute)) == dict and "Points" in clip.get(attribute):
+                    for point in clip.get(attribute).get("Points"):
+                        if "co" in point:
+                            point["co"]["X"] = self.scale_keyframe_value(point["co"].get("X", 0.0), scale_factor)
+                if type(clip.get(attribute)) == dict and "red" in clip.get(attribute):
+                    for color in clip.get(attribute):
+                        for point in clip.get(attribute).get(color).get("Points"):
+                            if "co" in point:
+                                point["co"]["X"] = self.scale_keyframe_value(point["co"].get("X", 0.0), scale_factor)
+            for effect in clip.get("effects", []):
+                for attribute in effect:
+                    if type(effect.get(attribute)) == dict and "Points" in effect.get(attribute):
+                        for point in effect.get(attribute).get("Points"):
+                            if "co" in point:
+                                point["co"]["X"] = self.scale_keyframe_value(point["co"].get("X", 0.0), scale_factor)
+                    if type(effect.get(attribute)) == dict and "red" in effect.get(attribute):
+                        for color in effect.get(attribute):
+                            for point in effect.get(attribute).get(color).get("Points"):
+                                if "co" in point:
+                                    point["co"]["X"] = self.scale_keyframe_value(point["co"].get("X", 0.0), scale_factor)
+
+        # Loop through all effects/transitions (and look for Keyframe objects)
+        # Scale the X coordinate by factor (which represents the frame #)
+        for effect in self._data.get('effects',[]):
+            for attribute in effect:
+                if type(effect.get(attribute)) == dict and "Points" in effect.get(attribute):
+                    for point in effect.get(attribute).get("Points"):
+                        if "co" in point:
+                            point["co"]["X"] = self.scale_keyframe_value(point["co"].get("X", 0.0), scale_factor)
+                if type(effect.get(attribute)) == dict and "red" in effect.get(attribute):
+                    for color in effect.get(attribute):
+                        for point in effect.get(attribute).get(color).get("Points"):
+                            if "co" in point:
+                                point["co"]["X"] = self.scale_keyframe_value(point["co"].get("X", 0.0), scale_factor)
+
+        # Get app, and distribute all project data through update manager
+        from classes.app import get_app
+        get_app().updates.load(self._data)
 
     def read_legacy_project_file(self, file_path):
         """Attempt to read a legacy version 1.x openshot project file"""
@@ -425,7 +479,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                         try:
                             clip = openshot.Clip(item.name)
                             reader = clip.Reader()
-                            file_data = json.loads(reader.Json())
+                            file_data = json.loads(reader.Json(), strict=False)
 
                             # Determine media type
                             if file_data["has_video"] and not self.is_image(file_data):
@@ -494,7 +548,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             c = openshot.Clip(file_path)
 
                             # Append missing attributes to Clip JSON
-                            new_clip = json.loads(c.Json())
+                            new_clip = json.loads(c.Json(), strict=False)
                             new_clip["file_id"] = file.id
                             new_clip["title"] = filename
                             new_clip["image"] = thumb_path
@@ -513,9 +567,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             if clip.video_fade_in:
                                 # Add keyframes
                                 start = openshot.Point(round(clip.start_time * fps_float) + 1, 0.0, openshot.BEZIER)
-                                start_object = json.loads(start.Json())
+                                start_object = json.loads(start.Json(), strict=False)
                                 end = openshot.Point(round((clip.start_time + clip.video_fade_in_amount) * fps_float) + 1, 1.0, openshot.BEZIER)
-                                end_object = json.loads(end.Json())
+                                end_object = json.loads(end.Json(), strict=False)
                                 new_clip["alpha"]["Points"].append(start_object)
                                 new_clip["alpha"]["Points"].append(end_object)
 
@@ -523,9 +577,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             if clip.video_fade_out:
                                 # Add keyframes
                                 start = openshot.Point(round((clip.end_time - clip.video_fade_out_amount) * fps_float) + 1, 1.0, openshot.BEZIER)
-                                start_object = json.loads(start.Json())
+                                start_object = json.loads(start.Json(), strict=False)
                                 end = openshot.Point(round(clip.end_time * fps_float) + 1, 0.0, openshot.BEZIER)
-                                end_object = json.loads(end.Json())
+                                end_object = json.loads(end.Json(), strict=False)
                                 new_clip["alpha"]["Points"].append(start_object)
                                 new_clip["alpha"]["Points"].append(end_object)
 
@@ -534,16 +588,16 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                                 new_clip["volume"]["Points"] = []
                             else:
                                 p = openshot.Point(1, clip.volume / 100.0, openshot.BEZIER)
-                                p_object = json.loads(p.Json())
+                                p_object = json.loads(p.Json(), strict=False)
                                 new_clip["volume"] = { "Points" : [p_object]}
 
                             # Audio Fade IN
                             if clip.audio_fade_in:
                                 # Add keyframes
                                 start = openshot.Point(round(clip.start_time * fps_float) + 1, 0.0, openshot.BEZIER)
-                                start_object = json.loads(start.Json())
+                                start_object = json.loads(start.Json(), strict=False)
                                 end = openshot.Point(round((clip.start_time + clip.video_fade_in_amount) * fps_float) + 1, clip.volume / 100.0, openshot.BEZIER)
-                                end_object = json.loads(end.Json())
+                                end_object = json.loads(end.Json(), strict=False)
                                 new_clip["volume"]["Points"].append(start_object)
                                 new_clip["volume"]["Points"].append(end_object)
 
@@ -551,9 +605,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             if clip.audio_fade_out:
                                 # Add keyframes
                                 start = openshot.Point(round((clip.end_time - clip.video_fade_out_amount) * fps_float) + 1, clip.volume / 100.0, openshot.BEZIER)
-                                start_object = json.loads(start.Json())
+                                start_object = json.loads(start.Json(), strict=False)
                                 end = openshot.Point(round(clip.end_time * fps_float) + 1, 0.0, openshot.BEZIER)
-                                end_object = json.loads(end.Json())
+                                end_object = json.loads(end.Json(), strict=False)
                                 new_clip["volume"]["Points"].append(start_object)
                                 new_clip["volume"]["Points"].append(end_object)
 
@@ -591,9 +645,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                                 "position": trans.position_on_track,
                                 "start": 0,
                                 "end": trans.length,
-                                "brightness": json.loads(brightness.Json()),
-                                "contrast": json.loads(contrast.Json()),
-                                "reader": json.loads(transition_reader.Json()),
+                                "brightness": json.loads(brightness.Json(), strict=False),
+                                "contrast": json.loads(contrast.Json(), strict=False),
+                                "reader": json.loads(transition_reader.Json(), strict=False),
                                 "replace_image": False
                             }
 
@@ -687,13 +741,11 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         """ Save project file to disk """
         import openshot
 
+        log.info("Saving project file: {}".format(file_path))
+
         # Move all temp files (i.e. Blender animations) to the project folder
         if move_temp_files:
             self.move_temp_paths_to_project_folder(file_path)
-
-        # Convert all file paths to relative based on this new project file's directory
-        if make_paths_relative:
-            self.convert_paths_to_relative(file_path)
 
         # Append version info
         v = openshot.GetVersion()
@@ -701,14 +753,10 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                                   "libopenshot" : v.ToString() }
 
         # Try to save project settings file, will raise error on failure
-        self.write_to_file(file_path, self._data)
+        self.write_to_file(file_path, self._data, path_mode="relative", previous_path=self.current_filepath)
 
         # On success, save current filepath
         self.current_filepath = file_path
-
-        # Convert all paths back to absolute
-        if make_paths_relative:
-            self.convert_paths_to_absolute()
 
         # Add to recent files setting
         self.add_to_recent_files(file_path)
@@ -825,72 +873,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         s.set("recent_projects", recent_projects)
         s.save()
 
-    def convert_paths_to_relative(self, file_path):
-        """ Convert all paths relative to this filepath """
-        try:
-            # Get project folder
-            existing_project_folder = None
-            if self.current_filepath:
-                existing_project_folder = os.path.dirname(self.current_filepath)
-            new_project_folder = os.path.dirname(file_path)
-
-            # Loop through each file
-            for file in self._data["files"]:
-                path = file["path"]
-                # Find absolute path of file (if needed)
-                if not os.path.isabs(path):
-                    # Convert path to the correct relative path (based on the existing folder)
-                    path = os.path.abspath(os.path.join(existing_project_folder, path))
-
-                # Convert absolute path to relavite
-                file["path"] = os.path.relpath(path, new_project_folder)
-
-            # Loop through each clip
-            for clip in self._data["clips"]:
-                # Update reader path
-                path = clip["reader"]["path"]
-                # Find absolute path of file (if needed)
-                if not os.path.isabs(path):
-                    # Convert path to the correct relative path (based on the existing folder)
-                    path = os.path.abspath(os.path.join(existing_project_folder, path))
-                # Convert absolute path to relavite
-                clip["reader"]["path"] = os.path.relpath(path, new_project_folder)
-
-                # Update clip image path
-                path = clip["image"]
-                # Find absolute path of file (if needed)
-                if not os.path.isabs(path):
-                    # Convert path to the correct relative path (based on the existing folder)
-                    path = os.path.abspath(os.path.join(existing_project_folder, path))
-                # Convert absolute path to relavite
-                clip["image"] = os.path.relpath(path, new_project_folder)
-
-            # Loop through each transition
-            for effect in self._data["effects"]:
-                # Update reader path
-                path = effect["reader"]["path"]
-
-                # Determine if this path is the official transition path
-                folder_path, file_path = os.path.split(path)
-                if os.path.join(info.PATH, "transitions") in folder_path:
-                    # Yes, this is an OpenShot transitions
-                    folder_path, category_path = os.path.split(folder_path)
-
-                    # Convert path to @transitions/ path
-                    effect["reader"]["path"] = os.path.join("@transitions", category_path, file_path)
-                    continue
-
-                # Find absolute path of file (if needed)
-                if not os.path.isabs(path):
-                    # Convert path to the correct relative path (based on the existing folder)
-                    path = os.path.abspath(os.path.join(existing_project_folder, path))
-                # Convert absolute path to relavite
-                effect["reader"]["path"] = os.path.relpath(path, new_project_folder)
-
-        except Exception as ex:
-            log.error("Error while converting absolute paths to relative paths: %s" % str(ex))
-
-
     def check_if_paths_are_valid(self):
         """Check if all paths are valid, and prompt to update them if needed"""
         # Get import path or project folder
@@ -906,100 +888,66 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
+        log.info("checking project files...")
+
         # Loop through each files (in reverse order)
         for file in reversed(self._data["files"]):
             path = file["path"]
             parent_path, file_name_with_ext = os.path.split(path)
+
+            log.info("checking file %s" % path)
             while not os.path.exists(path) and "%" not in path:
-                # File already exists! Prompt user to find missing file
-                QMessageBox.warning(None, _("Missing File (%s)") % file["id"], _("%s cannot be found.") % file_name_with_ext)
-                starting_folder = QFileDialog.getExistingDirectory(None, _("Find directory that contains: %s" % file_name_with_ext), starting_folder)
-                log.info("Missing folder chosen by user: %s" % starting_folder)
-                if starting_folder:
-                    # Update file path and import_path
-                    path = os.path.join(starting_folder, file_name_with_ext)
+                # File already exists!
+                # try to find file with previous starting folder:
+                if starting_folder and os.path.exists(os.path.join(starting_folder, file_name_with_ext)):
+                    # Update file path
+                    path = os.path.abspath(os.path.join(starting_folder, file_name_with_ext))
                     file["path"] = path
                     get_app().updates.update(["import_path"], os.path.dirname(path))
-                else:
-                    log.info('Removed missing file: %s' % file_name_with_ext)
-                    self._data["files"].remove(file)
+                    log.info("Auto-updated missing file: %s" % path)
                     break
+                else:
+                    # Prompt user to find missing file
+                    QMessageBox.warning(None, _("Missing File (%s)") % file["id"], _("%s cannot be found.") % file_name_with_ext)
+                    starting_folder = QFileDialog.getExistingDirectory(None, _("Find directory that contains: %s" % file_name_with_ext), starting_folder)
+                    log.info("Missing folder chosen by user: %s" % starting_folder)
+                    if starting_folder:
+                        # Update file path and import_path
+                        path = os.path.abspath(os.path.join(starting_folder, file_name_with_ext))
+                        file["path"] = path
+                        get_app().updates.update(["import_path"], os.path.dirname(path))
+                    else:
+                        log.info('Removed missing file: %s' % file_name_with_ext)
+                        self._data["files"].remove(file)
+                        break
 
         # Loop through each clip (in reverse order)
         for clip in reversed(self._data["clips"]):
             path = clip["reader"]["path"]
             parent_path, file_name_with_ext = os.path.split(path)
+
+            log.info("checking file %s" % path)
             while not os.path.exists(path) and "%" not in path:
                 # Clip already exists! Prompt user to find missing file
-                QMessageBox.warning(None, _("Missing File in Clip (%s)") % clip["id"], _("%s cannot be found.") % file_name_with_ext)
-                starting_folder = QFileDialog.getExistingDirectory(None, _("Find directory that contains: %s" % file_name_with_ext), starting_folder)
-                log.info("Missing folder chosen by user: %s" % starting_folder)
-                if starting_folder:
+                # try to find clip with previous starting folder:
+                if starting_folder and os.path.exists(os.path.join(starting_folder, file_name_with_ext)):
                     # Update clip path
-                    path = os.path.join(starting_folder, file_name_with_ext)
+                    path = os.path.abspath(os.path.join(starting_folder, file_name_with_ext))
                     clip["reader"]["path"] = path
-                else:
-                    log.info('Removed missing clip: %s' % file_name_with_ext)
-                    self._data["clips"].remove(clip)
+                    log.info("Auto-updated missing file: %s" % clip["reader"]["path"])
                     break
-
-    def convert_paths_to_absolute(self):
-        """ Convert all paths to absolute """
-        try:
-            # Get project folder
-            existing_project_folder = None
-            if self.current_filepath:
-                existing_project_folder = os.path.dirname(self.current_filepath)
-
-            # Loop through each file
-            for file in self._data["files"]:
-                path = file["path"]
-                # Find absolute path of file (if needed)
-                if not os.path.isabs(path):
-                    # Convert path to the correct relative path (based on the existing folder)
-                    path = os.path.abspath(os.path.join(existing_project_folder, path))
-
-                # Convert absolute path to relavite
-                file["path"] = path
-
-            # Loop through each clip
-            for clip in self._data["clips"]:
-                # Update reader path
-                path = clip["reader"]["path"]
-                # Find absolute path of file (if needed)
-                if not os.path.isabs(path):
-                    # Convert path to the correct relative path (based on the existing folder)
-                    path = os.path.abspath(os.path.join(existing_project_folder, path))
-                # Convert absolute path to relavite
-                clip["reader"]["path"] = path
-
-                # Update clip image path
-                path = clip["image"]
-                # Find absolute path of file (if needed)
-                if not os.path.isabs(path):
-                    # Convert path to the correct relative path (based on the existing folder)
-                    path = os.path.abspath(os.path.join(existing_project_folder, path))
-                # Convert absolute path to relavite
-                clip["image"] = path
-
-            # Loop through each transition
-            for effect in self._data["effects"]:
-                # Update reader path
-                path = effect["reader"]["path"]
-
-                # Determine if @transitions path is found
-                if "@transitions" in path:
-                    path = path.replace("@transitions", os.path.join(info.PATH, "transitions"))
-
-                # Find absolute path of file (if needed)
-                if not os.path.isabs(path):
-                    # Convert path to the correct relative path (based on the existing folder)
-                    path = os.path.abspath(os.path.join(existing_project_folder, path))
-                # Convert absolute path to relavite
-                effect["reader"]["path"] = path
-
-        except Exception as ex:
-            log.error("Error while converting relative paths to absolute paths: %s" % str(ex))
+                else:
+                    QMessageBox.warning(None, _("Missing File in Clip (%s)") % clip["id"], _("%s cannot be found.") % file_name_with_ext)
+                    starting_folder = QFileDialog.getExistingDirectory(None, _("Find directory that contains: %s" % file_name_with_ext), starting_folder)
+                    log.info("Missing folder chosen by user: %s" % starting_folder)
+                    if starting_folder:
+                        # Update clip path
+                        path = os.path.abspath(os.path.join(starting_folder, file_name_with_ext))
+                        clip["reader"]["path"] = path
+                    else:
+                        log.info('Removed missing clip: %s' % file_name_with_ext)
+                        self._data["clips"].remove(clip)
+                        break
 
     def changed(self, action):
         """ This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """

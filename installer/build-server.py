@@ -33,7 +33,6 @@ PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary o
 import datetime
 import platform
 import shutil
-from slacker import Slacker
 import re
 import stat
 import subprocess
@@ -42,6 +41,8 @@ import tinys3
 import time
 import traceback
 from github3 import login
+from requests.auth import HTTPBasicAuth
+from requests import post
 
 # Access info class (for version info)
 sys.path.append(os.path.join(PATH, 'src', 'classes'))
@@ -50,8 +51,7 @@ import info
 freeze_command = None
 errors_detected = []
 make_command = "make"
-slack_token = None
-slack_object = None
+zulip_token = None
 s3_access_key = None
 s3_secret_key = None
 s3_connection = None
@@ -75,6 +75,7 @@ def run_command(command, working_dir=None):
                          stderr=subprocess.STDOUT)
     return iter(p.stdout.readline, b"")
 
+
 def output(line):
     """Append output to list and print it"""
     print(line)
@@ -86,6 +87,7 @@ def output(line):
         line += "\n"
     log.write(line)
 
+
 def error(line):
     """Append error output to list and print it"""
     print("Error: %s" % line)
@@ -95,6 +97,7 @@ def error(line):
     else:
         log.write(line)
 
+
 def truncate(message, max=256):
     """Truncate the message with ellipses"""
     if len(message) < max:
@@ -102,36 +105,45 @@ def truncate(message, max=256):
     else:
         return "%s..." % message[:max]
 
-def slack(message):
-    """Append a message to slack #build-server channel"""
-    print("Slack: %s" % message)
-    if slack_object:
-        slack_object.chat.post_message("#build-server", truncate(message[:256]))
 
-def slack_upload_log(log, title, comment=None):
-    """Upload a file to slack and notify a slack channel"""
+def zulip_upload_log(log, title, comment=None):
+    """Upload a file to zulip and notify a zulip channel"""
+    output("Zulip Upload: %s" % log_path)
+
     # Close log file
     log.close()
 
-    print("Slack Upload: %s" % log_path)
-    if slack_object:
-        for attempt in range(3):
-            try:
-                # Upload build log to slack (and append platform icon to comment [:linux:, :windows:, or :darwin:])
-                slack_object.files.upload(log_path, filetype="txt", filename="%s-build-server.txt" % platform.system(),
-                                          title=title, initial_comment=':%s: %s' % (platform.system().lower(), comment), channels="#build-server")
-                # Successfully uploaded!
-                break
-            except Exception as ex:
-                # Quietly fail, and try again
-                if attempt < 2:
-                    output("Upload log to Slack failed... trying again")
-                else:
-                    # Throw loud exception
-                    raise Exception('Log upload to Slack failed: %s' % log_path, ex)
+    # Authentication for Zulip
+    zulip_auth = HTTPBasicAuth('builder-bot@openshot.zulipchat.com', zulip_token)
+    filename = "%s-build-server.txt" % platform.system()
+
+    # Upload file to Zulip
+    zulip_url = 'https://openshot.zulipchat.com/api/v1/user_uploads'
+    zulip_upload_url = ''
+    resp = post(zulip_url, data={}, auth=zulip_auth, files={filename: (filename, open(log_path, "rb"))})
+    if resp.ok:
+        zulip_upload_url = resp.json().get("uri", "")
+    print(resp)
+
+    # Determine topic
+    topic = "Successful Builds"
+    if "skull" in comment:
+        topic = "Failed Builds"
+
+    # SEND MESSAGE
+    zulip_url = 'https://openshot.zulipchat.com/api/v1/messages'
+    zulip_data = {
+        "type": "stream",
+        "to": "build-server",
+        "subject": topic,
+        "content": ':%s: %s [Build Log](%s)' % (platform.system().lower(), comment, zulip_upload_url)
+    }
+
+    resp = post(zulip_url, data=zulip_data, auth=zulip_auth)
 
     # Re-open the log (for append)
     log = open(log_path, "a")
+    print(resp)
 
 def get_release(repo, tag_name):
     """Fetch the GitHub release tagged with the given tag and return it
@@ -191,8 +203,7 @@ def parse_version_info(version_path):
 try:
     # Validate command-line arguments
     if len(sys.argv) >= 2:
-        slack_token = sys.argv[1]
-        slack_object = Slacker(slack_token)
+        zulip_token = sys.argv[1]
     if len(sys.argv) >= 4:
         s3_access_key = sys.argv[2]
         s3_secret_key = sys.argv[3]
@@ -237,37 +248,36 @@ try:
     # Get GIT description of openshot-qt-git branch (i.e. v2.0.6-18-ga01a98c)
     openshot_qt_git_desc = ""
     needs_upload = True
-    for line in run_command("git describe --tags"):
-        git_description = line.decode("utf-8").strip()
-        openshot_qt_git_desc = "OpenShot-%s" % git_description
 
-        # Add num of commits from libopenshot and libopenshot-audio (for naming purposes)
-        # If not an official release
-        if git_branch_name == "develop":
-            # Make filename more descriptive for daily builds (add time epoch)
-            openshot_qt_git_desc = "OpenShot-v%s-%d" % (info.VERSION, int(time.time()))
-            openshot_qt_git_desc = "%s-%s-%s" % (openshot_qt_git_desc, version_info.get('libopenshot').get('CI_COMMIT_SHA')[:8], version_info.get('libopenshot-audio').get('CI_COMMIT_SHA')[:8])
-            # Get daily git_release object
-            github_release = get_release(repo, "daily")
-        elif git_branch_name == "release":
-            # Get daily git_release object
-            openshot_qt_git_desc = "OpenShot-v%s-release-candidate-%d" % (info.VERSION, int(time.time()))
-            github_release = get_release(repo, "daily")
-        elif git_branch_name == "master":
-            # Get official version release (i.e. v2.1.0, v2.x.x)
-            github_release = get_release(repo, git_description)
+    # Add num of commits from libopenshot and libopenshot-audio (for naming purposes)
+    # If not an official release
+    if git_branch_name == "develop":
+        # Make filename more descriptive for daily builds (add time epoch)
+        openshot_qt_git_desc = "OpenShot-v%s-%d" % (info.VERSION, int(time.time()))
+        openshot_qt_git_desc = "%s-%s-%s" % (openshot_qt_git_desc, version_info.get('libopenshot').get('CI_COMMIT_SHA')[:8], version_info.get('libopenshot-audio').get('CI_COMMIT_SHA')[:8])
+        # Get daily git_release object
+        github_release = get_release(repo, "daily")
+    elif git_branch_name.startswith("release"):
+        # Get daily git_release object
+        openshot_qt_git_desc = "OpenShot-v%s-release-candidate-%d" % (info.VERSION, int(time.time()))
+        github_release = get_release(repo, "daily")
+    elif git_branch_name == "master":
+        # Get official version release (i.e. v2.1.0, v2.x.x)
+        openshot_qt_git_desc = "OpenShot-v%s" % info.VERSION
+        github_release_name = "v%s" % info.VERSION
+        github_release = get_release(repo, github_release_name)
 
-            # If no release is found, create a new one
-            if not github_release:
-                # Create a new release if one if missing
-                github_release = repo.create_release(git_description, target_commitish="master", prerelease=True)
-        else:
-            # Make filename more descriptive for daily builds
-            openshot_qt_git_desc = "OpenShot-v%s-%d" % (info.VERSION, int(time.time()))
-            openshot_qt_git_desc = "%s-%s-%s" % (openshot_qt_git_desc, version_info.get('libopenshot').get('CI_COMMIT_SHA')[:8], version_info.get('libopenshot-audio').get('CI_COMMIT_SHA')[:8])
-            # Get daily git_release object
-            github_release = get_release(repo, "daily")
-            needs_upload = False
+        # If no release is found, create a new one
+        if not github_release:
+            # Create a new release if one if missing
+            github_release = repo.create_release(github_release_name, target_commitish="master", prerelease=True)
+    else:
+        # Make filename more descriptive for daily builds
+        openshot_qt_git_desc = "OpenShot-v%s-%d" % (info.VERSION, int(time.time()))
+        openshot_qt_git_desc = "%s-%s-%s" % (openshot_qt_git_desc, version_info.get('libopenshot').get('CI_COMMIT_SHA')[:8], version_info.get('libopenshot-audio').get('CI_COMMIT_SHA')[:8])
+        # Get daily git_release object
+        github_release = get_release(repo, "daily")
+        needs_upload = False
 
     # Output git description
     output("git description of openshot-qt-git: %s" % openshot_qt_git_desc)
@@ -493,8 +503,8 @@ try:
             # Torrent succeeded! Upload the torrent to github
             url = upload(torrent_path, github_release)
 
-            # Notify Slack
-            slack_upload_log(log, "%s: Build logs for %s" % (platform.system(), app_name), "Successful *%s* build: %s" % (git_branch_name, download_url))
+            # Notify Zulip
+            zulip_upload_log(log, "%s: Build logs for %s" % (platform.system(), app_name), "Successful *%s* build: %s" % (git_branch_name, download_url))
 
 except Exception as ex:
     tb = traceback.format_exc()
@@ -503,6 +513,6 @@ except Exception as ex:
 
 # Report any errors detected
 if errors_detected:
-    slack_upload_log(log, "%s: Error log for *%s* build" % (platform.system(), git_branch_name), ":skull_and_crossbones: %s" % truncate(errors_detected[0], 150))
+    zulip_upload_log(log, "%s: Error log for *%s* build" % (platform.system(), git_branch_name), ":skull_and_crossbones: %s" % truncate(errors_detected[0], 100))
     exit(1)
 

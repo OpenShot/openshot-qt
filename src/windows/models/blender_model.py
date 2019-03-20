@@ -28,7 +28,7 @@
 import os
 import xml.dom.minidom as xml
 
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QMessageBox
 import openshot  # Python module for libopenshot (required video editing module installed separately)
@@ -108,7 +108,9 @@ class BlenderModel():
 
                 # Append thumbnail
                 col = QStandardItem()
-                col.setIcon(QIcon(thumb_path))
+                icon_pixmap = QPixmap(thumb_path)
+                scaled_pixmap = icon_pixmap.scaled(QSize(93, 62), Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
+                col.setIcon(QIcon(scaled_pixmap))
                 col.setText(self.app._tr(title))
                 col.setToolTip(self.app._tr(title))
                 col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
@@ -148,5 +150,5 @@ class BlenderModel():
         # Create standard model
         self.app = get_app()
         self.model = QStandardItemModel()
-        self.model.setColumnCount(4)
+        self.model.setColumnCount(3)
         self.model_paths = {}

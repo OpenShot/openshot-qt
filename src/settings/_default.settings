@@ -58,30 +58,30 @@
   {
     "value": "blender",
     "title": "Blender Command (path)",
-    "type": "text",
+    "type": "browse",
     "category": "General",
     "setting": "blender_command"
   },
   {
     "value": "inkscape",
     "title": "Advanced Title Editor (path)",
-    "type": "text",
+    "type": "browse",
     "category": "General",
     "setting": "title_editor"
   },
   {
-    "value": "AAAA/wAAAAD9AAAAAwAAAAAAAAD8AAAA9PwCAAAAAfwAAAILAAAA9AAAAAAA////+v////8CAAAAAvsAAAAcAGQAbwBjAGsAUAByAG8AcABlAHIAdABpAGUAcwAAAAAA/////wAAAKEA////+wAAABgAZABvAGMAawBLAGUAeQBmAHIAYQBtAGUAAAAAAP////8AAAATAP///wAAAAEAAAEcAAABQPwCAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAAAAAACAAAEqwAAAdz8AQAAAAL8AAAAAAAAAWQAAAB7AP////oAAAAAAgAAAAP7AAAAEgBkAG8AYwBrAEYAaQBsAGUAcwEAAAAA/////wAAAJgA////+wAAAB4AZABvAGMAawBUAHIAYQBuAHMAaQB0AGkAbwBuAHMBAAAAAP////8AAACYAP////sAAAAWAGQAbwBjAGsARQBmAGYAZQBjAHQAcwEAAAAA/////wAAAJgA////+wAAABIAZABvAGMAawBWAGkAZABlAG8BAAABagAAA0EAAAA6AP///wAABKsAAAD2AAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAHQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAA==",
+    "value": "AAAA/wAAAAD9AAAAAwAAAAAAAAEnAAAC3/wCAAAAAvwAAAJeAAAApwAAAAAA////+gAAAAACAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAAAAAAD/////AAAAAAAAAAD7AAAAHABkAG8AYwBrAFAAcgBvAHAAZQByAHQAaQBlAHMAAAAAJwAAAt8AAACnAP///wAAAAEAAAEcAAABQPwCAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAAAAAACAAAERgAAAtj8AQAAAAH8AAAAAAAABEYAAAD6AP////wCAAAAAvwAAAAnAAABwAAAALQA/////AEAAAAC/AAAAAAAAAFcAAAAewD////6AAAAAAIAAAAD+wAAABIAZABvAGMAawBGAGkAbABlAHMBAAAAAP////8AAACYAP////sAAAAeAGQAbwBjAGsAVAByAGEAbgBzAGkAdABpAG8AbgBzAQAAAAD/////AAAAmAD////7AAAAFgBkAG8AYwBrAEUAZgBmAGUAYwB0AHMBAAAAAP////8AAACYAP////sAAAASAGQAbwBjAGsAVgBpAGQAZQBvAQAAAWIAAALkAAAARwD////7AAAAGABkAG8AYwBrAFQAaQBtAGUAbABpAG4AZQEAAAHtAAABEgAAAJYA////AAAERgAAAAEAAAABAAAAAgAAAAEAAAAC/AAAAAEAAAACAAAAAQAAAA4AdABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAA",
     "title": "",
     "type": "hidden",
     "category": "Qt",
-    "setting": "window_state"
+    "setting": "window_state_v2"
   },
   {
-    "value": "AdnQywABAAAAAAEkAAAAVwAABeIAAAObAAABLgAAAH0AAAXYAAADkQAAAAAAAA==",
+    "value": "AdnQywACAAAAAABWAAAAMwAABJsAAANqAAAAVgAAAE8AAASbAAADagAAAAAAAAAAB4A=",
     "title": "",
     "type": "hidden",
     "category": "Qt",
-    "setting": "window_geometry"
+    "setting": "window_geometry_v2"
   },
   {
     "value": "",
@@ -220,7 +220,7 @@
     "category": "Autosave",
     "min": 0,
     "setting": "history-limit",
-    "value": 20,
+    "value": 15,
     "type": "spinner-int"
   },
   {
@@ -326,7 +326,7 @@
     "setting": "send_metrics"
   },
   {
-    "value": true,
+    "value": false,
     "title": "Enable Hardware Decode",
     "type": "hidden",
     "restart": true,
@@ -334,10 +334,18 @@
     "setting": "hardware_decode"
   },
   {
+    "value": false,
+    "title": "Enable Hardware Encode",
+    "type": "hidden",
+    "restart": true,
+    "category": "Performance",
+    "setting": "hardware_encode"
+  },
+  {
     "value": true,
     "title": "Process Video Frames in Parallel (Experimental)",
     "type": "bool",
-    "restart": true,
+    "restart": false,
     "category": "Performance",
     "setting": "omp_threads_enabled"
   },

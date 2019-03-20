@@ -27,6 +27,7 @@
  """
 
 import os, math
+from operator import itemgetter
 from random import shuffle, randint, uniform
 
 from PyQt5.QtWidgets import *
@@ -481,12 +482,14 @@ class AddToTimeline(QDialog):
         self.txtFadeLength.valueChanged.connect(self.updateTotal)
         self.txtTransitionLength.valueChanged.connect(self.updateTotal)
 
-        # Add all tracks to dropdown
-        tracks = Track.filter()
-        for track in reversed(tracks):
+        # Find display track number
+        all_tracks = get_app().project.get(["layers"])
+        display_count = len(all_tracks)
+        for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
             # Add to dropdown
-            track_name = track.data['label'] or _("Track %s") % track.data['number']
-            self.cmbTrack.addItem(track_name, track.data['number'])
+            track_name = track.get('label') or _("Track %s") % display_count
+            self.cmbTrack.addItem(track_name, track.get('number'))
+            display_count -= 1
 
         # Add all fade options
         self.cmbFade.addItem(_('None'), None)
