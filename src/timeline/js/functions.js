@@ -59,7 +59,7 @@ function drawAudio(scope, clip_id){
         // Determine start and stop samples
         var samples_per_second = 20;
         var block_width = 2; // 2 pixel wide blocks as smallest size
-        var start_sample = clip.start * samples_per_second;
+        var start_sample = Math.round(clip.start * samples_per_second);
         var end_sample = clip.end * samples_per_second;
 
         // Determine divisor for zoom scale
@@ -92,11 +92,11 @@ function drawAudio(scope, clip_id){
         ctx.stroke();
         
         
-        var sample = 0,
+        var sample = 0.0,
             // Variables for accumulation
-            avg = 0,
+            avg = 0.0,
             avg_cnt = 0,
-            max = 0,
+            max = 0.0,
             last_x = 0;
         
         // Go through all of the (reduced) samples
@@ -106,14 +106,14 @@ function drawAudio(scope, clip_id){
             sample = Math.abs(clip.audio_data[i]);
             // X-Position of *next* sample
             x = Math.floor((i + 1 - start_sample) / sample_divisor);
-            
+
             avg += sample;
             avg_cnt++;
             max = Math.max(max, sample);
             
             if(x >= last_x + block_width || i == end_sample-1){
                 // Block wide enough or last block -> draw it
-                
+
                 // Draw the slightly transparent max-bar
                 ctx.fillStyle = color_transp;
                 ctx.fillRect(last_x, mid_point, x-last_x, -(max * scale));
