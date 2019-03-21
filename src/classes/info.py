@@ -29,9 +29,9 @@ import os
 
 from PyQt5.QtCore import QDir
 
-VERSION = "2.4.3-dev3"
-MINIMUM_LIBOPENSHOT_VERSION = "0.2.2"
-DATE = "20180922000000"
+VERSION = "2.4.4"
+MINIMUM_LIBOPENSHOT_VERSION = "0.2.3"
+DATE = "20190315000000"
 NAME = "openshot-qt"
 PRODUCT_NAME = "OpenShot Video Editor"
 GPL_VERSION = "3"
@@ -52,13 +52,14 @@ TITLE_PATH = os.path.join(USER_PATH, "title")
 PROFILES_PATH = os.path.join(PATH, "profiles")
 IMAGES_PATH = os.path.join(PATH, "images")
 TRANSITIONS_PATH = os.path.join(USER_PATH, "transitions")
-EXPORT_PRESETS_DIR = os.path.join(PATH, "presets")
+EXPORT_PRESETS_PATH = os.path.join(PATH, "presets")
 EXPORT_TESTS = os.path.join(USER_PATH, "tests")
 USER_PROFILES_PATH = os.path.join(USER_PATH, "profiles")
+USER_PRESETS_PATH = os.path.join(USER_PATH, "presets")
 
 # Create PATHS if they do not exist (this is where temp files are stored... such as cached thumbnails)
 for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH, ASSETS_PATH, TITLE_PATH, PROFILES_PATH, IMAGES_PATH,
-               TRANSITIONS_PATH, EXPORT_TESTS, BACKUP_PATH, USER_PROFILES_PATH, PREVIEW_CACHE_PATH]:
+               TRANSITIONS_PATH, EXPORT_TESTS, BACKUP_PATH, USER_PROFILES_PATH, USER_PRESETS_PATH, PREVIEW_CACHE_PATH]:
     if not os.path.exists(folder.encode("UTF-8")):
         os.makedirs(folder, exist_ok=True)
 
@@ -134,7 +135,11 @@ SETUP = {
 
 def website_language():
     """Get the current website language code for URLs"""
-    website_lang = "www"
-    if CURRENT_LANGUAGE != "en_US":
-        website_lang = CURRENT_LANGUAGE
-    return website_lang
+    if CURRENT_LANGUAGE == "zh_CN":
+        return "zh-hans/"
+    elif CURRENT_LANGUAGE == "zh_TW":
+        return "zh-hant/"
+    elif CURRENT_LANGUAGE == "en_US":
+        return ""
+    else:
+        return "%s/" % CURRENT_LANGUAGE.split("_")[0].lower()

@@ -104,6 +104,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QPushButton" name="btnchangelog">
+         <property name="text">
+          <string>Changelog</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="pushButton_3">
          <property name="text">
           <string>Close</string>
