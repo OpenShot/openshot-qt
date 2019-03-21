@@ -921,6 +921,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Convert waveform data to JSON
         serialized_audio_data = json.dumps(audio_data)
 
+        # Set waveform cache (with clip_id as key)
+        self.waveform_cache[clip_id] = serialized_audio_data
+
         # Pass to javascript timeline (and render)
         cmd = JS_SCOPE_SELECTOR + ".setAudioData('" + clip_id + "', " + serialized_audio_data + ");"
         self.page().mainFrame().evaluateJavaScript(cmd)
@@ -1790,7 +1793,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 continue
 
             # Determine if waveform needs to be redrawn
-            has_audio_data = bool(self.eval_js(JS_SCOPE_SELECTOR + ".hasAudioData('" + clip_id + "');"))
+            has_audio_data = clip_id in self.waveform_cache
 
             if action == MENU_SLICE_KEEP_LEFT or action == MENU_SLICE_KEEP_BOTH:
                 # Get details of original clip
@@ -1826,10 +1829,6 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 right_clip.data.pop('id')
                 right_clip.key.pop(1)
 
-                # Get details of original clip
-                position_of_clip = float(right_clip.data["position"])
-                start_of_clip = float(right_clip.data["start"])
-
                 # Set new 'start' of right_clip (need to bump 1 frame duration more, so we don't repeat a frame)
                 right_clip.data["position"] = (round(float(playhead_position) * fps_float) + 1) / fps_float
                 right_clip.data["start"] = (round(float(clip.data["end"]) * fps_float) + 2) / fps_float
@@ -1844,18 +1843,18 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 self.update_clip_data(right_clip.data, only_basic_props=False, ignore_reader=True)
 
                 if has_audio_data:
-                    # Re-generate waveform since volume curve has changed
-                    log.info("Generate right splice waveform for clip id: %s" % right_clip.id)
-                    self.Show_Waveform_Triggered(right_clip.id)
+                    # Add right clip audio to cache
+                    self.waveform_cache[right_clip.id] = self.waveform_cache.get(clip_id, '[]')
+
+                    # Pass audio to javascript timeline (and render)
+                    cmd = JS_SCOPE_SELECTOR + ".setAudioData('" + right_clip.id + "', " + self.waveform_cache.get(right_clip.id) + ");"
+                    self.page().mainFrame().evaluateJavaScript(cmd)
 
             # Save changes
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
-            if has_audio_data:
-                # Re-generate waveform since volume curve has changed
-                log.info("Generate left splice waveform for clip id: %s" % clip.id)
-                self.Show_Waveform_Triggered(clip.id)
-
+        # Start timer to redraw audio waveforms
+        self.redraw_audio_timer.start()
 
         # Loop through each transition (using the list of ids)
         for trans_id in trans_ids:
@@ -2986,6 +2985,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Connect waveform generation signal
         get_app().window.WaveformReady.connect(self.Waveform_Ready)
+
+        # Local audio waveform cache
+        self.waveform_cache = {}
 
         # Connect update thumbnail signal
         get_app().window.ThumbnailUpdated.connect(self.Thumbnail_Updated)

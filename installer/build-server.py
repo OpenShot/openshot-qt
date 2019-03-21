@@ -257,7 +257,7 @@ try:
         openshot_qt_git_desc = "%s-%s-%s" % (openshot_qt_git_desc, version_info.get('libopenshot').get('CI_COMMIT_SHA')[:8], version_info.get('libopenshot-audio').get('CI_COMMIT_SHA')[:8])
         # Get daily git_release object
         github_release = get_release(repo, "daily")
-    elif git_branch_name == "release":
+    elif git_branch_name.startswith("release"):
         # Get daily git_release object
         openshot_qt_git_desc = "OpenShot-v%s-release-candidate-%d" % (info.VERSION, int(time.time()))
         github_release = get_release(repo, "daily")
