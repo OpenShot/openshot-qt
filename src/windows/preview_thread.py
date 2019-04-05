@@ -30,6 +30,7 @@ import time
 import sip
 
 from PyQt5.QtCore import QObject, QThread, pyqtSlot, pyqtSignal, QCoreApplication
+from PyQt5.QtWidgets import QMessageBox
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 from classes.app import get_app
@@ -59,6 +60,17 @@ class PreviewParent(QObject):
     def onModeChanged(self, current_mode):
         log.info('onModeChanged')
 
+    # Signal when the playback encounters an error
+    def onError(self, error):
+        log.info('onError: %s' % error)
+
+        # Get translation object
+        _ = get_app()._tr
+
+        # Only JUCE audio errors bubble up here now
+        if not get_app().window.mode == "unittest":
+            QMessageBox.warning(self.parent, _("Audio Error"), _("Please fix the following error and restart OpenShot\n%s") % error)
+
     @pyqtSlot(object, object)
     def Init(self, parent, timeline, video_widget):
         # Important vars
@@ -77,6 +89,7 @@ class PreviewParent(QObject):
         self.worker.mode_changed.connect(self.onModeChanged)
         self.background.started.connect(self.worker.Start)
         self.worker.finished.connect(self.background.quit)
+        self.worker.error_found.connect(self.onError)
 
         # Connect preview thread to main UI signals
         self.parent.previewFrameSignal.connect(self.worker.previewFrame)
@@ -98,6 +111,7 @@ class PlayerWorker(QObject):
 
     position_changed = pyqtSignal(int)
     mode_changed = pyqtSignal(object)
+    error_found = pyqtSignal(object)
     finished = pyqtSignal()
 
     @pyqtSlot(object, object)
@@ -132,6 +146,11 @@ class PlayerWorker(QObject):
         self.player.Reader(self.timeline)
         self.player.Play()
         self.player.Pause()
+
+        # Check for any Player initialization errors (only JUCE errors bubble up here now)
+        if self.player.GetError():
+            # Emit error_found signal
+            self.error_found.emit(self.player.GetError())
 
         # Main loop, waiting for frames to process
         while self.is_running:
