@@ -29,6 +29,7 @@ import os
 import locale
 import xml.dom.minidom as xml
 import functools
+import tempfile
 
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
@@ -653,13 +654,24 @@ class Export(QDialog):
         # _("Video & Audio"), _("Video Only"), _("Audio Only"), _("Image Sequence")
         export_type = self.cboExportTo.currentText()
 
-        # Determine final exported file path
+        # Determine final exported file path (and replace blank paths with default ones)
+        default_filename = "Untitled Project"
+        default_folder = os.path.join(info.HOME_PATH)
         if export_type != _("Image Sequence"):
-            file_name_with_ext = "%s.%s" % (self.txtFileName.text().strip(), self.txtVideoFormat.text().strip())
+            file_name_with_ext = "%s.%s" % (self.txtFileName.text().strip() or default_filename, self.txtVideoFormat.text().strip())
         else:
-            file_name_with_ext = "%s%s" % (self.txtFileName.text().strip(), self.txtImageFormat.text().strip())
-        export_file_path = os.path.join(self.txtExportFolder.text().strip(), file_name_with_ext)
-        log.info(export_file_path)
+            file_name_with_ext = "%s%s" % (self.txtFileName.text().strip() or default_filename, self.txtImageFormat.text().strip())
+        export_file_path = os.path.join(self.txtExportFolder.text().strip() or default_folder, file_name_with_ext)
+        log.info("Export path: %s" % export_file_path)
+
+        # Check if filename is valid (by creating a blank file in a temporary place)
+        try:
+            open(os.path.join(tempfile.gettempdir(), file_name_with_ext), 'w')
+        except OSError:
+            # Invalid path detected, so use default file name instead
+            file_name_with_ext = "%s.%s" % (default_filename, self.txtVideoFormat.text().strip())
+            export_file_path = os.path.join(self.txtExportFolder.text().strip() or default_folder, file_name_with_ext)
+            log.info("Invalid export path detected, changing to: %s" % export_file_path)
 
         # Translate object
         _ = get_app()._tr
