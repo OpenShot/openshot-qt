@@ -206,16 +206,16 @@
     "setting": "enable-auto-save"
   },
   {
-    "max": 60,
+    "max": 60.0,
     "title": "Autosave Interval (minutes)",
     "category": "Autosave",
-    "min": 0,
+    "min": 1.0,
     "setting": "autosave-interval",
     "value": 3.0,
     "type": "spinner"
   },
   {
-    "max": 999,
+    "max": 99,
     "title": "History Limit (# of undo/redo)",
     "category": "Autosave",
     "min": 0,
@@ -326,16 +326,16 @@
     "setting": "send_metrics"
   },
   {
-    "value": false,
-    "title": "Show Window when Encode is finished",
+    "value": true,
+    "title": "Show Export Dialog when Finished",
     "type": "bool",
     "restart": false,
-    "category": "Debug",
+    "category": "General",
     "setting": "show_finished_window"
   },
   {
     "max": 4,
-    "title": "Decode hw accel",
+    "title": "Hardware Decoder Mode",
     "category": "Performance",
     "min": 0,
     "setting": "hw-decoder",
@@ -348,11 +348,11 @@
       },
       {
         "value": "1",
-        "name": "Linux VAAPI"
+        "name": "Linux VA-API"
       },
       {
         "value": "2",
-        "name": "Linux nvdec"
+        "name": "Linux Nvidia NVDEC"
       },
       {
         "value": "3",
@@ -373,7 +373,7 @@
     "min": 0,
     "max": 3,
     "value": 0,
-    "title": "Decode Graphics Card",
+    "title": "Hardware Decoder Graphics Card",
     "type": "spinner-int",
     "category": "Performance",
     "setting": "graca_number_de",
@@ -383,7 +383,7 @@
     "min": 0,
     "max": 3,
     "value": 0,
-    "title": "Encode Graphics Card",
+    "title": "Hardware Encoder Graphics Card",
     "type": "spinner-int",
     "category": "Performance",
     "setting": "graca_number_en",
@@ -421,7 +421,7 @@
     "min": 0,
     "max": 16000,
     "value": 1950,
-    "title": "Decode HW max Width (0 = Default)",
+    "title": "Hardware Decoder Max Width (0 = Default)",
     "type": "spinner-int",
     "restart": true,
     "category": "Performance",
@@ -431,7 +431,7 @@
     "min": 0,
     "max": 16000,
     "value": 1100,
-    "title": "Decode HW max height (0 = Default)",
+    "title": "Hardware Decoder Max Height (0 = Default)",
     "type": "spinner-int",
     "restart": true,
     "category": "Performance",
