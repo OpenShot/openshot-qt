@@ -2331,7 +2331,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Update cache reference, so it doesn't go out of scope
         self.cache_object = new_cache_object
 
-    def FrameExported(self, path, start_frame, end_frame, current_frame):
+    def FrameExported(self, title_message, start_frame, end_frame, current_frame):
         """Connect to Unity launcher (for Linux)"""
         try:
             if sys.platform == "linux" and self.has_launcher:

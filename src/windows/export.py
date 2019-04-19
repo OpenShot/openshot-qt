@@ -294,7 +294,7 @@ class Export(QDialog):
             if profile_path == path:
                 return profile
 
-    def updateProgressBar(self, path, start_frame, end_frame, current_frame):
+    def updateProgressBar(self, title_message, start_frame, end_frame, current_frame):
         """Update progress bar during exporting"""
         if end_frame - start_frame > 0:
             percentage_string = "%4.1f%% " % (( current_frame - start_frame ) / ( end_frame - start_frame ) * 100)
@@ -302,7 +302,7 @@ class Export(QDialog):
             percentage_string = "100%"
         self.progressExportVideo.setValue(current_frame)
         self.progressExportVideo.setFormat(percentage_string)
-        self.setWindowTitle("%s %s" % (percentage_string, path))
+        self.setWindowTitle("%s %s" % (percentage_string, title_message))
 
     def updateChannels(self):
         """Update the # of channels to match the channel layout"""
@@ -814,7 +814,7 @@ class Export(QDialog):
             w.Open()
 
             # Notify window of export started
-            export_file_path = ""
+            title_message = ""
             get_app().window.ExportStarted.emit(export_file_path, video_settings.get("start_frame"), video_settings.get("end_frame"))
 
             progressstep = max(1 , round(( video_settings.get("end_frame") - video_settings.get("start_frame") ) / 1000))
@@ -829,12 +829,14 @@ class Export(QDialog):
                     if ((( frame - start_frame_export ) != 0) & (( end_time_export - start_time_export ) != 0)):
                         seconds_left = round(( start_time_export - end_time_export )*( frame - end_frame_export )/( frame - start_frame_export ))
                         fps_encode = ((frame - start_frame_export)/(end_time_export-start_time_export))
-                        export_file_path =  _("%(hours)d:%(minutes)02d:%(seconds)02d Remaining (%(fps)5.2f FPS)") % { 'hours' : seconds_left / 3600,
-                                                                                                                      'minutes': (seconds_left / 60) % 60,
-                                                                                                                      'seconds': seconds_left % 60,
-                                                                                                                      'fps': fps_encode }
+                        title_message = _("%(hours)d:%(minutes)02d:%(seconds)02d Remaining (%(fps)5.2f FPS)") % {
+                            'hours': seconds_left / 3600,
+                            'minutes': (seconds_left / 60) % 60,
+                            'seconds': seconds_left % 60,
+                            'fps': fps_encode}
+
                     # Emit frame exported
-                    get_app().window.ExportFrame.emit(export_file_path, video_settings.get("start_frame"), video_settings.get("end_frame"), frame)
+                    get_app().window.ExportFrame.emit(title_message, video_settings.get("start_frame"), video_settings.get("end_frame"), frame)
 
                     # Process events (to show the progress bar moving)
                     QCoreApplication.processEvents()
@@ -849,8 +851,15 @@ class Export(QDialog):
             # Close writer
             w.Close()
 
-            # Emit final exported frame
-            get_app().window.ExportFrame.emit(export_file_path, video_settings.get("start_frame"),
+            # Emit final exported frame (with elapsed time)
+            seconds_run = round((end_time_export - start_time_export))
+            title_message = _("%(hours)d:%(minutes)02d:%(seconds)02d Elapsed (%(fps)5.2f FPS)") % {
+                'hours': seconds_run / 3600,
+                'minutes': (seconds_run / 60) % 60,
+                'seconds': seconds_run % 60,
+                'fps': fps_encode}
+
+            get_app().window.ExportFrame.emit(title_message, video_settings.get("start_frame"),
                                               video_settings.get("end_frame"), frame)
 
         except Exception as e:
