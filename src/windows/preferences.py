@@ -219,6 +219,18 @@ class Preferences(QDialog):
                         # Add Default to top of list
                         value_list.insert(0, {"name":_("Default"), "value":"Default"})
 
+                    # Overwrite value list (for hardware acceleration modes)
+                    os_platform = platform.system()
+                    if param["setting"] == "hw-decoder":
+                        for value_item in list(value_list):
+                            v = value_item["value"]
+                            if os_platform == "Darwin" and v not in ("0", "5"):
+                                value_list.remove(value_item)
+                            elif os_platform == "Windows" and v not in ("0", "3", "4"):
+                                value_list.remove(value_item)
+                            elif os_platform == "Linux" and v not in ("0", "1", "2"):
+                                value_list.remove(value_item)
+
                     # Add normal values
                     box_index = 0
                     for value_item in value_list:
