@@ -302,7 +302,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         self._data["channels"] = channels
         self._data["channel_layout"] = channel_layout
 
-    def load(self, file_path):
+    def load(self, file_path, clear_thumbnails=True):
         """ Load project from file """
 
         self.new()
@@ -338,7 +338,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             # Copy any project thumbnails to main THUMBNAILS folder
             loaded_project_folder = os.path.dirname(self.current_filepath)
             project_thumbnails_folder = os.path.join(loaded_project_folder, "thumbnail")
-            if os.path.exists(project_thumbnails_folder):
+            if os.path.exists(project_thumbnails_folder) and clear_thumbnails:
                 # Remove thumbnail path
                 shutil.rmtree(info.THUMBNAIL_PATH, True)
 

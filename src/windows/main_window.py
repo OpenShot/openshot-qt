@@ -476,7 +476,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                     self.clear_all_thumbnails()
 
                 # Load project file
-                app.project.load(file_path)
+                app.project.load(file_path, clear_thumbnails)
 
                 # Set Window title
                 self.SetWindowTitle()
@@ -489,7 +489,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 self.clearSelections()
 
                 # Refresh file tree
-                self.filesTreeView.refresh_view()
+                QTimer.singleShot(0, self.filesTreeView.refresh_view)
 
                 # Load recent projects again
                 self.load_recent_menu()
@@ -544,12 +544,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 os.mkdir(info.ASSETS_PATH)
 
             # Clear any backups
-            if os.path.exists(info.BACKUP_PATH):
-                log.info("Clear all backups: %s" % info.BACKUP_PATH)
-                # Remove backup folder
-                shutil.rmtree(info.BACKUP_PATH)
-                # Create backup folder
-                os.mkdir(info.BACKUP_PATH)
+            backup_path = os.path.join(info.BACKUP_PATH, "backup.osp")
+            if os.path.exists(backup_path):
+                log.info("Clear backup: %s" % backup_path)
+                # Remove backup file
+                os.unlink(backup_path)
+
         except:
             log.info("Failed to clear thumbnails: %s" % info.THUMBNAIL_PATH)
 
@@ -596,11 +596,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def auto_save_project(self):
         """Auto save the project"""
-        log.info("auto_save_project")
-
         # Get current filepath (if any)
         file_path = get_app().project.current_filepath
         if get_app().project.needs_save():
+            log.info("auto_save_project")
+
             if file_path:
                 # A Real project file exists
                 # Append .osp if needed
@@ -610,6 +610,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 # Save project
                 log.info("Auto save project file: %s" % file_path)
                 self.save_project(file_path)
+
+                # Remvoe backup.osp (if any)
+                recovery_path = os.path.join(info.BACKUP_PATH, "backup.osp")
+                if os.path.exists(recovery_path):
+                    # Delete backup.osp since we just saved the actual project
+                    os.unlink(recovery_path)
 
             else:
                 # No saved project found
