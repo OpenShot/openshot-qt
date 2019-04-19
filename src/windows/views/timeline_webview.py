@@ -2210,13 +2210,6 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 p_object = json.loads(p.Json())
                 clip.data[prop_name] = { "Points" : [p_object]}
 
-                # Reset original end & duration (if available)
-                if "original_data" in clip.data.keys():
-                    clip.data["end"] = clip.data["original_data"]["end"]
-                    clip.data["duration"] = clip.data["original_data"]["duration"]
-                    clip.data["reader"]["video_length"] = clip.data["original_data"]["video_length"]
-                    clip.data.pop("original_data")
-
                 # Get the ending frame
                 end_of_clip = round(float(clip.data["end"]) * fps_float) + 1
 
@@ -2252,6 +2245,14 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                     clip.data["end"] = (start_animation + (duration_animation / speed_factor)) / fps_float
                     clip.data["duration"] = self.round_to_multiple(clip.data["duration"] / speed_factor, even_multiple)
                     clip.data["reader"]["video_length"] = str(self.round_to_multiple(float(clip.data["reader"]["video_length"]) / speed_factor, even_multiple))
+
+                if action == MENU_TIME_NONE:
+                    # Reset original end & duration (if available)
+                    if "original_data" in clip.data.keys():
+                        clip.data["end"] = clip.data["original_data"]["end"]
+                        clip.data["duration"] = clip.data["original_data"]["duration"]
+                        clip.data["reader"]["video_length"] = clip.data["original_data"]["video_length"]
+                        clip.data.pop("original_data")
 
             # Save changes
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
