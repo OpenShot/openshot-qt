@@ -32,7 +32,7 @@ import functools
 
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QKeySequence
+from PyQt5.QtGui import QKeySequence, QIcon
 from PyQt5 import uic
 
 from classes import info, ui_util, settings, qt_types, updates
@@ -219,14 +219,34 @@ class Preferences(QDialog):
                         # Add Default to top of list
                         value_list.insert(0, {"name":_("Default"), "value":"Default"})
 
-
                     # Add normal values
                     box_index = 0
                     for value_item in value_list:
                         k = value_item["name"]
                         v = value_item["value"]
+
+                        # Override icons for certain values
+                        # TODO: Find a more elegant way to do this
+                        icon = None
+                        if k == "Linux VA-API":
+                            icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-vaapi.png"))
+                        elif k == "Linux Nvidia NVDEC":
+                            icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-nvdec.png"))
+                        elif k == "Windows D3D9":
+                            icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-dx.png"))
+                        elif k == "Windows D3D11":
+                            icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-dx.png"))
+                        elif k == "MacOS":
+                            icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-vtb.png"))
+                        elif k == "No acceleration":
+                            icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-none.png"))
+
                         # add dropdown item
-                        widget.addItem(_(k), v)
+                        if icon:
+                            widget.setIconSize(QSize(60, 18))
+                            widget.addItem(icon, _(k), v)
+                        else:
+                            widget.addItem(_(k), v)
 
                         # select dropdown (if default)
                         if v == param["value"]:

@@ -26,6 +26,7 @@ video editing and animation solutions to the world.
 * Time-mapping and speed changes on clips (slow/fast, forward/backward, etc...)
 * Audio mixing and editing
 * Digital video effects, including brightness, gamma, hue, greyscale, chroma key, and many more!
+* Experimental hardware encoding and decoding (VA-API, NVDEC, D3D9, D3D11, VTB)
 
 ## Getting Started
 
