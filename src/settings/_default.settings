@@ -370,26 +370,62 @@
     "restart": true
   },
   {
-    "min": 0,
-    "max": 3,
-    "value": 0,
+    "max": 2,
     "title": "Hardware Decoder Graphics Card",
-    "type": "spinner-int",
     "category": "Performance",
+    "min": 0,
     "setting": "graca_number_de",
+    "type": "dropdown",
+    "value": "0",
+    "values": [
+      {
+        "value": "0",
+        "name": "No acceleration"
+      },
+      {
+        "value": "1",
+        "name": "Graphics Card 1"
+      },
+      {
+        "value": "2",
+        "name": "Graphics Card 2 (might not be available)"
+      },
+      {
+        "value": "3",
+        "name": "Graphics Card 3 (might not be available)"
+      }
+    ],
     "restart": true
   },
   {
-    "min": 0,
-    "max": 3,
-    "value": 0,
+    "max": 2,
     "title": "Hardware Encoder Graphics Card",
-    "type": "spinner-int",
     "category": "Performance",
+    "min": 0,
     "setting": "graca_number_en",
+    "type": "dropdown",
+    "value": "0",
+    "values": [
+      {
+        "value": "0",
+        "name": "No acceleration"
+      },
+      {
+        "value": "1",
+        "name": "Graphics Card 1"
+      },
+      {
+        "value": "2",
+        "name": "Graphics Card 2 (might not be available)"
+      },
+      {
+        "value": "3",
+        "name": "Graphics Card 3 (might not be available)"
+      }
+    ],
     "restart": true
   },
-{
+  {
     "value": true,
     "title": "Process Video Frames in Parallel (Experimental)",
     "type": "bool",

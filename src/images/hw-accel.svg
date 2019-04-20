@@ -75,8 +75,8 @@
      id="namedview4"
      showgrid="false"
      inkscape:zoom="4.5101946"
-     inkscape:cx="73.147758"
-     inkscape:cy="-46.90567"
+     inkscape:cx="35.566231"
+     inkscape:cy="-11.430482"
      inkscape:window-x="65"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
@@ -212,14 +212,14 @@
        sodipodi:linespacing="125%"
        id="text4147-3"
        y="13.914113"
-       x="3.6082401"
-       style="font-style:normal;font-weight:normal;font-size:10.74023151px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#cfcfcf;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
+       x="22.587194"
+       style="font-style:normal;font-weight:normal;font-size:10.74023151px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#cfcfcf;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        xml:space="preserve"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90"><tspan
          y="13.914113"
-         x="3.6082401"
+         x="22.587194"
          id="tspan4149-56"
-         sodipodi:role="line">SOFTWARE</tspan></text>
+         sodipodi:role="line">CPU</tspan></text>
   </g>
 </svg>

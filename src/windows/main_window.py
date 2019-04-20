@@ -2545,7 +2545,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             openshot.Settings.Instance().HW_EN_DEVICE_SET = 0
 
-
         # Set OMP thread enabled flag (for stability)
         if s.get("omp_threads_enabled"):
             openshot.Settings.Instance().WAIT_FOR_VIDEO_PROCESSING_TASK = False

@@ -378,12 +378,6 @@ class Preferences(QDialog):
         elif param["setting"] == "decode_hw_max_height":
             openshot.Settings.Instance().DE_LIMIT_HEIGHT_MAX = int(str(value))
 
-        elif param["setting"] == "graca_number_de":
-            openshot.Settings.Instance().HW_DE_DEVICE_SET = int(str(value))
-
-        elif param["setting"] == "graca_number_en":
-            openshot.Settings.Instance().HW_EN_DEVICE_SET = int(str(value))
-
         # Apply cache settings (if needed)
         if param["setting"] in ["cache-limit-mb", "cache-scale", "cache-quality"]:
             get_app().window.InitCacheSettings()
@@ -425,6 +419,12 @@ class Preferences(QDialog):
         if param["setting"] == "hw-decoder":
           # Set Hardware Decoder
           openshot.Settings.Instance().HARDWARE_DECODER = int(value)
+
+        if param["setting"] == "graca_number_de":
+            openshot.Settings.Instance().HW_DE_DEVICE_SET = int(value)
+
+        if param["setting"] == "graca_number_en":
+            openshot.Settings.Instance().HW_EN_DEVICE_SET = int(value)
 
         # Check for restart
         self.check_for_restart(param)
