@@ -231,6 +231,15 @@ class Preferences(QDialog):
                             elif os_platform == "Linux" and v not in ("0", "1", "2"):
                                 value_list.remove(value_item)
 
+                    # Replace %s dropdown values for hardware acceleration
+                    if param["setting"] in ("graca_number_en", "graca_number_de"):
+                        value_index = 0
+                        for value_item in list(value_list):
+                            value_name = value_item["name"]
+                            if "%s" in value_name:
+                                value_list[value_index]["name"] = _(value_name) % (value_index + 1)
+                            value_index += 1
+
                     # Add normal values
                     box_index = 0
                     for value_item in value_list:
@@ -329,22 +338,6 @@ class Preferences(QDialog):
             else:
                 # Stop autosave timer
                 get_app().window.auto_save_timer.stop()
-
-        #elif param["setting"] == "hardware_decode":
-        #    if (state == Qt.Checked):
-        #        # Enable hardware decode
-        #        openshot.Settings.Instance().HARDWARE_DECODE = True
-        #    else:
-        #        # Disable hardware decode
-        #        openshot.Settings.Instance().HARDWARE_DECODE = False
-
-        #elif param["setting"] == "hardware_encode":
-        #    if (state == Qt.Checked):
-        #        # Enable hardware encode
-        #        openshot.Settings.Instance().HARDWARE_ENCODE = True
-        #    else:
-        #        # Disable hardware encode
-        #        openshot.Settings.Instance().HARDWARE_ENCODE = False
 
         elif param["setting"] == "omp_threads_enabled":
             if (state == Qt.Checked):
