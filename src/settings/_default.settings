@@ -380,19 +380,19 @@
     "values": [
       {
         "value": "0",
-        "name": "No acceleration"
-      },
-      {
-        "value": "1",
         "name": "Graphics Card 1"
       },
       {
-        "value": "2",
+        "value": "1",
         "name": "Graphics Card 2 (might not be available)"
       },
       {
-        "value": "3",
+        "value": "2",
         "name": "Graphics Card 3 (might not be available)"
+      },
+      {
+        "value": "3",
+        "name": "Graphics Card 4 (might not be available)"
       }
     ],
     "restart": true
@@ -408,19 +408,19 @@
     "values": [
       {
         "value": "0",
-        "name": "No acceleration"
-      },
-      {
-        "value": "1",
         "name": "Graphics Card 1"
       },
       {
-        "value": "2",
+        "value": "1",
         "name": "Graphics Card 2 (might not be available)"
       },
       {
-        "value": "3",
+        "value": "2",
         "name": "Graphics Card 3 (might not be available)"
+      },
+      {
+        "value": "3",
+        "name": "Graphics Card 4 (might not be available)"
       }
     ],
     "restart": true
