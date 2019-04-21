@@ -14,6 +14,7 @@
     "category": "General",
     "setting": "theme",
     "type": "dropdown",
+    "translate_values": true,
     "values": [
       {
         "value": "Humanity",
@@ -174,6 +175,7 @@
     "setting": "default-channellayout",
     "type": "dropdown",
     "value": "LAYOUT_STEREO",
+    "translate_values": true,
     "values": [
       {
         "value": "LAYOUT_MONO",
@@ -228,6 +230,7 @@
     "category": "Cache",
     "setting": "cache-mode",
     "value": "CacheMemory",
+    "translate_values": true,
     "values": [
       {
         "value": "CacheMemory",
@@ -341,6 +344,7 @@
     "setting": "hw-decoder",
     "type": "dropdown",
     "value": "0",
+    "translate_values": true,
     "values": [
       {
         "value": "0",
@@ -377,6 +381,7 @@
     "setting": "graca_number_de",
     "type": "dropdown",
     "value": "0",
+    "translate_values": true,
     "values": [
       {
         "value": "0",
