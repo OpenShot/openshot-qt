@@ -380,7 +380,7 @@
     "values": [
       {
         "value": "0",
-        "name": "Graphics Card 1"
+        "name": "Graphics Card 1 (default)"
       },
       {
         "value": "1",
@@ -408,7 +408,7 @@
     "values": [
       {
         "value": "0",
-        "name": "Graphics Card 1"
+        "name": "Graphics Card 1 (default)"
       },
       {
         "value": "1",
