@@ -330,21 +330,21 @@ class Preferences(QDialog):
                 # Stop autosave timer
                 get_app().window.auto_save_timer.stop()
 
-        elif param["setting"] == "hardware_decode":
-            if (state == Qt.Checked):
-                # Enable hardware decode
-                openshot.Settings.Instance().HARDWARE_DECODE = True
-            else:
-                # Disable hardware decode
-                openshot.Settings.Instance().HARDWARE_DECODE = False
+        #elif param["setting"] == "hardware_decode":
+        #    if (state == Qt.Checked):
+        #        # Enable hardware decode
+        #        openshot.Settings.Instance().HARDWARE_DECODE = True
+        #    else:
+        #        # Disable hardware decode
+        #        openshot.Settings.Instance().HARDWARE_DECODE = False
 
-        elif param["setting"] == "hardware_encode":
-            if (state == Qt.Checked):
-                # Enable hardware encode
-                openshot.Settings.Instance().HARDWARE_ENCODE = True
-            else:
-                # Disable hardware encode
-                openshot.Settings.Instance().HARDWARE_ENCODE = False
+        #elif param["setting"] == "hardware_encode":
+        #    if (state == Qt.Checked):
+        #        # Enable hardware encode
+        #        openshot.Settings.Instance().HARDWARE_ENCODE = True
+        #    else:
+        #        # Disable hardware encode
+        #        openshot.Settings.Instance().HARDWARE_ENCODE = False
 
         elif param["setting"] == "omp_threads_enabled":
             if (state == Qt.Checked):

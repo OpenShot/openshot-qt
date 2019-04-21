@@ -2511,16 +2511,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.auto_save_timer.start()
 
         # Set hardware decode
-        if s.get("hardware_decode"):
-            openshot.Settings.Instance().HARDWARE_DECODE = True
-        else:
-            openshot.Settings.Instance().HARDWARE_DECODE = False
+        #if s.get("hardware_decode"):
+        #    openshot.Settings.Instance().HARDWARE_DECODE = True
+        #else:
+        #    openshot.Settings.Instance().HARDWARE_DECODE = False
 
         # Set hardware encode
-        if s.get("hardware_encode"):
-            openshot.Settings.Instance().HARDWARE_ENCODE = True
-        else:
-            openshot.Settings.Instance().HARDWARE_ENCODE = False
+        #if s.get("hardware_encode"):
+        #    openshot.Settings.Instance().HARDWARE_ENCODE = True
+        #else:
+        #    openshot.Settings.Instance().HARDWARE_ENCODE = False
 
         # The new version
         if s.get("hw-decoder"):
