@@ -60,10 +60,6 @@ class Preferences(QDialog):
         # Init UI
         ui_util.init_ui(self)
 
-        # get translations
-        app = get_app()
-        _ = app._tr
-
         # Get settings
         self.s = settings.get_settings()
 
@@ -79,10 +75,54 @@ class Preferences(QDialog):
             if "setting" in item and "value" in item:
                 self.params[item["setting"]] = item
 
+        # Connect search textbox
+        self.txtSearch.textChanged.connect(self.txtSearch_changed)
+
         self.requires_restart = False
         self.category_names = {}
         self.category_tabs = {}
         self.category_sort = {}
+        self.visible_category_names = {}
+
+        # Populate preferences
+        self.Populate()
+
+    def txtSearch_changed(self):
+        """textChanged event handler for search box"""
+        log.info("Search for %s" % self.txtSearch.text())
+
+        # Populate preferences
+        self.Populate(filter=self.txtSearch.text())
+
+    def DeleteAllTabs(self, onlyInVisible=False):
+        """Delete all tabs"""
+        for name, widget in dict(self.category_tabs).items():
+            if (onlyInVisible and name not in self.visible_category_names) or not onlyInVisible:
+                parent_widget = widget.parent().parent()
+                parent_widget.parent().removeWidget(parent_widget)
+                parent_widget.deleteLater()
+
+                if name in self.category_names:
+                    self.category_names.pop(name)
+                if name in self.visible_category_names:
+                    self.visible_category_names.pop(name)
+                if name in self.category_tabs:
+                    self.category_tabs.pop(name)
+
+    def Populate(self, filter=""):
+        """Populate all preferences and tabs"""
+
+        # get translations
+        app = get_app()
+        _ = app._tr
+
+        # Delete all tabs and widgets
+        self.DeleteAllTabs()
+
+        self.category_names = {}
+        self.category_tabs = {}
+        self.category_sort = {}
+        self.visible_category_names = {}
 
         # Loop through settings and find all unique categories
         for item in self.settings_data:
@@ -123,8 +163,9 @@ class Preferences(QDialog):
                 self.category_names[category].append(item)
 
         # Loop through each category setting, and add them to the tabs
-        for category in self.category_tabs.keys():
+        for category in dict(self.category_tabs).keys():
             tabWidget = self.category_tabs[category]
+            filterFound = False
 
             # Get list of items in category
             params = self.category_names[category]
@@ -134,6 +175,17 @@ class Preferences(QDialog):
 
             # Loop through settings for each category
             for param in params:
+                # Is filter found?
+                if filter and (filter.lower() in _(param["title"]).lower() or filter.lower() in _(category).lower()):
+                    filterFound = True
+                elif not filter:
+                    filterFound = True
+                else:
+                    filterFound = False
+
+                # Visible Category
+                if filterFound:
+                    self.visible_category_names[category] = tabWidget
 
                 # Create Label
                 widget = None
@@ -286,7 +338,7 @@ class Preferences(QDialog):
 
 
                 # Add Label and Widget to the form
-                if (widget and label):
+                if (widget and label and filterFound):
                     # Add minimum size
                     label.setMinimumWidth(180);
                     label.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
@@ -302,12 +354,15 @@ class Preferences(QDialog):
 
                     # Add widget to layout
                     tabWidget.layout().addLayout(layout_hbox)
-                elif (label):
+                elif (label and filterFound):
                     # Add widget to layout
                     tabWidget.layout().addWidget(label)
 
             # Add stretch to bottom of layout
             tabWidget.layout().addStretch()
+
+        # Delete all tabs and widgets
+        self.DeleteAllTabs(onlyInVisible=True)
 
     def selectExecutable(self, widget, param):
         _ = get_app()._tr
