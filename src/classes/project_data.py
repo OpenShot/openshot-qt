@@ -277,23 +277,23 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Get the default audio settings for the timeline (and preview playback)
         default_sample_rate = int(s.get("default-samplerate"))
-        default_channel_ayout = s.get("default-channellayout")
+        default_channel_layout = s.get("default-channellayout")
 
         channels = 2
         channel_layout = openshot.LAYOUT_STEREO
-        if default_channel_ayout == "LAYOUT_MONO":
+        if default_channel_layout == "LAYOUT_MONO":
             channels = 1
             channel_layout = openshot.LAYOUT_MONO
-        elif default_channel_ayout == "LAYOUT_STEREO":
+        elif default_channel_layout == "LAYOUT_STEREO":
             channels = 2
             channel_layout = openshot.LAYOUT_STEREO
-        elif default_channel_ayout == "LAYOUT_SURROUND":
+        elif default_channel_layout == "LAYOUT_SURROUND":
             channels = 3
             channel_layout = openshot.LAYOUT_SURROUND
-        elif default_channel_ayout == "LAYOUT_5POINT1":
+        elif default_channel_layout == "LAYOUT_5POINT1":
             channels = 6
             channel_layout = openshot.LAYOUT_5POINT1
-        elif default_channel_ayout == "LAYOUT_7POINT1":
+        elif default_channel_layout == "LAYOUT_7POINT1":
             channels = 8
             channel_layout = openshot.LAYOUT_7POINT1
 

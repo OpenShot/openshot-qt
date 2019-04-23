@@ -2510,25 +2510,13 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if s.get("enable-auto-save"):
             self.auto_save_timer.start()
 
-        # Set hardware decode
-        #if s.get("hardware_decode"):
-        #    openshot.Settings.Instance().HARDWARE_DECODE = True
-        #else:
-        #    openshot.Settings.Instance().HARDWARE_DECODE = False
-
-        # Set hardware encode
-        #if s.get("hardware_encode"):
-        #    openshot.Settings.Instance().HARDWARE_ENCODE = True
-        #else:
-        #    openshot.Settings.Instance().HARDWARE_ENCODE = False
-
-        # The new version
+        # Set encoding method
         if s.get("hw-decoder"):
                 openshot.Settings.Instance().HARDWARE_DECODER = int(str(s.get("hw-decoder")))
         else:
                 openshot.Settings.Instance().HARDWARE_DECODER = 0
 
-        # Set graphics card for hardware support
+        # Set graphics card for decoding
         if s.get("graca_number_de"):
             if int(str(s.get("graca_number_de"))) != 0:
                 openshot.Settings.Instance().HW_DE_DEVICE_SET = int(str(s.get("graca_number_de")))
@@ -2537,6 +2525,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             openshot.Settings.Instance().HW_DE_DEVICE_SET = 0
 
+        # Set graphics card for encoding
         if s.get("graca_number_en"):
             if int(str(s.get("graca_number_en"))) != 0:
                 openshot.Settings.Instance().HW_EN_DEVICE_SET = int(str(s.get("graca_number_en")))
@@ -2544,6 +2533,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 openshot.Settings.Instance().HW_EN_DEVICE_SET = 0
         else:
             openshot.Settings.Instance().HW_EN_DEVICE_SET = 0
+
+        # Set audio playback settings
+        if s.get("playback-audio-device"):
+                openshot.Settings.Instance().PLAYBACK_AUDIO_DEVICE_NAME = str(s.get("playback-audio-device"))
+        else:
+                openshot.Settings.Instance().PLAYBACK_AUDIO_DEVICE_NAME = ""
 
         # Set OMP thread enabled flag (for stability)
         if s.get("omp_threads_enabled"):

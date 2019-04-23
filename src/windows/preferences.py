@@ -205,6 +205,14 @@ class Preferences(QDialog):
                         # Sort profile list
                         value_list.sort(key=operator.itemgetter("name"))
 
+                    # Overwrite value list (for audio device list dropdown)
+                    if param["setting"] == "playback-audio-device":
+                        value_list = []
+                        # Loop through audio devices
+                        value_list.append({"name": "Default", "value": ""})
+                        for audio_device in get_app().window.preview_thread.player.GetAudioDeviceNames():
+                            value_list.append({"name":"%s: %s" % (audio_device.type, audio_device.name), "value":audio_device.name})
+
                     # Overwrite value list (for language dropdown)
                     if param["setting"] == "default-language":
                         value_list = []

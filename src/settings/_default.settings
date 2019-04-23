@@ -129,8 +129,17 @@
   {
     "value": "HD 720p 30 fps",
     "title": "Default Profile",
-    "category": "Profiles",
+    "category": "Preview",
     "setting": "default-profile",
+    "type": "dropdown",
+    "values": [],
+    "restart": true
+  },
+  {
+    "value": "",
+    "title": "Playback Audio Device",
+    "category": "Preview",
+    "setting": "playback-audio-device",
     "type": "dropdown",
     "values": [],
     "restart": true
@@ -138,7 +147,7 @@
   {
     "max": 128000,
     "title": "Default Audio Sample Rate",
-    "category": "Profiles",
+    "category": "Preview",
     "min": 22050,
     "setting": "default-samplerate",
     "value": 44100,
@@ -170,7 +179,7 @@
   {
     "max": 10,
     "title": "Default Audio Channels",
-    "category": "Profiles",
+    "category": "Preview",
     "min": 1,
     "setting": "default-channellayout",
     "type": "dropdown",
