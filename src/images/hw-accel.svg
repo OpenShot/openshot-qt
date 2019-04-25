@@ -75,12 +75,12 @@
      id="namedview4"
      showgrid="false"
      inkscape:zoom="4.5101946"
-     inkscape:cx="35.566231"
-     inkscape:cy="-11.430482"
+     inkscape:cx="-2.015296"
+     inkscape:cy="15.175909"
      inkscape:window-x="65"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g3339-367"
+     inkscape:current-layer="g3339-3-3"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
@@ -88,7 +88,8 @@
   <g
      id="g3339"
      inkscape:export-xdpi="90"
-     inkscape:export-ydpi="90">
+     inkscape:export-ydpi="90"
+     transform="translate(0.17651315,-2.1457672e-6)">
     <rect
        ry="7.9525819"
        rx="7.9525819"
@@ -112,7 +113,7 @@
   </g>
   <g
      id="g3339-3"
-     transform="translate(0,23.516151)"
+     transform="translate(0.17651315,23.265402)"
      inkscape:export-xdpi="90"
      inkscape:export-ydpi="90">
     <rect
@@ -138,7 +139,7 @@
   </g>
   <g
      id="g3339-35"
-     transform="translate(0,47.032303)"
+     transform="translate(0.17651315,69.796211)"
      inkscape:export-xdpi="90"
      inkscape:export-ydpi="90">
     <rect
@@ -168,7 +169,7 @@
   </g>
   <g
      id="g3339-36"
-     transform="translate(0,70.548454)"
+     transform="translate(0.17651315,93.061616)"
      inkscape:export-xdpi="89.956078"
      inkscape:export-ydpi="89.956078">
     <rect
@@ -196,7 +197,7 @@
      id="g3339-367"
      inkscape:export-xdpi="90"
      inkscape:export-ydpi="90"
-     transform="translate(0,94.06461)">
+     transform="translate(0.17651315,116.32702)">
     <rect
        ry="7.9525819"
        rx="7.9525819"
@@ -221,5 +222,35 @@
          x="22.587194"
          id="tspan4149-56"
          sodipodi:role="line">CPU</tspan></text>
+  </g>
+  <g
+     id="g3339-3-3"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90"
+     transform="translate(0.17651315,46.530805)">
+    <rect
+       ry="7.9525819"
+       rx="7.9525819"
+       y="0.3305341"
+       x="0.3305341"
+       height="19.347975"
+       width="66.035736"
+       id="rect3345-6-6"
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#00b310;stroke-width:0.6610682px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text4147-7-7"
+       y="14.826028"
+       x="9.838316"
+       style="font-style:normal;font-weight:normal;font-size:13.2276535px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#00b310;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         y="14.826028"
+         x="9.838316"
+         id="tspan4149-5-5"
+         sodipodi:role="line">NVENC</tspan></text>
   </g>
 </svg>

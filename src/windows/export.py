@@ -393,7 +393,7 @@ class Export(QDialog):
                         if codec_text == "h264_vaapi" and openshot.FFmpegWriter.IsValidCodec(codec_text):
                             acceleration_types[_(title.childNodes[0].data)] = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-vaapi.png"))
                         elif codec_text == "h264_nvenc" and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                            acceleration_types[_(title.childNodes[0].data)] = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-nvdec.png"))
+                            acceleration_types[_(title.childNodes[0].data)] = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-nvenc.png"))
                         elif codec_text == "h264_dxva2" and openshot.FFmpegWriter.IsValidCodec(codec_text):
                             acceleration_types[_(title.childNodes[0].data)] = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-dx.png"))
                         elif codec_text in ("h264_vtb", "h264_qsv") and openshot.FFmpegWriter.IsValidCodec(codec_text):
@@ -657,6 +657,22 @@ class Export(QDialog):
         # return the bit rate in bytes
         return str(int(bit_rate_bytes))
 
+    def disableControls(self):
+        """Disable all controls"""
+        self.txtFileName.setEnabled(False)
+        self.txtExportFolder.setEnabled(False)
+        self.tabWidget.setEnabled(False)
+        self.export_button.setEnabled(False)
+        self.btnBrowse.setEnabled(False)
+
+    def enableControls(self):
+        """Enable all controls"""
+        self.txtFileName.setEnabled(True)
+        self.txtExportFolder.setEnabled(True)
+        self.tabWidget.setEnabled(True)
+        self.export_button.setEnabled(True)
+        self.btnBrowse.setEnabled(True)
+
     def accept(self):
         """ Start exporting video """
 
@@ -678,13 +694,12 @@ class Export(QDialog):
             msg.exec_()
 
             # Do nothing
+            self.enableControls()
+            self.exporting = False
             return
 
         # Disable controls
-        self.txtFileName.setEnabled(False)
-        self.txtExportFolder.setEnabled(False)
-        self.tabWidget.setEnabled(False)
-        self.export_button.setEnabled(False)
+        self.disableControls()
         self.exporting = True
 
         # Determine type of export (video+audio, video, audio, image sequences)
@@ -717,10 +732,7 @@ class Export(QDialog):
         if file:
             ret = QMessageBox.question(self, _("Export Video"), _("%s is an input file.\nPlease choose a different name.") % file_name_with_ext,
                                        QMessageBox.Ok)
-            self.txtFileName.setEnabled(True)
-            self.txtExportFolder.setEnabled(True)
-            self.tabWidget.setEnabled(True)
-            self.export_button.setEnabled(True)
+            self.enableControls()
             self.exporting = False
             return
 
@@ -732,10 +744,7 @@ class Export(QDialog):
             if ret == QMessageBox.No:
                 # Stop and don't do anything
                 # Re-enable controls
-                self.txtFileName.setEnabled(True)
-                self.txtExportFolder.setEnabled(True)
-                self.tabWidget.setEnabled(True)
-                self.export_button.setEnabled(True)
+                self.enableControls()
                 self.exporting = False
                 return
 
@@ -933,8 +942,8 @@ class Export(QDialog):
         if self.keyframes_rescaled:
             get_app().project.rescale_keyframes(self.original_fps_factor)
 
-        # Handle end of export
-        if self.s.get("show_finished_window"):
+        # Handle end of export (for non-canceled exports)
+        if self.s.get("show_finished_window") and self.exporting:
             # Hide cancel and export buttons
             self.cancel_button.setVisible(False)
             self.export_button.setVisible(False)
