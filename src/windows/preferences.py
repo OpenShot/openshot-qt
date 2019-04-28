@@ -288,7 +288,7 @@ class Preferences(QDialog):
                                 value_list.remove(value_item)
                             elif os_platform == "Windows" and v not in ("0", "3", "4"):
                                 value_list.remove(value_item)
-                            elif os_platform == "Linux" and v not in ("0", "1", "2"):
+                            elif os_platform == "Linux" and v not in ("0", "1", "2", "6"):
                                 value_list.remove(value_item)
 
                     # Replace %s dropdown values for hardware acceleration
@@ -313,6 +313,8 @@ class Preferences(QDialog):
                             icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-vaapi.png"))
                         elif k == "Linux Nvidia NVDEC":
                             icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-nvdec.png"))
+                        elif k == "Linux Nvidia VDPAU":
+                            icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-vdpau.png"))
                         elif k == "Windows D3D9":
                             icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-dx.png"))
                         elif k == "Windows D3D11":

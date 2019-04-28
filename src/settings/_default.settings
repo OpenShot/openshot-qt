@@ -378,6 +378,10 @@
       {
         "value": "5",
         "name": "MacOS"
+      },
+      {
+        "value": "6",
+        "name": "Linux Nvidia VDPAU"
       }
     ],
     "restart": true

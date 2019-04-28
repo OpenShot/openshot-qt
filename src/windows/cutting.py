@@ -105,9 +105,18 @@ class Cutting(QDialog):
         # Open video file with Reader
         log.info(self.file_path)
 
+        # Add Video Widget
+        self.videoPreview = VideoWidget()
+        self.videoPreview.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
+        self.verticalLayout.insertWidget(0, self.videoPreview)
+
+        # Set max size of video preview (for speed)
+        viewport_rect = self.videoPreview.centeredViewport(self.videoPreview.width(), self.videoPreview.height())
+
         # Create an instance of a libopenshot Timeline object
-        self.r = openshot.Timeline(self.width, self.height, openshot.Fraction(self.fps_num, self.fps_den), self.sample_rate, self.channels, self.channel_layout)
+        self.r = openshot.Timeline(self.videoPreview.width(), self.videoPreview.height(), openshot.Fraction(self.fps_num, self.fps_den), self.sample_rate, self.channels, self.channel_layout)
         self.r.info.channel_layout = self.channel_layout
+        self.r.SetMaxSize(viewport_rect.width(), viewport_rect.height())
 
         try:
             # Add clip for current preview file
@@ -128,15 +137,6 @@ class Cutting(QDialog):
         except:
             log.error('Failed to load media file into preview player: %s' % self.file_path)
             return
-
-        # Add Video Widget
-        self.videoPreview = VideoWidget()
-        self.videoPreview.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
-        self.verticalLayout.insertWidget(0, self.videoPreview)
-
-        # Set max size of video preview (for speed)
-        viewport_rect = self.videoPreview.centeredViewport(self.videoPreview.width(), self.videoPreview.height())
-        self.r.SetMaxSize(viewport_rect.width(), viewport_rect.height())
 
         # Open reader
         self.r.Open()
