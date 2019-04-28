@@ -12,8 +12,8 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   width="66.696808"
-   height="156.33606"
+   width="67.230659"
+   height="180.81567"
    sodipodi:docname="hw-accel.svg"
    inkscape:export-filename="/home/jonathan/apps/openshot-qt-git/src/images/hw-accel-vaapi.png"
    inkscape:export-xdpi="89.956078"
@@ -75,8 +75,8 @@
      id="namedview4"
      showgrid="false"
      inkscape:zoom="4.5101946"
-     inkscape:cx="-29.529012"
-     inkscape:cy="57.438325"
+     inkscape:cx="-66.798405"
+     inkscape:cy="81.917938"
      inkscape:window-x="65"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
@@ -88,7 +88,8 @@
   <g
      id="g3339"
      inkscape:export-xdpi="90"
-     inkscape:export-ydpi="90">
+     inkscape:export-ydpi="90"
+     transform="translate(0.31213361,0)">
     <rect
        ry="7.9525819"
        rx="7.9525819"
@@ -112,7 +113,7 @@
   </g>
   <g
      id="g3339-3"
-     transform="translate(0,22.721168)"
+     transform="translate(0.31213361,22.972374)"
      inkscape:export-xdpi="90"
      inkscape:export-ydpi="90">
     <rect
@@ -138,7 +139,7 @@
   </g>
   <g
      id="g3339-35"
-     transform="translate(0,90.884681)"
+     transform="translate(0.31213361,91.889496)"
      inkscape:export-xdpi="90"
      inkscape:export-ydpi="90">
     <rect
@@ -168,7 +169,7 @@
   </g>
   <g
      id="g3339-36"
-     transform="translate(0,113.60585)"
+     transform="translate(0.31213361,114.86187)"
      inkscape:export-xdpi="89.956078"
      inkscape:export-ydpi="89.956078">
     <rect
@@ -196,7 +197,7 @@
      id="g3339-367"
      inkscape:export-xdpi="90"
      inkscape:export-ydpi="90"
-     transform="translate(0,136.32702)">
+     transform="translate(0.53385353,160.80662)">
     <rect
        ry="7.9525819"
        rx="7.9525819"
@@ -226,7 +227,7 @@
      id="g3339-3-3"
      inkscape:export-xdpi="90"
      inkscape:export-ydpi="90"
-     transform="translate(0,45.442341)">
+     transform="translate(0.31213361,45.944748)">
     <rect
        ry="7.9525819"
        rx="7.9525819"
@@ -256,7 +257,7 @@
      id="g3339-3-3-3"
      inkscape:export-xdpi="90"
      inkscape:export-ydpi="90"
-     transform="translate(0,68.163511)">
+     transform="translate(0.31213361,68.917122)">
     <rect
        ry="7.9525819"
        rx="7.9525819"
@@ -281,5 +282,31 @@
          x="11.333531"
          id="tspan4149-5-5-5"
          sodipodi:role="line">VDPAU</tspan></text>
+  </g>
+  <g
+     id="g3339-36-3"
+     inkscape:export-xdpi="89.956078"
+     inkscape:export-ydpi="89.956078"
+     transform="translate(0,137.83424)">
+    <rect
+       ry="7.9525819"
+       rx="7.9525819"
+       y="0.3305341"
+       x="0.3305341"
+       height="19.347975"
+       width="66.035736"
+       id="rect3345-0-6"
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#00b310;stroke-width:0.6610682px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text4147-6-7"
+       y="14.060658"
+       x="19.103485"
+       style="font-style:normal;font-weight:normal;font-size:13.2276535px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#00b310;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         y="14.060658"
+         x="19.103485"
+         id="tspan4149-2-5"
+         sodipodi:role="line">QSV</tspan></text>
   </g>
 </svg>

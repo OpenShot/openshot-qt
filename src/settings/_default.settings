@@ -365,7 +365,7 @@
       },
       {
         "value": "2",
-        "name": "Linux Nvidia NVDEC"
+        "name": "Nvidia NVDEC"
       },
       {
         "value": "3",
@@ -381,7 +381,11 @@
       },
       {
         "value": "6",
-        "name": "Linux Nvidia VDPAU"
+        "name": "Linux VDPAU"
+      },
+      {
+        "value": "7",
+        "name": "Intel QSV"
       }
     ],
     "restart": true

@@ -284,11 +284,11 @@ class Preferences(QDialog):
                     if param["setting"] == "hw-decoder":
                         for value_item in list(value_list):
                             v = value_item["value"]
-                            if os_platform == "Darwin" and v not in ("0", "5"):
+                            if os_platform == "Darwin" and v not in ("0", "5", "7"):
                                 value_list.remove(value_item)
-                            elif os_platform == "Windows" and v not in ("0", "3", "4"):
+                            elif os_platform == "Windows" and v not in ("0", "3", "4", "7"):
                                 value_list.remove(value_item)
-                            elif os_platform == "Linux" and v not in ("0", "1", "2", "6"):
+                            elif os_platform == "Linux" and v not in ("0", "1", "2", "6", "7"):
                                 value_list.remove(value_item)
 
                     # Replace %s dropdown values for hardware acceleration
@@ -311,9 +311,9 @@ class Preferences(QDialog):
                         icon = None
                         if k == "Linux VA-API":
                             icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-vaapi.png"))
-                        elif k == "Linux Nvidia NVDEC":
+                        elif k == "Nvidia NVDEC":
                             icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-nvdec.png"))
-                        elif k == "Linux Nvidia VDPAU":
+                        elif k == "Linux VDPAU":
                             icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-vdpau.png"))
                         elif k == "Windows D3D9":
                             icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-dx.png"))
@@ -321,6 +321,8 @@ class Preferences(QDialog):
                             icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-dx.png"))
                         elif k == "MacOS":
                             icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-vtb.png"))
+                        elif k == "Intel QSV":
+                            icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-qsv.png"))
                         elif k == "No acceleration":
                             icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-none.png"))
 
