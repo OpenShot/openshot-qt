@@ -390,14 +390,16 @@ class Export(QDialog):
                         project_types.append(_(title.childNodes[0].data))
                     for codec in videocodecs:
                         codec_text = codec.childNodes[0].data
-                        if codec_text == "h264_vaapi" and openshot.FFmpegWriter.IsValidCodec(codec_text):
+                        if "vaapi" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
                             acceleration_types[_(title.childNodes[0].data)] = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-vaapi.png"))
-                        elif codec_text == "h264_nvenc" and openshot.FFmpegWriter.IsValidCodec(codec_text):
+                        elif "nvenc" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
                             acceleration_types[_(title.childNodes[0].data)] = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-nvenc.png"))
-                        elif codec_text == "h264_dxva2" and openshot.FFmpegWriter.IsValidCodec(codec_text):
+                        elif "dxva2" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
                             acceleration_types[_(title.childNodes[0].data)] = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-dx.png"))
-                        elif codec_text in ("h264_vtb", "h264_qsv") and openshot.FFmpegWriter.IsValidCodec(codec_text):
+                        elif "videotoolbox" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
                             acceleration_types[_(title.childNodes[0].data)] = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-vtb.png"))
+                        elif "qsv" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
+                            acceleration_types[_(title.childNodes[0].data)] = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-qsv.png"))
                         elif openshot.FFmpegWriter.IsValidCodec(codec_text):
                             acceleration_types[_(title.childNodes[0].data)] = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-none.png"))
 
