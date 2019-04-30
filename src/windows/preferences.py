@@ -144,6 +144,7 @@ class Preferences(QDialog):
                     scroll_area.setWidgetResizable(True)
                     scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
                     scroll_area.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+                    scroll_area.setMinimumSize(675, 350)
 
                     # Create tab widget and layout
                     layout = QVBoxLayout()
@@ -284,7 +285,7 @@ class Preferences(QDialog):
                     if param["setting"] == "hw-decoder":
                         for value_item in list(value_list):
                             v = value_item["value"]
-                            if os_platform == "Darwin" and v not in ("0", "5", "7"):
+                            if os_platform == "Darwin" and v not in ("0", "5", "7", "2"):
                                 value_list.remove(value_item)
                             elif os_platform == "Windows" and v not in ("0", "3", "4", "7"):
                                 value_list.remove(value_item)
