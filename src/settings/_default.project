@@ -4,6 +4,14 @@
     "num": 24,
     "den": 1
   },
+  "display_ratio": {
+    "num": 16,
+    "den": 9
+  },
+  "pixel_ratio": {
+    "num": 1,
+    "den": 1
+  },
   "width": 1280,
   "height": 720,
   "sample_rate": 48000,
