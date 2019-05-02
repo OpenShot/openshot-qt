@@ -317,6 +317,10 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 # Attempt to load v2.X project file
                 project_data = self.read_from_file(file_path, path_mode="absolute")
 
+                # Fix history (if broken)
+                if not project_data.get("history"):
+                    project_data["history"] = {"undo": [], "redo": []}
+
             except Exception as ex:
                 try:
                     # Attempt to load legacy project file (v1.X version)
