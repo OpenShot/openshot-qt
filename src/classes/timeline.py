@@ -76,13 +76,7 @@ class TimelineSync(UpdateInterface):
         """ This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """
 
         # Ignore changes that don't affect libopenshot
-        if len(action.key) >= 1 and action.key[0].lower() in ["files", "history", "markers", "layers", "export_path", "import_path", "scale"]:
-            return
-
-        elif len(action.key) >= 1 and action.key[0].lower() in ["profile"]:
-
-            # The timeline's profile changed, so update all clips
-            self.timeline.ApplyMapperToClips()
+        if len(action.key) >= 1 and action.key[0].lower() in ["files", "history", "markers", "layers", "export_path", "import_path", "scale", "profile"]:
             return
 
         # Pass the change to the libopenshot timeline

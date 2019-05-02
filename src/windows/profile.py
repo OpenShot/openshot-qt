@@ -71,6 +71,9 @@ class Profile(QDialog):
         # Track metrics
         track_metric_screen("profile-screen")
 
+        # Ignore first dropdown selected index callback (TODO: Find better way to avoid this)
+        self.skip_first = True
+
         # Loop through profiles
         self.profile_names = []
         self.profile_paths = {}
@@ -111,6 +114,11 @@ class Profile(QDialog):
         self.cboProfile.setCurrentIndex(selected_index)
 
     def dropdown_index_changed(self, widget, index):
+        # Ignore first callback
+        if self.skip_first:
+            self.skip_first = False
+            return
+
         # Get profile path
         value = self.cboProfile.itemData(index)
         log.info(value)
@@ -134,6 +142,8 @@ class Profile(QDialog):
         get_app().updates.update(["width"], profile.info.width)
         get_app().updates.update(["height"], profile.info.height)
         get_app().updates.update(["fps"], {"num" : profile.info.fps.num, "den" : profile.info.fps.den})
+        get_app().updates.update(["display_ratio"], {"num": profile.info.display_ratio.num, "den": profile.info.display_ratio.den})
+        get_app().updates.update(["pixel_ratio"], {"num": profile.info.pixel_ratio.num, "den": profile.info.pixel_ratio.den})
 
         # Rescale all keyframes and reload project
         if fps_factor != 1.0:
@@ -144,10 +154,6 @@ class Profile(QDialog):
 
         # Update Window Title
         get_app().window.SetWindowTitle(profile.info.description)
-
-        # Update max size (to size of video preview viewport)
-        viewport_rect = get_app().window.videoPreview.centeredViewport(get_app().window.videoPreview.width(), get_app().window.videoPreview.height())
-        get_app().window.timeline_sync.timeline.SetMaxSize(viewport_rect.width(), viewport_rect.height())
 
         # Refresh frame (since size of preview might have changed)
         QTimer.singleShot(500, get_app().window.refreshFrameSignal.emit)

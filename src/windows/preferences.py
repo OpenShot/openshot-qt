@@ -32,7 +32,7 @@ import functools
 
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QKeySequence
+from PyQt5.QtGui import QKeySequence, QIcon
 from PyQt5 import uic
 
 from classes import info, ui_util, settings, qt_types, updates
@@ -60,10 +60,6 @@ class Preferences(QDialog):
         # Init UI
         ui_util.init_ui(self)
 
-        # get translations
-        app = get_app()
-        _ = app._tr
-
         # Get settings
         self.s = settings.get_settings()
 
@@ -79,10 +75,54 @@ class Preferences(QDialog):
             if "setting" in item and "value" in item:
                 self.params[item["setting"]] = item
 
+        # Connect search textbox
+        self.txtSearch.textChanged.connect(self.txtSearch_changed)
+
         self.requires_restart = False
         self.category_names = {}
         self.category_tabs = {}
         self.category_sort = {}
+        self.visible_category_names = {}
+
+        # Populate preferences
+        self.Populate()
+
+    def txtSearch_changed(self):
+        """textChanged event handler for search box"""
+        log.info("Search for %s" % self.txtSearch.text())
+
+        # Populate preferences
+        self.Populate(filter=self.txtSearch.text())
+
+    def DeleteAllTabs(self, onlyInVisible=False):
+        """Delete all tabs"""
+        for name, widget in dict(self.category_tabs).items():
+            if (onlyInVisible and name not in self.visible_category_names) or not onlyInVisible:
+                parent_widget = widget.parent().parent()
+                parent_widget.parent().removeWidget(parent_widget)
+                parent_widget.deleteLater()
+
+                if name in self.category_names:
+                    self.category_names.pop(name)
+                if name in self.visible_category_names:
+                    self.visible_category_names.pop(name)
+                if name in self.category_tabs:
+                    self.category_tabs.pop(name)
+
+    def Populate(self, filter=""):
+        """Populate all preferences and tabs"""
+
+        # get translations
+        app = get_app()
+        _ = app._tr
+
+        # Delete all tabs and widgets
+        self.DeleteAllTabs()
+
+        self.category_names = {}
+        self.category_tabs = {}
+        self.category_sort = {}
+        self.visible_category_names = {}
 
         # Loop through settings and find all unique categories
         for item in self.settings_data:
@@ -104,6 +144,7 @@ class Preferences(QDialog):
                     scroll_area.setWidgetResizable(True)
                     scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
                     scroll_area.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+                    scroll_area.setMinimumSize(675, 350)
 
                     # Create tab widget and layout
                     layout = QVBoxLayout()
@@ -123,8 +164,9 @@ class Preferences(QDialog):
                 self.category_names[category].append(item)
 
         # Loop through each category setting, and add them to the tabs
-        for category in self.category_tabs.keys():
+        for category in dict(self.category_tabs).keys():
             tabWidget = self.category_tabs[category]
+            filterFound = False
 
             # Get list of items in category
             params = self.category_names[category]
@@ -134,6 +176,17 @@ class Preferences(QDialog):
 
             # Loop through settings for each category
             for param in params:
+                # Is filter found?
+                if filter and (filter.lower() in _(param["title"]).lower() or filter.lower() in _(category).lower()):
+                    filterFound = True
+                elif not filter:
+                    filterFound = True
+                else:
+                    filterFound = False
+
+                # Visible Category
+                if filterFound:
+                    self.visible_category_names[category] = tabWidget
 
                 # Create Label
                 widget = None
@@ -205,6 +258,14 @@ class Preferences(QDialog):
                         # Sort profile list
                         value_list.sort(key=operator.itemgetter("name"))
 
+                    # Overwrite value list (for audio device list dropdown)
+                    if param["setting"] == "playback-audio-device":
+                        value_list = []
+                        # Loop through audio devices
+                        value_list.append({"name": "Default", "value": ""})
+                        for audio_device in get_app().window.preview_thread.player.GetAudioDeviceNames():
+                            value_list.append({"name":"%s: %s" % (audio_device.type, audio_device.name), "value":audio_device.name})
+
                     # Overwrite value list (for language dropdown)
                     if param["setting"] == "default-language":
                         value_list = []
@@ -219,14 +280,59 @@ class Preferences(QDialog):
                         # Add Default to top of list
                         value_list.insert(0, {"name":_("Default"), "value":"Default"})
 
+                    # Overwrite value list (for hardware acceleration modes)
+                    os_platform = platform.system()
+                    if param["setting"] == "hw-decoder":
+                        for value_item in list(value_list):
+                            v = value_item["value"]
+                            if os_platform == "Darwin" and v not in ("0", "5", "7", "2"):
+                                value_list.remove(value_item)
+                            elif os_platform == "Windows" and v not in ("0", "3", "4", "7"):
+                                value_list.remove(value_item)
+                            elif os_platform == "Linux" and v not in ("0", "1", "2", "6", "7"):
+                                value_list.remove(value_item)
+
+                    # Replace %s dropdown values for hardware acceleration
+                    if param["setting"] in ("graca_number_en", "graca_number_de"):
+                        value_index = 0
+                        for value_item in list(value_list):
+                            value_name = value_item["name"]
+                            if "%s" in value_name:
+                                value_list[value_index]["name"] = _(value_name) % (value_index + 1)
+                            value_index += 1
 
                     # Add normal values
                     box_index = 0
                     for value_item in value_list:
                         k = value_item["name"]
                         v = value_item["value"]
+
+                        # Override icons for certain values
+                        # TODO: Find a more elegant way to do this
+                        icon = None
+                        if k == "Linux VA-API":
+                            icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-vaapi.png"))
+                        elif k == "Nvidia NVDEC":
+                            icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-nvdec.png"))
+                        elif k == "Linux VDPAU":
+                            icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-vdpau.png"))
+                        elif k == "Windows D3D9":
+                            icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-dx.png"))
+                        elif k == "Windows D3D11":
+                            icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-dx.png"))
+                        elif k == "MacOS":
+                            icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-vtb.png"))
+                        elif k == "Intel QSV":
+                            icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-qsv.png"))
+                        elif k == "No acceleration":
+                            icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-none.png"))
+
                         # add dropdown item
-                        widget.addItem(_(k), v)
+                        if icon:
+                            widget.setIconSize(QSize(60, 18))
+                            widget.addItem(icon, _(k), v)
+                        else:
+                            widget.addItem(_(k), v)
 
                         # select dropdown (if default)
                         if v == param["value"]:
@@ -237,7 +343,7 @@ class Preferences(QDialog):
 
 
                 # Add Label and Widget to the form
-                if (widget and label):
+                if (widget and label and filterFound):
                     # Add minimum size
                     label.setMinimumWidth(180);
                     label.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
@@ -253,12 +359,15 @@ class Preferences(QDialog):
 
                     # Add widget to layout
                     tabWidget.layout().addLayout(layout_hbox)
-                elif (label):
+                elif (label and filterFound):
                     # Add widget to layout
                     tabWidget.layout().addWidget(label)
 
             # Add stretch to bottom of layout
             tabWidget.layout().addStretch()
+
+        # Delete all tabs and widgets
+        self.DeleteAllTabs(onlyInVisible=True)
 
     def selectExecutable(self, widget, param):
         _ = get_app()._tr
@@ -298,22 +407,6 @@ class Preferences(QDialog):
                 # Stop autosave timer
                 get_app().window.auto_save_timer.stop()
 
-        elif param["setting"] == "hardware_decode":
-            if (state == Qt.Checked):
-                # Enable hardware decode
-                openshot.Settings.Instance().HARDWARE_DECODE = True
-            else:
-                # Disable hardware decode
-                openshot.Settings.Instance().HARDWARE_DECODE = False
-
-        elif param["setting"] == "hardware_encode":
-            if (state == Qt.Checked):
-                # Enable hardware encode
-                openshot.Settings.Instance().HARDWARE_ENCODE = True
-            else:
-                # Disable hardware encode
-                openshot.Settings.Instance().HARDWARE_ENCODE = False
-
         elif param["setting"] == "omp_threads_enabled":
             if (state == Qt.Checked):
                 # Enable OMP multi-threading
@@ -333,6 +426,18 @@ class Preferences(QDialog):
         if param["setting"] == "autosave-interval":
             # Update autosave interval (# of minutes)
             get_app().window.auto_save_timer.setInterval(value * 1000 * 60)
+
+        elif param["setting"] == "omp_threads_number":
+            openshot.Settings.Instance().OMP_THREADS = max(2,int(str(value)))
+
+        elif param["setting"] == "ff_threads_number":
+            openshot.Settings.Instance().FF_THREADS = int(str(value))
+
+        elif param["setting"] == "decode_hw_max_width":
+            openshot.Settings.Instance().DE_LIMIT_WIDTH_MAX = int(str(value))
+
+        elif param["setting"] == "decode_hw_max_height":
+            openshot.Settings.Instance().DE_LIMIT_HEIGHT_MAX = int(str(value))
 
         # Apply cache settings (if needed)
         if param["setting"] in ["cache-limit-mb", "cache-scale", "cache-quality"]:
@@ -371,6 +476,16 @@ class Preferences(QDialog):
         # Apply cache settings (if needed)
         if param["setting"] in ["cache-mode", "cache-image-format"]:
             get_app().window.InitCacheSettings()
+
+        if param["setting"] == "hw-decoder":
+          # Set Hardware Decoder
+          openshot.Settings.Instance().HARDWARE_DECODER = int(value)
+
+        if param["setting"] == "graca_number_de":
+            openshot.Settings.Instance().HW_DE_DEVICE_SET = int(value)
+
+        if param["setting"] == "graca_number_en":
+            openshot.Settings.Instance().HW_EN_DEVICE_SET = int(value)
 
         # Check for restart
         self.check_for_restart(param)

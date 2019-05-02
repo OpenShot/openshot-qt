@@ -243,6 +243,10 @@ for setting in settings:
         if setting["category"] not in category_names:
             export_text[setting["category"]] = "Settings Category for %s" % setting["category"]
             category_names.append(setting["category"])
+        if "translate_values" in setting and setting.get("translate_values"):
+            # Add translatable dropdown keys
+            for value in setting.get("values", []):
+                export_text[value["name"]] = "Settings for %s" % setting["setting"]
 
 # Loop through transitions and add to POT file
 transitions_text = {}

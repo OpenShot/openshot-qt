@@ -277,23 +277,23 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Get the default audio settings for the timeline (and preview playback)
         default_sample_rate = int(s.get("default-samplerate"))
-        default_channel_ayout = s.get("default-channellayout")
+        default_channel_layout = s.get("default-channellayout")
 
         channels = 2
         channel_layout = openshot.LAYOUT_STEREO
-        if default_channel_ayout == "LAYOUT_MONO":
+        if default_channel_layout == "LAYOUT_MONO":
             channels = 1
             channel_layout = openshot.LAYOUT_MONO
-        elif default_channel_ayout == "LAYOUT_STEREO":
+        elif default_channel_layout == "LAYOUT_STEREO":
             channels = 2
             channel_layout = openshot.LAYOUT_STEREO
-        elif default_channel_ayout == "LAYOUT_SURROUND":
+        elif default_channel_layout == "LAYOUT_SURROUND":
             channels = 3
             channel_layout = openshot.LAYOUT_SURROUND
-        elif default_channel_ayout == "LAYOUT_5POINT1":
+        elif default_channel_layout == "LAYOUT_5POINT1":
             channels = 6
             channel_layout = openshot.LAYOUT_5POINT1
-        elif default_channel_ayout == "LAYOUT_7POINT1":
+        elif default_channel_layout == "LAYOUT_7POINT1":
             channels = 8
             channel_layout = openshot.LAYOUT_7POINT1
 
@@ -302,7 +302,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         self._data["channels"] = channels
         self._data["channel_layout"] = channel_layout
 
-    def load(self, file_path):
+    def load(self, file_path, clear_thumbnails=True):
         """ Load project from file """
 
         self.new()
@@ -338,7 +338,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             # Copy any project thumbnails to main THUMBNAILS folder
             loaded_project_folder = os.path.dirname(self.current_filepath)
             project_thumbnails_folder = os.path.join(loaded_project_folder, "thumbnail")
-            if os.path.exists(project_thumbnails_folder):
+            if os.path.exists(project_thumbnails_folder) and clear_thumbnails:
                 # Remove thumbnail path
                 shutil.rmtree(info.THUMBNAIL_PATH, True)
 

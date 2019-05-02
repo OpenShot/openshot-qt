@@ -476,7 +476,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                     self.clear_all_thumbnails()
 
                 # Load project file
-                app.project.load(file_path)
+                app.project.load(file_path, clear_thumbnails)
 
                 # Set Window title
                 self.SetWindowTitle()
@@ -489,7 +489,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 self.clearSelections()
 
                 # Refresh file tree
-                self.filesTreeView.refresh_view()
+                QTimer.singleShot(0, self.filesTreeView.refresh_view)
 
                 # Load recent projects again
                 self.load_recent_menu()
@@ -544,12 +544,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 os.mkdir(info.ASSETS_PATH)
 
             # Clear any backups
-            if os.path.exists(info.BACKUP_PATH):
-                log.info("Clear all backups: %s" % info.BACKUP_PATH)
-                # Remove backup folder
-                shutil.rmtree(info.BACKUP_PATH)
-                # Create backup folder
-                os.mkdir(info.BACKUP_PATH)
+            backup_path = os.path.join(info.BACKUP_PATH, "backup.osp")
+            if os.path.exists(backup_path):
+                log.info("Clear backup: %s" % backup_path)
+                # Remove backup file
+                os.unlink(backup_path)
+
         except:
             log.info("Failed to clear thumbnails: %s" % info.THUMBNAIL_PATH)
 
@@ -596,11 +596,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def auto_save_project(self):
         """Auto save the project"""
-        log.info("auto_save_project")
-
         # Get current filepath (if any)
         file_path = get_app().project.current_filepath
         if get_app().project.needs_save():
+            log.info("auto_save_project")
+
             if file_path:
                 # A Real project file exists
                 # Append .osp if needed
@@ -610,6 +610,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 # Save project
                 log.info("Auto save project file: %s" % file_path)
                 self.save_project(file_path)
+
+                # Remvoe backup.osp (if any)
+                recovery_path = os.path.join(info.BACKUP_PATH, "backup.osp")
+                if os.path.exists(recovery_path):
+                    # Delete backup.osp since we just saved the actual project
+                    os.unlink(recovery_path)
 
             else:
                 # No saved project found
@@ -2325,7 +2331,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Update cache reference, so it doesn't go out of scope
         self.cache_object = new_cache_object
 
-    def FrameExported(self, path, start_frame, end_frame, current_frame):
+    def FrameExported(self, title_message, start_frame, end_frame, current_frame):
         """Connect to Unity launcher (for Linux)"""
         try:
             if sys.platform == "linux" and self.has_launcher:
@@ -2504,17 +2510,35 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if s.get("enable-auto-save"):
             self.auto_save_timer.start()
 
-        # Set hardware decode
-        if s.get("hardware_decode"):
-            openshot.Settings.Instance().HARDWARE_DECODE = True
+        # Set encoding method
+        if s.get("hw-decoder"):
+                openshot.Settings.Instance().HARDWARE_DECODER = int(str(s.get("hw-decoder")))
         else:
-            openshot.Settings.Instance().HARDWARE_DECODE = False
+                openshot.Settings.Instance().HARDWARE_DECODER = 0
 
-        # Set hardware encode
-        if s.get("hardware_encode"):
-            openshot.Settings.Instance().HARDWARE_ENCODE = True
+        # Set graphics card for decoding
+        if s.get("graca_number_de"):
+            if int(str(s.get("graca_number_de"))) != 0:
+                openshot.Settings.Instance().HW_DE_DEVICE_SET = int(str(s.get("graca_number_de")))
+            else:
+                openshot.Settings.Instance().HW_DE_DEVICE_SET = 0
         else:
-            openshot.Settings.Instance().HARDWARE_ENCODE = False
+            openshot.Settings.Instance().HW_DE_DEVICE_SET = 0
+
+        # Set graphics card for encoding
+        if s.get("graca_number_en"):
+            if int(str(s.get("graca_number_en"))) != 0:
+                openshot.Settings.Instance().HW_EN_DEVICE_SET = int(str(s.get("graca_number_en")))
+            else:
+                openshot.Settings.Instance().HW_EN_DEVICE_SET = 0
+        else:
+            openshot.Settings.Instance().HW_EN_DEVICE_SET = 0
+
+        # Set audio playback settings
+        if s.get("playback-audio-device"):
+                openshot.Settings.Instance().PLAYBACK_AUDIO_DEVICE_NAME = str(s.get("playback-audio-device"))
+        else:
+                openshot.Settings.Instance().PLAYBACK_AUDIO_DEVICE_NAME = ""
 
         # Set OMP thread enabled flag (for stability)
         if s.get("omp_threads_enabled"):
@@ -2524,6 +2548,26 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Set scaling mode to lower quality scaling (for faster previews)
         openshot.Settings.Instance().HIGH_QUALITY_SCALING = False
+
+        # Set use omp threads number environment variable
+        if s.get("omp_threads_number"):
+            openshot.Settings.Instance().OMP_THREADS = max(2,int(str(s.get("omp_threads_number"))))
+        else:
+            openshot.Settings.Instance().OMP_THREADS = 12
+
+        # Set use ffmpeg threads number environment variable
+        if s.get("ff_threads_number"):
+            openshot.Settings.Instance().FF_THREADS = max(1,int(str(s.get("ff_threads_number"))))
+        else:
+            openshot.Settings.Instance().FF_THREADS = 8
+
+        # Set use max width decode hw environment variable
+        if s.get("decode_hw_max_width"):
+            openshot.Settings.Instance().DE_LIMIT_WIDTH_MAX = int(str(s.get("decode_hw_max_width")))
+
+        # Set use max height decode hw environment variable
+        if s.get("decode_hw_max_height"):
+            openshot.Settings.Instance().DE_LIMIT_HEIGHT_MAX = int(str(s.get("decode_hw_max_height")))
 
         # Create lock file
         self.create_lock_file()

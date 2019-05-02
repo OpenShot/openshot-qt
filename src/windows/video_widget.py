@@ -33,6 +33,7 @@ import openshot  # Python module for libopenshot (required video editing module 
 from classes.logger import log
 from classes.app import get_app
 from classes.query import Clip
+from classes import updates
 
 try:
     import json
@@ -40,8 +41,42 @@ except ImportError:
     import simplejson as json
 
 
-class VideoWidget(QWidget):
+class VideoWidget(QWidget, updates.UpdateInterface):
     """ A QWidget used on the video display widget """
+
+    # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
+    def changed(self, action):
+        # Handle change
+        display_ratio_changed = False
+        pixel_ratio_changed = False
+        if action.key and action.key[0] in ["display_ratio", "pixel_ratio"] or action.type in ["load"]:
+            self.mutex.lock()
+
+            # Update display ratio (if found)
+            if action.type == "load" and action.values.get("display_ratio"):
+                display_ratio_changed = True
+                self.aspect_ratio = openshot.Fraction(action.values.get("display_ratio", {}).get("num", 16), action.values.get("display_ratio", {}).get("den", 9))
+                log.info("Load: Set video widget display aspect ratio to: %s" % self.aspect_ratio.ToFloat())
+            elif action.key and action.key[0] == "display_ratio":
+                display_ratio_changed = True
+                self.aspect_ratio = openshot.Fraction(action.values.get("num", 16), action.values.get("den", 9))
+                log.info("Update: Set video widget display aspect ratio to: %s" % self.aspect_ratio.ToFloat())
+
+            # Update pixel ratio (if found)
+            if action.type == "load" and action.values.get("pixel_ratio"):
+                pixel_ratio_changed = True
+                self.pixel_ratio = openshot.Fraction(action.values.get("pixel_ratio").get("num", 16), action.values.get("pixel_ratio").get("den", 9))
+                log.info("Set video widget pixel aspect ratio to: %s" % self.pixel_ratio.ToFloat())
+            elif action.key and action.key[0] == "pixel_ratio":
+                pixel_ratio_changed = True
+                self.pixel_ratio = openshot.Fraction(action.values.get("num", 16), action.values.get("den", 9))
+                log.info("Update: Set video widget pixel aspect ratio to: %s" % self.pixel_ratio.ToFloat())
+
+            # Update max size (to size of video preview viewport)
+            if display_ratio_changed or pixel_ratio_changed:
+                get_app().window.timeline_sync.timeline.SetMaxSize(round(self.width() * self.pixel_ratio.ToFloat()), round(self.height() * self.pixel_ratio.ToFloat()))
+
+            self.mutex.unlock()
 
     def paintEvent(self, event, *args):
         """ Custom paint event """
@@ -244,11 +279,6 @@ class VideoWidget(QWidget):
         painter.end()
 
         self.mutex.unlock()
-
-    def SetAspectRatio(self, new_aspect_ratio, new_pixel_ratio):
-        """ Set a new aspect ratio """
-        self.aspect_ratio = new_aspect_ratio
-        self.pixel_ratio = new_pixel_ratio
 
     def centeredViewport(self, width, height):
         """ Calculate size of viewport to maintain apsect ratio """
@@ -531,7 +561,7 @@ class VideoWidget(QWidget):
 
     def resizeEvent(self, event):
         """Widget resize event"""
-        self.delayed_size = self.centeredViewport(event.size().width(), event.size().height())
+        self.delayed_size = self.size()
         self.delayed_resize_timer.start()
 
         # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
@@ -587,6 +617,9 @@ class VideoWidget(QWidget):
         super().setPalette(p)
         super().setAttribute(Qt.WA_OpaquePaintEvent)
         super().setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+
+        # Add self as listener to project data updates (used to update the timeline)
+        get_app().updates.add_listener(self)
 
         # Set mouse tracking
         self.setMouseTracking(True)
