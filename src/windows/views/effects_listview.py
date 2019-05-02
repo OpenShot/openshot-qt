@@ -32,11 +32,7 @@ from PyQt5.QtWidgets import QListView, QMenu
 from classes.app import get_app
 from windows.models.effects_model import EffectsModel
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class EffectsListView(QListView):
     """ A TreeView QWidget used on the main window """

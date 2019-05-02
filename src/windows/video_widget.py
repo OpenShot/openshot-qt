@@ -34,11 +34,7 @@ from classes.logger import log
 from classes.app import get_app
 from classes.query import Clip
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class VideoWidget(QWidget):
     """ A QWidget used on the video display widget """

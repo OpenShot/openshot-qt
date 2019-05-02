@@ -42,11 +42,7 @@ from windows.models.files_model import FilesModel
 
 import openshot
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class PropertyDelegate(QItemDelegate):
     def __init__(self, parent=None, *args):

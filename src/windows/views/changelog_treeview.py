@@ -39,11 +39,7 @@ from classes.logger import log
 from classes.app import get_app
 from windows.models.changelog_model import ChangelogModel
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class ChangelogTreeView(QTreeView):
     """ A ListView QWidget used on the changelog window """

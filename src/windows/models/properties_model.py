@@ -39,11 +39,7 @@ from classes.logger import log
 from classes.app import get_app
 import openshot
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class ClipStandardItemModel(QStandardItemModel):
     def __init__(self, parent=None):

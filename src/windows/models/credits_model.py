@@ -34,11 +34,7 @@ from classes import info
 from classes.logger import log
 from classes.app import get_app
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class CreditsStandardItemModel(QStandardItemModel):
     def __init__(self, parent=None):
