@@ -281,9 +281,19 @@ build_exe_options["include_files"] = src_files + external_so_files
 # Set options
 build_options["build_exe"] = build_exe_options
 
+infoVersion = info.VERSION
+
+# Override version for win32 (in pywin32 module, used by cx_Freeze, only int numbers: a.b.c.d allowed)
+if sys.platform == "win32":
+    # for example, infoVersion = "2.4.4-dev1"
+    import re
+    infoVersion = infoVersion.replace("-", ".")
+    infoVersion = re.sub("[^0-9.]", "", infoVersion)
+    # here infoVersion = "2.4.4.1"
+
 # Create distutils setup object
 setup(name=info.PRODUCT_NAME,
-      version=info.VERSION,
+      version=infoVersion,
       description=info.DESCRIPTION,
       author=info.COMPANY_NAME,
       options=build_options,
