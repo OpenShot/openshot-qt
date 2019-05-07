@@ -53,8 +53,6 @@ except ImportError:
     print("Loaded modules from installed directory: %s" % info.PATH)
 
 from classes.app import OpenShotApp
-from classes.logger import log, reroute_output
-from classes.language import get_all_languages
 
 
 def main():
@@ -78,6 +76,7 @@ def main():
         sys.exit()
 
     if args.list_languages:
+        from classes.language import get_all_languages
         print("Supported Languages:")
         for lang in get_all_languages():
             print("  {:>12}  {}".format(lang[0],lang[1]))
@@ -89,12 +88,6 @@ def main():
         else:
             print("Unsupported language '{}'! (See --list-languages)".format(args.lang))
             sys.exit(-1)
-
-    reroute_output()
-
-    log.info("------------------------------------------------")
-    log.info("   OpenShot (version %s)" % info.SETUP['version'])
-    log.info("------------------------------------------------")
 
     # Create Qt application, pass any unprocessed arguments
     argv = [sys.argv[0]]

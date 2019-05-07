@@ -2576,11 +2576,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.OpenProjectSignal.connect(self.open_project)
 
         # Show window
-        if not self.mode in ("unittest", "quit"):
+        if not self.mode == "unittest":
             self.show()
-        else:
-            log.info('Quit application due to self.mode: %s' % self.mode)
-            QTimer.singleShot(0, self.actionQuit.trigger)
 
         # Create tutorial manager
         self.tutorial_manager = TutorialManager(self)
