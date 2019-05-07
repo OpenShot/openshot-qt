@@ -58,8 +58,9 @@ class OpenShotApp(QApplication):
 
         try:
             # Import modules
+            from classes import info
             from classes.logger import log, reroute_output
-            from classes import info, settings, project_data, updates, language, ui_util, logger_libopenshot
+            from classes import settings, project_data, updates, language, ui_util, logger_libopenshot
             import openshot
 
             # Re-route stdout and stderr to logger
