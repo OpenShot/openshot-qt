@@ -37,11 +37,6 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtCore import QT_VERSION_STR
 from PyQt5.Qt import PYQT_VERSION_STR
 
-from classes.logger import log
-from classes import info, settings, project_data, updates, language, ui_util, logger_libopenshot
-import openshot
-
-
 try:
     # Enable High-DPI resolutions
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
@@ -56,13 +51,31 @@ def get_app():
 
 class OpenShotApp(QApplication):
     """ This class is the primary QApplication for OpenShot.
-            mode=None (normal), mode=unittest (testing), mode=quit (exit immediately) """
+            mode=None (normal), mode=unittest (testing)"""
 
     def __init__(self, *args, mode=None):
         QApplication.__init__(self, *args)
 
+        try:
+            # Import modules
+            from classes.logger import log, reroute_output
+            from classes import info, settings, project_data, updates, language, ui_util, logger_libopenshot
+            import openshot
+
+            # Re-route stdout and stderr to logger
+            reroute_output()
+        except Exception as ex:
+            QMessageBox.warning(None, "Import Error",
+                                "%(error)s. Please delete <b>%(path)s</b> and launch OpenShot again." % {"error": str(ex), "path": info.USER_PATH})
+            # Stop launching and exit
+            sys.exit()
+
         # Log some basic system info
         try:
+            log.info("------------------------------------------------")
+            log.info("   OpenShot (version %s)" % info.SETUP['version'])
+            log.info("------------------------------------------------")
+
             v = openshot.GetVersion()
             log.info("openshot-qt version: %s" % info.VERSION)
             log.info("libopenshot version: %s" % v.ToString())
@@ -127,12 +140,10 @@ class OpenShotApp(QApplication):
         except Exception as ex:
             # Permission error (most likely)
             log.error('Failed to create PERMISSION/test.osp file (likely permissions error): %s' % TEST_PATH_FILE)
-            # Display permission error
-            msg = QMessageBox()
-            msg.setWindowTitle(_("Permission Error"))
-            msg.setText(_("Sorry, unable to access the following path:\n%s\nPlease delete this folder and launch OpenShot again.") % info.USER_PATH)
-            msg.exec_()
-            mode = "quit" # exit app as soon possible
+            QMessageBox.warning(None, _("Permission Error"),
+                                      _("%(error)s. Please delete <b>%(path)s</b> and launch OpenShot again." % {"error": str(ex), "path": info.USER_PATH}))
+            # Stop launching and exit
+            sys.exit()
 
         # Start libopenshot logging thread
         self.logger_libopenshot = logger_libopenshot.LoggerLibOpenShot()
