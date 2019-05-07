@@ -56,7 +56,7 @@ def get_app():
 
 class OpenShotApp(QApplication):
     """ This class is the primary QApplication for OpenShot.
-            mode=None (normal), mode=unittest (testing) """
+            mode=None (normal), mode=unittest (testing), mode=quit (exit immediately) """
 
     def __init__(self, *args, mode=None):
         QApplication.__init__(self, *args)
@@ -111,6 +111,28 @@ class OpenShotApp(QApplication):
 
         # Load ui theme if not set by OS
         ui_util.load_theme()
+
+        # Test for permission issues (and display message if needed)
+        try:
+            # Create test paths
+            TEST_PATH_DIR = os.path.join(info.USER_PATH, 'PERMISSION')
+            TEST_PATH_FILE = os.path.join(TEST_PATH_DIR, 'test.osp')
+            os.makedirs(TEST_PATH_DIR, exist_ok=True)
+            with open(TEST_PATH_FILE, 'w') as f:
+                f.write('{}')
+                f.flush()
+            # Delete test paths
+            os.unlink(TEST_PATH_FILE)
+            os.rmdir(TEST_PATH_DIR)
+        except Exception as ex:
+            # Permission error (most likely)
+            log.error('Failed to create PERMISSION/test.osp file (likely permissions error): %s' % TEST_PATH_FILE)
+            # Display permission error
+            msg = QMessageBox()
+            msg.setWindowTitle(_("Permission Error"))
+            msg.setText(_("Sorry, unable to access the following path:\n%s\nPlease delete this folder and launch OpenShot again.") % info.USER_PATH)
+            msg.exec_()
+            mode = "quit" # exit app as soon possible
 
         # Start libopenshot logging thread
         self.logger_libopenshot = logger_libopenshot.LoggerLibOpenShot()
