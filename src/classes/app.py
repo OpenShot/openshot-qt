@@ -126,7 +126,7 @@ class OpenShotApp(QApplication):
             os.rmdir(TEST_PATH_DIR)
         except Exception as ex:
             # Permission error (most likely)
-            log.error('Failed to create PERMISSION/test.osp file (like permissions error): %s' % TEST_PATH_FILE)
+            log.error('Failed to create PERMISSION/test.osp file (likely permissions error): %s' % TEST_PATH_FILE)
             # Display permission error
             msg = QMessageBox()
             msg.setWindowTitle(_("Permission Error"))
