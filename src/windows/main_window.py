@@ -131,6 +131,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.preview_parent.background.exit()
         self.preview_parent.background.wait(5000)
 
+        # Close Timeline
+        self.timeline_sync.timeline.Close()
+        self.timeline_sync.timeline = None
+
         # Close & Stop libopenshot logger
         openshot.ZmqLogger.Instance().Close()
         get_app().logger_libopenshot.kill()
