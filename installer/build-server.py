@@ -412,6 +412,11 @@ try:
                     lib_dst_path = os.path.join(os.path.join(python_dir), lib_file)
                     shutil.move(lib_src_path, lib_dst_path)
 
+            # Remove a redundant openshot_qt module folder (duplicates lots of files)
+            duplicate_openshot_qt_path = os.path.join(python_dir, 'openshot_qt')
+            if os.path.exists(duplicate_openshot_qt_path):
+                shutil.rmtree(duplicate_openshot_qt_path, True)
+
         # Delete debug Qt libraries (since they are not needed, and cx_Freeze grabs them)
         for sub_folder in ['', 'platforms', 'imageformats']:
             parent_path = exe_dir
