@@ -94,6 +94,18 @@
     <property name="title">
      <string>&amp;File</string>
     </property>
+    <widget class="QMenu" name="menuExport">
+     <property name="title">
+      <string>Export Project</string>
+     </property>
+     <property name="icon">
+      <iconset theme="media-record">
+       <normalon>:/icons/Humanity/actions/16/media-record.svg</normalon>
+      </iconset>
+     </property>
+     <addaction name="actionExportVideo"/>
+     <addaction name="actionExportEDL"/>
+    </widget>
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
     <addaction name="actionRecent_Placeholder"/>
@@ -103,7 +115,7 @@
     <addaction name="separator"/>
     <addaction name="actionImportFiles"/>
     <addaction name="actionProfile"/>
-    <addaction name="actionExportVideo"/>
+    <addaction name="menuExport"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
@@ -1551,6 +1563,18 @@
    </property>
    <property name="toolTip">
     <string>Clear History</string>
+   </property>
+  </action>
+  <action name="actionExportEDL">
+   <property name="icon">
+    <iconset theme="view-list-details" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/view-list-details.png</normaloff>:/icons/Humanity/actions/16/view-list-details.png</iconset>
+   </property>
+   <property name="text">
+    <string>Export EDL</string>
+   </property>
+   <property name="toolTip">
+    <string>Export Edit Decision List</string>
    </property>
   </action>
  </widget>
