@@ -47,6 +47,7 @@ from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
 from classes.timeline import TimelineSync
+from classes.time_parts import secondsToTime
 from classes.query import File, Clip, Transition, Marker, Track
 from classes.metrics import *
 from classes.version import *
@@ -704,6 +705,113 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             log.info('Export Video add confirmed')
         else:
             log.info('Export Video add cancelled')
+
+    def getEdlTime(self, time_in_seconds=0.0):
+        """Return a formatted time code for EDL exporting"""
+        # Get FPS info
+        fps_num = get_app().project.get(["fps"]).get("num", 24)
+        fps_den = get_app().project.get(["fps"]).get("den", 1)
+
+        return "%(hour)s:%(min)s:%(sec)s:%(frame)s" % secondsToTime(time_in_seconds, fps_num, fps_den)
+
+    def actionExportEDL_trigger(self, event):
+        """Export EDL File"""
+        app = get_app()
+        _ = app._tr
+
+        # EDL Export format
+        edl_string = "%03d  %-9s%-6s%-9s%11s %11s %11s %11s\n"
+
+        # Get FPS info
+        fps_num = get_app().project.get(["fps"]).get("num", 24)
+        fps_den = get_app().project.get(["fps"]).get("den", 1)
+        fps_float = float(fps_num / fps_den)
+
+        # Get EDL path
+        recommended_path = app.project.current_filepath or ""
+        if not recommended_path:
+            recommended_path = os.path.join(info.HOME_PATH, "%s.edl" % _("Untitled Project"))
+        else:
+            recommended_path = recommended_path.replace(".osp", ".edl")
+        file_path, file_type = QFileDialog.getSaveFileName(self, _("Export EDL..."), recommended_path, _("Edit Decision Lists (*.edl)"))
+        if file_path:
+            # Append .edl if needed
+            if ".edl" not in file_path:
+                file_path = "%s.edl" % file_path
+
+        # Get filename with no extension
+        parent_path, file_name_with_ext = os.path.split(file_path)
+        file_name, ext = os.path.splitext(file_name_with_ext)
+
+        all_tracks = get_app().project.get(["layers"])
+        track_count = len(all_tracks)
+        for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
+            existing_track = Track.get(number=track.get("number"))
+            if not existing_track:
+                # Log error and fail silently, and continue
+                log.error('No track object found with number: %s' % track.get("number"))
+                continue
+
+            # Track name
+            track_name = track.get("label") or "TRACK %s" % track_count
+            clips_on_track = Clip.filter(layer=track.get("number"))
+            if not clips_on_track:
+                continue
+
+            # Generate EDL File (1 per track - limitation of EDL format)
+            # TODO: Improve and move this into it's own class
+            with open("%s-%s.edl" % (file_path.replace(".edl", ""), track_name), 'w', encoding="utf8") as f:
+                # Add Header
+                f.write("TITLE: %s - %s\n" % (file_name, track_name))
+                f.write("FCM: NON-DROP FRAME\n\n")
+
+                # Loop through each track
+                edit_index = 1
+                export_position = 0.0
+
+                # Loop through clips on this track
+                for clip in clips_on_track:
+                    # Do we need a blank clip?
+                    if clip.data.get('position', 0.0) > export_position:
+                        # Blank clip (i.e. 00:00:00:00)
+                        clip_start_time = self.getEdlTime(0.0)
+                        clip_end_time = self.getEdlTime(clip.data.get('position') - export_position)
+                        timeline_start_time = self.getEdlTime(export_position)
+                        timeline_end_time = self.getEdlTime(clip.data.get('position'))
+
+                        # Write blank clip
+                        f.write(edl_string % (edit_index, "BL"[:9], "V"[:6], "C", clip_start_time, clip_end_time, timeline_start_time, timeline_end_time))
+
+                    # Format clip start/end and timeline start/end values (i.e. 00:00:00:00)
+                    clip_start_time = self.getEdlTime(clip.data.get('start'))
+                    clip_end_time = self.getEdlTime(clip.data.get('end'))
+                    timeline_start_time = self.getEdlTime(clip.data.get('position'))
+                    timeline_end_time = self.getEdlTime(clip.data.get('position') + (clip.data.get('end') - clip.data.get('start')))
+
+                    has_video = clip.data.get("reader", {}).get("has_video", False)
+                    has_audio = clip.data.get("reader", {}).get("has_audio", False)
+                    if has_video:
+                        # Video Track
+                        f.write(edl_string % (edit_index, "AX"[:9], "V"[:6], "C", clip_start_time, clip_end_time, timeline_start_time, timeline_end_time))
+                    if has_audio:
+                        # Audio Track
+                        f.write(edl_string % (edit_index, "AX"[:9], "AA"[:6], "C", clip_start_time, clip_end_time, timeline_start_time, timeline_end_time))
+                    f.write("* FROM CLIP NAME: %s\n" % clip.data.get('title'))
+
+                    # Add opacity data (if any)
+                    if len(clip.data.get('alpha', {}).get('Points', [])) > 1:
+                        for opacity_point in clip.data.get('alpha', {}).get('Points', []):
+                            opacity_time = (opacity_point.get('co', {}).get('X', 1.0) - 1) / fps_float
+                            opacity_value = opacity_point.get('co', {}).get('Y', 0.0) * 100.0
+                            f.write("* OPACITY LEVEL AT %s IS %0.2f%%  (REEL AX)\n" % (self.getEdlTime(opacity_time), opacity_value))
+
+                    # Update export position
+                    export_position = clip.data.get('position') + (clip.data.get('end') -  clip.data.get('start'))
+                    f.write("\n")
+
+                # Update counters
+                edit_index += 1
+                track_count -= 1
 
     def actionUndo_trigger(self, event):
         log.info('actionUndo_trigger')
