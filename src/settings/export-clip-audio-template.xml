@@ -1,0 +1,69 @@
+							<clipitem id="clipitem-1" premiereChannelType="stereo">
+								<masterclipid>masterclip-1</masterclipid>
+								<name>FileName.mp4</name>
+								<enabled>TRUE</enabled>
+								<duration>1566</duration>
+								<rate>
+									<timebase>30</timebase>
+									<ntsc>FALSE</ntsc>
+								</rate>
+								<start>156</start>
+								<end>1720</end>
+								<in>0</in>
+								<out>1564</out>
+								<pproTicksIn>0</pproTicksIn>
+								<pproTicksOut>13242700800000</pproTicksOut>
+								<file id="file-1"/>
+								<sourcetrack>
+									<mediatype>audio</mediatype>
+									<trackindex>1</trackindex>
+								</sourcetrack>
+								<filter>
+									<effect>
+										<name>Gain</name>
+										<effectid>{61756678, 4761696e, 4b657947}</effectid>
+										<effecttype>filter</effecttype>
+										<mediatype>audio</mediatype>
+										<parameter authoringApp="PremierePro">
+											<parameterid>Gain(dB)</parameterid>
+											<name>Gain(dB)</name>
+											<valuemin>-96</valuemin>
+											<valuemax>96</valuemax>
+											<value>6.0206</value>
+										</parameter>
+									</effect>
+								</filter>
+								<filter>
+									<effect>
+										<name>Audio Levels</name>
+										<effectid>audiolevels</effectid>
+										<effectcategory>audiolevels</effectcategory>
+										<effecttype>audiolevels</effecttype>
+										<mediatype>audio</mediatype>
+										<pproBypass>false</pproBypass>
+										<parameter authoringApp="PremierePro">
+											<parameterid>level</parameterid>
+											<name>Level</name>
+											<valuemin>0</valuemin>
+											<valuemax>3.98109</valuemax>
+											<value>0.5</value>
+										</parameter>
+									</effect>
+								</filter>
+								<logginginfo>
+									<description></description>
+									<scene></scene>
+									<shottake></shottake>
+									<lognote></lognote>
+									<good></good>
+									<originalvideofilename></originalvideofilename>
+									<originalaudiofilename></originalaudiofilename>
+								</logginginfo>
+								<colorinfo>
+									<lut></lut>
+									<lut1></lut1>
+									<asc_sop></asc_sop>
+									<asc_sat></asc_sat>
+									<lut2></lut2>
+								</colorinfo>
+							</clipitem>

@@ -64,7 +64,7 @@ from windows.views.tutorial import TutorialManager
 from windows.video_widget import VideoWidget
 from windows.preview_thread import PreviewParent
 from classes.exporters.edl import export_edl
-from classes.exporters.final_cut_pro import export_final_cut
+from classes.exporters.final_cut_pro import export_xml
 
 
 class MainWindow(QMainWindow, updates.UpdateWatcher):
@@ -711,6 +711,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def actionExportEDL_trigger(self, event):
         """Export EDL File"""
         export_edl()
+
+    def actionExportFCPXML_trigger(self, event):
+        """Export XML (Final Cut Pro) File"""
+        export_xml()
 
     def actionUndo_trigger(self, event):
         log.info('actionUndo_trigger')

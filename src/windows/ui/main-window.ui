@@ -105,6 +105,7 @@
      </property>
      <addaction name="actionExportVideo"/>
      <addaction name="actionExportEDL"/>
+     <addaction name="actionExportFCPXML"/>
     </widget>
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
@@ -1575,6 +1576,18 @@
    </property>
    <property name="toolTip">
     <string>Export Edit Decision List</string>
+   </property>
+  </action>
+  <action name="actionExportFCPXML">
+   <property name="icon">
+    <iconset theme="view-list-details" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/view-list-details.png</normaloff>:/icons/Humanity/actions/16/view-list-details.png</iconset>
+   </property>
+   <property name="text">
+    <string>Export XML (Final Cut Pro)</string>
+   </property>
+   <property name="toolTip">
+    <string>Export XML (Final Cut Pro)</string>
    </property>
   </action>
  </widget>
