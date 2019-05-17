@@ -302,6 +302,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         self._data["channels"] = channels
         self._data["channel_layout"] = channel_layout
 
+        # Set default project ID
+        self._data["id"] = self.generate_id()
+
     def load(self, file_path, clear_thumbnails=True):
         """ Load project from file """
 
@@ -740,6 +743,10 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                                             # Right handle
                                             point.get("handle_right")["X"] = 0.5
                                             point.get("handle_right")["Y"] = 0.0
+
+        # Fix default project id (if found)
+        if self._data.get("id") == "T0":
+            self._data["id"] = self.generate_id()
 
     def save(self, file_path, move_temp_files=True, make_paths_relative=True):
         """ Save project file to disk """
