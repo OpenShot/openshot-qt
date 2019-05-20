@@ -138,10 +138,17 @@ def export_edl():
                 f.write("* FROM CLIP NAME: %s\n" % clip.data.get('title'))
 
                 # Add opacity data (if any)
-                if len(clip.data.get('alpha', {}).get('Points', [])) > 1:
-                    for opacity_point in clip.data.get('alpha', {}).get('Points', []):
-                        opacity_time = (opacity_point.get('co', {}).get('X', 1.0) - 1) / fps_float
-                        opacity_value = opacity_point.get('co', {}).get('Y', 0.0) * 100.0
+                alpha_points = clip.data.get('alpha', {}).get('Points', [])
+                if len(alpha_points) > 1:
+                    # Loop through Points (remove duplicates)
+                    keyframes = {}
+                    for point in alpha_points:
+                        keyframeTime = (point.get('co', {}).get('X', 1.0) - 1) / fps_float
+                        keyframeValue = point.get('co', {}).get('Y', 0.0) * 100.0
+                        keyframes[keyframeTime] = keyframeValue
+                    # Write keyframe values to EDL
+                    for opacity_time in sorted(keyframes.keys()):
+                        opacity_value = keyframes.get(opacity_time)
                         f.write("* OPACITY LEVEL AT %s IS %0.2f%%  (REEL AX)\n" % (
                         getEdlTime(opacity_time), opacity_value))
 

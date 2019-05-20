@@ -58,6 +58,23 @@
                                 </audio>
 							</media>
 						</file>
+						<filter>
+							<effect>
+								<name>Opacity</name>
+								<effectid>opacity</effectid>
+								<effectcategory>motion</effectcategory>
+								<effecttype>motion</effecttype>
+								<mediatype>video</mediatype>
+								<pproBypass>false</pproBypass>
+								<parameter authoringApp="PremierePro">
+									<parameterid>opacity</parameterid>
+									<name>opacity</name>
+									<valuemin>0</valuemin>
+									<valuemax>100</valuemax>
+									<value>100</value>
+								</parameter>
+							</effect>
+						</filter>
 						<logginginfo>
 							<description></description>
 							<scene></scene>

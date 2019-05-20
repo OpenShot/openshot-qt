@@ -47,6 +47,42 @@ def getXmlTime(time_in_seconds=0.0):
 
     return "%(hour)s;%(min)s;%(sec)s;%(frame)s" % secondsToTime(time_in_seconds, fps_num, fps_den)
 
+def createEffect(xmldoc, name, node, points):
+    """Create the XML filter with keyframes"""
+    # Find correct effect
+    for effectNode in node.getElementsByTagName('effect'):
+        effectName = effectNode.getElementsByTagName("name")[0].childNodes[0].nodeValue
+        if effectName == name:
+            parameterNode = effectNode.getElementsByTagName('parameter')[0]
+            defaultValueNode = effectNode.getElementsByTagName('value')[0]
+
+            # Loop through Points (remove duplicates)
+            keyframes = {}
+            for point in points:
+                keyframeTime = point.get('co', {}).get('X', 1)
+                keyframeValue = point.get('co', {}).get('Y', 1) * 100
+                keyframes[keyframeTime] = keyframeValue
+
+            # Loop through Points
+            first_value = None
+            for keyframeTime in sorted(keyframes.keys()):
+                keyframeValue = keyframes.get(keyframeTime)
+                if first_value == None:
+                    first_value = keyframeValue
+
+                keyframeNode = xmldoc.createElement("keyframe")
+                parameterNode.appendChild(keyframeNode)
+                whenNode = xmldoc.createElement("when")
+                whenNode.appendChild(xmldoc.createTextNode(str(keyframeTime)))
+                keyframeNode.appendChild(whenNode)
+                valueNode = xmldoc.createElement("value")
+                valueNode.appendChild(xmldoc.createTextNode(str(keyframeValue)))
+                keyframeNode.appendChild(valueNode)
+
+            # Set default value
+            defaultValueNode.childNodes[0].nodeValue = first_value
+
+
 def export_xml():
     """Export final cut pro XML file"""
     app = get_app()
@@ -157,6 +193,9 @@ def export_xml():
                 clipNode.getElementsByTagName("duration")[0].childNodes[0].nodeValue = (clip.data.get('end') - clip.data.get('start')) * fps_float
                 clipNode.getElementsByTagName("pproTicksIn")[0].childNodes[0].nodeValue = (clip.data.get('position') / fps_float) * ticks
                 clipNode.getElementsByTagName("pproTicksOut")[0].childNodes[0].nodeValue = (clip.data.get('position') + (clip.data.get('end') - clip.data.get('start')) / fps_float) * ticks
+
+                # Add Keyframes (if any)
+                createEffect(xmldoc, "Opacity", clipNode, clip.data.get('alpha', {}).get('Points', []))
 
             # Create AUDIO clip nodes
             if clip.data.get("reader", {}).get("has_audio"):
