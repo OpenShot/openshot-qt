@@ -133,7 +133,7 @@ def export_edl():
                 if has_audio:
                     # Audio Track
                     f.write(edl_string % (
-                    edit_index, "AX"[:9], "AA"[:6], "C", clip_start_time, clip_end_time, timeline_start_time,
+                    edit_index, "AX"[:9], "A"[:6], "C", clip_start_time, clip_end_time, timeline_start_time,
                     timeline_end_time))
                 f.write("* FROM CLIP NAME: %s\n" % clip.data.get('title'))
 
@@ -151,6 +151,21 @@ def export_edl():
                         opacity_value = keyframes.get(opacity_time)
                         f.write("* OPACITY LEVEL AT %s IS %0.2f%%  (REEL AX)\n" % (
                         getEdlTime(opacity_time), opacity_value))
+
+                # Add volume data (if any)
+                volume_points = clip.data.get('volume', {}).get('Points', [])
+                if len(volume_points) > 1:
+                    # Loop through Points (remove duplicates)
+                    keyframes = {}
+                    for point in volume_points:
+                        keyframeTime = (point.get('co', {}).get('X', 1.0) - 1) / fps_float
+                        keyframeValue = (point.get('co', {}).get('Y', 0.0) * 99.0) - 99 # Scaling 0-1 to -99-0
+                        keyframes[keyframeTime] = keyframeValue
+                    # Write keyframe values to EDL
+                    for volume_time in sorted(keyframes.keys()):
+                        volume_value = keyframes.get(volume_time)
+                        f.write("* AUDIO LEVEL AT %s IS %0.2f DB  (REEL AX A1)\n" % (
+                        getEdlTime(volume_time), volume_value))
 
                 # Update export position
                 export_position = clip.data.get('position') + (clip.data.get('end') - clip.data.get('start'))
