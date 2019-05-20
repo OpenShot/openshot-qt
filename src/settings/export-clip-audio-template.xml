@@ -43,38 +43,23 @@
 									<mediatype>audio</mediatype>
 									<trackindex>1</trackindex>
 								</sourcetrack>
-								<filter>
-									<effect>
-										<name>Gain</name>
-										<effectid>{61756678, 4761696e, 4b657947}</effectid>
-										<effecttype>filter</effecttype>
-										<mediatype>audio</mediatype>
-										<parameter authoringApp="PremierePro">
-											<parameterid>Gain(dB)</parameterid>
-											<name>Gain(dB)</name>
-											<valuemin>-96</valuemin>
-											<valuemax>96</valuemax>
-											<value>6.0206</value>
-										</parameter>
-									</effect>
-								</filter>
-								<filter>
-									<effect>
-										<name>Audio Levels</name>
-										<effectid>audiolevels</effectid>
-										<effectcategory>audiolevels</effectcategory>
-										<effecttype>audiolevels</effecttype>
-										<mediatype>audio</mediatype>
-										<pproBypass>false</pproBypass>
-										<parameter authoringApp="PremierePro">
-											<parameterid>level</parameterid>
-											<name>Level</name>
-											<valuemin>0</valuemin>
-											<valuemax>3.98109</valuemax>
-											<value>0.5</value>
-										</parameter>
-									</effect>
-								</filter>
+                                <filter>
+                                    <effect>
+                                        <name>Audio Levels</name>
+                                        <effectid>audiolevels</effectid>
+                                        <effectcategory>audiolevels</effectcategory>
+                                        <effecttype>audiolevels</effecttype>
+                                        <mediatype>audio</mediatype>
+                                        <pproBypass>false</pproBypass>
+                                        <parameter authoringApp="OpenShot">
+                                            <parameterid>level</parameterid>
+                                            <name>Level</name>
+                                            <valuemin>0</valuemin>
+                                            <valuemax>3.98109</valuemax>
+                                            <value>1.0</value>
+                                        </parameter>
+                                    </effect>
+                                </filter>
 								<logginginfo>
 									<description></description>
 									<scene></scene>
