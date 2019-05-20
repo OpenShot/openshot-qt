@@ -1,5 +1,4 @@
 					<clipitem id="clipitem-1">
-						<masterclipid>masterclip-1</masterclipid>
 						<name>FileName.mp4</name>
 						<enabled>TRUE</enabled>
 						<duration>301</duration>
@@ -18,7 +17,7 @@
 						<anamorphic>FALSE</anamorphic>
 						<file id="file-1">
 							<name>FileName.mp4</name>
-							<mediaSource>Slug</mediaSource>
+							<pathurl>FilePath</pathurl>
 							<rate>
 								<timebase>30</timebase>
 								<ntsc>TRUE</ntsc>
@@ -50,6 +49,13 @@
 										<fielddominance>lower</fielddominance>
 									</samplecharacteristics>
 								</video>
+                                <audio>
+                                    <samplecharacteristics>
+                                        <depth>16</depth>
+                                        <samplerate>48000</samplerate>
+                                    </samplecharacteristics>
+                                    <channelcount>2</channelcount>
+                                </audio>
 							</media>
 						</file>
 						<logginginfo>

@@ -89,10 +89,7 @@ def export_xml():
     xmldoc = minidom.parse(os.path.join(info.PATH, 'settings', 'export-project-template.xml'))
 
     # Set Project Details
-    # Set blank node = xmldoc.getElementsByTagName("name")[0].appendChild(xmldoc.createTextNode(""))
-    # Set filled node = xmldoc.getElementsByTagName("duration")[0].childNodes[0].nodeValue = ""
     xmldoc.getElementsByTagName("name")[0].childNodes[0].nodeValue = file_name_with_ext
-    xmldoc.getElementsByTagName("name")[1].childNodes[0].nodeValue = file_name_with_ext
     xmldoc.getElementsByTagName("uuid")[0].childNodes[0].nodeValue = str(uuid1())
     xmldoc.getElementsByTagName("duration")[0].childNodes[0].nodeValue = duration
     xmldoc.getElementsByTagName("width")[0].childNodes[0].nodeValue = app.project.get(["width"])
@@ -101,6 +98,9 @@ def export_xml():
     xmldoc.getElementsByTagName("sequence")[0].setAttribute("id", app.project.get(["id"]))
     for childNode in xmldoc.getElementsByTagName("timebase"):
         childNode.childNodes[0].nodeValue = fps_float
+
+    # Get parent audio node
+    parentAudioNode = xmldoc.getElementsByTagName("audio")[0]
 
     # Loop through tracks
     all_tracks = get_app().project.get(["layers"])
@@ -125,75 +125,72 @@ def export_xml():
         xmldoc.getElementsByTagName("video")[0].appendChild(videoTrackNode)
 
         # Create audio track nodes (1 for each channel)
-        channelNodes = []
-        for channel in range(0, app.project.get(["channels"])):
-            trackTemplateDoc = minidom.parse(os.path.join(info.PATH, 'settings', 'export-track-audio-template.xml'))
-            audioTrackNode = trackTemplateDoc.getElementsByTagName('track')[0]
-            xmldoc.getElementsByTagName("audio")[0].appendChild(audioTrackNode)
-            audioTrackNode.getElementsByTagName("outputchannelindex")[0].childNodes[0].nodeValue = channel + 1
-            channelNodes.append(audioTrackNode)
+        trackTemplateDoc = minidom.parse(os.path.join(info.PATH, 'settings', 'export-track-audio-template.xml'))
+        audioTrackNode = trackTemplateDoc.getElementsByTagName('track')[0]
+        parentAudioNode.appendChild(audioTrackNode)
+        audioTrackNode.getElementsByTagName("outputchannelindex")[0].childNodes[0].nodeValue = track_count
 
         # Is Track Locked?
         if track_locked:
             videoTrackNode.getElementsByTagName("locked")[0].childNodes[0].nodeValue = "TRUE"
-            for channelNode in channelNodes:
-                channelNode.getElementsByTagName("locked")[0].childNodes[0].nodeValue = "TRUE"
+            audioTrackNode.getElementsByTagName("locked")[0].childNodes[0].nodeValue = "TRUE"
 
         # Loop through clips on this track
         for clip in clips_on_track:
             # Create VIDEO clip node
-            clipTemplateDoc = minidom.parse(os.path.join(info.PATH, 'settings', 'export-clip-video-template.xml'))
-            clipNode = clipTemplateDoc.getElementsByTagName('clipitem')[0]
-            videoTrackNode.appendChild(clipNode)
+            clipNode = None
+            if clip.data.get("reader", {}).get("has_video"):
+                clipTemplateDoc = minidom.parse(os.path.join(info.PATH, 'settings', 'export-clip-video-template.xml'))
+                clipNode = clipTemplateDoc.getElementsByTagName('clipitem')[0]
+                videoTrackNode.appendChild(clipNode)
 
-            # Update clip properties
-            clipNode.setAttribute('id', clip.data.get('id'))
-            clipNode.getElementsByTagName("file")[0].setAttribute('id', clip.data.get('file_id'))
-            clipNode.getElementsByTagName("masterclipid")[0].childNodes[0].nodeValue = clip.data.get('id')
-            for childNode in clipNode.getElementsByTagName("name"):
-                childNode.childNodes[0].nodeValue = clip.data.get('title')
-            clipNode.getElementsByTagName("in")[0].childNodes[0].nodeValue = clip.data.get('start') * fps_float
-            clipNode.getElementsByTagName("out")[0].childNodes[0].nodeValue = clip.data.get('end') * fps_float
-            clipNode.getElementsByTagName("start")[0].childNodes[0].nodeValue = clip.data.get('position') * fps_float
-            clipNode.getElementsByTagName("end")[0].childNodes[0].nodeValue = (clip.data.get('position') + (clip.data.get('end') - clip.data.get('start'))) * fps_float
-            clipNode.getElementsByTagName("duration")[0].childNodes[0].nodeValue = (clip.data.get('end') - clip.data.get('start')) * fps_float
-
-            # (frame number) / (fps) * 254016000000
-            clipNode.getElementsByTagName("pproTicksIn")[0].childNodes[0].nodeValue = (clip.data.get('position') / fps_float) * ticks
-            clipNode.getElementsByTagName("pproTicksOut")[0].childNodes[0].nodeValue = (clip.data.get('position') + (clip.data.get('end') - clip.data.get('start')) / fps_float) * ticks
+                # Update clip properties
+                clipNode.setAttribute('id', clip.data.get('id'))
+                clipNode.getElementsByTagName("file")[0].setAttribute('id', clip.data.get('file_id'))
+                clipNode.getElementsByTagName("name")[0].childNodes[0].nodeValue = clip.data.get('title')
+                clipNode.getElementsByTagName("name")[1].childNodes[0].nodeValue = clip.data.get('title')
+                clipNode.getElementsByTagName("pathurl")[0].childNodes[0].nodeValue = clip.data.get('title')
+                clipNode.getElementsByTagName("in")[0].childNodes[0].nodeValue = clip.data.get('start') * fps_float
+                clipNode.getElementsByTagName("out")[0].childNodes[0].nodeValue = clip.data.get('end') * fps_float
+                clipNode.getElementsByTagName("start")[0].childNodes[0].nodeValue = clip.data.get('position') * fps_float
+                clipNode.getElementsByTagName("end")[0].childNodes[0].nodeValue = (clip.data.get('position') + (clip.data.get('end') - clip.data.get('start'))) * fps_float
+                clipNode.getElementsByTagName("duration")[0].childNodes[0].nodeValue = (clip.data.get('end') - clip.data.get('start')) * fps_float
+                clipNode.getElementsByTagName("pproTicksIn")[0].childNodes[0].nodeValue = (clip.data.get('position') / fps_float) * ticks
+                clipNode.getElementsByTagName("pproTicksOut")[0].childNodes[0].nodeValue = (clip.data.get('position') + (clip.data.get('end') - clip.data.get('start')) / fps_float) * ticks
 
             # Create AUDIO clip nodes
-            if clip.data.get("has_audio"):
-                for channelNode in channelNodes:
-                    # Get channel value
-                    channel = channelNode.getElementsByTagName("outputchannelindex")[0].childNodes[0].nodeValue
+            if clip.data.get("reader", {}).get("has_audio"):
+                clipTemplateDoc = minidom.parse(os.path.join(info.PATH, 'settings', 'export-clip-audio-template.xml'))
+                clipAudioNode = clipTemplateDoc.getElementsByTagName('clipitem')[0]
+                audioTrackNode.appendChild(clipAudioNode)
 
-                    clipTemplateDoc = minidom.parse(os.path.join(info.PATH, 'settings', 'export-clip-audio-template.xml'))
-                    clipNode = clipTemplateDoc.getElementsByTagName('clipitem')[0]
-                    channelNode.appendChild(clipNode)
+                # Update audio characteristics
+                if clipNode:
+                    clipNode.getElementsByTagName("samplerate")[0].childNodes[0].nodeValue = clip.data.get("reader", {}).get("channels")
+                    clipNode.getElementsByTagName("channelcount")[0].childNodes[0].nodeValue = clip.data.get("reader", {}).get("sample_rate")
+                    clipAudioNode.getElementsByTagName("file")[0].childNodes.clear()
+                else:
+                    clipAudioNode.getElementsByTagName("name")[1].childNodes[0].nodeValue = clip.data.get('title')
+                    clipAudioNode.getElementsByTagName("pathurl")[0].childNodes[0].nodeValue = clip.data.get('title')
 
-                    # Update audio clip properties
-                    clipNode.setAttribute('id', "channel-%s-%s" % (channel, clip.data.get('id')))
-                    clipNode.getElementsByTagName("file")[0].setAttribute('id', clip.data.get('file_id'))
-                    clipNode.getElementsByTagName("masterclipid")[0].childNodes[0].nodeValue = "channel-%s-%s" % (channel, clip.data.get('id'))
-                    clipNode.getElementsByTagName("trackindex")[0].childNodes[0].nodeValue = track_count
-                    for childNode in clipNode.getElementsByTagName("name"):
-                        childNode.childNodes[0].nodeValue = clip.data.get('title')
-                    clipNode.getElementsByTagName("in")[0].childNodes[0].nodeValue = clip.data.get('start') * fps_float
-                    clipNode.getElementsByTagName("out")[0].childNodes[0].nodeValue = clip.data.get('end') * fps_float
-                    clipNode.getElementsByTagName("start")[0].childNodes[0].nodeValue = clip.data.get('position') * fps_float
-                    clipNode.getElementsByTagName("end")[0].childNodes[0].nodeValue = (clip.data.get('position') + (
-                    clip.data.get('end') - clip.data.get('start'))) * fps_float
-                    clipNode.getElementsByTagName("duration")[0].childNodes[0].nodeValue = (clip.data.get('end') - clip.data.get(
-                        'start')) * fps_float
+                # Update audio clip properties
+                clipAudioNode.setAttribute('id', "%s-audio" % clip.data.get('id'))
+                clipAudioNode.getElementsByTagName("file")[0].setAttribute('id', clip.data.get('file_id'))
+                clipAudioNode.getElementsByTagName("trackindex")[0].childNodes[0].nodeValue = track_count
+                clipAudioNode.getElementsByTagName("name")[0].childNodes[0].nodeValue = clip.data.get('title')
+                clipAudioNode.getElementsByTagName("in")[0].childNodes[0].nodeValue = clip.data.get('start') * fps_float
+                clipAudioNode.getElementsByTagName("out")[0].childNodes[0].nodeValue = clip.data.get('end') * fps_float
+                clipAudioNode.getElementsByTagName("start")[0].childNodes[0].nodeValue = clip.data.get('position') * fps_float
+                clipAudioNode.getElementsByTagName("end")[0].childNodes[0].nodeValue = (clip.data.get('position') + (clip.data.get('end') - clip.data.get('start'))) * fps_float
+                clipAudioNode.getElementsByTagName("duration")[0].childNodes[0].nodeValue = (clip.data.get('end') - clip.data.get('start')) * fps_float
+                clipAudioNode.getElementsByTagName("pproTicksIn")[0].childNodes[0].nodeValue = (clip.data.get('position') / fps_float) * ticks
+                clipAudioNode.getElementsByTagName("pproTicksOut")[0].childNodes[0].nodeValue = (clip.data.get('position') + (clip.data.get('end') - clip.data.get('start')) / fps_float) * ticks
+            else:
+                # No audio, remove audio characteristics
+                if clipNode:
+                    clipNode.getElementsByTagName("audio").pop()
 
-                    # (frame number) / (fps) * 254016000000
-                    clipNode.getElementsByTagName("pproTicksIn")[0].childNodes[0].nodeValue = (clip.data.get(
-                        'position') / fps_float) * ticks
-                    clipNode.getElementsByTagName("pproTicksOut")[0].childNodes[0].nodeValue = (clip.data.get('position') + (
-                    clip.data.get('end') - clip.data.get('start')) / fps_float) * ticks
-
-        # Update counters
+        # Update counter
         track_count += 1
 
     try:
