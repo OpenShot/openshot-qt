@@ -12,7 +12,7 @@
 #define MyAppName "OpenShot Video Editor"
 #define MyAppPublisher "OpenShot Studios, LLC"
 #define MyAppURL "http://www.openshot.org/"
-#define MyAppExeName "launch.exe"
+#define MyAppExeName "openshot-qt.exe"
              
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -26,7 +26,7 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-AppCopyright=Copyright (c) 2008-2016 {#MyAppPublisher}
+AppCopyright=Copyright (c) 2008-2019 {#MyAppPublisher}
 DefaultDirName={pf}\{#MyAppName}
 DisableProgramGroupPage=yes
 LicenseFile=..\COPYING

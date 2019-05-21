@@ -16,4 +16,4 @@ echo $DYLD_LIBRARY_PATH
 echo $QT_PLUGIN_PATH
 
 # Launch application
-exec "$CURR_DIR/launch"
+exec "$CURR_DIR/openshot-qt"

@@ -291,7 +291,9 @@ setup(name=info.PRODUCT_NAME,
                               base=base,
                               icon=os.path.join(PATH, "xdg", iconFile),
                               shortcutName="%s" % info.PRODUCT_NAME,
-                              shortcutDir="ProgramMenuFolder")])
+                              shortcutDir="ProgramMenuFolder",
+                              targetName = info.NAME,
+                              copyright = info.COPYRIGHT)])
 
 
 # Remove temporary folder (if SRC folder present)
