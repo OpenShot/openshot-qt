@@ -104,6 +104,7 @@
       </iconset>
      </property>
      <addaction name="actionExportVideo"/>
+     <addaction name="separator"/>
      <addaction name="actionExportEDL"/>
      <addaction name="actionExportFCPXML"/>
     </widget>
