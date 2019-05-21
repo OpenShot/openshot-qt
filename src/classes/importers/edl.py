@@ -39,4 +39,4 @@ from classes.time_parts import secondsToTime
 
 def import_edl():
     """Import EDL File"""
-    pass
+    print('import edl')

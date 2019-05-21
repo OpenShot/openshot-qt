@@ -42,4 +42,4 @@ from xml.dom import minidom
 
 def import_xml():
     """Import final cut pro XML file"""
-    pass
+    print("import xml")

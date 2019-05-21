@@ -108,6 +108,18 @@
      <addaction name="actionExportEDL"/>
      <addaction name="actionExportFCPXML"/>
     </widget>
+    <widget class="QMenu" name="menuImport_Project">
+     <property name="title">
+      <string>Import Project</string>
+     </property>
+     <property name="icon">
+      <iconset theme="view-list-details">
+       <normalon>:/icons/Humanity/actions/16/view-list-details.png</normalon>
+      </iconset>
+     </property>
+     <addaction name="actionImportEDL"/>
+     <addaction name="actionImportFCPXML"/>
+    </widget>
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
     <addaction name="actionRecent_Placeholder"/>
@@ -117,6 +129,8 @@
     <addaction name="separator"/>
     <addaction name="actionImportFiles"/>
     <addaction name="actionProfile"/>
+    <addaction name="separator"/>
+    <addaction name="menuImport_Project"/>
     <addaction name="menuExport"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
@@ -1565,6 +1579,30 @@
    </property>
    <property name="toolTip">
     <string>Clear History</string>
+   </property>
+  </action>
+  <action name="actionImportEDL">
+   <property name="icon">
+    <iconset theme="view-list-details" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/view-list-details.png</normaloff>:/icons/Humanity/actions/16/view-list-details.png</iconset>
+   </property>
+   <property name="text">
+    <string>Import EDL</string>
+   </property>
+   <property name="toolTip">
+    <string>Import Edit Decision List</string>
+   </property>
+  </action>
+  <action name="actionImportFCPXML">
+   <property name="icon">
+    <iconset theme="view-list-details" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/view-list-details.png</normaloff>:/icons/Humanity/actions/16/view-list-details.png</iconset>
+   </property>
+   <property name="text">
+    <string>Import XML (Final Cut Pro)</string>
+   </property>
+   <property name="toolTip">
+    <string>Import XML (Final Cut Pro)</string>
    </property>
   </action>
   <action name="actionExportEDL">
