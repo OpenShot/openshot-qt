@@ -171,6 +171,7 @@ def export_edl():
                 export_position = clip.data.get('position') + (clip.data.get('end') - clip.data.get('start'))
                 f.write("\n")
 
+                edit_index += 1
+
             # Update counters
-            edit_index += 1
             track_count -= 1
