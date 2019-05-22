@@ -42,4 +42,23 @@ from xml.dom import minidom
 
 def import_xml():
     """Import final cut pro XML file"""
-    print("import xml")
+    app = get_app()
+    _ = app._tr
+
+    # Get FPS info
+    fps_num = get_app().project.get(["fps"]).get("num", 24)
+    fps_den = get_app().project.get(["fps"]).get("den", 1)
+    fps_float = float(fps_num / fps_den)
+
+    # Get XML path
+    recommended_path = app.project.current_filepath or ""
+    if not recommended_path:
+        recommended_path = info.HOME_PATH
+    else:
+        recommended_path = os.path.split(recommended_path)[0]
+    file_path, file_type = QFileDialog.getOpenFileName(get_app().window, _("Import XML..."), recommended_path,
+                                                       _("Final Cut Pro (*.xml)"), _("Final Cut Pro (*.xml)"))
+    if os.path.exists(file_path):
+        # Parse XML file
+        xmldoc = minidom.parse(os.path.join(info.PATH, 'resources', 'export-project-template.xml'))
+        print(xmldoc.toprettyxml())
