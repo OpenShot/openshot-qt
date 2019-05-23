@@ -27,6 +27,7 @@
 
 import os
 import re
+import json
 from operator import itemgetter
 
 from PyQt5.QtWidgets import *
@@ -34,8 +35,11 @@ from PyQt5.QtWidgets import *
 from classes import info
 from classes.app import get_app
 from classes.logger import log
-from classes.query import Clip, Track
+from classes.query import Clip, Track, File
 from classes.time_parts import secondsToTime
+
+import openshot
+
 
 # REGEX expressions to parse lines from EDL file
 title_regex = re.compile(r"TITLE:[ ]+(.*)")
@@ -46,8 +50,35 @@ audio_level_regex = re.compile(r"[*][ ]+AUDIO LEVEL AT (.*) IS [+]*(.*)[ ]+DB.*"
 fcm_regex = re.compile(r"FCM:[ ]+(.*)")
 
 
-def import_edl():
-    """Import EDL File"""
+def is_image(file):
+    path = file["path"].lower()
+
+    if path.endswith((".jpg", ".jpeg", ".png", ".bmp", ".svg", ".thm", ".gif", ".bmp", ".pgm", ".tif", ".tiff")):
+        return True
+    else:
+        return False
+
+
+def convert_to_seconds(time_code="00:00:00:00"):
+    """Convert time code to seconds (float)"""
+    # Get FPS info
+    fps_num = get_app().project.get(["fps"]).get("num", 24)
+    fps_den = get_app().project.get(["fps"]).get("den", 1)
+    fps_float = float(fps_num / fps_den)
+
+    seconds = 0.0
+    time_parts = time_code.split(":")
+    if len(time_parts) == 4:
+        hours = float(time_parts[0])
+        mins = float(time_parts[1])
+        secs = float(time_parts[2])
+        frames = float(time_parts[3])
+        seconds = (hours * 60 * 60) + (mins * 60) + secs + (frames / fps_float)
+    return seconds
+
+
+def create_clip(context, track):
+    """Create a new clip based on this context dict"""
     app = get_app()
     _ = app._tr
 
@@ -55,6 +86,145 @@ def import_edl():
     fps_num = get_app().project.get(["fps"]).get("num", 24)
     fps_den = get_app().project.get(["fps"]).get("den", 1)
     fps_float = float(fps_num / fps_den)
+
+    # Get clip path
+    clip_path = context.get("clip_path", "")
+    while not os.path.exists(clip_path):
+        recommended_path = app.project.current_filepath or ""
+        if not recommended_path:
+            recommended_path = info.HOME_PATH
+        else:
+            recommended_path = os.path.split(recommended_path)[0]
+        QMessageBox.warning(None, _("Missing File (%s)") % clip_path, _("%s cannot be found.") % clip_path)
+        starting_folder = QFileDialog.getExistingDirectory(None, _("Find directory that contains: %s" % clip_path), recommended_path)
+        clip_path = os.path.join(starting_folder, context.get("clip_path", ""))
+
+    # Get video context
+    video_ctx = context.get("AX", {}).get("V", {})
+    audio_ctx = context.get("AX", {}).get("A", {})
+
+    # Check for this path in our existing project data
+    file = File.get(path=clip_path)
+
+    # Load filepath in libopenshot clip object (which will try multiple readers to open it)
+    clip_obj = openshot.Clip(clip_path)
+
+    if not file:
+        # Get the JSON for the clip's internal reader
+        try:
+            reader = clip_obj.Reader()
+            file_data = json.loads(reader.Json())
+
+            # Determine media type
+            if file_data["has_video"] and not is_image(file_data):
+                file_data["media_type"] = "video"
+            elif file_data["has_video"] and is_image(file_data):
+                file_data["media_type"] = "image"
+            elif file_data["has_audio"] and not file_data["has_video"]:
+                file_data["media_type"] = "audio"
+
+            # Save new file to the project data
+            file = File()
+            file.data = file_data
+
+            # Save file
+            file.save()
+        except:
+            # Ignore errors for now
+            pass
+
+    if (file.data["media_type"] == "video" or file.data["media_type"] == "image"):
+        # Determine thumb path
+        thumb_path = os.path.join(info.THUMBNAIL_PATH, "%s.png" % file.data["id"])
+    else:
+        # Audio file
+        thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.png")
+
+    # Create Clip object
+    clip = Clip()
+    clip.data = json.loads(clip_obj.Json())
+    clip.data["file_id"] = file.id
+    clip.data["title"] = context.get("clip_path", "")
+    clip.data["layer"] = track.data.get("number", 1000000)
+    clip.data["image"] = thumb_path
+    if video_ctx and not audio_ctx:
+        # Only video
+        clip.data["position"] = convert_to_seconds(video_ctx.get("timeline_position", "00:00:00:00"))
+        clip.data["start"] = convert_to_seconds(video_ctx.get("clip_start_time", "00:00:00:00"))
+        clip.data["end"] = convert_to_seconds(video_ctx.get("clip_end_time", "00:00:00:00"))
+        clip.data["has_audio"] = {
+            "Points": [
+                {
+                    "co": {
+                        "X": 1.0,
+                        "Y": 0.0 # Disable audio
+                    },
+                    "interpolation": 2
+                }
+            ]
+        }
+    elif audio_ctx and not video_ctx:
+        # Only audio
+        clip.data["position"] = convert_to_seconds(audio_ctx.get("timeline_position", "00:00:00:00"))
+        clip.data["start"] = convert_to_seconds(audio_ctx.get("clip_start_time", "00:00:00:00"))
+        clip.data["end"] = convert_to_seconds(audio_ctx.get("clip_end_time", "00:00:00:00"))
+        clip.data["has_video"] = {
+            "Points": [
+                {
+                    "co": {
+                        "X": 1.0,
+                        "Y": 0.0 # Disable video
+                    },
+                    "interpolation": 2
+                }
+            ]
+        }
+    else:
+        # Both video and audio
+        clip.data["position"] = convert_to_seconds(video_ctx.get("timeline_position", "00:00:00:00"))
+        clip.data["start"] = convert_to_seconds(video_ctx.get("clip_start_time", "00:00:00:00"))
+        clip.data["end"] = convert_to_seconds(video_ctx.get("clip_end_time", "00:00:00:00"))
+
+    # Add volume keyframes
+    if context.get("volume"):
+        clip.data["volume"] = {"Points": []}
+        for keyframe in context.get("volume", []):
+            clip.data["volume"]["Points"].append(
+                {
+                    "co": {
+                        "X": round(convert_to_seconds(keyframe.get("time", 0.0)) * fps_float),
+                        "Y": keyframe.get("value", 0.0)
+                    },
+                    "interpolation": 1 # linear
+                }
+            )
+
+    # Add alpha keyframes
+    if context.get("opacity"):
+        clip.data["alpha"] = {"Points": []}
+        for keyframe in context.get("opacity", []):
+            clip.data["alpha"]["Points"].append(
+                {
+                    "co": {
+                        "X": round(convert_to_seconds(keyframe.get("time", 0.0)) * fps_float),
+                        "Y": keyframe.get("value", 0.0)
+                    },
+                    "interpolation": 1 # linear
+                }
+            )
+
+    # Save clip
+    clip.save()
+
+    # Update the preview and reselect current frame in properties
+    get_app().window.refreshFrameSignal.emit()
+    get_app().window.propertyTableView.select_frame(get_app().window.preview_thread.player.Position())
+
+
+def import_edl():
+    """Import EDL File"""
+    app = get_app()
+    _ = app._tr
 
     # Get EDL path
     recommended_path = app.project.current_filepath or ""
@@ -67,6 +237,15 @@ def import_edl():
     if os.path.exists(file_path):
         context = {}
         current_clip_index = ""
+
+        # Get # of tracks
+        all_tracks = get_app().project.get(["layers"])
+        track_number = list(reversed(sorted(all_tracks, key=itemgetter('number'))))[0].get("number") + 1000000
+
+        # Create new track above existing layer(s)
+        track = Track()
+        track.data = {"number": track_number, "y": 0, "label": "EDL Import", "lock": False}
+        track.save()
 
         # Open EDL file
         with open(file_path, "r") as f:
@@ -90,7 +269,7 @@ def import_edl():
                             current_clip_index = edit_index
                         if current_clip_index != edit_index:
                             # clip changed, time to commit previous context
-                            print("commit context for %s" % context)
+                            create_clip(context, track)
 
                             # reset context
                             current_clip_index = edit_index
@@ -114,18 +293,26 @@ def import_edl():
                     context["clip_path"] = r   # FileName.mp4
 
                 # Detect opacity
-                for r in clips_regex.findall(line):
+                for r in opacity_regex.findall(line):
                     if len(r) == 2:
                         if "opacity" not in context:
                             context["opacity"] = []
-
-                        keyframe_time = r[0]    # 00:00:00:01
-                        keyframe_value = r[1]   # 100.00
+                        keyframe_time = r[0]                    # 00:00:00:01
+                        keyframe_value = float(r[1]) / 100.0    # 100.00 (scale 0 to 1)
                         context["opacity"].append({"time": keyframe_time, "value": keyframe_value})
+
+                # Detect audio levels
+                for r in audio_level_regex.findall(line):
+                    if len(r) == 2:
+                        if "volume" not in context:
+                            context["volume"] = []
+                        keyframe_time = r[0]                            # 00:00:00:01
+                        keyframe_value = (float(r[1]) + 99.0) / 99.0    # -99.00 (scale 0 to 1)
+                        context["volume"].append({"time": keyframe_time, "value": keyframe_value})
 
                 # Detect FCM attribute
                 for r in fcm_regex.findall(line):
                     context["fcm"] = r   # NON-DROP FRAME
 
             # Final edit needs committing
-            print("commit context for %s" % context)
+            create_clip(context, track)
