@@ -216,10 +216,6 @@ def create_clip(context, track):
     # Save clip
     clip.save()
 
-    # Update the preview and reselect current frame in properties
-    get_app().window.refreshFrameSignal.emit()
-    get_app().window.propertyTableView.select_frame(get_app().window.preview_thread.player.Position())
-
 
 def import_edl():
     """Import EDL File"""
@@ -316,3 +312,7 @@ def import_edl():
 
             # Final edit needs committing
             create_clip(context, track)
+
+            # Update the preview and reselect current frame in properties
+            get_app().window.refreshFrameSignal.emit()
+            get_app().window.propertyTableView.select_frame(get_app().window.preview_thread.player.Position())
