@@ -7,7 +7,7 @@
         <duration>500</duration>
         <rate>
             <timebase>30</timebase>
-            <ntsc>TRUE</ntsc>
+            <ntsc>FALSE</ntsc>
         </rate>
         <name>Sequence</name>
         <media>
@@ -16,7 +16,7 @@
                     <samplecharacteristics>
                         <rate>
                             <timebase>30</timebase>
-                            <ntsc>TRUE</ntsc>
+                            <ntsc>FALSE</ntsc>
                         </rate>
                         <codec>
                             <name>Apple ProRes 422</name>
@@ -78,7 +78,7 @@
         <timecode>
             <rate>
                 <timebase>30</timebase>
-                <ntsc>TRUE</ntsc>
+                <ntsc>FALSE</ntsc>
             </rate>
             <string>00;00;00;01</string>
             <frame>1</frame>
