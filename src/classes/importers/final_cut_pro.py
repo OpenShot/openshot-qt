@@ -25,30 +25,19 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+import json
 import os
 from operator import itemgetter
+from xml.dom import minidom
 
-from PyQt5.QtWidgets import *
+import openshot
+from PyQt5.QtWidgets import QFileDialog
 
 from classes import info
 from classes.app import get_app
-from classes.logger import log
+from classes.image_types import is_image
 from classes.query import Clip, Track, File
-from classes.time_parts import secondsToTime
-import openshot
-
-from uuid import uuid1
-from xml.dom import minidom
-import json
-
-
-def is_image(file):
-    path = file["path"].lower()
-
-    if path.endswith((".jpg", ".jpeg", ".png", ".bmp", ".svg", ".thm", ".gif", ".bmp", ".pgm", ".tif", ".tiff")):
-        return True
-    else:
-        return False
+from windows.views.find_file import find_missing_file
 
 
 def import_xml():
@@ -117,16 +106,9 @@ def import_xml():
                         # This usually happens for linked audio clips (which OpenShot combines audio and thus ignores this)
                         continue
 
-                    clip_filename = os.path.split(clip_path)[-1]
-                    while not os.path.exists(clip_path):
-                        recommended_path = app.project.current_filepath or ""
-                        if not recommended_path:
-                            recommended_path = info.HOME_PATH
-                        else:
-                            recommended_path = os.path.split(recommended_path)[0]
-                        QMessageBox.warning(None, _("Missing File (%s)") % clip_filename, _("%s cannot be found.") % clip_filename)
-                        starting_folder = QFileDialog.getExistingDirectory(None, _( "Find directory that contains: %s" % clip_filename), recommended_path)
-                        clip_path = os.path.join(starting_folder, clip_filename)
+                    clip_path, is_modified, is_skipped = find_missing_file(clip_path)
+                    if is_skipped:
+                        continue
 
                     # Check for this path in our existing project data
                     file = File.get(path=clip_path)

@@ -27,25 +27,16 @@
 
 import os
 from operator import itemgetter
+from uuid import uuid1
+from xml.dom import minidom
 
-from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import QFileDialog
 
 from classes import info
 from classes.app import get_app
 from classes.logger import log
 from classes.query import Clip, Track
-from classes.time_parts import secondsToTime
 
-from uuid import uuid1
-from xml.dom import minidom
-
-def getXmlTime(time_in_seconds=0.0):
-    """Return a formatted time code for EDL exporting"""
-    # Get FPS info
-    fps_num = get_app().project.get(["fps"]).get("num", 24)
-    fps_den = get_app().project.get(["fps"]).get("den", 1)
-
-    return "%(hour)s;%(min)s;%(sec)s;%(frame)s" % secondsToTime(time_in_seconds, fps_num, fps_den)
 
 def createEffect(xmldoc, name, node, points, scale):
     """Create the XML filter with keyframes"""

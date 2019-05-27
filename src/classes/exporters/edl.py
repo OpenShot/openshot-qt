@@ -28,22 +28,14 @@
 import os
 from operator import itemgetter
 
-from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import QFileDialog
 
 from classes import info
 from classes.app import get_app
 from classes.logger import log
 from classes.query import Clip, Track
-from classes.time_parts import secondsToTime
+from classes.time_parts import secondsToTimecode
 
-
-def getEdlTime(time_in_seconds=0.0):
-    """Return a formatted time code for EDL exporting"""
-    # Get FPS info
-    fps_num = get_app().project.get(["fps"]).get("num", 24)
-    fps_den = get_app().project.get(["fps"]).get("den", 1)
-
-    return "%(hour)s:%(min)s:%(sec)s:%(frame)s" % secondsToTime(time_in_seconds, fps_num, fps_den)
 
 def export_edl():
     """Export EDL File"""
@@ -106,10 +98,10 @@ def export_edl():
                 # Do we need a blank clip?
                 if clip.data.get('position', 0.0) > export_position:
                     # Blank clip (i.e. 00:00:00:00)
-                    clip_start_time = getEdlTime(0.0)
-                    clip_end_time = getEdlTime(clip.data.get('position') - export_position)
-                    timeline_start_time = getEdlTime(export_position)
-                    timeline_end_time = getEdlTime(clip.data.get('position'))
+                    clip_start_time = secondsToTimecode(0.0, fps_num, fps_den)
+                    clip_end_time = secondsToTimecode(clip.data.get('position') - export_position, fps_num, fps_den)
+                    timeline_start_time = secondsToTimecode(export_position, fps_num, fps_den)
+                    timeline_end_time = secondsToTimecode(clip.data.get('position'), fps_num, fps_den)
 
                     # Write blank clip
                     f.write(edl_string % (
@@ -117,11 +109,10 @@ def export_edl():
                     timeline_end_time))
 
                 # Format clip start/end and timeline start/end values (i.e. 00:00:00:00)
-                clip_start_time = getEdlTime(clip.data.get('start'))
-                clip_end_time = getEdlTime(clip.data.get('end'))
-                timeline_start_time = getEdlTime(clip.data.get('position'))
-                timeline_end_time = getEdlTime(
-                    clip.data.get('position') + (clip.data.get('end') - clip.data.get('start')))
+                clip_start_time = secondsToTimecode(clip.data.get('start'), fps_num, fps_den)
+                clip_end_time = secondsToTimecode(clip.data.get('end'), fps_num, fps_den)
+                timeline_start_time = secondsToTimecode(clip.data.get('position'), fps_num, fps_den)
+                timeline_end_time = secondsToTimecode(clip.data.get('position') + (clip.data.get('end') - clip.data.get('start')), fps_num, fps_den)
 
                 has_video = clip.data.get("reader", {}).get("has_video", False)
                 has_audio = clip.data.get("reader", {}).get("has_audio", False)
@@ -149,8 +140,7 @@ def export_edl():
                     # Write keyframe values to EDL
                     for opacity_time in sorted(keyframes.keys()):
                         opacity_value = keyframes.get(opacity_time)
-                        f.write("* OPACITY LEVEL AT %s IS %0.2f%%  (REEL AX)\n" % (
-                        getEdlTime(opacity_time), opacity_value))
+                        f.write("* OPACITY LEVEL AT %s IS %0.2f%%  (REEL AX)\n" % (secondsToTimecode(opacity_time, fps_num, fps_den), opacity_value))
 
                 # Add volume data (if any)
                 volume_points = clip.data.get('volume', {}).get('Points', [])
@@ -164,8 +154,7 @@ def export_edl():
                     # Write keyframe values to EDL
                     for volume_time in sorted(keyframes.keys()):
                         volume_value = keyframes.get(volume_time)
-                        f.write("* AUDIO LEVEL AT %s IS %0.2f DB  (REEL AX A1)\n" % (
-                        getEdlTime(volume_time), volume_value))
+                        f.write("* AUDIO LEVEL AT %s IS %0.2f DB  (REEL AX A1)\n" % (secondsToTimecode(volume_time, fps_num, fps_den), volume_value))
 
                 # Update export position
                 export_position = clip.data.get('position') + (clip.data.get('end') - clip.data.get('start'))

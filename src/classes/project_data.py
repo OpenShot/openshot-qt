@@ -34,9 +34,11 @@ import random
 import shutil
 
 from classes import info, settings
+from classes.image_types import is_image
 from classes.json_data import JsonDataStore
 from classes.logger import log
 from classes.updates import UpdateInterface
+from windows.views.find_file import find_missing_file
 
 
 class ProjectDataStore(JsonDataStore, UpdateInterface):
@@ -339,6 +341,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             # On success, save current filepath
             self.current_filepath = file_path
 
+            # Clear needs save flag
+            self.has_unsaved_changes = False
+
             # Check if paths are all valid
             self.check_if_paths_are_valid()
 
@@ -361,9 +366,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         # Get app, and distribute all project data through update manager
         from classes.app import get_app
         get_app().updates.load(self._data)
-
-        # Clear needs save flag
-        self.has_unsaved_changes = False
 
     def scale_keyframe_value(self, original_value, scale_factor):
         """Scale keyframe X coordinate by some factor, except for 1 (leave that alone)"""
@@ -489,9 +491,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             file_data = json.loads(reader.Json(), strict=False)
 
                             # Determine media type
-                            if file_data["has_video"] and not self.is_image(file_data):
+                            if file_data["has_video"] and not is_image(file_data):
                                 file_data["media_type"] = "video"
-                            elif file_data["has_video"] and self.is_image(file_data):
+                            elif file_data["has_video"] and is_image(file_data):
                                 file_data["media_type"] = "image"
                             elif file_data["has_audio"] and not file_data["has_video"]:
                                 file_data["media_type"] = "audio"
@@ -680,14 +682,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         # Return mostly empty project_data dict (with just the current version #)
         log.info("Successfully loaded legacy project file: %s" % file_path)
         return project_data
-
-    def is_image(self, file):
-        path = file["path"].lower()
-
-        if path.endswith((".jpg", ".jpeg", ".png", ".bmp", ".svg", ".thm", ".gif", ".bmp", ".pgm", ".tif", ".tiff")):
-            return True
-        else:
-            return False
 
     def upgrade_project_data_structures(self):
         """Fix any issues with old project files (if any)"""
@@ -907,78 +901,57 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             parent_path, file_name_with_ext = os.path.split(path)
 
             log.info("checking file %s" % path)
-            while not os.path.exists(path) and "%" not in path:
-                # File already exists!
-                # try to find file with previous starting folder:
-                if starting_folder and os.path.exists(os.path.join(starting_folder, file_name_with_ext)):
-                    # Update file path
-                    path = os.path.abspath(os.path.join(starting_folder, file_name_with_ext))
+            if not os.path.exists(path) and "%" not in path:
+                # File is missing
+                path, is_modified, is_skipped = find_missing_file(path)
+                if path and is_modified and not is_skipped:
+                    # Found file, update path
                     file["path"] = path
                     get_app().updates.update(["import_path"], os.path.dirname(path))
                     log.info("Auto-updated missing file: %s" % path)
-                    break
-                else:
-                    # Prompt user to find missing file
-                    QMessageBox.warning(None, _("Missing File (%s)") % file["id"], _("%s cannot be found.") % file_name_with_ext)
-                    starting_folder = QFileDialog.getExistingDirectory(None, _("Find directory that contains: %s" % file_name_with_ext), starting_folder)
-                    log.info("Missing folder chosen by user: %s" % starting_folder)
-                    if starting_folder:
-                        # Update file path and import_path
-                        path = os.path.abspath(os.path.join(starting_folder, file_name_with_ext))
-                        file["path"] = path
-                        get_app().updates.update(["import_path"], os.path.dirname(path))
-                    else:
-                        log.info('Removed missing file: %s' % file_name_with_ext)
-                        self._data["files"].remove(file)
-                        break
+                elif is_skipped:
+                    # Remove missing file
+                    log.info('Removed missing file: %s' % file_name_with_ext)
+                    self._data["files"].remove(file)
 
         # Loop through each clip (in reverse order)
         for clip in reversed(self._data["clips"]):
-            path = clip["reader"]["path"]
+            path, is_modified, is_skipped = find_missing_file(clip["reader"]["path"])
             parent_path, file_name_with_ext = os.path.split(path)
 
-            log.info("checking file %s" % path)
-            while not os.path.exists(path) and "%" not in path:
-                # Clip already exists! Prompt user to find missing file
-                # try to find clip with previous starting folder:
-                if starting_folder and os.path.exists(os.path.join(starting_folder, file_name_with_ext)):
-                    # Update clip path
-                    path = os.path.abspath(os.path.join(starting_folder, file_name_with_ext))
-                    clip["reader"]["path"] = path
-                    log.info("Auto-updated missing file: %s" % clip["reader"]["path"])
-                    break
-                else:
-                    QMessageBox.warning(None, _("Missing File in Clip (%s)") % clip["id"], _("%s cannot be found.") % file_name_with_ext)
-                    starting_folder = QFileDialog.getExistingDirectory(None, _("Find directory that contains: %s" % file_name_with_ext), starting_folder)
-                    log.info("Missing folder chosen by user: %s" % starting_folder)
-                    if starting_folder:
-                        # Update clip path
-                        path = os.path.abspath(os.path.join(starting_folder, file_name_with_ext))
-                        clip["reader"]["path"] = path
-                    else:
-                        log.info('Removed missing clip: %s' % file_name_with_ext)
-                        self._data["clips"].remove(clip)
-                        break
+            # File is missing
+            if path and is_modified and not is_skipped:
+                # Found file, update path
+                clip["reader"]["path"] = path
+                log.info("Auto-updated missing file: %s" % clip["reader"]["path"])
+            elif is_skipped:
+                # Remove missing file
+                log.info('Removed missing clip: %s' % file_name_with_ext)
+                self._data["clips"].remove(clip)
 
     def changed(self, action):
         """ This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """
-        # Track unsaved changes
-        self.has_unsaved_changes = True
-
         if action.type == "insert":
             # Insert new item
             old_vals = self._set(action.key, action.values, add=True)
             action.set_old_values(old_vals)  # Save previous values to reverse this action
+            self.has_unsaved_changes = True
 
         elif action.type == "update":
             # Update existing item
             old_vals = self._set(action.key, action.values, partial_update=action.partial_update)
             action.set_old_values(old_vals)  # Save previous values to reverse this action
+            self.has_unsaved_changes = True
 
         elif action.type == "delete":
             # Delete existing item
             old_vals = self._set(action.key, remove=True)
             action.set_old_values(old_vals)  # Save previous values to reverse this action
+            self.has_unsaved_changes = True
+
+        elif action.type == "load":
+            # Don't track unsaved changes when loading a project
+            pass
 
     # Utility methods
     def generate_id(self, digits=10):

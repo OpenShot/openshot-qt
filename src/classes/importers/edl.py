@@ -25,21 +25,20 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+import json
 import os
 import re
-import json
 from operator import itemgetter
 
-from PyQt5.QtWidgets import *
+import openshot
+from PyQt5.QtWidgets import QFileDialog
 
 from classes import info
 from classes.app import get_app
-from classes.logger import log
+from classes.image_types import is_image
 from classes.query import Clip, Track, File
-from classes.time_parts import secondsToTime
-
-import openshot
-
+from classes.time_parts import timecodeToSeconds
+from windows.views.find_file import find_missing_file
 
 # REGEX expressions to parse lines from EDL file
 title_regex = re.compile(r"TITLE:[ ]+(.*)")
@@ -48,33 +47,6 @@ clip_name_regex = re.compile(r"[*][ ]+FROM CLIP NAME:[ ]+(.*)")
 opacity_regex = re.compile(r"[*][ ]+OPACITY LEVEL AT (.*) IS [+-]*(.*)%")
 audio_level_regex = re.compile(r"[*][ ]+AUDIO LEVEL AT (.*) IS [+]*(.*)[ ]+DB.*")
 fcm_regex = re.compile(r"FCM:[ ]+(.*)")
-
-
-def is_image(file):
-    path = file["path"].lower()
-
-    if path.endswith((".jpg", ".jpeg", ".png", ".bmp", ".svg", ".thm", ".gif", ".bmp", ".pgm", ".tif", ".tiff")):
-        return True
-    else:
-        return False
-
-
-def convert_to_seconds(time_code="00:00:00:00"):
-    """Convert time code to seconds (float)"""
-    # Get FPS info
-    fps_num = get_app().project.get(["fps"]).get("num", 24)
-    fps_den = get_app().project.get(["fps"]).get("den", 1)
-    fps_float = float(fps_num / fps_den)
-
-    seconds = 0.0
-    time_parts = time_code.split(":")
-    if len(time_parts) == 4:
-        hours = float(time_parts[0])
-        mins = float(time_parts[1])
-        secs = float(time_parts[2])
-        frames = float(time_parts[3])
-        seconds = (hours * 60 * 60) + (mins * 60) + secs + (frames / fps_float)
-    return seconds
 
 
 def create_clip(context, track):
@@ -87,17 +59,10 @@ def create_clip(context, track):
     fps_den = get_app().project.get(["fps"]).get("den", 1)
     fps_float = float(fps_num / fps_den)
 
-    # Get clip path
-    clip_path = context.get("clip_path", "")
-    while not os.path.exists(clip_path):
-        recommended_path = app.project.current_filepath or ""
-        if not recommended_path:
-            recommended_path = info.HOME_PATH
-        else:
-            recommended_path = os.path.split(recommended_path)[0]
-        QMessageBox.warning(None, _("Missing File (%s)") % clip_path, _("%s cannot be found.") % clip_path)
-        starting_folder = QFileDialog.getExistingDirectory(None, _("Find directory that contains: %s" % clip_path), recommended_path)
-        clip_path = os.path.join(starting_folder, context.get("clip_path", ""))
+    # Get clip path (and prompt user if path not found)
+    clip_path, is_modified, is_skipped = find_missing_file(context.get("clip_path", ""))
+    if is_skipped:
+        return
 
     # Get video context
     video_ctx = context.get("AX", {}).get("V", {})
@@ -149,9 +114,9 @@ def create_clip(context, track):
     clip.data["image"] = thumb_path
     if video_ctx and not audio_ctx:
         # Only video
-        clip.data["position"] = convert_to_seconds(video_ctx.get("timeline_position", "00:00:00:00"))
-        clip.data["start"] = convert_to_seconds(video_ctx.get("clip_start_time", "00:00:00:00"))
-        clip.data["end"] = convert_to_seconds(video_ctx.get("clip_end_time", "00:00:00:00"))
+        clip.data["position"] = timecodeToSeconds(video_ctx.get("timeline_position", "00:00:00:00"), fps_num, fps_den)
+        clip.data["start"] = timecodeToSeconds(video_ctx.get("clip_start_time", "00:00:00:00"), fps_num, fps_den)
+        clip.data["end"] = timecodeToSeconds(video_ctx.get("clip_end_time", "00:00:00:00"), fps_num, fps_den)
         clip.data["has_audio"] = {
             "Points": [
                 {
@@ -165,9 +130,9 @@ def create_clip(context, track):
         }
     elif audio_ctx and not video_ctx:
         # Only audio
-        clip.data["position"] = convert_to_seconds(audio_ctx.get("timeline_position", "00:00:00:00"))
-        clip.data["start"] = convert_to_seconds(audio_ctx.get("clip_start_time", "00:00:00:00"))
-        clip.data["end"] = convert_to_seconds(audio_ctx.get("clip_end_time", "00:00:00:00"))
+        clip.data["position"] = timecodeToSeconds(audio_ctx.get("timeline_position", "00:00:00:00"), fps_num, fps_den)
+        clip.data["start"] = timecodeToSeconds(audio_ctx.get("clip_start_time", "00:00:00:00"), fps_num, fps_den)
+        clip.data["end"] = timecodeToSeconds(audio_ctx.get("clip_end_time", "00:00:00:00"), fps_num, fps_den)
         clip.data["has_video"] = {
             "Points": [
                 {
@@ -181,9 +146,9 @@ def create_clip(context, track):
         }
     else:
         # Both video and audio
-        clip.data["position"] = convert_to_seconds(video_ctx.get("timeline_position", "00:00:00:00"))
-        clip.data["start"] = convert_to_seconds(video_ctx.get("clip_start_time", "00:00:00:00"))
-        clip.data["end"] = convert_to_seconds(video_ctx.get("clip_end_time", "00:00:00:00"))
+        clip.data["position"] = timecodeToSeconds(video_ctx.get("timeline_position", "00:00:00:00"), fps_num, fps_den)
+        clip.data["start"] = timecodeToSeconds(video_ctx.get("clip_start_time", "00:00:00:00"), fps_num, fps_den)
+        clip.data["end"] = timecodeToSeconds(video_ctx.get("clip_end_time", "00:00:00:00"), fps_num, fps_den)
 
     # Add volume keyframes
     if context.get("volume"):
@@ -192,7 +157,7 @@ def create_clip(context, track):
             clip.data["volume"]["Points"].append(
                 {
                     "co": {
-                        "X": round(convert_to_seconds(keyframe.get("time", 0.0)) * fps_float),
+                        "X": round(timecodeToSeconds(keyframe.get("time", 0.0), fps_num, fps_den) * fps_float),
                         "Y": keyframe.get("value", 0.0)
                     },
                     "interpolation": 1 # linear
@@ -206,7 +171,7 @@ def create_clip(context, track):
             clip.data["alpha"]["Points"].append(
                 {
                     "co": {
-                        "X": round(convert_to_seconds(keyframe.get("time", 0.0)) * fps_float),
+                        "X": round(timecodeToSeconds(keyframe.get("time", 0.0), fps_num, fps_den) * fps_float),
                         "Y": keyframe.get("value", 0.0)
                     },
                     "interpolation": 1 # linear
