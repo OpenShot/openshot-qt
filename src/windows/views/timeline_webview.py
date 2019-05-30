@@ -2603,10 +2603,14 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Start timer to redraw audio
         self.redraw_audio_timer.start()
 
+        # Only update scale if different
+        current_scale = get_app().project.get(["scale"])
+
         # Save current zoom
-        get_app().updates.ignore_history = True
-        get_app().updates.update(["scale"], newScale)
-        get_app().updates.ignore_history = False
+        if newScale != current_scale:
+            get_app().updates.ignore_history = True
+            get_app().updates.update(["scale"], newScale)
+            get_app().updates.ignore_history = False
 
     def keyPressEvent(self, event):
         """ Keypress callback for timeline """
