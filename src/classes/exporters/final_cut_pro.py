@@ -110,7 +110,7 @@ def export_xml():
             duration = clip_last_frame
 
     # XML template path
-    xmldoc = minidom.parse(os.path.join(info.PATH, 'resources', 'export-project-template.xml'))
+    xmldoc = minidom.parse(os.path.join(info.RESOURCES_PATH, 'export-project-template.xml'))
 
     # Set Project Details
     xmldoc.getElementsByTagName("name")[0].childNodes[0].nodeValue = file_name_with_ext
@@ -144,12 +144,12 @@ def export_xml():
             continue
 
         # Create video track node
-        trackTemplateDoc = minidom.parse(os.path.join(info.PATH, 'resources', 'export-track-video-template.xml'))
+        trackTemplateDoc = minidom.parse(os.path.join(info.RESOURCES_PATH, 'export-track-video-template.xml'))
         videoTrackNode = trackTemplateDoc.getElementsByTagName('track')[0]
         xmldoc.getElementsByTagName("video")[0].appendChild(videoTrackNode)
 
         # Create audio track nodes (1 for each channel)
-        trackTemplateDoc = minidom.parse(os.path.join(info.PATH, 'resources', 'export-track-audio-template.xml'))
+        trackTemplateDoc = minidom.parse(os.path.join(info.RESOURCES_PATH, 'export-track-audio-template.xml'))
         audioTrackNode = trackTemplateDoc.getElementsByTagName('track')[0]
         parentAudioNode.appendChild(audioTrackNode)
         audioTrackNode.getElementsByTagName("outputchannelindex")[0].childNodes[0].nodeValue = track_count
@@ -164,7 +164,7 @@ def export_xml():
             # Create VIDEO clip node
             clipNode = None
             if clip.data.get("reader", {}).get("has_video"):
-                clipTemplateDoc = minidom.parse(os.path.join(info.PATH, 'resources', 'export-clip-video-template.xml'))
+                clipTemplateDoc = minidom.parse(os.path.join(info.RESOURCES_PATH, 'export-clip-video-template.xml'))
                 clipNode = clipTemplateDoc.getElementsByTagName('clipitem')[0]
                 videoTrackNode.appendChild(clipNode)
 
@@ -187,7 +187,7 @@ def export_xml():
 
             # Create AUDIO clip nodes
             if clip.data.get("reader", {}).get("has_audio"):
-                clipTemplateDoc = minidom.parse(os.path.join(info.PATH, 'resources', 'export-clip-audio-template.xml'))
+                clipTemplateDoc = minidom.parse(os.path.join(info.RESOURCES_PATH, 'export-clip-audio-template.xml'))
                 clipAudioNode = clipTemplateDoc.getElementsByTagName('clipitem')[0]
                 audioTrackNode.appendChild(clipAudioNode)
 
