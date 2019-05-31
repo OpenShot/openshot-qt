@@ -301,6 +301,12 @@ class Preferences(QDialog):
                                 value_list[value_index]["name"] = _(value_name) % (value_index + 1)
                             value_index += 1
 
+                        if os_platform in ["Darwin", "Windows"]:
+                            # Disable graphics card selection for Mac and Windows (since libopenshot
+                            # only supports device selection on Linux)
+                            widget.setEnabled(False)
+                            widget.setToolTip(_("Graphics card selection not supported in %s") % os_platform)
+
                     # Add normal values
                     box_index = 0
                     for value_item in value_list:
