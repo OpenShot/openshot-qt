@@ -144,7 +144,7 @@ class Preferences(QDialog):
                     scroll_area.setWidgetResizable(True)
                     scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
                     scroll_area.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-                    scroll_area.setMinimumSize(675, 350)
+                    scroll_area.setMinimumSize(675, 100)
 
                     # Create tab widget and layout
                     layout = QVBoxLayout()
