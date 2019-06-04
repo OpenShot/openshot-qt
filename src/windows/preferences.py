@@ -312,7 +312,12 @@ class Preferences(QDialog):
                                 # Loop through valid modes supported by this card
                                 for mode in self.hardware_tests_cards.get(card_index):
                                     # Add supported graphics card for each mode (duplicates are okay)
-                                    value_list.append( { "value": card_index, "name": _("Graphics Card %s") % (card_index + 1), "icon": mode })
+                                    if mode == 0:
+                                        # cpu only
+                                        value_list.append( { "value": card_index, "name": _("No acceleration"), "icon": mode })
+                                    else:
+                                        # hardware accelerated
+                                        value_list.append( { "value": card_index, "name": _("Graphics Card %s") % (card_index + 1), "icon": mode })
 
                         if os_platform in ["Darwin", "Windows"]:
                             # Disable graphics card selection for Mac and Windows (since libopenshot
