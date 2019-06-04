@@ -84,8 +84,8 @@ class Preferences(QDialog):
         self.category_sort = {}
         self.visible_category_names = {}
 
-        # Tested hardware modes
-        self.hardware_tests_cards = {}
+        # Tested hardware modes (default cpu mode with graphics card 0)
+        self.hardware_tests_cards = {0: [0,]}
 
         # Populate preferences
         self.Populate()
@@ -300,8 +300,7 @@ class Preferences(QDialog):
                         for value_item in list(value_list):
                             v = value_item["value"]
                             if not self.testHardwareDecode(v, 0) and \
-                                not self.testHardwareDecode(v, 1) and \
-                                not self.testHardwareDecode(v, 2):
+                                not self.testHardwareDecode(v, 1):
                                 value_list.remove(value_item)
 
                     # Replace %s dropdown values for hardware acceleration
@@ -522,7 +521,11 @@ class Preferences(QDialog):
 
         # Persist decoder card results
         if decoder_card not in self.hardware_tests_cards:
+            # Init new decoder card list
             self.hardware_tests_cards[decoder_card] = []
+        if int(decoder) in self.hardware_tests_cards.get(decoder_card):
+            # Test already run and succeeded
+            return True
 
         # Keep track of previous settings
         current_decoder = openshot.Settings.Instance().HARDWARE_DECODER
@@ -544,6 +547,8 @@ class Preferences(QDialog):
             if reader.GetFrame(0).CheckPixel(0, 0, 2, 133, 255, 255):
                 is_supported = True
                 self.hardware_tests_cards[decoder_card].append(int(decoder))
+            else:
+                log.warning("CheckPixel failed testing hardware decoding in preferences (i.e. wrong color found): %s-%s" % (decoder, decoder_card))
 
             reader.Close()
             clip.Close()
