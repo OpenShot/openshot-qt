@@ -738,7 +738,7 @@ class Worker(QObject):
                     # change cursor to "default" and stop running blender command
                     self.is_running = False
 
-                    # Wrong version of Blender.  Must be 2.62+:
+                    # Wrong version of Blender.
                     self.blender_version_error.emit(float(self.version[0]))
                     return
 
@@ -751,8 +751,8 @@ class Worker(QObject):
             self.process = subprocess.Popen(command_render, stdout=subprocess.PIPE, stderr=subprocess.PIPE, startupinfo=startupinfo)
 
         except:
-            # Error running command.  Most likely the blender executable path in the settings
-            # is not correct, or is not the correct version of Blender (i.e. 2.62+)
+            # Error running command.  Most likely the blender executable path in
+            # the settings is incorrect, or is not a supported Blender version
             self.is_running = False
             self.blender_error_nodata.emit()
             return
