@@ -1,4 +1,4 @@
-""" 
+"""
  @file
  @brief This file contains the blender file listview, used by the 3d animated titles screen
  @author Jonathan Thomas <jonathan@openshot.org>
@@ -520,10 +520,26 @@ class BlenderListView(QListView):
 
         # Force the Frame to 1 frame (for previewing)
         if frame:
-            user_params += "\n\n#ONLY RENDER 1 FRAME FOR PREVIEW\n"
+            user_params += "\n#ONLY RENDER 1 FRAME FOR PREVIEW\n"
             user_params += "params['{}'] = {}\n".format("start_frame", frame)
             user_params += "params['{}'] = {}\n".format("end_frame", frame)
-            user_params += "\n\n#END ONLY RENDER 1 FRAME FOR PREVIEW\n"
+            user_params += "#END ONLY RENDER 1 FRAME FOR PREVIEW\n"
+
+        # If GPU rendering is selected, see if GPU enable code is available
+        s = settings.get_settings()
+        if s.get("blender_gpu_enabled"):
+            gpu_enable_py = os.path.join(info.PATH, "blender", "scripts", "gpu_enable.py")
+            try:
+                f = open(gpu_enable_py, 'r')
+                gpu_code_body = f.read()
+            except IOError as e:
+                log.error("Could not load GPU enable code! {}".format(e))
+
+        if gpu_code_body:
+            log.info("Injecting GPU enable code from {}".format(gpu_enable_py))
+            user_params += "\n#ENABLE GPU RENDERING\n"
+            user_params += gpu_code_body
+            user_params += "\n#END ENABLE GPU RENDERING\n"
 
         # Open new temp .py file, and inject the user parameters
         with open(path, 'r') as f:
