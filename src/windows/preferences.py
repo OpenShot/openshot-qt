@@ -544,7 +544,7 @@ class Preferences(QDialog):
             reader.Open()
 
             # Test decoded pixel values for a valid decode (based on hardware-example.mp4)
-            if reader.GetFrame(0).CheckPixel(0, 0, 2, 133, 255, 255):
+            if reader.GetFrame(0).CheckPixel(0, 0, 2, 133, 255, 255, 5):
                 is_supported = True
                 self.hardware_tests_cards[decoder_card].append(int(decoder))
             else:
