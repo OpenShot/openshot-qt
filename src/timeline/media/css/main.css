@@ -145,7 +145,15 @@ img {
 
 /* Scrollbar style */
 ::-webkit-scrollbar {width: 0.9em; height: 0.9em; background: #000000; }
-::-webkit-scrollbar-thumb { background-color: #4b92ad; -webkit-border-radius: 1ex; }
+::-webkit-scrollbar-thumb { background-color: #4b92ad; -webkit-border-radius: 0.45em; }
+
+::-webkit-scrollbar-track {
+  background: #000000;
+  -webkit-box-shadow: inset 0 0 0.6em rgba(75,196,233,1.0); 
+  border-radius: 0.45em;
+}
+
+::-webkit-scrollbar-corner { background: none; }
 
 /* Hide timeline until Angular is loaded */
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
