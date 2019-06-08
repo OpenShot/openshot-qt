@@ -83,8 +83,8 @@ img {
 .left_edge_stop { border-left: 2px solid #4b92ad; }
 .right_edge_stop { border-right: 2px solid #4b92ad; }
 .highlight_clip { border-color: #32b7ea; }
-.ui-selecting { border-left: 2px solid yellow!important; border-right: 2px solid yellow!important; box-sizing: border-box; }
-.ui-selected { border-left: 2px solid red!important; border-right: 2px solid red!important; box-sizing: border-box; }
+.ui-selecting { border: 1px solid yellow!important; border-left: 2px solid yellow!important; border-right: 2px solid yellow!important; box-sizing: border-box; }
+.ui-selected { border: 1px solid red!important; border-left: 2px solid red!important; border-right: 2px solid red!important; box-sizing: border-box; }
 .thumb { margin-left: 5px; width: 66px; height: 38px;}
 .thumb-start { float:left; }
 .thumb-end {float:right; }
