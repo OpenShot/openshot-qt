@@ -399,24 +399,7 @@
     "type": "dropdown",
     "value": "0",
     "translate_values": true,
-    "values": [
-      {
-        "value": "0",
-        "name": "Graphics Card %s (default)"
-      },
-      {
-        "value": "1",
-        "name": "Graphics Card %s (might not be available)"
-      },
-      {
-        "value": "2",
-        "name": "Graphics Card %s (might not be available)"
-      },
-      {
-        "value": "3",
-        "name": "Graphics Card %s (might not be available)"
-      }
-    ],
+    "values": [],
     "restart": true
   },
   {
@@ -427,24 +410,7 @@
     "setting": "graca_number_en",
     "type": "dropdown",
     "value": "0",
-    "values": [
-      {
-        "value": "0",
-        "name": "Graphics Card %s (default)"
-      },
-      {
-        "value": "1",
-        "name": "Graphics Card %s (might not be available)"
-      },
-      {
-        "value": "2",
-        "name": "Graphics Card %s (might not be available)"
-      },
-      {
-        "value": "3",
-        "name": "Graphics Card %s (might not be available)"
-      }
-    ],
+    "values": [],
     "restart": true
   },
   {

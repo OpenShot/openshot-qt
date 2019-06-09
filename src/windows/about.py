@@ -144,7 +144,7 @@ class License(QDialog):
         _ = self.app._tr
 
         # Init license
-        with open(os.path.join(info.PATH, 'resources', 'license.txt'), 'r') as my_license:
+        with open(os.path.join(info.RESOURCES_PATH, 'license.txt'), 'r') as my_license:
             text = my_license.read()
             self.textBrowser.append(text)
 
@@ -186,7 +186,7 @@ class Credits(QDialog):
 
         # Get list of developers
         developer_list = []
-        with codecs.open(os.path.join(info.PATH, 'resources', 'contributors.json'), 'r', 'utf-8') as contributors_file:
+        with codecs.open(os.path.join(info.RESOURCES_PATH, 'contributors.json'), 'r', 'utf-8') as contributors_file:
             developer_string = contributors_file.read()
             developer_list = json.loads(developer_string)
 
@@ -217,7 +217,7 @@ class Credits(QDialog):
 
         # Get list of supporters
         supporter_list = []
-        with codecs.open(os.path.join(info.PATH, 'resources', 'supporters.json'), 'r', 'utf-8') as supporter_file:
+        with codecs.open(os.path.join(info.RESOURCES_PATH, 'supporters.json'), 'r', 'utf-8') as supporter_file:
             supporter_string = supporter_file.read()
             supporter_list = json.loads(supporter_string)
 

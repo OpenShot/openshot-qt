@@ -84,6 +84,9 @@ class Preferences(QDialog):
         self.category_sort = {}
         self.visible_category_names = {}
 
+        # Tested hardware modes (default cpu mode with graphics card 0)
+        self.hardware_tests_cards = {0: [0,]}
+
         # Populate preferences
         self.Populate()
 
@@ -285,6 +288,7 @@ class Preferences(QDialog):
                     if param["setting"] == "hw-decoder":
                         for value_item in list(value_list):
                             v = value_item["value"]
+                            # Remove items that are operating system specific
                             if os_platform == "Darwin" and v not in ("0", "5", "7", "2"):
                                 value_list.remove(value_item)
                             elif os_platform == "Windows" and v not in ("0", "3", "4", "7"):
@@ -292,39 +296,59 @@ class Preferences(QDialog):
                             elif os_platform == "Linux" and v not in ("0", "1", "2", "6", "7"):
                                 value_list.remove(value_item)
 
+                        # Remove hardware mode items which cannot decode the example video
+                        for value_item in list(value_list):
+                            v = value_item["value"]
+                            if not self.testHardwareDecode(v, 0) and \
+                                not self.testHardwareDecode(v, 1):
+                                value_list.remove(value_item)
+
                     # Replace %s dropdown values for hardware acceleration
                     if param["setting"] in ("graca_number_en", "graca_number_de"):
-                        value_index = 0
-                        for value_item in list(value_list):
-                            value_name = value_item["name"]
-                            if "%s" in value_name:
-                                value_list[value_index]["name"] = _(value_name) % (value_index + 1)
-                            value_index += 1
+                        for card_index in range(0,3):
+                            # Test each graphics card, and only include valid ones
+                            if card_index in self.hardware_tests_cards and self.hardware_tests_cards.get(card_index):
+                                # Loop through valid modes supported by this card
+                                for mode in self.hardware_tests_cards.get(card_index):
+                                    # Add supported graphics card for each mode (duplicates are okay)
+                                    if mode == 0:
+                                        # cpu only
+                                        value_list.append( { "value": card_index, "name": _("No acceleration"), "icon": mode })
+                                    else:
+                                        # hardware accelerated
+                                        value_list.append( { "value": card_index, "name": _("Graphics Card %s") % (card_index + 1), "icon": mode })
+
+                        if os_platform in ["Darwin", "Windows"]:
+                            # Disable graphics card selection for Mac and Windows (since libopenshot
+                            # only supports device selection on Linux)
+                            widget.setEnabled(False)
+                            widget.setToolTip(_("Graphics card selection not supported in %s") % os_platform)
 
                     # Add normal values
                     box_index = 0
                     for value_item in value_list:
                         k = value_item["name"]
                         v = value_item["value"]
+                        i = value_item.get("icon", None)
 
                         # Override icons for certain values
                         # TODO: Find a more elegant way to do this
                         icon = None
-                        if k == "Linux VA-API":
+                        if k == "Linux VA-API" or i == 1:
                             icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-vaapi.png"))
-                        elif k == "Nvidia NVDEC":
+                        elif k == "Nvidia NVDEC" or i == 2:
                             icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-nvdec.png"))
-                        elif k == "Linux VDPAU":
+                        elif k == "Linux VDPAU" or i == 6:
                             icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-vdpau.png"))
-                        elif k == "Windows D3D9":
+                        elif k == "Windows D3D9" or i == 3:
                             icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-dx.png"))
-                        elif k == "Windows D3D11":
+                        elif k == "Windows D3D11" or i == 4:
                             icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-dx.png"))
-                        elif k == "MacOS":
+                        elif k == "MacOS" or i == 5:
                             icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-vtb.png"))
-                        elif k == "Intel QSV":
+                        elif k == "Intel QSV" or i == 7:
                             icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-qsv.png"))
-                        elif k == "No acceleration":
+                        elif k == "No acceleration" or i == 0:
                             icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-none.png"))
 
                         # add dropdown item
@@ -478,8 +502,8 @@ class Preferences(QDialog):
             get_app().window.InitCacheSettings()
 
         if param["setting"] == "hw-decoder":
-          # Set Hardware Decoder
-          openshot.Settings.Instance().HARDWARE_DECODER = int(value)
+            # Set Hardware Decoder
+            openshot.Settings.Instance().HARDWARE_DECODER = int(value)
 
         if param["setting"] == "graca_number_de":
             openshot.Settings.Instance().HW_DE_DEVICE_SET = int(value)
@@ -489,6 +513,54 @@ class Preferences(QDialog):
 
         # Check for restart
         self.check_for_restart(param)
+
+    def testHardwareDecode(self, decoder, decoder_card="0"):
+        """Test specific settings for hardware decode, so the UI can remove unsupported options."""
+        is_supported = False
+        example_media = os.path.join(info.RESOURCES_PATH, "hardware-example.mp4")
+
+        # Persist decoder card results
+        if decoder_card not in self.hardware_tests_cards:
+            # Init new decoder card list
+            self.hardware_tests_cards[decoder_card] = []
+        if int(decoder) in self.hardware_tests_cards.get(decoder_card):
+            # Test already run and succeeded
+            return True
+
+        # Keep track of previous settings
+        current_decoder = openshot.Settings.Instance().HARDWARE_DECODER
+        current_decoder_card = openshot.Settings.Instance().HW_DE_DEVICE_SET
+
+        try:
+            # Temp override hardware settings (to test them)
+            openshot.Settings.Instance().HARDWARE_DECODER = int(decoder)
+            openshot.Settings.Instance().HW_DE_DEVICE_SET = int(decoder_card)
+
+            # Find reader
+            clip = openshot.Clip(example_media)
+            reader = clip.Reader()
+
+            # Open reader
+            reader.Open()
+
+            # Test decoded pixel values for a valid decode (based on hardware-example.mp4)
+            if reader.GetFrame(0).CheckPixel(0, 0, 2, 133, 255, 255, 5):
+                is_supported = True
+                self.hardware_tests_cards[decoder_card].append(int(decoder))
+            else:
+                log.warning("CheckPixel failed testing hardware decoding in preferences (i.e. wrong color found): %s-%s" % (decoder, decoder_card))
+
+            reader.Close()
+            clip.Close()
+
+        except:
+            log.warning("Exception trying to test hardware decoding in preferences (this is expected): %s-%s" % (decoder, decoder_card))
+
+        # Resume current settings
+        openshot.Settings.Instance().HARDWARE_DECODER = current_decoder
+        openshot.Settings.Instance().HW_DE_DEVICE_SET = current_decoder_card
+
+        return is_supported
 
     def closeEvent(self, event):
         """Signal for closing Preferences window"""
