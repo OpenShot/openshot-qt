@@ -129,6 +129,9 @@ class Cutting(QDialog):
             # Set has_audio property
             self.r.info.has_audio = self.clip.Reader().info.has_audio
 
+            # Update video_length property of the Timeline object
+            self.r.info.video_length = self.video_length
+
             if preview:
                 # Display frame #'s during preview
                 self.clip.display = openshot.FRAME_DISPLAY_CLIP
