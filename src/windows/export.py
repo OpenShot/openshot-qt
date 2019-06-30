@@ -391,17 +391,17 @@ class Export(QDialog):
                     for codec in videocodecs:
                         codec_text = codec.childNodes[0].data
                         if "vaapi" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                            acceleration_types[_(title.childNodes[0].data)] = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-vaapi.png"))
+                            acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-vaapi.svg")
                         elif "nvenc" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                            acceleration_types[_(title.childNodes[0].data)] = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-nvenc.png"))
+                            acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-nvenc.svg")
                         elif "dxva2" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                            acceleration_types[_(title.childNodes[0].data)] = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-dx.png"))
+                            acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-dx.svg")
                         elif "videotoolbox" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                            acceleration_types[_(title.childNodes[0].data)] = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-vtb.png"))
+                            acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-vtb.svg")
                         elif "qsv" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                            acceleration_types[_(title.childNodes[0].data)] = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-qsv.png"))
+                            acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-qsv.svg")
                         elif openshot.FFmpegWriter.IsValidCodec(codec_text):
-                            acceleration_types[_(title.childNodes[0].data)] = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-none.png"))
+                            acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-none.svg")
 
         # Add all targets for selected project type
         preset_index = 0
