@@ -434,7 +434,7 @@ try:
         # Add version metadata to frozen app launcher
         launcher_exe = os.path.join(exe_path, "launch.exe")
         verpatch_success = True
-        verpatch_command = '"C:\Program Files (x86)\Verpatch\verpatch.exe" "{}" /va /high "{}" /pv "{}" /s product "{}" /s company "{}" /s copyright "{}" /s desc "{}"'.format(launcher_exe, info.VERSION, info.VERSION, info.PRODUCT_NAME, info.COMPANY_NAME, info.COPYRIGHT, info.PRODUCT_NAME)
+        verpatch_command = '"C:\Program Files (x86)\Verpatch\\verpatch.exe" "{}" /va /high "{}" /pv "{}" /s product "{}" /s company "{}" /s copyright "{}" /s desc "{}"'.format(launcher_exe, info.VERSION, info.VERSION, info.PRODUCT_NAME, info.COMPANY_NAME, info.COPYRIGHT, info.PRODUCT_NAME)
         verpatch_output = ""
         # version-stamp executable
         for line in run_command(verpatch_command):
