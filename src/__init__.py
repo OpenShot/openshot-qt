@@ -1,7 +1,7 @@
 """
  @file openshot_qt/__init__.py
  @brief Initialization code used when running OpenShot installed as a Python module
- @author FeRD (Frank Dana) <ferdnyc AT gmail com>
+ @author Jonathan Thomas <jonathan@openshot.org>
 
  @section LICENSE
 
