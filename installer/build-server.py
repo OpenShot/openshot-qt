@@ -431,6 +431,23 @@ try:
         if windows_32bit:
             only_64_bit = ""
 
+        # Add version metadata to frozen app launcher
+        launcher_exe = os.path.join(exe_path, "launch.exe")
+        verpatch_success = True
+        verpatch_command = '"C:\Program Files (x86)\Verpatch\verpatch.exe" "{}" /va /high "{}" /pv "{}" /s product "{}" /s company "{}" /s copyright "{}" /s desc "{}"'.format(launcher_exe, info.VERSION, info.VERSION, info.PRODUCT_NAME, info.COMPANY_NAME, info.COPYRIGHT, info.PRODUCT_NAME)
+        verpatch_output = ""
+        # version-stamp executable
+        for line in run_command(verpatch_command):
+            output(line)
+            if line:
+                verpatch_success = False
+                verpatch_output = line
+                
+        # Was the verpatch command successful
+        if not verpatch_success:
+            # Verpatch failed (not fatal)
+            error("Verpatch Error: Had output when none was expected (%s)" % verpatch_output)
+
         # Copy uninstall files into build folder
         for file in os.listdir(os.path.join("c:/", "InnoSetup")):
             shutil.copyfile(os.path.join("c:/", "InnoSetup", file), os.path.join(PATH, "build", file))
