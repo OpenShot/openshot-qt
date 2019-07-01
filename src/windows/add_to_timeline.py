@@ -42,12 +42,7 @@ from classes.metrics import *
 from windows.views.add_to_timeline_treeview import TimelineTreeView
 
 import openshot
-
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class AddToTimeline(QDialog):
     """ Add To timeline Dialog """

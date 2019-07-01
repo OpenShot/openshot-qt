@@ -41,11 +41,7 @@ from classes.app import get_app
 from classes.metrics import *
 from classes.query import File
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class Export(QDialog):
     """ Export Dialog """

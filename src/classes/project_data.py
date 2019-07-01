@@ -429,11 +429,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         from classes.query import File, Track, Clip, Transition
         from classes.app import get_app
         import openshot
-
-        try:
-            import json
-        except ImportError:
-            import simplejson as json
+        import json
 
         # Get translation method
         _ = get_app()._tr

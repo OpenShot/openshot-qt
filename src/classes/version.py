@@ -30,11 +30,7 @@ import threading
 from classes.app import get_app
 from classes import info
 from classes.logger import log
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 def get_current_Version():
     """Get the current version """

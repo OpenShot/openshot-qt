@@ -42,11 +42,7 @@ from classes.logger import log
 from classes.query import File
 from windows.models.files_model import FilesModel
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class FilesTreeView(QTreeView):
     """ A TreeView QWidget used on the main window """

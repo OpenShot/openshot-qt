@@ -41,11 +41,7 @@ from classes.metrics import *
 from windows.preview_thread import PreviewParent
 from windows.video_widget import VideoWidget
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class Cutting(QDialog):
     """ Cutting Dialog """

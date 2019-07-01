@@ -1,36 +1,33 @@
-""" 
+"""
  @file
  @brief This file loads and saves settings (as JSON)
  @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
  @author Olivier Girard <eolinwen@gmail.com>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
+import json
 
 import copy
 import os
@@ -46,7 +43,7 @@ path_context = {}
 
 class JsonDataStore:
     """ This class which allows getting/setting of key/value settings, and loading and saving to json files.
-    Internal storage of a dictionary. Uses json or simplejson packages to serialize and deserialize from json to dictionary.
+    Internal storage of a dictionary. Uses json module to serialize and deserialize from json to dictionary.
     Keys are assumed to be strings, but subclasses which override get/set methods may use different key types.
     The write_to_file and read_from_file methods are key type agnostic."""
 

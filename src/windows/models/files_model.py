@@ -40,11 +40,7 @@ from classes.logger import log
 from classes.app import get_app
 from classes.thumbnail import GenerateThumbnail
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class FileStandardItemModel(QStandardItemModel):
     ModelRefreshed = pyqtSignal()

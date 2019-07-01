@@ -32,11 +32,7 @@ from PyQt5.QtWidgets import QTreeView, QAbstractItemView, QMenu, QSizePolicy
 from classes.app import get_app
 from windows.models.transition_model import TransitionsModel
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class TransitionsTreeView(QTreeView):
     """ A TreeView QWidget used on the main window """

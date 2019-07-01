@@ -37,11 +37,7 @@ from classes.app import get_app
 from classes.logger import log
 from classes import settings
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class PreviewParent(QObject):
     """ Class which communicates with the PlayerWorker Class (running on a separate thread) """

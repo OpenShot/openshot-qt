@@ -50,10 +50,7 @@ from classes.waveform import get_audio_data
 from classes.thumbnail import GenerateThumbnail
 from classes.conversion import zoomToSeconds, secondsToZoom
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
+import json
 
 # Constants used by this file
 JS_SCOPE_SELECTOR = "$('body').scope()"

@@ -46,11 +46,7 @@ from classes.query import File
 from classes.app import get_app
 from windows.models.blender_model import BlenderModel
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class QBlenderEvent(QEvent):
     """ A custom Blender QEvent, which can safely be sent from the Blender thread to the Qt thread (to communicate) """
