@@ -6,7 +6,6 @@
         <file>hw-accel-nvdec.svg</file>
         <file>hw-accel-nvenc.svg</file>
         <file>hw-accel-qsv.svg</file>
-        <file>hw-accel-template.svg</file>
         <file>hw-accel-vaapi.svg</file>
         <file>hw-accel-vdpau.svg</file>
     </qresource>
