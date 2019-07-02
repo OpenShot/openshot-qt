@@ -112,8 +112,8 @@ def zulip_upload_log(log, title, comment=None):
     """Upload a file to zulip and notify a zulip channel"""
     output("Zulip Upload: %s" % log_path)
 
-    # Close log file
-    log.close()
+    # Write log file
+    log.flush()
 
     # Authentication for Zulip
     zulip_auth = HTTPBasicAuth('builder-bot@openshot.zulipchat.com', zulip_token)
@@ -534,11 +534,10 @@ except Exception as ex:
     tb = traceback.format_exc()
     error("Unhandled exception: %s - %s" % (str(ex), str(tb)))
 
-# Report any errors detected
-if errors_detected:
+if not errors_detected:
+    output("Successfully completed build-server script!")
+else:
+    # Report any errors detected
     output("build-server script failed!")
     zulip_upload_log(log, "%s: Error log for *%s* build" % (platform.system(), git_branch_name), ":skull_and_crossbones: %s" % truncate(errors_detected[0], 100))
     exit(1)
-else:
-    output("Successfully completed build-server script!")
-
