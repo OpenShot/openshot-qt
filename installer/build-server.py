@@ -532,6 +532,8 @@ except Exception as ex:
     tb = traceback.format_exc()
     error("Unhandled exception: %s - %s" % (str(ex), str(tb)))
 
+# Flush log file
+log.flush()
 
 # Report any errors detected
 if errors_detected:
