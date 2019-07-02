@@ -335,21 +335,21 @@ class Preferences(QDialog):
                         # TODO: Find a more elegant way to do this
                         icon = None
                         if k == "Linux VA-API" or i == 1:
-                            icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-vaapi.png"))
+                            icon = QIcon(":/hw/hw-accel-vaapi.svg")
                         elif k == "Nvidia NVDEC" or i == 2:
-                            icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-nvdec.png"))
+                            icon = QIcon(":/hw/hw-accel-nvdec.svg")
                         elif k == "Linux VDPAU" or i == 6:
-                            icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-vdpau.png"))
+                            icon = QIcon(":/hw/hw-accel-vdpau.svg")
                         elif k == "Windows D3D9" or i == 3:
-                            icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-dx.png"))
+                            icon = QIcon(":/hw/hw-accel-dx.svg")
                         elif k == "Windows D3D11" or i == 4:
-                            icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-dx.png"))
+                            icon = QIcon(":/hw/hw-accel-dx.svg")
                         elif k == "MacOS" or i == 5:
-                            icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-vtb.png"))
+                            icon = QIcon(":/hw/hw-accel-vtb.svg")
                         elif k == "Intel QSV" or i == 7:
-                            icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-qsv.png"))
+                            icon = QIcon(":/hw/hw-accel-qsv.svg")
                         elif k == "No acceleration" or i == 0:
-                            icon = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-none.png"))
+                            icon = QIcon(":/hw/hw-accel-none.svg")
 
                         # add dropdown item
                         if icon:
