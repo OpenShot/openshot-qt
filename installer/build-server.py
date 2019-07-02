@@ -68,14 +68,6 @@ log_path = os.path.join(PATH, 'build', 'build-server.log')
 log = open(log_path, 'w+')
 
 
-def run_command(command, working_dir=None):
-    """Utility function to return output from command line"""
-    p = subprocess.Popen(command, shell=True, cwd=working_dir,
-                         stdout=subprocess.PIPE,
-                         stderr=subprocess.STDOUT)
-    return iter(p.stdout.readline, b"")
-
-
 def output(line):
     """Append output to list and print it"""
     print(line)
@@ -86,6 +78,16 @@ def output(line):
         # Append missing line return (if needed)
         line += "\n"
     log.write(line)
+
+
+def run_command(command, working_dir=None):
+    """Utility function to return output from command line"""
+    short_command = command.split('" ')[0] # We don't need to print args
+    output("Running %s... (%s)" % (short_command, working_dir))
+    p = subprocess.Popen(command, shell=True, cwd=working_dir,
+                         stdout=subprocess.PIPE,
+                         stderr=subprocess.STDOUT)
+    return iter(p.stdout.readline, b"")
 
 
 def error(line):
@@ -532,11 +534,11 @@ except Exception as ex:
     tb = traceback.format_exc()
     error("Unhandled exception: %s - %s" % (str(ex), str(tb)))
 
-# Flush log file
-log.flush()
-
 # Report any errors detected
 if errors_detected:
+    output("build-server script failed!")
     zulip_upload_log(log, "%s: Error log for *%s* build" % (platform.system(), git_branch_name), ":skull_and_crossbones: %s" % truncate(errors_detected[0], 100))
     exit(1)
+else:
+    output("Successfully completed build-server script!")
 
