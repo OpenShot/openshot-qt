@@ -77,8 +77,8 @@ def export_xml():
     _ = app._tr
 
     # Get FPS info
-    fps_num = get_app().project.get(["fps"]).get("num", 24)
-    fps_den = get_app().project.get(["fps"]).get("den", 1)
+    fps_num = get_app().project.get("fps").get("num", 24)
+    fps_den = get_app().project.get("fps").get("den", 1)
     fps_float = float(fps_num / fps_den)
 
     # Ticks (final cut pro value)
@@ -116,10 +116,10 @@ def export_xml():
     xmldoc.getElementsByTagName("name")[0].childNodes[0].nodeValue = file_name_with_ext
     xmldoc.getElementsByTagName("uuid")[0].childNodes[0].nodeValue = str(uuid1())
     xmldoc.getElementsByTagName("duration")[0].childNodes[0].nodeValue = duration
-    xmldoc.getElementsByTagName("width")[0].childNodes[0].nodeValue = app.project.get(["width"])
-    xmldoc.getElementsByTagName("height")[0].childNodes[0].nodeValue = app.project.get(["height"])
-    xmldoc.getElementsByTagName("samplerate")[0].childNodes[0].nodeValue = app.project.get(["sample_rate"])
-    xmldoc.getElementsByTagName("sequence")[0].setAttribute("id", app.project.get(["id"]))
+    xmldoc.getElementsByTagName("width")[0].childNodes[0].nodeValue = app.project.get("width")
+    xmldoc.getElementsByTagName("height")[0].childNodes[0].nodeValue = app.project.get("height")
+    xmldoc.getElementsByTagName("samplerate")[0].childNodes[0].nodeValue = app.project.get("sample_rate")
+    xmldoc.getElementsByTagName("sequence")[0].setAttribute("id", app.project.get("id"))
     for childNode in xmldoc.getElementsByTagName("timebase"):
         childNode.childNodes[0].nodeValue = fps_float
 
@@ -127,7 +127,7 @@ def export_xml():
     parentAudioNode = xmldoc.getElementsByTagName("audio")[0]
 
     # Loop through tracks
-    all_tracks = get_app().project.get(["layers"])
+    all_tracks = get_app().project.get("layers")
     track_count = 1
     for track in sorted(all_tracks, key=itemgetter('number')):
         existing_track = Track.get(number=track.get("number"))

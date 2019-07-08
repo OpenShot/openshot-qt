@@ -441,7 +441,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Get FPS from project
         from classes.app import get_app
-        fps = get_app().project.get(["fps"])
+        fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
 
         # Import legacy openshot classes (from version 1.X)
