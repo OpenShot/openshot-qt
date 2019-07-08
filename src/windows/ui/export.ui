@@ -1032,6 +1032,38 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>txtFileName</tabstop>
+  <tabstop>txtExportFolder</tabstop>
+  <tabstop>btnBrowse</tabstop>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>cboSimpleProjectType</tabstop>
+  <tabstop>cboSimpleTarget</tabstop>
+  <tabstop>cboSimpleVideoProfile</tabstop>
+  <tabstop>cboSimpleQuality</tabstop>
+  <tabstop>cboExportTo</tabstop>
+  <tabstop>txtStartFrame</tabstop>
+  <tabstop>txtEndFrame</tabstop>
+  <tabstop>cboProfile</tabstop>
+  <tabstop>txtWidth</tabstop>
+  <tabstop>txtHeight</tabstop>
+  <tabstop>txtAspectRatioNum</tabstop>
+  <tabstop>txtAspectRatioDen</tabstop>
+  <tabstop>txtPixelRatioNum</tabstop>
+  <tabstop>txtPixelRatioDen</tabstop>
+  <tabstop>txtFrameRateNum</tabstop>
+  <tabstop>txtFrameRateDen</tabstop>
+  <tabstop>cboInterlaced</tabstop>
+  <tabstop>txtImageFormat</tabstop>
+  <tabstop>txtVideoFormat</tabstop>
+  <tabstop>txtVideoCodec</tabstop>
+  <tabstop>txtVideoBitRate</tabstop>
+  <tabstop>txtAudioCodec</tabstop>
+  <tabstop>txtSampleRate</tabstop>
+  <tabstop>txtChannels</tabstop>
+  <tabstop>cboChannelLayout</tabstop>
+  <tabstop>txtAudioBitrate</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
