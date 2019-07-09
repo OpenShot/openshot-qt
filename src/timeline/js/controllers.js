@@ -177,9 +177,7 @@ App.controller('TimelineCtrl',function($scope) {
 	  	layers : [
   				{id: 'L0', number:0, y:0, label: '', lock: false},
 				{id: 'L1', number:1, y:0, label: '', lock: false},
-				{id: 'L2', number:2, y:0, label: '', lock: false},
-				{id: 'L3', number:3, y:0, label: '', lock: false},
-				{id: 'L4', number:4, y:0, label: '', lock: false}
+				{id: 'L2', number:2, y:0, label: '', lock: false}
              ],
 	  	markers : [],
               // [
