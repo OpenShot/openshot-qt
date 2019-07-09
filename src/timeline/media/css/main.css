@@ -144,8 +144,8 @@ img {
 .snapping-line.ng-hide-add.ng-hide-add-active { opacity:0.0; }
 
 /* Scrollbar style */
-::-webkit-scrollbar {width: 0.9em; height: 0.9em; background: #000000; }
-::-webkit-scrollbar-thumb { background-color: #4b92ad; -webkit-border-radius: 0.45em; }
+::-webkit-scrollbar { width: 0.9em; height: 0.9em; }
+::-webkit-scrollbar-thumb { background-color: #4b92ad; border-radius: 0.45em; }
 
 ::-webkit-scrollbar-track {
   background: #000000;
