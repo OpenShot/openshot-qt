@@ -149,7 +149,7 @@ img {
 
 ::-webkit-scrollbar-track {
   background: #000000;
-  -webkit-box-shadow: inset 0 0 0.6em rgba(75,196,233,1.0); 
+  box-shadow: inset 0 0 0.6em rgba(75,196,233,1.0); 
   border-radius: 0.45em;
 }
 
