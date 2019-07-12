@@ -465,6 +465,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         app = get_app()
         _ = app._tr  # Get translation function
 
+        # First check for empty file_path (probably user cancellation)
+        if not file_path:
+            # Ignore the request
+            return
+
         # Do we have unsaved changes?
         if get_app().project.needs_save():
             ret = QMessageBox.question(self, _("Unsaved Changes"), _("Save changes to project first?"), QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
@@ -505,19 +510,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
                 log.info("Loaded project {}".format(file_path))
             else:
-                # If statement is required, as if the user hits "Cancel"
-                # on the "load file" dialog, it is interpreted as trying
-                # to open a file with a blank name. This could use some
-                # improvement.
-                if file_path != "":
-                    # Prepare to use status bar
-                    self.statusBar = QStatusBar()
-                    self.setStatusBar(self.statusBar)
+                # Prepare to use status bar
+                self.statusBar = QStatusBar()
+                self.setStatusBar(self.statusBar)
 
-                    log.info("File not found at {}".format(file_path))
-                    self.statusBar.showMessage(_("Project {} is missing (it may have been moved or deleted). It has been removed from the Recent Projects menu.".format(file_path)), 5000)
-                    self.remove_recent_project(file_path)
-                    self.load_recent_menu()
+                log.info("File not found at {}".format(file_path))
+                self.statusBar.showMessage(_("Project {} is missing (it may have been moved or deleted). It has been removed from the Recent Projects menu.".format(file_path)), 5000)
+                self.remove_recent_project(file_path)
+                self.load_recent_menu()
 
         except Exception as ex:
             log.error("Couldn't open project {}".format(file_path))
