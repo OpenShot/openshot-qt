@@ -171,7 +171,6 @@ class OpenShotApp(QApplication):
                 QApplication.setFont(font)
             except Exception as ex:
                 log.error("Error setting Ubuntu-R.ttf QFont: %s" % str(ex))
-                raise
 
         # Set Experimental Dark Theme
         if self.settings.get("theme") == "Humanity: Dark":
@@ -230,7 +229,6 @@ class OpenShotApp(QApplication):
             self.settings.save()
         except Exception as ex:
             log.error("Couldn't save user settings on exit.\n{}".format(ex))
-            raise
 
         # return exit result
         return res
