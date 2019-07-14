@@ -30,6 +30,7 @@
 import os
 import sys
 import platform
+import traceback
 from uuid import uuid4
 from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
 from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont
@@ -65,10 +66,15 @@ class OpenShotApp(QApplication):
 
             # Re-route stdout and stderr to logger
             reroute_output()
-        except Exception as ex:
+        except (ImportError, ModuleNotFoundError) as ex:
+            tb = traceback.format_exc()
             QMessageBox.warning(None, "Import Error",
-                                "%(error)s. Please delete <b>%(path)s</b> and launch OpenShot again." % {"error": str(ex), "path": info.USER_PATH})
+                                "Module: %(name)s\n\n%(tb)s" % {"name": ex.name, "tb": tb})
             # Stop launching and exit
+            raise
+            sys.exit()
+        except Exception:
+            raise
             sys.exit()
 
         # Log some basic system info
@@ -143,6 +149,7 @@ class OpenShotApp(QApplication):
             QMessageBox.warning(None, _("Permission Error"),
                                       _("%(error)s. Please delete <b>%(path)s</b> and launch OpenShot again." % {"error": str(ex), "path": info.USER_PATH}))
             # Stop launching and exit
+            raise
             sys.exit()
 
         # Start libopenshot logging thread
