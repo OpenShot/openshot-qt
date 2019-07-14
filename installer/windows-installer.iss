@@ -81,11 +81,6 @@ Type: filesandordirs; Name: "{app}\*"
 Type: dirifempty; Name: "{app}\*"
 Type: files; Name: "{group}\OpenShot Video Editor"; BeforeInstall: DeleteInvalidFiles
 
-[Registry]
-; Remove previously installed registry keys (no longer needed)
-Root: HKLM; Subkey: "System\CurrentControlSet\Control\Session Manager\Environment"; ValueName:"QT_PLUGIN_PATH"; ValueType: none; Flags: deletevalue;
-Root: HKLM; Subkey: "System\CurrentControlSet\Control\Session Manager\Environment"; ValueName:"MAGICK_CONFIGURE_PATH"; ValueType: none; Flags: deletevalue;
-
 [Files]
 ; Add all frozen files from cx_Freeze build
 Source: "..\build\exe.mingw-3.6\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
