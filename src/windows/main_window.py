@@ -215,7 +215,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                             # Append line to beginning of stacktrace
                             last_stack_trace = line + last_stack_trace
 
-                        # Ignore certain unuseful lines
+                        # Ignore certain useless lines
                         if line.strip() and "---" not in line and "libopenshot logging:" not in line and not last_log_line:
                             last_log_line = line
 
@@ -620,7 +620,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 log.info("Auto save project file: %s" % file_path)
                 self.save_project(file_path)
 
-                # Remvoe backup.osp (if any)
+                # Remove backup.osp (if any)
                 recovery_path = os.path.join(info.BACKUP_PATH, "backup.osp")
                 if os.path.exists(recovery_path):
                     # Delete backup.osp since we just saved the actual project
