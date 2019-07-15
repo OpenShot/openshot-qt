@@ -825,7 +825,7 @@ class Export(QDialog):
 
             # These extra options should be set in an extra method
             # No feedback is given to the user
-            # TODO: Tell user if option is not avaliable
+            # TODO: Tell user if option is not available
             # Set the quality in case crf was selected
             if "crf" in self.txtVideoBitRate.text():
                 w.SetOption(openshot.VIDEO_STREAM, "crf", str(int(video_settings.get("video_bitrate"))) )
