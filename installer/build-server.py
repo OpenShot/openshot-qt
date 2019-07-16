@@ -152,7 +152,7 @@ def get_release(repo, tag_name):
     @param repo:        github3 repository object
     @returns:           github3 release object or None
     """
-    for release in repo.releases():
+    for release in repo.iter_releases():
         if release.tag_name == tag_name:
             return release
 
