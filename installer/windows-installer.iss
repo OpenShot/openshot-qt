@@ -77,6 +77,7 @@ Name: "ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+Name: "fileassoc"; Description: "{cm:AssocFileExtension,{#MyAppName},.osp"; GroupDescription: "{cm:AdditionalIcons}"; Flags: checked
 
 [InstallDelete]
 ; Remove previous installed versions of OpenShot
@@ -92,11 +93,11 @@ Root: HKLM; Subkey: "System\CurrentControlSet\Control\Session Manager\Environmen
 ; Associate .osp files with the installed application. Uninstaller will clean them up, when run.
 
 ; Filename extension .osp
-Root: HKLM; Subkey: "Software\Classes\.osp"; ValueType: string; ValueName: ""; ValueData: "OpenShotProject"; Flags: uninsdeletevalue;
+Root: HKLM; Subkey: "Software\Classes\.osp"; ValueType: string; ValueName: ""; ValueData: "OpenShotProject"; Flags: uninsdeletevalue; Tasks: fileassoc
 ; .osp file description, "OpenShot Project File" (OpenShotProject, internally)
-Root: HKLM; Subkey: "Software\Classes\OpenShotProject"; ValueType: string; ValueName: ""; ValueData: "{#MyAppProjectFileDesc}"; Flags: uninsdeletekey
+Root: HKLM; Subkey: "Software\Classes\OpenShotProject"; ValueType: string; ValueName: ""; ValueData: "{#MyAppProjectFileDesc}"; Flags: uninsdeletekey; Tasks: fileassoc
 ; Launcher association for data files of type OpenShotProject
-Root: HKLM; Subkey: "Software\Classes\OpenShotProject\shell\open\command"; ValueType: string;  ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""
+Root: HKLM; Subkey: "Software\Classes\OpenShotProject\shell\open\command"; ValueType: string;  ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Tasks: fileassoc
 ;
 ; NOT setting an icon for project files seems best, as we don't currently have one,
 ; and if omitted Windows seems to generate a perfectly acceptable default.
