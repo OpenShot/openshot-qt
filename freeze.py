@@ -73,7 +73,7 @@ except ImportError:
     json_library = "simplejson"
 
 # Packages to include
-python_packages = ["os", "sys", "PyQt5", "openshot", "time", "uuid", "shutil", "threading", "subprocess",
+python_packages = ["os", "sys", "PyQt5.QtCore", "PyQt5.QtGui", "PyQt5.QtWidgets", "PyQt5.Qt", "openshot", "time", "uuid", "shutil", "threading", "subprocess",
                                  "re", "math", "xml", "logging", "urllib", "requests", "zmq", "webbrowser", json_library]
 
 # Determine absolute PATH of OpenShot folder
