@@ -79,11 +79,6 @@ python_packages = ["os", "sys", "PyQt5", "openshot", "time", "uuid", "shutil", "
 # Determine absolute PATH of OpenShot folder
 PATH = os.path.dirname(os.path.realpath(__file__))  # Primary openshot folder
 
-print("Start of FREEZE")
-print("PATH: %s" % PATH)
-print("sys.path: %s" % str(sys.path))
-print("dir(): %s" % str(dir()))
-
 # Make a copy of the src tree (temporary for naming reasons only)
 if os.path.exists(os.path.join(PATH, "src")):
     print("Copying modules to openshot_qt directory: %s" % os.path.join(PATH, "openshot_qt"))
