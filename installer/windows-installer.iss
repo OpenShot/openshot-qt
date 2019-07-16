@@ -10,10 +10,13 @@
 
 
 #define MyAppName "OpenShot Video Editor"
+#define MyAppShortName "OpenShot"
+#define MyAppProjectFileDesc "OpenShot Project File"
 #define MyAppPublisher "OpenShot Studios, LLC"
-#define MyAppURL "http://www.openshot.org/"
+#define MyPublisherURL "https://www.openshot.org/"
+#define MySupportURL "https://www.reddit.com/r/OpenShot/"
 #define MyAppExeName "launch.exe"
-             
+
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
@@ -23,10 +26,9 @@ AppName={#MyAppName}
 AppVersion={#VERSION}
 VersionInfoVersion={#VERSION}
 AppPublisher={#MyAppPublisher}
-AppPublisherURL={#MyAppURL}
-AppSupportURL={#MyAppURL}
-AppUpdatesURL={#MyAppURL}
-AppCopyright=Copyright (c) 2008-2016 {#MyAppPublisher}
+AppPublisherURL={#MyPublisherURL}
+AppSupportURL={#MySupportURL}
+AppCopyright=Copyright (c) 2008-2019 {#MyAppPublisher}
 DefaultDirName={pf}\{#MyAppName}
 DisableProgramGroupPage=yes
 LicenseFile=..\COPYING
