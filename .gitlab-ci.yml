@@ -83,7 +83,7 @@ windows-builder-x64:
     - Expand-Archive -Path artifacts.zip -DestinationPath .
     - Copy-Item "$CI_PROJECT_DIR/build/install-x64/python/*" -Destination "$CI_PROJECT_DIR"
     - $env:Path = "$CI_PROJECT_DIR\build\install-x64\lib;$CI_PROJECT_DIR\build\install-x64\lib\python3.7\site-packages\;C:\msys64\mingw64\bin;C:\msys64\mingw64\lib;C:\msys64\mingw64\lib\python3.7\;C:\msys64\mingw64\lib\python3.7\site-packages\;C:\msys64\mingw64\lib\python3.7\site-packages\PyQt5;C:\msys64\usr\lib\cmake\UnitTest++;C:\msys64\home\jonathan\depot_tools;C:\msys64\usr;C:\msys64\usr\lib;" + $env:Path;
-    - $env:PYTHONPATH = "C:\msys64\usr\lib;C:\msys64\usr\lib\site-packages\;C:\msys64\mingw64\lib\python3.7\;C:\msys64\mingw64\lib\python3.7\site-packages\;C:\msys64\mingw64\lib\python3.7\site-packages\PyQt5;";
+    - $env:PYTHONPATH = "$CI_PROJECT_DIR\build\install-x64\lib\python3.7\site-packages\;C:\msys64\usr\lib;C:\msys64\usr\lib\site-packages\;C:\msys64\mingw64\lib\python3.7\;C:\msys64\mingw64\lib\python3.7\site-packages\;C:\msys64\mingw64\lib\python3.7\site-packages\PyQt5;";
     - New-Item -path "build/install-x64/share/" -Name "$CI_PROJECT_NAME" -Value "CI_PROJECT_NAME:$CI_PROJECT_NAME`nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME`nCI_COMMIT_SHA:$CI_COMMIT_SHA`nCI_JOB_ID:$CI_JOB_ID" -ItemType file -force
     - $PREV_GIT_LABEL=(git describe --tags --abbrev=0)
     - git log "$PREV_GIT_LABEL..HEAD" --oneline --pretty=format:"%C(auto,yellow)%h%C(auto,magenta)% %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(25,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D" --date=short > "build/install-x64/share/$CI_PROJECT_NAME.log"
