@@ -456,7 +456,7 @@ try:
 
         # Create Installer (OpenShot-%s-x86_64.exe)
         inno_success = True
-        inno_command = '"C:\Program Files (x86)\Inno Setup 5\iscc.exe" /Q /DVERSION=%s /DONLY_64_BIT=%s "%s"' % (version, only_64_bit, os.path.join(PATH, 'installer', 'windows-installer.iss'))
+        inno_command = '"C:\Program Files (x86)\Inno Setup 6\iscc.exe" /Q /DVERSION=%s /DONLY_64_BIT=%s "%s"' % (version, only_64_bit, os.path.join(PATH, 'installer', 'windows-installer.iss'))
         inno_output = ""
         # Compile Inno installer
         for line in run_command(inno_command):
