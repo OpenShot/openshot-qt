@@ -33,6 +33,7 @@ LicenseFile=..\COPYING
 OutputBaseFilename=OpenShot
 ArchitecturesInstallIn64BitMode={#ONLY_64_BIT}
 ArchitecturesAllowed={#ONLY_64_BIT}
+ChangesAssociations=yes
 ChangesEnvironment=yes
 Compression=lzma
 SolidCompression=yes
@@ -85,6 +86,21 @@ Type: files; Name: "{group}\OpenShot Video Editor"; BeforeInstall: DeleteInvalid
 ; Remove previously installed registry keys (no longer needed)
 Root: HKLM; Subkey: "System\CurrentControlSet\Control\Session Manager\Environment"; ValueName:"QT_PLUGIN_PATH"; ValueType: none; Flags: deletevalue;
 Root: HKLM; Subkey: "System\CurrentControlSet\Control\Session Manager\Environment"; ValueName:"MAGICK_CONFIGURE_PATH"; ValueType: none; Flags: deletevalue;
+
+; Associate .osp files with the installed application. Uninstaller will clean them up, when run.
+
+; Filename extension .osp
+Root: HKLM; Subkey: "Software\Classes\.osp"; ValueType: string; ValueName: ""; ValueData: "OpenShotProject"; Flags: uninsdeletevalue;
+; .osp file description, "OpenShot Project File" (OpenShotProject, internally)
+Root: HKLM; Subkey: "Software\Classes\OpenShotProject"; ValueType: string; ValueName: ""; ValueData: "{#MyAppProjectFileDesc}"; Flags: uninsdeletekey
+; Launcher association for data files of type OpenShotProject
+Root: HKLM; Subkey: "Software\Classes\OpenShotProject\shell\open\command"; ValueType: string;  ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""
+;
+; NOT setting an icon for project files seems best, as we don't currently have one,
+; and if omitted Windows seems to generate a perfectly acceptable default.
+; (The OpenShot logo on a sheet of paper.) So, the line below is commented out.
+;
+; Root: HKLM; Subkey: "Software\Classes\OpenShotProject\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\{#MyAppExeName},0"
 
 [Files]
 ; Add all frozen files from cx_Freeze build
