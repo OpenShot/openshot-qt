@@ -58,7 +58,6 @@ import fnmatch
 from shutil import copytree, rmtree, copy
 from cx_Freeze import setup, Executable
 from PyQt5.QtCore import QLibraryInfo
-from PyQt5 import *
 import shutil
 
 
@@ -74,7 +73,7 @@ except ImportError:
     json_library = "simplejson"
 
 # Packages to include
-python_packages = ["os", "sys", "openshot", "time", "uuid", "shutil", "threading", "subprocess",
+python_packages = ["os", "sys", "PyQt5", "openshot", "time", "uuid", "shutil", "threading", "subprocess",
                                  "re", "math", "xml", "logging", "urllib", "requests", "zmq", "webbrowser", json_library]
 
 # Determine absolute PATH of OpenShot folder
@@ -282,7 +281,6 @@ for filename in find_files("openshot_qt", ["*"]):
 
 # Dependencies are automatically detected, but it might need fine tuning.
 build_exe_options["packages"] = python_packages
-build_exe_options["includes"] = ["PyQt5.QtCore","PyQt5.QtGui", "PyQt5.QtWidgets"]
 build_exe_options["include_files"] = src_files + external_so_files
 
 # Set options
