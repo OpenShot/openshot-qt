@@ -41,7 +41,7 @@
         </sizepolicy>
        </property>
        <property name="pixmap">
-        <pixmap>../../images/AboutLogo.png</pixmap>
+        <pixmap>:/about/AboutLogo.png</pixmap>
        </property>
       </widget>
      </item>
