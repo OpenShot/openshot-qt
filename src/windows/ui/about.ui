@@ -24,7 +24,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../../images/openshot.svg</normaloff>../../images/openshot.svg</iconset>
+    <normaloff>:/openshot.svg</normaloff>:/openshot.svg</iconset>
   </property>
   <property name="locale">
    <locale language="English" country="UnitedStates"/>
