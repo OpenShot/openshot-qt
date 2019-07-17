@@ -420,7 +420,7 @@ try:
                 shutil.rmtree(duplicate_openshot_qt_path, True)
 
         # Delete debug Qt libraries (since they are not needed, and cx_Freeze grabs them)
-        for sub_folder in ['', 'platforms', 'imageformats']:
+        for sub_folder in ['', 'platforms', 'imageformats', 'mediaservice']:
             parent_path = exe_dir
             if sub_folder:
                 parent_path = os.path.join(parent_path, sub_folder)
@@ -436,7 +436,7 @@ try:
         # Add version metadata to frozen app launcher
         launcher_exe = os.path.join(exe_dir, "launch.exe")
         verpatch_success = True
-        verpatch_command = '"C:\Program Files (x86)\Verpatch\\verpatch.exe" "{}" /va /high "{}" /pv "{}" /s product "{}" /s company "{}" /s copyright "{}" /s desc "{}"'.format(launcher_exe, info.VERSION, info.VERSION, info.PRODUCT_NAME, info.COMPANY_NAME, info.COPYRIGHT, info.PRODUCT_NAME)
+        verpatch_command = '"verpatch.exe" "{}" /va /high "{}" /pv "{}" /s product "{}" /s company "{}" /s copyright "{}" /s desc "{}"'.format(launcher_exe, info.VERSION, info.VERSION, info.PRODUCT_NAME, info.COMPANY_NAME, info.COPYRIGHT, info.PRODUCT_NAME)
         verpatch_output = ""
         # version-stamp executable
         for line in run_command(verpatch_command):
@@ -456,7 +456,7 @@ try:
 
         # Create Installer (OpenShot-%s-x86_64.exe)
         inno_success = True
-        inno_command = '"C:\Program Files (x86)\Inno Setup 6\iscc.exe" /Q /DVERSION=%s /DONLY_64_BIT=%s "%s"' % (version, only_64_bit, os.path.join(PATH, 'installer', 'windows-installer.iss'))
+        inno_command = '"iscc.exe" /Q /DVERSION=%s /DONLY_64_BIT=%s "%s"' % (version, only_64_bit, os.path.join(PATH, 'installer', 'windows-installer.iss'))
         inno_output = ""
         # Compile Inno installer
         for line in run_command(inno_command):
@@ -479,7 +479,7 @@ try:
 
         # Sign the installer
         key_sign_success = True
-        key_sign_command = '"C:\\Program Files (x86)\\kSign\\kSignCMD.exe" /f "%s" /p "%s" /d "OpenShot Video Editor" /du "http://www.openshot.org" "%s"' % (windows_key, windows_key_password, app_build_path)
+        key_sign_command = '"kSignCMD.exe" /f "%s" /p "%s" /d "OpenShot Video Editor" /du "http://www.openshot.org" "%s"' % (windows_key, windows_key_password, app_build_path)
         key_sign_output = ""
         # Sign MSI
         for line in run_command(key_sign_command):
