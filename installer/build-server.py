@@ -479,7 +479,7 @@ try:
 
         # Sign the installer
         key_sign_success = True
-        key_sign_command = '"kSignCMD.exe" /f "%s" /p "%s" /d "OpenShot Video Editor" /du "http://www.openshot.org" "%s"' % (windows_key, windows_key_password, app_build_path)
+        key_sign_command = '"kSignCMD.exe" /f "%s%s" /p "%s" /d "OpenShot Video Editor" /du "http://www.openshot.org" "%s"' % (windows_key, only_64_bit, windows_key_password, app_build_path)
         key_sign_output = ""
         # Sign MSI
         for line in run_command(key_sign_command):
