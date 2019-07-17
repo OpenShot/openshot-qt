@@ -1,5 +1,16 @@
 <RCC>
-    <qresource prefix="/"/>
+    <qresource prefix="/">
+        <file>openshot.svg</file>
+    </qresource>
+    <qresource prefix="/about">
+        <file>AboutLogo.png</file>
+        <file>bitcoin-icon.png</file>
+        <file>kickstarter-icon.png</file>
+        <file>patreon-icon.png</file>
+        <file>paypal-icon.png</file>
+        <file>python-icon.png</file>
+        <file>star-icon.png</file>
+    </qresource>
     <qresource prefix="/hw">
 	<file>hw-accel-none.svg</file>
         <file>hw-accel-dx.svg</file>
