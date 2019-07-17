@@ -149,7 +149,6 @@ if sys.platform == "win32":
 
     # Append Windows ICON file
     iconFile += ".ico"
-    src_files.append((os.path.join(PATH, "xdg", iconFile), iconFile))
 
     # Append some additional files for Windows (this is a debug launcher)
     src_files.append((os.path.join(PATH, "installer", "launch-win.bat"), "launch-win.bat"))
