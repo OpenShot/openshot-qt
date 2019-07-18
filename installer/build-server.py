@@ -410,6 +410,26 @@ try:
         if os.path.exists(duplicate_openshot_qt_path):
             shutil.rmtree(duplicate_openshot_qt_path, True)
 
+        # Remove the following paths. cx_Freeze is including many unneeded files. This prunes them out.
+        paths_to_delete = ['mediaservice', 'imageformats', 'platforms', 'printsupport', 'libicudt64.dll', 'lib/libicudt64.dll',
+                           'lib/avcodec-58.dll', '/lib/PyQt5/Qt5WebKit.dll', '/lib/PyQt5/libicudt64.dll']
+        for delete_path in paths_to_delete:
+            full_delete_path = os.path.join(exe_path, delete_path)
+            if os.path.exists(full_delete_path):
+                if os.path.isdir(full_delete_path):
+                    # Delete Folder
+                    for delete_file_path in os.listdir(full_delete_path):
+                        os.unlink(os.path.join(full_delete_path, delete_file_path))
+                    os.rmdir(full_delete_path)
+                else:
+                    # Delete File
+                    os.unlink(full_delete_path)
+
+        # Replace these folders (cx_Freeze messes this up, so this fixes it)
+        paths_to_replace = ['imageformats', 'platforms']
+        for replace_name in paths_to_replace:
+            shutil.copytree(os.path.join('C:/msys64/mingw64/share/qt5/plugins/', replace_name), exe_path)
+
         # Delete debug Qt libraries (since they are not needed, and cx_Freeze grabs them)
         for sub_folder in ['', 'platforms', 'imageformats', 'mediaservice']:
             parent_path = exe_dir
