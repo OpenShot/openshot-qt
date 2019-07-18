@@ -136,12 +136,12 @@ class Export(QDialog):
         self.timeline.Open()
 
         # Default export path
-        recommended_path = recommended_path = os.path.join(info.HOME_PATH)
+        recommended_path = os.path.join(info.HOME_PATH)
         if app.project.current_filepath:
             recommended_path = os.path.dirname(app.project.current_filepath)
 
         export_path = get_app().project.get(["export_path"])
-        if os.path.exists(export_path):
+        if export_path and os.path.exists(export_path):
             # Use last selected export path
             self.txtExportFolder.setText(export_path)
         else:
