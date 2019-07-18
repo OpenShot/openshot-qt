@@ -57,24 +57,16 @@ import sys
 import fnmatch
 from shutil import copytree, rmtree, copy
 from cx_Freeze import setup, Executable
+import cx_Freeze
 from PyQt5.QtCore import QLibraryInfo
 import shutil
 
 
-# Determine which JSON library is installed
-json_library = None
-try:
-    import json
-
-    json_library = "json"
-except ImportError:
-    import simplejson as json
-
-    json_library = "simplejson"
+print (str(cx_Freeze))
 
 # Packages to include
 python_packages = ["os", "sys", "PyQt5", "openshot", "time", "uuid", "shutil", "threading", "subprocess",
-                                 "re", "math", "xml", "logging", "urllib", "requests", "zmq", "webbrowser", json_library]
+                                 "re", "math", "xml", "logging", "urllib", "requests", "zmq", "webbrowser", "json"]
 
 # Determine absolute PATH of OpenShot folder
 PATH = os.path.dirname(os.path.realpath(__file__))  # Primary openshot folder
