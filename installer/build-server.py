@@ -428,7 +428,10 @@ try:
         # Replace these folders (cx_Freeze messes this up, so this fixes it)
         paths_to_replace = ['imageformats', 'platforms']
         for replace_name in paths_to_replace:
-            shutil.copytree(os.path.join('C:/msys64/mingw64/share/qt5/plugins/', replace_name), exe_path)
+            if windows_32bit:
+                shutil.copytree(os.path.join('C:/msys32/mingw32/share/qt5/plugins/', replace_name), exe_path)
+            else:
+                shutil.copytree(os.path.join('C:/msys64/mingw64/share/qt5/plugins/', replace_name), exe_path)
 
         # Delete debug Qt libraries (since they are not needed, and cx_Freeze grabs them)
         for sub_folder in ['', 'platforms', 'imageformats', 'mediaservice']:
