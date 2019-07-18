@@ -436,7 +436,7 @@ try:
                 shutil.copytree(os.path.join('C:\\msys64\\mingw64\\share\\qt5\\plugins', replace_name), os.path.join(exe_dir, replace_name))
 
         # Delete debug Qt libraries (since they are not needed, and cx_Freeze grabs them)
-        for sub_folder in ['', 'platforms', 'imageformats', 'mediaservice']:
+        for sub_folder in ['', 'platforms', 'imageformats']:
             parent_path = exe_dir
             if sub_folder:
                 parent_path = os.path.join(parent_path, sub_folder)
