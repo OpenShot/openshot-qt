@@ -404,20 +404,11 @@ try:
         # Move python folder structure, since Cx_Freeze doesn't put it in the correct place
         exe_dir = os.path.join(PATH, 'build', 'exe.mingw-3.7')
         python_dir = os.path.join(exe_dir, 'lib', 'python3.7')
-        if not os.path.exists(python_dir):
-            os.mkdir(python_dir)
 
-            # Copy all non-zip files from /lib/ into /python3.X/
-            for lib_file in os.listdir(os.path.join(exe_dir, 'lib')):
-                if not ".zip" in lib_file and not lib_file == "python3.7":
-                    lib_src_path = os.path.join(os.path.join(exe_dir, 'lib'), lib_file)
-                    lib_dst_path = os.path.join(os.path.join(python_dir), lib_file)
-                    shutil.move(lib_src_path, lib_dst_path)
-
-            # Remove a redundant openshot_qt module folder (duplicates lots of files)
-            duplicate_openshot_qt_path = os.path.join(python_dir, 'openshot_qt')
-            if os.path.exists(duplicate_openshot_qt_path):
-                shutil.rmtree(duplicate_openshot_qt_path, True)
+        # Remove a redundant openshot_qt module folder (duplicates lots of files)
+        duplicate_openshot_qt_path = os.path.join(python_dir, 'openshot_qt')
+        if os.path.exists(duplicate_openshot_qt_path):
+            shutil.rmtree(duplicate_openshot_qt_path, True)
 
         # Delete debug Qt libraries (since they are not needed, and cx_Freeze grabs them)
         for sub_folder in ['', 'platforms', 'imageformats', 'mediaservice']:
