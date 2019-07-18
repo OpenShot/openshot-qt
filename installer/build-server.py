@@ -414,7 +414,7 @@ try:
         paths_to_delete = ['mediaservice', 'imageformats', 'platforms', 'printsupport', 'libicudt64.dll', 'lib/libicudt64.dll',
                            'lib/avcodec-58.dll', '/lib/PyQt5/Qt5WebKit.dll', '/lib/PyQt5/libicudt64.dll']
         for delete_path in paths_to_delete:
-            full_delete_path = os.path.join(exe_path, delete_path)
+            full_delete_path = os.path.join(exe_dir, delete_path)
             if os.path.exists(full_delete_path):
                 if os.path.isdir(full_delete_path):
                     # Delete Folder
