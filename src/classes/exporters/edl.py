@@ -46,8 +46,8 @@ def export_edl():
     edl_string = "%03d  %-9s%-6s%-9s%11s %11s %11s %11s\n"
 
     # Get FPS info
-    fps_num = get_app().project.get(["fps"]).get("num", 24)
-    fps_den = get_app().project.get(["fps"]).get("den", 1)
+    fps_num = get_app().project.get("fps").get("num", 24)
+    fps_den = get_app().project.get("fps").get("den", 1)
     fps_float = float(fps_num / fps_den)
 
     # Get EDL path
@@ -67,7 +67,7 @@ def export_edl():
     parent_path, file_name_with_ext = os.path.split(file_path)
     file_name, ext = os.path.splitext(file_name_with_ext)
 
-    all_tracks = get_app().project.get(["layers"])
+    all_tracks = get_app().project.get("layers")
     track_count = len(all_tracks)
     for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
         existing_track = Track.get(number=track.get("number"))

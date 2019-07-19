@@ -66,12 +66,11 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         """ Get copied value of a given key in data store """
 
         # Verify key is valid type
-        if not isinstance(key, list):
-            log.warning("get() key must be a list. key: {}".format(key))
-            return None
         if not key:
             log.warning("Cannot get empty key.")
             return None
+        if not isinstance(key, list):
+            key = [key]
 
         # Get reference to internal data structure
         obj = self._data
@@ -442,7 +441,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Get FPS from project
         from classes.app import get_app
-        fps = get_app().project.get(["fps"])
+        fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
 
         # Import legacy openshot classes (from version 1.X)

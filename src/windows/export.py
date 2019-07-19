@@ -140,7 +140,7 @@ class Export(QDialog):
         if app.project.current_filepath:
             recommended_path = os.path.dirname(app.project.current_filepath)
 
-        export_path = get_app().project.get(["export_path"])
+        export_path = get_app().project.get("export_path")
         if export_path and os.path.exists(export_path):
             # Use last selected export path
             self.txtExportFolder.setText(export_path)
@@ -354,7 +354,7 @@ class Export(QDialog):
         self.txtEndFrame.setValue(self.timeline_length_int)
 
         # Calculate differences between editing/preview FPS and export FPS
-        current_fps = get_app().project.get(["fps"])
+        current_fps = get_app().project.get("fps")
         current_fps_float = float(current_fps["num"]) / float(current_fps["den"])
         new_fps_float = float(self.txtFrameRateNum.value()) / float(self.txtFrameRateDen.value())
         self.export_fps_factor = new_fps_float / current_fps_float
