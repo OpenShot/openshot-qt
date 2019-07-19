@@ -85,20 +85,6 @@
     "setting": "window_geometry_v2"
   },
   {
-    "value": "",
-    "title": "",
-    "type": "hidden",
-    "category": "Qt",
-    "setting": "window_splitter_pos"
-  },
-  {
-    "value": "",
-    "title": "",
-    "type": "hidden",
-    "category": "Qt",
-    "setting": "window_splitter_2_pos"
-  },
-  {
     "value": "thumbnail",
     "title": "",
     "type": "hidden",
