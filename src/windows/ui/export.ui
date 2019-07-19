@@ -151,36 +151,6 @@
        <property name="horizontalSpacing">
         <number>6</number>
        </property>
-       <item row="4" column="0">
-        <layout class="QFormLayout" name="formLayout_4">
-         <property name="bottomMargin">
-          <number>20</number>
-         </property>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_5">
-           <property name="minimumSize">
-            <size>
-             <width>100</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Quality:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QComboBox" name="cboSimpleQuality">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
        <item row="0" column="0">
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
@@ -238,47 +208,7 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
-        <layout class="QFormLayout" name="formLayout_3">
-         <item row="0" column="1">
-          <widget class="QComboBox" name="cboSimpleVideoProfile">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_4">
-           <property name="minimumSize">
-            <size>
-             <width>100</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Video Profile:</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="5" column="0">
-        <spacer name="verticalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="2" column="0">
+	   <item row="2" column="0">
         <layout class="QFormLayout" name="formLayout_2">
          <property name="fieldGrowthPolicy">
           <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
@@ -307,6 +237,76 @@
           </widget>
          </item>
         </layout>
+       </item>
+       <item row="3" column="0">
+        <layout class="QFormLayout" name="formLayout_3">
+         <item row="0" column="1">
+          <widget class="QComboBox" name="cboSimpleVideoProfile">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_4">
+           <property name="minimumSize">
+            <size>
+             <width>100</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Video Profile:</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+	   <item row="4" column="0">
+        <layout class="QFormLayout" name="formLayout_4">
+         <property name="bottomMargin">
+          <number>20</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_5">
+           <property name="minimumSize">
+            <size>
+             <width>100</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Quality:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QComboBox" name="cboSimpleQuality">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="5" column="0">
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </widget>
@@ -382,39 +382,6 @@
              </item>
             </layout>
            </item>
-           <item row="2" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout">
-             <item>
-              <widget class="QLabel" name="lblEndFrame">
-               <property name="minimumSize">
-                <size>
-                 <width>100</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>End Frame:</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QSpinBox" name="txtEndFrame">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimum">
-                <number>1</number>
-               </property>
-               <property name="maximum">
-                <number>99999999</number>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
            <item row="1" column="0">
             <layout class="QHBoxLayout" name="horizontalLayout_5">
              <item>
@@ -432,6 +399,39 @@
              </item>
              <item>
               <widget class="QSpinBox" name="txtStartFrame">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>99999999</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="2" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <item>
+              <widget class="QLabel" name="lblEndFrame">
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>End Frame:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="txtEndFrame">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -494,6 +494,39 @@
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="1" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout_11">
+             <item>
+              <widget class="QLabel" name="lblWidth">
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Width:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="txtWidth">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimum">
+                <number>2</number>
+               </property>
+               <property name="maximum">
+                <number>9999</number>
                </property>
               </widget>
              </item>
@@ -709,39 +742,6 @@
              </item>
             </layout>
            </item>
-           <item row="1" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_11">
-             <item>
-              <widget class="QLabel" name="lblWidth">
-               <property name="minimumSize">
-                <size>
-                 <width>100</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>Width:</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QSpinBox" name="txtWidth">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimum">
-                <number>2</number>
-               </property>
-               <property name="maximum">
-                <number>9999</number>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
           </layout>
          </widget>
          <widget class="QWidget" name="page_4">
@@ -873,6 +873,26 @@
            <string>Audio Settings</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_8">
+           <item row="0" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout_20">
+             <item>
+              <widget class="QLabel" name="lblAudioCodec">
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Audio Codec:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="txtAudioCodec"/>
+             </item>
+            </layout>
+           </item>
            <item row="1" column="0">
             <layout class="QHBoxLayout" name="horizontalLayout_21">
              <item>
@@ -903,46 +923,6 @@
                 <number>128000</number>
                </property>
               </widget>
-             </item>
-            </layout>
-           </item>
-           <item row="0" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_20">
-             <item>
-              <widget class="QLabel" name="lblAudioCodec">
-               <property name="minimumSize">
-                <size>
-                 <width>100</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>Audio Codec:</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="txtAudioCodec"/>
-             </item>
-            </layout>
-           </item>
-           <item row="4" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_23">
-             <item>
-              <widget class="QLabel" name="lblAudioBitrate">
-               <property name="minimumSize">
-                <size>
-                 <width>100</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>Bit Rate / Quality:</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="txtAudioBitrate"/>
              </item>
             </layout>
            </item>
@@ -1009,6 +989,26 @@
              </item>
             </layout>
            </item>
+           <item row="4" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout_23">
+             <item>
+              <widget class="QLabel" name="lblAudioBitrate">
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Bit Rate / Quality:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="txtAudioBitrate"/>
+             </item>
+            </layout>
+           </item>
           </layout>
          </widget>
         </widget>
@@ -1032,6 +1032,38 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>txtFileName</tabstop>
+  <tabstop>txtExportFolder</tabstop>
+  <tabstop>btnBrowse</tabstop>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>cboSimpleProjectType</tabstop>
+  <tabstop>cboSimpleTarget</tabstop>
+  <tabstop>cboSimpleVideoProfile</tabstop>
+  <tabstop>cboSimpleQuality</tabstop>
+  <tabstop>cboExportTo</tabstop>
+  <tabstop>txtStartFrame</tabstop>
+  <tabstop>txtEndFrame</tabstop>
+  <tabstop>cboProfile</tabstop>
+  <tabstop>txtWidth</tabstop>
+  <tabstop>txtHeight</tabstop>
+  <tabstop>txtAspectRatioNum</tabstop>
+  <tabstop>txtAspectRatioDen</tabstop>
+  <tabstop>txtPixelRatioNum</tabstop>
+  <tabstop>txtPixelRatioDen</tabstop>
+  <tabstop>txtFrameRateNum</tabstop>
+  <tabstop>txtFrameRateDen</tabstop>
+  <tabstop>cboInterlaced</tabstop>
+  <tabstop>txtImageFormat</tabstop>
+  <tabstop>txtVideoFormat</tabstop>
+  <tabstop>txtVideoCodec</tabstop>
+  <tabstop>txtVideoBitRate</tabstop>
+  <tabstop>txtAudioCodec</tabstop>
+  <tabstop>txtSampleRate</tabstop>
+  <tabstop>txtChannels</tabstop>
+  <tabstop>cboChannelLayout</tabstop>
+  <tabstop>txtAudioBitrate</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

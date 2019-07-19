@@ -86,7 +86,7 @@ support for importing and exporting this same XML format.
      ====================  ============
      Name                  Description
      ====================  ============
-     XML Format            Final Cut Pro format (but most commercial video editors also suppport this format)
+     XML Format            Final Cut Pro format (but most commercial video editors also support this format)
      All Tracks            All video and audio tracks are supported
      Edits                 All clips on all tracks are supported (video, image, and audio files). Transitions are not yet supported.
      Opacity               Opacity keyframes are supported

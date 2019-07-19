@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -13,9 +14,10 @@
    height="576px"
    id="svg2396"
    sodipodi:version="0.32"
-   inkscape:version="0.46"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="wipe_top_to_bottom.svg"
-   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   version="1.1">
   <defs
      id="defs2398">
     <linearGradient
@@ -29,21 +31,14 @@
          offset="1"
          id="stop4653" />
     </linearGradient>
-    <inkscape:perspective
-       sodipodi:type="inkscape:persp3d"
-       inkscape:vp_x="0 : 288 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_z="720 : 288 : 1"
-       inkscape:persp3d-origin="360 : 192 : 1"
-       id="perspective2404" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient4649"
        id="linearGradient5277"
-       x1="344.2374"
-       y1="-66.343071"
-       x2="344.2374"
-       y2="670.26086"
+       x1="344.0"
+       y1="-66.0"
+       x2="344.0"
+       y2="670.0"
        gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
@@ -54,15 +49,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.04"
-     inkscape:cx="362.14401"
-     inkscape:cy="280.02987"
+     inkscape:cx="362"
+     inkscape:cy="280"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1680"
      inkscape:window-height="975"
-     inkscape:window-x="0"
-     inkscape:window-y="24" />
+     inkscape:window-x="65"
+     inkscape:window-y="24"
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata2401">
     <rdf:RDF>
@@ -83,7 +79,7 @@
        id="rect2406"
        width="720"
        height="576"
-       x="0.0066374484"
-       y="0.006353823" />
+       x="0.0"
+       y="0.0" />
   </g>
 </svg>

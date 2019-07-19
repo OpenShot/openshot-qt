@@ -1,28 +1,28 @@
-""" 
+"""
  @file
  @brief This file creates the QApplication, and displays the main window
  @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
  @author olivier Girard <eolinwen@gmail.com>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
@@ -30,6 +30,7 @@
 import os
 import sys
 import platform
+import traceback
 from uuid import uuid4
 from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
 from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont
@@ -65,10 +66,15 @@ class OpenShotApp(QApplication):
 
             # Re-route stdout and stderr to logger
             reroute_output()
-        except Exception as ex:
+        except (ImportError, ModuleNotFoundError) as ex:
+            tb = traceback.format_exc()
             QMessageBox.warning(None, "Import Error",
-                                "%(error)s. Please delete <b>%(path)s</b> and launch OpenShot again." % {"error": str(ex), "path": info.USER_PATH})
+                                "Module: %(name)s\n\n%(tb)s" % {"name": ex.name, "tb": tb})
             # Stop launching and exit
+            raise
+            sys.exit()
+        except Exception:
+            raise
             sys.exit()
 
         # Log some basic system info
@@ -138,12 +144,12 @@ class OpenShotApp(QApplication):
             # Delete test paths
             os.unlink(TEST_PATH_FILE)
             os.rmdir(TEST_PATH_DIR)
-        except Exception as ex:
-            # Permission error (most likely)
+        except PermissionError as ex:
             log.error('Failed to create PERMISSION/test.osp file (likely permissions error): %s' % TEST_PATH_FILE)
             QMessageBox.warning(None, _("Permission Error"),
                                       _("%(error)s. Please delete <b>%(path)s</b> and launch OpenShot again." % {"error": str(ex), "path": info.USER_PATH}))
             # Stop launching and exit
+            raise
             sys.exit()
 
         # Start libopenshot logging thread

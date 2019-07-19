@@ -23,10 +23,10 @@
          offset="1" />
     </linearGradient>
     <linearGradient
-       x1="344.2374"
-       y1="-66.343071"
-       x2="344.2374"
-       y2="670.26086"
+       x1="344.0"
+       y1="-66.0"
+       x2="344.0"
+       y2="670.0"
        id="linearGradient5277"
        xlink:href="#linearGradient4649"
        gradientUnits="userSpaceOnUse" />
@@ -36,8 +36,8 @@
     <rect
        width="720"
        height="576"
-       x="0.0066374484"
-       y="0.006353823"
+       x="0.0"
+       y="0.0"
        id="rect2406"
        style="opacity:1;fill:url(#linearGradient5277);fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
   </g>
