@@ -412,7 +412,7 @@ try:
 
         # Remove the following paths. cx_Freeze is including many unneeded files. This prunes them out.
         paths_to_delete = ['mediaservice', 'imageformats', 'platforms', 'printsupport', 'libicudt64.dll', 'lib/libicudt64.dll',
-                           '/lib/PyQt5/Qt5WebKit.dll', '/lib/PyQt5/libicudt64.dll', '/lib/openshot-qt']
+                           'lib/PyQt5/Qt5WebKit.dll', 'lib/PyQt5/libicudt64.dll', 'lib/openshot-qt']
         for delete_path in paths_to_delete:
             full_delete_path = os.path.join(exe_dir, delete_path)
             if os.path.exists(full_delete_path):
