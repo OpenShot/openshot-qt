@@ -412,24 +412,15 @@ try:
 
         # Remove the following paths. cx_Freeze is including many unneeded files. This prunes them out.
         paths_to_delete = ['mediaservice', 'imageformats', 'platforms', 'printsupport', 'libicudt64.dll', 'lib/libicudt64.dll',
-                           'lib/avcodec-58.dll', '/lib/PyQt5/Qt5WebKit.dll', '/lib/PyQt5/libicudt64.dll']
+                           '/lib/PyQt5/Qt5WebKit.dll', '/lib/PyQt5/libicudt64.dll', '/lib/openshot-qt']
         for delete_path in paths_to_delete:
             full_delete_path = os.path.join(exe_dir, delete_path)
             if os.path.exists(full_delete_path):
-                if os.path.isdir(full_delete_path):
-                    # Delete Folder
-                    for delete_file_path in os.listdir(full_delete_path):
-                        os.unlink(os.path.join(full_delete_path, delete_file_path))
-                    os.rmdir(full_delete_path)
-                else:
-                    # Delete File
-                    os.unlink(full_delete_path)
+                shutil.rmtree(full_delete_path)
 
         # Replace these folders (cx_Freeze messes this up, so this fixes it)
         paths_to_replace = ['imageformats', 'platforms']
         for replace_name in paths_to_replace:
-            print(os.path.join('C:\\msys32\\mingw32\\share\\qt5\\plugins', replace_name))
-            print(os.path.join(exe_dir, replace_name))
             if windows_32bit:
                 shutil.copytree(os.path.join('C:\\msys32\\mingw32\\share\\qt5\\plugins', replace_name), os.path.join(exe_dir, replace_name))
             else:
