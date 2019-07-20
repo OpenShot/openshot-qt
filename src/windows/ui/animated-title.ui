@@ -14,7 +14,7 @@
    <string>Animated Titles</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="../../images/openshot.qrc">
     <normaloff>:/openshot.svg</normaloff>:/openshot.svg</iconset>
   </property>
   <property name="autoFillBackground">

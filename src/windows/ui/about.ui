@@ -23,7 +23,7 @@
    <string>About OpenShot</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="../../images/openshot.qrc">
     <normaloff>:/openshot.svg</normaloff>:/openshot.svg</iconset>
   </property>
   <property name="locale">
@@ -41,7 +41,7 @@
         </sizepolicy>
        </property>
        <property name="pixmap">
-        <pixmap>:/about/AboutLogo.png</pixmap>
+        <pixmap  resource="../../images/openshot.qrc">:/about/AboutLogo.png</pixmap>
        </property>
       </widget>
      </item>

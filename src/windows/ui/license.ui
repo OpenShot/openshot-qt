@@ -14,7 +14,7 @@
    <string>License</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="../../images/openshot.qrc">
     <normaloff>:/openshot.svg</normaloff>:/openshot.svg</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
