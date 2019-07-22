@@ -882,7 +882,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         win = Cutting(f, preview=True)
         win.show()
 
-    def previewFrame(self, position_seconds, position_frames, time_code):
+    def previewFrame(self, position_frames):
         """Preview a specific frame"""
         # Notify preview thread
         self.previewFrameSignal.emit(position_frames)
