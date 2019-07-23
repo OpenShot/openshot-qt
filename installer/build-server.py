@@ -415,6 +415,7 @@ try:
                            'libicudt64.dll', 'resvg.dll']
         for delete_path in paths_to_delete:
             full_delete_path = os.path.join(exe_dir, delete_path)
+            output("Delete path: %s" % full_delete_path)
             if os.path.exists(full_delete_path):
                 if os.path.isdir(full_delete_path):
                     # Delete Folder
@@ -422,6 +423,8 @@ try:
                 else:
                     # Delete File
                     os.unlink(full_delete_path)
+            else:
+                output("Invalid delete path: %s" % full_delete_path)
 
         # Replace these folders (cx_Freeze messes this up, so this fixes it)
         paths_to_replace = ['imageformats', 'platforms']
