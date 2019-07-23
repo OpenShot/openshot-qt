@@ -411,8 +411,7 @@ try:
             shutil.rmtree(duplicate_openshot_qt_path, True)
 
         # Remove the following paths. cx_Freeze is including many unneeded files. This prunes them out.
-        paths_to_delete = ['mediaservice', 'imageformats', 'platforms', 'printsupport', 'lib/openshot_qt',
-                           'libicudt64.dll', 'resvg.dll']
+        paths_to_delete = ['mediaservice', 'imageformats', 'platforms', 'printsupport', 'lib/openshot_qt', 'resvg.dll']
         for delete_path in paths_to_delete:
             full_delete_path = os.path.join(exe_dir, delete_path)
             output("Delete path: %s" % full_delete_path)
