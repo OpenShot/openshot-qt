@@ -411,10 +411,10 @@ try:
             shutil.rmtree(duplicate_openshot_qt_path, True)
 
         # Remove the following paths. cx_Freeze is including many unneeded files. This prunes them out.
-        paths_to_delete = ['mediaservice', 'imageformats', 'platforms', 'printsupport', 'lib/openshot_qt',
-                           'libicudt64.dll', 'Qt5Gui.dll', 'resvg.dll']
+        paths_to_delete = ['mediaservice', 'imageformats', 'platforms', 'printsupport', 'lib/openshot_qt', 'resvg.dll']
         for delete_path in paths_to_delete:
             full_delete_path = os.path.join(exe_dir, delete_path)
+            output("Delete path: %s" % full_delete_path)
             if os.path.exists(full_delete_path):
                 if os.path.isdir(full_delete_path):
                     # Delete Folder
@@ -422,6 +422,8 @@ try:
                 else:
                     # Delete File
                     os.unlink(full_delete_path)
+            else:
+                output("Invalid delete path: %s" % full_delete_path)
 
         # Replace these folders (cx_Freeze messes this up, so this fixes it)
         paths_to_replace = ['imageformats', 'platforms']
@@ -456,7 +458,7 @@ try:
             if line:
                 verpatch_success = False
                 verpatch_output = line
-                
+
         # Was the verpatch command successful
         if not verpatch_success:
             # Verpatch failed (not fatal)

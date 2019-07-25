@@ -39,7 +39,7 @@ from classes import settings
 import openshot
 
 from PyQt5.QtCore import QT_VERSION_STR
-from PyQt5.Qt import PYQT_VERSION_STR
+from PyQt5.QtCore import PYQT_VERSION_STR
 
 
 # Get libopenshot version

@@ -101,7 +101,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         if self.transforming_clip:
             # Draw transform handles on top of video preview
             # Get framerate
-            fps = get_app().project.get(["fps"])
+            fps = get_app().project.get("fps")
             fps_float = float(fps["num"]) / float(fps["den"])
 
             # Determine frame # of clip
@@ -336,7 +336,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         if self.transforming_clip:
             # Get framerate
-            fps = get_app().project.get(["fps"])
+            fps = get_app().project.get("fps")
             fps_float = float(fps["num"]) / float(fps["den"])
 
             # Get current clip's position

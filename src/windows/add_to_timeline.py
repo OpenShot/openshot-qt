@@ -170,7 +170,7 @@ class AddToTimeline(QDialog):
             random_transition = True
 
         # Get frames per second
-        fps = get_app().project.get(["fps"])
+        fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
 
         # Loop through each file (in the current order)
@@ -401,7 +401,7 @@ class AddToTimeline(QDialog):
             total += duration
 
         # Get frames per second
-        fps = get_app().project.get(["fps"])
+        fps = get_app().project.get("fps")
 
         # Update label
         total_parts = time_parts.secondsToTime(total, fps["num"], fps["den"])
@@ -457,7 +457,7 @@ class AddToTimeline(QDialog):
         self.txtTransitionLength.valueChanged.connect(self.updateTotal)
 
         # Find display track number
-        all_tracks = get_app().project.get(["layers"])
+        all_tracks = get_app().project.get("layers")
         display_count = len(all_tracks)
         for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
             # Add to dropdown
