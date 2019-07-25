@@ -115,6 +115,7 @@ windows-builder-x86:
     - $PREV_GIT_LABEL=(git describe --tags --abbrev=0)
     - git log "$PREV_GIT_LABEL..HEAD" --oneline --pretty=format:"%C(auto,yellow)%h%C(auto,magenta)% %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(25,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D" --date=short > "build/install-x86/share/$CI_PROJECT_NAME.log"
     - python3 freeze.py build
+    - editbin /LARGEADDRESSAWARE "$CI_PROJECT_DIR\build\exe.mingw-3.7\launch.exe"
     - python3 installer/build-server.py "$SLACK_TOKEN" "$S3_ACCESS_KEY" "$S3_SECRET_KEY" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "True" "$CI_COMMIT_REF_NAME"
   when: always
   except:
