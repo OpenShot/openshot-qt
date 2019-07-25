@@ -85,6 +85,13 @@
     "setting": "window_geometry_v2"
   },
   {
+    "value": false,
+    "title": "",
+    "type": "hidden",
+    "category": "Qt",
+    "setting": "docks_frozen"
+  },
+  {
     "value": "",
     "title": "",
     "type": "hidden",

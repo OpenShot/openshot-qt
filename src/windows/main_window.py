@@ -95,6 +95,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     OpenProjectSignal = pyqtSignal(str)
     ThumbnailUpdated = pyqtSignal(str)
 
+    # Docks are closable, movable and floatable
+    docks_frozen = False
+
     # Save window settings on close
     def closeEvent(self, event):
 
@@ -1934,12 +1937,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.freezeDocks()
         self.actionFreeze_View.setVisible(False)
         self.actionUn_Freeze_View.setVisible(True)
+        self.docks_frozen = True
 
     def actionUn_Freeze_View_trigger(self, event):
         """ Un-Freeze all dockable widgets on the main screen """
         self.unFreezeDocks()
         self.actionFreeze_View.setVisible(True)
         self.actionUn_Freeze_View.setVisible(False)
+        self.docks_frozen = False
 
     def actionShow_All_trigger(self, event):
         """ Show all dockable widgets """
@@ -2061,14 +2066,21 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Save window state and geometry (saves toolbar and dock locations)
         s.set('window_state_v2', qt_types.bytes_to_str(self.saveState()))
         s.set('window_geometry_v2', qt_types.bytes_to_str(self.saveGeometry()))
+        s.set('docks_frozen', self.docks_frozen)
 
     # Get window settings from setting store
     def load_settings(self):
         s = settings.get_settings()
 
-        # Window state and geometry (also toolbar and dock locations)
+        # Window state and geometry (also toolbar, dock locations and frozen UI state)
         if s.get('window_state_v2'): self.restoreState(qt_types.str_to_bytes(s.get('window_state_v2')))
         if s.get('window_geometry_v2'): self.restoreGeometry(qt_types.str_to_bytes(s.get('window_geometry_v2')))
+        if s.get('docks_frozen'):
+            """ Freeze all dockable widgets on the main screen """
+            self.freezeDocks()
+            self.actionFreeze_View.setVisible(False)
+            self.actionUn_Freeze_View.setVisible(True)
+            self.docks_frozen = True
 
         # Load Recent Projects
         self.load_recent_menu()
