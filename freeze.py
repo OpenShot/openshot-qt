@@ -150,14 +150,6 @@ if sys.platform == "win32":
     # Append some additional files for Windows (this is a debug launcher)
     src_files.append((os.path.join(PATH, "installer", "launch-win.bat"), "launch-win.bat"))
 
-    # Add libresvg (if found)
-    resvg_path = "C:\\msys64\\usr\\lib\\resvg.dll"
-    if not os.path.exists(resvg_path):
-        resvg_path = "C:\\msys32\\usr\\lib\\resvg.dll"
-    if os.path.exists(resvg_path):
-        external_so_files.append((resvg_path, resvg_path.replace("C:\\msys64\\usr\\lib\\", "")))
-
-
     # Add additional package
     python_packages.append('idna')
 
