@@ -433,6 +433,13 @@ try:
             else:
                 shutil.copytree(os.path.join('C:\\msys64\\mingw64\\share\\qt5\\plugins', replace_name), os.path.join(exe_dir, replace_name))
 
+        # Copy Qt5Core.dll to root of frozen directory
+        qt5_core_path = os.path.join(exe_dir, "lib", "Qt5Core.dll")
+        new_qt5_core_path = os.path.join(exe_dir, "Qt5Core.dll")
+        if os.path.exists(qt5_core_path) and not os.path.exists(new_qt5_core_path):
+            output("Copying %s to %s" % (qt5_core_path, new_qt5_core_path))
+            shutil.copy(qt5_core_path, new_qt5_core_path)
+
         # Delete debug Qt libraries (since they are not needed, and cx_Freeze grabs them)
         for sub_folder in ['', 'platforms', 'imageformats']:
             parent_path = exe_dir
