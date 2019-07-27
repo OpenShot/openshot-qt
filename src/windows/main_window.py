@@ -32,6 +32,7 @@ import sys
 import platform
 import shutil
 import webbrowser
+import logging
 from operator import itemgetter
 from uuid import uuid4
 from copy import deepcopy
@@ -2102,6 +2103,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.actionFreeze_View.setVisible(False)
             self.actionUn_Freeze_View.setVisible(True)
             self.docks_frozen = True
+
+        # If not in degug mode Log only errors
+        if not s.get('debug-mode'):
+            log.info("Changing log level to the 'ERROR'")
+            log.setLevel(logging.ERROR)
 
         # Load Recent Projects
         self.load_recent_menu()
