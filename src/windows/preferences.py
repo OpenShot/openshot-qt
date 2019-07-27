@@ -29,6 +29,7 @@
 import os
 import operator
 import functools
+import logging
 
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
@@ -424,6 +425,13 @@ class Preferences(QDialog):
 
             # Enable / Disable logger
             openshot.ZmqLogger.Instance().Enable(debug_enabled)
+
+            # Change log level
+            if debug_enabled:
+                log.setLevel(logging.INFO)
+            else:
+                log.info("Changing log level to the 'ERROR'")
+                log.setLevel(logging.ERROR)
 
         elif param["setting"] == "enable-auto-save":
             # Toggle autosave
