@@ -90,7 +90,7 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: 
 
 [Run]
 ; Launch after installation
-Filename: "{sys}\netsh.exe"; Parameters: "advfirewall firewall add rule name=""OpenShot Out"" program=""{app}\{#MyAppExeName}"" dir=out action=allow enable=yes"; Flags: runhidden;
+Filename: "{sys}\netsh.exe"; Parameters: "advfirewall firewall add rule name=""OpenShot Video Editor"" program=""{app}\{#MyAppExeName}"" dir=in action=allow enable=yes"; Flags: runhidden;
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 
 [Code]
