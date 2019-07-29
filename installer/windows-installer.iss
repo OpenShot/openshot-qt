@@ -10,10 +10,13 @@
 
 
 #define MyAppName "OpenShot Video Editor"
+#define MyAppShortName "OpenShot"
+#define MyAppProjectFileDesc "OpenShot Project File"
 #define MyAppPublisher "OpenShot Studios, LLC"
-#define MyAppURL "http://www.openshot.org/"
+#define MyPublisherURL "https://www.openshot.org/"
+#define MySupportURL "https://www.reddit.com/r/OpenShot/"
 #define MyAppExeName "launch.exe"
-             
+
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
@@ -23,16 +26,16 @@ AppName={#MyAppName}
 AppVersion={#VERSION}
 VersionInfoVersion={#VERSION}
 AppPublisher={#MyAppPublisher}
-AppPublisherURL={#MyAppURL}
-AppSupportURL={#MyAppURL}
-AppUpdatesURL={#MyAppURL}
-AppCopyright=Copyright (c) 2008-2016 {#MyAppPublisher}
+AppPublisherURL={#MyPublisherURL}
+AppSupportURL={#MySupportURL}
+AppCopyright=Copyright (c) 2008-2019 {#MyAppPublisher}
 DefaultDirName={pf}\{#MyAppName}
 DisableProgramGroupPage=yes
 LicenseFile=..\COPYING
 OutputBaseFilename=OpenShot
 ArchitecturesInstallIn64BitMode={#ONLY_64_BIT}
 ArchitecturesAllowed={#ONLY_64_BIT}
+ChangesAssociations=yes
 ChangesEnvironment=yes
 Compression=lzma
 SolidCompression=yes
@@ -68,6 +71,7 @@ Name: "ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+Name: "fileassoc"; Description: "{cm:AssocFileExtension,{#MyAppName},.osp"; GroupDescription: "{cm:AdditionalIcons}"; Flags: checked
 Name: "firewall"; Description: "Add an exception to the Windows Firewall"; GroupDescription: "{cm:AdditionalIcons}";
 
 [InstallDelete]
@@ -80,6 +84,21 @@ Type: files; Name: "{group}\OpenShot Video Editor"; BeforeInstall: DeleteInvalid
 ; Remove previously installed registry keys (no longer needed)
 Root: HKLM; Subkey: "System\CurrentControlSet\Control\Session Manager\Environment"; ValueName:"QT_PLUGIN_PATH"; ValueType: none; Flags: deletevalue;
 Root: HKLM; Subkey: "System\CurrentControlSet\Control\Session Manager\Environment"; ValueName:"MAGICK_CONFIGURE_PATH"; ValueType: none; Flags: deletevalue;
+
+; Associate .osp files with the installed application. Uninstaller will clean them up, when run.
+
+; Filename extension .osp
+Root: HKLM; Subkey: "Software\Classes\.osp"; ValueType: string; ValueName: ""; ValueData: "OpenShotProject"; Flags: uninsdeletevalue; Tasks: fileassoc
+; .osp file description, "OpenShot Project File" (OpenShotProject, internally)
+Root: HKLM; Subkey: "Software\Classes\OpenShotProject"; ValueType: string; ValueName: ""; ValueData: "{#MyAppProjectFileDesc}"; Flags: uninsdeletekey; Tasks: fileassoc
+; Launcher association for data files of type OpenShotProject
+Root: HKLM; Subkey: "Software\Classes\OpenShotProject\shell\open\command"; ValueType: string;  ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Tasks: fileassoc
+;
+; NOT setting an icon for project files seems best, as we don't currently have one,
+; and if omitted Windows seems to generate a perfectly acceptable default.
+; (The OpenShot logo on a sheet of paper.) So, the line below is commented out.
+;
+; Root: HKLM; Subkey: "Software\Classes\OpenShotProject\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\{#MyAppExeName},0"
 
 [Files]
 ; Add all frozen files from cx_Freeze build
