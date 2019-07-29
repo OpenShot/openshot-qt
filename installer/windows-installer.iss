@@ -89,9 +89,11 @@ Name: "{commonprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 
 [Run]
-; Launch after installation
 Filename: "{sys}\netsh.exe"; Parameters: "advfirewall firewall add rule name=""OpenShot Video Editor"" program=""{app}\{#MyAppExeName}"" dir=in action=allow enable=yes"; Flags: runhidden;
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+
+[UninstallRun]
+Filename: "{sys}\netsh.exe"; Parameters: "firewall delete allowedprogram program=""{app}\{#MyAppExeName}"""; Flags: runhidden;
 
 [Code]
 procedure DeleteInvalidFiles();
