@@ -2967,8 +2967,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         self.last_position_frames = None
         self.document_is_ready = False
 
+        # Delete the webview when closed
+        self.setAttribute(Qt.WA_DeleteOnClose)
+
         # Disable image caching on timeline
-        self.settings().setObjectCacheCapacities(0, 0, 0);
+        self.settings().setObjectCacheCapacities(0, 0, 0)
 
         # Get settings
         self.settings_obj = settings.get_settings()

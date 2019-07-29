@@ -139,6 +139,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.preview_parent.background.exit()
         self.preview_parent.background.wait(5000)
 
+        # Shut down the webview
+        self.timeline.close()
+
         # Close Timeline
         self.timeline_sync.timeline.Close()
         self.timeline_sync.timeline = None
