@@ -71,7 +71,7 @@ Name: "ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
-Name: "fileassoc"; Description: "{cm:AssocFileExtension,{#MyAppName},.osp"; GroupDescription: "{cm:AdditionalIcons}"; Flags: checked
+Name: "fileassoc"; Description: "{cm:AssocFileExtension,{#MyAppName},.osp"; GroupDescription: "{cm:AdditionalIcons}";
 Name: "firewall"; Description: "Add an exception to the Windows Firewall"; GroupDescription: "{cm:AdditionalIcons}";
 
 [InstallDelete]
