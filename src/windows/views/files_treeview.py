@@ -205,7 +205,7 @@ class FilesTreeView(QTreeView):
 
         # Get just the file name
         (dirName, fileName) = os.path.split(file_path)
-        extensions = ["png", "jpg", "jpeg", "gif", "tif"]
+        extensions = ["png", "jpg", "jpeg", "gif", "tif", "svg"]
         match = re.findall(r"(.*[^\d])?(0*)(\d+)\.(%s)" % "|".join(extensions), fileName, re.I)
 
         if not match:
