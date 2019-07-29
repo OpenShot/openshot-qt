@@ -504,7 +504,7 @@
      <normaloff>:/icons/Humanity/actions/16/document-new.svg</normaloff>:/icons/Humanity/actions/16/document-new.svg</iconset>
    </property>
    <property name="text">
-    <string>New Project...</string>
+    <string>New Project</string>
    </property>
    <property name="toolTip">
     <string>New Project</string>

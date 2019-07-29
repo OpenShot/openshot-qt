@@ -590,7 +590,7 @@
   },
   {
     "category": "Keyboard",
-    "title": "New Project...",
+    "title": "New Project",
     "restart": true,
     "setting": "actionNew",
     "value": "Ctrl+N",
