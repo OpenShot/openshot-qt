@@ -63,9 +63,9 @@ img {
 .track { height: 64px; background-color: #000; margin-bottom: 8px; background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(50,50,50,1)), color-stop(100%,rgba(6,6,6,1))); border-top: 1px solid #4b92ad; border-bottom: 1px solid #4b92ad; border-right: 1px solid #4B92AD; border-top-right-radius: 8px; border-bottom-right-radius: 8px; box-shadow: 0px 0px 10px #000; }
 
 /* Playhead */
-.playhead-line { z-index: 9998; position: absolute; height:316px; top:0px; margin-left: 8px; width:1px; background-color:#ff0024; opacity:1;}
+.playhead-line { z-index: 9998; position: absolute; height:316px; top:0px; margin-left: 12px; width:1px; background-color:#ff0024; opacity:1;}
 .playhead-line-small { z-index: 9999; position: absolute; height:20px; top:32px;; margin-left: 12px; width:1px; background-color:#ff0024; opacity:1;}
-.playhead-top { cursor:move; z-index: 9999; position: absolute; margin-left: -4px; margin-top: 12px; width:25px; height:32px; background-image: url(../images/play_head.png); opacity:1;}
+.playhead-top { cursor:move; z-index: 9999; position: absolute; margin-left: 0px; margin-top: 12px; width:25px; height:32px; background-image: url(../images/play_head.png); opacity:1;}
 .marker {position:absolute; top:30px;}
 
 /* Clips */
@@ -144,8 +144,16 @@ img {
 .snapping-line.ng-hide-add.ng-hide-add-active { opacity:0.0; }
 
 /* Scrollbar style */
-::-webkit-scrollbar {width: 6px; height: 6px; background: #000000; }
-::-webkit-scrollbar-thumb { background-color: #4b92ad; -webkit-border-radius: 1ex; }
+::-webkit-scrollbar { width: 0.9em; height: 0.9em; }
+::-webkit-scrollbar-thumb { background-color: #4b92ad; border-radius: 0.45em; }
+
+::-webkit-scrollbar-track {
+  background: #000000;
+  box-shadow: inset 0 0 0.6em rgba(75,196,233,1.0); 
+  border-radius: 0.45em;
+}
+
+::-webkit-scrollbar-corner { background: none; }
 
 /* Hide timeline until Angular is loaded */
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {

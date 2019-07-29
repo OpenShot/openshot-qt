@@ -46,8 +46,8 @@ def import_xml():
     _ = app._tr
 
     # Get FPS info
-    fps_num = get_app().project.get(["fps"]).get("num", 24)
-    fps_den = get_app().project.get(["fps"]).get("den", 1)
+    fps_num = get_app().project.get("fps").get("num", 24)
+    fps_den = get_app().project.get("fps").get("den", 1)
     fps_float = float(fps_num / fps_den)
 
     # Get XML path
@@ -83,7 +83,7 @@ def import_xml():
 
                 # Get # of tracks
                 track_index += 1
-                all_tracks = get_app().project.get(["layers"])
+                all_tracks = get_app().project.get("layers")
                 track_number = list(reversed(sorted(all_tracks, key=itemgetter('number'))))[0].get("number") + 1000000
 
                 # Create new track above existing layer(s)

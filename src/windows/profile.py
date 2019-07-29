@@ -132,7 +132,7 @@ class Profile(QDialog):
         self.lblOther.setText("DAR: %s/%s, SAR: %s/%s, Interlaced: %s" % (profile.info.display_ratio.num, profile.info.display_ratio.den, profile.info.pixel_ratio.num, profile.info.pixel_ratio.den, profile.info.interlaced_frame))
 
         # Get current FPS (prior to changing)
-        current_fps = get_app().project.get(["fps"])
+        current_fps = get_app().project.get("fps")
         current_fps_float = float(current_fps["num"]) / float(current_fps["den"])
         new_fps_float = float(profile.info.fps.num) / float(profile.info.fps.den)
         fps_factor = new_fps_float / current_fps_float

@@ -55,8 +55,8 @@ def create_clip(context, track):
     _ = app._tr
 
     # Get FPS info
-    fps_num = get_app().project.get(["fps"]).get("num", 24)
-    fps_den = get_app().project.get(["fps"]).get("den", 1)
+    fps_num = get_app().project.get("fps").get("num", 24)
+    fps_den = get_app().project.get("fps").get("den", 1)
     fps_float = float(fps_num / fps_den)
 
     # Get clip path (and prompt user if path not found)
@@ -200,7 +200,7 @@ def import_edl():
         current_clip_index = ""
 
         # Get # of tracks
-        all_tracks = get_app().project.get(["layers"])
+        all_tracks = get_app().project.get("layers")
         track_number = list(reversed(sorted(all_tracks, key=itemgetter('number'))))[0].get("number") + 1000000
 
         # Create new track above existing layer(s)

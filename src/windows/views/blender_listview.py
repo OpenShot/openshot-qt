@@ -441,9 +441,9 @@ class BlenderListView(QListView):
         project_params = {}
 
         # Append on some project settings
-        project_params["fps"] = project.get(["fps"])
-        project_params["resolution_x"] = project.get(["width"])
-        project_params["resolution_y"] = project.get(["height"])
+        project_params["fps"] = project.get("fps")
+        project_params["resolution_x"] = project.get("width")
+        project_params["resolution_y"] = project.get("height")
 
         if is_preview:
             project_params["resolution_percentage"] = 50
