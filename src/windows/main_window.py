@@ -215,7 +215,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                             # Append line to beginning of stacktrace
                             last_stack_trace = line + last_stack_trace
 
-                        # Ignore certain unuseful lines
+                        # Ignore certain useless lines
                         if line.strip() and "---" not in line and "libopenshot logging:" not in line and not last_log_line:
                             last_log_line = line
 
@@ -465,6 +465,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         app = get_app()
         _ = app._tr  # Get translation function
 
+        # First check for empty file_path (probably user cancellation)
+        if not file_path:
+            # Ignore the request
+            return
+
         # Do we have unsaved changes?
         if get_app().project.needs_save():
             ret = QMessageBox.question(self, _("Unsaved Changes"), _("Save changes to project first?"), QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
@@ -505,19 +510,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
                 log.info("Loaded project {}".format(file_path))
             else:
-                # If statement is required, as if the user hits "Cancel"
-                # on the "load file" dialog, it is interpreted as trying
-                # to open a file with a blank name. This could use some
-                # improvement.
-                if file_path != "":
-                    # Prepare to use status bar
-                    self.statusBar = QStatusBar()
-                    self.setStatusBar(self.statusBar)
+                # Prepare to use status bar
+                self.statusBar = QStatusBar()
+                self.setStatusBar(self.statusBar)
 
-                    log.info("File not found at {}".format(file_path))
-                    self.statusBar.showMessage(_("Project {} is missing (it may have been moved or deleted). It has been removed from the Recent Projects menu.".format(file_path)), 5000)
-                    self.remove_recent_project(file_path)
-                    self.load_recent_menu()
+                log.info("File not found at {}".format(file_path))
+                self.statusBar.showMessage(_("Project {} is missing (it may have been moved or deleted). It has been removed from the Recent Projects menu.".format(file_path)), 5000)
+                self.remove_recent_project(file_path)
+                self.load_recent_menu()
 
         except Exception as ex:
             log.error("Couldn't open project {}".format(file_path))
@@ -620,7 +620,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 log.info("Auto save project file: %s" % file_path)
                 self.save_project(file_path)
 
-                # Remvoe backup.osp (if any)
+                # Remove backup.osp (if any)
                 recovery_path = os.path.join(info.BACKUP_PATH, "backup.osp")
                 if os.path.exists(recovery_path):
                     # Delete backup.osp since we just saved the actual project
@@ -655,7 +655,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def actionImportFiles_trigger(self, event):
         app = get_app()
         _ = app._tr
-        recommended_path = app.project.get(["import_path"])
+        recommended_path = app.project.get("import_path")
         if not recommended_path or not os.path.exists(recommended_path):
             recommended_path = os.path.join(info.HOME_PATH)
         files = QFileDialog.getOpenFileNames(self, _("Import File..."), recommended_path)[0]
@@ -674,7 +674,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             files.append(File.get(id=file_id))
 
         # Get current position of playhead
-        fps = get_app().project.get(["fps"])
+        fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
         pos = (self.preview_thread.player.Position() - 1) / fps_float
 
@@ -966,8 +966,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             recommended_path = os.path.dirname(get_app().project.current_filepath)
 
         # Determine path for saved frame - Project's export path
-        if get_app().project.get(["export_path"]):
-            recommended_path = get_app().project.get(["export_path"])
+        if get_app().project.get("export_path"):
+            recommended_path = get_app().project.get("export_path")
 
         framePath = "%s/Frame-%05d.png" % (recommended_path, self.preview_thread.current_frame)
 
@@ -995,7 +995,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.timeline_sync.timeline.SetCache(new_cache_object)
 
         # Set MaxSize to full project resolution and clear preview cache so we get a full resolution frame
-        self.timeline_sync.timeline.SetMaxSize(get_app().project.get(["width"]), get_app().project.get(["height"]))
+        self.timeline_sync.timeline.SetMaxSize(get_app().project.get("width"), get_app().project.get("height"))
         self.cache_object.Clear()
 
         # Check if file exists, if it does, get the lastModified time
@@ -1026,7 +1026,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         log.info("actionAddTrack_trigger")
 
         # Get # of tracks
-        all_tracks = get_app().project.get(["layers"])
+        all_tracks = get_app().project.get("layers")
         track_number = list(reversed(sorted(all_tracks, key=itemgetter('number'))))[0].get("number") + 1000000
 
         # Create new track above existing layer(s)
@@ -1038,7 +1038,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         log.info("actionAddTrackAbove_trigger")
 
         # Get # of tracks
-        all_tracks = get_app().project.get(["layers"])
+        all_tracks = get_app().project.get("layers")
         selected_layer_id = self.selected_tracks[0]
 
         # Get selected track data
@@ -1094,7 +1094,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         log.info("actionAddTrackBelow_trigger")
 
         # Get # of tracks
-        all_tracks = get_app().project.get(["layers"])
+        all_tracks = get_app().project.get("layers")
         selected_layer_id = self.selected_tracks[0]
 
         # Get selected track data
@@ -1174,7 +1174,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         player = self.preview_thread.player
 
         # Calculate frames per second
-        fps = get_app().project.get(["fps"])
+        fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
 
         # Calculate position in seconds
@@ -1189,7 +1189,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         log.info("actionPreviousMarker_trigger")
 
         # Calculate current position (in seconds)
-        fps = get_app().project.get(["fps"])
+        fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
         current_position = (self.preview_thread.current_frame - 1) / fps_float
         all_marker_positions = []
@@ -1242,7 +1242,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         log.info(self.preview_thread.current_frame)
 
         # Calculate current position (in seconds)
-        fps = get_app().project.get(["fps"])
+        fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
         current_position = (self.preview_thread.current_frame - 1) / fps_float
         all_marker_positions = []
@@ -1326,7 +1326,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         player = self.preview_thread.player
 
         # Get framerate
-        fps = get_app().project.get(["fps"])
+        fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
         playhead_position = float(self.preview_thread.current_frame - 1) / fps_float
 
@@ -1638,7 +1638,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         _ = get_app()._tr
 
         track_id = self.selected_tracks[0]
-        max_track_number = len(get_app().project.get(["layers"]))
+        max_track_number = len(get_app().project.get("layers"))
 
         # Get details of selected track
         selected_track = Track.get(id=track_id)
@@ -1703,7 +1703,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         selected_track = Track.get(id=track_id)
 
         # Find display track number
-        all_tracks = get_app().project.get(["layers"])
+        all_tracks = get_app().project.get("layers")
         display_count = len(all_tracks)
         for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
             if track.get("id") == track_id:
@@ -1965,7 +1965,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         _ = get_app()._tr
 
         if not profile:
-            profile = get_app().project.get(["profile"])
+            profile = get_app().project.get("profile")
 
         # Determine if the project needs saving (has any unsaved changes)
         save_indicator = ""
@@ -2216,7 +2216,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.timelineToolbar.addSeparator()
 
         # Get project's initial zoom value
-        initial_scale = get_app().project.get(["scale"]) or 15
+        initial_scale = get_app().project.get("scale") or 15
         # Round non-exponential scale down to next lowest power of 2
         initial_zoom = secondsToZoom(initial_scale)
 
