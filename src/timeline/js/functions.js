@@ -314,4 +314,3 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
 
     return { 'position': snapping_result, 'x_offset' : x_offset, 'y_offset' : y_offset };
 }
-
