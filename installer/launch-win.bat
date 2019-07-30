@@ -12,4 +12,4 @@ SET QT_PLUGIN_PATH=%cd%
 SET QT_DEBUG_PLUGINS=1
 
 :: Launch application
-launch.exe
+openshot-qt.exe

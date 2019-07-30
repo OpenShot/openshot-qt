@@ -15,7 +15,7 @@
 #define MyAppPublisher "OpenShot Studios, LLC"
 #define MyPublisherURL "https://www.openshot.org/"
 #define MySupportURL "https://www.reddit.com/r/OpenShot/"
-#define MyAppExeName "launch.exe"
+#define MyAppExeName "openshot-qt.exe"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
