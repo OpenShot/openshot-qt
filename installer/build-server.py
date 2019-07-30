@@ -68,14 +68,6 @@ log_path = os.path.join(PATH, 'build', 'build-server.log')
 log = open(log_path, 'w+')
 
 
-def run_command(command, working_dir=None):
-    """Utility function to return output from command line"""
-    p = subprocess.Popen(command, shell=True, cwd=working_dir,
-                         stdout=subprocess.PIPE,
-                         stderr=subprocess.STDOUT)
-    return iter(p.stdout.readline, b"")
-
-
 def output(line):
     """Append output to list and print it"""
     print(line)
@@ -86,6 +78,16 @@ def output(line):
         # Append missing line return (if needed)
         line += "\n"
     log.write(line)
+
+
+def run_command(command, working_dir=None):
+    """Utility function to return output from command line"""
+    short_command = command.split('" ')[0] # We don't need to print args
+    output("Running %s... (%s)" % (short_command, working_dir))
+    p = subprocess.Popen(command, shell=True, cwd=working_dir,
+                         stdout=subprocess.PIPE,
+                         stderr=subprocess.STDOUT)
+    return iter(p.stdout.readline, b"")
 
 
 def error(line):
@@ -110,8 +112,8 @@ def zulip_upload_log(log, title, comment=None):
     """Upload a file to zulip and notify a zulip channel"""
     output("Zulip Upload: %s" % log_path)
 
-    # Close log file
-    log.close()
+    # Write log file
+    log.flush()
 
     # Authentication for Zulip
     zulip_auth = HTTPBasicAuth('builder-bot@openshot.zulipchat.com', zulip_token)
@@ -400,22 +402,47 @@ try:
     if platform.system() == "Windows":
 
         # Move python folder structure, since Cx_Freeze doesn't put it in the correct place
-        exe_dir = os.path.join(PATH, 'build', 'exe.mingw-3.6')
-        python_dir = os.path.join(exe_dir, 'lib', 'python3.6')
-        if not os.path.exists(python_dir):
-            os.mkdir(python_dir)
+        exe_dir = os.path.join(PATH, 'build', 'exe.mingw-3.7')
+        python_dir = os.path.join(exe_dir, 'lib', 'python3.7')
 
-            # Copy all non-zip files from /lib/ into /python3.X/
-            for lib_file in os.listdir(os.path.join(exe_dir, 'lib')):
-                if not ".zip" in lib_file and not lib_file == "python3.6":
-                    lib_src_path = os.path.join(os.path.join(exe_dir, 'lib'), lib_file)
-                    lib_dst_path = os.path.join(os.path.join(python_dir), lib_file)
-                    shutil.move(lib_src_path, lib_dst_path)
+        # Remove a redundant openshot_qt module folder (duplicates lots of files)
+        duplicate_openshot_qt_path = os.path.join(python_dir, 'openshot_qt')
+        if os.path.exists(duplicate_openshot_qt_path):
+            shutil.rmtree(duplicate_openshot_qt_path, True)
 
-            # Remove a redundant openshot_qt module folder (duplicates lots of files)
-            duplicate_openshot_qt_path = os.path.join(python_dir, 'openshot_qt')
-            if os.path.exists(duplicate_openshot_qt_path):
-                shutil.rmtree(duplicate_openshot_qt_path, True)
+        # Remove the following paths. cx_Freeze is including many unneeded files. This prunes them out.
+        paths_to_delete = ['mediaservice', 'imageformats', 'platforms', 'printsupport', 'lib/openshot_qt', 'resvg.dll']
+        for delete_path in paths_to_delete:
+            full_delete_path = os.path.join(exe_dir, delete_path)
+            output("Delete path: %s" % full_delete_path)
+            if os.path.exists(full_delete_path):
+                if os.path.isdir(full_delete_path):
+                    # Delete Folder
+                    shutil.rmtree(full_delete_path)
+                else:
+                    # Delete File
+                    os.unlink(full_delete_path)
+            else:
+                output("Invalid delete path: %s" % full_delete_path)
+
+        # Replace these folders (cx_Freeze messes this up, so this fixes it)
+        paths_to_replace = ['imageformats', 'platforms']
+        for replace_name in paths_to_replace:
+            if windows_32bit:
+                shutil.copytree(os.path.join('C:\\msys32\\mingw32\\share\\qt5\\plugins', replace_name), os.path.join(exe_dir, replace_name))
+            else:
+                shutil.copytree(os.path.join('C:\\msys64\\mingw64\\share\\qt5\\plugins', replace_name), os.path.join(exe_dir, replace_name))
+
+        # Copy Qt5Core.dll, Qt5Svg.dll to root of frozen directory
+        paths_to_copy = [("Qt5Core.dll", "C:\\msys64\\mingw64\\bin\\"), ("Qt5Svg.dll", "C:\\msys64\\mingw64\\bin\\")]
+        if windows_32bit:
+            paths_to_copy = [("Qt5Core.dll", "C:\\msys32\\mingw32\\bin\\"), ("Qt5Svg.dll", "C:\\msys32\\mingw32\\bin\\")]
+        for qt_file_name, qt_parent_path in paths_to_copy:
+            qt5_path = os.path.join(qt_parent_path, qt_file_name)
+            new_qt5_path = os.path.join(exe_dir, qt_file_name)
+            if os.path.exists(qt5_path) and not os.path.exists(new_qt5_path):
+                output("Copying %s to %s" % (qt5_path, new_qt5_path))
+                shutil.copy(qt5_path, new_qt5_path)
 
         # Delete debug Qt libraries (since they are not needed, and cx_Freeze grabs them)
         for sub_folder in ['', 'platforms', 'imageformats']:
@@ -431,13 +458,30 @@ try:
         if windows_32bit:
             only_64_bit = ""
 
+        # Add version metadata to frozen app launcher
+        launcher_exe = os.path.join(exe_dir, "launch.exe")
+        verpatch_success = True
+        verpatch_command = '"verpatch.exe" "{}" /va /high "{}" /pv "{}" /s product "{}" /s company "{}" /s copyright "{}" /s desc "{}"'.format(launcher_exe, info.VERSION, info.VERSION, info.PRODUCT_NAME, info.COMPANY_NAME, info.COPYRIGHT, info.PRODUCT_NAME)
+        verpatch_output = ""
+        # version-stamp executable
+        for line in run_command(verpatch_command):
+            output(line)
+            if line:
+                verpatch_success = False
+                verpatch_output = line
+
+        # Was the verpatch command successful
+        if not verpatch_success:
+            # Verpatch failed (not fatal)
+            error("Verpatch Error: Had output when none was expected (%s)" % verpatch_output)
+
         # Copy uninstall files into build folder
         for file in os.listdir(os.path.join("c:/", "InnoSetup")):
             shutil.copyfile(os.path.join("c:/", "InnoSetup", file), os.path.join(PATH, "build", file))
 
         # Create Installer (OpenShot-%s-x86_64.exe)
         inno_success = True
-        inno_command = '"C:\Program Files (x86)\Inno Setup 5\iscc.exe" /Q /DVERSION=%s /DONLY_64_BIT=%s "%s"' % (version, only_64_bit, os.path.join(PATH, 'installer', 'windows-installer.iss'))
+        inno_command = '"iscc.exe" /Q /DVERSION=%s /DONLY_64_BIT=%s "%s"' % (version, only_64_bit, os.path.join(PATH, 'installer', 'windows-installer.iss'))
         inno_output = ""
         # Compile Inno installer
         for line in run_command(inno_command):
@@ -460,7 +504,7 @@ try:
 
         # Sign the installer
         key_sign_success = True
-        key_sign_command = '"C:\\Program Files (x86)\\kSign\\kSignCMD.exe" /f "%s" /p "%s" /d "OpenShot Video Editor" /du "http://www.openshot.org" "%s"' % (windows_key, windows_key_password, app_build_path)
+        key_sign_command = '"kSignCMD.exe" /f "%s%s" /p "%s" /d "OpenShot Video Editor" /du "http://www.openshot.org" "%s"' % (windows_key, only_64_bit, windows_key_password, app_build_path)
         key_sign_output = ""
         # Sign MSI
         for line in run_command(key_sign_command):
@@ -515,9 +559,10 @@ except Exception as ex:
     tb = traceback.format_exc()
     error("Unhandled exception: %s - %s" % (str(ex), str(tb)))
 
-
-# Report any errors detected
-if errors_detected:
+if not errors_detected:
+    output("Successfully completed build-server script!")
+else:
+    # Report any errors detected
+    output("build-server script failed!")
     zulip_upload_log(log, "%s: Error log for *%s* build" % (platform.system(), git_branch_name), ":skull_and_crossbones: %s" % truncate(errors_detected[0], 100))
     exit(1)
-

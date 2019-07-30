@@ -35,11 +35,7 @@ from classes.app import get_app
 from classes.query import Clip
 from classes import updates
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class VideoWidget(QWidget, updates.UpdateInterface):
     """ A QWidget used on the video display widget """
@@ -105,7 +101,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         if self.transforming_clip:
             # Draw transform handles on top of video preview
             # Get framerate
-            fps = get_app().project.get(["fps"])
+            fps = get_app().project.get("fps")
             fps_float = float(fps["num"]) / float(fps["den"])
 
             # Determine frame # of clip
@@ -340,7 +336,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         if self.transforming_clip:
             # Get framerate
-            fps = get_app().project.get(["fps"])
+            fps = get_app().project.get("fps")
             fps_float = float(fps["num"]) / float(fps["den"])
 
             # Get current clip's position

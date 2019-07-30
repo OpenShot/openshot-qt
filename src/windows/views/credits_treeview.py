@@ -36,11 +36,7 @@ from classes.logger import log
 from classes.app import get_app
 from windows.models.credits_model import CreditsModel
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class CreditsTreeView(QTreeView):
     """ A ListView QWidget used on the credits window """

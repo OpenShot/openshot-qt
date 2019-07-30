@@ -39,11 +39,7 @@ from classes.app import get_app
 from classes.logger import log
 from classes.metrics import *
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class FileProperties(QDialog):
     """ File Properties Dialog """

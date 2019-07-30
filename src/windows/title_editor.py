@@ -48,11 +48,7 @@ from classes.query import File
 from classes.metrics import *
 from windows.views.titles_listview import TitlesListView
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class TitleEditor(QDialog):
     """ Title Editor Dialog """

@@ -38,11 +38,11 @@
          offset="1" />
     </linearGradient>
     <radialGradient
-       cx="360.00665"
-       cy="288.00635"
+       cx="360.0"
+       cy="288.0"
        r="360"
-       fx="360.00665"
-       fy="288.00635"
+       fx="360.0"
+       fy="288.0"
        id="radialGradient4655"
        xlink:href="#linearGradient4649"
        gradientUnits="userSpaceOnUse"
@@ -53,8 +53,8 @@
     <rect
        width="720"
        height="576"
-       x="0.0066374484"
-       y="0.006353823"
+       x="0.0"
+       y="0.0"
        id="rect2406"
        style="fill:url(#radialGradient4655);fill-opacity:1;stroke:none" />
   </g>

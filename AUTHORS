@@ -2,7 +2,7 @@ OpenShot 2.0 is the result of work by (in no particular order):
 
 Contributors / Developers:
 
-See src/settings/contributors.json for details on contributors and
+See src/resources/contributors.json for details on contributors and
 developer credits.
 
 
@@ -27,7 +27,7 @@ Canonical / Ubuntu (Ubuntu-R.ttf font)
 Supporters
 
 A big thanks to all the financial backers and supporters from PayPay,
-Kickstarter, and Patreon! Details can be found in src/settings/supporters.json
+Kickstarter, and Patreon! Details can be found in src/resources/supporters.json
 
 
 For the full list of developers and technical contributors, please visit:

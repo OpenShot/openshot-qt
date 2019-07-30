@@ -63,6 +63,10 @@ from windows.views.properties_tableview import PropertiesTableView, SelectionLab
 from windows.views.tutorial import TutorialManager
 from windows.video_widget import VideoWidget
 from windows.preview_thread import PreviewParent
+from classes.exporters.edl import export_edl
+from classes.exporters.final_cut_pro import export_xml
+from classes.importers.edl import import_edl
+from classes.importers.final_cut_pro import import_xml
 
 
 class MainWindow(QMainWindow, updates.UpdateWatcher):
@@ -90,6 +94,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     InsertKeyframe = pyqtSignal(object)
     OpenProjectSignal = pyqtSignal(str)
     ThumbnailUpdated = pyqtSignal(str)
+
+    # Docks are closable, movable and floatable
+    docks_frozen = False
 
     # Save window settings on close
     def closeEvent(self, event):
@@ -131,6 +138,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.preview_thread.kill()
         self.preview_parent.background.exit()
         self.preview_parent.background.wait(5000)
+
+        # Shut down the webview
+        self.timeline.close()
 
         # Close Timeline
         self.timeline_sync.timeline.Close()
@@ -211,7 +221,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                             # Append line to beginning of stacktrace
                             last_stack_trace = line + last_stack_trace
 
-                        # Ignore certain unuseful lines
+                        # Ignore certain useless lines
                         if line.strip() and "---" not in line and "libopenshot logging:" not in line and not last_log_line:
                             last_log_line = line
 
@@ -461,6 +471,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         app = get_app()
         _ = app._tr  # Get translation function
 
+        # First check for empty file_path (probably user cancellation)
+        if not file_path:
+            # Ignore the request
+            return
+
         # Do we have unsaved changes?
         if get_app().project.needs_save():
             ret = QMessageBox.question(self, _("Unsaved Changes"), _("Save changes to project first?"), QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
@@ -501,19 +516,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
                 log.info("Loaded project {}".format(file_path))
             else:
-                # If statement is required, as if the user hits "Cancel"
-                # on the "load file" dialog, it is interpreted as trying
-                # to open a file with a blank name. This could use some
-                # improvement.
-                if file_path != "":
-                    # Prepare to use status bar
-                    self.statusBar = QStatusBar()
-                    self.setStatusBar(self.statusBar)
+                # Prepare to use status bar
+                self.statusBar = QStatusBar()
+                self.setStatusBar(self.statusBar)
 
-                    log.info("File not found at {}".format(file_path))
-                    self.statusBar.showMessage(_("Project {} is missing (it may have been moved or deleted). It has been removed from the Recent Projects menu.".format(file_path)), 5000)
-                    self.remove_recent_project(file_path)
-                    self.load_recent_menu()
+                log.info("File not found at {}".format(file_path))
+                self.statusBar.showMessage(_("Project {} is missing (it may have been moved or deleted). It has been removed from the Recent Projects menu.".format(file_path)), 5000)
+                self.remove_recent_project(file_path)
+                self.load_recent_menu()
 
         except Exception as ex:
             log.error("Couldn't open project {}".format(file_path))
@@ -616,7 +626,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 log.info("Auto save project file: %s" % file_path)
                 self.save_project(file_path)
 
-                # Remvoe backup.osp (if any)
+                # Remove backup.osp (if any)
                 recovery_path = os.path.join(info.BACKUP_PATH, "backup.osp")
                 if os.path.exists(recovery_path):
                     # Delete backup.osp since we just saved the actual project
@@ -651,7 +661,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def actionImportFiles_trigger(self, event):
         app = get_app()
         _ = app._tr
-        recommended_path = app.project.get(["import_path"])
+        recommended_path = app.project.get("import_path")
         if not recommended_path or not os.path.exists(recommended_path):
             recommended_path = os.path.join(info.HOME_PATH)
         files = QFileDialog.getOpenFileNames(self, _("Import File..."), recommended_path)[0]
@@ -670,7 +680,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             files.append(File.get(id=file_id))
 
         # Get current position of playhead
-        fps = get_app().project.get(["fps"])
+        fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
         pos = (self.preview_thread.player.Position() - 1) / fps_float
 
@@ -706,112 +716,21 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             log.info('Export Video add cancelled')
 
-    def getEdlTime(self, time_in_seconds=0.0):
-        """Return a formatted time code for EDL exporting"""
-        # Get FPS info
-        fps_num = get_app().project.get(["fps"]).get("num", 24)
-        fps_den = get_app().project.get(["fps"]).get("den", 1)
-
-        return "%(hour)s:%(min)s:%(sec)s:%(frame)s" % secondsToTime(time_in_seconds, fps_num, fps_den)
-
     def actionExportEDL_trigger(self, event):
         """Export EDL File"""
-        app = get_app()
-        _ = app._tr
+        export_edl()
 
-        # EDL Export format
-        edl_string = "%03d  %-9s%-6s%-9s%11s %11s %11s %11s\n"
+    def actionExportFCPXML_trigger(self, event):
+        """Export XML (Final Cut Pro) File"""
+        export_xml()
 
-        # Get FPS info
-        fps_num = get_app().project.get(["fps"]).get("num", 24)
-        fps_den = get_app().project.get(["fps"]).get("den", 1)
-        fps_float = float(fps_num / fps_den)
+    def actionImportEDL_trigger(self, event):
+        """Import EDL File"""
+        import_edl()
 
-        # Get EDL path
-        recommended_path = app.project.current_filepath or ""
-        if not recommended_path:
-            recommended_path = os.path.join(info.HOME_PATH, "%s.edl" % _("Untitled Project"))
-        else:
-            recommended_path = recommended_path.replace(".osp", ".edl")
-        file_path, file_type = QFileDialog.getSaveFileName(self, _("Export EDL..."), recommended_path, _("Edit Decision Lists (*.edl)"))
-        if file_path:
-            # Append .edl if needed
-            if ".edl" not in file_path:
-                file_path = "%s.edl" % file_path
-
-        # Get filename with no extension
-        parent_path, file_name_with_ext = os.path.split(file_path)
-        file_name, ext = os.path.splitext(file_name_with_ext)
-
-        all_tracks = get_app().project.get(["layers"])
-        track_count = len(all_tracks)
-        for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
-            existing_track = Track.get(number=track.get("number"))
-            if not existing_track:
-                # Log error and fail silently, and continue
-                log.error('No track object found with number: %s' % track.get("number"))
-                continue
-
-            # Track name
-            track_name = track.get("label") or "TRACK %s" % track_count
-            clips_on_track = Clip.filter(layer=track.get("number"))
-            if not clips_on_track:
-                continue
-
-            # Generate EDL File (1 per track - limitation of EDL format)
-            # TODO: Improve and move this into it's own class
-            with open("%s-%s.edl" % (file_path.replace(".edl", ""), track_name), 'w', encoding="utf8") as f:
-                # Add Header
-                f.write("TITLE: %s - %s\n" % (file_name, track_name))
-                f.write("FCM: NON-DROP FRAME\n\n")
-
-                # Loop through each track
-                edit_index = 1
-                export_position = 0.0
-
-                # Loop through clips on this track
-                for clip in clips_on_track:
-                    # Do we need a blank clip?
-                    if clip.data.get('position', 0.0) > export_position:
-                        # Blank clip (i.e. 00:00:00:00)
-                        clip_start_time = self.getEdlTime(0.0)
-                        clip_end_time = self.getEdlTime(clip.data.get('position') - export_position)
-                        timeline_start_time = self.getEdlTime(export_position)
-                        timeline_end_time = self.getEdlTime(clip.data.get('position'))
-
-                        # Write blank clip
-                        f.write(edl_string % (edit_index, "BL"[:9], "V"[:6], "C", clip_start_time, clip_end_time, timeline_start_time, timeline_end_time))
-
-                    # Format clip start/end and timeline start/end values (i.e. 00:00:00:00)
-                    clip_start_time = self.getEdlTime(clip.data.get('start'))
-                    clip_end_time = self.getEdlTime(clip.data.get('end'))
-                    timeline_start_time = self.getEdlTime(clip.data.get('position'))
-                    timeline_end_time = self.getEdlTime(clip.data.get('position') + (clip.data.get('end') - clip.data.get('start')))
-
-                    has_video = clip.data.get("reader", {}).get("has_video", False)
-                    has_audio = clip.data.get("reader", {}).get("has_audio", False)
-                    if has_video:
-                        # Video Track
-                        f.write(edl_string % (edit_index, "AX"[:9], "V"[:6], "C", clip_start_time, clip_end_time, timeline_start_time, timeline_end_time))
-                    if has_audio:
-                        # Audio Track
-                        f.write(edl_string % (edit_index, "AX"[:9], "AA"[:6], "C", clip_start_time, clip_end_time, timeline_start_time, timeline_end_time))
-                    f.write("* FROM CLIP NAME: %s\n" % clip.data.get('title'))
-
-                    # Add opacity data (if any)
-                    if len(clip.data.get('alpha', {}).get('Points', [])) > 1:
-                        for opacity_point in clip.data.get('alpha', {}).get('Points', []):
-                            opacity_time = (opacity_point.get('co', {}).get('X', 1.0) - 1) / fps_float
-                            opacity_value = opacity_point.get('co', {}).get('Y', 0.0) * 100.0
-                            f.write("* OPACITY LEVEL AT %s IS %0.2f%%  (REEL AX)\n" % (self.getEdlTime(opacity_time), opacity_value))
-
-                    # Update export position
-                    export_position = clip.data.get('position') + (clip.data.get('end') -  clip.data.get('start'))
-                    f.write("\n")
-
-                # Update counters
-                edit_index += 1
-                track_count -= 1
+    def actionImportFCPXML_trigger(self, event):
+        """Import XML (Final Cut Pro) File"""
+        import_xml()
 
     def actionUndo_trigger(self, event):
         log.info('actionUndo_trigger')
@@ -969,7 +888,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         win = Cutting(f, preview=True)
         win.show()
 
-    def previewFrame(self, position_seconds, position_frames, time_code):
+    def previewFrame(self, position_frames):
         """Preview a specific frame"""
         # Notify preview thread
         self.previewFrameSignal.emit(position_frames)
@@ -1053,8 +972,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             recommended_path = os.path.dirname(get_app().project.current_filepath)
 
         # Determine path for saved frame - Project's export path
-        if get_app().project.get(["export_path"]):
-            recommended_path = get_app().project.get(["export_path"])
+        if get_app().project.get("export_path"):
+            recommended_path = get_app().project.get("export_path")
 
         framePath = "%s/Frame-%05d.png" % (recommended_path, self.preview_thread.current_frame)
 
@@ -1082,7 +1001,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.timeline_sync.timeline.SetCache(new_cache_object)
 
         # Set MaxSize to full project resolution and clear preview cache so we get a full resolution frame
-        self.timeline_sync.timeline.SetMaxSize(get_app().project.get(["width"]), get_app().project.get(["height"]))
+        self.timeline_sync.timeline.SetMaxSize(get_app().project.get("width"), get_app().project.get("height"))
         self.cache_object.Clear()
 
         # Check if file exists, if it does, get the lastModified time
@@ -1113,7 +1032,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         log.info("actionAddTrack_trigger")
 
         # Get # of tracks
-        all_tracks = get_app().project.get(["layers"])
+        all_tracks = get_app().project.get("layers")
         track_number = list(reversed(sorted(all_tracks, key=itemgetter('number'))))[0].get("number") + 1000000
 
         # Create new track above existing layer(s)
@@ -1125,7 +1044,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         log.info("actionAddTrackAbove_trigger")
 
         # Get # of tracks
-        all_tracks = get_app().project.get(["layers"])
+        all_tracks = get_app().project.get("layers")
         selected_layer_id = self.selected_tracks[0]
 
         # Get selected track data
@@ -1181,7 +1100,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         log.info("actionAddTrackBelow_trigger")
 
         # Get # of tracks
-        all_tracks = get_app().project.get(["layers"])
+        all_tracks = get_app().project.get("layers")
         selected_layer_id = self.selected_tracks[0]
 
         # Get selected track data
@@ -1261,7 +1180,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         player = self.preview_thread.player
 
         # Calculate frames per second
-        fps = get_app().project.get(["fps"])
+        fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
 
         # Calculate position in seconds
@@ -1276,7 +1195,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         log.info("actionPreviousMarker_trigger")
 
         # Calculate current position (in seconds)
-        fps = get_app().project.get(["fps"])
+        fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
         current_position = (self.preview_thread.current_frame - 1) / fps_float
         all_marker_positions = []
@@ -1329,7 +1248,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         log.info(self.preview_thread.current_frame)
 
         # Calculate current position (in seconds)
-        fps = get_app().project.get(["fps"])
+        fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
         current_position = (self.preview_thread.current_frame - 1) / fps_float
         all_marker_positions = []
@@ -1413,7 +1332,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         player = self.preview_thread.player
 
         # Get framerate
-        fps = get_app().project.get(["fps"])
+        fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
         playhead_position = float(self.preview_thread.current_frame - 1) / fps_float
 
@@ -1725,7 +1644,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         _ = get_app()._tr
 
         track_id = self.selected_tracks[0]
-        max_track_number = len(get_app().project.get(["layers"]))
+        max_track_number = len(get_app().project.get("layers"))
 
         # Get details of selected track
         selected_track = Track.get(id=track_id)
@@ -1790,7 +1709,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         selected_track = Track.get(id=track_id)
 
         # Find display track number
-        all_tracks = get_app().project.get(["layers"])
+        all_tracks = get_app().project.get("layers")
         display_count = len(all_tracks)
         for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
             if track.get("id") == track_id:
@@ -1966,14 +1885,17 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 dock.show()
 
     def freezeDocks(self):
-        """ Freeze all dockable widgets on the main screen (no float, moving, or closing) """
+        """ Freeze all dockable widgets on the main screen (prevent them being closed, floated, or moved) """
         for dock in self.getDocks():
             dock.setFeatures(QDockWidget.NoDockWidgetFeatures)
 
     def unFreezeDocks(self):
-        """ Un-freeze all dockable widgets on the main screen (allow them to be moved, closed, and floated) """
+        """ Un-freeze all dockable widgets on the main screen (allow them to be closed, floated, or moved, as appropriate) """
         for dock in self.getDocks():
-            dock.setFeatures(QDockWidget.AllDockWidgetFeatures)
+            if dock is self.dockTimeline:
+                dock.setFeatures(QDockWidget.DockWidgetFloatable | QDockWidget.DockWidgetMovable)
+            else:
+                dock.setFeatures(QDockWidget.DockWidgetClosable | QDockWidget.DockWidgetFloatable | QDockWidget.DockWidgetMovable)
 
     def hideDocks(self):
         """ Hide all dockable widgets on the main screen """
@@ -2021,12 +1943,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.freezeDocks()
         self.actionFreeze_View.setVisible(False)
         self.actionUn_Freeze_View.setVisible(True)
+        self.docks_frozen = True
 
     def actionUn_Freeze_View_trigger(self, event):
         """ Un-Freeze all dockable widgets on the main screen """
         self.unFreezeDocks()
         self.actionFreeze_View.setVisible(True)
         self.actionUn_Freeze_View.setVisible(False)
+        self.docks_frozen = False
 
     def actionShow_All_trigger(self, event):
         """ Show all dockable widgets """
@@ -2052,7 +1976,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         _ = get_app()._tr
 
         if not profile:
-            profile = get_app().project.get(["profile"])
+            profile = get_app().project.get("profile")
 
         # Determine if the project needs saving (has any unsaved changes)
         save_indicator = ""
@@ -2148,14 +2072,21 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Save window state and geometry (saves toolbar and dock locations)
         s.set('window_state_v2', qt_types.bytes_to_str(self.saveState()))
         s.set('window_geometry_v2', qt_types.bytes_to_str(self.saveGeometry()))
+        s.set('docks_frozen', self.docks_frozen)
 
     # Get window settings from setting store
     def load_settings(self):
         s = settings.get_settings()
 
-        # Window state and geometry (also toolbar and dock locations)
+        # Window state and geometry (also toolbar, dock locations and frozen UI state)
         if s.get('window_state_v2'): self.restoreState(qt_types.str_to_bytes(s.get('window_state_v2')))
         if s.get('window_geometry_v2'): self.restoreGeometry(qt_types.str_to_bytes(s.get('window_geometry_v2')))
+        if s.get('docks_frozen'):
+            """ Freeze all dockable widgets on the main screen """
+            self.freezeDocks()
+            self.actionFreeze_View.setVisible(False)
+            self.actionUn_Freeze_View.setVisible(True)
+            self.docks_frozen = True
 
         # Load Recent Projects
         self.load_recent_menu()
@@ -2303,7 +2234,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.timelineToolbar.addSeparator()
 
         # Get project's initial zoom value
-        initial_scale = get_app().project.get(["scale"]) or 15
+        initial_scale = get_app().project.get("scale") or 15
         # Round non-exponential scale down to next lowest power of 2
         initial_zoom = secondsToZoom(initial_scale)
 

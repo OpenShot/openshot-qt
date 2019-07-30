@@ -43,6 +43,7 @@ Table of Contents:
    animation
    titles
    profiles
+   import_export
    developers
    contributing
    learn_more

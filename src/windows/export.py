@@ -41,11 +41,7 @@ from classes.app import get_app
 from classes.metrics import *
 from classes.query import File
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class Export(QDialog):
     """ Export Dialog """
@@ -140,12 +136,12 @@ class Export(QDialog):
         self.timeline.Open()
 
         # Default export path
-        recommended_path = recommended_path = os.path.join(info.HOME_PATH)
+        recommended_path = os.path.join(info.HOME_PATH)
         if app.project.current_filepath:
             recommended_path = os.path.dirname(app.project.current_filepath)
 
-        export_path = get_app().project.get(["export_path"])
-        if os.path.exists(export_path):
+        export_path = get_app().project.get("export_path")
+        if export_path and os.path.exists(export_path):
             # Use last selected export path
             self.txtExportFolder.setText(export_path)
         else:
@@ -358,7 +354,7 @@ class Export(QDialog):
         self.txtEndFrame.setValue(self.timeline_length_int)
 
         # Calculate differences between editing/preview FPS and export FPS
-        current_fps = get_app().project.get(["fps"])
+        current_fps = get_app().project.get("fps")
         current_fps_float = float(current_fps["num"]) / float(current_fps["den"])
         new_fps_float = float(self.txtFrameRateNum.value()) / float(self.txtFrameRateDen.value())
         self.export_fps_factor = new_fps_float / current_fps_float
@@ -391,17 +387,17 @@ class Export(QDialog):
                     for codec in videocodecs:
                         codec_text = codec.childNodes[0].data
                         if "vaapi" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                            acceleration_types[_(title.childNodes[0].data)] = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-vaapi.png"))
+                            acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-vaapi.svg")
                         elif "nvenc" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                            acceleration_types[_(title.childNodes[0].data)] = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-nvenc.png"))
+                            acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-nvenc.svg")
                         elif "dxva2" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                            acceleration_types[_(title.childNodes[0].data)] = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-dx.png"))
+                            acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-dx.svg")
                         elif "videotoolbox" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                            acceleration_types[_(title.childNodes[0].data)] = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-vtb.png"))
+                            acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-vtb.svg")
                         elif "qsv" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                            acceleration_types[_(title.childNodes[0].data)] = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-qsv.png"))
+                            acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-qsv.svg")
                         elif openshot.FFmpegWriter.IsValidCodec(codec_text):
-                            acceleration_types[_(title.childNodes[0].data)] = QIcon(os.path.join(info.IMAGES_PATH, "hw-accel-none.png"))
+                            acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-none.svg")
 
         # Add all targets for selected project type
         preset_index = 0
@@ -829,7 +825,7 @@ class Export(QDialog):
 
             # These extra options should be set in an extra method
             # No feedback is given to the user
-            # TODO: Tell user if option is not avaliable
+            # TODO: Tell user if option is not available
             # Set the quality in case crf was selected
             if "crf" in self.txtVideoBitRate.text():
                 w.SetOption(openshot.VIDEO_STREAM, "crf", str(int(video_settings.get("video_bitrate"))) )

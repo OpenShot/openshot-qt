@@ -38,11 +38,7 @@ from classes.app import get_app
 from classes.metrics import *
 from windows.views.credits_treeview import CreditsTreeView
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class Animation(QDialog):
     """ Animation Dialog """

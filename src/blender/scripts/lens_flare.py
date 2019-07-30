@@ -93,7 +93,7 @@ bpy.data.actions["SphereAction"].fcurves[2].keyframe_points[1].handle_left.y = p
 bpy.data.actions["SphereAction"].fcurves[2].keyframe_points[1].handle_right.y = params["end_z"]
 
 
-# Modfiy the Material Keyframe (i.e. the keyframed halo size setting)
+# Modify the Material Keyframe (i.e. the keyframed halo size setting)
 bpy.data.actions["Material.001Action"].fcurves[0].keyframe_points[0].co = (1.0, params["start_halo_size"])
 bpy.data.actions["Material.001Action"].fcurves[0].keyframe_points[1].co = (300.00, params["end_halo_size"])
 

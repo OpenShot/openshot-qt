@@ -39,11 +39,7 @@ from classes.logger import log
 from classes.app import get_app
 import openshot
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class ClipStandardItemModel(QStandardItemModel):
     def __init__(self, parent=None):
@@ -172,7 +168,7 @@ class PropertiesModel(updates.UpdateInterface):
                         break
 
             # Get FPS from project
-            fps = get_app().project.get(["fps"])
+            fps = get_app().project.get("fps")
             fps_float = float(fps["num"]) / float(fps["den"])
 
             # Requested time
@@ -658,7 +654,7 @@ class PropertiesModel(updates.UpdateInterface):
                         col.setText(fileName)
                     elif type == "int" and label == "Track":
                         # Find track display name
-                        all_tracks = get_app().project.get(["layers"])
+                        all_tracks = get_app().project.get("layers")
                         display_count = len(all_tracks)
                         display_label = None
                         for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
@@ -737,7 +733,7 @@ class PropertiesModel(updates.UpdateInterface):
                         col.setText("")
                     elif type == "int" and label == "Track":
                         # Find track display name
-                        all_tracks = get_app().project.get(["layers"])
+                        all_tracks = get_app().project.get("layers")
                         display_count = len(all_tracks)
                         display_label = None
                         for track in reversed(sorted(all_tracks, key=itemgetter('number'))):

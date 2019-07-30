@@ -46,11 +46,7 @@ from classes.query import File
 from classes.app import get_app
 from windows.models.blender_model import BlenderModel
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class QBlenderEvent(QEvent):
     """ A custom Blender QEvent, which can safely be sent from the Blender thread to the Qt thread (to communicate) """
@@ -445,9 +441,9 @@ class BlenderListView(QListView):
         project_params = {}
 
         # Append on some project settings
-        project_params["fps"] = project.get(["fps"])
-        project_params["resolution_x"] = project.get(["width"])
-        project_params["resolution_y"] = project.get(["height"])
+        project_params["fps"] = project.get("fps")
+        project_params["resolution_x"] = project.get("width")
+        project_params["resolution_y"] = project.get("height")
 
         if is_preview:
             project_params["resolution_percentage"] = 50

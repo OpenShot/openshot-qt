@@ -41,11 +41,7 @@ from classes.metrics import *
 from windows.preview_thread import PreviewParent
 from windows.video_widget import VideoWidget
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class Cutting(QDialog):
     """ Cutting Dialog """
@@ -128,6 +124,9 @@ class Cutting(QDialog):
 
             # Set has_audio property
             self.r.info.has_audio = self.clip.Reader().info.has_audio
+
+            # Update video_length property of the Timeline object
+            self.r.info.video_length = self.video_length
 
             if preview:
                 # Display frame #'s during preview

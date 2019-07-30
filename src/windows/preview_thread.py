@@ -37,11 +37,7 @@ from classes.app import get_app
 from classes.logger import log
 from classes import settings
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class PreviewParent(QObject):
     """ Class which communicates with the PlayerWorker Class (running on a separate thread) """
@@ -251,12 +247,12 @@ class PlayerWorker(QObject):
             project = get_app().project
 
             # Get some settings from the project
-            fps = project.get(["fps"])
-            width = project.get(["width"])
-            height = project.get(["height"])
-            sample_rate = project.get(["sample_rate"])
-            channels = project.get(["channels"])
-            channel_layout = project.get(["channel_layout"])
+            fps = project.get("fps")
+            width = project.get("width")
+            height = project.get("height")
+            sample_rate = project.get("sample_rate")
+            channels = project.get("channels")
+            channel_layout = project.get("channel_layout")
 
             # Create an instance of a libopenshot Timeline object
             self.clip_reader = openshot.Timeline(width, height, openshot.Fraction(fps["num"], fps["den"]), sample_rate, channels, channel_layout)

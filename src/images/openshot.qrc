@@ -1,5 +1,25 @@
 <RCC>
-    <qresource prefix="/"/>
+    <qresource prefix="/">
+        <file>openshot.svg</file>
+    </qresource>
+    <qresource prefix="/about">
+        <file>AboutLogo.png</file>
+        <file>bitcoin-icon.png</file>
+        <file>kickstarter-icon.png</file>
+        <file>patreon-icon.png</file>
+        <file>paypal-icon.png</file>
+        <file>python-icon.png</file>
+        <file>star-icon.png</file>
+    </qresource>
+    <qresource prefix="/hw">
+	<file>hw-accel-none.svg</file>
+        <file>hw-accel-dx.svg</file>
+        <file>hw-accel-nvdec.svg</file>
+        <file>hw-accel-nvenc.svg</file>
+        <file>hw-accel-qsv.svg</file>
+        <file>hw-accel-vaapi.svg</file>
+        <file>hw-accel-vdpau.svg</file>
+    </qresource>
     <qresource prefix="/icons">
         <file>Humanity/actions/custom/arrow.png</file>
         <file>Humanity/actions/custom/razor_line_with_razor.png</file>
@@ -321,6 +341,5 @@
         <file>Humanity/actions/16/transform-move.png</file>
         <file>Humanity/actions/16/view-list-icons.png</file>
         <file>Humanity/actions/custom/camera-photo-symbolic.svg</file>
-        <file>Humanity/actions/custom/properties-view.svg</file>
     </qresource>
 </RCC>
