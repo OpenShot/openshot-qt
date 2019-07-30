@@ -344,7 +344,7 @@ try:
         shutil.copytree(os.path.join(PATH, "build", exe_dir), os.path.join(app_dir_path, "usr", "bin"))
 
         # Copy desktop integration wrapper (prompts users to install shortcut)
-        launcher_path = os.path.join(app_dir_path, "usr", "bin", "openshot-qt")
+        launcher_path = os.path.join(app_dir_path, "usr", "bin", "openshot-qt-launch")
         os.rename(os.path.join(app_dir_path, "usr", "bin", "launch-linux.sh"), launcher_path)
         desktop_wrapper = os.path.join(app_dir_path, "usr", "bin", "openshot-qt.wrapper")
         shutil.copyfile("/home/ubuntu/apps/AppImageKit/desktopintegration", desktop_wrapper)
@@ -459,7 +459,7 @@ try:
             only_64_bit = ""
 
         # Add version metadata to frozen app launcher
-        launcher_exe = os.path.join(exe_dir, "launch.exe")
+        launcher_exe = os.path.join(exe_dir, "openshot-qt.exe")
         verpatch_success = True
         verpatch_command = '"verpatch.exe" "{}" /va /high "{}" /pv "{}" /s product "{}" /s company "{}" /s copyright "{}" /s desc "{}"'.format(launcher_exe, info.VERSION, info.VERSION, info.PRODUCT_NAME, info.COMPANY_NAME, info.COPYRIGHT, info.PRODUCT_NAME)
         verpatch_output = ""
