@@ -1890,9 +1890,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             dock.setFeatures(QDockWidget.NoDockWidgetFeatures)
 
     def unFreezeDocks(self):
-        """ Un-freeze all dockable widgets on the main screen (allow them to be closed, floated, and moved) """
+        """ Un-freeze all dockable widgets on the main screen (allow them to be closed, floated, or moved, as appropriate) """
         for dock in self.getDocks():
-            dock.setFeatures(QDockWidget.DockWidgetClosable | QDockWidget.DockWidgetFloatable | QDockWidget.DockWidgetMovable)
+            if dock is self.dockTimeline:
+                dock.setFeatures(QDockWidget.DockWidgetFloatable | QDockWidget.DockWidgetMovable)
+            else:
+                dock.setFeatures(QDockWidget.DockWidgetClosable | QDockWidget.DockWidgetFloatable | QDockWidget.DockWidgetMovable)
 
     def hideDocks(self):
         """ Hide all dockable widgets on the main screen """
