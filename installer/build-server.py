@@ -344,7 +344,7 @@ try:
         shutil.copytree(os.path.join(PATH, "build", exe_dir), os.path.join(app_dir_path, "usr", "bin"))
 
         # Copy desktop integration wrapper (prompts users to install shortcut)
-        launcher_path = os.path.join(app_dir_path, "usr", "bin", "openshot-qt")
+        launcher_path = os.path.join(app_dir_path, "usr", "bin", "openshot-qt-launch")
         os.rename(os.path.join(app_dir_path, "usr", "bin", "launch-linux.sh"), launcher_path)
         desktop_wrapper = os.path.join(app_dir_path, "usr", "bin", "openshot-qt.wrapper")
         shutil.copyfile("/home/ubuntu/apps/AppImageKit/desktopintegration", desktop_wrapper)
