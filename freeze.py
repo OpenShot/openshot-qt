@@ -115,6 +115,7 @@ src_files = []
 external_so_files = []
 build_options = {}
 build_exe_options = {}
+exe_name = info.NAME
 
 # Copy QT translations to local folder (to be packaged)
 qt_local_path = os.path.join(PATH, "openshot_qt", "language")
@@ -142,6 +143,7 @@ for project in ["libopenshot-audio", "libopenshot", "openshot-qt"]:
 if sys.platform == "win32":
     base = "Win32GUI"
     build_exe_options["include_msvcr"] = True
+    exe_name += ".exe"
 
     # Append Windows ICON file
     iconFile += ".ico"
@@ -282,8 +284,7 @@ setup(name=info.PRODUCT_NAME,
                               icon=os.path.join(PATH, "xdg", iconFile),
                               shortcutName="%s" % info.PRODUCT_NAME,
                               shortcutDir="ProgramMenuFolder",
-                              targetName = info.NAME,
-                              copyright = info.COPYRIGHT)])
+                              targetName=exe_name)])
 
 
 # Remove temporary folder (if SRC folder present)
