@@ -376,6 +376,9 @@
        <property name="placeholderText">
         <string>Filter</string>
        </property>
+       <property name="clearButtonEnabled">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
     </layout>
@@ -1347,7 +1350,7 @@
     <string>File Properties</string>
    </property>
   </action>
-  <action name="actionPropertyClear">
+  <action name="actionPropertyFilterClear">
    <property name="icon">
     <iconset theme="edit-clear" resource="../../images/openshot.qrc">
      <normaloff>:/icons/Humanity/actions/16/edit-clear.svg</normaloff>:/icons/Humanity/actions/16/edit-clear.svg</iconset>
