@@ -273,17 +273,8 @@ class FilesTreeView(QTreeView):
                     if self.add_file(filepath):
                         event.accept()
 
-    def clear_filter(self):
-        if self:
-            self.win.filesFilter.setText("")
-
     def filter_changed(self):
-        if self:
-            if self.win.filesFilter.text() == "":
-                self.win.actionFilesClear.setEnabled(False)
-            else:
-                self.win.actionFilesClear.setEnabled(True)
-            self.refresh_view()
+        self.refresh_view()
 
     def refresh_view(self):
         self.files_model.update_model()
@@ -389,5 +380,4 @@ class FilesTreeView(QTreeView):
         # setup filter events
         app = get_app()
         app.window.filesFilter.textChanged.connect(self.filter_changed)
-        app.window.actionFilesClear.triggered.connect(self.clear_filter)
         self.files_model.model.itemChanged.connect(self.value_updated)
