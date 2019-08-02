@@ -800,14 +800,13 @@ class Worker(QObject):
             # Does it have a match?
             if output_saved:
                 # Yes, we have a match
-                log.info("Image detected from blender regex: %s" % output_saved)
                 self.frame_detected = True
                 image_path = output_saved[0][0]
                 time_saved = output_saved[0][1]
 
                 # Update preview image
+                log.info("Image detected from blender regex: %s" % image_path)
                 self.image_updated.emit(image_path)
-
 
         # Re-enable the interface
         self.enable_interface.emit()
