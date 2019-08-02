@@ -754,6 +754,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-start")
         self.actionPlay.setChecked(False)
 
+        # Set cursor to waiting
+        get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
+
         # Show dialog
         from windows.preferences import Preferences
         win = Preferences()
@@ -767,6 +770,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Save settings
         s = settings.get_settings()
         s.save()
+
+        # Restore normal cursor
+        get_app().restoreOverrideCursor()
 
     def actionFilesShowAll_trigger(self, event):
         self.filesTreeView.refresh_view()
