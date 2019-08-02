@@ -174,7 +174,10 @@ class BlenderListView(QListView):
             elif param["type"] == "color":
                 # add value to dictionary
                 color = QColor(param["default"])
-                self.params[param["name"]] = [color.redF(), color.greenF(), color.blueF()]
+                if param.get("name") == "diffuse_color":
+                    self.params[param["name"]] = [color.redF(), color.greenF(), color.blueF(), color.alphaF()]
+                else:
+                    self.params[param["name"]] = [color.redF(), color.greenF(), color.blueF()]
 
                 widget = QPushButton()
                 widget.setText("")
@@ -454,11 +457,11 @@ class BlenderListView(QListView):
         if is_preview:
             # preview mode - use offwhite background (i.e. horizon color)
             project_params["color_mode"] = "RGB"
-            project_params["alpha_mode"] = "SKY"
+            project_params["alpha_mode"] = 0
         else:
             # render mode - transparent background
             project_params["color_mode"] = "RGBA"
-            project_params["alpha_mode"] = "TRANSPARENT"
+            project_params["alpha_mode"] = 1
         project_params["horizon_color"] = (0.57, 0.57, 0.57)
         project_params["animation"] = True
         project_params["output_path"] = os.path.join(info.BLENDER_PATH, self.unique_folder_name,
@@ -480,7 +483,7 @@ class BlenderListView(QListView):
             version_message = _("\n\nError Output:\n{}").format(command_output)
 
         # show error message
-        blender_version = "2.78"
+        blender_version = "2.8"
         # Handle exception
         msg = QMessageBox()
         msg.setText(_(
@@ -523,6 +526,7 @@ class BlenderListView(QListView):
 
         # If GPU rendering is selected, see if GPU enable code is available
         s = settings.get_settings()
+        gpu_code_body = None
         if s.get("blender_gpu_enabled"):
             gpu_enable_py = os.path.join(info.PATH, "blender", "scripts", "gpu_enable.py")
             try:

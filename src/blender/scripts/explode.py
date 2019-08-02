@@ -45,8 +45,7 @@ def createExplodeTxt(title,particle_number,extrude,bevel_depth,spacemode,textsiz
 
 	newText = title
 	#create text
-	bpy.ops.object.text_add(view_align=False, enter_editmode=False, location=(0, 0, 0), rotation=(0, 0, 0))
-	
+	bpy.ops.object.text_add(radius=1.0, enter_editmode=False, align='WORLD', location=(0.0, 0.0, 0.0), rotation=(0.0, 0.0, 0.0))
 	newtext = bpy.context.scene.objects.active
 
 	if bpy.context.scene.objects.active.name != 'Text':
@@ -236,8 +235,6 @@ material_object = bpy.data.materials["TextMaterial"]
 material_object.diffuse_color = params["diffuse_color"]
 material_object.specular_color = params["specular_color"]
 material_object.specular_intensity = params["specular_intensity"]
-material_object.alpha = params["alpha"]
-
 
 
 # Set the render options.  It is important that these are set
@@ -252,8 +249,8 @@ try:
 except:
 	bpy.context.scene.render.image_settings.file_format = params["file_format"]
 	bpy.context.scene.render.image_settings.color_mode = params["color_mode"]
-bpy.context.scene.render.alpha_mode = params["alpha_mode"]
-bpy.data.worlds[0].horizon_color = params["horizon_color"]
+bpy.context.scene.render.film_transparent = params["alpha_mode"]
+bpy.data.worlds[0].color = params["horizon_color"]
 bpy.context.scene.render.resolution_x = params["resolution_x"]
 bpy.context.scene.render.resolution_y = params["resolution_y"]
 bpy.context.scene.render.resolution_percentage = params["resolution_percentage"]

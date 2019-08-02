@@ -104,7 +104,6 @@ material_object1 = bpy.data.materials["Title.Material"]
 material_object1.diffuse_color = params["diffuse_color"]
 material_object1.specular_color = params["specular_color"]
 material_object1.specular_intensity = params["specular_intensity"]
-material_object1.alpha = params["alpha"]
 
 # GLASS - Change the material settings (color, alpha, etc...)
 material_object2 = bpy.data.materials["Background.Material"]
@@ -163,7 +162,7 @@ try:
 except:
 	bpy.context.scene.render.image_settings.file_format = params["file_format"]
 	bpy.context.scene.render.image_settings.color_mode = params["color_mode"]
-bpy.context.scene.render.alpha_mode = params["alpha_mode"]
+bpy.context.scene.render.film_transparent = params["alpha_mode"]
 bpy.context.scene.render.resolution_x = params["resolution_x"]
 bpy.context.scene.render.resolution_y = params["resolution_y"]
 bpy.context.scene.render.resolution_percentage = params["resolution_percentage"]

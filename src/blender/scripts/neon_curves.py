@@ -111,7 +111,7 @@ material_object = bpy.data.materials["Material.title"]
 material_object.diffuse_color = params["diffuse_color"]
 material_object.specular_color = params["specular_color"]
 material_object.specular_intensity = params["specular_intensity"]
-material_object.alpha = params["alpha"]
+
 
 # Change line colors
 material_object = bpy.data.materials["Material.line1"]
@@ -136,7 +136,7 @@ try:
 except:
 	bpy.context.scene.render.image_settings.file_format = params["file_format"]
 	bpy.context.scene.render.image_settings.color_mode = params["color_mode"]
-bpy.context.scene.render.alpha_mode = params["alpha_mode"]
+bpy.context.scene.render.film_transparent = params["alpha_mode"]
 bpy.context.scene.render.resolution_x = params["resolution_x"]
 bpy.context.scene.render.resolution_y = params["resolution_y"]
 bpy.context.scene.render.resolution_percentage = params["resolution_percentage"]
