@@ -49,10 +49,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         self.data_type = "project data"  # Used in error messages
         self.default_project_filepath = os.path.join(info.PATH, 'settings', '_default.project')
 
-        # Always set, in case the user creates the file mid-session
-        if info.USER_DEFAULT_PROJECT:
-            self.user_project_filepath = info.USER_DEFAULT_PROJECT
-
         # Set default filepath to user's home folder
         self.current_filepath = None
 
@@ -257,20 +253,17 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         import openshot
 
         # Try to load user default project
-        if os.path.exists(self.user_project_filepath):
+        if os.path.exists(info.USER_DEFAULT_PROJECT):
             try:
-                self._data = self.read_from_file(self.user_project_filepath)
+                self._data = self.read_from_file(info.USER_DEFAULT_PROJECT)
             except (FileNotFoundError, PermissionError) as ex:
-                log.warning("Unable to load defaults from {}: {}".format(
-                    new_project_file, ex))
+                log.warning("Unable to load user project defaults from {}: {}".format(info.USER_DEFAULT_PROJECT, ex))
             except Exception:
                 raise
             else:
-                log.info("Loaded user project defaults from {}".format(
-                    self.user_project_filepath))
-
-        # Fall back to OpenShot defaults, if user defaults didn't load
-        if not self._data:
+                log.info("Loaded user project defaults from {}".format(info.USER_DEFAULT_PROJECT))
+        else:
+            # Fall back to OpenShot defaults, if user defaults didn't load
             self._data = self.read_from_file(self.default_project_filepath)
 
         self.current_filepath = None
