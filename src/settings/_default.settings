@@ -456,14 +456,6 @@
     "setting": "omp_threads_enabled"
   },
   {
-    "value": false,
-    "title": "Use Blender GPU rendering for Animated Titles (Experimental)",
-    "type": "bool",
-    "restart": false,
-    "category": "Performance",
-    "setting": "blender_gpu_enabled"
-  },
-  {
     "min": 0,
     "max": 128,
     "value": 12,
@@ -502,6 +494,14 @@
     "restart": true,
     "category": "Performance",
     "setting": "decode_hw_max_height"
+  },
+  {
+    "value": false,
+    "title": "Use Blender GPU rendering for Animated Titles (Experimental)",
+    "type": "bool",
+    "restart": false,
+    "category": "Performance",
+    "setting": "blender_gpu_enabled"
   },
   {
     "value": true,
