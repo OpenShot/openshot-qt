@@ -90,6 +90,9 @@ class Preferences(QDialog):
         # Populate preferences
         self.Populate()
 
+        # Restore normal cursor
+        get_app().restoreOverrideCursor()
+
     def txtSearch_changed(self):
         """textChanged event handler for search box"""
         log.info("Search for %s" % self.txtSearch.text())
