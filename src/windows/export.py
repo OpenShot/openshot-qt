@@ -830,6 +830,9 @@ class Export(QDialog):
             if "crf" in self.txtVideoBitRate.text():
                 w.SetOption(openshot.VIDEO_STREAM, "crf", str(int(video_settings.get("video_bitrate"))) )
 
+            # Muxing options for mp4/mov
+            w.SetOption(openshot.VIDEO_STREAM, "muxing_preset", "mp4_faststart")
+
             # Open the writer
             w.Open()
 
