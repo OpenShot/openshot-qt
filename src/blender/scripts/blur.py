@@ -71,6 +71,8 @@ params = {
 			'start_frame' : 20,
 			'end_frame' : 25,
 			'animation' : True,
+			'blur_amount_x': 75,
+			'blur_amount_y': 75,
 		}
 
 #INJECT_PARAMS_HERE
@@ -106,6 +108,12 @@ material_object = bpy.data.materials["Text"]
 material_object.diffuse_color = params["diffuse_color"]
 material_object.specular_color = params["specular_color"]
 material_object.specular_intensity = params["specular_intensity"]
+
+# Change blue amount (size_x and size_y)
+bpy.data.actions[0].fcurves[1].keyframe_points[0].co.y = params["blur_amount_x"]
+bpy.data.actions[0].fcurves[1].keyframe_points[3].co.y = params["blur_amount_x"]
+bpy.data.actions[0].fcurves[2].keyframe_points[0].co.y = params["blur_amount_y"]
+bpy.data.actions[0].fcurves[2].keyframe_points[3].co.y = params["blur_amount_y"]
 
 # Set the render options.  It is important that these are set
 # to the same values as the current OpenShot project.  These
