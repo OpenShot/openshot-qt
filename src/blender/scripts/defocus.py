@@ -112,13 +112,8 @@ material_object.specular_intensity = params["specular_intensity"]
 # params are automatically set by OpenShot
 bpy.context.scene.render.filepath = params["output_path"]
 bpy.context.scene.render.fps = params["fps"]
-#bpy.context.scene.render.quality = params["quality"]
-try:
-	bpy.context.scene.render.file_format = params["file_format"]
-	bpy.context.scene.render.color_mode = params["color_mode"]
-except:
-	bpy.context.scene.render.image_settings.file_format = params["file_format"]
-	bpy.context.scene.render.image_settings.color_mode = params["color_mode"]
+bpy.context.scene.render.image_settings.file_format = params["file_format"]
+bpy.context.scene.render.image_settings.color_mode = params["color_mode"]
 bpy.context.scene.render.film_transparent = params["alpha_mode"]
 bpy.data.worlds[0].color = params["horizon_color"]
 bpy.context.scene.render.resolution_x = params["resolution_x"]
