@@ -71,6 +71,7 @@ params = {
 			'start_frame' : 20,
 			'end_frame' : 25,
 			'animation' : True,
+			'thickness' : 0.015,
 		}
 
 #INJECT_PARAMS_HERE
@@ -108,6 +109,14 @@ material_object.diffuse_color = params["diffuse_color"]
 material_object.specular_color = params["specular_color"]
 material_object.specular_intensity = params["specular_intensity"]
 
+# Convert to mesh to apply effect
+bpy.ops.object.convert(target='MESH', keep_original=False)
+ActiveObjectText = bpy.context.view_layer.objects.active
+
+# Add Wireframe modifier to new mesh
+bpy.ops.object.modifier_add(type='WIREFRAME')
+ActiveObjectText.modifiers['Wireframe'].use_even_offset = False
+ActiveObjectText.modifiers['Wireframe'].thickness = params["thickness"]
 
 # Set the render options.  It is important that these are set
 # to the same values as the current OpenShot project.  These
