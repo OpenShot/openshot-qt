@@ -43,6 +43,12 @@
 		</values>
 		<default>CENTER</default>
 	</param>
+
+	<param name="defocus_z" type="spinner" title="Defocus Z" description="">
+		<min>0.0</min>
+		<max>2.0</max>
+		<default>2.0</default>
+	</param>
 	
 	<param name="text_size" type="spinner" title="Text Size" description="">
 		<min>0.0</min>

@@ -109,7 +109,7 @@ material_object.diffuse_color = params["diffuse_color"]
 material_object.specular_color = params["specular_color"]
 material_object.specular_intensity = params["specular_intensity"]
 
-# Change blue amount (size_x and size_y)
+# Change blur amount (size_x and size_y)
 bpy.data.actions[0].fcurves[1].keyframe_points[0].co.y = params["blur_amount_x"]
 bpy.data.actions[0].fcurves[1].keyframe_points[3].co.y = params["blur_amount_x"]
 bpy.data.actions[0].fcurves[2].keyframe_points[0].co.y = params["blur_amount_y"]

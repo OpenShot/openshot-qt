@@ -71,6 +71,7 @@ params = {
 			'start_frame' : 20,
 			'end_frame' : 25,
 			'animation' : True,
+			'defocus_z' : 2.0,
 		}
 
 #INJECT_PARAMS_HERE
@@ -106,6 +107,10 @@ material_object = bpy.data.materials["Text"]
 material_object.diffuse_color = params["diffuse_color"]
 material_object.specular_color = params["specular_color"]
 material_object.specular_intensity = params["specular_intensity"]
+
+# Change defocus Z amount
+bpy.data.actions[0].fcurves[0].keyframe_points[0].co.y = params["defocus_z"]
+bpy.data.actions[0].fcurves[0].keyframe_points[3].co.y = params["defocus_z"]
 
 # Set the render options.  It is important that these are set
 # to the same values as the current OpenShot project.  These
