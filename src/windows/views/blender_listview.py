@@ -228,13 +228,15 @@ class BlenderListView(QListView):
         log.info('Value of param: %s' % color_value)
         currentColor = QColor("#FFFFFF")
         if len(color_value) == 3:
-            #currentColor = QColor(color_value[0], color_value[1], color_value[2])
             currentColor.setRgbF(color_value[0], color_value[1], color_value[2])
         newColor = QColorDialog.getColor(currentColor, self, _("Select a Color"),
                                          QColorDialog.DontUseNativeDialog)
         if newColor.isValid():
             widget.setStyleSheet("background-color: {}".format(newColor.name()))
-            self.params[param["name"]] = [newColor.redF(), newColor.greenF(), newColor.blueF()]
+            if param.get("name") == "diffuse_color":
+                self.params[param["name"]] = [newColor.redF(), newColor.greenF(), newColor.blueF(), newColor.alphaF()]
+            else:
+                self.params[param["name"]] = [newColor.redF(), newColor.greenF(), newColor.blueF()]
             log.info('New value of param: %s' % newColor.name())
 
     def generateUniqueFolder(self):
@@ -454,14 +456,8 @@ class BlenderListView(QListView):
             project_params["resolution_percentage"] = 100
         project_params["quality"] = 100
         project_params["file_format"] = "PNG"
-        if is_preview:
-            # preview mode - use offwhite background (i.e. horizon color)
-            project_params["color_mode"] = "RGB"
-            project_params["alpha_mode"] = 0
-        else:
-            # render mode - transparent background
-            project_params["color_mode"] = "RGBA"
-            project_params["alpha_mode"] = 1
+        project_params["color_mode"] = "RGBA"
+        project_params["alpha_mode"] = 1
         project_params["horizon_color"] = (0.57, 0.57, 0.57)
         project_params["animation"] = True
         project_params["output_path"] = os.path.join(info.BLENDER_PATH, self.unique_folder_name,
