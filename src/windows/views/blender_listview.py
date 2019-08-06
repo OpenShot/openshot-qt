@@ -2,25 +2,25 @@
  @file
  @brief This file contains the blender file listview, used by the 3d animated titles screen
  @author Jonathan Thomas <jonathan@openshot.org>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
@@ -197,9 +197,8 @@ class BlenderListView(QListView):
         self.init_slider_values()
 
     def spinner_value_changed(self, param, value):
-        log.info('Animation param being changed: %s' % param["name"])
         self.params[param["name"]] = value
-        log.info('New value of param: %s' % value)
+        log.info('Animation param %s set to %s' % (param["name"], value))
 
     def text_value_changed(self, widget, param, value=None):
         try:
@@ -208,24 +207,21 @@ class BlenderListView(QListView):
                 value = widget.toPlainText()
         except:
             pass
-        log.info('Animation param being changed: %s' % param["name"])
         self.params[param["name"]] = value.replace("\n", "\\n")
-        log.info('New value of param: %s' % value)
+        # XXX: This will log every individual KEYPRESS in the text field.
+        # log.info('Animation param %s set to %s' % (param["name"], value))
 
     def dropdown_index_changed(self, widget, param, index):
-        log.info('Animation param being changed: %s' % param["name"])
         value = widget.itemData(index)
         self.params[param["name"]] = value
-        log.info('New value of param: %s' % value)
+        log.info('Animation param %s set to %s' % (param["name"], value))
 
     def color_button_clicked(self, widget, param, index):
         # Get translation object
         _ = get_app()._tr
 
         # Show color dialog
-        log.info('Animation param being changed: %s' % param["name"])
         color_value = self.params[param["name"]]
-        log.info('Value of param: %s' % color_value)
         currentColor = QColor("#FFFFFF")
         if len(color_value) == 3:
             currentColor.setRgbF(color_value[0], color_value[1], color_value[2])
@@ -237,7 +233,7 @@ class BlenderListView(QListView):
                 self.params[param["name"]] = [newColor.redF(), newColor.greenF(), newColor.blueF(), newColor.alphaF()]
             else:
                 self.params[param["name"]] = [newColor.redF(), newColor.greenF(), newColor.blueF()]
-            log.info('New value of param: %s' % newColor.name())
+            log.info('Animation param %s set to %s' % (param["name"], newColor.name()))
 
     def generateUniqueFolder(self):
         """ Generate a new, unique folder name to contain Blender frames """
@@ -270,7 +266,6 @@ class BlenderListView(QListView):
 
     def init_slider_values(self):
         """ Init the slider and preview frame label to the currently selected animation """
-        log.info("init_slider_values")
 
         # Get current preview slider frame
         preview_frame_number = self.win.sliderPreview.value()
@@ -299,16 +294,14 @@ class BlenderListView(QListView):
     def btnRefresh_clicked(self, checked):
 
         # Render current frame
-        log.info("btnRefresh_clicked")
         preview_frame_number = self.win.sliderPreview.value()
         self.Render(preview_frame_number)
 
     def render_finished(self):
-        log.info("RENDER FINISHED!")
 
         # Add file to project
         final_path = os.path.join(info.BLENDER_PATH, self.unique_folder_name, self.params["file_name"] + "%04d.png")
-        log.info('Adding to project files: %s' % final_path)
+        log.info('RENDER FINISHED! Adding to project files: %s' % final_path)
 
         # Add to project files
         self.win.add_file(final_path)
@@ -317,8 +310,6 @@ class BlenderListView(QListView):
         self.win.close()
 
     def close_window(self):
-        log.info("CLOSING WINDOW")
-
         # Close window
         self.close()
 
@@ -332,7 +323,6 @@ class BlenderListView(QListView):
 
     def sliderPreview_valueChanged(self, new_value):
         """Get new value of preview slider, and start timer to Render frame"""
-        log.info('sliderPreview_valueChanged: %s' % new_value)
         if self.win.sliderPreview.isEnabled():
             self.preview_timer.start()
 
@@ -343,11 +333,11 @@ class BlenderListView(QListView):
 
     def preview_timer_onTimeout(self):
         """Timer is ready to Render frame"""
-        log.info('preview_timer_onTimeout')
         self.preview_timer.stop()
 
         # Update preview label
         preview_frame_number = self.win.sliderPreview.value()
+        log.info('Previewing frame %s' % preview_frame_number)
 
         # Render current frame
         self.Render(preview_frame_number)
@@ -474,9 +464,11 @@ class BlenderListView(QListView):
         version_message = ""
         if version:
             version_message = _("\n\nVersion Detected:\n{}").format(version)
+            log.error("Blender version detected: {}".format(version))
 
         if command_output:
             version_message = _("\n\nError Output:\n{}").format(command_output)
+            log.error("Blender error output:\n{}".format(command_output))
 
         # show error message
         blender_version = "2.8"
@@ -659,22 +651,18 @@ class BlenderListView(QListView):
 
     # Signal when to close window (1001)
     def onCloseWindow(self):
-        log.info('onCloseWindow')
         self.close()
 
     # Signal when render is finished (1002)
     def onRenderFinish(self):
-        log.info('onRenderFinish')
         self.render_finished()
 
     # Error from blender (with version number) (1003)
     def onBlenderVersionError(self, version):
-        log.info('onBlenderVersionError: %s' % version)
         self.error_with_blender(version)
 
     # Error from blender (with no data) (1004)
     def onBlenderErrorNoData(self):
-        log.info('onBlenderErrorNoData')
         self.error_with_blender()
 
     # Signal when to update progress bar (1005)
@@ -687,12 +675,10 @@ class BlenderListView(QListView):
 
     # Signal error from blender (with custom message) (1007)
     def onBlenderErrorMessage(self, error):
-        log.info('onBlenderErrorMessage')
         self.error_with_blender(None, error)
 
     # Signal when to re-enable interface (1008)
     def onRenableInterface(self):
-        log.info('onRenableInterface')
         self.enable_interface()
 
 
@@ -711,7 +697,6 @@ class Worker(QObject):
     @pyqtSlot(str, str, bool)
     def Render(self, blend_file_path, target_script, preview_mode=False):
         """ Worker's Render method which invokes the Blender rendering commands """
-        log.info("QThread Render Method Invoked")
 
         # Init regex expression used to determine blender's render progress
         s = settings.get_settings()
@@ -819,7 +804,6 @@ class Worker(QObject):
             self.finished.emit()
 
         # Thread finished
-        log.info("Blender render thread finished")
         if self.is_running == False:
             # close window if thread was killed
             self.closed.emit()
