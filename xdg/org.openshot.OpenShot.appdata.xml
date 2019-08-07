@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>openshot-qt</id>
-  <launchable type="desktop-id">openshot-qt.desktop</launchable>
+  <id>org.openshot.OpenShot</id>
+  <launchable type="desktop-id">org.openshot.OpenShot.desktop</launchable>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
   <name>OpenShot Video Editor</name>
