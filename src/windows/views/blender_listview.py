@@ -174,7 +174,7 @@ class BlenderListView(QListView):
             elif param["type"] == "color":
                 # add value to dictionary
                 color = QColor(param["default"])
-                if param.get("name") == "diffuse_color":
+                if "diffuse_color" in param.get("name"):
                     self.params[param["name"]] = [color.redF(), color.greenF(), color.blueF(), color.alphaF()]
                 else:
                     self.params[param["name"]] = [color.redF(), color.greenF(), color.blueF()]
@@ -229,7 +229,7 @@ class BlenderListView(QListView):
                                          QColorDialog.DontUseNativeDialog)
         if newColor.isValid():
             widget.setStyleSheet("background-color: {}".format(newColor.name()))
-            if param.get("name") == "diffuse_color":
+            if "diffuse_color" in param.get("name"):
                 self.params[param["name"]] = [newColor.redF(), newColor.greenF(), newColor.blueF(), newColor.alphaF()]
             else:
                 self.params[param["name"]] = [newColor.redF(), newColor.greenF(), newColor.blueF()]
