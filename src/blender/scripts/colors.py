@@ -137,14 +137,16 @@ material_object3.specular_color = params["specular_color"]
 material_object3.specular_intensity = params["specular_intensity"]
 
 # BACKGROUND - Change the material settings (color, alpha, etc...)
-if params["shadeless"] == "Yes":
-    # Shadeless Background
-    material_object4 = bpy.data.materials["Background.Material.Shadeless"]
-    material_object4.node_tree.nodes["Emission"].color = params["specular_color_bg"]
-else:
-    material_object4 = bpy.data.materials["Background.Material"]
-    material_object4.specular_color = params["specular_color_bg"]
-    material_object4.specular_intensity = params["specular_intensity_bg"]
+material_object4 = bpy.data.materials["Background.Material"]
+material_object4.specular_color = params["specular_color_bg"]
+material_object4.specular_intensity = params["specular_intensity_bg"]
+
+# Shadeless Background
+# TODO: Unsupported in Blender 2.8 (not sure of workaround yet)
+#if params["shadeless"] == "Yes":
+#	material_object4.use_shadeless = True
+#else:
+#	material_object4.use_shadeless = False
 
 # BACKGROUND COLORS (KEYFRAMES) ----------------------
 # TILE 1
