@@ -331,13 +331,13 @@ try:
         shutil.copyfile("/home/ubuntu/apps/AppImageKit/AppRun", app_run_path)
 
         # Create .desktop file
-        with open(os.path.join(app_dir_path, "openshot-qt.desktop"), "w") as f:
+        with open(os.path.join(app_dir_path, "org.openshot.OpenShot.desktop"), "w") as f:
             f.write('[Desktop Entry]\nName=OpenShot Video Editor\nGenericName=Video Editor\nX-GNOME-FullName=OpenShot Video Editor\nComment=Create and edit amazing videos and movies\nExec=openshot-qt.wrapper %F\nTerminal=false\nIcon=openshot-qt\nType=Application')
 
         # Copy some installation-related files
         shutil.copyfile(os.path.join(PATH, "xdg", "openshot-qt.svg"), os.path.join(app_dir_path, "openshot-qt.svg"))
         shutil.copyfile(os.path.join(PATH, "xdg", "openshot-qt.svg"), os.path.join(app_dir_path, "usr", "share", "pixmaps", "openshot-qt.svg"))
-        shutil.copyfile(os.path.join(PATH, "xdg", "openshot-qt.xml"), os.path.join(app_dir_path, "usr", "share", "mime", "packages", "openshot-qt.xml"))
+        shutil.copyfile(os.path.join(PATH, "xdg", "org.openshot.OpenShot.xml"), os.path.join(app_dir_path, "usr", "share", "mime", "packages", "org.openshot.OpenShot.xml"))
         shutil.copyfile(os.path.join(PATH, "xdg", "openshot-qt"), os.path.join(app_dir_path, "usr", "lib", "mime", "packages", "openshot-qt"))
 
         # Copy the entire frozen app
