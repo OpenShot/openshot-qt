@@ -153,8 +153,7 @@ class BlenderListView(QListView):
                             if fileExtension.lower() not in (".svg"):
                                 param["values"][fileName] = "|".join((file.data["path"], str(file.data["height"]),
                                                                       str(file.data["width"]), file.data["media_type"],
-                                                                      str(file.data["fps"]["num"] / file.data["fps"][
-                                                                          "den"])))
+                                                                      str(file.data["fps"]["num"] / file.data["fps"]["den"])))
 
                 # Add normal values
                 box_index = 0
@@ -247,6 +246,10 @@ class BlenderListView(QListView):
 
     def disable_interface(self, cursor=True):
         """ Disable all controls on interface """
+
+        # Store keyboard-focused widget
+        self.focus_owner = self.win.focusWidget()
+        
         self.win.btnRefresh.setEnabled(False)
         self.win.sliderPreview.setEnabled(False)
         self.win.buttonBox.setEnabled(False)
@@ -261,8 +264,10 @@ class BlenderListView(QListView):
         self.win.sliderPreview.setEnabled(True)
         self.win.buttonBox.setEnabled(True)
 
-        # Restore normal cursor
+        # Restore normal cursor and keyboard focus
         QApplication.restoreOverrideCursor()
+        if self.focus_owner:
+            self.focus_owner.setFocus()
 
     def init_slider_values(self):
         """ Init the slider and preview frame label to the currently selected animation """
