@@ -94,34 +94,17 @@ bpy.data.actions["CubeAction"].fcurves[2].keyframe_points[1].handle_right.y = pa
 
 # Change the material settings (color, alpha, etc...)
 material_object = bpy.data.materials["Material"]
+material_object.node_tree.nodes[1].inputs[0].default_value = params["diffuse_color"]
+material_object.node_tree.nodes[1].inputs[1].default_value = params["strength"]
 material_object.diffuse_color = params["diffuse_color"]
-material_object.specular_color = params["specular_color"]
-material_object.mirror_color = params["mirror_color"]
-material_object.specular_intensity = params["specular_intensity"]
 
+# Change size of particle
+bpy.data.objects["Sphere"].scale[0] = params["particle_scale"]
+bpy.data.objects["Sphere"].scale[1] = params["particle_scale"]
+bpy.data.objects["Sphere"].scale[2] = params["particle_scale"]
 
-# Change Halo settings
-material_object.halo.size = params["halo_size"]
-material_object.halo.hardness = params["halo_hardness"]
-if params["halo_use_lines"] == "Yes":
-	material_object.halo.use_lines = True
-else:
-	material_object.halo.use_lines = False
-material_object.halo.line_count = params["halo_line_count"]
-if params["halo_use_ring"] == "Yes":
-	material_object.halo.use_ring = True
-else:
-	material_object.halo.use_ring = False
-material_object.halo.ring_count = params["halo_ring_count"]
-if params["halo_use_star"] == "Yes":
-	material_object.halo.use_star = True
-else:
-	material_object.halo.use_star = False 
-material_object.halo.star_tip_count = params["halo_star_tip_count"]
-if params["halo_use_flare_mode"] == "Yes":
-	material_object.halo.use_flare_mode = True
-else:
-	material_object.halo.use_flare_mode = False
+# Change glare type
+bpy.data.scenes[0].node_tree.nodes["Glare"].glare_type = params["glare_type"]
 
 # Change particle settings
 particle_object = bpy.data.particles[0]
