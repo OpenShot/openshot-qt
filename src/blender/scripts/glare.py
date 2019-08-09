@@ -104,7 +104,9 @@ text_object.font = font
 # Change the material settings (color, alpha, etc...)
 material_object = bpy.data.materials["Material.001"]
 material_object.diffuse_color = params["diffuse_color"]
-material_object.specular_color = params["specular_color"]
+
+# Change glare type
+bpy.data.scenes[0].node_tree.nodes["Glare"].glare_type = params["glare_type"]
 
 # Set the render options.  It is important that these are set
 # to the same values as the current OpenShot project.  These
