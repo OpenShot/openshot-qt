@@ -92,59 +92,56 @@ if len(picture4) > 1:
 
 # Modify picture paths
 if len(picture1) > 1:
-	bpy.data.objects["Plane.001"].scale.y = picture1_scale[0]
-	bpy.data.objects["Plane.001"].scale.x = picture1_scale[1]
+	bpy.data.objects["Plane.001"].scale.y = -picture1_scale[0]
+	bpy.data.objects["Plane.001"].scale.x = -picture1_scale[1]
 	
 	if picture1[3] == "image":
-		bpy.data.textures["Texture.002"].image.source = 'FILE'
-		bpy.data.textures["Texture.002"].image.filepath = picture1[0]
+		bpy.data.materials["Material.001"].node_tree.nodes[2].image.source = 'FILE'
+		bpy.data.materials["Material.001"].node_tree.nodes[2].image.filepath = picture1[0]
 	else:
-		bpy.data.textures["Texture.002"].image.source = 'MOVIE'
-		bpy.data.textures["Texture.002"].image.filepath = picture1[0]
-		bpy.data.textures["Texture.002"].image_user.use_cyclic = True
-		bpy.data.textures["Texture.002"].image_user.frame_duration = 230.0
+		bpy.data.materials["Material.001"].node_tree.nodes[2].image.source = 'MOVIE'
+		bpy.data.materials["Material.001"].node_tree.nodes[2].image.filepath = picture1[0]
+		bpy.data.materials["Material.001"].node_tree.nodes[2].image_user.use_cyclic = True
+		bpy.data.materials["Material.001"].node_tree.nodes[2].image_user.frame_duration = 230.0
 
 if len(picture2) > 1:
-	bpy.data.objects["Plane.002"].scale.y = picture2_scale[0]
-	bpy.data.objects["Plane.002"].scale.x = picture2_scale[1]
-	
-	if picture2[3] == "image":
-		bpy.data.textures["Texture.003"].image.source = 'FILE'
-		bpy.data.textures["Texture.003"].image.filepath = picture2[0]
-	else:
-		bpy.data.textures["Texture.003"].image.source = 'MOVIE'
-		bpy.data.textures["Texture.003"].image.filepath = picture2[0]
-		bpy.data.textures["Texture.003"].image_user.use_cyclic = True
-		bpy.data.textures["Texture.003"].image_user.frame_duration = 230.0
+	bpy.data.objects["Plane.002"].scale.y = -picture2_scale[0]
+	bpy.data.objects["Plane.002"].scale.x = -picture2_scale[1]
 
+	if picture2[3] == "image":
+		bpy.data.materials["Material.002"].node_tree.nodes[2].image.source = 'FILE'
+		bpy.data.materials["Material.002"].node_tree.nodes[2].image.filepath = picture2[0]
+	else:
+		bpy.data.materials["Material.002"].node_tree.nodes[2].image.source = 'MOVIE'
+		bpy.data.materials["Material.002"].node_tree.nodes[2].image.filepath = picture2[0]
+		bpy.data.materials["Material.002"].node_tree.nodes[2].image_user.use_cyclic = True
+		bpy.data.materials["Material.002"].node_tree.nodes[2].image_user.frame_duration = 230.0
 
 if len(picture3) > 1:
-	bpy.data.objects["Plane.003"].scale.y = picture3_scale[0]
-	bpy.data.objects["Plane.003"].scale.x = picture3_scale[1]
-	
+	bpy.data.objects["Plane.003"].scale.y = -picture3_scale[0]
+	bpy.data.objects["Plane.003"].scale.x = -picture3_scale[1]
+
 	if picture3[3] == "image":
-		bpy.data.textures["Texture.004"].image.source = 'FILE'
-		bpy.data.textures["Texture.004"].image.filepath = picture3[0]
+		bpy.data.materials["Material.003"].node_tree.nodes[2].image.source = 'FILE'
+		bpy.data.materials["Material.003"].node_tree.nodes[2].image.filepath = picture3[0]
 	else:
-		bpy.data.textures["Texture.004"].image.source = 'MOVIE'
-		bpy.data.textures["Texture.004"].image.filepath = picture3[0]
-		bpy.data.textures["Texture.004"].image_user.use_cyclic = True
-		bpy.data.textures["Texture.004"].image_user.frame_duration = 230.0
+		bpy.data.materials["Material.003"].node_tree.nodes[2].image.source = 'MOVIE'
+		bpy.data.materials["Material.003"].node_tree.nodes[2].image.filepath = picture3[0]
+		bpy.data.materials["Material.003"].node_tree.nodes[2].image_user.use_cyclic = True
+		bpy.data.materials["Material.003"].node_tree.nodes[2].image_user.frame_duration = 230.0
 
 if len(picture4) > 1:
-	bpy.data.objects["Plane.004"].scale.y = picture4_scale[0]
-	bpy.data.objects["Plane.004"].scale.x = picture4_scale[1]
-	
-	if picture4[3] == "image":
-		bpy.data.textures["Texture.005"].image.source = 'FILE'
-		bpy.data.textures["Texture.005"].image.filepath = picture4[0]
+	bpy.data.objects["Plane.004"].scale.y = -picture4_scale[0]
+	bpy.data.objects["Plane.004"].scale.x = -picture4_scale[1]
+
+	if picture3[4] == "image":
+		bpy.data.materials["Material.004"].node_tree.nodes[2].image.source = 'FILE'
+		bpy.data.materials["Material.004"].node_tree.nodes[2].image.filepath = picture4[0]
 	else:
-		bpy.data.textures["Texture.005"].image.source = 'MOVIE'
-		bpy.data.textures["Texture.005"].image.filepath = picture4[0]
-		bpy.data.textures["Texture.005"].image_user.use_cyclic = True
-		bpy.data.textures["Texture.005"].image_user.frame_duration = 230.0
-
-
+		bpy.data.materials["Material.004"].node_tree.nodes[2].image.source = 'MOVIE'
+		bpy.data.materials["Material.004"].node_tree.nodes[2].image.filepath = picture4[0]
+		bpy.data.materials["Material.004"].node_tree.nodes[2].image_user.use_cyclic = True
+		bpy.data.materials["Material.004"].node_tree.nodes[2].image_user.frame_duration = 230.0
 
 # Set the render options.  It is important that these are set
 # to the same values as the current OpenShot project.  These
