@@ -1079,8 +1079,8 @@
   </action>
   <action name="actionAnimatedTitle">
    <property name="icon">
-    <iconset theme="video-x-generic" resource="../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/mimes/16/video-x-generic.svg</normaloff>:/icons/Humanity/mimes/16/video-x-generic.svg</iconset>
+    <iconset resource="../../images/openshot.qrc">
+     <normaloff>:/about/blender.svg</normaloff>:/about/blender.svg</iconset>
    </property>
    <property name="text">
     <string>Animated Title</string>
