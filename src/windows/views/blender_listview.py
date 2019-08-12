@@ -300,7 +300,7 @@ class BlenderListView(QListView):
 
         # Render current frame
         preview_frame_number = self.win.sliderPreview.value()
-        self.Render(preview_frame_number)
+        self.preview_timer.start()
 
     def render_finished(self):
 
