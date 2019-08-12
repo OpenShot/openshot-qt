@@ -147,6 +147,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.timeline_sync.timeline = None
 
         # Close & Stop libopenshot logger
+        openshot.ZmqLogger.Instance().Enable(False)
         openshot.ZmqLogger.Instance().Close()
         get_app().logger_libopenshot.kill()
 
