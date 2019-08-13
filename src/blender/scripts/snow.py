@@ -67,12 +67,10 @@ params = {
 wand_object = bpy.data.objects["Wand"]
 
 # Change the material settings (color, alpha, etc...)
-material_object = bpy.data.materials["Material"]
+material_object = bpy.data.materials["Material.001"]
 material_object.diffuse_color = params["diffuse_color"]
-material_object.specular_color = params["specular_color"]
-material_object.mirror_color = params["mirror_color"]
-material_object.specular_intensity = params["specular_intensity"]
-
+material_object.node_tree.nodes[1].inputs[0].default_value = params["diffuse_color"]
+bpy.data.objects["Wand"].particle_systems[0].settings.particle_size = params["size"]
 
 # Change particle settings
 particle_object = bpy.data.particles[0]
