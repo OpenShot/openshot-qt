@@ -101,9 +101,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     # Save window settings on close
     def closeEvent(self, event):
 
-        # Close any tutorial dialogs
-        self.tutorial_manager.exit_manager()
-
         # Prompt user to save (if needed)
         if get_app().project.needs_save() and not self.mode == "unittest":
             log.info('Prompt user to save project')
@@ -120,6 +117,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 # User canceled prompt - don't quit
                 event.ignore()
                 return
+
+        # Log the exit routine
+        log.info('---------------- Shutting down -----------------')
+
+        # Close any tutorial dialogs
+        self.tutorial_manager.exit_manager()
 
         # Save settings
         self.save_settings()
