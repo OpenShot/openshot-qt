@@ -252,7 +252,7 @@ class BlenderListView(QListView):
         
         self.win.btnRefresh.setEnabled(False)
         self.win.sliderPreview.setEnabled(False)
-        self.win.buttonBox.setEnabled(False)
+        self.win.btnRender.setEnabled(False)
 
         # Show 'Wait' cursor
         if cursor:
@@ -262,7 +262,7 @@ class BlenderListView(QListView):
         """ Disable all controls on interface """
         self.win.btnRefresh.setEnabled(True)
         self.win.sliderPreview.setEnabled(True)
-        self.win.buttonBox.setEnabled(True)
+        self.win.btnRender.setEnabled(True)
 
         # Restore normal cursor and keyboard focus
         QApplication.restoreOverrideCursor()
@@ -553,6 +553,10 @@ class BlenderListView(QListView):
         pixmap = QPixmap.fromImage(scaled_image)
         self.win.imgPreview.setPixmap(pixmap)
 
+    def Cancel(self):
+        """Cancel the current render, if any"""
+        QMetaObject.invokeMethod(self.worker, 'Cancel', Qt.DirectConnection)
+
     def Render(self, frame=None):
         """ Render an images sequence of the current template using Blender 2.62+ and the
         Blender Python API. """
@@ -698,6 +702,11 @@ class Worker(QObject):
     image_updated = pyqtSignal(str)  # 1006
     blender_error_with_data = pyqtSignal(str)  # 1007
     enable_interface = pyqtSignal()  # 1008
+
+    @pyqtSlot()
+    def Cancel(self):
+        """Cancel worker render"""
+        self.is_running = False
 
     @pyqtSlot(str, str, bool)
     def Render(self, blend_file_path, target_script, preview_mode=False):
