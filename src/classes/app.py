@@ -37,6 +37,7 @@ from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont
 from PyQt5.QtCore import Qt
 from PyQt5.QtCore import QT_VERSION_STR
 from PyQt5.QtCore import PYQT_VERSION_STR
+from PyQt5.QtCore import pyqtSlot
 
 try:
     # Enable High-DPI resolutions
@@ -61,6 +62,13 @@ class OpenShotApp(QApplication):
             # Import modules
             from classes import info
             from classes.logger import log, reroute_output
+
+            # Log the session's start
+            import time
+            log.info("------------------------------------------------")
+            log.info(time.asctime().center(48))
+            log.info('Starting new session'.center(48))
+
             from classes import settings, project_data, updates, language, ui_util, logger_libopenshot
             import openshot
 
@@ -80,7 +88,7 @@ class OpenShotApp(QApplication):
         # Log some basic system info
         try:
             log.info("------------------------------------------------")
-            log.info("   OpenShot (version %s)" % info.SETUP['version'])
+            log.info(("OpenShot (version %s)" % info.SETUP['version']).center(48))
             log.info("------------------------------------------------")
 
             v = openshot.GetVersion()
@@ -94,6 +102,9 @@ class OpenShotApp(QApplication):
             log.info("pyqt5 version: %s" % PYQT_VERSION_STR)
         except:
             pass
+			
+        # Connect QCoreApplication::aboutToQuit() signal to log end of the session
+        self.aboutToQuit.connect(self.onLogTheEnd)
 
         # Setup application
         self.setApplicationName('openshot')
@@ -233,3 +244,20 @@ class OpenShotApp(QApplication):
 
         # return exit result
         return res
+
+    # Log the session's end
+    @pyqtSlot()
+    def onLogTheEnd(self):
+        """ Log when the primary Qt event loop ends """
+
+        try:
+            from classes.logger import log
+            import time
+            log.info('OpenShot\'s session ended'.center(48))
+            log.info(time.asctime().center(48))
+            log.info("================================================")
+        except Exception:
+            pass
+
+        # return 0 on success
+        return 0
