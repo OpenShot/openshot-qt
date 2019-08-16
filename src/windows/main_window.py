@@ -101,6 +101,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     # Save window settings on close
     def closeEvent(self, event):
 
+        # Some window managers handels dragging of the modal messages incorrectly if other windows are open
+        # Hide tutorial window first
+        self.tutorial_manager.hide_dialog()
+
         # Prompt user to save (if needed)
         if get_app().project.needs_save() and not self.mode == "unittest":
             log.info('Prompt user to save project')
@@ -114,6 +118,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 self.actionSave_trigger(event)
                 event.accept()
             elif ret == QMessageBox.Cancel:
+                # Show tutorial again, if any
+                self.tutorial_manager.re_show_dialog()
                 # User canceled prompt - don't quit
                 event.ignore()
                 return
