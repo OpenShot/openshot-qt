@@ -100,7 +100,7 @@ class OpenShotApp(QApplication):
             log.info("python version: %s" % platform.python_version())
             log.info("qt5 version: %s" % QT_VERSION_STR)
             log.info("pyqt5 version: %s" % PYQT_VERSION_STR)
-        except:
+        except Exception:
             pass
 			
         # Connect QCoreApplication::aboutToQuit() signal to log end of the session
