@@ -125,6 +125,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 event.ignore()
                 return
 
+        # On exit always write INFO messages to the log
+        log.setLevel(logging.INFO)
+
         # Log the exit routine
         log.info('---------------- Shutting down -----------------')
 
