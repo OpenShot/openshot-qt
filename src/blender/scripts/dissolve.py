@@ -103,7 +103,7 @@ def createDissolveText(title, extrude, bevel_depth, spacemode, textsize, width, 
     ActiveObjectText.modifiers['Remesh'].mode = 'SMOOTH'
     ActiveObjectText.modifiers['Remesh'].use_remove_disconnected = False
     # apply this modifier
-    #bpy.ops.object.modifier_apply(apply_as='DATA', modifier="Remesh")
+    bpy.ops.object.modifier_apply(apply_as='DATA', modifier="Remesh")
 
     # Nb quads for particle system
     NbQuads = len(ActiveObjectText.data.polygons.values())
@@ -197,12 +197,6 @@ def createDissolveText(title, extrude, bevel_depth, spacemode, textsize, width, 
 
     bpy.ops.object.modifier_add(type='EXPLODE')
     bpy.ops.mesh.uv_texture_add()  # name UVMap by default
-    # TODO: Not sure where these settings have moved to
-    # ActiveObjectText.data.materials['DissolveMaterial'].texture_slots['Texture'].texture_coords = 'UV'
-    # ActiveObjectText.data.materials['DissolveMaterial'].texture_slots['Texture'].uv_layer = 'UVMap'
-    # ActiveObjectText.data.materials['DissolveMaterial'].texture_slots['Texture'].use_map_alpha = True
-    # ActiveObjectText.data.materials['DissolveMaterial'].texture_slots['Texture'].alpha_factor = 1.0
-
     ActiveObjectText.modifiers['Explode'].particle_uv = 'UVMap'
     ActiveObjectText.data.update()
 
@@ -276,8 +270,11 @@ createDissolveText(params["title"], params["extrude"], params["bevel_depth"], pa
 
 # Change the material settings (color, alpha, etc...)
 material_object = bpy.data.materials["DissolveMaterial"]
-# TODO: Set the color of text (syntax has changed)
-#bpy.data.materials["DissolveMaterial"].node_tree.nodes[1].inputs[0].default_value = params["diffuse_color"]
+print(material_object)
+material_object.node_tree.nodes[1].inputs[17].default_value = params["diffuse_color"]
+material_object = bpy.data.materials["TextMaterial"]
+print(material_object)
+material_object.node_tree.nodes[1].inputs[17].default_value = params["diffuse_color"]
 
 # Set the render options.  It is important that these are set
 # to the same values as the current OpenShot project.  These
