@@ -707,6 +707,9 @@ class Worker(QObject):
     def Cancel(self):
         """Cancel worker render"""
         self.is_running = False
+        if self.process:
+            # Stop blender process if running
+            self.process.terminate()
 
     @pyqtSlot(str, str, bool)
     def Render(self, blend_file_path, target_script, preview_mode=False):
