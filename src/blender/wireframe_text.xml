@@ -61,6 +61,12 @@
 		<default>1.0</default>
 	</param>
 
+	<param name="thickness" type="spinner" title="Wireframe Size" description="">
+		<min>0.0</min>
+		<max>1.0</max>
+		<default>0.01</default>
+	</param>
+
 	<param name="diffuse_color" type="color" title="Diffuse Color" description="">
 		<default>#0074E7</default>
 	</param>

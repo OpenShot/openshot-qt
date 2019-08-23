@@ -94,34 +94,17 @@ bpy.data.actions["CubeAction"].fcurves[2].keyframe_points[1].handle_right.y = pa
 
 # Change the material settings (color, alpha, etc...)
 material_object = bpy.data.materials["Material"]
+material_object.node_tree.nodes[1].inputs[0].default_value = params["diffuse_color"]
+material_object.node_tree.nodes[1].inputs[1].default_value = params["strength"]
 material_object.diffuse_color = params["diffuse_color"]
-material_object.specular_color = params["specular_color"]
-material_object.mirror_color = params["mirror_color"]
-material_object.specular_intensity = params["specular_intensity"]
-material_object.alpha = params["alpha"]
 
-# Change Halo settings
-material_object.halo.size = params["halo_size"]
-material_object.halo.hardness = params["halo_hardness"]
-if params["halo_use_lines"] == "Yes":
-	material_object.halo.use_lines = True
-else:
-	material_object.halo.use_lines = False
-material_object.halo.line_count = params["halo_line_count"]
-if params["halo_use_ring"] == "Yes":
-	material_object.halo.use_ring = True
-else:
-	material_object.halo.use_ring = False
-material_object.halo.ring_count = params["halo_ring_count"]
-if params["halo_use_star"] == "Yes":
-	material_object.halo.use_star = True
-else:
-	material_object.halo.use_star = False 
-material_object.halo.star_tip_count = params["halo_star_tip_count"]
-if params["halo_use_flare_mode"] == "Yes":
-	material_object.halo.use_flare_mode = True
-else:
-	material_object.halo.use_flare_mode = False
+# Change size of particle
+bpy.data.objects["Sphere"].scale[0] = params["particle_scale"]
+bpy.data.objects["Sphere"].scale[1] = params["particle_scale"]
+bpy.data.objects["Sphere"].scale[2] = params["particle_scale"]
+
+# Change glare type
+bpy.data.scenes[0].node_tree.nodes["Glare"].glare_type = params["glare_type"]
 
 # Change particle settings
 particle_object = bpy.data.particles[0]
@@ -135,15 +118,10 @@ particle_object.object_align_factor = (params["velocity_x"], params["velocity_y"
 # params are automatically set by OpenShot
 bpy.context.scene.render.filepath = params["output_path"]
 bpy.context.scene.render.fps = params["fps"]
-#bpy.context.scene.render.quality = params["quality"]
-try:
-	bpy.context.scene.render.file_format = params["file_format"]
-	bpy.context.scene.render.color_mode = params["color_mode"]
-except:
-	bpy.context.scene.render.image_settings.file_format = params["file_format"]
-	bpy.context.scene.render.image_settings.color_mode = params["color_mode"]
-bpy.context.scene.render.alpha_mode = params["alpha_mode"]
-bpy.data.worlds[0].horizon_color = params["horizon_color"]
+bpy.context.scene.render.image_settings.file_format = params["file_format"]
+bpy.context.scene.render.image_settings.color_mode = params["color_mode"]
+bpy.context.scene.render.film_transparent = params["alpha_mode"]
+bpy.data.worlds[0].color = params["horizon_color"]
 bpy.context.scene.render.resolution_x = params["resolution_x"]
 bpy.context.scene.render.resolution_y = params["resolution_y"]
 bpy.context.scene.render.resolution_percentage = params["resolution_percentage"]

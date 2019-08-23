@@ -104,26 +104,20 @@ material_object1 = bpy.data.materials["Title.Material"]
 material_object1.diffuse_color = params["diffuse_color"]
 material_object1.specular_color = params["specular_color"]
 material_object1.specular_intensity = params["specular_intensity"]
-material_object1.alpha = params["alpha"]
+bpy.data.materials["Title.Material"].node_tree.nodes[1].inputs[0].default_value =  params["diffuse_color"]
 
 # GLASS - Change the material settings (color, alpha, etc...)
 material_object2 = bpy.data.materials["Background.Material"]
 material_object2.diffuse_color = params["diffuse_color_bg"]
 material_object2.specular_color = params["specular_color_bg"]
 material_object2.specular_intensity = params["specular_intensity_bg"]
-material_object2.alpha = params["alpha_bg"]
-material_object2.raytrace_transparency.fresnel = params["fresnel_bg"]
-material_object2.raytrace_transparency.fresnel_factor = params["blend_bg"]
+bpy.data.materials["Background.Material"].node_tree.nodes[1].inputs[0].default_value  = params["diffuse_color_bg"]
+bpy.data.materials["Background.Material"].node_tree.nodes[1].inputs[18].default_value  = params["alpha_bg"]
 
 # ADJUST STARTING POSITION (Keyframes)
 bpy.data.actions["TextAction"].fcurves[0].keyframe_points[0].co = (40.0, params["start_x"])
 bpy.data.actions["TextAction"].fcurves[0].keyframe_points[0].handle_left.y = params["start_x"]
 bpy.data.actions["TextAction"].fcurves[0].keyframe_points[0].handle_right.y = params["start_x"]
-
-#bpy.data.actions["TextAction"].fcurves[2].keyframe_points[0].co = (40.0, params["start_z"])
-#bpy.data.actions["TextAction"].fcurves[2].keyframe_points[0].handle_left.y = params["start_z"]
-#bpy.data.actions["TextAction"].fcurves[2].keyframe_points[0].handle_right.y = params["start_z"]
-
 
 bpy.data.actions["TextAction"].fcurves[0].keyframe_points[1].co = (80.0, params["start_x"])
 bpy.data.actions["TextAction"].fcurves[0].keyframe_points[1].handle_left.y = params["start_x"]
@@ -133,7 +127,6 @@ bpy.data.actions["TextAction"].fcurves[2].keyframe_points[1].co = (80.0, params[
 bpy.data.actions["TextAction"].fcurves[2].keyframe_points[1].handle_left.y = params["start_z"]
 bpy.data.actions["TextAction"].fcurves[2].keyframe_points[1].handle_right.y = params["start_z"]
 
-
 bpy.data.actions["TextAction"].fcurves[0].keyframe_points[2].co = (150.0, params["start_x"])
 bpy.data.actions["TextAction"].fcurves[0].keyframe_points[2].handle_left.y = params["start_x"]
 bpy.data.actions["TextAction"].fcurves[0].keyframe_points[2].handle_right.y = params["start_x"]
@@ -142,28 +135,19 @@ bpy.data.actions["TextAction"].fcurves[2].keyframe_points[2].co = (150.0, params
 bpy.data.actions["TextAction"].fcurves[2].keyframe_points[2].handle_left.y = params["start_z"]
 bpy.data.actions["TextAction"].fcurves[2].keyframe_points[2].handle_right.y = params["start_z"]
 
-
 bpy.data.actions["TextAction"].fcurves[0].keyframe_points[3].co = (190.0, params["start_x"])
 bpy.data.actions["TextAction"].fcurves[0].keyframe_points[3].handle_left.y = params["start_x"]
 bpy.data.actions["TextAction"].fcurves[0].keyframe_points[3].handle_right.y = params["start_x"]
 
-#bpy.data.actions["TextAction"].fcurves[2].keyframe_points[3].co = (190.0, params["start_z"])
-#bpy.data.actions["TextAction"].fcurves[2].keyframe_points[3].handle_left.y = params["start_z"]
-#bpy.data.actions["TextAction"].fcurves[2].keyframe_points[3].handle_right.y = params["start_z"]
 
 # Set the render options.  It is important that these are set
 # to the same values as the current OpenShot project.  These
 # params are automatically set by OpenShot
 bpy.context.scene.render.filepath = params["output_path"]
 bpy.context.scene.render.fps = params["fps"]
-#bpy.context.scene.render.quality = params["quality"]
-try:
-	bpy.context.scene.render.file_format = params["file_format"]
-	bpy.context.scene.render.color_mode = params["color_mode"]
-except:
-	bpy.context.scene.render.image_settings.file_format = params["file_format"]
-	bpy.context.scene.render.image_settings.color_mode = params["color_mode"]
-bpy.context.scene.render.alpha_mode = params["alpha_mode"]
+bpy.context.scene.render.image_settings.file_format = params["file_format"]
+bpy.context.scene.render.image_settings.color_mode = params["color_mode"]
+bpy.context.scene.render.film_transparent = params["alpha_mode"]
 bpy.context.scene.render.resolution_x = params["resolution_x"]
 bpy.context.scene.render.resolution_y = params["resolution_y"]
 bpy.context.scene.render.resolution_percentage = params["resolution_percentage"]

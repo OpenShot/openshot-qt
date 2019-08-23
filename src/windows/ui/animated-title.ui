@@ -6,16 +6,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>750</width>
+    <width>800</width>
     <height>527</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Animated Titles</string>
+   <string>Animated Titles (Powered by Blender)</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../../images/openshot.qrc">
-    <normaloff>:/openshot.svg</normaloff>:/openshot.svg</iconset>
+    <normaloff>:/about/blender.svg</normaloff>:/about/blender.svg</iconset>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>

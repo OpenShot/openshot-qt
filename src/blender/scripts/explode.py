@@ -45,56 +45,36 @@ def createExplodeTxt(title,particle_number,extrude,bevel_depth,spacemode,textsiz
 
 	newText = title
 	#create text
-	bpy.ops.object.text_add(view_align=False, enter_editmode=False, location=(0, 0, 0), rotation=(0, 0, 0))
-	
-	newtext = bpy.context.scene.objects.active
-
-	if bpy.context.scene.objects.active.name != 'Text':
-		bpy.ops.object.select_all(action='DESELECT')
-		#selecting Text
-		bpy.context.scene.objects.active  = bpy.data.objects['Text']
-		bpy.context.scene.objects.active.select = True
-		bpy.ops.object.delete(use_global=False)
-		bpy.ops.object.select_all(action='DESELECT')
-		#selecting Text
-		bpy.context.scene.objects.active  = newtext
-		bpy.context.scene.objects.active.select = True
-		
-	#naming the text
-	bpy.context.scene.objects.active.name = 'Text';
-	
-	bpy.context.scene.objects.active = bpy.data.objects['Text']
+	bpy.ops.object.text_add(radius=1.0, enter_editmode=False, align='WORLD', location=(0.0, 0.0, 0.0), rotation=(0.0, 0.0, 0.0))
+	newtext = bpy.context.view_layer.objects.active
 	
 	#modifying the text
-	bpy.context.scene.objects.active.data.size = textsize
-	bpy.context.scene.objects.active.data.space_character = width
-	bpy.context.scene.objects.active.data.font = font
+	newtext.data.size = textsize
+	newtext.data.space_character = width
+	newtext.data.font = font
+
 	#centering text
-	#bpy.data.objects['Text'].data.align_x='CENTER'
-	bpy.data.objects['Text'].data.align_x=spacemode
+	newtext.data.align_x=spacemode
 
 	#extrude text
-	#bpy.data.objects['Text'].data.extrude=0.1
-	bpy.data.objects['Text'].data.extrude=extrude
+	newtext.data.extrude=extrude
 
 	#bevel text
-	#bpy.data.objects['Text'].data.bevel_depth = 0.01
-	bpy.data.objects['Text'].data.bevel_depth = bevel_depth
-	bpy.data.objects['Text'].data.bevel_resolution = 10
+	newtext.data.bevel_depth = bevel_depth
+	newtext.data.bevel_resolution = 10
 
 	#rotating text
 	#angles are in radians
 	#bpy.ops.transform.rotate(value=(pi/2,), axis=(1.0, 0.0, 0.0), constraint_axis=(False, False, False), constraint_orientation='GLOBAL', mirror=False, proportional='DISABLED', proportional_edit_falloff='SMOOTH', proportional_size=1, snap=False, snap_target='CLOSEST', snap_point=(0, 0, 0), snap_align=False, snap_normal=(0, 0, 0), release_confirm=False)
 	#second solution
-	bpy.data.objects['Text'].rotation_euler[0]=pi/2 #xaxis
-	bpy.data.objects['Text'].rotation_euler[1]=0.0  #yaxis
-	bpy.data.objects['Text'].rotation_euler[2]=0.0  #zaxis
+	newtext.rotation_euler[0]=pi/2 #xaxis
+	newtext.rotation_euler[1]=0.0  #yaxis
+	newtext.rotation_euler[2]=0.0  #zaxis
 
 	#changing text
-	#bpy.data.curves['Text'].body = 'Hello World' #not working
-	bpy.context.scene.objects.active=bpy.data.objects['Text']
 	bpy.ops.object.editmode_toggle()
-	bpy.ops.font.delete()
+	for x in range(20):
+		bpy.ops.font.delete()
 	bpy.ops.font.text_insert(text=newText, accent=False)
 	bpy.ops.object.editmode_toggle()
 	
@@ -109,52 +89,47 @@ def createExplodeTxt(title,particle_number,extrude,bevel_depth,spacemode,textsiz
 
 	#modifying Particle System
 	#emitfrom
-	bpy.data.objects['Text'].particle_systems['ParticleSystem'].settings.emit_from = 'VERT'
+	newtext.particle_systems[0].settings.emit_from = 'VERT'
 	#particle number
-	#bpy.data.objects['Text'].particle_systems['ParticleSystem'].settings.count=200
-	bpy.data.objects['Text'].particle_systems['ParticleSystem'].settings.count=particle_number
+	newtext.particle_systems[0].settings.count=particle_number
 	#particle lifetime
-	bpy.data.objects['Text'].particle_systems['ParticleSystem'].settings.lifetime=200 # 200 +48 > 150 ;-)z
+	newtext.particle_systems[0].settings.lifetime=200 # 200 +48 > 150 ;-)z
 	# start/end explosion
-	bpy.data.objects['Text'].particle_systems['ParticleSystem'].settings.frame_end = 48
-	bpy.data.objects['Text'].particle_systems['ParticleSystem'].settings.frame_start = 48
+	newtext.particle_systems[0].settings.frame_end = 48
+	newtext.particle_systems[0].settings.frame_start = 48
 	#explosion power
-	bpy.data.objects['Text'].particle_systems['ParticleSystem'].settings.normal_factor=5.5
+	newtext.particle_systems[0].settings.normal_factor=5.5
 	#integration method
-	bpy.data.objects['Text'].particle_systems['ParticleSystem'].settings.integrator='RK4'#aa'MIDPOINT' #'RK4'
+	# aa'MIDPOINT' #'RK4'
+	newtext.particle_systems[0].settings.integrator='RK4'
 	#size of particles
-	bpy.data.objects['Text'].particle_systems['ParticleSystem'].settings.particle_size = 0.1
+	newtext.particle_systems[0].settings.particle_size = 0.1
 	#particles time step
-	bpy.data.objects['Text'].particle_systems['ParticleSystem'].settings.timestep = 0.02
+	newtext.particle_systems[0].settings.timestep = 0.02
 	#mass of particles
-	bpy.data.objects['Text'].particle_systems['ParticleSystem'].settings.mass = 2.0
-	bpy.data.objects['Text'].particle_systems['ParticleSystem'].settings.use_multiply_size_mass = True
+	newtext.particle_systems[0].settings.mass = 2.0
+	newtext.particle_systems[0].settings.use_multiply_size_mass = True
 	
 	#affect an existing material
-	bpy.data.objects['Text'].material_slots[0].material = bpy.data.materials['TextMaterial']
+	newtext.material_slots[0].material = bpy.data.materials['TextMaterial']
 	
 	#solidify parameter
-	bpy.data.objects['Text'].modifiers['Solidify'].edge_crease_inner=0.01
-	bpy.data.objects['Text'].modifiers['Solidify'].thickness = 0.02
+	newtext.modifiers['Solidify'].edge_crease_inner=0.01
+	newtext.modifiers['Solidify'].thickness = 0.02
 	#ground management
-	bpy.data.objects['Text'].particle_systems['ParticleSystem'].point_cache.frame_step = 1
+	newtext.particle_systems[0].point_cache.frame_step = 1
 	if ground=='1':
 		bpy.ops.object.select_all(action='DESELECT')
 		#selecting Text
-		bpy.context.scene.objects.active  = bpy.data.objects['Ground']
-		bpy.context.scene.objects.active.select = True
+		bpy.context.view_layer.objects.active = bpy.data.objects['Ground']
 		if bpy.data.objects['Ground'].modifiers.keys()[0] != 'Collision':
 			bpy.ops.object.modifier_add(type="COLLISION")
-		#else:
-		#	print("OK")
-		  
 		bpy.data.objects['Ground'].hide_render = False
 		
 	else:
 		bpy.ops.object.select_all(action='DESELECT')
 		#selecting Text
-		bpy.context.scene.objects.active  = bpy.data.objects['Ground']
-		bpy.context.scene.objects.active.select = True
+		bpy.context.view_layer.objects.active  = bpy.data.objects['Ground']
 		bpy.ops.object.modifier_remove(modifier="Collision")
 		bpy.data.objects['Ground'].hide_render = True
 	    
@@ -236,8 +211,6 @@ material_object = bpy.data.materials["TextMaterial"]
 material_object.diffuse_color = params["diffuse_color"]
 material_object.specular_color = params["specular_color"]
 material_object.specular_intensity = params["specular_intensity"]
-material_object.alpha = params["alpha"]
-
 
 
 # Set the render options.  It is important that these are set
@@ -245,15 +218,10 @@ material_object.alpha = params["alpha"]
 # params are automatically set by OpenShot
 bpy.context.scene.render.filepath = params["output_path"]
 bpy.context.scene.render.fps = params["fps"]
-#bpy.context.scene.render.quality = params["quality"]
-try:
-	bpy.context.scene.render.file_format = params["file_format"]
-	bpy.context.scene.render.color_mode = params["color_mode"]
-except:
-	bpy.context.scene.render.image_settings.file_format = params["file_format"]
-	bpy.context.scene.render.image_settings.color_mode = params["color_mode"]
-bpy.context.scene.render.alpha_mode = params["alpha_mode"]
-bpy.data.worlds[0].horizon_color = params["horizon_color"]
+bpy.context.scene.render.image_settings.file_format = params["file_format"]
+bpy.context.scene.render.image_settings.color_mode = params["color_mode"]
+bpy.context.scene.render.film_transparent = params["alpha_mode"]
+bpy.data.worlds[0].color = params["horizon_color"]
 bpy.context.scene.render.resolution_x = params["resolution_x"]
 bpy.context.scene.render.resolution_y = params["resolution_y"]
 bpy.context.scene.render.resolution_percentage = params["resolution_percentage"]

@@ -104,32 +104,23 @@ text_object.font = font
 # Change the material settings (color, alpha, etc...)
 material_object = bpy.data.materials["Material.001"]
 material_object.diffuse_color = params["diffuse_color"]
-material_object.specular_color = params["specular_color"]
-material_object.alpha = params["alpha"]
+
+# Change glare type
+bpy.data.scenes[0].node_tree.nodes["Glare"].glare_type = params["glare_type"]
 
 # Set the render options.  It is important that these are set
 # to the same values as the current OpenShot project.  These
 # params are automatically set by OpenShot
 bpy.context.scene.render.filepath = params["output_path"]
 bpy.context.scene.render.fps = params["fps"]
-#bpy.context.scene.render.quality = params["quality"]
-try:
-	bpy.context.scene.render.file_format = params["file_format"]
-	if params["use_alpha"] == "No":
-		bpy.context.scene.render.color_mode = "RGB"
-		bpy.context.scene.render.alpha_mode = "SKY"
-	else:
-		bpy.context.scene.render.color_mode = params["color_mode"]
-		bpy.context.scene.render.alpha_mode = params["alpha_mode"]
-except:
-	bpy.context.scene.render.image_settings.file_format = params["file_format"]
-	if params["use_alpha"] == "No":
-		bpy.context.scene.render.image_settings.color_mode = "RGB"
-		bpy.context.scene.render.alpha_mode = "SKY"
-	else:
-		bpy.context.scene.render.image_settings.color_mode = params["color_mode"]
-		bpy.context.scene.render.alpha_mode = params["alpha_mode"]
-#bpy.data.worlds[0].horizon_color = params["horizon_color"]
+bpy.context.scene.render.image_settings.file_format = params["file_format"]
+if params["use_alpha"] == "No":
+	bpy.context.scene.render.image_settings.color_mode = "RGB"
+	bpy.context.scene.render.alpha_mode = "SKY"
+else:
+	bpy.context.scene.render.image_settings.color_mode = params["color_mode"]
+	bpy.context.scene.render.film_transparent = params["alpha_mode"]
+#bpy.data.worlds[0].color = params["horizon_color"]
 bpy.context.scene.render.resolution_x = params["resolution_x"]
 bpy.context.scene.render.resolution_y = params["resolution_y"]
 bpy.context.scene.render.resolution_percentage = params["resolution_percentage"]

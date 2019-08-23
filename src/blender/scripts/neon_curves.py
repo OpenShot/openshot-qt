@@ -59,10 +59,10 @@ params = {
 			'color' : [0.8,0.8,0.8],
 			'alpha' : 1.0,
 			
-			'line1_color' : [0.8,0.8,0.8],
-			'line2_color' : [0.8,0.8,0.8],
-			'line3_color' : [0.8,0.8,0.8],
-			'line4_color' : [0.8,0.8,0.8],
+			'line1_diffuse_color' : [0.8,0.8,0.8,1.0],
+			'line2_diffuse_color' : [0.8,0.8,0.8,1.0],
+			'line3_diffuse_color' : [0.8,0.8,0.8,1.0],
+			'line4_diffuse_color' : [0.8,0.8,0.8,1.0],
 			
 			'output_path' : '/tmp/',
 			'fps' : 24,
@@ -109,34 +109,33 @@ text_object.font = font
 # Change the material settings (color, alpha, etc...)
 material_object = bpy.data.materials["Material.title"]
 material_object.diffuse_color = params["diffuse_color"]
-material_object.specular_color = params["specular_color"]
-material_object.specular_intensity = params["specular_intensity"]
-material_object.alpha = params["alpha"]
+material_object.node_tree.nodes[1].inputs[0].default_value = params["diffuse_color"]
+material_object.node_tree.nodes[1].inputs[1].default_value = params["strength"]
 
 # Change line colors
 material_object = bpy.data.materials["Material.line1"]
-material_object.diffuse_color = params["line1_color"]
-material_object = bpy.data.materials["Material.line2"]
-material_object.diffuse_color = params["line2_color"]
-material_object = bpy.data.materials["Material.line3"]
-material_object.diffuse_color = params["line3_color"]
-material_object = bpy.data.materials["Material.line4"]
-material_object.diffuse_color = params["line4_color"]
+material_object.node_tree.nodes[1].inputs[0].default_value = params["line1_diffuse_color"]
 
+material_object = bpy.data.materials["Material.line2"]
+material_object.node_tree.nodes[1].inputs[0].default_value = params["line2_diffuse_color"]
+
+material_object = bpy.data.materials["Material.line3"]
+material_object.node_tree.nodes[1].inputs[0].default_value = params["line3_diffuse_color"]
+
+material_object = bpy.data.materials["Material.line4"]
+material_object.node_tree.nodes[1].inputs[0].default_value = params["line4_diffuse_color"]
+
+# Change glare type
+bpy.data.scenes[0].node_tree.nodes["Glare"].glare_type = params["glare_type"]
 
 # Set the render options.  It is important that these are set
 # to the same values as the current OpenShot project.  These
 # params are automatically set by OpenShot
 bpy.context.scene.render.filepath = params["output_path"]
 bpy.context.scene.render.fps = params["fps"]
-#bpy.context.scene.render.quality = params["quality"]
-try:
-	bpy.context.scene.render.file_format = params["file_format"]
-	bpy.context.scene.render.color_mode = params["color_mode"]
-except:
-	bpy.context.scene.render.image_settings.file_format = params["file_format"]
-	bpy.context.scene.render.image_settings.color_mode = params["color_mode"]
-bpy.context.scene.render.alpha_mode = params["alpha_mode"]
+bpy.context.scene.render.image_settings.file_format = params["file_format"]
+bpy.context.scene.render.image_settings.color_mode = params["color_mode"]
+bpy.context.scene.render.film_transparent = params["alpha_mode"]
 bpy.context.scene.render.resolution_x = params["resolution_x"]
 bpy.context.scene.render.resolution_y = params["resolution_y"]
 bpy.context.scene.render.resolution_percentage = params["resolution_percentage"]
