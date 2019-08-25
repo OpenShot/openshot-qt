@@ -102,6 +102,8 @@ class TitleEditor(QDialog):
         self.font_family = "Bitstream Vera Sans"
         self.tspan_node = None
 
+        self.qfont = QFont(self.font_family)
+
         # Add titles list view
         self.titlesTreeView = TitlesListView(self)
         self.verticalLayout.addWidget(self.titlesTreeView)
@@ -194,6 +196,12 @@ class TitleEditor(QDialog):
         # get the text elements
         self.tspan_node = self.xmldoc.getElementsByTagName('tspan')
         self.text_fields = len(self.tspan_node)
+
+        # Reset default font
+        self.font_family = "Bitstream Vera Sans"
+        if self.qfont:
+            del self.qfont
+        self.qfont = QFont(self.font_family)
 
         # Loop through child widgets (and remove them)
         for child in self.settingsContainer.children():
@@ -377,11 +385,15 @@ class TitleEditor(QDialog):
         app = get_app()
         _ = app._tr
 
+        # Default to previously-selected font
+        oldfont = self.qfont
+
         # Get font from user
-        font, ok = QFontDialog.getFont(QFont(), caption=_("Change Font"))
+        font, ok = QFontDialog.getFont(oldfont, caption=("Change Font"))
 
         # Update SVG font
-        if ok:
+        if ok and font is not oldfont:
+            self.qfont = font
             fontinfo = QtGui.QFontInfo(font)
             self.font_family = fontinfo.family()
             self.font_style = fontinfo.styleName()
