@@ -193,8 +193,10 @@ class FilesTreeView(QTreeView):
             file.save()
             return True
 
-        except:
-            # Handle exception
+        except Exception as ex:
+            # Log exception
+            log.warning("Failed to import file: {}".format(str(ex)))
+            # Show message to user
             msg = QMessageBox()
             msg.setText(_("{} is not a valid video, audio, or image file.".format(filename)))
             msg.exec_()
