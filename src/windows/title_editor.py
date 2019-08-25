@@ -346,11 +346,11 @@ class TitleEditor(QDialog):
             self.update_font_color_button()
             self.font_color_code = col
 
-        # Something changed, so update temp SVG
-        self.writeToFile(self.xmldoc)
+            # Something changed, so update temp SVG
+            self.writeToFile(self.xmldoc)
 
-        # Display SVG again
-        self.display_svg()
+            # Display SVG again
+            self.display_svg()
 
     def btnBackgroundColor_clicked(self):
         app = get_app()
@@ -366,11 +366,11 @@ class TitleEditor(QDialog):
             self.update_background_color_button()
             self.bg_color_code = col
 
-        # Something changed, so update temp SVG
-        self.writeToFile(self.xmldoc)
+            # Something changed, so update temp SVG
+            self.writeToFile(self.xmldoc)
 
-        # Display SVG again
-        self.display_svg()
+            # Display SVG again
+            self.display_svg()
 
     def btnFont_clicked(self):
         app = get_app()
@@ -387,11 +387,11 @@ class TitleEditor(QDialog):
             self.font_weight = fontinfo.weight()
             self.set_font_style()
 
-        # Something changed, so update temp SVG
-        self.writeToFile(self.xmldoc)
+            # Something changed, so update temp SVG
+            self.writeToFile(self.xmldoc)
 
-        # Display SVG again
-        self.display_svg()
+            # Display SVG again
+            self.display_svg()
 
     def find_in_list(self, l, value):
         '''when passed a partial value, function will return the list index'''
