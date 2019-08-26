@@ -91,9 +91,8 @@ class OpenShotApp(QApplication):
             log.info(("OpenShot (version %s)" % info.SETUP['version']).center(48))
             log.info("------------------------------------------------")
 
-            v = openshot.GetVersion()
             log.info("openshot-qt version: %s" % info.VERSION)
-            log.info("libopenshot version: %s" % v.ToString())
+            log.info("libopenshot version: %s" % openshot.OPENSHOT_VERSION_FULL)
             log.info("platform: %s" % platform.platform())
             log.info("processor: %s" % platform.processor())
             log.info("machine: %s" % platform.machine())
@@ -123,7 +122,7 @@ class OpenShotApp(QApplication):
 
         # Detect minimum libopenshot version
         _ = self._tr
-        libopenshot_version = openshot.GetVersion().ToString()
+        libopenshot_version = openshot.OPENSHOT_VERSION_FULL
         if mode != "unittest" and libopenshot_version < info.MINIMUM_LIBOPENSHOT_VERSION:
             QMessageBox.warning(None, _("Wrong Version of libopenshot Detected"),
                                       _("<b>Version %(minimum_version)s is required</b>, but %(current_version)s was detected. Please update libopenshot or download our latest installer.") %
