@@ -191,6 +191,9 @@ class FilesTreeView(QTreeView):
 
             # Save file
             file.save()
+            # Reset list of ignored paths
+            self.ignore_image_sequence_paths = []
+
             return True
 
         except Exception as ex:
@@ -238,7 +241,7 @@ class FilesTreeView(QTreeView):
                 is_sequence = False
 
             if is_sequence and dirName not in self.ignore_image_sequence_paths:
-                log.info('Prompt user to import image sequence')
+                log.info('Prompt user to import image sequence from {}'.format(dirName))
                 # Ignore this path (temporarily)
                 self.ignore_image_sequence_paths.append(dirName)
 
@@ -249,6 +252,7 @@ class FilesTreeView(QTreeView):
                 ret = QMessageBox.question(self, _("Import Image Sequence"), _("Would you like to import %s as an image sequence?") % fileName, QMessageBox.No | QMessageBox.Yes)
                 if ret == QMessageBox.Yes:
                     # Yes, import image sequence
+                    log.info('Importing {} as image sequence {}'.format(file_path, base_name + '*.' + extension))
                     parameters = {"file_path":file_path, "folder_path":dirName, "base_name":base_name, "fixlen":fixlen, "digits":digits, "extension":extension}
                     return parameters
                 else:
