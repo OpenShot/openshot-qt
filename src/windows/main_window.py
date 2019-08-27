@@ -2105,6 +2105,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Load Recent Projects
         self.load_recent_menu()
+        
+        # The method restoreState restores the visibility of the toolBar,
+        # but does not set the correct flag in the actionView_Toolbar.
+        self.actionView_Toolbar.setChecked(self.toolBar.isVisibleTo(self))
 
     def load_recent_menu(self):
         """ Clear and load the list of recent menu items """
