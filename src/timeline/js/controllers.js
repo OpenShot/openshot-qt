@@ -615,33 +615,35 @@ App.controller('TimelineCtrl',function($scope) {
  
  // Select all items between two times
  $scope.SelectTimeRange = function(select_start_time, select_end_time) {
-    // Iterate over all clips
-    for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
-        // Retrieve the start and end times of this clip
-        var clip_start_time = $scope.project.clips[clip_index].start;
-        var clip_end_time = $scope.project.clips[clip_index].end;
-        
-        // If the clip falls within the selection time range
-        if (clip_start_time <= select_end_time && clip_end_time >= select_start_time) {
-            // Select the clip
-            $scope.project.clips[clip_index].selected = true;
-            timeline.addSelection($scope.project.clips[clip_index].id, "clip", false);
-        } 
-    }
-    
-    // Iterate over all transitions
-    for (var transition_index = 0; transition_index < $scope.project.effects.length; transition_index++) {
-        // Retrieve the start and end times of this transition
-        var transition_start_time = $scope.project.effects[transition_index].start;
-        var transition_end_time = $scope.project.effects[transition_index].end;
-        
-        // If the transition falls withing the selection time range
-        if (transition_start_time <= select_end_time && transition_end_time >= selection_start_time) {
-            // Select the transition
-            $scope.project.effects[transition_index].selected = true;
-            timeline.addSelection($scope.project.effects[transition_index].id, "effect", false);
+ 	//$scope.$apply(function() {
+        // Iterate over all clips
+        for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
+            // Retrieve the start and end times of this clip
+            var clip_start_time = $scope.project.clips[clip_index].start;
+            var clip_end_time = $scope.project.clips[clip_index].end;
+
+            // If the clip falls within the selection time range
+            if (clip_start_time >= select_start_time && clip_end_time <= select_end_time) {
+                // Select the clip
+                $scope.project.clips[clip_index].selected = true;
+                timeline.addSelection($scope.project.clips[clip_index].id, "clip", false);
+            } 
         }
-    } 
+
+        // Iterate over all transitions
+        for (var transition_index = 0; transition_index < $scope.project.effects.length; transition_index++) {
+            // Retrieve the start and end times of this transition
+            var transition_start_time = $scope.project.effects[transition_index].start;
+            var transition_end_time = $scope.project.effects[transition_index].end;
+
+            // If the transition falls withing the selection time range
+            if (transition_start_time >= select_start_time && transition_end_time <= selection_end_time) {
+                // Select the transition
+                $scope.project.effects[transition_index].selected = true;
+                timeline.addSelection($scope.project.effects[transition_index].id, "effect", false);
+            }
+        } 
+    //});
  };
 	
  // Select clip in scope
@@ -704,6 +706,7 @@ App.controller('TimelineCtrl',function($scope) {
         var prev_clip_end_time = 0;
         for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
             if ($scope.project.clips[clip_index].id == $scope.project.prev_selected_clip_id) {
+                timeline.qt_log("found previous clip");
                 prev_clip_start_time = $scope.project.clips[clip_index].start;
                 prev_clip_end_time = $scope.project.clips[clip_index].end;
                 break;
@@ -717,6 +720,11 @@ App.controller('TimelineCtrl',function($scope) {
         // Select all clips in the selection range
         $scope.SelectTimeRange(select_start_time, select_end_time);
     }
+    
+    // Update the previously-selected clip ID
+ 	//$scope.$apply(function() {
+        $scope.project.prev_selected_clip_id = id;
+ 	//});
  };
  
   // Select transition in scope
