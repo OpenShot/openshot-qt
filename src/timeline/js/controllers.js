@@ -413,6 +413,19 @@ App.controller('TimelineCtrl',function($scope) {
 	 var new_cursor_x = Math.round((cursor_time * $scope.pixelsPerSecond) - center_x);
 	 $("#scrolling_tracks").scrollLeft(new_cursor_x);
  };
+ 
+ // Center the timeline on a given time position
+ $scope.centerOnTime = function(centerTime) {
+    // Get the width of the timeline
+    var scrollingTracksWidth = $("#scrolling_tracks").width();
+    
+    // Calculate the position to scroll the timeline to to center on the requested time
+    var pixelToCenterOn = centerTime * $scope.pixelsPerSecond;
+    var scrollPosition = Math.max(pixelToCenterOn - (scrollingTracksWidth / 2.0), 0);
+    
+    // Scroll the timeline
+    $("#scrolling_tracks").scrollLeft(Math.round(scrollPosition + 0.5));
+ };
 
  // Update thumbnail for clip
  $scope.updateThumbnail = function(clip_id) {

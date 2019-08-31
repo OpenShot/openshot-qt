@@ -2543,6 +2543,12 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Get access to timeline scope and set scale to zoom slider value (passed in)
         code = JS_SCOPE_SELECTOR + ".MovePlayheadToFrame(" + str(position_frames) + ");"
         self.eval_js(code)
+        
+    @pyqtSlot(float)
+    def centerOnTime(self, time):
+        # Execute JavaScript to center the timeline
+        cmd = '%s.centerOnTime(%s);' % (JS_SCOPE_SELECTOR, str(time))
+        self.page().mainFrame().evaluateJavaScript(cmd)
 
     @pyqtSlot(int)
     def SetSnappingMode(self, enable_snapping):
