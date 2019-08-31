@@ -415,7 +415,7 @@ App.controller('TimelineCtrl',function($scope) {
  };
  
  // Center the timeline on a given time position
- $scope.centerOnTime = function(scaleVal, centerTime) {
+ $scope.centerOnTime = function(centerTime) {
     // Get the width of the timeline
     var scrollingTracksWidth = $("#scrolling_tracks").width();
     

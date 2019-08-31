@@ -2548,11 +2548,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         
     @pyqtSlot(float)
     def centerOnTime(self, time):
-        # Retrieve the current timeline scale
-        scale = get_app().project.get("scale")
-        
         # Execute JavaScript to center the timeline
-        cmd = '%s.centerOnTime(%s, %s);' % (JS_SCOPE_SELECTOR, str(scale), str(time))
+        cmd = '%s.centerOnTime(%s);' % (JS_SCOPE_SELECTOR, str(time))
         self.page().mainFrame().evaluateJavaScript(cmd)
         
     @pyqtSlot(int)
