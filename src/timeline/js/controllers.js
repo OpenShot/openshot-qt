@@ -204,7 +204,7 @@ App.controller('TimelineCtrl',function($scope) {
 	           //        icon : 'purple.png'
 	           //      },
               // ],
-	  	progress : {},
+	  	progress : {}
 	  			// {
 				//    max_bytes : "0",
 				//    ranges : [
@@ -223,7 +223,6 @@ App.controller('TimelineCtrl',function($scope) {
 				//    ],
 				//    version : "2"
 				// }
-        prev_selected_clip_id : ""
     };
   
   // Additional variables used to control the rendering of HTML
@@ -592,9 +591,6 @@ App.controller('TimelineCtrl',function($scope) {
 	// Clear the selections on the main window
 	$scope.SelectTransition("", true);
 	$scope.SelectEffect("", true);
-    
-    // Clear the previously selected clip ID
-    $scope.project.prev_selected_clip_id = "";
 
 	// Update scope
 	$scope.$apply(function() {
@@ -609,9 +605,6 @@ App.controller('TimelineCtrl',function($scope) {
  
  // Select all clips and transitions
  $scope.SelectAll = function() {
-    // It doesn't make sense to have a "previously selected clip" if everything is selected
-    $scope.project.prev_selected_clip_id = "";
-
 	 $scope.$apply(function() {
 		 // Select all clips
 		 for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
@@ -624,39 +617,6 @@ App.controller('TimelineCtrl',function($scope) {
 			 timeline.addSelection($scope.project.effects[effect_index].id, "transition", false);
 		 }
 	 });
- };
- 
- // Select all items between two times
- $scope.SelectTimeRange = function(select_start_time, select_end_time) {
- 	//$scope.$apply(function() {
-        // Iterate over all clips
-        for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
-            // Retrieve the start and end times of this clip
-            var clip_start_time = $scope.project.clips[clip_index].start;
-            var clip_end_time = $scope.project.clips[clip_index].end;
-
-            // If the clip falls within the selection time range
-            if (clip_start_time >= select_start_time && clip_end_time <= select_end_time) {
-                // Select the clip
-                $scope.project.clips[clip_index].selected = true;
-                timeline.addSelection($scope.project.clips[clip_index].id, "clip", false);
-            } 
-        }
-
-        // Iterate over all transitions
-        for (var transition_index = 0; transition_index < $scope.project.effects.length; transition_index++) {
-            // Retrieve the start and end times of this transition
-            var transition_start_time = $scope.project.effects[transition_index].start;
-            var transition_end_time = $scope.project.effects[transition_index].end;
-
-            // If the transition falls withing the selection time range
-            if (transition_start_time >= select_start_time && transition_end_time <= selection_end_time) {
-                // Select the transition
-                $scope.project.effects[transition_index].selected = true;
-                timeline.addSelection($scope.project.effects[transition_index].id, "effect", false);
-            }
-        } 
-    //});
  };
 	
  // Select clip in scope
@@ -699,45 +659,6 @@ App.controller('TimelineCtrl',function($scope) {
 			}
 		}
 	}
-    
-    // If shift was pressed, then all clips and transitions between the currently
-    // selected and the previously selected clip need to be selected as well
-    if (event && event.shiftKey && $scope.project.prev_selected_clip_id != "") {
-        // Retrieve the start and end times of the currently-selected clip
-        var curr_clip_start_time = 0;
-        var curr_clip_end_time = 0;
-        for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
-            if ($scope.project.clips[clip_index].id == id) {
-                curr_clip_start_time = $scope.project.clips[clip_index].start;
-                curr_clip_end_time = $scope.project.clips[clip_index].end;
-                break;
-            }
-        }
-
-        // Retrieve the start and end times of the previously-selected clip
-        var prev_clip_start_time = 0;
-        var prev_clip_end_time = 0;
-        for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
-            if ($scope.project.clips[clip_index].id == $scope.project.prev_selected_clip_id) {
-                timeline.qt_log("found previous clip");
-                prev_clip_start_time = $scope.project.clips[clip_index].start;
-                prev_clip_end_time = $scope.project.clips[clip_index].end;
-                break;
-            }
-        }
-        
-        // Determine the time range to select between
-        var select_start_time = Math.min(curr_clip_start_time, prev_clip_start_time);
-        var select_end_time = Math.max(curr_clip_end_time, prev_clip_end_time);
-        
-        // Select all clips in the selection range
-        $scope.SelectTimeRange(select_start_time, select_end_time);
-    }
-    
-    // Update the previously-selected clip ID
- 	//$scope.$apply(function() {
-        $scope.project.prev_selected_clip_id = id;
- 	//});
  };
  
   // Select transition in scope
