@@ -542,6 +542,14 @@
   },
   {
     "category": "Keyboard",
+    "title": "Center on Playhead",
+    "restart": true,
+    "setting": "actionCenterOnPlayhead",
+    "value": "Ctrl+Up",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
     "title": "Add to Timeline",
     "restart": true,
     "setting": "actionAdd_to_Timeline",

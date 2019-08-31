@@ -875,7 +875,7 @@
   </action>
   <action name="actionPreviousMarker">
    <property name="icon">
-    <iconset theme="go-first" resource="../../images/openshot.qrc">
+    <iconset resource="../../images/openshot.qrc">
      <normaloff>:/icons/Humanity/actions/16/go-first.svg</normaloff>:/icons/Humanity/actions/16/go-first.svg</iconset>
    </property>
    <property name="text">
@@ -887,7 +887,7 @@
   </action>
   <action name="actionNextMarker">
    <property name="icon">
-    <iconset theme="go-last" resource="../../images/openshot.qrc">
+    <iconset resource="../../images/openshot.qrc">
      <normaloff>:/icons/Humanity/actions/16/go-last.svg</normaloff>:/icons/Humanity/actions/16/go-last.svg</iconset>
    </property>
    <property name="text">
@@ -895,6 +895,18 @@
    </property>
    <property name="toolTip">
     <string>Next Marker</string>
+   </property>
+  </action>
+  <action name="actionCenterOnPlayhead">
+   <property name="icon">
+    <iconset resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/object-flip-horizontal.svg</normaloff>:/icons/Humanity/actions/16/object-flip-horizontal.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Center on Playhead</string>
+   </property>
+   <property name="toolTip">
+    <string>Center the timeline on the Playhead</string>
    </property>
   </action>
   <action name="actionFilesShowAll">

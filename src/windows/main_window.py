@@ -352,6 +352,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Seek to frame 0
         self.SeekSignal.emit(1)
+        
+        # Scroll the timeline to the start
+        self.timeline.centerOnTime(0.0)
 
     def actionAnimatedTitle_trigger(self, event):
         # show dialog
@@ -951,6 +954,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Seek to the 1st frame
         self.SeekSignal.emit(1)
+        
+        # Scroll the timeline to the start as well
+        self.timeline.centerOnTime(0.0)
 
     def actionJumpEnd_trigger(self, event):
         log.info("actionJumpEnd_trigger")
@@ -968,8 +974,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Convert to int and round
         timeline_length_int = round(timeline_length * fps) + 1
 
-        # Seek to the 1st frame
+        # Seek to the last frame
         self.SeekSignal.emit(timeline_length_int)
+        
+        # Scroll the timeline to the end as well
+        self.timeline.centerOnTime(timeline_length)
 
     def actionSaveFrame_trigger(self, event):
         log.info("actionSaveFrame_trigger")
@@ -1254,9 +1263,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             frame_to_seek = round(closest_position * fps_float) + 1
             self.SeekSignal.emit(frame_to_seek)
 
-            # Update the preview and reselct current frame in properties
+            # Update the preview and reselect current frame in properties
             get_app().window.refreshFrameSignal.emit()
             get_app().window.propertyTableView.select_frame(frame_to_seek)
+            
+            # Center the timeline on the marker
+            self.timeline.centerOnTime(closest_position)
 
     def actionNextMarker_trigger(self, event):
         log.info("actionNextMarker_trigger")
@@ -1307,10 +1319,29 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             frame_to_seek = round(closest_position * fps_float) + 1
             self.SeekSignal.emit(frame_to_seek)
 
-            # Update the preview and reselct current frame in properties
+            # Update the preview and reselect current frame in properties
             get_app().window.refreshFrameSignal.emit()
             get_app().window.propertyTableView.select_frame(frame_to_seek)
 
+            # Center the timeline on the marker
+            self.timeline.centerOnTime(closest_position)
+            
+    def actionCenterOnPlayhead_trigger(self, event):
+        log.info('actionCenterOnPlayhead_trigger')
+        
+        # Get player object
+        player = self.preview_thread.player
+        
+        # Calculate frames per second
+        fps = get_app().project.get("fps")
+        fps_float = float(fps["num"]) / float(fps["den"])
+        
+        # Calculate the playhead position in seconds
+        playheadPosition = player.Position() / fps_float
+        
+        # Center the timeline on the playhead position
+        self.timeline.centerOnTime(playheadPosition)
+            
     def getShortcutByName(self, setting_name):
         """ Get a key sequence back from the setting name """
         s = settings.get_settings()
@@ -1431,6 +1462,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.actionPreviousMarker.trigger()
         elif key.matches(self.getShortcutByName("actionNextMarker")) == QKeySequence.ExactMatch:
             self.actionNextMarker.trigger()
+        elif key.matches(self.getShortcutByName("actionCenterOnPlayhead")) == QKeySequence.ExactMatch:
+            self.actionCenterOnPlayhead.trigger()
         elif key.matches(self.getShortcutByName("actionTimelineZoomIn")) == QKeySequence.ExactMatch:
             self.actionTimelineZoomIn.trigger()
         elif key.matches(self.getShortcutByName("actionTimelineZoomOut")) == QKeySequence.ExactMatch:
@@ -2246,6 +2279,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.timelineToolbar.addSeparator()
         self.timelineToolbar.addAction(self.actionAddMarker)
         self.timelineToolbar.addAction(self.actionPreviousMarker)
+        self.timelineToolbar.addAction(self.actionCenterOnPlayhead)
         self.timelineToolbar.addAction(self.actionNextMarker)
         self.timelineToolbar.addSeparator()
 

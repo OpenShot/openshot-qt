@@ -398,7 +398,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Save transition
         existing_item.save()
 
-        # Update the preview and reselct current frame in properties
+        # Update the preview and reselect current frame in properties
         if not ignore_refresh:
             get_app().window.refreshFrameSignal.emit()
             get_app().window.propertyTableView.select_frame(self.window.preview_thread.player.Position())
@@ -2543,7 +2543,16 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Get access to timeline scope and set scale to zoom slider value (passed in)
         code = JS_SCOPE_SELECTOR + ".MovePlayheadToFrame(" + str(position_frames) + ");"
         self.eval_js(code)
-
+        
+    @pyqtSlot(float)
+    def centerOnTime(self, time):
+        # Retrieve the current timeline scale
+        scale = get_app().project.get("scale")
+        
+        # Execute JavaScript to center the timeline
+        cmd = '%s.centerOnTime(%s, %s);' % (JS_SCOPE_SELECTOR, str(scale), str(time))
+        self.page().mainFrame().evaluateJavaScript(cmd)
+        
     @pyqtSlot(int)
     def SetSnappingMode(self, enable_snapping):
         """ Enable / Disable snapping mode """
@@ -2893,7 +2902,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Accept event
         event.accept()
 
-        # Update the preview and reselct current frame in properties
+        # Update the preview and reselect current frame in properties
         get_app().window.refreshFrameSignal.emit()
         get_app().window.propertyTableView.select_frame(self.window.preview_thread.player.Position())
 
