@@ -1212,7 +1212,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Look for existing Marker
         marker = Marker()
-        marker.data = {"position": position, "icon": "blue.png"}
+        marker.data = {"position": position, "icon": "blue.png", "name": ""}
         marker.save()
 
     def actionPreviousMarker_trigger(self, event):
@@ -1778,6 +1778,28 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         for marker_id in self.selected_markers:
             marker = Marker.filter(id=marker_id)
             for m in marker:
+                # Remove track
+                m.delete()
+
+    def actionRemoveAllMarkers_trigger(self, event):
+        log.info('actionRemoveAllMarkers_trigger')
+
+        marker = Marker.getAll()
+        for m in marker:
+            # Remove track
+            m.delete()
+
+    def actionRemoveAllOtherMarkers_trigger(self, event):
+        log.info('actionRemoveAllOtherMarkers_trigger')
+
+        marker = Marker.getAll()
+        for m in marker:
+            match = False
+            for marker_id in self.selected_markers:
+                if (m.id == marker_id):
+                    match = True
+                    break
+            if (match == False):
                 # Remove track
                 m.delete()
 

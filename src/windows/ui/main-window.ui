@@ -1397,6 +1397,30 @@
     <string>Remove Marker</string>
    </property>
   </action>
+  <action name="actionRemoveAllMarkers">
+   <property name="icon">
+    <iconset theme="list-remove" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/list-remove.svg</normaloff>:/icons/Humanity/actions/16/list-remove.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Remove All Markers</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove All Markers</string>
+   </property>
+  </action>
+  <action name="actionRemoveAllOtherMarkers">
+   <property name="icon">
+    <iconset theme="list-remove" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/list-remove.svg</normaloff>:/icons/Humanity/actions/16/list-remove.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Remove All Other Markers</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove All Other Markers</string>
+   </property>
+  </action>
   <action name="actionAddTrackAbove">
    <property name="icon">
     <iconset theme="list-add" resource="../../images/openshot.qrc">

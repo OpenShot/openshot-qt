@@ -139,6 +139,26 @@ class QueryObject:
         else:
             return None
 
+    def getAll(OBJECT_TYPE):
+        """ Return all objects of the type """
+
+        # Get a list of all objects of this type
+        parent = project.get(OBJECT_TYPE.object_key)
+        matching_objects = []
+
+        # Loop through all children objects
+        if parent:
+            for child in parent:
+                object = OBJECT_TYPE()
+                object.id = child["id"]
+                object.key = [OBJECT_TYPE.object_name, {"id": object.id}]
+                object.data = copy.deepcopy(child) # copy of object
+                object.type = "update"
+                matching_objects.append(object)
+
+        # Return matching objects
+        return matching_objects
+        
 
 class Clip(QueryObject):
     """ This class allows Clips to be queried, updated, and deleted from the project data. """
@@ -160,6 +180,10 @@ class Clip(QueryObject):
     def get(**kwargs):
         """ Take any arguments given as filters, and find the first matching object """
         return QueryObject.get(Clip, **kwargs)
+        
+    def getAll():
+        """ Return all objects of the type """
+        return QueryObject.getAll(Clip)
 
     def title(self):
         """ Get the translated display title of this item """
@@ -187,6 +211,10 @@ class Transition(QueryObject):
     def get(**kwargs):
         """ Take any arguments given as filters, and find the first matching object """
         return QueryObject.get(Transition, **kwargs)
+        
+    def getAll():
+        """ Return all objects of the type """
+        return QueryObject.getAll(Transition)
 
     def title(self):
         """ Get the translated display title of this item """
@@ -231,6 +259,10 @@ class File(QueryObject):
     def get(**kwargs):
         """ Take any arguments given as filters, and find the first matching object """
         return QueryObject.get(File, **kwargs)
+        
+    def getAll():
+        """ Return all objects of the type """
+        return QueryObject.getAll(File)
 
     def absolute_path(self):
         """ Get absolute file path of file """
@@ -281,6 +313,10 @@ class Marker(QueryObject):
     def get(**kwargs):
         """ Take any arguments given as filters, and find the first matching object """
         return QueryObject.get(Marker, **kwargs)
+        
+    def getAll():
+        """ Return all objects of the type """
+        return QueryObject.getAll(Marker)
 
 
 class Track(QueryObject):
@@ -303,6 +339,10 @@ class Track(QueryObject):
     def get(**kwargs):
         """ Take any arguments given as filters, and find the first matching object """
         return QueryObject.get(Track, **kwargs)
+        
+    def getAll():
+        """ Return all objects of the type """
+        return QueryObject.getAll(Track)
 
 
 class Effect(QueryObject):
@@ -348,6 +388,29 @@ class Effect(QueryObject):
                             object.type = "update"
                             object.parent = clip
                             matching_objects.append(object)
+
+        # Return matching objects
+        return matching_objects
+        
+    def getAll():
+        """ Return all objects of the type """
+        # Get a list of clips
+        clips = project.get("clips")
+        matching_objects = []
+
+        # Loop through all clips
+        if clips:
+            for clip in clips:
+                # Loop through all effects
+                if "effects" in clip:
+                    for child in clip["effects"]:
+                        object = Effect()
+                        object.id = child["id"]
+                        object.key = ["clips", {"id": clip["id"]}, "effects", {"id": object.id}]
+                        object.data = child
+                        object.type = "update"
+                        object.parent = clip
+                        matching_objects.append(object)
 
         # Return matching objects
         return matching_objects

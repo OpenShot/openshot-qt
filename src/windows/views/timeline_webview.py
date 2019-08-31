@@ -2499,6 +2499,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         menu = QMenu(self)
         menu.addAction(self.window.actionRemoveMarker)
+        menu.addAction(self.window.actionRemoveAllMarkers)
+        menu.addAction(self.window.actionRemoveAllOtherMarkers)
         return menu.popup(QCursor.pos())
 
     @pyqtSlot(str, int)
