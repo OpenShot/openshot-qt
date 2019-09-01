@@ -318,7 +318,8 @@ class BlenderListView(QListView):
         # Close window
         self.close()
 
-    def update_progress_bar(self, current_frame, current_part, max_parts):
+    @pyqtSlot(int)
+    def update_progress_bar(self, current_frame):
 
         # update label and preview slider
         self.win.sliderPreview.setValue(current_frame)
@@ -649,8 +650,8 @@ class BlenderListView(QListView):
         self.worker.finished.connect(self.onRenderFinish)
         self.worker.blender_version_error.connect(self.onBlenderVersionError)
         self.worker.blender_error_nodata.connect(self.onBlenderErrorNoData)
-        self.worker.progress.connect(self.onUpdateProgress)
         self.worker.image_updated.connect(self.onUpdateImage)
+        self.worker.progress.connect(self.update_progress_bar)
         self.worker.blender_error_with_data.connect(self.onBlenderErrorMessage)
         self.worker.enable_interface.connect(self.onRenableInterface)
 
@@ -674,10 +675,6 @@ class BlenderListView(QListView):
     def onBlenderErrorNoData(self):
         self.error_with_blender()
 
-    # Signal when to update progress bar (1005)
-    def onUpdateProgress(self, current_frame, current_part, max_parts):
-        self.update_progress_bar(current_frame, current_part, max_parts)
-
     # Signal when to update preview image (1006)
     def onUpdateImage(self, image_path):
         self.update_image(image_path)
@@ -698,7 +695,7 @@ class Worker(QObject):
     finished = pyqtSignal()  # 1002
     blender_version_error = pyqtSignal(str)  # 1003
     blender_error_nodata = pyqtSignal()  # 1004
-    progress = pyqtSignal(int, int, int)  # 1005
+    progress = pyqtSignal(int)  # 1005
     image_updated = pyqtSignal(str)  # 1006
     blender_error_with_data = pyqtSignal(str)  # 1007
     enable_interface = pyqtSignal()  # 1008
@@ -720,7 +717,7 @@ class Worker(QObject):
 
         # get the blender executable path
         self.blender_exec_path = s.get("blender_command")
-        self.blender_frame_expression = re.compile(r"Fra:([0-9,]*).*Mem:(.*?) .*Part ([0-9,]*)-([0-9,]*)")
+        self.blender_frame_expression = re.compile(r"Fra:([0-9,]*).*Mem:(.*?) .*Sce:")
         self.blender_saved_expression = re.compile(r"Saved: '(.*.png)(.*)'")
         self.blender_version = re.compile(r"Blender (.*?) ")
         self.blend_file_path = blend_file_path
@@ -784,13 +781,11 @@ class Worker(QObject):
                 self.frame_detected = True
                 current_frame = output_frame[0][0]
                 memory = output_frame[0][1]
-                current_part = output_frame[0][2]
-                max_parts = output_frame[0][3]
 
                 # Update progress bar
                 if not self.preview_mode:
                     # only update progress if in 'render' mode
-                    self.progress.emit(float(current_frame), float(current_part), float(max_parts))
+                    self.progress.emit(float(current_frame))
 
             # Look for progress info in the Blender Output
             output_saved = self.blender_saved_expression.findall(str(line))
