@@ -50,6 +50,7 @@ from windows.views.titles_listview import TitlesListView
 
 import json
 
+
 class TitleEditor(QDialog):
     """ Title Editor Dialog """
 
@@ -199,7 +200,7 @@ class TitleEditor(QDialog):
             try:
                 self.settingsContainer.layout().removeWidget(child)
                 child.deleteLater()
-            except:
+            except Exception:
                 pass
 
         # Get text nodes and rect nodes
@@ -416,7 +417,7 @@ class TitleEditor(QDialog):
                 # Parse the result
                 txt = ar[color]
                 color = txt[5:]
-            except:
+            except Exception:
                 # If the color was in an invalid format, try the next text element
                 continue
 
@@ -426,15 +427,15 @@ class TitleEditor(QDialog):
                 # Parse the result
                 txt = ar[opacity]
                 opacity = float(txt[8:])
-            except:
+            except Exception:
                 pass
 
             # Default the font color to white if non-existing
-            if color == None:
+            if color is None:
                 color = "#FFFFFF"
 
             # Default the opacity to fully visible if non-existing
-            if opacity == None:
+            if opacity is None:
                 opacity = 1.0
 
             color = QtGui.QColor(color)
@@ -443,9 +444,9 @@ class TitleEditor(QDialog):
             colrgb = color.getRgbF()
             lum = (0.299 * colrgb[0] + 0.587 * colrgb[1] + 0.114 * colrgb[2])
             if (lum < 0.5):
-              text_color = QtGui.QColor(Qt.white)
+                text_color = QtGui.QColor(Qt.white)
             else:
-              text_color = QtGui.QColor(Qt.black)
+                text_color = QtGui.QColor(Qt.black)
 
             # Convert the opacity into the alpha value
             alpha = int(opacity * 65535.0)
@@ -488,11 +489,11 @@ class TitleEditor(QDialog):
                 pass
 
             # Default the background color to black if non-existing
-            if color == None:
+            if color is None:
                 color = "#000000"
 
             # Default opacity to fully visible if non-existing
-            if opacity == None:
+            if opacity is None:
                 opacity = 1.0
 
             color = QtGui.QColor(color)
@@ -501,9 +502,9 @@ class TitleEditor(QDialog):
             colrgb = color.getRgbF()
             lum = (0.299 * colrgb[0] + 0.587 * colrgb[1] + 0.114 * colrgb[2])
             if (lum < 0.5):
-              text_color = QtGui.QColor(Qt.white)
+                text_color = QtGui.QColor(Qt.white)
             else:
-              text_color = QtGui.QColor(Qt.black)
+                text_color = QtGui.QColor(Qt.black)
 
             # Convert the opacity into the alpha value
             alpha = int(opacity * 65535.0)
@@ -571,13 +572,13 @@ class TitleEditor(QDialog):
             s = self.rect_node[0].attributes["style"].value
             ar = s.split(";")
             fill = self.find_in_list(ar, "fill:")
-            if fill == None:
+            if fill is None:
                 ar.append("fill:" + color)
             else:
                 ar[fill] = "fill:" + color
 
             opacity = self.find_in_list(ar, "opacity:")
-            if opacity == None:
+            if opacity is None:
                 ar.append("opacity:" + str(alpha))
             else:
                 ar[opacity] = "opacity:" + str(alpha)
@@ -598,13 +599,13 @@ class TitleEditor(QDialog):
             # split the text node so we can access each part
             ar = s.split(";")
             fill = self.find_in_list(ar, "fill:")
-            if fill == None:
+            if fill is None:
                 ar.append("fill:" + color)
             else:
                 ar[fill] = "fill:" + color
 
             opacity = self.find_in_list(ar, "opacity:")
-            if opacity == None:
+            if opacity is None:
                 ar.append("opacity:" + str(alpha))
             else:
                 ar[opacity] = "opacity:" + str(alpha)
@@ -621,7 +622,7 @@ class TitleEditor(QDialog):
                 # split the text node so we can access each part
                 ar = s.split(";")
                 fill = self.find_in_list(ar, "fill:")
-                if fill == None:
+                if fill is None:
                     ar.append("fill:" + color)
                 else:
                     ar[fill] = "fill:" + color
@@ -697,8 +698,9 @@ class TitleEditor(QDialog):
             file.save()
             return True
 
-        except:
+        except Exception as ex:
             # Handle exception
+            log.error('Could not import {}: {}'.format(filename, str(ex)))
             msg = QMessageBox()
             msg.setText(_("{} is not a valid video, audio, or image file.".format(filename)))
             msg.exec_()
