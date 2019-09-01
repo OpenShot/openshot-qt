@@ -314,10 +314,6 @@ class BlenderListView(QListView):
         # Enable the Render button again
         self.win.close()
 
-    def close_window(self):
-        # Close window
-        self.close()
-
     @pyqtSlot(int)
     def update_progress_bar(self, current_frame):
 
