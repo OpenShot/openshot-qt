@@ -249,7 +249,7 @@ class BlenderListView(QListView):
 
         # Store keyboard-focused widget
         self.focus_owner = self.win.focusWidget()
-        
+
         self.win.btnRefresh.setEnabled(False)
         self.win.sliderPreview.setEnabled(False)
         self.win.btnRender.setEnabled(False)
@@ -258,6 +258,7 @@ class BlenderListView(QListView):
         if cursor:
             QApplication.setOverrideCursor(Qt.WaitCursor)
 
+    @pyqtSlot()
     def enable_interface(self):
         """ Disable all controls on interface """
         self.win.btnRefresh.setEnabled(True)
@@ -302,6 +303,7 @@ class BlenderListView(QListView):
         preview_frame_number = self.win.sliderPreview.value()
         self.preview_timer.start()
 
+    @pyqtSlot()
     def render_finished(self):
 
         # Add file to project
@@ -542,6 +544,7 @@ class BlenderListView(QListView):
         with codecs.open(path, "w", encoding="UTF-8") as f:
             f.write(script_body)
 
+    @pyqtSlot(str)
     def update_image(self, image_path):
 
         # get the pixbuf
@@ -642,46 +645,33 @@ class BlenderListView(QListView):
         self.worker = Worker()  # no parent!
 
         # Hook up signals to Background Worker
-        self.worker.closed.connect(self.onCloseWindow)
-        self.worker.finished.connect(self.onRenderFinish)
+        self.worker.closed.connect(self.close)
+        self.worker.finished.connect(self.render_finished)
         self.worker.blender_version_error.connect(self.onBlenderVersionError)
         self.worker.blender_error_nodata.connect(self.onBlenderErrorNoData)
-        self.worker.image_updated.connect(self.onUpdateImage)
         self.worker.progress.connect(self.update_progress_bar)
+        self.worker.image_updated.connect(self.update_image)
         self.worker.blender_error_with_data.connect(self.onBlenderErrorMessage)
-        self.worker.enable_interface.connect(self.onRenableInterface)
+        self.worker.enable_interface.connect(self.enable_interface)
 
         # Move Worker to new thread, and Start
         self.worker.moveToThread(self.background)
         self.background.start()
 
-    # Signal when to close window (1001)
-    def onCloseWindow(self):
-        self.close()
-
-    # Signal when render is finished (1002)
-    def onRenderFinish(self):
-        self.render_finished()
-
     # Error from blender (with version number) (1003)
+    @pyqtSlot(str)
     def onBlenderVersionError(self, version):
         self.error_with_blender(version)
 
     # Error from blender (with no data) (1004)
+    @pyqtSlot()
     def onBlenderErrorNoData(self):
         self.error_with_blender()
 
-    # Signal when to update preview image (1006)
-    def onUpdateImage(self, image_path):
-        self.update_image(image_path)
-
     # Signal error from blender (with custom message) (1007)
+    @pyqtSlot(str)
     def onBlenderErrorMessage(self, error):
         self.error_with_blender(None, error)
-
-    # Signal when to re-enable interface (1008)
-    def onRenableInterface(self):
-        self.enable_interface()
 
 
 class Worker(QObject):
