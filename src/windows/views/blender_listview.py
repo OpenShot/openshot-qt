@@ -25,7 +25,6 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import codecs
 import os
 import uuid
 import shutil
@@ -541,7 +540,7 @@ class BlenderListView(QListView):
         script_body = script_body.replace("#INJECT_PARAMS_HERE", user_params)
 
         # Write update script
-        with codecs.open(path, "w", encoding="UTF-8") as f:
+        with open(path, "w", encoding="UTF-8", errors="strict") as f:
             f.write(script_body)
 
     @pyqtSlot(str)
