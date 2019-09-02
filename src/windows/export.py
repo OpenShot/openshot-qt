@@ -265,6 +265,11 @@ class Export(QDialog):
         # Determine the length of the timeline (in frames)
         self.updateFrameRate()
 
+        # Tooltips
+        bitrateTT = _("Type <b>N crf</b><br> where N = 0..63, to use Constant Rate Factor control for quality setting instead of the bitrate")
+        self.lblVideoBitrate.setToolTip(bitrateTT)
+        self.txtVideoBitRate.setToolTip(bitrateTT)
+
     def delayed_fps_callback(self):
         """Callback for fps/profile changed event timer (to delay the timeline mapping so we don't spam libopenshot)"""
         # Stop timer
