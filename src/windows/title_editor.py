@@ -177,7 +177,7 @@ class TitleEditor(QDialog):
         self.filename = os.path.join(info.TITLE_PATH, "temp.svg")
 
         # Copy template to temp file
-        shutil.copy(template_path, self.filename)
+        shutil.copyfile(template_path, self.filename)
 
         # return temp path
         return self.filename
