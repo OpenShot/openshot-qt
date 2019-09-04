@@ -387,6 +387,26 @@ App.controller('TimelineCtrl',function($scope) {
 	  }
   };
 
+  // Determine whether a given timeline time index is scrolled into view
+  $scope.isTimeVisible = function(time_pos) {
+    // Get scrollbar positions
+    var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
+    var canvas_width = $("#scrolling_tracks").width();
+
+    // Compute pixel location of time index
+    var time_x = (time_pos * $scope.pixelsPerSecond) - horz_scroll_offset;
+    if (time_x > 0 && time_x < canvas_width ) {
+        return true;
+    } else {
+        return false;
+    }
+  };
+
+  // Determine whether the playhead is within the visible timeline section
+  $scope.isPlayheadVisible = function() {
+    return $scope.isTimeVisible($scope.project.playhead_position);
+  };
+
 // ############# QT FUNCTIONS #################### //
 
   // Change the scale and apply to scope
@@ -394,7 +414,6 @@ App.controller('TimelineCtrl',function($scope) {
     // Get scrollbar positions
     var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
     var track_labels_width = $("#track_controls").width();
-    var canvas_width = $("#scrolling_tracks").width();
     var center_x = 0;
     var cursor_time = 0;
 
@@ -403,17 +422,13 @@ App.controller('TimelineCtrl',function($scope) {
         center_x = Math.max(cursor_x - track_labels_width, 0);
         // Determine time of cursor position
         cursor_time = parseFloat(center_x + horz_scroll_offset) / $scope.pixelsPerSecond;
-    } else {
+    } else if ($scope.isPlayheadVisible()) {
         // Zoom on playhead if visible
-        var playhead_x = ($scope.project.playhead_position * $scope.pixelsPerSecond) - horz_scroll_offset;
-        if (playhead_x > 0 && playhead_x < canvas_width ) {
-            // Playhead visible
-            center_x = playhead_x;
-            cursor_time = $scope.project.playhead_position;
-        } else {
-            // Fall back to centering on left edge of canvas
-            cursor_time = parseFloat(horz_scroll_offset) / $scope.pixelsPerSecond;
-        }
+        cursor_time = $scope.project.playhead_position;
+        center_x = (cursor_time * $scope.pixelsPerSecond) - horz_scroll_offset;
+    } else {
+        // Fall back to centering on left edge of canvas
+        cursor_time = parseFloat(horz_scroll_offset) / $scope.pixelsPerSecond;
     }
 
     $scope.$apply(function() {
