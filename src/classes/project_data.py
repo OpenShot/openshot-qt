@@ -360,9 +360,21 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             # Check if paths are all valid
             self.check_if_paths_are_valid()
 
+            # Check for new-style asset folder, if present, or use project file
+            # location as fallback
+            asset_folder_name = None
+            if "asset_folder_name" in self._data:
+                asset_folder_name = self._data["asset_folder_name"]
+            if not asset_folder_name:
+                (pathname, filename) = os.path.split(file_path)
+                asset_folder_name = os.path.splitext(filename)[0] + "_assets"
+
+            asset_path = os.path.join(os.path.dirname(self.current_filepath), asset_folder_name)
+            if not os.path.exists(asset_path):
+                asset_path = os.path.dirname(self.current_filepath)
+
             # Copy any project thumbnails to main THUMBNAILS folder
-            loaded_project_folder = os.path.dirname(self.current_filepath)
-            project_thumbnails_folder = os.path.join(loaded_project_folder, "thumbnail")
+            project_thumbnails_folder = os.path.join(asset_path, "thumbnail")
             if os.path.exists(project_thumbnails_folder) and clear_thumbnails:
                 # Remove thumbnail path
                 shutil.rmtree(info.THUMBNAIL_PATH, True)
@@ -781,11 +793,29 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
     def move_temp_paths_to_project_folder(self, file_path, previous_path=None):
         """ Move all temp files (such as Thumbnails, Titles, and Blender animations) to the project asset folder. """
         try:
-            # Get project folder
-            new_project_folder = os.path.dirname(file_path)
-            new_thumbnails_folder = os.path.join(new_project_folder, "thumbnail")
+            # Generate and store asset folder name
+            (pname, fname) = os.path.split(file_path)
+            asset_folder_name = os.path.splitext(fname)[0] + "_assets"
+            asset_path = os.path.join(pname, asset_folder_name)
+
+            # Set folder name in project data
+            self._data["asset_folder_name"] = asset_folder_name
+
+            # Also migrate files from previous (deprecated) path structure
+            if previous_path:
+                old_save_path = os.path.dirname(previous_path)
+                old_asset_path = os.path.join(old_save_path, 'assets')
+                old_thumbnail_path = os.path.join(old_save_path, 'thumbnail')
+                log.info("Also monitoring old asset paths:\n{}\n{}\n{}".format(old_save_path, old_asset_path, old_thumbnail_path))
+
+            # Create asset folder
+            if not os.path.exists(asset_path):
+                os.mkdir(asset_path)
+            log.info("Asset dir set to {}".format(asset_path))
 
             # Create project thumbnails folder
+            new_thumbnails_folder = os.path.join(asset_path, "thumbnail")
+            log.info("New thumbnails folder: {}".format(new_thumbnails_folder))
             if not os.path.exists(new_thumbnails_folder):
                 os.mkdir(new_thumbnails_folder)
 
