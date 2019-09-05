@@ -819,79 +819,94 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             if not os.path.exists(new_thumbnails_folder):
                 os.mkdir(new_thumbnails_folder)
 
-            # Copy all thumbnails to project
-            for filename in glob.glob(os.path.join(info.THUMBNAIL_PATH, '*.*')):
-                shutil.copy(filename, new_thumbnails_folder)
+            # Track assets we copy/update
+            copied = []
+            reader_paths = {}
 
-            # Loop through each file
+            # Copy any necessary assets for File records
             for file in self._data["files"]:
                 path = file["path"]
 
-                # Find any temp BLENDER file paths
-                if info.BLENDER_PATH in path or info.ASSETS_PATH in path:
-                    log.info("Temp blender file path detected in file")
+                log.info("Checking {}".format(path))
+                # Copy thumbnail file
+                thumb_name = "{}.png".format(file["id"])
+                thumb_path = os.path.join(info.THUMBNAIL_PATH, thumb_name)
+                if not os.path.exists(thumb_path) and old_thumbnail_path:
+                    thumb_path = os.path.join(old_thumbnail_path, thumb_name)
+                if thumb_name not in copied:
+                    new_thumb_path = os.path.join(new_thumbnails_folder, thumb_name)
+                    if os.path.exists(thumb_path):
+                        shutil.copy2(thumb_path, new_thumb_path)
+                        copied.append(thumb_name)
+                        log.info("Copied thumbnail file {}.".format(thumb_name))
 
-                    # Get folder of file
-                    folder_path, file_name = os.path.split(path)
-                    parent_path, folder_name = os.path.split(folder_path)
-                    new_parent_path = new_project_folder
+                # Assets which need to be copied
+                new_asset_path = None
+                if (info.BLENDER_PATH in path or old_save_path in os.path.abspath(path)) and '%' in path:
 
-                    if os.path.isdir(path) or "%" in path:
-                        # Update path to new folder
-                        new_parent_path = os.path.join(new_project_folder, folder_name)
+                    # Copy directory of blender files
+                    log.info("Copying {}".format(path))
+                    old_dir, asset_name = os.path.split(path)
 
-                        # Copy blender tree into new folder
-                        shutil.copytree(folder_path, new_parent_path)
-                    else:
-                        # New path
-                        new_parent_path = os.path.join(new_project_folder, "assets")
+                    if os.path.isdir(old_dir) and old_dir not in copied:
+                        # Copy dir into new folder
+                        old_dir_name = os.path.basename(old_dir)
+                        shutil.copytree(old_dir, os.path.join(asset_path, old_dir_name))
+                        copied.append(old_dir)
+                        log.info("Copied dir {} to {}.".format(old_dir_name, asset_path))
+                    new_asset_path = os.path.join(asset_path, old_dir_name, asset_name)
 
-                        # Ensure blender folder exists
-                        if not os.path.exists(new_parent_path):
-                            os.mkdir(new_parent_path)
+                elif info.ASSETS_PATH in path or old_asset_path in os.path.abspath(path):
+                    # Copy single asset file
+                    log.info("Copying {}".format(path))
 
+                    # Generate destination path for asset
+                    asset_name = os.path.basename(path)
+                    new_asset_path = os.path.join(asset_path, asset_name)
+
+                    if path not in copied:
                         # Copy titles/individual files into new folder
-                        shutil.copy2(path, os.path.join(new_parent_path, file_name))
+                        shutil.copy2(path, new_asset_path)
+                        copied.append(path)
+                        log.info("Copied asset {} to {}.".format(asset_name, new_asset_path))
 
-                    # Update paths in project to new location
-                    file["path"] = os.path.join(new_parent_path, file_name)
+                # Update path in File object to new location
+                if new_asset_path:
+                    file["path"] = new_asset_path
+                    file_id = file["id"]
+                    reader_paths[file_id] = new_asset_path
+                    log.info("Set file {} path to {}".format(file_id, new_asset_path))
 
-            # Loop through each clip
+            # Copy all Clip thumbnails and update reader paths
             for clip in self._data["clips"]:
-                path = clip["reader"]["path"]
+                thumb_path = clip["image"]
+                file_id = clip["file_id"]
 
-                # Find any temp BLENDER file paths
-                if info.BLENDER_PATH in path or info.ASSETS_PATH in path:
-                    log.info("Temp blender file path detected in clip")
-
-                    # Get folder of file
-                    folder_path, file_name = os.path.split(path)
-                    parent_path, folder_name = os.path.split(folder_path)
-                    # Update path to new folder
-                    path = os.path.join(new_project_folder, folder_name)
-
-                    # Update paths in project to new location
-                    clip["reader"]["path"] = os.path.join(path, file_name)
-
-            # Loop through each file
-            for clip in self._data["clips"]:
-                path = clip["image"]
-
-                # Find any temp BLENDER file paths
-                if info.BLENDER_PATH in path or info.ASSETS_PATH in path:
-                    log.info("Temp blender file path detected in clip thumbnail")
-
-                    # Get folder of file
-                    folder_path, file_name = os.path.split(path)
-                    parent_path, folder_name = os.path.split(folder_path)
-                    # Update path to new folder
-                    path = os.path.join(new_project_folder, folder_name)
+                log.info("Checking {}".format(thumb_path))
+                if info.THUMBNAIL_PATH in thumb_path or old_thumbnail_path in thumb_path:
+                    # Copy thumbnail file
+                    thumb_name = os.path.basename(thumb_path)
+                    if thumb_name not in copied:
+                        new_thumb_path = os.path.join(new_thumbnails_folder, thumb_name)
+                        if os.path.exists(thumb_path) and not os.path.exists(new_thumb_path):
+                            shutil.copy2(thumb_path, new_thumb_path)
+                            copied.append(thumb_name)
+                            log.info("Copied thumbnail file {}.".format(thumb_name))
 
                     # Update paths in project to new location
-                    clip["image"] = os.path.join(path, file_name)
+                    thumb_path = os.path.join(new_thumbnails_folder, thumb_name)
+                    clip["image"] = thumb_path
+                    log.info("Set clip {} thumbnail path to {}".format(clip["id"], thumb_path))
+
+                log.info("Checking clip {} path for file {}".format(clip["id"], file_id))
+                # Update paths to files stored in our working space or old path structure
+                # (should have already been copied during previous File stage)
+                if file_id and file_id in reader_paths.keys():
+                    clip["reader"]["path"] = reader_paths[file_id]
+                    log.info("Updated clip {} path for file {}".format(clip["id"], file_id))
 
         except Exception as ex:
-            log.error("Error while moving temp files into project folder: %s" % str(ex))
+            log.error("Error while creating project asset folder {}: {}".format(asset_path, ex))
 
     def add_to_recent_files(self, file_path):
         """ Add this project to the recent files list """
