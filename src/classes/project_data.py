@@ -346,7 +346,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
                 except Exception as ex:
                     # Project file not recognized as v1.X or v2.X, bubble up error
-                    raise ex
+                    raise
 
             # Merge default and project settings, excluding settings not in default.
             self._data = self.merge_settings(default_project, project_data)
