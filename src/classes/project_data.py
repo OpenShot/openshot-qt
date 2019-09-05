@@ -928,18 +928,21 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Loop through each clip (in reverse order)
         for clip in reversed(self._data["clips"]):
-            path, is_modified, is_skipped = find_missing_file(clip["reader"]["path"])
-            parent_path, file_name_with_ext = os.path.split(path)
+            path = clip["reader"]["path"]
 
-            # File is missing
-            if path and is_modified and not is_skipped:
-                # Found file, update path
-                clip["reader"]["path"] = path
-                log.info("Auto-updated missing file: %s" % clip["reader"]["path"])
-            elif is_skipped:
-                # Remove missing file
-                log.info('Removed missing clip: %s' % file_name_with_ext)
-                self._data["clips"].remove(clip)
+            if not os.path.exists(path) and "%" not in path:
+                # File is missing
+                path, is_modified, is_skipped = find_missing_file(path)
+                file_name_with_ext = os.path.basename(path)
+
+                if path and is_modified and not is_skipped:
+                    # Found file, update path
+                    clip["reader"]["path"] = path
+                    log.info("Auto-updated missing file: %s" % clip["reader"]["path"])
+                elif is_skipped:
+                    # Remove missing file
+                    log.info('Removed missing clip: %s' % file_name_with_ext)
+                    self._data["clips"].remove(clip)
 
     def changed(self, action):
         """ This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """
