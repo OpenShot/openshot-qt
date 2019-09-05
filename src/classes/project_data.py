@@ -759,7 +759,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Move all temp files (i.e. Blender animations) to the project folder
         if move_temp_files:
-            self.move_temp_paths_to_project_folder(file_path)
+            self.move_temp_paths_to_project_folder(file_path, previous_path=self.current_filepath)
 
         # Append version info
         v = openshot.GetVersion()
@@ -778,8 +778,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         # Track unsaved changes
         self.has_unsaved_changes = False
 
-    def move_temp_paths_to_project_folder(self, file_path):
-        """ Move all temp files (such as Thumbnails, Titles, and Blender animations) to the project folder. """
+    def move_temp_paths_to_project_folder(self, file_path, previous_path=None):
+        """ Move all temp files (such as Thumbnails, Titles, and Blender animations) to the project asset folder. """
         try:
             # Get project folder
             new_project_folder = os.path.dirname(file_path)
