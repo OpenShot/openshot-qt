@@ -899,8 +899,8 @@
   </action>
   <action name="actionCenterOnPlayhead">
    <property name="icon">
-    <iconset theme="object-flip-horizontal" resource="../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/16/object-flip-horizontal.svg</normaloff>:/icons/Humanity/actions/16/object-flip-horizontal.svg</iconset>
+    <iconset resource="../../images/openshot.qrc">
+	    <normaloff>:/icons/Humanity/actions/custom/center-on-playhead.svg</normaloff>:/icons/Humanity/actions/custom/center-on-playhead.svg</iconset>
    </property>
    <property name="text">
     <string>Center on Playhead</string>
