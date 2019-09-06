@@ -420,12 +420,17 @@ App.controller('TimelineCtrl',function($scope) {
     var scrollingTracksWidth = $("#scrolling_tracks").width();
     
     // Calculate the position to scroll the timeline to to center on the requested time
-    var pixelToCenterOn = centerTime * $scope.pixelsPerSecond;
+    var pixelToCenterOn = parseFloat(centerTime) * $scope.pixelsPerSecond;
     var scrollPosition = Math.max(pixelToCenterOn - (scrollingTracksWidth / 2.0), 0);
     
-    // Scroll the timeline
+    // Scroll the timeline using JQuery
     $("#scrolling_tracks").scrollLeft(Math.round(scrollPosition + 0.5));
  };
+
+  // Move the playhead to a specific time
+  $scope.centerOnPlayhead = function() {
+    $scope.centerOnTime($scope.project.playhead_position);
+  };
 
  // Update thumbnail for clip
  $scope.updateThumbnail = function(clip_id) {

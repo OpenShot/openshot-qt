@@ -1327,20 +1327,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.timeline.centerOnTime(closest_position)
             
     def actionCenterOnPlayhead_trigger(self, event):
-        log.info('actionCenterOnPlayhead_trigger')
-        
-        # Get player object
-        player = self.preview_thread.player
-        
-        # Calculate frames per second
-        fps = get_app().project.get("fps")
-        fps_float = float(fps["num"]) / float(fps["den"])
-        
-        # Calculate the playhead position in seconds
-        playheadPosition = player.Position() / fps_float
-        
-        # Center the timeline on the playhead position
-        self.timeline.centerOnTime(playheadPosition)
+        self.timeline.centerOnPlayhead()
 
     def getShortcutByName(self, setting_name):
         """ Get a key sequence back from the setting name """
@@ -2279,8 +2266,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.timelineToolbar.addSeparator()
         self.timelineToolbar.addAction(self.actionAddMarker)
         self.timelineToolbar.addAction(self.actionPreviousMarker)
-        self.timelineToolbar.addAction(self.actionCenterOnPlayhead)
         self.timelineToolbar.addAction(self.actionNextMarker)
+        self.timelineToolbar.addAction(self.actionCenterOnPlayhead)
         self.timelineToolbar.addSeparator()
 
         # Get project's initial zoom value

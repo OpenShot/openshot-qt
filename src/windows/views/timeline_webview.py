@@ -2549,6 +2549,12 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Execute JavaScript to center the timeline
         cmd = '%s.centerOnTime(%s);' % (JS_SCOPE_SELECTOR, str(time))
         self.page().mainFrame().evaluateJavaScript(cmd)
+        
+    @pyqtSlot(float)
+    def centerOnPlayhead(self):
+        # Execute JavaScript to center the timeline
+        cmd = '%s.centerOnPlayhead();' % (JS_SCOPE_SELECTOR);
+        self.page().mainFrame().evaluateJavaScript(cmd)
 
     @pyqtSlot(int)
     def SetSnappingMode(self, enable_snapping):
