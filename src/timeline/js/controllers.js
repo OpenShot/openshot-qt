@@ -370,7 +370,7 @@ App.controller('TimelineCtrl',function($scope) {
 	// Return keyframe array
 	return keyframes;
   };
-  
+
   // Determine track top (in vertical pixels)
   $scope.getTrackTop = function(layer) {
 	  // Get scrollbar position
@@ -385,6 +385,26 @@ App.controller('TimelineCtrl',function($scope) {
 	  else {
 		  return 0;
 	  }
+  };
+
+  // Determine whether a given timeline time index is scrolled into view
+  $scope.isTimeVisible = function(time_pos) {
+    // Get scrollbar positions
+    var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
+    var canvas_width = $("#scrolling_tracks").width();
+
+    // Compute pixel location of time index
+    var time_x = (time_pos * $scope.pixelsPerSecond) - horz_scroll_offset;
+    if (time_x > 0 && time_x < canvas_width ) {
+        return true;
+    } else {
+        return false;
+    }
+  };
+
+  // Determine whether the playhead is within the visible timeline section
+  $scope.isPlayheadVisible = function() {
+    return $scope.isTimeVisible($scope.project.playhead_position);
   };
 
 // ############# QT FUNCTIONS #################### //
