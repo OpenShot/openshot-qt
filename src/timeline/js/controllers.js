@@ -262,7 +262,7 @@ App.controller('TimelineCtrl',function($scope) {
   };
   
   // Move the playhead to a specific frame
-  $scope.MovePlayheadToFrame = function(position_frames) {
+  $scope.MovePlayheadToFrame = function(position_frames, followPlayhead=false) {
 	  // Don't move the playhead if it's currently animating
 	  if ($scope.playhead_animating) {
 			return;
@@ -272,6 +272,11 @@ App.controller('TimelineCtrl',function($scope) {
 	  var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
 	  var position_seconds = ((position_frames - 1) / frames_per_second);
 	  
+      // Center on the playhead if it has moved out of view and the timeline should follow it
+	  if (followPlayhead && !$scope.isTimeVisible(position_seconds)) {
+		  $scope.centerOnTime(position_seconds);
+	  }
+      
 	  // Update internal scope (in seconds)
 	  $scope.MovePlayhead(position_seconds);
   };
@@ -449,6 +454,7 @@ App.controller('TimelineCtrl',function($scope) {
 
   // Move the playhead to a specific time
   $scope.centerOnPlayhead = function() {
+  timeline.qt_log("$scope.centerOnPlayhead");
     $scope.centerOnTime($scope.project.playhead_position);
   };
 

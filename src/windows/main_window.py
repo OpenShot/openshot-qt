@@ -97,6 +97,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     # Docks are closable, movable and floatable
     docks_frozen = False
+    
+    # The timeline should follow the playhead when it changes and this is set to True
+    followPlayhead = False
 
     # Save window settings on close
     def closeEvent(self, event):
@@ -351,10 +354,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.SetWindowTitle()
 
         # Seek to frame 0
+        self.followPlayhead = True
         self.SeekSignal.emit(1)
-        
-        # Scroll the timeline to the start
-        self.timeline.centerOnTime(0.0)
 
     def actionAnimatedTitle_trigger(self, event):
         # show dialog
@@ -921,7 +922,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def movePlayhead(self, position_frames):
         """Update playhead position"""
         # Notify preview thread
-        self.timeline.movePlayhead(position_frames)
+        self.timeline.movePlayhead(position_frames, self.followPlayhead)
+        self.followPlayhead = False
 
     def actionFastForward_trigger(self, event):
 
@@ -953,10 +955,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         log.info("actionJumpStart_trigger")
 
         # Seek to the 1st frame
+        self.followPlayhead = True
         self.SeekSignal.emit(1)
-        
-        # Scroll the timeline to the start as well
-        self.timeline.centerOnTime(0.0)
 
     def actionJumpEnd_trigger(self, event):
         log.info("actionJumpEnd_trigger")
@@ -975,10 +975,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         timeline_length_int = round(timeline_length * fps) + 1
 
         # Seek to the 1st frame
+        self.followPlayhead = True
         self.SeekSignal.emit(timeline_length_int)
-        
-        # Scroll the timeline to the end as well
-        self.timeline.centerOnTime(timeline_length)
 
     def actionSaveFrame_trigger(self, event):
         log.info("actionSaveFrame_trigger")
@@ -1261,14 +1259,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if closest_position != None:
             # Seek
             frame_to_seek = round(closest_position * fps_float) + 1
+            self.followPlayhead = True
             self.SeekSignal.emit(frame_to_seek)
 
             # Update the preview and reselct current frame in properties
             get_app().window.refreshFrameSignal.emit()
             get_app().window.propertyTableView.select_frame(frame_to_seek)
-            
-            # Center the timeline on the marker
-            self.timeline.centerOnTime(closest_position)
 
     def actionNextMarker_trigger(self, event):
         log.info("actionNextMarker_trigger")
@@ -1317,16 +1313,15 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if closest_position != None:
             # Seek
             frame_to_seek = round(closest_position * fps_float) + 1
+            self.followPlayhead = True
             self.SeekSignal.emit(frame_to_seek)
 
             # Update the preview and reselct current frame in properties
             get_app().window.refreshFrameSignal.emit()
             get_app().window.propertyTableView.select_frame(frame_to_seek)
-
-            # Center the timeline on the marker
-            self.timeline.centerOnTime(closest_position)
             
     def actionCenterOnPlayhead_trigger(self, event):
+        """ Center the timeline on the current playhead position """
         self.timeline.centerOnPlayhead()
 
     def getShortcutByName(self, setting_name):
@@ -1377,6 +1372,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             if player.Speed() != 0:
                 self.SpeedSignal.emit(0)
             # Seek to previous frame
+            self.followPlayhead = True
             self.SeekSignal.emit(player.Position() - 1)
 
             # Notify properties dialog
@@ -1389,6 +1385,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             if player.Speed() != 0:
                 self.SpeedSignal.emit(0)
             # Seek to next frame
+            self.followPlayhead = True
             self.SeekSignal.emit(player.Position() + 1)
 
             # Notify properties dialog

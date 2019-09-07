@@ -2537,23 +2537,17 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             self.window.previewFrame(position_frames)
 
     @pyqtSlot(int)
-    def movePlayhead(self, position_frames):
+    def movePlayhead(self, position_frames, followPlayhead = False):
         """ Move the playhead since the position has changed inside OpenShot (probably due to the video player) """
-
         # Get access to timeline scope and set scale to zoom slider value (passed in)
-        code = JS_SCOPE_SELECTOR + ".MovePlayheadToFrame(" + str(position_frames) + ");"
+        code = JS_SCOPE_SELECTOR + ".MovePlayheadToFrame(%s, %s);" % (str(position_frames), "true" if followPlayhead else "false")
         self.eval_js(code)
-        
-    @pyqtSlot(float)
-    def centerOnTime(self, time):
-        # Execute JavaScript to center the timeline
-        cmd = '%s.centerOnTime(%s);' % (JS_SCOPE_SELECTOR, str(time))
-        self.page().mainFrame().evaluateJavaScript(cmd)
-        
+
     @pyqtSlot(float)
     def centerOnPlayhead(self):
+        """ Center the timeline on the current playhead position """
         # Execute JavaScript to center the timeline
-        cmd = '%s.centerOnPlayhead();' % (JS_SCOPE_SELECTOR);
+        cmd = JS_SCOPE_SELECTOR + '.centerOnPlayhead();';
         self.page().mainFrame().evaluateJavaScript(cmd)
 
     @pyqtSlot(int)
