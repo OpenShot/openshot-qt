@@ -792,31 +792,48 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
     def move_temp_paths_to_project_folder(self, file_path, previous_path=None):
         """ Move all temp files (such as Thumbnails, Titles, and Blender animations) to the project asset folder. """
         try:
-            # Generate and store asset folder name
-            (pname, fname) = os.path.split(file_path)
-            asset_folder_name = os.path.splitext(fname)[0] + "_assets"
-            asset_path = os.path.join(pname, asset_folder_name)
+            # Generate asset folder name, max 30 chars of filename + "_assets"
+            fname = os.path.splitext(os.path.basename(file_path))[0]
+            asset_folder_name = fname[:30] + "_assets"
+            asset_path = os.path.join(os.path.dirname(file_path), asset_folder_name)
 
-            # Set folder name in project data
-            self._data["asset_folder_name"] = asset_folder_name
+            old_asset_path = None
+            old_save_path = None
+            old_thumbnail_path = None
 
-            # Also migrate files from previous (deprecated) path structure
-            if previous_path:
+            if "asset_folder_name" in self._data:
+                # Copy files from old asset folder, if different
+                old_asset_folder = self._data["asset_folder_name"]
+                if previous_path and os.path.dirname(file_path) != os.path.dirname(previous_path):
+                    old_asset_path = os.path.join(os.path.dirname(previous_path), old_asset_folder)
+                elif asset_folder_name != old_asset_folder:
+                    old_asset_path = os.path.join(os.path.dirname(file_path), old_asset_folder)
+                if old_asset_path:
+                    old_save_path = old_asset_path
+                    old_thumbnail_path = os.path.join(old_asset_path, 'thumbnail')
+                    log.info("Scanning old asset dir {}".format(old_asset_path))
+            elif previous_path:
+                # Otherwise migrate files from previous (deprecated) path structure
                 old_save_path = os.path.dirname(previous_path)
                 old_asset_path = os.path.join(old_save_path, 'assets')
                 old_thumbnail_path = os.path.join(old_save_path, 'thumbnail')
-                log.info("Also monitoring old asset paths:\n{}\n{}\n{}".format(old_save_path, old_asset_path, old_thumbnail_path))
+                log.info("Also scanning legacy asset paths:\n{}\n{}\n{}".format(old_save_path, old_asset_path, old_thumbnail_path))
 
-            # Create asset folder
+            # Store folder name in project data
+            self._data["asset_folder_name"] = asset_folder_name
+
+            # Create asset folder, if necessary
             if not os.path.exists(asset_path):
                 os.mkdir(asset_path)
-            log.info("Asset dir set to {}".format(asset_path))
+                log.info("Asset dir created as {}".format(asset_path))
+            else:
+                log.info("Using existing asset folder {}".format(asset_path))
 
             # Create project thumbnails folder
             new_thumbnails_folder = os.path.join(asset_path, "thumbnail")
-            log.info("New thumbnails folder: {}".format(new_thumbnails_folder))
             if not os.path.exists(new_thumbnails_folder):
                 os.mkdir(new_thumbnails_folder)
+                log.info("New thumbnails folder: {}".format(new_thumbnails_folder))
 
             # Track assets we copy/update
             copied = []
@@ -829,11 +846,11 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 log.info("Checking {}".format(path))
                 # Copy thumbnail file
                 thumb_name = "{}.png".format(file["id"])
-                thumb_path = os.path.join(info.THUMBNAIL_PATH, thumb_name)
-                if not os.path.exists(thumb_path) and old_thumbnail_path:
-                    thumb_path = os.path.join(old_thumbnail_path, thumb_name)
                 if thumb_name not in copied:
                     new_thumb_path = os.path.join(new_thumbnails_folder, thumb_name)
+                    thumb_path = os.path.join(info.THUMBNAIL_PATH, thumb_name)
+                    if not os.path.exists(thumb_path) and old_thumbnail_path:
+                        thumb_path = os.path.join(old_thumbnail_path, thumb_name)
                     if os.path.exists(thumb_path):
                         shutil.copy2(thumb_path, new_thumb_path)
                         copied.append(thumb_name)
@@ -841,7 +858,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
                 # Assets which need to be copied
                 new_asset_path = None
-                if (info.BLENDER_PATH in path or old_save_path in os.path.abspath(path)) and '%' in path:
+                if (info.BLENDER_PATH in path or (old_save_path and old_save_path in os.path.abspath(path))) and '%' in path:
 
                     # Copy directory of blender files
                     log.info("Copying {}".format(path))
@@ -855,7 +872,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                         log.info("Copied dir {} to {}.".format(old_dir_name, asset_path))
                     new_asset_path = os.path.join(asset_path, old_dir_name, asset_name)
 
-                elif info.ASSETS_PATH in path or old_asset_path in os.path.abspath(path):
+                elif info.ASSETS_PATH in path or (old_asset_path and old_asset_path in os.path.abspath(path)):
                     # Copy single asset file
                     log.info("Copying {}".format(path))
 
@@ -882,7 +899,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 file_id = clip["file_id"]
 
                 log.info("Checking {}".format(thumb_path))
-                if info.THUMBNAIL_PATH in thumb_path or old_thumbnail_path in thumb_path:
+                if info.THUMBNAIL_PATH in thumb_path or (old_thumbnail_path and old_thumbnail_path in thumb_path):
                     # Copy thumbnail file
                     thumb_name = os.path.basename(thumb_path)
                     if thumb_name not in copied:
