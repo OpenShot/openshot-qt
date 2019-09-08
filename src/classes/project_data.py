@@ -123,7 +123,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     return None
 
                 # If next part of path isn't in current dictionary, return failure
-                if not key_part in obj:
+                if key_part not in obj:
                     log.warn("Key not found in project. Mismatch on key part {} (\"{}\").\nKey: {}".format((key_index),
                                                                                                            key_part,
                                                                                                            key))
@@ -204,10 +204,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     return None
 
                 # If next part of path isn't in current dictionary, return failure
-                if not key_part in obj:
-                    log.warn("Key not found in project. Mismatch on key part {} (\"{}\").\nKey: {}".format((key_index),
-                                                                                                           key_part,
-                                                                                                           key))
+                if key_part not in obj:
+                    log.warn("Key not found in project. Mismatch on key part {} (\"{}\").\nKey: {}".format((key_index), key_part, key))
                     return None
 
                 # Get sub-object based on part key as new object, continue to next part
@@ -287,7 +285,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     self._data["profile"] = profile.info.description
                     self._data["width"] = profile.info.width
                     self._data["height"] = profile.info.height
-                    self._data["fps"] = {"num" : profile.info.fps.num, "den" : profile.info.fps.den}
+                    self._data["fps"] = {"num": profile.info.fps.num, "den": profile.info.fps.den}
                     break
 
         # Get the default audio settings for the timeline (and preview playback)
@@ -432,7 +430,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Loop through all effects/transitions (and look for Keyframe objects)
         # Scale the X coordinate by factor (which represents the frame #)
-        for effect in self._data.get('effects',[]):
+        for effect in self._data.get('effects', []):
             for attribute in effect:
                 if type(effect.get(attribute)) == dict and "Points" in effect.get(attribute):
                     for point in effect.get(attribute).get("Points"):
@@ -450,7 +448,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
     def read_legacy_project_file(self, file_path):
         """Attempt to read a legacy version 1.x openshot project file"""
-        import sys, pickle
+        import sys
+        import pickle
         from classes.query import File, Track, Clip, Transition
         from classes.app import get_app
         import openshot
@@ -462,8 +461,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         # Append version info
         v = openshot.GetVersion()
         project_data = {}
-        project_data["version"] = {"openshot-qt" : info.VERSION,
-                                   "libopenshot" : v.ToString()}
+        project_data["version"] = {"openshot-qt": info.VERSION,
+                                   "libopenshot": v.ToString()}
 
         # Get FPS from project
         from classes.app import get_app
@@ -527,9 +526,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             # Keep track of new ids and old ids
                             file_lookup[item.unique_id] = file
 
-                        except:
+                        except Exception as ex:
                             # Handle exception quietly
-                            msg = ("%s is not a valid video, audio, or image file." % item.name)
+                            msg = ("{} is not a valid video, audio, or image file: {}".format(item.name. str(ex)))
                             log.error(msg)
                             failed_files.append(item.name)
 
@@ -619,7 +618,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             else:
                                 p = openshot.Point(1, clip.volume / 100.0, openshot.BEZIER)
                                 p_object = json.loads(p.Json(), strict=False)
-                                new_clip["volume"] = { "Points" : [p_object]}
+                                new_clip["volume"] = {"Points": [p_object]}
 
                             # Audio Fade IN
                             if clip.audio_fade_in:
@@ -731,7 +730,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             # using the new percent based keyframes
             for clip_type in ["clips", "effects"]:
                 for clip in self._data[clip_type]:
-                    for object in [clip] + clip.get('effects',[]):
+                    for object in [clip] + clip.get('effects', []):
                         for item_key, item_data in object.items():
                             # Does clip attribute have a {"Points": [...]} list
                             if type(item_data) == dict and "Points" in item_data:
@@ -775,8 +774,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Append version info
         v = openshot.GetVersion()
-        self._data["version"] = { "openshot-qt" : info.VERSION,
-                                  "libopenshot" : v.ToString() }
+        self._data["version"] = {"openshot-qt": info.VERSION,
+                                 "libopenshot": v.ToString()}
 
         # Try to save project settings file, will raise error on failure
         self.write_to_file(file_path, self._data, path_mode="relative", previous_path=self.current_filepath)
