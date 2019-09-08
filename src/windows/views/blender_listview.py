@@ -572,7 +572,9 @@ class BlenderListView(QListView):
 
         # Copy the .py script associated with this template to the temp folder.  This will allow
         # OpenShot to inject the user-entered params into the Python script.
-        shutil.copy(source_script, target_script)
+        # XXX: Note that copyfile() is used instead of copy(), as the original
+        #      file may be readonly, and we don't want to duplicate those permissions
+        shutil.copyfile(source_script, target_script)
 
         # Open new temp .py file, and inject the user parameters
         self.inject_params(target_script, frame)

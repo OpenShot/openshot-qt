@@ -286,6 +286,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     self._data["width"] = profile.info.width
                     self._data["height"] = profile.info.height
                     self._data["fps"] = {"num": profile.info.fps.num, "den": profile.info.fps.den}
+                    self._data["display_ratio"] = {"num": profile.info.display_ratio.num, "den": profile.info.display_ratio.den}
+                    self._data["pixel_ratio"] = {"num": profile.info.pixel_ratio.num, "den": profile.info.pixel_ratio.den}
                     break
 
         # Get the default audio settings for the timeline (and preview playback)
