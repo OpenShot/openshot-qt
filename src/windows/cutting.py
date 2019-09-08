@@ -59,11 +59,11 @@ class Cutting(QDialog):
     SpeedSignal = pyqtSignal(float)
     StopSignal = pyqtSignal()
 
-    def __init__(self, file=None, preview=False):
+    def __init__(self, parent=None, file=None, preview=False):
         _ = get_app()._tr
 
         # Create dialog class
-        QDialog.__init__(self)
+        QDialog.__init__(self, parent)
 
         # Load UI from designer
         ui_util.load_ui(self, self.ui_path)

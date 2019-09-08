@@ -900,7 +900,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # show dialog
         from windows.cutting import Cutting
-        win = Cutting(f, preview=True)
+        win = Cutting(parent=self, file=f, preview=True)
         win.show()
 
     def previewFrame(self, position_frames):
@@ -1545,7 +1545,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # show dialog
         from windows.cutting import Cutting
-        win = Cutting(f)
+        win = Cutting(parent=self, file=f)
         # Run the dialog event loop - blocking interaction on this window during that time
         result = win.exec_()
         if result == QDialog.Accepted:
