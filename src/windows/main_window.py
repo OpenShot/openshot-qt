@@ -902,6 +902,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         from windows.cutting import Cutting
         win = Cutting(parent=self, file=f, preview=True)
         win.show()
+        win.openReader()
 
     def previewFrame(self, position_frames):
         """Preview a specific frame"""
@@ -1546,12 +1547,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # show dialog
         from windows.cutting import Cutting
         win = Cutting(parent=self, file=f)
-        # Run the dialog event loop - blocking interaction on this window during that time
-        result = win.exec_()
-        if result == QDialog.Accepted:
-            log.info('Cutting Finished')
-        else:
-            log.info('Cutting Cancelled')
+        win.show()
+        win.openReader()
 
     def actionRemove_from_Project_trigger(self, event):
         log.info("actionRemove_from_Project_trigger")

@@ -74,6 +74,15 @@ class Cutting(QDialog):
         # Track metrics
         track_metric_screen("cutting-screen")
 
+        # Disable user controls until file ready
+        self.sliderVideo.setEnabled(False)
+        self.btnPlay.setEnabled(False)
+        self.lblVideoTime.setEnabled(False)
+        self.lblInstructions.setEnabled(False)
+        self.widgetControls.setEnabled(False)
+
+        self.preview = preview
+
         # If preview, hide cutting controls
         if preview:
             self.lblInstructions.setVisible(False)
@@ -98,81 +107,32 @@ class Cutting(QDialog):
         self.channels = int(file.data['channels'])
         self.channel_layout = int(file.data['channel_layout'])
 
-        # Open video file with Reader
-        log.info(self.file_path)
+        self.video_rotate = int(file.data.get('metadata', {}).get('rotate', '0'))
 
-        # Add Video Widget
+        # Add Video Widget for file preview
         self.videoPreview = VideoWidget()
-        self.videoPreview.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
+
+        if self.video_rotate in [90, 270]:
+            # Flip aspect ratio
+            self.videoPreview.aspect_ratio.den = int(file.data['display_ratio']['num'])
+            self.videoPreview.aspect_ratio.num = int(file.data['display_ratio']['den'])
+            self.videoPreview.pixel_ratio.den = int(file.data['pixel_ratio']['num'])
+            self.videoPreview.pixel_ratio.num = int(file.data['pixel_ratio']['den'])
+        else:
+            self.videoPreview.aspect_ratio.num = int(file.data['display_ratio']['num'])
+            self.videoPreview.aspect_ratio.den = int(file.data['display_ratio']['den'])
+            self.videoPreview.pixel_ratio.num = int(file.data['pixel_ratio']['num'])
+            self.videoPreview.pixel_ratio.den = int(file.data['pixel_ratio']['den'])
+
+        # Set limits on preview size
+        self.videoPreview.setMinimumSize(1, 1)
+        self.videoPreview.setMaximumSize(4096, 4096)
+
+        self.videoPreview.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.verticalLayout.insertWidget(0, self.videoPreview)
 
-        # Set max size of video preview (for speed)
-        viewport_rect = self.videoPreview.centeredViewport(self.videoPreview.width(), self.videoPreview.height())
-
-        # Create an instance of a libopenshot Timeline object
-        self.r = openshot.Timeline(self.videoPreview.width(), self.videoPreview.height(), openshot.Fraction(self.fps_num, self.fps_den), self.sample_rate, self.channels, self.channel_layout)
-        self.r.info.channel_layout = self.channel_layout
-        self.r.SetMaxSize(viewport_rect.width(), viewport_rect.height())
-
-        try:
-            # Add clip for current preview file
-            self.clip = openshot.Clip(self.file_path)
-
-            # Show waveform for audio files
-            if not self.clip.Reader().info.has_video and self.clip.Reader().info.has_audio:
-                self.clip.Waveform(True)
-
-            # Set has_audio property
-            self.r.info.has_audio = self.clip.Reader().info.has_audio
-
-            # Update video_length property of the Timeline object
-            self.r.info.video_length = self.video_length
-
-            if preview:
-                # Display frame #'s during preview
-                self.clip.display = openshot.FRAME_DISPLAY_CLIP
-
-            self.r.AddClip(self.clip)
-        except:
-            log.error('Failed to load media file into preview player: %s' % self.file_path)
-            return
-
-        # Open reader
-        self.r.Open()
-
-        # Start the preview thread
+        # Player isn't loaded yet
         self.initialized = False
-        self.transforming_clip = False
-        self.preview_parent = PreviewParent()
-        self.preview_parent.Init(self, self.r, self.videoPreview)
-        self.preview_thread = self.preview_parent.worker
-
-        # Set slider constraints
-        self.sliderIgnoreSignal = False
-        self.sliderVideo.setMinimum(1)
-        self.sliderVideo.setMaximum(self.video_length)
-        self.sliderVideo.setSingleStep(1)
-        self.sliderVideo.setSingleStep(1)
-        self.sliderVideo.setPageStep(24)
-
-        # Determine if a start or end attribute is in this file
-        start_frame = 1
-        if 'start' in self.file.data.keys():
-            start_frame = (float(self.file.data['start']) * self.fps) + 1
-
-        # Display start frame (and then the previous frame)
-        QTimer.singleShot(500, functools.partial(self.sliderVideo.setValue, start_frame + 1))
-        QTimer.singleShot(600, functools.partial(self.sliderVideo.setValue, start_frame))
-
-        # Connect signals
-        self.actionPlay.triggered.connect(self.actionPlay_Triggered)
-        self.btnPlay.clicked.connect(self.btnPlay_clicked)
-        self.sliderVideo.valueChanged.connect(self.sliderVideo_valueChanged)
-        self.btnStart.clicked.connect(self.btnStart_clicked)
-        self.btnEnd.clicked.connect(self.btnEnd_clicked)
-        self.btnClear.clicked.connect(self.btnClear_clicked)
-        self.btnAddClip.clicked.connect(self.btnAddClip_clicked)
-        self.initialized = True
 
     def actionPlay_Triggered(self):
         # Trigger play button (This action is invoked from the preview thread, so it must exist here)
@@ -357,21 +317,106 @@ class Cutting(QDialog):
     def closeEvent(self, event):
         log.info('closeEvent')
 
-        # Stop playback
-        self.preview_parent.worker.Stop()
+        try:
+            # Stop playback
+            self.preview_parent.worker.Stop()
 
-        # Stop preview thread (and wait for it to end)
-        self.preview_parent.worker.kill()
-        self.preview_parent.background.exit()
-        self.preview_parent.background.wait(5000)
+            # Stop preview thread (and wait for it to end)
+            self.preview_parent.worker.kill()
+            self.preview_parent.background.exit()
+            self.preview_parent.background.wait(5000)
 
-        # Close readers
-        self.r.Close()
-        self.clip.Close()
-        self.r.ClearAllCache()
+            # Close readers
+            self.r.Close()
+            self.clip.Close()
+            self.r.ClearAllCache()
+        except AttributeError:
+            log.info('Nothing to close')
 
     def reject(self):
         log.info('reject')
 
+    def openReader(self):
+        # Open the video file with Reader
+        log.info('File for preview: %s' % self.file_path)
+		
+        # Set max size of video preview (for speed)
+        viewport_rect = self.videoPreview.centeredViewport(self.videoPreview.width(), self.videoPreview.height())
 
+        # Create an instance of a libopenshot Timeline object
+        self.r = openshot.Timeline(viewport_rect.width(), viewport_rect.height(), openshot.Fraction(self.fps_num, self.fps_den), self.sample_rate, self.channels, self.channel_layout)
+        self.r.info.channel_layout = self.channel_layout
+        self.r.SetMaxSize(viewport_rect.width(), viewport_rect.height())
+        log.info('Preview area {}x{}'.format(self.r.info.width, self.r.info.height))
 
+        try:
+            # Add clip for current preview file
+            self.clip = openshot.Clip(self.file_path)
+
+            # Show waveform for audio files
+            if not self.clip.Reader().info.has_video and self.clip.Reader().info.has_audio:
+                self.clip.Waveform(True)
+
+            # Set has_audio property
+            self.r.info.has_audio = self.clip.Reader().info.has_audio
+
+            # Update video_length property of the Timeline object
+            self.r.info.video_length = self.video_length
+
+            self.r.info.pixel_ratio = openshot.Fraction(self.videoPreview.pixel_ratio.num, self.videoPreview.pixel_ratio.den);
+
+            if self.preview:
+                # Display frame #'s during preview
+                self.clip.display = openshot.FRAME_DISPLAY_CLIP
+            else:
+                self.lblInstructions.setEnabled(True)
+                self.widgetControls.setEnabled(True)
+
+            self.r.AddClip(self.clip)
+        except Exception as e:
+            log.error('Failed to load media file into preview player: {}'.format(self.file_path))
+            log.error(str(e))
+            return
+
+        # Open reader
+        self.r.Open()
+
+        # Start the preview thread
+        #self.initialized = False
+        self.transforming_clip = False
+        self.preview_parent = PreviewParent()
+        self.preview_parent.Init(self, self.r, self.videoPreview)
+        self.preview_thread = self.preview_parent.worker
+
+        # Set slider constraints
+        self.sliderIgnoreSignal = False
+        self.sliderVideo.setMinimum(1)
+        self.sliderVideo.setMaximum(self.video_length)
+        self.sliderVideo.setSingleStep(1)
+        self.sliderVideo.setSingleStep(1)
+        self.sliderVideo.setPageStep(24)
+
+        # Enable user controls
+        self.sliderVideo.setEnabled(True)
+        self.btnPlay.setEnabled(True)
+        self.lblVideoTime.setEnabled(True)
+		
+
+        # Determine if a start or end attribute is in this file
+        start_frame = 1
+        if 'start' in self.file.data.keys():
+            start_frame = (float(self.file.data['start']) * self.fps) + 1
+
+        # Display start frame (and then the previous frame)
+        QTimer.singleShot(500, functools.partial(self.sliderVideo.setValue, start_frame + 1))
+        QTimer.singleShot(600, functools.partial(self.sliderVideo.setValue, start_frame))
+
+        # Connect signals
+        self.actionPlay.triggered.connect(self.actionPlay_Triggered)
+        self.btnPlay.clicked.connect(self.btnPlay_clicked)
+        self.sliderVideo.valueChanged.connect(self.sliderVideo_valueChanged)
+        self.btnStart.clicked.connect(self.btnStart_clicked)
+        self.btnEnd.clicked.connect(self.btnEnd_clicked)
+        self.btnClear.clicked.connect(self.btnClear_clicked)
+        self.btnAddClip.clicked.connect(self.btnAddClip_clicked)
+        self.initialized = True
