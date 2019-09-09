@@ -97,9 +97,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     # Docks are closable, movable and floatable
     docks_frozen = False
-    
-    # The timeline should follow the playhead when it changes and this is set to True
-    followPlayhead = False
 
     # Save window settings on close
     def closeEvent(self, event):
@@ -354,7 +351,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.SetWindowTitle()
 
         # Seek to frame 0
-        self.followPlayhead = True
         self.SeekSignal.emit(1)
 
     def actionAnimatedTitle_trigger(self, event):
@@ -922,8 +918,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def movePlayhead(self, position_frames):
         """Update playhead position"""
         # Notify preview thread
-        self.timeline.movePlayhead(position_frames, self.followPlayhead)
-        self.followPlayhead = False
+        self.timeline.movePlayhead(position_frames)
+    
+    def SetPlayheadFollow(self, enable_follow):
+        """ Enable / Disable follow mode """
+        self.timeline.SetPlayheadFollow(enable_follow)
 
     def actionFastForward_trigger(self, event):
 
@@ -955,7 +954,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         log.info("actionJumpStart_trigger")
 
         # Seek to the 1st frame
-        self.followPlayhead = True
         self.SeekSignal.emit(1)
 
     def actionJumpEnd_trigger(self, event):
@@ -975,7 +973,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         timeline_length_int = round(timeline_length * fps) + 1
 
         # Seek to the 1st frame
-        self.followPlayhead = True
         self.SeekSignal.emit(timeline_length_int)
 
     def actionSaveFrame_trigger(self, event):
@@ -1259,7 +1256,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if closest_position != None:
             # Seek
             frame_to_seek = round(closest_position * fps_float) + 1
-            self.followPlayhead = True
             self.SeekSignal.emit(frame_to_seek)
 
             # Update the preview and reselct current frame in properties
@@ -1313,7 +1309,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if closest_position != None:
             # Seek
             frame_to_seek = round(closest_position * fps_float) + 1
-            self.followPlayhead = True
             self.SeekSignal.emit(frame_to_seek)
 
             # Update the preview and reselct current frame in properties
@@ -1372,7 +1367,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             if player.Speed() != 0:
                 self.SpeedSignal.emit(0)
             # Seek to previous frame
-            self.followPlayhead = True
             self.SeekSignal.emit(player.Position() - 1)
 
             # Notify properties dialog
@@ -1385,7 +1379,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             if player.Speed() != 0:
                 self.SpeedSignal.emit(0)
             # Seek to next frame
-            self.followPlayhead = True
             self.SeekSignal.emit(player.Position() + 1)
 
             # Notify properties dialog

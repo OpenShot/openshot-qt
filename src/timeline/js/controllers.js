@@ -237,6 +237,7 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.snapline = false;
   $scope.enable_snapping = true;
   $scope.enable_razor = false;
+  $scope.enable_playhead_follow = true;
   $scope.debug = false;
   $scope.min_width = 1024;
   $scope.track_label = "Track %s";
@@ -262,7 +263,7 @@ App.controller('TimelineCtrl',function($scope) {
   };
   
   // Move the playhead to a specific frame
-  $scope.MovePlayheadToFrame = function(position_frames, followPlayhead=false) {
+  $scope.MovePlayheadToFrame = function(position_frames) {
 	  // Don't move the playhead if it's currently animating
 	  if ($scope.playhead_animating) {
 			return;
@@ -272,9 +273,9 @@ App.controller('TimelineCtrl',function($scope) {
 	  var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
 	  var position_seconds = ((position_frames - 1) / frames_per_second);
 	  
-      // Center on the playhead if it has moved out of view and the timeline should follow it
-	  if (followPlayhead && !$scope.isTimeVisible(position_seconds)) {
-		  $scope.centerOnTime(position_seconds);
+	  // Center on the playhead if it has moved out of view and the timeline should follow it
+	  if ($scope.enable_playhead_follow && !$scope.isTimeVisible(position_seconds)) {
+	    $scope.centerOnTime(position_seconds);
 	  }
       
 	  // Update internal scope (in seconds)
@@ -449,12 +450,11 @@ App.controller('TimelineCtrl',function($scope) {
     var scrollPosition = Math.max(pixelToCenterOn - (scrollingTracksWidth / 2.0), 0);
     
     // Scroll the timeline using JQuery
-    $("#scrolling_tracks").scrollLeft(Math.round(scrollPosition + 0.5));
+    $("#scrolling_tracks").scrollLeft(Math.floor(scrollPosition + 0.5));
  };
 
-  // Move the playhead to a specific time
+  // Center the timeline on the current playhead position
   $scope.centerOnPlayhead = function() {
-  timeline.qt_log("$scope.centerOnPlayhead");
     $scope.centerOnTime($scope.project.playhead_position);
   };
 
@@ -541,6 +541,13 @@ App.controller('TimelineCtrl',function($scope) {
       $scope.$apply(function() {
          $scope.enable_razor = enable_razor;
      });
+ };
+
+ // Change playhead follow mode
+ $scope.SetFollow = function(enable_follow) {
+    $scope.$apply(function() {
+        $scope.enable_playhead_follow = enable_follow;
+    });
  };
 
  // Get the color of an effect
