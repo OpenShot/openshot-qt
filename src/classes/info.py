@@ -65,8 +65,10 @@ for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH, ASSETS_PATH,
     if not os.path.exists(folder.encode("UTF-8")):
         os.makedirs(folder, exist_ok=True)
 
-# names of all contributors, using "u" for unicode encoding
-JT = {"name": u"Jonathan Thomas", "email": "jonathan@openshot.org", "website":"http://openshot.org/developers/jonathan"}
+# Maintainer details, for packaging
+JT = {"name": "Jonathan Thomas",
+      "email": "jonathan@openshot.org",
+      "website": "http://openshot.org/developers/jonathan"}
 
 # Languages
 CMDLINE_LANGUAGE = None
@@ -75,15 +77,15 @@ SUPPORTED_LANGUAGES = ['en_US']
 
 try:
     from language import openshot_lang
-    language_path=":/locale/"
+    language_path = ":/locale/"
 except ImportError:
-    language_path=os.path.join(PATH, 'language')
+    language_path = os.path.join(PATH, 'language')
     print("Compiled translation resources missing!")
     print("Loading translations from: {}".format(language_path))
 
 # Compile language list from :/locale resource
 langdir = QDir(language_path)
-langs = langdir.entryList(['OpenShot.*.qm'], QDir.NoDotAndDotDot|QDir.Files,
+langs = langdir.entryList(['OpenShot.*.qm'], QDir.NoDotAndDotDot | QDir.Files,
                           sort=QDir.Name)
 for trpath in langs:
     SUPPORTED_LANGUAGES.append(trpath.split('.')[1])
