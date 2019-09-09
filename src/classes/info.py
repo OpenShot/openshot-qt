@@ -57,6 +57,7 @@ EXPORT_PRESETS_PATH = os.path.join(PATH, "presets")
 EXPORT_TESTS = os.path.join(USER_PATH, "tests")
 USER_PROFILES_PATH = os.path.join(USER_PATH, "profiles")
 USER_PRESETS_PATH = os.path.join(USER_PATH, "presets")
+BACKUP_FILE = os.path.join(BACKUP_PATH, "backup.osp")
 USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.project")
 
 # Create PATHS if they do not exist (this is where temp files are stored... such as cached thumbnails)
