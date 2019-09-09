@@ -23,8 +23,8 @@
    <string>OpenShot Video Editor</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>../../images/openshot.svg</normaloff>../../images/openshot.svg</iconset>
+   <iconset resource="../../images/openshot.qrc">
+    <normaloff>:/openshot.svg</normaloff>:/openshot.svg</iconset>
   </property>
   <property name="documentMode">
    <bool>false</bool>
@@ -376,6 +376,9 @@
        <property name="placeholderText">
         <string>Filter</string>
        </property>
+       <property name="clearButtonEnabled">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
     </layout>
@@ -504,7 +507,7 @@
      <normaloff>:/icons/Humanity/actions/16/document-new.svg</normaloff>:/icons/Humanity/actions/16/document-new.svg</iconset>
    </property>
    <property name="text">
-    <string>New Project...</string>
+    <string>New Project</string>
    </property>
    <property name="toolTip">
     <string>New Project</string>
@@ -1076,8 +1079,8 @@
   </action>
   <action name="actionAnimatedTitle">
    <property name="icon">
-    <iconset theme="video-x-generic" resource="../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/mimes/16/video-x-generic.svg</normaloff>:/icons/Humanity/mimes/16/video-x-generic.svg</iconset>
+    <iconset resource="../../images/openshot.qrc">
+     <normaloff>:/about/blender.svg</normaloff>:/about/blender.svg</iconset>
    </property>
    <property name="text">
     <string>Animated Title</string>
@@ -1111,9 +1114,8 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="icon">
-    <iconset theme="zoom-in" resource="../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/16/zoom-in.png</normaloff>:/icons/Humanity/actions/16/zoom-in.png</iconset>
+   <property name="checked">
+    <bool>true</bool>
    </property>
    <property name="text">
     <string>View Toolbar</string>
@@ -1347,7 +1349,7 @@
     <string>File Properties</string>
    </property>
   </action>
-  <action name="actionPropertyClear">
+  <action name="actionPropertyFilterClear">
    <property name="icon">
     <iconset theme="edit-clear" resource="../../images/openshot.qrc">
      <normaloff>:/icons/Humanity/actions/16/edit-clear.svg</normaloff>:/icons/Humanity/actions/16/edit-clear.svg</iconset>

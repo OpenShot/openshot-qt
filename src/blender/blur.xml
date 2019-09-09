@@ -56,6 +56,18 @@
 		<default>1.0</default>
 	</param>
 
+	<param name="blur_amount_x" type="spinner" title="Blur X" description="">
+		<min>0.0</min>
+		<max>150.0</max>
+		<default>75.0</default>
+	</param>
+
+	<param name="blur_amount_y" type="spinner" title="Blur Y" description="">
+		<min>0.0</min>
+		<max>150.0</max>
+		<default>75.0</default>
+	</param>
+
 	<param name="diffuse_color" type="color" title="Diffuse Color" description="">
 		<default>#ffffff</default>
 	</param>

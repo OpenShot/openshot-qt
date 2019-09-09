@@ -85,6 +85,13 @@
     "setting": "window_geometry_v2"
   },
   {
+    "value": false,
+    "title": "",
+    "type": "hidden",
+    "category": "Qt",
+    "setting": "docks_frozen"
+  },
+  {
     "value": "thumbnail",
     "title": "",
     "type": "hidden",
@@ -131,7 +138,7 @@
     "restart": true
   },
   {
-    "max": 128000,
+    "max": 192000,
     "title": "Default Audio Sample Rate",
     "category": "Preview",
     "min": 22050,
@@ -448,6 +455,14 @@
     "setting": "decode_hw_max_height"
   },
   {
+    "value": false,
+    "title": "Use Blender GPU rendering for Animated Titles (Experimental)",
+    "type": "bool",
+    "restart": false,
+    "category": "Performance",
+    "setting": "blender_gpu_enabled"
+  },
+  {
     "value": true,
     "title": "",
     "type": "hidden",
@@ -569,7 +584,7 @@
   },
   {
     "category": "Keyboard",
-    "title": "New Project...",
+    "title": "New Project",
     "restart": true,
     "setting": "actionNew",
     "value": "Ctrl+N",

@@ -61,14 +61,7 @@ class EffectsListView(QListView):
         drag.setHotSpot(QPoint(self.drag_item_size / 2, self.drag_item_size / 2))
         drag.exec_()
 
-    def clear_filter(self):
-        get_app().window.effectsFilter.setText("")
-
     def filter_changed(self):
-        if self.win.effectsFilter.text() == "":
-            self.win.actionEffectsClear.setEnabled(False)
-        else:
-            self.win.actionEffectsClear.setEnabled(True)
         self.refresh_view()
 
     def refresh_view(self):
@@ -106,4 +99,3 @@ class EffectsListView(QListView):
         # setup filter events
         app = get_app()
         app.window.effectsFilter.textChanged.connect(self.filter_changed)
-        app.window.actionEffectsClear.triggered.connect(self.clear_filter)

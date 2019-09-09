@@ -60,8 +60,14 @@
 		<default>#ffffff</default>
 	</param>
 	
-	<param name="specular_color" type="color" title="Specular Color" description="">
-		<default>#ffffff</default>
+	<param name="glare_type" type="dropdown" title="Glare Type" description="">
+		<values>
+			<value name="Streaks" num="STREAKS"/>
+			<value name="Ghosts" num="GHOSTS"/>
+			<value name="Fog Glow" num="FOG_GLOW"/>
+			<value name="Simple Star" num="SIMPLE_STAR"/>
+		</values>
+		<default>GHOSTS</default>
 	</param>
 	
 	<param name="use_alpha" type="dropdown" title="Use Alpha" description="">

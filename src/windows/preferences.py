@@ -90,6 +90,9 @@ class Preferences(QDialog):
         # Populate preferences
         self.Populate()
 
+        # Restore normal cursor
+        get_app().restoreOverrideCursor()
+
     def txtSearch_changed(self):
         """textChanged event handler for search box"""
         log.info("Search for %s" % self.txtSearch.text())
@@ -218,19 +221,16 @@ class Preferences(QDialog):
                     widget.setToolTip(param["title"])
                     widget.valueChanged.connect(functools.partial(self.spinner_value_changed, param))
 
-                elif param["type"] == "text":
+                elif param["type"] == "text" or param["type"] == "browse":
                     # create QLineEdit
                     widget = QLineEdit()
                     widget.setText(_(param["value"]))
                     widget.textChanged.connect(functools.partial(self.text_value_changed, widget, param))
 
-                elif param["type"] == "browse":
-                    # create QLineEdit
-                    widget = QLineEdit()
-                    widget.setText(_(param["value"]))
-                    widget.textChanged.connect(functools.partial(self.text_value_changed, widget, param))
-                    extraWidget = QPushButton(_("Browse..."))
-                    extraWidget.clicked.connect(functools.partial(self.selectExecutable, widget, param))
+                    if param["type"] == "browse":
+                        # Add filesystem browser button
+                        extraWidget = QPushButton(_("Browse..."))
+                        extraWidget.clicked.connect(functools.partial(self.selectExecutable, widget, param))
 
                 elif param["type"] == "bool":
                     # create spinner

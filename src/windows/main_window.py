@@ -95,11 +95,15 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     OpenProjectSignal = pyqtSignal(str)
     ThumbnailUpdated = pyqtSignal(str)
 
+    # Docks are closable, movable and floatable
+    docks_frozen = False
+
     # Save window settings on close
     def closeEvent(self, event):
 
-        # Close any tutorial dialogs
-        self.tutorial_manager.exit_manager()
+        # Some window managers handels dragging of the modal messages incorrectly if other windows are open
+        # Hide tutorial window first
+        self.tutorial_manager.hide_dialog()
 
         # Prompt user to save (if needed)
         if get_app().project.needs_save() and not self.mode == "unittest":
@@ -114,9 +118,17 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 self.actionSave_trigger(event)
                 event.accept()
             elif ret == QMessageBox.Cancel:
+                # Show tutorial again, if any
+                self.tutorial_manager.re_show_dialog()
                 # User canceled prompt - don't quit
                 event.ignore()
                 return
+
+        # Log the exit routine
+        log.info('---------------- Shutting down -----------------')
+
+        # Close any tutorial dialogs
+        self.tutorial_manager.exit_manager()
 
         # Save settings
         self.save_settings()
@@ -135,6 +147,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.preview_thread.kill()
         self.preview_parent.background.exit()
         self.preview_parent.background.wait(5000)
+
+        # Shut down the webview
+        self.timeline.close()
 
         # Close Timeline
         self.timeline_sync.timeline.Close()
@@ -655,7 +670,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def actionImportFiles_trigger(self, event):
         app = get_app()
         _ = app._tr
-        recommended_path = app.project.get(["import_path"])
+        recommended_path = app.project.get("import_path")
         if not recommended_path or not os.path.exists(recommended_path):
             recommended_path = os.path.join(info.HOME_PATH)
         files = QFileDialog.getOpenFileNames(self, _("Import File..."), recommended_path)[0]
@@ -674,7 +689,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             files.append(File.get(id=file_id))
 
         # Get current position of playhead
-        fps = get_app().project.get(["fps"])
+        fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
         pos = (self.preview_thread.player.Position() - 1) / fps_float
 
@@ -748,6 +763,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-start")
         self.actionPlay.setChecked(False)
 
+        # Set cursor to waiting
+        get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
+
         # Show dialog
         from windows.preferences import Preferences
         win = Preferences()
@@ -761,6 +779,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Save settings
         s = settings.get_settings()
         s.save()
+
+        # Restore normal cursor
+        get_app().restoreOverrideCursor()
 
     def actionFilesShowAll_trigger(self, event):
         self.filesTreeView.refresh_view()
@@ -882,7 +903,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         win = Cutting(f, preview=True)
         win.show()
 
-    def previewFrame(self, position_seconds, position_frames, time_code):
+    def previewFrame(self, position_frames):
         """Preview a specific frame"""
         # Notify preview thread
         self.previewFrameSignal.emit(position_frames)
@@ -966,8 +987,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             recommended_path = os.path.dirname(get_app().project.current_filepath)
 
         # Determine path for saved frame - Project's export path
-        if get_app().project.get(["export_path"]):
-            recommended_path = get_app().project.get(["export_path"])
+        if get_app().project.get("export_path"):
+            recommended_path = get_app().project.get("export_path")
 
         framePath = "%s/Frame-%05d.png" % (recommended_path, self.preview_thread.current_frame)
 
@@ -995,7 +1016,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.timeline_sync.timeline.SetCache(new_cache_object)
 
         # Set MaxSize to full project resolution and clear preview cache so we get a full resolution frame
-        self.timeline_sync.timeline.SetMaxSize(get_app().project.get(["width"]), get_app().project.get(["height"]))
+        self.timeline_sync.timeline.SetMaxSize(get_app().project.get("width"), get_app().project.get("height"))
         self.cache_object.Clear()
 
         # Check if file exists, if it does, get the lastModified time
@@ -1026,7 +1047,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         log.info("actionAddTrack_trigger")
 
         # Get # of tracks
-        all_tracks = get_app().project.get(["layers"])
+        all_tracks = get_app().project.get("layers")
         track_number = list(reversed(sorted(all_tracks, key=itemgetter('number'))))[0].get("number") + 1000000
 
         # Create new track above existing layer(s)
@@ -1038,7 +1059,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         log.info("actionAddTrackAbove_trigger")
 
         # Get # of tracks
-        all_tracks = get_app().project.get(["layers"])
+        all_tracks = get_app().project.get("layers")
         selected_layer_id = self.selected_tracks[0]
 
         # Get selected track data
@@ -1094,7 +1115,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         log.info("actionAddTrackBelow_trigger")
 
         # Get # of tracks
-        all_tracks = get_app().project.get(["layers"])
+        all_tracks = get_app().project.get("layers")
         selected_layer_id = self.selected_tracks[0]
 
         # Get selected track data
@@ -1174,7 +1195,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         player = self.preview_thread.player
 
         # Calculate frames per second
-        fps = get_app().project.get(["fps"])
+        fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
 
         # Calculate position in seconds
@@ -1189,7 +1210,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         log.info("actionPreviousMarker_trigger")
 
         # Calculate current position (in seconds)
-        fps = get_app().project.get(["fps"])
+        fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
         current_position = (self.preview_thread.current_frame - 1) / fps_float
         all_marker_positions = []
@@ -1242,7 +1263,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         log.info(self.preview_thread.current_frame)
 
         # Calculate current position (in seconds)
-        fps = get_app().project.get(["fps"])
+        fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
         current_position = (self.preview_thread.current_frame - 1) / fps_float
         all_marker_positions = []
@@ -1326,7 +1347,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         player = self.preview_thread.player
 
         # Get framerate
-        fps = get_app().project.get(["fps"])
+        fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
         playhead_position = float(self.preview_thread.current_frame - 1) / fps_float
 
@@ -1638,7 +1659,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         _ = get_app()._tr
 
         track_id = self.selected_tracks[0]
-        max_track_number = len(get_app().project.get(["layers"]))
+        max_track_number = len(get_app().project.get("layers"))
 
         # Get details of selected track
         selected_track = Track.get(id=track_id)
@@ -1703,7 +1724,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         selected_track = Track.get(id=track_id)
 
         # Find display track number
-        all_tracks = get_app().project.get(["layers"])
+        all_tracks = get_app().project.get("layers")
         display_count = len(all_tracks)
         for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
             if track.get("id") == track_id:
@@ -1879,14 +1900,17 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 dock.show()
 
     def freezeDocks(self):
-        """ Freeze all dockable widgets on the main screen (no float, moving, or closing) """
+        """ Freeze all dockable widgets on the main screen (prevent them being closed, floated, or moved) """
         for dock in self.getDocks():
             dock.setFeatures(QDockWidget.NoDockWidgetFeatures)
 
     def unFreezeDocks(self):
-        """ Un-freeze all dockable widgets on the main screen (allow them to be moved, closed, and floated) """
+        """ Un-freeze all dockable widgets on the main screen (allow them to be closed, floated, or moved, as appropriate) """
         for dock in self.getDocks():
-            dock.setFeatures(QDockWidget.AllDockWidgetFeatures)
+            if dock is self.dockTimeline:
+                dock.setFeatures(QDockWidget.DockWidgetFloatable | QDockWidget.DockWidgetMovable)
+            else:
+                dock.setFeatures(QDockWidget.DockWidgetClosable | QDockWidget.DockWidgetFloatable | QDockWidget.DockWidgetMovable)
 
     def hideDocks(self):
         """ Hide all dockable widgets on the main screen """
@@ -1934,12 +1958,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.freezeDocks()
         self.actionFreeze_View.setVisible(False)
         self.actionUn_Freeze_View.setVisible(True)
+        self.docks_frozen = True
 
     def actionUn_Freeze_View_trigger(self, event):
         """ Un-Freeze all dockable widgets on the main screen """
         self.unFreezeDocks()
         self.actionFreeze_View.setVisible(True)
         self.actionUn_Freeze_View.setVisible(False)
+        self.docks_frozen = False
 
     def actionShow_All_trigger(self, event):
         """ Show all dockable widgets """
@@ -1965,7 +1991,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         _ = get_app()._tr
 
         if not profile:
-            profile = get_app().project.get(["profile"])
+            profile = get_app().project.get("profile")
 
         # Determine if the project needs saving (has any unsaved changes)
         save_indicator = ""
@@ -2061,17 +2087,28 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Save window state and geometry (saves toolbar and dock locations)
         s.set('window_state_v2', qt_types.bytes_to_str(self.saveState()))
         s.set('window_geometry_v2', qt_types.bytes_to_str(self.saveGeometry()))
+        s.set('docks_frozen', self.docks_frozen)
 
     # Get window settings from setting store
     def load_settings(self):
         s = settings.get_settings()
 
-        # Window state and geometry (also toolbar and dock locations)
+        # Window state and geometry (also toolbar, dock locations and frozen UI state)
         if s.get('window_state_v2'): self.restoreState(qt_types.str_to_bytes(s.get('window_state_v2')))
         if s.get('window_geometry_v2'): self.restoreGeometry(qt_types.str_to_bytes(s.get('window_geometry_v2')))
+        if s.get('docks_frozen'):
+            """ Freeze all dockable widgets on the main screen """
+            self.freezeDocks()
+            self.actionFreeze_View.setVisible(False)
+            self.actionUn_Freeze_View.setVisible(True)
+            self.docks_frozen = True
 
         # Load Recent Projects
         self.load_recent_menu()
+        
+        # The method restoreState restores the visibility of the toolBar,
+        # but does not set the correct flag in the actionView_Toolbar.
+        self.actionView_Toolbar.setChecked(self.toolBar.isVisibleTo(self))
 
     def load_recent_menu(self):
         """ Clear and load the list of recent menu items """
@@ -2134,9 +2171,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.filesFilter = QLineEdit()
         self.filesFilter.setObjectName("filesFilter")
         self.filesFilter.setPlaceholderText(_("Filter"))
+        self.filesFilter.setClearButtonEnabled(True)
         self.filesToolbar.addWidget(self.filesFilter)
-        self.actionFilesClear.setEnabled(False)
-        self.filesToolbar.addAction(self.actionFilesClear)
         self.tabFiles.layout().addWidget(self.filesToolbar)
 
         # Add transitions toolbar
@@ -2151,9 +2187,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.transitionsFilter = QLineEdit()
         self.transitionsFilter.setObjectName("transitionsFilter")
         self.transitionsFilter.setPlaceholderText(_("Filter"))
+        self.transitionsFilter.setClearButtonEnabled(True)
         self.transitionsToolbar.addWidget(self.transitionsFilter)
-        self.actionTransitionsClear.setEnabled(False)
-        self.transitionsToolbar.addAction(self.actionTransitionsClear)
         self.tabTransitions.layout().addWidget(self.transitionsToolbar)
 
         # Add effects toolbar
@@ -2161,9 +2196,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.effectsFilter = QLineEdit()
         self.effectsFilter.setObjectName("effectsFilter")
         self.effectsFilter.setPlaceholderText(_("Filter"))
+        self.effectsFilter.setClearButtonEnabled(True)
         self.effectsToolbar.addWidget(self.effectsFilter)
-        self.actionEffectsClear.setEnabled(False)
-        self.effectsToolbar.addAction(self.actionEffectsClear)
         self.tabEffects.layout().addWidget(self.effectsToolbar)
 
         # Add Video Preview toolbar
@@ -2216,7 +2250,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.timelineToolbar.addSeparator()
 
         # Get project's initial zoom value
-        initial_scale = get_app().project.get(["scale"]) or 15
+        initial_scale = get_app().project.get("scale") or 15
         # Round non-exponential scale down to next lowest power of 2
         initial_zoom = secondsToZoom(initial_scale)
 

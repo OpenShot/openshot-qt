@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief The AngularJS controller used by the OpenShot Timeline 
+ * @brief The AngularJS controller used by the OpenShot Timeline
  * @author Jonathan Thomas <jonathan@openshot.org>
  * @author Cody Parker <cody@yourcodepro.com>
  *
@@ -27,7 +27,7 @@
  */
 
 
-// Initialize the main controller module 
+// Initialize the main controller module
 App.controller('TimelineCtrl',function($scope) {
 
 	// DEMO DATA (used when debugging outside of Qt using Chrome)
@@ -241,12 +241,12 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.min_width = 1024;
   $scope.track_label = "Track %s";
   $scope.enable_sorting = true;
-  
+
   // Method to set if Qt is detected (which clears demo data)
   $scope.Qt = false;
-  $scope.EnableQt = function() { 
+  $scope.EnableQt = function() {
 	  	$scope.Qt = true;
-	  	timeline.qt_log("$scope.Qt = true;"); 
+	  	timeline.qt_log("$scope.Qt = true;");
   };
 
   // Move the playhead to a specific time
@@ -281,10 +281,10 @@ App.controller('TimelineCtrl',function($scope) {
 	  // Determine frame
 	  var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
 	  var frame = Math.round(position_seconds * frames_per_second) + 1;
-	  
-	  // Update GUI with position (to the preview can be updated)
+
+	  // Update GUI with position (so the preview can be updated)
 	  if ($scope.Qt) {
-		  timeline.PlayheadMoved(position_seconds, frame, secondsToTime(position_seconds, $scope.project.fps.num, $scope.project.fps.den));
+		  timeline.PlayheadMoved(frame);
 	  }
   };
 
@@ -297,7 +297,7 @@ App.controller('TimelineCtrl',function($scope) {
 	  var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
 	  var frame = Math.round(position_seconds_rounded * frames_per_second) + 1;
 
-	  // Update GUI with position (to the preview can be updated)
+	  // Update GUI with position (so the preview can be updated)
 	  if ($scope.Qt) {
 		  timeline.PreviewClipFrame(clip_id, frame);
 	  }
@@ -571,8 +571,8 @@ App.controller('TimelineCtrl',function($scope) {
 		ctx.fillStyle = '#4B92AD';
 		ctx.fill();
 	}
- };	
-	
+ };
+
  // Clear all selections
  $scope.ClearAllSelections = function() {
 	// Clear the selections on the main window
@@ -1432,13 +1432,13 @@ $scope.SetTrackLabel = function (label) {
 	 // return true
 	 return true;
  };
-  
-// ############# END QT FUNCTIONS #################### //   
+
+// ############# END QT FUNCTIONS #################### //
 
 
 
 // ############ DEBUG STUFFS ################## //
- 
+
  $scope.ToggleDebug = function() {
 	 if ($scope.debug == true) {
 		 $scope.debug = false;

@@ -18,7 +18,7 @@
 	<param name="extrude" type="spinner" title="Extrude" description="">
 		<min>0.0</min>
 		<max>1.0</max>
-		<default>0.1</default>
+		<default>0.0</default>
 	</param>
 
 	<param name="bevel_depth" type="spinner" title="Bevel Depth" description="">
@@ -65,7 +65,7 @@
 	</param>
 
 	<param name="diffuse_color" type="color" title="Diffuse Color" description="">
-		<default>#242326</default>
+		<default>#ffffff</default>
 	</param>
 	
 	<param name="specular_color" type="color" title="Specular Color" description="">
@@ -77,7 +77,6 @@
 		<max>1.0</max>
 		<default>0.5</default>
 	</param>
-	
 	
 	<param name="diffuse_color_bg" type="color" title="Background: Diffuse Color" description="">
 		<default>#DFDCE7</default>
@@ -98,20 +97,6 @@
 		<max>1.0</max>
 		<default>0.733</default>
 	</param>
-	
-	<param name="fresnel_bg" type="spinner" title="Background: Fresnel" description="">
-		<min>0.0</min>
-		<max>5.0</max>
-		<default>2.6</default>
-	</param>
-	
-	<param name="blend_bg" type="spinner" title="Background: Blend" description="">
-		<min>0.0</min>
-		<max>5.0</max>
-		<default>2.18</default>
-	</param>
-	
-	
 
 	<param name="start_frame" type="spinner" title="Start Frame" description="">
 		<min>1</min>

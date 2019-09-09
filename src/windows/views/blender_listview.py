@@ -1,26 +1,26 @@
-""" 
+"""
  @file
  @brief This file contains the blender file listview, used by the 3d animated titles screen
  @author Jonathan Thomas <jonathan@openshot.org>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
@@ -153,8 +153,7 @@ class BlenderListView(QListView):
                             if fileExtension.lower() not in (".svg"):
                                 param["values"][fileName] = "|".join((file.data["path"], str(file.data["height"]),
                                                                       str(file.data["width"]), file.data["media_type"],
-                                                                      str(file.data["fps"]["num"] / file.data["fps"][
-                                                                          "den"])))
+                                                                      str(file.data["fps"]["num"] / file.data["fps"]["den"])))
 
                 # Add normal values
                 box_index = 0
@@ -174,7 +173,10 @@ class BlenderListView(QListView):
             elif param["type"] == "color":
                 # add value to dictionary
                 color = QColor(param["default"])
-                self.params[param["name"]] = [color.redF(), color.greenF(), color.blueF()]
+                if "diffuse_color" in param.get("name"):
+                    self.params[param["name"]] = [color.redF(), color.greenF(), color.blueF(), color.alphaF()]
+                else:
+                    self.params[param["name"]] = [color.redF(), color.greenF(), color.blueF()]
 
                 widget = QPushButton()
                 widget.setText("")
@@ -194,9 +196,8 @@ class BlenderListView(QListView):
         self.init_slider_values()
 
     def spinner_value_changed(self, param, value):
-        log.info('Animation param being changed: %s' % param["name"])
         self.params[param["name"]] = value
-        log.info('New value of param: %s' % value)
+        log.info('Animation param %s set to %s' % (param["name"], value))
 
     def text_value_changed(self, widget, param, value=None):
         try:
@@ -205,34 +206,33 @@ class BlenderListView(QListView):
                 value = widget.toPlainText()
         except:
             pass
-        log.info('Animation param being changed: %s' % param["name"])
         self.params[param["name"]] = value.replace("\n", "\\n")
-        log.info('New value of param: %s' % value)
+        # XXX: This will log every individual KEYPRESS in the text field.
+        # log.info('Animation param %s set to %s' % (param["name"], value))
 
     def dropdown_index_changed(self, widget, param, index):
-        log.info('Animation param being changed: %s' % param["name"])
         value = widget.itemData(index)
         self.params[param["name"]] = value
-        log.info('New value of param: %s' % value)
+        log.info('Animation param %s set to %s' % (param["name"], value))
 
     def color_button_clicked(self, widget, param, index):
         # Get translation object
         _ = get_app()._tr
 
         # Show color dialog
-        log.info('Animation param being changed: %s' % param["name"])
         color_value = self.params[param["name"]]
-        log.info('Value of param: %s' % color_value)
         currentColor = QColor("#FFFFFF")
         if len(color_value) == 3:
-            #currentColor = QColor(color_value[0], color_value[1], color_value[2])
             currentColor.setRgbF(color_value[0], color_value[1], color_value[2])
         newColor = QColorDialog.getColor(currentColor, self, _("Select a Color"),
                                          QColorDialog.DontUseNativeDialog)
         if newColor.isValid():
             widget.setStyleSheet("background-color: {}".format(newColor.name()))
-            self.params[param["name"]] = [newColor.redF(), newColor.greenF(), newColor.blueF()]
-            log.info('New value of param: %s' % newColor.name())
+            if "diffuse_color" in param.get("name"):
+                self.params[param["name"]] = [newColor.redF(), newColor.greenF(), newColor.blueF(), newColor.alphaF()]
+            else:
+                self.params[param["name"]] = [newColor.redF(), newColor.greenF(), newColor.blueF()]
+            log.info('Animation param %s set to %s' % (param["name"], newColor.name()))
 
     def generateUniqueFolder(self):
         """ Generate a new, unique folder name to contain Blender frames """
@@ -246,9 +246,13 @@ class BlenderListView(QListView):
 
     def disable_interface(self, cursor=True):
         """ Disable all controls on interface """
+
+        # Store keyboard-focused widget
+        self.focus_owner = self.win.focusWidget()
+        
         self.win.btnRefresh.setEnabled(False)
         self.win.sliderPreview.setEnabled(False)
-        self.win.buttonBox.setEnabled(False)
+        self.win.btnRender.setEnabled(False)
 
         # Show 'Wait' cursor
         if cursor:
@@ -258,14 +262,15 @@ class BlenderListView(QListView):
         """ Disable all controls on interface """
         self.win.btnRefresh.setEnabled(True)
         self.win.sliderPreview.setEnabled(True)
-        self.win.buttonBox.setEnabled(True)
+        self.win.btnRender.setEnabled(True)
 
-        # Restore normal cursor
+        # Restore normal cursor and keyboard focus
         QApplication.restoreOverrideCursor()
+        if self.focus_owner:
+            self.focus_owner.setFocus()
 
     def init_slider_values(self):
         """ Init the slider and preview frame label to the currently selected animation """
-        log.info("init_slider_values")
 
         # Get current preview slider frame
         preview_frame_number = self.win.sliderPreview.value()
@@ -294,16 +299,14 @@ class BlenderListView(QListView):
     def btnRefresh_clicked(self, checked):
 
         # Render current frame
-        log.info("btnRefresh_clicked")
         preview_frame_number = self.win.sliderPreview.value()
-        self.Render(preview_frame_number)
+        self.preview_timer.start()
 
     def render_finished(self):
-        log.info("RENDER FINISHED!")
 
         # Add file to project
         final_path = os.path.join(info.BLENDER_PATH, self.unique_folder_name, self.params["file_name"] + "%04d.png")
-        log.info('Adding to project files: %s' % final_path)
+        log.info('RENDER FINISHED! Adding to project files: %s' % final_path)
 
         # Add to project files
         self.win.add_file(final_path)
@@ -312,8 +315,6 @@ class BlenderListView(QListView):
         self.win.close()
 
     def close_window(self):
-        log.info("CLOSING WINDOW")
-
         # Close window
         self.close()
 
@@ -327,7 +328,6 @@ class BlenderListView(QListView):
 
     def sliderPreview_valueChanged(self, new_value):
         """Get new value of preview slider, and start timer to Render frame"""
-        log.info('sliderPreview_valueChanged: %s' % new_value)
         if self.win.sliderPreview.isEnabled():
             self.preview_timer.start()
 
@@ -338,11 +338,11 @@ class BlenderListView(QListView):
 
     def preview_timer_onTimeout(self):
         """Timer is ready to Render frame"""
-        log.info('preview_timer_onTimeout')
         self.preview_timer.stop()
 
         # Update preview label
         preview_frame_number = self.win.sliderPreview.value()
+        log.info('Previewing frame %s' % preview_frame_number)
 
         # Render current frame
         self.Render(preview_frame_number)
@@ -441,9 +441,9 @@ class BlenderListView(QListView):
         project_params = {}
 
         # Append on some project settings
-        project_params["fps"] = project.get(["fps"])
-        project_params["resolution_x"] = project.get(["width"])
-        project_params["resolution_y"] = project.get(["height"])
+        project_params["fps"] = project.get("fps")
+        project_params["resolution_x"] = project.get("width")
+        project_params["resolution_y"] = project.get("height")
 
         if is_preview:
             project_params["resolution_percentage"] = 50
@@ -451,14 +451,8 @@ class BlenderListView(QListView):
             project_params["resolution_percentage"] = 100
         project_params["quality"] = 100
         project_params["file_format"] = "PNG"
-        if is_preview:
-            # preview mode - use offwhite background (i.e. horizon color)
-            project_params["color_mode"] = "RGB"
-            project_params["alpha_mode"] = "SKY"
-        else:
-            # render mode - transparent background
-            project_params["color_mode"] = "RGBA"
-            project_params["alpha_mode"] = "TRANSPARENT"
+        project_params["color_mode"] = "RGBA"
+        project_params["alpha_mode"] = 1
         project_params["horizon_color"] = (0.57, 0.57, 0.57)
         project_params["animation"] = True
         project_params["output_path"] = os.path.join(info.BLENDER_PATH, self.unique_folder_name,
@@ -475,12 +469,14 @@ class BlenderListView(QListView):
         version_message = ""
         if version:
             version_message = _("\n\nVersion Detected:\n{}").format(version)
+            log.error("Blender version detected: {}".format(version))
 
         if command_output:
             version_message = _("\n\nError Output:\n{}").format(command_output)
+            log.error("Blender error output:\n{}".format(command_output))
 
         # show error message
-        blender_version = "2.78"
+        blender_version = "2.8"
         # Handle exception
         msg = QMessageBox()
         msg.setText(_(
@@ -516,10 +512,27 @@ class BlenderListView(QListView):
 
         # Force the Frame to 1 frame (for previewing)
         if frame:
-            user_params += "\n\n#ONLY RENDER 1 FRAME FOR PREVIEW\n"
+            user_params += "\n#ONLY RENDER 1 FRAME FOR PREVIEW\n"
             user_params += "params['{}'] = {}\n".format("start_frame", frame)
             user_params += "params['{}'] = {}\n".format("end_frame", frame)
-            user_params += "\n\n#END ONLY RENDER 1 FRAME FOR PREVIEW\n"
+            user_params += "#END ONLY RENDER 1 FRAME FOR PREVIEW\n"
+
+        # If GPU rendering is selected, see if GPU enable code is available
+        s = settings.get_settings()
+        gpu_code_body = None
+        if s.get("blender_gpu_enabled"):
+            gpu_enable_py = os.path.join(info.PATH, "blender", "scripts", "gpu_enable.py")
+            try:
+                f = open(gpu_enable_py, 'r')
+                gpu_code_body = f.read()
+            except IOError as e:
+                log.error("Could not load GPU enable code! {}".format(e))
+
+        if gpu_code_body:
+            log.info("Injecting GPU enable code from {}".format(gpu_enable_py))
+            user_params += "\n#ENABLE GPU RENDERING\n"
+            user_params += gpu_code_body
+            user_params += "\n#END ENABLE GPU RENDERING\n"
 
         # Open new temp .py file, and inject the user parameters
         with open(path, 'r') as f:
@@ -540,6 +553,10 @@ class BlenderListView(QListView):
         pixmap = QPixmap.fromImage(scaled_image)
         self.win.imgPreview.setPixmap(pixmap)
 
+    def Cancel(self):
+        """Cancel the current render, if any"""
+        QMetaObject.invokeMethod(self.worker, 'Cancel', Qt.DirectConnection)
+
     def Render(self, frame=None):
         """ Render an images sequence of the current template using Blender 2.62+ and the
         Blender Python API. """
@@ -555,7 +572,9 @@ class BlenderListView(QListView):
 
         # Copy the .py script associated with this template to the temp folder.  This will allow
         # OpenShot to inject the user-entered params into the Python script.
-        shutil.copy(source_script, target_script)
+        # XXX: Note that copyfile() is used instead of copy(), as the original
+        #      file may be readonly, and we don't want to duplicate those permissions
+        shutil.copyfile(source_script, target_script)
 
         # Open new temp .py file, and inject the user parameters
         self.inject_params(target_script, frame)
@@ -643,22 +662,18 @@ class BlenderListView(QListView):
 
     # Signal when to close window (1001)
     def onCloseWindow(self):
-        log.info('onCloseWindow')
         self.close()
 
     # Signal when render is finished (1002)
     def onRenderFinish(self):
-        log.info('onRenderFinish')
         self.render_finished()
 
     # Error from blender (with version number) (1003)
     def onBlenderVersionError(self, version):
-        log.info('onBlenderVersionError: %s' % version)
         self.error_with_blender(version)
 
     # Error from blender (with no data) (1004)
     def onBlenderErrorNoData(self):
-        log.info('onBlenderErrorNoData')
         self.error_with_blender()
 
     # Signal when to update progress bar (1005)
@@ -671,12 +686,10 @@ class BlenderListView(QListView):
 
     # Signal error from blender (with custom message) (1007)
     def onBlenderErrorMessage(self, error):
-        log.info('onBlenderErrorMessage')
         self.error_with_blender(None, error)
 
     # Signal when to re-enable interface (1008)
     def onRenableInterface(self):
-        log.info('onRenableInterface')
         self.enable_interface()
 
 
@@ -692,10 +705,17 @@ class Worker(QObject):
     blender_error_with_data = pyqtSignal(str)  # 1007
     enable_interface = pyqtSignal()  # 1008
 
+    @pyqtSlot()
+    def Cancel(self):
+        """Cancel worker render"""
+        self.is_running = False
+        if self.process:
+            # Stop blender process if running
+            self.process.terminate()
+
     @pyqtSlot(str, str, bool)
     def Render(self, blend_file_path, target_script, preview_mode=False):
         """ Worker's Render method which invokes the Blender rendering commands """
-        log.info("QThread Render Method Invoked")
 
         # Init regex expression used to determine blender's render progress
         s = settings.get_settings()
@@ -734,7 +754,7 @@ class Worker(QObject):
                     # change cursor to "default" and stop running blender command
                     self.is_running = False
 
-                    # Wrong version of Blender.  Must be 2.62+:
+                    # Wrong version of Blender.
                     self.blender_version_error.emit(float(self.version[0]))
                     return
 
@@ -747,8 +767,8 @@ class Worker(QObject):
             self.process = subprocess.Popen(command_render, stdout=subprocess.PIPE, stderr=subprocess.PIPE, startupinfo=startupinfo)
 
         except:
-            # Error running command.  Most likely the blender executable path in the settings
-            # is not correct, or is not the correct version of Blender (i.e. 2.62+)
+            # Error running command.  Most likely the blender executable path in
+            # the settings is incorrect, or is not a supported Blender version
             self.is_running = False
             self.blender_error_nodata.emit()
             return
@@ -780,14 +800,13 @@ class Worker(QObject):
             # Does it have a match?
             if output_saved:
                 # Yes, we have a match
-                log.info("Image detected from blender regex: %s" % output_saved)
                 self.frame_detected = True
                 image_path = output_saved[0][0]
                 time_saved = output_saved[0][1]
 
                 # Update preview image
+                log.info("Image detected from blender regex: %s" % image_path)
                 self.image_updated.emit(image_path)
-
 
         # Re-enable the interface
         self.enable_interface.emit()
@@ -804,7 +823,6 @@ class Worker(QObject):
             self.finished.emit()
 
         # Thread finished
-        log.info("Blender render thread finished")
         if self.is_running == False:
             # close window if thread was killed
             self.closed.emit()

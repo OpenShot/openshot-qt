@@ -322,7 +322,7 @@ class Effect(QueryObject):
         """ Take any arguments given as filters, and find a list of matching objects """
 
         # Get a list of clips
-        clips = project.get(["clips"])
+        clips = project.get("clips")
         matching_objects = []
 
         # Loop through all clips

@@ -139,7 +139,7 @@ class UpdateManager:
         self.actionHistory.clear()
 
         # Get history from project data
-        history = project.get(["history"])
+        history = project.get("history")
 
         # Loop through each, and load serialized data into updateAction objects
         # Ignore any load actions or history update actions

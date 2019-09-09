@@ -66,12 +66,11 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         """ Get copied value of a given key in data store """
 
         # Verify key is valid type
-        if not isinstance(key, list):
-            log.warning("get() key must be a list. key: {}".format(key))
-            return None
         if not key:
             log.warning("Cannot get empty key.")
             return None
+        if not isinstance(key, list):
+            key = [key]
 
         # Get reference to internal data structure
         obj = self._data
@@ -252,7 +251,21 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
     def new(self):
         """ Try to load default project settings file, will raise error on failure """
         import openshot
-        self._data = self.read_from_file(self.default_project_filepath)
+
+        # Try to load user default project
+        if os.path.exists(info.USER_DEFAULT_PROJECT):
+            try:
+                self._data = self.read_from_file(info.USER_DEFAULT_PROJECT)
+            except (FileNotFoundError, PermissionError) as ex:
+                log.warning("Unable to load user project defaults from {}: {}".format(info.USER_DEFAULT_PROJECT, ex))
+            except Exception:
+                raise
+            else:
+                log.info("Loaded user project defaults from {}".format(info.USER_DEFAULT_PROJECT))
+        else:
+            # Fall back to OpenShot defaults, if user defaults didn't load
+            self._data = self.read_from_file(self.default_project_filepath)
+
         self.current_filepath = None
         self.has_unsaved_changes = False
 
@@ -275,6 +288,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     self._data["width"] = profile.info.width
                     self._data["height"] = profile.info.height
                     self._data["fps"] = {"num" : profile.info.fps.num, "den" : profile.info.fps.den}
+                    self._data["display_ratio"] = {"num": profile.info.display_ratio.num, "den": profile.info.display_ratio.den}
+                    self._data["pixel_ratio"] = {"num": profile.info.pixel_ratio.num, "den": profile.info.pixel_ratio.den}
                     break
 
         # Get the default audio settings for the timeline (and preview playback)
@@ -442,7 +457,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Get FPS from project
         from classes.app import get_app
-        fps = get_app().project.get(["fps"])
+        fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
 
         # Import legacy openshot classes (from version 1.X)
@@ -852,12 +867,15 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
     def add_to_recent_files(self, file_path):
         """ Add this project to the recent files list """
-        if "backup.osp" in file_path:
+        if not file_path or "backup.osp" in file_path:
             # Ignore backup recovery project
             return
 
         s = settings.get_settings()
         recent_projects = s.get("recent_projects")
+
+        # Make sure file_path is absolute
+        file_path = os.path.abspath(file_path)
 
         # Remove existing project
         if file_path in recent_projects:

@@ -71,15 +71,17 @@ class AnimatedTitle(QDialog):
         # Track metrics
         track_metric_screen("animated-title-screen")
 
-        # Add blender treeview
-        self.blenderTreeView = BlenderListView(self)
-        self.verticalLayout.addWidget(self.blenderTreeView)
-
         # Add render button
         app = get_app()
         _ = app._tr
-        self.buttonBox.addButton(QPushButton(_('Render')), QDialogButtonBox.AcceptRole)
-        self.buttonBox.addButton(QPushButton(_('Cancel')), QDialogButtonBox.RejectRole)
+        self.btnRender = QPushButton(_('Render'))
+        self.btnCancel = QPushButton(_('Cancel'))
+        self.buttonBox.addButton(self.btnRender, QDialogButtonBox.AcceptRole)
+        self.buttonBox.addButton(self.btnCancel, QDialogButtonBox.RejectRole)
+
+        # Add blender treeview
+        self.blenderTreeView = BlenderListView(self)
+        self.verticalLayout.addWidget(self.blenderTreeView)
 
         # Init variables
         self.unique_folder_name = str(uuid.uuid1())
@@ -117,6 +119,7 @@ class AnimatedTitle(QDialog):
     def reject(self):
 
         # Stop threads
+        self.blenderTreeView.Cancel()
         self.blenderTreeView.background.quit()
 
         # Cancel dialog

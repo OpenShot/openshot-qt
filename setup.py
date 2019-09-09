@@ -64,9 +64,9 @@ if not os.getenv("FAKEROOTKEY") == None:
 
 os_files = [
     # XDG application description
-    ('share/applications', ['xdg/openshot-qt.desktop']),
+    ('share/applications', ['xdg/org.openshot.OpenShot.desktop']),
     # AppStream metadata
-    ('share/metainfo', ['xdg/openshot-qt.appdata.xml']),
+    ('share/metainfo', ['xdg/org.openshot.OpenShot.appdata.xml']),
     # Debian menu system application icon
     ('share/pixmaps', ['xdg/openshot-qt.svg']),
     # XDG Freedesktop icon paths
@@ -75,7 +75,7 @@ os_files = [
     ('share/icons/hicolor/256x256/apps', ['xdg/icon/256/openshot-qt.png']),
     ('share/icons/hicolor/512x512/apps', ['xdg/icon/512/openshot-qt.png']),
     # XDG desktop mime types cache
-    ('share/mime/packages', ['xdg/openshot-qt.xml']),
+    ('share/mime/packages', ['xdg/org.openshot.OpenShot.xml']),
     # launcher (mime.types)
     ('lib/mime/packages', ['xdg/openshot-qt']),
 ]

@@ -331,20 +331,20 @@ try:
         shutil.copyfile("/home/ubuntu/apps/AppImageKit/AppRun", app_run_path)
 
         # Create .desktop file
-        with open(os.path.join(app_dir_path, "openshot-qt.desktop"), "w") as f:
+        with open(os.path.join(app_dir_path, "org.openshot.OpenShot.desktop"), "w") as f:
             f.write('[Desktop Entry]\nName=OpenShot Video Editor\nGenericName=Video Editor\nX-GNOME-FullName=OpenShot Video Editor\nComment=Create and edit amazing videos and movies\nExec=openshot-qt.wrapper %F\nTerminal=false\nIcon=openshot-qt\nType=Application')
 
         # Copy some installation-related files
         shutil.copyfile(os.path.join(PATH, "xdg", "openshot-qt.svg"), os.path.join(app_dir_path, "openshot-qt.svg"))
         shutil.copyfile(os.path.join(PATH, "xdg", "openshot-qt.svg"), os.path.join(app_dir_path, "usr", "share", "pixmaps", "openshot-qt.svg"))
-        shutil.copyfile(os.path.join(PATH, "xdg", "openshot-qt.xml"), os.path.join(app_dir_path, "usr", "share", "mime", "packages", "openshot-qt.xml"))
+        shutil.copyfile(os.path.join(PATH, "xdg", "org.openshot.OpenShot.xml"), os.path.join(app_dir_path, "usr", "share", "mime", "packages", "org.openshot.OpenShot.xml"))
         shutil.copyfile(os.path.join(PATH, "xdg", "openshot-qt"), os.path.join(app_dir_path, "usr", "lib", "mime", "packages", "openshot-qt"))
 
         # Copy the entire frozen app
         shutil.copytree(os.path.join(PATH, "build", exe_dir), os.path.join(app_dir_path, "usr", "bin"))
 
         # Copy desktop integration wrapper (prompts users to install shortcut)
-        launcher_path = os.path.join(app_dir_path, "usr", "bin", "openshot-qt")
+        launcher_path = os.path.join(app_dir_path, "usr", "bin", "openshot-qt-launch")
         os.rename(os.path.join(app_dir_path, "usr", "bin", "launch-linux.sh"), launcher_path)
         desktop_wrapper = os.path.join(app_dir_path, "usr", "bin", "openshot-qt.wrapper")
         shutil.copyfile("/home/ubuntu/apps/AppImageKit/desktopintegration", desktop_wrapper)
@@ -402,22 +402,47 @@ try:
     if platform.system() == "Windows":
 
         # Move python folder structure, since Cx_Freeze doesn't put it in the correct place
-        exe_dir = os.path.join(PATH, 'build', 'exe.mingw-3.6')
-        python_dir = os.path.join(exe_dir, 'lib', 'python3.6')
-        if not os.path.exists(python_dir):
-            os.mkdir(python_dir)
+        exe_dir = os.path.join(PATH, 'build', 'exe.mingw-3.7')
+        python_dir = os.path.join(exe_dir, 'lib', 'python3.7')
 
-            # Copy all non-zip files from /lib/ into /python3.X/
-            for lib_file in os.listdir(os.path.join(exe_dir, 'lib')):
-                if not ".zip" in lib_file and not lib_file == "python3.6":
-                    lib_src_path = os.path.join(os.path.join(exe_dir, 'lib'), lib_file)
-                    lib_dst_path = os.path.join(os.path.join(python_dir), lib_file)
-                    shutil.move(lib_src_path, lib_dst_path)
+        # Remove a redundant openshot_qt module folder (duplicates lots of files)
+        duplicate_openshot_qt_path = os.path.join(python_dir, 'openshot_qt')
+        if os.path.exists(duplicate_openshot_qt_path):
+            shutil.rmtree(duplicate_openshot_qt_path, True)
 
-            # Remove a redundant openshot_qt module folder (duplicates lots of files)
-            duplicate_openshot_qt_path = os.path.join(python_dir, 'openshot_qt')
-            if os.path.exists(duplicate_openshot_qt_path):
-                shutil.rmtree(duplicate_openshot_qt_path, True)
+        # Remove the following paths. cx_Freeze is including many unneeded files. This prunes them out.
+        paths_to_delete = ['mediaservice', 'imageformats', 'platforms', 'printsupport', 'lib/openshot_qt', 'resvg.dll']
+        for delete_path in paths_to_delete:
+            full_delete_path = os.path.join(exe_dir, delete_path)
+            output("Delete path: %s" % full_delete_path)
+            if os.path.exists(full_delete_path):
+                if os.path.isdir(full_delete_path):
+                    # Delete Folder
+                    shutil.rmtree(full_delete_path)
+                else:
+                    # Delete File
+                    os.unlink(full_delete_path)
+            else:
+                output("Invalid delete path: %s" % full_delete_path)
+
+        # Replace these folders (cx_Freeze messes this up, so this fixes it)
+        paths_to_replace = ['imageformats', 'platforms']
+        for replace_name in paths_to_replace:
+            if windows_32bit:
+                shutil.copytree(os.path.join('C:\\msys32\\mingw32\\share\\qt5\\plugins', replace_name), os.path.join(exe_dir, replace_name))
+            else:
+                shutil.copytree(os.path.join('C:\\msys64\\mingw64\\share\\qt5\\plugins', replace_name), os.path.join(exe_dir, replace_name))
+
+        # Copy Qt5Core.dll, Qt5Svg.dll to root of frozen directory
+        paths_to_copy = [("Qt5Core.dll", "C:\\msys64\\mingw64\\bin\\"), ("Qt5Svg.dll", "C:\\msys64\\mingw64\\bin\\")]
+        if windows_32bit:
+            paths_to_copy = [("Qt5Core.dll", "C:\\msys32\\mingw32\\bin\\"), ("Qt5Svg.dll", "C:\\msys32\\mingw32\\bin\\")]
+        for qt_file_name, qt_parent_path in paths_to_copy:
+            qt5_path = os.path.join(qt_parent_path, qt_file_name)
+            new_qt5_path = os.path.join(exe_dir, qt_file_name)
+            if os.path.exists(qt5_path) and not os.path.exists(new_qt5_path):
+                output("Copying %s to %s" % (qt5_path, new_qt5_path))
+                shutil.copy(qt5_path, new_qt5_path)
 
         # Delete debug Qt libraries (since they are not needed, and cx_Freeze grabs them)
         for sub_folder in ['', 'platforms', 'imageformats']:
@@ -434,9 +459,9 @@ try:
             only_64_bit = ""
 
         # Add version metadata to frozen app launcher
-        launcher_exe = os.path.join(exe_dir, "launch.exe")
+        launcher_exe = os.path.join(exe_dir, "openshot-qt.exe")
         verpatch_success = True
-        verpatch_command = '"C:\Program Files (x86)\Verpatch\\verpatch.exe" "{}" /va /high "{}" /pv "{}" /s product "{}" /s company "{}" /s copyright "{}" /s desc "{}"'.format(launcher_exe, info.VERSION, info.VERSION, info.PRODUCT_NAME, info.COMPANY_NAME, info.COPYRIGHT, info.PRODUCT_NAME)
+        verpatch_command = '"verpatch.exe" "{}" /va /high "{}" /pv "{}" /s product "{}" /s company "{}" /s copyright "{}" /s desc "{}"'.format(launcher_exe, info.VERSION, info.VERSION, info.PRODUCT_NAME, info.COMPANY_NAME, info.COPYRIGHT, info.PRODUCT_NAME)
         verpatch_output = ""
         # version-stamp executable
         for line in run_command(verpatch_command):
@@ -444,7 +469,7 @@ try:
             if line:
                 verpatch_success = False
                 verpatch_output = line
-                
+
         # Was the verpatch command successful
         if not verpatch_success:
             # Verpatch failed (not fatal)
@@ -456,7 +481,7 @@ try:
 
         # Create Installer (OpenShot-%s-x86_64.exe)
         inno_success = True
-        inno_command = '"C:\Program Files (x86)\Inno Setup 5\iscc.exe" /Q /DVERSION=%s /DONLY_64_BIT=%s "%s"' % (version, only_64_bit, os.path.join(PATH, 'installer', 'windows-installer.iss'))
+        inno_command = '"iscc.exe" /Q /DVERSION=%s /DONLY_64_BIT=%s "%s"' % (version, only_64_bit, os.path.join(PATH, 'installer', 'windows-installer.iss'))
         inno_output = ""
         # Compile Inno installer
         for line in run_command(inno_command):
@@ -479,7 +504,7 @@ try:
 
         # Sign the installer
         key_sign_success = True
-        key_sign_command = '"C:\\Program Files (x86)\\kSign\\kSignCMD.exe" /f "%s" /p "%s" /d "OpenShot Video Editor" /du "http://www.openshot.org" "%s"' % (windows_key, windows_key_password, app_build_path)
+        key_sign_command = '"kSignCMD.exe" /f "%s%s" /p "%s" /d "OpenShot Video Editor" /du "http://www.openshot.org" "%s"' % (windows_key, only_64_bit, windows_key_password, app_build_path)
         key_sign_output = ""
         # Sign MSI
         for line in run_command(key_sign_command):

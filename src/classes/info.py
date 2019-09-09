@@ -1,26 +1,26 @@
-""" 
+"""
  @file
  @brief This file contains the current version number of OpenShot, along with other global settings.
  @author Jonathan Thomas <jonathan@openshot.org>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
@@ -57,6 +57,7 @@ EXPORT_PRESETS_PATH = os.path.join(PATH, "presets")
 EXPORT_TESTS = os.path.join(USER_PATH, "tests")
 USER_PROFILES_PATH = os.path.join(USER_PATH, "profiles")
 USER_PRESETS_PATH = os.path.join(USER_PATH, "presets")
+USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.project")
 
 # Create PATHS if they do not exist (this is where temp files are stored... such as cached thumbnails)
 for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH, ASSETS_PATH, TITLE_PATH, PROFILES_PATH, IMAGES_PATH,

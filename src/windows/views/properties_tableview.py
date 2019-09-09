@@ -387,7 +387,7 @@ class PropertiesTableView(QTableView):
             if property_name =="Track" and self.property_type == "int" and not self.choices:
                 # Populate all display track names
                 track_choices = []
-                all_tracks = get_app().project.get(["layers"])
+                all_tracks = get_app().project.get("layers")
                 display_count = len(all_tracks)
                 for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
                     # Append track choice

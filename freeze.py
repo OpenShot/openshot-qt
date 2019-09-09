@@ -57,24 +57,16 @@ import sys
 import fnmatch
 from shutil import copytree, rmtree, copy
 from cx_Freeze import setup, Executable
+import cx_Freeze
 from PyQt5.QtCore import QLibraryInfo
 import shutil
 
 
-# Determine which JSON library is installed
-json_library = None
-try:
-    import json
-
-    json_library = "json"
-except ImportError:
-    import simplejson as json
-
-    json_library = "simplejson"
+print (str(cx_Freeze))
 
 # Packages to include
 python_packages = ["os", "sys", "PyQt5", "openshot", "time", "uuid", "shutil", "threading", "subprocess",
-                                 "re", "math", "xml", "logging", "urllib", "requests", "zmq", "webbrowser", json_library]
+                                 "re", "math", "xml", "logging", "urllib", "requests", "zmq", "webbrowser", "json"]
 
 # Determine absolute PATH of OpenShot folder
 PATH = os.path.dirname(os.path.realpath(__file__))  # Primary openshot folder
@@ -123,6 +115,7 @@ src_files = []
 external_so_files = []
 build_options = {}
 build_exe_options = {}
+exe_name = info.NAME
 
 # Copy QT translations to local folder (to be packaged)
 qt_local_path = os.path.join(PATH, "openshot_qt", "language")
@@ -142,22 +135,21 @@ for project in ["libopenshot-audio", "libopenshot", "openshot-qt"]:
     git_log_path = os.path.join(PATH, "build", "install-x64", "share", "%s.log" % project)
     if os.path.exists(git_log_path):
         src_files.append((git_log_path, "settings/%s.log" % project))
+    else:
+        git_log_path = os.path.join(PATH, "build", "install-x86", "share", "%s.log" % project)
+        if os.path.exists(git_log_path):
+            src_files.append((git_log_path, "settings/%s.log" % project))
 
 if sys.platform == "win32":
     base = "Win32GUI"
     build_exe_options["include_msvcr"] = True
+    exe_name += ".exe"
 
     # Append Windows ICON file
     iconFile += ".ico"
-    src_files.append((os.path.join(PATH, "xdg", iconFile), iconFile))
 
     # Append some additional files for Windows (this is a debug launcher)
     src_files.append((os.path.join(PATH, "installer", "launch-win.bat"), "launch-win.bat"))
-
-    # Add libresvg (if found)
-    resvg_path = "C:\\msys64\\usr\\local\\lib\\resvg.dll"
-    if os.path.exists(resvg_path):
-        external_so_files.append((resvg_path, resvg_path.replace("C:\\msys64\\usr\\local\\lib\\", "")))
 
     # Add additional package
     python_packages.append('idna')
@@ -291,7 +283,8 @@ setup(name=info.PRODUCT_NAME,
                               base=base,
                               icon=os.path.join(PATH, "xdg", iconFile),
                               shortcutName="%s" % info.PRODUCT_NAME,
-                              shortcutDir="ProgramMenuFolder")])
+                              shortcutDir="ProgramMenuFolder",
+                              targetName=exe_name)])
 
 
 # Remove temporary folder (if SRC folder present)
