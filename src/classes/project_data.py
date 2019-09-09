@@ -485,7 +485,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         # Keep track of files that failed to load
         failed_files = []
 
-        with open(file_path.encode('UTF-8'), 'rb') as f:
+        with open(os.fsencode(file_path), 'rb') as f:
             try:
                 # Unpickle legacy openshot project file
                 v1_data = pickle.load(f, fix_imports=True, encoding="UTF-8")

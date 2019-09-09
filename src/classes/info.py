@@ -65,12 +65,12 @@ USER_PRESETS_PATH = os.path.join(USER_PATH, "presets")
 BACKUP_FILE = os.path.join(BACKUP_PATH, "backup.osp")
 USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.project")
 
-    if not os.path.exists(folder.encode("UTF-8")):
 # Create user paths if they do not exist
 # (this is where temp files are stored... such as cached thumbnails)
 for folder in [USER_PATH, BACKUP_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH,
                ASSETS_PATH, TITLE_PATH, TRANSITIONS_PATH, PREVIEW_CACHE_PATH,
                USER_PROFILES_PATH, USER_PRESETS_PATH]:
+    if not os.path.exists(os.fsencode(folder)):
         os.makedirs(folder, exist_ok=True)
 
 # Maintainer details, for packaging
