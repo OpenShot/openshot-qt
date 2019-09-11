@@ -607,7 +607,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         # Mutex lock
         self.mutex = QMutex()
 
-        # Init Qt widjet's properties (background repainting, etc...)
+        # Init Qt widget's properties (background repainting, etc...)
         super().setAttribute(Qt.WA_OpaquePaintEvent)
         super().setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
 
