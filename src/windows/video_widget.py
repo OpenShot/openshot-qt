@@ -82,7 +82,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         painter = QPainter(self)
         painter.setRenderHints(QPainter.Antialiasing | QPainter.SmoothPixmapTransform | QPainter.TextAntialiasing, True)
 
-        # Fill background with theme color instead of black
+        # Fill the whole widget with the solid color
         painter.fillRect(event.rect(), self.palette().window())
 
         if self.current_image:
