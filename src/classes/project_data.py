@@ -530,7 +530,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
                         except Exception as ex:
                             # Handle exception quietly
-                            msg = ("{} is not a valid video, audio, or image file: {}".format(item.name. str(ex)))
+                            msg = ("{} is not a valid video, audio, or image file: {}".format(item.name, str(ex)))
                             log.error(msg)
                             failed_files.append(item.name)
 
