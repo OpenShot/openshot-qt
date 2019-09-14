@@ -319,7 +319,24 @@ class PropertiesTableView(QTableView):
         # Update model
         self.clip_properties_model.update_model(value)
 
-    def contextMenuEvent(self, event):
+    def contextMenuEvent(self, event=None, release=False):
+        """ Display context menu, or release lock when menu displays """
+        from functools import partial
+
+        if release:
+            # Just clear the menu lock and exit
+            self.menu_lock = False
+            return
+
+        if self.menu_lock or not event:
+            # If we're locked, ignore this menu request
+            # But set a 100ms timer to release the lock, just in case
+            QTimer.singleShot(100, partial(self.contextMenuEvent, release=True))
+            return
+
+        # Lock against repeated calls until we've displayed the menu
+        self.menu_lock = True
+
         # Get data model and selection
         model = self.clip_properties_model.model
         row = self.indexAt(event.pos()).row()
@@ -497,8 +514,9 @@ class PropertiesTableView(QTableView):
                             Choice_Action.triggered.connect(self.Choice_Action_Triggered)
                         menu.addMenu(SubMenuRoot)
 
-                # Show choice menu
+                # Show choice menu and release lock
                 menu.popup(QCursor.pos())
+                self.contextMenuEvent(event, release=True)
 
     def Bezier_Action_Triggered(self, preset=[]):
         log.info("Bezier_Action_Triggered: %s" % str(preset))
@@ -562,6 +580,9 @@ class PropertiesTableView(QTableView):
         self.selected_item = None
         self.new_value = None
         self.original_data = None
+
+        # Context menu concurrency lock
+        self.menu_lock = False
 
         # Setup header columns
         self.setModel(self.clip_properties_model.model)
