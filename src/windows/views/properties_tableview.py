@@ -1,26 +1,26 @@
-""" 
+"""
  @file
  @brief This file contains the properties tableview, used by the main window
  @author Jonathan Thomas <jonathan@openshot.org>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
@@ -28,14 +28,14 @@
 import os
 from functools import partial
 from operator import itemgetter
-from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, Qt, QObject, QTimer
+from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, QObject, QTimer
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QTableView, QAbstractItemView, QMenu, QSizePolicy, QHeaderView, QColorDialog, QItemDelegate, QStyle, QLabel, QPushButton, QHBoxLayout, QFrame
 
 from classes.logger import log
 from classes.app import get_app
 from classes import info
-from classes.query import Clip, Effect, Transition, File
+from classes.query import Clip, Effect, Transition
 from windows.models.properties_model import PropertiesModel
 from windows.models.transition_model import TransitionsModel
 from windows.models.files_model import FilesModel
@@ -160,11 +160,8 @@ class PropertiesTableView(QTableView):
 
         # Is the user dragging on the value column
         if self.selected_label and self.selected_item:
-            frame_number = self.clip_properties_model.frame_number
-
             # Get the position of the cursor and % value
             value_column_x = self.columnViewportPosition(1)
-            value_column_y = value_column_x + self.columnWidth(1)
             cursor_value = event.x() - value_column_x
             cursor_value_percent = cursor_value / self.columnWidth(1)
 
@@ -259,7 +256,6 @@ class PropertiesTableView(QTableView):
         # Get data model and selection
         model = self.clip_properties_model.model
         row = self.indexAt(event.pos()).row()
-        column = self.indexAt(event.pos()).column()
         if model.item(row, 0):
             self.selected_label = model.item(row, 0)
             self.selected_item = model.item(row, 1)
@@ -318,8 +314,6 @@ class PropertiesTableView(QTableView):
 
     def contextMenuEvent(self, event=None, release=False):
         """ Display context menu, or release lock when menu displays """
-        from functools import partial
-
         if release:
             # Just clear the menu lock and exit
             self.menu_lock = False
@@ -399,7 +393,6 @@ class PropertiesTableView(QTableView):
             # Handle reader type values
             if property_name =="Track" and self.property_type == "int" and not self.choices:
                 # Populate all display track names
-                track_choices = []
                 all_tracks = get_app().project.get("layers")
                 display_count = len(all_tracks)
                 for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
