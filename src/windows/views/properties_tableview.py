@@ -63,17 +63,15 @@ class PropertyDelegate(QItemDelegate):
         row = model.itemFromIndex(index).row()
         selected_label = model.item(row, 0)
         selected_value = model.item(row, 1)
-        property = selected_label.data()
+        cur_property = selected_label.data()
 
         # Get min/max values for this property
-        property_name = property[1]["name"]
-        property_type = property[1]["type"]
-        property_max = property[1]["max"]
-        property_min = property[1]["min"]
-        readonly = property[1]["readonly"]
-        keyframe = property[1]["keyframe"]
-        points = property[1]["points"]
-        interpolation = property[1]["interpolation"]
+        property_type = cur_property[1]["type"]
+        property_max = cur_property[1]["max"]
+        property_min = cur_property[1]["min"]
+        readonly = cur_property[1]["readonly"]
+        points = cur_property[1]["points"]
+        interpolation = cur_property[1]["interpolation"]
 
         # Calculate percentage value
         if property_type in ["float", "int"]:
@@ -97,9 +95,9 @@ class PropertyDelegate(QItemDelegate):
         painter.setPen(QPen(Qt.NoPen))
         if property_type == "color":
             # Color keyframe
-            red = property[1]["red"]["value"]
-            green = property[1]["green"]["value"]
-            blue = property[1]["blue"]["value"]
+            red = cur_property[1]["red"]["value"]
+            green = cur_property[1]["green"]["value"]
+            blue = cur_property[1]["blue"]["value"]
             painter.setBrush(QBrush(QColor(QColor(red, green, blue))))
         else:
             # Normal Keyframe
@@ -171,19 +169,18 @@ class PropertiesTableView(QTableView):
             cursor_value_percent = cursor_value / self.columnWidth(1)
 
             try:
-                property = self.selected_label.data()
-            except Exception as ex:
+                cur_property = self.selected_label.data()
+            except Exception:
                 # If item is deleted during this drag... an exception can occur
                 # Just ignore, since this is harmless
                 return
 
-            property_key = property[0]
-            property_name = property[1]["name"]
-            property_type = property[1]["type"]
-            property_max = property[1]["max"]
-            property_min = property[1]["min"]
-            property_value = property[1]["value"]
-            readonly = property[1]["readonly"]
+            property_key = cur_property[0]
+            property_name = cur_property[1]["name"]
+            property_type = cur_property[1]["type"]
+            property_max = cur_property[1]["max"]
+            property_min = cur_property[1]["min"]
+            readonly = cur_property[1]["readonly"]
             item_id, item_type = self.selected_item.data()
 
             # Bail if readonly
@@ -281,14 +278,14 @@ class PropertiesTableView(QTableView):
         self.selected_item = model.item(row, 1)
 
         if selected_label:
-            property = selected_label.data()
-            property_type = property[1]["type"]
+            cur_property = selected_label.data()
+            property_type = cur_property[1]["type"]
 
             if property_type == "color":
                 # Get current value of color
-                red = property[1]["red"]["value"]
-                green = property[1]["green"]["value"]
-                blue = property[1]["blue"]["value"]
+                red = cur_property[1]["red"]["value"]
+                green = cur_property[1]["green"]["value"]
+                blue = cur_property[1]["blue"]["value"]
 
                 # Show color dialog
                 currentColor = QColor(red, green, blue)
@@ -351,17 +348,16 @@ class PropertiesTableView(QTableView):
         # If item selected
         if selected_label:
             # Get data from selected item
-            property = selected_label.data()
-            property_name = property[1]["name"]
-            self.property_type = property[1]["type"]
-            memo = json.loads(property[1]["memo"] or "{}")
-            points = property[1]["points"]
-            self.choices = property[1]["choices"]
-            property_key = property[0]
+            cur_property = selected_label.data()
+            property_name = cur_property[1]["name"]
+            self.property_type = cur_property[1]["type"]
+            points = cur_property[1]["points"]
+            self.choices = cur_property[1]["choices"]
+            property_key = cur_property[0]
             clip_id, item_type = selected_value.data()
             log.info("Context menu shown for %s (%s) for clip %s on frame %s" % (property_name, property_key, clip_id, frame_number))
             log.info("Points: %s" % points)
-            log.info("Property: %s" % str(property))
+            log.info("Property: %s" % str(cur_property))
 
             # Handle reader type values
             if self.property_type == "reader" and not self.choices:
