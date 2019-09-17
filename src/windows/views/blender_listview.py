@@ -548,7 +548,7 @@ class BlenderListView(QListView):
 
         # get the pixbuf
         image = QImage(image_path)
-        scaled_image = image.scaledToHeight(self.win.imgPreview.height(), Qt.SmoothTransformation);
+        scaled_image = image.scaledToHeight(self.win.imgPreview.height(), Qt.SmoothTransformation)
         pixmap = QPixmap.fromImage(scaled_image)
         self.win.imgPreview.setPixmap(pixmap)
 
@@ -798,12 +798,12 @@ class Worker(QObject):
             self.blender_error_with_data.emit(_("No frame was found in the output from Blender"))
 
         # Done with render (i.e. close window)
-        elif not self.preview_mode:
-            # only close window if in 'render' mode
+        elif self.is_running and not self.preview_mode:
+            # only add file to project data if in 'render' mode and not canceled
             self.finished.emit()
 
         # Thread finished
-        if self.is_running == False:
+        if not self.is_running:
             # close window if thread was killed
             self.closed.emit()
 
