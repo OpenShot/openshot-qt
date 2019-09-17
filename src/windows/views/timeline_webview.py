@@ -977,9 +977,12 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 clip.data["channel_filter"] = { "Points" : [p_object]}
 
                 # Filter out video on the new clip
-                p = openshot.Point(1, 0.0, openshot.CONSTANT) # Override has_audio keyframe to False
+                p = openshot.Point(1, 0.0, openshot.CONSTANT) # Override has_video keyframe to False
                 p_object = json.loads(p.Json())
                 clip.data["has_video"] = { "Points" : [p_object]}
+                # Also set scale to None
+                # Workaround for https://github.com/OpenShot/openshot-qt/issues/2882
+                clip.data["scale"] = openshot.SCALE_NONE
 
                 # Get track below selected track (if any)
                 next_track_number = clip.data['layer']
@@ -1019,9 +1022,12 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                     clip.data["channel_filter"] = { "Points" : [p_object]}
 
                     # Filter out video on the new clip
-                    p = openshot.Point(1, 0.0, openshot.CONSTANT) # Override has_audio keyframe to False
+                    p = openshot.Point(1, 0.0, openshot.CONSTANT) # Override has_video keyframe to False
                     p_object = json.loads(p.Json())
                     clip.data["has_video"] = { "Points" : [p_object]}
+                    # Also set scale to None
+                    # Workaround for https://github.com/OpenShot/openshot-qt/issues/2882
+                    clip.data["scale"] = openshot.SCALE_NONE
 
                     # Get track below selected track (if any)
                     next_track_number = clip.data['layer']
