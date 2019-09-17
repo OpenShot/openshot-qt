@@ -47,15 +47,6 @@ from windows.models.blender_model import BlenderModel
 
 import json
 
-class QBlenderEvent(QEvent):
-    """ A custom Blender QEvent, which can safely be sent from the Blender thread to the Qt thread (to communicate) """
-
-    def __init__(self, id, data=None, *args):
-        # Invoke parent init
-        QEvent.__init__(self, id)
-        self.data = data
-        self.id = id
-
 
 class BlenderListView(QListView):
     """ A TreeView QWidget used on the animated title window """
