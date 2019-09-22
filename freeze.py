@@ -242,6 +242,7 @@ elif sys.platform == "linux":
                             "libpango-1.0.so.0",
                             "libpangocairo-1.0.so.0",
                             "libpangoft2-1.0.so.0",
+                            "libharfbuzz.so.0",
                             "libthai.so.0",
                             ]
                         and not libpath_file.startswith("libxcb-")
