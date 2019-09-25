@@ -2,7 +2,7 @@
 name: Bug Report
 about: Create a bug report for a new issue
 title: Give your bug report a descriptive title
-labels: bug
+labels: ':beetle: bug'
 assignees: ''
 
 ---
