@@ -175,8 +175,8 @@ class FileProperties(QDialog):
         _ = app._tr
 
         starting_folder, filename = os.path.split(self.file.data["path"])
-        newFilePath = QFileDialog.getOpenFileName(None,(_("Locate media file: %s") % filename), starting_folder)
-        self.txtFilePath.setText(newFilePath[0])
+        newFilePath = QFileDialog.getOpenFileName(None, _("Locate media file: %s") % filename, starting_folder)[0]
+        self.txtFilePath.setText(newFilePath)
 
     def accept(self):
         # Update file details
