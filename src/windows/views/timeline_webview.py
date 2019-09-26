@@ -163,12 +163,13 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         """Document.Ready event has fired, and is initialized"""
         self.document_is_ready = True
 
-    def eval_js(self, code):
+    def eval_js(self, code, retries=0):
         # Check if document.Ready has fired in JS
         if not self.document_is_ready:
             # Not ready, try again in a few milliseconds
-            log.error("TimelineWebView::eval_js() called before document ready event. Script queued: %s" % code)
-            QTimer.singleShot(50, partial(self.eval_js, code))
+            if retries > 1:
+                log.warning("TimelineWebView::eval_js() called before document ready event. Script queued: %s" % code)
+            QTimer.singleShot(100, partial(self.eval_js, code, retries+1))
             return None
         else:
             # Execute JS code
