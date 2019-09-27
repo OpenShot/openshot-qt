@@ -803,7 +803,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionHelpContents_trigger(self, event):
         try:
-            webbrowser.open("https://www.openshot.org/%suser-guide/?app-menu" % info.website_language())
+            webbrowser.open("https://www.openshot.org/%suser-guide/?app-menu" % info.website_language(), new=1)
         except Exception as ex:
             QMessageBox.information(self, "Error !", "Unable to open the online help")
             log.error("Unable to open the Help Contents: {}".format(str(ex)))
@@ -817,35 +817,35 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionReportBug_trigger(self, event):
         try:
-            webbrowser.open("https://www.openshot.org/%sissues/new/?app-menu" % info.website_language())
+            webbrowser.open("https://www.openshot.org/%sissues/new/?app-menu" % info.website_language(), new=1)
         except Exception as ex:
             QMessageBox.information(self, "Error !", "Unable to open the Bug Report GitHub Issues web page")
             log.error("Unable to open the Bug Report page: {}".format(str(ex)))
 
     def actionAskQuestion_trigger(self, event):
         try:
-            webbrowser.open("https://www.reddit.com/r/OpenShot/")
+            webbrowser.open("https://www.reddit.com/r/OpenShot/", new=1)
         except Exception as ex:
             QMessageBox.information(self, "Error !", "Unable to open the official OpenShot subreddit web page")
             log.error("Unable to open the subreddit page: {}".format(str(ex)))
 
     def actionTranslate_trigger(self, event):
         try:
-            webbrowser.open("https://translations.launchpad.net/openshot/2.0")
+            webbrowser.open("https://translations.launchpad.net/openshot/2.0", new=1)
         except Exception as ex:
             QMessageBox.information(self, "Error !", "Unable to open the Translation web page")
             log.error("Unable to open the translation page: {}".format(str(ex)))
 
     def actionDonate_trigger(self, event):
         try:
-            webbrowser.open("https://www.openshot.org/%sdonate/?app-menu" % info.website_language())
+            webbrowser.open("https://www.openshot.org/%sdonate/?app-menu" % info.website_language(), new=1)
         except Exception as ex:
             QMessageBox.information(self, "Error !", "Unable to open the Donate web page")
             log.error("Unable to open the donation page: {}".format(str(ex)))
 
     def actionUpdate_trigger(self, event):
         try:
-            webbrowser.open("https://www.openshot.org/%sdownload/?app-toolbar" % info.website_language())
+            webbrowser.open("https://www.openshot.org/%sdownload/?app-toolbar" % info.website_language(), new=1)
         except Exception as ex:
             QMessageBox.information(self, "Error !", "Unable to open the Download web page")
             log.error("Unable to open the download page: {}".format(str(ex)))
