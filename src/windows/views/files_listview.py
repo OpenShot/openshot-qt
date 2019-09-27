@@ -123,7 +123,7 @@ class FilesListView(QListView):
         pass
 
     def add_file(self, filepath):
-        path, filename = os.path.split(filepath)
+        filename = os.path.basename(filepath)
 
         # Add file into project
         app = get_app()
@@ -176,7 +176,7 @@ class FilesListView(QListView):
                 pattern = "%s%s.%s" % (base_name, zero_pattern, extension)
 
                 # Split folder name
-                (parentPath, folderName) = os.path.split(folder_path)
+                folderName = os.path.basename(folder_path)
                 if not base_name:
                     # Give alternate name
                     file.data["name"] = "%s (%s)" % (folderName, pattern)
@@ -223,14 +223,15 @@ class FilesListView(QListView):
             full_base_name = os.path.join(dirName, base_name)
 
             # Check for images which the file names have the different length
-            fixlen = fixlen or not (glob.glob("%s%s.%s" % (full_base_name, "[0-9]" * (digits + 1), extension))
-                                    or glob.glob(
-                "%s%s.%s" % (full_base_name, "[0-9]" * ((digits - 1) if digits > 1 else 3), extension)))
+            fixlen = fixlen or not (
+                glob.glob("%s%s.%s" % (full_base_name, "[0-9]" * (digits + 1), extension))
+                or glob.glob("%s%s.%s" % (full_base_name, "[0-9]" * ((digits - 1) if digits > 1 else 3), extension))
+            )
 
             # Check for previous or next image
             for x in range(max(0, number - 100), min(number + 101, 50000)):
-                if x != number and os.path.exists("%s%s.%s" % (
-                full_base_name, str(x).rjust(digits, "0") if fixlen else str(x), extension)):
+                if x != number and os.path.exists(
+                   "%s%s.%s" % (full_base_name, str(x).rjust(digits, "0") if fixlen else str(x), extension)):
                     is_sequence = True
                     break
             else:
@@ -245,10 +246,19 @@ class FilesListView(QListView):
                 _ = get_app()._tr
 
                 # Handle exception
-                ret = QMessageBox.question(self, _("Import Image Sequence"), _("Would you like to import %s as an image sequence?") % fileName, QMessageBox.No | QMessageBox.Yes)
+                ret = QMessageBox.question(self, _("Import Image Sequence"),
+                                           _("Would you like to import %s as an image sequence?") % fileName,
+                                           QMessageBox.No | QMessageBox.Yes)
                 if ret == QMessageBox.Yes:
                     # Yes, import image sequence
-                    parameters = {"file_path":file_path, "folder_path":dirName, "base_name":base_name, "fixlen":fixlen, "digits":digits, "extension":extension}
+                    parameters = {
+                        "file_path": file_path,
+                        "folder_path": dirName,
+                        "base_name": base_name,
+                        "fixlen": fixlen,
+                        "digits": digits,
+                        "extension": extension
+                    }
                     return parameters
                 else:
                     return None
@@ -291,7 +301,7 @@ class FilesListView(QListView):
         """Remove signal handlers and prepare for deletion"""
         try:
             self.files_model.model.ModelRefreshed.disconnect()
-        except:
+        except Exception:
             pass
 
     def __init__(self, *args):

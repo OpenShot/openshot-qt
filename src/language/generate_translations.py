@@ -265,7 +265,7 @@ for file in os.listdir(transitions_path):
     for sub_file in os.listdir(full_file_path):
         # load xml export file
         full_subfile_path = os.path.join(full_file_path, sub_file)
-        (fileBaseName, fileExtension) = os.path.splitext(sub_file)
+        fileBaseName = os.path.splitext(sub_file)[0]
 
         # split the name into parts (looking for a number)
         suffix_number = None
@@ -287,7 +287,7 @@ for file in os.listdir(transitions_path):
 for sub_file in os.listdir(titles_path):
     # load xml export file
     full_subfile_path = os.path.join(titles_path, sub_file)
-    (fileBaseName, fileExtension) = os.path.splitext(sub_file)
+    fileBaseName = os.path.splitext(sub_file)[0]
 
     # split the name into parts (looking for a number)
     suffix_number = None

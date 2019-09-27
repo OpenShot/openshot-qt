@@ -155,8 +155,8 @@ class Export(QDialog):
         else:
             # Yes, project is saved
             # Get just the filename
-            parent_path, filename = os.path.split(get_app().project.current_filepath)
-            filename, ext = os.path.splitext(filename)
+            filename = os.path.basename(get_app().project.current_filepath)
+            filename = os.path.splitext(filename)[0]
             self.txtFileName.setText(filename.replace("_", " ").replace("-", " ").capitalize())
 
         # Default image type

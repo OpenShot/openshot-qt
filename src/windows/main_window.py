@@ -2008,8 +2008,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             # Yes, project is saved
             # Get just the filename
-            parent_path, filename = os.path.split(get_app().project.current_filepath)
-            filename, ext = os.path.splitext(filename)
+            filename = os.path.basename(app.project.current_filepath)
+            filename = os.path.splitext(filename)[0]
             filename = filename.replace("_", " ").replace("-", " ").capitalize()
             self.setWindowTitle("%s %s [%s] - %s" % (save_indicator, filename, profile, "OpenShot Video Editor"))
 
@@ -2105,7 +2105,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Load Recent Projects
         self.load_recent_menu()
-        
+
         # The method restoreState restores the visibility of the toolBar,
         # but does not set the correct flag in the actionView_Toolbar.
         self.actionView_Toolbar.setChecked(self.toolBar.isVisibleTo(self))

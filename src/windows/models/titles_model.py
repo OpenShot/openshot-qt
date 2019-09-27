@@ -91,8 +91,8 @@ class TitlesModel():
                 titles_list.append(os.path.join(info.TITLE_PATH, file))
 
         for path in sorted(titles_list):
-            (parent_path, filename) = os.path.split(path)
-            (fileBaseName, fileExtension) = os.path.splitext(filename)
+            filename = os.path.basename(path)
+            fileBaseName = os.path.splitext(filename)[0]
 
             # Skip hidden files (such as .DS_Store, etc...)
             if filename[0] == "." or "thumbs.db" in filename.lower() or filename.lower() == "temp.svg":

@@ -2702,7 +2702,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.png")
 
         # Get file name
-        path, filename = os.path.split(file.data["path"])
+        filename = os.path.basename(file.data["path"])
 
         # Convert path to the correct relative path (based on this folder)
         file_path = file.absolute_path()

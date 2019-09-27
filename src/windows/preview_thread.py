@@ -239,9 +239,6 @@ class PlayerWorker(QObject):
             # Switch back to last timeline position
             seek_position = self.original_position
         else:
-            # Get extension of media path
-            ext = os.path.splitext(path)
-
             # Create new timeline reader (to preview selected clip)
             s = settings.get_settings()
             project = get_app().project

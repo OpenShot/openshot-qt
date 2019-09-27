@@ -78,8 +78,8 @@ class FileProperties(QDialog):
         self.settings_data = settings.get_settings().get_all_settings()
 
         # Get file properties
-        path, filename = os.path.split(self.file.data["path"])
-        baseFilename, ext = os.path.splitext(filename)
+        filename = os.path.basename(self.file.data["path"])
+        file_extension = os.path.splitext(filename)[1]
         fps_float = float(self.file.data["fps"]["num"]) / float(self.file.data["fps"]["den"])
 
         tags = ""
@@ -92,7 +92,7 @@ class FileProperties(QDialog):
         # Populate fields
         self.txtFileName.setText(name)
         self.txtTags.setText(tags)
-        self.txtFilePath.setText(os.path.join(path, filename))
+        self.txtFilePath.setText(self.file.data["path"])
         self.btnBrowse.clicked.connect(self.browsePath)
 
         # Populate video fields
@@ -123,7 +123,7 @@ class FileProperties(QDialog):
             self.txtEndFrame.setValue(round(float(file.data["end"]) * fps_float) + 1)
 
         # Populate video & audio format
-        self.txtVideoFormat.setText(ext.replace(".", ""))
+        self.txtVideoFormat.setText(file_extension.replace(".", ""))
         self.txtVideoCodec.setText(self.file.data["vcodec"])
         self.txtAudioCodec.setText(self.file.data["acodec"])
         self.txtSampleRate.setValue(int(self.file.data["sample_rate"]))
