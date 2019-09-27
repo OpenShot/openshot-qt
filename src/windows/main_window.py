@@ -101,15 +101,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     # Save window settings on close
     def closeEvent(self, event):
 
+        app = get_app()
         # Some window managers handels dragging of the modal messages incorrectly if other windows are open
         # Hide tutorial window first
         self.tutorial_manager.hide_dialog()
 
         # Prompt user to save (if needed)
-        if get_app().project.needs_save() and not self.mode == "unittest":
+        if app.project.needs_save() and not self.mode == "unittest":
             log.info('Prompt user to save project')
             # Translate object
-            _ = get_app()._tr
+            _ = app._tr
 
             # Handle exception
             ret = QMessageBox.question(self, _("Unsaved Changes"), _("Save changes to project before closing?"), QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
@@ -157,7 +158,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Close & Stop libopenshot logger
         openshot.ZmqLogger.Instance().Close()
-        get_app().logger_libopenshot.kill()
+        app.logger_libopenshot.kill()
 
         # Destroy lock file
         self.destroy_lock_file()
@@ -324,7 +325,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         _ = app._tr  # Get translation function
 
         # Do we have unsaved changes?
-        if get_app().project.needs_save():
+        if app.project.needs_save():
             ret = QMessageBox.question(self, _("Unsaved Changes"), _("Save changes to project first?"), QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
             if ret == QMessageBox.Yes:
                 # Save project
@@ -337,8 +338,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.clear_all_thumbnails()
 
         # clear data and start new project
-        get_app().project.load("")
-        get_app().updates.reset()
+        app.project.load("")
+        app.updates.reset()
         self.updateStatusChanged(False, False)
 
         # Reset selections
@@ -445,8 +446,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionClearHistory_trigger(self, event):
         """Clear history for current project"""
-        app = get_app()
-        app.updates.reset()
+        get_app().updates.reset()
         log.info('History cleared')
 
     def save_project(self, file_path):
@@ -486,7 +486,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             return
 
         # Do we have unsaved changes?
-        if get_app().project.needs_save():
+        if app.project.needs_save():
             ret = QMessageBox.question(self, _("Unsaved Changes"), _("Save changes to project first?"), QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
             if ret == QMessageBox.Yes:
                 # Save project
@@ -496,7 +496,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 return
 
         # Set cursor to waiting
-        get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
+        app.setOverrideCursor(QCursor(Qt.WaitCursor))
 
         try:
             if os.path.exists(file_path):
@@ -539,7 +539,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             QMessageBox.warning(self, _("Error Opening Project"), str(ex))
 
         # Restore normal cursor
-        get_app().restoreOverrideCursor()
+        app.restoreOverrideCursor()
 
     def clear_all_thumbnails(self):
         """Clear all user thumbnails"""
@@ -585,7 +585,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             recommended_path = info.HOME_PATH
 
         # Do we have unsaved changes?
-        if get_app().project.needs_save():
+        if app.project.needs_save():
             ret = QMessageBox.question(self, _("Unsaved Changes"), _("Save changes to project first?"), QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
             if ret == QMessageBox.Yes:
                 # Save project
@@ -620,9 +620,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def auto_save_project(self):
         """Auto save the project"""
+        app = get_app()
         # Get current filepath (if any)
-        file_path = get_app().project.current_filepath
-        if get_app().project.needs_save():
+        file_path = app.project.current_filepath
+        if app.project.needs_save():
             log.info("auto_save_project")
 
             if file_path:
@@ -645,11 +646,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 # No saved project found
                 recovery_path = os.path.join(info.BACKUP_PATH, "backup.osp")
                 log.info("Creating backup of project file: %s" % recovery_path)
-                get_app().project.save(recovery_path, move_temp_files=False, make_paths_relative=False)
+                app.project.save(recovery_path, move_temp_files=False, make_paths_relative=False)
 
                 # Clear the file_path (which is set by saving the project)
-                get_app().project.current_filepath = None
-                get_app().project.has_unsaved_changes = True
+                app.project.current_filepath = None
+                app.project.has_unsaved_changes = True
 
     def actionSaveAs_trigger(self, event):
         app = get_app()
@@ -743,16 +744,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionUndo_trigger(self, event):
         log.info('actionUndo_trigger')
-        app = get_app()
-        app.updates.undo()
+        get_app().updates.undo()
 
         # Update the preview
         self.refreshFrameSignal.emit()
 
     def actionRedo_trigger(self, event):
         log.info('actionRedo_trigger')
-        app = get_app()
-        app.updates.redo()
+        get_app().updates.redo()
 
         # Update the preview
         self.refreshFrameSignal.emit()
@@ -975,7 +974,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         log.info("actionSaveFrame_trigger")
 
         # Translate object
-        _ = get_app()._tr
+        app = get_app()
+        _ = app._tr
 
         # Prepare to use the status bar
         self.statusBar = QStatusBar()
@@ -983,32 +983,32 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Determine path for saved frame - Default export path
         recommended_path = recommended_path = os.path.join(info.HOME_PATH)
-        if get_app().project.current_filepath:
-            recommended_path = os.path.dirname(get_app().project.current_filepath)
+        if app.project.current_filepath:
+            recommended_path = os.path.dirname(app.project.current_filepath)
 
         # Determine path for saved frame - Project's export path
-        if get_app().project.get("export_path"):
-            recommended_path = get_app().project.get("export_path")
+        if app.project.get("export_path"):
+            recommended_path = app.project.get("export_path")
 
         framePath = "%s/Frame-%05d.png" % (recommended_path, self.preview_thread.current_frame)
 
         # Ask user to confirm or update framePath
         framePath = QFileDialog.getSaveFileName(self, _("Save Frame..."), framePath, _("Image files (*.png)"))[0]
 
-        if framePath:
-            # Append .png if needed
-            if ".png" not in framePath:
-                framePath = "%s.png" % framePath
-        else:
+        if not framePath:
             # No path specified (save frame cancelled)
             self.statusBar.showMessage(_("Save Frame cancelled..."), 5000)
             return
 
-        get_app().updates.update(["export_path"], os.path.dirname(framePath))
-        log.info(_("Saving frame to %s" % framePath ))
+        # Append .png if needed
+        if not framePath.endswith(".png"):
+            framePath = "%s.png" % framePath
+
+        app.updates.update(["export_path"], os.path.dirname(framePath))
+        log.info("Saving frame to %s" % framePath)
 
         # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
-        get_app().window.actionPlay_trigger(None, force="pause")
+        app.window.actionPlay_trigger(None, force="pause")
 
         # Save current cache object and create a new CacheMemory object (ignore quality and scale prefs)
         old_cache_object = self.cache_object
@@ -1016,7 +1016,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.timeline_sync.timeline.SetCache(new_cache_object)
 
         # Set MaxSize to full project resolution and clear preview cache so we get a full resolution frame
-        self.timeline_sync.timeline.SetMaxSize(get_app().project.get("width"), get_app().project.get("height"))
+        self.timeline_sync.timeline.SetMaxSize(app.project.get("width"), app.project.get("height"))
         self.cache_object.Clear()
 
         # Check if file exists, if it does, get the lastModified time
@@ -1988,21 +1988,22 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         """ Set the window title based on a variety of factors """
 
         # Get translation function
-        _ = get_app()._tr
+        app = get_app()
+        _ = app._tr
 
         if not profile:
-            profile = get_app().project.get("profile")
+            profile = app.project.get("profile")
 
         # Determine if the project needs saving (has any unsaved changes)
         save_indicator = ""
-        if get_app().project.needs_save():
+        if app.project.needs_save():
             save_indicator = "*"
             self.actionSave.setEnabled(True)
         else:
             self.actionSave.setEnabled(False)
 
         # Is this a saved project?
-        if not get_app().project.current_filepath:
+        if not app.project.current_filepath:
             # Not saved yet
             self.setWindowTitle("%s %s [%s] - %s" % (save_indicator, _("Untitled Project"), profile, "OpenShot Video Editor"))
         else:
@@ -2094,8 +2095,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         s = settings.get_settings()
 
         # Window state and geometry (also toolbar, dock locations and frozen UI state)
-        if s.get('window_state_v2'): self.restoreState(qt_types.str_to_bytes(s.get('window_state_v2')))
-        if s.get('window_geometry_v2'): self.restoreGeometry(qt_types.str_to_bytes(s.get('window_geometry_v2')))
+        if s.get('window_state_v2'):
+            self.restoreState(qt_types.str_to_bytes(s.get('window_state_v2')))
+        if s.get('window_geometry_v2'):
+            self.restoreGeometry(qt_types.str_to_bytes(s.get('window_geometry_v2')))
         if s.get('docks_frozen'):
             """ Freeze all dockable widgets on the main screen """
             self.freezeDocks()
@@ -2436,8 +2439,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.initialized = False
 
         # set window on app for reference during initialization of children
-        get_app().window = self
-        _ = get_app()._tr
+        app = get_app()
+        app.window = self
+        _ = app._tr
 
         # Load user settings for window
         s = settings.get_settings()
@@ -2472,7 +2476,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.setup_toolbars()
 
         # Add window as watcher to receive undo/redo status updates
-        get_app().updates.add_watcher(self)
+        app.updates.add_watcher(self)
 
         # Get current version of OpenShot via HTTP
         self.FoundVersionSignal.connect(self.foundCurrentVersion)
@@ -2521,7 +2525,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Process events before continuing
         # TODO: Figure out why this is needed for a backup recovery to correctly show up on the timeline
-        get_app().processEvents()
+        app.processEvents()
 
         # Setup properties table
         self.txtPropertyFilter.setPlaceholderText(_("Filter"))
