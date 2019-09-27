@@ -65,7 +65,7 @@ var App = angular.module('openshot-timeline', ['ui.bootstrap','ngAnimate']);
 	
 	// Bind to keydown event (to detect SHIFT)
 	$( "body" ).keydown(function(event) {
-	  if (event.which==16)
+	  if (event.which === 16)
     	$('body').scope().shift_pressed = true;
 	});
 	$( "body" ).keyup(function(event) {
@@ -73,4 +73,3 @@ var App = angular.module('openshot-timeline', ['ui.bootstrap','ngAnimate']);
 	  	$('body').scope().shift_pressed = false;
 	});
 });
-

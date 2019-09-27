@@ -397,7 +397,7 @@ App.controller('TimelineCtrl',function($scope) {
 
 	  // Determine actual x coordinate (over timeline)
       var center_x = Math.max(cursor_x - track_labels_width, 0);
-      if (cursor_x == 0) {
+      if (cursor_x === 0) {
 		center_x = 0;
       }
 
@@ -977,7 +977,7 @@ $scope.SetTrackLabel = function (label) {
 
 		// Compare position of track to Y param (for unlocked tracks)
 		if (!layer.lock) {
-			if ((top < layer.y && top > bounding_box.track_position) || bounding_box.track_position==0) {
+			if ((top < layer.y && top > bounding_box.track_position) || bounding_box.track_position === 0) {
 				// return first matching layer
 				bounding_box.track_position = layer.y;
 			}
@@ -1205,7 +1205,7 @@ $scope.SetTrackLabel = function (label) {
 	}
 	
 	// no nearby found?
-	if (smallest_diff == 900.0) {
+	if (smallest_diff === 900.0) {
 		smallest_diff = 0.0;
 	}
 	
@@ -1440,7 +1440,7 @@ $scope.SetTrackLabel = function (label) {
 // ############ DEBUG STUFFS ################## //
 
  $scope.ToggleDebug = function() {
-	 if ($scope.debug == true) {
+	 if ($scope.debug === true) {
 		 $scope.debug = false;
 	 }
 	 else {
