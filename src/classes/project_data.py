@@ -137,7 +137,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
     def set(self, key, value):
         """Prevent calling JsonDataStore set() method. It is not allowed in ProjectDataStore, as changes come from UpdateManager."""
-        raise Exception("ProjectDataStore.set() is not allowed. Changes must route through UpdateManager.")
+        raise RuntimeError("ProjectDataStore.set() is not allowed. Changes must route through UpdateManager.")
 
     def _set(self, key, values=None, add=False, partial_update=False, remove=False):
         """ Store setting, but adding isn't allowed. All possible settings must be in default settings file. """
@@ -341,14 +341,14 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 if not project_data.get("history"):
                     project_data["history"] = {"undo": [], "redo": []}
 
-            except Exception as ex:
+            except Exception:
                 try:
                     # Attempt to load legacy project file (v1.X version)
                     project_data = self.read_legacy_project_file(file_path)
 
-                except Exception as ex:
+                except Exception:
                     # Project file not recognized as v1.X or v2.X, bubble up error
-                    raise ex
+                    raise
 
             # Merge default and project settings, excluding settings not in default.
             self._data = self.merge_settings(default_project, project_data)
@@ -516,9 +516,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             # Keep track of new ids and old ids
                             file_lookup[item.unique_id] = file
 
-                        except:
+                        except Exception as ex:
                             # Handle exception quietly
-                            msg = ("%s is not a valid video, audio, or image file." % item.name)
+                            msg = ("%s is not a valid video, audio, or image file: %s" % (item.name, str(ex)))
                             log.error(msg)
                             failed_files.append(item.name)
 
@@ -680,14 +680,14 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
             except Exception as ex:
                 # Error parsing legacy contents
-                msg = _("Failed to load project file %(path)s: %(error)s" % {"path": file_path, "error": ex})
+                msg = "Failed to load project file %(path)s: %(error)s" % {"path": file_path, "error": ex}
                 log.error(msg)
-                raise Exception(msg)
+                raise RuntimeError(msg) from ex
 
         # Show warning if some files failed to load
         if failed_files:
             # Throw exception
-            raise Exception(_("Failed to load the following files:\n%s" % ", ".join(failed_files)))
+            raise RuntimeError("Failed to load the following files:\n%s" % ", ".join(failed_files))
 
         # Return mostly empty project_data dict (with just the current version #)
         log.info("Successfully loaded legacy project file: %s" % file_path)
