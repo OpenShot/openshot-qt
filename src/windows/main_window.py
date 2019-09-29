@@ -47,7 +47,6 @@ from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
 from classes.timeline import TimelineSync
-from classes.time_parts import secondsToTime
 from classes.query import File, Clip, Transition, Marker, Track
 from classes.metrics import *
 from classes.version import *

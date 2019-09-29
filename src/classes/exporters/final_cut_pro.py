@@ -138,8 +138,7 @@ def export_xml():
             log.error('No track object found with number: %s' % track.get("number"))
             continue
 
-        # Track name
-        track_name = track.get("label") or "TRACK %s" % track_count
+        # Track details
         track_locked = track.get("lock", False)
         clips_on_track = Clip.filter(layer=track.get("number"))
         if not clips_on_track:
@@ -230,4 +229,5 @@ def export_xml():
         file.write(bytes(xmldoc.toxml(), 'UTF-8'))
         file.close()
     except IOError as inst:
-        log.error("Error writing XML export")
+        log.error("Error writing XML export: {}".format(str(inst)))
+
