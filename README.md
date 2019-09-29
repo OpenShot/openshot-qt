@@ -59,6 +59,8 @@ cd doc
 make html
 ```
 
+The documentation for the most recent release can be viewed online at [openshot.org/user-guide](https://www.openshot.org/user-guide/).
+
 ## Report a bug
 
 Please report bugs using the official [Report a Bug](https://www.openshot.org/issues/new/) 
