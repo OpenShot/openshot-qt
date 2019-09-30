@@ -229,6 +229,7 @@ elif sys.platform == "linux":
                             "libGL.so.1",
                             "libxcb.so.1",
                             "libX11.so.6",
+                            "libX11-xcb.so.1",
                             "libasound.so.2",
                             "libgcc_s.so.1 ",
                             "libICE.so.6",
