@@ -1,0 +1,19 @@
+<svg width="64mm" height="64mm" version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <linearGradient id="b" x1="24" x2="24" y1="15" y2="34" gradientTransform="matrix(.71 0 0 .71 -8.9 -8.2)" gradientUnits="userSpaceOnUse">
+   <stop style="stop-color:#d7e866" offset="0"/>
+   <stop style="stop-color:#8cab2a" offset="1"/>
+  </linearGradient>
+  <linearGradient id="a" x1="8" x2="8" y2="16" gradientUnits="userSpaceOnUse">
+   <stop style="stop-color:#fff" offset="0"/>
+   <stop style="stop-color:#fff;stop-opacity:0" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g transform="translate(0,-233)">
+  <path d="m2 263 28-28 28 28v28h-56z" style="fill-rule:evenodd;fill:#bb48eb;paint-order:normal"/>
+  <g transform="matrix(1.5,0,0,1.5,38,271)">
+   <path d="m5.5 5.5v-5h5v5h5v5h-5v5h-5v-5h-5v-5z" style="fill-rule:evenodd;fill:url(#b);stroke-linejoin:round;stroke:#699536"/>
+   <path d="m6.5 1.5v4c-0.0048 0.55-0.45 1-1 1h-4v3h4c0.55 0.0048 1 0.45 1 1v4h3v-4c0.0048-0.55 0.45-1 1-1h4v-3h-4c-0.55-0.0048-1-0.45-1-1v-4z" style="fill:none;opacity:.4;stroke:url(#a)"/>
+  </g>
+ </g>
+</svg>

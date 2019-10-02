@@ -1,0 +1,33 @@
+<svg width="32" height="64" version="1.1" viewBox="0 0 32 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="b" x1="14" x2="9" y1="17" y2="17" gradientTransform="translate(-.3 .5)" gradientUnits="userSpaceOnUse">
+   <stop style="stop-color:#9999a7" offset="0"/>
+   <stop style="stop-color:#fff" offset="1"/>
+  </linearGradient>
+  <radialGradient id="a" cx="16" cy="11" r="7.2" gradientTransform="matrix(.34 .34 -.59 .59 18 -1.6)" gradientUnits="userSpaceOnUse">
+   <stop style="stop-color:#747c86" offset="0"/>
+   <stop style="stop-color:#ddd" offset="1"/>
+  </radialGradient>
+ </defs>
+ <g transform="translate(0,4)">
+  <g transform="translate(-2,-6)" style="stroke-width:.5;stroke:#505050">
+   <path d="m3.7 22 7-9 5 5z" style="fill-rule:evenodd;fill:url(#b);stroke-width:.5;stroke:#505050"/>
+   <path d="m18 2.8-7 7-0.19 2.7 4.2 4.3h1l8-8z" style="fill-rule:evenodd;fill:url(#a);stroke-width:.5;stroke:#505050"/>
+  </g>
+  <g style="fill:#afceff">
+   <rect y="41" width="2" height="4" style="fill:#afceff"/>
+   <rect y="36" width="2" height="4" style="fill:#afceff"/>
+   <rect y="31" width="2" height="4" style="fill:#afceff"/>
+   <rect x="-4.2e-16" y="26" width="2" height="4" style="fill:#afceff"/>
+   <rect y="21" width="2" height="4" style="fill:#afceff"/>
+   <rect x="-1.1e-8" y="16" width="2" height="4" style="fill:#afceff"/>
+   <rect x="-4.5e-8" y="11" width="2" height="4" style="fill:#afceff"/>
+   <rect x="4.9e-8" y="6" width="2" height="4" style="fill:#afceff"/>
+   <rect x="-4.2e-16" y="1" width="2" height="4" style="fill:#afceff"/>
+   <rect y="-4" width="2" height="4" style="fill:#afceff"/>
+   <rect y="46" width="2" height="4" style="fill:#afceff"/>
+   <rect y="51" width="2" height="4" style="fill:#afceff"/>
+   <rect y="56" width="2" height="4" style="fill:#afceff"/>
+  </g>
+ </g>
+</svg>

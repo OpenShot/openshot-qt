@@ -22,11 +22,13 @@
         <file>hw-accel-vdpau.svg</file>
     </qresource>
     <qresource prefix="/icons">
-        <file>Humanity/actions/custom/arrow.png</file>
-        <file>Humanity/actions/custom/razor_line_with_razor.png</file>
-        <file>Humanity/actions/custom/snapshot.png</file>
-        <file>Humanity/actions/custom/snap.png</file>
-        <file>Humanity/actions/custom/add_marker.png</file>
+        <file>actions/add-marker.svg</file>
+        <file>actions/arrow.png</file>
+        <file>actions/camera-photo-symbolic.svg</file>
+        <file>actions/lock.png</file>
+        <file>actions/razor_line_with_razor.svg</file>
+        <file>actions/snapshot.png</file>
+        <file>actions/snap.png</file>
         <file>Humanity/mimes/16/gnome-mime-application-pdf.svg</file>
         <file>Humanity/mimes/16/text-html.svg</file>
         <file>Humanity/mimes/16/application-x-cd-image.svg</file>
@@ -336,11 +338,9 @@
         <file>Humanity/actions/16/view-list-details.png</file>
         <file>Humanity/actions/16/zoom-in.png</file>
         <file>Humanity/actions/16/zoom-out.png</file>
-        <file>Humanity/actions/custom/lock.png</file>
         <file>Humanity/actions/16/document-open-recent.svg</file>
         <file>Humanity/actions/16/locked.svg</file>
         <file>Humanity/actions/16/transform-move.png</file>
         <file>Humanity/actions/16/view-list-icons.png</file>
-        <file>Humanity/actions/custom/camera-photo-symbolic.svg</file>
     </qresource>
 </RCC>

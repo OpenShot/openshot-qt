@@ -16,7 +16,7 @@
    height="64"
    viewBox="0 0 32 64"
    sodipodi:docname="razor_line_with_razor.svg"
-   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   inkscape:version="0.92.4 (unknown)"
    inkscape:export-filename="/home/ferd/rpmbuild/REPOS/openshot-qt.ferd/src/images/Humanity/actions/custom/razor_line_with_razor.png"
    inkscape:export-xdpi="94.950928"
    inkscape:export-ydpi="94.950928">
@@ -67,13 +67,13 @@
        y1="17"
        x2="9"
        y2="17"
-       gradientTransform="translate(-0.19333898,-0.25117482)" />
+       gradientTransform="translate(-0.29573472,0.50172103)" />
     <radialGradient
        inkscape:collect="always"
        xlink:href="#linearGradient26489"
        id="radialGradient26495"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.3352038,0.33968473,-0.59479751,0.5869513,18.159763,-2.3355761)"
+       gradientTransform="matrix(0.3352038,0.33968473,-0.59479751,0.5869513,18.057367,-1.5826803)"
        cx="15.571495"
        cy="11.423126"
        fx="15.571495"
@@ -134,13 +134,13 @@
       <path
          inkscape:connector-curvature="0"
          id="path26313"
-         d="m 3.8066609,20.748826 7.0000011,-9 5,5 z"
+         d="m 3.7042652,21.501722 7.0000008,-9 5,5 z"
          style="display:inline;fill:url(#linearGradient26420);fill-opacity:1;fill-rule:evenodd;stroke:#505050;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
       <path
          sodipodi:nodetypes="cccccccc"
          inkscape:connector-curvature="0"
          id="path26317"
-         d="M 18,2 11,9 10.806662,11.748826 15,16 h 1 l 7,-7 1,-1 z"
+         d="m 17.897604,2.7528958 -7,7 -0.193338,2.7488262 4.193338,4.251174 h 1 l 7,-7.0000002 1,-1 z"
          style="display:inline;opacity:1;fill:url(#radialGradient26495);fill-opacity:1;fill-rule:evenodd;stroke:#505050;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     </g>
     <g
