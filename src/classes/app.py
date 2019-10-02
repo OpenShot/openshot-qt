@@ -189,19 +189,32 @@ class OpenShotApp(QApplication):
             self.setStyle(QStyleFactory.create("Fusion"))
 
             darkPalette = self.palette()
+
             darkPalette.setColor(QPalette.Window, QColor(53, 53, 53))
             darkPalette.setColor(QPalette.WindowText, Qt.white)
             darkPalette.setColor(QPalette.Base, QColor(25, 25, 25))
             darkPalette.setColor(QPalette.AlternateBase, QColor(53, 53, 53))
-            darkPalette.setColor(QPalette.ToolTipBase, Qt.white)
-            darkPalette.setColor(QPalette.ToolTipText, Qt.white)
+            darkPalette.setColor(QPalette.Light, QColor(68, 68, 68))
             darkPalette.setColor(QPalette.Text, Qt.white)
             darkPalette.setColor(QPalette.Button, QColor(53, 53, 53))
             darkPalette.setColor(QPalette.ButtonText, Qt.white)
-            darkPalette.setColor(QPalette.BrightText, Qt.red)
-            darkPalette.setColor(QPalette.Highlight, QColor(42, 130, 218))
+            darkPalette.setColor(QPalette.Highlight, QColor(42, 130, 218, 192))
             darkPalette.setColor(QPalette.HighlightedText, Qt.black)
-            darkPalette.setColor(QPalette.Disabled, QPalette.Text, QColor(104, 104, 104))
+            #
+            # Disabled palette
+            #
+            darkPalette.setColor(QPalette.Disabled, QPalette.WindowText, QColor(255, 255, 255, 128))
+            darkPalette.setColor(QPalette.Disabled, QPalette.Base, QColor(68, 68, 68))
+            darkPalette.setColor(QPalette.Disabled, QPalette.Text, QColor(255, 255, 255, 128))
+            darkPalette.setColor(QPalette.Disabled, QPalette.Button, QColor(53, 53, 53, 128))
+            darkPalette.setColor(QPalette.Disabled, QPalette.ButtonText, QColor(255, 255, 255, 128))
+            darkPalette.setColor(QPalette.Disabled, QPalette.Highlight, QColor(151, 151, 151, 192))
+            darkPalette.setColor(QPalette.Disabled, QPalette.HighlightedText, Qt.black)
+
+            # Tooltips
+            darkPalette.setColor(QPalette.ToolTipBase, QColor(42, 130, 218))
+            darkPalette.setColor(QPalette.ToolTipText, Qt.white)
+
             self.setPalette(darkPalette)
             self.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 0px solid white; }")
 
