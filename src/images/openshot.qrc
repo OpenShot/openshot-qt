@@ -21,6 +21,9 @@
         <file>hw-accel-vaapi.svg</file>
         <file>hw-accel-vdpau.svg</file>
     </qresource>
+    <qresource prefix="/markers">
+	<file>marker.svg</file>
+    </qresource>
     <qresource prefix="/icons">
         <file>actions/add-marker.svg</file>
         <file>actions/arrow.png</file>

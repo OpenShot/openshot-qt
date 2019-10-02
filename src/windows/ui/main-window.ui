@@ -861,7 +861,7 @@
   <action name="actionAddMarker">
    <property name="icon">
     <iconset resource="../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/custom/add_marker.png</normaloff>:/icons/Humanity/actions/custom/add_marker.png</iconset>
+     <normaloff>:/icons/actions/add-marker.svg</normaloff>:/icons/actions/add-marker.svg</iconset>
    </property>
    <property name="text">
     <string>Add Marker</string>
