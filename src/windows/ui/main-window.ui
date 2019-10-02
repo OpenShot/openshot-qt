@@ -897,6 +897,18 @@
     <string>Next Marker</string>
    </property>
   </action>
+  <action name="actionCenterOnPlayhead">
+   <property name="icon">
+    <iconset resource="../../images/openshot.qrc">
+	    <normaloff>:/icons/actions/center-on-playhead.svg</normaloff>:/icons/actions/center-on-playhead.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Center on Playhead</string>
+   </property>
+   <property name="toolTip">
+    <string>Center the timeline on the Playhead</string>
+   </property>
+  </action>
   <action name="actionFilesShowAll">
    <property name="checkable">
     <bool>true</bool>

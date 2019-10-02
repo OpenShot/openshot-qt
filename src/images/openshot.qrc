@@ -28,6 +28,7 @@
         <file>actions/add-marker.svg</file>
         <file>actions/arrow.png</file>
         <file>actions/camera-photo-symbolic.svg</file>
+        <file>actions/center-on-playhead.svg</file>
         <file>actions/lock.png</file>
         <file>actions/razor_line_with_razor.svg</file>
         <file>actions/snapshot.png</file>
