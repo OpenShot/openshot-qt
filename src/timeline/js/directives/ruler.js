@@ -51,7 +51,6 @@ App.directive('tlScrollableTracks', function () {
 
 				$('#track_controls').scrollTop(element.scrollTop());
 				$('#scrolling_ruler').scrollLeft(element.scrollLeft());
-				$('#progress_container').scrollLeft(element.scrollLeft());
 			});
 
 			// Initialize panning when middle mouse is clicked
