@@ -31,6 +31,7 @@ import os
 import sys
 import platform
 import traceback
+import atexit
 from uuid import uuid4
 from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
 from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont
@@ -102,9 +103,6 @@ class OpenShotApp(QApplication):
         except Exception:
             pass
 			
-        # Connect QCoreApplication::aboutToQuit() signal to log end of the session
-        self.aboutToQuit.connect(self.onLogTheEnd)
-
         # Setup application
         self.setApplicationName('openshot')
         self.setApplicationVersion(info.SETUP['version'])
@@ -257,19 +255,17 @@ class OpenShotApp(QApplication):
         # return exit result
         return res
 
-    # Log the session's end
-    @pyqtSlot()
-    def onLogTheEnd(self):
-        """ Log when the primary Qt event loop ends """
+# Log the session's end
+@atexit.register
+def onLogTheEnd():
+    """ Log when the primary Qt event loop ends """
 
-        try:
-            from classes.logger import log
-            import time
-            log.info('OpenShot\'s session ended'.center(48))
-            log.info(time.asctime().center(48))
-            log.info("================================================")
-        except Exception:
-            pass
+    try:
+        from classes.logger import log
+        import time
+        log.info('OpenShot\'s session ended'.center(48))
+        log.info(time.asctime().center(48))
+        log.info("================================================")
+    except Exception:
+        pass
 
-        # return 0 on success
-        return 0
