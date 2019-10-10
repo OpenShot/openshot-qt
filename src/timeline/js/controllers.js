@@ -204,25 +204,6 @@ App.controller('TimelineCtrl',function($scope) {
 	           //        icon : 'purple.png'
 	           //      },
               // ],
-	  	progress : {}
-	  			// {
-				//    max_bytes : "0",
-				//    ranges : [
-				// 	  {
-				// 		 end : "30",
-				// 		 start : "0"
-				// 	  },
-				// 	  {
-				// 		 end : "40",
-				// 		 start : "50"
-				// 	  },
-				// 	  {
-				// 		 end : "100",
-				// 		 start : "150"
-				// 	  }
-				//    ],
-				//    version : "2"
-				// }
     };
   
   // Additional variables used to control the rendering of HTML
