@@ -27,16 +27,9 @@
  */
 
 
-// Handles the playhead dragging
-var playhead_y_max = null;
-var playhead_x_min = null;
-
 App.directive('tlPlayhead', function(){
 	return {
 		link: function(scope, element, attrs) {
-			// get the default top position so we can lock it in place vertically
-			playhead_y_max = element.position().top;
-
 			// get the size of the playhead and line so we can determine the offset
 			var playhead_top_w = parseInt($(".playhead-top").css("width"));
 			scope.playheadOffset = 0.0 - (playhead_top_w / 2.0);
