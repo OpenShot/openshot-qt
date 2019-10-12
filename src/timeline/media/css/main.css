@@ -115,7 +115,7 @@ img {
 
 /* Transitions */
 .transition_top { background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.75)), color-stop(100%,rgba(255,255,255,0))); border-radius: 8px; overflow: hidden;}
-.transition { cursor: move; z-index:5000; color: #fff; min-width:0px; height: 64px; position: absolute; margin-top:0px; left: 100px; font-size: 9pt; background-color: #0192c; background: -webkit-linear-gradient(top, #0192c1 0%,#3fa1bf 100%); border-radius: 8px; border: 1px solid #0192c1; border-left: 2px solid #0192c1; border-right: 2px solid #0192c1; background-image: url(../images/transition.png); background-repeat: no-repeat; background-position: center; background-size: 100% 66px; opacity:0.75; box-shadow: 0px 0px 10px #000; box-sizing: border-box; }
+.transition { cursor: move; z-index:5000; color: #fff; min-width:0px; height: 64px; position: absolute; margin-top:0px; left: 100px; font-size: 9pt; background-color: #0192c1; background: -webkit-linear-gradient(top, #0192c1 0%,#3fa1bf 100%); border-radius: 8px; border: 1px solid #0192c1; border-left: 2px solid #0192c1; border-right: 2px solid #0192c1; background-image: url(../images/transition.png); background-repeat: no-repeat; background-position: center; background-size: 100% 66px; opacity:0.75; box-shadow: 0px 0px 10px #000; box-sizing: border-box; }
 .transition_menu { cursor: pointer; float:left;margin-top:4px;margin-left:4px;margin-right:4px;width:12px;height:12px;background-image: url(../images/menu.png);}
 .transition_menu:hover { background-image: url(../images/menu_hover.png); }
 .transition_label { float:left; padding-top: 2px; width:50px; margin-left: 2px; color:#fff;font-weight:bold;}
