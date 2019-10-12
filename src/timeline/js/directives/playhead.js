@@ -44,7 +44,7 @@ App.directive('tlPlayhead', function(){
 			// Move playhead to new position (if it's not currently being animated)
 			element.on('mousemove', function(e){
 				if (e.which == 1 && !scope.playhead_animating) { // left button
-					var playhead_seconds = (e.pageX - $("#ruler").offset().left) / scope.pixelsPerSecond;
+					var playhead_seconds = Math.max(0, (e.pageX - $("#ruler").offset().left) / scope.pixelsPerSecond);
 					scope.MovePlayhead(playhead_seconds);
 					scope.PreviewFrame(playhead_seconds);
 				}
