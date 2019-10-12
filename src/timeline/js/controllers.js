@@ -598,6 +598,7 @@ App.controller('TimelineCtrl',function($scope) {
 	 
 	//clear the canvas first
 	var ruler = $("#progress");
+    var fill_color = $("#progress").css("color");
 	var ctx = ruler[0].getContext('2d');
 	ctx.clearRect(0, 0, ruler.width(), ruler.height());
 
@@ -619,7 +620,7 @@ App.controller('TimelineCtrl',function($scope) {
 		//get the element and draw the rects
 		ctx.beginPath();
 		ctx.rect(start_pixel, 0, rect_length, 5);
-		ctx.fillStyle = '#4B92AD';
+		ctx.fillStyle = fill_color;
 		ctx.fill();
 	}
  };

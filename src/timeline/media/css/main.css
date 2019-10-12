@@ -51,6 +51,7 @@ img {
 /* Markers & Progress */
 #markers { position: absolute; height: 16px; top: 28px; margin-left: -6px; }
 .marker { position:absolute; top: 0; }
+#progress { margin-left: -3px;  color: rgba(80, 220, 60, 1); /* #4B92AD; */ }
 
 /* Playhead */
 .playhead-line { z-index: 9998; position: absolute; height:316px; top:0px; margin-left: 12px; width:1px; background-color:#ff0024; opacity:1;}
