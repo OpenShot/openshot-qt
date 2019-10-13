@@ -1880,12 +1880,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def getDocks(self):
         """ Get a list of all dockable widgets """
-        return [self.dockFiles,
-                self.dockTransitions,
-                self.dockEffects,
-                self.dockVideo,
-                self.dockProperties,
-                self.dockTimeline]
+        return self.findChildren(QDockWidget)
 
     def removeDocks(self):
         """ Remove all dockable widgets on main screen """
