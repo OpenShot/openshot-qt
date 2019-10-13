@@ -2329,7 +2329,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def showEvent(self, event):
         """ Have any child windows follow main-window state """
         QMainWindow.showEvent(self, event)
-        for child in self.findChildren(QDockWidget):
+        for child in self.getDocks():
             if child.isFloating() and child.isEnabled():
                 child.raise_()
                 child.show()
@@ -2337,7 +2337,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def hideEvent(self, event):
         """ Have any child windows hide with main window """
         QMainWindow.hideEvent(self, event)
-        for child in self.findChildren(QDockWidget):
+        for child in self.getDocks():
             if child.isFloating() and child.isVisible():
                 child.hide()
 
