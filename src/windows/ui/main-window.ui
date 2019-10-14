@@ -215,6 +215,7 @@
    <addaction name="actionImportFiles"/>
    <addaction name="actionProfile"/>
    <addaction name="actionFullscreen"/>
+   <addaction name="actionCurveEditor"/>
    <addaction name="separator"/>
    <addaction name="actionExportVideo"/>
   </widget>
@@ -1135,6 +1136,20 @@
    </property>
    <property name="shortcut">
     <string>F11</string>
+   </property>
+  </action>
+  <action name="actionCurveEditor">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset>../../images/curve-editor.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Curve Editor</string>
+   </property>
+   <property name="toolTip">
+    <string>Curve Editor for key animations</string>
    </property>
   </action>
   <action name="actionView_Toolbar">

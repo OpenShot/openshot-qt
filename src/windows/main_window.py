@@ -53,6 +53,7 @@ from classes.version import *
 from classes.conversion import zoomToSeconds, secondsToZoom
 from classes.thumbnail import httpThumbnailServerThread
 from images import openshot_rc
+from windows.curve_editor import CurveEditor
 from windows.models.files_model import FilesModel
 from windows.views.files_treeview import FilesTreeView
 from windows.views.files_listview import FilesListView
@@ -72,7 +73,6 @@ from classes.exporters.edl import export_edl
 from classes.exporters.final_cut_pro import export_xml
 from classes.importers.edl import import_edl
 from classes.importers.final_cut_pro import import_xml
-
 
 class MainWindow(QMainWindow, updates.UpdateWatcher):
     """ This class contains the logic for the main window widget """
@@ -105,6 +105,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     # Docks are closable, movable and floatable
     docks_frozen = False
+
+    # make Curve Editor not running by default
+    curve_editor_enable = False
 
     # Save window settings on close
     def closeEvent(self, event):
@@ -1931,6 +1934,22 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Toggle fullscreen state (current state mask XOR WindowFullScreen)
         self.setWindowState(self.windowState() ^ Qt.WindowFullScreen)
 
+    def actionCurveEditor_trigger(self, event):
+        crvEdt = self.findChild(QDockWidget, 'dockCurveEditor', Qt.FindDirectChildrenOnly)
+        if crvEdt is None:
+            # if Dock doesn't exist - create new one as tab of the Timeline pane
+            crvEdt = CurveEditor(self)
+            if crvEdt is None:
+                return
+            else:
+                self.tabifyDockWidget(self.dockTimeline, crvEdt)
+
+        crvEdt.show()
+        self.curve_editor_enable = True
+
+        # make Dock window on the top eachtime the Action triggered
+        crvEdt.raise_()
+
     def actionFile_Properties_trigger(self, event):
         log.info("Show file properties")
 
@@ -2248,6 +2267,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         s = settings.get_settings()
 
         # Save window state and geometry (saves toolbar and dock locations)
+        s.set('curve_editor_enable', self.curve_editor_enable)
         s.set('window_state_v2', qt_types.bytes_to_str(self.saveState()))
         s.set('window_geometry_v2', qt_types.bytes_to_str(self.saveGeometry()))
         s.set('docks_frozen', self.docks_frozen)
@@ -2255,6 +2275,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     # Get window settings from setting store
     def load_settings(self):
         s = settings.get_settings()
+
+        # Do not load Curve Editor window if it was closed last time
+        if s.get('curve_editor_enable'):
+            self.actionCurveEditor.trigger()
 
         # Window state and geometry (also toolbar, dock locations and frozen UI state)
         if s.get('window_state_v2'):

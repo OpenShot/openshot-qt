@@ -1,0 +1,15 @@
+<svg width="5.2917mm" height="5.2917mm" version="1.1" viewBox="0 0 5.2916665 5.2916665" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <linearGradient id="linearGradient4572" x1="37.2" x2="37.2" y1="239.65" y2="244.27" gradientTransform="matrix(1.0826 0 0 1.0826 -37.178 -259.27)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#999" offset="0"/>
+   <stop stop-color="#666" offset=".20791"/>
+   <stop stop-color="#4d4d4d" offset="1"/>
+  </linearGradient>
+ </defs>
+ <rect x=".20462" y=".20525" width="4.8816" height="4.8816" rx=".34015" ry=".34015" fill="url(#linearGradient4572)" stroke="#808080" stroke-width=".41"/>
+ <path d="m0.6013 4.9818s0.42195-3.8156 1.5646-3.9306c1.1427-0.115 1.0827 2.3208 1.7477 2.3566 0.66504 0.035772 0.67295-0.8122 0.67295-0.8122" fill="none" stroke="#f2f2f2" stroke-linejoin="round" stroke-width=".41"/>
+ <circle cx="2.1736" cy="1.0662" r=".48706" fill="#fc0" stroke-width="0" style="paint-order:normal"/>
+ <circle cx="3.9243" cy="3.3725" r=".48706" fill="#fc0" stroke-width="0" style="paint-order:normal"/>
+ <path d="m0.32449 2.646h4.6418" fill="none" stroke="#f2f2f2" stroke-width=".15174"/>
+ <rect x=".20462" y=".20525" width="4.8816" height="4.8816" rx=".34015" ry=".34015" fill="none" stroke="#333" stroke-width=".41"/>
+</svg>

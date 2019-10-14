@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>graphArea2</class>
+ <widget class="QDockWidget" name="dockCurveEditor">
+  <property name="windowTitle">
+   <string>Curve Editor</string>
+  </property>
+  <attribute name="dockWidgetArea">
+   <enum>Qt::BottomDockWidgetArea</enum>
+  </attribute>
+ <widget class="QWidget" name="graphArea2">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>240</width>
+    <height>120</height>
+   </rect>
+  </property>
+  <layout class="QGridLayout" name="graphArea2grid">
+   <property name="leftMargin">
+    <number>9</number>
+   </property>
+   <property name="topMargin">
+    <number>9</number>
+   </property>
+   <property name="rightMargin">
+    <number>9</number>
+   </property>
+   <property name="bottomMargin">
+    <number>9</number>
+   </property>
+   <item row="0" column="1">
+    <layout class="QHBoxLayout" name="topContent_1"/>
+   </item>
+   <item row="2" column="1">
+    <layout class="QHBoxLayout" name="bottomContent_1"/>
+   </item>
+  </layout>
+ </widget>
+ </widget>
+</ui>
