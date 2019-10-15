@@ -1885,7 +1885,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def removeDocks(self):
         """ Remove all dockable widgets on main screen """
         for dock in self.getDocks():
-            self.removeDockWidget(dock)
+            if self.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
+                self.removeDockWidget(dock)
 
     def addDocks(self, docks, area):
         """ Add all dockable widgets to the same dock area on the main screen """
@@ -1895,7 +1896,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def floatDocks(self, is_floating):
         """ Float or Un-Float all dockable widgets above main screen """
         for dock in self.getDocks():
-            dock.setFloating(is_floating)
+            if self.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
+                dock.setFloating(is_floating)
 
     def showDocks(self, docks):
         """ Show all dockable widgets on the main screen """
@@ -1907,20 +1909,17 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def freezeDocks(self):
         """ Freeze all dockable widgets on the main screen (prevent them being closed, floated, or moved) """
         for dock in self.getDocks():
-            dock.setFeatures(QDockWidget.NoDockWidgetFeatures)
+            if self.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
+                dock.setFeatures(QDockWidget.NoDockWidgetFeatures)
 
     def unFreezeDocks(self):
         """ Un-freeze all dockable widgets on the main screen (allow them to be closed, floated, or moved, as appropriate) """
         for dock in self.getDocks():
-            if dock is self.dockTimeline:
-                dock.setFeatures(QDockWidget.DockWidgetFloatable | QDockWidget.DockWidgetMovable)
-            else:
-                dock.setFeatures(QDockWidget.DockWidgetClosable | QDockWidget.DockWidgetFloatable | QDockWidget.DockWidgetMovable)
-
-    def hideDocks(self):
-        """ Hide all dockable widgets on the main screen """
-        for dock in self.getDocks():
-            dock.hide()
+            if self.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
+                if dock is self.dockTimeline:
+                    dock.setFeatures(QDockWidget.DockWidgetFloatable | QDockWidget.DockWidgetMovable)
+                else:
+                    dock.setFeatures(QDockWidget.DockWidgetClosable | QDockWidget.DockWidgetFloatable | QDockWidget.DockWidgetMovable)
 
     def actionSimple_View_trigger(self, event):
         """ Switch to the default / simple view  """
