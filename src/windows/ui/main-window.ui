@@ -897,6 +897,18 @@
     <string>Next Marker</string>
    </property>
   </action>
+  <action name="actionCenterOnPlayhead">
+   <property name="icon">
+    <iconset resource="../../images/openshot.qrc">
+	    <normaloff>:/icons/Humanity/actions/custom/center-on-playhead.svg</normaloff>:/icons/Humanity/actions/custom/center-on-playhead.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Center on Playhead</string>
+   </property>
+   <property name="toolTip">
+    <string>Center the timeline on the Playhead</string>
+   </property>
+  </action>
   <action name="actionFilesShowAll">
    <property name="checkable">
     <bool>true</bool>
@@ -1079,8 +1091,8 @@
   </action>
   <action name="actionAnimatedTitle">
    <property name="icon">
-    <iconset theme="video-x-generic" resource="../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/mimes/16/video-x-generic.svg</normaloff>:/icons/Humanity/mimes/16/video-x-generic.svg</iconset>
+    <iconset resource="../../images/openshot.qrc">
+     <normaloff>:/about/blender.svg</normaloff>:/about/blender.svg</iconset>
    </property>
    <property name="text">
     <string>Animated Title</string>
@@ -1114,9 +1126,8 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="icon">
-    <iconset theme="zoom-in" resource="../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/16/zoom-in.png</normaloff>:/icons/Humanity/actions/16/zoom-in.png</iconset>
+   <property name="checked">
+    <bool>true</bool>
    </property>
    <property name="text">
     <string>View Toolbar</string>

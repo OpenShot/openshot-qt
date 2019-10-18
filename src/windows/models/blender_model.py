@@ -59,7 +59,7 @@ class BlenderModel():
         effects_dir = os.path.join(info.PATH, "blender")
         icons_dir = os.path.join(effects_dir, "icons")
 
-        for file in os.listdir(effects_dir):
+        for file in sorted(os.listdir(effects_dir)):
             if os.path.isfile(os.path.join(effects_dir, file)) and ".xml" in file:
                 # Split path
                 path = os.path.join(effects_dir, file)

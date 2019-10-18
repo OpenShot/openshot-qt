@@ -287,6 +287,11 @@ class TutorialManager(object):
             self.dock.raise_()
             self.dock.show()
 
+    def hide_dialog(self):
+        """ Hide an active dialog """
+        if self.current_dialog:
+            self.dock.hide()
+
     def re_position_dialog(self):
         """ Reposition a tutorial dialog next to another widget """
         if self.current_dialog:

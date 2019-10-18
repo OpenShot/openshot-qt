@@ -92,61 +92,33 @@ bpy.data.actions["SphereAction"].fcurves[2].keyframe_points[1].co = (300.0, para
 bpy.data.actions["SphereAction"].fcurves[2].keyframe_points[1].handle_left.y = params["end_z"]
 bpy.data.actions["SphereAction"].fcurves[2].keyframe_points[1].handle_right.y = params["end_z"]
 
-
-# Modify the Material Keyframe (i.e. the keyframed halo size setting)
-bpy.data.actions["Material.001Action"].fcurves[0].keyframe_points[0].co = (1.0, params["start_halo_size"])
-bpy.data.actions["Material.001Action"].fcurves[0].keyframe_points[1].co = (300.00, params["end_halo_size"])
-
 # Change the material settings (color, alpha, etc...)
 material_object = bpy.data.materials["Material.001"]
-material_object.diffuse_color = params["diffuse_color"]
-material_object.specular_color = params["specular_color"]
-material_object.mirror_color = params["mirror_color"]
-material_object.alpha = params["alpha"]
+bpy.data.materials["Material.001"].node_tree.nodes[1].inputs["Base Color"].default_value = params["diffuse_color"]
+bpy.data.materials["Material.001"].node_tree.nodes[1].inputs["Emission"].default_value = params["diffuse_color"]
+bpy.data.materials["Material.001"].node_tree.nodes[1].inputs["Alpha"].default_value = params["alpha"]
 
 # Change Composite Node settings
-sun_glare_node = bpy.data.scenes[0].node_tree.nodes["Glare"]
-sun_glare_node.color_modulation = params["sun_glare_color"]
-sun_glare_node.glare_type = params["sun_glare_type"]
-sun_glare_node.streaks = params["sun_streaks"]
-sun_glare_node.angle_offset = params["sun_angle_offset"]
+glare_node = bpy.data.scenes[0].node_tree.nodes["Glare"]
+glare_node.color_modulation = params["glare1_color"]
+glare_node.glare_type = params["glare1_type"]
+glare_node.streaks = params["glare1_streaks"]
+glare_node.angle_offset = params["glare1_angle"]
 
-spots_glare_node = bpy.data.scenes[0].node_tree.nodes["Glare.000"]
-spots_glare_node.color_modulation = params["spots_glare_color"]
-
-# Change Halo settings
-material_object.halo.size = params["start_halo_size"]
-material_object.halo.hardness = params["halo_hardness"]
-if params["halo_use_lines"] == "Yes":
-	material_object.halo.use_lines = True
-else:
-	material_object.halo.use_lines = False
-material_object.halo.line_count = params["halo_line_count"]
-if params["halo_use_ring"] == "Yes":
-	material_object.halo.use_ring = True
-else:
-	material_object.halo.use_ring = False
-material_object.halo.ring_count = params["halo_ring_count"]
-if params["halo_use_star"] == "Yes":
-	material_object.halo.use_star = True
-else:
-	material_object.halo.use_star = False 
-material_object.halo.star_tip_count = params["halo_star_tip_count"]
-
+glare_node = bpy.data.scenes[0].node_tree.nodes["Glare.001"]
+glare_node.color_modulation = params["glare2_color"]
+glare_node.glare_type = params["glare2_type"]
+glare_node.streaks = params["glare2_streaks"]
+glare_node.angle_offset = params["glare2_angle"]
 
 # Set the render options.  It is important that these are set
 # to the same values as the current OpenShot project.  These
 # params are automatically set by OpenShot
 bpy.context.scene.render.filepath = params["output_path"]
 bpy.context.scene.render.fps = params["fps"]
-#bpy.context.scene.render.quality = params["quality"]
-try:
-	bpy.context.scene.render.file_format = params["file_format"]
-	bpy.context.scene.render.color_mode = params["color_mode"]
-except:
-	bpy.context.scene.render.image_settings.file_format = params["file_format"]
-	bpy.context.scene.render.image_settings.color_mode = params["color_mode"]
-bpy.context.scene.render.alpha_mode = params["alpha_mode"]
+bpy.context.scene.render.image_settings.file_format = params["file_format"]
+bpy.context.scene.render.image_settings.color_mode = params["color_mode"]
+bpy.context.scene.render.film_transparent = params["alpha_mode"]
 bpy.context.scene.render.resolution_x = params["resolution_x"]
 bpy.context.scene.render.resolution_y = params["resolution_y"]
 bpy.context.scene.render.resolution_percentage = params["resolution_percentage"]

@@ -152,7 +152,7 @@
     "restart": true
   },
   {
-    "max": 128000,
+    "max": 192000,
     "title": "Default Audio Sample Rate",
     "category": "Preview",
     "min": 22050,
@@ -538,6 +538,14 @@
     "restart": true,
     "setting": "actionNextMarker",
     "value": "Ctrl+Right",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Center on Playhead",
+    "restart": true,
+    "setting": "actionCenterOnPlayhead",
+    "value": "Ctrl+Up",
     "type": "text"
   },
   {

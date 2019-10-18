@@ -288,6 +288,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     self._data["width"] = profile.info.width
                     self._data["height"] = profile.info.height
                     self._data["fps"] = {"num" : profile.info.fps.num, "den" : profile.info.fps.den}
+                    self._data["display_ratio"] = {"num": profile.info.display_ratio.num, "den": profile.info.display_ratio.den}
+                    self._data["pixel_ratio"] = {"num": profile.info.pixel_ratio.num, "den": profile.info.pixel_ratio.den}
                     break
 
         # Get the default audio settings for the timeline (and preview playback)
@@ -448,10 +450,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         _ = get_app()._tr
 
         # Append version info
-        v = openshot.GetVersion()
         project_data = {}
-        project_data["version"] = {"openshot-qt" : info.VERSION,
-                                   "libopenshot" : v.ToString()}
+        project_data["version"] = {"openshot-qt": info.VERSION,
+                                   "libopenshot": openshot.OPENSHOT_VERSION_FULL}
 
         # Get FPS from project
         from classes.app import get_app
@@ -697,8 +698,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         openshot_version = self._data["version"]["openshot-qt"]
         libopenshot_version = self._data["version"]["libopenshot"]
 
-        log.info(openshot_version)
-        log.info(libopenshot_version)
+        log.info("Project data: openshot {}, libopenshot {}".format(openshot_version, libopenshot_version))
 
         if openshot_version == "0.0.0":
             # If version = 0.0.0, this is the beta of OpenShot
@@ -762,9 +762,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             self.move_temp_paths_to_project_folder(file_path)
 
         # Append version info
-        v = openshot.GetVersion()
-        self._data["version"] = { "openshot-qt" : info.VERSION,
-                                  "libopenshot" : v.ToString() }
+        self._data["version"] = {"openshot-qt": info.VERSION,
+                                 "libopenshot": openshot.OPENSHOT_VERSION_FULL}
 
         # Try to save project settings file, will raise error on failure
         self.write_to_file(file_path, self._data, path_mode="relative", previous_path=self.current_filepath)

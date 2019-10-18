@@ -31,12 +31,14 @@ import os
 import sys
 import platform
 import traceback
+import atexit
 from uuid import uuid4
 from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
 from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont
 from PyQt5.QtCore import Qt
 from PyQt5.QtCore import QT_VERSION_STR
 from PyQt5.QtCore import PYQT_VERSION_STR
+from PyQt5.QtCore import pyqtSlot
 
 try:
     # Enable High-DPI resolutions
@@ -61,6 +63,13 @@ class OpenShotApp(QApplication):
             # Import modules
             from classes import info
             from classes.logger import log, reroute_output
+
+            # Log the session's start
+            import time
+            log.info("------------------------------------------------")
+            log.info(time.asctime().center(48))
+            log.info('Starting new session'.center(48))
+
             from classes import settings, project_data, updates, language, ui_util, logger_libopenshot
             import openshot
 
@@ -80,21 +89,20 @@ class OpenShotApp(QApplication):
         # Log some basic system info
         try:
             log.info("------------------------------------------------")
-            log.info("   OpenShot (version %s)" % info.SETUP['version'])
+            log.info(("OpenShot (version %s)" % info.SETUP['version']).center(48))
             log.info("------------------------------------------------")
 
-            v = openshot.GetVersion()
             log.info("openshot-qt version: %s" % info.VERSION)
-            log.info("libopenshot version: %s" % v.ToString())
+            log.info("libopenshot version: %s" % openshot.OPENSHOT_VERSION_FULL)
             log.info("platform: %s" % platform.platform())
             log.info("processor: %s" % platform.processor())
             log.info("machine: %s" % platform.machine())
             log.info("python version: %s" % platform.python_version())
             log.info("qt5 version: %s" % QT_VERSION_STR)
             log.info("pyqt5 version: %s" % PYQT_VERSION_STR)
-        except:
+        except Exception:
             pass
-
+			
         # Setup application
         self.setApplicationName('openshot')
         self.setApplicationVersion(info.SETUP['version'])
@@ -112,7 +120,7 @@ class OpenShotApp(QApplication):
 
         # Detect minimum libopenshot version
         _ = self._tr
-        libopenshot_version = openshot.GetVersion().ToString()
+        libopenshot_version = openshot.OPENSHOT_VERSION_FULL
         if mode != "unittest" and libopenshot_version < info.MINIMUM_LIBOPENSHOT_VERSION:
             QMessageBox.warning(None, _("Wrong Version of libopenshot Detected"),
                                       _("<b>Version %(minimum_version)s is required</b>, but %(current_version)s was detected. Please update libopenshot or download our latest installer.") %
@@ -179,19 +187,32 @@ class OpenShotApp(QApplication):
             self.setStyle(QStyleFactory.create("Fusion"))
 
             darkPalette = self.palette()
+
             darkPalette.setColor(QPalette.Window, QColor(53, 53, 53))
             darkPalette.setColor(QPalette.WindowText, Qt.white)
             darkPalette.setColor(QPalette.Base, QColor(25, 25, 25))
             darkPalette.setColor(QPalette.AlternateBase, QColor(53, 53, 53))
-            darkPalette.setColor(QPalette.ToolTipBase, Qt.white)
-            darkPalette.setColor(QPalette.ToolTipText, Qt.white)
+            darkPalette.setColor(QPalette.Light, QColor(68, 68, 68))
             darkPalette.setColor(QPalette.Text, Qt.white)
             darkPalette.setColor(QPalette.Button, QColor(53, 53, 53))
             darkPalette.setColor(QPalette.ButtonText, Qt.white)
-            darkPalette.setColor(QPalette.BrightText, Qt.red)
-            darkPalette.setColor(QPalette.Highlight, QColor(42, 130, 218))
+            darkPalette.setColor(QPalette.Highlight, QColor(42, 130, 218, 192))
             darkPalette.setColor(QPalette.HighlightedText, Qt.black)
-            darkPalette.setColor(QPalette.Disabled, QPalette.Text, QColor(104, 104, 104))
+            #
+            # Disabled palette
+            #
+            darkPalette.setColor(QPalette.Disabled, QPalette.WindowText, QColor(255, 255, 255, 128))
+            darkPalette.setColor(QPalette.Disabled, QPalette.Base, QColor(68, 68, 68))
+            darkPalette.setColor(QPalette.Disabled, QPalette.Text, QColor(255, 255, 255, 128))
+            darkPalette.setColor(QPalette.Disabled, QPalette.Button, QColor(53, 53, 53, 128))
+            darkPalette.setColor(QPalette.Disabled, QPalette.ButtonText, QColor(255, 255, 255, 128))
+            darkPalette.setColor(QPalette.Disabled, QPalette.Highlight, QColor(151, 151, 151, 192))
+            darkPalette.setColor(QPalette.Disabled, QPalette.HighlightedText, Qt.black)
+
+            # Tooltips
+            darkPalette.setColor(QPalette.ToolTipBase, QColor(42, 130, 218))
+            darkPalette.setColor(QPalette.ToolTipText, Qt.white)
+
             self.setPalette(darkPalette)
             self.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 0px solid white; }")
 
@@ -226,9 +247,25 @@ class OpenShotApp(QApplication):
         res = self.exec_()
 
         try:
+            from classes.logger import log
             self.settings.save()
         except Exception as ex:
             log.error("Couldn't save user settings on exit.\n{}".format(ex))
 
         # return exit result
         return res
+
+# Log the session's end
+@atexit.register
+def onLogTheEnd():
+    """ Log when the primary Qt event loop ends """
+
+    try:
+        from classes.logger import log
+        import time
+        log.info('OpenShot\'s session ended'.center(48))
+        log.info(time.asctime().center(48))
+        log.info("================================================")
+    except Exception:
+        pass
+

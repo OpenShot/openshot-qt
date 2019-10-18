@@ -163,12 +163,13 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         """Document.Ready event has fired, and is initialized"""
         self.document_is_ready = True
 
-    def eval_js(self, code):
+    def eval_js(self, code, retries=0):
         # Check if document.Ready has fired in JS
         if not self.document_is_ready:
             # Not ready, try again in a few milliseconds
-            log.error("TimelineWebView::eval_js() called before document ready event. Script queued: %s" % code)
-            QTimer.singleShot(50, partial(self.eval_js, code))
+            if retries > 1:
+                log.warning("TimelineWebView::eval_js() called before document ready event. Script queued: %s" % code)
+            QTimer.singleShot(100, partial(self.eval_js, code, retries+1))
             return None
         else:
             # Execute JS code
@@ -977,9 +978,12 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 clip.data["channel_filter"] = { "Points" : [p_object]}
 
                 # Filter out video on the new clip
-                p = openshot.Point(1, 0.0, openshot.CONSTANT) # Override has_audio keyframe to False
+                p = openshot.Point(1, 0.0, openshot.CONSTANT) # Override has_video keyframe to False
                 p_object = json.loads(p.Json())
                 clip.data["has_video"] = { "Points" : [p_object]}
+                # Also set scale to None
+                # Workaround for https://github.com/OpenShot/openshot-qt/issues/2882
+                clip.data["scale"] = openshot.SCALE_NONE
 
                 # Get track below selected track (if any)
                 next_track_number = clip.data['layer']
@@ -1019,9 +1023,12 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                     clip.data["channel_filter"] = { "Points" : [p_object]}
 
                     # Filter out video on the new clip
-                    p = openshot.Point(1, 0.0, openshot.CONSTANT) # Override has_audio keyframe to False
+                    p = openshot.Point(1, 0.0, openshot.CONSTANT) # Override has_video keyframe to False
                     p_object = json.loads(p.Json())
                     clip.data["has_video"] = { "Points" : [p_object]}
+                    # Also set scale to None
+                    # Workaround for https://github.com/OpenShot/openshot-qt/issues/2882
+                    clip.data["scale"] = openshot.SCALE_NONE
 
                     # Get track below selected track (if any)
                     next_track_number = clip.data['layer']
@@ -2539,10 +2546,16 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
     @pyqtSlot(int)
     def movePlayhead(self, position_frames):
         """ Move the playhead since the position has changed inside OpenShot (probably due to the video player) """
-
         # Get access to timeline scope and set scale to zoom slider value (passed in)
-        code = JS_SCOPE_SELECTOR + ".MovePlayheadToFrame(" + str(position_frames) + ");"
+        code = JS_SCOPE_SELECTOR + ".MovePlayheadToFrame(%s);" % (str(position_frames))
         self.eval_js(code)
+
+    @pyqtSlot()
+    def centerOnPlayhead(self):
+        """ Center the timeline on the current playhead position """
+        # Execute JavaScript to center the timeline
+        cmd = JS_SCOPE_SELECTOR + '.centerOnPlayhead();';
+        self.eval_js(cmd)
 
     @pyqtSlot(int)
     def SetSnappingMode(self, enable_snapping):
@@ -2557,6 +2570,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Init razor state (1 = razor, 0 = no razor)
         self.eval_js(JS_SCOPE_SELECTOR + ".SetRazorMode(%s);" % int(enable_razor))
+
+    @pyqtSlot(int)
+    def SetPlayheadFollow(self, enable_follow):
+        """ Enable / Disable playhead follow on seek """
+        self.eval_js(JS_SCOPE_SELECTOR + ".SetFollow({});".format(int(enable_follow)))
 
     @pyqtSlot(str, str, bool)
     def addSelection(self, item_id, item_type, clear_existing=False):

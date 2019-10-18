@@ -10,9 +10,10 @@
         <file>paypal-icon.png</file>
         <file>python-icon.png</file>
         <file>star-icon.png</file>
+        <file>blender.svg</file>
     </qresource>
     <qresource prefix="/hw">
-	<file>hw-accel-none.svg</file>
+        <file>hw-accel-none.svg</file>
         <file>hw-accel-dx.svg</file>
         <file>hw-accel-nvdec.svg</file>
         <file>hw-accel-nvenc.svg</file>
@@ -26,6 +27,7 @@
         <file>Humanity/actions/custom/snapshot.png</file>
         <file>Humanity/actions/custom/snap.png</file>
         <file>Humanity/actions/custom/add_marker.png</file>
+        <file>Humanity/actions/custom/center-on-playhead.svg</file>
         <file>Humanity/mimes/16/gnome-mime-application-pdf.svg</file>
         <file>Humanity/mimes/16/text-html.svg</file>
         <file>Humanity/mimes/16/application-x-cd-image.svg</file>

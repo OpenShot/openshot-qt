@@ -101,8 +101,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     # Save window settings on close
     def closeEvent(self, event):
 
-        # Close any tutorial dialogs
-        self.tutorial_manager.exit_manager()
+        # Some window managers handels dragging of the modal messages incorrectly if other windows are open
+        # Hide tutorial window first
+        self.tutorial_manager.hide_dialog()
 
         # Prompt user to save (if needed)
         if get_app().project.needs_save() and not self.mode == "unittest":
@@ -117,9 +118,17 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 self.actionSave_trigger(event)
                 event.accept()
             elif ret == QMessageBox.Cancel:
+                # Show tutorial again, if any
+                self.tutorial_manager.re_show_dialog()
                 # User canceled prompt - don't quit
                 event.ignore()
                 return
+
+        # Log the exit routine
+        log.info('---------------- Shutting down -----------------')
+
+        # Close any tutorial dialogs
+        self.tutorial_manager.exit_manager()
 
         # Save settings
         self.save_settings()
@@ -910,6 +919,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         """Update playhead position"""
         # Notify preview thread
         self.timeline.movePlayhead(position_frames)
+    
+    def SetPlayheadFollow(self, enable_follow):
+        """ Enable / Disable follow mode """
+        self.timeline.SetPlayheadFollow(enable_follow)
 
     def actionFastForward_trigger(self, event):
 
@@ -1301,6 +1314,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             # Update the preview and reselct current frame in properties
             get_app().window.refreshFrameSignal.emit()
             get_app().window.propertyTableView.select_frame(frame_to_seek)
+            
+    def actionCenterOnPlayhead_trigger(self, event):
+        """ Center the timeline on the current playhead position """
+        self.timeline.centerOnPlayhead()
 
     def getShortcutByName(self, setting_name):
         """ Get a key sequence back from the setting name """
@@ -1422,6 +1439,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.actionPreviousMarker.trigger()
         elif key.matches(self.getShortcutByName("actionNextMarker")) == QKeySequence.ExactMatch:
             self.actionNextMarker.trigger()
+        elif key.matches(self.getShortcutByName("actionCenterOnPlayhead")) == QKeySequence.ExactMatch:
+            self.actionCenterOnPlayhead.trigger()
         elif key.matches(self.getShortcutByName("actionTimelineZoomIn")) == QKeySequence.ExactMatch:
             self.actionTimelineZoomIn.trigger()
         elif key.matches(self.getShortcutByName("actionTimelineZoomOut")) == QKeySequence.ExactMatch:
@@ -2096,6 +2115,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Load Recent Projects
         self.load_recent_menu()
+        
+        # The method restoreState restores the visibility of the toolBar,
+        # but does not set the correct flag in the actionView_Toolbar.
+        self.actionView_Toolbar.setChecked(self.toolBar.isVisibleTo(self))
 
     def load_recent_menu(self):
         """ Clear and load the list of recent menu items """
@@ -2234,6 +2257,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.timelineToolbar.addAction(self.actionAddMarker)
         self.timelineToolbar.addAction(self.actionPreviousMarker)
         self.timelineToolbar.addAction(self.actionNextMarker)
+        self.timelineToolbar.addAction(self.actionCenterOnPlayhead)
         self.timelineToolbar.addSeparator()
 
         # Get project's initial zoom value

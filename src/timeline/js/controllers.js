@@ -237,6 +237,7 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.snapline = false;
   $scope.enable_snapping = true;
   $scope.enable_razor = false;
+  $scope.enable_playhead_follow = true;
   $scope.debug = false;
   $scope.min_width = 1024;
   $scope.track_label = "Track %s";
@@ -271,7 +272,12 @@ App.controller('TimelineCtrl',function($scope) {
 	  // Determine seconds
 	  var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
 	  var position_seconds = ((position_frames - 1) / frames_per_second);
-
+	  
+	  // Center on the playhead if it has moved out of view and the timeline should follow it
+	  if ($scope.enable_playhead_follow && !$scope.isTimeVisible(position_seconds)) {
+	    $scope.centerOnTime(position_seconds);
+	  }
+      
 	  // Update internal scope (in seconds)
 	  $scope.MovePlayhead(position_seconds);
   };
@@ -436,9 +442,27 @@ App.controller('TimelineCtrl',function($scope) {
         $scope.pixelsPerSecond = parseFloat($scope.project.tick_pixels) / parseFloat($scope.project.scale);
     });
 
-    // Scroll back to correct cursor time (minus the difference of the cursor location)
-    var new_cursor_x = Math.round((cursor_time * $scope.pixelsPerSecond) - center_x);
-    $("#scrolling_tracks").scrollLeft(new_cursor_x);
+	 // Scroll back to correct cursor time (minus the difference of the cursor location)
+	 var new_cursor_x = Math.round((cursor_time * $scope.pixelsPerSecond) - center_x);
+	 $("#scrolling_tracks").scrollLeft(new_cursor_x);
+ };
+ 
+ // Center the timeline on a given time position
+ $scope.centerOnTime = function(centerTime) {
+    // Get the width of the timeline
+    var scrollingTracksWidth = $("#scrolling_tracks").width();
+    
+    // Calculate the position to scroll the timeline to to center on the requested time
+    var pixelToCenterOn = parseFloat(centerTime) * $scope.pixelsPerSecond;
+    var scrollPosition = Math.max(pixelToCenterOn - (scrollingTracksWidth / 2.0), 0);
+    
+    // Scroll the timeline using JQuery
+    $("#scrolling_tracks").scrollLeft(Math.floor(scrollPosition + 0.5));
+ };
+
+  // Center the timeline on the current playhead position
+  $scope.centerOnPlayhead = function() {
+    $scope.centerOnTime($scope.project.playhead_position);
   };
 
  // Update thumbnail for clip
@@ -524,6 +548,13 @@ App.controller('TimelineCtrl',function($scope) {
       $scope.$apply(function() {
          $scope.enable_razor = enable_razor;
      });
+ };
+
+ // Change playhead follow mode
+ $scope.SetFollow = function(enable_follow) {
+    $scope.$apply(function() {
+        $scope.enable_playhead_follow = enable_follow;
+    });
  };
 
  // Get the color of an effect
